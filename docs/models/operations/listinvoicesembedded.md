@@ -1,0 +1,15 @@
+# ListInvoicesEmbedded
+
+## Example Usage
+
+```typescript
+import { ListInvoicesEmbedded } from "mollie-api-typescript/models/operations";
+
+let value: ListInvoicesEmbedded = {};
+```
+
+## Fields
+
+| Field                                                                                                                                        | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `invoices`                                                                                                                                   | [operations.ListInvoicesInvoice](../../models/operations/listinvoicesinvoice.md)[]                                                           | :heavy_minus_sign:                                                                                                                           | An array of invoice objects. For a complete reference of the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation. |

@@ -1,0 +1,37 @@
+speakeasyVersion: 1.571.3
+sources:
+    Mollie API:
+        sourceNamespace: mollie-api
+        sourceRevisionDigest: sha256:dfc45d30f4ca629b244474f951857bf7a4fb8a23221e52f8ecb999218501de4a
+        sourceBlobDigest: sha256:70872f75a19bb7976532606ae6c77ca0ec18d6c496f6fb4e6202b4b62109ebaa
+        tags:
+            - latest
+            - 1.0.0
+targets:
+    client:
+        source: Mollie API
+        sourceNamespace: mollie-api
+        sourceRevisionDigest: sha256:dfc45d30f4ca629b244474f951857bf7a4fb8a23221e52f8ecb999218501de4a
+        sourceBlobDigest: sha256:70872f75a19bb7976532606ae6c77ca0ec18d6c496f6fb4e6202b4b62109ebaa
+        codeSamplesNamespace: mollie-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:f160ae736c387cc511f436f18975a5fb68eb452280e73cdf5ed7cd2d0b634f79
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Mollie API:
+            inputs:
+                - location: https://raw.githubusercontent.com/mollie/openapi-specs/main/specs.yaml
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/mollie-oom/mollie/mollie-api
+    targets:
+        client:
+            target: typescript
+            source: Mollie API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/mollie-oom/mollie/mollie-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false

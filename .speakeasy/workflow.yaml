@@ -1,0 +1,22 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Mollie API:
+        inputs:
+            - location: https://raw.githubusercontent.com/mollie/openapi-specs/main/specs.yaml
+        output: .speakeasy/out.openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/mollie-oom/mollie/mollie-api
+targets:
+    client:
+        target: typescript
+        source: Mollie API
+        publish:
+            npm:
+                token: $npm_token
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/mollie-oom/mollie/mollie-api-typescript-code-samples
+            labelOverride:
+                fixedValue: Typescript (SDK)
+            blocking: false

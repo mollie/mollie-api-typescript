@@ -1,0 +1,17 @@
+# ListMethodsEmbedded
+
+## Example Usage
+
+```typescript
+import { ListMethodsEmbedded } from "mollie-api-typescript/models/operations";
+
+let value: ListMethodsEmbedded = {
+  methods: [],
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                            | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `methods`                                                                                                                                                        | [operations.ListMethodsMethod](../../models/operations/listmethodsmethod.md)[]                                                                                   | :heavy_check_mark:                                                                                                                                               | An array of payment method objects. For a complete reference of the payment method object, refer to the [Get payment method endpoint](get-method) documentation. |

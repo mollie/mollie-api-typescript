@@ -1,0 +1,20 @@
+# GetBalanceNotFoundLinks
+
+## Example Usage
+
+```typescript
+import { GetBalanceNotFoundLinks } from "mollie-api-typescript/models/operations";
+
+let value: GetBalanceNotFoundLinks = {
+  documentation: {
+    href: "https://docs.mollie.com/errors",
+    type: "text/html",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `documentation`                                                                                          | [operations.GetBalanceNotFoundDocumentation](../../models/operations/getbalancenotfounddocumentation.md) | :heavy_check_mark:                                                                                       | The URL to the generic Mollie API error handling guide.                                                  |

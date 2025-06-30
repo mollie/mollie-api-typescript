@@ -1,0 +1,638 @@
+# SalesInvoices
+(*salesInvoices*)
+
+## Overview
+
+### Available Operations
+
+* [create](#create) - Create sales invoice
+* [list](#list) - List sales invoices
+* [get](#get) - Get sales invoice
+* [update](#update) - Update sales invoice
+* [delete](#delete) - Delete sales invoice
+
+## create
+
+> 🚧 Beta feature
+>
+> This feature is currently in beta testing, and the final specification may still change.
+
+With the Sales Invoice API you can generate sales invoices to send to your customers.
+
+> 🔑 Access with
+>
+> [API key](/reference/authentication)
+>
+> [Access token with **sales-invoices.write**](/reference/authentication)
+
+### Example Usage
+
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.salesInvoices.create({
+    testmode: false,
+    profileId: "pfl_QkEhN94Ba",
+    status: "draft",
+    memo: "This is a memo!",
+    paymentDetails: {
+      source: "payment-link",
+      sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+    },
+    emailDetails: {
+      subject: "Your invoice is available",
+      body: "Please find your invoice enclosed.",
+    },
+    customerId: "cst_8wmqcHMN4U",
+    mandateId: "mdt_pWUnw6pkBN",
+    recipientIdentifier: "customer-xyz-0123",
+    recipient: {
+      type: "consumer",
+      title: "Mrs.",
+      givenName: "Jane",
+      familyName: "Doe",
+      organizationName: "Organization Corp.",
+      organizationNumber: "12345678",
+      vatNumber: "NL123456789B01",
+      email: "example@email.com",
+      phone: "+0123456789",
+      streetAndNumber: "Keizersgracht 126",
+      streetAdditional: "4th floor",
+      postalCode: "5678AB",
+      city: "Amsterdam",
+      region: "Noord-Holland",
+      country: "NL",
+      locale: "nl_NL",
+    },
+    lines: [],
+    discount: {
+      type: "amount",
+      value: "10.00",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { salesInvoicesCreate } from "mollie-api-typescript/funcs/salesInvoicesCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await salesInvoicesCreate(client, {
+    testmode: false,
+    profileId: "pfl_QkEhN94Ba",
+    status: "draft",
+    memo: "This is a memo!",
+    paymentDetails: {
+      source: "payment-link",
+      sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+    },
+    emailDetails: {
+      subject: "Your invoice is available",
+      body: "Please find your invoice enclosed.",
+    },
+    customerId: "cst_8wmqcHMN4U",
+    mandateId: "mdt_pWUnw6pkBN",
+    recipientIdentifier: "customer-xyz-0123",
+    recipient: {
+      type: "consumer",
+      title: "Mrs.",
+      givenName: "Jane",
+      familyName: "Doe",
+      organizationName: "Organization Corp.",
+      organizationNumber: "12345678",
+      vatNumber: "NL123456789B01",
+      email: "example@email.com",
+      phone: "+0123456789",
+      streetAndNumber: "Keizersgracht 126",
+      streetAdditional: "4th floor",
+      postalCode: "5678AB",
+      city: "Amsterdam",
+      region: "Noord-Holland",
+      country: "NL",
+      locale: "nl_NL",
+    },
+    lines: [],
+    discount: {
+      type: "amount",
+      value: "10.00",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("salesInvoicesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.CreateSalesInvoiceRequest](../../models/operations/createsalesinvoicerequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.CreateSalesInvoiceResponse](../../models/operations/createsalesinvoiceresponse.md)\>**
+
+### Errors
+
+| Error Type                                               | Status Code                                              | Content Type                                             |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| errors.CreateSalesInvoiceNotFoundHalJSONError            | 404                                                      | application/hal+json                                     |
+| errors.CreateSalesInvoiceUnprocessableEntityHalJSONError | 422                                                      | application/hal+json                                     |
+| errors.ClientDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
+
+## list
+
+> 🚧 Beta feature
+>
+> This feature is currently in beta testing, and the final specification may still change.
+
+Retrieve a list of all sales invoices created through the API.
+
+The results are paginated.
+
+> 🔑 Access with
+>
+> [API key](/reference/authentication)
+>
+> [Access token with **sales-invoices.read**](/reference/authentication)
+
+### Example Usage
+
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.salesInvoices.list({
+    from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    testmode: false,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { salesInvoicesList } from "mollie-api-typescript/funcs/salesInvoicesList.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await salesInvoicesList(client, {
+    from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    testmode: false,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("salesInvoicesList failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ListSalesInvoicesRequest](../../models/operations/listsalesinvoicesrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.ListSalesInvoicesResponse](../../models/operations/listsalesinvoicesresponse.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ListSalesInvoicesHalJSONError | 400                                  | application/hal+json                 |
+| errors.ClientDefaultError            | 4XX, 5XX                             | \*/\*                                |
+
+## get
+
+> 🚧 Beta feature
+>
+> This feature is currently in beta testing, and the final specification may still change.
+
+Retrieve a single sales invoice by its ID.
+
+> 🔑 Access with
+>
+> [API key](/reference/authentication)
+>
+> [Access token with **sales-invoice.read**](/reference/authentication)
+
+### Example Usage
+
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.salesInvoices.get({
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    testmode: false,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { salesInvoicesGet } from "mollie-api-typescript/funcs/salesInvoicesGet.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await salesInvoicesGet(client, {
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    testmode: false,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("salesInvoicesGet failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetSalesInvoiceRequest](../../models/operations/getsalesinvoicerequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetSalesInvoiceResponse](../../models/operations/getsalesinvoiceresponse.md)\>**
+
+### Errors
+
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.GetSalesInvoiceHalJSONError | 404                                | application/hal+json               |
+| errors.ClientDefaultError          | 4XX, 5XX                           | \*/\*                              |
+
+## update
+
+> 🚧 Beta feature
+>
+> This feature is currently in beta testing, and the final specification may still change.
+
+Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`, respectively).
+
+> 🔑 Access with
+>
+> [API key](/reference/authentication)
+>
+> [Access token with **sales-invoices.write**](/reference/authentication)
+
+### Example Usage
+
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.salesInvoices.update({
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    requestBody: {
+      testmode: false,
+      status: "paid",
+      memo: "An updated memo!",
+      paymentDetails: {
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+      },
+      emailDetails: {
+        subject: "Your invoice is available",
+        body: "Please find your invoice enclosed.",
+      },
+      recipientIdentifier: "customer-xyz-0123",
+      recipient: {
+        type: "consumer",
+        title: "Mrs.",
+        givenName: "Jane",
+        familyName: "Doe",
+        organizationName: "Organization Corp.",
+        organizationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+        email: "example@email.com",
+        phone: "+0123456789",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "4th floor",
+        postalCode: "5678AB",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+        locale: "nl_NL",
+      },
+      lines: [
+        {
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          vatRate: "21.00",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discount: {
+            type: "amount",
+            value: "10.00",
+          },
+        },
+      ],
+      discount: {
+        type: "amount",
+        value: "10.00",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { salesInvoicesUpdate } from "mollie-api-typescript/funcs/salesInvoicesUpdate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await salesInvoicesUpdate(client, {
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    requestBody: {
+      testmode: false,
+      status: "paid",
+      memo: "An updated memo!",
+      paymentDetails: {
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+      },
+      emailDetails: {
+        subject: "Your invoice is available",
+        body: "Please find your invoice enclosed.",
+      },
+      recipientIdentifier: "customer-xyz-0123",
+      recipient: {
+        type: "consumer",
+        title: "Mrs.",
+        givenName: "Jane",
+        familyName: "Doe",
+        organizationName: "Organization Corp.",
+        organizationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+        email: "example@email.com",
+        phone: "+0123456789",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "4th floor",
+        postalCode: "5678AB",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+        locale: "nl_NL",
+      },
+      lines: [
+        {
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          vatRate: "21.00",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discount: {
+            type: "amount",
+            value: "10.00",
+          },
+        },
+      ],
+      discount: {
+        type: "amount",
+        value: "10.00",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("salesInvoicesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.UpdateSalesInvoiceRequest](../../models/operations/updatesalesinvoicerequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.UpdateSalesInvoiceResponse](../../models/operations/updatesalesinvoiceresponse.md)\>**
+
+### Errors
+
+| Error Type                                               | Status Code                                              | Content Type                                             |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| errors.UpdateSalesInvoiceNotFoundHalJSONError            | 404                                                      | application/hal+json                                     |
+| errors.UpdateSalesInvoiceUnprocessableEntityHalJSONError | 422                                                      | application/hal+json                                     |
+| errors.ClientDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
+
+## delete
+
+> 🚧 Beta feature
+>
+> This feature is currently in beta testing, and the final specification may still change.
+
+Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the [Update sales invoice](update-sales-invoice) endpoint instead.
+
+> 🔑 Access with
+>
+> [API key](/reference/authentication)
+>
+> [Access token with **sales-invoices.write**](/reference/authentication)
+
+### Example Usage
+
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.salesInvoices.delete({
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    requestBody: {
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { salesInvoicesDelete } from "mollie-api-typescript/funcs/salesInvoicesDelete.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await salesInvoicesDelete(client, {
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    requestBody: {
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("salesInvoicesDelete failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteSalesInvoiceRequest](../../models/operations/deletesalesinvoicerequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[any](../../models/.md)\>**
+
+### Errors
+
+| Error Type                                               | Status Code                                              | Content Type                                             |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| errors.DeleteSalesInvoiceNotFoundHalJSONError            | 404                                                      | application/hal+json                                     |
+| errors.DeleteSalesInvoiceUnprocessableEntityHalJSONError | 422                                                      | application/hal+json                                     |
+| errors.ClientDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
