@@ -14,7 +14,6 @@ let value: PaymentListRoutesResponse = {
       {
         id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
         paymentId: "tr_5B8cwPMGnU",
-        createdAt: "2024-03-20T09:13:37.0Z",
         amount: {
           currency: "EUR",
           value: "10.00",
@@ -34,19 +33,12 @@ let value: PaymentListRoutesResponse = {
             type: "application/hal+json",
           },
         },
+        createdAt: "2024-03-20T09:13:37.0Z",
       },
     ],
   },
   links: {
     self: {
-      href: "https://...",
-      type: "application/hal+json",
-    },
-    previous: {
-      href: "https://...",
-      type: "application/hal+json",
-    },
-    next: {
       href: "https://...",
       type: "application/hal+json",
     },

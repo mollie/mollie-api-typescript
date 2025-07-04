@@ -14,6 +14,10 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  */
 export const CreateWebhookEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
+  SalesInvoiceCreated: "sales-invoice.created",
+  SalesInvoiceIssued: "sales-invoice.issued",
+  SalesInvoiceCanceled: "sales-invoice.canceled",
+  SalesInvoicePaid: "sales-invoice.paid",
 } as const;
 /**
  * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
@@ -115,7 +119,7 @@ export type CreateWebhookResponse = {
   /**
    * The events types that are subscribed.
    */
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
    *
@@ -124,6 +128,14 @@ export type CreateWebhookResponse = {
    * Possible values: `enabled` `blocked` `disabled`
    */
   status?: string | undefined;
+  /**
+   * The subscription's mode.
+   *
+   * @remarks
+   *
+   * Possible values: `live` `test`
+   */
+  mode?: string | undefined;
   /**
    * The subscription's secret.
    */
@@ -476,8 +488,9 @@ export const CreateWebhookResponse$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   createdAt: z.string().optional(),
   name: z.string().optional(),
-  eventTypes: z.string().optional(),
+  eventTypes: z.array(z.string()).optional(),
   status: z.string().optional(),
+  mode: z.string().optional(),
   webhookSecret: z.string().optional(),
   _links: z.lazy(() => CreateWebhookLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -494,8 +507,9 @@ export type CreateWebhookResponse$Outbound = {
   profileId?: string | undefined;
   createdAt?: string | undefined;
   name?: string | undefined;
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   status?: string | undefined;
+  mode?: string | undefined;
   webhookSecret?: string | undefined;
   _links?: CreateWebhookLinks$Outbound | undefined;
 };
@@ -512,8 +526,9 @@ export const CreateWebhookResponse$outboundSchema: z.ZodType<
   profileId: z.string().optional(),
   createdAt: z.string().optional(),
   name: z.string().optional(),
-  eventTypes: z.string().optional(),
+  eventTypes: z.array(z.string()).optional(),
   status: z.string().optional(),
+  mode: z.string().optional(),
   webhookSecret: z.string().optional(),
   links: z.lazy(() => CreateWebhookLinks$outboundSchema).optional(),
 }).transform((v) => {

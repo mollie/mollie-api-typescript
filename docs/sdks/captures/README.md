@@ -11,8 +11,6 @@
 
 ## create
 
-**This feature is currently in open beta. The final specification may still change.**
-
 Capture an *authorized* payment.
 
 Some payment methods allow you to first collect a customer's authorization, and capture the amount at a later point.

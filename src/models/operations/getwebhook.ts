@@ -83,7 +83,7 @@ export type GetWebhookResponse = {
   /**
    * The events types that are subscribed.
    */
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
    *
@@ -92,6 +92,14 @@ export type GetWebhookResponse = {
    * Possible values: `enabled` `blocked` `disabled`
    */
   status?: string | undefined;
+  /**
+   * The subscription's mode.
+   *
+   * @remarks
+   *
+   * Possible values: `live` `test`
+   */
+  mode?: string | undefined;
 };
 
 /** @internal */
@@ -405,8 +413,9 @@ export const GetWebhookResponse$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   createdAt: z.string().optional(),
   name: z.string().optional(),
-  eventTypes: z.string().optional(),
+  eventTypes: z.array(z.string()).optional(),
   status: z.string().optional(),
+  mode: z.string().optional(),
 });
 
 /** @internal */
@@ -417,8 +426,9 @@ export type GetWebhookResponse$Outbound = {
   profileId?: string | undefined;
   createdAt?: string | undefined;
   name?: string | undefined;
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   status?: string | undefined;
+  mode?: string | undefined;
 };
 
 /** @internal */
@@ -433,8 +443,9 @@ export const GetWebhookResponse$outboundSchema: z.ZodType<
   profileId: z.string().optional(),
   createdAt: z.string().optional(),
   name: z.string().optional(),
-  eventTypes: z.string().optional(),
+  eventTypes: z.array(z.string()).optional(),
   status: z.string().optional(),
+  mode: z.string().optional(),
 });
 
 /**

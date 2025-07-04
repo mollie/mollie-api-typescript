@@ -33,11 +33,11 @@ export type PaymentCreateRouteDestinationRequest = {
    *
    * Possible values: `organization`
    */
-  type?: string | undefined;
+  type: string;
   /**
    * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
    */
-  organizationId?: string | undefined;
+  organizationId: string;
 };
 
 export type PaymentCreateRouteRequestBody = {
@@ -103,11 +103,11 @@ export type PaymentCreateRouteDestinationResponse = {
    *
    * Possible values: `organization`
    */
-  type?: string | undefined;
+  type: string;
   /**
    * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
    */
-  organizationId?: string | undefined;
+  organizationId: string;
 };
 
 /**
@@ -145,11 +145,11 @@ export type PaymentCreateRouteLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: PaymentCreateRouteSelf | undefined;
+  self: PaymentCreateRouteSelf;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: PaymentCreateRouteDocumentation | undefined;
+  documentation: PaymentCreateRouteDocumentation;
 };
 
 /**
@@ -163,27 +163,27 @@ export type PaymentCreateRouteResponse = {
   /**
    * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
    */
-  paymentId?: string | undefined;
+  paymentId: string;
   /**
    * The amount of the route. That amount that will be routed to the specified destination.
    */
-  amount?: PaymentCreateRouteAmountResponse | undefined;
+  amount: PaymentCreateRouteAmountResponse;
   /**
    * The description of the route. This description is shown in the reports.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The destination of the route.
    */
-  destination?: PaymentCreateRouteDestinationResponse | undefined;
+  destination: PaymentCreateRouteDestinationResponse;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: PaymentCreateRouteLinks | undefined;
+  links: PaymentCreateRouteLinks;
 };
 
 /** @internal */
@@ -251,14 +251,14 @@ export const PaymentCreateRouteDestinationRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
-  organizationId: z.string().optional(),
+  type: z.string(),
+  organizationId: z.string(),
 });
 
 /** @internal */
 export type PaymentCreateRouteDestinationRequest$Outbound = {
-  type?: string | undefined;
-  organizationId?: string | undefined;
+  type: string;
+  organizationId: string;
 };
 
 /** @internal */
@@ -267,8 +267,8 @@ export const PaymentCreateRouteDestinationRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentCreateRouteDestinationRequest
 > = z.object({
-  type: z.string().optional(),
-  organizationId: z.string().optional(),
+  type: z.string(),
+  organizationId: z.string(),
 });
 
 /**
@@ -633,14 +633,14 @@ export const PaymentCreateRouteDestinationResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
-  organizationId: z.string().optional(),
+  type: z.string(),
+  organizationId: z.string(),
 });
 
 /** @internal */
 export type PaymentCreateRouteDestinationResponse$Outbound = {
-  type?: string | undefined;
-  organizationId?: string | undefined;
+  type: string;
+  organizationId: string;
 };
 
 /** @internal */
@@ -649,8 +649,8 @@ export const PaymentCreateRouteDestinationResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentCreateRouteDestinationResponse
 > = z.object({
-  type: z.string().optional(),
-  organizationId: z.string().optional(),
+  type: z.string(),
+  organizationId: z.string(),
 });
 
 /**
@@ -811,15 +811,14 @@ export const PaymentCreateRouteLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => PaymentCreateRouteSelf$inboundSchema).optional(),
-  documentation: z.lazy(() => PaymentCreateRouteDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => PaymentCreateRouteSelf$inboundSchema),
+  documentation: z.lazy(() => PaymentCreateRouteDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type PaymentCreateRouteLinks$Outbound = {
-  self?: PaymentCreateRouteSelf$Outbound | undefined;
-  documentation?: PaymentCreateRouteDocumentation$Outbound | undefined;
+  self: PaymentCreateRouteSelf$Outbound;
+  documentation: PaymentCreateRouteDocumentation$Outbound;
 };
 
 /** @internal */
@@ -828,9 +827,8 @@ export const PaymentCreateRouteLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentCreateRouteLinks
 > = z.object({
-  self: z.lazy(() => PaymentCreateRouteSelf$outboundSchema).optional(),
-  documentation: z.lazy(() => PaymentCreateRouteDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => PaymentCreateRouteSelf$outboundSchema),
+  documentation: z.lazy(() => PaymentCreateRouteDocumentation$outboundSchema),
 });
 
 /**
@@ -871,14 +869,14 @@ export const PaymentCreateRouteResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("route"),
-  id: z.string().optional(),
-  paymentId: z.string().optional(),
-  amount: z.lazy(() => PaymentCreateRouteAmountResponse$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
-  destination: z.lazy(() => PaymentCreateRouteDestinationResponse$inboundSchema)
-    .optional(),
-  _links: z.lazy(() => PaymentCreateRouteLinks$inboundSchema).optional(),
+  id: z.string(),
+  paymentId: z.string(),
+  amount: z.lazy(() => PaymentCreateRouteAmountResponse$inboundSchema),
+  description: z.string(),
+  destination: z.lazy(() =>
+    PaymentCreateRouteDestinationResponse$inboundSchema
+  ),
+  _links: z.lazy(() => PaymentCreateRouteLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -888,12 +886,12 @@ export const PaymentCreateRouteResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PaymentCreateRouteResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  paymentId?: string | undefined;
-  amount?: PaymentCreateRouteAmountResponse$Outbound | undefined;
-  description?: string | undefined;
-  destination?: PaymentCreateRouteDestinationResponse$Outbound | undefined;
-  _links?: PaymentCreateRouteLinks$Outbound | undefined;
+  id: string;
+  paymentId: string;
+  amount: PaymentCreateRouteAmountResponse$Outbound;
+  description: string;
+  destination: PaymentCreateRouteDestinationResponse$Outbound;
+  _links: PaymentCreateRouteLinks$Outbound;
 };
 
 /** @internal */
@@ -903,15 +901,14 @@ export const PaymentCreateRouteResponse$outboundSchema: z.ZodType<
   PaymentCreateRouteResponse
 > = z.object({
   resource: z.string().default("route"),
-  id: z.string().optional(),
-  paymentId: z.string().optional(),
-  amount: z.lazy(() => PaymentCreateRouteAmountResponse$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  id: z.string(),
+  paymentId: z.string(),
+  amount: z.lazy(() => PaymentCreateRouteAmountResponse$outboundSchema),
+  description: z.string(),
   destination: z.lazy(() =>
     PaymentCreateRouteDestinationResponse$outboundSchema
-  ).optional(),
-  links: z.lazy(() => PaymentCreateRouteLinks$outboundSchema).optional(),
+  ),
+  links: z.lazy(() => PaymentCreateRouteLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

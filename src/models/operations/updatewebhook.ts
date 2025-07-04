@@ -14,6 +14,10 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  */
 export const UpdateWebhookEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
+  SalesInvoiceCreated: "sales-invoice.created",
+  SalesInvoiceIssued: "sales-invoice.issued",
+  SalesInvoiceCanceled: "sales-invoice.canceled",
+  SalesInvoicePaid: "sales-invoice.paid",
 } as const;
 /**
  * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
@@ -114,7 +118,7 @@ export type UpdateWebhookResponse = {
   /**
    * The events types that are subscribed.
    */
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
    *
@@ -123,6 +127,14 @@ export type UpdateWebhookResponse = {
    * Possible values: `enabled` `blocked` `disabled`
    */
   status?: string | undefined;
+  /**
+   * The subscription's mode.
+   *
+   * @remarks
+   *
+   * Possible values: `live` `test`
+   */
+  mode?: string | undefined;
 };
 
 /** @internal */
@@ -536,8 +548,9 @@ export const UpdateWebhookResponse$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   createdAt: z.string().optional(),
   name: z.string().optional(),
-  eventTypes: z.string().optional(),
+  eventTypes: z.array(z.string()).optional(),
   status: z.string().optional(),
+  mode: z.string().optional(),
 });
 
 /** @internal */
@@ -548,8 +561,9 @@ export type UpdateWebhookResponse$Outbound = {
   profileId?: string | undefined;
   createdAt?: string | undefined;
   name?: string | undefined;
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   status?: string | undefined;
+  mode?: string | undefined;
 };
 
 /** @internal */
@@ -564,8 +578,9 @@ export const UpdateWebhookResponse$outboundSchema: z.ZodType<
   profileId: z.string().optional(),
   createdAt: z.string().optional(),
   name: z.string().optional(),
-  eventTypes: z.string().optional(),
+  eventTypes: z.array(z.string()).optional(),
   status: z.string().optional(),
+  mode: z.string().optional(),
 });
 
 /**

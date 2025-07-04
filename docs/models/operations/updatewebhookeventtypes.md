@@ -13,5 +13,5 @@ let value: UpdateWebhookEventTypes = "payment-link.paid";
 ## Values
 
 ```typescript
-"payment-link.paid"
+"payment-link.paid" | "sales-invoice.created" | "sales-invoice.issued" | "sales-invoice.canceled" | "sales-invoice.paid"
 ```

@@ -30,7 +30,7 @@ export type ListWebhooksRequest = {
    *
    * @remarks
    *
-   * Possible values: `payment-link.paid`
+   * Possible values: `payment-link.paid` `sales-invoice.created` `sales-invoice.issued` `sales-invoice.canceled` `sales-invoice.paid`
    */
   eventTypes?: string | undefined;
   /**
@@ -86,7 +86,7 @@ export type Webhook = {
   /**
    * The events types that are subscribed.
    */
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
    *
@@ -95,6 +95,14 @@ export type Webhook = {
    * Possible values: `enabled` `blocked` `disabled`
    */
   status?: string | undefined;
+  /**
+   * The subscription's mode.
+   *
+   * @remarks
+   *
+   * Possible values: `live` `test`
+   */
+  mode?: string | undefined;
 };
 
 export type ListWebhooksEmbedded = {
@@ -398,8 +406,9 @@ export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> =
     profileId: z.string().optional(),
     createdAt: z.string().optional(),
     name: z.string().optional(),
-    eventTypes: z.string().optional(),
+    eventTypes: z.array(z.string()).optional(),
     status: z.string().optional(),
+    mode: z.string().optional(),
   });
 
 /** @internal */
@@ -410,8 +419,9 @@ export type Webhook$Outbound = {
   profileId?: string | undefined;
   createdAt?: string | undefined;
   name?: string | undefined;
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | undefined;
   status?: string | undefined;
+  mode?: string | undefined;
 };
 
 /** @internal */
@@ -426,8 +436,9 @@ export const Webhook$outboundSchema: z.ZodType<
   profileId: z.string().optional(),
   createdAt: z.string().optional(),
   name: z.string().optional(),
-  eventTypes: z.string().optional(),
+  eventTypes: z.array(z.string()).optional(),
   status: z.string().optional(),
+  mode: z.string().optional(),
 });
 
 /**

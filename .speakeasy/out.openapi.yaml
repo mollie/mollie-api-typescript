@@ -5096,7 +5096,7 @@ paths:
               examples:
                 cancel-payment-200-1:
                   summary: The canceled payment object
-                  value: &ref_135
+                  value: &ref_140
                     resource: payment
                     id: tr_WDqYK6vllg
                     mode: live
@@ -8846,7 +8846,7 @@ paths:
         description: Provide the ID of the related refund.
         in: path
         required: true
-        schema: &ref_127
+        schema: &ref_132
           type: string
           example: re_5B8cwPMGnU
     get:
@@ -9041,7 +9041,7 @@ paths:
         description: Provide the ID of the related order.
         in: path
         required: true
-        schema: &ref_128
+        schema: &ref_133
           type: string
           example: ord_5B8cwPMGnU
     post:
@@ -10272,7 +10272,7 @@ paths:
         description: Provide the ID of the related chargeback.
         in: path
         required: true
-        schema: &ref_129
+        schema: &ref_134
           type: string
           example: chb_xFzwUN4ci8HAmSGUACS4J
     get:
@@ -10819,8 +10819,6 @@ paths:
         - oAuth:
             - payments.write
       description: |-
-        **This feature is currently in open beta. The final specification may still change.**
-
         Capture an *authorized* payment.
 
         Some payment methods allow you to first collect a customer's authorization, and capture the amount at a later point.
@@ -11417,7 +11415,7 @@ paths:
         description: Provide the ID of the related capture.
         in: path
         required: true
-        schema: &ref_130
+        schema: &ref_135
           type: string
           example: cpt_gVMhHKqSSRYJyPsuoPNFH
     get:
@@ -13031,7 +13029,21 @@ paths:
                         type: array
                         items:
                           type: object
-                          properties: &ref_54
+                          required: &ref_54
+                            - resource
+                            - id
+                            - mode
+                            - profileId
+                            - status
+                            - brand
+                            - model
+                            - serialNumber
+                            - currency
+                            - description
+                            - createdAt
+                            - updatedAt
+                            - _links
+                          properties: &ref_55
                             resource:
                               type: string
                               description: Indicates the response contains a terminal object. Will always contain the string `terminal` for this endpoint.
@@ -13118,6 +13130,9 @@ paths:
                             _links:
                               type: object
                               description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+                              required:
+                                - self
+                                - documentation
                               properties:
                                 self:
                                   type: object
@@ -13138,7 +13153,7 @@ paths:
                 list-terminals-200-1:
                   summary: A list of terminal objects
                   value:
-                    count: 3
+                    count: 1
                     _embedded:
                       terminals:
                         - resource: terminal
@@ -13152,12 +13167,14 @@ paths:
                           description: 'Terminal #12345'
                           profileId: pfl_QkEhN94Ba
                           createdAt: '2022-02-12T11:58:35.0Z'
+                          updatedAt: '2022-02-12T11:58:35.0Z'
                           _links:
                             self:
                               href: ...
                               type: application/hal+json
-                        - {}
-                        - {}
+                            documentation:
+                              href: ...
+                              type: text/html
                     _links:
                       self:
                         href: ...
@@ -13173,7 +13190,9 @@ paths:
                   value:
                     _embedded:
                       terminals:
-                        - id: term_5YQ8WDcA4UWB5bo7AfDZH
+                        - resource: terminal
+                          id: term_5YQ8WDcA4UWB5bo7AfDZH
+                          mode: live
                           profileId: pfl_zcfJRjkf6P
                           status: active
                           brand: PAX
@@ -13183,7 +13202,16 @@ paths:
                           description: Counter in store Amsterdam
                           createdAt: '2023-06-01T08:22:07+00:00'
                           updatedAt: '2023-06-01T08:36:25+00:00'
-                        - id: term_fmA5H4CAMsAMZz8bPgzMH
+                          _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
+                            documentation:
+                              href: ...
+                              type: text/html
+                        - resource: terminal
+                          id: term_fmA5H4CAMsAMZz8bPgzMH
+                          mode: live
                           profileId: pfl_zcfJRjkf6P
                           status: active
                           brand: PAX
@@ -13193,7 +13221,16 @@ paths:
                           description: 'Terminal #12346'
                           createdAt: '2022-09-27T13:30:36+00:00'
                           updatedAt: '2022-09-27T13:37:27+00:00'
-                        - id: term_2rfs4P5CfsEPaene6RgMH
+                          _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
+                            documentation:
+                              href: ...
+                              type: text/html
+                        - resource: terminal
+                          id: term_2rfs4P5CfsEPaene6RgMH
+                          mode: live
                           profileId: pfl_zcfJRjkf6P
                           status: active
                           brand: PAX
@@ -13203,7 +13240,14 @@ paths:
                           description: Mollie1
                           createdAt: '2022-09-20T12:10:33+00:00'
                           updatedAt: '2022-11-14T10:49:06+00:00'
-                    count: 21
+                          _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
+                            documentation:
+                              href: ...
+                              type: text/html
+                    count: 3
                     _links:
                       documentation:
                         href: ...
@@ -13266,7 +13310,7 @@ paths:
         description: Provide the ID of the related terminal.
         in: path
         required: true
-        schema: &ref_131
+        schema: &ref_136
           type: string
           example: term_vytxeTZskVKR7C7WgdSP3d
     get:
@@ -13302,7 +13346,8 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: *ref_54
+                required: *ref_54
+                properties: *ref_55
               examples:
                 get-terminal-200-1:
                   summary: The terminal object
@@ -13318,6 +13363,7 @@ paths:
                     description: 'Terminal #12345'
                     profileId: pfl_QkEhN94Ba
                     createdAt: '2022-02-12T11:58:35.0Z'
+                    updatedAt: '2022-02-12T11:58:35.0Z'
                     _links:
                       self:
                         href: ...
@@ -13398,7 +13444,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties: &ref_55
+              properties: &ref_117
                 resource:
                   type: string
                   description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
@@ -13427,6 +13473,9 @@ paths:
                 destination:
                   type: object
                   description: The destination of the route.
+                  required:
+                    - type
+                    - organizationId
                   properties:
                     type:
                       type: string
@@ -13442,6 +13491,9 @@ paths:
                 _links:
                   type: object
                   description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+                  required:
+                    - self
+                    - documentation
                   properties:
                     self:
                       type: object
@@ -13461,7 +13513,76 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: *ref_55
+                required: &ref_118
+                  - resource
+                  - id
+                  - paymentId
+                  - amount
+                  - description
+                  - destination
+                  - _links
+                properties: &ref_119
+                  resource:
+                    type: string
+                    description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
+                    readOnly: true
+                    default: route
+                  id:
+                    description: 'The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.'
+                    readOnly: true
+                    type: string
+                    example: crt_dyARQ3JzCgtPDhU2Pbq3J
+                  paymentId:
+                    description: 'The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.'
+                    readOnly: true
+                    type: string
+                    example: tr_5B8cwPMGnU
+                  amount:
+                    description: The amount of the route. That amount that will be routed to the specified destination.
+                    type: object
+                    required: *ref_0
+                    properties: *ref_1
+                  description:
+                    type: string
+                    description: The description of the route. This description is shown in the reports.
+                    maxLength: 255
+                    example: 'Payment for Order #12345'
+                  destination:
+                    type: object
+                    description: The destination of the route.
+                    required:
+                      - type
+                      - organizationId
+                    properties:
+                      type:
+                        type: string
+                        description: |-
+                          The type of destination. Currently only the destination type `organization` is supported.
+
+                          Possible values: `organization`
+                        example: organization
+                      organizationId:
+                        description: Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+                        type: string
+                        example: org_1234567
+                  _links:
+                    type: object
+                    description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+                    required:
+                      - self
+                      - documentation
+                    properties:
+                      self:
+                        type: object
+                        description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+                        required: *ref_3
+                        properties: *ref_4
+                      documentation:
+                        type: object
+                        description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+                        required: *ref_3
+                        properties: *ref_4
+                    readOnly: true
               examples:
                 create-route-201-1:
                   summary: The newly created route object
@@ -13477,7 +13598,7 @@ paths:
                       type: organization
                       organizationId: org_123
                     _links:
-                      order:
+                      self:
                         href: ...
                         type: application/hal+json
                       documentation:
@@ -13579,71 +13700,100 @@ paths:
                         type: array
                         items:
                           type: object
-                          properties: &ref_114
-                            resource:
-                              type: string
-                              description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
-                              readOnly: true
-                              default: route
-                            id:
-                              description: 'The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.'
-                              readOnly: true
-                              type: string
-                              example: crt_dyARQ3JzCgtPDhU2Pbq3J
-                            paymentId:
-                              description: 'The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.'
-                              readOnly: true
-                              type: string
-                              example: tr_5B8cwPMGnU
-                            createdAt:
-                              type: string
-                              description: The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-                              readOnly: true
-                              example: '2024-03-20T09:13:37.0Z'
-                            amount:
-                              description: The amount of the route. That amount that will be routed to the specified destination.
-                              type: object
-                              required: *ref_0
-                              properties: *ref_1
-                            description:
-                              type: string
-                              description: The description of the route. This description is shown in the reports.
-                              maxLength: 255
-                              example: 'Payment for Order #12345'
-                            destination:
-                              type: object
-                              description: The destination of the route.
-                              properties:
-                                type:
+                          required: &ref_115
+                            - resource
+                            - id
+                            - paymentId
+                            - amount
+                            - description
+                            - destination
+                            - createdAt
+                            - _links
+                          allOf: &ref_116
+                            - type: object
+                              properties: &ref_114
+                                resource:
                                   type: string
-                                  description: |-
-                                    The type of destination. Currently only the destination type `organization` is supported.
+                                  description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
+                                  readOnly: true
+                                  default: route
+                                id:
+                                  description: 'The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.'
+                                  readOnly: true
+                                  type: string
+                                  example: crt_dyARQ3JzCgtPDhU2Pbq3J
+                                paymentId:
+                                  description: 'The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.'
+                                  readOnly: true
+                                  type: string
+                                  example: tr_5B8cwPMGnU
+                                amount:
+                                  description: The amount of the route. That amount that will be routed to the specified destination.
+                                  type: object
+                                  required: *ref_0
+                                  properties: *ref_1
+                                description:
+                                  type: string
+                                  description: The description of the route. This description is shown in the reports.
+                                  maxLength: 255
+                                  example: 'Payment for Order #12345'
+                                destination:
+                                  type: object
+                                  description: The destination of the route.
+                                  required:
+                                    - type
+                                    - organizationId
+                                  properties:
+                                    type:
+                                      type: string
+                                      description: |-
+                                        The type of destination. Currently only the destination type `organization` is supported.
 
-                                    Possible values: `organization`
-                                  example: organization
-                                organizationId:
-                                  description: Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
-                                  type: string
-                                  example: org_1234567
-                            _links:
-                              type: object
-                              description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+                                        Possible values: `organization`
+                                      example: organization
+                                    organizationId:
+                                      description: Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+                                      type: string
+                                      example: org_1234567
+                                _links:
+                                  type: object
+                                  description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+                                  required:
+                                    - self
+                                    - documentation
+                                  properties:
+                                    self:
+                                      type: object
+                                      description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+                                      required: *ref_3
+                                      properties: *ref_4
+                                    documentation:
+                                      type: object
+                                      description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+                                      required: *ref_3
+                                      properties: *ref_4
+                                  readOnly: true
+                            - type: object
                               properties:
-                                self:
-                                  type: object
-                                  description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-                                  required: *ref_3
-                                  properties: *ref_4
-                                documentation:
-                                  type: object
-                                  description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-                                  required: *ref_3
-                                  properties: *ref_4
-                              readOnly: true
+                                createdAt:
+                                  type: string
+                                  description: The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+                                  readOnly: true
+                                  example: '2024-03-20T09:13:37.0Z'
                   _links:
                     type: object
                     description: Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
-                    properties: *ref_37
+                    properties:
+                      self:
+                        description: The URL to the current set of items.
+                        type: object
+                        required: *ref_3
+                        properties: *ref_4
+                      documentation:
+                        type: object
+                        description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+                        required: *ref_3
+                        properties: *ref_4
               examples:
                 list-routes-200-1:
                   summary: A list of route objects
@@ -13655,34 +13805,58 @@ paths:
                           id: crt_kSq9CDTa6FzW7c6gpYq3J
                           paymentId: tr_sva3o24VKn
                           createdAt: '2024-05-22T15:11:19+02:00'
+                          description: 'Payment for Order #12345'
                           amount:
                             value: '1.00'
                             currency: EUR
                           destination:
                             type: organization
                             organizationId: org_123
+                          _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
+                            documentation:
+                              href: ...
+                              type: text/html
                         - resource: route
                           id: crt_dyARQ3JzCgtPDhU2Pbq3J
                           paymentId: tr_sva3o24VKn
                           createdAt: '2024-05-22T15:11:19+02:00'
+                          description: 'Payment for Order #12346'
                           amount:
                             value: '2.00'
                             currency: EUR
                           destination:
                             type: organization
                             organizationId: org_456
+                          _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
+                            documentation:
+                              href: ...
+                              type: text/html
                         - resource: route
                           id: crt_tntKsr6tffuVdqnEvhq3J
                           paymentId: tr_sva3o24VKn
                           createdAt: '2024-05-22T15:11:19+02:00'
+                          description: 'Payment for Order #12347'
                           amount:
                             value: '3.00'
                             currency: EUR
                           destination:
                             type: organization
                             organizationId: org_789
+                          _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
+                            documentation:
+                              href: ...
+                              type: text/html
                     _links:
-                      next:
+                      self:
                         href: ...
                         type: application/hal+json
                       documentation:
@@ -14152,7 +14326,7 @@ paths:
                         type: array
                         items:
                           type: object
-                          properties: &ref_115
+                          properties: &ref_120
                             resource:
                               type: string
                               default: event
@@ -14469,7 +14643,7 @@ paths:
         >
         > [Access token with **payments.write**](/reference/authentication)
       requestBody:
-        content: &ref_136
+        content: &ref_141
           application/json:
             schema:
               type: object
@@ -17814,7 +17988,7 @@ paths:
         description: Provide the ID of the related mandate.
         in: path
         required: true
-        schema: &ref_132
+        schema: &ref_137
           type: string
           example: mdt_5B8cwPMGnU
     get:
@@ -23804,7 +23978,7 @@ paths:
         description: Provide the ID of the related permission.
         in: path
         required: true
-        schema: &ref_133
+        schema: &ref_138
           type: string
           example: payments.read
     get:
@@ -25855,7 +26029,7 @@ paths:
                               type: array
                               items:
                                 type: object
-                                properties: &ref_116
+                                properties: &ref_121
                                   id:
                                     type: string
                                     description: The name of this requirement, referring to the task to be fulfilled by the organization to enable or re-enable the capability. The name is unique among other requirements of the same capability.
@@ -26623,7 +26797,7 @@ paths:
           content: *ref_24
         '422':
           description: The request contains issues. For example, if the `owner` field is missing.
-          content: &ref_134
+          content: &ref_139
             application/hal+json:
               schema:
                 type: object
@@ -26741,8 +26915,16 @@ paths:
                   description: The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
                   enum: &ref_76
                     - payment-link.paid
+                    - sales-invoice.created
+                    - sales-invoice.issued
+                    - sales-invoice.canceled
+                    - sales-invoice.paid
                   x-enumDescriptions: &ref_75
                     payment-link.paid: A payment link has been paid.
+                    sales-invoice.created: A sales invoice has been created.
+                    sales-invoice.issued: A sales invoice has been issued.
+                    sales-invoice.canceled: A sales invoice has been canceled.
+                    sales-invoice.paid: A sales invoice has been paid.
                   example: payment-link.paid
                 testmode:
                   type: *ref_15
@@ -26762,7 +26944,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                properties: &ref_117
+                properties: &ref_122
                   resource:
                     type: string
                     description: Indicates the response contains a webhook subscription object. Will always contain the string `webhook` for this endpoint.
@@ -26793,9 +26975,12 @@ paths:
                     description: The subscription's name.
                     example: Profile Updates Webhook
                   eventTypes:
-                    type: string
+                    type: array
+                    items:
+                      type: string
                     description: The events types that are subscribed.
-                    example: profile.create profile.blocked
+                    example:
+                      - sales-invoice.paid, sales-invoice.canceled
                   status:
                     type: string
                     description: |-
@@ -26803,6 +26988,13 @@ paths:
 
                       Possible values: `enabled` `blocked` `disabled`
                     example: enabled
+                  mode:
+                    type: string
+                    description: |-
+                      The subscription's mode.
+
+                      Possible values: `live` `test`
+                    example: live
                   webhookSecret:
                     type: string
                     description: The subscription's secret.
@@ -26828,7 +27020,10 @@ paths:
                     createdAt: '2024-12-06T10:09:56+00:00'
                     name: 'Webhook #1'
                     status: enabled
-                    eventTypes: payment.paid
+                    mode: live
+                    webhookSecret: VpQ3WukU6uSCGQ8TPTD3WPDpac3GyNEj
+                    eventTypes:
+                      - payment-link.paid
                     _links:
                       documentation:
                         href: https://docs.mollie.com/reference/create-webhook
@@ -26940,7 +27135,7 @@ paths:
           description: |-
             Used to filter out only the webhooks that are subscribed to certain types of events.
 
-            Possible values: `payment-link.paid`
+            Possible values: `payment-link.paid` `sales-invoice.created` `sales-invoice.issued` `sales-invoice.canceled` `sales-invoice.paid`
           in: query
           schema:
             type: string
@@ -27009,9 +27204,13 @@ paths:
                               description: The subscription's name.
                               example: Profile Updates Webhook
                             eventTypes:
-                              type: string
+                              type: array
+                              items:
+                                type: string
                               description: The events types that are subscribed.
-                              example: profile.create profile.blocked
+                              example:
+                                - profile.create
+                                - profile.blocked
                             status:
                               type: string
                               description: |-
@@ -27019,6 +27218,13 @@ paths:
 
                                 Possible values: `enabled` `blocked` `disabled`
                               example: enabled
+                            mode:
+                              type: string
+                              description: |-
+                                The subscription's mode.
+
+                                Possible values: `live` `test`
+                              example: live
                   _links:
                     type: object
                     description: Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
@@ -27035,16 +27241,21 @@ paths:
                           profileId: pfl_8XcSdLtrNK
                           createdAt: '2024-12-06T10:09:56+00:00'
                           name: 'Webhook #2'
-                          eventTypes: payment-link.paid,payment.failed
+                          eventTypes:
+                            - payment-link.paid
+                            - payment.failed
                           status: enabled
+                          mode: live
                         - resource: webhook
                           id: hook_qHknfTxaDx6s8JNhuGPzH
                           url: https://mollie.com
                           profileId: pfl_8XcSdLtrNK
                           createdAt: '2024-12-06T10:08:48+00:00'
                           name: 'Webhook #1'
-                          eventTypes: payment-link.paid
+                          eventTypes:
+                            - payment-link.paid
                           status: blocked
+                          mode: live
                     count: 2
                     _links:
                       documentation:
@@ -27182,7 +27393,10 @@ paths:
                     createdAt: '2024-12-06T10:09:56+00:00'
                     name: 'Webhook #1'
                     status: enabled
-                    eventTypes: payment.paid
+                    mode: live
+                    webhookSecret: VpQ3WukU6uSCGQ8TPTD3WPDpac3GyNEj
+                    eventTypes:
+                      - payment-link.paid
                     _links:
                       documentation:
                         href: https://docs.mollie.com/reference/create-webhook
@@ -27302,7 +27516,10 @@ paths:
                     createdAt: '2024-12-06T10:09:56+00:00'
                     name: 'Webhook #1'
                     status: enabled
-                    eventTypes: payment.expired,payment.paid
+                    mode: test
+                    eventTypes:
+                      - payment-link.paid
+                      - sales-invoice.paid
                     _links:
                       documentation:
                         href: https://docs.mollie.com/reference/get-webhook
@@ -27317,7 +27534,9 @@ paths:
                     createdAt: '2024-12-06T10:09:56+00:00'
                     name: 'Webhook #1'
                     status: deleted
-                    eventTypes: payment-link.paid
+                    mode: test
+                    eventTypes:
+                      - payment-link.paid
                     _links:
                       documentation:
                         href: https://docs.mollie.com/reference/get-webhook
@@ -27635,7 +27854,7 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: &ref_118
+                properties: &ref_123
                   resource:
                     type: string
                     description: Indicates the response contains a webhook event object. Will always contain the string `event` for this endpoint.
@@ -27895,7 +28114,7 @@ paths:
                               description: The balance's ISO 4217 currency code.
                               readOnly: true
                               type: string
-                              enum: &ref_119
+                              enum: &ref_124
                                 - EUR
                                 - GBP
                                 - CHF
@@ -28520,7 +28739,7 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: &ref_122
+                properties: &ref_127
                   resource:
                     type: string
                     description: Indicates the response contains a balance report object. Will always contain the string `balance-report` for this endpoint.
@@ -28595,14 +28814,14 @@ paths:
                                   - 'null'
                                 items:
                                   type: object
-                                  properties: &ref_121
+                                  properties: &ref_126
                                     sub-totals:
                                       type:
                                         - array
                                         - 'null'
                                       items:
                                         type: object
-                                        properties: &ref_120
+                                        properties: &ref_125
                                           count:
                                             type: integer
                                             description: Number of transactions of this type
@@ -29758,7 +29977,7 @@ paths:
                         type: array
                         items:
                           type: object
-                          properties: &ref_123
+                          properties: &ref_128
                             resource:
                               type: string
                               description: Indicates the response contains a balance transaction object. Will always contain the string `balance_transaction` for this endpoint.
@@ -35599,7 +35818,7 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: &ref_124
+                properties: &ref_129
                   resource:
                     type: string
                     description: Indicates that the response contains an invoice object. Will always contain the string `invoice` for this endpoint.
@@ -36719,7 +36938,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties: &ref_126
+              properties: &ref_131
                 testmode:
                   type: *ref_52
                   description: |-
@@ -36960,7 +37179,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties: &ref_125
+              properties: &ref_130
                 testmode:
                   type: *ref_52
                   description: |-
@@ -37362,22 +37581,31 @@ components:
       example: term_vytxeTZskVKR7C7WgdSP3d
     entity-terminal:
       type: object
-      properties: *ref_54
+      required: *ref_54
+      properties: *ref_55
     connectRouteToken:
       type: string
       example: crt_dyARQ3JzCgtPDhU2Pbq3J
-    entity-route-get:
+    entity-route:
       type: object
       properties: *ref_114
-    entity-route-create:
+    route-get-response:
       type: object
-      properties: *ref_55
+      required: *ref_115
+      allOf: *ref_116
+    route-create-request:
+      type: object
+      properties: *ref_117
+    route-create-response:
+      type: object
+      required: *ref_118
+      properties: *ref_119
     entity-customer:
       type: object
       properties: *ref_56
     entity-event:
       type: object
-      properties: *ref_115
+      properties: *ref_120
     entity-mandate:
       type: object
       properties: *ref_61
@@ -37404,7 +37632,7 @@ components:
       properties: *ref_71
     entity-capability-requirement:
       type: object
-      properties: *ref_116
+      properties: *ref_121
     entity-capability:
       type: object
       properties: *ref_72
@@ -37423,16 +37651,16 @@ components:
       type: object
       properties: *ref_77
     create-webhook:
-      properties: *ref_117
+      properties: *ref_122
     entity-webhook-event:
       type: object
-      properties: *ref_118
+      properties: *ref_123
     balanceToken:
       type: string
       example: bal_gVMhHKqSSRYJyPsuoPNFH
     currencies:
       type: string
-      enum: *ref_119
+      enum: *ref_124
       x-enumDescriptions: *ref_82
       example: EUR
     entity-balance:
@@ -37447,16 +37675,16 @@ components:
       example: creditcard
     sub-totals:
       type: object
-      properties: *ref_120
+      properties: *ref_125
     components-sub-totals:
       type: object
-      properties: *ref_121
+      properties: *ref_126
     sub-group:
       type: object
       properties: *ref_80
     entity-balance-report:
       type: object
-      properties: *ref_122
+      properties: *ref_127
     balanceTransactionToken:
       type: string
       example: baltr_QM24QwzUWR4ev4Xfgyt29d
@@ -37468,13 +37696,13 @@ components:
       example: inv_aHbjjdrUdm
     entity-balance-transaction:
       type: object
-      properties: *ref_123
+      properties: *ref_128
     entity-settlement:
       type: object
       properties: *ref_83
     entity-invoice:
       type: object
-      properties: *ref_124
+      properties: *ref_129
     salesInvoiceToken:
       type: string
       example: invoice_4Y0eZitmBnQ6IDoMqZQKh
@@ -37503,10 +37731,10 @@ components:
       properties: *ref_88
     delete-values-sales-invoice:
       type: object
-      properties: *ref_125
+      properties: *ref_130
     update-values-sales-invoice:
       type: object
-      properties: *ref_126
+      properties: *ref_131
   parameters:
     list-limit:
       name: limit
@@ -37593,13 +37821,13 @@ components:
       description: Provide the ID of the related refund.
       in: path
       required: true
-      schema: *ref_127
+      schema: *ref_132
     parent-order-id:
       name: orderId
       description: Provide the ID of the related order.
       in: path
       required: true
-      schema: *ref_128
+      schema: *ref_133
     list-from:
       name: from
       description: Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
@@ -37613,13 +37841,13 @@ components:
       description: Provide the ID of the related chargeback.
       in: path
       required: true
-      schema: *ref_129
+      schema: *ref_134
     parent-capture-id:
       name: captureId
       description: Provide the ID of the related capture.
       in: path
       required: true
-      schema: *ref_130
+      schema: *ref_135
     parent-payment-link-id:
       name: paymentLinkId
       description: Provide the ID of the related payment link.
@@ -37631,7 +37859,7 @@ components:
       description: Provide the ID of the related terminal.
       in: path
       required: true
-      schema: *ref_131
+      schema: *ref_136
     parent-customer-id:
       name: customerId
       description: Provide the ID of the related customer.
@@ -37643,7 +37871,7 @@ components:
       description: Provide the ID of the related mandate.
       in: path
       required: true
-      schema: *ref_132
+      schema: *ref_137
     parent-subscription-id:
       name: subscriptionId
       description: Provide the ID of the related subscription.
@@ -37655,7 +37883,7 @@ components:
       description: Provide the ID of the related permission.
       in: path
       required: true
-      schema: *ref_133
+      schema: *ref_138
     parent-balance-id:
       name: balanceId
       description: Provide the ID of the related balance.
@@ -37677,14 +37905,14 @@ components:
       content: *ref_24
     422-mandatory-owner:
       description: The request contains issues. For example, if the `owner` field is missing.
-      content: *ref_134
+      content: *ref_139
   examples:
     get-payment:
       summary: The payment object
       value: *ref_23
     cancel-payment:
       summary: The canceled payment object
-      value: *ref_135
+      value: *ref_140
     get-method:
       summary: The payment method object
       value: *ref_30
@@ -37714,7 +37942,7 @@ components:
       value: *ref_69
   requestBodies:
     requestBody:
-      content: *ref_136
+      content: *ref_141
 x-speakeasy-retries:
   strategy: backoff
   backoff:

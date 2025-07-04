@@ -55,11 +55,11 @@ export type PaymentListRoutesDestination = {
    *
    * Possible values: `organization`
    */
-  type?: string | undefined;
+  type: string;
   /**
    * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
    */
-  organizationId?: string | undefined;
+  organizationId: string;
 };
 
 /**
@@ -97,11 +97,11 @@ export type RouteLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: RouteSelf | undefined;
+  self: RouteSelf;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: RouteDocumentation | undefined;
+  documentation: RouteDocumentation;
 };
 
 export type Route = {
@@ -112,31 +112,31 @@ export type Route = {
   /**
    * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
    */
-  paymentId?: string | undefined;
-  /**
-   * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  createdAt?: string | undefined;
+  paymentId: string;
   /**
    * The amount of the route. That amount that will be routed to the specified destination.
    */
-  amount?: PaymentListRoutesAmount | undefined;
+  amount: PaymentListRoutesAmount;
   /**
    * The description of the route. This description is shown in the reports.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The destination of the route.
    */
-  destination?: PaymentListRoutesDestination | undefined;
+  destination: PaymentListRoutesDestination;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: RouteLinks | undefined;
+  links: RouteLinks;
+  /**
+   * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  createdAt: string;
 };
 
 export type PaymentListRoutesEmbedded = {
@@ -161,34 +161,6 @@ export type PaymentListRoutesSelf = {
 };
 
 /**
- * The previous set of items, if available.
- */
-export type PaymentListRoutesPrevious = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * The next set of items, if available.
- */
-export type PaymentListRoutesNext = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
  */
 export type PaymentListRoutesDocumentation = {
@@ -210,14 +182,6 @@ export type PaymentListRoutesLinks = {
    * The URL to the current set of items.
    */
   self?: PaymentListRoutesSelf | undefined;
-  /**
-   * The previous set of items, if available.
-   */
-  previous?: PaymentListRoutesPrevious | null | undefined;
-  /**
-   * The next set of items, if available.
-   */
-  next?: PaymentListRoutesNext | null | undefined;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -483,14 +447,14 @@ export const PaymentListRoutesDestination$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
-  organizationId: z.string().optional(),
+  type: z.string(),
+  organizationId: z.string(),
 });
 
 /** @internal */
 export type PaymentListRoutesDestination$Outbound = {
-  type?: string | undefined;
-  organizationId?: string | undefined;
+  type: string;
+  organizationId: string;
 };
 
 /** @internal */
@@ -499,8 +463,8 @@ export const PaymentListRoutesDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentListRoutesDestination
 > = z.object({
-  type: z.string().optional(),
-  organizationId: z.string().optional(),
+  type: z.string(),
+  organizationId: z.string(),
 });
 
 /**
@@ -652,14 +616,14 @@ export const RouteLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => RouteSelf$inboundSchema).optional(),
-  documentation: z.lazy(() => RouteDocumentation$inboundSchema).optional(),
+  self: z.lazy(() => RouteSelf$inboundSchema),
+  documentation: z.lazy(() => RouteDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type RouteLinks$Outbound = {
-  self?: RouteSelf$Outbound | undefined;
-  documentation?: RouteDocumentation$Outbound | undefined;
+  self: RouteSelf$Outbound;
+  documentation: RouteDocumentation$Outbound;
 };
 
 /** @internal */
@@ -668,8 +632,8 @@ export const RouteLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RouteLinks
 > = z.object({
-  self: z.lazy(() => RouteSelf$outboundSchema).optional(),
-  documentation: z.lazy(() => RouteDocumentation$outboundSchema).optional(),
+  self: z.lazy(() => RouteSelf$outboundSchema),
+  documentation: z.lazy(() => RouteDocumentation$outboundSchema),
 });
 
 /**
@@ -703,14 +667,13 @@ export function routeLinksFromJSON(
 export const Route$inboundSchema: z.ZodType<Route, z.ZodTypeDef, unknown> = z
   .object({
     resource: z.string().default("route"),
-    id: z.string().optional(),
-    paymentId: z.string().optional(),
-    createdAt: z.string().optional(),
-    amount: z.lazy(() => PaymentListRoutesAmount$inboundSchema).optional(),
-    description: z.string().optional(),
-    destination: z.lazy(() => PaymentListRoutesDestination$inboundSchema)
-      .optional(),
-    _links: z.lazy(() => RouteLinks$inboundSchema).optional(),
+    id: z.string(),
+    paymentId: z.string(),
+    amount: z.lazy(() => PaymentListRoutesAmount$inboundSchema),
+    description: z.string(),
+    destination: z.lazy(() => PaymentListRoutesDestination$inboundSchema),
+    _links: z.lazy(() => RouteLinks$inboundSchema),
+    createdAt: z.string(),
   }).transform((v) => {
     return remap$(v, {
       "_links": "links",
@@ -720,13 +683,13 @@ export const Route$inboundSchema: z.ZodType<Route, z.ZodTypeDef, unknown> = z
 /** @internal */
 export type Route$Outbound = {
   resource: string;
-  id?: string | undefined;
-  paymentId?: string | undefined;
-  createdAt?: string | undefined;
-  amount?: PaymentListRoutesAmount$Outbound | undefined;
-  description?: string | undefined;
-  destination?: PaymentListRoutesDestination$Outbound | undefined;
-  _links?: RouteLinks$Outbound | undefined;
+  id: string;
+  paymentId: string;
+  amount: PaymentListRoutesAmount$Outbound;
+  description: string;
+  destination: PaymentListRoutesDestination$Outbound;
+  _links: RouteLinks$Outbound;
+  createdAt: string;
 };
 
 /** @internal */
@@ -736,14 +699,13 @@ export const Route$outboundSchema: z.ZodType<
   Route
 > = z.object({
   resource: z.string().default("route"),
-  id: z.string().optional(),
-  paymentId: z.string().optional(),
-  createdAt: z.string().optional(),
-  amount: z.lazy(() => PaymentListRoutesAmount$outboundSchema).optional(),
-  description: z.string().optional(),
-  destination: z.lazy(() => PaymentListRoutesDestination$outboundSchema)
-    .optional(),
-  links: z.lazy(() => RouteLinks$outboundSchema).optional(),
+  id: z.string(),
+  paymentId: z.string(),
+  amount: z.lazy(() => PaymentListRoutesAmount$outboundSchema),
+  description: z.string(),
+  destination: z.lazy(() => PaymentListRoutesDestination$outboundSchema),
+  links: z.lazy(() => RouteLinks$outboundSchema),
+  createdAt: z.string(),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
@@ -889,120 +851,6 @@ export function paymentListRoutesSelfFromJSON(
 }
 
 /** @internal */
-export const PaymentListRoutesPrevious$inboundSchema: z.ZodType<
-  PaymentListRoutesPrevious,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type PaymentListRoutesPrevious$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const PaymentListRoutesPrevious$outboundSchema: z.ZodType<
-  PaymentListRoutesPrevious$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesPrevious
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesPrevious$ {
-  /** @deprecated use `PaymentListRoutesPrevious$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesPrevious$inboundSchema;
-  /** @deprecated use `PaymentListRoutesPrevious$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesPrevious$outboundSchema;
-  /** @deprecated use `PaymentListRoutesPrevious$Outbound` instead. */
-  export type Outbound = PaymentListRoutesPrevious$Outbound;
-}
-
-export function paymentListRoutesPreviousToJSON(
-  paymentListRoutesPrevious: PaymentListRoutesPrevious,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesPrevious$outboundSchema.parse(paymentListRoutesPrevious),
-  );
-}
-
-export function paymentListRoutesPreviousFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesPrevious, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesPrevious$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesPrevious' from JSON`,
-  );
-}
-
-/** @internal */
-export const PaymentListRoutesNext$inboundSchema: z.ZodType<
-  PaymentListRoutesNext,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type PaymentListRoutesNext$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const PaymentListRoutesNext$outboundSchema: z.ZodType<
-  PaymentListRoutesNext$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesNext
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesNext$ {
-  /** @deprecated use `PaymentListRoutesNext$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesNext$inboundSchema;
-  /** @deprecated use `PaymentListRoutesNext$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesNext$outboundSchema;
-  /** @deprecated use `PaymentListRoutesNext$Outbound` instead. */
-  export type Outbound = PaymentListRoutesNext$Outbound;
-}
-
-export function paymentListRoutesNextToJSON(
-  paymentListRoutesNext: PaymentListRoutesNext,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesNext$outboundSchema.parse(paymentListRoutesNext),
-  );
-}
-
-export function paymentListRoutesNextFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesNext, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesNext$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesNext' from JSON`,
-  );
-}
-
-/** @internal */
 export const PaymentListRoutesDocumentation$inboundSchema: z.ZodType<
   PaymentListRoutesDocumentation,
   z.ZodTypeDef,
@@ -1068,10 +916,6 @@ export const PaymentListRoutesLinks$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   self: z.lazy(() => PaymentListRoutesSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => PaymentListRoutesPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => PaymentListRoutesNext$inboundSchema))
-    .optional(),
   documentation: z.lazy(() => PaymentListRoutesDocumentation$inboundSchema)
     .optional(),
 });
@@ -1079,8 +923,6 @@ export const PaymentListRoutesLinks$inboundSchema: z.ZodType<
 /** @internal */
 export type PaymentListRoutesLinks$Outbound = {
   self?: PaymentListRoutesSelf$Outbound | undefined;
-  previous?: PaymentListRoutesPrevious$Outbound | null | undefined;
-  next?: PaymentListRoutesNext$Outbound | null | undefined;
   documentation?: PaymentListRoutesDocumentation$Outbound | undefined;
 };
 
@@ -1091,10 +933,6 @@ export const PaymentListRoutesLinks$outboundSchema: z.ZodType<
   PaymentListRoutesLinks
 > = z.object({
   self: z.lazy(() => PaymentListRoutesSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => PaymentListRoutesPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => PaymentListRoutesNext$outboundSchema))
-    .optional(),
   documentation: z.lazy(() => PaymentListRoutesDocumentation$outboundSchema)
     .optional(),
 });

@@ -44,34 +44,30 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-> [!TIP]
-> To finish publishing your SDK to npm and others you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
-
-
 The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
 
 ### NPM
 
 ```bash
-npm add <UNSET>
+npm add mollie-api-typescript
 ```
 
 ### PNPM
 
 ```bash
-pnpm add <UNSET>
+pnpm add mollie-api-typescript
 ```
 
 ### Bun
 
 ```bash
-bun add <UNSET>
+bun add mollie-api-typescript
 ```
 
 ### Yarn
 
 ```bash
-yarn add <UNSET> zod
+yarn add mollie-api-typescript zod
 
 # Note that Yarn does not install peer dependencies automatically. You will need
 # to install zod as shown above.
@@ -1280,134 +1276,134 @@ run();
 
 
 **Inherit from [`ClientError`](./src/models/errors/clienterror.ts)**:
-* [`ListPaymentsHalJSONError`](docs/models/errors/listpaymentshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListMethodsHalJSONError`](docs/models/errors/listmethodshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListAllMethodsHalJSONError`](docs/models/errors/listallmethodshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`GetMethodBadRequestHalJSONError`](docs/models/errors/getmethodbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListRefundsBadRequestHalJSONError`](docs/models/errors/listrefundsbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListOrderRefundsHalJSONError`](docs/models/errors/listorderrefundshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListAllRefundsHalJSONError`](docs/models/errors/listallrefundshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListChargebacksBadRequestHalJSONError`](docs/models/errors/listchargebacksbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListAllChargebacksBadRequestHalJSONError`](docs/models/errors/listallchargebacksbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListCapturesBadRequestHalJSONError`](docs/models/errors/listcapturesbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListPaymentLinksHalJSONError`](docs/models/errors/listpaymentlinkshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`GetPaymentLinkPaymentsHalJSONError`](docs/models/errors/getpaymentlinkpaymentshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListTerminalsHalJSONError`](docs/models/errors/listterminalshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListCustomersBadRequestHalJSONError`](docs/models/errors/listcustomersbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListCustomerPaymentsHalJSONError`](docs/models/errors/listcustomerpaymentshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListMandatesBadRequestHalJSONError`](docs/models/errors/listmandatesbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListSubscriptionsBadRequestHalJSONError`](docs/models/errors/listsubscriptionsbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListAllSubscriptionsHalJSONError`](docs/models/errors/listallsubscriptionshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListSubscriptionPaymentsHalJSONError`](docs/models/errors/listsubscriptionpaymentshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListPermissionsHalJSONError`](docs/models/errors/listpermissionshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListProfilesHalJSONError`](docs/models/errors/listprofileshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListClientsBadRequestHalJSONError`](docs/models/errors/listclientsbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListWebhooksHalJSONError`](docs/models/errors/listwebhookshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListBalancesBadRequestHalJSONError`](docs/models/errors/listbalancesbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListBalanceTransactionsBadRequestHalJSONError`](docs/models/errors/listbalancetransactionsbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListSettlementsBadRequestHalJSONError`](docs/models/errors/listsettlementsbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`GetSettlementPaymentsHalJSONError`](docs/models/errors/getsettlementpaymentshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`GetSettlementCapturesBadRequestHalJSONError`](docs/models/errors/getsettlementcapturesbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`GetSettlementRefundsBadRequestHalJSONError`](docs/models/errors/getsettlementrefundsbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`GetSettlementChargebacksBadRequestHalJSONError`](docs/models/errors/getsettlementchargebacksbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListInvoicesBadRequestHalJSONError`](docs/models/errors/listinvoicesbadrequesthaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`ListSalesInvoicesHalJSONError`](docs/models/errors/listsalesinvoiceshaljsonerror.md): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
-* [`GetPaymentHalJSONError`](docs/models/errors/getpaymenthaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`UpdatePaymentNotFoundHalJSONError`](docs/models/errors/updatepaymentnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CancelPaymentNotFoundHalJSONError`](docs/models/errors/cancelpaymentnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ReleaseAuthorizationNotFoundHalJSONError`](docs/models/errors/releaseauthorizationnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetMethodNotFoundHalJSONError`](docs/models/errors/getmethodnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateRefundNotFoundHalJSONError`](docs/models/errors/createrefundnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListRefundsNotFoundHalJSONError`](docs/models/errors/listrefundsnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetRefundHalJSONError`](docs/models/errors/getrefundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CancelRefundHalJSONError`](docs/models/errors/cancelrefundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateOrderRefundNotFoundHalJSONError`](docs/models/errors/createorderrefundnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListChargebacksNotFoundHalJSONError`](docs/models/errors/listchargebacksnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetChargebackHalJSONError`](docs/models/errors/getchargebackhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListAllChargebacksNotFoundHalJSONError`](docs/models/errors/listallchargebacksnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateCaptureNotFoundHalJSONError`](docs/models/errors/createcapturenotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListCapturesNotFoundHalJSONError`](docs/models/errors/listcapturesnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetCaptureHalJSONError`](docs/models/errors/getcapturehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreatePaymentLinkNotFoundHalJSONError`](docs/models/errors/createpaymentlinknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetPaymentLinkHalJSONError`](docs/models/errors/getpaymentlinkhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`UpdatePaymentLinkNotFoundHalJSONError`](docs/models/errors/updatepaymentlinknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`DeletePaymentLinkNotFoundHalJSONError`](docs/models/errors/deletepaymentlinknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetTerminalHalJSONError`](docs/models/errors/getterminalhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`PaymentCreateRouteHalJSONError`](docs/models/errors/paymentcreateroutehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`PaymentListRoutesHalJSONError`](docs/models/errors/paymentlistrouteshaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateCustomerHalJSONError`](docs/models/errors/createcustomerhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListCustomersNotFoundHalJSONError`](docs/models/errors/listcustomersnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetCustomerHalJSONError`](docs/models/errors/getcustomerhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`UpdateCustomerHalJSONError`](docs/models/errors/updatecustomerhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`DeleteCustomerHalJSONError`](docs/models/errors/deletecustomerhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateMandateHalJSONError`](docs/models/errors/createmandatehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListMandatesNotFoundHalJSONError`](docs/models/errors/listmandatesnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetMandateHalJSONError`](docs/models/errors/getmandatehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`RevokeMandateHalJSONError`](docs/models/errors/revokemandatehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateSubscriptionHalJSONError`](docs/models/errors/createsubscriptionhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListSubscriptionsNotFoundHalJSONError`](docs/models/errors/listsubscriptionsnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetSubscriptionHalJSONError`](docs/models/errors/getsubscriptionhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`UpdateSubscriptionHalJSONError`](docs/models/errors/updatesubscriptionhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CancelSubscriptionHalJSONError`](docs/models/errors/cancelsubscriptionhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetPermissionHalJSONError`](docs/models/errors/getpermissionhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetOrganizationHalJSONError`](docs/models/errors/getorganizationhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetProfileNotFoundHalJSONError`](docs/models/errors/getprofilenotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`UpdateProfileNotFoundHalJSONError`](docs/models/errors/updateprofilenotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`DeleteProfileNotFoundHalJSONError`](docs/models/errors/deleteprofilenotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListClientsNotFoundHalJSONError`](docs/models/errors/listclientsnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetClientHalJSONError`](docs/models/errors/getclienthaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateClientLinkNotFoundHalJSONError`](docs/models/errors/createclientlinknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`UpdateWebhookNotFoundHalJSONError`](docs/models/errors/updatewebhooknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetWebhookNotFoundHalJSONError`](docs/models/errors/getwebhooknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`DeleteWebhookNotFoundHalJSONError`](docs/models/errors/deletewebhooknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`TestWebhookNotFoundHalJSONError`](docs/models/errors/testwebhooknotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetWebhookEventHalJSONError`](docs/models/errors/getwebhookeventhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListBalancesNotFoundHalJSONError`](docs/models/errors/listbalancesnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetBalanceHalJSONError`](docs/models/errors/getbalancehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetBalanceReportNotFoundHalJSONError`](docs/models/errors/getbalancereportnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListBalanceTransactionsNotFoundHalJSONError`](docs/models/errors/listbalancetransactionsnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListSettlementsNotFoundHalJSONError`](docs/models/errors/listsettlementsnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetSettlementHalJSONError`](docs/models/errors/getsettlementhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetSettlementCapturesNotFoundHalJSONError`](docs/models/errors/getsettlementcapturesnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetSettlementRefundsNotFoundHalJSONError`](docs/models/errors/getsettlementrefundsnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetSettlementChargebacksNotFoundHalJSONError`](docs/models/errors/getsettlementchargebacksnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ListInvoicesNotFoundHalJSONError`](docs/models/errors/listinvoicesnotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetInvoiceHalJSONError`](docs/models/errors/getinvoicehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`CreateSalesInvoiceNotFoundHalJSONError`](docs/models/errors/createsalesinvoicenotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`GetSalesInvoiceHalJSONError`](docs/models/errors/getsalesinvoicehaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`UpdateSalesInvoiceNotFoundHalJSONError`](docs/models/errors/updatesalesinvoicenotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`DeleteSalesInvoiceNotFoundHalJSONError`](docs/models/errors/deletesalesinvoicenotfoundhaljsonerror.md): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
-* [`ConflictHalJSONError`](docs/models/errors/conflicthaljsonerror.md): An error response object. Status code `409`. Applicable to 1 of 95 methods.*
-* [`GetProfileGoneHalJSONError`](docs/models/errors/getprofilegonehaljsonerror.md): An error response object. Status code `410`. Applicable to 1 of 95 methods.*
-* [`UpdateProfileGoneHalJSONError`](docs/models/errors/updateprofilegonehaljsonerror.md): An error response object. Status code `410`. Applicable to 1 of 95 methods.*
-* [`DeleteProfileGoneHalJSONError`](docs/models/errors/deleteprofilegonehaljsonerror.md): An error response object. Status code `410`. Applicable to 1 of 95 methods.*
-* [`CreatePaymentUnprocessableEntityHalJSONError`](docs/models/errors/createpaymentunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`UpdatePaymentUnprocessableEntityHalJSONError`](docs/models/errors/updatepaymentunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CancelPaymentUnprocessableEntityHalJSONError`](docs/models/errors/cancelpaymentunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`ReleaseAuthorizationUnprocessableEntityHalJSONError`](docs/models/errors/releaseauthorizationunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateRefundUnprocessableEntityHalJSONError`](docs/models/errors/createrefundunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateOrderRefundUnprocessableEntityHalJSONError`](docs/models/errors/createorderrefundunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateCaptureUnprocessableEntityHalJSONError`](docs/models/errors/createcaptureunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`RequestApplePayPaymentSessionHalJSONError`](docs/models/errors/requestapplepaypaymentsessionhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreatePaymentLinkUnprocessableEntityHalJSONError`](docs/models/errors/createpaymentlinkunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`UpdatePaymentLinkUnprocessableEntityHalJSONError`](docs/models/errors/updatepaymentlinkunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`DeletePaymentLinkUnprocessableEntityHalJSONError`](docs/models/errors/deletepaymentlinkunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateCustomerPaymentUnprocessableEntityHalJSONError`](docs/models/errors/createcustomerpaymentunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateProfileHalJSONError`](docs/models/errors/createprofilehaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`UpdateProfileUnprocessableEntityHalJSONError`](docs/models/errors/updateprofileunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateClientLinkUnprocessableEntityHalJSONError`](docs/models/errors/createclientlinkunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateWebhookHalJSONError`](docs/models/errors/createwebhookhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`UpdateWebhookUnprocessableEntityHalJSONError`](docs/models/errors/updatewebhookunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`GetWebhookUnprocessableEntityHalJSONError`](docs/models/errors/getwebhookunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`DeleteWebhookUnprocessableEntityHalJSONError`](docs/models/errors/deletewebhookunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`TestWebhookUnprocessableEntityHalJSONError`](docs/models/errors/testwebhookunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`GetBalanceReportUnprocessableEntityHalJSONError`](docs/models/errors/getbalancereportunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`CreateSalesInvoiceUnprocessableEntityHalJSONError`](docs/models/errors/createsalesinvoiceunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`UpdateSalesInvoiceUnprocessableEntityHalJSONError`](docs/models/errors/updatesalesinvoiceunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`DeleteSalesInvoiceUnprocessableEntityHalJSONError`](docs/models/errors/deletesalesinvoiceunprocessableentityhaljsonerror.md): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
-* [`TooManyRequestsHalJSONError`](docs/models/errors/toomanyrequestshaljsonerror.md): An error response object. Status code `429`. Applicable to 1 of 95 methods.*
-* [`CreatePaymentServiceUnavailableHalJSONError`](docs/models/errors/createpaymentserviceunavailablehaljsonerror.md): An error response object. Status code `503`. Applicable to 1 of 95 methods.*
-* [`CreateCustomerPaymentServiceUnavailableHalJSONError`](docs/models/errors/createcustomerpaymentserviceunavailablehaljsonerror.md): An error response object. Status code `503`. Applicable to 1 of 95 methods.*
+* [`ListPaymentsHalJSONError`](./src/models/errors/listpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListMethodsHalJSONError`](./src/models/errors/listmethodshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListAllMethodsHalJSONError`](./src/models/errors/listallmethodshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`GetMethodBadRequestHalJSONError`](./src/models/errors/getmethodbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListRefundsBadRequestHalJSONError`](./src/models/errors/listrefundsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListOrderRefundsHalJSONError`](./src/models/errors/listorderrefundshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListAllRefundsHalJSONError`](./src/models/errors/listallrefundshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListChargebacksBadRequestHalJSONError`](./src/models/errors/listchargebacksbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListAllChargebacksBadRequestHalJSONError`](./src/models/errors/listallchargebacksbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListCapturesBadRequestHalJSONError`](./src/models/errors/listcapturesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListPaymentLinksHalJSONError`](./src/models/errors/listpaymentlinkshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`GetPaymentLinkPaymentsHalJSONError`](./src/models/errors/getpaymentlinkpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListTerminalsHalJSONError`](./src/models/errors/listterminalshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListCustomersBadRequestHalJSONError`](./src/models/errors/listcustomersbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListCustomerPaymentsHalJSONError`](./src/models/errors/listcustomerpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListMandatesBadRequestHalJSONError`](./src/models/errors/listmandatesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListSubscriptionsBadRequestHalJSONError`](./src/models/errors/listsubscriptionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListAllSubscriptionsHalJSONError`](./src/models/errors/listallsubscriptionshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListSubscriptionPaymentsHalJSONError`](./src/models/errors/listsubscriptionpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListPermissionsHalJSONError`](./src/models/errors/listpermissionshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListProfilesHalJSONError`](./src/models/errors/listprofileshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListClientsBadRequestHalJSONError`](./src/models/errors/listclientsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListWebhooksHalJSONError`](./src/models/errors/listwebhookshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListBalancesBadRequestHalJSONError`](./src/models/errors/listbalancesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListBalanceTransactionsBadRequestHalJSONError`](./src/models/errors/listbalancetransactionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListSettlementsBadRequestHalJSONError`](./src/models/errors/listsettlementsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`GetSettlementPaymentsHalJSONError`](./src/models/errors/getsettlementpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`GetSettlementCapturesBadRequestHalJSONError`](./src/models/errors/getsettlementcapturesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`GetSettlementRefundsBadRequestHalJSONError`](./src/models/errors/getsettlementrefundsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`GetSettlementChargebacksBadRequestHalJSONError`](./src/models/errors/getsettlementchargebacksbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListInvoicesBadRequestHalJSONError`](./src/models/errors/listinvoicesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`ListSalesInvoicesHalJSONError`](./src/models/errors/listsalesinvoiceshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 95 methods.*
+* [`GetPaymentHalJSONError`](./src/models/errors/getpaymenthaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`UpdatePaymentNotFoundHalJSONError`](./src/models/errors/updatepaymentnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CancelPaymentNotFoundHalJSONError`](./src/models/errors/cancelpaymentnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ReleaseAuthorizationNotFoundHalJSONError`](./src/models/errors/releaseauthorizationnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetMethodNotFoundHalJSONError`](./src/models/errors/getmethodnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateRefundNotFoundHalJSONError`](./src/models/errors/createrefundnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListRefundsNotFoundHalJSONError`](./src/models/errors/listrefundsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetRefundHalJSONError`](./src/models/errors/getrefundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CancelRefundHalJSONError`](./src/models/errors/cancelrefundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateOrderRefundNotFoundHalJSONError`](./src/models/errors/createorderrefundnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListChargebacksNotFoundHalJSONError`](./src/models/errors/listchargebacksnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetChargebackHalJSONError`](./src/models/errors/getchargebackhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListAllChargebacksNotFoundHalJSONError`](./src/models/errors/listallchargebacksnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateCaptureNotFoundHalJSONError`](./src/models/errors/createcapturenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListCapturesNotFoundHalJSONError`](./src/models/errors/listcapturesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetCaptureHalJSONError`](./src/models/errors/getcapturehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreatePaymentLinkNotFoundHalJSONError`](./src/models/errors/createpaymentlinknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetPaymentLinkHalJSONError`](./src/models/errors/getpaymentlinkhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`UpdatePaymentLinkNotFoundHalJSONError`](./src/models/errors/updatepaymentlinknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`DeletePaymentLinkNotFoundHalJSONError`](./src/models/errors/deletepaymentlinknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetTerminalHalJSONError`](./src/models/errors/getterminalhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`PaymentCreateRouteHalJSONError`](./src/models/errors/paymentcreateroutehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`PaymentListRoutesHalJSONError`](./src/models/errors/paymentlistrouteshaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateCustomerHalJSONError`](./src/models/errors/createcustomerhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListCustomersNotFoundHalJSONError`](./src/models/errors/listcustomersnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetCustomerHalJSONError`](./src/models/errors/getcustomerhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`UpdateCustomerHalJSONError`](./src/models/errors/updatecustomerhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`DeleteCustomerHalJSONError`](./src/models/errors/deletecustomerhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateMandateHalJSONError`](./src/models/errors/createmandatehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListMandatesNotFoundHalJSONError`](./src/models/errors/listmandatesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetMandateHalJSONError`](./src/models/errors/getmandatehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`RevokeMandateHalJSONError`](./src/models/errors/revokemandatehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateSubscriptionHalJSONError`](./src/models/errors/createsubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListSubscriptionsNotFoundHalJSONError`](./src/models/errors/listsubscriptionsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetSubscriptionHalJSONError`](./src/models/errors/getsubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`UpdateSubscriptionHalJSONError`](./src/models/errors/updatesubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CancelSubscriptionHalJSONError`](./src/models/errors/cancelsubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetPermissionHalJSONError`](./src/models/errors/getpermissionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetOrganizationHalJSONError`](./src/models/errors/getorganizationhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetProfileNotFoundHalJSONError`](./src/models/errors/getprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`UpdateProfileNotFoundHalJSONError`](./src/models/errors/updateprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`DeleteProfileNotFoundHalJSONError`](./src/models/errors/deleteprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListClientsNotFoundHalJSONError`](./src/models/errors/listclientsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetClientHalJSONError`](./src/models/errors/getclienthaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateClientLinkNotFoundHalJSONError`](./src/models/errors/createclientlinknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`UpdateWebhookNotFoundHalJSONError`](./src/models/errors/updatewebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetWebhookNotFoundHalJSONError`](./src/models/errors/getwebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`DeleteWebhookNotFoundHalJSONError`](./src/models/errors/deletewebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`TestWebhookNotFoundHalJSONError`](./src/models/errors/testwebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetWebhookEventHalJSONError`](./src/models/errors/getwebhookeventhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListBalancesNotFoundHalJSONError`](./src/models/errors/listbalancesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetBalanceHalJSONError`](./src/models/errors/getbalancehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetBalanceReportNotFoundHalJSONError`](./src/models/errors/getbalancereportnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListBalanceTransactionsNotFoundHalJSONError`](./src/models/errors/listbalancetransactionsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListSettlementsNotFoundHalJSONError`](./src/models/errors/listsettlementsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetSettlementHalJSONError`](./src/models/errors/getsettlementhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetSettlementCapturesNotFoundHalJSONError`](./src/models/errors/getsettlementcapturesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetSettlementRefundsNotFoundHalJSONError`](./src/models/errors/getsettlementrefundsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetSettlementChargebacksNotFoundHalJSONError`](./src/models/errors/getsettlementchargebacksnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ListInvoicesNotFoundHalJSONError`](./src/models/errors/listinvoicesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetInvoiceHalJSONError`](./src/models/errors/getinvoicehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`CreateSalesInvoiceNotFoundHalJSONError`](./src/models/errors/createsalesinvoicenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`GetSalesInvoiceHalJSONError`](./src/models/errors/getsalesinvoicehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`UpdateSalesInvoiceNotFoundHalJSONError`](./src/models/errors/updatesalesinvoicenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`DeleteSalesInvoiceNotFoundHalJSONError`](./src/models/errors/deletesalesinvoicenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 95 methods.*
+* [`ConflictHalJSONError`](./src/models/errors/conflicthaljsonerror.ts): An error response object. Status code `409`. Applicable to 1 of 95 methods.*
+* [`GetProfileGoneHalJSONError`](./src/models/errors/getprofilegonehaljsonerror.ts): An error response object. Status code `410`. Applicable to 1 of 95 methods.*
+* [`UpdateProfileGoneHalJSONError`](./src/models/errors/updateprofilegonehaljsonerror.ts): An error response object. Status code `410`. Applicable to 1 of 95 methods.*
+* [`DeleteProfileGoneHalJSONError`](./src/models/errors/deleteprofilegonehaljsonerror.ts): An error response object. Status code `410`. Applicable to 1 of 95 methods.*
+* [`CreatePaymentUnprocessableEntityHalJSONError`](./src/models/errors/createpaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`UpdatePaymentUnprocessableEntityHalJSONError`](./src/models/errors/updatepaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CancelPaymentUnprocessableEntityHalJSONError`](./src/models/errors/cancelpaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`ReleaseAuthorizationUnprocessableEntityHalJSONError`](./src/models/errors/releaseauthorizationunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateRefundUnprocessableEntityHalJSONError`](./src/models/errors/createrefundunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateOrderRefundUnprocessableEntityHalJSONError`](./src/models/errors/createorderrefundunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateCaptureUnprocessableEntityHalJSONError`](./src/models/errors/createcaptureunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`RequestApplePayPaymentSessionHalJSONError`](./src/models/errors/requestapplepaypaymentsessionhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreatePaymentLinkUnprocessableEntityHalJSONError`](./src/models/errors/createpaymentlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`UpdatePaymentLinkUnprocessableEntityHalJSONError`](./src/models/errors/updatepaymentlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`DeletePaymentLinkUnprocessableEntityHalJSONError`](./src/models/errors/deletepaymentlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateCustomerPaymentUnprocessableEntityHalJSONError`](./src/models/errors/createcustomerpaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateProfileHalJSONError`](./src/models/errors/createprofilehaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`UpdateProfileUnprocessableEntityHalJSONError`](./src/models/errors/updateprofileunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateClientLinkUnprocessableEntityHalJSONError`](./src/models/errors/createclientlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateWebhookHalJSONError`](./src/models/errors/createwebhookhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`UpdateWebhookUnprocessableEntityHalJSONError`](./src/models/errors/updatewebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`GetWebhookUnprocessableEntityHalJSONError`](./src/models/errors/getwebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`DeleteWebhookUnprocessableEntityHalJSONError`](./src/models/errors/deletewebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`TestWebhookUnprocessableEntityHalJSONError`](./src/models/errors/testwebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`GetBalanceReportUnprocessableEntityHalJSONError`](./src/models/errors/getbalancereportunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`CreateSalesInvoiceUnprocessableEntityHalJSONError`](./src/models/errors/createsalesinvoiceunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`UpdateSalesInvoiceUnprocessableEntityHalJSONError`](./src/models/errors/updatesalesinvoiceunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`DeleteSalesInvoiceUnprocessableEntityHalJSONError`](./src/models/errors/deletesalesinvoiceunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 95 methods.*
+* [`TooManyRequestsHalJSONError`](./src/models/errors/toomanyrequestshaljsonerror.ts): An error response object. Status code `429`. Applicable to 1 of 95 methods.*
+* [`CreatePaymentServiceUnavailableHalJSONError`](./src/models/errors/createpaymentserviceunavailablehaljsonerror.ts): An error response object. Status code `503`. Applicable to 1 of 95 methods.*
+* [`CreateCustomerPaymentServiceUnavailableHalJSONError`](./src/models/errors/createcustomerpaymentserviceunavailablehaljsonerror.ts): An error response object. Status code `503`. Applicable to 1 of 95 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

@@ -85,11 +85,11 @@ export type TerminalLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: TerminalSelf | undefined;
+  self: TerminalSelf;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: TerminalDocumentation | undefined;
+  documentation: TerminalDocumentation;
 };
 
 export type ListTerminalsTerminal = {
@@ -100,7 +100,7 @@ export type ListTerminalsTerminal = {
   /**
    * The identifier uniquely referring to this terminal. Example: `term_7MgL4wea46qkRcoTZjWEH`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    *
@@ -108,11 +108,11 @@ export type ListTerminalsTerminal = {
    *
    * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode: string;
   /**
    * A short description of the terminal. The description can be used as an identifier for the terminal. Currently, the description is set when the terminal is initially configured. It will be visible in the Mollie Dashboard, and it may be visible on the device itself depending on the device.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The status of the terminal.
    *
@@ -120,7 +120,7 @@ export type ListTerminalsTerminal = {
    *
    * Possible values: `pending` `active` `inactive`
    */
-  status?: string | undefined;
+  status: string;
   /**
    * The brand of the terminal.
    *
@@ -128,7 +128,7 @@ export type ListTerminalsTerminal = {
    *
    * Possible values: `PAX`
    */
-  brand?: string | null | undefined;
+  brand: string | null;
   /**
    * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
    *
@@ -136,15 +136,15 @@ export type ListTerminalsTerminal = {
    *
    * Possible values: `A35` `A77` `A920` `A920 Pro` `IM30`
    */
-  model?: string | null | undefined;
+  model: string | null;
   /**
    * The serial number of the terminal. The serial number is provided at terminal creation time.
    */
-  serialNumber?: string | null | undefined;
+  serialNumber: string | null;
   /**
    * The currency configured on the terminal, in ISO 4217 format. Currently most of our terminals are bound to a specific currency, chosen during setup.
    */
-  currency?: string | undefined;
+  currency: string;
   /**
    * The identifier referring to the [profile](get-profile) this entity belongs to.
    *
@@ -152,19 +152,19 @@ export type ListTerminalsTerminal = {
    *
    * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
-  profileId?: string | undefined;
+  profileId: string;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  updatedAt?: string | undefined;
+  updatedAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: TerminalLinks | undefined;
+  links: TerminalLinks;
 };
 
 export type ListTerminalsEmbedded = {
@@ -572,14 +572,14 @@ export const TerminalLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => TerminalSelf$inboundSchema).optional(),
-  documentation: z.lazy(() => TerminalDocumentation$inboundSchema).optional(),
+  self: z.lazy(() => TerminalSelf$inboundSchema),
+  documentation: z.lazy(() => TerminalDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type TerminalLinks$Outbound = {
-  self?: TerminalSelf$Outbound | undefined;
-  documentation?: TerminalDocumentation$Outbound | undefined;
+  self: TerminalSelf$Outbound;
+  documentation: TerminalDocumentation$Outbound;
 };
 
 /** @internal */
@@ -588,8 +588,8 @@ export const TerminalLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TerminalLinks
 > = z.object({
-  self: z.lazy(() => TerminalSelf$outboundSchema).optional(),
-  documentation: z.lazy(() => TerminalDocumentation$outboundSchema).optional(),
+  self: z.lazy(() => TerminalSelf$outboundSchema),
+  documentation: z.lazy(() => TerminalDocumentation$outboundSchema),
 });
 
 /**
@@ -626,18 +626,18 @@ export const ListTerminalsTerminal$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("terminal"),
-  id: z.string().optional(),
-  mode: z.string().optional(),
-  description: z.string().optional(),
-  status: z.string().optional(),
-  brand: z.nullable(z.string()).optional(),
-  model: z.nullable(z.string()).optional(),
-  serialNumber: z.nullable(z.string()).optional(),
-  currency: z.string().optional(),
-  profileId: z.string().optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  _links: z.lazy(() => TerminalLinks$inboundSchema).optional(),
+  id: z.string(),
+  mode: z.string(),
+  description: z.string(),
+  status: z.string(),
+  brand: z.nullable(z.string()),
+  model: z.nullable(z.string()),
+  serialNumber: z.nullable(z.string()),
+  currency: z.string(),
+  profileId: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  _links: z.lazy(() => TerminalLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -647,18 +647,18 @@ export const ListTerminalsTerminal$inboundSchema: z.ZodType<
 /** @internal */
 export type ListTerminalsTerminal$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  description?: string | undefined;
-  status?: string | undefined;
-  brand?: string | null | undefined;
-  model?: string | null | undefined;
-  serialNumber?: string | null | undefined;
-  currency?: string | undefined;
-  profileId?: string | undefined;
-  createdAt?: string | undefined;
-  updatedAt?: string | undefined;
-  _links?: TerminalLinks$Outbound | undefined;
+  id: string;
+  mode: string;
+  description: string;
+  status: string;
+  brand: string | null;
+  model: string | null;
+  serialNumber: string | null;
+  currency: string;
+  profileId: string;
+  createdAt: string;
+  updatedAt: string;
+  _links: TerminalLinks$Outbound;
 };
 
 /** @internal */
@@ -668,18 +668,18 @@ export const ListTerminalsTerminal$outboundSchema: z.ZodType<
   ListTerminalsTerminal
 > = z.object({
   resource: z.string().default("terminal"),
-  id: z.string().optional(),
-  mode: z.string().optional(),
-  description: z.string().optional(),
-  status: z.string().optional(),
-  brand: z.nullable(z.string()).optional(),
-  model: z.nullable(z.string()).optional(),
-  serialNumber: z.nullable(z.string()).optional(),
-  currency: z.string().optional(),
-  profileId: z.string().optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  links: z.lazy(() => TerminalLinks$outboundSchema).optional(),
+  id: z.string(),
+  mode: z.string(),
+  description: z.string(),
+  status: z.string(),
+  brand: z.nullable(z.string()),
+  model: z.nullable(z.string()),
+  serialNumber: z.nullable(z.string()),
+  currency: z.string(),
+  profileId: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  links: z.lazy(() => TerminalLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

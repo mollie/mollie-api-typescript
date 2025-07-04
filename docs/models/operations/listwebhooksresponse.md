@@ -17,8 +17,12 @@ let value: ListWebhooksResponse = {
         profileId: "pfl_YyoaNFjtHc",
         createdAt: "2023-03-15T10:00:00Z",
         name: "Profile Updates Webhook",
-        eventTypes: "profile.create profile.blocked",
+        eventTypes: [
+          "profile.create",
+          "profile.blocked",
+        ],
         status: "enabled",
+        mode: "live",
       },
     ],
   },
