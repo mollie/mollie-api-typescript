@@ -16,10 +16,6 @@ let value: EntityLinks1 = {
     href: "https://...",
     type: "application/hal+json",
   },
-  documentation: {
-    href: "https://...",
-    type: "application/hal+json",
-  },
 };
 ```
 
@@ -27,6 +23,5 @@ let value: EntityLinks1 = {
 
 | Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `self`                                                                                                     | [operations.EntitySelf1](../../models/operations/entityself1.md)                                           | :heavy_minus_sign:                                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.                 |
-| `paymentLink`                                                                                              | [operations.GetWebhookEventLinksPaymentLink](../../models/operations/getwebhookeventlinkspaymentlink.md)   | :heavy_minus_sign:                                                                                         | The URL your customer should visit to make the payment. This is where you should redirect the customer to. |
-| `documentation`                                                                                            | [operations.EntityDocumentation1](../../models/operations/entitydocumentation1.md)                         | :heavy_minus_sign:                                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.                 |
+| `self`                                                                                                     | [operations.EntitySelf1](../../models/operations/entityself1.md)                                           | :heavy_check_mark:                                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.                 |
+| `paymentLink`                                                                                              | [operations.GetWebhookEventLinksPaymentLink](../../models/operations/getwebhookeventlinkspaymentlink.md)   | :heavy_check_mark:                                                                                         | The URL your customer should visit to make the payment. This is where you should redirect the customer to. |

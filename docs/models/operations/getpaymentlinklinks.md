@@ -16,10 +16,6 @@ let value: GetPaymentLinkLinks = {
     href: "https://...",
     type: "application/hal+json",
   },
-  documentation: {
-    href: "https://...",
-    type: "application/hal+json",
-  },
 };
 ```
 
@@ -27,6 +23,5 @@ let value: GetPaymentLinkLinks = {
 
 | Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `self`                                                                                                     | [operations.GetPaymentLinkSelf](../../models/operations/getpaymentlinkself.md)                             | :heavy_minus_sign:                                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.                 |
-| `paymentLink`                                                                                              | [operations.GetPaymentLinkPaymentLink](../../models/operations/getpaymentlinkpaymentlink.md)               | :heavy_minus_sign:                                                                                         | The URL your customer should visit to make the payment. This is where you should redirect the customer to. |
-| `documentation`                                                                                            | [operations.GetPaymentLinkDocumentation](../../models/operations/getpaymentlinkdocumentation.md)           | :heavy_minus_sign:                                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.                 |
+| `self`                                                                                                     | [operations.GetPaymentLinkSelf](../../models/operations/getpaymentlinkself.md)                             | :heavy_check_mark:                                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.                 |
+| `paymentLink`                                                                                              | [operations.GetPaymentLinkPaymentLink](../../models/operations/getpaymentlinkpaymentlink.md)               | :heavy_check_mark:                                                                                         | The URL your customer should visit to make the payment. This is where you should redirect the customer to. |

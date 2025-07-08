@@ -1,13 +1,13 @@
-# PaymentLinkDocumentation
+# EntityDocumentation
 
 In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
 
 ## Example Usage
 
 ```typescript
-import { PaymentLinkDocumentation } from "mollie-api-typescript/models/operations";
+import { EntityDocumentation } from "mollie-api-typescript/models/operations";
 
-let value: PaymentLinkDocumentation = {
+let value: EntityDocumentation = {
   href: "https://...",
   type: "application/hal+json",
 };

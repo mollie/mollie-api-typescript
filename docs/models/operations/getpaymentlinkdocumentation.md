@@ -1,6 +1,6 @@
 # GetPaymentLinkDocumentation
 
-In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+The URL to the generic Mollie API error handling guide.
 
 ## Example Usage
 
@@ -8,14 +8,14 @@ In v2 endpoints, URLs are commonly represented as objects with an `href` and `ty
 import { GetPaymentLinkDocumentation } from "mollie-api-typescript/models/operations";
 
 let value: GetPaymentLinkDocumentation = {
-  href: "https://...",
-  type: "application/hal+json",
+  href: "https://docs.mollie.com/errors",
+  type: "text/html",
 };
 ```
 
 ## Fields
 
-| Field                                                       | Type                                                        | Required                                                    | Description                                                 | Example                                                     |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `href`                                                      | *string*                                                    | :heavy_check_mark:                                          | The actual URL string.                                      | https://...                                                 |
-| `type`                                                      | *string*                                                    | :heavy_check_mark:                                          | The content type of the page or endpoint the URL points to. | application/hal+json                                        |
+| Field                          | Type                           | Required                       | Description                    | Example                        |
+| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
+| `href`                         | *string*                       | :heavy_check_mark:             | N/A                            | https://docs.mollie.com/errors |
+| `type`                         | *string*                       | :heavy_check_mark:             | N/A                            | text/html                      |

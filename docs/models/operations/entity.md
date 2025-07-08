@@ -100,10 +100,6 @@ const value: operations.GetWebhookEventPaymentLink = {
       href: "https://...",
       type: "application/hal+json",
     },
-    documentation: {
-      href: "https://...",
-      type: "application/hal+json",
-    },
   },
 };
 ```

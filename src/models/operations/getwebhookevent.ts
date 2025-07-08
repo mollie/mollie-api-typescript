@@ -146,7 +146,7 @@ export type GetWebhookEventCheckoutPreviewUrl = {
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
  */
-export type EntityDocumentation2 = {
+export type EntityDocumentation = {
   /**
    * The actual URL string.
    */
@@ -192,7 +192,7 @@ export type EntityLinks2 = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: EntityDocumentation2 | undefined;
+  documentation?: EntityDocumentation | undefined;
 };
 
 export type GetWebhookEventProfile = {
@@ -672,11 +672,11 @@ export type GetWebhookEventApplicationFee = {
    *
    * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
    */
-  amount?: GetWebhookEventApplicationFeeAmount | undefined;
+  amount: GetWebhookEventApplicationFeeAmount;
   /**
    * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
    */
-  description?: string | undefined;
+  description: string;
 };
 
 /**
@@ -708,35 +708,17 @@ export type GetWebhookEventLinksPaymentLink = {
 };
 
 /**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type EntityDocumentation1 = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type EntityLinks1 = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: EntitySelf1 | undefined;
+  self: EntitySelf1;
   /**
    * The URL your customer should visit to make the payment. This is where you should redirect the customer to.
    */
-  paymentLink?: GetWebhookEventLinksPaymentLink | undefined;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation?: EntityDocumentation1 | undefined;
+  paymentLink: GetWebhookEventLinksPaymentLink;
 };
 
 export type GetWebhookEventPaymentLink = {
@@ -747,7 +729,7 @@ export type GetWebhookEventPaymentLink = {
   /**
    * The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    *
@@ -755,15 +737,15 @@ export type GetWebhookEventPaymentLink = {
    *
    * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode: string;
   /**
    * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
    */
-  amount?: GetWebhookEventAmount | null | undefined;
+  amount: GetWebhookEventAmount | null;
   /**
    * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
    */
@@ -771,11 +753,11 @@ export type GetWebhookEventPaymentLink = {
   /**
    * Whether the payment link is archived. Customers will not be able to complete payments on archived payment links.
    */
-  archived?: boolean | undefined;
+  archived: boolean;
   /**
    * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided, the customer will be shown a generic message after completing the payment.
    */
-  redirectUrl?: string | null | undefined;
+  redirectUrl: string | null;
   /**
    * The webhook URL where we will send payment status updates to.
    *
@@ -785,7 +767,7 @@ export type GetWebhookEventPaymentLink = {
    *
    * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
    */
-  webhookUrl?: string | null | undefined;
+  webhookUrl: string | null;
   /**
    * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
    *
@@ -821,7 +803,7 @@ export type GetWebhookEventPaymentLink = {
    *
    * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
-  profileId?: string | null | undefined;
+  profileId: string | null;
   /**
    * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple payments using the same link.
    *
@@ -833,15 +815,15 @@ export type GetWebhookEventPaymentLink = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The date and time the payment link became paid, in ISO 8601 format.
    */
-  paidAt?: string | null | undefined;
+  paidAt: string | null;
   /**
    * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front, the payment link will not expire automatically.
    */
-  expiresAt?: string | null | undefined;
+  expiresAt: string | null;
   /**
    * An array of payment methods that are allowed to be used for this payment link. When this parameter is not provided or is an empty array, all enabled payment methods will be available.
    *
@@ -849,7 +831,7 @@ export type GetWebhookEventPaymentLink = {
    *
    * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard', 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint'.
    */
-  allowedMethods?: Array<string> | null | undefined;
+  allowedMethods: Array<string> | null;
   /**
    * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
    *
@@ -861,7 +843,7 @@ export type GetWebhookEventPaymentLink = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityLinks1 | undefined;
+  links: EntityLinks1;
 };
 
 export type Entity = GetWebhookEventPaymentLink | GetWebhookEventProfile;
@@ -1596,8 +1578,8 @@ export function getWebhookEventCheckoutPreviewUrlFromJSON(
 }
 
 /** @internal */
-export const EntityDocumentation2$inboundSchema: z.ZodType<
-  EntityDocumentation2,
+export const EntityDocumentation$inboundSchema: z.ZodType<
+  EntityDocumentation,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1606,16 +1588,16 @@ export const EntityDocumentation2$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type EntityDocumentation2$Outbound = {
+export type EntityDocumentation$Outbound = {
   href: string;
   type: string;
 };
 
 /** @internal */
-export const EntityDocumentation2$outboundSchema: z.ZodType<
-  EntityDocumentation2$Outbound,
+export const EntityDocumentation$outboundSchema: z.ZodType<
+  EntityDocumentation$Outbound,
   z.ZodTypeDef,
-  EntityDocumentation2
+  EntityDocumentation
 > = z.object({
   href: z.string(),
   type: z.string(),
@@ -1625,30 +1607,30 @@ export const EntityDocumentation2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EntityDocumentation2$ {
-  /** @deprecated use `EntityDocumentation2$inboundSchema` instead. */
-  export const inboundSchema = EntityDocumentation2$inboundSchema;
-  /** @deprecated use `EntityDocumentation2$outboundSchema` instead. */
-  export const outboundSchema = EntityDocumentation2$outboundSchema;
-  /** @deprecated use `EntityDocumentation2$Outbound` instead. */
-  export type Outbound = EntityDocumentation2$Outbound;
+export namespace EntityDocumentation$ {
+  /** @deprecated use `EntityDocumentation$inboundSchema` instead. */
+  export const inboundSchema = EntityDocumentation$inboundSchema;
+  /** @deprecated use `EntityDocumentation$outboundSchema` instead. */
+  export const outboundSchema = EntityDocumentation$outboundSchema;
+  /** @deprecated use `EntityDocumentation$Outbound` instead. */
+  export type Outbound = EntityDocumentation$Outbound;
 }
 
-export function entityDocumentation2ToJSON(
-  entityDocumentation2: EntityDocumentation2,
+export function entityDocumentationToJSON(
+  entityDocumentation: EntityDocumentation,
 ): string {
   return JSON.stringify(
-    EntityDocumentation2$outboundSchema.parse(entityDocumentation2),
+    EntityDocumentation$outboundSchema.parse(entityDocumentation),
   );
 }
 
-export function entityDocumentation2FromJSON(
+export function entityDocumentationFromJSON(
   jsonString: string,
-): SafeParseResult<EntityDocumentation2, SDKValidationError> {
+): SafeParseResult<EntityDocumentation, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityDocumentation2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityDocumentation2' from JSON`,
+    (x) => EntityDocumentation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityDocumentation' from JSON`,
   );
 }
 
@@ -1668,7 +1650,7 @@ export const EntityLinks2$inboundSchema: z.ZodType<
   checkoutPreviewUrl: z.lazy(() =>
     GetWebhookEventCheckoutPreviewUrl$inboundSchema
   ).optional(),
-  documentation: z.lazy(() => EntityDocumentation2$inboundSchema).optional(),
+  documentation: z.lazy(() => EntityDocumentation$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -1680,7 +1662,7 @@ export type EntityLinks2$Outbound = {
   payments?: GetWebhookEventPayments$Outbound | undefined;
   refunds?: GetWebhookEventRefunds$Outbound | undefined;
   checkoutPreviewUrl?: GetWebhookEventCheckoutPreviewUrl$Outbound | undefined;
-  documentation?: EntityDocumentation2$Outbound | undefined;
+  documentation?: EntityDocumentation$Outbound | undefined;
 };
 
 /** @internal */
@@ -1699,7 +1681,7 @@ export const EntityLinks2$outboundSchema: z.ZodType<
   checkoutPreviewUrl: z.lazy(() =>
     GetWebhookEventCheckoutPreviewUrl$outboundSchema
   ).optional(),
-  documentation: z.lazy(() => EntityDocumentation2$outboundSchema).optional(),
+  documentation: z.lazy(() => EntityDocumentation$outboundSchema).optional(),
 });
 
 /**
@@ -2535,15 +2517,14 @@ export const GetWebhookEventApplicationFee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: z.lazy(() => GetWebhookEventApplicationFeeAmount$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => GetWebhookEventApplicationFeeAmount$inboundSchema),
+  description: z.string(),
 });
 
 /** @internal */
 export type GetWebhookEventApplicationFee$Outbound = {
-  amount?: GetWebhookEventApplicationFeeAmount$Outbound | undefined;
-  description?: string | undefined;
+  amount: GetWebhookEventApplicationFeeAmount$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -2552,9 +2533,8 @@ export const GetWebhookEventApplicationFee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventApplicationFee
 > = z.object({
-  amount: z.lazy(() => GetWebhookEventApplicationFeeAmount$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => GetWebhookEventApplicationFeeAmount$outboundSchema),
+  description: z.string(),
 });
 
 /**
@@ -2703,79 +2683,19 @@ export function getWebhookEventLinksPaymentLinkFromJSON(
 }
 
 /** @internal */
-export const EntityDocumentation1$inboundSchema: z.ZodType<
-  EntityDocumentation1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type EntityDocumentation1$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const EntityDocumentation1$outboundSchema: z.ZodType<
-  EntityDocumentation1$Outbound,
-  z.ZodTypeDef,
-  EntityDocumentation1
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityDocumentation1$ {
-  /** @deprecated use `EntityDocumentation1$inboundSchema` instead. */
-  export const inboundSchema = EntityDocumentation1$inboundSchema;
-  /** @deprecated use `EntityDocumentation1$outboundSchema` instead. */
-  export const outboundSchema = EntityDocumentation1$outboundSchema;
-  /** @deprecated use `EntityDocumentation1$Outbound` instead. */
-  export type Outbound = EntityDocumentation1$Outbound;
-}
-
-export function entityDocumentation1ToJSON(
-  entityDocumentation1: EntityDocumentation1,
-): string {
-  return JSON.stringify(
-    EntityDocumentation1$outboundSchema.parse(entityDocumentation1),
-  );
-}
-
-export function entityDocumentation1FromJSON(
-  jsonString: string,
-): SafeParseResult<EntityDocumentation1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EntityDocumentation1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityDocumentation1' from JSON`,
-  );
-}
-
-/** @internal */
 export const EntityLinks1$inboundSchema: z.ZodType<
   EntityLinks1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => EntitySelf1$inboundSchema).optional(),
-  paymentLink: z.lazy(() => GetWebhookEventLinksPaymentLink$inboundSchema)
-    .optional(),
-  documentation: z.lazy(() => EntityDocumentation1$inboundSchema).optional(),
+  self: z.lazy(() => EntitySelf1$inboundSchema),
+  paymentLink: z.lazy(() => GetWebhookEventLinksPaymentLink$inboundSchema),
 });
 
 /** @internal */
 export type EntityLinks1$Outbound = {
-  self?: EntitySelf1$Outbound | undefined;
-  paymentLink?: GetWebhookEventLinksPaymentLink$Outbound | undefined;
-  documentation?: EntityDocumentation1$Outbound | undefined;
+  self: EntitySelf1$Outbound;
+  paymentLink: GetWebhookEventLinksPaymentLink$Outbound;
 };
 
 /** @internal */
@@ -2784,10 +2704,8 @@ export const EntityLinks1$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityLinks1
 > = z.object({
-  self: z.lazy(() => EntitySelf1$outboundSchema).optional(),
-  paymentLink: z.lazy(() => GetWebhookEventLinksPaymentLink$outboundSchema)
-    .optional(),
-  documentation: z.lazy(() => EntityDocumentation1$outboundSchema).optional(),
+  self: z.lazy(() => EntitySelf1$outboundSchema),
+  paymentLink: z.lazy(() => GetWebhookEventLinksPaymentLink$outboundSchema),
 });
 
 /**
@@ -2824,32 +2742,31 @@ export const GetWebhookEventPaymentLink$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("payment-link"),
-  id: z.string().optional(),
-  mode: z.string().optional(),
-  description: z.string().optional(),
-  amount: z.nullable(z.lazy(() => GetWebhookEventAmount$inboundSchema))
-    .optional(),
+  id: z.string(),
+  mode: z.string(),
+  description: z.string(),
+  amount: z.nullable(z.lazy(() => GetWebhookEventAmount$inboundSchema)),
   minimumAmount: z.nullable(
     z.lazy(() => GetWebhookEventMinimumAmount$inboundSchema),
   ).optional(),
-  archived: z.boolean().optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
+  archived: z.boolean(),
+  redirectUrl: z.nullable(z.string()),
+  webhookUrl: z.nullable(z.string()),
   lines: z.nullable(z.array(z.lazy(() => GetWebhookEventLine$inboundSchema)))
     .optional(),
   billingAddress: z.lazy(() => GetWebhookEventBillingAddress$inboundSchema)
     .optional(),
   shippingAddress: z.lazy(() => GetWebhookEventShippingAddress$inboundSchema)
     .optional(),
-  profileId: z.nullable(z.string()).optional(),
+  profileId: z.nullable(z.string()),
   reusable: z.nullable(z.boolean().default(false)),
-  createdAt: z.string().optional(),
-  paidAt: z.nullable(z.string()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  createdAt: z.string(),
+  paidAt: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  allowedMethods: z.nullable(z.array(z.string())),
   applicationFee: z.lazy(() => GetWebhookEventApplicationFee$inboundSchema)
     .optional(),
-  _links: z.lazy(() => EntityLinks1$inboundSchema).optional(),
+  _links: z.lazy(() => EntityLinks1$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -2859,25 +2776,25 @@ export const GetWebhookEventPaymentLink$inboundSchema: z.ZodType<
 /** @internal */
 export type GetWebhookEventPaymentLink$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  description?: string | undefined;
-  amount?: GetWebhookEventAmount$Outbound | null | undefined;
+  id: string;
+  mode: string;
+  description: string;
+  amount: GetWebhookEventAmount$Outbound | null;
   minimumAmount?: GetWebhookEventMinimumAmount$Outbound | null | undefined;
-  archived?: boolean | undefined;
-  redirectUrl?: string | null | undefined;
-  webhookUrl?: string | null | undefined;
+  archived: boolean;
+  redirectUrl: string | null;
+  webhookUrl: string | null;
   lines?: Array<GetWebhookEventLine$Outbound> | null | undefined;
   billingAddress?: GetWebhookEventBillingAddress$Outbound | undefined;
   shippingAddress?: GetWebhookEventShippingAddress$Outbound | undefined;
-  profileId?: string | null | undefined;
+  profileId: string | null;
   reusable: boolean | null;
-  createdAt?: string | undefined;
-  paidAt?: string | null | undefined;
-  expiresAt?: string | null | undefined;
-  allowedMethods?: Array<string> | null | undefined;
+  createdAt: string;
+  paidAt: string | null;
+  expiresAt: string | null;
+  allowedMethods: Array<string> | null;
   applicationFee?: GetWebhookEventApplicationFee$Outbound | undefined;
-  _links?: EntityLinks1$Outbound | undefined;
+  _links: EntityLinks1$Outbound;
 };
 
 /** @internal */
@@ -2887,32 +2804,31 @@ export const GetWebhookEventPaymentLink$outboundSchema: z.ZodType<
   GetWebhookEventPaymentLink
 > = z.object({
   resource: z.string().default("payment-link"),
-  id: z.string().optional(),
-  mode: z.string().optional(),
-  description: z.string().optional(),
-  amount: z.nullable(z.lazy(() => GetWebhookEventAmount$outboundSchema))
-    .optional(),
+  id: z.string(),
+  mode: z.string(),
+  description: z.string(),
+  amount: z.nullable(z.lazy(() => GetWebhookEventAmount$outboundSchema)),
   minimumAmount: z.nullable(
     z.lazy(() => GetWebhookEventMinimumAmount$outboundSchema),
   ).optional(),
-  archived: z.boolean().optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
+  archived: z.boolean(),
+  redirectUrl: z.nullable(z.string()),
+  webhookUrl: z.nullable(z.string()),
   lines: z.nullable(z.array(z.lazy(() => GetWebhookEventLine$outboundSchema)))
     .optional(),
   billingAddress: z.lazy(() => GetWebhookEventBillingAddress$outboundSchema)
     .optional(),
   shippingAddress: z.lazy(() => GetWebhookEventShippingAddress$outboundSchema)
     .optional(),
-  profileId: z.nullable(z.string()).optional(),
+  profileId: z.nullable(z.string()),
   reusable: z.nullable(z.boolean().default(false)),
-  createdAt: z.string().optional(),
-  paidAt: z.nullable(z.string()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  createdAt: z.string(),
+  paidAt: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  allowedMethods: z.nullable(z.array(z.string())),
   applicationFee: z.lazy(() => GetWebhookEventApplicationFee$outboundSchema)
     .optional(),
-  links: z.lazy(() => EntityLinks1$outboundSchema).optional(),
+  links: z.lazy(() => EntityLinks1$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

@@ -875,11 +875,11 @@ export type UpdatePaymentLinkApplicationFee = {
    *
    * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
    */
-  amount?: UpdatePaymentLinkApplicationFeeAmount | undefined;
+  amount: UpdatePaymentLinkApplicationFeeAmount;
   /**
    * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
    */
-  description?: string | undefined;
+  description: string;
 };
 
 /**
@@ -911,35 +911,17 @@ export type UpdatePaymentLinkPaymentLink = {
 };
 
 /**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type UpdatePaymentLinkDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type UpdatePaymentLinkLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: UpdatePaymentLinkSelf | undefined;
+  self: UpdatePaymentLinkSelf;
   /**
    * The URL your customer should visit to make the payment. This is where you should redirect the customer to.
    */
-  paymentLink?: UpdatePaymentLinkPaymentLink | undefined;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation?: UpdatePaymentLinkDocumentation | undefined;
+  paymentLink: UpdatePaymentLinkPaymentLink;
 };
 
 /**
@@ -953,7 +935,7 @@ export type UpdatePaymentLinkResponse = {
   /**
    * The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    *
@@ -961,15 +943,15 @@ export type UpdatePaymentLinkResponse = {
    *
    * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode: string;
   /**
    * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
    */
-  amount?: UpdatePaymentLinkAmount | null | undefined;
+  amount: UpdatePaymentLinkAmount | null;
   /**
    * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
    */
@@ -977,11 +959,11 @@ export type UpdatePaymentLinkResponse = {
   /**
    * Whether the payment link is archived. Customers will not be able to complete payments on archived payment links.
    */
-  archived?: boolean | undefined;
+  archived: boolean;
   /**
    * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided, the customer will be shown a generic message after completing the payment.
    */
-  redirectUrl?: string | null | undefined;
+  redirectUrl: string | null;
   /**
    * The webhook URL where we will send payment status updates to.
    *
@@ -991,7 +973,7 @@ export type UpdatePaymentLinkResponse = {
    *
    * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
    */
-  webhookUrl?: string | null | undefined;
+  webhookUrl: string | null;
   /**
    * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
    *
@@ -1027,7 +1009,7 @@ export type UpdatePaymentLinkResponse = {
    *
    * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
-  profileId?: string | null | undefined;
+  profileId: string | null;
   /**
    * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple payments using the same link.
    *
@@ -1039,15 +1021,15 @@ export type UpdatePaymentLinkResponse = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The date and time the payment link became paid, in ISO 8601 format.
    */
-  paidAt?: string | null | undefined;
+  paidAt: string | null;
   /**
    * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front, the payment link will not expire automatically.
    */
-  expiresAt?: string | null | undefined;
+  expiresAt: string | null;
   /**
    * An array of payment methods that are allowed to be used for this payment link. When this parameter is not provided or is an empty array, all enabled payment methods will be available.
    *
@@ -1055,7 +1037,7 @@ export type UpdatePaymentLinkResponse = {
    *
    * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard', 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint'.
    */
-  allowedMethods?: Array<string> | null | undefined;
+  allowedMethods: Array<string> | null;
   /**
    * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
    *
@@ -1067,7 +1049,7 @@ export type UpdatePaymentLinkResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: UpdatePaymentLinkLinks | undefined;
+  links: UpdatePaymentLinkLinks;
 };
 
 /** @internal */
@@ -2875,15 +2857,14 @@ export const UpdatePaymentLinkApplicationFee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: z.lazy(() => UpdatePaymentLinkApplicationFeeAmount$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => UpdatePaymentLinkApplicationFeeAmount$inboundSchema),
+  description: z.string(),
 });
 
 /** @internal */
 export type UpdatePaymentLinkApplicationFee$Outbound = {
-  amount?: UpdatePaymentLinkApplicationFeeAmount$Outbound | undefined;
-  description?: string | undefined;
+  amount: UpdatePaymentLinkApplicationFeeAmount$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -2892,9 +2873,8 @@ export const UpdatePaymentLinkApplicationFee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdatePaymentLinkApplicationFee
 > = z.object({
-  amount: z.lazy(() => UpdatePaymentLinkApplicationFeeAmount$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => UpdatePaymentLinkApplicationFeeAmount$outboundSchema),
+  description: z.string(),
 });
 
 /**
@@ -3047,82 +3027,19 @@ export function updatePaymentLinkPaymentLinkFromJSON(
 }
 
 /** @internal */
-export const UpdatePaymentLinkDocumentation$inboundSchema: z.ZodType<
-  UpdatePaymentLinkDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type UpdatePaymentLinkDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const UpdatePaymentLinkDocumentation$outboundSchema: z.ZodType<
-  UpdatePaymentLinkDocumentation$Outbound,
-  z.ZodTypeDef,
-  UpdatePaymentLinkDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePaymentLinkDocumentation$ {
-  /** @deprecated use `UpdatePaymentLinkDocumentation$inboundSchema` instead. */
-  export const inboundSchema = UpdatePaymentLinkDocumentation$inboundSchema;
-  /** @deprecated use `UpdatePaymentLinkDocumentation$outboundSchema` instead. */
-  export const outboundSchema = UpdatePaymentLinkDocumentation$outboundSchema;
-  /** @deprecated use `UpdatePaymentLinkDocumentation$Outbound` instead. */
-  export type Outbound = UpdatePaymentLinkDocumentation$Outbound;
-}
-
-export function updatePaymentLinkDocumentationToJSON(
-  updatePaymentLinkDocumentation: UpdatePaymentLinkDocumentation,
-): string {
-  return JSON.stringify(
-    UpdatePaymentLinkDocumentation$outboundSchema.parse(
-      updatePaymentLinkDocumentation,
-    ),
-  );
-}
-
-export function updatePaymentLinkDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePaymentLinkDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePaymentLinkDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePaymentLinkDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const UpdatePaymentLinkLinks$inboundSchema: z.ZodType<
   UpdatePaymentLinkLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => UpdatePaymentLinkSelf$inboundSchema).optional(),
-  paymentLink: z.lazy(() => UpdatePaymentLinkPaymentLink$inboundSchema)
-    .optional(),
-  documentation: z.lazy(() => UpdatePaymentLinkDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => UpdatePaymentLinkSelf$inboundSchema),
+  paymentLink: z.lazy(() => UpdatePaymentLinkPaymentLink$inboundSchema),
 });
 
 /** @internal */
 export type UpdatePaymentLinkLinks$Outbound = {
-  self?: UpdatePaymentLinkSelf$Outbound | undefined;
-  paymentLink?: UpdatePaymentLinkPaymentLink$Outbound | undefined;
-  documentation?: UpdatePaymentLinkDocumentation$Outbound | undefined;
+  self: UpdatePaymentLinkSelf$Outbound;
+  paymentLink: UpdatePaymentLinkPaymentLink$Outbound;
 };
 
 /** @internal */
@@ -3131,11 +3048,8 @@ export const UpdatePaymentLinkLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdatePaymentLinkLinks
 > = z.object({
-  self: z.lazy(() => UpdatePaymentLinkSelf$outboundSchema).optional(),
-  paymentLink: z.lazy(() => UpdatePaymentLinkPaymentLink$outboundSchema)
-    .optional(),
-  documentation: z.lazy(() => UpdatePaymentLinkDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => UpdatePaymentLinkSelf$outboundSchema),
+  paymentLink: z.lazy(() => UpdatePaymentLinkPaymentLink$outboundSchema),
 });
 
 /**
@@ -3176,17 +3090,16 @@ export const UpdatePaymentLinkResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("payment-link"),
-  id: z.string().optional(),
-  mode: z.string().optional(),
-  description: z.string().optional(),
-  amount: z.nullable(z.lazy(() => UpdatePaymentLinkAmount$inboundSchema))
-    .optional(),
+  id: z.string(),
+  mode: z.string(),
+  description: z.string(),
+  amount: z.nullable(z.lazy(() => UpdatePaymentLinkAmount$inboundSchema)),
   minimumAmount: z.nullable(
     z.lazy(() => UpdatePaymentLinkMinimumAmountResponse$inboundSchema),
   ).optional(),
-  archived: z.boolean().optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
+  archived: z.boolean(),
+  redirectUrl: z.nullable(z.string()),
+  webhookUrl: z.nullable(z.string()),
   lines: z.nullable(
     z.array(z.lazy(() => UpdatePaymentLinkLineResponse$inboundSchema)),
   ).optional(),
@@ -3196,15 +3109,15 @@ export const UpdatePaymentLinkResponse$inboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     UpdatePaymentLinkShippingAddressResponse$inboundSchema
   ).optional(),
-  profileId: z.nullable(z.string()).optional(),
+  profileId: z.nullable(z.string()),
   reusable: z.nullable(z.boolean().default(false)),
-  createdAt: z.string().optional(),
-  paidAt: z.nullable(z.string()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  createdAt: z.string(),
+  paidAt: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  allowedMethods: z.nullable(z.array(z.string())),
   applicationFee: z.lazy(() => UpdatePaymentLinkApplicationFee$inboundSchema)
     .optional(),
-  _links: z.lazy(() => UpdatePaymentLinkLinks$inboundSchema).optional(),
+  _links: z.lazy(() => UpdatePaymentLinkLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -3214,30 +3127,30 @@ export const UpdatePaymentLinkResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type UpdatePaymentLinkResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  description?: string | undefined;
-  amount?: UpdatePaymentLinkAmount$Outbound | null | undefined;
+  id: string;
+  mode: string;
+  description: string;
+  amount: UpdatePaymentLinkAmount$Outbound | null;
   minimumAmount?:
     | UpdatePaymentLinkMinimumAmountResponse$Outbound
     | null
     | undefined;
-  archived?: boolean | undefined;
-  redirectUrl?: string | null | undefined;
-  webhookUrl?: string | null | undefined;
+  archived: boolean;
+  redirectUrl: string | null;
+  webhookUrl: string | null;
   lines?: Array<UpdatePaymentLinkLineResponse$Outbound> | null | undefined;
   billingAddress?: UpdatePaymentLinkBillingAddressResponse$Outbound | undefined;
   shippingAddress?:
     | UpdatePaymentLinkShippingAddressResponse$Outbound
     | undefined;
-  profileId?: string | null | undefined;
+  profileId: string | null;
   reusable: boolean | null;
-  createdAt?: string | undefined;
-  paidAt?: string | null | undefined;
-  expiresAt?: string | null | undefined;
-  allowedMethods?: Array<string> | null | undefined;
+  createdAt: string;
+  paidAt: string | null;
+  expiresAt: string | null;
+  allowedMethods: Array<string> | null;
   applicationFee?: UpdatePaymentLinkApplicationFee$Outbound | undefined;
-  _links?: UpdatePaymentLinkLinks$Outbound | undefined;
+  _links: UpdatePaymentLinkLinks$Outbound;
 };
 
 /** @internal */
@@ -3247,17 +3160,16 @@ export const UpdatePaymentLinkResponse$outboundSchema: z.ZodType<
   UpdatePaymentLinkResponse
 > = z.object({
   resource: z.string().default("payment-link"),
-  id: z.string().optional(),
-  mode: z.string().optional(),
-  description: z.string().optional(),
-  amount: z.nullable(z.lazy(() => UpdatePaymentLinkAmount$outboundSchema))
-    .optional(),
+  id: z.string(),
+  mode: z.string(),
+  description: z.string(),
+  amount: z.nullable(z.lazy(() => UpdatePaymentLinkAmount$outboundSchema)),
   minimumAmount: z.nullable(
     z.lazy(() => UpdatePaymentLinkMinimumAmountResponse$outboundSchema),
   ).optional(),
-  archived: z.boolean().optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
+  archived: z.boolean(),
+  redirectUrl: z.nullable(z.string()),
+  webhookUrl: z.nullable(z.string()),
   lines: z.nullable(
     z.array(z.lazy(() => UpdatePaymentLinkLineResponse$outboundSchema)),
   ).optional(),
@@ -3267,15 +3179,15 @@ export const UpdatePaymentLinkResponse$outboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     UpdatePaymentLinkShippingAddressResponse$outboundSchema
   ).optional(),
-  profileId: z.nullable(z.string()).optional(),
+  profileId: z.nullable(z.string()),
   reusable: z.nullable(z.boolean().default(false)),
-  createdAt: z.string().optional(),
-  paidAt: z.nullable(z.string()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  createdAt: z.string(),
+  paidAt: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  allowedMethods: z.nullable(z.array(z.string())),
   applicationFee: z.lazy(() => UpdatePaymentLinkApplicationFee$outboundSchema)
     .optional(),
-  links: z.lazy(() => UpdatePaymentLinkLinks$outboundSchema).optional(),
+  links: z.lazy(() => UpdatePaymentLinkLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
