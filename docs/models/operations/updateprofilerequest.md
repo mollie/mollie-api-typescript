@@ -7,6 +7,19 @@ import { UpdateProfileRequest } from "mollie-api-typescript/models/operations";
 
 let value: UpdateProfileRequest = {
   id: "pfl_QkEhN94Ba",
+  requestBody: {
+    name: "My new website name",
+    website: "https://example.com",
+    email: "test@mollie.com",
+    phone: "+31208202071",
+    description: "My website description",
+    countriesOfActivity: [
+      "NL",
+      "GB",
+    ],
+    businessCategory: "OTHER_MERCHANDISE",
+    mode: "live",
+  },
 };
 ```
 
