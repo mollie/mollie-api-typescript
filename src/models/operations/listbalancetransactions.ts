@@ -208,7 +208,7 @@ export type Context = {
 
 export type BalanceTransaction = {
   /**
-   * Indicates the response contains a balance transaction object. Will always contain the string `balance_transaction` for this endpoint.
+   * Indicates the response contains a balance transaction object. Will always contain the string `balance-transaction` for this endpoint.
    */
   resource?: string | undefined;
   /**
@@ -1605,7 +1605,7 @@ export const BalanceTransaction$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("balance_transaction"),
+  resource: z.string().default("balance-transaction"),
   id: z.string().optional(),
   type: z.string().optional(),
   resultAmount: z.lazy(() => ResultAmount$inboundSchema).optional(),
@@ -1633,7 +1633,7 @@ export const BalanceTransaction$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BalanceTransaction
 > = z.object({
-  resource: z.string().default("balance_transaction"),
+  resource: z.string().default("balance-transaction"),
   id: z.string().optional(),
   type: z.string().optional(),
   resultAmount: z.lazy(() => ResultAmount$outboundSchema).optional(),

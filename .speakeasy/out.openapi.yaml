@@ -30197,10 +30197,10 @@ paths:
                           properties: &ref_130
                             resource:
                               type: string
-                              description: Indicates the response contains a balance transaction object. Will always contain the string `balance_transaction` for this endpoint.
+                              description: Indicates the response contains a balance transaction object. Will always contain the string `balance-transaction` for this endpoint.
                               readOnly: true
-                              default: balance_transaction
-                              example: balance_transaction
+                              example: balance-transaction
+                              default: balance-transaction
                             id:
                               description: The identifier uniquely referring to this balance transaction.
                               readOnly: true
@@ -30406,7 +30406,7 @@ paths:
                     count: 5
                     _embedded:
                       balance_transactions:
-                        - resource: balance_transaction
+                        - resource: balance-transaction
                           id: baltr_QM24QwzUWR4ev4Xfgyt29A
                           type: refund
                           resultAmount:
@@ -30422,7 +30422,7 @@ paths:
                           context:
                             paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
                             refundId: re_4qqhO89gsT
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_WhmDwNYR87FPDbiwBhUXCh
                           type: payment
                           resultAmount:
@@ -30456,7 +30456,7 @@ paths:
                   value:
                     _embedded:
                       balance_transactions:
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_Eh5yKgk4PWxsCSJy7bdRH
                           type: payment
                           resultAmount:
@@ -30468,7 +30468,7 @@ paths:
                           createdAt: '2022-12-16T11:23:25+00:00'
                           context:
                             paymentId: tr_9gX2sjtuh6
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_BR56v6ZPrVcfy8jbzadRH
                           type: payment
                           resultAmount:
@@ -30480,7 +30480,7 @@ paths:
                           createdAt: '2022-12-16T11:22:20+00:00'
                           context:
                             paymentId: tr_qVamMQaRjN
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_XM3Ye884WheSEsGqyadRH
                           type: payment
                           resultAmount:
@@ -30492,7 +30492,7 @@ paths:
                           createdAt: '2022-12-16T11:22:12+00:00'
                           context:
                             paymentId: tr_vLzZYBN6gd
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_pYs7WdRU9TV9cyxsnadRH
                           type: payment
                           resultAmount:
@@ -30504,7 +30504,7 @@ paths:
                           createdAt: '2022-12-16T11:20:20+00:00'
                           context:
                             paymentId: tr_hhwh2cTWCk
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_vecp57y9tTsnohz2hadRH
                           type: payment
                           resultAmount:
@@ -30516,7 +30516,7 @@ paths:
                           createdAt: '2022-12-16T11:19:19+00:00'
                           context:
                             paymentId: tr_jnTdA4W6Rq
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_s5EKzwZ394TxEcpSaadRH
                           type: payment
                           resultAmount:
@@ -30528,7 +30528,7 @@ paths:
                           createdAt: '2022-12-16T11:18:12+00:00'
                           context:
                             paymentId: tr_xLQaL4nsJT
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_WgQcFW4DS9zNDeWCWadRH
                           type: payment
                           resultAmount:
@@ -30540,7 +30540,7 @@ paths:
                           createdAt: '2022-12-16T11:17:28+00:00'
                           context:
                             paymentId: tr_RSiTUXmzGo
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_ZAbACJF2Nh2PCJysHadRH
                           type: payment
                           resultAmount:
@@ -30552,7 +30552,7 @@ paths:
                           createdAt: '2022-12-16T11:15:22+00:00'
                           context:
                             paymentId: tr_h8mPuFp8hq
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_CM6okJdX7SUFDzXVBadRH
                           type: payment
                           resultAmount:
@@ -30564,7 +30564,7 @@ paths:
                           createdAt: '2022-12-16T11:14:16+00:00'
                           context:
                             paymentId: tr_kJJrKynq7H
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_Luwmv2RPjWAPVbQsrZdRH
                           type: payment
                           resultAmount:
@@ -30576,7 +30576,7 @@ paths:
                           createdAt: '2022-12-16T11:11:16+00:00'
                           context:
                             paymentId: tr_hrimCxybrx
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_fNnyBtyVpMaujFHoTZdRH
                           type: payment
                           resultAmount:
@@ -30588,7 +30588,7 @@ paths:
                           createdAt: '2022-12-16T11:07:18+00:00'
                           context:
                             paymentId: tr_AxBZBFz2to
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_ZYkNBk6NpH8yyanezZbRH
                           type: payment
                           resultAmount:
@@ -30600,7 +30600,7 @@ paths:
                           createdAt: '2022-12-15T16:40:16+00:00'
                           context:
                             paymentId: tr_dZvMYBkaMd
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_KouV3xWwyPSimHtPuZbRH
                           type: payment
                           resultAmount:
@@ -30612,7 +30612,7 @@ paths:
                           createdAt: '2022-12-15T16:39:22+00:00'
                           context:
                             paymentId: tr_iNkGFF75jh
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_R7J2QLNXBHozou2sygaRH
                           type: payment
                           resultAmount:
@@ -30627,7 +30627,7 @@ paths:
                           createdAt: '2022-12-15T08:32:17+00:00'
                           context:
                             paymentId: tr_5ZYFyKSBLy
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_wYLbjfBDPPbhktwP9iYRH
                           type: payment
                           resultAmount:
@@ -30639,7 +30639,7 @@ paths:
                           createdAt: '2022-12-14T14:11:11+00:00'
                           context:
                             paymentId: tr_iSQFK5EVov
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_bqd6QKaPMpgWKLRAYdYRH
                           type: payment
                           resultAmount:
@@ -30651,7 +30651,7 @@ paths:
                           createdAt: '2022-12-14T13:26:18+00:00'
                           context:
                             paymentId: tr_KacasZ6Mep
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_EW4yXvwwERRkNTxGUHYRH
                           type: payment
                           resultAmount:
@@ -30663,7 +30663,7 @@ paths:
                           createdAt: '2022-12-14T10:10:29+00:00'
                           context:
                             paymentId: tr_PsZAZznzcg
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_MU5s5vSHYDRSWnYbJBYRH
                           type: payment
                           resultAmount:
@@ -30675,7 +30675,7 @@ paths:
                           createdAt: '2022-12-14T09:10:17+00:00'
                           context:
                             paymentId: tr_eUo3wbBuSe
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_UAzMEogYhsKnBiNQF5YRH
                           type: payment
                           resultAmount:
@@ -30687,7 +30687,7 @@ paths:
                           createdAt: '2022-12-14T08:11:12+00:00'
                           context:
                             paymentId: tr_wgCSd9H32d
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_tRCT9FVTN4gmoYsetiXRH
                           type: outgoing-transfer
                           resultAmount:
@@ -30700,7 +30700,7 @@ paths:
                           context:
                             settlementId: stl_nyjwa2
                             transferId: trf_nyjwa2
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_mCT66L9cfEWbqgNFwFWRH
                           type: payment
                           resultAmount:
@@ -30712,7 +30712,7 @@ paths:
                           createdAt: '2022-12-13T15:23:17+00:00'
                           context:
                             paymentId: tr_Q4P8DoWGhA
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_qb8AuKkzZQ4ipFpbkDWRH
                           type: refund
                           resultAmount:
@@ -30728,7 +30728,7 @@ paths:
                           context:
                             paymentId: tr_PsZAZznzcg
                             refundId: re_6Z8eVo5cfB
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_HBLVK3kVRhmZWSZWQ2WRH
                           type: payment
                           resultAmount:
@@ -30740,7 +30740,7 @@ paths:
                           createdAt: '2022-12-13T13:11:11+00:00'
                           context:
                             paymentId: tr_6suxvyRvh7
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_C3EMuY25RMvkCHvX72WRH
                           type: payment
                           resultAmount:
@@ -30752,7 +30752,7 @@ paths:
                           createdAt: '2022-12-13T13:08:31+00:00'
                           context:
                             paymentId: tr_Avvj4y3vpT
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_GwdyZkuUtckkfqgP72WRH
                           type: payment
                           resultAmount:
@@ -30764,7 +30764,7 @@ paths:
                           createdAt: '2022-12-13T13:08:17+00:00'
                           context:
                             paymentId: tr_PipTfbTdSZ
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_r7F48qyzcpeqzRN872WRH
                           type: payment
                           resultAmount:
@@ -30776,7 +30776,7 @@ paths:
                           createdAt: '2022-12-13T13:08:12+00:00'
                           context:
                             paymentId: tr_XPn7eZLdHW
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_RGxkRZAqqMUx9uLp62WRH
                           type: payment
                           resultAmount:
@@ -30788,7 +30788,7 @@ paths:
                           createdAt: '2022-12-13T13:08:12+00:00'
                           context:
                             paymentId: tr_gwXxqPkEp5
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_TwHzY2rqhpmWNKdazzVRH
                           type: payment
                           resultAmount:
@@ -30800,7 +30800,7 @@ paths:
                           createdAt: '2022-12-13T13:07:15+00:00'
                           context:
                             paymentId: tr_NAmGGiTYFa
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_vEYxvT9jswxgdXfJzzVRH
                           type: payment
                           resultAmount:
@@ -30812,7 +30812,7 @@ paths:
                           createdAt: '2022-12-13T13:07:12+00:00'
                           context:
                             paymentId: tr_vhRv8ViBMe
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_NdJB8uc7xB2SZW3zyzVRH
                           type: payment
                           resultAmount:
@@ -30824,7 +30824,7 @@ paths:
                           createdAt: '2022-12-13T13:07:09+00:00'
                           context:
                             paymentId: tr_FAncWtTAkc
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_pEM6remSK3UGHDRAuzVRH
                           type: payment
                           resultAmount:
@@ -30836,7 +30836,7 @@ paths:
                           createdAt: '2022-12-13T13:06:19+00:00'
                           context:
                             paymentId: tr_qo5gbi9vJS
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_6GusRMZHuWapoEFvtzVRH
                           type: payment
                           resultAmount:
@@ -30848,7 +30848,7 @@ paths:
                           createdAt: '2022-12-13T13:06:17+00:00'
                           context:
                             paymentId: tr_SQAnWQTDhk
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_iieu2Lzf52V3KGadtzVRH
                           type: payment
                           resultAmount:
@@ -30860,7 +30860,7 @@ paths:
                           createdAt: '2022-12-13T13:06:14+00:00'
                           context:
                             paymentId: tr_SfwMVsgupV
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_e2gtch39TSo6iABHozVRH
                           type: payment
                           resultAmount:
@@ -30872,7 +30872,7 @@ paths:
                           createdAt: '2022-12-13T13:05:19+00:00'
                           context:
                             paymentId: tr_zDnDYuv2pv
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_pmNMcz8GdvwPmvmunzVRH
                           type: payment
                           resultAmount:
@@ -30884,7 +30884,7 @@ paths:
                           createdAt: '2022-12-13T13:05:15+00:00'
                           context:
                             paymentId: tr_oHC6fGA79e
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_qFmvrsKMRojS967cnzVRH
                           type: payment
                           resultAmount:
@@ -30896,7 +30896,7 @@ paths:
                           createdAt: '2022-12-13T13:05:12+00:00'
                           context:
                             paymentId: tr_CDTPhfQSxX
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_DcLYydj7aMazfaWQnzVRH
                           type: payment
                           resultAmount:
@@ -30908,7 +30908,7 @@ paths:
                           createdAt: '2022-12-13T13:05:10+00:00'
                           context:
                             paymentId: tr_hqirWect39
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_3BoK75R8c2Wuomf9hzVRH
                           type: payment
                           resultAmount:
@@ -30920,7 +30920,7 @@ paths:
                           createdAt: '2022-12-13T13:04:16+00:00'
                           context:
                             paymentId: tr_Qj5Hw28wYV
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_9LErqzZoJ9ZDvx3sgzVRH
                           type: payment
                           resultAmount:
@@ -30932,7 +30932,7 @@ paths:
                           createdAt: '2022-12-13T13:04:13+00:00'
                           context:
                             paymentId: tr_gKUTkGHf39
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_AdVYVkaGLzVsnNofgzVRH
                           type: payment
                           resultAmount:
@@ -30944,7 +30944,7 @@ paths:
                           createdAt: '2022-12-13T13:04:11+00:00'
                           context:
                             paymentId: tr_sziq4rQGCK
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_HQvvmTk2FCbQJHHcbzVRH
                           type: payment
                           resultAmount:
@@ -30956,7 +30956,7 @@ paths:
                           createdAt: '2022-12-13T13:03:19+00:00'
                           context:
                             paymentId: tr_CrYoNkUrVo
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_AHWBoHhsAV8HnQKGbzVRH
                           type: payment
                           resultAmount:
@@ -30968,7 +30968,7 @@ paths:
                           createdAt: '2022-12-13T13:03:16+00:00'
                           context:
                             paymentId: tr_jZLuE2xWM5
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_iej3r8HjzyLLxv95bzVRH
                           type: payment
                           resultAmount:
@@ -30980,7 +30980,7 @@ paths:
                           createdAt: '2022-12-13T13:03:14+00:00'
                           context:
                             paymentId: tr_UziwFDQHWB
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_vLqVSaXJ5d8SjNTgazVRH
                           type: payment
                           resultAmount:
@@ -30992,7 +30992,7 @@ paths:
                           createdAt: '2022-12-13T13:03:10+00:00'
                           context:
                             paymentId: tr_Umu5CyUBTK
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_iEgyvSjkCWVbQpREVzVRH
                           type: payment
                           resultAmount:
@@ -31004,7 +31004,7 @@ paths:
                           createdAt: '2022-12-13T13:02:13+00:00'
                           context:
                             paymentId: tr_y7iQWhd9jE
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_Cq6pB2qDkPXvXv4wUzVRH
                           type: payment
                           resultAmount:
@@ -31016,7 +31016,7 @@ paths:
                           createdAt: '2022-12-13T13:02:10+00:00'
                           context:
                             paymentId: tr_z4bBWATo6R
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_W4XvgZTmFhvoNdPxPzVRH
                           type: payment
                           resultAmount:
@@ -31028,7 +31028,7 @@ paths:
                           createdAt: '2022-12-13T13:01:19+00:00'
                           context:
                             paymentId: tr_uKnTrJmuBU
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_SnQyfLUyy6HmHth8GyVRH
                           type: payment
                           resultAmount:
@@ -31040,7 +31040,7 @@ paths:
                           createdAt: '2022-12-13T12:50:14+00:00'
                           context:
                             paymentId: tr_DQNgqzsPuV
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_QYAWSE7rV4UraAgSAyVRH
                           type: payment
                           resultAmount:
@@ -31052,7 +31052,7 @@ paths:
                           createdAt: '2022-12-13T12:49:15+00:00'
                           context:
                             paymentId: tr_PJM8Uxj2uW
-                        - resource: balance_transactions
+                        - resource: balance-transaction
                           id: baltr_oAnC33yT7GXhP7X8AyVRH
                           type: payment
                           resultAmount:
