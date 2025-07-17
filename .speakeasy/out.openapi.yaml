@@ -36597,14 +36597,21 @@ paths:
                   readOnly: true
                   example: '2024-03-20T09:13:37.0Z'
                 issuedAt:
-                  example: '2024-10-03T10:47:38.457381+00:00'
+                  example: '2024-10-03T10:47:38+00:00'
                   type:
                     - string
                     - 'null'
                   description: If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
                   readOnly: true
+                paidAt:
+                  example: '2024-10-04T10:47:38+00:00'
+                  type:
+                    - string
+                    - 'null'
+                  description: If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+                  readOnly: true
                 dueAt:
-                  example: '2024-11-01T10:47:38.457381+00:00'
+                  example: '2024-11-01T10:47:38+00:00'
                   type:
                     - string
                     - 'null'
@@ -36650,7 +36657,6 @@ paths:
                 id: invoice_4Y0eZitmBnQ6IDoMqZQKh
                 mode: live
                 profileId: pfl_QkEhN94Ba
-                invoiceNumber: null
                 currency: EUR
                 status: draft
                 vatScheme: standard
@@ -36658,16 +36664,12 @@ paths:
                 recipientIdentifier: '123532354'
                 recipient:
                   type: consumer
-                  title: null
                   givenName: Given
                   familyName: Family
                   email: given.family@mollie.com
-                  phone: null
                   streetAndNumber: Street 1
-                  streetAdditional: null
                   postalCode: 1000 AA
                   city: Amsterdam
-                  region: null
                   country: NL
                   locale: nl_NL
                 lines:
@@ -36677,8 +36679,6 @@ paths:
                     unitPrice:
                       value: '89.00'
                       currency: EUR
-                    discount: null
-                discount: null
                 amountDue:
                   value: '107.69'
                   currency: EUR
@@ -36694,11 +36694,7 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
-                createdAt: '2024-10-03T10:47:38.457381+00:00'
-                issuedAt: null
-                dueAt: null
-                memo: null
-                metadata: null
+                createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
                     href: ...
@@ -36875,13 +36871,11 @@ paths:
                       id: invoice_4Y0eZitmBnQ6IDoMqZQKh
                       mode: live
                       profileId: pfl_QkEhN94Ba
-                      invoiceNumber: null
                       currency: EUR
                       status: draft
                       vatScheme: standard
                       paymentTerm: 30 days
                       recipientIdentifier: '123532354'
-                      recipient: null
                       lines:
                         - description: LEGO 4440 Forest Police Station
                           quantity: 1
@@ -36889,8 +36883,6 @@ paths:
                           unitPrice:
                             value: '89.00'
                             currency: EUR
-                          discount: null
-                      discount: null
                       amountDue:
                         value: '107.69'
                         currency: EUR
@@ -36906,16 +36898,11 @@ paths:
                       discountedSubtotalAmount:
                         value: '89.00'
                         currency: EUR
-                      createdAt: '2024-10-03T10:47:38.457381+00:00'
-                      issuedAt: null
-                      dueAt: null
-                      memo: null
-                      metadata: null
+                      createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
                     href: ...
                     type: application/hal+json
-                  previous: null
                   next:
                     href: https://api.mollie.com/v2/sales/invoices?from=invoice_4yUfQpbKnd2DUTouUdUwH&limit=5
                     type: application/hal+json
@@ -37012,7 +36999,6 @@ paths:
                 id: invoice_4Y0eZitmBnQ6IDoMqZQKh
                 mode: live
                 profileId: pfl_QkEhN94Ba
-                invoiceNumber: null
                 currency: EUR
                 status: draft
                 vatScheme: standard
@@ -37020,16 +37006,12 @@ paths:
                 recipientIdentifier: '123532354'
                 recipient:
                   type: consumer
-                  title: null
                   givenName: Given
                   familyName: Family
                   email: given.family@mollie.com
-                  phone: null
                   streetAndNumber: Street 1
-                  streetAdditional: null
                   postalCode: 1000 AA
                   city: Amsterdam
-                  region: null
                   country: NL
                   locale: nl_NL
                 lines:
@@ -37039,8 +37021,6 @@ paths:
                     unitPrice:
                       value: '89.00'
                       currency: EUR
-                    discount: null
-                discount: null
                 amountDue:
                   value: '107.69'
                   currency: EUR
@@ -37056,11 +37036,7 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
-                createdAt: '2024-10-03T10:47:38.457381+00:00'
-                issuedAt: null
-                dueAt: null
-                memo: null
-                metadata: null
+                createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
                     href: ...
@@ -37236,7 +37212,6 @@ paths:
                 id: invoice_4Y0eZitmBnQ6IDoMqZQKh
                 mode: live
                 profileId: pfl_QkEhN94Ba
-                invoiceNumber: null
                 currency: EUR
                 status: draft
                 vatScheme: standard
@@ -37244,16 +37219,12 @@ paths:
                 recipientIdentifier: '123532354'
                 recipient:
                   type: consumer
-                  title: null
                   givenName: Given
                   familyName: Family
                   email: given.family@mollie.com
-                  phone: null
                   streetAndNumber: Street 1
-                  streetAdditional: null
                   postalCode: 1000 AA
                   city: Amsterdam
-                  region: null
                   country: NL
                   locale: nl_NL
                 lines:
@@ -37263,8 +37234,6 @@ paths:
                     unitPrice:
                       value: '89.00'
                       currency: EUR
-                    discount: null
-                discount: null
                 amountDue:
                   value: '107.69'
                   currency: EUR
@@ -37280,11 +37249,7 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
-                createdAt: '2024-10-03T10:47:38.457381+00:00'
-                issuedAt: null
-                dueAt: null
-                memo: null
-                metadata: null
+                createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
                     href: ...

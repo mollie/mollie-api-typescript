@@ -509,6 +509,10 @@ export type GetSalesInvoiceResponse = {
    */
   issuedAt?: string | null | undefined;
   /**
+   * If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  paidAt?: string | null | undefined;
+  /**
    * If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dueAt?: string | null | undefined;
@@ -1847,6 +1851,7 @@ export const GetSalesInvoiceResponse$inboundSchema: z.ZodType<
   ).optional(),
   createdAt: z.string().optional(),
   issuedAt: z.nullable(z.string()).optional(),
+  paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => GetSalesInvoiceLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -1883,6 +1888,7 @@ export type GetSalesInvoiceResponse$Outbound = {
     | undefined;
   createdAt?: string | undefined;
   issuedAt?: string | null | undefined;
+  paidAt?: string | null | undefined;
   dueAt?: string | null | undefined;
   _links?: GetSalesInvoiceLinks$Outbound | undefined;
 };
@@ -1930,6 +1936,7 @@ export const GetSalesInvoiceResponse$outboundSchema: z.ZodType<
   ).optional(),
   createdAt: z.string().optional(),
   issuedAt: z.nullable(z.string()).optional(),
+  paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
   links: z.lazy(() => GetSalesInvoiceLinks$outboundSchema).optional(),
 }).transform((v) => {

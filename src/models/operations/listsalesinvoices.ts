@@ -510,6 +510,10 @@ export type SalesInvoice = {
    */
   issuedAt?: string | null | undefined;
   /**
+   * If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  paidAt?: string | null | undefined;
+  /**
    * If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dueAt?: string | null | undefined;
@@ -1964,6 +1968,7 @@ export const SalesInvoice$inboundSchema: z.ZodType<
   ).optional(),
   createdAt: z.string().optional(),
   issuedAt: z.nullable(z.string()).optional(),
+  paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => SalesInvoiceLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -2000,6 +2005,7 @@ export type SalesInvoice$Outbound = {
     | undefined;
   createdAt?: string | undefined;
   issuedAt?: string | null | undefined;
+  paidAt?: string | null | undefined;
   dueAt?: string | null | undefined;
   _links?: SalesInvoiceLinks$Outbound | undefined;
 };
@@ -2047,6 +2053,7 @@ export const SalesInvoice$outboundSchema: z.ZodType<
   ).optional(),
   createdAt: z.string().optional(),
   issuedAt: z.nullable(z.string()).optional(),
+  paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
   links: z.lazy(() => SalesInvoiceLinks$outboundSchema).optional(),
 }).transform((v) => {
