@@ -26837,6 +26837,10 @@ paths:
 
         Error handling is also dealt with similar to the [Authorize](https://docs.mollie.com/reference/authorize) endpoint: the customer is redirected back to your app's redirect URL with the `error` and `error_description` parameters added to the URL.
 
+        > 🚧
+        >
+        > A client link must be used within 30 days of creation. After that period, it will expire and you will need to create a new client link.
+
         > 🔑 Access with
         >
         > [Access token with **clients.write**](/reference/authentication)
