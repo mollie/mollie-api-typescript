@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: f39b164a25a719bdf52a1463839266a5
+  docChecksum: da6de17d0d4db83d32464dbc756282f4
   docVersion: 1.0.0
-  speakeasyVersion: 1.582.0
-  generationVersion: 2.657.1
-  releaseVersion: 0.0.1-alpha.7
-  configChecksum: 5d6b96fef00daeefd45879848faadb35
+  speakeasyVersion: 1.583.0
+  generationVersion: 2.658.3
+  releaseVersion: 0.0.1-alpha.8
+  configChecksum: ae5b59682efb3e7293728f6ed739a6e7
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -56,8 +56,6 @@ generatedFiles:
   - docs/models/errors/createcustomerpaymentserviceunavailablehaljsonerror.md
   - docs/models/errors/createcustomerpaymentunprocessableentityhaljsonerror.md
   - docs/models/errors/createmandatehaljsonerror.md
-  - docs/models/errors/createorderrefundnotfoundhaljsonerror.md
-  - docs/models/errors/createorderrefundunprocessableentityhaljsonerror.md
   - docs/models/errors/createpaymentlinknotfoundhaljsonerror.md
   - docs/models/errors/createpaymentlinkunprocessableentityhaljsonerror.md
   - docs/models/errors/createpaymentserviceunavailablehaljsonerror.md
@@ -98,14 +96,7 @@ generatedFiles:
   - docs/models/errors/getprofilenotfoundhaljsonerror.md
   - docs/models/errors/getrefundhaljsonerror.md
   - docs/models/errors/getsalesinvoicehaljsonerror.md
-  - docs/models/errors/getsettlementcapturesbadrequesthaljsonerror.md
-  - docs/models/errors/getsettlementcapturesnotfoundhaljsonerror.md
-  - docs/models/errors/getsettlementchargebacksbadrequesthaljsonerror.md
-  - docs/models/errors/getsettlementchargebacksnotfoundhaljsonerror.md
   - docs/models/errors/getsettlementhaljsonerror.md
-  - docs/models/errors/getsettlementpaymentshaljsonerror.md
-  - docs/models/errors/getsettlementrefundsbadrequesthaljsonerror.md
-  - docs/models/errors/getsettlementrefundsnotfoundhaljsonerror.md
   - docs/models/errors/getsubscriptionhaljsonerror.md
   - docs/models/errors/getterminalhaljsonerror.md
   - docs/models/errors/getwebhookeventhaljsonerror.md
@@ -134,7 +125,6 @@ generatedFiles:
   - docs/models/errors/listmandatesbadrequesthaljsonerror.md
   - docs/models/errors/listmandatesnotfoundhaljsonerror.md
   - docs/models/errors/listmethodshaljsonerror.md
-  - docs/models/errors/listorderrefundshaljsonerror.md
   - docs/models/errors/listpaymentlinkshaljsonerror.md
   - docs/models/errors/listpaymentshaljsonerror.md
   - docs/models/errors/listpermissionshaljsonerror.md
@@ -142,6 +132,13 @@ generatedFiles:
   - docs/models/errors/listrefundsbadrequesthaljsonerror.md
   - docs/models/errors/listrefundsnotfoundhaljsonerror.md
   - docs/models/errors/listsalesinvoiceshaljsonerror.md
+  - docs/models/errors/listsettlementcapturesbadrequesthaljsonerror.md
+  - docs/models/errors/listsettlementcapturesnotfoundhaljsonerror.md
+  - docs/models/errors/listsettlementchargebacksbadrequesthaljsonerror.md
+  - docs/models/errors/listsettlementchargebacksnotfoundhaljsonerror.md
+  - docs/models/errors/listsettlementpaymentshaljsonerror.md
+  - docs/models/errors/listsettlementrefundsbadrequesthaljsonerror.md
+  - docs/models/errors/listsettlementrefundsnotfoundhaljsonerror.md
   - docs/models/errors/listsettlementsbadrequesthaljsonerror.md
   - docs/models/errors/listsettlementsnotfoundhaljsonerror.md
   - docs/models/errors/listsubscriptionpaymentshaljsonerror.md
@@ -171,9 +168,6 @@ generatedFiles:
   - docs/models/errors/updatesubscriptionhaljsonerror.md
   - docs/models/errors/updatewebhooknotfoundhaljsonerror.md
   - docs/models/errors/updatewebhookunprocessableentityhaljsonerror.md
-  - docs/models/operations/amountcanceledrequest.md
-  - docs/models/operations/amountrefundedrequest.md
-  - docs/models/operations/amountshippedrequest.md
   - docs/models/operations/availablebalance.md
   - docs/models/operations/availablebalanceclose.md
   - docs/models/operations/availablebalancecloseamount.md
@@ -454,40 +448,6 @@ generatedFiles:
   - docs/models/operations/createmandaterequestbody.md
   - docs/models/operations/createmandateresponse.md
   - docs/models/operations/createmandateself.md
-  - docs/models/operations/createorderrefundamountcanceledresponse.md
-  - docs/models/operations/createorderrefundamountrefundedresponse.md
-  - docs/models/operations/createorderrefundamountrequest.md
-  - docs/models/operations/createorderrefundamountresponse.md
-  - docs/models/operations/createorderrefundamountshippedresponse.md
-  - docs/models/operations/createorderrefunddiscountedamount.md
-  - docs/models/operations/createorderrefunddocumentation.md
-  - docs/models/operations/createorderrefundexternalreferencerequest.md
-  - docs/models/operations/createorderrefundexternalreferenceresponse.md
-  - docs/models/operations/createorderrefundlineamount.md
-  - docs/models/operations/createorderrefundlinemetadataresponseunion.md
-  - docs/models/operations/createorderrefundlineoutput.md
-  - docs/models/operations/createorderrefundlinks.md
-  - docs/models/operations/createorderrefundmetadatalineresponse.md
-  - docs/models/operations/createorderrefundmetadatarequest.md
-  - docs/models/operations/createorderrefundmetadatarequestunion.md
-  - docs/models/operations/createorderrefundmetadataresponse.md
-  - docs/models/operations/createorderrefundmetadataresponseunion.md
-  - docs/models/operations/createorderrefundnotfounddocumentation.md
-  - docs/models/operations/createorderrefundnotfoundlinks.md
-  - docs/models/operations/createorderrefundorder.md
-  - docs/models/operations/createorderrefundrequest.md
-  - docs/models/operations/createorderrefundrequestbody.md
-  - docs/models/operations/createorderrefundresponse.md
-  - docs/models/operations/createorderrefundself.md
-  - docs/models/operations/createorderrefundsettlement.md
-  - docs/models/operations/createorderrefundsettlementamount.md
-  - docs/models/operations/createorderrefundstatusresponse.md
-  - docs/models/operations/createorderrefundtotalamount.md
-  - docs/models/operations/createorderrefundtyperesponse.md
-  - docs/models/operations/createorderrefundunitprice.md
-  - docs/models/operations/createorderrefundunprocessableentitydocumentation.md
-  - docs/models/operations/createorderrefundunprocessableentitylinks.md
-  - docs/models/operations/createorderrefundvatamount.md
   - docs/models/operations/createpaymentamountcaptured.md
   - docs/models/operations/createpaymentamountchargedback.md
   - docs/models/operations/createpaymentamountrefunded.md
@@ -610,7 +570,6 @@ generatedFiles:
   - docs/models/operations/createrefundamountrequest.md
   - docs/models/operations/createrefundamountresponse.md
   - docs/models/operations/createrefunddocumentation.md
-  - docs/models/operations/createrefundexternalreferencerequest.md
   - docs/models/operations/createrefundexternalreferenceresponse.md
   - docs/models/operations/createrefundlinks.md
   - docs/models/operations/createrefundmetadatarequest.md
@@ -730,6 +689,7 @@ generatedFiles:
   - docs/models/operations/entityself2.md
   - docs/models/operations/event.md
   - docs/models/operations/eventlinks.md
+  - docs/models/operations/externalreferencerequest.md
   - docs/models/operations/feeprepayments.md
   - docs/models/operations/feeprepaymentsimmediatelyavailable.md
   - docs/models/operations/feeprepaymentsimmediatelyavailableamount.md
@@ -1152,53 +1112,7 @@ generatedFiles:
   - docs/models/operations/getsalesinvoiceunitprice.md
   - docs/models/operations/getsettlementamount.md
   - docs/models/operations/getsettlementcaptures.md
-  - docs/models/operations/getsettlementcapturesamount.md
-  - docs/models/operations/getsettlementcapturesbadrequestdocumentation.md
-  - docs/models/operations/getsettlementcapturesbadrequestlinks.md
-  - docs/models/operations/getsettlementcapturescapture.md
-  - docs/models/operations/getsettlementcapturescapturedocumentation.md
-  - docs/models/operations/getsettlementcapturescapturelinks.md
-  - docs/models/operations/getsettlementcapturescaptureself.md
-  - docs/models/operations/getsettlementcapturesdocumentation.md
-  - docs/models/operations/getsettlementcapturesembed.md
-  - docs/models/operations/getsettlementcapturesembedded.md
-  - docs/models/operations/getsettlementcaptureslinks.md
-  - docs/models/operations/getsettlementcapturesmetadata.md
-  - docs/models/operations/getsettlementcapturesmetadataunion.md
-  - docs/models/operations/getsettlementcapturesnext.md
-  - docs/models/operations/getsettlementcapturesnotfounddocumentation.md
-  - docs/models/operations/getsettlementcapturesnotfoundlinks.md
-  - docs/models/operations/getsettlementcapturespayment.md
-  - docs/models/operations/getsettlementcapturesprevious.md
-  - docs/models/operations/getsettlementcapturesrequest.md
-  - docs/models/operations/getsettlementcapturesresponse.md
-  - docs/models/operations/getsettlementcapturesself.md
-  - docs/models/operations/getsettlementcapturessettlement.md
-  - docs/models/operations/getsettlementcapturessettlementamount.md
-  - docs/models/operations/getsettlementcapturesshipment.md
   - docs/models/operations/getsettlementchargebacks.md
-  - docs/models/operations/getsettlementchargebacksamount.md
-  - docs/models/operations/getsettlementchargebacksbadrequestdocumentation.md
-  - docs/models/operations/getsettlementchargebacksbadrequestlinks.md
-  - docs/models/operations/getsettlementchargebackschargeback.md
-  - docs/models/operations/getsettlementchargebackschargebackdocumentation.md
-  - docs/models/operations/getsettlementchargebackschargebacklinks.md
-  - docs/models/operations/getsettlementchargebackschargebackself.md
-  - docs/models/operations/getsettlementchargebacksdocumentation.md
-  - docs/models/operations/getsettlementchargebacksembed.md
-  - docs/models/operations/getsettlementchargebacksembedded.md
-  - docs/models/operations/getsettlementchargebackslinks.md
-  - docs/models/operations/getsettlementchargebacksnext.md
-  - docs/models/operations/getsettlementchargebacksnotfounddocumentation.md
-  - docs/models/operations/getsettlementchargebacksnotfoundlinks.md
-  - docs/models/operations/getsettlementchargebackspayment.md
-  - docs/models/operations/getsettlementchargebacksprevious.md
-  - docs/models/operations/getsettlementchargebacksreason.md
-  - docs/models/operations/getsettlementchargebacksrequest.md
-  - docs/models/operations/getsettlementchargebacksresponse.md
-  - docs/models/operations/getsettlementchargebacksself.md
-  - docs/models/operations/getsettlementchargebackssettlement.md
-  - docs/models/operations/getsettlementchargebackssettlementamount.md
   - docs/models/operations/getsettlementcost.md
   - docs/models/operations/getsettlementcostamountgross.md
   - docs/models/operations/getsettlementcostamountnet.md
@@ -1212,91 +1126,10 @@ generatedFiles:
   - docs/models/operations/getsettlementnotfounddocumentation.md
   - docs/models/operations/getsettlementnotfoundlinks.md
   - docs/models/operations/getsettlementpayments.md
-  - docs/models/operations/getsettlementpaymentsamount.md
-  - docs/models/operations/getsettlementpaymentsamountcaptured.md
-  - docs/models/operations/getsettlementpaymentsamountchargedback.md
-  - docs/models/operations/getsettlementpaymentsamountrefunded.md
-  - docs/models/operations/getsettlementpaymentsamountremaining.md
-  - docs/models/operations/getsettlementpaymentsapplicationfee.md
-  - docs/models/operations/getsettlementpaymentsapplicationfeeamount.md
-  - docs/models/operations/getsettlementpaymentsbadrequestdocumentation.md
-  - docs/models/operations/getsettlementpaymentsbadrequestlinks.md
-  - docs/models/operations/getsettlementpaymentsbillingaddress.md
-  - docs/models/operations/getsettlementpaymentscaptures.md
-  - docs/models/operations/getsettlementpaymentscategory.md
-  - docs/models/operations/getsettlementpaymentschangepaymentstate.md
-  - docs/models/operations/getsettlementpaymentschargebacks.md
-  - docs/models/operations/getsettlementpaymentscheckout.md
-  - docs/models/operations/getsettlementpaymentscustomer.md
-  - docs/models/operations/getsettlementpaymentsdashboard.md
-  - docs/models/operations/getsettlementpaymentsdestination.md
-  - docs/models/operations/getsettlementpaymentsdiscountamount.md
-  - docs/models/operations/getsettlementpaymentsdocumentation.md
-  - docs/models/operations/getsettlementpaymentsembedded.md
-  - docs/models/operations/getsettlementpaymentsline.md
-  - docs/models/operations/getsettlementpaymentslinks.md
-  - docs/models/operations/getsettlementpaymentsmandate.md
-  - docs/models/operations/getsettlementpaymentsmetadata.md
-  - docs/models/operations/getsettlementpaymentsmetadataunion.md
-  - docs/models/operations/getsettlementpaymentsmobileappcheckout.md
-  - docs/models/operations/getsettlementpaymentsnext.md
-  - docs/models/operations/getsettlementpaymentsorder.md
-  - docs/models/operations/getsettlementpaymentspaymentdocumentation.md
-  - docs/models/operations/getsettlementpaymentspaymentlinks.md
-  - docs/models/operations/getsettlementpaymentspaymentoutput.md
-  - docs/models/operations/getsettlementpaymentspaymentself.md
-  - docs/models/operations/getsettlementpaymentsprevious.md
-  - docs/models/operations/getsettlementpaymentsrecurring.md
-  - docs/models/operations/getsettlementpaymentsrecurringamount.md
-  - docs/models/operations/getsettlementpaymentsrefunds.md
-  - docs/models/operations/getsettlementpaymentsrequest.md
-  - docs/models/operations/getsettlementpaymentsresponse.md
-  - docs/models/operations/getsettlementpaymentsrouting.md
-  - docs/models/operations/getsettlementpaymentsroutingamount.md
-  - docs/models/operations/getsettlementpaymentsroutinglinks.md
-  - docs/models/operations/getsettlementpaymentsroutingpayment.md
-  - docs/models/operations/getsettlementpaymentsroutingself.md
-  - docs/models/operations/getsettlementpaymentsself.md
-  - docs/models/operations/getsettlementpaymentssettlement.md
-  - docs/models/operations/getsettlementpaymentssettlementamount.md
-  - docs/models/operations/getsettlementpaymentsshippingaddress.md
-  - docs/models/operations/getsettlementpaymentsstatusreason.md
-  - docs/models/operations/getsettlementpaymentssubscription.md
-  - docs/models/operations/getsettlementpaymentsterminal.md
-  - docs/models/operations/getsettlementpaymentstotalamount.md
-  - docs/models/operations/getsettlementpaymentsunitprice.md
-  - docs/models/operations/getsettlementpaymentsvatamount.md
   - docs/models/operations/getsettlementpercentage.md
   - docs/models/operations/getsettlementperiods.md
   - docs/models/operations/getsettlementrate.md
   - docs/models/operations/getsettlementrefunds.md
-  - docs/models/operations/getsettlementrefundsamount.md
-  - docs/models/operations/getsettlementrefundsbadrequestdocumentation.md
-  - docs/models/operations/getsettlementrefundsbadrequestlinks.md
-  - docs/models/operations/getsettlementrefundsdocumentation.md
-  - docs/models/operations/getsettlementrefundsembedded.md
-  - docs/models/operations/getsettlementrefundsexternalreference.md
-  - docs/models/operations/getsettlementrefundsinclude.md
-  - docs/models/operations/getsettlementrefundslinks.md
-  - docs/models/operations/getsettlementrefundsmetadata.md
-  - docs/models/operations/getsettlementrefundsmetadataunion.md
-  - docs/models/operations/getsettlementrefundsnext.md
-  - docs/models/operations/getsettlementrefundsnotfounddocumentation.md
-  - docs/models/operations/getsettlementrefundsnotfoundlinks.md
-  - docs/models/operations/getsettlementrefundspayment.md
-  - docs/models/operations/getsettlementrefundsprevious.md
-  - docs/models/operations/getsettlementrefundsrefund.md
-  - docs/models/operations/getsettlementrefundsrefunddocumentation.md
-  - docs/models/operations/getsettlementrefundsrefundlinks.md
-  - docs/models/operations/getsettlementrefundsrefundself.md
-  - docs/models/operations/getsettlementrefundsrequest.md
-  - docs/models/operations/getsettlementrefundsresponse.md
-  - docs/models/operations/getsettlementrefundsroutingreversal.md
-  - docs/models/operations/getsettlementrefundsroutingreversalamount.md
-  - docs/models/operations/getsettlementrefundsself.md
-  - docs/models/operations/getsettlementrefundssettlement.md
-  - docs/models/operations/getsettlementrefundssettlementamount.md
-  - docs/models/operations/getsettlementrefundssource.md
   - docs/models/operations/getsettlementrequest.md
   - docs/models/operations/getsettlementresponse.md
   - docs/models/operations/getsettlementrevenue.md
@@ -1365,8 +1198,6 @@ generatedFiles:
   - docs/models/operations/getwebhookunprocessableentitylinks.md
   - docs/models/operations/grossamount.md
   - docs/models/operations/initialamount.md
-  - docs/models/operations/lineinput.md
-  - docs/models/operations/linemetadatarequestunion.md
   - docs/models/operations/linksentity.md
   - docs/models/operations/listallchargebacksamount.md
   - docs/models/operations/listallchargebacksbadrequestdocumentation.md
@@ -1720,39 +1551,6 @@ generatedFiles:
   - docs/models/operations/listmethodsrequest.md
   - docs/models/operations/listmethodsresponse.md
   - docs/models/operations/listmethodsself.md
-  - docs/models/operations/listorderrefundsamount.md
-  - docs/models/operations/listorderrefundsamountcanceled.md
-  - docs/models/operations/listorderrefundsamountrefunded.md
-  - docs/models/operations/listorderrefundsamountshipped.md
-  - docs/models/operations/listorderrefundsbadrequestdocumentation.md
-  - docs/models/operations/listorderrefundsbadrequestlinks.md
-  - docs/models/operations/listorderrefundsdiscountedamount.md
-  - docs/models/operations/listorderrefundsdocumentation.md
-  - docs/models/operations/listorderrefundsembedded.md
-  - docs/models/operations/listorderrefundsexternalreference.md
-  - docs/models/operations/listorderrefundsline.md
-  - docs/models/operations/listorderrefundslinemetadataunion.md
-  - docs/models/operations/listorderrefundslinks.md
-  - docs/models/operations/listorderrefundsmetadata.md
-  - docs/models/operations/listorderrefundsmetadataline.md
-  - docs/models/operations/listorderrefundsmetadataunion.md
-  - docs/models/operations/listorderrefundsnext.md
-  - docs/models/operations/listorderrefundsorder.md
-  - docs/models/operations/listorderrefundsprevious.md
-  - docs/models/operations/listorderrefundsrefund.md
-  - docs/models/operations/listorderrefundsrefunddocumentation.md
-  - docs/models/operations/listorderrefundsrefundlinks.md
-  - docs/models/operations/listorderrefundsrefundself.md
-  - docs/models/operations/listorderrefundsrequest.md
-  - docs/models/operations/listorderrefundsresponse.md
-  - docs/models/operations/listorderrefundsself.md
-  - docs/models/operations/listorderrefundssettlement.md
-  - docs/models/operations/listorderrefundssettlementamount.md
-  - docs/models/operations/listorderrefundsstatus.md
-  - docs/models/operations/listorderrefundstotalamount.md
-  - docs/models/operations/listorderrefundstype.md
-  - docs/models/operations/listorderrefundsunitprice.md
-  - docs/models/operations/listorderrefundsvatamount.md
   - docs/models/operations/listpaymentlinksamount.md
   - docs/models/operations/listpaymentlinksapplicationfee.md
   - docs/models/operations/listpaymentlinksapplicationfeeamount.md
@@ -1908,6 +1706,133 @@ generatedFiles:
   - docs/models/operations/listsalesinvoicestotalamount.md
   - docs/models/operations/listsalesinvoicestotalvatamount.md
   - docs/models/operations/listsalesinvoicesunitprice.md
+  - docs/models/operations/listsettlementcapturesamount.md
+  - docs/models/operations/listsettlementcapturesbadrequestdocumentation.md
+  - docs/models/operations/listsettlementcapturesbadrequestlinks.md
+  - docs/models/operations/listsettlementcapturescapture.md
+  - docs/models/operations/listsettlementcapturescapturedocumentation.md
+  - docs/models/operations/listsettlementcapturescapturelinks.md
+  - docs/models/operations/listsettlementcapturescaptureself.md
+  - docs/models/operations/listsettlementcapturesdocumentation.md
+  - docs/models/operations/listsettlementcapturesembed.md
+  - docs/models/operations/listsettlementcapturesembedded.md
+  - docs/models/operations/listsettlementcaptureslinks.md
+  - docs/models/operations/listsettlementcapturesmetadata.md
+  - docs/models/operations/listsettlementcapturesmetadataunion.md
+  - docs/models/operations/listsettlementcapturesnext.md
+  - docs/models/operations/listsettlementcapturesnotfounddocumentation.md
+  - docs/models/operations/listsettlementcapturesnotfoundlinks.md
+  - docs/models/operations/listsettlementcapturespayment.md
+  - docs/models/operations/listsettlementcapturesprevious.md
+  - docs/models/operations/listsettlementcapturesrequest.md
+  - docs/models/operations/listsettlementcapturesresponse.md
+  - docs/models/operations/listsettlementcapturesself.md
+  - docs/models/operations/listsettlementcapturessettlement.md
+  - docs/models/operations/listsettlementcapturessettlementamount.md
+  - docs/models/operations/listsettlementcapturesshipment.md
+  - docs/models/operations/listsettlementchargebacksamount.md
+  - docs/models/operations/listsettlementchargebacksbadrequestdocumentation.md
+  - docs/models/operations/listsettlementchargebacksbadrequestlinks.md
+  - docs/models/operations/listsettlementchargebackschargeback.md
+  - docs/models/operations/listsettlementchargebackschargebackdocumentation.md
+  - docs/models/operations/listsettlementchargebackschargebacklinks.md
+  - docs/models/operations/listsettlementchargebackschargebackself.md
+  - docs/models/operations/listsettlementchargebacksdocumentation.md
+  - docs/models/operations/listsettlementchargebacksembed.md
+  - docs/models/operations/listsettlementchargebacksembedded.md
+  - docs/models/operations/listsettlementchargebackslinks.md
+  - docs/models/operations/listsettlementchargebacksnext.md
+  - docs/models/operations/listsettlementchargebacksnotfounddocumentation.md
+  - docs/models/operations/listsettlementchargebacksnotfoundlinks.md
+  - docs/models/operations/listsettlementchargebackspayment.md
+  - docs/models/operations/listsettlementchargebacksprevious.md
+  - docs/models/operations/listsettlementchargebacksreason.md
+  - docs/models/operations/listsettlementchargebacksrequest.md
+  - docs/models/operations/listsettlementchargebacksresponse.md
+  - docs/models/operations/listsettlementchargebacksself.md
+  - docs/models/operations/listsettlementchargebackssettlement.md
+  - docs/models/operations/listsettlementchargebackssettlementamount.md
+  - docs/models/operations/listsettlementpaymentsamount.md
+  - docs/models/operations/listsettlementpaymentsamountcaptured.md
+  - docs/models/operations/listsettlementpaymentsamountchargedback.md
+  - docs/models/operations/listsettlementpaymentsamountrefunded.md
+  - docs/models/operations/listsettlementpaymentsamountremaining.md
+  - docs/models/operations/listsettlementpaymentsapplicationfee.md
+  - docs/models/operations/listsettlementpaymentsapplicationfeeamount.md
+  - docs/models/operations/listsettlementpaymentsbadrequestdocumentation.md
+  - docs/models/operations/listsettlementpaymentsbadrequestlinks.md
+  - docs/models/operations/listsettlementpaymentsbillingaddress.md
+  - docs/models/operations/listsettlementpaymentscaptures.md
+  - docs/models/operations/listsettlementpaymentscategory.md
+  - docs/models/operations/listsettlementpaymentschangepaymentstate.md
+  - docs/models/operations/listsettlementpaymentschargebacks.md
+  - docs/models/operations/listsettlementpaymentscheckout.md
+  - docs/models/operations/listsettlementpaymentscustomer.md
+  - docs/models/operations/listsettlementpaymentsdashboard.md
+  - docs/models/operations/listsettlementpaymentsdestination.md
+  - docs/models/operations/listsettlementpaymentsdiscountamount.md
+  - docs/models/operations/listsettlementpaymentsdocumentation.md
+  - docs/models/operations/listsettlementpaymentsembedded.md
+  - docs/models/operations/listsettlementpaymentsline.md
+  - docs/models/operations/listsettlementpaymentslinks.md
+  - docs/models/operations/listsettlementpaymentsmandate.md
+  - docs/models/operations/listsettlementpaymentsmetadata.md
+  - docs/models/operations/listsettlementpaymentsmetadataunion.md
+  - docs/models/operations/listsettlementpaymentsmobileappcheckout.md
+  - docs/models/operations/listsettlementpaymentsnext.md
+  - docs/models/operations/listsettlementpaymentsorder.md
+  - docs/models/operations/listsettlementpaymentspaymentdocumentation.md
+  - docs/models/operations/listsettlementpaymentspaymentlinks.md
+  - docs/models/operations/listsettlementpaymentspaymentoutput.md
+  - docs/models/operations/listsettlementpaymentspaymentself.md
+  - docs/models/operations/listsettlementpaymentsprevious.md
+  - docs/models/operations/listsettlementpaymentsrecurring.md
+  - docs/models/operations/listsettlementpaymentsrecurringamount.md
+  - docs/models/operations/listsettlementpaymentsrefunds.md
+  - docs/models/operations/listsettlementpaymentsrequest.md
+  - docs/models/operations/listsettlementpaymentsresponse.md
+  - docs/models/operations/listsettlementpaymentsrouting.md
+  - docs/models/operations/listsettlementpaymentsroutingamount.md
+  - docs/models/operations/listsettlementpaymentsroutinglinks.md
+  - docs/models/operations/listsettlementpaymentsroutingpayment.md
+  - docs/models/operations/listsettlementpaymentsroutingself.md
+  - docs/models/operations/listsettlementpaymentsself.md
+  - docs/models/operations/listsettlementpaymentssettlement.md
+  - docs/models/operations/listsettlementpaymentssettlementamount.md
+  - docs/models/operations/listsettlementpaymentsshippingaddress.md
+  - docs/models/operations/listsettlementpaymentsstatusreason.md
+  - docs/models/operations/listsettlementpaymentssubscription.md
+  - docs/models/operations/listsettlementpaymentsterminal.md
+  - docs/models/operations/listsettlementpaymentstotalamount.md
+  - docs/models/operations/listsettlementpaymentsunitprice.md
+  - docs/models/operations/listsettlementpaymentsvatamount.md
+  - docs/models/operations/listsettlementrefundsamount.md
+  - docs/models/operations/listsettlementrefundsbadrequestdocumentation.md
+  - docs/models/operations/listsettlementrefundsbadrequestlinks.md
+  - docs/models/operations/listsettlementrefundsdocumentation.md
+  - docs/models/operations/listsettlementrefundsembedded.md
+  - docs/models/operations/listsettlementrefundsexternalreference.md
+  - docs/models/operations/listsettlementrefundsinclude.md
+  - docs/models/operations/listsettlementrefundslinks.md
+  - docs/models/operations/listsettlementrefundsmetadata.md
+  - docs/models/operations/listsettlementrefundsmetadataunion.md
+  - docs/models/operations/listsettlementrefundsnext.md
+  - docs/models/operations/listsettlementrefundsnotfounddocumentation.md
+  - docs/models/operations/listsettlementrefundsnotfoundlinks.md
+  - docs/models/operations/listsettlementrefundspayment.md
+  - docs/models/operations/listsettlementrefundsprevious.md
+  - docs/models/operations/listsettlementrefundsrefund.md
+  - docs/models/operations/listsettlementrefundsrefunddocumentation.md
+  - docs/models/operations/listsettlementrefundsrefundlinks.md
+  - docs/models/operations/listsettlementrefundsrefundself.md
+  - docs/models/operations/listsettlementrefundsrequest.md
+  - docs/models/operations/listsettlementrefundsresponse.md
+  - docs/models/operations/listsettlementrefundsroutingreversal.md
+  - docs/models/operations/listsettlementrefundsroutingreversalamount.md
+  - docs/models/operations/listsettlementrefundsself.md
+  - docs/models/operations/listsettlementrefundssettlement.md
+  - docs/models/operations/listsettlementrefundssettlementamount.md
+  - docs/models/operations/listsettlementrefundssource.md
   - docs/models/operations/listsettlementsamount.md
   - docs/models/operations/listsettlementsbadrequestdocumentation.md
   - docs/models/operations/listsettlementsbadrequestlinks.md
@@ -2041,7 +1966,6 @@ generatedFiles:
   - docs/models/operations/mandatedocumentation.md
   - docs/models/operations/mandatelinks.md
   - docs/models/operations/mandateself.md
-  - docs/models/operations/metadatalinerequest.md
   - docs/models/operations/movedfrompending.md
   - docs/models/operations/movedfrompendingamount.md
   - docs/models/operations/movedfrompendingsubtotal1.md
@@ -2165,7 +2089,6 @@ generatedFiles:
   - docs/models/operations/settlementself.md
   - docs/models/operations/signuplink.md
   - docs/models/operations/sourcerequest.md
-  - docs/models/operations/statusrequest.md
   - docs/models/operations/submitonboardingdataaddress.md
   - docs/models/operations/submitonboardingdataorganization.md
   - docs/models/operations/submitonboardingdataprofile.md
@@ -2211,7 +2134,6 @@ generatedFiles:
   - docs/models/operations/transferspendingamount.md
   - docs/models/operations/transferspendingsubtotal1.md
   - docs/models/operations/transferspendingsubtotal2.md
-  - docs/models/operations/typerequest.md
   - docs/models/operations/updatecustomerdashboard.md
   - docs/models/operations/updatecustomerdocumentation.md
   - docs/models/operations/updatecustomerlinks.md
@@ -2491,10 +2413,8 @@ generatedFiles:
   - src/funcs/refundsAll.ts
   - src/funcs/refundsCancel.ts
   - src/funcs/refundsCreate.ts
-  - src/funcs/refundsCreateOrder.ts
   - src/funcs/refundsGet.ts
   - src/funcs/refundsList.ts
-  - src/funcs/refundsListForOrder.ts
   - src/funcs/salesInvoicesCreate.ts
   - src/funcs/salesInvoicesDelete.ts
   - src/funcs/salesInvoicesGet.ts
@@ -2619,10 +2539,8 @@ generatedFiles:
   - src/mcp-server/tools/refundsAll.ts
   - src/mcp-server/tools/refundsCancel.ts
   - src/mcp-server/tools/refundsCreate.ts
-  - src/mcp-server/tools/refundsCreateOrder.ts
   - src/mcp-server/tools/refundsGet.ts
   - src/mcp-server/tools/refundsList.ts
-  - src/mcp-server/tools/refundsListForOrder.ts
   - src/mcp-server/tools/salesInvoicesCreate.ts
   - src/mcp-server/tools/salesInvoicesDelete.ts
   - src/mcp-server/tools/salesInvoicesGet.ts
@@ -2663,7 +2581,6 @@ generatedFiles:
   - src/models/errors/createcustomer.ts
   - src/models/errors/createcustomerpayment.ts
   - src/models/errors/createmandate.ts
-  - src/models/errors/createorderrefund.ts
   - src/models/errors/createpayment.ts
   - src/models/errors/createpaymentlink.ts
   - src/models/errors/createprofile.ts
@@ -2694,10 +2611,6 @@ generatedFiles:
   - src/models/errors/getrefund.ts
   - src/models/errors/getsalesinvoice.ts
   - src/models/errors/getsettlement.ts
-  - src/models/errors/getsettlementcaptures.ts
-  - src/models/errors/getsettlementchargebacks.ts
-  - src/models/errors/getsettlementpayments.ts
-  - src/models/errors/getsettlementrefunds.ts
   - src/models/errors/getsubscription.ts
   - src/models/errors/getterminal.ts
   - src/models/errors/getwebhook.ts
@@ -2718,13 +2631,16 @@ generatedFiles:
   - src/models/errors/listinvoices.ts
   - src/models/errors/listmandates.ts
   - src/models/errors/listmethods.ts
-  - src/models/errors/listorderrefunds.ts
   - src/models/errors/listpaymentlinks.ts
   - src/models/errors/listpayments.ts
   - src/models/errors/listpermissions.ts
   - src/models/errors/listprofiles.ts
   - src/models/errors/listrefunds.ts
   - src/models/errors/listsalesinvoices.ts
+  - src/models/errors/listsettlementcaptures.ts
+  - src/models/errors/listsettlementchargebacks.ts
+  - src/models/errors/listsettlementpayments.ts
+  - src/models/errors/listsettlementrefunds.ts
   - src/models/errors/listsettlements.ts
   - src/models/errors/listsubscriptionpayments.ts
   - src/models/errors/listsubscriptions.ts
@@ -2754,7 +2670,6 @@ generatedFiles:
   - src/models/operations/createcustomer.ts
   - src/models/operations/createcustomerpayment.ts
   - src/models/operations/createmandate.ts
-  - src/models/operations/createorderrefund.ts
   - src/models/operations/createpayment.ts
   - src/models/operations/createpaymentlink.ts
   - src/models/operations/createprofile.ts
@@ -2792,10 +2707,6 @@ generatedFiles:
   - src/models/operations/getrefund.ts
   - src/models/operations/getsalesinvoice.ts
   - src/models/operations/getsettlement.ts
-  - src/models/operations/getsettlementcaptures.ts
-  - src/models/operations/getsettlementchargebacks.ts
-  - src/models/operations/getsettlementpayments.ts
-  - src/models/operations/getsettlementrefunds.ts
   - src/models/operations/getsubscription.ts
   - src/models/operations/getterminal.ts
   - src/models/operations/getwebhook.ts
@@ -2816,13 +2727,16 @@ generatedFiles:
   - src/models/operations/listinvoices.ts
   - src/models/operations/listmandates.ts
   - src/models/operations/listmethods.ts
-  - src/models/operations/listorderrefunds.ts
   - src/models/operations/listpaymentlinks.ts
   - src/models/operations/listpayments.ts
   - src/models/operations/listpermissions.ts
   - src/models/operations/listprofiles.ts
   - src/models/operations/listrefunds.ts
   - src/models/operations/listsalesinvoices.ts
+  - src/models/operations/listsettlementcaptures.ts
+  - src/models/operations/listsettlementchargebacks.ts
+  - src/models/operations/listsettlementpayments.ts
+  - src/models/operations/listsettlementrefunds.ts
   - src/models/operations/listsettlements.ts
   - src/models/operations/listsubscriptionpayments.ts
   - src/models/operations/listsubscriptions.ts
@@ -5609,5 +5523,183 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "422":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  list-settlement-payments:
+    list-payments-200-1:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "tr_5B8cwPMGnU"
+          limit: 50
+          sort: "desc"
+          profileId: "pfl_5B8cwPMGnU"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 1, "_embedded": {"payments": [{"resource": "payment", "id": "tr_5B8cwPMGnU6qLbRvo7qEZo", "mode": "live", "description": "Order #12345", "amount": {"currency": "GBP", "value": "75.00"}, "redirectUrl": "https://webshop.example.org/order/12345/", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_QkEhN94Ba", "status": "open", "isCancelable": false, "details": null, "createdAt": "2024-02-12T11:58:35.0Z", "expiresAt": "2024-02-12T12:13:35.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://www.mollie.com/checkout/issuer/select/ideal/7UhSN1zuXS", "type": "text/html"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_12345678/payments/tr_5B8cwPMGnU6qLbRvo7qEZo", "type": "text/html"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/payments?from=tr_SDkzMggpvx&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+    list-payments-200-2:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "tr_5B8cwPMGnU"
+          limit: 50
+          sort: "desc"
+          profileId: "pfl_5B8cwPMGnU"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 8, "_embedded": {"payments": [{"resource": "payment", "id": "tr_92M7kM99Rg", "mode": "test", "description": "This is the description", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com/redirect", "webhookUrl": "https://example.com/webhook", "locale": "nl_NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "open", "isCancelable": false, "createdAt": "2021-12-29T13:39:35+00:00", "expiresAt": "2021-12-29T13:56:35+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://www.mollie.com/checkout/test-mode?method=creditcard&token=3.onk00c", "type": "text/html"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_92M7kM99Rg", "type": "text/html"}}}, {"resource": "payment", "id": "tr_TNFzqz7jzb", "mode": "test", "description": "This is the description", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com/redirect", "webhookUrl": "https://example.com/webhook", "locale": "nl_NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "open", "isCancelable": false, "createdAt": "2021-12-29T13:38:26+00:00", "expiresAt": "2021-12-29T13:55:26+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://www.mollie.com/checkout/test-mode?method=creditcard&token=3.nnw5dc", "type": "text/html"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_TNFzqz7jzb", "type": "text/html"}}}, {"resource": "payment", "id": "tr_h7uqbSUNbG", "mode": "test", "description": "Description", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com", "webhookUrl": "https://example.com/webhook", "method": null, "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "expired", "createdAt": "2021-12-29T13:07:29+00:00", "expiredAt": "2021-12-29T13:24:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_h7uqbSUNbG", "type": "text/html"}}}, {"resource": "payment", "id": "tr_FE9UrEs9zU", "mode": "test", "description": "Updated payment description", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com", "webhookUrl": "https://example.com/webhook", "locale": "en_GB", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "metadata": {}, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "expired", "createdAt": "2021-12-29T13:01:35+00:00", "expiredAt": "2021-12-29T13:25:03+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_FE9UrEs9zU", "type": "text/html"}}}, {"resource": "payment", "id": "tr_dFWesfS4F7", "mode": "test", "description": "Description", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com", "webhookUrl": "https://example.com/webhook", "locale": "en_GB", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "metadata": {}, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "expired", "createdAt": "2021-12-23T08:25:22+00:00", "expiredAt": "2021-12-23T08:42:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_dFWesfS4F7", "type": "text/html"}}}, {"resource": "payment", "id": "tr_8N2vfqD9Q9", "mode": "test", "description": "My first routed payment", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://www.mollie.com/en", "locale": "en_NL", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "expired", "createdAt": "2021-12-22T08:48:38+00:00", "expiredAt": "2021-12-22T09:06:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_8N2vfqD9Q9", "type": "text/html"}}}, {"resource": "payment", "id": "tr_nBs82Ujy7g", "mode": "test", "description": "Payment for invoice number #000121", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://webshop.example.org/payment-links/redirectUrl", "webhookUrl": "https://webshop.example.org/payment-links/webhook", "locale": "en_NL", "countryCode": "NL", "method": "ideal", "metadata": {}, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "paid", "details": {"consumerName": "T. TEST", "consumerAccount": "NL68RABO0638606673", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-10T12:37:35+00:00", "paidAt": "2021-12-10T12:39:18+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://www.mollie.com/checkout/test-mode?method=ideal&token=3.st50hq", "type": "text/html"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_nBs82Ujy7g", "type": "text/html"}}}, {"resource": "payment", "id": "tr_6qh37hS3FF", "mode": "test", "description": "My first payment", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "0.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://www.mollie.com/en", "locale": "en_NL", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_85dxyKqNHa", "status": "paid", "details": {"consumerName": "T. TEST", "consumerAccount": "NL55RABO0282361409", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-08T16:02:20+00:00", "paidAt": "2021-12-08T16:04:10+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://www.mollie.com/checkout/test-mode?method=ideal&token=3.ee5j0m", "type": "text/html"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_13514547/payments/tr_6qh37hS3FF", "type": "text/html"}, "refunds": {"href": "https://api.mollie.com/v2/payments/tr_6qh37hS3FF/refunds", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": null, "documentation": {"href": "https://...", "type": "text/html"}}}
+    list-payments-200-3:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "tr_5B8cwPMGnU"
+          limit: 50
+          sort: "desc"
+          profileId: "pfl_5B8cwPMGnU"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 50, "_embedded": {"payments": [{"resource": "payment", "id": "tr_jDqwhKQVgW", "mode": "live", "description": "I can do payments now", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com", "method": null, "metadata": null, "applicationFee": {"amount": {"currency": "EUR", "value": "1.50"}, "description": "Platform free"}, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "open", "isCancelable": false, "createdAt": "2022-01-19T13:28:30+00:00", "expiresAt": "2022-01-19T13:43:30+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://www.mollie.com/checkout/select-method/jDqwhKQVgW", "type": "text/html"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_jDqwhKQVgW", "type": "text/html"}}}, {"resource": "payment", "id": "tr_95my2qPt3H", "mode": "live", "description": "I can do payments now", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com", "method": null, "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "open", "isCancelable": false, "createdAt": "2022-01-19T13:22:39+00:00", "expiresAt": "2022-01-19T13:37:39+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://www.mollie.com/checkout/select-method/95my2qPt3H", "type": "text/html"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_95my2qPt3H", "type": "text/html"}}}, {"resource": "payment", "id": "tr_ntnfCGP6mv", "mode": "live", "description": "I can do payments now", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.com", "method": null, "metadata": null, "applicationFee": {"amount": {"currency": "EUR", "value": "1.50"}, "description": "Platform free"}, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2022-01-19T07:42:59+00:00", "expiredAt": "2022-01-19T07:59:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_ntnfCGP6mv", "type": "text/html"}}}, {"resource": "payment", "id": "tr_EdTCRdcfCs", "mode": "live", "description": "Mollie  #136", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/pay/external/store/1001879680/order/136/provider/mollie/return", "webhookUrl": "https://example.com/api/public/v1/payments/stores/1001879680/providers/mollie/notifications?currency_code=EUR", "locale": "nl_NL", "countryCode": "NL", "method": "creditcard", "metadata": "<value>", "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "failed", "details": {"cardToken": "tkn_t67GnF6USB", "cardFingerprint": "3uzqSxyue3dDWJMHdPkBvfy6", "cardNumber": "9996", "cardHolder": "Mollie", "cardAudience": "consumer", "cardLabel": "Visa", "cardCountryCode": "MU", "cardSecurity": "3dsecure", "failureReason": "authentication_failed", "failureMessage": "3-D Secure authenticatie is gefaald."}, "createdAt": "2022-01-18T15:16:07+00:00", "failedAt": "2022-01-18T15:16:30+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_EdTCRdcfCs", "type": "text/html"}}}, {"resource": "payment", "id": "tr_8KwCUNMVJe", "mode": "live", "description": "Mollie  #135", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.01"}, "amountRemaining": {"currency": "EUR", "value": "0.00"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": null, "webhookUrl": "https://example.com/api/public/v1/payments/stores/1001879680/providers/mollie/notifications?currency_code=EUR", "locale": "nl_NL", "method": "creditcard", "metadata": "<value>", "sequenceType": "recurring", "mandateId": "mdt_DPRgAhbMDG", "customerId": "cst_77Ffsgn3ny", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"cardFingerprint": "BN895ync4krH6kr9TBhstfhh", "cardNumber": "9267", "cardHolder": "A.J. Walsh", "cardAudience": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardSecurity": "normal", "feeRegion": "intra-eu"}, "createdAt": "2022-01-18T14:04:24+00:00", "paidAt": "2022-01-18T14:04:25+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_8KwCUNMVJe", "type": "text/html"}, "refunds": {"href": "https://api.mollie.com/v2/payments/tr_8KwCUNMVJe/refunds", "type": "application/hal+json"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_77Ffsgn3ny", "type": "application/hal+json"}, "mandate": {"href": "https://api.mollie.com/v2/customers/cst_77Ffsgn3ny/mandates/mdt_DPRgAhbMDG", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_QcQPGvh9Du", "mode": "live", "description": "Mollie  #134", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.01"}, "amountRemaining": {"currency": "EUR", "value": "0.00"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": null, "webhookUrl": "https://example.com/api/public/v1/payments/stores/1001879680/providers/mollie/notifications?currency_code=EUR", "locale": "nl_NL", "method": "creditcard", "metadata": ["<value 1>"], "sequenceType": "recurring", "mandateId": "mdt_DPRgAhbMDG", "customerId": "cst_77Ffsgn3ny", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"cardFingerprint": "BN895ync4krH6kr9TBhstfhh", "cardNumber": "9267", "cardHolder": "A.J. Walsh", "cardAudience": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardSecurity": "normal", "feeRegion": "intra-eu"}, "createdAt": "2022-01-18T14:03:08+00:00", "paidAt": "2022-01-18T14:03:10+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_QcQPGvh9Du", "type": "text/html"}, "refunds": {"href": "https://api.mollie.com/v2/payments/tr_QcQPGvh9Du/refunds", "type": "application/hal+json"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_77Ffsgn3ny", "type": "application/hal+json"}, "mandate": {"href": "https://api.mollie.com/v2/customers/cst_77Ffsgn3ny/mandates/mdt_DPRgAhbMDG", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_wk6m2eaWcB", "mode": "live", "description": "Mollie  #133", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.01"}, "amountRemaining": {"currency": "EUR", "value": "0.00"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/pay/external/store/1001879680/order/133/provider/mollie/return", "webhookUrl": "https://example.com/api/public/v1/payments/stores/1001879680/providers/mollie/notifications?currency_code=EUR", "locale": "nl_NL", "countryCode": "NL", "method": "creditcard", "metadata": ["<value 1>", "<value 2>"], "sequenceType": "first", "mandateId": "mdt_DPRgAhbMDG", "customerId": "cst_77Ffsgn3ny", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"cardToken": "tkn_xtbTh68DMH", "cardFingerprint": "BN895ync4krH6kr9TBhstfhh", "cardNumber": "9267", "cardHolder": "A.J. Walsh", "cardAudience": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardSecurity": "3dsecure", "feeRegion": "intra-eu"}, "createdAt": "2022-01-18T14:00:44+00:00", "paidAt": "2022-01-18T14:01:27+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_wk6m2eaWcB", "type": "text/html"}, "refunds": {"href": "https://api.mollie.com/v2/payments/tr_wk6m2eaWcB/refunds", "type": "application/hal+json"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_77Ffsgn3ny", "type": "application/hal+json"}, "mandate": {"href": "https://api.mollie.com/v2/customers/cst_77Ffsgn3ny/mandates/mdt_DPRgAhbMDG", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_4nvqTDgb2V", "mode": "live", "description": "Order 000000376", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=394&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "first", "customerId": "cst_uU9yQjJwHV", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZo", "status": "expired", "createdAt": "2022-01-17T16:06:27+00:00", "expiredAt": "2022-01-17T16:23:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_4nvqTDgb2V", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_uU9yQjJwHV", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZo", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_WSmqbH9dmk", "mode": "live", "description": "Order 000000375", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "0.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=393&payment_token=123&utm_nooverride=1", "locale": "en_US", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "first", "mandateId": "mdt_Ff284cNKht", "customerId": "cst_uU9yQjJwHV", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ1", "status": "paid", "details": {"cardToken": "tkn_bnmP3THUuD", "cardFingerprint": "BN895ync4krH6kr9TBhstfhh", "cardNumber": "9267", "cardHolder": "A.J. Walsh", "cardAudience": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardSecurity": "3dsecure", "feeRegion": "intra-eu"}, "createdAt": "2022-01-17T16:01:41+00:00", "paidAt": "2022-01-17T16:02:19+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_WSmqbH9dmk", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_uU9yQjJwHV", "type": "application/hal+json"}, "mandate": {"href": "https://api.mollie.com/v2/customers/cst_uU9yQjJwHV/mandates/mdt_Ff284cNKht", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ1", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_QgUjvHbA8Q", "mode": "live", "description": "Order a036907f-6221-4611-a7ab-2725e1e80c2b", "amount": {"currency": "EUR", "value": "1007.00"}, "redirectUrl": "https://example.com/redirect?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447&orderId=a036907f-6221-4611-a7ab-2725e1e80c2b", "webhookUrl": "https://example.com/webhooks?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447", "locale": "en_US", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ2", "status": "expired", "createdAt": "2022-01-14T11:27:53+00:00", "expiredAt": "2022-01-14T11:44:05+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_QgUjvHbA8Q", "type": "text/html"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ2", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_ErjmfS5B86", "mode": "live", "description": "000000367", "amount": {"currency": "EUR", "value": "59.00"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=385&payment_token=123utm_nooverride=1", "webhookUrl": "https://example.com/dev/mollie/checkout/webhook/?isAjax=1", "locale": "nl_NL", "countryCode": "NL", "method": "ideal", "metadata": {}, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-16T18:56:21+00:00", "expiredAt": "2021-12-16T19:13:00+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_ErjmfS5B86", "type": "text/html"}}}, {"resource": "payment", "id": "tr_zegQDmfHp5", "mode": "live", "description": "000000366", "amount": {"currency": "EUR", "value": "59.00"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=384&payment_token=123&utm_nooverride=1", "webhookUrl": "https://example.com/dev/mollie/checkout/webhook/?isAjax=1", "locale": "nl_NL", "countryCode": "NL", "method": "ideal", "metadata": {}, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-16T18:54:22+00:00", "expiredAt": "2021-12-16T19:10:43+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_zegQDmfHp5", "type": "text/html"}}}, {"resource": "payment", "id": "tr_4jbEGjvw3C", "mode": "live", "description": "Order 462a4c86-bcf0-4e47-84c3-fd24fb6d907d", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "25.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/redirect?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447&orderId=462a4c86-bcf0-4e47-84c3-fd24fb6d907d", "webhookUrl": "https://example.com/webhooks?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447", "locale": "en_US", "countryCode": "NL", "method": "banktransfer", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ3", "status": "paid", "details": {"bankName": "Stichting Mollie Payments", "bankAccount": "NL70DEUT0265262313", "bankBic": "DEUTNL2A", "transferReference": "RF74-4500-4966-8489", "billingEmail": "test@mollie.com", "consumerName": "AJ WALSH", "consumerAccount": "NL71ABNA0825509440", "consumerBic": "ABNANL2AXXX"}, "createdAt": "2021-12-15T16:07:37+00:00", "paidAt": "2021-12-15T16:41:10+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_4jbEGjvw3C", "type": "text/html"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ3", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_zTnKhNvPUT", "mode": "live", "description": "Order c4cca02f-5ce2-4936-bbba-dc6ef1f1e3d9", "amount": {"currency": "EUR", "value": "85.00"}, "redirectUrl": "https://example.com/redirect?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447&orderId=c4cca02f-5ce2-4936-bbba-dc6ef1f1e3d9", "webhookUrl": "https://example.com/webhooks?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447", "locale": "en_US", "countryCode": "RS", "method": "banktransfer", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ4", "status": "canceled", "details": {"bankName": "Stichting Mollie Payments", "bankAccount": "NL70DEUT0265262313", "bankBic": "DEUTNL2A", "transferReference": "RF18-6008-0499-7965", "billingEmail": "test@mollie.com"}, "createdAt": "2021-12-14T15:48:48+00:00", "canceledAt": "2022-01-11T15:50:08+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_zTnKhNvPUT", "type": "text/html"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ4", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_ksNqVyqbab", "mode": "live", "description": "Order 000000365", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=383&payment_token=123&utm_nooverride=1", "locale": "en_US", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ5", "status": "expired", "details": {"cardSecurity": "normal"}, "createdAt": "2021-12-14T15:24:16+00:00", "expiredAt": "2021-12-14T15:42:07+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_ksNqVyqbab", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ5", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_csHVQWJm3W", "mode": "live", "description": "Order 000000364", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=382&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ6", "status": "expired", "createdAt": "2021-12-14T15:13:20+00:00", "expiredAt": "2021-12-14T15:30:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_csHVQWJm3W", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ6", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_9C6FGvRBFN", "mode": "live", "description": "Order 000000363", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "0.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=381&payment_token=123&utm_nooverride=1", "locale": "en_US", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ7", "status": "paid", "details": {"cardToken": "tkn_J9bAGBpw9S", "cardFingerprint": "2xWzgJFwNnC3kNE4WNTvrkfD", "cardNumber": "4335", "cardHolder": "Amanda Walsh", "cardAudience": "consumer", "cardLabel": "Visa", "cardCountryCode": "US", "cardSecurity": "3dsecure", "feeRegion": "other"}, "createdAt": "2021-12-14T15:11:40+00:00", "paidAt": "2021-12-14T15:11:52+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_9C6FGvRBFN", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ7", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_UxxzHS8sAW", "mode": "live", "description": "Order 53c0b522-d15b-4209-96b7-25cf98bb4631", "amount": {"currency": "EUR", "value": "7.50"}, "redirectUrl": "https://example.com/redirect?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447&orderId=53c0b522-d15b-4209-96b7-25cf98bb4631", "webhookUrl": "https://example.com/webhooks?wixMerchantId=d122df9a-ae27-42e2-94bc-d7ed17f9a447", "locale": "en_US", "countryCode": "NL", "method": "banktransfer", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ8", "status": "canceled", "details": {"bankName": "Stichting Mollie Payments", "bankAccount": "NL70DEUT0265262313", "bankBic": "DEUTNL2A", "transferReference": "RF06-7000-7948-6191", "billingEmail": "test@mollie.com"}, "createdAt": "2021-12-14T14:41:55+00:00", "canceledAt": "2022-01-11T14:45:03+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_UxxzHS8sAW", "type": "text/html"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ8", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_HEsCwNjSwj", "mode": "live", "description": "My first payment", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://www.mollie.com/en", "webhookUrl": "https://www.mollie.com/en", "method": "ideal", "metadata": null, "sequenceType": "first", "mandateId": "mdt_d9HvU2evHH", "customerId": "cst_uTrTNdhD5M", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-14T10:38:32+00:00", "expiredAt": "2021-12-14T10:55:05+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_HEsCwNjSwj", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_uTrTNdhD5M", "type": "application/hal+json"}, "mandate": {"href": "https://api.mollie.com/v2/customers/cst_uTrTNdhD5M/mandates/mdt_d9HvU2evHH", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_7PR5ujgAf5", "mode": "live", "description": "My first payment", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://www.mollie.com/en", "webhookUrl": "https://www.mollie.com/en", "method": "ideal", "metadata": null, "sequenceType": "first", "customerId": "cst_uTrTNdhD5M", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-14T10:37:32+00:00", "expiredAt": "2021-12-14T10:54:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_7PR5ujgAf5", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_uTrTNdhD5M", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_gHCKaEgz7A", "mode": "live", "description": "Order 000000362", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=380&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZ9", "status": "expired", "createdAt": "2021-12-13T13:08:59+00:00", "expiredAt": "2021-12-13T13:25:03+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_gHCKaEgz7A", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZ9", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_UMtHEnx6rW", "mode": "live", "description": "Order 000000361", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "0.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=379&payment_token=123&utm_nooverride=1", "locale": "en_US", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZa", "status": "paid", "details": {"cardToken": "tkn_M7nNTAr6AC", "cardFingerprint": "BN895ync4krH6kr9TBhstfhh", "cardNumber": "9267", "cardHolder": "A.J. Walsh", "cardAudience": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardSecurity": "3dsecure", "feeRegion": "intra-eu"}, "createdAt": "2021-12-13T13:06:46+00:00", "paidAt": "2021-12-13T13:07:27+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_UMtHEnx6rW", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZa", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_KNdnVCzdfv", "mode": "live", "description": "Order 000000360", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=378&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZb", "status": "expired", "createdAt": "2021-12-13T12:59:14+00:00", "expiredAt": "2021-12-13T13:16:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_KNdnVCzdfv", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZb", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_pWMGnvESfx", "mode": "live", "description": "Order 000000359", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "0.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=377&payment_token=123&utm_nooverride=1", "locale": "en_US", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZc", "status": "paid", "details": {"cardToken": "tkn_NqHkEPJQcc", "cardFingerprint": "BN895ync4krH6kr9TBhstfhh", "cardNumber": "9267", "cardHolder": "A.J. Walsh", "cardAudience": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardSecurity": "3dsecure", "feeRegion": "intra-eu"}, "createdAt": "2021-12-13T12:56:11+00:00", "paidAt": "2021-12-13T12:57:33+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_pWMGnvESfx", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZc", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_DdMxvERTUe", "mode": "live", "description": "Order 000000358", "amount": {"currency": "EUR", "value": "45.00"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=376&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZd", "status": "expired", "createdAt": "2021-12-13T12:54:15+00:00", "expiredAt": "2021-12-13T13:11:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_DdMxvERTUe", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZd", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_2yGeVFFBdW", "mode": "live", "description": "Order 000000357", "amount": {"currency": "EUR", "value": "45.00"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=375&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZe", "status": "canceled", "createdAt": "2021-12-09T12:18:20+00:00", "canceledAt": "2021-12-09T12:19:26+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_2yGeVFFBdW", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZe", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_xb55QTpsVT", "mode": "live", "description": "Order 000000356", "amount": {"currency": "EUR", "value": "45.00"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=374&payment_token=123&utm_nooverride=1", "locale": "en_US", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZf", "status": "expired", "details": {"cardSecurity": "normal"}, "createdAt": "2021-12-09T12:17:33+00:00", "expiredAt": "2021-12-09T12:35:07+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_xb55QTpsVT", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZf", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_5ygWQpgwBE", "mode": "live", "description": "Order 000000355", "amount": {"currency": "EUR", "value": "45.00"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=373&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZg", "status": "expired", "createdAt": "2021-12-09T12:14:11+00:00", "expiredAt": "2021-12-09T12:31:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_5ygWQpgwBE", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZg", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_e8PGEKcS2h", "mode": "live", "description": "Order 000000354", "amount": {"currency": "EUR", "value": "22.00"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=372&payment_token=123&utm_nooverride=1", "locale": "en_US", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZh", "status": "expired", "createdAt": "2021-12-09T12:11:19+00:00", "expiredAt": "2021-12-09T12:28:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_e8PGEKcS2h", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZh", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_pubnh4PCd4", "mode": "live", "description": "Order 000000353", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "0.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "https://example.com/dev/mollie/checkout/process/?order_id=371&payment_token=123&utm_nooverride=1", "locale": "en_US", "countryCode": "NL", "method": "creditcard", "metadata": null, "sequenceType": "oneoff", "customerId": "cst_Fe48Wu9Eva", "profileId": "pfl_zcfJRjkf6P", "orderId": "ord_5B8cwPMGnU6qLbRvo7qEZi", "status": "paid", "details": {"cardToken": "tkn_VEGsUNt3uq", "cardFingerprint": "BN895ync4krH6kr9TBhstfhh", "cardNumber": "9267", "cardHolder": "A.J. Walsh", "cardAudience": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardSecurity": "3dsecure", "feeRegion": "intra-eu"}, "createdAt": "2021-12-09T12:03:42+00:00", "paidAt": "2021-12-09T12:04:22+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_pubnh4PCd4", "type": "text/html"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_Fe48Wu9Eva", "type": "application/hal+json"}, "order": {"href": "https://api.mollie.com/v2/orders/ord_5B8cwPMGnU6qLbRvo7qEZi", "type": "application/hal+json"}}}, {"resource": "payment", "id": "tr_DPb2GgeB2B", "mode": "live", "description": "My first routed payment", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://www.mollie.com/en", "webhookUrl": "https://www.mollie.com/en", "locale": "en_NL", "countryCode": "NL", "method": "directdebit", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "details": {"transferReference": "SD03-5014-9920-7495", "creditorIdentifier": "NL08ZZZ502057730000", "consumerName": "<value>", "consumerAccount": "<value>", "consumerBic": "<value>", "dueDate": "2022-01-20", "bankReasonCode": "<value>", "bankReason": "<value>"}, "createdAt": "2021-12-08T08:38:08+00:00", "expiredAt": "2021-12-08T08:54:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_DPb2GgeB2B", "type": "text/html"}}}, {"resource": "payment", "id": "tr_ydTSdxn8An", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/55", "webhookUrl": "https://example.com/payments/55/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T13:58:00+00:00", "expiredAt": "2021-12-06T14:14:20+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_ydTSdxn8An", "type": "text/html"}}}, {"resource": "payment", "id": "tr_JK35Azc9cb", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "25.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/54", "webhookUrl": "https://example.com/payments/54/webhook", "locale": "en_NL", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"consumerName": "L.E. Kok", "consumerAccount": "NL04RABO0148504558", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-06T13:57:12+00:00", "paidAt": "2021-12-06T13:57:29+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_JK35Azc9cb", "type": "text/html"}}}, {"resource": "payment", "id": "tr_sQSvH3pMPR", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/53", "webhookUrl": "https://example.com/payments/53/webhook", "method": null, "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T13:49:12+00:00", "expiredAt": "2021-12-06T14:06:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_sQSvH3pMPR", "type": "text/html"}}}, {"resource": "payment", "id": "tr_PFEKtRWTqN", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/52", "webhookUrl": "https://example.com/payments/52/webhook", "method": null, "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T13:40:30+00:00", "expiredAt": "2021-12-06T13:57:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_PFEKtRWTqN", "type": "text/html"}}}, {"resource": "payment", "id": "tr_tkf3hujUn5", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/51", "webhookUrl": "https://example.com/payments/51/webhook", "locale": "en_NL", "method": null, "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T13:39:49+00:00", "expiredAt": "2021-12-06T13:56:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_tkf3hujUn5", "type": "text/html"}}}, {"resource": "payment", "id": "tr_Kba2FsryW3", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/50", "webhookUrl": "https://example.com/payments/50/webhook", "method": null, "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T13:25:52+00:00", "expiredAt": "2021-12-06T13:42:02+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_Kba2FsryW3", "type": "text/html"}}}, {"resource": "payment", "id": "tr_RxA7KvSrtJ", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "25.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/49", "webhookUrl": "https://example.com/payments/49/webhook", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"consumerName": "L.E. Kok", "consumerAccount": "NL04RABO0148504558", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-06T13:19:46+00:00", "paidAt": "2021-12-06T13:19:58+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_RxA7KvSrtJ", "type": "text/html"}}}, {"resource": "payment", "id": "tr_MwSQRteNjB", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "25.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/48", "webhookUrl": "https://example.com/payments/48/webhook", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"consumerName": "L.E. Kok", "consumerAccount": "NL04RABO0148504558", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-06T13:02:31+00:00", "paidAt": "2021-12-06T13:02:58+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_MwSQRteNjB", "type": "text/html"}}}, {"resource": "payment", "id": "tr_m257hQC5tk", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "25.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/47", "webhookUrl": "https://example.com/payments/47/webhook", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"consumerName": "L.E. Kok", "consumerAccount": "NL04RABO0148504558", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-06T12:55:53+00:00", "paidAt": "2021-12-06T12:56:35+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_m257hQC5tk", "type": "text/html"}}}, {"resource": "payment", "id": "tr_eEPrW72gH3", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "25.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/46", "webhookUrl": "https://example.com/payments/46/webhook", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"consumerName": "L.E. Kok", "consumerAccount": "NL04RABO0148504558", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-06T12:19:15+00:00", "paidAt": "2021-12-06T12:19:46+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_eEPrW72gH3", "type": "text/html"}}}, {"resource": "payment", "id": "tr_NwQjTuvhMW", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/45", "webhookUrl": "https://example.com/payments/45/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T12:17:04+00:00", "expiredAt": "2021-12-06T12:33:09+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_NwQjTuvhMW", "type": "text/html"}}}, {"resource": "payment", "id": "tr_HRMmGPqnmS", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/44", "webhookUrl": "https://example.com/payments/44/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T12:16:45+00:00", "expiredAt": "2021-12-06T12:32:49+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_HRMmGPqnmS", "type": "text/html"}}}, {"resource": "payment", "id": "tr_B7B2cenDkC", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/43", "webhookUrl": "https://example.com/payments/43/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T12:16:44+00:00", "expiredAt": "2021-12-06T12:32:53+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_B7B2cenDkC", "type": "text/html"}}}, {"resource": "payment", "id": "tr_z5PREjDv5C", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/42", "webhookUrl": "https://example.com/payments/42/webhook", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "canceled", "createdAt": "2021-12-06T12:16:29+00:00", "canceledAt": "2021-12-06T12:16:36+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_z5PREjDv5C", "type": "text/html"}}}, {"resource": "payment", "id": "tr_56nDe2G7NM", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/41", "webhookUrl": "https://example.com/payments/41/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T12:14:39+00:00", "expiredAt": "2021-12-06T12:30:54+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_56nDe2G7NM", "type": "text/html"}}}, {"resource": "payment", "id": "tr_9MyFrrbAS8", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "amountRefunded": {"currency": "EUR", "value": "0.00"}, "amountRemaining": {"currency": "EUR", "value": "25.01"}, "settlementAmount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/40", "webhookUrl": "https://example.com/payments/40/webhook", "countryCode": "NL", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "paid", "details": {"consumerName": "L.E. Kok", "consumerAccount": "NL04RABO0148504558", "consumerBic": "RABONL2U"}, "createdAt": "2021-12-06T12:13:54+00:00", "paidAt": "2021-12-06T12:14:20+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_9MyFrrbAS8", "type": "text/html"}}}, {"resource": "payment", "id": "tr_KPgBxSyWfU", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/39", "webhookUrl": "https://example.com/payments/39/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T12:13:08+00:00", "expiredAt": "2021-12-06T12:29:22+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_KPgBxSyWfU", "type": "text/html"}}}, {"resource": "payment", "id": "tr_9rwyrM6jcw", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/38", "webhookUrl": "https://example.com/payments/38/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T12:13:07+00:00", "expiredAt": "2021-12-06T12:29:44+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_9rwyrM6jcw", "type": "text/html"}}}, {"resource": "payment", "id": "tr_gdE6pzp9Qs", "mode": "live", "description": "TEST Webuildapps - Mollie example", "amount": {"currency": "EUR", "value": "0.01"}, "redirectUrl": "mollie-checkout://payments/37", "webhookUrl": "https://example.com/payments/37/webhook", "method": "ideal", "metadata": null, "sequenceType": "oneoff", "profileId": "pfl_zcfJRjkf6P", "status": "expired", "createdAt": "2021-12-06T12:12:37+00:00", "expiredAt": "2021-12-06T12:28:55+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/payments/tr_gdE6pzp9Qs", "type": "text/html"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/payments?profileId=pfl_zcfJRjkf6P&from=tr_KBwM9rn7sm&limit=50", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+    speakeasy-default-list-settlement-payments:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "tr_5B8cwPMGnU"
+          limit: 50
+          sort: "desc"
+          profileId: "pfl_5B8cwPMGnU"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 5, "_embedded": {"payments": [{"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "12 months", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37.0Z", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "createdAt": "2024-03-20T09:13:37.0Z", "authorizedAt": "2024-03-20T09:28:37.0Z", "paidAt": "2024-03-20T09:28:37.0Z", "canceledAt": "2024-03-20T09:28:37.0Z", "expiresAt": "2024-03-20T09:28:37.0Z", "expiredAt": "2024-03-20T09:28:37.0Z", "failedAt": "2024-03-20T09:28:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "400":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  list-settlement-captures:
+    list-captures-200-1:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "cpt_vytxeTZskVKR7C7WgdSP3d"
+          limit: 50
+          embed: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 1, "_embedded": {"captures": [{"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "35.95"}, "status": "pending", "metadata": "{\"bookkeeping_id\":12345}", "paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "createdAt": "2023-08-02T09:29:56.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo/captures?from=cpt_vytxeTZskVKR7C7WgdSP3d&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+    list-captures-200-2:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "cpt_vytxeTZskVKR7C7WgdSP3d"
+          limit: 50
+          embed: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 1, "_embedded": {"captures": [{"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "test", "amount": {"currency": "EUR", "value": "467.92"}, "settlementAmount": {"currency": "EUR", "value": "467.92"}, "status": "pending", "paymentId": "tr_V9kqkGtyUH", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "createdAt": "2021-06-03T11:50:58+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_V9kqkGtyUH", "type": "application/hal+json"}, "shipment": {"href": "https://api.mollie.com/v2/orders/ord_uvpptr/shipments/shp_5x4xQJDWGNcY3tKGL7X5J", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": null, "documentation": {"href": "https://...", "type": "text/html"}}}
+    speakeasy-default-list-settlement-captures:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "cpt_vytxeTZskVKR7C7WgdSP3d"
+          limit: 50
+          embed: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 5, "_embedded": {"captures": [{"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "shipment": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": null, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "400":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+        "404":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  list-settlement-refunds:
+    list-refunds-200-1:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "re_5B8cwPMGnU"
+          limit: 50
+          include: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 5, "_embedded": {"refunds": [{"resource": "refund", "id": "re_4qqhO89gsT", "mode": "live", "description": "Order", "amount": {"currency": "EUR", "value": "5.95"}, "metadata": [], "paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "status": "pending", "createdAt": "2023-03-14T17:09:02.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo", "type": "application/hal+json"}}}, {"resource": "refund"}, {"resource": "refund"}, {"resource": "refund"}, {"resource": "refund"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo/refunds?from=re_APBiGPH2vV&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+    speakeasy-default-list-settlement-refunds:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "re_5B8cwPMGnU"
+          limit: 50
+          include: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 5, "_embedded": {"refunds": [{"resource": "refund", "id": "re_5B8cwPMGnU", "mode": "live", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "createdAt": "2024-03-20T09:13:37.0Z", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"organizationId": "org_1234567"}}], "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "400":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+        "404":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  list-settlement-chargebacks:
+    list-chargeback-200-1:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "chb_xFzwUN4ci8HAmSGUACS4J"
+          limit: 50
+          embed: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 1, "_embedded": {"chargebacks": [{"resource": "chargeback", "id": "chb_xFzwUN4ci8HAmSGUACS4J", "amount": {"currency": "USD", "value": "43.38"}, "settlementAmount": {"currency": "EUR", "value": "-35.07"}, "reason": {"code": "AC01", "description": "Account identifier incorrect (i.e. invalid IBAN)"}, "paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "createdAt": "2023-03-14T17:09:02.0Z", "reversedAt": null, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo/chargebacks?from=chb_xFzwUN4ci8HAmSGUACS4J&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+    list-chargeback-200-2:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "chb_xFzwUN4ci8HAmSGUACS4J"
+          limit: 50
+          embed: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 1, "_embedded": {"chargebacks": [{"resource": "chargeback", "id": "chb_xFzwUN4ci8HAmSGUACS4J", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "-10.00"}, "paymentId": "tr_8bVBhk2qs4", "createdAt": "2022-01-03T13:20:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_8bVBhk2qs4", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": null, "documentation": {"href": "https://...", "type": "text/html"}}}
+    list-chargeback-200-3:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "chb_xFzwUN4ci8HAmSGUACS4J"
+          limit: 50
+          embed: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 1, "_embedded": {"chargebacks": [{"resource": "chargeback", "id": "chb_xFzwUN4ci8HAmSGUACS4J", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "-10.00"}, "paymentId": "tr_8bVBhk2qs4", "createdAt": "2022-01-03T13:20:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_8bVBhk2qs4", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": null, "documentation": {"href": "https://...", "type": "text/html"}}}
+    speakeasy-default-list-settlement-chargebacks:
+      parameters:
+        path:
+          settlementId: "stl_jDk30akdN"
+        query:
+          from: "chb_xFzwUN4ci8HAmSGUACS4J"
+          limit: 50
+          embed: "payment"
+          testmode: false
+      responses:
+        "200":
+          application/hal+json: {"count": 5, "_embedded": {"chargebacks": [{"resource": "chargeback", "id": "chb_xFzwUN4ci8HAmSGUACS4J", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "reason": {"code": "AC01", "description": "Account identifier incorrect (i.e. invalid IBAN)"}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37.0Z", "reversedAt": "2024-03-21T09:13:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "400":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+        "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2

@@ -32,7 +32,7 @@ export type CreateRefundMetadataRequestUnion =
   | string
   | Array<string>;
 
-export type CreateRefundExternalReferenceRequest = {
+export type ExternalReferenceRequest = {
   /**
    * Specifies the reference type
    *
@@ -108,7 +108,7 @@ export type CreateRefundRequestBody = {
     | Array<string>
     | null
     | undefined;
-  externalReference?: CreateRefundExternalReferenceRequest | undefined;
+  externalReference?: ExternalReferenceRequest | undefined;
   /**
    * *This feature is only available to marketplace operators.*
    *
@@ -636,8 +636,8 @@ export function createRefundMetadataRequestUnionFromJSON(
 }
 
 /** @internal */
-export const CreateRefundExternalReferenceRequest$inboundSchema: z.ZodType<
-  CreateRefundExternalReferenceRequest,
+export const ExternalReferenceRequest$inboundSchema: z.ZodType<
+  ExternalReferenceRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -646,16 +646,16 @@ export const CreateRefundExternalReferenceRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type CreateRefundExternalReferenceRequest$Outbound = {
+export type ExternalReferenceRequest$Outbound = {
   type?: string | undefined;
   id?: string | undefined;
 };
 
 /** @internal */
-export const CreateRefundExternalReferenceRequest$outboundSchema: z.ZodType<
-  CreateRefundExternalReferenceRequest$Outbound,
+export const ExternalReferenceRequest$outboundSchema: z.ZodType<
+  ExternalReferenceRequest$Outbound,
   z.ZodTypeDef,
-  CreateRefundExternalReferenceRequest
+  ExternalReferenceRequest
 > = z.object({
   type: z.string().optional(),
   id: z.string().optional(),
@@ -665,35 +665,30 @@ export const CreateRefundExternalReferenceRequest$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CreateRefundExternalReferenceRequest$ {
-  /** @deprecated use `CreateRefundExternalReferenceRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateRefundExternalReferenceRequest$inboundSchema;
-  /** @deprecated use `CreateRefundExternalReferenceRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateRefundExternalReferenceRequest$outboundSchema;
-  /** @deprecated use `CreateRefundExternalReferenceRequest$Outbound` instead. */
-  export type Outbound = CreateRefundExternalReferenceRequest$Outbound;
+export namespace ExternalReferenceRequest$ {
+  /** @deprecated use `ExternalReferenceRequest$inboundSchema` instead. */
+  export const inboundSchema = ExternalReferenceRequest$inboundSchema;
+  /** @deprecated use `ExternalReferenceRequest$outboundSchema` instead. */
+  export const outboundSchema = ExternalReferenceRequest$outboundSchema;
+  /** @deprecated use `ExternalReferenceRequest$Outbound` instead. */
+  export type Outbound = ExternalReferenceRequest$Outbound;
 }
 
-export function createRefundExternalReferenceRequestToJSON(
-  createRefundExternalReferenceRequest: CreateRefundExternalReferenceRequest,
+export function externalReferenceRequestToJSON(
+  externalReferenceRequest: ExternalReferenceRequest,
 ): string {
   return JSON.stringify(
-    CreateRefundExternalReferenceRequest$outboundSchema.parse(
-      createRefundExternalReferenceRequest,
-    ),
+    ExternalReferenceRequest$outboundSchema.parse(externalReferenceRequest),
   );
 }
 
-export function createRefundExternalReferenceRequestFromJSON(
+export function externalReferenceRequestFromJSON(
   jsonString: string,
-): SafeParseResult<CreateRefundExternalReferenceRequest, SDKValidationError> {
+): SafeParseResult<ExternalReferenceRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      CreateRefundExternalReferenceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateRefundExternalReferenceRequest' from JSON`,
+    (x) => ExternalReferenceRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExternalReferenceRequest' from JSON`,
   );
 }
 
@@ -881,9 +876,8 @@ export const CreateRefundRequestBody$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  externalReference: z.lazy(() =>
-    CreateRefundExternalReferenceRequest$inboundSchema
-  ).optional(),
+  externalReference: z.lazy(() => ExternalReferenceRequest$inboundSchema)
+    .optional(),
   reverseRouting: z.nullable(z.boolean()).optional(),
   routingReversals: z.nullable(
     z.array(z.lazy(() => RoutingReversalRequest$inboundSchema)),
@@ -901,7 +895,7 @@ export type CreateRefundRequestBody$Outbound = {
     | Array<string>
     | null
     | undefined;
-  externalReference?: CreateRefundExternalReferenceRequest$Outbound | undefined;
+  externalReference?: ExternalReferenceRequest$Outbound | undefined;
   reverseRouting?: boolean | null | undefined;
   routingReversals?: Array<RoutingReversalRequest$Outbound> | null | undefined;
   testmode?: boolean | null | undefined;
@@ -922,9 +916,8 @@ export const CreateRefundRequestBody$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  externalReference: z.lazy(() =>
-    CreateRefundExternalReferenceRequest$outboundSchema
-  ).optional(),
+  externalReference: z.lazy(() => ExternalReferenceRequest$outboundSchema)
+    .optional(),
   reverseRouting: z.nullable(z.boolean()).optional(),
   routingReversals: z.nullable(
     z.array(z.lazy(() => RoutingReversalRequest$outboundSchema)),

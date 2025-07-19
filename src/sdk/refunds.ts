@@ -5,10 +5,8 @@
 import { refundsAll } from "../funcs/refundsAll.js";
 import { refundsCancel } from "../funcs/refundsCancel.js";
 import { refundsCreate } from "../funcs/refundsCreate.js";
-import { refundsCreateOrder } from "../funcs/refundsCreateOrder.js";
 import { refundsGet } from "../funcs/refundsGet.js";
 import { refundsList } from "../funcs/refundsList.js";
-import { refundsListForOrder } from "../funcs/refundsListForOrder.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -104,58 +102,6 @@ export class Refunds extends ClientSDK {
     options?: RequestOptions,
   ): Promise<any> {
     return unwrapAsync(refundsCancel(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Create order refund
-   *
-   * @remarks
-   * When using the Orders API, refunds should be made for a specific order.
-   *
-   * If you want to refund arbitrary amounts, however, you can also use the [Create payment refund endpoint](create-refund) by creating a refund on the payment itself.
-   *
-   * If an order line is still in the `authorized` state, it cannot be refunded. You should cancel it instead. Order lines that are `paid`, `shipping` or `completed` can be refunded.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **refunds.write**](/reference/authentication)
-   */
-  async createOrder(
-    request: operations.CreateOrderRefundRequest,
-    options?: RequestOptions,
-  ): Promise<operations.CreateOrderRefundResponse> {
-    return unwrapAsync(refundsCreateOrder(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * List order refunds
-   *
-   * @remarks
-   * Retrieve a list of all refunds created for a specific order.
-   *
-   * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **refunds.read**](/reference/authentication)
-   */
-  async listForOrder(
-    request: operations.ListOrderRefundsRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ListOrderRefundsResponse> {
-    return unwrapAsync(refundsListForOrder(
       this,
       request,
       options,

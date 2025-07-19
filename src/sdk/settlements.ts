@@ -114,7 +114,7 @@ export class Settlements extends ClientSDK {
   }
 
   /**
-   * Get settlement payments
+   * List settlement payments
    *
    * @remarks
    * Retrieve all payments included in the given settlement.
@@ -128,9 +128,9 @@ export class Settlements extends ClientSDK {
    * > [Access token with **settlements.read** **payments.read**](/reference/authentication)
    */
   async listPayments(
-    request: operations.GetSettlementPaymentsRequest,
+    request: operations.ListSettlementPaymentsRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetSettlementPaymentsResponse> {
+  ): Promise<operations.ListSettlementPaymentsResponse> {
     return unwrapAsync(settlementsListPayments(
       this,
       request,
@@ -139,7 +139,7 @@ export class Settlements extends ClientSDK {
   }
 
   /**
-   * Get settlement captures
+   * List settlement captures
    *
    * @remarks
    * Retrieve all captures included in the given settlement.
@@ -151,9 +151,9 @@ export class Settlements extends ClientSDK {
    * > [Access token with **settlements.read** **payments.read**](/reference/authentication)
    */
   async listCaptures(
-    request: operations.GetSettlementCapturesRequest,
+    request: operations.ListSettlementCapturesRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetSettlementCapturesResponse> {
+  ): Promise<operations.ListSettlementCapturesResponse> {
     return unwrapAsync(settlementsListCaptures(
       this,
       request,
@@ -162,7 +162,7 @@ export class Settlements extends ClientSDK {
   }
 
   /**
-   * Get settlement refunds
+   * List settlement refunds
    *
    * @remarks
    * Retrieve all refunds 'deducted' from the given settlement.
@@ -174,9 +174,9 @@ export class Settlements extends ClientSDK {
    * > [Access token with **settlements.read** **refunds.read**](/reference/authentication)
    */
   async listRefunds(
-    request: operations.GetSettlementRefundsRequest,
+    request: operations.ListSettlementRefundsRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetSettlementRefundsResponse> {
+  ): Promise<operations.ListSettlementRefundsResponse> {
     return unwrapAsync(settlementsListRefunds(
       this,
       request,
@@ -185,7 +185,7 @@ export class Settlements extends ClientSDK {
   }
 
   /**
-   * Get settlement chargebacks
+   * List settlement chargebacks
    *
    * @remarks
    * Retrieve all chargebacks 'deducted' from the given settlement.
@@ -197,9 +197,9 @@ export class Settlements extends ClientSDK {
    * > [Access token with **settlements.read** **payments.read**](/reference/authentication)
    */
   async listChargebacks(
-    request: operations.GetSettlementChargebacksRequest,
+    request: operations.ListSettlementChargebacksRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetSettlementChargebacksResponse> {
+  ): Promise<operations.ListSettlementChargebacksResponse> {
     return unwrapAsync(settlementsListChargebacks(
       this,
       request,

@@ -7,12 +7,12 @@ import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.GetSettlementChargebacksRequest$inboundSchema,
+  request: operations.ListSettlementChargebacksRequest$inboundSchema,
 };
 
 export const tool$settlementsListChargebacks: ToolDefinition<typeof args> = {
   name: "settlements-list-chargebacks",
-  description: `Get settlement chargebacks
+  description: `List settlement chargebacks
 
 Retrieve all chargebacks 'deducted' from the given settlement.
 

@@ -7,12 +7,12 @@ import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.GetSettlementCapturesRequest$inboundSchema,
+  request: operations.ListSettlementCapturesRequest$inboundSchema,
 };
 
 export const tool$settlementsListCaptures: ToolDefinition<typeof args> = {
   name: "settlements-list-captures",
-  description: `Get settlement captures
+  description: `List settlement captures
 
 Retrieve all captures included in the given settlement.
 

@@ -7,12 +7,12 @@ import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.GetSettlementRefundsRequest$inboundSchema,
+  request: operations.ListSettlementRefundsRequest$inboundSchema,
 };
 
 export const tool$settlementsListRefunds: ToolDefinition<typeof args> = {
   name: "settlements-list-refunds",
-  description: `Get settlement refunds
+  description: `List settlement refunds
 
 Retrieve all refunds 'deducted' from the given settlement.
 

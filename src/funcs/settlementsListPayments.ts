@@ -26,7 +26,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get settlement payments
+ * List settlement payments
  *
  * @remarks
  * Retrieve all payments included in the given settlement.
@@ -41,12 +41,12 @@ import { Result } from "../types/fp.js";
  */
 export function settlementsListPayments(
   client: ClientCore,
-  request: operations.GetSettlementPaymentsRequest,
+  request: operations.ListSettlementPaymentsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetSettlementPaymentsResponse,
-    | errors.GetSettlementPaymentsHalJSONError
+    operations.ListSettlementPaymentsResponse,
+    | errors.ListSettlementPaymentsHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,13 +66,13 @@ export function settlementsListPayments(
 
 async function $do(
   client: ClientCore,
-  request: operations.GetSettlementPaymentsRequest,
+  request: operations.ListSettlementPaymentsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetSettlementPaymentsResponse,
-      | errors.GetSettlementPaymentsHalJSONError
+      operations.ListSettlementPaymentsResponse,
+      | errors.ListSettlementPaymentsHalJSONError
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -88,7 +88,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetSettlementPaymentsRequest$outboundSchema.parse(value),
+      operations.ListSettlementPaymentsRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -124,7 +124,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get-settlement-payments",
+    operationID: "list-settlement-payments",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -178,8 +178,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetSettlementPaymentsResponse,
-    | errors.GetSettlementPaymentsHalJSONError
+    operations.ListSettlementPaymentsResponse,
+    | errors.ListSettlementPaymentsHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -189,10 +189,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetSettlementPaymentsResponse$inboundSchema, {
+    M.json(200, operations.ListSettlementPaymentsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.GetSettlementPaymentsHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ListSettlementPaymentsHalJSONError$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

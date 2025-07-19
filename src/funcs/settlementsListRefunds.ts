@@ -26,7 +26,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get settlement refunds
+ * List settlement refunds
  *
  * @remarks
  * Retrieve all refunds 'deducted' from the given settlement.
@@ -39,13 +39,13 @@ import { Result } from "../types/fp.js";
  */
 export function settlementsListRefunds(
   client: ClientCore,
-  request: operations.GetSettlementRefundsRequest,
+  request: operations.ListSettlementRefundsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetSettlementRefundsResponse,
-    | errors.GetSettlementRefundsBadRequestHalJSONError
-    | errors.GetSettlementRefundsNotFoundHalJSONError
+    operations.ListSettlementRefundsResponse,
+    | errors.ListSettlementRefundsBadRequestHalJSONError
+    | errors.ListSettlementRefundsNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -65,14 +65,14 @@ export function settlementsListRefunds(
 
 async function $do(
   client: ClientCore,
-  request: operations.GetSettlementRefundsRequest,
+  request: operations.ListSettlementRefundsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetSettlementRefundsResponse,
-      | errors.GetSettlementRefundsBadRequestHalJSONError
-      | errors.GetSettlementRefundsNotFoundHalJSONError
+      operations.ListSettlementRefundsResponse,
+      | errors.ListSettlementRefundsBadRequestHalJSONError
+      | errors.ListSettlementRefundsNotFoundHalJSONError
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -88,7 +88,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetSettlementRefundsRequest$outboundSchema.parse(value),
+      operations.ListSettlementRefundsRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -123,7 +123,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get-settlement-refunds",
+    operationID: "list-settlement-refunds",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -177,9 +177,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetSettlementRefundsResponse,
-    | errors.GetSettlementRefundsBadRequestHalJSONError
-    | errors.GetSettlementRefundsNotFoundHalJSONError
+    operations.ListSettlementRefundsResponse,
+    | errors.ListSettlementRefundsBadRequestHalJSONError
+    | errors.ListSettlementRefundsNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -189,17 +189,17 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetSettlementRefundsResponse$inboundSchema, {
+    M.json(200, operations.ListSettlementRefundsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr(
       400,
-      errors.GetSettlementRefundsBadRequestHalJSONError$inboundSchema,
+      errors.ListSettlementRefundsBadRequestHalJSONError$inboundSchema,
       { ctype: "application/hal+json" },
     ),
     M.jsonErr(
       404,
-      errors.GetSettlementRefundsNotFoundHalJSONError$inboundSchema,
+      errors.ListSettlementRefundsNotFoundHalJSONError$inboundSchema,
       { ctype: "application/hal+json" },
     ),
     M.fail("4XX"),

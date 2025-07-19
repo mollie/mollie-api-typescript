@@ -74,10 +74,8 @@ import { tool$profilesUpdate } from "./tools/profilesUpdate.js";
 import { tool$refundsAll } from "./tools/refundsAll.js";
 import { tool$refundsCancel } from "./tools/refundsCancel.js";
 import { tool$refundsCreate } from "./tools/refundsCreate.js";
-import { tool$refundsCreateOrder } from "./tools/refundsCreateOrder.js";
 import { tool$refundsGet } from "./tools/refundsGet.js";
 import { tool$refundsList } from "./tools/refundsList.js";
-import { tool$refundsListForOrder } from "./tools/refundsListForOrder.js";
 import { tool$salesInvoicesCreate } from "./tools/salesInvoicesCreate.js";
 import { tool$salesInvoicesDelete } from "./tools/salesInvoicesDelete.js";
 import { tool$salesInvoicesGet } from "./tools/salesInvoicesGet.js";
@@ -119,7 +117,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "0.0.1-alpha.7",
+    version: "0.0.1-alpha.8",
   });
 
   const client = new ClientCore({
@@ -162,8 +160,6 @@ export function createMCPServer(deps: {
   tool(tool$refundsList);
   tool(tool$refundsGet);
   tool(tool$refundsCancel);
-  tool(tool$refundsCreateOrder);
-  tool(tool$refundsListForOrder);
   tool(tool$refundsAll);
   tool(tool$chargebacksList);
   tool(tool$chargebacksGet);

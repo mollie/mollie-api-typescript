@@ -26,7 +26,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get settlement captures
+ * List settlement captures
  *
  * @remarks
  * Retrieve all captures included in the given settlement.
@@ -39,13 +39,13 @@ import { Result } from "../types/fp.js";
  */
 export function settlementsListCaptures(
   client: ClientCore,
-  request: operations.GetSettlementCapturesRequest,
+  request: operations.ListSettlementCapturesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetSettlementCapturesResponse,
-    | errors.GetSettlementCapturesBadRequestHalJSONError
-    | errors.GetSettlementCapturesNotFoundHalJSONError
+    operations.ListSettlementCapturesResponse,
+    | errors.ListSettlementCapturesBadRequestHalJSONError
+    | errors.ListSettlementCapturesNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -65,14 +65,14 @@ export function settlementsListCaptures(
 
 async function $do(
   client: ClientCore,
-  request: operations.GetSettlementCapturesRequest,
+  request: operations.ListSettlementCapturesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetSettlementCapturesResponse,
-      | errors.GetSettlementCapturesBadRequestHalJSONError
-      | errors.GetSettlementCapturesNotFoundHalJSONError
+      operations.ListSettlementCapturesResponse,
+      | errors.ListSettlementCapturesBadRequestHalJSONError
+      | errors.ListSettlementCapturesNotFoundHalJSONError
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -88,7 +88,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetSettlementCapturesRequest$outboundSchema.parse(value),
+      operations.ListSettlementCapturesRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -123,7 +123,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get-settlement-captures",
+    operationID: "list-settlement-captures",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -177,9 +177,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetSettlementCapturesResponse,
-    | errors.GetSettlementCapturesBadRequestHalJSONError
-    | errors.GetSettlementCapturesNotFoundHalJSONError
+    operations.ListSettlementCapturesResponse,
+    | errors.ListSettlementCapturesBadRequestHalJSONError
+    | errors.ListSettlementCapturesNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -189,17 +189,17 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetSettlementCapturesResponse$inboundSchema, {
+    M.json(200, operations.ListSettlementCapturesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr(
       400,
-      errors.GetSettlementCapturesBadRequestHalJSONError$inboundSchema,
+      errors.ListSettlementCapturesBadRequestHalJSONError$inboundSchema,
       { ctype: "application/hal+json" },
     ),
     M.jsonErr(
       404,
-      errors.GetSettlementCapturesNotFoundHalJSONError$inboundSchema,
+      errors.ListSettlementCapturesNotFoundHalJSONError$inboundSchema,
       { ctype: "application/hal+json" },
     ),
     M.fail("4XX"),

@@ -7,12 +7,12 @@ import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.GetSettlementPaymentsRequest$inboundSchema,
+  request: operations.ListSettlementPaymentsRequest$inboundSchema,
 };
 
 export const tool$settlementsListPayments: ToolDefinition<typeof args> = {
   name: "settlements-list-payments",
-  description: `Get settlement payments
+  description: `List settlement payments
 
 Retrieve all payments included in the given settlement.
 

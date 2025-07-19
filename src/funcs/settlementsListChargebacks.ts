@@ -26,7 +26,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get settlement chargebacks
+ * List settlement chargebacks
  *
  * @remarks
  * Retrieve all chargebacks 'deducted' from the given settlement.
@@ -39,13 +39,13 @@ import { Result } from "../types/fp.js";
  */
 export function settlementsListChargebacks(
   client: ClientCore,
-  request: operations.GetSettlementChargebacksRequest,
+  request: operations.ListSettlementChargebacksRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetSettlementChargebacksResponse,
-    | errors.GetSettlementChargebacksBadRequestHalJSONError
-    | errors.GetSettlementChargebacksNotFoundHalJSONError
+    operations.ListSettlementChargebacksResponse,
+    | errors.ListSettlementChargebacksBadRequestHalJSONError
+    | errors.ListSettlementChargebacksNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -65,14 +65,14 @@ export function settlementsListChargebacks(
 
 async function $do(
   client: ClientCore,
-  request: operations.GetSettlementChargebacksRequest,
+  request: operations.ListSettlementChargebacksRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetSettlementChargebacksResponse,
-      | errors.GetSettlementChargebacksBadRequestHalJSONError
-      | errors.GetSettlementChargebacksNotFoundHalJSONError
+      operations.ListSettlementChargebacksResponse,
+      | errors.ListSettlementChargebacksBadRequestHalJSONError
+      | errors.ListSettlementChargebacksNotFoundHalJSONError
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -88,7 +88,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetSettlementChargebacksRequest$outboundSchema.parse(value),
+      operations.ListSettlementChargebacksRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -125,7 +125,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get-settlement-chargebacks",
+    operationID: "list-settlement-chargebacks",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -179,9 +179,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetSettlementChargebacksResponse,
-    | errors.GetSettlementChargebacksBadRequestHalJSONError
-    | errors.GetSettlementChargebacksNotFoundHalJSONError
+    operations.ListSettlementChargebacksResponse,
+    | errors.ListSettlementChargebacksBadRequestHalJSONError
+    | errors.ListSettlementChargebacksNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -191,17 +191,17 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetSettlementChargebacksResponse$inboundSchema, {
+    M.json(200, operations.ListSettlementChargebacksResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr(
       400,
-      errors.GetSettlementChargebacksBadRequestHalJSONError$inboundSchema,
+      errors.ListSettlementChargebacksBadRequestHalJSONError$inboundSchema,
       { ctype: "application/hal+json" },
     ),
     M.jsonErr(
       404,
-      errors.GetSettlementChargebacksNotFoundHalJSONError$inboundSchema,
+      errors.ListSettlementChargebacksNotFoundHalJSONError$inboundSchema,
       { ctype: "application/hal+json" },
     ),
     M.fail("4XX"),
