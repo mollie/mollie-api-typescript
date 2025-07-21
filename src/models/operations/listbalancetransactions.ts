@@ -122,19 +122,96 @@ export type Deductions = {
   value: string;
 };
 
+export type ListBalanceTransactionsPayment = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
 export type ListBalanceTransactionsCapture = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   captureId?: string | undefined;
+  captureDescription?: string | undefined;
+};
+
+export type CaptureCommision = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  captureId?: string | undefined;
+  captureDescription?: string | undefined;
+};
+
+export type CaptureRollingReserveRelease = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  captureId?: string | undefined;
+  captureDescription?: string | undefined;
+};
+
+export type UnauthorizedDirectDebit = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+export type FailedPayment = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+export type ListBalanceTransactionsRefund = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
+};
+
+export type RefundCompensation = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
 };
 
 export type ReturnedRefund = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   refundId?: string | undefined;
+  refundDescription?: string | undefined;
+};
+
+export type ReturnedRefundCompensation = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
 };
 
 export type ListBalanceTransactionsChargeback = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+export type ChargebackReversal = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+export type ChargebackCompensation = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+export type ReversedChargebackCompensation = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
 };
 
 export type OutgoingTransfer = {
@@ -152,58 +229,177 @@ export type ReturnedTransfer = {
   settlementId?: string | undefined;
 };
 
+export type InvoiceCompensation = {
+  invoiceId?: string | undefined;
+};
+
+export type ListBalanceTransactionsApplicationFee = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  payingOwner?: string | undefined;
+};
+
+export type SplitPayment = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  paymentOnwer?: string | undefined;
+};
+
 export type PlatformPaymentRefund = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   refundId?: string | undefined;
+  refundDescription?: string | undefined;
+};
+
+export type ReturnedPlatformPaymentRefund = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
 };
 
 export type PlatformPaymentChargeback = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+export type ReversedPlatformPaymentChargeback = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+export type PaymentCommission = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  organizationId?: string | undefined;
+};
+
+export type ReimbursementFee = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+export type FailedPaymentFee = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+export type PaymentFee = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+export type ManagedFee = {
+  feeType?: string | undefined;
+  feeId?: string | undefined;
+};
+
+export type ReturnedManagedFee = {
+  feeType?: string | undefined;
+  feeId?: string | undefined;
+};
+
+export type PostPaymentSplitPayment = {
+  paymentId?: string | undefined;
 };
 
 /**
- * Depending on the type of the balance transaction, we will try to give more context about the specific event that triggered it. For example, the context object for a payment transaction will look like `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo"}`.
+ * Depending on the type of the balance transaction, we will try to give more context about the specific event that triggered it. For example, the context object for a payment transaction will look like `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "paymentDescription": "Description"}`.
  *
  * @remarks
  *
  * Below is a complete list of the context values that each type of transaction will have.
  *
- * * Type `payment`: `paymentId`
- * * Type `capture`: `paymentId` `captureId`
- * * Type `unauthorized-direct-debit`: `paymentId`
- * * Type `failed-payment`: `paymentId`
- * * Type `refund`: `paymentId` `refundId`
- * * Type `returned-refund`: `paymentId` `refundId`
- * * Type `chargeback`: `paymentId` `chargebackId`
- * * Type `chargeback-reversal`: `paymentId`
+ * * Type `payment`: `paymentId`, `paymentDescription`
+ * * Type `capture`: `paymentId` `captureId`, `paymentDescription`, `captureDescription`
+ * * Type `capture-commission`: `paymentId`, `paymentDescription`, `organizationId`
+ * * Type `capture-rolling-reserve-release`: `paymentId`, `paymentDescription`, `captureId`, `captureDescription`
+ * * Type `unauthorized-direct-debit`: `paymentId`, `paymentDescription`
+ * * Type `failed-payment`: `paymentId`, `paymentDescription`
+ * * Type `refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+ * * Type `refund-compensation`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+ * * Type `returned-refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+ * * Type `returned-refund-compensation`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+ * * Type `chargeback`: `paymentId` `chargebackId`, `paymentDescription`, `chargebackDescription`
+ * * Type `chargeback-reversal`: `paymentId`, `chargebackId`, `paymentDescription`, `chargebackDescription`
+ * * Type `chargeback-compensation`: `paymentId`, `chargebackId`, `paymentDescription`, `chargebackDescription`
+ * * Type `reversed-chargeback-compensation`: `paymentId`, `chargebackId`, `paymentDescription`, `chargebackDescription`
  * * Type `outgoing-transfer`: `settlementId` `transferId`
  * * Type `canceled-outgoing-transfer`: `settlementId` `transferId`
  * * Type `returned-transfer`: `settlementId` `transferId`
  * * Type `invoice-compensation`: `invoiceId`
  * * Type `balance-correction`: none
- * * Type `application-fee`: `paymentId`
- * * Type `split-payment`: `paymentId`
- * * Type `platform-payment-refund`: `paymentId` `refundId`
- * * Type `platform-payment-chargeback`: `paymentId` `chargebackId`
+ * * Type `application-fee`: `paymentId`, `paymentDescription`, `payingOwner`
+ * * Type `split-payment`: `paymentId`, `paymentDescription`, `paymentOwner`
+ * * Type `platform-payment-refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+ * * Type `returned-platform-payment-refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+ * * Type `platform-payment-chargeback`: `paymentId` `chargebackId`, `paymentDescription`, `chargebackDescription`
+ * * Type `reversed-platform-payment-chargeback`: `paymentId` `chargebackId`, `paymentDescription`, `chargebackDescription`
+ * * Type `payment-commission`: `paymentId`, `paymentDescription`, `organizationId`
+ * * Type `reimbursement-fee`: `paymentId`, `paymentDescription`
+ * * Type `failed-payment-fee`: `paymentId`, `paymentDescription`
+ * * Type `payment-fee`: `paymentId`, `paymentDescription`
+ * * Type `cash-advance-loan`: none
+ * * Type `platform-connected-organizations-fee`: none
+ * * Type `managed-fee`: `feeType`, `<name of the fee>Id`
+ * * Type `returned-managed-fee`:  `feeType`, `<name of the fee>Id`
+ * * Type `topup`: none
+ * * Type `balance-reserve`: none
+ * * Type `balance-reserve-return`: none
+ * * Type `movement`: none
+ * * Type `post-payment-split-payment`: `paymentId`
+ * * Type `cash-collateral-issuance`: none
+ * * Type `cash-collateral-release`: none
  */
 export type Context = {
-  payment?: string | null | undefined;
+  payment?: ListBalanceTransactionsPayment | null | undefined;
   capture?: ListBalanceTransactionsCapture | null | undefined;
-  unauthorizedDirectDebit?: string | null | undefined;
-  failedPayment?: string | null | undefined;
-  refund?: string | null | undefined;
+  captureCommision?: CaptureCommision | null | undefined;
+  captureRollingReserveRelease?:
+    | CaptureRollingReserveRelease
+    | null
+    | undefined;
+  unauthorizedDirectDebit?: UnauthorizedDirectDebit | null | undefined;
+  failedPayment?: FailedPayment | null | undefined;
+  refund?: ListBalanceTransactionsRefund | null | undefined;
+  refundCompensation?: RefundCompensation | null | undefined;
   returnedRefund?: ReturnedRefund | null | undefined;
+  returnedRefundCompensation?: ReturnedRefundCompensation | null | undefined;
   chargeback?: ListBalanceTransactionsChargeback | null | undefined;
-  chargebackReversal?: string | null | undefined;
+  chargebackReversal?: ChargebackReversal | null | undefined;
+  chargebackCompensation?: ChargebackCompensation | null | undefined;
+  reversedChargebackCompensation?:
+    | ReversedChargebackCompensation
+    | null
+    | undefined;
   outgoingTransfer?: OutgoingTransfer | null | undefined;
   canceledOutgoingTransfer?: CanceledOutgoingTransfer | null | undefined;
   returnedTransfer?: ReturnedTransfer | null | undefined;
-  invoiceCompensation?: string | null | undefined;
-  applicationFee?: string | null | undefined;
-  splitPayment?: string | null | undefined;
+  invoiceCompensation?: InvoiceCompensation | null | undefined;
+  applicationFee?: ListBalanceTransactionsApplicationFee | null | undefined;
+  splitPayment?: SplitPayment | null | undefined;
   platformPaymentRefund?: PlatformPaymentRefund | null | undefined;
+  returnedPlatformPaymentRefund?:
+    | ReturnedPlatformPaymentRefund
+    | null
+    | undefined;
   platformPaymentChargeback?: PlatformPaymentChargeback | null | undefined;
+  reversedPlatformPaymentChargeback?:
+    | ReversedPlatformPaymentChargeback
+    | null
+    | undefined;
+  paymentCommission?: PaymentCommission | null | undefined;
+  reimbursementFee?: ReimbursementFee | null | undefined;
+  failedPaymentFee?: FailedPaymentFee | null | undefined;
+  paymentFee?: PaymentFee | null | undefined;
+  managedFee?: ManagedFee | null | undefined;
+  returnedManagedFee?: ReturnedManagedFee | null | undefined;
+  postPaymentSplitPayment?: PostPaymentSplitPayment | null | undefined;
 };
 
 export type BalanceTransaction = {
@@ -226,7 +422,7 @@ export type BalanceTransaction = {
    * * Invoicing: `invoice-compensation` `balance-correction`
    * * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
    *
-   * Possible values: `application-fee` `capture` `chargeback` `chargeback-reversal` `failed-payment-fee` `failed-payment` `invoice-compensation` `payment` `payment-fee` `payment-commission` `refund` `returned-refund` `returned-transfer` `split-payment` `outgoing-transfer` `capture-commission` `canceled-outgoing-transfer` `incoming-transfer` `api-payment-rolling-reserve-release` `capture-rolling-reserve-release` `reimbursement-fee` `balance-correction` `unauthorized-direct-debit` `bank-charged-failure-fee` `platform-payment-refund` `refund-compensation` `returned-refund-compensation` `returned-platform-payment-refund` `platform-payment-chargeback` `chargeback-compensation` `reversed-platform-payment-chargeback` `reversed-chargeback-compensation` `failed-split-payment-platform` `failed-split-payment-compensation` `cash-advance-repayment` `cash-advance-loan` `platform-connected-organizations-fee` `split-transaction` `managed-fee` `returned-managed-fee` `topup` `balance-reserve` `balance-reserve-return` `movement` `post-payment-split-payment` `cash-collateral-issuance` `cash-collateral-release`
+   * Possible values: `application-fee` `capture` `chargeback` `chargeback-reversal` `failed-payment-fee` `failed-payment` `invoice-compensation` `payment` `payment-fee` `payment-commission` `refund` `returned-refund` `returned-transfer` `split-payment` `outgoing-transfer` `capture-commission` `canceled-outgoing-transfer` `incoming-transfer` `api-payment-rolling-reserve-release` `capture-rolling-reserve-release` `reimbursement-fee` `balance-correction` `unauthorized-direct-debit` `bank-charged-failure-fee` `platform-payment-refund` `refund-compensation` `returned-refund-compensation` `returned-platform-payment-refund` `platform-payment-chargeback` `chargeback-compensation` `reversed-platform-payment-chargeback` `reversed-chargeback-compensation` `failed-split-payment-platform` `failed-split-payment-compensation` `cash-advance-loan` `platform-connected-organizations-fee` `split-transaction` `managed-fee` `returned-managed-fee` `topup` `balance-reserve` `balance-reserve-return` `movement` `post-payment-split-payment` `cash-collateral-issuance` `cash-collateral-release`
    */
   type?: string | undefined;
   /**
@@ -246,29 +442,52 @@ export type BalanceTransaction = {
    */
   deductions?: Deductions | null | undefined;
   /**
-   * Depending on the type of the balance transaction, we will try to give more context about the specific event that triggered it. For example, the context object for a payment transaction will look like `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo"}`.
+   * Depending on the type of the balance transaction, we will try to give more context about the specific event that triggered it. For example, the context object for a payment transaction will look like `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "paymentDescription": "Description"}`.
    *
    * @remarks
    *
    * Below is a complete list of the context values that each type of transaction will have.
    *
-   * * Type `payment`: `paymentId`
-   * * Type `capture`: `paymentId` `captureId`
-   * * Type `unauthorized-direct-debit`: `paymentId`
-   * * Type `failed-payment`: `paymentId`
-   * * Type `refund`: `paymentId` `refundId`
-   * * Type `returned-refund`: `paymentId` `refundId`
-   * * Type `chargeback`: `paymentId` `chargebackId`
-   * * Type `chargeback-reversal`: `paymentId`
+   * * Type `payment`: `paymentId`, `paymentDescription`
+   * * Type `capture`: `paymentId` `captureId`, `paymentDescription`, `captureDescription`
+   * * Type `capture-commission`: `paymentId`, `paymentDescription`, `organizationId`
+   * * Type `capture-rolling-reserve-release`: `paymentId`, `paymentDescription`, `captureId`, `captureDescription`
+   * * Type `unauthorized-direct-debit`: `paymentId`, `paymentDescription`
+   * * Type `failed-payment`: `paymentId`, `paymentDescription`
+   * * Type `refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+   * * Type `refund-compensation`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+   * * Type `returned-refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+   * * Type `returned-refund-compensation`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+   * * Type `chargeback`: `paymentId` `chargebackId`, `paymentDescription`, `chargebackDescription`
+   * * Type `chargeback-reversal`: `paymentId`, `chargebackId`, `paymentDescription`, `chargebackDescription`
+   * * Type `chargeback-compensation`: `paymentId`, `chargebackId`, `paymentDescription`, `chargebackDescription`
+   * * Type `reversed-chargeback-compensation`: `paymentId`, `chargebackId`, `paymentDescription`, `chargebackDescription`
    * * Type `outgoing-transfer`: `settlementId` `transferId`
    * * Type `canceled-outgoing-transfer`: `settlementId` `transferId`
    * * Type `returned-transfer`: `settlementId` `transferId`
    * * Type `invoice-compensation`: `invoiceId`
    * * Type `balance-correction`: none
-   * * Type `application-fee`: `paymentId`
-   * * Type `split-payment`: `paymentId`
-   * * Type `platform-payment-refund`: `paymentId` `refundId`
-   * * Type `platform-payment-chargeback`: `paymentId` `chargebackId`
+   * * Type `application-fee`: `paymentId`, `paymentDescription`, `payingOwner`
+   * * Type `split-payment`: `paymentId`, `paymentDescription`, `paymentOwner`
+   * * Type `platform-payment-refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+   * * Type `returned-platform-payment-refund`: `paymentId` `refundId`, `paymentDescription`, `refundDescription`
+   * * Type `platform-payment-chargeback`: `paymentId` `chargebackId`, `paymentDescription`, `chargebackDescription`
+   * * Type `reversed-platform-payment-chargeback`: `paymentId` `chargebackId`, `paymentDescription`, `chargebackDescription`
+   * * Type `payment-commission`: `paymentId`, `paymentDescription`, `organizationId`
+   * * Type `reimbursement-fee`: `paymentId`, `paymentDescription`
+   * * Type `failed-payment-fee`: `paymentId`, `paymentDescription`
+   * * Type `payment-fee`: `paymentId`, `paymentDescription`
+   * * Type `cash-advance-loan`: none
+   * * Type `platform-connected-organizations-fee`: none
+   * * Type `managed-fee`: `feeType`, `<name of the fee>Id`
+   * * Type `returned-managed-fee`:  `feeType`, `<name of the fee>Id`
+   * * Type `topup`: none
+   * * Type `balance-reserve`: none
+   * * Type `balance-reserve-return`: none
+   * * Type `movement`: none
+   * * Type `post-payment-split-payment`: `paymentId`
+   * * Type `cash-collateral-issuance`: none
+   * * Type `cash-collateral-release`: none
    */
   context?: Context | undefined;
   /**
@@ -987,19 +1206,82 @@ export function deductionsFromJSON(
 }
 
 /** @internal */
+export const ListBalanceTransactionsPayment$inboundSchema: z.ZodType<
+  ListBalanceTransactionsPayment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ListBalanceTransactionsPayment$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+/** @internal */
+export const ListBalanceTransactionsPayment$outboundSchema: z.ZodType<
+  ListBalanceTransactionsPayment$Outbound,
+  z.ZodTypeDef,
+  ListBalanceTransactionsPayment
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalanceTransactionsPayment$ {
+  /** @deprecated use `ListBalanceTransactionsPayment$inboundSchema` instead. */
+  export const inboundSchema = ListBalanceTransactionsPayment$inboundSchema;
+  /** @deprecated use `ListBalanceTransactionsPayment$outboundSchema` instead. */
+  export const outboundSchema = ListBalanceTransactionsPayment$outboundSchema;
+  /** @deprecated use `ListBalanceTransactionsPayment$Outbound` instead. */
+  export type Outbound = ListBalanceTransactionsPayment$Outbound;
+}
+
+export function listBalanceTransactionsPaymentToJSON(
+  listBalanceTransactionsPayment: ListBalanceTransactionsPayment,
+): string {
+  return JSON.stringify(
+    ListBalanceTransactionsPayment$outboundSchema.parse(
+      listBalanceTransactionsPayment,
+    ),
+  );
+}
+
+export function listBalanceTransactionsPaymentFromJSON(
+  jsonString: string,
+): SafeParseResult<ListBalanceTransactionsPayment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListBalanceTransactionsPayment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListBalanceTransactionsPayment' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListBalanceTransactionsCapture$inboundSchema: z.ZodType<
   ListBalanceTransactionsCapture,
   z.ZodTypeDef,
   unknown
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   captureId: z.string().optional(),
+  captureDescription: z.string().optional(),
 });
 
 /** @internal */
 export type ListBalanceTransactionsCapture$Outbound = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   captureId?: string | undefined;
+  captureDescription?: string | undefined;
 };
 
 /** @internal */
@@ -1009,7 +1291,9 @@ export const ListBalanceTransactionsCapture$outboundSchema: z.ZodType<
   ListBalanceTransactionsCapture
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   captureId: z.string().optional(),
+  captureDescription: z.string().optional(),
 });
 
 /**
@@ -1046,19 +1330,389 @@ export function listBalanceTransactionsCaptureFromJSON(
 }
 
 /** @internal */
+export const CaptureCommision$inboundSchema: z.ZodType<
+  CaptureCommision,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  captureId: z.string().optional(),
+  captureDescription: z.string().optional(),
+});
+
+/** @internal */
+export type CaptureCommision$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  captureId?: string | undefined;
+  captureDescription?: string | undefined;
+};
+
+/** @internal */
+export const CaptureCommision$outboundSchema: z.ZodType<
+  CaptureCommision$Outbound,
+  z.ZodTypeDef,
+  CaptureCommision
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  captureId: z.string().optional(),
+  captureDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CaptureCommision$ {
+  /** @deprecated use `CaptureCommision$inboundSchema` instead. */
+  export const inboundSchema = CaptureCommision$inboundSchema;
+  /** @deprecated use `CaptureCommision$outboundSchema` instead. */
+  export const outboundSchema = CaptureCommision$outboundSchema;
+  /** @deprecated use `CaptureCommision$Outbound` instead. */
+  export type Outbound = CaptureCommision$Outbound;
+}
+
+export function captureCommisionToJSON(
+  captureCommision: CaptureCommision,
+): string {
+  return JSON.stringify(
+    CaptureCommision$outboundSchema.parse(captureCommision),
+  );
+}
+
+export function captureCommisionFromJSON(
+  jsonString: string,
+): SafeParseResult<CaptureCommision, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CaptureCommision$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CaptureCommision' from JSON`,
+  );
+}
+
+/** @internal */
+export const CaptureRollingReserveRelease$inboundSchema: z.ZodType<
+  CaptureRollingReserveRelease,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  captureId: z.string().optional(),
+  captureDescription: z.string().optional(),
+});
+
+/** @internal */
+export type CaptureRollingReserveRelease$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  captureId?: string | undefined;
+  captureDescription?: string | undefined;
+};
+
+/** @internal */
+export const CaptureRollingReserveRelease$outboundSchema: z.ZodType<
+  CaptureRollingReserveRelease$Outbound,
+  z.ZodTypeDef,
+  CaptureRollingReserveRelease
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  captureId: z.string().optional(),
+  captureDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CaptureRollingReserveRelease$ {
+  /** @deprecated use `CaptureRollingReserveRelease$inboundSchema` instead. */
+  export const inboundSchema = CaptureRollingReserveRelease$inboundSchema;
+  /** @deprecated use `CaptureRollingReserveRelease$outboundSchema` instead. */
+  export const outboundSchema = CaptureRollingReserveRelease$outboundSchema;
+  /** @deprecated use `CaptureRollingReserveRelease$Outbound` instead. */
+  export type Outbound = CaptureRollingReserveRelease$Outbound;
+}
+
+export function captureRollingReserveReleaseToJSON(
+  captureRollingReserveRelease: CaptureRollingReserveRelease,
+): string {
+  return JSON.stringify(
+    CaptureRollingReserveRelease$outboundSchema.parse(
+      captureRollingReserveRelease,
+    ),
+  );
+}
+
+export function captureRollingReserveReleaseFromJSON(
+  jsonString: string,
+): SafeParseResult<CaptureRollingReserveRelease, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CaptureRollingReserveRelease$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CaptureRollingReserveRelease' from JSON`,
+  );
+}
+
+/** @internal */
+export const UnauthorizedDirectDebit$inboundSchema: z.ZodType<
+  UnauthorizedDirectDebit,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/** @internal */
+export type UnauthorizedDirectDebit$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+/** @internal */
+export const UnauthorizedDirectDebit$outboundSchema: z.ZodType<
+  UnauthorizedDirectDebit$Outbound,
+  z.ZodTypeDef,
+  UnauthorizedDirectDebit
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UnauthorizedDirectDebit$ {
+  /** @deprecated use `UnauthorizedDirectDebit$inboundSchema` instead. */
+  export const inboundSchema = UnauthorizedDirectDebit$inboundSchema;
+  /** @deprecated use `UnauthorizedDirectDebit$outboundSchema` instead. */
+  export const outboundSchema = UnauthorizedDirectDebit$outboundSchema;
+  /** @deprecated use `UnauthorizedDirectDebit$Outbound` instead. */
+  export type Outbound = UnauthorizedDirectDebit$Outbound;
+}
+
+export function unauthorizedDirectDebitToJSON(
+  unauthorizedDirectDebit: UnauthorizedDirectDebit,
+): string {
+  return JSON.stringify(
+    UnauthorizedDirectDebit$outboundSchema.parse(unauthorizedDirectDebit),
+  );
+}
+
+export function unauthorizedDirectDebitFromJSON(
+  jsonString: string,
+): SafeParseResult<UnauthorizedDirectDebit, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UnauthorizedDirectDebit$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UnauthorizedDirectDebit' from JSON`,
+  );
+}
+
+/** @internal */
+export const FailedPayment$inboundSchema: z.ZodType<
+  FailedPayment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/** @internal */
+export type FailedPayment$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+/** @internal */
+export const FailedPayment$outboundSchema: z.ZodType<
+  FailedPayment$Outbound,
+  z.ZodTypeDef,
+  FailedPayment
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace FailedPayment$ {
+  /** @deprecated use `FailedPayment$inboundSchema` instead. */
+  export const inboundSchema = FailedPayment$inboundSchema;
+  /** @deprecated use `FailedPayment$outboundSchema` instead. */
+  export const outboundSchema = FailedPayment$outboundSchema;
+  /** @deprecated use `FailedPayment$Outbound` instead. */
+  export type Outbound = FailedPayment$Outbound;
+}
+
+export function failedPaymentToJSON(failedPayment: FailedPayment): string {
+  return JSON.stringify(FailedPayment$outboundSchema.parse(failedPayment));
+}
+
+export function failedPaymentFromJSON(
+  jsonString: string,
+): SafeParseResult<FailedPayment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FailedPayment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FailedPayment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListBalanceTransactionsRefund$inboundSchema: z.ZodType<
+  ListBalanceTransactionsRefund,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ListBalanceTransactionsRefund$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
+};
+
+/** @internal */
+export const ListBalanceTransactionsRefund$outboundSchema: z.ZodType<
+  ListBalanceTransactionsRefund$Outbound,
+  z.ZodTypeDef,
+  ListBalanceTransactionsRefund
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalanceTransactionsRefund$ {
+  /** @deprecated use `ListBalanceTransactionsRefund$inboundSchema` instead. */
+  export const inboundSchema = ListBalanceTransactionsRefund$inboundSchema;
+  /** @deprecated use `ListBalanceTransactionsRefund$outboundSchema` instead. */
+  export const outboundSchema = ListBalanceTransactionsRefund$outboundSchema;
+  /** @deprecated use `ListBalanceTransactionsRefund$Outbound` instead. */
+  export type Outbound = ListBalanceTransactionsRefund$Outbound;
+}
+
+export function listBalanceTransactionsRefundToJSON(
+  listBalanceTransactionsRefund: ListBalanceTransactionsRefund,
+): string {
+  return JSON.stringify(
+    ListBalanceTransactionsRefund$outboundSchema.parse(
+      listBalanceTransactionsRefund,
+    ),
+  );
+}
+
+export function listBalanceTransactionsRefundFromJSON(
+  jsonString: string,
+): SafeParseResult<ListBalanceTransactionsRefund, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListBalanceTransactionsRefund$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListBalanceTransactionsRefund' from JSON`,
+  );
+}
+
+/** @internal */
+export const RefundCompensation$inboundSchema: z.ZodType<
+  RefundCompensation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/** @internal */
+export type RefundCompensation$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
+};
+
+/** @internal */
+export const RefundCompensation$outboundSchema: z.ZodType<
+  RefundCompensation$Outbound,
+  z.ZodTypeDef,
+  RefundCompensation
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RefundCompensation$ {
+  /** @deprecated use `RefundCompensation$inboundSchema` instead. */
+  export const inboundSchema = RefundCompensation$inboundSchema;
+  /** @deprecated use `RefundCompensation$outboundSchema` instead. */
+  export const outboundSchema = RefundCompensation$outboundSchema;
+  /** @deprecated use `RefundCompensation$Outbound` instead. */
+  export type Outbound = RefundCompensation$Outbound;
+}
+
+export function refundCompensationToJSON(
+  refundCompensation: RefundCompensation,
+): string {
+  return JSON.stringify(
+    RefundCompensation$outboundSchema.parse(refundCompensation),
+  );
+}
+
+export function refundCompensationFromJSON(
+  jsonString: string,
+): SafeParseResult<RefundCompensation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RefundCompensation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RefundCompensation' from JSON`,
+  );
+}
+
+/** @internal */
 export const ReturnedRefund$inboundSchema: z.ZodType<
   ReturnedRefund,
   z.ZodTypeDef,
   unknown
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
 });
 
 /** @internal */
 export type ReturnedRefund$Outbound = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   refundId?: string | undefined;
+  refundDescription?: string | undefined;
 };
 
 /** @internal */
@@ -1068,7 +1722,9 @@ export const ReturnedRefund$outboundSchema: z.ZodType<
   ReturnedRefund
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
 });
 
 /**
@@ -1099,19 +1755,86 @@ export function returnedRefundFromJSON(
 }
 
 /** @internal */
+export const ReturnedRefundCompensation$inboundSchema: z.ZodType<
+  ReturnedRefundCompensation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ReturnedRefundCompensation$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
+};
+
+/** @internal */
+export const ReturnedRefundCompensation$outboundSchema: z.ZodType<
+  ReturnedRefundCompensation$Outbound,
+  z.ZodTypeDef,
+  ReturnedRefundCompensation
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReturnedRefundCompensation$ {
+  /** @deprecated use `ReturnedRefundCompensation$inboundSchema` instead. */
+  export const inboundSchema = ReturnedRefundCompensation$inboundSchema;
+  /** @deprecated use `ReturnedRefundCompensation$outboundSchema` instead. */
+  export const outboundSchema = ReturnedRefundCompensation$outboundSchema;
+  /** @deprecated use `ReturnedRefundCompensation$Outbound` instead. */
+  export type Outbound = ReturnedRefundCompensation$Outbound;
+}
+
+export function returnedRefundCompensationToJSON(
+  returnedRefundCompensation: ReturnedRefundCompensation,
+): string {
+  return JSON.stringify(
+    ReturnedRefundCompensation$outboundSchema.parse(returnedRefundCompensation),
+  );
+}
+
+export function returnedRefundCompensationFromJSON(
+  jsonString: string,
+): SafeParseResult<ReturnedRefundCompensation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReturnedRefundCompensation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReturnedRefundCompensation' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListBalanceTransactionsChargeback$inboundSchema: z.ZodType<
   ListBalanceTransactionsChargeback,
   z.ZodTypeDef,
   unknown
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
 });
 
 /** @internal */
 export type ListBalanceTransactionsChargeback$Outbound = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
 };
 
 /** @internal */
@@ -1121,7 +1844,9 @@ export const ListBalanceTransactionsChargeback$outboundSchema: z.ZodType<
   ListBalanceTransactionsChargeback
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
 });
 
 /**
@@ -1155,6 +1880,197 @@ export function listBalanceTransactionsChargebackFromJSON(
     jsonString,
     (x) => ListBalanceTransactionsChargeback$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListBalanceTransactionsChargeback' from JSON`,
+  );
+}
+
+/** @internal */
+export const ChargebackReversal$inboundSchema: z.ZodType<
+  ChargebackReversal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ChargebackReversal$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+/** @internal */
+export const ChargebackReversal$outboundSchema: z.ZodType<
+  ChargebackReversal$Outbound,
+  z.ZodTypeDef,
+  ChargebackReversal
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ChargebackReversal$ {
+  /** @deprecated use `ChargebackReversal$inboundSchema` instead. */
+  export const inboundSchema = ChargebackReversal$inboundSchema;
+  /** @deprecated use `ChargebackReversal$outboundSchema` instead. */
+  export const outboundSchema = ChargebackReversal$outboundSchema;
+  /** @deprecated use `ChargebackReversal$Outbound` instead. */
+  export type Outbound = ChargebackReversal$Outbound;
+}
+
+export function chargebackReversalToJSON(
+  chargebackReversal: ChargebackReversal,
+): string {
+  return JSON.stringify(
+    ChargebackReversal$outboundSchema.parse(chargebackReversal),
+  );
+}
+
+export function chargebackReversalFromJSON(
+  jsonString: string,
+): SafeParseResult<ChargebackReversal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ChargebackReversal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ChargebackReversal' from JSON`,
+  );
+}
+
+/** @internal */
+export const ChargebackCompensation$inboundSchema: z.ZodType<
+  ChargebackCompensation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ChargebackCompensation$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+/** @internal */
+export const ChargebackCompensation$outboundSchema: z.ZodType<
+  ChargebackCompensation$Outbound,
+  z.ZodTypeDef,
+  ChargebackCompensation
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ChargebackCompensation$ {
+  /** @deprecated use `ChargebackCompensation$inboundSchema` instead. */
+  export const inboundSchema = ChargebackCompensation$inboundSchema;
+  /** @deprecated use `ChargebackCompensation$outboundSchema` instead. */
+  export const outboundSchema = ChargebackCompensation$outboundSchema;
+  /** @deprecated use `ChargebackCompensation$Outbound` instead. */
+  export type Outbound = ChargebackCompensation$Outbound;
+}
+
+export function chargebackCompensationToJSON(
+  chargebackCompensation: ChargebackCompensation,
+): string {
+  return JSON.stringify(
+    ChargebackCompensation$outboundSchema.parse(chargebackCompensation),
+  );
+}
+
+export function chargebackCompensationFromJSON(
+  jsonString: string,
+): SafeParseResult<ChargebackCompensation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ChargebackCompensation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ChargebackCompensation' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReversedChargebackCompensation$inboundSchema: z.ZodType<
+  ReversedChargebackCompensation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ReversedChargebackCompensation$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+/** @internal */
+export const ReversedChargebackCompensation$outboundSchema: z.ZodType<
+  ReversedChargebackCompensation$Outbound,
+  z.ZodTypeDef,
+  ReversedChargebackCompensation
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReversedChargebackCompensation$ {
+  /** @deprecated use `ReversedChargebackCompensation$inboundSchema` instead. */
+  export const inboundSchema = ReversedChargebackCompensation$inboundSchema;
+  /** @deprecated use `ReversedChargebackCompensation$outboundSchema` instead. */
+  export const outboundSchema = ReversedChargebackCompensation$outboundSchema;
+  /** @deprecated use `ReversedChargebackCompensation$Outbound` instead. */
+  export type Outbound = ReversedChargebackCompensation$Outbound;
+}
+
+export function reversedChargebackCompensationToJSON(
+  reversedChargebackCompensation: ReversedChargebackCompensation,
+): string {
+  return JSON.stringify(
+    ReversedChargebackCompensation$outboundSchema.parse(
+      reversedChargebackCompensation,
+    ),
+  );
+}
+
+export function reversedChargebackCompensationFromJSON(
+  jsonString: string,
+): SafeParseResult<ReversedChargebackCompensation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReversedChargebackCompensation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReversedChargebackCompensation' from JSON`,
   );
 }
 
@@ -1330,19 +2246,198 @@ export function returnedTransferFromJSON(
 }
 
 /** @internal */
+export const InvoiceCompensation$inboundSchema: z.ZodType<
+  InvoiceCompensation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  invoiceId: z.string().optional(),
+});
+
+/** @internal */
+export type InvoiceCompensation$Outbound = {
+  invoiceId?: string | undefined;
+};
+
+/** @internal */
+export const InvoiceCompensation$outboundSchema: z.ZodType<
+  InvoiceCompensation$Outbound,
+  z.ZodTypeDef,
+  InvoiceCompensation
+> = z.object({
+  invoiceId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InvoiceCompensation$ {
+  /** @deprecated use `InvoiceCompensation$inboundSchema` instead. */
+  export const inboundSchema = InvoiceCompensation$inboundSchema;
+  /** @deprecated use `InvoiceCompensation$outboundSchema` instead. */
+  export const outboundSchema = InvoiceCompensation$outboundSchema;
+  /** @deprecated use `InvoiceCompensation$Outbound` instead. */
+  export type Outbound = InvoiceCompensation$Outbound;
+}
+
+export function invoiceCompensationToJSON(
+  invoiceCompensation: InvoiceCompensation,
+): string {
+  return JSON.stringify(
+    InvoiceCompensation$outboundSchema.parse(invoiceCompensation),
+  );
+}
+
+export function invoiceCompensationFromJSON(
+  jsonString: string,
+): SafeParseResult<InvoiceCompensation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InvoiceCompensation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InvoiceCompensation' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListBalanceTransactionsApplicationFee$inboundSchema: z.ZodType<
+  ListBalanceTransactionsApplicationFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  payingOwner: z.string().optional(),
+});
+
+/** @internal */
+export type ListBalanceTransactionsApplicationFee$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  payingOwner?: string | undefined;
+};
+
+/** @internal */
+export const ListBalanceTransactionsApplicationFee$outboundSchema: z.ZodType<
+  ListBalanceTransactionsApplicationFee$Outbound,
+  z.ZodTypeDef,
+  ListBalanceTransactionsApplicationFee
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  payingOwner: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalanceTransactionsApplicationFee$ {
+  /** @deprecated use `ListBalanceTransactionsApplicationFee$inboundSchema` instead. */
+  export const inboundSchema =
+    ListBalanceTransactionsApplicationFee$inboundSchema;
+  /** @deprecated use `ListBalanceTransactionsApplicationFee$outboundSchema` instead. */
+  export const outboundSchema =
+    ListBalanceTransactionsApplicationFee$outboundSchema;
+  /** @deprecated use `ListBalanceTransactionsApplicationFee$Outbound` instead. */
+  export type Outbound = ListBalanceTransactionsApplicationFee$Outbound;
+}
+
+export function listBalanceTransactionsApplicationFeeToJSON(
+  listBalanceTransactionsApplicationFee: ListBalanceTransactionsApplicationFee,
+): string {
+  return JSON.stringify(
+    ListBalanceTransactionsApplicationFee$outboundSchema.parse(
+      listBalanceTransactionsApplicationFee,
+    ),
+  );
+}
+
+export function listBalanceTransactionsApplicationFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<ListBalanceTransactionsApplicationFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListBalanceTransactionsApplicationFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListBalanceTransactionsApplicationFee' from JSON`,
+  );
+}
+
+/** @internal */
+export const SplitPayment$inboundSchema: z.ZodType<
+  SplitPayment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  paymentOnwer: z.string().optional(),
+});
+
+/** @internal */
+export type SplitPayment$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  paymentOnwer?: string | undefined;
+};
+
+/** @internal */
+export const SplitPayment$outboundSchema: z.ZodType<
+  SplitPayment$Outbound,
+  z.ZodTypeDef,
+  SplitPayment
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  paymentOnwer: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace SplitPayment$ {
+  /** @deprecated use `SplitPayment$inboundSchema` instead. */
+  export const inboundSchema = SplitPayment$inboundSchema;
+  /** @deprecated use `SplitPayment$outboundSchema` instead. */
+  export const outboundSchema = SplitPayment$outboundSchema;
+  /** @deprecated use `SplitPayment$Outbound` instead. */
+  export type Outbound = SplitPayment$Outbound;
+}
+
+export function splitPaymentToJSON(splitPayment: SplitPayment): string {
+  return JSON.stringify(SplitPayment$outboundSchema.parse(splitPayment));
+}
+
+export function splitPaymentFromJSON(
+  jsonString: string,
+): SafeParseResult<SplitPayment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SplitPayment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SplitPayment' from JSON`,
+  );
+}
+
+/** @internal */
 export const PlatformPaymentRefund$inboundSchema: z.ZodType<
   PlatformPaymentRefund,
   z.ZodTypeDef,
   unknown
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
 });
 
 /** @internal */
 export type PlatformPaymentRefund$Outbound = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   refundId?: string | undefined;
+  refundDescription?: string | undefined;
 };
 
 /** @internal */
@@ -1352,7 +2447,9 @@ export const PlatformPaymentRefund$outboundSchema: z.ZodType<
   PlatformPaymentRefund
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
 });
 
 /**
@@ -1387,19 +2484,88 @@ export function platformPaymentRefundFromJSON(
 }
 
 /** @internal */
+export const ReturnedPlatformPaymentRefund$inboundSchema: z.ZodType<
+  ReturnedPlatformPaymentRefund,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ReturnedPlatformPaymentRefund$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  refundId?: string | undefined;
+  refundDescription?: string | undefined;
+};
+
+/** @internal */
+export const ReturnedPlatformPaymentRefund$outboundSchema: z.ZodType<
+  ReturnedPlatformPaymentRefund$Outbound,
+  z.ZodTypeDef,
+  ReturnedPlatformPaymentRefund
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  refundId: z.string().optional(),
+  refundDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReturnedPlatformPaymentRefund$ {
+  /** @deprecated use `ReturnedPlatformPaymentRefund$inboundSchema` instead. */
+  export const inboundSchema = ReturnedPlatformPaymentRefund$inboundSchema;
+  /** @deprecated use `ReturnedPlatformPaymentRefund$outboundSchema` instead. */
+  export const outboundSchema = ReturnedPlatformPaymentRefund$outboundSchema;
+  /** @deprecated use `ReturnedPlatformPaymentRefund$Outbound` instead. */
+  export type Outbound = ReturnedPlatformPaymentRefund$Outbound;
+}
+
+export function returnedPlatformPaymentRefundToJSON(
+  returnedPlatformPaymentRefund: ReturnedPlatformPaymentRefund,
+): string {
+  return JSON.stringify(
+    ReturnedPlatformPaymentRefund$outboundSchema.parse(
+      returnedPlatformPaymentRefund,
+    ),
+  );
+}
+
+export function returnedPlatformPaymentRefundFromJSON(
+  jsonString: string,
+): SafeParseResult<ReturnedPlatformPaymentRefund, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReturnedPlatformPaymentRefund$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReturnedPlatformPaymentRefund' from JSON`,
+  );
+}
+
+/** @internal */
 export const PlatformPaymentChargeback$inboundSchema: z.ZodType<
   PlatformPaymentChargeback,
   z.ZodTypeDef,
   unknown
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
 });
 
 /** @internal */
 export type PlatformPaymentChargeback$Outbound = {
   paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
   chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
 };
 
 /** @internal */
@@ -1409,7 +2575,9 @@ export const PlatformPaymentChargeback$outboundSchema: z.ZodType<
   PlatformPaymentChargeback
 > = z.object({
   paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
   chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
 });
 
 /**
@@ -1444,21 +2612,505 @@ export function platformPaymentChargebackFromJSON(
 }
 
 /** @internal */
+export const ReversedPlatformPaymentChargeback$inboundSchema: z.ZodType<
+  ReversedPlatformPaymentChargeback,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ReversedPlatformPaymentChargeback$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  chargebackId?: string | undefined;
+  chargebackDescription?: string | undefined;
+};
+
+/** @internal */
+export const ReversedPlatformPaymentChargeback$outboundSchema: z.ZodType<
+  ReversedPlatformPaymentChargeback$Outbound,
+  z.ZodTypeDef,
+  ReversedPlatformPaymentChargeback
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  chargebackId: z.string().optional(),
+  chargebackDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReversedPlatformPaymentChargeback$ {
+  /** @deprecated use `ReversedPlatformPaymentChargeback$inboundSchema` instead. */
+  export const inboundSchema = ReversedPlatformPaymentChargeback$inboundSchema;
+  /** @deprecated use `ReversedPlatformPaymentChargeback$outboundSchema` instead. */
+  export const outboundSchema =
+    ReversedPlatformPaymentChargeback$outboundSchema;
+  /** @deprecated use `ReversedPlatformPaymentChargeback$Outbound` instead. */
+  export type Outbound = ReversedPlatformPaymentChargeback$Outbound;
+}
+
+export function reversedPlatformPaymentChargebackToJSON(
+  reversedPlatformPaymentChargeback: ReversedPlatformPaymentChargeback,
+): string {
+  return JSON.stringify(
+    ReversedPlatformPaymentChargeback$outboundSchema.parse(
+      reversedPlatformPaymentChargeback,
+    ),
+  );
+}
+
+export function reversedPlatformPaymentChargebackFromJSON(
+  jsonString: string,
+): SafeParseResult<ReversedPlatformPaymentChargeback, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReversedPlatformPaymentChargeback$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReversedPlatformPaymentChargeback' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaymentCommission$inboundSchema: z.ZodType<
+  PaymentCommission,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  organizationId: z.string().optional(),
+});
+
+/** @internal */
+export type PaymentCommission$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+  organizationId?: string | undefined;
+};
+
+/** @internal */
+export const PaymentCommission$outboundSchema: z.ZodType<
+  PaymentCommission$Outbound,
+  z.ZodTypeDef,
+  PaymentCommission
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+  organizationId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PaymentCommission$ {
+  /** @deprecated use `PaymentCommission$inboundSchema` instead. */
+  export const inboundSchema = PaymentCommission$inboundSchema;
+  /** @deprecated use `PaymentCommission$outboundSchema` instead. */
+  export const outboundSchema = PaymentCommission$outboundSchema;
+  /** @deprecated use `PaymentCommission$Outbound` instead. */
+  export type Outbound = PaymentCommission$Outbound;
+}
+
+export function paymentCommissionToJSON(
+  paymentCommission: PaymentCommission,
+): string {
+  return JSON.stringify(
+    PaymentCommission$outboundSchema.parse(paymentCommission),
+  );
+}
+
+export function paymentCommissionFromJSON(
+  jsonString: string,
+): SafeParseResult<PaymentCommission, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PaymentCommission$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PaymentCommission' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReimbursementFee$inboundSchema: z.ZodType<
+  ReimbursementFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/** @internal */
+export type ReimbursementFee$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+/** @internal */
+export const ReimbursementFee$outboundSchema: z.ZodType<
+  ReimbursementFee$Outbound,
+  z.ZodTypeDef,
+  ReimbursementFee
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReimbursementFee$ {
+  /** @deprecated use `ReimbursementFee$inboundSchema` instead. */
+  export const inboundSchema = ReimbursementFee$inboundSchema;
+  /** @deprecated use `ReimbursementFee$outboundSchema` instead. */
+  export const outboundSchema = ReimbursementFee$outboundSchema;
+  /** @deprecated use `ReimbursementFee$Outbound` instead. */
+  export type Outbound = ReimbursementFee$Outbound;
+}
+
+export function reimbursementFeeToJSON(
+  reimbursementFee: ReimbursementFee,
+): string {
+  return JSON.stringify(
+    ReimbursementFee$outboundSchema.parse(reimbursementFee),
+  );
+}
+
+export function reimbursementFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<ReimbursementFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReimbursementFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReimbursementFee' from JSON`,
+  );
+}
+
+/** @internal */
+export const FailedPaymentFee$inboundSchema: z.ZodType<
+  FailedPaymentFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/** @internal */
+export type FailedPaymentFee$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+/** @internal */
+export const FailedPaymentFee$outboundSchema: z.ZodType<
+  FailedPaymentFee$Outbound,
+  z.ZodTypeDef,
+  FailedPaymentFee
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace FailedPaymentFee$ {
+  /** @deprecated use `FailedPaymentFee$inboundSchema` instead. */
+  export const inboundSchema = FailedPaymentFee$inboundSchema;
+  /** @deprecated use `FailedPaymentFee$outboundSchema` instead. */
+  export const outboundSchema = FailedPaymentFee$outboundSchema;
+  /** @deprecated use `FailedPaymentFee$Outbound` instead. */
+  export type Outbound = FailedPaymentFee$Outbound;
+}
+
+export function failedPaymentFeeToJSON(
+  failedPaymentFee: FailedPaymentFee,
+): string {
+  return JSON.stringify(
+    FailedPaymentFee$outboundSchema.parse(failedPaymentFee),
+  );
+}
+
+export function failedPaymentFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<FailedPaymentFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FailedPaymentFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FailedPaymentFee' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaymentFee$inboundSchema: z.ZodType<
+  PaymentFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/** @internal */
+export type PaymentFee$Outbound = {
+  paymentId?: string | undefined;
+  paymentDescription?: string | undefined;
+};
+
+/** @internal */
+export const PaymentFee$outboundSchema: z.ZodType<
+  PaymentFee$Outbound,
+  z.ZodTypeDef,
+  PaymentFee
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PaymentFee$ {
+  /** @deprecated use `PaymentFee$inboundSchema` instead. */
+  export const inboundSchema = PaymentFee$inboundSchema;
+  /** @deprecated use `PaymentFee$outboundSchema` instead. */
+  export const outboundSchema = PaymentFee$outboundSchema;
+  /** @deprecated use `PaymentFee$Outbound` instead. */
+  export type Outbound = PaymentFee$Outbound;
+}
+
+export function paymentFeeToJSON(paymentFee: PaymentFee): string {
+  return JSON.stringify(PaymentFee$outboundSchema.parse(paymentFee));
+}
+
+export function paymentFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<PaymentFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PaymentFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PaymentFee' from JSON`,
+  );
+}
+
+/** @internal */
+export const ManagedFee$inboundSchema: z.ZodType<
+  ManagedFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  feeType: z.string().optional(),
+  feeId: z.string().optional(),
+});
+
+/** @internal */
+export type ManagedFee$Outbound = {
+  feeType?: string | undefined;
+  feeId?: string | undefined;
+};
+
+/** @internal */
+export const ManagedFee$outboundSchema: z.ZodType<
+  ManagedFee$Outbound,
+  z.ZodTypeDef,
+  ManagedFee
+> = z.object({
+  feeType: z.string().optional(),
+  feeId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ManagedFee$ {
+  /** @deprecated use `ManagedFee$inboundSchema` instead. */
+  export const inboundSchema = ManagedFee$inboundSchema;
+  /** @deprecated use `ManagedFee$outboundSchema` instead. */
+  export const outboundSchema = ManagedFee$outboundSchema;
+  /** @deprecated use `ManagedFee$Outbound` instead. */
+  export type Outbound = ManagedFee$Outbound;
+}
+
+export function managedFeeToJSON(managedFee: ManagedFee): string {
+  return JSON.stringify(ManagedFee$outboundSchema.parse(managedFee));
+}
+
+export function managedFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<ManagedFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ManagedFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ManagedFee' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReturnedManagedFee$inboundSchema: z.ZodType<
+  ReturnedManagedFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  feeType: z.string().optional(),
+  feeId: z.string().optional(),
+});
+
+/** @internal */
+export type ReturnedManagedFee$Outbound = {
+  feeType?: string | undefined;
+  feeId?: string | undefined;
+};
+
+/** @internal */
+export const ReturnedManagedFee$outboundSchema: z.ZodType<
+  ReturnedManagedFee$Outbound,
+  z.ZodTypeDef,
+  ReturnedManagedFee
+> = z.object({
+  feeType: z.string().optional(),
+  feeId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReturnedManagedFee$ {
+  /** @deprecated use `ReturnedManagedFee$inboundSchema` instead. */
+  export const inboundSchema = ReturnedManagedFee$inboundSchema;
+  /** @deprecated use `ReturnedManagedFee$outboundSchema` instead. */
+  export const outboundSchema = ReturnedManagedFee$outboundSchema;
+  /** @deprecated use `ReturnedManagedFee$Outbound` instead. */
+  export type Outbound = ReturnedManagedFee$Outbound;
+}
+
+export function returnedManagedFeeToJSON(
+  returnedManagedFee: ReturnedManagedFee,
+): string {
+  return JSON.stringify(
+    ReturnedManagedFee$outboundSchema.parse(returnedManagedFee),
+  );
+}
+
+export function returnedManagedFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<ReturnedManagedFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReturnedManagedFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReturnedManagedFee' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostPaymentSplitPayment$inboundSchema: z.ZodType<
+  PostPaymentSplitPayment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+});
+
+/** @internal */
+export type PostPaymentSplitPayment$Outbound = {
+  paymentId?: string | undefined;
+};
+
+/** @internal */
+export const PostPaymentSplitPayment$outboundSchema: z.ZodType<
+  PostPaymentSplitPayment$Outbound,
+  z.ZodTypeDef,
+  PostPaymentSplitPayment
+> = z.object({
+  paymentId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostPaymentSplitPayment$ {
+  /** @deprecated use `PostPaymentSplitPayment$inboundSchema` instead. */
+  export const inboundSchema = PostPaymentSplitPayment$inboundSchema;
+  /** @deprecated use `PostPaymentSplitPayment$outboundSchema` instead. */
+  export const outboundSchema = PostPaymentSplitPayment$outboundSchema;
+  /** @deprecated use `PostPaymentSplitPayment$Outbound` instead. */
+  export type Outbound = PostPaymentSplitPayment$Outbound;
+}
+
+export function postPaymentSplitPaymentToJSON(
+  postPaymentSplitPayment: PostPaymentSplitPayment,
+): string {
+  return JSON.stringify(
+    PostPaymentSplitPayment$outboundSchema.parse(postPaymentSplitPayment),
+  );
+}
+
+export function postPaymentSplitPaymentFromJSON(
+  jsonString: string,
+): SafeParseResult<PostPaymentSplitPayment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostPaymentSplitPayment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostPaymentSplitPayment' from JSON`,
+  );
+}
+
+/** @internal */
 export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
   z.object({
-    payment: z.nullable(z.string()).optional(),
+    payment: z.nullable(
+      z.lazy(() => ListBalanceTransactionsPayment$inboundSchema),
+    ).optional(),
     capture: z.nullable(
       z.lazy(() => ListBalanceTransactionsCapture$inboundSchema),
     ).optional(),
-    "unauthorized-direct-debit": z.nullable(z.string()).optional(),
-    "failed-payment": z.nullable(z.string()).optional(),
-    refund: z.nullable(z.string()).optional(),
+    "capture-commision": z.nullable(
+      z.lazy(() => CaptureCommision$inboundSchema),
+    ).optional(),
+    "capture-rolling-reserve-release": z.nullable(
+      z.lazy(() => CaptureRollingReserveRelease$inboundSchema),
+    ).optional(),
+    "unauthorized-direct-debit": z.nullable(
+      z.lazy(() => UnauthorizedDirectDebit$inboundSchema),
+    ).optional(),
+    "failed-payment": z.nullable(z.lazy(() => FailedPayment$inboundSchema))
+      .optional(),
+    refund: z.nullable(
+      z.lazy(() => ListBalanceTransactionsRefund$inboundSchema),
+    ).optional(),
+    "refund-compensation": z.nullable(
+      z.lazy(() => RefundCompensation$inboundSchema),
+    ).optional(),
     "returned-refund": z.nullable(z.lazy(() => ReturnedRefund$inboundSchema))
       .optional(),
+    "returned-refund-compensation": z.nullable(
+      z.lazy(() => ReturnedRefundCompensation$inboundSchema),
+    ).optional(),
     chargeback: z.nullable(
       z.lazy(() => ListBalanceTransactionsChargeback$inboundSchema),
     ).optional(),
-    "chargeback-reversal": z.nullable(z.string()).optional(),
+    "chargeback-reversal": z.nullable(
+      z.lazy(() => ChargebackReversal$inboundSchema),
+    ).optional(),
+    "chargeback-compensation": z.nullable(
+      z.lazy(() => ChargebackCompensation$inboundSchema),
+    ).optional(),
+    "reversed-chargeback-compensation": z.nullable(
+      z.lazy(() => ReversedChargebackCompensation$inboundSchema),
+    ).optional(),
     "outgoing-transfer": z.nullable(
       z.lazy(() => OutgoingTransfer$inboundSchema),
     ).optional(),
@@ -1468,21 +3120,57 @@ export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
     "returned-transfer": z.nullable(
       z.lazy(() => ReturnedTransfer$inboundSchema),
     ).optional(),
-    "invoice-compensation": z.nullable(z.string()).optional(),
-    "application-fee": z.nullable(z.string()).optional(),
-    "split-payment": z.nullable(z.string()).optional(),
+    "invoice-compensation": z.nullable(
+      z.lazy(() => InvoiceCompensation$inboundSchema),
+    ).optional(),
+    "application-fee": z.nullable(
+      z.lazy(() => ListBalanceTransactionsApplicationFee$inboundSchema),
+    ).optional(),
+    "split-payment": z.nullable(z.lazy(() => SplitPayment$inboundSchema))
+      .optional(),
     "platform-payment-refund": z.nullable(
       z.lazy(() => PlatformPaymentRefund$inboundSchema),
+    ).optional(),
+    "returned-platform-payment-refund": z.nullable(
+      z.lazy(() => ReturnedPlatformPaymentRefund$inboundSchema),
     ).optional(),
     "platform-payment-chargeback": z.nullable(
       z.lazy(() => PlatformPaymentChargeback$inboundSchema),
     ).optional(),
+    "reversed-platform-payment-chargeback": z.nullable(
+      z.lazy(() => ReversedPlatformPaymentChargeback$inboundSchema),
+    ).optional(),
+    "payment-commission": z.nullable(
+      z.lazy(() => PaymentCommission$inboundSchema),
+    ).optional(),
+    "reimbursement-fee": z.nullable(
+      z.lazy(() => ReimbursementFee$inboundSchema),
+    ).optional(),
+    "failed-payment-fee": z.nullable(
+      z.lazy(() => FailedPaymentFee$inboundSchema),
+    ).optional(),
+    "payment-fee": z.nullable(z.lazy(() => PaymentFee$inboundSchema))
+      .optional(),
+    "managed-fee": z.nullable(z.lazy(() => ManagedFee$inboundSchema))
+      .optional(),
+    "returned-managed-fee": z.nullable(
+      z.lazy(() => ReturnedManagedFee$inboundSchema),
+    ).optional(),
+    "post-payment-split-payment": z.nullable(
+      z.lazy(() => PostPaymentSplitPayment$inboundSchema),
+    ).optional(),
   }).transform((v) => {
     return remap$(v, {
+      "capture-commision": "captureCommision",
+      "capture-rolling-reserve-release": "captureRollingReserveRelease",
       "unauthorized-direct-debit": "unauthorizedDirectDebit",
       "failed-payment": "failedPayment",
+      "refund-compensation": "refundCompensation",
       "returned-refund": "returnedRefund",
+      "returned-refund-compensation": "returnedRefundCompensation",
       "chargeback-reversal": "chargebackReversal",
+      "chargeback-compensation": "chargebackCompensation",
+      "reversed-chargeback-compensation": "reversedChargebackCompensation",
       "outgoing-transfer": "outgoingTransfer",
       "canceled-outgoing-transfer": "canceledOutgoingTransfer",
       "returned-transfer": "returnedTransfer",
@@ -1490,32 +3178,84 @@ export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
       "application-fee": "applicationFee",
       "split-payment": "splitPayment",
       "platform-payment-refund": "platformPaymentRefund",
+      "returned-platform-payment-refund": "returnedPlatformPaymentRefund",
       "platform-payment-chargeback": "platformPaymentChargeback",
+      "reversed-platform-payment-chargeback":
+        "reversedPlatformPaymentChargeback",
+      "payment-commission": "paymentCommission",
+      "reimbursement-fee": "reimbursementFee",
+      "failed-payment-fee": "failedPaymentFee",
+      "payment-fee": "paymentFee",
+      "managed-fee": "managedFee",
+      "returned-managed-fee": "returnedManagedFee",
+      "post-payment-split-payment": "postPaymentSplitPayment",
     });
   });
 
 /** @internal */
 export type Context$Outbound = {
-  payment?: string | null | undefined;
+  payment?: ListBalanceTransactionsPayment$Outbound | null | undefined;
   capture?: ListBalanceTransactionsCapture$Outbound | null | undefined;
-  "unauthorized-direct-debit"?: string | null | undefined;
-  "failed-payment"?: string | null | undefined;
-  refund?: string | null | undefined;
+  "capture-commision"?: CaptureCommision$Outbound | null | undefined;
+  "capture-rolling-reserve-release"?:
+    | CaptureRollingReserveRelease$Outbound
+    | null
+    | undefined;
+  "unauthorized-direct-debit"?:
+    | UnauthorizedDirectDebit$Outbound
+    | null
+    | undefined;
+  "failed-payment"?: FailedPayment$Outbound | null | undefined;
+  refund?: ListBalanceTransactionsRefund$Outbound | null | undefined;
+  "refund-compensation"?: RefundCompensation$Outbound | null | undefined;
   "returned-refund"?: ReturnedRefund$Outbound | null | undefined;
+  "returned-refund-compensation"?:
+    | ReturnedRefundCompensation$Outbound
+    | null
+    | undefined;
   chargeback?: ListBalanceTransactionsChargeback$Outbound | null | undefined;
-  "chargeback-reversal"?: string | null | undefined;
+  "chargeback-reversal"?: ChargebackReversal$Outbound | null | undefined;
+  "chargeback-compensation"?:
+    | ChargebackCompensation$Outbound
+    | null
+    | undefined;
+  "reversed-chargeback-compensation"?:
+    | ReversedChargebackCompensation$Outbound
+    | null
+    | undefined;
   "outgoing-transfer"?: OutgoingTransfer$Outbound | null | undefined;
   "canceled-outgoing-transfer"?:
     | CanceledOutgoingTransfer$Outbound
     | null
     | undefined;
   "returned-transfer"?: ReturnedTransfer$Outbound | null | undefined;
-  "invoice-compensation"?: string | null | undefined;
-  "application-fee"?: string | null | undefined;
-  "split-payment"?: string | null | undefined;
+  "invoice-compensation"?: InvoiceCompensation$Outbound | null | undefined;
+  "application-fee"?:
+    | ListBalanceTransactionsApplicationFee$Outbound
+    | null
+    | undefined;
+  "split-payment"?: SplitPayment$Outbound | null | undefined;
   "platform-payment-refund"?: PlatformPaymentRefund$Outbound | null | undefined;
+  "returned-platform-payment-refund"?:
+    | ReturnedPlatformPaymentRefund$Outbound
+    | null
+    | undefined;
   "platform-payment-chargeback"?:
     | PlatformPaymentChargeback$Outbound
+    | null
+    | undefined;
+  "reversed-platform-payment-chargeback"?:
+    | ReversedPlatformPaymentChargeback$Outbound
+    | null
+    | undefined;
+  "payment-commission"?: PaymentCommission$Outbound | null | undefined;
+  "reimbursement-fee"?: ReimbursementFee$Outbound | null | undefined;
+  "failed-payment-fee"?: FailedPaymentFee$Outbound | null | undefined;
+  "payment-fee"?: PaymentFee$Outbound | null | undefined;
+  "managed-fee"?: ManagedFee$Outbound | null | undefined;
+  "returned-managed-fee"?: ReturnedManagedFee$Outbound | null | undefined;
+  "post-payment-split-payment"?:
+    | PostPaymentSplitPayment$Outbound
     | null
     | undefined;
 };
@@ -1526,19 +3266,44 @@ export const Context$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Context
 > = z.object({
-  payment: z.nullable(z.string()).optional(),
+  payment: z.nullable(
+    z.lazy(() => ListBalanceTransactionsPayment$outboundSchema),
+  ).optional(),
   capture: z.nullable(
     z.lazy(() => ListBalanceTransactionsCapture$outboundSchema),
   ).optional(),
-  unauthorizedDirectDebit: z.nullable(z.string()).optional(),
-  failedPayment: z.nullable(z.string()).optional(),
-  refund: z.nullable(z.string()).optional(),
+  captureCommision: z.nullable(z.lazy(() => CaptureCommision$outboundSchema))
+    .optional(),
+  captureRollingReserveRelease: z.nullable(
+    z.lazy(() => CaptureRollingReserveRelease$outboundSchema),
+  ).optional(),
+  unauthorizedDirectDebit: z.nullable(
+    z.lazy(() => UnauthorizedDirectDebit$outboundSchema),
+  ).optional(),
+  failedPayment: z.nullable(z.lazy(() => FailedPayment$outboundSchema))
+    .optional(),
+  refund: z.nullable(z.lazy(() => ListBalanceTransactionsRefund$outboundSchema))
+    .optional(),
+  refundCompensation: z.nullable(
+    z.lazy(() => RefundCompensation$outboundSchema),
+  ).optional(),
   returnedRefund: z.nullable(z.lazy(() => ReturnedRefund$outboundSchema))
     .optional(),
+  returnedRefundCompensation: z.nullable(
+    z.lazy(() => ReturnedRefundCompensation$outboundSchema),
+  ).optional(),
   chargeback: z.nullable(
     z.lazy(() => ListBalanceTransactionsChargeback$outboundSchema),
   ).optional(),
-  chargebackReversal: z.nullable(z.string()).optional(),
+  chargebackReversal: z.nullable(
+    z.lazy(() => ChargebackReversal$outboundSchema),
+  ).optional(),
+  chargebackCompensation: z.nullable(
+    z.lazy(() => ChargebackCompensation$outboundSchema),
+  ).optional(),
+  reversedChargebackCompensation: z.nullable(
+    z.lazy(() => ReversedChargebackCompensation$outboundSchema),
+  ).optional(),
   outgoingTransfer: z.nullable(z.lazy(() => OutgoingTransfer$outboundSchema))
     .optional(),
   canceledOutgoingTransfer: z.nullable(
@@ -1546,21 +3311,52 @@ export const Context$outboundSchema: z.ZodType<
   ).optional(),
   returnedTransfer: z.nullable(z.lazy(() => ReturnedTransfer$outboundSchema))
     .optional(),
-  invoiceCompensation: z.nullable(z.string()).optional(),
-  applicationFee: z.nullable(z.string()).optional(),
-  splitPayment: z.nullable(z.string()).optional(),
+  invoiceCompensation: z.nullable(
+    z.lazy(() => InvoiceCompensation$outboundSchema),
+  ).optional(),
+  applicationFee: z.nullable(
+    z.lazy(() => ListBalanceTransactionsApplicationFee$outboundSchema),
+  ).optional(),
+  splitPayment: z.nullable(z.lazy(() => SplitPayment$outboundSchema))
+    .optional(),
   platformPaymentRefund: z.nullable(
     z.lazy(() => PlatformPaymentRefund$outboundSchema),
+  ).optional(),
+  returnedPlatformPaymentRefund: z.nullable(
+    z.lazy(() => ReturnedPlatformPaymentRefund$outboundSchema),
   ).optional(),
   platformPaymentChargeback: z.nullable(
     z.lazy(() => PlatformPaymentChargeback$outboundSchema),
   ).optional(),
+  reversedPlatformPaymentChargeback: z.nullable(
+    z.lazy(() => ReversedPlatformPaymentChargeback$outboundSchema),
+  ).optional(),
+  paymentCommission: z.nullable(z.lazy(() => PaymentCommission$outboundSchema))
+    .optional(),
+  reimbursementFee: z.nullable(z.lazy(() => ReimbursementFee$outboundSchema))
+    .optional(),
+  failedPaymentFee: z.nullable(z.lazy(() => FailedPaymentFee$outboundSchema))
+    .optional(),
+  paymentFee: z.nullable(z.lazy(() => PaymentFee$outboundSchema)).optional(),
+  managedFee: z.nullable(z.lazy(() => ManagedFee$outboundSchema)).optional(),
+  returnedManagedFee: z.nullable(
+    z.lazy(() => ReturnedManagedFee$outboundSchema),
+  ).optional(),
+  postPaymentSplitPayment: z.nullable(
+    z.lazy(() => PostPaymentSplitPayment$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
+    captureCommision: "capture-commision",
+    captureRollingReserveRelease: "capture-rolling-reserve-release",
     unauthorizedDirectDebit: "unauthorized-direct-debit",
     failedPayment: "failed-payment",
+    refundCompensation: "refund-compensation",
     returnedRefund: "returned-refund",
+    returnedRefundCompensation: "returned-refund-compensation",
     chargebackReversal: "chargeback-reversal",
+    chargebackCompensation: "chargeback-compensation",
+    reversedChargebackCompensation: "reversed-chargeback-compensation",
     outgoingTransfer: "outgoing-transfer",
     canceledOutgoingTransfer: "canceled-outgoing-transfer",
     returnedTransfer: "returned-transfer",
@@ -1568,7 +3364,16 @@ export const Context$outboundSchema: z.ZodType<
     applicationFee: "application-fee",
     splitPayment: "split-payment",
     platformPaymentRefund: "platform-payment-refund",
+    returnedPlatformPaymentRefund: "returned-platform-payment-refund",
     platformPaymentChargeback: "platform-payment-chargeback",
+    reversedPlatformPaymentChargeback: "reversed-platform-payment-chargeback",
+    paymentCommission: "payment-commission",
+    reimbursementFee: "reimbursement-fee",
+    failedPaymentFee: "failed-payment-fee",
+    paymentFee: "payment-fee",
+    managedFee: "managed-fee",
+    returnedManagedFee: "returned-managed-fee",
+    postPaymentSplitPayment: "post-payment-split-payment",
   });
 });
 
