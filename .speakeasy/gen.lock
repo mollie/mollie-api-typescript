@@ -5,7 +5,7 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.583.1
   generationVersion: 2.658.3
-  releaseVersion: 0.0.1-alpha.9
+  releaseVersion: 0.0.1
   configChecksum: 560ca5c033f3c623b5130f850055527f
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript

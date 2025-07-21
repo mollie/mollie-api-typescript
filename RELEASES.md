@@ -86,6 +86,6 @@ Based on:
 - OpenAPI Doc  
 - Speakeasy CLI 1.583.1 (2.658.3) https://github.com/speakeasy-api/speakeasy
 ### Generated
-- [typescript v0.0.1-alpha.9] .
+- [typescript v0.0.1] .
 ### Releases
-- [NPM v0.0.1-alpha.9] https://www.npmjs.com/package/mollie-api-typescript/v/0.0.1-alpha.9 - .
+- [NPM v0.0.1] https://www.npmjs.com/package/mollie-api-typescript/v/0.0.1 - .
