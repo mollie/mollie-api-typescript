@@ -15,15 +15,11 @@ export class Mandates extends ClientSDK {
    * Create mandate
    *
    * @remarks
-   * Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank account recurrently.
+   * Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank
+   * account recurrently.
    *
-   * It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create mandates for cards, your customers need to perform a 'first payment' with their card.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **mandates.write**](/reference/authentication)
+   * It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create
+   * mandates for cards, your customers need to perform a 'first payment' with their card.
    */
   async create(
     request: operations.CreateMandateRequest,
@@ -43,12 +39,6 @@ export class Mandates extends ClientSDK {
    * Retrieve a list of all mandates.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **mandates.read**](/reference/authentication)
    */
   async list(
     request: operations.ListMandatesRequest,
@@ -65,13 +55,8 @@ export class Mandates extends ClientSDK {
    * Get mandate
    *
    * @remarks
-   * Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank account details, card details, or PayPal account details.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **mandates.read**](/reference/authentication)
+   * Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank
+   * account details, card details, or PayPal account details.
    */
   async get(
     request: operations.GetMandateRequest,
@@ -88,13 +73,8 @@ export class Mandates extends ClientSDK {
    * Revoke mandate
    *
    * @remarks
-   * Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this mandate, and all connected subscriptions will be canceled.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **mandates.write**](/reference/authentication)
+   * Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this
+   * mandate, and all connected subscriptions will be canceled.
    */
   async revoke(
     request: operations.RevokeMandateRequest,

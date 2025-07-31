@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all physical point-of-sale devices.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **terminals.read**](/reference/authentication)
  */
 export function terminalsList(
   client: ClientCore,

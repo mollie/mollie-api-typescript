@@ -16,14 +16,12 @@
 
 Create a profile to process payments on.
 
-Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you can use this endpoint to automate profile creation.
-
-> 🔑 Access with
->
-> [Access token with **profiles.write**](/reference/authentication)
+Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you
+can use this endpoint to automate profile creation.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-profile" method="post" path="/profiles" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -119,12 +117,9 @@ Retrieve a list of all of your profiles.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [Access token with **profiles.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-profiles" method="get" path="/profiles" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -200,12 +195,9 @@ run();
 
 Retrieve a single profile by its ID.
 
-> 🔑 Access with
->
-> [Access token with **profiles.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-profile" method="get" path="/profiles/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -284,14 +276,12 @@ run();
 
 Update an existing profile.
 
-Profiles are required for payment processing. Normally they are created and updated via the Mollie dashboard. Alternatively, you can use this endpoint to automate profile management.
-
-> 🔑 Access with
->
-> [Access token with **profiles.write**](/reference/authentication)
+Profiles are required for payment processing. Normally they are created and updated via the Mollie dashboard.
+Alternatively, you can use this endpoint to automate profile management.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="update-profile" method="patch" path="/profiles/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -395,12 +385,9 @@ run();
 
 Delete a profile. A deleted profile and its related credentials can no longer be used for accepting payments.
 
-> 🔑 Access with
->
-> [Access token with **profiles.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="delete-profile" method="delete" path="/profiles/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -475,16 +462,15 @@ run();
 
 ## getCurrent
 
-Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile) endpoint.
+Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile)
+endpoint.
 
-For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint documentation.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
+For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint
+documentation.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-current-profile" method="get" path="/profiles/me" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

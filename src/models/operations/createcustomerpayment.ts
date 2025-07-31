@@ -14,9 +14,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  *
  * @remarks
  *
- * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+ * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+ * retrieved using the Get method endpoint.
  *
- * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+ * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+ * tip amount.
  */
 export type CreateCustomerPaymentAmountRequest = {
   /**
@@ -28,6 +30,34 @@ export type CreateCustomerPaymentAmountRequest = {
    */
   value: string;
 };
+
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export const CreateCustomerPaymentLineTypeRequest = {
+  Physical: "physical",
+  Digital: "digital",
+  ShippingFee: "shipping_fee",
+  Discount: "discount",
+  StoreCredit: "store_credit",
+  GiftCard: "gift_card",
+  Surcharge: "surcharge",
+  Tip: "tip",
+} as const;
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export type CreateCustomerPaymentLineTypeRequest = ClosedEnum<
+  typeof CreateCustomerPaymentLineTypeRequest
+>;
 
 /**
  * The price of a single item including VAT.
@@ -52,7 +82,10 @@ export type CreateCustomerPaymentUnitPriceRequest = {
 };
 
 /**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+ * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+ *
+ * @remarks
+ * type.
  */
 export type CreateCustomerPaymentDiscountAmountRequest = {
   /**
@@ -86,13 +119,15 @@ export type CreateCustomerPaymentTotalAmountRequest = {
 };
 
 /**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+ * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
  *
  * @remarks
+ * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
  *
  * Any deviations from this will result in an error.
  *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+ * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+ * `SEK 100.00 × (25 / 125) = SEK 20.00`.
  */
 export type CreateCustomerPaymentVatAmountRequest = {
   /**
@@ -116,6 +151,21 @@ export type CreateCustomerPaymentCategoryRequest = ClosedEnum<
 >;
 
 /**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export const CreateCustomerPaymentIntervalRequest = {
+  DotDotDotMonths: "... months",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export type CreateCustomerPaymentIntervalRequest = ClosedEnum<
+  typeof CreateCustomerPaymentIntervalRequest
+>;
+
+/**
  * Total amount and currency of the recurring item.
  */
 export type CreateCustomerPaymentRecurringAmountRequest = {
@@ -130,7 +180,10 @@ export type CreateCustomerPaymentRecurringAmountRequest = {
 };
 
 /**
- * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+ * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+ *
+ * @remarks
+ * to inform the shopper of the details for recurring products in the payments.
  */
 export type CreateCustomerPaymentRecurringRequest = {
   /**
@@ -139,12 +192,8 @@ export type CreateCustomerPaymentRecurringRequest = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
-   *
-   * @remarks
-   *
-   * Possible values: `... months` `... weeks` `... days`
    */
-  interval: string;
+  interval: CreateCustomerPaymentIntervalRequest;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -166,10 +215,8 @@ export type CreateCustomerPaymentLineRequest = {
    * @remarks
    *
    * The `tip` payment line type is not available when creating a payment.
-   *
-   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
    */
-  type?: string | undefined;
+  type?: CreateCustomerPaymentLineTypeRequest | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -195,7 +242,10 @@ export type CreateCustomerPaymentLineRequest = {
    */
   unitPrice: CreateCustomerPaymentUnitPriceRequest;
   /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+   *
+   * @remarks
+   * type.
    */
   discountAmount?: CreateCustomerPaymentDiscountAmountRequest | undefined;
   /**
@@ -209,17 +259,22 @@ export type CreateCustomerPaymentLineRequest = {
    */
   totalAmount: CreateCustomerPaymentTotalAmountRequest;
   /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+   *
+   * @remarks
+   * not as a float, to ensure the correct number of decimals are passed.
    */
   vatRate?: string | undefined;
   /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
    *
    * @remarks
+   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
    *
    * Any deviations from this will result in an error.
    *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
    */
   vatAmount?: CreateCustomerPaymentVatAmountRequest | undefined;
   /**
@@ -227,7 +282,10 @@ export type CreateCustomerPaymentLineRequest = {
    */
   sku?: string | undefined;
   /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the
+   *
+   * @remarks
+   * [Integrating Vouchers](integrating-vouchers) guide for more information.
    */
   categories?: Array<CreateCustomerPaymentCategoryRequest> | undefined;
   /**
@@ -239,17 +297,22 @@ export type CreateCustomerPaymentLineRequest = {
    */
   productUrl?: string | undefined;
   /**
-   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+   *
+   * @remarks
+   * to inform the shopper of the details for recurring products in the payments.
    */
   recurring?: CreateCustomerPaymentRecurringRequest | undefined;
 };
 
 /**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  *
  * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
  */
@@ -259,17 +322,19 @@ export type CreateCustomerPaymentBillingAddressRequest = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -303,7 +368,8 @@ export type CreateCustomerPaymentBillingAddressRequest = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -335,11 +401,13 @@ export type CreateCustomerPaymentBillingAddressRequest = {
 };
 
 /**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's shipping address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  */
 export type CreateCustomerPaymentShippingAddressRequest = {
   /**
@@ -347,17 +415,19 @@ export type CreateCustomerPaymentShippingAddressRequest = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -391,7 +461,8 @@ export type CreateCustomerPaymentShippingAddressRequest = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -422,10 +493,124 @@ export type CreateCustomerPaymentShippingAddressRequest = {
   country?: string | undefined;
 };
 
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export const CreateCustomerPaymentLocaleRequest = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export type CreateCustomerPaymentLocaleRequest = ClosedEnum<
+  typeof CreateCustomerPaymentLocaleRequest
+>;
+
+/**
+ * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
+ *
+ * @remarks
+ * method and your customer will skip the selection screen and is sent directly to the chosen payment method. The
+ * parameter enables you to fully integrate the payment method selection into your website.
+ *
+ * You can also specify the methods in an array. By doing so we will still show the payment method selection screen
+ * but will only show the methods specified in the array. For example, you can use this functionality to only show
+ * payment methods from a specific country to your customer `['bancontact', 'belfius']`.
+ */
+export const CreateCustomerPaymentMethodRequest = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Mbway: "mbway",
+  Multibanco: "multibanco",
+  Mybank: "mybank",
+  Payconiq: "payconiq",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Pointofsale: "pointofsale",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
+ *
+ * @remarks
+ * method and your customer will skip the selection screen and is sent directly to the chosen payment method. The
+ * parameter enables you to fully integrate the payment method selection into your website.
+ *
+ * You can also specify the methods in an array. By doing so we will still show the payment method selection screen
+ * but will only show the methods specified in the array. For example, you can use this functionality to only show
+ * payment methods from a specific country to your customer `['bancontact', 'belfius']`.
+ */
+export type CreateCustomerPaymentMethodRequest = ClosedEnum<
+  typeof CreateCustomerPaymentMethodRequest
+>;
+
 export type CreateCustomerPaymentMetadataRequest = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateCustomerPaymentMetadataRequestUnion =
   | CreateCustomerPaymentMetadataRequest
@@ -433,11 +618,76 @@ export type CreateCustomerPaymentMetadataRequestUnion =
   | Array<string>;
 
 /**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export const CreateCustomerPaymentCaptureModeRequest = {
+  Automatic: "automatic",
+  Manual: "manual",
+} as const;
+/**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export type CreateCustomerPaymentCaptureModeRequest = ClosedEnum<
+  typeof CreateCustomerPaymentCaptureModeRequest
+>;
+
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export const CreateCustomerPaymentCaptureDelayRequest = {
+  DotDotDotHours: "... hours",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export type CreateCustomerPaymentCaptureDelayRequest = ClosedEnum<
+  typeof CreateCustomerPaymentCaptureDelayRequest
+>;
+
+/**
  * The fee that you wish to charge.
  *
  * @remarks
  *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+ * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+ * a €0.99 fee on a €1.00 payment.
  */
 export type CreateCustomerPaymentApplicationFeeAmountRequest = {
   /**
@@ -451,13 +701,17 @@ export type CreateCustomerPaymentApplicationFeeAmountRequest = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
- * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+ * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+ * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+ * to your own account balance.
  *
- * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+ * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+ * `routing` parameter.
  */
 export type CreateCustomerPaymentApplicationFeeRequest = {
   /**
@@ -465,11 +719,15 @@ export type CreateCustomerPaymentApplicationFeeRequest = {
    *
    * @remarks
    *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+   * a €0.99 fee on a €1.00 payment.
    */
   amount?: CreateCustomerPaymentApplicationFeeAmountRequest | undefined;
   /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
+   * The description of the application fee. This will appear on settlement reports towards both you and the
+   *
+   * @remarks
+   * connected merchant.
    */
   description?: string | undefined;
 };
@@ -489,19 +747,31 @@ export type CreateCustomerPaymentRoutingAmountRequest = {
 };
 
 /**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export const CreateCustomerPaymentRoutingTypeRequest = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export type CreateCustomerPaymentRoutingTypeRequest = ClosedEnum<
+  typeof CreateCustomerPaymentRoutingTypeRequest
+>;
+
+/**
  * The destination of this portion of the payment.
  */
 export type CreateCustomerPaymentDestinationRequest = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: CreateCustomerPaymentRoutingTypeRequest;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type: string;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   * routed to.
    */
   organizationId: string;
 };
@@ -558,9 +828,10 @@ export type CreateCustomerPaymentRoutingRequest = {
    */
   destination: CreateCustomerPaymentDestinationRequest;
   /**
-   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The date must be given in `YYYY-MM-DD` format.
+   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The
    *
    * @remarks
+   * date must be given in `YYYY-MM-DD` format.
    *
    * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
    */
@@ -571,15 +842,66 @@ export type CreateCustomerPaymentRoutingRequest = {
   links: CreateCustomerPaymentLinksRequest;
 };
 
+/**
+ * **Only relevant for recurring payments.**
+ *
+ * @remarks
+ *
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export const CreateCustomerPaymentSequenceTypeRequest = {
+  Oneoff: "oneoff",
+  First: "first",
+  Recurring: "recurring",
+} as const;
+/**
+ * **Only relevant for recurring payments.**
+ *
+ * @remarks
+ *
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export type CreateCustomerPaymentSequenceTypeRequest = ClosedEnum<
+  typeof CreateCustomerPaymentSequenceTypeRequest
+>;
+
 export type CreateCustomerPaymentRequestBody = {
   /**
-   * The description of the payment. This will be shown to your customer on their card or bank statement when possible. We truncate the description automatically according to the limits of the used payment method. The description is also visible in any exports you generate.
+   * The description of the payment. This will be shown to your customer on their card or bank statement when possible.
    *
    * @remarks
+   * We truncate the description automatically according to the limits of the used payment method. The description is
+   * also visible in any exports you generate.
    *
-   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office. This is particularly useful for bookkeeping.
+   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office.
+   * This is particularly useful for bookkeeping.
    *
-   * The maximum length of the description field differs per payment method, with the absolute maximum being 255 characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
+   * The maximum length of the description field differs per payment method, with the absolute maximum being 255
+   * characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
    */
   description: string;
   /**
@@ -587,9 +909,11 @@ export type CreateCustomerPaymentRequestBody = {
    *
    * @remarks
    *
-   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+   * retrieved using the Get method endpoint.
    *
-   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+   * tip amount.
    */
   amount: CreateCustomerPaymentAmountRequest;
   /**
@@ -597,17 +921,22 @@ export type CreateCustomerPaymentRequestBody = {
    *
    * @remarks
    *
-   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the right page referencing the order when your customer returns.
+   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
+   * right page referencing the order when your customer returns.
    *
-   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for Apple Pay payments with an `applePayPaymentToken`.
+   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
+   * Apple Pay payments with an `applePayPaymentToken`.
    */
   redirectUrl: string | null;
   /**
-   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not provided, the customer will be redirected to the `redirectUrl` instead — see above.
+   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
    *
    * @remarks
+   * provided, the customer will be redirected to the `redirectUrl` instead — see above.
    *
-   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle payment cancellations.
+   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is
+   * therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle
+   * payment cancellations.
    */
   cancelUrl?: string | null | undefined;
   /**
@@ -617,13 +946,16 @@ export type CreateCustomerPaymentRequestBody = {
    *
    * The webhookUrl is optional, but without a webhook you will miss out on important status changes to your payment.
    *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+   * local machine.
    */
   webhookUrl?: string | null | undefined;
   /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the payment.
    *
@@ -631,61 +963,77 @@ export type CreateCustomerPaymentRequestBody = {
    */
   lines?: Array<CreateCustomerPaymentLineRequest> | null | undefined;
   /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    *
    * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: CreateCustomerPaymentBillingAddressRequest | undefined;
   /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    */
   shippingAddress?: CreateCustomerPaymentShippingAddressRequest | undefined;
   /**
-   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897 locale, but our hosted payment pages currently only support the specified languages.
+   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
    *
    * @remarks
+   * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+   * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+   * locale, but our hosted payment pages currently only support the specified languages.
    *
-   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the customer use a local bank account greatly increases the conversion and speed of payment.
+   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+   * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+   * customer use a local bank account greatly increases the conversion and speed of payment.
    */
-  locale?: string | null | undefined;
+  locale?: CreateCustomerPaymentLocaleRequest | null | undefined;
   /**
-   * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.
+   * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
    *
    * @remarks
+   * method and your customer will skip the selection screen and is sent directly to the chosen payment method. The
+   * parameter enables you to fully integrate the payment method selection into your website.
    *
-   * You can also specify the methods in an array. By doing so we will still show the payment method selection screen but will only show the methods specified in the array. For example, you can use this functionality to only show payment methods from a specific country to your customer `['bancontact', 'belfius']`.
-   *
-   * Possible values: `alma` `applepay` `bacs` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `blik` `creditcard` `directdebit` `eps` `giftcard` `ideal` `in3` `kbc` `klarna` `mbway` `multibanco` `mybank` `payconiq` `paypal` `paysafecard` `pointofsale` `przelewy24` `riverty` `satispay` `swish` `trustly` `twint` `voucher`
+   * You can also specify the methods in an array. By doing so we will still show the payment method selection screen
+   * but will only show the methods specified in the array. For example, you can use this functionality to only show
+   * payment methods from a specific country to your customer `['bancontact', 'belfius']`.
    */
-  method?: string | null | undefined;
+  method?: CreateCustomerPaymentMethodRequest | null | undefined;
   /**
    * **Only relevant for iDEAL, KBC/CBC, gift card, and voucher payments.**
    *
    * @remarks
    *
-   * **⚠️ With the introduction of iDEAL 2 in 2025, this field will be ignored for iDEAL payments. For more information on the migration, refer to our [help center](https://help.mollie.com/hc/articles/19100313768338-iDEAL-2-0).**
+   * **⚠️ With the introduction of iDEAL 2 in 2025, this field will be ignored for iDEAL payments. For more information
+   * on the migration, refer to our [help center](https://help.mollie.com/hc/articles/19100313768338-iDEAL-2-0).**
    *
-   * Some payment methods are a network of connected banks or card issuers. In these cases, after selecting the payment method, the customer may still need to select the appropriate issuer before the payment can proceed.
+   * Some payment methods are a network of connected banks or card issuers. In these cases, after selecting the payment
+   * method, the customer may still need to select the appropriate issuer before the payment can proceed.
    *
-   * We provide hosted issuer selection screens, but these screens can be skipped by providing the `issuer` via the API up front.
+   * We provide hosted issuer selection screens, but these screens can be skipped by providing the `issuer` via the API
+   * up front.
    *
-   * The full list of issuers for a specific method can be retrieved via the Methods API by using the optional `issuers` include.
+   * The full list of issuers for a specific method can be retrieved via the Methods API by using the optional
+   * `issuers` include.
    *
    * A valid issuer for iDEAL is for example `ideal_INGBNL2A` (for ING Bank).
    */
   issuer?: string | null | undefined;
   /**
-   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the VAT country.
+   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
    *
    * @remarks
+   * rates you have used for the order to ensure your customer's country matches the VAT country.
    *
    * Use this parameter to restrict the payment methods available to your customer to those from a single country.
    *
@@ -695,7 +1043,10 @@ export type CreateCustomerPaymentRequestBody = {
    */
   restrictPaymentMethodsToCountry?: string | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | CreateCustomerPaymentMetadataRequest
@@ -704,39 +1055,43 @@ export type CreateCustomerPaymentRequestBody = {
     | null
     | undefined;
   /**
-   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/) and capture at a later time.
+   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
    * @remarks
+   * and capture at a later time.
    *
    * This field needs to be set to `manual` for method `riverty`.
-   *
-   * Possible values: `automatic` `manual` (default: `automatic`)
    */
-  captureMode?: string | null | undefined;
+  captureMode?: CreateCustomerPaymentCaptureModeRequest | null | undefined;
   /**
    * **Only relevant if you wish to manage authorization and capturing separately.**
    *
    * @remarks
    *
-   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+   * later point either be 'captured' or canceled.
    *
-   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For example `8 hours` or `2 days`.
+   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+   * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+   * example `8 hours` or `2 days`.
    *
    * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
    *
    * The maximum delay is 7 days (168 hours).
-   *
-   * Possible values: `... hours` `... days`
    */
-  captureDelay?: string | null | undefined;
+  captureDelay?: CreateCustomerPaymentCaptureDelayRequest | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
-   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+   * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+   * to your own account balance.
    *
-   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+   * `routing` parameter.
    */
   applicationFee?:
     | CreateCustomerPaymentApplicationFeeRequest
@@ -747,15 +1102,20 @@ export type CreateCustomerPaymentRequestBody = {
    *
    * @remarks
    *
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+   * merchants.
    *
-   * If you create payments on your own account that you want to split between yourself and one or more connected merchants, you can use this `routing` parameter to route the payment accordingly.
+   * If you create payments on your own account that you want to split between yourself and one or more connected
+   * merchants, you can use this `routing` parameter to route the payment accordingly.
    *
-   * The `routing` parameter should contain an array of objects, with each object describing the destination for a specific portion of the payment.
+   * The `routing` parameter should contain an array of objects, with each object describing the destination for a
+   * specific portion of the payment.
    *
-   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total payment amount have been routed, the amount left will be routed to the current organization automatically.
+   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total
+   * payment amount have been routed, the amount left will be routed to the current organization automatically.
    *
-   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee` parameter.
+   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee`
+   * parameter.
    */
   routing?: Array<CreateCustomerPaymentRoutingRequest> | null | undefined;
   /**
@@ -765,29 +1125,33 @@ export type CreateCustomerPaymentRequestBody = {
    *
    * Indicate which part of a recurring sequence this payment is for.
    *
-   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place on their account in the future.
+   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+   * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+   * on their account in the future.
    *
    * If set to `recurring`, the customer's card is charged automatically.
    *
    * Defaults to `oneoff`, which is a regular non-recurring payment.
    *
-   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account are set up correctly for recurring payments.
-   *
-   * Possible values: `oneoff` `first` `recurring` (default: `oneoff`)
+   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+   * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+   * are set up correctly for recurring payments.
    */
-  sequenceType?: string | null | undefined;
+  sequenceType?: CreateCustomerPaymentSequenceTypeRequest | null | undefined;
   /**
    * **Only relevant for recurring payments.**
    *
    * @remarks
    *
-   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of the customer's accounts should be credited.
+   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be credited.
    */
   mandateId?: string | null | undefined;
   /**
-   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring payments, but can also be used on regular payments to enable single-click payments.
+   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring
    *
    * @remarks
+   * payments, but can also be used on regular payments to enable single-click payments.
    *
    * If `sequenceType` is set to `recurring`, this field is required.
    */
@@ -797,7 +1161,8 @@ export type CreateCustomerPaymentRequestBody = {
    *
    * @remarks
    *
-   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and Organization tokens, the `profileId` is required.
+   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+   * Organization tokens, the `profileId` is required.
    *
    * For more information, see [Authentication](authentication).
    */
@@ -811,7 +1176,9 @@ export type CreateCustomerPaymentRequestBody = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
   testmode?: boolean | null | undefined;
 };
@@ -855,13 +1222,29 @@ export type CreateCustomerPaymentUnprocessableEntityLinks = {
 };
 
 /**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreateCustomerPaymentMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreateCustomerPaymentMode = ClosedEnum<
+  typeof CreateCustomerPaymentMode
+>;
+
+/**
  * The amount that you want to charge, e.g. `{currency:"EUR", value:"1000.00"}` if you would want to charge €1000.00.
  *
  * @remarks
  *
- * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+ * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+ * retrieved using the Get method endpoint.
  *
- * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+ * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+ * tip amount.
  */
 export type CreateCustomerPaymentAmountResponse = {
   /**
@@ -875,7 +1258,11 @@ export type CreateCustomerPaymentAmountResponse = {
 };
 
 /**
- * The total amount that is already refunded. Only available when refunds are available for this payment. For some payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+ * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+ *
+ * @remarks
+ * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+ * costs for a return shipment to the customer.
  */
 export type CreateCustomerPaymentAmountRefunded = {
   /**
@@ -917,7 +1304,10 @@ export type CreateCustomerPaymentAmountCaptured = {
 };
 
 /**
- * The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+ * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+ *
+ * @remarks
+ * zero.
  */
 export type CreateCustomerPaymentAmountChargedBack = {
   /**
@@ -931,13 +1321,16 @@ export type CreateCustomerPaymentAmountChargedBack = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be settled to your account, converted to the
  *
  * @remarks
+ * currency your account is settled in.
  *
- * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is settled by Mollie the `settlementAmount` is omitted from the response.
+ * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+ * settled by Mollie the `settlementAmount` is omitted from the response.
  *
- * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+ * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+ * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
  */
 export type CreateCustomerPaymentSettlementAmount = {
   /**
@@ -949,6 +1342,34 @@ export type CreateCustomerPaymentSettlementAmount = {
    */
   value: string;
 };
+
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export const CreateCustomerPaymentLineTypeResponse = {
+  Physical: "physical",
+  Digital: "digital",
+  ShippingFee: "shipping_fee",
+  Discount: "discount",
+  StoreCredit: "store_credit",
+  GiftCard: "gift_card",
+  Surcharge: "surcharge",
+  Tip: "tip",
+} as const;
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export type CreateCustomerPaymentLineTypeResponse = ClosedEnum<
+  typeof CreateCustomerPaymentLineTypeResponse
+>;
 
 /**
  * The price of a single item including VAT.
@@ -973,7 +1394,10 @@ export type CreateCustomerPaymentUnitPriceResponse = {
 };
 
 /**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+ * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+ *
+ * @remarks
+ * type.
  */
 export type CreateCustomerPaymentDiscountAmountResponse = {
   /**
@@ -1007,13 +1431,15 @@ export type CreateCustomerPaymentTotalAmountResponse = {
 };
 
 /**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+ * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
  *
  * @remarks
+ * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
  *
  * Any deviations from this will result in an error.
  *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+ * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+ * `SEK 100.00 × (25 / 125) = SEK 20.00`.
  */
 export type CreateCustomerPaymentVatAmountResponse = {
   /**
@@ -1037,6 +1463,21 @@ export type CreateCustomerPaymentCategoryResponse = ClosedEnum<
 >;
 
 /**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export const CreateCustomerPaymentIntervalResponse = {
+  DotDotDotMonths: "... months",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export type CreateCustomerPaymentIntervalResponse = ClosedEnum<
+  typeof CreateCustomerPaymentIntervalResponse
+>;
+
+/**
  * Total amount and currency of the recurring item.
  */
 export type CreateCustomerPaymentRecurringAmountResponse = {
@@ -1051,7 +1492,10 @@ export type CreateCustomerPaymentRecurringAmountResponse = {
 };
 
 /**
- * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+ * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+ *
+ * @remarks
+ * to inform the shopper of the details for recurring products in the payments.
  */
 export type CreateCustomerPaymentRecurringResponse = {
   /**
@@ -1060,12 +1504,8 @@ export type CreateCustomerPaymentRecurringResponse = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
-   *
-   * @remarks
-   *
-   * Possible values: `... months` `... weeks` `... days`
    */
-  interval: string;
+  interval: CreateCustomerPaymentIntervalResponse;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -1087,10 +1527,8 @@ export type CreateCustomerPaymentLineResponse = {
    * @remarks
    *
    * The `tip` payment line type is not available when creating a payment.
-   *
-   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
    */
-  type?: string | undefined;
+  type?: CreateCustomerPaymentLineTypeResponse | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -1116,7 +1554,10 @@ export type CreateCustomerPaymentLineResponse = {
    */
   unitPrice: CreateCustomerPaymentUnitPriceResponse;
   /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+   *
+   * @remarks
+   * type.
    */
   discountAmount?: CreateCustomerPaymentDiscountAmountResponse | undefined;
   /**
@@ -1130,17 +1571,22 @@ export type CreateCustomerPaymentLineResponse = {
    */
   totalAmount: CreateCustomerPaymentTotalAmountResponse;
   /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+   *
+   * @remarks
+   * not as a float, to ensure the correct number of decimals are passed.
    */
   vatRate?: string | undefined;
   /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
    *
    * @remarks
+   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
    *
    * Any deviations from this will result in an error.
    *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
    */
   vatAmount?: CreateCustomerPaymentVatAmountResponse | undefined;
   /**
@@ -1148,7 +1594,10 @@ export type CreateCustomerPaymentLineResponse = {
    */
   sku?: string | undefined;
   /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the
+   *
+   * @remarks
+   * [Integrating Vouchers](integrating-vouchers) guide for more information.
    */
   categories?: Array<CreateCustomerPaymentCategoryResponse> | undefined;
   /**
@@ -1160,17 +1609,22 @@ export type CreateCustomerPaymentLineResponse = {
    */
   productUrl?: string | undefined;
   /**
-   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+   *
+   * @remarks
+   * to inform the shopper of the details for recurring products in the payments.
    */
   recurring?: CreateCustomerPaymentRecurringResponse | undefined;
 };
 
 /**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  *
  * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
  */
@@ -1180,17 +1634,19 @@ export type CreateCustomerPaymentBillingAddressResponse = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -1224,7 +1680,8 @@ export type CreateCustomerPaymentBillingAddressResponse = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -1256,11 +1713,13 @@ export type CreateCustomerPaymentBillingAddressResponse = {
 };
 
 /**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's shipping address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  */
 export type CreateCustomerPaymentShippingAddressResponse = {
   /**
@@ -1268,17 +1727,19 @@ export type CreateCustomerPaymentShippingAddressResponse = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -1312,7 +1773,8 @@ export type CreateCustomerPaymentShippingAddressResponse = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -1343,10 +1805,114 @@ export type CreateCustomerPaymentShippingAddressResponse = {
   country?: string | undefined;
 };
 
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export const CreateCustomerPaymentLocaleResponse = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export type CreateCustomerPaymentLocaleResponse = ClosedEnum<
+  typeof CreateCustomerPaymentLocaleResponse
+>;
+
+/**
+ * The payment method used for this transaction. If a specific method was selected during payment initialization,
+ *
+ * @remarks
+ * this field reflects that choice.
+ */
+export const CreateCustomerPaymentMethodResponse = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Mbway: "mbway",
+  Multibanco: "multibanco",
+  Mybank: "mybank",
+  Payconiq: "payconiq",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Pointofsale: "pointofsale",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The payment method used for this transaction. If a specific method was selected during payment initialization,
+ *
+ * @remarks
+ * this field reflects that choice.
+ */
+export type CreateCustomerPaymentMethodResponse = ClosedEnum<
+  typeof CreateCustomerPaymentMethodResponse
+>;
+
 export type CreateCustomerPaymentMetadataResponse = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateCustomerPaymentMetadataResponseUnion =
   | CreateCustomerPaymentMetadataResponse
@@ -1354,11 +1920,76 @@ export type CreateCustomerPaymentMetadataResponseUnion =
   | Array<string>;
 
 /**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export const CreateCustomerPaymentCaptureModeResponse = {
+  Automatic: "automatic",
+  Manual: "manual",
+} as const;
+/**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export type CreateCustomerPaymentCaptureModeResponse = ClosedEnum<
+  typeof CreateCustomerPaymentCaptureModeResponse
+>;
+
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export const CreateCustomerPaymentCaptureDelayResponse = {
+  DotDotDotHours: "... hours",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export type CreateCustomerPaymentCaptureDelayResponse = ClosedEnum<
+  typeof CreateCustomerPaymentCaptureDelayResponse
+>;
+
+/**
  * The fee that you wish to charge.
  *
  * @remarks
  *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+ * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+ * a €0.99 fee on a €1.00 payment.
  */
 export type CreateCustomerPaymentApplicationFeeAmountResponse = {
   /**
@@ -1372,13 +2003,17 @@ export type CreateCustomerPaymentApplicationFeeAmountResponse = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
- * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+ * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+ * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+ * to your own account balance.
  *
- * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+ * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+ * `routing` parameter.
  */
 export type CreateCustomerPaymentApplicationFeeResponse = {
   /**
@@ -1386,14 +2021,32 @@ export type CreateCustomerPaymentApplicationFeeResponse = {
    *
    * @remarks
    *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+   * a €0.99 fee on a €1.00 payment.
    */
   amount?: CreateCustomerPaymentApplicationFeeAmountResponse | undefined;
   /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
+   * The description of the application fee. This will appear on settlement reports towards both you and the
+   *
+   * @remarks
+   * connected merchant.
    */
   description?: string | undefined;
 };
+
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreateCustomerPaymentRoutingMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreateCustomerPaymentRoutingMode = ClosedEnum<
+  typeof CreateCustomerPaymentRoutingMode
+>;
 
 /**
  * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
@@ -1410,19 +2063,31 @@ export type CreateCustomerPaymentRoutingAmountResponse = {
 };
 
 /**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export const CreateCustomerPaymentRoutingTypeResponse = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export type CreateCustomerPaymentRoutingTypeResponse = ClosedEnum<
+  typeof CreateCustomerPaymentRoutingTypeResponse
+>;
+
+/**
  * The destination of this portion of the payment.
  */
 export type CreateCustomerPaymentDestinationResponse = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: CreateCustomerPaymentRoutingTypeResponse;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type: string;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   * routed to.
    */
   organizationId: string;
 };
@@ -1475,17 +2140,16 @@ export type CreateCustomerPaymentRoutingResponse = {
    */
   resource: string;
   /**
-   * The identifier uniquely referring to this route. Mollie will always refer to the route by this ID. Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
+   * The identifier uniquely referring to this route. Mollie will always refer to the route by this ID.
+   *
+   * @remarks
+   * Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
    */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: CreateCustomerPaymentRoutingMode;
   /**
    * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
    */
@@ -1499,9 +2163,10 @@ export type CreateCustomerPaymentRoutingResponse = {
    */
   createdAt: string;
   /**
-   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The date must be given in `YYYY-MM-DD` format.
+   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The
    *
    * @remarks
+   * date must be given in `YYYY-MM-DD` format.
    *
    * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
    */
@@ -1513,11 +2178,85 @@ export type CreateCustomerPaymentRoutingResponse = {
 };
 
 /**
- * This object offers details about the status of a payment. Currently it is only available for point-of-sale payments.
+ * **Only relevant for recurring payments.**
  *
  * @remarks
  *
- * You can find more information about the possible values of this object on [this page](status-reasons).**
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export const CreateCustomerPaymentSequenceTypeResponse = {
+  Oneoff: "oneoff",
+  First: "first",
+  Recurring: "recurring",
+} as const;
+/**
+ * **Only relevant for recurring payments.**
+ *
+ * @remarks
+ *
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export type CreateCustomerPaymentSequenceTypeResponse = ClosedEnum<
+  typeof CreateCustomerPaymentSequenceTypeResponse
+>;
+
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export const CreateCustomerPaymentStatus = {
+  Open: "open",
+  Pending: "pending",
+  Authorized: "authorized",
+  Paid: "paid",
+  Canceled: "canceled",
+  Expired: "expired",
+  Failed: "failed",
+} as const;
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export type CreateCustomerPaymentStatus = ClosedEnum<
+  typeof CreateCustomerPaymentStatus
+>;
+
+/**
+ * This object offers details about the status of a payment. Currently it is only available for point-of-sale
+ *
+ * @remarks
+ * payments.
+ *
+ * You can find more information about the possible values of this object on
+ * [this page](status-reasons).**
  */
 export type CreateCustomerPaymentStatusReason = {
   /**
@@ -1573,13 +2312,16 @@ export type CreateCustomerPaymentMobileAppCheckout = {
 };
 
 /**
- * For test mode payments in certain scenarios, a hosted interface is available to help you test different payment states.
+ * For test mode payments in certain scenarios, a hosted interface is available to help you test different
  *
  * @remarks
+ * payment states.
  *
- * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these payments are executed without any user interaction.
+ * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+ * payments are executed without any user interaction.
  *
- * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or chargeback for the test payment.
+ * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+ * chargeback for the test payment.
  */
 export type CreateCustomerPaymentChangePaymentState = {
   /**
@@ -1621,7 +2363,10 @@ export type CreateCustomerPaymentRefunds = {
 };
 
 /**
- * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this payment.
+ * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+ *
+ * @remarks
+ * payment.
  */
 export type CreateCustomerPaymentChargebacks = {
   /**
@@ -1649,7 +2394,10 @@ export type CreateCustomerPaymentCaptures = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this payment has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
+ *
+ * @remarks
+ * Not present if not yet settled.
  */
 export type CreateCustomerPaymentSettlement = {
   /**
@@ -1705,7 +2453,10 @@ export type CreateCustomerPaymentSubscription = {
 };
 
 /**
- * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an order.
+ * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+ *
+ * @remarks
+ * order.
  */
 export type CreateCustomerPaymentOrder = {
   /**
@@ -1719,7 +2470,10 @@ export type CreateCustomerPaymentOrder = {
 };
 
 /**
- * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for point-of-sale payments.
+ * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+ *
+ * @remarks
+ * point-of-sale payments.
  */
 export type CreateCustomerPaymentTerminal = {
   /**
@@ -1763,13 +2517,16 @@ export type CreateCustomerPaymentLinksResponse = {
    */
   mobileAppCheckout?: CreateCustomerPaymentMobileAppCheckout | undefined;
   /**
-   * For test mode payments in certain scenarios, a hosted interface is available to help you test different payment states.
+   * For test mode payments in certain scenarios, a hosted interface is available to help you test different
    *
    * @remarks
+   * payment states.
    *
-   * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these payments are executed without any user interaction.
+   * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+   * payments are executed without any user interaction.
    *
-   * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or chargeback for the test payment.
+   * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+   * chargeback for the test payment.
    */
   changePaymentState?: CreateCustomerPaymentChangePaymentState | undefined;
   /**
@@ -1781,7 +2538,10 @@ export type CreateCustomerPaymentLinksResponse = {
    */
   refunds?: CreateCustomerPaymentRefunds | undefined;
   /**
-   * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this payment.
+   * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+   *
+   * @remarks
+   * payment.
    */
   chargebacks?: CreateCustomerPaymentChargebacks | undefined;
   /**
@@ -1789,7 +2549,10 @@ export type CreateCustomerPaymentLinksResponse = {
    */
   captures?: CreateCustomerPaymentCaptures | undefined;
   /**
-   * The API resource URL of the [settlement](get-settlement) this payment has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
+   *
+   * @remarks
+   * Not present if not yet settled.
    */
   settlement?: CreateCustomerPaymentSettlement | undefined;
   /**
@@ -1805,11 +2568,17 @@ export type CreateCustomerPaymentLinksResponse = {
    */
   subscription?: CreateCustomerPaymentSubscription | undefined;
   /**
-   * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an order.
+   * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+   *
+   * @remarks
+   * order.
    */
   order?: CreateCustomerPaymentOrder | undefined;
   /**
-   * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for point-of-sale payments.
+   * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+   *
+   * @remarks
+   * point-of-sale payments.
    */
   terminal?: CreateCustomerPaymentTerminal | undefined;
   /**
@@ -1827,25 +2596,28 @@ export type CreateCustomerPaymentResponse = {
    */
   resource: string;
   /**
-   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: CreateCustomerPaymentMode;
   /**
-   * The description of the payment. This will be shown to your customer on their card or bank statement when possible. We truncate the description automatically according to the limits of the used payment method. The description is also visible in any exports you generate.
+   * The description of the payment. This will be shown to your customer on their card or bank statement when possible.
    *
    * @remarks
+   * We truncate the description automatically according to the limits of the used payment method. The description is
+   * also visible in any exports you generate.
    *
-   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office. This is particularly useful for bookkeeping.
+   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office.
+   * This is particularly useful for bookkeeping.
    *
-   * The maximum length of the description field differs per payment method, with the absolute maximum being 255 characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
+   * The maximum length of the description field differs per payment method, with the absolute maximum being 255
+   * characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
    */
   description: string;
   /**
@@ -1853,13 +2625,19 @@ export type CreateCustomerPaymentResponse = {
    *
    * @remarks
    *
-   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+   * retrieved using the Get method endpoint.
    *
-   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+   * tip amount.
    */
   amount: CreateCustomerPaymentAmountResponse;
   /**
-   * The total amount that is already refunded. Only available when refunds are available for this payment. For some payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+   * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+   *
+   * @remarks
+   * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+   * costs for a return shipment to the customer.
    */
   amountRefunded?: CreateCustomerPaymentAmountRefunded | undefined;
   /**
@@ -1871,17 +2649,23 @@ export type CreateCustomerPaymentResponse = {
    */
   amountCaptured?: CreateCustomerPaymentAmountCaptured | undefined;
   /**
-   * The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+   * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+   *
+   * @remarks
+   * zero.
    */
   amountChargedBack?: CreateCustomerPaymentAmountChargedBack | undefined;
   /**
-   * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the
    *
    * @remarks
+   * currency your account is settled in.
    *
-   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is settled by Mollie the `settlementAmount` is omitted from the response.
+   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+   * settled by Mollie the `settlementAmount` is omitted from the response.
    *
-   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+   * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
    */
   settlementAmount?: CreateCustomerPaymentSettlementAmount | undefined;
   /**
@@ -1889,17 +2673,22 @@ export type CreateCustomerPaymentResponse = {
    *
    * @remarks
    *
-   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the right page referencing the order when your customer returns.
+   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
+   * right page referencing the order when your customer returns.
    *
-   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for Apple Pay payments with an `applePayPaymentToken`.
+   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
+   * Apple Pay payments with an `applePayPaymentToken`.
    */
   redirectUrl?: string | null | undefined;
   /**
-   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not provided, the customer will be redirected to the `redirectUrl` instead — see above.
+   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
    *
    * @remarks
+   * provided, the customer will be redirected to the `redirectUrl` instead — see above.
    *
-   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle payment cancellations.
+   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is
+   * therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle
+   * payment cancellations.
    */
   cancelUrl?: string | null | undefined;
   /**
@@ -1909,13 +2698,16 @@ export type CreateCustomerPaymentResponse = {
    *
    * The webhookUrl is optional, but without a webhook you will miss out on important status changes to your payment.
    *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+   * local machine.
    */
   webhookUrl?: string | null | undefined;
   /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the payment.
    *
@@ -1923,43 +2715,59 @@ export type CreateCustomerPaymentResponse = {
    */
   lines?: Array<CreateCustomerPaymentLineResponse> | null | undefined;
   /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    *
    * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: CreateCustomerPaymentBillingAddressResponse | undefined;
   /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    */
   shippingAddress?: CreateCustomerPaymentShippingAddressResponse | undefined;
   /**
-   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897 locale, but our hosted payment pages currently only support the specified languages.
+   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
    *
    * @remarks
+   * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+   * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+   * locale, but our hosted payment pages currently only support the specified languages.
    *
-   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the customer use a local bank account greatly increases the conversion and speed of payment.
+   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+   * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+   * customer use a local bank account greatly increases the conversion and speed of payment.
    */
-  locale?: string | null | undefined;
+  locale?: CreateCustomerPaymentLocaleResponse | null | undefined;
   /**
-   * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This field is omitted if the country code was not detected.
+   * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This
+   *
+   * @remarks
+   * field is omitted if the country code was not detected.
    */
   countryCode?: string | null | undefined;
   /**
-   * The payment method used for this transaction. If a specific method was selected during payment initialization, this field reflects that choice.
-   */
-  method?: string | null | undefined;
-  /**
-   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the VAT country.
+   * The payment method used for this transaction. If a specific method was selected during payment initialization,
    *
    * @remarks
+   * this field reflects that choice.
+   */
+  method?: CreateCustomerPaymentMethodResponse | null | undefined;
+  /**
+   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
+   *
+   * @remarks
+   * rates you have used for the order to ensure your customer's country matches the VAT country.
    *
    * Use this parameter to restrict the payment methods available to your customer to those from a single country.
    *
@@ -1969,7 +2777,10 @@ export type CreateCustomerPaymentResponse = {
    */
   restrictPaymentMethodsToCountry?: string | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | CreateCustomerPaymentMetadataResponse
@@ -1978,43 +2789,50 @@ export type CreateCustomerPaymentResponse = {
     | null
     | undefined;
   /**
-   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/) and capture at a later time.
+   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
    * @remarks
+   * and capture at a later time.
    *
    * This field needs to be set to `manual` for method `riverty`.
-   *
-   * Possible values: `automatic` `manual` (default: `automatic`)
    */
-  captureMode?: string | null | undefined;
+  captureMode?: CreateCustomerPaymentCaptureModeResponse | null | undefined;
   /**
    * **Only relevant if you wish to manage authorization and capturing separately.**
    *
    * @remarks
    *
-   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+   * later point either be 'captured' or canceled.
    *
-   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For example `8 hours` or `2 days`.
+   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+   * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+   * example `8 hours` or `2 days`.
    *
    * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
    *
    * The maximum delay is 7 days (168 hours).
-   *
-   * Possible values: `... hours` `... days`
    */
-  captureDelay?: string | null | undefined;
+  captureDelay?: CreateCustomerPaymentCaptureDelayResponse | null | undefined;
   /**
-   * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
+   * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
+   *
+   * @remarks
+   * can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
    */
   captureBefore?: string | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
-   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+   * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+   * to your own account balance.
    *
-   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+   * `routing` parameter.
    */
   applicationFee?:
     | CreateCustomerPaymentApplicationFeeResponse
@@ -2025,15 +2843,20 @@ export type CreateCustomerPaymentResponse = {
    *
    * @remarks
    *
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+   * merchants.
    *
-   * If you create payments on your own account that you want to split between yourself and one or more connected merchants, you can use this `routing` parameter to route the payment accordingly.
+   * If you create payments on your own account that you want to split between yourself and one or more connected
+   * merchants, you can use this `routing` parameter to route the payment accordingly.
    *
-   * The `routing` parameter should contain an array of objects, with each object describing the destination for a specific portion of the payment.
+   * The `routing` parameter should contain an array of objects, with each object describing the destination for a
+   * specific portion of the payment.
    *
-   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total payment amount have been routed, the amount left will be routed to the current organization automatically.
+   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total
+   * payment amount have been routed, the amount left will be routed to the current organization automatically.
    *
-   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee` parameter.
+   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee`
+   * parameter.
    */
   routing?: Array<CreateCustomerPaymentRoutingResponse> | null | undefined;
   /**
@@ -2043,19 +2866,24 @@ export type CreateCustomerPaymentResponse = {
    *
    * Indicate which part of a recurring sequence this payment is for.
    *
-   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place on their account in the future.
+   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+   * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+   * on their account in the future.
    *
    * If set to `recurring`, the customer's card is charged automatically.
    *
    * Defaults to `oneoff`, which is a regular non-recurring payment.
    *
-   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account are set up correctly for recurring payments.
-   *
-   * Possible values: `oneoff` `first` `recurring` (default: `oneoff`)
+   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+   * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+   * are set up correctly for recurring payments.
    */
-  sequenceType: string | null;
+  sequenceType?: CreateCustomerPaymentSequenceTypeResponse | null | undefined;
   /**
-   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will be added to the response.
+   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
+   *
+   * @remarks
+   * be added to the response.
    */
   subscriptionId?: string | null | undefined;
   /**
@@ -2063,13 +2891,15 @@ export type CreateCustomerPaymentResponse = {
    *
    * @remarks
    *
-   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of the customer's accounts should be credited.
+   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be credited.
    */
   mandateId?: string | null | undefined;
   /**
-   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring payments, but can also be used on regular payments to enable single-click payments.
+   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring
    *
    * @remarks
+   * payments, but can also be used on regular payments to enable single-click payments.
    *
    * If `sequenceType` is set to `recurring`, this field is required.
    */
@@ -2079,7 +2909,8 @@ export type CreateCustomerPaymentResponse = {
    *
    * @remarks
    *
-   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and Organization tokens, the `profileId` is required.
+   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+   * Organization tokens, the `profileId` is required.
    *
    * For more information, see [Authentication](authentication).
    */
@@ -2093,19 +2924,20 @@ export type CreateCustomerPaymentResponse = {
    */
   orderId?: string | null | undefined;
   /**
-   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which statuses occur at what point.
+   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
    *
    * @remarks
-   *
-   * Possible values: `open` `pending` `authorized` `paid` `canceled` `expired` `failed`
+   * statuses occur at what point.
    */
-  status: string;
+  status: CreateCustomerPaymentStatus;
   /**
-   * This object offers details about the status of a payment. Currently it is only available for point-of-sale payments.
+   * This object offers details about the status of a payment. Currently it is only available for point-of-sale
    *
    * @remarks
+   * payments.
    *
-   * You can find more information about the possible values of this object on [this page](status-reasons).**
+   * You can find more information about the possible values of this object on
+   * [this page](status-reasons).**
    */
   statusReason?: CreateCustomerPaymentStatusReason | null | undefined;
   /**
@@ -2113,7 +2945,11 @@ export type CreateCustomerPaymentResponse = {
    */
   isCancelable?: boolean | null | undefined;
   /**
-   * An object containing payment details collected during the payment process. For example, details may include the customer's card or bank details and a payment reference. For the full list of details, please refer to the [method-specific parameters](extra-payment-parameters) guide.
+   * An object containing payment details collected during the payment process. For example, details may include the
+   *
+   * @remarks
+   * customer's card or bank details and a payment reference. For the full list of details, please refer to the
+   * [method-specific parameters](extra-payment-parameters) guide.
    */
   details?: { [k: string]: any } | null | undefined;
   /**
@@ -2121,27 +2957,45 @@ export type CreateCustomerPaymentResponse = {
    */
   createdAt: string;
   /**
-   * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is not authorized (yet).
+   * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
+   *
+   * @remarks
+   * not authorized (yet).
    */
   authorizedAt?: string | null | undefined;
   /**
-   * The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not completed (yet).
+   * The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not
+   *
+   * @remarks
+   * completed (yet).
    */
   paidAt?: string | null | undefined;
   /**
-   * The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not canceled (yet).
+   * The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not
+   *
+   * @remarks
+   * canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
-   * The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no longer expire.
+   * The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no
+   *
+   * @remarks
+   * longer expire.
    */
   expiresAt?: string | null | undefined;
   /**
-   * The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not expire (yet).
+   * The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not
+   *
+   * @remarks
+   * expire (yet).
    */
   expiredAt?: string | null | undefined;
   /**
-   * The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail (yet).
+   * The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail
+   *
+   * @remarks
+   * (yet).
    */
   failedAt?: string | null | undefined;
   /**
@@ -2209,6 +3063,30 @@ export function createCustomerPaymentAmountRequestFromJSON(
       CreateCustomerPaymentAmountRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateCustomerPaymentAmountRequest' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateCustomerPaymentLineTypeRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentLineTypeRequest> = z.nativeEnum(
+    CreateCustomerPaymentLineTypeRequest,
+  );
+
+/** @internal */
+export const CreateCustomerPaymentLineTypeRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentLineTypeRequest> =
+    CreateCustomerPaymentLineTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentLineTypeRequest$ {
+  /** @deprecated use `CreateCustomerPaymentLineTypeRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentLineTypeRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentLineTypeRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentLineTypeRequest$outboundSchema;
 }
 
 /** @internal */
@@ -2495,6 +3373,30 @@ export namespace CreateCustomerPaymentCategoryRequest$ {
 }
 
 /** @internal */
+export const CreateCustomerPaymentIntervalRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalRequest> = z.nativeEnum(
+    CreateCustomerPaymentIntervalRequest,
+  );
+
+/** @internal */
+export const CreateCustomerPaymentIntervalRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalRequest> =
+    CreateCustomerPaymentIntervalRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentIntervalRequest$ {
+  /** @deprecated use `CreateCustomerPaymentIntervalRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentIntervalRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentIntervalRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentIntervalRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentRecurringAmountRequest$inboundSchema:
   z.ZodType<
     CreateCustomerPaymentRecurringAmountRequest,
@@ -2571,7 +3473,7 @@ export const CreateCustomerPaymentRecurringRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: CreateCustomerPaymentIntervalRequest$inboundSchema,
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountRequest$inboundSchema
   ).optional(),
@@ -2595,7 +3497,7 @@ export const CreateCustomerPaymentRecurringRequest$outboundSchema: z.ZodType<
   CreateCustomerPaymentRecurringRequest
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: CreateCustomerPaymentIntervalRequest$outboundSchema,
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountRequest$outboundSchema
   ).optional(),
@@ -2645,7 +3547,7 @@ export const CreateCustomerPaymentLineRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: CreateCustomerPaymentLineTypeRequest$inboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2670,7 +3572,7 @@ export const CreateCustomerPaymentLineRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateCustomerPaymentLineRequest$Outbound = {
-  type?: string | undefined;
+  type: string;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2694,7 +3596,7 @@ export const CreateCustomerPaymentLineRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateCustomerPaymentLineRequest
 > = z.object({
-  type: z.string().optional(),
+  type: CreateCustomerPaymentLineTypeRequest$outboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2948,6 +3850,50 @@ export function createCustomerPaymentShippingAddressRequestFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentLocaleRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentLocaleRequest
+> = z.nativeEnum(CreateCustomerPaymentLocaleRequest);
+
+/** @internal */
+export const CreateCustomerPaymentLocaleRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentLocaleRequest
+> = CreateCustomerPaymentLocaleRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentLocaleRequest$ {
+  /** @deprecated use `CreateCustomerPaymentLocaleRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerPaymentLocaleRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentLocaleRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentLocaleRequest$outboundSchema;
+}
+
+/** @internal */
+export const CreateCustomerPaymentMethodRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentMethodRequest
+> = z.nativeEnum(CreateCustomerPaymentMethodRequest);
+
+/** @internal */
+export const CreateCustomerPaymentMethodRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentMethodRequest
+> = CreateCustomerPaymentMethodRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentMethodRequest$ {
+  /** @deprecated use `CreateCustomerPaymentMethodRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerPaymentMethodRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentMethodRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentMethodRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentMetadataRequest$inboundSchema: z.ZodType<
   CreateCustomerPaymentMetadataRequest,
   z.ZodTypeDef,
@@ -3069,6 +4015,52 @@ export function createCustomerPaymentMetadataRequestUnionFromJSON(
       ),
     `Failed to parse 'CreateCustomerPaymentMetadataRequestUnion' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateCustomerPaymentCaptureModeRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureModeRequest> = z
+    .nativeEnum(CreateCustomerPaymentCaptureModeRequest);
+
+/** @internal */
+export const CreateCustomerPaymentCaptureModeRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureModeRequest> =
+    CreateCustomerPaymentCaptureModeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentCaptureModeRequest$ {
+  /** @deprecated use `CreateCustomerPaymentCaptureModeRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentCaptureModeRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentCaptureModeRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentCaptureModeRequest$outboundSchema;
+}
+
+/** @internal */
+export const CreateCustomerPaymentCaptureDelayRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureDelayRequest> = z
+    .nativeEnum(CreateCustomerPaymentCaptureDelayRequest);
+
+/** @internal */
+export const CreateCustomerPaymentCaptureDelayRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureDelayRequest> =
+    CreateCustomerPaymentCaptureDelayRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentCaptureDelayRequest$ {
+  /** @deprecated use `CreateCustomerPaymentCaptureDelayRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentCaptureDelayRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentCaptureDelayRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentCaptureDelayRequest$outboundSchema;
 }
 
 /** @internal */
@@ -3285,12 +4277,35 @@ export function createCustomerPaymentRoutingAmountRequestFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentRoutingTypeRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentRoutingTypeRequest> = z
+    .nativeEnum(CreateCustomerPaymentRoutingTypeRequest);
+
+/** @internal */
+export const CreateCustomerPaymentRoutingTypeRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentRoutingTypeRequest> =
+    CreateCustomerPaymentRoutingTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentRoutingTypeRequest$ {
+  /** @deprecated use `CreateCustomerPaymentRoutingTypeRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentRoutingTypeRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentRoutingTypeRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentRoutingTypeRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentDestinationRequest$inboundSchema: z.ZodType<
   CreateCustomerPaymentDestinationRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateCustomerPaymentRoutingTypeRequest$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -3306,7 +4321,7 @@ export const CreateCustomerPaymentDestinationRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateCustomerPaymentDestinationRequest
 > = z.object({
-  type: z.string(),
+  type: CreateCustomerPaymentRoutingTypeRequest$outboundSchema,
   organizationId: z.string(),
 });
 
@@ -3616,6 +4631,29 @@ export function createCustomerPaymentRoutingRequestFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentSequenceTypeRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentSequenceTypeRequest> = z
+    .nativeEnum(CreateCustomerPaymentSequenceTypeRequest);
+
+/** @internal */
+export const CreateCustomerPaymentSequenceTypeRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentSequenceTypeRequest> =
+    CreateCustomerPaymentSequenceTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentSequenceTypeRequest$ {
+  /** @deprecated use `CreateCustomerPaymentSequenceTypeRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentSequenceTypeRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentSequenceTypeRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentSequenceTypeRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentRequestBody$inboundSchema: z.ZodType<
   CreateCustomerPaymentRequestBody,
   z.ZodTypeDef,
@@ -3635,8 +4673,10 @@ export const CreateCustomerPaymentRequestBody$inboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     CreateCustomerPaymentShippingAddressRequest$inboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerPaymentLocaleRequest$inboundSchema)
+    .optional(),
+  method: z.nullable(CreateCustomerPaymentMethodRequest$inboundSchema)
+    .optional(),
   issuer: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
@@ -3646,15 +4686,21 @@ export const CreateCustomerPaymentRequestBody$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    CreateCustomerPaymentCaptureModeRequest$inboundSchema.default("automatic"),
+  ),
+  captureDelay: z.nullable(
+    CreateCustomerPaymentCaptureDelayRequest$inboundSchema,
+  ).optional(),
   applicationFee: z.nullable(
     z.lazy(() => CreateCustomerPaymentApplicationFeeRequest$inboundSchema),
   ).optional(),
   routing: z.nullable(
     z.array(z.lazy(() => CreateCustomerPaymentRoutingRequest$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()).optional(),
+  sequenceType: z.nullable(
+    CreateCustomerPaymentSequenceTypeRequest$inboundSchema.default("oneoff"),
+  ),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string().optional(),
@@ -3686,7 +4732,7 @@ export type CreateCustomerPaymentRequestBody$Outbound = {
     | Array<string>
     | null
     | undefined;
-  captureMode?: string | null | undefined;
+  captureMode: string | null;
   captureDelay?: string | null | undefined;
   applicationFee?:
     | CreateCustomerPaymentApplicationFeeRequest$Outbound
@@ -3696,7 +4742,7 @@ export type CreateCustomerPaymentRequestBody$Outbound = {
     | Array<CreateCustomerPaymentRoutingRequest$Outbound>
     | null
     | undefined;
-  sequenceType?: string | null | undefined;
+  sequenceType: string | null;
   mandateId?: string | null | undefined;
   customerId?: string | null | undefined;
   profileId?: string | undefined;
@@ -3724,8 +4770,10 @@ export const CreateCustomerPaymentRequestBody$outboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     CreateCustomerPaymentShippingAddressRequest$outboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerPaymentLocaleRequest$outboundSchema)
+    .optional(),
+  method: z.nullable(CreateCustomerPaymentMethodRequest$outboundSchema)
+    .optional(),
   issuer: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
@@ -3735,15 +4783,21 @@ export const CreateCustomerPaymentRequestBody$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    CreateCustomerPaymentCaptureModeRequest$outboundSchema.default("automatic"),
+  ),
+  captureDelay: z.nullable(
+    CreateCustomerPaymentCaptureDelayRequest$outboundSchema,
+  ).optional(),
   applicationFee: z.nullable(
     z.lazy(() => CreateCustomerPaymentApplicationFeeRequest$outboundSchema),
   ).optional(),
   routing: z.nullable(
     z.array(z.lazy(() => CreateCustomerPaymentRoutingRequest$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()).optional(),
+  sequenceType: z.nullable(
+    CreateCustomerPaymentSequenceTypeRequest$outboundSchema.default("oneoff"),
+  ),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string().optional(),
@@ -4138,6 +5192,27 @@ export function createCustomerPaymentUnprocessableEntityLinksFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentMode
+> = z.nativeEnum(CreateCustomerPaymentMode);
+
+/** @internal */
+export const CreateCustomerPaymentMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentMode
+> = CreateCustomerPaymentMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentMode$ {
+  /** @deprecated use `CreateCustomerPaymentMode$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerPaymentMode$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentMode$outboundSchema` instead. */
+  export const outboundSchema = CreateCustomerPaymentMode$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentAmountResponse$inboundSchema: z.ZodType<
   CreateCustomerPaymentAmountResponse,
   z.ZodTypeDef,
@@ -4511,6 +5586,30 @@ export function createCustomerPaymentSettlementAmountFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentLineTypeResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentLineTypeResponse> = z.nativeEnum(
+    CreateCustomerPaymentLineTypeResponse,
+  );
+
+/** @internal */
+export const CreateCustomerPaymentLineTypeResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentLineTypeResponse> =
+    CreateCustomerPaymentLineTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentLineTypeResponse$ {
+  /** @deprecated use `CreateCustomerPaymentLineTypeResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentLineTypeResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentLineTypeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentLineTypeResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentUnitPriceResponse$inboundSchema: z.ZodType<
   CreateCustomerPaymentUnitPriceResponse,
   z.ZodTypeDef,
@@ -4799,6 +5898,30 @@ export namespace CreateCustomerPaymentCategoryResponse$ {
 }
 
 /** @internal */
+export const CreateCustomerPaymentIntervalResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalResponse> = z.nativeEnum(
+    CreateCustomerPaymentIntervalResponse,
+  );
+
+/** @internal */
+export const CreateCustomerPaymentIntervalResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalResponse> =
+    CreateCustomerPaymentIntervalResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentIntervalResponse$ {
+  /** @deprecated use `CreateCustomerPaymentIntervalResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentIntervalResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentIntervalResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentIntervalResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentRecurringAmountResponse$inboundSchema:
   z.ZodType<
     CreateCustomerPaymentRecurringAmountResponse,
@@ -4875,7 +5998,7 @@ export const CreateCustomerPaymentRecurringResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: CreateCustomerPaymentIntervalResponse$inboundSchema,
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountResponse$inboundSchema
   ).optional(),
@@ -4899,7 +6022,7 @@ export const CreateCustomerPaymentRecurringResponse$outboundSchema: z.ZodType<
   CreateCustomerPaymentRecurringResponse
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: CreateCustomerPaymentIntervalResponse$outboundSchema,
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountResponse$outboundSchema
   ).optional(),
@@ -4950,7 +6073,7 @@ export const CreateCustomerPaymentLineResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: CreateCustomerPaymentLineTypeResponse$inboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -4975,7 +6098,7 @@ export const CreateCustomerPaymentLineResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateCustomerPaymentLineResponse$Outbound = {
-  type?: string | undefined;
+  type: string;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -4999,7 +6122,9 @@ export const CreateCustomerPaymentLineResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateCustomerPaymentLineResponse
 > = z.object({
-  type: z.string().optional(),
+  type: CreateCustomerPaymentLineTypeResponse$outboundSchema.default(
+    "physical",
+  ),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -5259,6 +6384,52 @@ export function createCustomerPaymentShippingAddressResponseFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentLocaleResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentLocaleResponse
+> = z.nativeEnum(CreateCustomerPaymentLocaleResponse);
+
+/** @internal */
+export const CreateCustomerPaymentLocaleResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentLocaleResponse> =
+    CreateCustomerPaymentLocaleResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentLocaleResponse$ {
+  /** @deprecated use `CreateCustomerPaymentLocaleResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentLocaleResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentLocaleResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentLocaleResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateCustomerPaymentMethodResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentMethodResponse
+> = z.nativeEnum(CreateCustomerPaymentMethodResponse);
+
+/** @internal */
+export const CreateCustomerPaymentMethodResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentMethodResponse> =
+    CreateCustomerPaymentMethodResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentMethodResponse$ {
+  /** @deprecated use `CreateCustomerPaymentMethodResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentMethodResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentMethodResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentMethodResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentMetadataResponse$inboundSchema: z.ZodType<
   CreateCustomerPaymentMetadataResponse,
   z.ZodTypeDef,
@@ -5378,6 +6549,52 @@ export function createCustomerPaymentMetadataResponseUnionFromJSON(
       ),
     `Failed to parse 'CreateCustomerPaymentMetadataResponseUnion' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateCustomerPaymentCaptureModeResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureModeResponse> = z
+    .nativeEnum(CreateCustomerPaymentCaptureModeResponse);
+
+/** @internal */
+export const CreateCustomerPaymentCaptureModeResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureModeResponse> =
+    CreateCustomerPaymentCaptureModeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentCaptureModeResponse$ {
+  /** @deprecated use `CreateCustomerPaymentCaptureModeResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentCaptureModeResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentCaptureModeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentCaptureModeResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateCustomerPaymentCaptureDelayResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureDelayResponse> = z
+    .nativeEnum(CreateCustomerPaymentCaptureDelayResponse);
+
+/** @internal */
+export const CreateCustomerPaymentCaptureDelayResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentCaptureDelayResponse> =
+    CreateCustomerPaymentCaptureDelayResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentCaptureDelayResponse$ {
+  /** @deprecated use `CreateCustomerPaymentCaptureDelayResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentCaptureDelayResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentCaptureDelayResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentCaptureDelayResponse$outboundSchema;
 }
 
 /** @internal */
@@ -5528,6 +6745,27 @@ export function createCustomerPaymentApplicationFeeResponseFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentRoutingMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentRoutingMode
+> = z.nativeEnum(CreateCustomerPaymentRoutingMode);
+
+/** @internal */
+export const CreateCustomerPaymentRoutingMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentRoutingMode
+> = CreateCustomerPaymentRoutingMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentRoutingMode$ {
+  /** @deprecated use `CreateCustomerPaymentRoutingMode$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerPaymentRoutingMode$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentRoutingMode$outboundSchema` instead. */
+  export const outboundSchema = CreateCustomerPaymentRoutingMode$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentRoutingAmountResponse$inboundSchema:
   z.ZodType<CreateCustomerPaymentRoutingAmountResponse, z.ZodTypeDef, unknown> =
     z.object({
@@ -5595,12 +6833,35 @@ export function createCustomerPaymentRoutingAmountResponseFromJSON(
 }
 
 /** @internal */
+export const CreateCustomerPaymentRoutingTypeResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentRoutingTypeResponse> = z
+    .nativeEnum(CreateCustomerPaymentRoutingTypeResponse);
+
+/** @internal */
+export const CreateCustomerPaymentRoutingTypeResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentRoutingTypeResponse> =
+    CreateCustomerPaymentRoutingTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentRoutingTypeResponse$ {
+  /** @deprecated use `CreateCustomerPaymentRoutingTypeResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentRoutingTypeResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentRoutingTypeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentRoutingTypeResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateCustomerPaymentDestinationResponse$inboundSchema: z.ZodType<
   CreateCustomerPaymentDestinationResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateCustomerPaymentRoutingTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -5616,7 +6877,7 @@ export const CreateCustomerPaymentDestinationResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateCustomerPaymentDestinationResponse
 > = z.object({
-  type: z.string(),
+  type: CreateCustomerPaymentRoutingTypeResponse$outboundSchema,
   organizationId: z.string(),
 });
 
@@ -5869,7 +7130,7 @@ export const CreateCustomerPaymentRoutingResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: CreateCustomerPaymentRoutingMode$inboundSchema,
   amount: z.lazy(() =>
     CreateCustomerPaymentRoutingAmountResponse$inboundSchema
   ),
@@ -5905,7 +7166,7 @@ export const CreateCustomerPaymentRoutingResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: CreateCustomerPaymentRoutingMode$outboundSchema,
   amount: z.lazy(() =>
     CreateCustomerPaymentRoutingAmountResponse$outboundSchema
   ),
@@ -5955,6 +7216,50 @@ export function createCustomerPaymentRoutingResponseFromJSON(
       CreateCustomerPaymentRoutingResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateCustomerPaymentRoutingResponse' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateCustomerPaymentSequenceTypeResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentSequenceTypeResponse> = z
+    .nativeEnum(CreateCustomerPaymentSequenceTypeResponse);
+
+/** @internal */
+export const CreateCustomerPaymentSequenceTypeResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateCustomerPaymentSequenceTypeResponse> =
+    CreateCustomerPaymentSequenceTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentSequenceTypeResponse$ {
+  /** @deprecated use `CreateCustomerPaymentSequenceTypeResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateCustomerPaymentSequenceTypeResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentSequenceTypeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateCustomerPaymentSequenceTypeResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateCustomerPaymentStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentStatus
+> = z.nativeEnum(CreateCustomerPaymentStatus);
+
+/** @internal */
+export const CreateCustomerPaymentStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerPaymentStatus
+> = CreateCustomerPaymentStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerPaymentStatus$ {
+  /** @deprecated use `CreateCustomerPaymentStatus$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerPaymentStatus$inboundSchema;
+  /** @deprecated use `CreateCustomerPaymentStatus$outboundSchema` instead. */
+  export const outboundSchema = CreateCustomerPaymentStatus$outboundSchema;
 }
 
 /** @internal */
@@ -7053,7 +8358,7 @@ export const CreateCustomerPaymentResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: CreateCustomerPaymentMode$inboundSchema,
   description: z.string(),
   amount: z.lazy(() => CreateCustomerPaymentAmountResponse$inboundSchema),
   amountRefunded: z.lazy(() =>
@@ -7083,9 +8388,11 @@ export const CreateCustomerPaymentResponse$inboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     CreateCustomerPaymentShippingAddressResponse$inboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerPaymentLocaleResponse$inboundSchema)
+    .optional(),
   countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CreateCustomerPaymentMethodResponse$inboundSchema)
+    .optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.union([
@@ -7094,8 +8401,12 @@ export const CreateCustomerPaymentResponse$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    CreateCustomerPaymentCaptureModeResponse$inboundSchema.default("automatic"),
+  ),
+  captureDelay: z.nullable(
+    CreateCustomerPaymentCaptureDelayResponse$inboundSchema,
+  ).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => CreateCustomerPaymentApplicationFeeResponse$inboundSchema),
@@ -7103,14 +8414,16 @@ export const CreateCustomerPaymentResponse$inboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => CreateCustomerPaymentRoutingResponse$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()),
+  sequenceType: z.nullable(
+    CreateCustomerPaymentSequenceTypeResponse$inboundSchema.default("oneoff"),
+  ),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: z.string(),
+  status: CreateCustomerPaymentStatus$inboundSchema,
   statusReason: z.nullable(
     z.lazy(() => CreateCustomerPaymentStatusReason$inboundSchema),
   ).optional(),
@@ -7164,7 +8477,7 @@ export type CreateCustomerPaymentResponse$Outbound = {
     | Array<string>
     | null
     | undefined;
-  captureMode?: string | null | undefined;
+  captureMode: string | null;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
   applicationFee?:
@@ -7204,7 +8517,7 @@ export const CreateCustomerPaymentResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: CreateCustomerPaymentMode$outboundSchema,
   description: z.string(),
   amount: z.lazy(() => CreateCustomerPaymentAmountResponse$outboundSchema),
   amountRefunded: z.lazy(() =>
@@ -7234,9 +8547,11 @@ export const CreateCustomerPaymentResponse$outboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     CreateCustomerPaymentShippingAddressResponse$outboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerPaymentLocaleResponse$outboundSchema)
+    .optional(),
   countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CreateCustomerPaymentMethodResponse$outboundSchema)
+    .optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.union([
@@ -7245,8 +8560,14 @@ export const CreateCustomerPaymentResponse$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    CreateCustomerPaymentCaptureModeResponse$outboundSchema.default(
+      "automatic",
+    ),
+  ),
+  captureDelay: z.nullable(
+    CreateCustomerPaymentCaptureDelayResponse$outboundSchema,
+  ).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => CreateCustomerPaymentApplicationFeeResponse$outboundSchema),
@@ -7254,14 +8575,16 @@ export const CreateCustomerPaymentResponse$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => CreateCustomerPaymentRoutingResponse$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()),
+  sequenceType: z.nullable(
+    CreateCustomerPaymentSequenceTypeResponse$outboundSchema.default("oneoff"),
+  ),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: z.string(),
+  status: CreateCustomerPaymentStatus$outboundSchema,
   statusReason: z.nullable(
     z.lazy(() => CreateCustomerPaymentStatusReason$outboundSchema),
   ).optional(),

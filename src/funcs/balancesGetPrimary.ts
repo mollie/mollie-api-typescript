@@ -26,13 +26,11 @@ import { Result } from "../types/fp.js";
  * Get primary balance
  *
  * @remarks
- * Retrieve the primary balance. This is the balance of your account's primary currency, where all payments are settled to by default.
+ * Retrieve the primary balance. This is the balance of your account's primary
+ * currency, where all payments are settled to by default.
  *
- * This endpoint is a convenient alias of the [Get balance](get-balance) endpoint.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **balances.read**](/reference/authentication)
+ * This endpoint is a convenient alias of the [Get balance](get-balance)
+ * endpoint.
  */
 export function balancesGetPrimary(
   client: ClientCore,

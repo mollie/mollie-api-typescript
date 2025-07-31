@@ -9,13 +9,11 @@ export const tool$balancesGetPrimary: ToolDefinition = {
   name: "balances-get-primary",
   description: `Get primary balance
 
-Retrieve the primary balance. This is the balance of your account's primary currency, where all payments are settled to by default.
+Retrieve the primary balance. This is the balance of your account's primary
+currency, where all payments are settled to by default.
 
-This endpoint is a convenient alias of the [Get balance](get-balance) endpoint.
-
-> 🔑 Access with
->
-> [Access token with **balances.read**](/reference/authentication)`,
+This endpoint is a convenient alias of the [Get balance](get-balance)
+endpoint.`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await balancesGetPrimary(
       client,

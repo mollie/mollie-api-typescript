@@ -16,11 +16,8 @@ export const tool$profilesUpdate: ToolDefinition<typeof args> = {
 
 Update an existing profile.
 
-Profiles are required for payment processing. Normally they are created and updated via the Mollie dashboard. Alternatively, you can use this endpoint to automate profile management.
-
-> 🔑 Access with
->
-> [Access token with **profiles.write**](/reference/authentication)`,
+Profiles are required for payment processing. Normally they are created and updated via the Mollie dashboard.
+Alternatively, you can use this endpoint to automate profile management.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await profilesUpdate(

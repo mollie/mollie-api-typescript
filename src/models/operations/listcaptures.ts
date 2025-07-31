@@ -10,13 +10,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This endpoint allows you to embed additional resources via the `embed` query string parameter.
+ * This endpoint allows you to embed additional resources via the
+ *
+ * @remarks
+ * `embed` query string parameter.
  */
 export const ListCapturesEmbed = {
   Payment: "payment",
 } as const;
 /**
- * This endpoint allows you to embed additional resources via the `embed` query string parameter.
+ * This endpoint allows you to embed additional resources via the
+ *
+ * @remarks
+ * `embed` query string parameter.
  */
 export type ListCapturesEmbed = ClosedEnum<typeof ListCapturesEmbed>;
 
@@ -26,7 +32,10 @@ export type ListCapturesRequest = {
    */
   paymentId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -34,13 +43,18 @@ export type ListCapturesRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * This endpoint allows you to embed additional resources via the `embed` query string parameter.
+   * This endpoint allows you to embed additional resources via the
+   *
+   * @remarks
+   * `embed` query string parameter.
    */
   embed?: ListCapturesEmbed | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -78,6 +92,18 @@ export type ListCapturesBadRequestLinks = {
 };
 
 /**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListCapturesMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListCapturesMode = ClosedEnum<typeof ListCapturesMode>;
+
+/**
  * The amount captured. If no amount is provided, the full authorized amount is captured.
  */
 export type ListCapturesAmount = {
@@ -92,11 +118,14 @@ export type ListCapturesAmount = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be settled to your account, converted to the
  *
  * @remarks
+ * currency your account is settled in.
  *
- * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve
+ * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+ * instead.
  */
 export type ListCapturesSettlementAmount = {
   /**
@@ -109,10 +138,26 @@ export type ListCapturesSettlementAmount = {
   value: string;
 };
 
+/**
+ * The capture's status.
+ */
+export const ListCapturesStatus = {
+  Pending: "pending",
+  Succeeded: "succeeded",
+  Failed: "failed",
+} as const;
+/**
+ * The capture's status.
+ */
+export type ListCapturesStatus = ClosedEnum<typeof ListCapturesStatus>;
+
 export type ListCapturesMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type ListCapturesMetadataUnion =
   | ListCapturesMetadata
@@ -148,7 +193,10 @@ export type ListCapturesPayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if
+ *
+ * @remarks
+ * not yet settled.
  */
 export type ListCapturesSettlement = {
   /**
@@ -162,7 +210,10 @@ export type ListCapturesSettlement = {
 };
 
 /**
- * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if it isn't associated with a shipment.
+ * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if
+ *
+ * @remarks
+ * it isn't associated with a shipment.
  */
 export type ListCapturesShipment = {
   /**
@@ -202,11 +253,17 @@ export type ListCapturesCaptureLinks = {
    */
   payment: ListCapturesPayment;
   /**
-   * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if
+   *
+   * @remarks
+   * not yet settled.
    */
   settlement?: ListCapturesSettlement | null | undefined;
   /**
-   * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if it isn't associated with a shipment.
+   * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if
+   *
+   * @remarks
+   * it isn't associated with a shipment.
    */
   shipment?: ListCapturesShipment | null | undefined;
   /**
@@ -226,12 +283,8 @@ export type ListCapturesCapture = {
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: ListCapturesMode;
   /**
    * The description of the capture.
    */
@@ -241,35 +294,46 @@ export type ListCapturesCapture = {
    */
   amount: ListCapturesAmount | null;
   /**
-   * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the
    *
    * @remarks
+   * currency your account is settled in.
    *
-   * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve
+   * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+   * instead.
    */
   settlementAmount?: ListCapturesSettlementAmount | null | undefined;
   /**
    * The capture's status.
+   */
+  status: ListCapturesStatus;
+  /**
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
-   *
-   * Possible values: `pending` `succeeded` `failed`
-   */
-  status: string;
-  /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: ListCapturesMetadata | string | Array<string> | null | undefined;
   /**
-   * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId: string;
   /**
-   * The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example: `shp_gNapNy9qQTUFZYnCrCF7J`.
+   * The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example:
+   *
+   * @remarks
+   * `shp_gNapNy9qQTUFZYnCrCF7J`.
    */
   shipmentId?: string | null | undefined;
   /**
-   * The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field is omitted if the capture is not settled (yet).
+   * The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field
+   *
+   * @remarks
+   * is omitted if the capture is not settled (yet).
    */
   settlementId?: string | null | undefined;
   /**
@@ -372,11 +436,13 @@ export type ListCapturesLinks = {
  */
 export type ListCapturesResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListCapturesEmbedded | undefined;
@@ -710,6 +776,27 @@ export function listCapturesBadRequestLinksFromJSON(
 }
 
 /** @internal */
+export const ListCapturesMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListCapturesMode
+> = z.nativeEnum(ListCapturesMode);
+
+/** @internal */
+export const ListCapturesMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListCapturesMode
+> = ListCapturesMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCapturesMode$ {
+  /** @deprecated use `ListCapturesMode$inboundSchema` instead. */
+  export const inboundSchema = ListCapturesMode$inboundSchema;
+  /** @deprecated use `ListCapturesMode$outboundSchema` instead. */
+  export const outboundSchema = ListCapturesMode$outboundSchema;
+}
+
+/** @internal */
 export const ListCapturesAmount$inboundSchema: z.ZodType<
   ListCapturesAmount,
   z.ZodTypeDef,
@@ -823,6 +910,27 @@ export function listCapturesSettlementAmountFromJSON(
     (x) => ListCapturesSettlementAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCapturesSettlementAmount' from JSON`,
   );
+}
+
+/** @internal */
+export const ListCapturesStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListCapturesStatus
+> = z.nativeEnum(ListCapturesStatus);
+
+/** @internal */
+export const ListCapturesStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListCapturesStatus
+> = ListCapturesStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCapturesStatus$ {
+  /** @deprecated use `ListCapturesStatus$inboundSchema` instead. */
+  export const inboundSchema = ListCapturesStatus$inboundSchema;
+  /** @deprecated use `ListCapturesStatus$outboundSchema` instead. */
+  export const outboundSchema = ListCapturesStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1297,13 +1405,13 @@ export const ListCapturesCapture$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListCapturesMode$inboundSchema,
   description: z.string().optional(),
   amount: z.nullable(z.lazy(() => ListCapturesAmount$inboundSchema)),
   settlementAmount: z.nullable(
     z.lazy(() => ListCapturesSettlementAmount$inboundSchema),
   ).optional(),
-  status: z.string(),
+  status: ListCapturesStatus$inboundSchema,
   metadata: z.nullable(
     z.union([
       z.lazy(() => ListCapturesMetadata$inboundSchema),
@@ -1352,13 +1460,13 @@ export const ListCapturesCapture$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListCapturesMode$outboundSchema,
   description: z.string().optional(),
   amount: z.nullable(z.lazy(() => ListCapturesAmount$outboundSchema)),
   settlementAmount: z.nullable(
     z.lazy(() => ListCapturesSettlementAmount$outboundSchema),
   ).optional(),
-  status: z.string(),
+  status: ListCapturesStatus$outboundSchema,
   metadata: z.nullable(
     z.union([
       z.lazy(() => ListCapturesMetadata$outboundSchema),

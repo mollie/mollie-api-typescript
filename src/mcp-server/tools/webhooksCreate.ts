@@ -14,11 +14,7 @@ export const tool$webhooksCreate: ToolDefinition<typeof args> = {
   name: "webhooks-create",
   description: `Create a webhook
 
-A webhook must have a name, an url and a list of event types. You can also create webhooks in the webhooks settings section of the Dashboard.
-
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)`,
+A webhook must have a name, an url and a list of event types. You can also create webhooks in the webhooks settings section of the Dashboard.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await webhooksCreate(

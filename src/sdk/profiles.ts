@@ -19,11 +19,8 @@ export class Profiles extends ClientSDK {
    * @remarks
    * Create a profile to process payments on.
    *
-   * Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you can use this endpoint to automate profile creation.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **profiles.write**](/reference/authentication)
+   * Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you
+   * can use this endpoint to automate profile creation.
    */
   async create(
     request: operations.CreateProfileRequest,
@@ -43,10 +40,6 @@ export class Profiles extends ClientSDK {
    * Retrieve a list of all of your profiles.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **profiles.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListProfilesRequest | undefined,
@@ -64,10 +57,6 @@ export class Profiles extends ClientSDK {
    *
    * @remarks
    * Retrieve a single profile by its ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **profiles.read**](/reference/authentication)
    */
   async get(
     request: operations.GetProfileRequest,
@@ -86,11 +75,8 @@ export class Profiles extends ClientSDK {
    * @remarks
    * Update an existing profile.
    *
-   * Profiles are required for payment processing. Normally they are created and updated via the Mollie dashboard. Alternatively, you can use this endpoint to automate profile management.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **profiles.write**](/reference/authentication)
+   * Profiles are required for payment processing. Normally they are created and updated via the Mollie dashboard.
+   * Alternatively, you can use this endpoint to automate profile management.
    */
   async update(
     request: operations.UpdateProfileRequest,
@@ -108,10 +94,6 @@ export class Profiles extends ClientSDK {
    *
    * @remarks
    * Delete a profile. A deleted profile and its related credentials can no longer be used for accepting payments.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **profiles.write**](/reference/authentication)
    */
   async delete(
     request: operations.DeleteProfileRequest,
@@ -128,13 +110,11 @@ export class Profiles extends ClientSDK {
    * Get current profile
    *
    * @remarks
-   * Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile) endpoint.
+   * Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile)
+   * endpoint.
    *
-   * For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint documentation.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
+   * For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint
+   * documentation.
    */
   async getCurrent(
     options?: RequestOptions,

@@ -44,7 +44,9 @@ export type CreateWebhookRequest = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
   testmode?: boolean | null | undefined;
 };
@@ -63,6 +65,31 @@ export type CreateWebhookUnprocessableEntityLinks = {
    */
   documentation: CreateWebhookUnprocessableEntityDocumentation;
 };
+
+/**
+ * The subscription's current status.
+ */
+export const CreateWebhookStatus = {
+  Enabled: "enabled",
+  Blocked: "blocked",
+  Disabled: "disabled",
+} as const;
+/**
+ * The subscription's current status.
+ */
+export type CreateWebhookStatus = ClosedEnum<typeof CreateWebhookStatus>;
+
+/**
+ * The subscription's mode.
+ */
+export const CreateWebhookMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * The subscription's mode.
+ */
+export type CreateWebhookMode = ClosedEnum<typeof CreateWebhookMode>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -122,20 +149,12 @@ export type CreateWebhookResponse = {
   eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
-   *
-   * @remarks
-   *
-   * Possible values: `enabled` `blocked` `disabled`
    */
-  status?: string | undefined;
+  status?: CreateWebhookStatus | undefined;
   /**
    * The subscription's mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: CreateWebhookMode | undefined;
   /**
    * The subscription's secret.
    */
@@ -364,6 +383,48 @@ export function createWebhookUnprocessableEntityLinksFromJSON(
 }
 
 /** @internal */
+export const CreateWebhookStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CreateWebhookStatus
+> = z.nativeEnum(CreateWebhookStatus);
+
+/** @internal */
+export const CreateWebhookStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CreateWebhookStatus
+> = CreateWebhookStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateWebhookStatus$ {
+  /** @deprecated use `CreateWebhookStatus$inboundSchema` instead. */
+  export const inboundSchema = CreateWebhookStatus$inboundSchema;
+  /** @deprecated use `CreateWebhookStatus$outboundSchema` instead. */
+  export const outboundSchema = CreateWebhookStatus$outboundSchema;
+}
+
+/** @internal */
+export const CreateWebhookMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateWebhookMode
+> = z.nativeEnum(CreateWebhookMode);
+
+/** @internal */
+export const CreateWebhookMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateWebhookMode
+> = CreateWebhookMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateWebhookMode$ {
+  /** @deprecated use `CreateWebhookMode$inboundSchema` instead. */
+  export const inboundSchema = CreateWebhookMode$inboundSchema;
+  /** @deprecated use `CreateWebhookMode$outboundSchema` instead. */
+  export const outboundSchema = CreateWebhookMode$outboundSchema;
+}
+
+/** @internal */
 export const CreateWebhookDocumentation$inboundSchema: z.ZodType<
   CreateWebhookDocumentation,
   z.ZodTypeDef,
@@ -489,8 +550,8 @@ export const CreateWebhookResponse$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   name: z.string().optional(),
   eventTypes: z.array(z.string()).optional(),
-  status: z.string().optional(),
-  mode: z.string().optional(),
+  status: CreateWebhookStatus$inboundSchema.optional(),
+  mode: CreateWebhookMode$inboundSchema.optional(),
   webhookSecret: z.string().optional(),
   _links: z.lazy(() => CreateWebhookLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -527,8 +588,8 @@ export const CreateWebhookResponse$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   name: z.string().optional(),
   eventTypes: z.array(z.string()).optional(),
-  status: z.string().optional(),
-  mode: z.string().optional(),
+  status: CreateWebhookStatus$outboundSchema.optional(),
+  mode: CreateWebhookMode$outboundSchema.optional(),
   webhookSecret: z.string().optional(),
   links: z.lazy(() => CreateWebhookLinks$outboundSchema).optional(),
 }).transform((v) => {

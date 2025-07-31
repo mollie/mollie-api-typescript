@@ -9,13 +9,36 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListCustomerPaymentsSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListCustomerPaymentsSort = ClosedEnum<
+  typeof ListCustomerPaymentsSort
+>;
+
 export type ListCustomerPaymentsRequest = {
   /**
    * Provide the ID of the related customer.
    */
   customerId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
+   *
+   * @remarks
+   * the result set.
    */
   from?: string | undefined;
   /**
@@ -23,25 +46,28 @@ export type ListCustomerPaymentsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListCustomerPaymentsSort | null | undefined;
   /**
-   * The identifier referring to the [profile](get-profile) you wish to retrieve the resources for.
+   * The identifier referring to the [profile](get-profile) you wish to
    *
    * @remarks
+   * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -64,13 +90,29 @@ export type ListCustomerPaymentsBadRequestLinks = {
 };
 
 /**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListCustomerPaymentsMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListCustomerPaymentsMode = ClosedEnum<
+  typeof ListCustomerPaymentsMode
+>;
+
+/**
  * The amount that you want to charge, e.g. `{currency:"EUR", value:"1000.00"}` if you would want to charge €1000.00.
  *
  * @remarks
  *
- * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+ * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+ * retrieved using the Get method endpoint.
  *
- * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+ * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+ * tip amount.
  */
 export type ListCustomerPaymentsAmount = {
   /**
@@ -84,7 +126,11 @@ export type ListCustomerPaymentsAmount = {
 };
 
 /**
- * The total amount that is already refunded. Only available when refunds are available for this payment. For some payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+ * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+ *
+ * @remarks
+ * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+ * costs for a return shipment to the customer.
  */
 export type ListCustomerPaymentsAmountRefunded = {
   /**
@@ -126,7 +172,10 @@ export type ListCustomerPaymentsAmountCaptured = {
 };
 
 /**
- * The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+ * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+ *
+ * @remarks
+ * zero.
  */
 export type ListCustomerPaymentsAmountChargedBack = {
   /**
@@ -140,13 +189,16 @@ export type ListCustomerPaymentsAmountChargedBack = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be settled to your account, converted to the
  *
  * @remarks
+ * currency your account is settled in.
  *
- * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is settled by Mollie the `settlementAmount` is omitted from the response.
+ * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+ * settled by Mollie the `settlementAmount` is omitted from the response.
  *
- * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+ * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+ * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
  */
 export type ListCustomerPaymentsSettlementAmount = {
   /**
@@ -158,6 +210,34 @@ export type ListCustomerPaymentsSettlementAmount = {
    */
   value: string;
 };
+
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export const ListCustomerPaymentsLineType = {
+  Physical: "physical",
+  Digital: "digital",
+  ShippingFee: "shipping_fee",
+  Discount: "discount",
+  StoreCredit: "store_credit",
+  GiftCard: "gift_card",
+  Surcharge: "surcharge",
+  Tip: "tip",
+} as const;
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export type ListCustomerPaymentsLineType = ClosedEnum<
+  typeof ListCustomerPaymentsLineType
+>;
 
 /**
  * The price of a single item including VAT.
@@ -182,7 +262,10 @@ export type ListCustomerPaymentsUnitPrice = {
 };
 
 /**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+ * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+ *
+ * @remarks
+ * type.
  */
 export type ListCustomerPaymentsDiscountAmount = {
   /**
@@ -216,13 +299,15 @@ export type ListCustomerPaymentsTotalAmount = {
 };
 
 /**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+ * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
  *
  * @remarks
+ * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
  *
  * Any deviations from this will result in an error.
  *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+ * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+ * `SEK 100.00 × (25 / 125) = SEK 20.00`.
  */
 export type ListCustomerPaymentsVatAmount = {
   /**
@@ -246,6 +331,21 @@ export type ListCustomerPaymentsCategory = ClosedEnum<
 >;
 
 /**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export const ListCustomerPaymentsInterval = {
+  DotDotDotMonths: "... months",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export type ListCustomerPaymentsInterval = ClosedEnum<
+  typeof ListCustomerPaymentsInterval
+>;
+
+/**
  * Total amount and currency of the recurring item.
  */
 export type ListCustomerPaymentsRecurringAmount = {
@@ -260,7 +360,10 @@ export type ListCustomerPaymentsRecurringAmount = {
 };
 
 /**
- * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+ * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+ *
+ * @remarks
+ * to inform the shopper of the details for recurring products in the payments.
  */
 export type ListCustomerPaymentsRecurring = {
   /**
@@ -269,12 +372,8 @@ export type ListCustomerPaymentsRecurring = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
-   *
-   * @remarks
-   *
-   * Possible values: `... months` `... weeks` `... days`
    */
-  interval: string;
+  interval: ListCustomerPaymentsInterval;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -296,10 +395,8 @@ export type ListCustomerPaymentsLine = {
    * @remarks
    *
    * The `tip` payment line type is not available when creating a payment.
-   *
-   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
    */
-  type?: string | undefined;
+  type?: ListCustomerPaymentsLineType | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -325,7 +422,10 @@ export type ListCustomerPaymentsLine = {
    */
   unitPrice: ListCustomerPaymentsUnitPrice;
   /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+   *
+   * @remarks
+   * type.
    */
   discountAmount?: ListCustomerPaymentsDiscountAmount | undefined;
   /**
@@ -339,17 +439,22 @@ export type ListCustomerPaymentsLine = {
    */
   totalAmount: ListCustomerPaymentsTotalAmount;
   /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+   *
+   * @remarks
+   * not as a float, to ensure the correct number of decimals are passed.
    */
   vatRate?: string | undefined;
   /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
    *
    * @remarks
+   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
    *
    * Any deviations from this will result in an error.
    *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
    */
   vatAmount?: ListCustomerPaymentsVatAmount | undefined;
   /**
@@ -357,7 +462,10 @@ export type ListCustomerPaymentsLine = {
    */
   sku?: string | undefined;
   /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the
+   *
+   * @remarks
+   * [Integrating Vouchers](integrating-vouchers) guide for more information.
    */
   categories?: Array<ListCustomerPaymentsCategory> | undefined;
   /**
@@ -369,17 +477,22 @@ export type ListCustomerPaymentsLine = {
    */
   productUrl?: string | undefined;
   /**
-   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+   *
+   * @remarks
+   * to inform the shopper of the details for recurring products in the payments.
    */
   recurring?: ListCustomerPaymentsRecurring | undefined;
 };
 
 /**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  *
  * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
  */
@@ -389,17 +502,19 @@ export type ListCustomerPaymentsBillingAddress = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -433,7 +548,8 @@ export type ListCustomerPaymentsBillingAddress = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -465,11 +581,13 @@ export type ListCustomerPaymentsBillingAddress = {
 };
 
 /**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's shipping address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  */
 export type ListCustomerPaymentsShippingAddress = {
   /**
@@ -477,17 +595,19 @@ export type ListCustomerPaymentsShippingAddress = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -521,7 +641,8 @@ export type ListCustomerPaymentsShippingAddress = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -552,10 +673,114 @@ export type ListCustomerPaymentsShippingAddress = {
   country?: string | undefined;
 };
 
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export const ListCustomerPaymentsLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export type ListCustomerPaymentsLocale = ClosedEnum<
+  typeof ListCustomerPaymentsLocale
+>;
+
+/**
+ * The payment method used for this transaction. If a specific method was selected during payment initialization,
+ *
+ * @remarks
+ * this field reflects that choice.
+ */
+export const ListCustomerPaymentsMethod = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Mbway: "mbway",
+  Multibanco: "multibanco",
+  Mybank: "mybank",
+  Payconiq: "payconiq",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Pointofsale: "pointofsale",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The payment method used for this transaction. If a specific method was selected during payment initialization,
+ *
+ * @remarks
+ * this field reflects that choice.
+ */
+export type ListCustomerPaymentsMethod = ClosedEnum<
+  typeof ListCustomerPaymentsMethod
+>;
+
 export type ListCustomerPaymentsMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type ListCustomerPaymentsMetadataUnion =
   | ListCustomerPaymentsMetadata
@@ -563,11 +788,76 @@ export type ListCustomerPaymentsMetadataUnion =
   | Array<string>;
 
 /**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export const ListCustomerPaymentsCaptureMode = {
+  Automatic: "automatic",
+  Manual: "manual",
+} as const;
+/**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export type ListCustomerPaymentsCaptureMode = ClosedEnum<
+  typeof ListCustomerPaymentsCaptureMode
+>;
+
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export const ListCustomerPaymentsCaptureDelay = {
+  DotDotDotHours: "... hours",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export type ListCustomerPaymentsCaptureDelay = ClosedEnum<
+  typeof ListCustomerPaymentsCaptureDelay
+>;
+
+/**
  * The fee that you wish to charge.
  *
  * @remarks
  *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+ * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+ * a €0.99 fee on a €1.00 payment.
  */
 export type ListCustomerPaymentsApplicationFeeAmount = {
   /**
@@ -581,13 +871,17 @@ export type ListCustomerPaymentsApplicationFeeAmount = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
- * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+ * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+ * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+ * to your own account balance.
  *
- * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+ * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+ * `routing` parameter.
  */
 export type ListCustomerPaymentsApplicationFee = {
   /**
@@ -595,14 +889,32 @@ export type ListCustomerPaymentsApplicationFee = {
    *
    * @remarks
    *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+   * a €0.99 fee on a €1.00 payment.
    */
   amount?: ListCustomerPaymentsApplicationFeeAmount | undefined;
   /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
+   * The description of the application fee. This will appear on settlement reports towards both you and the
+   *
+   * @remarks
+   * connected merchant.
    */
   description?: string | undefined;
 };
+
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListCustomerPaymentsRoutingMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListCustomerPaymentsRoutingMode = ClosedEnum<
+  typeof ListCustomerPaymentsRoutingMode
+>;
 
 /**
  * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
@@ -619,19 +931,31 @@ export type ListCustomerPaymentsRoutingAmount = {
 };
 
 /**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export const ListCustomerPaymentsRoutingType = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export type ListCustomerPaymentsRoutingType = ClosedEnum<
+  typeof ListCustomerPaymentsRoutingType
+>;
+
+/**
  * The destination of this portion of the payment.
  */
 export type ListCustomerPaymentsDestination = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: ListCustomerPaymentsRoutingType;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type: string;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   * routed to.
    */
   organizationId: string;
 };
@@ -684,17 +1008,16 @@ export type ListCustomerPaymentsRouting = {
    */
   resource: string;
   /**
-   * The identifier uniquely referring to this route. Mollie will always refer to the route by this ID. Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
+   * The identifier uniquely referring to this route. Mollie will always refer to the route by this ID.
+   *
+   * @remarks
+   * Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
    */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: ListCustomerPaymentsRoutingMode;
   /**
    * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
    */
@@ -708,9 +1031,10 @@ export type ListCustomerPaymentsRouting = {
    */
   createdAt: string;
   /**
-   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The date must be given in `YYYY-MM-DD` format.
+   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The
    *
    * @remarks
+   * date must be given in `YYYY-MM-DD` format.
    *
    * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
    */
@@ -722,11 +1046,85 @@ export type ListCustomerPaymentsRouting = {
 };
 
 /**
- * This object offers details about the status of a payment. Currently it is only available for point-of-sale payments.
+ * **Only relevant for recurring payments.**
  *
  * @remarks
  *
- * You can find more information about the possible values of this object on [this page](status-reasons).**
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export const ListCustomerPaymentsSequenceType = {
+  Oneoff: "oneoff",
+  First: "first",
+  Recurring: "recurring",
+} as const;
+/**
+ * **Only relevant for recurring payments.**
+ *
+ * @remarks
+ *
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export type ListCustomerPaymentsSequenceType = ClosedEnum<
+  typeof ListCustomerPaymentsSequenceType
+>;
+
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export const ListCustomerPaymentsStatus = {
+  Open: "open",
+  Pending: "pending",
+  Authorized: "authorized",
+  Paid: "paid",
+  Canceled: "canceled",
+  Expired: "expired",
+  Failed: "failed",
+} as const;
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export type ListCustomerPaymentsStatus = ClosedEnum<
+  typeof ListCustomerPaymentsStatus
+>;
+
+/**
+ * This object offers details about the status of a payment. Currently it is only available for point-of-sale
+ *
+ * @remarks
+ * payments.
+ *
+ * You can find more information about the possible values of this object on
+ * [this page](status-reasons).**
  */
 export type ListCustomerPaymentsStatusReason = {
   /**
@@ -782,13 +1180,16 @@ export type ListCustomerPaymentsMobileAppCheckout = {
 };
 
 /**
- * For test mode payments in certain scenarios, a hosted interface is available to help you test different payment states.
+ * For test mode payments in certain scenarios, a hosted interface is available to help you test different
  *
  * @remarks
+ * payment states.
  *
- * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these payments are executed without any user interaction.
+ * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+ * payments are executed without any user interaction.
  *
- * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or chargeback for the test payment.
+ * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+ * chargeback for the test payment.
  */
 export type ListCustomerPaymentsChangePaymentState = {
   /**
@@ -830,7 +1231,10 @@ export type ListCustomerPaymentsRefunds = {
 };
 
 /**
- * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this payment.
+ * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+ *
+ * @remarks
+ * payment.
  */
 export type ListCustomerPaymentsChargebacks = {
   /**
@@ -858,7 +1262,10 @@ export type ListCustomerPaymentsCaptures = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this payment has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
+ *
+ * @remarks
+ * Not present if not yet settled.
  */
 export type ListCustomerPaymentsSettlement = {
   /**
@@ -914,7 +1321,10 @@ export type ListCustomerPaymentsSubscription = {
 };
 
 /**
- * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an order.
+ * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+ *
+ * @remarks
+ * order.
  */
 export type ListCustomerPaymentsOrder = {
   /**
@@ -928,7 +1338,10 @@ export type ListCustomerPaymentsOrder = {
 };
 
 /**
- * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for point-of-sale payments.
+ * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+ *
+ * @remarks
+ * point-of-sale payments.
  */
 export type ListCustomerPaymentsTerminal = {
   /**
@@ -972,13 +1385,16 @@ export type ListCustomerPaymentsPaymentLinks = {
    */
   mobileAppCheckout?: ListCustomerPaymentsMobileAppCheckout | undefined;
   /**
-   * For test mode payments in certain scenarios, a hosted interface is available to help you test different payment states.
+   * For test mode payments in certain scenarios, a hosted interface is available to help you test different
    *
    * @remarks
+   * payment states.
    *
-   * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these payments are executed without any user interaction.
+   * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+   * payments are executed without any user interaction.
    *
-   * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or chargeback for the test payment.
+   * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+   * chargeback for the test payment.
    */
   changePaymentState?: ListCustomerPaymentsChangePaymentState | undefined;
   /**
@@ -990,7 +1406,10 @@ export type ListCustomerPaymentsPaymentLinks = {
    */
   refunds?: ListCustomerPaymentsRefunds | undefined;
   /**
-   * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this payment.
+   * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+   *
+   * @remarks
+   * payment.
    */
   chargebacks?: ListCustomerPaymentsChargebacks | undefined;
   /**
@@ -998,7 +1417,10 @@ export type ListCustomerPaymentsPaymentLinks = {
    */
   captures?: ListCustomerPaymentsCaptures | undefined;
   /**
-   * The API resource URL of the [settlement](get-settlement) this payment has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
+   *
+   * @remarks
+   * Not present if not yet settled.
    */
   settlement?: ListCustomerPaymentsSettlement | undefined;
   /**
@@ -1014,11 +1436,17 @@ export type ListCustomerPaymentsPaymentLinks = {
    */
   subscription?: ListCustomerPaymentsSubscription | undefined;
   /**
-   * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an order.
+   * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+   *
+   * @remarks
+   * order.
    */
   order?: ListCustomerPaymentsOrder | undefined;
   /**
-   * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for point-of-sale payments.
+   * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+   *
+   * @remarks
+   * point-of-sale payments.
    */
   terminal?: ListCustomerPaymentsTerminal | undefined;
   /**
@@ -1033,25 +1461,28 @@ export type ListCustomerPaymentsPaymentOutput = {
    */
   resource: string;
   /**
-   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: ListCustomerPaymentsMode;
   /**
-   * The description of the payment. This will be shown to your customer on their card or bank statement when possible. We truncate the description automatically according to the limits of the used payment method. The description is also visible in any exports you generate.
+   * The description of the payment. This will be shown to your customer on their card or bank statement when possible.
    *
    * @remarks
+   * We truncate the description automatically according to the limits of the used payment method. The description is
+   * also visible in any exports you generate.
    *
-   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office. This is particularly useful for bookkeeping.
+   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office.
+   * This is particularly useful for bookkeeping.
    *
-   * The maximum length of the description field differs per payment method, with the absolute maximum being 255 characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
+   * The maximum length of the description field differs per payment method, with the absolute maximum being 255
+   * characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
    */
   description: string;
   /**
@@ -1059,13 +1490,19 @@ export type ListCustomerPaymentsPaymentOutput = {
    *
    * @remarks
    *
-   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+   * retrieved using the Get method endpoint.
    *
-   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+   * tip amount.
    */
   amount: ListCustomerPaymentsAmount;
   /**
-   * The total amount that is already refunded. Only available when refunds are available for this payment. For some payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+   * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+   *
+   * @remarks
+   * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+   * costs for a return shipment to the customer.
    */
   amountRefunded?: ListCustomerPaymentsAmountRefunded | undefined;
   /**
@@ -1077,17 +1514,23 @@ export type ListCustomerPaymentsPaymentOutput = {
    */
   amountCaptured?: ListCustomerPaymentsAmountCaptured | undefined;
   /**
-   * The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+   * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+   *
+   * @remarks
+   * zero.
    */
   amountChargedBack?: ListCustomerPaymentsAmountChargedBack | undefined;
   /**
-   * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the
    *
    * @remarks
+   * currency your account is settled in.
    *
-   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is settled by Mollie the `settlementAmount` is omitted from the response.
+   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+   * settled by Mollie the `settlementAmount` is omitted from the response.
    *
-   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+   * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
    */
   settlementAmount?: ListCustomerPaymentsSettlementAmount | undefined;
   /**
@@ -1095,17 +1538,22 @@ export type ListCustomerPaymentsPaymentOutput = {
    *
    * @remarks
    *
-   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the right page referencing the order when your customer returns.
+   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
+   * right page referencing the order when your customer returns.
    *
-   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for Apple Pay payments with an `applePayPaymentToken`.
+   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
+   * Apple Pay payments with an `applePayPaymentToken`.
    */
   redirectUrl?: string | null | undefined;
   /**
-   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not provided, the customer will be redirected to the `redirectUrl` instead — see above.
+   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
    *
    * @remarks
+   * provided, the customer will be redirected to the `redirectUrl` instead — see above.
    *
-   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle payment cancellations.
+   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is
+   * therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle
+   * payment cancellations.
    */
   cancelUrl?: string | null | undefined;
   /**
@@ -1115,13 +1563,16 @@ export type ListCustomerPaymentsPaymentOutput = {
    *
    * The webhookUrl is optional, but without a webhook you will miss out on important status changes to your payment.
    *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+   * local machine.
    */
   webhookUrl?: string | null | undefined;
   /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the payment.
    *
@@ -1129,43 +1580,59 @@ export type ListCustomerPaymentsPaymentOutput = {
    */
   lines?: Array<ListCustomerPaymentsLine> | null | undefined;
   /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    *
    * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: ListCustomerPaymentsBillingAddress | undefined;
   /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    */
   shippingAddress?: ListCustomerPaymentsShippingAddress | undefined;
   /**
-   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897 locale, but our hosted payment pages currently only support the specified languages.
+   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
    *
    * @remarks
+   * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+   * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+   * locale, but our hosted payment pages currently only support the specified languages.
    *
-   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the customer use a local bank account greatly increases the conversion and speed of payment.
+   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+   * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+   * customer use a local bank account greatly increases the conversion and speed of payment.
    */
-  locale?: string | null | undefined;
+  locale?: ListCustomerPaymentsLocale | null | undefined;
   /**
-   * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This field is omitted if the country code was not detected.
+   * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This
+   *
+   * @remarks
+   * field is omitted if the country code was not detected.
    */
   countryCode?: string | null | undefined;
   /**
-   * The payment method used for this transaction. If a specific method was selected during payment initialization, this field reflects that choice.
-   */
-  method?: string | null | undefined;
-  /**
-   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the VAT country.
+   * The payment method used for this transaction. If a specific method was selected during payment initialization,
    *
    * @remarks
+   * this field reflects that choice.
+   */
+  method?: ListCustomerPaymentsMethod | null | undefined;
+  /**
+   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
+   *
+   * @remarks
+   * rates you have used for the order to ensure your customer's country matches the VAT country.
    *
    * Use this parameter to restrict the payment methods available to your customer to those from a single country.
    *
@@ -1175,7 +1642,10 @@ export type ListCustomerPaymentsPaymentOutput = {
    */
   restrictPaymentMethodsToCountry?: string | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | ListCustomerPaymentsMetadata
@@ -1184,43 +1654,50 @@ export type ListCustomerPaymentsPaymentOutput = {
     | null
     | undefined;
   /**
-   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/) and capture at a later time.
+   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
    * @remarks
+   * and capture at a later time.
    *
    * This field needs to be set to `manual` for method `riverty`.
-   *
-   * Possible values: `automatic` `manual` (default: `automatic`)
    */
-  captureMode?: string | null | undefined;
+  captureMode?: ListCustomerPaymentsCaptureMode | null | undefined;
   /**
    * **Only relevant if you wish to manage authorization and capturing separately.**
    *
    * @remarks
    *
-   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+   * later point either be 'captured' or canceled.
    *
-   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For example `8 hours` or `2 days`.
+   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+   * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+   * example `8 hours` or `2 days`.
    *
    * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
    *
    * The maximum delay is 7 days (168 hours).
-   *
-   * Possible values: `... hours` `... days`
    */
-  captureDelay?: string | null | undefined;
+  captureDelay?: ListCustomerPaymentsCaptureDelay | null | undefined;
   /**
-   * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
+   * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
+   *
+   * @remarks
+   * can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
    */
   captureBefore?: string | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
-   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+   * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+   * to your own account balance.
    *
-   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+   * `routing` parameter.
    */
   applicationFee?: ListCustomerPaymentsApplicationFee | null | undefined;
   /**
@@ -1228,15 +1705,20 @@ export type ListCustomerPaymentsPaymentOutput = {
    *
    * @remarks
    *
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+   * merchants.
    *
-   * If you create payments on your own account that you want to split between yourself and one or more connected merchants, you can use this `routing` parameter to route the payment accordingly.
+   * If you create payments on your own account that you want to split between yourself and one or more connected
+   * merchants, you can use this `routing` parameter to route the payment accordingly.
    *
-   * The `routing` parameter should contain an array of objects, with each object describing the destination for a specific portion of the payment.
+   * The `routing` parameter should contain an array of objects, with each object describing the destination for a
+   * specific portion of the payment.
    *
-   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total payment amount have been routed, the amount left will be routed to the current organization automatically.
+   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total
+   * payment amount have been routed, the amount left will be routed to the current organization automatically.
    *
-   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee` parameter.
+   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee`
+   * parameter.
    */
   routing?: Array<ListCustomerPaymentsRouting> | null | undefined;
   /**
@@ -1246,19 +1728,24 @@ export type ListCustomerPaymentsPaymentOutput = {
    *
    * Indicate which part of a recurring sequence this payment is for.
    *
-   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place on their account in the future.
+   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+   * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+   * on their account in the future.
    *
    * If set to `recurring`, the customer's card is charged automatically.
    *
    * Defaults to `oneoff`, which is a regular non-recurring payment.
    *
-   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account are set up correctly for recurring payments.
-   *
-   * Possible values: `oneoff` `first` `recurring` (default: `oneoff`)
+   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+   * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+   * are set up correctly for recurring payments.
    */
-  sequenceType: string | null;
+  sequenceType?: ListCustomerPaymentsSequenceType | null | undefined;
   /**
-   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will be added to the response.
+   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
+   *
+   * @remarks
+   * be added to the response.
    */
   subscriptionId?: string | null | undefined;
   /**
@@ -1266,13 +1753,15 @@ export type ListCustomerPaymentsPaymentOutput = {
    *
    * @remarks
    *
-   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of the customer's accounts should be credited.
+   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be credited.
    */
   mandateId?: string | null | undefined;
   /**
-   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring payments, but can also be used on regular payments to enable single-click payments.
+   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring
    *
    * @remarks
+   * payments, but can also be used on regular payments to enable single-click payments.
    *
    * If `sequenceType` is set to `recurring`, this field is required.
    */
@@ -1282,7 +1771,8 @@ export type ListCustomerPaymentsPaymentOutput = {
    *
    * @remarks
    *
-   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and Organization tokens, the `profileId` is required.
+   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+   * Organization tokens, the `profileId` is required.
    *
    * For more information, see [Authentication](authentication).
    */
@@ -1296,19 +1786,20 @@ export type ListCustomerPaymentsPaymentOutput = {
    */
   orderId?: string | null | undefined;
   /**
-   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which statuses occur at what point.
+   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
    *
    * @remarks
-   *
-   * Possible values: `open` `pending` `authorized` `paid` `canceled` `expired` `failed`
+   * statuses occur at what point.
    */
-  status: string;
+  status: ListCustomerPaymentsStatus;
   /**
-   * This object offers details about the status of a payment. Currently it is only available for point-of-sale payments.
+   * This object offers details about the status of a payment. Currently it is only available for point-of-sale
    *
    * @remarks
+   * payments.
    *
-   * You can find more information about the possible values of this object on [this page](status-reasons).**
+   * You can find more information about the possible values of this object on
+   * [this page](status-reasons).**
    */
   statusReason?: ListCustomerPaymentsStatusReason | null | undefined;
   /**
@@ -1316,7 +1807,11 @@ export type ListCustomerPaymentsPaymentOutput = {
    */
   isCancelable?: boolean | null | undefined;
   /**
-   * An object containing payment details collected during the payment process. For example, details may include the customer's card or bank details and a payment reference. For the full list of details, please refer to the [method-specific parameters](extra-payment-parameters) guide.
+   * An object containing payment details collected during the payment process. For example, details may include the
+   *
+   * @remarks
+   * customer's card or bank details and a payment reference. For the full list of details, please refer to the
+   * [method-specific parameters](extra-payment-parameters) guide.
    */
   details?: { [k: string]: any } | null | undefined;
   /**
@@ -1324,27 +1819,45 @@ export type ListCustomerPaymentsPaymentOutput = {
    */
   createdAt: string;
   /**
-   * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is not authorized (yet).
+   * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
+   *
+   * @remarks
+   * not authorized (yet).
    */
   authorizedAt?: string | null | undefined;
   /**
-   * The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not completed (yet).
+   * The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not
+   *
+   * @remarks
+   * completed (yet).
    */
   paidAt?: string | null | undefined;
   /**
-   * The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not canceled (yet).
+   * The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not
+   *
+   * @remarks
+   * canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
-   * The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no longer expire.
+   * The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no
+   *
+   * @remarks
+   * longer expire.
    */
   expiresAt?: string | null | undefined;
   /**
-   * The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not expire (yet).
+   * The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not
+   *
+   * @remarks
+   * expire (yet).
    */
   expiredAt?: string | null | undefined;
   /**
-   * The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail (yet).
+   * The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail
+   *
+   * @remarks
+   * (yet).
    */
   failedAt?: string | null | undefined;
   /**
@@ -1443,11 +1956,13 @@ export type ListCustomerPaymentsLinks = {
  */
 export type ListCustomerPaymentsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListCustomerPaymentsEmbedded | undefined;
@@ -1458,6 +1973,27 @@ export type ListCustomerPaymentsResponse = {
 };
 
 /** @internal */
+export const ListCustomerPaymentsSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsSort
+> = z.nativeEnum(ListCustomerPaymentsSort);
+
+/** @internal */
+export const ListCustomerPaymentsSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsSort
+> = ListCustomerPaymentsSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsSort$ {
+  /** @deprecated use `ListCustomerPaymentsSort$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsSort$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsSort$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsSort$outboundSchema;
+}
+
+/** @internal */
 export const ListCustomerPaymentsRequest$inboundSchema: z.ZodType<
   ListCustomerPaymentsRequest,
   z.ZodTypeDef,
@@ -1466,7 +2002,7 @@ export const ListCustomerPaymentsRequest$inboundSchema: z.ZodType<
   customerId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListCustomerPaymentsSort$inboundSchema.default("desc")),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1476,7 +2012,7 @@ export type ListCustomerPaymentsRequest$Outbound = {
   customerId: string;
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -1490,7 +2026,7 @@ export const ListCustomerPaymentsRequest$outboundSchema: z.ZodType<
   customerId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListCustomerPaymentsSort$outboundSchema.default("desc")),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1659,6 +2195,27 @@ export function listCustomerPaymentsBadRequestLinksFromJSON(
       ListCustomerPaymentsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCustomerPaymentsBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListCustomerPaymentsMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsMode
+> = z.nativeEnum(ListCustomerPaymentsMode);
+
+/** @internal */
+export const ListCustomerPaymentsMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsMode
+> = ListCustomerPaymentsMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsMode$ {
+  /** @deprecated use `ListCustomerPaymentsMode$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsMode$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsMode$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsMode$outboundSchema;
 }
 
 /** @internal */
@@ -2027,6 +2584,27 @@ export function listCustomerPaymentsSettlementAmountFromJSON(
 }
 
 /** @internal */
+export const ListCustomerPaymentsLineType$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsLineType
+> = z.nativeEnum(ListCustomerPaymentsLineType);
+
+/** @internal */
+export const ListCustomerPaymentsLineType$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsLineType
+> = ListCustomerPaymentsLineType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsLineType$ {
+  /** @deprecated use `ListCustomerPaymentsLineType$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsLineType$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsLineType$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsLineType$outboundSchema;
+}
+
+/** @internal */
 export const ListCustomerPaymentsUnitPrice$inboundSchema: z.ZodType<
   ListCustomerPaymentsUnitPrice,
   z.ZodTypeDef,
@@ -2286,6 +2864,27 @@ export namespace ListCustomerPaymentsCategory$ {
 }
 
 /** @internal */
+export const ListCustomerPaymentsInterval$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsInterval
+> = z.nativeEnum(ListCustomerPaymentsInterval);
+
+/** @internal */
+export const ListCustomerPaymentsInterval$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsInterval
+> = ListCustomerPaymentsInterval$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsInterval$ {
+  /** @deprecated use `ListCustomerPaymentsInterval$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsInterval$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsInterval$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsInterval$outboundSchema;
+}
+
+/** @internal */
 export const ListCustomerPaymentsRecurringAmount$inboundSchema: z.ZodType<
   ListCustomerPaymentsRecurringAmount,
   z.ZodTypeDef,
@@ -2354,7 +2953,7 @@ export const ListCustomerPaymentsRecurring$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: ListCustomerPaymentsInterval$inboundSchema,
   amount: z.lazy(() => ListCustomerPaymentsRecurringAmount$inboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -2377,7 +2976,7 @@ export const ListCustomerPaymentsRecurring$outboundSchema: z.ZodType<
   ListCustomerPaymentsRecurring
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: ListCustomerPaymentsInterval$outboundSchema,
   amount: z.lazy(() => ListCustomerPaymentsRecurringAmount$outboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -2423,7 +3022,7 @@ export const ListCustomerPaymentsLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: ListCustomerPaymentsLineType$inboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2444,7 +3043,7 @@ export const ListCustomerPaymentsLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListCustomerPaymentsLine$Outbound = {
-  type?: string | undefined;
+  type: string;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2466,7 +3065,7 @@ export const ListCustomerPaymentsLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCustomerPaymentsLine
 > = z.object({
-  type: z.string().optional(),
+  type: ListCustomerPaymentsLineType$outboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2701,6 +3300,48 @@ export function listCustomerPaymentsShippingAddressFromJSON(
 }
 
 /** @internal */
+export const ListCustomerPaymentsLocale$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsLocale
+> = z.nativeEnum(ListCustomerPaymentsLocale);
+
+/** @internal */
+export const ListCustomerPaymentsLocale$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsLocale
+> = ListCustomerPaymentsLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsLocale$ {
+  /** @deprecated use `ListCustomerPaymentsLocale$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsLocale$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsLocale$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsLocale$outboundSchema;
+}
+
+/** @internal */
+export const ListCustomerPaymentsMethod$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsMethod
+> = z.nativeEnum(ListCustomerPaymentsMethod);
+
+/** @internal */
+export const ListCustomerPaymentsMethod$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsMethod
+> = ListCustomerPaymentsMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsMethod$ {
+  /** @deprecated use `ListCustomerPaymentsMethod$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsMethod$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsMethod$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsMethod$outboundSchema;
+}
+
+/** @internal */
 export const ListCustomerPaymentsMetadata$inboundSchema: z.ZodType<
   ListCustomerPaymentsMetadata,
   z.ZodTypeDef,
@@ -2810,6 +3451,48 @@ export function listCustomerPaymentsMetadataUnionFromJSON(
     (x) => ListCustomerPaymentsMetadataUnion$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCustomerPaymentsMetadataUnion' from JSON`,
   );
+}
+
+/** @internal */
+export const ListCustomerPaymentsCaptureMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsCaptureMode
+> = z.nativeEnum(ListCustomerPaymentsCaptureMode);
+
+/** @internal */
+export const ListCustomerPaymentsCaptureMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsCaptureMode
+> = ListCustomerPaymentsCaptureMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsCaptureMode$ {
+  /** @deprecated use `ListCustomerPaymentsCaptureMode$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsCaptureMode$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsCaptureMode$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsCaptureMode$outboundSchema;
+}
+
+/** @internal */
+export const ListCustomerPaymentsCaptureDelay$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsCaptureDelay
+> = z.nativeEnum(ListCustomerPaymentsCaptureDelay);
+
+/** @internal */
+export const ListCustomerPaymentsCaptureDelay$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsCaptureDelay
+> = ListCustomerPaymentsCaptureDelay$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsCaptureDelay$ {
+  /** @deprecated use `ListCustomerPaymentsCaptureDelay$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsCaptureDelay$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsCaptureDelay$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsCaptureDelay$outboundSchema;
 }
 
 /** @internal */
@@ -2944,6 +3627,27 @@ export function listCustomerPaymentsApplicationFeeFromJSON(
 }
 
 /** @internal */
+export const ListCustomerPaymentsRoutingMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsRoutingMode
+> = z.nativeEnum(ListCustomerPaymentsRoutingMode);
+
+/** @internal */
+export const ListCustomerPaymentsRoutingMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsRoutingMode
+> = ListCustomerPaymentsRoutingMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsRoutingMode$ {
+  /** @deprecated use `ListCustomerPaymentsRoutingMode$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsRoutingMode$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsRoutingMode$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsRoutingMode$outboundSchema;
+}
+
+/** @internal */
 export const ListCustomerPaymentsRoutingAmount$inboundSchema: z.ZodType<
   ListCustomerPaymentsRoutingAmount,
   z.ZodTypeDef,
@@ -3004,12 +3708,33 @@ export function listCustomerPaymentsRoutingAmountFromJSON(
 }
 
 /** @internal */
+export const ListCustomerPaymentsRoutingType$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsRoutingType
+> = z.nativeEnum(ListCustomerPaymentsRoutingType);
+
+/** @internal */
+export const ListCustomerPaymentsRoutingType$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsRoutingType
+> = ListCustomerPaymentsRoutingType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsRoutingType$ {
+  /** @deprecated use `ListCustomerPaymentsRoutingType$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsRoutingType$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsRoutingType$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsRoutingType$outboundSchema;
+}
+
+/** @internal */
 export const ListCustomerPaymentsDestination$inboundSchema: z.ZodType<
   ListCustomerPaymentsDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: ListCustomerPaymentsRoutingType$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -3025,7 +3750,7 @@ export const ListCustomerPaymentsDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCustomerPaymentsDestination
 > = z.object({
-  type: z.string(),
+  type: ListCustomerPaymentsRoutingType$outboundSchema,
   organizationId: z.string(),
 });
 
@@ -3249,7 +3974,7 @@ export const ListCustomerPaymentsRouting$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListCustomerPaymentsRoutingMode$inboundSchema,
   amount: z.lazy(() => ListCustomerPaymentsRoutingAmount$inboundSchema),
   destination: z.lazy(() => ListCustomerPaymentsDestination$inboundSchema),
   createdAt: z.string(),
@@ -3281,7 +4006,7 @@ export const ListCustomerPaymentsRouting$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListCustomerPaymentsRoutingMode$outboundSchema,
   amount: z.lazy(() => ListCustomerPaymentsRoutingAmount$outboundSchema),
   destination: z.lazy(() => ListCustomerPaymentsDestination$outboundSchema),
   createdAt: z.string(),
@@ -3324,6 +4049,48 @@ export function listCustomerPaymentsRoutingFromJSON(
     (x) => ListCustomerPaymentsRouting$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCustomerPaymentsRouting' from JSON`,
   );
+}
+
+/** @internal */
+export const ListCustomerPaymentsSequenceType$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsSequenceType
+> = z.nativeEnum(ListCustomerPaymentsSequenceType);
+
+/** @internal */
+export const ListCustomerPaymentsSequenceType$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsSequenceType
+> = ListCustomerPaymentsSequenceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsSequenceType$ {
+  /** @deprecated use `ListCustomerPaymentsSequenceType$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsSequenceType$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsSequenceType$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsSequenceType$outboundSchema;
+}
+
+/** @internal */
+export const ListCustomerPaymentsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsStatus
+> = z.nativeEnum(ListCustomerPaymentsStatus);
+
+/** @internal */
+export const ListCustomerPaymentsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomerPaymentsStatus
+> = ListCustomerPaymentsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomerPaymentsStatus$ {
+  /** @deprecated use `ListCustomerPaymentsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListCustomerPaymentsStatus$inboundSchema;
+  /** @deprecated use `ListCustomerPaymentsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListCustomerPaymentsStatus$outboundSchema;
 }
 
 /** @internal */
@@ -4416,7 +5183,7 @@ export const ListCustomerPaymentsPaymentOutput$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListCustomerPaymentsMode$inboundSchema,
   description: z.string(),
   amount: z.lazy(() => ListCustomerPaymentsAmount$inboundSchema),
   amountRefunded: z.lazy(() => ListCustomerPaymentsAmountRefunded$inboundSchema)
@@ -4443,9 +5210,9 @@ export const ListCustomerPaymentsPaymentOutput$inboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     ListCustomerPaymentsShippingAddress$inboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(ListCustomerPaymentsLocale$inboundSchema).optional(),
   countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(ListCustomerPaymentsMethod$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.union([
@@ -4454,8 +5221,11 @@ export const ListCustomerPaymentsPaymentOutput$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    ListCustomerPaymentsCaptureMode$inboundSchema.default("automatic"),
+  ),
+  captureDelay: z.nullable(ListCustomerPaymentsCaptureDelay$inboundSchema)
+    .optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListCustomerPaymentsApplicationFee$inboundSchema),
@@ -4463,14 +5233,16 @@ export const ListCustomerPaymentsPaymentOutput$inboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListCustomerPaymentsRouting$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()),
+  sequenceType: z.nullable(
+    ListCustomerPaymentsSequenceType$inboundSchema.default("oneoff"),
+  ),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: z.string(),
+  status: ListCustomerPaymentsStatus$inboundSchema,
   statusReason: z.nullable(
     z.lazy(() => ListCustomerPaymentsStatusReason$inboundSchema),
   ).optional(),
@@ -4520,7 +5292,7 @@ export type ListCustomerPaymentsPaymentOutput$Outbound = {
     | Array<string>
     | null
     | undefined;
-  captureMode?: string | null | undefined;
+  captureMode: string | null;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
   applicationFee?:
@@ -4557,7 +5329,7 @@ export const ListCustomerPaymentsPaymentOutput$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListCustomerPaymentsMode$outboundSchema,
   description: z.string(),
   amount: z.lazy(() => ListCustomerPaymentsAmount$outboundSchema),
   amountRefunded: z.lazy(() =>
@@ -4587,9 +5359,9 @@ export const ListCustomerPaymentsPaymentOutput$outboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     ListCustomerPaymentsShippingAddress$outboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(ListCustomerPaymentsLocale$outboundSchema).optional(),
   countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(ListCustomerPaymentsMethod$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.union([
@@ -4598,8 +5370,11 @@ export const ListCustomerPaymentsPaymentOutput$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    ListCustomerPaymentsCaptureMode$outboundSchema.default("automatic"),
+  ),
+  captureDelay: z.nullable(ListCustomerPaymentsCaptureDelay$outboundSchema)
+    .optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListCustomerPaymentsApplicationFee$outboundSchema),
@@ -4607,14 +5382,16 @@ export const ListCustomerPaymentsPaymentOutput$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListCustomerPaymentsRouting$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()),
+  sequenceType: z.nullable(
+    ListCustomerPaymentsSequenceType$outboundSchema.default("oneoff"),
+  ),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: z.string(),
+  status: ListCustomerPaymentsStatus$outboundSchema,
   statusReason: z.nullable(
     z.lazy(() => ListCustomerPaymentsStatusReason$outboundSchema),
   ).optional(),

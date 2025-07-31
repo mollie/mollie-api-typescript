@@ -15,18 +15,14 @@
 
 ## create
 
-Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked to this customer object, which simplifies management of recurring payments.
+Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked
+to this customer object, which simplifies management of recurring payments.
 
 Once registered, customers will also appear in your Mollie dashboard.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **customers.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-customer" method="post" path="/customers" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -110,14 +106,9 @@ Retrieve a list of all customers.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **customers.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-customers" method="get" path="/customers" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -130,7 +121,6 @@ const client = new Client({
 async function run() {
   const result = await client.customers.list({
     from: "cst_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
 
@@ -159,7 +149,6 @@ const client = new ClientCore({
 async function run() {
   const res = await customersList(client, {
     from: "cst_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
   if (res.ok) {
@@ -198,12 +187,9 @@ run();
 
 Retrieve a single customer by its ID.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-customer" method="get" path="/customers/{customerId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -285,12 +271,9 @@ Update an existing customer.
 
 For an in-depth explanation of each parameter, refer to the [Create customer](create-customer) endpoint.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="update-customer" method="patch" path="/customers/{customerId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -378,12 +361,9 @@ run();
 
 Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="delete-customer" method="delete" path="/customers/{customerId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -472,16 +452,12 @@ Linking customers to payments enables you to:
 * Improve payment insights in the Mollie dashboard
 * Use recurring payments
 
-This endpoint is effectively an alias of the [Create payment endpoint](create-payment) with the `customerId` parameter predefined.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.write**](/reference/authentication)
+This endpoint is effectively an alias of the [Create payment endpoint](create-payment) with the `customerId`
+parameter predefined.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -534,7 +510,7 @@ async function run() {
           productUrl: "https://...",
           recurring: {
             description: "Gym subscription",
-            interval: "12 months",
+            interval: "... months",
             amount: {
               currency: "EUR",
               value: "10.00",
@@ -577,7 +553,7 @@ async function run() {
       issuer: "ideal_INGBNL2A",
       restrictPaymentMethodsToCountry: "NL",
       captureMode: "manual",
-      captureDelay: "8 hours",
+      captureDelay: "... days",
       applicationFee: {
         amount: {
           currency: "EUR",
@@ -608,7 +584,6 @@ async function run() {
           },
         },
       ],
-      sequenceType: "oneoff",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
@@ -682,7 +657,7 @@ async function run() {
           productUrl: "https://...",
           recurring: {
             description: "Gym subscription",
-            interval: "12 months",
+            interval: "... months",
             amount: {
               currency: "EUR",
               value: "10.00",
@@ -725,7 +700,7 @@ async function run() {
       issuer: "ideal_INGBNL2A",
       restrictPaymentMethodsToCountry: "NL",
       captureMode: "manual",
-      captureDelay: "8 hours",
+      captureDelay: "... days",
       applicationFee: {
         amount: {
           currency: "EUR",
@@ -756,7 +731,6 @@ async function run() {
           },
         },
       ],
-      sequenceType: "oneoff",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
@@ -800,14 +774,9 @@ run();
 
 Retrieve all payments linked to the customer.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-customer-payments" method="get" path="/customers/{customerId}/payments" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -821,7 +790,6 @@ async function run() {
   const result = await client.customers.listPayments({
     customerId: "cst_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -852,7 +820,6 @@ async function run() {
   const res = await customersListPayments(client, {
     customerId: "cst_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });

@@ -16,17 +16,16 @@ export const tool$settlementsGet: ToolDefinition<typeof args> = {
 
 Retrieve a single settlement by its ID.
 
-To lookup settlements by their bank reference, replace the ID in the URL by a reference. For example: \`1234567.2404.03\`.
+To lookup settlements by their bank reference, replace the ID in the URL by
+a reference. For example: \`1234567.2404.03\`.
 
 A settlement represents a transfer of your balance funds to your external bank account.
 
-Settlements will typically include a report that details what balance transactions have taken place between this settlement and the previous one.
+Settlements will typically include a report that details what balance transactions have taken place between this
+settlement and the previous one.
 
-For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the [balance transactions](list-balance-transactions) endpoint.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read**](/reference/authentication)`,
+For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
+[balance transactions](list-balance-transactions) endpoint.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsGet(

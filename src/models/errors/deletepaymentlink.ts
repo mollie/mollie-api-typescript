@@ -24,7 +24,10 @@ export type DeletePaymentLinkUnprocessableEntityHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeletePaymentLinkUnprocessableEntityLinks;
@@ -49,7 +52,10 @@ export class DeletePaymentLinkUnprocessableEntityHalJSONError
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeletePaymentLinkUnprocessableEntityLinks;
@@ -93,7 +99,10 @@ export type DeletePaymentLinkNotFoundHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeletePaymentLinkNotFoundLinks;
@@ -116,7 +125,10 @@ export class DeletePaymentLinkNotFoundHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeletePaymentLinkNotFoundLinks;

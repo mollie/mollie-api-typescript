@@ -74,7 +74,7 @@ let value: GetPaymentLinkPaymentsResponse = {
             productUrl: "https://...",
             recurring: {
               description: "Gym subscription",
-              interval: "12 months",
+              interval: "... months",
               amount: {
                 currency: "EUR",
                 value: "10.00",
@@ -117,7 +117,7 @@ let value: GetPaymentLinkPaymentsResponse = {
         method: "ideal",
         restrictPaymentMethodsToCountry: "NL",
         captureMode: "manual",
-        captureDelay: "8 hours",
+        captureDelay: "... hours",
         captureBefore: "2024-03-20T09:28:37.0Z",
         applicationFee: {
           amount: {
@@ -126,34 +126,7 @@ let value: GetPaymentLinkPaymentsResponse = {
           },
           description: "10",
         },
-        routing: [
-          {
-            resource: "route",
-            id: "rt_5B8cwPMGnU",
-            mode: "live",
-            amount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            destination: {
-              type: "organization",
-              organizationId: "org_1234567",
-            },
-            createdAt: "2024-12-12T10:00:00Z",
-            releaseDate: "2024-12-12",
-            links: {
-              self: {
-                href: "https://...",
-                type: "application/hal+json",
-              },
-              payment: {
-                href: "https://...",
-                type: "application/hal+json",
-              },
-            },
-          },
-        ],
-        sequenceType: "oneoff",
+        routing: null,
         subscriptionId: "sub_5B8cwPMGnU",
         mandateId: "mdt_5B8cwPMGnU",
         customerId: "cst_5B8cwPMGnU",
@@ -161,7 +134,12 @@ let value: GetPaymentLinkPaymentsResponse = {
         settlementId: "stl_5B8cwPMGnU",
         orderId: "ord_5B8cwPMGnU",
         status: "open",
-        statusReason: null,
+        statusReason: {
+          code: "insufficient_funds",
+          message:
+            "The account associated with the card has insufficient funds. The shopper should use another payment method or\n"
+            + "contact their bank.",
+        },
         isCancelable: true,
         createdAt: "2024-03-20T09:13:37.0Z",
         authorizedAt: "2024-03-20T09:28:37.0Z",
@@ -257,6 +235,6 @@ let value: GetPaymentLinkPaymentsResponse = {
 
 | Field                                                                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                               | Example                                                                                                                                                                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
+| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
 | `embedded`                                                                                                                                                                                                                                                                | [operations.GetPaymentLinkPaymentsEmbedded](../../models/operations/getpaymentlinkpaymentsembedded.md)                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
 | `links`                                                                                                                                                                                                                                                                   | [operations.GetPaymentLinkPaymentsLinks](../../models/operations/getpaymentlinkpaymentslinks.md)                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |

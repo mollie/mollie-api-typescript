@@ -18,13 +18,7 @@ export const tool$salesInvoicesGet: ToolDefinition<typeof args> = {
 >
 > This feature is currently in beta testing, and the final specification may still change.
 
-Retrieve a single sales invoice by its ID.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoice.read**](/reference/authentication)`,
+Retrieve a single sales invoice by its ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await salesInvoicesGet(

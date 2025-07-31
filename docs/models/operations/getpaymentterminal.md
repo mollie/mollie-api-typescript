@@ -1,6 +1,7 @@
 # GetPaymentTerminal
 
-The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for point-of-sale payments.
+The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+point-of-sale payments.
 
 ## Example Usage
 

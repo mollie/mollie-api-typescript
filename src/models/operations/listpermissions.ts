@@ -67,7 +67,10 @@ export type PermissionLinks = {
 
 export type Permission = {
   /**
-   * Indicates the response contains a permission object. Will always contain the string `permission` for this endpoint.
+   * Indicates the response contains a permission object. Will always contain the string `permission` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -142,11 +145,13 @@ export type ListPermissionsLinks = {
  */
 export type ListPermissionsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListPermissionsEmbedded | undefined;

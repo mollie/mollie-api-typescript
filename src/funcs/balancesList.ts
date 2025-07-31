@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of the organization's balances, including the primary balance.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **balances.read**](/reference/authentication)
  */
 export function balancesList(
   client: ClientCore,

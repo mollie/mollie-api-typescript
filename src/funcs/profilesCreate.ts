@@ -31,11 +31,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Create a profile to process payments on.
  *
- * Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you can use this endpoint to automate profile creation.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **profiles.write**](/reference/authentication)
+ * Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you
+ * can use this endpoint to automate profile creation.
  */
 export function profilesCreate(
   client: ClientCore,

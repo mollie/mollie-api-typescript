@@ -24,7 +24,10 @@ export type CreateRefundUnprocessableEntityHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.CreateRefundUnprocessableEntityLinks;
@@ -47,7 +50,10 @@ export class CreateRefundUnprocessableEntityHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.CreateRefundUnprocessableEntityLinks;
@@ -91,7 +97,10 @@ export type ConflictHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.ConflictLinks;
@@ -114,7 +123,10 @@ export class ConflictHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.ConflictLinks;
@@ -158,7 +170,10 @@ export type CreateRefundNotFoundHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.CreateRefundNotFoundLinks;
@@ -181,7 +196,10 @@ export class CreateRefundNotFoundHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.CreateRefundNotFoundLinks;

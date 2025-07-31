@@ -24,7 +24,10 @@ export type TooManyRequestsHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.TooManyRequestsLinks;
@@ -47,7 +50,10 @@ export class TooManyRequestsHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.TooManyRequestsLinks;
@@ -91,7 +97,10 @@ export type ListBalanceTransactionsNotFoundHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.ListBalanceTransactionsNotFoundLinks;
@@ -114,7 +123,10 @@ export class ListBalanceTransactionsNotFoundHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.ListBalanceTransactionsNotFoundLinks;
@@ -158,7 +170,10 @@ export type ListBalanceTransactionsBadRequestHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.ListBalanceTransactionsBadRequestLinks;
@@ -181,7 +196,10 @@ export class ListBalanceTransactionsBadRequestHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.ListBalanceTransactionsBadRequestLinks;

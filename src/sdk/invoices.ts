@@ -13,13 +13,10 @@ export class Invoices extends ClientSDK {
    * List invoices
    *
    * @remarks
-   * Retrieve a list of all your invoices, optionally filtered by year or by invoice reference.
+   * Retrieve a list of all your invoices, optionally filtered by year or by
+   * invoice reference.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **invoices.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListInvoicesRequest | undefined,
@@ -38,11 +35,8 @@ export class Invoices extends ClientSDK {
    * @remarks
    * Retrieve a single invoice by its ID.
    *
-   * If you want to retrieve the details of an invoice by its invoice number, call the [List invoices](list-invoices) endpoint with the `reference` parameter.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **invoices.read**](/reference/authentication)
+   * If you want to retrieve the details of an invoice by its invoice number,
+   * call the [List invoices](list-invoices) endpoint with the `reference` parameter.
    */
   async get(
     request: operations.GetInvoiceRequest,

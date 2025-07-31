@@ -14,11 +14,7 @@ export const tool$permissionsGet: ToolDefinition<typeof args> = {
   name: "permissions-get",
   description: `Get permission
 
-Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
-
-> 🔑 Access with
->
-> [Access token](/reference/authentication)`,
+Retrieve a single permission by its ID, and see if the permission is granted to the current access token.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await permissionsGet(

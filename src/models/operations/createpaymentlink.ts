@@ -10,7 +10,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
+ * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an
+ *
+ * @remarks
+ * amount.
  */
 export type CreatePaymentLinkAmountRequest = {
   /**
@@ -24,7 +27,10 @@ export type CreatePaymentLinkAmountRequest = {
 };
 
 /**
- * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
+ * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The
+ *
+ * @remarks
+ * customer will be prompted to enter a value greater than or equal to the minimum amount.
  */
 export type CreatePaymentLinkMinimumAmountRequest = {
   /**
@@ -36,6 +42,34 @@ export type CreatePaymentLinkMinimumAmountRequest = {
    */
   value: string;
 };
+
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export const CreatePaymentLinkTypeRequest = {
+  Physical: "physical",
+  Digital: "digital",
+  ShippingFee: "shipping_fee",
+  Discount: "discount",
+  StoreCredit: "store_credit",
+  GiftCard: "gift_card",
+  Surcharge: "surcharge",
+  Tip: "tip",
+} as const;
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export type CreatePaymentLinkTypeRequest = ClosedEnum<
+  typeof CreatePaymentLinkTypeRequest
+>;
 
 /**
  * The price of a single item including VAT.
@@ -60,7 +94,10 @@ export type CreatePaymentLinkUnitPriceRequest = {
 };
 
 /**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+ * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+ *
+ * @remarks
+ * type.
  */
 export type CreatePaymentLinkDiscountAmountRequest = {
   /**
@@ -94,13 +131,15 @@ export type CreatePaymentLinkTotalAmountRequest = {
 };
 
 /**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+ * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
  *
  * @remarks
+ * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
  *
  * Any deviations from this will result in an error.
  *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+ * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+ * `SEK 100.00 × (25 / 125) = SEK 20.00`.
  */
 export type CreatePaymentLinkVatAmountRequest = {
   /**
@@ -130,10 +169,8 @@ export type CreatePaymentLinkLineRequest = {
    * @remarks
    *
    * The `tip` payment line type is not available when creating a payment.
-   *
-   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
    */
-  type?: string | undefined;
+  type?: CreatePaymentLinkTypeRequest | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -159,7 +196,10 @@ export type CreatePaymentLinkLineRequest = {
    */
   unitPrice: CreatePaymentLinkUnitPriceRequest;
   /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+   *
+   * @remarks
+   * type.
    */
   discountAmount?: CreatePaymentLinkDiscountAmountRequest | undefined;
   /**
@@ -173,17 +213,22 @@ export type CreatePaymentLinkLineRequest = {
    */
   totalAmount: CreatePaymentLinkTotalAmountRequest;
   /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+   *
+   * @remarks
+   * not as a float, to ensure the correct number of decimals are passed.
    */
   vatRate?: string | undefined;
   /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
    *
    * @remarks
+   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
    *
    * Any deviations from this will result in an error.
    *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
    */
   vatAmount?: CreatePaymentLinkVatAmountRequest | undefined;
   /**
@@ -191,7 +236,10 @@ export type CreatePaymentLinkLineRequest = {
    */
   sku?: string | undefined;
   /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the
+   *
+   * @remarks
+   * [Integrating Vouchers](integrating-vouchers) guide for more information.
    */
   categories?: Array<CreatePaymentLinkCategoryRequest> | undefined;
   /**
@@ -205,11 +253,13 @@ export type CreatePaymentLinkLineRequest = {
 };
 
 /**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  *
  * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
  */
@@ -219,17 +269,19 @@ export type CreatePaymentLinkBillingAddressRequest = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -263,7 +315,8 @@ export type CreatePaymentLinkBillingAddressRequest = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -295,11 +348,13 @@ export type CreatePaymentLinkBillingAddressRequest = {
 };
 
 /**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's shipping address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  */
 export type CreatePaymentLinkShippingAddressRequest = {
   /**
@@ -307,17 +362,19 @@ export type CreatePaymentLinkShippingAddressRequest = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -351,7 +408,8 @@ export type CreatePaymentLinkShippingAddressRequest = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -387,7 +445,8 @@ export type CreatePaymentLinkShippingAddressRequest = {
  *
  * @remarks
  *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+ * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+ * a €0.99 fee on a €1.00 payment.
  */
 export type CreatePaymentLinkApplicationFeeAmountRequest = {
   /**
@@ -401,11 +460,14 @@ export type CreatePaymentLinkApplicationFeeAmountRequest = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
- * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+ * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this
+ * `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent
+ * to your own account balance.
  */
 export type CreatePaymentLinkApplicationFeeRequest = {
   /**
@@ -413,30 +475,46 @@ export type CreatePaymentLinkApplicationFeeRequest = {
    *
    * @remarks
    *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+   * a €0.99 fee on a €1.00 payment.
    */
   amount: CreatePaymentLinkApplicationFeeAmountRequest;
   /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
+   * The description of the application fee. This will appear on settlement reports towards both you and the
+   *
+   * @remarks
+   * connected merchant.
    */
   description: string;
 };
 
 export type CreatePaymentLinkRequest = {
   /**
-   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible.
+   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the
+   *
+   * @remarks
+   * customer's bank or card statement when possible.
    */
   description: string;
   /**
-   * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
+   * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an
+   *
+   * @remarks
+   * amount.
    */
   amount?: CreatePaymentLinkAmountRequest | null | undefined;
   /**
-   * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
+   * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The
+   *
+   * @remarks
+   * customer will be prompted to enter a value greater than or equal to the minimum amount.
    */
   minimumAmount?: CreatePaymentLinkMinimumAmountRequest | null | undefined;
   /**
-   * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided, the customer will be shown a generic message after completing the payment.
+   * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided,
+   *
+   * @remarks
+   * the customer will be shown a generic message after completing the payment.
    */
   redirectUrl?: string | null | undefined;
   /**
@@ -444,15 +522,19 @@ export type CreatePaymentLinkRequest = {
    *
    * @remarks
    *
-   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments resulting from the payment link.
+   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments
+   * resulting from the payment link.
    *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+   * local machine.
    */
   webhookUrl?: string | null | undefined;
   /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the payment.
    *
@@ -460,21 +542,25 @@ export type CreatePaymentLinkRequest = {
    */
   lines?: Array<CreatePaymentLinkLineRequest> | null | undefined;
   /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    *
    * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: CreatePaymentLinkBillingAddressRequest | undefined;
   /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    */
   shippingAddress?: CreatePaymentLinkShippingAddressRequest | undefined;
   /**
@@ -482,35 +568,47 @@ export type CreatePaymentLinkRequest = {
    *
    * @remarks
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
    */
   profileId?: string | null | undefined;
   /**
-   * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple payments using the same link.
+   * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple
    *
    * @remarks
+   * payments using the same link.
    *
    * If no value is specified, the field defaults to `false`, allowing only a single payment per link.
    */
   reusable?: boolean | null | undefined;
   /**
-   * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front, the payment link will not expire automatically.
+   * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front,
+   *
+   * @remarks
+   * the payment link will not expire automatically.
    */
   expiresAt?: string | null | undefined;
   /**
-   * An array of payment methods that are allowed to be used for this payment link. When this parameter is not provided or is an empty array, all enabled payment methods will be available.
+   * An array of payment methods that are allowed to be used for this payment link. When this parameter is
    *
    * @remarks
+   * not provided or is an empty array, all enabled payment methods will be available.
    *
-   * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard', 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint', 'in3', 'riverty', 'klarna', 'billie'.
+   * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard',
+   * 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint',
+   * 'in3', 'riverty', 'klarna', 'billie'.
    */
   allowedMethods?: Array<string> | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
-   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this
+   * `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent
+   * to your own account balance.
    */
   applicationFee?: CreatePaymentLinkApplicationFeeRequest | undefined;
 };
@@ -546,7 +644,22 @@ export type CreatePaymentLinkNotFoundLinks = {
 };
 
 /**
- * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreatePaymentLinkMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreatePaymentLinkMode = ClosedEnum<typeof CreatePaymentLinkMode>;
+
+/**
+ * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an
+ *
+ * @remarks
+ * amount.
  */
 export type CreatePaymentLinkAmountResponse = {
   /**
@@ -560,7 +673,10 @@ export type CreatePaymentLinkAmountResponse = {
 };
 
 /**
- * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
+ * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The
+ *
+ * @remarks
+ * customer will be prompted to enter a value greater than or equal to the minimum amount.
  */
 export type CreatePaymentLinkMinimumAmountResponse = {
   /**
@@ -572,6 +688,34 @@ export type CreatePaymentLinkMinimumAmountResponse = {
    */
   value: string;
 };
+
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export const CreatePaymentLinkTypeResponse = {
+  Physical: "physical",
+  Digital: "digital",
+  ShippingFee: "shipping_fee",
+  Discount: "discount",
+  StoreCredit: "store_credit",
+  GiftCard: "gift_card",
+  Surcharge: "surcharge",
+  Tip: "tip",
+} as const;
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export type CreatePaymentLinkTypeResponse = ClosedEnum<
+  typeof CreatePaymentLinkTypeResponse
+>;
 
 /**
  * The price of a single item including VAT.
@@ -596,7 +740,10 @@ export type CreatePaymentLinkUnitPriceResponse = {
 };
 
 /**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+ * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+ *
+ * @remarks
+ * type.
  */
 export type CreatePaymentLinkDiscountAmountResponse = {
   /**
@@ -630,13 +777,15 @@ export type CreatePaymentLinkTotalAmountResponse = {
 };
 
 /**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+ * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
  *
  * @remarks
+ * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
  *
  * Any deviations from this will result in an error.
  *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+ * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+ * `SEK 100.00 × (25 / 125) = SEK 20.00`.
  */
 export type CreatePaymentLinkVatAmountResponse = {
   /**
@@ -666,10 +815,8 @@ export type CreatePaymentLinkLineResponse = {
    * @remarks
    *
    * The `tip` payment line type is not available when creating a payment.
-   *
-   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
    */
-  type?: string | undefined;
+  type?: CreatePaymentLinkTypeResponse | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -695,7 +842,10 @@ export type CreatePaymentLinkLineResponse = {
    */
   unitPrice: CreatePaymentLinkUnitPriceResponse;
   /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+   *
+   * @remarks
+   * type.
    */
   discountAmount?: CreatePaymentLinkDiscountAmountResponse | undefined;
   /**
@@ -709,17 +859,22 @@ export type CreatePaymentLinkLineResponse = {
    */
   totalAmount: CreatePaymentLinkTotalAmountResponse;
   /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+   *
+   * @remarks
+   * not as a float, to ensure the correct number of decimals are passed.
    */
   vatRate?: string | undefined;
   /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
    *
    * @remarks
+   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
    *
    * Any deviations from this will result in an error.
    *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
    */
   vatAmount?: CreatePaymentLinkVatAmountResponse | undefined;
   /**
@@ -727,7 +882,10 @@ export type CreatePaymentLinkLineResponse = {
    */
   sku?: string | undefined;
   /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the
+   *
+   * @remarks
+   * [Integrating Vouchers](integrating-vouchers) guide for more information.
    */
   categories?: Array<CreatePaymentLinkCategoryResponse> | undefined;
   /**
@@ -741,11 +899,13 @@ export type CreatePaymentLinkLineResponse = {
 };
 
 /**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  *
  * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
  */
@@ -755,17 +915,19 @@ export type CreatePaymentLinkBillingAddressResponse = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -799,7 +961,8 @@ export type CreatePaymentLinkBillingAddressResponse = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -831,11 +994,13 @@ export type CreatePaymentLinkBillingAddressResponse = {
 };
 
 /**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's shipping address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  */
 export type CreatePaymentLinkShippingAddressResponse = {
   /**
@@ -843,17 +1008,19 @@ export type CreatePaymentLinkShippingAddressResponse = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -887,7 +1054,8 @@ export type CreatePaymentLinkShippingAddressResponse = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -923,7 +1091,8 @@ export type CreatePaymentLinkShippingAddressResponse = {
  *
  * @remarks
  *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+ * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+ * a €0.99 fee on a €1.00 payment.
  */
 export type CreatePaymentLinkApplicationFeeAmountResponse = {
   /**
@@ -937,11 +1106,14 @@ export type CreatePaymentLinkApplicationFeeAmountResponse = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
- * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+ * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this
+ * `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent
+ * to your own account balance.
  */
 export type CreatePaymentLinkApplicationFeeResponse = {
   /**
@@ -949,11 +1121,15 @@ export type CreatePaymentLinkApplicationFeeResponse = {
    *
    * @remarks
    *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+   * a €0.99 fee on a €1.00 payment.
    */
   amount: CreatePaymentLinkApplicationFeeAmountResponse;
   /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
+   * The description of the application fee. This will appear on settlement reports towards both you and the
+   *
+   * @remarks
+   * connected merchant.
    */
   description: string;
 };
@@ -1005,7 +1181,10 @@ export type CreatePaymentLinkLinks = {
  */
 export type CreatePaymentLinkResponse = {
   /**
-   * Indicates the response contains a payment link object. Will always contain the string `payment-link` for this endpoint.
+   * Indicates the response contains a payment link object. Will always contain the string `payment-link` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -1014,22 +1193,27 @@ export type CreatePaymentLinkResponse = {
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode: CreatePaymentLinkMode;
+  /**
+   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
-   */
-  mode: string;
-  /**
-   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible.
+   * customer's bank or card statement when possible.
    */
   description: string;
   /**
-   * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
+   * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an
+   *
+   * @remarks
+   * amount.
    */
   amount: CreatePaymentLinkAmountResponse | null;
   /**
-   * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
+   * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The
+   *
+   * @remarks
+   * customer will be prompted to enter a value greater than or equal to the minimum amount.
    */
   minimumAmount?: CreatePaymentLinkMinimumAmountResponse | null | undefined;
   /**
@@ -1037,7 +1221,10 @@ export type CreatePaymentLinkResponse = {
    */
   archived: boolean;
   /**
-   * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided, the customer will be shown a generic message after completing the payment.
+   * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided,
+   *
+   * @remarks
+   * the customer will be shown a generic message after completing the payment.
    */
   redirectUrl: string | null;
   /**
@@ -1045,15 +1232,19 @@ export type CreatePaymentLinkResponse = {
    *
    * @remarks
    *
-   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments resulting from the payment link.
+   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments
+   * resulting from the payment link.
    *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+   * local machine.
    */
   webhookUrl: string | null;
   /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the payment.
    *
@@ -1061,21 +1252,25 @@ export type CreatePaymentLinkResponse = {
    */
   lines?: Array<CreatePaymentLinkLineResponse> | null | undefined;
   /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    *
    * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: CreatePaymentLinkBillingAddressResponse | undefined;
   /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    */
   shippingAddress?: CreatePaymentLinkShippingAddressResponse | undefined;
   /**
@@ -1083,13 +1278,16 @@ export type CreatePaymentLinkResponse = {
    *
    * @remarks
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
    */
   profileId: string | null;
   /**
-   * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple payments using the same link.
+   * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple
    *
    * @remarks
+   * payments using the same link.
    *
    * If no value is specified, the field defaults to `false`, allowing only a single payment per link.
    */
@@ -1103,23 +1301,32 @@ export type CreatePaymentLinkResponse = {
    */
   paidAt: string | null;
   /**
-   * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front, the payment link will not expire automatically.
+   * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front,
+   *
+   * @remarks
+   * the payment link will not expire automatically.
    */
   expiresAt: string | null;
   /**
-   * An array of payment methods that are allowed to be used for this payment link. When this parameter is not provided or is an empty array, all enabled payment methods will be available.
+   * An array of payment methods that are allowed to be used for this payment link. When this parameter is
    *
    * @remarks
+   * not provided or is an empty array, all enabled payment methods will be available.
    *
-   * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard', 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint', 'in3', 'riverty', 'klarna', 'billie'.
+   * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard',
+   * 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint',
+   * 'in3', 'riverty', 'klarna', 'billie'.
    */
   allowedMethods: Array<string> | null;
   /**
-   * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
-   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this
+   * `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent
+   * to your own account balance.
    */
   applicationFee?: CreatePaymentLinkApplicationFeeResponse | undefined;
   /**
@@ -1247,6 +1454,27 @@ export function createPaymentLinkMinimumAmountRequestFromJSON(
       CreatePaymentLinkMinimumAmountRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreatePaymentLinkMinimumAmountRequest' from JSON`,
   );
+}
+
+/** @internal */
+export const CreatePaymentLinkTypeRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreatePaymentLinkTypeRequest
+> = z.nativeEnum(CreatePaymentLinkTypeRequest);
+
+/** @internal */
+export const CreatePaymentLinkTypeRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreatePaymentLinkTypeRequest
+> = CreatePaymentLinkTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreatePaymentLinkTypeRequest$ {
+  /** @deprecated use `CreatePaymentLinkTypeRequest$inboundSchema` instead. */
+  export const inboundSchema = CreatePaymentLinkTypeRequest$inboundSchema;
+  /** @deprecated use `CreatePaymentLinkTypeRequest$outboundSchema` instead. */
+  export const outboundSchema = CreatePaymentLinkTypeRequest$outboundSchema;
 }
 
 /** @internal */
@@ -1521,7 +1749,7 @@ export const CreatePaymentLinkLineRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: CreatePaymentLinkTypeRequest$inboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -1542,7 +1770,7 @@ export const CreatePaymentLinkLineRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreatePaymentLinkLineRequest$Outbound = {
-  type?: string | undefined;
+  type: string;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -1563,7 +1791,7 @@ export const CreatePaymentLinkLineRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreatePaymentLinkLineRequest
 > = z.object({
-  type: z.string().optional(),
+  type: CreatePaymentLinkTypeRequest$outboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2326,6 +2554,27 @@ export function createPaymentLinkNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const CreatePaymentLinkMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreatePaymentLinkMode
+> = z.nativeEnum(CreatePaymentLinkMode);
+
+/** @internal */
+export const CreatePaymentLinkMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreatePaymentLinkMode
+> = CreatePaymentLinkMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreatePaymentLinkMode$ {
+  /** @deprecated use `CreatePaymentLinkMode$inboundSchema` instead. */
+  export const inboundSchema = CreatePaymentLinkMode$inboundSchema;
+  /** @deprecated use `CreatePaymentLinkMode$outboundSchema` instead. */
+  export const outboundSchema = CreatePaymentLinkMode$outboundSchema;
+}
+
+/** @internal */
 export const CreatePaymentLinkAmountResponse$inboundSchema: z.ZodType<
   CreatePaymentLinkAmountResponse,
   z.ZodTypeDef,
@@ -2445,6 +2694,27 @@ export function createPaymentLinkMinimumAmountResponseFromJSON(
       CreatePaymentLinkMinimumAmountResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreatePaymentLinkMinimumAmountResponse' from JSON`,
   );
+}
+
+/** @internal */
+export const CreatePaymentLinkTypeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreatePaymentLinkTypeResponse
+> = z.nativeEnum(CreatePaymentLinkTypeResponse);
+
+/** @internal */
+export const CreatePaymentLinkTypeResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreatePaymentLinkTypeResponse
+> = CreatePaymentLinkTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreatePaymentLinkTypeResponse$ {
+  /** @deprecated use `CreatePaymentLinkTypeResponse$inboundSchema` instead. */
+  export const inboundSchema = CreatePaymentLinkTypeResponse$inboundSchema;
+  /** @deprecated use `CreatePaymentLinkTypeResponse$outboundSchema` instead. */
+  export const outboundSchema = CreatePaymentLinkTypeResponse$outboundSchema;
 }
 
 /** @internal */
@@ -2727,7 +2997,7 @@ export const CreatePaymentLinkLineResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: CreatePaymentLinkTypeResponse$inboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2748,7 +3018,7 @@ export const CreatePaymentLinkLineResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreatePaymentLinkLineResponse$Outbound = {
-  type?: string | undefined;
+  type: string;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2769,7 +3039,7 @@ export const CreatePaymentLinkLineResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreatePaymentLinkLineResponse
 > = z.object({
-  type: z.string().optional(),
+  type: CreatePaymentLinkTypeResponse$outboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -3342,7 +3612,7 @@ export const CreatePaymentLinkResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("payment-link"),
   id: z.string(),
-  mode: z.string(),
+  mode: CreatePaymentLinkMode$inboundSchema,
   description: z.string(),
   amount: z.nullable(
     z.lazy(() => CreatePaymentLinkAmountResponse$inboundSchema),
@@ -3415,7 +3685,7 @@ export const CreatePaymentLinkResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("payment-link"),
   id: z.string(),
-  mode: z.string(),
+  mode: CreatePaymentLinkMode$outboundSchema,
   description: z.string(),
   amount: z.nullable(
     z.lazy(() => CreatePaymentLinkAmountResponse$outboundSchema),

@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve all captures included in the given settlement.
  *
  * The response is in the same format as the response of the [List captures endpoint](list-captures).
- *
- * > 🔑 Access with
- * >
- * > [Access token with **settlements.read** **payments.read**](/reference/authentication)
  */
 export function settlementsListCaptures(
   client: ClientCore,

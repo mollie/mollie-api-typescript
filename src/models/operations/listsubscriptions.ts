@@ -5,8 +5,27 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListSubscriptionsSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListSubscriptionsSort = ClosedEnum<typeof ListSubscriptionsSort>;
 
 export type ListSubscriptionsRequest = {
   /**
@@ -14,7 +33,10 @@ export type ListSubscriptionsRequest = {
    */
   customerId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -22,17 +44,18 @@ export type ListSubscriptionsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListSubscriptionsSort | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -70,7 +93,45 @@ export type ListSubscriptionsBadRequestLinks = {
 };
 
 /**
- * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListSubscriptionsMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListSubscriptionsMode = ClosedEnum<typeof ListSubscriptionsMode>;
+
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export const ListSubscriptionsStatus = {
+  Pending: "pending",
+  Active: "active",
+  Canceled: "canceled",
+  Suspended: "suspended",
+  Completed: "completed",
+} as const;
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export type ListSubscriptionsStatus = ClosedEnum<
+  typeof ListSubscriptionsStatus
+>;
+
+/**
+ * The amount for each individual payment that is charged with this subscription. For example, for a monthly
+ *
+ * @remarks
+ * subscription of €10, the subscription amount should be set to €10.
  */
 export type ListSubscriptionsAmount = {
   /**
@@ -82,6 +143,44 @@ export type ListSubscriptionsAmount = {
    */
   value: string;
 };
+
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export const ListSubscriptionsInterval = {
+  DotDotDotDays: "... days",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotMonths: "... months",
+} as const;
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export type ListSubscriptionsInterval = ClosedEnum<
+  typeof ListSubscriptionsInterval
+>;
+
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export const ListSubscriptionsMethod = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export type ListSubscriptionsMethod = ClosedEnum<
+  typeof ListSubscriptionsMethod
+>;
 
 /**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -98,13 +197,15 @@ export type ListSubscriptionsApplicationFeeAmount = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
  * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
  *
- * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+ * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+ * information.
  */
 export type ListSubscriptionsApplicationFee = {
   /**
@@ -117,9 +218,11 @@ export type ListSubscriptionsApplicationFee = {
 export type ListSubscriptionsMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
  * @remarks
+ * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+ * 1kB.
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
@@ -185,7 +288,10 @@ export type ListSubscriptionsProfile = {
 };
 
 /**
- * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+ * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+ *
+ * @remarks
+ * payments exist (yet).
  */
 export type ListSubscriptionsPayments = {
   /**
@@ -233,7 +339,10 @@ export type SubscriptionLinks = {
    */
   profile?: ListSubscriptionsProfile | null | undefined;
   /**
-   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+   *
+   * @remarks
+   * payments exist (yet).
    */
   payments?: ListSubscriptionsPayments | null | undefined;
   /**
@@ -244,7 +353,10 @@ export type SubscriptionLinks = {
 
 export type ListSubscriptionsSubscription = {
   /**
-   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this endpoint.
+   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -253,28 +365,27 @@ export type ListSubscriptionsSubscription = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode?: ListSubscriptionsMode | undefined;
+  /**
+   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
+   * enabling the subscription.
    */
-  mode?: string | undefined;
+  status?: ListSubscriptionsStatus | undefined;
   /**
-   * The subscription's current status is directly related to the status of the underlying customer or mandate that is enabling the subscription.
+   * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
-   *
-   * Possible values: `pending` `active` `canceled` `suspended` `completed`
-   */
-  status?: string | undefined;
-  /**
-   * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+   * subscription of €10, the subscription amount should be set to €10.
    */
   amount?: ListSubscriptionsAmount | undefined;
   /**
-   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is considered completed.
+   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
    * @remarks
+   * considered completed.
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
@@ -289,48 +400,50 @@ export type ListSubscriptionsSubscription = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
-   *
-   * Possible values: `... days` `... weeks` `... months`
    */
-  interval?: string | undefined;
+  interval?: ListSubscriptionsInterval | undefined;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
   startDate?: string | undefined;
   /**
-   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled, this parameter will not be returned.
+   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
+   *
+   * @remarks
+   * this parameter will not be returned.
    */
   nextPaymentDate?: string | null | undefined;
   /**
-   * The subscription's description will be used as the description of the resulting individual payments and so showing up on the bank statement of the consumer.
+   * The subscription's description will be used as the description of the resulting individual payments and so showing
    *
    * @remarks
+   * up on the bank statement of the consumer.
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
   description?: string | undefined;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
-   *
-   * @remarks
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method?: string | null | undefined;
+  method?: ListSubscriptionsMethod | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
    * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
    *
-   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+   * information.
    */
   applicationFee?: ListSubscriptionsApplicationFee | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
    *
    * @remarks
+   * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+   * 1kB.
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
@@ -345,7 +458,8 @@ export type ListSubscriptionsSubscription = {
    *
    * @remarks
    *
-   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as well. Be sure to verify the payment's subscription ID and its status.
+   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
+   * well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl?: string | undefined;
   /**
@@ -361,7 +475,10 @@ export type ListSubscriptionsSubscription = {
    */
   createdAt?: string | undefined;
   /**
-   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the subscription is not canceled (yet).
+   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
+   *
+   * @remarks
+   * subscription is not canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
@@ -460,11 +577,13 @@ export type ListSubscriptionsLinks = {
  */
 export type ListSubscriptionsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListSubscriptionsEmbedded | undefined;
@@ -475,6 +594,27 @@ export type ListSubscriptionsResponse = {
 };
 
 /** @internal */
+export const ListSubscriptionsSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsSort
+> = z.nativeEnum(ListSubscriptionsSort);
+
+/** @internal */
+export const ListSubscriptionsSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsSort
+> = ListSubscriptionsSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionsSort$ {
+  /** @deprecated use `ListSubscriptionsSort$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsSort$inboundSchema;
+  /** @deprecated use `ListSubscriptionsSort$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionsSort$outboundSchema;
+}
+
+/** @internal */
 export const ListSubscriptionsRequest$inboundSchema: z.ZodType<
   ListSubscriptionsRequest,
   z.ZodTypeDef,
@@ -483,7 +623,7 @@ export const ListSubscriptionsRequest$inboundSchema: z.ZodType<
   customerId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListSubscriptionsSort$inboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -492,7 +632,7 @@ export type ListSubscriptionsRequest$Outbound = {
   customerId: string;
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   testmode?: boolean | null | undefined;
 };
 
@@ -505,7 +645,7 @@ export const ListSubscriptionsRequest$outboundSchema: z.ZodType<
   customerId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListSubscriptionsSort$outboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -792,6 +932,48 @@ export function listSubscriptionsBadRequestLinksFromJSON(
 }
 
 /** @internal */
+export const ListSubscriptionsMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsMode
+> = z.nativeEnum(ListSubscriptionsMode);
+
+/** @internal */
+export const ListSubscriptionsMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsMode
+> = ListSubscriptionsMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionsMode$ {
+  /** @deprecated use `ListSubscriptionsMode$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsMode$inboundSchema;
+  /** @deprecated use `ListSubscriptionsMode$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionsMode$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsStatus
+> = z.nativeEnum(ListSubscriptionsStatus);
+
+/** @internal */
+export const ListSubscriptionsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsStatus
+> = ListSubscriptionsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionsStatus$ {
+  /** @deprecated use `ListSubscriptionsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsStatus$inboundSchema;
+  /** @deprecated use `ListSubscriptionsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionsStatus$outboundSchema;
+}
+
+/** @internal */
 export const ListSubscriptionsAmount$inboundSchema: z.ZodType<
   ListSubscriptionsAmount,
   z.ZodTypeDef,
@@ -846,6 +1028,48 @@ export function listSubscriptionsAmountFromJSON(
     (x) => ListSubscriptionsAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListSubscriptionsAmount' from JSON`,
   );
+}
+
+/** @internal */
+export const ListSubscriptionsInterval$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsInterval
+> = z.nativeEnum(ListSubscriptionsInterval);
+
+/** @internal */
+export const ListSubscriptionsInterval$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsInterval
+> = ListSubscriptionsInterval$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionsInterval$ {
+  /** @deprecated use `ListSubscriptionsInterval$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsInterval$inboundSchema;
+  /** @deprecated use `ListSubscriptionsInterval$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionsInterval$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionsMethod$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsMethod
+> = z.nativeEnum(ListSubscriptionsMethod);
+
+/** @internal */
+export const ListSubscriptionsMethod$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionsMethod
+> = ListSubscriptionsMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionsMethod$ {
+  /** @deprecated use `ListSubscriptionsMethod$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsMethod$inboundSchema;
+  /** @deprecated use `ListSubscriptionsMethod$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionsMethod$outboundSchema;
 }
 
 /** @internal */
@@ -1509,16 +1733,16 @@ export const ListSubscriptionsSubscription$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: ListSubscriptionsMode$inboundSchema.optional(),
+  status: ListSubscriptionsStatus$inboundSchema.optional(),
   amount: z.lazy(() => ListSubscriptionsAmount$inboundSchema).optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: ListSubscriptionsInterval$inboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(ListSubscriptionsMethod$inboundSchema).optional(),
   applicationFee: z.lazy(() => ListSubscriptionsApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1577,16 +1801,16 @@ export const ListSubscriptionsSubscription$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: ListSubscriptionsMode$outboundSchema.optional(),
+  status: ListSubscriptionsStatus$outboundSchema.optional(),
   amount: z.lazy(() => ListSubscriptionsAmount$outboundSchema).optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: ListSubscriptionsInterval$outboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(ListSubscriptionsMethod$outboundSchema).optional(),
   applicationFee: z.lazy(() => ListSubscriptionsApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(

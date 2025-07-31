@@ -16,11 +16,7 @@ export const tool$settlementsList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all your settlements.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsList(

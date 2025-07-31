@@ -33,11 +33,8 @@ import { Result } from "../types/fp.js";
  *
  * The response is in the same format as the response of the [List payments endpoint](list-payments).
  *
- * For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the [List captures endpoint](list-captures) endpoint instead.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **settlements.read** **payments.read**](/reference/authentication)
+ * For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the
+ * [List captures endpoint](list-captures) endpoint instead.
  */
 export function settlementsListPayments(
   client: ClientCore,

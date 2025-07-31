@@ -14,15 +14,10 @@ export const tool$customersCreate: ToolDefinition<typeof args> = {
   name: "customers-create",
   description: `Create customer
 
-Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked to this customer object, which simplifies management of recurring payments.
+Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked
+to this customer object, which simplifies management of recurring payments.
 
-Once registered, customers will also appear in your Mollie dashboard.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **customers.write**](/reference/authentication)`,
+Once registered, customers will also appear in your Mollie dashboard.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await customersCreate(

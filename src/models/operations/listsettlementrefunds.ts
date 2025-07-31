@@ -28,7 +28,10 @@ export type ListSettlementRefundsRequest = {
    */
   settlementId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -40,9 +43,11 @@ export type ListSettlementRefundsRequest = {
    */
   include?: ListSettlementRefundsInclude | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -80,7 +85,24 @@ export type ListSettlementRefundsBadRequestLinks = {
 };
 
 /**
- * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListSettlementRefundsMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListSettlementRefundsMode = ClosedEnum<
+  typeof ListSettlementRefundsMode
+>;
+
+/**
+ * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+ *
+ * @remarks
+ * amount.
  */
 export type ListSettlementRefundsAmount = {
   /**
@@ -94,17 +116,21 @@ export type ListSettlementRefundsAmount = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
  *
  * @remarks
+ * to the currency your account is settled in.
  *
  * The amount is a **negative** amount.
  *
- * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+ * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+ * zero.
  *
- * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+ * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+ * the refund is queued the settlement amount is likely not yet available.
  *
- * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * To retrieve accurate settlement amounts we recommend using the
+ * [List balance transactions endpoint](list-balance-transactions) instead.
  */
 export type ListSettlementRefundsSettlementAmount = {
   /**
@@ -120,22 +146,52 @@ export type ListSettlementRefundsSettlementAmount = {
 export type ListSettlementRefundsMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type ListSettlementRefundsMetadataUnion =
   | ListSettlementRefundsMetadata
   | string
   | Array<string>;
 
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export const ListSettlementRefundsStatus = {
+  Queued: "queued",
+  Pending: "pending",
+  Processing: "processing",
+  Refunded: "refunded",
+  Failed: "failed",
+  Canceled: "canceled",
+} as const;
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export type ListSettlementRefundsStatus = ClosedEnum<
+  typeof ListSettlementRefundsStatus
+>;
+
+/**
+ * Specifies the reference type
+ */
+export const ListSettlementRefundsType = {
+  AcquirerReference: "acquirer-reference",
+} as const;
+/**
+ * Specifies the reference type
+ */
+export type ListSettlementRefundsType = ClosedEnum<
+  typeof ListSettlementRefundsType
+>;
+
 export type ListSettlementRefundsExternalReference = {
   /**
    * Specifies the reference type
-   *
-   * @remarks
-   *
-   * Possible values: `acquirer-reference`
    */
-  type?: string | undefined;
+  type?: ListSettlementRefundsType | undefined;
   /**
    * Unique reference from the payment provider
    */
@@ -161,7 +217,10 @@ export type ListSettlementRefundsRoutingReversalAmount = {
  */
 export type ListSettlementRefundsSource = {
   /**
-   * Required for source type `organization`. The ID of the connected organization the funds should be pulled back from.
+   * Required for source type `organization`. The ID of the connected organization the funds should be pulled
+   *
+   * @remarks
+   * back from.
    */
   organizationId?: string | undefined;
 };
@@ -206,7 +265,10 @@ export type ListSettlementRefundsPayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+ *
+ * @remarks
+ * yet settled.
  */
 export type ListSettlementRefundsSettlement = {
   /**
@@ -246,7 +308,10 @@ export type ListSettlementRefundsRefundLinks = {
    */
   payment?: ListSettlementRefundsPayment | undefined;
   /**
-   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+   *
+   * @remarks
+   * yet settled.
    */
   settlement?: ListSettlementRefundsSettlement | null | undefined;
   /**
@@ -261,41 +326,50 @@ export type ListSettlementRefundsRefund = {
    */
   resource?: string | undefined;
   /**
-   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
+   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
    */
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: ListSettlementRefundsMode | undefined;
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    */
   description?: string | undefined;
   /**
-   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+   *
+   * @remarks
+   * amount.
    */
   amount?: ListSettlementRefundsAmount | undefined;
   /**
-   * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
    *
    * @remarks
+   * to the currency your account is settled in.
    *
    * The amount is a **negative** amount.
    *
-   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+   * zero.
    *
-   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+   * the refund is queued the settlement amount is likely not yet available.
    *
-   * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * To retrieve accurate settlement amounts we recommend using the
+   * [List balance transactions endpoint](list-balance-transactions) instead.
    */
   settlementAmount?: ListSettlementRefundsSettlementAmount | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | ListSettlementRefundsMetadata
@@ -304,7 +378,10 @@ export type ListSettlementRefundsRefund = {
     | null
     | undefined;
   /**
-   * The unique identifier of the payment this refund was created for. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this refund was created for.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId?: string | undefined;
   /**
@@ -313,12 +390,8 @@ export type ListSettlementRefundsRefund = {
   settlementId?: string | null | undefined;
   /**
    * Refunds may take some time to get confirmed.
-   *
-   * @remarks
-   *
-   * Possible values: `queued` `pending` `processing` `refunded` `failed` `canceled`
    */
-  status?: string | undefined;
+  status?: ListSettlementRefundsStatus | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -331,7 +404,8 @@ export type ListSettlementRefundsRefund = {
    *
    * When creating refunds for *routed* payments, by default the full amount is deducted from your balance.
    *
-   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount needs to be reversed from which merchant(s).
+   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount
+   * needs to be reversed from which merchant(s).
    *
    * If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
    */
@@ -431,15 +505,20 @@ export type ListSettlementRefundsLinks = {
 };
 
 /**
- * A list of refund objects. For a complete reference of the refund object, refer to the [Get refund endpoint](get-refund) documentation.
+ * A list of refund objects. For a complete reference of the refund object, refer to the
+ *
+ * @remarks
+ * [Get refund endpoint](get-refund) documentation.
  */
 export type ListSettlementRefundsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListSettlementRefundsEmbedded | undefined;
@@ -801,6 +880,27 @@ export function listSettlementRefundsBadRequestLinksFromJSON(
 }
 
 /** @internal */
+export const ListSettlementRefundsMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsMode
+> = z.nativeEnum(ListSettlementRefundsMode);
+
+/** @internal */
+export const ListSettlementRefundsMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsMode
+> = ListSettlementRefundsMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSettlementRefundsMode$ {
+  /** @deprecated use `ListSettlementRefundsMode$inboundSchema` instead. */
+  export const inboundSchema = ListSettlementRefundsMode$inboundSchema;
+  /** @deprecated use `ListSettlementRefundsMode$outboundSchema` instead. */
+  export const outboundSchema = ListSettlementRefundsMode$outboundSchema;
+}
+
+/** @internal */
 export const ListSettlementRefundsAmount$inboundSchema: z.ZodType<
   ListSettlementRefundsAmount,
   z.ZodTypeDef,
@@ -1035,12 +1135,54 @@ export function listSettlementRefundsMetadataUnionFromJSON(
 }
 
 /** @internal */
+export const ListSettlementRefundsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsStatus
+> = z.nativeEnum(ListSettlementRefundsStatus);
+
+/** @internal */
+export const ListSettlementRefundsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsStatus
+> = ListSettlementRefundsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSettlementRefundsStatus$ {
+  /** @deprecated use `ListSettlementRefundsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListSettlementRefundsStatus$inboundSchema;
+  /** @deprecated use `ListSettlementRefundsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListSettlementRefundsStatus$outboundSchema;
+}
+
+/** @internal */
+export const ListSettlementRefundsType$inboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsType
+> = z.nativeEnum(ListSettlementRefundsType);
+
+/** @internal */
+export const ListSettlementRefundsType$outboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsType
+> = ListSettlementRefundsType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSettlementRefundsType$ {
+  /** @deprecated use `ListSettlementRefundsType$inboundSchema` instead. */
+  export const inboundSchema = ListSettlementRefundsType$inboundSchema;
+  /** @deprecated use `ListSettlementRefundsType$outboundSchema` instead. */
+  export const outboundSchema = ListSettlementRefundsType$outboundSchema;
+}
+
+/** @internal */
 export const ListSettlementRefundsExternalReference$inboundSchema: z.ZodType<
   ListSettlementRefundsExternalReference,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: ListSettlementRefundsType$inboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -1056,7 +1198,7 @@ export const ListSettlementRefundsExternalReference$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementRefundsExternalReference
 > = z.object({
-  type: z.string().optional(),
+  type: ListSettlementRefundsType$outboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -1611,7 +1753,7 @@ export const ListSettlementRefundsRefund$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: ListSettlementRefundsMode$inboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => ListSettlementRefundsAmount$inboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -1626,7 +1768,7 @@ export const ListSettlementRefundsRefund$inboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: ListSettlementRefundsStatus$inboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() =>
     ListSettlementRefundsExternalReference$inboundSchema
@@ -1681,7 +1823,7 @@ export const ListSettlementRefundsRefund$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: ListSettlementRefundsMode$outboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => ListSettlementRefundsAmount$outboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -1696,7 +1838,7 @@ export const ListSettlementRefundsRefund$outboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: ListSettlementRefundsStatus$outboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() =>
     ListSettlementRefundsExternalReference$outboundSchema

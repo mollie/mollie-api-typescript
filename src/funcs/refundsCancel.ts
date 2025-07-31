@@ -30,15 +30,11 @@ import { Result } from "../types/fp.js";
  * Cancel payment refund
  *
  * @remarks
- * Refunds will be executed with a delay of two hours. Until that time, refunds may be canceled manually via the Mollie Dashboard, or by using this endpoint.
+ * Refunds will be executed with a delay of two hours. Until that time, refunds may be canceled manually via the
+ * Mollie Dashboard, or by using this endpoint.
  *
- * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the [Get refund endpoint](get-refund) for more information.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **refunds.write**](/reference/authentication)
+ * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the
+ * [Get refund endpoint](get-refund) for more information.
  */
 export function refundsCancel(
   client: ClientCore,

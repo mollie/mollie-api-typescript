@@ -5,8 +5,25 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * The status of the settlement.
+ */
+export const GetOpenSettlementStatus = {
+  Open: "open",
+  Pending: "pending",
+  Paidout: "paidout",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the settlement.
+ */
+export type GetOpenSettlementStatus = ClosedEnum<
+  typeof GetOpenSettlementStatus
+>;
 
 /**
  * The total amount of the settlement.
@@ -21,6 +38,60 @@ export type GetOpenSettlementAmount = {
    */
   value: string;
 };
+
+/**
+ * The payment method, if applicable
+ */
+export const GetOpenSettlementCostMethod = {
+  Alma: "alma",
+  Bacs: "bacs",
+  Applepay: "applepay",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Bizum: "bizum",
+  Bitcoin: "bitcoin",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Giropay: "giropay",
+  Googlepay: "googlepay",
+  Ideal: "ideal",
+  In3: "in3",
+  Inghomepay: "inghomepay",
+  Kbc: "kbc",
+  Klarnapaylater: "klarnapaylater",
+  Klarnapaynow: "klarnapaynow",
+  Klarnasliceit: "klarnasliceit",
+  Klarna: "klarna",
+  Mbway: "mbway",
+  Multibanco: "multibanco",
+  Mybank: "mybank",
+  Paybybank: "paybybank",
+  Payconiq: "payconiq",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Podiumcadeaukaart: "podiumcadeaukaart",
+  Pointofsale: "pointofsale",
+  Sofort: "sofort",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The payment method, if applicable
+ */
+export type GetOpenSettlementCostMethod = ClosedEnum<
+  typeof GetOpenSettlementCostMethod
+>;
 
 /**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -113,12 +184,8 @@ export type GetOpenSettlementCost = {
   description?: string | undefined;
   /**
    * The payment method, if applicable
-   *
-   * @remarks
-   *
-   * Possible values: `alma` `bacs` `applepay` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `bizum` `bitcoin` `blik` `creditcard` `directdebit` `eps` `giftcard` `giropay` `googlepay` `ideal` `in3` `inghomepay` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit` `klarna` `mbway` `multibanco` `mybank` `paybybank` `payconiq` `paypal` `paysafecard` `przelewy24` `riverty` `satispay` `podiumcadeaukaart` `pointofsale` `sofort` `swish` `trustly` `twint` `voucher`
    */
-  method?: string | null | undefined;
+  method?: GetOpenSettlementCostMethod | null | undefined;
   /**
    * The number of fees
    */
@@ -140,6 +207,60 @@ export type GetOpenSettlementCost = {
    */
   amountGross?: GetOpenSettlementCostAmountGross | undefined;
 };
+
+/**
+ * The payment method, if applicable
+ */
+export const GetOpenSettlementRevenueMethod = {
+  Alma: "alma",
+  Bacs: "bacs",
+  Applepay: "applepay",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Bizum: "bizum",
+  Bitcoin: "bitcoin",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Giropay: "giropay",
+  Googlepay: "googlepay",
+  Ideal: "ideal",
+  In3: "in3",
+  Inghomepay: "inghomepay",
+  Kbc: "kbc",
+  Klarnapaylater: "klarnapaylater",
+  Klarnapaynow: "klarnapaynow",
+  Klarnasliceit: "klarnasliceit",
+  Klarna: "klarna",
+  Mbway: "mbway",
+  Multibanco: "multibanco",
+  Mybank: "mybank",
+  Paybybank: "paybybank",
+  Payconiq: "payconiq",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Podiumcadeaukaart: "podiumcadeaukaart",
+  Pointofsale: "pointofsale",
+  Sofort: "sofort",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The payment method, if applicable
+ */
+export type GetOpenSettlementRevenueMethod = ClosedEnum<
+  typeof GetOpenSettlementRevenueMethod
+>;
 
 /**
  * The net total of received funds, i.e. excluding VAT
@@ -190,12 +311,8 @@ export type GetOpenSettlementRevenue = {
   description?: string | undefined;
   /**
    * The payment method, if applicable
-   *
-   * @remarks
-   *
-   * Possible values: `alma` `bacs` `applepay` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `bizum` `bitcoin` `blik` `creditcard` `directdebit` `eps` `giftcard` `giropay` `googlepay` `ideal` `in3` `inghomepay` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit` `klarna` `mbway` `multibanco` `mybank` `paybybank` `payconiq` `paypal` `paysafecard` `przelewy24` `riverty` `satispay` `podiumcadeaukaart` `pointofsale` `sofort` `swish` `trustly` `twint` `voucher`
    */
-  method?: string | null | undefined;
+  method?: GetOpenSettlementRevenueMethod | null | undefined;
   /**
    * The number of payments
    */
@@ -240,13 +357,16 @@ export type GetOpenSettlementLessThanYearGreaterThan = {
 };
 
 /**
- * For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These transactions are grouped into 'period' objects — one for each calendar month.
+ * For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These
  *
  * @remarks
+ * transactions are grouped into 'period' objects — one for each calendar month.
  *
- * For example, if a settlement includes funds from 15 April until 4 May, it will include two period objects. One for all transactions processed between 15 April and 30 April, and one for all transactions between 1 May and 4 May.
+ * For example, if a settlement includes funds from 15 April until 4 May, it will include two period objects. One for
+ * all transactions processed between 15 April and 30 April, and one for all transactions between 1 May and 4 May.
  *
- * Period objects are grouped by year, and then by month. So in the above example, the full `periods` collection will look as follows: `{"2024": {"04": {...}, "05": {...}}}`. The year and month in this documentation are referred as `<year>` and `<month>`.
+ * Period objects are grouped by year, and then by month. So in the above example, the full `periods` collection will
+ * look as follows: `{"2024": {"04": {...}, "05": {...}}}`. The year and month in this documentation are referred as `<year>` and `<month>`.
  *
  * The example response should give a good idea of what this looks like in practise.
  */
@@ -389,11 +509,17 @@ export type GetOpenSettlementLinks = {
 };
 
 /**
- * A settlement object describing your current balance. For a complete reference of the settlement object, refer to the [Get settlement](get-settlement) endpoint documentation.
+ * A settlement object describing your current balance. For a complete reference of the settlement object, refer to
+ *
+ * @remarks
+ * the [Get settlement](get-settlement) endpoint documentation.
  */
 export type GetOpenSettlementResponse = {
   /**
-   * Indicates the response contains a settlement object. Will always contain the string `settlement` for this endpoint.
+   * Indicates the response contains a settlement object. Will always contain the string `settlement` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -413,17 +539,14 @@ export type GetOpenSettlementResponse = {
    *
    * @remarks
    *
-   * For an [open settlement](get-open-settlement) or for the [next settlement](get-next-settlement), no settlement date is available.
+   * For an [open settlement](get-open-settlement) or for the [next settlement](get-next-settlement), no settlement
+   * date is available.
    */
   settledAt?: string | null | undefined;
   /**
    * The status of the settlement.
-   *
-   * @remarks
-   *
-   * Possible values: `open` `pending` `paidout` `failed`
    */
-  status?: string | undefined;
+  status?: GetOpenSettlementStatus | undefined;
   /**
    * The total amount of the settlement.
    */
@@ -437,13 +560,16 @@ export type GetOpenSettlementResponse = {
    */
   invoiceId?: string | null | undefined;
   /**
-   * For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These transactions are grouped into 'period' objects — one for each calendar month.
+   * For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These
    *
    * @remarks
+   * transactions are grouped into 'period' objects — one for each calendar month.
    *
-   * For example, if a settlement includes funds from 15 April until 4 May, it will include two period objects. One for all transactions processed between 15 April and 30 April, and one for all transactions between 1 May and 4 May.
+   * For example, if a settlement includes funds from 15 April until 4 May, it will include two period objects. One for
+   * all transactions processed between 15 April and 30 April, and one for all transactions between 1 May and 4 May.
    *
-   * Period objects are grouped by year, and then by month. So in the above example, the full `periods` collection will look as follows: `{"2024": {"04": {...}, "05": {...}}}`. The year and month in this documentation are referred as `<year>` and `<month>`.
+   * Period objects are grouped by year, and then by month. So in the above example, the full `periods` collection will
+   * look as follows: `{"2024": {"04": {...}, "05": {...}}}`. The year and month in this documentation are referred as `<year>` and `<month>`.
    *
    * The example response should give a good idea of what this looks like in practise.
    */
@@ -453,6 +579,27 @@ export type GetOpenSettlementResponse = {
    */
   links?: GetOpenSettlementLinks | undefined;
 };
+
+/** @internal */
+export const GetOpenSettlementStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetOpenSettlementStatus
+> = z.nativeEnum(GetOpenSettlementStatus);
+
+/** @internal */
+export const GetOpenSettlementStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetOpenSettlementStatus
+> = GetOpenSettlementStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetOpenSettlementStatus$ {
+  /** @deprecated use `GetOpenSettlementStatus$inboundSchema` instead. */
+  export const inboundSchema = GetOpenSettlementStatus$inboundSchema;
+  /** @deprecated use `GetOpenSettlementStatus$outboundSchema` instead. */
+  export const outboundSchema = GetOpenSettlementStatus$outboundSchema;
+}
 
 /** @internal */
 export const GetOpenSettlementAmount$inboundSchema: z.ZodType<
@@ -509,6 +656,27 @@ export function getOpenSettlementAmountFromJSON(
     (x) => GetOpenSettlementAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetOpenSettlementAmount' from JSON`,
   );
+}
+
+/** @internal */
+export const GetOpenSettlementCostMethod$inboundSchema: z.ZodNativeEnum<
+  typeof GetOpenSettlementCostMethod
+> = z.nativeEnum(GetOpenSettlementCostMethod);
+
+/** @internal */
+export const GetOpenSettlementCostMethod$outboundSchema: z.ZodNativeEnum<
+  typeof GetOpenSettlementCostMethod
+> = GetOpenSettlementCostMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetOpenSettlementCostMethod$ {
+  /** @deprecated use `GetOpenSettlementCostMethod$inboundSchema` instead. */
+  export const inboundSchema = GetOpenSettlementCostMethod$inboundSchema;
+  /** @deprecated use `GetOpenSettlementCostMethod$outboundSchema` instead. */
+  export const outboundSchema = GetOpenSettlementCostMethod$outboundSchema;
 }
 
 /** @internal */
@@ -870,7 +1038,7 @@ export const GetOpenSettlementCost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(GetOpenSettlementCostMethod$inboundSchema).optional(),
   count: z.number().int().optional(),
   rate: z.lazy(() => GetOpenSettlementRate$inboundSchema).optional(),
   amountNet: z.lazy(() => GetOpenSettlementCostAmountNet$inboundSchema)
@@ -899,7 +1067,7 @@ export const GetOpenSettlementCost$outboundSchema: z.ZodType<
   GetOpenSettlementCost
 > = z.object({
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(GetOpenSettlementCostMethod$outboundSchema).optional(),
   count: z.number().int().optional(),
   rate: z.lazy(() => GetOpenSettlementRate$outboundSchema).optional(),
   amountNet: z.lazy(() => GetOpenSettlementCostAmountNet$outboundSchema)
@@ -939,6 +1107,27 @@ export function getOpenSettlementCostFromJSON(
     (x) => GetOpenSettlementCost$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetOpenSettlementCost' from JSON`,
   );
+}
+
+/** @internal */
+export const GetOpenSettlementRevenueMethod$inboundSchema: z.ZodNativeEnum<
+  typeof GetOpenSettlementRevenueMethod
+> = z.nativeEnum(GetOpenSettlementRevenueMethod);
+
+/** @internal */
+export const GetOpenSettlementRevenueMethod$outboundSchema: z.ZodNativeEnum<
+  typeof GetOpenSettlementRevenueMethod
+> = GetOpenSettlementRevenueMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetOpenSettlementRevenueMethod$ {
+  /** @deprecated use `GetOpenSettlementRevenueMethod$inboundSchema` instead. */
+  export const inboundSchema = GetOpenSettlementRevenueMethod$inboundSchema;
+  /** @deprecated use `GetOpenSettlementRevenueMethod$outboundSchema` instead. */
+  export const outboundSchema = GetOpenSettlementRevenueMethod$outboundSchema;
 }
 
 /** @internal */
@@ -1130,7 +1319,7 @@ export const GetOpenSettlementRevenue$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(GetOpenSettlementRevenueMethod$inboundSchema).optional(),
   count: z.number().int().optional(),
   amountNet: z.lazy(() => GetOpenSettlementRevenueAmountNet$inboundSchema)
     .optional(),
@@ -1157,7 +1346,7 @@ export const GetOpenSettlementRevenue$outboundSchema: z.ZodType<
   GetOpenSettlementRevenue
 > = z.object({
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(GetOpenSettlementRevenueMethod$outboundSchema).optional(),
   count: z.number().int().optional(),
   amountNet: z.lazy(() => GetOpenSettlementRevenueAmountNet$outboundSchema)
     .optional(),
@@ -1910,7 +2099,7 @@ export const GetOpenSettlementResponse$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: GetOpenSettlementStatus$inboundSchema.optional(),
   amount: z.lazy(() => GetOpenSettlementAmount$inboundSchema).optional(),
   balanceId: z.string().optional(),
   invoiceId: z.nullable(z.string()).optional(),
@@ -1948,7 +2137,7 @@ export const GetOpenSettlementResponse$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: GetOpenSettlementStatus$outboundSchema.optional(),
   amount: z.lazy(() => GetOpenSettlementAmount$outboundSchema).optional(),
   balanceId: z.string().optional(),
   invoiceId: z.nullable(z.string()).optional(),

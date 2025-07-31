@@ -16,11 +16,7 @@ export const tool$balancesList: ToolDefinition<typeof args> = {
 
 Retrieve a list of the organization's balances, including the primary balance.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [Access token with **balances.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await balancesList(

@@ -1,6 +1,7 @@
 # GetPaymentLinkPaymentsOrder
 
-The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an order.
+The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+order.
 
 ## Example Usage
 

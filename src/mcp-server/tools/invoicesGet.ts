@@ -16,11 +16,8 @@ export const tool$invoicesGet: ToolDefinition<typeof args> = {
 
 Retrieve a single invoice by its ID.
 
-If you want to retrieve the details of an invoice by its invoice number, call the [List invoices](list-invoices) endpoint with the \`reference\` parameter.
-
-> 🔑 Access with
->
-> [Access token with **invoices.read**](/reference/authentication)`,
+If you want to retrieve the details of an invoice by its invoice number,
+call the [List invoices](list-invoices) endpoint with the \`reference\` parameter.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await invoicesGet(

@@ -14,13 +14,8 @@ export const tool$mandatesGet: ToolDefinition<typeof args> = {
   name: "mandates-get",
   description: `Get mandate
 
-Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank account details, card details, or PayPal account details.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.read**](/reference/authentication)`,
+Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank
+account details, card details, or PayPal account details.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await mandatesGet(

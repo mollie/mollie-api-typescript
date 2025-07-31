@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve all chargebacks initiated for all your payments.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payments.read**](/reference/authentication)
  */
 export function chargebacksAll(
   client: ClientCore,

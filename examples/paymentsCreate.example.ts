@@ -62,7 +62,7 @@ async function main() {
           productUrl: "https://...",
           recurring: {
             description: "Gym subscription",
-            interval: "12 months",
+            interval: "... days",
             amount: {
               currency: "EUR",
               value: "10.00",
@@ -105,7 +105,7 @@ async function main() {
       issuer: "ideal_INGBNL2A",
       restrictPaymentMethodsToCountry: "NL",
       captureMode: "manual",
-      captureDelay: "8 hours",
+      captureDelay: "... days",
       applicationFee: {
         amount: {
           currency: "EUR",
@@ -136,7 +136,6 @@ async function main() {
           },
         },
       ],
-      sequenceType: "oneoff",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",

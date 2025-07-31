@@ -29,15 +29,10 @@ import { Result } from "../types/fp.js";
  * Create customer
  *
  * @remarks
- * Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked to this customer object, which simplifies management of recurring payments.
+ * Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked
+ * to this customer object, which simplifies management of recurring payments.
  *
  * Once registered, customers will also appear in your Mollie dashboard.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **customers.write**](/reference/authentication)
  */
 export function customersCreate(
   client: ClientCore,

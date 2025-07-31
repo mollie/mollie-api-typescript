@@ -1,6 +1,7 @@
 # ListSubscriptionPaymentsDiscountAmount
 
-Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+type.
 
 ## Example Usage
 

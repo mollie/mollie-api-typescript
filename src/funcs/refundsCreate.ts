@@ -29,13 +29,8 @@ import { Result } from "../types/fp.js";
  * Create payment refund
  *
  * @remarks
- * Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank transfer or by refunding the amount to your customer's credit card.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **refunds.write**](/reference/authentication)
+ * Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank
+ * transfer or by refunding the amount to your customer's credit card.
  */
 export function refundsCreate(
   client: ClientCore,

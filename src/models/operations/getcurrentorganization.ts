@@ -5,8 +5,43 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export const GetCurrentOrganizationLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export type GetCurrentOrganizationLocale = ClosedEnum<
+  typeof GetCurrentOrganizationLocale
+>;
 
 /**
  * The address of the organization.
@@ -26,6 +61,31 @@ export type GetCurrentOrganizationAddress = {
    */
   country?: string | undefined;
 };
+
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export const GetCurrentOrganizationVatRegulation = {
+  Dutch: "dutch",
+  British: "british",
+  Shifted: "shifted",
+} as const;
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export type GetCurrentOrganizationVatRegulation = ClosedEnum<
+  typeof GetCurrentOrganizationVatRegulation
+>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -92,7 +152,10 @@ export type GetCurrentOrganizationLinks = {
  */
 export type GetCurrentOrganizationResponse = {
   /**
-   * Indicates the response contains an organization object. Will always contain the string `organization` for this resource type.
+   * Indicates the response contains an organization object. Will always contain the string `organization` for this
+   *
+   * @remarks
+   * resource type.
    */
   resource?: string | undefined;
   /**
@@ -110,7 +173,7 @@ export type GetCurrentOrganizationResponse = {
   /**
    * The preferred locale of the merchant, as set in their Mollie dashboard.
    */
-  locale?: string | undefined;
+  locale?: GetCurrentOrganizationLocale | undefined;
   /**
    * The address of the organization.
    */
@@ -120,28 +183,49 @@ export type GetCurrentOrganizationResponse = {
    */
   registrationNumber?: string | undefined;
   /**
-   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are verified against the international registry *VIES*.
+   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are
    *
    * @remarks
+   * verified against the international registry *VIES*.
    *
    * The field is not present for merchants residing in other countries.
    */
   vatNumber?: string | null | undefined;
   /**
-   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United Kingdom, and shifted VAT for merchants in the European Union.
+   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
    *
    * @remarks
+   * Kingdom, and shifted VAT for merchants in the European Union.
    *
    * The field is not present for merchants residing in other countries.
-   *
-   * Possible values: `dutch` `british` `shifted`
    */
-  vatRegulation?: string | null | undefined;
+  vatRegulation?: GetCurrentOrganizationVatRegulation | null | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links?: GetCurrentOrganizationLinks | undefined;
 };
+
+/** @internal */
+export const GetCurrentOrganizationLocale$inboundSchema: z.ZodNativeEnum<
+  typeof GetCurrentOrganizationLocale
+> = z.nativeEnum(GetCurrentOrganizationLocale);
+
+/** @internal */
+export const GetCurrentOrganizationLocale$outboundSchema: z.ZodNativeEnum<
+  typeof GetCurrentOrganizationLocale
+> = GetCurrentOrganizationLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetCurrentOrganizationLocale$ {
+  /** @deprecated use `GetCurrentOrganizationLocale$inboundSchema` instead. */
+  export const inboundSchema = GetCurrentOrganizationLocale$inboundSchema;
+  /** @deprecated use `GetCurrentOrganizationLocale$outboundSchema` instead. */
+  export const outboundSchema = GetCurrentOrganizationLocale$outboundSchema;
+}
 
 /** @internal */
 export const GetCurrentOrganizationAddress$inboundSchema: z.ZodType<
@@ -206,6 +290,29 @@ export function getCurrentOrganizationAddressFromJSON(
     (x) => GetCurrentOrganizationAddress$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetCurrentOrganizationAddress' from JSON`,
   );
+}
+
+/** @internal */
+export const GetCurrentOrganizationVatRegulation$inboundSchema: z.ZodNativeEnum<
+  typeof GetCurrentOrganizationVatRegulation
+> = z.nativeEnum(GetCurrentOrganizationVatRegulation);
+
+/** @internal */
+export const GetCurrentOrganizationVatRegulation$outboundSchema:
+  z.ZodNativeEnum<typeof GetCurrentOrganizationVatRegulation> =
+    GetCurrentOrganizationVatRegulation$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetCurrentOrganizationVatRegulation$ {
+  /** @deprecated use `GetCurrentOrganizationVatRegulation$inboundSchema` instead. */
+  export const inboundSchema =
+    GetCurrentOrganizationVatRegulation$inboundSchema;
+  /** @deprecated use `GetCurrentOrganizationVatRegulation$outboundSchema` instead. */
+  export const outboundSchema =
+    GetCurrentOrganizationVatRegulation$outboundSchema;
 }
 
 /** @internal */
@@ -463,11 +570,12 @@ export const GetCurrentOrganizationResponse$inboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: GetCurrentOrganizationLocale$inboundSchema.optional(),
   address: z.lazy(() => GetCurrentOrganizationAddress$inboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(GetCurrentOrganizationVatRegulation$inboundSchema)
+    .optional(),
   _links: z.lazy(() => GetCurrentOrganizationLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -499,12 +607,13 @@ export const GetCurrentOrganizationResponse$outboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: GetCurrentOrganizationLocale$outboundSchema.optional(),
   address: z.lazy(() => GetCurrentOrganizationAddress$outboundSchema)
     .optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(GetCurrentOrganizationVatRegulation$outboundSchema)
+    .optional(),
   links: z.lazy(() => GetCurrentOrganizationLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {

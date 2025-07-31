@@ -24,7 +24,10 @@ export type GetWebhookUnprocessableEntityHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.GetWebhookUnprocessableEntityLinks;
@@ -47,7 +50,10 @@ export class GetWebhookUnprocessableEntityHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.GetWebhookUnprocessableEntityLinks;
@@ -91,7 +97,10 @@ export type GetWebhookNotFoundHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.GetWebhookNotFoundLinks;
@@ -114,7 +123,10 @@ export class GetWebhookNotFoundHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.GetWebhookNotFoundLinks;

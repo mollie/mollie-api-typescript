@@ -14,21 +14,22 @@ export const tool$methodsList: ToolDefinition<typeof args> = {
   name: "methods-list",
   description: `List payment methods
 
-Retrieve all enabled payment methods. The results of this endpoint are **not** paginated — unlike most other list endpoints in our API.
+Retrieve all enabled payment methods. The results of this endpoint are
+**not** paginated — unlike most other list endpoints in our API.
 
-For test mode, all pending and enabled payment methods are returned. If no payment methods are requested yet, the most popular payment methods are returned in the test mode. For live mode, only fully enabled payment methods are returned.
+For test mode, all pending and enabled payment methods are returned. If no
+payment methods are requested yet, the most popular payment methods are returned in the test mode. For live
+mode, only fully enabled payment methods are returned.
 
-Payment methods can be requested and enabled via the Mollie Dashboard, or via the [Enable payment method endpoint](enable-method) of the Profiles API.
+Payment methods can be requested and enabled via the Mollie Dashboard, or
+via the [Enable payment method endpoint](enable-method) of the Profiles API.
 
-The list can optionally be filtered using a number of parameters described below.
+The list can optionally be filtered using a number of parameters described
+below.
 
-By default, only payment methods for the Euro currency are returned. If you wish to retrieve payment methods which exclusively support other currencies (e.g. Twint), you need to use the \`amount\` parameters.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)`,
+By default, only payment methods for the Euro currency are returned. If you
+wish to retrieve payment methods which exclusively support other currencies (e.g. Twint), you need to use the
+\`amount\` parameters.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await methodsList(

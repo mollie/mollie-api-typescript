@@ -14,11 +14,7 @@ export const tool$webhooksList: ToolDefinition<typeof args> = {
   name: "webhooks-list",
   description: `List all webhooks
 
-Returns a paginated list of your webhooks. If no webhook endpoints are available, the resulting array will be empty. This request should never throw an error.
-
-> 🔑 Access with
->
-> [Access token with **webhooks.read**](/reference/authentication)`,
+Returns a paginated list of your webhooks. If no webhook endpoints are available, the resulting array will be empty. This request should never throw an error.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await webhooksList(

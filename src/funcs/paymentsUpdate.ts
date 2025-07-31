@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Certain details of an existing payment can be updated.
  *
  * Updating the payment details will not result in a webhook call.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payments.write**](/reference/authentication)
  */
 export function paymentsUpdate(
   client: ClientCore,

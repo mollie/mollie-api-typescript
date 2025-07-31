@@ -9,11 +9,8 @@ export const tool$organizationsGetPartner: ToolDefinition = {
   name: "organizations-get-partner",
   description: `Get partner status
 
-Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner accounts*.
-
-> 🔑 Access with
->
-> [Access token with **organizations.read**](/reference/authentication)`,
+Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner
+accounts*.`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await organizationsGetPartner(
       client,

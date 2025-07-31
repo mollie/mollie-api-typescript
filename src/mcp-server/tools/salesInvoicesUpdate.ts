@@ -18,13 +18,9 @@ export const tool$salesInvoicesUpdate: ToolDefinition<typeof args> = {
 >
 > This feature is currently in beta testing, and the final specification may still change.
 
-Certain details of an existing sales invoice can be updated. For \`draft\` it is all values listed below, but for statuses \`paid\` and \`issued\` there are certain additional requirements (\`paymentDetails\` and \`emailDetails\`, respectively).
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoices.write**](/reference/authentication)`,
+Certain details of an existing sales invoice can be updated. For \`draft\` it is all values listed below, but for
+statuses \`paid\` and \`issued\` there are certain additional requirements (\`paymentDetails\` and \`emailDetails\`,
+respectively).`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await salesInvoicesUpdate(

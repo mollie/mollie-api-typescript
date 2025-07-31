@@ -11,11 +11,7 @@ export const tool$permissionsList: ToolDefinition = {
 
 Retrieve a list of all permissions available to the current access token.
 
-The results are **not** paginated.
-
-> 🔑 Access with
->
-> [Access token](/reference/authentication)`,
+The results are **not** paginated.`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await permissionsList(
       client,

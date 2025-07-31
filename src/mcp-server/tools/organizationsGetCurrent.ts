@@ -9,13 +9,11 @@ export const tool$organizationsGetCurrent: ToolDefinition = {
   name: "organizations-get-current",
   description: `Get current organization
 
-Retrieve the currently authenticated organization. A convenient alias of the [Get organization](get-organization) endpoint.
+Retrieve the currently authenticated organization. A convenient alias of the [Get organization](get-organization)
+endpoint.
 
-For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint documentation.
-
-> 🔑 Access with
->
-> [Access token with **organizations.read**](/reference/authentication)`,
+For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint
+documentation.`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await organizationsGetCurrent(
       client,

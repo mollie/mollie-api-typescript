@@ -15,7 +15,10 @@ export type ListBalancesRequest = {
    */
   currency?: string | null | undefined;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -23,9 +26,11 @@ export type ListBalancesRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -63,6 +68,18 @@ export type ListBalancesBadRequestLinks = {
 };
 
 /**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListBalancesMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListBalancesMode = ClosedEnum<typeof ListBalancesMode>;
+
+/**
  * The balance's ISO 4217 currency code.
  */
 export const ListBalancesCurrency = {
@@ -85,7 +102,53 @@ export const ListBalancesCurrency = {
 export type ListBalancesCurrency = ClosedEnum<typeof ListBalancesCurrency>;
 
 /**
- * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds this threshold, the complete balance will be paid out to the transfer destination according to the configured frequency.
+ * The status of the balance.
+ */
+export const ListBalancesStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+/**
+ * The status of the balance.
+ */
+export type ListBalancesStatus = ClosedEnum<typeof ListBalancesStatus>;
+
+/**
+ * The frequency with which the available amount on the balance will be settled to the configured transfer
+ *
+ * @remarks
+ * destination.
+ *
+ * Settlements created during weekends or on bank holidays will take place on the next business day.
+ */
+export const ListBalancesTransferFrequency = {
+  Daily: "daily",
+  EveryMonday: "every-monday",
+  EveryTuesday: "every-tuesday",
+  EveryWednesday: "every-wednesday",
+  EveryThursday: "every-thursday",
+  EveryFriday: "every-friday",
+  Monthly: "monthly",
+  Never: "never",
+} as const;
+/**
+ * The frequency with which the available amount on the balance will be settled to the configured transfer
+ *
+ * @remarks
+ * destination.
+ *
+ * Settlements created during weekends or on bank holidays will take place on the next business day.
+ */
+export type ListBalancesTransferFrequency = ClosedEnum<
+  typeof ListBalancesTransferFrequency
+>;
+
+/**
+ * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
+ *
+ * @remarks
+ * this threshold, the complete balance will be paid out to the transfer destination according to the configured
+ * frequency.
  */
 export type ListBalancesTransferThreshold = {
   /**
@@ -99,7 +162,29 @@ export type ListBalancesTransferThreshold = {
 };
 
 /**
- * The destination where the available amount will be automatically transferred to according to the configured transfer frequency.
+ * The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
+ *
+ * @remarks
+ *
+ * * `bank-account` — Transfer the balance amount to an external bank account
+ */
+export const ListBalancesType = {
+  BankAccount: "bank-account",
+} as const;
+/**
+ * The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
+ *
+ * @remarks
+ *
+ * * `bank-account` — Transfer the balance amount to an external bank account
+ */
+export type ListBalancesType = ClosedEnum<typeof ListBalancesType>;
+
+/**
+ * The destination where the available amount will be automatically transferred to according to the configured
+ *
+ * @remarks
+ * transfer frequency.
  */
 export type ListBalancesTransferDestination = {
   /**
@@ -108,10 +193,8 @@ export type ListBalancesTransferDestination = {
    * @remarks
    *
    * * `bank-account` — Transfer the balance amount to an external bank account
-   *
-   * Possible values: `bank-account`
    */
-  type?: string | undefined;
+  type?: ListBalancesType | undefined;
   /**
    * The configured bank account number of the beneficiary the balance amount is to be transferred to.
    */
@@ -137,7 +220,10 @@ export type ListBalancesAvailableAmount = {
 };
 
 /**
- * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a few days to clear.
+ * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+ *
+ * @remarks
+ * few days to clear.
  */
 export type ListBalancesPendingAmount = {
   /**
@@ -203,12 +289,8 @@ export type Balance = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: ListBalancesMode | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -223,24 +305,23 @@ export type Balance = {
   description?: string | undefined;
   /**
    * The status of the balance.
-   *
-   * @remarks
-   *
-   * Possible values: `active` `inactive`
    */
-  status?: string | undefined;
+  status?: ListBalancesStatus | undefined;
   /**
-   * The frequency with which the available amount on the balance will be settled to the configured transfer destination.
+   * The frequency with which the available amount on the balance will be settled to the configured transfer
    *
    * @remarks
+   * destination.
    *
    * Settlements created during weekends or on bank holidays will take place on the next business day.
-   *
-   * Possible values: `daily` `every-monday` `every-tuesday` `every-wednesday` `every-thursday` `every-friday` `monthly` `never`
    */
-  transferFrequency?: string | undefined;
+  transferFrequency?: ListBalancesTransferFrequency | undefined;
   /**
-   * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds this threshold, the complete balance will be paid out to the transfer destination according to the configured frequency.
+   * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
+   *
+   * @remarks
+   * this threshold, the complete balance will be paid out to the transfer destination according to the configured
+   * frequency.
    */
   transferThreshold?: ListBalancesTransferThreshold | undefined;
   /**
@@ -248,7 +329,10 @@ export type Balance = {
    */
   transferReference?: string | null | undefined;
   /**
-   * The destination where the available amount will be automatically transferred to according to the configured transfer frequency.
+   * The destination where the available amount will be automatically transferred to according to the configured
+   *
+   * @remarks
+   * transfer frequency.
    */
   transferDestination?: ListBalancesTransferDestination | null | undefined;
   /**
@@ -256,7 +340,10 @@ export type Balance = {
    */
   availableAmount?: ListBalancesAvailableAmount | undefined;
   /**
-   * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a few days to clear.
+   * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+   *
+   * @remarks
+   * few days to clear.
    */
   pendingAmount?: ListBalancesPendingAmount | undefined;
   /**
@@ -267,7 +354,10 @@ export type Balance = {
 
 export type ListBalancesEmbedded = {
   /**
-   * An array of balance objects. For a complete reference of the balance object, refer to the [Get balance endpoint](get-balance) documentation.
+   * An array of balance objects. For a complete reference of
+   *
+   * @remarks
+   * the balance object, refer to the [Get balance endpoint](get-balance) documentation.
    */
   balances?: Array<Balance> | undefined;
 };
@@ -351,15 +441,20 @@ export type ListBalancesLinks = {
 };
 
 /**
- * A list of balance objects. For a complete reference of the balance object, refer to the [Get balance endpoint](get-balance) documentation.
+ * A list of balance objects. For a complete reference of the balance
+ *
+ * @remarks
+ * object, refer to the [Get balance endpoint](get-balance) documentation.
  */
 export type ListBalancesResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListBalancesEmbedded | undefined;
@@ -669,6 +764,27 @@ export function listBalancesBadRequestLinksFromJSON(
 }
 
 /** @internal */
+export const ListBalancesMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesMode
+> = z.nativeEnum(ListBalancesMode);
+
+/** @internal */
+export const ListBalancesMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesMode
+> = ListBalancesMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalancesMode$ {
+  /** @deprecated use `ListBalancesMode$inboundSchema` instead. */
+  export const inboundSchema = ListBalancesMode$inboundSchema;
+  /** @deprecated use `ListBalancesMode$outboundSchema` instead. */
+  export const outboundSchema = ListBalancesMode$outboundSchema;
+}
+
+/** @internal */
 export const ListBalancesCurrency$inboundSchema: z.ZodNativeEnum<
   typeof ListBalancesCurrency
 > = z.nativeEnum(ListBalancesCurrency);
@@ -687,6 +803,48 @@ export namespace ListBalancesCurrency$ {
   export const inboundSchema = ListBalancesCurrency$inboundSchema;
   /** @deprecated use `ListBalancesCurrency$outboundSchema` instead. */
   export const outboundSchema = ListBalancesCurrency$outboundSchema;
+}
+
+/** @internal */
+export const ListBalancesStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesStatus
+> = z.nativeEnum(ListBalancesStatus);
+
+/** @internal */
+export const ListBalancesStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesStatus
+> = ListBalancesStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalancesStatus$ {
+  /** @deprecated use `ListBalancesStatus$inboundSchema` instead. */
+  export const inboundSchema = ListBalancesStatus$inboundSchema;
+  /** @deprecated use `ListBalancesStatus$outboundSchema` instead. */
+  export const outboundSchema = ListBalancesStatus$outboundSchema;
+}
+
+/** @internal */
+export const ListBalancesTransferFrequency$inboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesTransferFrequency
+> = z.nativeEnum(ListBalancesTransferFrequency);
+
+/** @internal */
+export const ListBalancesTransferFrequency$outboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesTransferFrequency
+> = ListBalancesTransferFrequency$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalancesTransferFrequency$ {
+  /** @deprecated use `ListBalancesTransferFrequency$inboundSchema` instead. */
+  export const inboundSchema = ListBalancesTransferFrequency$inboundSchema;
+  /** @deprecated use `ListBalancesTransferFrequency$outboundSchema` instead. */
+  export const outboundSchema = ListBalancesTransferFrequency$outboundSchema;
 }
 
 /** @internal */
@@ -749,12 +907,33 @@ export function listBalancesTransferThresholdFromJSON(
 }
 
 /** @internal */
+export const ListBalancesType$inboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesType
+> = z.nativeEnum(ListBalancesType);
+
+/** @internal */
+export const ListBalancesType$outboundSchema: z.ZodNativeEnum<
+  typeof ListBalancesType
+> = ListBalancesType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalancesType$ {
+  /** @deprecated use `ListBalancesType$inboundSchema` instead. */
+  export const inboundSchema = ListBalancesType$inboundSchema;
+  /** @deprecated use `ListBalancesType$outboundSchema` instead. */
+  export const outboundSchema = ListBalancesType$outboundSchema;
+}
+
+/** @internal */
 export const ListBalancesTransferDestination$inboundSchema: z.ZodType<
   ListBalancesTransferDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: ListBalancesType$inboundSchema.optional(),
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
@@ -772,7 +951,7 @@ export const ListBalancesTransferDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListBalancesTransferDestination
 > = z.object({
-  type: z.string().optional(),
+  type: ListBalancesType$outboundSchema.optional(),
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
@@ -1094,12 +1273,12 @@ export const Balance$inboundSchema: z.ZodType<Balance, z.ZodTypeDef, unknown> =
   z.object({
     resource: z.string().default("balance"),
     id: z.string().optional(),
-    mode: z.string().optional(),
+    mode: ListBalancesMode$inboundSchema.optional(),
     createdAt: z.string().optional(),
     currency: ListBalancesCurrency$inboundSchema.optional(),
     description: z.string().optional(),
-    status: z.string().optional(),
-    transferFrequency: z.string().optional(),
+    status: ListBalancesStatus$inboundSchema.optional(),
+    transferFrequency: ListBalancesTransferFrequency$inboundSchema.optional(),
     transferThreshold: z.lazy(() => ListBalancesTransferThreshold$inboundSchema)
       .optional(),
     transferReference: z.nullable(z.string()).optional(),
@@ -1146,12 +1325,12 @@ export const Balance$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("balance"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: ListBalancesMode$outboundSchema.optional(),
   createdAt: z.string().optional(),
   currency: ListBalancesCurrency$outboundSchema.optional(),
   description: z.string().optional(),
-  status: z.string().optional(),
-  transferFrequency: z.string().optional(),
+  status: ListBalancesStatus$outboundSchema.optional(),
+  transferFrequency: ListBalancesTransferFrequency$outboundSchema.optional(),
   transferThreshold: z.lazy(() => ListBalancesTransferThreshold$outboundSchema)
     .optional(),
   transferReference: z.nullable(z.string()).optional(),

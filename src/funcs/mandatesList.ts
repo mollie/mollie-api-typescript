@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all mandates.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **mandates.read**](/reference/authentication)
  */
 export function mandatesList(
   client: ClientCore,

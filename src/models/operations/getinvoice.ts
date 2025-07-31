@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -31,6 +32,31 @@ export type GetInvoiceNotFoundLinks = {
 };
 
 /**
+ * Status of the invoice.
+ *
+ * @remarks
+ *
+ * * `open` — The invoice is not paid yet.
+ * * `paid` — The invoice is paid.
+ * * `overdue` — Payment of the invoice is overdue.
+ */
+export const GetInvoiceStatus = {
+  Open: "open",
+  Paid: "paid",
+  Overdue: "overdue",
+} as const;
+/**
+ * Status of the invoice.
+ *
+ * @remarks
+ *
+ * * `open` — The invoice is not paid yet.
+ * * `paid` — The invoice is paid.
+ * * `overdue` — Payment of the invoice is overdue.
+ */
+export type GetInvoiceStatus = ClosedEnum<typeof GetInvoiceStatus>;
+
+/**
  * Total amount of the invoice, excluding VAT.
  */
 export type NetAmount = {
@@ -45,7 +71,11 @@ export type NetAmount = {
 };
 
 /**
- * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside the EU, no VAT will be charged.
+ * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
+ *
+ * @remarks
+ * be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
+ * the EU, no VAT will be charged.
  */
 export type GetInvoiceVatAmount = {
   /**
@@ -174,7 +204,10 @@ export type GetInvoiceLinks = {
  */
 export type GetInvoiceResponse = {
   /**
-   * Indicates that the response contains an invoice object. Will always contain the string `invoice` for this endpoint.
+   * Indicates that the response contains an invoice object.
+   *
+   * @remarks
+   * Will always contain the string `invoice` for this endpoint.
    */
   resource?: string | undefined;
   /**
@@ -197,16 +230,18 @@ export type GetInvoiceResponse = {
    * * `open` — The invoice is not paid yet.
    * * `paid` — The invoice is paid.
    * * `overdue` — Payment of the invoice is overdue.
-   *
-   * Possible values: `open` `paid` `overdue`
    */
-  status?: string | undefined;
+  status?: GetInvoiceStatus | undefined;
   /**
    * Total amount of the invoice, excluding VAT.
    */
   netAmount?: NetAmount | undefined;
   /**
-   * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside the EU, no VAT will be charged.
+   * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
+   *
+   * @remarks
+   * be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
+   * the EU, no VAT will be charged.
    */
   vatAmount?: GetInvoiceVatAmount | undefined;
   /**
@@ -400,6 +435,27 @@ export function getInvoiceNotFoundLinksFromJSON(
     (x) => GetInvoiceNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetInvoiceNotFoundLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const GetInvoiceStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetInvoiceStatus
+> = z.nativeEnum(GetInvoiceStatus);
+
+/** @internal */
+export const GetInvoiceStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetInvoiceStatus
+> = GetInvoiceStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetInvoiceStatus$ {
+  /** @deprecated use `GetInvoiceStatus$inboundSchema` instead. */
+  export const inboundSchema = GetInvoiceStatus$inboundSchema;
+  /** @deprecated use `GetInvoiceStatus$outboundSchema` instead. */
+  export const outboundSchema = GetInvoiceStatus$outboundSchema;
 }
 
 /** @internal */
@@ -910,7 +966,7 @@ export const GetInvoiceResponse$inboundSchema: z.ZodType<
   id: z.string().optional(),
   reference: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: GetInvoiceStatus$inboundSchema.optional(),
   netAmount: z.lazy(() => NetAmount$inboundSchema).optional(),
   vatAmount: z.lazy(() => GetInvoiceVatAmount$inboundSchema).optional(),
   grossAmount: z.lazy(() => GrossAmount$inboundSchema).optional(),
@@ -952,7 +1008,7 @@ export const GetInvoiceResponse$outboundSchema: z.ZodType<
   id: z.string().optional(),
   reference: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: GetInvoiceStatus$outboundSchema.optional(),
   netAmount: z.lazy(() => NetAmount$outboundSchema).optional(),
   vatAmount: z.lazy(() => GetInvoiceVatAmount$outboundSchema).optional(),
   grossAmount: z.lazy(() => GrossAmount$outboundSchema).optional(),

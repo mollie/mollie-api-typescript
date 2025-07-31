@@ -11,12 +11,9 @@
 
 Retrieve a single webhook event object by its event ID.
 
-> 🔑 Access with
->
-> [Access token with **events.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-webhook-event" method="get" path="/events/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

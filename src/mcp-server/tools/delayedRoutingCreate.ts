@@ -14,11 +14,8 @@ export const tool$delayedRoutingCreate: ToolDefinition<typeof args> = {
   name: "delayed-routing-create",
   description: `Create a delayed route
 
-Create a route for a specific payment. The routed amount is credited to the account of your customer.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)`,
+Create a route for a specific payment.
+The routed amount is credited to the account of your customer.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await delayedRoutingCreate(

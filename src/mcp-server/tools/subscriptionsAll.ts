@@ -16,13 +16,7 @@ export const tool$subscriptionsAll: ToolDefinition<typeof args> = {
 
 Retrieve all subscriptions initiated across all your customers.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await subscriptionsAll(

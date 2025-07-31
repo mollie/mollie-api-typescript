@@ -14,11 +14,7 @@ export const tool$customersDelete: ToolDefinition<typeof args> = {
   name: "customers-delete",
   description: `Delete customer
 
-Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)`,
+Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await customersDelete(

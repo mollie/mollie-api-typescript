@@ -1,6 +1,7 @@
 # GetCaptureSettlement
 
-The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if not yet settled.
+The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if
+not yet settled.
 
 ## Example Usage
 

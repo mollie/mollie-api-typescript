@@ -1,6 +1,7 @@
 # CancelPaymentChargebacks
 
-The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this payment.
+The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+payment.
 
 ## Example Usage
 

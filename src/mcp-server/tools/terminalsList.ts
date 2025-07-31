@@ -16,13 +16,7 @@ export const tool$terminalsList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all physical point-of-sale devices.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **terminals.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await terminalsList(

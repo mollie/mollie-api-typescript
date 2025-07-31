@@ -30,12 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve all payments linked to the customer.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payments.read**](/reference/authentication)
  */
 export function customersListPayments(
   client: ClientCore,

@@ -24,7 +24,10 @@ export type CreateCustomerHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.CreateCustomerNotFoundLinks;
@@ -47,7 +50,10 @@ export class CreateCustomerHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.CreateCustomerNotFoundLinks;

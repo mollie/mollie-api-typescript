@@ -1,6 +1,7 @@
 # PaymentCreateRouteAmountRequest
 
-The amount of the route. That amount that will be routed to the specified destination.
+The amount of the route.
+That amount that will be routed to the specified destination.
 
 ## Example Usage
 

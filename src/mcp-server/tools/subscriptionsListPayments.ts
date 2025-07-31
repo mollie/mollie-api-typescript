@@ -16,13 +16,7 @@ export const tool$subscriptionsListPayments: ToolDefinition<typeof args> = {
 
 Retrieve all payments of a specific subscription.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.read** **payments.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await subscriptionsListPayments(

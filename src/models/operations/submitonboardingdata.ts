@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -26,6 +27,31 @@ export type SubmitOnboardingDataAddress = {
   country?: string | undefined;
 };
 
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
+ *
+ * @remarks
+ * The United Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field can be omitted for merchants residing in other countries.
+ */
+export const SubmitOnboardingDataVatRegulation = {
+  Dutch: "dutch",
+  British: "british",
+  Shifted: "shifted",
+} as const;
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
+ *
+ * @remarks
+ * The United Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field can be omitted for merchants residing in other countries.
+ */
+export type SubmitOnboardingDataVatRegulation = ClosedEnum<
+  typeof SubmitOnboardingDataVatRegulation
+>;
+
 export type SubmitOnboardingDataOrganization = {
   /**
    * The name of the organization.
@@ -40,32 +66,38 @@ export type SubmitOnboardingDataOrganization = {
    */
   registrationNumber?: string | undefined;
   /**
-   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are verified against the international registry *VIES*.
+   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT
    *
    * @remarks
+   * numbers are verified against the international registry *VIES*.
    *
    * The field can be omitted for merchants residing in other countries.
    */
   vatNumber?: string | null | undefined;
   /**
-   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United Kingdom, and shifted VAT for merchants in the European Union.
+   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
    *
    * @remarks
+   * The United Kingdom, and shifted VAT for merchants in the European Union.
    *
    * The field can be omitted for merchants residing in other countries.
-   *
-   * Possible values: `dutch` `british` `shifted`
    */
-  vatRegulation?: string | null | undefined;
+  vatRegulation?: SubmitOnboardingDataVatRegulation | null | undefined;
 };
 
 export type SubmitOnboardingDataProfile = {
   /**
-   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or application.
+   * The profile's name, this will usually reflect the trade name or brand name of the profile's website
+   *
+   * @remarks
+   * or application.
    */
   name?: string | undefined;
   /**
-   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are allowed.
+   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@`
+   *
+   * @remarks
+   * signs are allowed.
    */
   url?: string | undefined;
   /**
@@ -81,7 +113,10 @@ export type SubmitOnboardingDataProfile = {
    */
   description?: string | null | undefined;
   /**
-   * The industry associated with the profile's trade name or brand. Please refer to the [business category list](common-data-types) for all possible options.
+   * The industry associated with the profile's trade name or brand. Please refer to the
+   *
+   * @remarks
+   * [business category list](common-data-types) for all possible options.
    */
   businessCategory?: string | undefined;
 };
@@ -157,6 +192,28 @@ export function submitOnboardingDataAddressFromJSON(
 }
 
 /** @internal */
+export const SubmitOnboardingDataVatRegulation$inboundSchema: z.ZodNativeEnum<
+  typeof SubmitOnboardingDataVatRegulation
+> = z.nativeEnum(SubmitOnboardingDataVatRegulation);
+
+/** @internal */
+export const SubmitOnboardingDataVatRegulation$outboundSchema: z.ZodNativeEnum<
+  typeof SubmitOnboardingDataVatRegulation
+> = SubmitOnboardingDataVatRegulation$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace SubmitOnboardingDataVatRegulation$ {
+  /** @deprecated use `SubmitOnboardingDataVatRegulation$inboundSchema` instead. */
+  export const inboundSchema = SubmitOnboardingDataVatRegulation$inboundSchema;
+  /** @deprecated use `SubmitOnboardingDataVatRegulation$outboundSchema` instead. */
+  export const outboundSchema =
+    SubmitOnboardingDataVatRegulation$outboundSchema;
+}
+
+/** @internal */
 export const SubmitOnboardingDataOrganization$inboundSchema: z.ZodType<
   SubmitOnboardingDataOrganization,
   z.ZodTypeDef,
@@ -166,7 +223,8 @@ export const SubmitOnboardingDataOrganization$inboundSchema: z.ZodType<
   address: z.lazy(() => SubmitOnboardingDataAddress$inboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(SubmitOnboardingDataVatRegulation$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -188,7 +246,8 @@ export const SubmitOnboardingDataOrganization$outboundSchema: z.ZodType<
   address: z.lazy(() => SubmitOnboardingDataAddress$outboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(SubmitOnboardingDataVatRegulation$outboundSchema)
+    .optional(),
 });
 
 /**

@@ -30,12 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single payment object by its payment ID.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payments.read**](/reference/authentication)
  */
 export function paymentsGet(
   client: ClientCore,

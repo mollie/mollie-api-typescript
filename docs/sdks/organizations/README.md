@@ -13,16 +13,14 @@
 
 Retrieve a single organization by its ID.
 
-You can normally only retrieve the currently authenticated organization with this endpoint. This is primarily useful for OAuth apps. See also [Get current organization](get-current-organization).
+You can normally only retrieve the currently authenticated organization with this endpoint. This is primarily useful
+for OAuth apps. See also [Get current organization](get-current-organization).
 
 If you have a *partner account*', you can retrieve organization details of connected organizations.
 
-> 🔑 Access with
->
-> [Access token with **organizations.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-organization" method="get" path="/organizations/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -98,16 +96,15 @@ run();
 
 ## getCurrent
 
-Retrieve the currently authenticated organization. A convenient alias of the [Get organization](get-organization) endpoint.
+Retrieve the currently authenticated organization. A convenient alias of the [Get organization](get-organization)
+endpoint.
 
-For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint documentation.
-
-> 🔑 Access with
->
-> [Access token with **organizations.read**](/reference/authentication)
+For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint
+documentation.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-current-organization" method="get" path="/organizations/me" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -175,14 +172,12 @@ run();
 
 ## getPartner
 
-Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner accounts*.
-
-> 🔑 Access with
->
-> [Access token with **organizations.read**](/reference/authentication)
+Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner
+accounts*.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-partner-status" method="get" path="/organizations/me/partner" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

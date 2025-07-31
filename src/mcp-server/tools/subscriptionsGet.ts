@@ -14,13 +14,7 @@ export const tool$subscriptionsGet: ToolDefinition<typeof args> = {
   name: "subscriptions-get",
   description: `Get subscription
 
-Retrieve a single subscription by its ID and the ID of its parent customer.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.read**](/reference/authentication)`,
+Retrieve a single subscription by its ID and the ID of its parent customer.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await subscriptionsGet(

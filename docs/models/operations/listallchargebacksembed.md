@@ -1,6 +1,7 @@
 # ListAllChargebacksEmbed
 
-This endpoint allows you to embed additional information via the `embed` query string parameter.
+This endpoint allows you to embed additional information via the
+`embed` query string parameter.
 
 ## Example Usage
 

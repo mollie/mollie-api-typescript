@@ -10,6 +10,69 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
+ * Set this parameter to `first` to only return the enabled methods that
+ *
+ * @remarks
+ * can be used for the first payment of a recurring sequence.
+ *
+ * Set it to `recurring` to only return enabled methods that can be used for recurring payments or subscriptions.
+ */
+export const ListMethodsSequenceType = {
+  Oneoff: "oneoff",
+  First: "first",
+  Recurring: "recurring",
+} as const;
+/**
+ * Set this parameter to `first` to only return the enabled methods that
+ *
+ * @remarks
+ * can be used for the first payment of a recurring sequence.
+ *
+ * Set it to `recurring` to only return enabled methods that can be used for recurring payments or subscriptions.
+ */
+export type ListMethodsSequenceType = ClosedEnum<
+  typeof ListMethodsSequenceType
+>;
+
+/**
+ * Passing a locale will sort the payment methods in the preferred order
+ *
+ * @remarks
+ * for the country, and translate the payment method names in the corresponding language.
+ */
+export const ListMethodsLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Passing a locale will sort the payment methods in the preferred order
+ *
+ * @remarks
+ * for the country, and translate the payment method names in the corresponding language.
+ */
+export type ListMethodsLocale = ClosedEnum<typeof ListMethodsLocale>;
+
+/**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
  */
 export type ListMethodsAmount = {
@@ -24,35 +87,113 @@ export type ListMethodsAmount = {
 };
 
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * **⚠️ We no longer recommend using the Orders API. Please refer to the [Payments API](payments-api) instead.**
+ *
+ * @remarks
+ *
+ * Indicate if you will use the result for the [Create order](create-order)
+ * or the [Create payment](create-payment) endpoint.
+ *
+ * When passing the value `orders`, the result will include payment methods
+ * that are only available for payments created via the Orders API.
+ */
+export const Resource = {
+  Payments: "payments",
+  Orders: "orders",
+} as const;
+/**
+ * **⚠️ We no longer recommend using the Orders API. Please refer to the [Payments API](payments-api) instead.**
+ *
+ * @remarks
+ *
+ * Indicate if you will use the result for the [Create order](create-order)
+ * or the [Create payment](create-payment) endpoint.
+ *
+ * When passing the value `orders`, the result will include payment methods
+ * that are only available for payments created via the Orders API.
+ */
+export type Resource = ClosedEnum<typeof Resource>;
+
+/**
+ * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code
+ *
+ * @remarks
+ * to check if they are available on the shoppers device, hence the need to indicate your support.
+ */
+export const IncludeWallets = {
+  Applepay: "applepay",
+} as const;
+/**
+ * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code
+ *
+ * @remarks
+ * to check if they are available on the shoppers device, hence the need to indicate your support.
+ */
+export type IncludeWallets = ClosedEnum<typeof IncludeWallets>;
+
+/**
+ * A comma-separated list of the line categories you support in your checkout.
+ *
+ * @remarks
+ *
+ * Example: `/v2/methods?orderLineCategories=eco,meal`
+ */
+export const OrderLineCategories = {
+  Eco: "eco",
+  Gift: "gift",
+  Meal: "meal",
+  SportCulture: "sport_culture",
+  Additional: "additional",
+  Consume: "consume",
+} as const;
+/**
+ * A comma-separated list of the line categories you support in your checkout.
+ *
+ * @remarks
+ *
+ * Example: `/v2/methods?orderLineCategories=eco,meal`
+ */
+export type OrderLineCategories = ClosedEnum<typeof OrderLineCategories>;
+
+/**
+ * This endpoint allows you to include additional information via the
+ *
+ * @remarks
+ * `include` query string parameter.
  */
 export const ListMethodsInclude = {
   Issuers: "issuers",
 } as const;
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows you to include additional information via the
+ *
+ * @remarks
+ * `include` query string parameter.
  */
 export type ListMethodsInclude = ClosedEnum<typeof ListMethodsInclude>;
 
 export type ListMethodsRequest = {
   /**
-   * Set this parameter to `first` to only return the enabled methods that can be used for the first payment of a recurring sequence.
+   * Set this parameter to `first` to only return the enabled methods that
    *
    * @remarks
+   * can be used for the first payment of a recurring sequence.
    *
    * Set it to `recurring` to only return enabled methods that can be used for recurring payments or subscriptions.
-   *
-   * Possible values: `oneoff` `first` `recurring` (default: `oneoff`)
    */
-  sequenceType?: string | undefined;
+  sequenceType?: ListMethodsSequenceType | undefined;
   /**
-   * Passing a locale will sort the payment methods in the preferred order for the country, and translate the payment method names in the corresponding language.
-   */
-  locale?: string | undefined;
-  /**
-   * If supplied, only payment methods that support the amount and currency are returned.
+   * Passing a locale will sort the payment methods in the preferred order
    *
    * @remarks
+   * for the country, and translate the payment method names in the corresponding language.
+   */
+  locale?: ListMethodsLocale | undefined;
+  /**
+   * If supplied, only payment methods that support the amount and currency
+   *
+   * @remarks
+   * are returned.
    *
    * Example: `/v2/methods?amount[value]=100.00&amount[currency]=USD`
    */
@@ -62,57 +203,62 @@ export type ListMethodsRequest = {
    *
    * @remarks
    *
-   * Indicate if you will use the result for the [Create order](create-order) or the [Create payment](create-payment) endpoint.
+   * Indicate if you will use the result for the [Create order](create-order)
+   * or the [Create payment](create-payment) endpoint.
    *
-   * When passing the value `orders`, the result will include payment methods that are only available for payments created via the Orders API.
-   *
-   * Possible values: `payments` `orders` (default: `payments`)
+   * When passing the value `orders`, the result will include payment methods
+   * that are only available for payments created via the Orders API.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
-  resource?: string | undefined;
+  resource?: Resource | undefined;
   /**
-   * The country taken from your customer's billing address in ISO 3166-1 alpha-2 format. This parameter can be used to check whether your customer is eligible for certain payment methods, for example for Klarna.
+   * The country taken from your customer's billing address in ISO 3166-1 alpha-2 format. This parameter can be used
    *
    * @remarks
+   * to check whether your customer is eligible for certain payment methods, for example for Klarna.
    *
    * Example: `/v2/methods?resource=orders&billingCountry=DE`
    */
   billingCountry?: string | undefined;
   /**
-   * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code to check if they are available on the shoppers device, hence the need to indicate your support.
+   * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code
    *
    * @remarks
-   *
-   * Possible values: `applepay`
+   * to check if they are available on the shoppers device, hence the need to indicate your support.
    */
-  includeWallets?: string | undefined;
+  includeWallets?: IncludeWallets | undefined;
   /**
    * A comma-separated list of the line categories you support in your checkout.
    *
    * @remarks
    *
    * Example: `/v2/methods?orderLineCategories=eco,meal`
-   *
-   * Possible values: `eco` `gift` `meal` `sport_culture` `additional` `consume`
    */
-  orderLineCategories?: string | undefined;
+  orderLineCategories?: OrderLineCategories | undefined;
   /**
-   * The identifier referring to the [profile](get-profile) you wish to retrieve the resources for.
+   * The identifier referring to the [profile](get-profile) you wish to
    *
    * @remarks
+   * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
+   * This endpoint allows you to include additional information via the
+   *
+   * @remarks
+   * `include` query string parameter.
    */
   include?: ListMethodsInclude | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -135,6 +281,52 @@ export type ListMethodsBadRequestLinks = {
 };
 
 /**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export const ListMethodsId = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Klarnapaylater: "klarnapaylater",
+  Klarnapaynow: "klarnapaynow",
+  Klarnasliceit: "klarnasliceit",
+  Mybank: "mybank",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export type ListMethodsId = ClosedEnum<typeof ListMethodsId>;
+
+/**
  * The minimum payment amount required to use this payment method.
  */
 export type ListMethodsMinimumAmount = {
@@ -149,7 +341,10 @@ export type ListMethodsMinimumAmount = {
 };
 
 /**
- * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null` is returned instead.
+ * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+ *
+ * @remarks
+ * is returned instead.
  */
 export type ListMethodsMaximumAmount = {
   /**
@@ -175,13 +370,37 @@ export type ListMethodsImage = {
    */
   size2x: string;
   /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can scale to any desired size without compromising visual quality.
+   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+   *
+   * @remarks
+   * scale to any desired size without compromising visual quality.
    */
   svg: string;
 };
 
 /**
- * URLs of images representing the issuer. required: - size1x - size2x - svg
+ * The payment method's activation status for this profile.
+ */
+export const ListMethodsStatus = {
+  Activated: "activated",
+  PendingBoarding: "pending-boarding",
+  PendingReview: "pending-review",
+  PendingExternal: "pending-external",
+  Rejected: "rejected",
+} as const;
+/**
+ * The payment method's activation status for this profile.
+ */
+export type ListMethodsStatus = ClosedEnum<typeof ListMethodsStatus>;
+
+/**
+ * URLs of images representing the issuer.
+ *
+ * @remarks
+ * required:
+ *   - size1x
+ *   - size2x
+ *   - svg
  */
 export type ListMethodsIssuerImage = {
   /**
@@ -193,7 +412,10 @@ export type ListMethodsIssuerImage = {
    */
   size2x?: string | undefined;
   /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can scale to any desired size without compromising visual quality.
+   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+   *
+   * @remarks
+   * scale to any desired size without compromising visual quality.
    */
   svg?: string | undefined;
 };
@@ -206,7 +428,13 @@ export type ListMethodsIssuer = {
    */
   name: string;
   /**
-   * URLs of images representing the issuer. required: - size1x - size2x - svg
+   * URLs of images representing the issuer.
+   *
+   * @remarks
+   * required:
+   *   - size1x
+   *   - size2x
+   *   - svg
    */
   image: ListMethodsIssuerImage;
 };
@@ -255,17 +483,19 @@ export type ListMethodsMethodLinks = {
 
 export type ListMethodsMethod = {
   /**
-   * Indicates the response contains a payment method object. Will always contain the string `method` for this endpoint.
+   * Indicates the response contains a payment method object. Will always contain the string `method` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource: string;
   /**
-   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment method selection screen will be skipped.
+   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
    *
    * @remarks
-   *
-   * Possible values: `alma` `applepay` `bacs` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `blik` `creditcard` `directdebit` `eps` `giftcard` `ideal` `in3` `kbc` `klarna` `klarnapaylater` `klarnapaynow` `klarnasliceit` `mybank` `paypal` `paysafecard` `przelewy24` `riverty` `satispay` `swish` `trustly` `twint` `voucher`
+   * method selection screen will be skipped.
    */
-  id: string;
+  id: ListMethodsId;
   /**
    * The full name of the payment method.
    *
@@ -279,7 +509,10 @@ export type ListMethodsMethod = {
    */
   minimumAmount: ListMethodsMinimumAmount;
   /**
-   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null` is returned instead.
+   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+   *
+   * @remarks
+   * is returned instead.
    */
   maximumAmount: ListMethodsMaximumAmount | null;
   /**
@@ -288,14 +521,13 @@ export type ListMethodsMethod = {
   image: ListMethodsImage;
   /**
    * The payment method's activation status for this profile.
+   */
+  status: ListMethodsStatus | null;
+  /**
+   * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant
    *
    * @remarks
-   *
-   * Possible values: `activated` `pending-boarding` `pending-review` `pending-external` `rejected`
-   */
-  status: string | null;
-  /**
-   * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant for iDEAL, KBC/CBC, gift cards, and vouchers.
+   * for iDEAL, KBC/CBC, gift cards, and vouchers.
    */
   issuers?: Array<ListMethodsIssuer> | undefined;
   /**
@@ -306,7 +538,12 @@ export type ListMethodsMethod = {
 
 export type ListMethodsEmbedded = {
   /**
-   * An array of payment method objects. For a complete reference of the payment method object, refer to the [Get payment method endpoint](get-method) documentation.
+   * An array of payment method objects. For a complete
+   *
+   * @remarks
+   * reference of the payment method object, refer
+   * to the [Get payment method endpoint](get-method)
+   * documentation.
    */
   methods: Array<ListMethodsMethod>;
 };
@@ -351,16 +588,64 @@ export type ListMethodsLinks = {
 };
 
 /**
- * A list of payment method objects. For a complete reference of the payment method object, refer to the [Get payment method endpoint](get-method) documentation.
+ * A list of payment method objects. For a complete reference of the
+ *
+ * @remarks
+ * payment method object, refer to the [Get payment method endpoint](get-method) documentation.
  */
 export type ListMethodsResponse = {
   /**
-   * The number of payment method objects in this result set. Results are **not** paginated.
+   * The number of payment method objects in this result set.
+   *
+   * @remarks
+   * Results are **not** paginated.
    */
   count: number;
   embedded: ListMethodsEmbedded;
   links: ListMethodsLinks;
 };
+
+/** @internal */
+export const ListMethodsSequenceType$inboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsSequenceType
+> = z.nativeEnum(ListMethodsSequenceType);
+
+/** @internal */
+export const ListMethodsSequenceType$outboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsSequenceType
+> = ListMethodsSequenceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMethodsSequenceType$ {
+  /** @deprecated use `ListMethodsSequenceType$inboundSchema` instead. */
+  export const inboundSchema = ListMethodsSequenceType$inboundSchema;
+  /** @deprecated use `ListMethodsSequenceType$outboundSchema` instead. */
+  export const outboundSchema = ListMethodsSequenceType$outboundSchema;
+}
+
+/** @internal */
+export const ListMethodsLocale$inboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsLocale
+> = z.nativeEnum(ListMethodsLocale);
+
+/** @internal */
+export const ListMethodsLocale$outboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsLocale
+> = ListMethodsLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMethodsLocale$ {
+  /** @deprecated use `ListMethodsLocale$inboundSchema` instead. */
+  export const inboundSchema = ListMethodsLocale$inboundSchema;
+  /** @deprecated use `ListMethodsLocale$outboundSchema` instead. */
+  export const outboundSchema = ListMethodsLocale$outboundSchema;
+}
 
 /** @internal */
 export const ListMethodsAmount$inboundSchema: z.ZodType<
@@ -420,6 +705,67 @@ export function listMethodsAmountFromJSON(
 }
 
 /** @internal */
+export const Resource$inboundSchema: z.ZodNativeEnum<typeof Resource> = z
+  .nativeEnum(Resource);
+
+/** @internal */
+export const Resource$outboundSchema: z.ZodNativeEnum<typeof Resource> =
+  Resource$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Resource$ {
+  /** @deprecated use `Resource$inboundSchema` instead. */
+  export const inboundSchema = Resource$inboundSchema;
+  /** @deprecated use `Resource$outboundSchema` instead. */
+  export const outboundSchema = Resource$outboundSchema;
+}
+
+/** @internal */
+export const IncludeWallets$inboundSchema: z.ZodNativeEnum<
+  typeof IncludeWallets
+> = z.nativeEnum(IncludeWallets);
+
+/** @internal */
+export const IncludeWallets$outboundSchema: z.ZodNativeEnum<
+  typeof IncludeWallets
+> = IncludeWallets$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace IncludeWallets$ {
+  /** @deprecated use `IncludeWallets$inboundSchema` instead. */
+  export const inboundSchema = IncludeWallets$inboundSchema;
+  /** @deprecated use `IncludeWallets$outboundSchema` instead. */
+  export const outboundSchema = IncludeWallets$outboundSchema;
+}
+
+/** @internal */
+export const OrderLineCategories$inboundSchema: z.ZodNativeEnum<
+  typeof OrderLineCategories
+> = z.nativeEnum(OrderLineCategories);
+
+/** @internal */
+export const OrderLineCategories$outboundSchema: z.ZodNativeEnum<
+  typeof OrderLineCategories
+> = OrderLineCategories$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OrderLineCategories$ {
+  /** @deprecated use `OrderLineCategories$inboundSchema` instead. */
+  export const inboundSchema = OrderLineCategories$inboundSchema;
+  /** @deprecated use `OrderLineCategories$outboundSchema` instead. */
+  export const outboundSchema = OrderLineCategories$outboundSchema;
+}
+
+/** @internal */
 export const ListMethodsInclude$inboundSchema: z.ZodNativeEnum<
   typeof ListMethodsInclude
 > = z.nativeEnum(ListMethodsInclude);
@@ -446,13 +792,13 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sequenceType: z.string().optional(),
-  locale: z.string().optional(),
+  sequenceType: ListMethodsSequenceType$inboundSchema.default("oneoff"),
+  locale: ListMethodsLocale$inboundSchema.optional(),
   amount: z.lazy(() => ListMethodsAmount$inboundSchema).optional(),
-  resource: z.string().optional(),
+  resource: Resource$inboundSchema.default("payments"),
   billingCountry: z.string().optional(),
-  includeWallets: z.string().optional(),
-  orderLineCategories: z.string().optional(),
+  includeWallets: IncludeWallets$inboundSchema.optional(),
+  orderLineCategories: OrderLineCategories$inboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(ListMethodsInclude$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -460,10 +806,10 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListMethodsRequest$Outbound = {
-  sequenceType?: string | undefined;
+  sequenceType: string;
   locale?: string | undefined;
   amount?: ListMethodsAmount$Outbound | undefined;
-  resource?: string | undefined;
+  resource: string;
   billingCountry?: string | undefined;
   includeWallets?: string | undefined;
   orderLineCategories?: string | undefined;
@@ -478,13 +824,13 @@ export const ListMethodsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMethodsRequest
 > = z.object({
-  sequenceType: z.string().optional(),
-  locale: z.string().optional(),
+  sequenceType: ListMethodsSequenceType$outboundSchema.default("oneoff"),
+  locale: ListMethodsLocale$outboundSchema.optional(),
   amount: z.lazy(() => ListMethodsAmount$outboundSchema).optional(),
-  resource: z.string().optional(),
+  resource: Resource$outboundSchema.default("payments"),
   billingCountry: z.string().optional(),
-  includeWallets: z.string().optional(),
-  orderLineCategories: z.string().optional(),
+  includeWallets: IncludeWallets$outboundSchema.optional(),
+  orderLineCategories: OrderLineCategories$outboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(ListMethodsInclude$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -636,6 +982,27 @@ export function listMethodsBadRequestLinksFromJSON(
     (x) => ListMethodsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListMethodsBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListMethodsId$inboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsId
+> = z.nativeEnum(ListMethodsId);
+
+/** @internal */
+export const ListMethodsId$outboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsId
+> = ListMethodsId$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMethodsId$ {
+  /** @deprecated use `ListMethodsId$inboundSchema` instead. */
+  export const inboundSchema = ListMethodsId$inboundSchema;
+  /** @deprecated use `ListMethodsId$outboundSchema` instead. */
+  export const outboundSchema = ListMethodsId$outboundSchema;
 }
 
 /** @internal */
@@ -810,6 +1177,27 @@ export function listMethodsImageFromJSON(
     (x) => ListMethodsImage$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListMethodsImage' from JSON`,
   );
+}
+
+/** @internal */
+export const ListMethodsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsStatus
+> = z.nativeEnum(ListMethodsStatus);
+
+/** @internal */
+export const ListMethodsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListMethodsStatus
+> = ListMethodsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMethodsStatus$ {
+  /** @deprecated use `ListMethodsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListMethodsStatus$inboundSchema;
+  /** @deprecated use `ListMethodsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListMethodsStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1117,14 +1505,14 @@ export const ListMethodsMethod$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string(),
-  id: z.string(),
+  id: ListMethodsId$inboundSchema,
   description: z.string(),
   minimumAmount: z.lazy(() => ListMethodsMinimumAmount$inboundSchema),
   maximumAmount: z.nullable(
     z.lazy(() => ListMethodsMaximumAmount$inboundSchema),
   ),
   image: z.lazy(() => ListMethodsImage$inboundSchema),
-  status: z.nullable(z.string()),
+  status: z.nullable(ListMethodsStatus$inboundSchema),
   issuers: z.array(z.lazy(() => ListMethodsIssuer$inboundSchema)).optional(),
   _links: z.lazy(() => ListMethodsMethodLinks$inboundSchema),
 }).transform((v) => {
@@ -1153,14 +1541,14 @@ export const ListMethodsMethod$outboundSchema: z.ZodType<
   ListMethodsMethod
 > = z.object({
   resource: z.string(),
-  id: z.string(),
+  id: ListMethodsId$outboundSchema,
   description: z.string(),
   minimumAmount: z.lazy(() => ListMethodsMinimumAmount$outboundSchema),
   maximumAmount: z.nullable(
     z.lazy(() => ListMethodsMaximumAmount$outboundSchema),
   ),
   image: z.lazy(() => ListMethodsImage$outboundSchema),
-  status: z.nullable(z.string()),
+  status: z.nullable(ListMethodsStatus$outboundSchema),
   issuers: z.array(z.lazy(() => ListMethodsIssuer$outboundSchema)).optional(),
   links: z.lazy(() => ListMethodsMethodLinks$outboundSchema),
 }).transform((v) => {

@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all payment links.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payment-links.read**](/reference/authentication)
  */
 export function paymentLinksList(
   client: ClientCore,

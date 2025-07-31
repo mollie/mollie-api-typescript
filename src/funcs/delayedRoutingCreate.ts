@@ -29,11 +29,8 @@ import { Result } from "../types/fp.js";
  * Create a delayed route
  *
  * @remarks
- * Create a route for a specific payment. The routed amount is credited to the account of your customer.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
+ * Create a route for a specific payment.
+ * The routed amount is credited to the account of your customer.
  */
 export function delayedRoutingCreate(
   client: ClientCore,

@@ -24,7 +24,10 @@ export type DeleteSalesInvoiceUnprocessableEntityHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeleteSalesInvoiceUnprocessableEntityLinks;
@@ -49,7 +52,10 @@ export class DeleteSalesInvoiceUnprocessableEntityHalJSONError
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeleteSalesInvoiceUnprocessableEntityLinks;
@@ -93,7 +99,10 @@ export type DeleteSalesInvoiceNotFoundHalJSONErrorData = {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeleteSalesInvoiceNotFoundLinks;
@@ -116,7 +125,10 @@ export class DeleteSalesInvoiceNotFoundHalJSONError extends ClientError {
    */
   detail: string;
   /**
-   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name of the field that caused the issue.
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
    */
   field?: string | undefined;
   links: operations.DeleteSalesInvoiceNotFoundLinks;

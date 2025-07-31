@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single client by its ID.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **clients.read**](/reference/authentication)
  */
 export function clientsGet(
   client: ClientCore,

@@ -1,6 +1,7 @@
 # CreateSubscriptionAmountResponse
 
-The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+The amount for each individual payment that is charged with this subscription. For example, for a monthly
+subscription of €10, the subscription amount should be set to €10.
 
 ## Example Usage
 

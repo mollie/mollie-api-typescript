@@ -14,12 +14,9 @@ Retrieve a list of all clients linked to your account.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [Access token with **clients.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-clients" method="get" path="/clients" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -98,12 +95,9 @@ run();
 
 Retrieve a single client by its ID.
 
-> 🔑 Access with
->
-> [Access token with **clients.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

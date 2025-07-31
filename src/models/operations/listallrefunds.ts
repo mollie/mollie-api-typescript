@@ -10,19 +10,46 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This endpoint allows embedding related API items by appending the following values via the `embed` query string parameter.
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListAllRefundsSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListAllRefundsSort = ClosedEnum<typeof ListAllRefundsSort>;
+
+/**
+ * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+ *
+ * @remarks
+ * parameter.
  */
 export const ListAllRefundsEmbed = {
   Payment: "payment",
 } as const;
 /**
- * This endpoint allows embedding related API items by appending the following values via the `embed` query string parameter.
+ * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+ *
+ * @remarks
+ * parameter.
  */
 export type ListAllRefundsEmbed = ClosedEnum<typeof ListAllRefundsEmbed>;
 
 export type ListAllRefundsRequest = {
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -30,29 +57,35 @@ export type ListAllRefundsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListAllRefundsSort | null | undefined;
   /**
-   * This endpoint allows embedding related API items by appending the following values via the `embed` query string parameter.
+   * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+   *
+   * @remarks
+   * parameter.
    */
   embed?: ListAllRefundsEmbed | undefined;
   /**
-   * The identifier referring to the [profile](get-profile) you wish to retrieve the resources for.
+   * The identifier referring to the [profile](get-profile) you wish to
    *
    * @remarks
+   * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -75,7 +108,22 @@ export type ListAllRefundsBadRequestLinks = {
 };
 
 /**
- * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListAllRefundsMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListAllRefundsMode = ClosedEnum<typeof ListAllRefundsMode>;
+
+/**
+ * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+ *
+ * @remarks
+ * amount.
  */
 export type ListAllRefundsAmount = {
   /**
@@ -89,17 +137,21 @@ export type ListAllRefundsAmount = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
  *
  * @remarks
+ * to the currency your account is settled in.
  *
  * The amount is a **negative** amount.
  *
- * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+ * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+ * zero.
  *
- * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+ * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+ * the refund is queued the settlement amount is likely not yet available.
  *
- * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * To retrieve accurate settlement amounts we recommend using the
+ * [List balance transactions endpoint](list-balance-transactions) instead.
  */
 export type ListAllRefundsSettlementAmount = {
   /**
@@ -115,22 +167,48 @@ export type ListAllRefundsSettlementAmount = {
 export type ListAllRefundsMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type ListAllRefundsMetadataUnion =
   | ListAllRefundsMetadata
   | string
   | Array<string>;
 
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export const ListAllRefundsStatus = {
+  Queued: "queued",
+  Pending: "pending",
+  Processing: "processing",
+  Refunded: "refunded",
+  Failed: "failed",
+  Canceled: "canceled",
+} as const;
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export type ListAllRefundsStatus = ClosedEnum<typeof ListAllRefundsStatus>;
+
+/**
+ * Specifies the reference type
+ */
+export const ListAllRefundsType = {
+  AcquirerReference: "acquirer-reference",
+} as const;
+/**
+ * Specifies the reference type
+ */
+export type ListAllRefundsType = ClosedEnum<typeof ListAllRefundsType>;
+
 export type ListAllRefundsExternalReference = {
   /**
    * Specifies the reference type
-   *
-   * @remarks
-   *
-   * Possible values: `acquirer-reference`
    */
-  type?: string | undefined;
+  type?: ListAllRefundsType | undefined;
   /**
    * Unique reference from the payment provider
    */
@@ -156,7 +234,10 @@ export type ListAllRefundsRoutingReversalAmount = {
  */
 export type ListAllRefundsSource = {
   /**
-   * Required for source type `organization`. The ID of the connected organization the funds should be pulled back from.
+   * Required for source type `organization`. The ID of the connected organization the funds should be pulled
+   *
+   * @remarks
+   * back from.
    */
   organizationId?: string | undefined;
 };
@@ -201,7 +282,10 @@ export type ListAllRefundsPayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+ *
+ * @remarks
+ * yet settled.
  */
 export type ListAllRefundsSettlement = {
   /**
@@ -241,7 +325,10 @@ export type ListAllRefundsRefundLinks = {
    */
   payment?: ListAllRefundsPayment | undefined;
   /**
-   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+   *
+   * @remarks
+   * yet settled.
    */
   settlement?: ListAllRefundsSettlement | null | undefined;
   /**
@@ -256,45 +343,57 @@ export type ListAllRefundsRefund = {
    */
   resource?: string | undefined;
   /**
-   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
+   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
    */
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: ListAllRefundsMode | undefined;
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    */
   description?: string | undefined;
   /**
-   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+   *
+   * @remarks
+   * amount.
    */
   amount?: ListAllRefundsAmount | undefined;
   /**
-   * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
    *
    * @remarks
+   * to the currency your account is settled in.
    *
    * The amount is a **negative** amount.
    *
-   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+   * zero.
    *
-   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+   * the refund is queued the settlement amount is likely not yet available.
    *
-   * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * To retrieve accurate settlement amounts we recommend using the
+   * [List balance transactions endpoint](list-balance-transactions) instead.
    */
   settlementAmount?: ListAllRefundsSettlementAmount | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: ListAllRefundsMetadata | string | Array<string> | null | undefined;
   /**
-   * The unique identifier of the payment this refund was created for. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this refund was created for.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId?: string | undefined;
   /**
@@ -303,12 +402,8 @@ export type ListAllRefundsRefund = {
   settlementId?: string | null | undefined;
   /**
    * Refunds may take some time to get confirmed.
-   *
-   * @remarks
-   *
-   * Possible values: `queued` `pending` `processing` `refunded` `failed` `canceled`
    */
-  status?: string | undefined;
+  status?: ListAllRefundsStatus | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -321,7 +416,8 @@ export type ListAllRefundsRefund = {
    *
    * When creating refunds for *routed* payments, by default the full amount is deducted from your balance.
    *
-   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount needs to be reversed from which merchant(s).
+   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount
+   * needs to be reversed from which merchant(s).
    *
    * If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
    */
@@ -334,7 +430,10 @@ export type ListAllRefundsRefund = {
 
 export type ListAllRefundsEmbedded = {
   /**
-   * An array of refund objects. For a complete reference of the refund object, refer to the [Get refund endpoint](get-refund) documentation.
+   * An array of refund objects. For a complete reference of the refund object, refer to the
+   *
+   * @remarks
+   * [Get refund endpoint](get-refund) documentation.
    */
   refunds?: Array<ListAllRefundsRefund> | undefined;
 };
@@ -418,15 +517,20 @@ export type ListAllRefundsLinks = {
 };
 
 /**
- * A list of refund objects. For a complete reference of the refund object, refer to the [Get refund endpoint](get-refund) documentation.
+ * A list of refund objects. For a complete reference of the refund object, refer to the
+ *
+ * @remarks
+ * [Get refund endpoint](get-refund) documentation.
  */
 export type ListAllRefundsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListAllRefundsEmbedded | undefined;
@@ -435,6 +539,27 @@ export type ListAllRefundsResponse = {
    */
   links?: ListAllRefundsLinks | undefined;
 };
+
+/** @internal */
+export const ListAllRefundsSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsSort
+> = z.nativeEnum(ListAllRefundsSort);
+
+/** @internal */
+export const ListAllRefundsSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsSort
+> = ListAllRefundsSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllRefundsSort$ {
+  /** @deprecated use `ListAllRefundsSort$inboundSchema` instead. */
+  export const inboundSchema = ListAllRefundsSort$inboundSchema;
+  /** @deprecated use `ListAllRefundsSort$outboundSchema` instead. */
+  export const outboundSchema = ListAllRefundsSort$outboundSchema;
+}
 
 /** @internal */
 export const ListAllRefundsEmbed$inboundSchema: z.ZodNativeEnum<
@@ -465,7 +590,7 @@ export const ListAllRefundsRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListAllRefundsSort$inboundSchema.default("desc")),
   embed: ListAllRefundsEmbed$inboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -475,7 +600,7 @@ export const ListAllRefundsRequest$inboundSchema: z.ZodType<
 export type ListAllRefundsRequest$Outbound = {
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   embed?: string | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
@@ -489,7 +614,7 @@ export const ListAllRefundsRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListAllRefundsSort$outboundSchema.default("desc")),
   embed: ListAllRefundsEmbed$outboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -646,6 +771,27 @@ export function listAllRefundsBadRequestLinksFromJSON(
     (x) => ListAllRefundsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllRefundsBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListAllRefundsMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsMode
+> = z.nativeEnum(ListAllRefundsMode);
+
+/** @internal */
+export const ListAllRefundsMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsMode
+> = ListAllRefundsMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllRefundsMode$ {
+  /** @deprecated use `ListAllRefundsMode$inboundSchema` instead. */
+  export const inboundSchema = ListAllRefundsMode$inboundSchema;
+  /** @deprecated use `ListAllRefundsMode$outboundSchema` instead. */
+  export const outboundSchema = ListAllRefundsMode$outboundSchema;
 }
 
 /** @internal */
@@ -874,12 +1020,54 @@ export function listAllRefundsMetadataUnionFromJSON(
 }
 
 /** @internal */
+export const ListAllRefundsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsStatus
+> = z.nativeEnum(ListAllRefundsStatus);
+
+/** @internal */
+export const ListAllRefundsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsStatus
+> = ListAllRefundsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllRefundsStatus$ {
+  /** @deprecated use `ListAllRefundsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListAllRefundsStatus$inboundSchema;
+  /** @deprecated use `ListAllRefundsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListAllRefundsStatus$outboundSchema;
+}
+
+/** @internal */
+export const ListAllRefundsType$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsType
+> = z.nativeEnum(ListAllRefundsType);
+
+/** @internal */
+export const ListAllRefundsType$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllRefundsType
+> = ListAllRefundsType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllRefundsType$ {
+  /** @deprecated use `ListAllRefundsType$inboundSchema` instead. */
+  export const inboundSchema = ListAllRefundsType$inboundSchema;
+  /** @deprecated use `ListAllRefundsType$outboundSchema` instead. */
+  export const outboundSchema = ListAllRefundsType$outboundSchema;
+}
+
+/** @internal */
 export const ListAllRefundsExternalReference$inboundSchema: z.ZodType<
   ListAllRefundsExternalReference,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: ListAllRefundsType$inboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -895,7 +1083,7 @@ export const ListAllRefundsExternalReference$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllRefundsExternalReference
 > = z.object({
-  type: z.string().optional(),
+  type: ListAllRefundsType$outboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -1415,7 +1603,7 @@ export const ListAllRefundsRefund$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: ListAllRefundsMode$inboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => ListAllRefundsAmount$inboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -1430,7 +1618,7 @@ export const ListAllRefundsRefund$inboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: ListAllRefundsStatus$inboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() => ListAllRefundsExternalReference$inboundSchema)
     .optional(),
@@ -1478,7 +1666,7 @@ export const ListAllRefundsRefund$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: ListAllRefundsMode$outboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => ListAllRefundsAmount$outboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -1493,7 +1681,7 @@ export const ListAllRefundsRefund$outboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: ListAllRefundsStatus$outboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() =>
     ListAllRefundsExternalReference$outboundSchema

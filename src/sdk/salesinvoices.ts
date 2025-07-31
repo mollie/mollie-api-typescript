@@ -21,12 +21,6 @@ export class SalesInvoices extends ClientSDK {
    * > This feature is currently in beta testing, and the final specification may still change.
    *
    * With the Sales Invoice API you can generate sales invoices to send to your customers.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **sales-invoices.write**](/reference/authentication)
    */
   async create(
     request?: operations.CreateSalesInvoiceRequest | undefined,
@@ -50,12 +44,6 @@ export class SalesInvoices extends ClientSDK {
    * Retrieve a list of all sales invoices created through the API.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **sales-invoices.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListSalesInvoicesRequest | undefined,
@@ -77,12 +65,6 @@ export class SalesInvoices extends ClientSDK {
    * > This feature is currently in beta testing, and the final specification may still change.
    *
    * Retrieve a single sales invoice by its ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **sales-invoice.read**](/reference/authentication)
    */
   async get(
     request: operations.GetSalesInvoiceRequest,
@@ -103,13 +85,9 @@ export class SalesInvoices extends ClientSDK {
    * >
    * > This feature is currently in beta testing, and the final specification may still change.
    *
-   * Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`, respectively).
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **sales-invoices.write**](/reference/authentication)
+   * Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for
+   * statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`,
+   * respectively).
    */
   async update(
     request: operations.UpdateSalesInvoiceRequest,
@@ -130,13 +108,8 @@ export class SalesInvoices extends ClientSDK {
    * >
    * > This feature is currently in beta testing, and the final specification may still change.
    *
-   * Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the [Update sales invoice](update-sales-invoice) endpoint instead.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **sales-invoices.write**](/reference/authentication)
+   * Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
+   * [Update sales invoice](update-sales-invoice) endpoint instead.
    */
   async delete(
     request: operations.DeleteSalesInvoiceRequest,

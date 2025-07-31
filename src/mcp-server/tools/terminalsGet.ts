@@ -14,13 +14,7 @@ export const tool$terminalsGet: ToolDefinition<typeof args> = {
   name: "terminals-get",
   description: `Get terminal
 
-Retrieve a single terminal by its ID.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **terminals.read**](/reference/authentication)`,
+Retrieve a single terminal by its ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await terminalsGet(

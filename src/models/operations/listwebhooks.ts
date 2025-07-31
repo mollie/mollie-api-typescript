@@ -5,12 +5,49 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListWebhooksSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListWebhooksSort = ClosedEnum<typeof ListWebhooksSort>;
+
+/**
+ * Used to filter out only the webhooks that are subscribed to certain types of events.
+ */
+export const ListWebhooksEventTypes = {
+  PaymentLinkPaid: "payment-link.paid",
+  SalesInvoiceCreated: "sales-invoice.created",
+  SalesInvoiceIssued: "sales-invoice.issued",
+  SalesInvoiceCanceled: "sales-invoice.canceled",
+  SalesInvoicePaid: "sales-invoice.paid",
+} as const;
+/**
+ * Used to filter out only the webhooks that are subscribed to certain types of events.
+ */
+export type ListWebhooksEventTypes = ClosedEnum<typeof ListWebhooksEventTypes>;
+
 export type ListWebhooksRequest = {
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -18,25 +55,22 @@ export type ListWebhooksRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListWebhooksSort | null | undefined;
   /**
    * Used to filter out only the webhooks that are subscribed to certain types of events.
-   *
-   * @remarks
-   *
-   * Possible values: `payment-link.paid` `sales-invoice.created` `sales-invoice.issued` `sales-invoice.canceled` `sales-invoice.paid`
    */
-  eventTypes?: string | undefined;
+  eventTypes?: ListWebhooksEventTypes | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -58,9 +92,37 @@ export type ListWebhooksBadRequestLinks = {
   documentation: ListWebhooksBadRequestDocumentation;
 };
 
+/**
+ * The subscription's current status.
+ */
+export const ListWebhooksStatus = {
+  Enabled: "enabled",
+  Blocked: "blocked",
+  Disabled: "disabled",
+} as const;
+/**
+ * The subscription's current status.
+ */
+export type ListWebhooksStatus = ClosedEnum<typeof ListWebhooksStatus>;
+
+/**
+ * The subscription's mode.
+ */
+export const ListWebhooksMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * The subscription's mode.
+ */
+export type ListWebhooksMode = ClosedEnum<typeof ListWebhooksMode>;
+
 export type Webhook = {
   /**
-   * Indicates the response contains a webhook subscription object. Will always contain the string `webhook` for this endpoint.
+   * Indicates the response contains a webhook subscription object.
+   *
+   * @remarks
+   * Will always contain the string `webhook` for this endpoint.
    */
   resource?: string | undefined;
   /**
@@ -89,20 +151,12 @@ export type Webhook = {
   eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
-   *
-   * @remarks
-   *
-   * Possible values: `enabled` `blocked` `disabled`
    */
-  status?: string | undefined;
+  status?: ListWebhooksStatus | undefined;
   /**
    * The subscription's mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: ListWebhooksMode | undefined;
 };
 
 export type ListWebhooksEmbedded = {
@@ -191,15 +245,20 @@ export type ListWebhooksLinks = {
 };
 
 /**
- * A list of webhooks. For a complete reference of the webhook object, refer to the [Get hook endpoint](get-webhook) documentation.
+ * A list of webhooks. For a complete reference of the webhook
+ *
+ * @remarks
+ * object, refer to the [Get hook endpoint](get-webhook) documentation.
  */
 export type ListWebhooksResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListWebhooksEmbedded | undefined;
@@ -210,6 +269,48 @@ export type ListWebhooksResponse = {
 };
 
 /** @internal */
+export const ListWebhooksSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksSort
+> = z.nativeEnum(ListWebhooksSort);
+
+/** @internal */
+export const ListWebhooksSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksSort
+> = ListWebhooksSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListWebhooksSort$ {
+  /** @deprecated use `ListWebhooksSort$inboundSchema` instead. */
+  export const inboundSchema = ListWebhooksSort$inboundSchema;
+  /** @deprecated use `ListWebhooksSort$outboundSchema` instead. */
+  export const outboundSchema = ListWebhooksSort$outboundSchema;
+}
+
+/** @internal */
+export const ListWebhooksEventTypes$inboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksEventTypes
+> = z.nativeEnum(ListWebhooksEventTypes);
+
+/** @internal */
+export const ListWebhooksEventTypes$outboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksEventTypes
+> = ListWebhooksEventTypes$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListWebhooksEventTypes$ {
+  /** @deprecated use `ListWebhooksEventTypes$inboundSchema` instead. */
+  export const inboundSchema = ListWebhooksEventTypes$inboundSchema;
+  /** @deprecated use `ListWebhooksEventTypes$outboundSchema` instead. */
+  export const outboundSchema = ListWebhooksEventTypes$outboundSchema;
+}
+
+/** @internal */
 export const ListWebhooksRequest$inboundSchema: z.ZodType<
   ListWebhooksRequest,
   z.ZodTypeDef,
@@ -217,8 +318,8 @@ export const ListWebhooksRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
-  eventTypes: z.string().optional(),
+  sort: z.nullable(ListWebhooksSort$inboundSchema.default("desc")),
+  eventTypes: ListWebhooksEventTypes$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -226,7 +327,7 @@ export const ListWebhooksRequest$inboundSchema: z.ZodType<
 export type ListWebhooksRequest$Outbound = {
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   eventTypes?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -239,8 +340,8 @@ export const ListWebhooksRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
-  eventTypes: z.string().optional(),
+  sort: z.nullable(ListWebhooksSort$outboundSchema.default("desc")),
+  eventTypes: ListWebhooksEventTypes$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -398,6 +499,48 @@ export function listWebhooksBadRequestLinksFromJSON(
 }
 
 /** @internal */
+export const ListWebhooksStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksStatus
+> = z.nativeEnum(ListWebhooksStatus);
+
+/** @internal */
+export const ListWebhooksStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksStatus
+> = ListWebhooksStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListWebhooksStatus$ {
+  /** @deprecated use `ListWebhooksStatus$inboundSchema` instead. */
+  export const inboundSchema = ListWebhooksStatus$inboundSchema;
+  /** @deprecated use `ListWebhooksStatus$outboundSchema` instead. */
+  export const outboundSchema = ListWebhooksStatus$outboundSchema;
+}
+
+/** @internal */
+export const ListWebhooksMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksMode
+> = z.nativeEnum(ListWebhooksMode);
+
+/** @internal */
+export const ListWebhooksMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListWebhooksMode
+> = ListWebhooksMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListWebhooksMode$ {
+  /** @deprecated use `ListWebhooksMode$inboundSchema` instead. */
+  export const inboundSchema = ListWebhooksMode$inboundSchema;
+  /** @deprecated use `ListWebhooksMode$outboundSchema` instead. */
+  export const outboundSchema = ListWebhooksMode$outboundSchema;
+}
+
+/** @internal */
 export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> =
   z.object({
     resource: z.string().default("webhook"),
@@ -407,8 +550,8 @@ export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> =
     createdAt: z.string().optional(),
     name: z.string().optional(),
     eventTypes: z.array(z.string()).optional(),
-    status: z.string().optional(),
-    mode: z.string().optional(),
+    status: ListWebhooksStatus$inboundSchema.optional(),
+    mode: ListWebhooksMode$inboundSchema.optional(),
   });
 
 /** @internal */
@@ -437,8 +580,8 @@ export const Webhook$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   name: z.string().optional(),
   eventTypes: z.array(z.string()).optional(),
-  status: z.string().optional(),
-  mode: z.string().optional(),
+  status: ListWebhooksStatus$outboundSchema.optional(),
+  mode: ListWebhooksMode$outboundSchema.optional(),
 });
 
 /**

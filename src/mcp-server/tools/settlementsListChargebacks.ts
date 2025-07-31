@@ -16,11 +16,7 @@ export const tool$settlementsListChargebacks: ToolDefinition<typeof args> = {
 
 Retrieve all chargebacks 'deducted' from the given settlement.
 
-The response is in the same format as the response of the [List chargebacks endpoint](list-chargebacks).
-
-> 🔑 Access with
->
-> [Access token with **settlements.read** **payments.read**](/reference/authentication)`,
+The response is in the same format as the response of the [List chargebacks endpoint](list-chargebacks).`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsListChargebacks(

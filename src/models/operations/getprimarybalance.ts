@@ -10,6 +10,18 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetPrimaryBalanceMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetPrimaryBalanceMode = ClosedEnum<typeof GetPrimaryBalanceMode>;
+
+/**
  * The balance's ISO 4217 currency code.
  */
 export const GetPrimaryBalanceCurrency = {
@@ -34,7 +46,55 @@ export type GetPrimaryBalanceCurrency = ClosedEnum<
 >;
 
 /**
- * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds this threshold, the complete balance will be paid out to the transfer destination according to the configured frequency.
+ * The status of the balance.
+ */
+export const GetPrimaryBalanceStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+/**
+ * The status of the balance.
+ */
+export type GetPrimaryBalanceStatus = ClosedEnum<
+  typeof GetPrimaryBalanceStatus
+>;
+
+/**
+ * The frequency with which the available amount on the balance will be settled to the configured transfer
+ *
+ * @remarks
+ * destination.
+ *
+ * Settlements created during weekends or on bank holidays will take place on the next business day.
+ */
+export const GetPrimaryBalanceTransferFrequency = {
+  Daily: "daily",
+  EveryMonday: "every-monday",
+  EveryTuesday: "every-tuesday",
+  EveryWednesday: "every-wednesday",
+  EveryThursday: "every-thursday",
+  EveryFriday: "every-friday",
+  Monthly: "monthly",
+  Never: "never",
+} as const;
+/**
+ * The frequency with which the available amount on the balance will be settled to the configured transfer
+ *
+ * @remarks
+ * destination.
+ *
+ * Settlements created during weekends or on bank holidays will take place on the next business day.
+ */
+export type GetPrimaryBalanceTransferFrequency = ClosedEnum<
+  typeof GetPrimaryBalanceTransferFrequency
+>;
+
+/**
+ * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
+ *
+ * @remarks
+ * this threshold, the complete balance will be paid out to the transfer destination according to the configured
+ * frequency.
  */
 export type GetPrimaryBalanceTransferThreshold = {
   /**
@@ -48,7 +108,29 @@ export type GetPrimaryBalanceTransferThreshold = {
 };
 
 /**
- * The destination where the available amount will be automatically transferred to according to the configured transfer frequency.
+ * The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
+ *
+ * @remarks
+ *
+ * * `bank-account` — Transfer the balance amount to an external bank account
+ */
+export const GetPrimaryBalanceType = {
+  BankAccount: "bank-account",
+} as const;
+/**
+ * The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
+ *
+ * @remarks
+ *
+ * * `bank-account` — Transfer the balance amount to an external bank account
+ */
+export type GetPrimaryBalanceType = ClosedEnum<typeof GetPrimaryBalanceType>;
+
+/**
+ * The destination where the available amount will be automatically transferred to according to the configured
+ *
+ * @remarks
+ * transfer frequency.
  */
 export type GetPrimaryBalanceTransferDestination = {
   /**
@@ -57,10 +139,8 @@ export type GetPrimaryBalanceTransferDestination = {
    * @remarks
    *
    * * `bank-account` — Transfer the balance amount to an external bank account
-   *
-   * Possible values: `bank-account`
    */
-  type?: string | undefined;
+  type?: GetPrimaryBalanceType | undefined;
   /**
    * The configured bank account number of the beneficiary the balance amount is to be transferred to.
    */
@@ -86,7 +166,10 @@ export type GetPrimaryBalanceAvailableAmount = {
 };
 
 /**
- * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a few days to clear.
+ * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+ *
+ * @remarks
+ * few days to clear.
  */
 export type GetPrimaryBalancePendingAmount = {
   /**
@@ -155,12 +238,8 @@ export type GetPrimaryBalanceResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: GetPrimaryBalanceMode | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -175,24 +254,23 @@ export type GetPrimaryBalanceResponse = {
   description?: string | undefined;
   /**
    * The status of the balance.
-   *
-   * @remarks
-   *
-   * Possible values: `active` `inactive`
    */
-  status?: string | undefined;
+  status?: GetPrimaryBalanceStatus | undefined;
   /**
-   * The frequency with which the available amount on the balance will be settled to the configured transfer destination.
+   * The frequency with which the available amount on the balance will be settled to the configured transfer
    *
    * @remarks
+   * destination.
    *
    * Settlements created during weekends or on bank holidays will take place on the next business day.
-   *
-   * Possible values: `daily` `every-monday` `every-tuesday` `every-wednesday` `every-thursday` `every-friday` `monthly` `never`
    */
-  transferFrequency?: string | undefined;
+  transferFrequency?: GetPrimaryBalanceTransferFrequency | undefined;
   /**
-   * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds this threshold, the complete balance will be paid out to the transfer destination according to the configured frequency.
+   * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
+   *
+   * @remarks
+   * this threshold, the complete balance will be paid out to the transfer destination according to the configured
+   * frequency.
    */
   transferThreshold?: GetPrimaryBalanceTransferThreshold | undefined;
   /**
@@ -200,7 +278,10 @@ export type GetPrimaryBalanceResponse = {
    */
   transferReference?: string | null | undefined;
   /**
-   * The destination where the available amount will be automatically transferred to according to the configured transfer frequency.
+   * The destination where the available amount will be automatically transferred to according to the configured
+   *
+   * @remarks
+   * transfer frequency.
    */
   transferDestination?: GetPrimaryBalanceTransferDestination | null | undefined;
   /**
@@ -208,7 +289,10 @@ export type GetPrimaryBalanceResponse = {
    */
   availableAmount?: GetPrimaryBalanceAvailableAmount | undefined;
   /**
-   * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a few days to clear.
+   * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+   *
+   * @remarks
+   * few days to clear.
    */
   pendingAmount?: GetPrimaryBalancePendingAmount | undefined;
   /**
@@ -216,6 +300,27 @@ export type GetPrimaryBalanceResponse = {
    */
   links?: GetPrimaryBalanceLinks | undefined;
 };
+
+/** @internal */
+export const GetPrimaryBalanceMode$inboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceMode
+> = z.nativeEnum(GetPrimaryBalanceMode);
+
+/** @internal */
+export const GetPrimaryBalanceMode$outboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceMode
+> = GetPrimaryBalanceMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetPrimaryBalanceMode$ {
+  /** @deprecated use `GetPrimaryBalanceMode$inboundSchema` instead. */
+  export const inboundSchema = GetPrimaryBalanceMode$inboundSchema;
+  /** @deprecated use `GetPrimaryBalanceMode$outboundSchema` instead. */
+  export const outboundSchema = GetPrimaryBalanceMode$outboundSchema;
+}
 
 /** @internal */
 export const GetPrimaryBalanceCurrency$inboundSchema: z.ZodNativeEnum<
@@ -236,6 +341,49 @@ export namespace GetPrimaryBalanceCurrency$ {
   export const inboundSchema = GetPrimaryBalanceCurrency$inboundSchema;
   /** @deprecated use `GetPrimaryBalanceCurrency$outboundSchema` instead. */
   export const outboundSchema = GetPrimaryBalanceCurrency$outboundSchema;
+}
+
+/** @internal */
+export const GetPrimaryBalanceStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceStatus
+> = z.nativeEnum(GetPrimaryBalanceStatus);
+
+/** @internal */
+export const GetPrimaryBalanceStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceStatus
+> = GetPrimaryBalanceStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetPrimaryBalanceStatus$ {
+  /** @deprecated use `GetPrimaryBalanceStatus$inboundSchema` instead. */
+  export const inboundSchema = GetPrimaryBalanceStatus$inboundSchema;
+  /** @deprecated use `GetPrimaryBalanceStatus$outboundSchema` instead. */
+  export const outboundSchema = GetPrimaryBalanceStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetPrimaryBalanceTransferFrequency$inboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceTransferFrequency
+> = z.nativeEnum(GetPrimaryBalanceTransferFrequency);
+
+/** @internal */
+export const GetPrimaryBalanceTransferFrequency$outboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceTransferFrequency
+> = GetPrimaryBalanceTransferFrequency$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetPrimaryBalanceTransferFrequency$ {
+  /** @deprecated use `GetPrimaryBalanceTransferFrequency$inboundSchema` instead. */
+  export const inboundSchema = GetPrimaryBalanceTransferFrequency$inboundSchema;
+  /** @deprecated use `GetPrimaryBalanceTransferFrequency$outboundSchema` instead. */
+  export const outboundSchema =
+    GetPrimaryBalanceTransferFrequency$outboundSchema;
 }
 
 /** @internal */
@@ -300,12 +448,33 @@ export function getPrimaryBalanceTransferThresholdFromJSON(
 }
 
 /** @internal */
+export const GetPrimaryBalanceType$inboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceType
+> = z.nativeEnum(GetPrimaryBalanceType);
+
+/** @internal */
+export const GetPrimaryBalanceType$outboundSchema: z.ZodNativeEnum<
+  typeof GetPrimaryBalanceType
+> = GetPrimaryBalanceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetPrimaryBalanceType$ {
+  /** @deprecated use `GetPrimaryBalanceType$inboundSchema` instead. */
+  export const inboundSchema = GetPrimaryBalanceType$inboundSchema;
+  /** @deprecated use `GetPrimaryBalanceType$outboundSchema` instead. */
+  export const outboundSchema = GetPrimaryBalanceType$outboundSchema;
+}
+
+/** @internal */
 export const GetPrimaryBalanceTransferDestination$inboundSchema: z.ZodType<
   GetPrimaryBalanceTransferDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: GetPrimaryBalanceType$inboundSchema.optional(),
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
@@ -323,7 +492,7 @@ export const GetPrimaryBalanceTransferDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetPrimaryBalanceTransferDestination
 > = z.object({
-  type: z.string().optional(),
+  type: GetPrimaryBalanceType$outboundSchema.optional(),
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
@@ -665,12 +834,13 @@ export const GetPrimaryBalanceResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("balance"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetPrimaryBalanceMode$inboundSchema.optional(),
   createdAt: z.string().optional(),
   currency: GetPrimaryBalanceCurrency$inboundSchema.optional(),
   description: z.string().optional(),
-  status: z.string().optional(),
-  transferFrequency: z.string().optional(),
+  status: GetPrimaryBalanceStatus$inboundSchema.optional(),
+  transferFrequency: GetPrimaryBalanceTransferFrequency$inboundSchema
+    .optional(),
   transferThreshold: z.lazy(() =>
     GetPrimaryBalanceTransferThreshold$inboundSchema
   ).optional(),
@@ -718,12 +888,13 @@ export const GetPrimaryBalanceResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("balance"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetPrimaryBalanceMode$outboundSchema.optional(),
   createdAt: z.string().optional(),
   currency: GetPrimaryBalanceCurrency$outboundSchema.optional(),
   description: z.string().optional(),
-  status: z.string().optional(),
-  transferFrequency: z.string().optional(),
+  status: GetPrimaryBalanceStatus$outboundSchema.optional(),
+  transferFrequency: GetPrimaryBalanceTransferFrequency$outboundSchema
+    .optional(),
   transferThreshold: z.lazy(() =>
     GetPrimaryBalanceTransferThreshold$outboundSchema
   ).optional(),

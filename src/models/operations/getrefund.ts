@@ -34,9 +34,11 @@ export type GetRefundRequest = {
    */
   include?: GetRefundInclude | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -59,7 +61,22 @@ export type GetRefundNotFoundLinks = {
 };
 
 /**
- * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetRefundMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetRefundMode = ClosedEnum<typeof GetRefundMode>;
+
+/**
+ * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+ *
+ * @remarks
+ * amount.
  */
 export type GetRefundAmount = {
   /**
@@ -73,17 +90,21 @@ export type GetRefundAmount = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
  *
  * @remarks
+ * to the currency your account is settled in.
  *
  * The amount is a **negative** amount.
  *
- * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+ * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+ * zero.
  *
- * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+ * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+ * the refund is queued the settlement amount is likely not yet available.
  *
- * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * To retrieve accurate settlement amounts we recommend using the
+ * [List balance transactions endpoint](list-balance-transactions) instead.
  */
 export type GetRefundSettlementAmount = {
   /**
@@ -99,19 +120,45 @@ export type GetRefundSettlementAmount = {
 export type GetRefundMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type GetRefundMetadataUnion = GetRefundMetadata | string | Array<string>;
+
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export const GetRefundStatus = {
+  Queued: "queued",
+  Pending: "pending",
+  Processing: "processing",
+  Refunded: "refunded",
+  Failed: "failed",
+  Canceled: "canceled",
+} as const;
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export type GetRefundStatus = ClosedEnum<typeof GetRefundStatus>;
+
+/**
+ * Specifies the reference type
+ */
+export const GetRefundType = {
+  AcquirerReference: "acquirer-reference",
+} as const;
+/**
+ * Specifies the reference type
+ */
+export type GetRefundType = ClosedEnum<typeof GetRefundType>;
 
 export type GetRefundExternalReference = {
   /**
    * Specifies the reference type
-   *
-   * @remarks
-   *
-   * Possible values: `acquirer-reference`
    */
-  type?: string | undefined;
+  type?: GetRefundType | undefined;
   /**
    * Unique reference from the payment provider
    */
@@ -137,7 +184,10 @@ export type GetRefundRoutingReversalAmount = {
  */
 export type GetRefundSource = {
   /**
-   * Required for source type `organization`. The ID of the connected organization the funds should be pulled back from.
+   * Required for source type `organization`. The ID of the connected organization the funds should be pulled
+   *
+   * @remarks
+   * back from.
    */
   organizationId?: string | undefined;
 };
@@ -182,7 +232,10 @@ export type GetRefundPayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+ *
+ * @remarks
+ * yet settled.
  */
 export type GetRefundSettlement = {
   /**
@@ -222,7 +275,10 @@ export type GetRefundLinks = {
    */
   payment?: GetRefundPayment | undefined;
   /**
-   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+   *
+   * @remarks
+   * yet settled.
    */
   settlement?: GetRefundSettlement | null | undefined;
   /**
@@ -240,45 +296,57 @@ export type GetRefundResponse = {
    */
   resource?: string | undefined;
   /**
-   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
+   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
    */
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: GetRefundMode | undefined;
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    */
   description?: string | undefined;
   /**
-   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+   *
+   * @remarks
+   * amount.
    */
   amount?: GetRefundAmount | undefined;
   /**
-   * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
    *
    * @remarks
+   * to the currency your account is settled in.
    *
    * The amount is a **negative** amount.
    *
-   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+   * zero.
    *
-   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+   * the refund is queued the settlement amount is likely not yet available.
    *
-   * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * To retrieve accurate settlement amounts we recommend using the
+   * [List balance transactions endpoint](list-balance-transactions) instead.
    */
   settlementAmount?: GetRefundSettlementAmount | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: GetRefundMetadata | string | Array<string> | null | undefined;
   /**
-   * The unique identifier of the payment this refund was created for. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this refund was created for.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId?: string | undefined;
   /**
@@ -287,12 +355,8 @@ export type GetRefundResponse = {
   settlementId?: string | null | undefined;
   /**
    * Refunds may take some time to get confirmed.
-   *
-   * @remarks
-   *
-   * Possible values: `queued` `pending` `processing` `refunded` `failed` `canceled`
    */
-  status?: string | undefined;
+  status?: GetRefundStatus | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -305,7 +369,8 @@ export type GetRefundResponse = {
    *
    * When creating refunds for *routed* payments, by default the full amount is deducted from your balance.
    *
-   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount needs to be reversed from which merchant(s).
+   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount
+   * needs to be reversed from which merchant(s).
    *
    * If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
    */
@@ -511,6 +576,27 @@ export function getRefundNotFoundLinksFromJSON(
     (x) => GetRefundNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetRefundNotFoundLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const GetRefundMode$inboundSchema: z.ZodNativeEnum<
+  typeof GetRefundMode
+> = z.nativeEnum(GetRefundMode);
+
+/** @internal */
+export const GetRefundMode$outboundSchema: z.ZodNativeEnum<
+  typeof GetRefundMode
+> = GetRefundMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetRefundMode$ {
+  /** @deprecated use `GetRefundMode$inboundSchema` instead. */
+  export const inboundSchema = GetRefundMode$inboundSchema;
+  /** @deprecated use `GetRefundMode$outboundSchema` instead. */
+  export const outboundSchema = GetRefundMode$outboundSchema;
 }
 
 /** @internal */
@@ -733,12 +819,54 @@ export function getRefundMetadataUnionFromJSON(
 }
 
 /** @internal */
+export const GetRefundStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetRefundStatus
+> = z.nativeEnum(GetRefundStatus);
+
+/** @internal */
+export const GetRefundStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetRefundStatus
+> = GetRefundStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetRefundStatus$ {
+  /** @deprecated use `GetRefundStatus$inboundSchema` instead. */
+  export const inboundSchema = GetRefundStatus$inboundSchema;
+  /** @deprecated use `GetRefundStatus$outboundSchema` instead. */
+  export const outboundSchema = GetRefundStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetRefundType$inboundSchema: z.ZodNativeEnum<
+  typeof GetRefundType
+> = z.nativeEnum(GetRefundType);
+
+/** @internal */
+export const GetRefundType$outboundSchema: z.ZodNativeEnum<
+  typeof GetRefundType
+> = GetRefundType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetRefundType$ {
+  /** @deprecated use `GetRefundType$inboundSchema` instead. */
+  export const inboundSchema = GetRefundType$inboundSchema;
+  /** @deprecated use `GetRefundType$outboundSchema` instead. */
+  export const outboundSchema = GetRefundType$outboundSchema;
+}
+
+/** @internal */
 export const GetRefundExternalReference$inboundSchema: z.ZodType<
   GetRefundExternalReference,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: GetRefundType$inboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -754,7 +882,7 @@ export const GetRefundExternalReference$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetRefundExternalReference
 > = z.object({
-  type: z.string().optional(),
+  type: GetRefundType$outboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -1251,7 +1379,7 @@ export const GetRefundResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetRefundMode$inboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => GetRefundAmount$inboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -1266,7 +1394,7 @@ export const GetRefundResponse$inboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: GetRefundStatus$inboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() => GetRefundExternalReference$inboundSchema)
     .optional(),
@@ -1314,7 +1442,7 @@ export const GetRefundResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetRefundMode$outboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => GetRefundAmount$outboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -1329,7 +1457,7 @@ export const GetRefundResponse$outboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: GetRefundStatus$outboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() => GetRefundExternalReference$outboundSchema)
     .optional(),

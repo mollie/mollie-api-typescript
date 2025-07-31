@@ -16,13 +16,8 @@ export class Refunds extends ClientSDK {
    * Create payment refund
    *
    * @remarks
-   * Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank transfer or by refunding the amount to your customer's credit card.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **refunds.write**](/reference/authentication)
+   * Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank
+   * transfer or by refunding the amount to your customer's credit card.
    */
   async create(
     request: operations.CreateRefundRequest,
@@ -42,12 +37,6 @@ export class Refunds extends ClientSDK {
    * Retrieve a list of all refunds created for a specific payment.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **refunds.read**](/reference/authentication)
    */
   async list(
     request: operations.ListRefundsRequest,
@@ -65,12 +54,6 @@ export class Refunds extends ClientSDK {
    *
    * @remarks
    * Retrieve a single payment refund by its ID and the ID of its parent payment.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **refunds.read**](/reference/authentication)
    */
   async get(
     request: operations.GetRefundRequest,
@@ -87,15 +70,11 @@ export class Refunds extends ClientSDK {
    * Cancel payment refund
    *
    * @remarks
-   * Refunds will be executed with a delay of two hours. Until that time, refunds may be canceled manually via the Mollie Dashboard, or by using this endpoint.
+   * Refunds will be executed with a delay of two hours. Until that time, refunds may be canceled manually via the
+   * Mollie Dashboard, or by using this endpoint.
    *
-   * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the [Get refund endpoint](get-refund) for more information.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **refunds.write**](/reference/authentication)
+   * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the
+   * [Get refund endpoint](get-refund) for more information.
    */
   async cancel(
     request: operations.CancelRefundRequest,
@@ -115,12 +94,6 @@ export class Refunds extends ClientSDK {
    * Retrieve a list of all of your refunds.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **refunds.read**](/reference/authentication)
    */
   async all(
     request?: operations.ListAllRefundsRequest | undefined,

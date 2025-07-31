@@ -17,26 +17,27 @@
 
 With subscriptions, you can schedule recurring payments to take place at regular intervals.
 
-For example, by simply specifying an `amount` and an `interval`, you can create an endless subscription to charge a monthly fee, until you cancel the subscription.
+For example, by simply specifying an `amount` and an `interval`, you can create an endless subscription to charge a
+monthly fee, until you cancel the subscription.
 
-Or, you could use the times parameter to only charge a limited number of times, for example to split a big transaction in multiple parts.
+Or, you could use the times parameter to only charge a limited number of times, for example to split a big
+transaction in multiple parts.
 
 A few example usages:
 
-`amount[currency]="EUR"` `amount[value]="5.00"` `interval="2 weeks"` Your customer will be charged €5 once every two weeks.
+`amount[currency]="EUR"` `amount[value]="5.00"` `interval="2 weeks"`
+Your customer will be charged €5 once every two weeks.
 
-`amount[currency]="EUR"` `amount[value]="20.00"` `interval="1 day" times=5` Your customer will be charged €20 every day, for five consecutive days.
+`amount[currency]="EUR"` `amount[value]="20.00"` `interval="1 day" times=5`
+Your customer will be charged €20 every day, for five consecutive days.
 
-`amount[currency]="EUR"` `amount[value]="10.00"` `interval="1 month"` `startDate="2018-04-30"` Your customer will be charged €10 on the last day of each month, starting in April 2018.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.write**](/reference/authentication)
+`amount[currency]="EUR"` `amount[value]="10.00"` `interval="1 month"`
+`startDate="2018-04-30"`
+Your customer will be charged €10 on the last day of each month, starting in April 2018.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-subscription" method="post" path="/customers/{customerId}/subscriptions" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -55,7 +56,7 @@ async function run() {
         value: "10.00",
       },
       times: 6,
-      interval: "1 month",
+      interval: "... months",
       startDate: "2025-01-01",
       description: "Subscription of streaming channel",
       method: "paypal",
@@ -103,7 +104,7 @@ async function run() {
         value: "10.00",
       },
       times: 6,
-      interval: "1 month",
+      interval: "... months",
       startDate: "2025-01-01",
       description: "Subscription of streaming channel",
       method: "paypal",
@@ -156,14 +157,9 @@ Retrieve all subscriptions of a customer.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-subscriptions" method="get" path="/customers/{customerId}/subscriptions" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -177,7 +173,6 @@ async function run() {
   const result = await client.subscriptions.list({
     customerId: "cst_5B8cwPMGnU",
     from: "sub_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
 
@@ -207,7 +202,6 @@ async function run() {
   const res = await subscriptionsList(client, {
     customerId: "cst_5B8cwPMGnU",
     from: "sub_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
   if (res.ok) {
@@ -246,14 +240,9 @@ run();
 
 Retrieve a single subscription by its ID and the ID of its parent customer.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-subscription" method="get" path="/customers/{customerId}/subscriptions/{subscriptionId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -337,14 +326,9 @@ Canceled subscriptions cannot be updated.
 
 For an in-depth explanation of each parameter, refer to the [Create subscription](create-subscription) endpoint.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="update-subscription" method="patch" path="/customers/{customerId}/subscriptions/{subscriptionId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -364,7 +348,7 @@ async function run() {
         value: "10.00",
       },
       description: "Subscription of streaming channel",
-      interval: "1 month",
+      interval: "... weeks",
       startDate: "2025-01-01",
       times: 6,
       webhookUrl: "https://example.com/webhook",
@@ -405,7 +389,7 @@ async function run() {
         value: "10.00",
       },
       description: "Subscription of streaming channel",
-      interval: "1 month",
+      interval: "... weeks",
       startDate: "2025-01-01",
       times: 6,
       webhookUrl: "https://example.com/webhook",
@@ -448,14 +432,9 @@ run();
 
 Cancel an existing subscription. Canceling a subscription has no effect on the mandates of the customer.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="cancel-subscription" method="delete" path="/customers/{customerId}/subscriptions/{subscriptionId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -541,14 +520,9 @@ Retrieve all subscriptions initiated across all your customers.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/subscriptions" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -561,7 +535,6 @@ const client = new Client({
 async function run() {
   const result = await client.subscriptions.all({
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -591,7 +564,6 @@ const client = new ClientCore({
 async function run() {
   const res = await subscriptionsAll(client, {
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -632,14 +604,9 @@ Retrieve all payments of a specific subscription.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.read** **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-subscription-payments" method="get" path="/customers/{customerId}/subscriptions/{subscriptionId}/payments" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -654,7 +621,6 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -686,7 +652,6 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });

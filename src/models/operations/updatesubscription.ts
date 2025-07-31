@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -22,12 +23,37 @@ export type UpdateSubscriptionAmountRequest = {
   value: string;
 };
 
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export const UpdateSubscriptionIntervalRequest = {
+  DotDotDotDays: "... days",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotMonths: "... months",
+} as const;
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export type UpdateSubscriptionIntervalRequest = ClosedEnum<
+  typeof UpdateSubscriptionIntervalRequest
+>;
+
 export type UpdateSubscriptionMetadataRequest = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the
  *
  * @remarks
+ * entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to
+ * approximately 1kB.
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
@@ -42,9 +68,10 @@ export type UpdateSubscriptionRequestBody = {
    */
   amount?: UpdateSubscriptionAmountRequest | undefined;
   /**
-   * The subscription's description will be used as the description of the resulting individual payments and so showing up on the bank statement of the consumer.
+   * The subscription's description will be used as the description of the resulting individual payments and so showing
    *
    * @remarks
+   * up on the bank statement of the consumer.
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
@@ -55,26 +82,27 @@ export type UpdateSubscriptionRequestBody = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
-   *
-   * Possible values: `... days` `... weeks` `... months`
    */
-  interval?: string | undefined;
+  interval?: UpdateSubscriptionIntervalRequest | undefined;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
   startDate?: string | undefined;
   /**
-   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is considered completed.
+   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
    * @remarks
+   * considered completed.
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
   times?: number | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the
    *
    * @remarks
+   * entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to
+   * approximately 1kB.
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
@@ -89,7 +117,8 @@ export type UpdateSubscriptionRequestBody = {
    *
    * @remarks
    *
-   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as well. Be sure to verify the payment's subscription ID and its status.
+   * This webhook will receive **all** events for the subscription's payments. This may include payment
+   * failures as well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl?: string | undefined;
   /**
@@ -97,9 +126,10 @@ export type UpdateSubscriptionRequestBody = {
    */
   mandateId?: string | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
    *
    * @remarks
+   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -134,7 +164,45 @@ export type UpdateSubscriptionNotFoundLinks = {
 };
 
 /**
- * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const UpdateSubscriptionMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type UpdateSubscriptionMode = ClosedEnum<typeof UpdateSubscriptionMode>;
+
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export const UpdateSubscriptionStatus = {
+  Pending: "pending",
+  Active: "active",
+  Canceled: "canceled",
+  Suspended: "suspended",
+  Completed: "completed",
+} as const;
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export type UpdateSubscriptionStatus = ClosedEnum<
+  typeof UpdateSubscriptionStatus
+>;
+
+/**
+ * The amount for each individual payment that is charged with this subscription. For example, for a monthly
+ *
+ * @remarks
+ * subscription of €10, the subscription amount should be set to €10.
  */
 export type UpdateSubscriptionAmountResponse = {
   /**
@@ -146,6 +214,44 @@ export type UpdateSubscriptionAmountResponse = {
    */
   value: string;
 };
+
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export const UpdateSubscriptionIntervalResponse = {
+  DotDotDotDays: "... days",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotMonths: "... months",
+} as const;
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export type UpdateSubscriptionIntervalResponse = ClosedEnum<
+  typeof UpdateSubscriptionIntervalResponse
+>;
+
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export const UpdateSubscriptionMethod = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export type UpdateSubscriptionMethod = ClosedEnum<
+  typeof UpdateSubscriptionMethod
+>;
 
 /**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -162,13 +268,15 @@ export type UpdateSubscriptionApplicationFeeAmount = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
  * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
  *
- * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+ * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+ * information.
  */
 export type UpdateSubscriptionApplicationFee = {
   /**
@@ -181,9 +289,11 @@ export type UpdateSubscriptionApplicationFee = {
 export type UpdateSubscriptionMetadataResponse = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
  * @remarks
+ * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+ * 1kB.
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
@@ -249,7 +359,10 @@ export type UpdateSubscriptionProfile = {
 };
 
 /**
- * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+ * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+ *
+ * @remarks
+ * payments exist (yet).
  */
 export type UpdateSubscriptionPayments = {
   /**
@@ -297,7 +410,10 @@ export type UpdateSubscriptionLinks = {
    */
   profile?: UpdateSubscriptionProfile | null | undefined;
   /**
-   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+   *
+   * @remarks
+   * payments exist (yet).
    */
   payments?: UpdateSubscriptionPayments | null | undefined;
   /**
@@ -311,7 +427,10 @@ export type UpdateSubscriptionLinks = {
  */
 export type UpdateSubscriptionResponse = {
   /**
-   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this endpoint.
+   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -320,28 +439,27 @@ export type UpdateSubscriptionResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode?: UpdateSubscriptionMode | undefined;
+  /**
+   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
+   * enabling the subscription.
    */
-  mode?: string | undefined;
+  status?: UpdateSubscriptionStatus | undefined;
   /**
-   * The subscription's current status is directly related to the status of the underlying customer or mandate that is enabling the subscription.
+   * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
-   *
-   * Possible values: `pending` `active` `canceled` `suspended` `completed`
-   */
-  status?: string | undefined;
-  /**
-   * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+   * subscription of €10, the subscription amount should be set to €10.
    */
   amount?: UpdateSubscriptionAmountResponse | undefined;
   /**
-   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is considered completed.
+   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
    * @remarks
+   * considered completed.
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
@@ -356,48 +474,50 @@ export type UpdateSubscriptionResponse = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
-   *
-   * Possible values: `... days` `... weeks` `... months`
    */
-  interval?: string | undefined;
+  interval?: UpdateSubscriptionIntervalResponse | undefined;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
   startDate?: string | undefined;
   /**
-   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled, this parameter will not be returned.
+   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
+   *
+   * @remarks
+   * this parameter will not be returned.
    */
   nextPaymentDate?: string | null | undefined;
   /**
-   * The subscription's description will be used as the description of the resulting individual payments and so showing up on the bank statement of the consumer.
+   * The subscription's description will be used as the description of the resulting individual payments and so showing
    *
    * @remarks
+   * up on the bank statement of the consumer.
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
   description?: string | undefined;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
-   *
-   * @remarks
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method?: string | null | undefined;
+  method?: UpdateSubscriptionMethod | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
    * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
    *
-   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+   * information.
    */
   applicationFee?: UpdateSubscriptionApplicationFee | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
    *
    * @remarks
+   * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+   * 1kB.
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
@@ -412,7 +532,8 @@ export type UpdateSubscriptionResponse = {
    *
    * @remarks
    *
-   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as well. Be sure to verify the payment's subscription ID and its status.
+   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
+   * well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl?: string | undefined;
   /**
@@ -428,7 +549,10 @@ export type UpdateSubscriptionResponse = {
    */
   createdAt?: string | undefined;
   /**
-   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the subscription is not canceled (yet).
+   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
+   *
+   * @remarks
+   * subscription is not canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
@@ -494,6 +618,28 @@ export function updateSubscriptionAmountRequestFromJSON(
     (x) => UpdateSubscriptionAmountRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdateSubscriptionAmountRequest' from JSON`,
   );
+}
+
+/** @internal */
+export const UpdateSubscriptionIntervalRequest$inboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionIntervalRequest
+> = z.nativeEnum(UpdateSubscriptionIntervalRequest);
+
+/** @internal */
+export const UpdateSubscriptionIntervalRequest$outboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionIntervalRequest
+> = UpdateSubscriptionIntervalRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateSubscriptionIntervalRequest$ {
+  /** @deprecated use `UpdateSubscriptionIntervalRequest$inboundSchema` instead. */
+  export const inboundSchema = UpdateSubscriptionIntervalRequest$inboundSchema;
+  /** @deprecated use `UpdateSubscriptionIntervalRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    UpdateSubscriptionIntervalRequest$outboundSchema;
 }
 
 /** @internal */
@@ -621,7 +767,7 @@ export const UpdateSubscriptionRequestBody$inboundSchema: z.ZodType<
   amount: z.lazy(() => UpdateSubscriptionAmountRequest$inboundSchema)
     .optional(),
   description: z.string().optional(),
-  interval: z.string().optional(),
+  interval: UpdateSubscriptionIntervalRequest$inboundSchema.optional(),
   startDate: z.string().optional(),
   times: z.number().int().optional(),
   metadata: z.nullable(
@@ -663,7 +809,7 @@ export const UpdateSubscriptionRequestBody$outboundSchema: z.ZodType<
   amount: z.lazy(() => UpdateSubscriptionAmountRequest$outboundSchema)
     .optional(),
   description: z.string().optional(),
-  interval: z.string().optional(),
+  interval: UpdateSubscriptionIntervalRequest$outboundSchema.optional(),
   startDate: z.string().optional(),
   times: z.number().int().optional(),
   metadata: z.nullable(
@@ -910,6 +1056,48 @@ export function updateSubscriptionNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const UpdateSubscriptionMode$inboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionMode
+> = z.nativeEnum(UpdateSubscriptionMode);
+
+/** @internal */
+export const UpdateSubscriptionMode$outboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionMode
+> = UpdateSubscriptionMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateSubscriptionMode$ {
+  /** @deprecated use `UpdateSubscriptionMode$inboundSchema` instead. */
+  export const inboundSchema = UpdateSubscriptionMode$inboundSchema;
+  /** @deprecated use `UpdateSubscriptionMode$outboundSchema` instead. */
+  export const outboundSchema = UpdateSubscriptionMode$outboundSchema;
+}
+
+/** @internal */
+export const UpdateSubscriptionStatus$inboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionStatus
+> = z.nativeEnum(UpdateSubscriptionStatus);
+
+/** @internal */
+export const UpdateSubscriptionStatus$outboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionStatus
+> = UpdateSubscriptionStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateSubscriptionStatus$ {
+  /** @deprecated use `UpdateSubscriptionStatus$inboundSchema` instead. */
+  export const inboundSchema = UpdateSubscriptionStatus$inboundSchema;
+  /** @deprecated use `UpdateSubscriptionStatus$outboundSchema` instead. */
+  export const outboundSchema = UpdateSubscriptionStatus$outboundSchema;
+}
+
+/** @internal */
 export const UpdateSubscriptionAmountResponse$inboundSchema: z.ZodType<
   UpdateSubscriptionAmountResponse,
   z.ZodTypeDef,
@@ -966,6 +1154,49 @@ export function updateSubscriptionAmountResponseFromJSON(
     (x) => UpdateSubscriptionAmountResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdateSubscriptionAmountResponse' from JSON`,
   );
+}
+
+/** @internal */
+export const UpdateSubscriptionIntervalResponse$inboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionIntervalResponse
+> = z.nativeEnum(UpdateSubscriptionIntervalResponse);
+
+/** @internal */
+export const UpdateSubscriptionIntervalResponse$outboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionIntervalResponse
+> = UpdateSubscriptionIntervalResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateSubscriptionIntervalResponse$ {
+  /** @deprecated use `UpdateSubscriptionIntervalResponse$inboundSchema` instead. */
+  export const inboundSchema = UpdateSubscriptionIntervalResponse$inboundSchema;
+  /** @deprecated use `UpdateSubscriptionIntervalResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    UpdateSubscriptionIntervalResponse$outboundSchema;
+}
+
+/** @internal */
+export const UpdateSubscriptionMethod$inboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionMethod
+> = z.nativeEnum(UpdateSubscriptionMethod);
+
+/** @internal */
+export const UpdateSubscriptionMethod$outboundSchema: z.ZodNativeEnum<
+  typeof UpdateSubscriptionMethod
+> = UpdateSubscriptionMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateSubscriptionMethod$ {
+  /** @deprecated use `UpdateSubscriptionMethod$inboundSchema` instead. */
+  export const inboundSchema = UpdateSubscriptionMethod$inboundSchema;
+  /** @deprecated use `UpdateSubscriptionMethod$outboundSchema` instead. */
+  export const outboundSchema = UpdateSubscriptionMethod$outboundSchema;
 }
 
 /** @internal */
@@ -1645,17 +1876,17 @@ export const UpdateSubscriptionResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: UpdateSubscriptionMode$inboundSchema.optional(),
+  status: UpdateSubscriptionStatus$inboundSchema.optional(),
   amount: z.lazy(() => UpdateSubscriptionAmountResponse$inboundSchema)
     .optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: UpdateSubscriptionIntervalResponse$inboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(UpdateSubscriptionMethod$inboundSchema).optional(),
   applicationFee: z.lazy(() => UpdateSubscriptionApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1714,17 +1945,17 @@ export const UpdateSubscriptionResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: UpdateSubscriptionMode$outboundSchema.optional(),
+  status: UpdateSubscriptionStatus$outboundSchema.optional(),
   amount: z.lazy(() => UpdateSubscriptionAmountResponse$outboundSchema)
     .optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: UpdateSubscriptionIntervalResponse$outboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(UpdateSubscriptionMethod$outboundSchema).optional(),
   applicationFee: z.lazy(() => UpdateSubscriptionApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(

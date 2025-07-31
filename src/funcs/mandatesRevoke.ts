@@ -30,13 +30,8 @@ import { Result } from "../types/fp.js";
  * Revoke mandate
  *
  * @remarks
- * Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this mandate, and all connected subscriptions will be canceled.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **mandates.write**](/reference/authentication)
+ * Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this
+ * mandate, and all connected subscriptions will be canceled.
  */
 export function mandatesRevoke(
   client: ClientCore,

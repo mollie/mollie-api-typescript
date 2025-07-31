@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,9 +15,11 @@ export type GetProfileRequest = {
    */
   id: string;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -54,17 +57,66 @@ export type GetProfileNotFoundLinks = {
 };
 
 /**
- * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile has been requested. The review object will therefore usually be `null` in test mode.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetProfileMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetProfileMode = ClosedEnum<typeof GetProfileMode>;
+
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export const GetProfileStatus = {
+  Unverified: "unverified",
+  Verified: "verified",
+  Blocked: "blocked",
+} as const;
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export type GetProfileStatus = ClosedEnum<typeof GetProfileStatus>;
+
+/**
+ * The status of the requested changes.
+ */
+export const GetProfileReviewStatus = {
+  Pending: "pending",
+  Rejected: "rejected",
+} as const;
+/**
+ * The status of the requested changes.
+ */
+export type GetProfileReviewStatus = ClosedEnum<typeof GetProfileReviewStatus>;
+
+/**
+ * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
+ *
+ * @remarks
+ * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
+ * `null` in test mode.
  */
 export type GetProfileReview = {
   /**
    * The status of the requested changes.
-   *
-   * @remarks
-   *
-   * Possible values: `pending` `rejected`
    */
-  status?: string | undefined;
+  status?: GetProfileReviewStatus | undefined;
 };
 
 /**
@@ -231,18 +283,20 @@ export type GetProfileResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode?: GetProfileMode | undefined;
+  /**
+   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
-   */
-  mode?: string | undefined;
-  /**
-   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or application.
+   * application.
    */
   name?: string | undefined;
   /**
-   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are allowed.
+   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are
+   *
+   * @remarks
+   * allowed.
    */
   website?: string | undefined;
   /**
@@ -258,11 +312,17 @@ export type GetProfileResponse = {
    */
   description?: string | undefined;
   /**
-   * A list of countries where you expect that the majority of the profile's customers reside, in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   * A list of countries where you expect that the majority of the profile's customers reside,
+   *
+   * @remarks
+   * in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   countriesOfActivity?: Array<string> | undefined;
   /**
-   * The industry associated with the profile's trade name or brand. Please refer to the [business category list](common-data-types#business-category) for all possible options.
+   * The industry associated with the profile's trade name or brand. Please refer to the
+   *
+   * @remarks
+   * [business category list](common-data-types#business-category) for all possible options.
    */
   businessCategory?: string | undefined;
   /**
@@ -273,12 +333,14 @@ export type GetProfileResponse = {
    * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
    * * `verified`: The profile has been verified and can be used to create live payments and test payments.
    * * `blocked`: The profile is blocked and can no longer be used or changed.
-   *
-   * Possible values: `unverified` `verified` `blocked`
    */
-  status?: string | undefined;
+  status?: GetProfileStatus | undefined;
   /**
-   * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile has been requested. The review object will therefore usually be `null` in test mode.
+   * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
+   *
+   * @remarks
+   * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
+   * `null` in test mode.
    */
   review?: GetProfileReview | undefined;
   /**
@@ -575,12 +637,75 @@ export function getProfileNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const GetProfileMode$inboundSchema: z.ZodNativeEnum<
+  typeof GetProfileMode
+> = z.nativeEnum(GetProfileMode);
+
+/** @internal */
+export const GetProfileMode$outboundSchema: z.ZodNativeEnum<
+  typeof GetProfileMode
+> = GetProfileMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProfileMode$ {
+  /** @deprecated use `GetProfileMode$inboundSchema` instead. */
+  export const inboundSchema = GetProfileMode$inboundSchema;
+  /** @deprecated use `GetProfileMode$outboundSchema` instead. */
+  export const outboundSchema = GetProfileMode$outboundSchema;
+}
+
+/** @internal */
+export const GetProfileStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetProfileStatus
+> = z.nativeEnum(GetProfileStatus);
+
+/** @internal */
+export const GetProfileStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetProfileStatus
+> = GetProfileStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProfileStatus$ {
+  /** @deprecated use `GetProfileStatus$inboundSchema` instead. */
+  export const inboundSchema = GetProfileStatus$inboundSchema;
+  /** @deprecated use `GetProfileStatus$outboundSchema` instead. */
+  export const outboundSchema = GetProfileStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetProfileReviewStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetProfileReviewStatus
+> = z.nativeEnum(GetProfileReviewStatus);
+
+/** @internal */
+export const GetProfileReviewStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetProfileReviewStatus
+> = GetProfileReviewStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProfileReviewStatus$ {
+  /** @deprecated use `GetProfileReviewStatus$inboundSchema` instead. */
+  export const inboundSchema = GetProfileReviewStatus$inboundSchema;
+  /** @deprecated use `GetProfileReviewStatus$outboundSchema` instead. */
+  export const outboundSchema = GetProfileReviewStatus$outboundSchema;
+}
+
+/** @internal */
 export const GetProfileReview$inboundSchema: z.ZodType<
   GetProfileReview,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  status: z.string().optional(),
+  status: GetProfileReviewStatus$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -594,7 +719,7 @@ export const GetProfileReview$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetProfileReview
 > = z.object({
-  status: z.string().optional(),
+  status: GetProfileReviewStatus$outboundSchema.optional(),
 });
 
 /**
@@ -1166,7 +1291,7 @@ export const GetProfileResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("profile"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetProfileMode$inboundSchema.optional(),
   name: z.string().optional(),
   website: z.string().optional(),
   email: z.string().optional(),
@@ -1174,7 +1299,7 @@ export const GetProfileResponse$inboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: z.string().optional(),
+  status: GetProfileStatus$inboundSchema.optional(),
   review: z.lazy(() => GetProfileReview$inboundSchema).optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => GetProfileLinks$inboundSchema).optional(),
@@ -1210,7 +1335,7 @@ export const GetProfileResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("profile"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetProfileMode$outboundSchema.optional(),
   name: z.string().optional(),
   website: z.string().optional(),
   email: z.string().optional(),
@@ -1218,7 +1343,7 @@ export const GetProfileResponse$outboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: z.string().optional(),
+  status: GetProfileStatus$outboundSchema.optional(),
   review: z.lazy(() => GetProfileReview$outboundSchema).optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => GetProfileLinks$outboundSchema).optional(),

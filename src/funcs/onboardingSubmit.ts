@@ -29,13 +29,12 @@ import { Result } from "../types/fp.js";
  * Submit onboarding data
  *
  * @remarks
- * **⚠️ We no longer recommend implementing this endpoint. Please refer to the Client Links API instead to kick off the onboarding process for your merchants.**
+ * **⚠️ We no longer recommend implementing this endpoint. Please refer to the Client Links API instead to kick off the
+ * onboarding process for your merchants.**
  *
- * Submit data that will be prefilled in the merchant's onboarding. The data you submit will only be processed when the onboarding status is `needs-data`. Information that the merchant has entered in their dashboard will not be overwritten.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **onboarding.write**](/reference/authentication)
+ * Submit data that will be prefilled in the merchant's onboarding. The data you submit will only be processed when the
+ * onboarding status is `needs-data`.
+ * Information that the merchant has entered in their dashboard will not be overwritten.
  */
 export function onboardingSubmit(
   client: ClientCore,

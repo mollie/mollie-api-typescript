@@ -16,10 +16,6 @@ export class Permissions extends ClientSDK {
    * Retrieve a list of all permissions available to the current access token.
    *
    * The results are **not** paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token](/reference/authentication)
    */
   async list(
     options?: RequestOptions,
@@ -35,10 +31,6 @@ export class Permissions extends ClientSDK {
    *
    * @remarks
    * Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token](/reference/authentication)
    */
   async get(
     request: operations.GetPermissionRequest,

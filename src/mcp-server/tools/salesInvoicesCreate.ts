@@ -18,13 +18,7 @@ export const tool$salesInvoicesCreate: ToolDefinition<typeof args> = {
 >
 > This feature is currently in beta testing, and the final specification may still change.
 
-With the Sales Invoice API you can generate sales invoices to send to your customers.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoices.write**](/reference/authentication)`,
+With the Sales Invoice API you can generate sales invoices to send to your customers.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await salesInvoicesCreate(

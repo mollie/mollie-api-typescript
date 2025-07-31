@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve all subscriptions initiated across all your customers.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **subscriptions.read**](/reference/authentication)
  */
 export function subscriptionsAll(
   client: ClientCore,

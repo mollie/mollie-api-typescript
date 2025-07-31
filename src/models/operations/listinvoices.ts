@@ -5,12 +5,34 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListInvoicesSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListInvoicesSort = ClosedEnum<typeof ListInvoicesSort>;
+
 export type ListInvoicesRequest = {
   /**
-   * Filter for an invoice with a specific invoice reference, for example `2024.10000`.
+   * Filter for an invoice with a specific invoice reference, for example
+   *
+   * @remarks
+   * `2024.10000`.
    */
   reference?: string | null | undefined;
   /**
@@ -22,7 +44,10 @@ export type ListInvoicesRequest = {
    */
   month?: string | null | undefined;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | null | undefined;
   /**
@@ -30,13 +55,12 @@ export type ListInvoicesRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListInvoicesSort | null | undefined;
 };
 
 /**
@@ -73,7 +97,10 @@ export type ListInvoicesInvoice = {};
 
 export type ListInvoicesEmbedded = {
   /**
-   * An array of invoice objects. For a complete reference of the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
+   * An array of invoice objects. For a complete reference of
+   *
+   * @remarks
+   * the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
    */
   invoices?: Array<ListInvoicesInvoice> | undefined;
 };
@@ -157,15 +184,20 @@ export type ListInvoicesLinks = {
 };
 
 /**
- * A list of invoice objects. For a complete reference of the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
+ * A list of invoice objects. For a complete reference of the invoice
+ *
+ * @remarks
+ * object, refer to the [Get invoice endpoint](get-invoice) documentation.
  */
 export type ListInvoicesResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListInvoicesEmbedded | undefined;
@@ -174,6 +206,27 @@ export type ListInvoicesResponse = {
    */
   links?: ListInvoicesLinks | undefined;
 };
+
+/** @internal */
+export const ListInvoicesSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListInvoicesSort
+> = z.nativeEnum(ListInvoicesSort);
+
+/** @internal */
+export const ListInvoicesSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListInvoicesSort
+> = ListInvoicesSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListInvoicesSort$ {
+  /** @deprecated use `ListInvoicesSort$inboundSchema` instead. */
+  export const inboundSchema = ListInvoicesSort$inboundSchema;
+  /** @deprecated use `ListInvoicesSort$outboundSchema` instead. */
+  export const outboundSchema = ListInvoicesSort$outboundSchema;
+}
 
 /** @internal */
 export const ListInvoicesRequest$inboundSchema: z.ZodType<
@@ -186,7 +239,7 @@ export const ListInvoicesRequest$inboundSchema: z.ZodType<
   month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListInvoicesSort$inboundSchema.default("desc")),
 });
 
 /** @internal */
@@ -196,7 +249,7 @@ export type ListInvoicesRequest$Outbound = {
   month?: string | null | undefined;
   from?: string | null | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
 };
 
 /** @internal */
@@ -210,7 +263,7 @@ export const ListInvoicesRequest$outboundSchema: z.ZodType<
   month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListInvoicesSort$outboundSchema.default("desc")),
 });
 
 /**

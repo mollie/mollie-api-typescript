@@ -16,11 +16,8 @@ export const tool$profilesCreate: ToolDefinition<typeof args> = {
 
 Create a profile to process payments on.
 
-Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you can use this endpoint to automate profile creation.
-
-> 🔑 Access with
->
-> [Access token with **profiles.write**](/reference/authentication)`,
+Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you
+can use this endpoint to automate profile creation.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await profilesCreate(

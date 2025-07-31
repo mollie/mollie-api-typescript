@@ -31,10 +31,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Delete a profile. A deleted profile and its related credentials can no longer be used for accepting payments.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **profiles.write**](/reference/authentication)
  */
 export function profilesDelete(
   client: ClientCore,

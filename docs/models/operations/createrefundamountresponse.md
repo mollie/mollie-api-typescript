@@ -1,6 +1,7 @@
 # CreateRefundAmountResponse
 
-The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+amount.
 
 ## Example Usage
 

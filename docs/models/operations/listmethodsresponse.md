@@ -1,6 +1,7 @@
 # ListMethodsResponse
 
-A list of payment method objects. For a complete reference of the payment method object, refer to the [Get payment method endpoint](get-method) documentation.
+A list of payment method objects. For a complete reference of the
+payment method object, refer to the [Get payment method endpoint](get-method) documentation.
 
 ## Example Usage
 
@@ -70,6 +71,6 @@ let value: ListMethodsResponse = {
 
 | Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             | Example                                                                                 |
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `count`                                                                                 | *number*                                                                                | :heavy_check_mark:                                                                      | The number of payment method objects in this result set. Results are **not** paginated. | 5                                                                                       |
+| `count`                                                                                 | *number*                                                                                | :heavy_check_mark:                                                                      | The number of payment method objects in this result set.<br/>Results are **not** paginated. | 5                                                                                       |
 | `embedded`                                                                              | [operations.ListMethodsEmbedded](../../models/operations/listmethodsembedded.md)        | :heavy_check_mark:                                                                      | N/A                                                                                     |                                                                                         |
 | `links`                                                                                 | [operations.ListMethodsLinks](../../models/operations/listmethodslinks.md)              | :heavy_check_mark:                                                                      | N/A                                                                                     |                                                                                         |

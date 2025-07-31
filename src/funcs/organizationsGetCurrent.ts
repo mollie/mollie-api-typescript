@@ -26,13 +26,11 @@ import { Result } from "../types/fp.js";
  * Get current organization
  *
  * @remarks
- * Retrieve the currently authenticated organization. A convenient alias of the [Get organization](get-organization) endpoint.
+ * Retrieve the currently authenticated organization. A convenient alias of the [Get organization](get-organization)
+ * endpoint.
  *
- * For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint documentation.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **organizations.read**](/reference/authentication)
+ * For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint
+ * documentation.
  */
 export function organizationsGetCurrent(
   client: ClientCore,

@@ -9,9 +9,32 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListAllSubscriptionsSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListAllSubscriptionsSort = ClosedEnum<
+  typeof ListAllSubscriptionsSort
+>;
+
 export type ListAllSubscriptionsRequest = {
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
+   *
+   * @remarks
+   * the result set.
    */
   from?: string | undefined;
   /**
@@ -19,25 +42,28 @@ export type ListAllSubscriptionsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListAllSubscriptionsSort | null | undefined;
   /**
-   * The identifier referring to the [profile](get-profile) you wish to retrieve the resources for.
+   * The identifier referring to the [profile](get-profile) you wish to
    *
    * @remarks
+   * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -60,13 +86,29 @@ export type ListAllSubscriptionsBadRequestLinks = {
 };
 
 /**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListAllSubscriptionsMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListAllSubscriptionsMode = ClosedEnum<
+  typeof ListAllSubscriptionsMode
+>;
+
+/**
  * The amount that you want to charge, e.g. `{currency:"EUR", value:"1000.00"}` if you would want to charge €1000.00.
  *
  * @remarks
  *
- * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+ * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+ * retrieved using the Get method endpoint.
  *
- * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+ * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+ * tip amount.
  */
 export type ListAllSubscriptionsAmount = {
   /**
@@ -80,7 +122,11 @@ export type ListAllSubscriptionsAmount = {
 };
 
 /**
- * The total amount that is already refunded. Only available when refunds are available for this payment. For some payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+ * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+ *
+ * @remarks
+ * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+ * costs for a return shipment to the customer.
  */
 export type ListAllSubscriptionsAmountRefunded = {
   /**
@@ -122,7 +168,10 @@ export type ListAllSubscriptionsAmountCaptured = {
 };
 
 /**
- * The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+ * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+ *
+ * @remarks
+ * zero.
  */
 export type ListAllSubscriptionsAmountChargedBack = {
   /**
@@ -136,13 +185,16 @@ export type ListAllSubscriptionsAmountChargedBack = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be settled to your account, converted to the
  *
  * @remarks
+ * currency your account is settled in.
  *
- * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is settled by Mollie the `settlementAmount` is omitted from the response.
+ * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+ * settled by Mollie the `settlementAmount` is omitted from the response.
  *
- * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+ * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+ * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
  */
 export type ListAllSubscriptionsSettlementAmount = {
   /**
@@ -154,6 +206,34 @@ export type ListAllSubscriptionsSettlementAmount = {
    */
   value: string;
 };
+
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export const ListAllSubscriptionsLineType = {
+  Physical: "physical",
+  Digital: "digital",
+  ShippingFee: "shipping_fee",
+  Discount: "discount",
+  StoreCredit: "store_credit",
+  GiftCard: "gift_card",
+  Surcharge: "surcharge",
+  Tip: "tip",
+} as const;
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export type ListAllSubscriptionsLineType = ClosedEnum<
+  typeof ListAllSubscriptionsLineType
+>;
 
 /**
  * The price of a single item including VAT.
@@ -178,7 +258,10 @@ export type ListAllSubscriptionsUnitPrice = {
 };
 
 /**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+ * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+ *
+ * @remarks
+ * type.
  */
 export type ListAllSubscriptionsDiscountAmount = {
   /**
@@ -212,13 +295,15 @@ export type ListAllSubscriptionsTotalAmount = {
 };
 
 /**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+ * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
  *
  * @remarks
+ * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
  *
  * Any deviations from this will result in an error.
  *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+ * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+ * `SEK 100.00 × (25 / 125) = SEK 20.00`.
  */
 export type ListAllSubscriptionsVatAmount = {
   /**
@@ -242,6 +327,21 @@ export type ListAllSubscriptionsCategory = ClosedEnum<
 >;
 
 /**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export const ListAllSubscriptionsInterval = {
+  DotDotDotMonths: "... months",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ */
+export type ListAllSubscriptionsInterval = ClosedEnum<
+  typeof ListAllSubscriptionsInterval
+>;
+
+/**
  * Total amount and currency of the recurring item.
  */
 export type ListAllSubscriptionsRecurringAmount = {
@@ -256,7 +356,10 @@ export type ListAllSubscriptionsRecurringAmount = {
 };
 
 /**
- * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+ * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+ *
+ * @remarks
+ * to inform the shopper of the details for recurring products in the payments.
  */
 export type ListAllSubscriptionsRecurring = {
   /**
@@ -265,12 +368,8 @@ export type ListAllSubscriptionsRecurring = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
-   *
-   * @remarks
-   *
-   * Possible values: `... months` `... weeks` `... days`
    */
-  interval: string;
+  interval: ListAllSubscriptionsInterval;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -292,10 +391,8 @@ export type ListAllSubscriptionsLine = {
    * @remarks
    *
    * The `tip` payment line type is not available when creating a payment.
-   *
-   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
    */
-  type?: string | undefined;
+  type?: ListAllSubscriptionsLineType | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -321,7 +418,10 @@ export type ListAllSubscriptionsLine = {
    */
   unitPrice: ListAllSubscriptionsUnitPrice;
   /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+   *
+   * @remarks
+   * type.
    */
   discountAmount?: ListAllSubscriptionsDiscountAmount | undefined;
   /**
@@ -335,17 +435,22 @@ export type ListAllSubscriptionsLine = {
    */
   totalAmount: ListAllSubscriptionsTotalAmount;
   /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+   *
+   * @remarks
+   * not as a float, to ensure the correct number of decimals are passed.
    */
   vatRate?: string | undefined;
   /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
    *
    * @remarks
+   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
    *
    * Any deviations from this will result in an error.
    *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
    */
   vatAmount?: ListAllSubscriptionsVatAmount | undefined;
   /**
@@ -353,7 +458,10 @@ export type ListAllSubscriptionsLine = {
    */
   sku?: string | undefined;
   /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the
+   *
+   * @remarks
+   * [Integrating Vouchers](integrating-vouchers) guide for more information.
    */
   categories?: Array<ListAllSubscriptionsCategory> | undefined;
   /**
@@ -365,17 +473,22 @@ export type ListAllSubscriptionsLine = {
    */
   productUrl?: string | undefined;
   /**
-   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+   *
+   * @remarks
+   * to inform the shopper of the details for recurring products in the payments.
    */
   recurring?: ListAllSubscriptionsRecurring | undefined;
 };
 
 /**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  *
  * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
  */
@@ -385,17 +498,19 @@ export type ListAllSubscriptionsBillingAddress = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -429,7 +544,8 @@ export type ListAllSubscriptionsBillingAddress = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -461,11 +577,13 @@ export type ListAllSubscriptionsBillingAddress = {
 };
 
 /**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's shipping address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  */
 export type ListAllSubscriptionsShippingAddress = {
   /**
@@ -473,17 +591,19 @@ export type ListAllSubscriptionsShippingAddress = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -517,7 +637,8 @@ export type ListAllSubscriptionsShippingAddress = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -548,10 +669,114 @@ export type ListAllSubscriptionsShippingAddress = {
   country?: string | undefined;
 };
 
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export const ListAllSubscriptionsLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+ *
+ * @remarks
+ * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+ * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+ * locale, but our hosted payment pages currently only support the specified languages.
+ *
+ * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+ * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+ * customer use a local bank account greatly increases the conversion and speed of payment.
+ */
+export type ListAllSubscriptionsLocale = ClosedEnum<
+  typeof ListAllSubscriptionsLocale
+>;
+
+/**
+ * The payment method used for this transaction. If a specific method was selected during payment initialization,
+ *
+ * @remarks
+ * this field reflects that choice.
+ */
+export const ListAllSubscriptionsMethod = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Mbway: "mbway",
+  Multibanco: "multibanco",
+  Mybank: "mybank",
+  Payconiq: "payconiq",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Pointofsale: "pointofsale",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The payment method used for this transaction. If a specific method was selected during payment initialization,
+ *
+ * @remarks
+ * this field reflects that choice.
+ */
+export type ListAllSubscriptionsMethod = ClosedEnum<
+  typeof ListAllSubscriptionsMethod
+>;
+
 export type ListAllSubscriptionsMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type ListAllSubscriptionsMetadataUnion =
   | ListAllSubscriptionsMetadata
@@ -559,11 +784,76 @@ export type ListAllSubscriptionsMetadataUnion =
   | Array<string>;
 
 /**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export const ListAllSubscriptionsCaptureMode = {
+  Automatic: "automatic",
+  Manual: "manual",
+} as const;
+/**
+ * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
+ *
+ * @remarks
+ * and capture at a later time.
+ *
+ * This field needs to be set to `manual` for method `riverty`.
+ */
+export type ListAllSubscriptionsCaptureMode = ClosedEnum<
+  typeof ListAllSubscriptionsCaptureMode
+>;
+
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export const ListAllSubscriptionsCaptureDelay = {
+  DotDotDotHours: "... hours",
+  DotDotDotDays: "... days",
+} as const;
+/**
+ * **Only relevant if you wish to manage authorization and capturing separately.**
+ *
+ * @remarks
+ *
+ * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+ * later point either be 'captured' or canceled.
+ *
+ * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+ * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+ * example `8 hours` or `2 days`.
+ *
+ * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+ *
+ * The maximum delay is 7 days (168 hours).
+ */
+export type ListAllSubscriptionsCaptureDelay = ClosedEnum<
+  typeof ListAllSubscriptionsCaptureDelay
+>;
+
+/**
  * The fee that you wish to charge.
  *
  * @remarks
  *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+ * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+ * a €0.99 fee on a €1.00 payment.
  */
 export type ListAllSubscriptionsApplicationFeeAmount = {
   /**
@@ -577,13 +867,17 @@ export type ListAllSubscriptionsApplicationFeeAmount = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
- * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+ * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+ * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+ * to your own account balance.
  *
- * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+ * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+ * `routing` parameter.
  */
 export type ListAllSubscriptionsApplicationFee = {
   /**
@@ -591,14 +885,32 @@ export type ListAllSubscriptionsApplicationFee = {
    *
    * @remarks
    *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+   * a €0.99 fee on a €1.00 payment.
    */
   amount?: ListAllSubscriptionsApplicationFeeAmount | undefined;
   /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
+   * The description of the application fee. This will appear on settlement reports towards both you and the
+   *
+   * @remarks
+   * connected merchant.
    */
   description?: string | undefined;
 };
+
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListAllSubscriptionsRoutingMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListAllSubscriptionsRoutingMode = ClosedEnum<
+  typeof ListAllSubscriptionsRoutingMode
+>;
 
 /**
  * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
@@ -615,19 +927,31 @@ export type ListAllSubscriptionsRoutingAmount = {
 };
 
 /**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export const ListAllSubscriptionsRoutingType = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export type ListAllSubscriptionsRoutingType = ClosedEnum<
+  typeof ListAllSubscriptionsRoutingType
+>;
+
+/**
  * The destination of this portion of the payment.
  */
 export type ListAllSubscriptionsDestination = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: ListAllSubscriptionsRoutingType;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type: string;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   * routed to.
    */
   organizationId: string;
 };
@@ -680,17 +1004,16 @@ export type ListAllSubscriptionsRouting = {
    */
   resource: string;
   /**
-   * The identifier uniquely referring to this route. Mollie will always refer to the route by this ID. Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
+   * The identifier uniquely referring to this route. Mollie will always refer to the route by this ID.
+   *
+   * @remarks
+   * Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
    */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: ListAllSubscriptionsRoutingMode;
   /**
    * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
    */
@@ -704,9 +1027,10 @@ export type ListAllSubscriptionsRouting = {
    */
   createdAt: string;
   /**
-   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The date must be given in `YYYY-MM-DD` format.
+   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The
    *
    * @remarks
+   * date must be given in `YYYY-MM-DD` format.
    *
    * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
    */
@@ -718,11 +1042,85 @@ export type ListAllSubscriptionsRouting = {
 };
 
 /**
- * This object offers details about the status of a payment. Currently it is only available for point-of-sale payments.
+ * **Only relevant for recurring payments.**
  *
  * @remarks
  *
- * You can find more information about the possible values of this object on [this page](status-reasons).**
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export const ListAllSubscriptionsSequenceType = {
+  Oneoff: "oneoff",
+  First: "first",
+  Recurring: "recurring",
+} as const;
+/**
+ * **Only relevant for recurring payments.**
+ *
+ * @remarks
+ *
+ * Indicate which part of a recurring sequence this payment is for.
+ *
+ * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+ * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+ * on their account in the future.
+ *
+ * If set to `recurring`, the customer's card is charged automatically.
+ *
+ * Defaults to `oneoff`, which is a regular non-recurring payment.
+ *
+ * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+ * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+ * are set up correctly for recurring payments.
+ */
+export type ListAllSubscriptionsSequenceType = ClosedEnum<
+  typeof ListAllSubscriptionsSequenceType
+>;
+
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export const ListAllSubscriptionsStatus = {
+  Open: "open",
+  Pending: "pending",
+  Authorized: "authorized",
+  Paid: "paid",
+  Canceled: "canceled",
+  Expired: "expired",
+  Failed: "failed",
+} as const;
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export type ListAllSubscriptionsStatus = ClosedEnum<
+  typeof ListAllSubscriptionsStatus
+>;
+
+/**
+ * This object offers details about the status of a payment. Currently it is only available for point-of-sale
+ *
+ * @remarks
+ * payments.
+ *
+ * You can find more information about the possible values of this object on
+ * [this page](status-reasons).**
  */
 export type ListAllSubscriptionsStatusReason = {
   /**
@@ -778,13 +1176,16 @@ export type ListAllSubscriptionsMobileAppCheckout = {
 };
 
 /**
- * For test mode payments in certain scenarios, a hosted interface is available to help you test different payment states.
+ * For test mode payments in certain scenarios, a hosted interface is available to help you test different
  *
  * @remarks
+ * payment states.
  *
- * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these payments are executed without any user interaction.
+ * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+ * payments are executed without any user interaction.
  *
- * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or chargeback for the test payment.
+ * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+ * chargeback for the test payment.
  */
 export type ListAllSubscriptionsChangePaymentState = {
   /**
@@ -826,7 +1227,10 @@ export type ListAllSubscriptionsRefunds = {
 };
 
 /**
- * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this payment.
+ * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+ *
+ * @remarks
+ * payment.
  */
 export type ListAllSubscriptionsChargebacks = {
   /**
@@ -854,7 +1258,10 @@ export type ListAllSubscriptionsCaptures = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this payment has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
+ *
+ * @remarks
+ * Not present if not yet settled.
  */
 export type ListAllSubscriptionsSettlement = {
   /**
@@ -910,7 +1317,10 @@ export type ListAllSubscriptionsSubscription = {
 };
 
 /**
- * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an order.
+ * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+ *
+ * @remarks
+ * order.
  */
 export type ListAllSubscriptionsOrder = {
   /**
@@ -924,7 +1334,10 @@ export type ListAllSubscriptionsOrder = {
 };
 
 /**
- * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for point-of-sale payments.
+ * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+ *
+ * @remarks
+ * point-of-sale payments.
  */
 export type ListAllSubscriptionsTerminal = {
   /**
@@ -968,13 +1381,16 @@ export type ListAllSubscriptionsPaymentLinks = {
    */
   mobileAppCheckout?: ListAllSubscriptionsMobileAppCheckout | undefined;
   /**
-   * For test mode payments in certain scenarios, a hosted interface is available to help you test different payment states.
+   * For test mode payments in certain scenarios, a hosted interface is available to help you test different
    *
    * @remarks
+   * payment states.
    *
-   * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these payments are executed without any user interaction.
+   * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+   * payments are executed without any user interaction.
    *
-   * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or chargeback for the test payment.
+   * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+   * chargeback for the test payment.
    */
   changePaymentState?: ListAllSubscriptionsChangePaymentState | undefined;
   /**
@@ -986,7 +1402,10 @@ export type ListAllSubscriptionsPaymentLinks = {
    */
   refunds?: ListAllSubscriptionsRefunds | undefined;
   /**
-   * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this payment.
+   * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+   *
+   * @remarks
+   * payment.
    */
   chargebacks?: ListAllSubscriptionsChargebacks | undefined;
   /**
@@ -994,7 +1413,10 @@ export type ListAllSubscriptionsPaymentLinks = {
    */
   captures?: ListAllSubscriptionsCaptures | undefined;
   /**
-   * The API resource URL of the [settlement](get-settlement) this payment has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
+   *
+   * @remarks
+   * Not present if not yet settled.
    */
   settlement?: ListAllSubscriptionsSettlement | undefined;
   /**
@@ -1010,11 +1432,17 @@ export type ListAllSubscriptionsPaymentLinks = {
    */
   subscription?: ListAllSubscriptionsSubscription | undefined;
   /**
-   * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an order.
+   * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+   *
+   * @remarks
+   * order.
    */
   order?: ListAllSubscriptionsOrder | undefined;
   /**
-   * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for point-of-sale payments.
+   * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+   *
+   * @remarks
+   * point-of-sale payments.
    */
   terminal?: ListAllSubscriptionsTerminal | undefined;
   /**
@@ -1029,25 +1457,28 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   resource: string;
   /**
-   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: ListAllSubscriptionsMode;
   /**
-   * The description of the payment. This will be shown to your customer on their card or bank statement when possible. We truncate the description automatically according to the limits of the used payment method. The description is also visible in any exports you generate.
+   * The description of the payment. This will be shown to your customer on their card or bank statement when possible.
    *
    * @remarks
+   * We truncate the description automatically according to the limits of the used payment method. The description is
+   * also visible in any exports you generate.
    *
-   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office. This is particularly useful for bookkeeping.
+   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office.
+   * This is particularly useful for bookkeeping.
    *
-   * The maximum length of the description field differs per payment method, with the absolute maximum being 255 characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
+   * The maximum length of the description field differs per payment method, with the absolute maximum being 255
+   * characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
    */
   description: string;
   /**
@@ -1055,13 +1486,19 @@ export type ListAllSubscriptionsPaymentOutput = {
    *
    * @remarks
    *
-   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be retrieved using the Get method endpoint.
+   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+   * retrieved using the Get method endpoint.
    *
-   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the tip amount.
+   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+   * tip amount.
    */
   amount: ListAllSubscriptionsAmount;
   /**
-   * The total amount that is already refunded. Only available when refunds are available for this payment. For some payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+   * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+   *
+   * @remarks
+   * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+   * costs for a return shipment to the customer.
    */
   amountRefunded?: ListAllSubscriptionsAmountRefunded | undefined;
   /**
@@ -1073,17 +1510,23 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   amountCaptured?: ListAllSubscriptionsAmountCaptured | undefined;
   /**
-   * The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+   * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+   *
+   * @remarks
+   * zero.
    */
   amountChargedBack?: ListAllSubscriptionsAmountChargedBack | undefined;
   /**
-   * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the
    *
    * @remarks
+   * currency your account is settled in.
    *
-   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is settled by Mollie the `settlementAmount` is omitted from the response.
+   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+   * settled by Mollie the `settlementAmount` is omitted from the response.
    *
-   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+   * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
    */
   settlementAmount?: ListAllSubscriptionsSettlementAmount | undefined;
   /**
@@ -1091,17 +1534,22 @@ export type ListAllSubscriptionsPaymentOutput = {
    *
    * @remarks
    *
-   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the right page referencing the order when your customer returns.
+   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
+   * right page referencing the order when your customer returns.
    *
-   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for Apple Pay payments with an `applePayPaymentToken`.
+   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
+   * Apple Pay payments with an `applePayPaymentToken`.
    */
   redirectUrl?: string | null | undefined;
   /**
-   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not provided, the customer will be redirected to the `redirectUrl` instead — see above.
+   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
    *
    * @remarks
+   * provided, the customer will be redirected to the `redirectUrl` instead — see above.
    *
-   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle payment cancellations.
+   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is
+   * therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle
+   * payment cancellations.
    */
   cancelUrl?: string | null | undefined;
   /**
@@ -1111,13 +1559,16 @@ export type ListAllSubscriptionsPaymentOutput = {
    *
    * The webhookUrl is optional, but without a webhook you will miss out on important status changes to your payment.
    *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+   * local machine.
    */
   webhookUrl?: string | null | undefined;
   /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the payment.
    *
@@ -1125,43 +1576,59 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   lines?: Array<ListAllSubscriptionsLine> | null | undefined;
   /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    *
    * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: ListAllSubscriptionsBillingAddress | undefined;
   /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    */
   shippingAddress?: ListAllSubscriptionsShippingAddress | undefined;
   /**
-   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897 locale, but our hosted payment pages currently only support the specified languages.
+   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
    *
    * @remarks
+   * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+   * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+   * locale, but our hosted payment pages currently only support the specified languages.
    *
-   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the customer use a local bank account greatly increases the conversion and speed of payment.
+   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+   * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+   * customer use a local bank account greatly increases the conversion and speed of payment.
    */
-  locale?: string | null | undefined;
+  locale?: ListAllSubscriptionsLocale | null | undefined;
   /**
-   * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This field is omitted if the country code was not detected.
+   * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This
+   *
+   * @remarks
+   * field is omitted if the country code was not detected.
    */
   countryCode?: string | null | undefined;
   /**
-   * The payment method used for this transaction. If a specific method was selected during payment initialization, this field reflects that choice.
-   */
-  method?: string | null | undefined;
-  /**
-   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the VAT country.
+   * The payment method used for this transaction. If a specific method was selected during payment initialization,
    *
    * @remarks
+   * this field reflects that choice.
+   */
+  method?: ListAllSubscriptionsMethod | null | undefined;
+  /**
+   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
+   *
+   * @remarks
+   * rates you have used for the order to ensure your customer's country matches the VAT country.
    *
    * Use this parameter to restrict the payment methods available to your customer to those from a single country.
    *
@@ -1171,7 +1638,10 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   restrictPaymentMethodsToCountry?: string | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | ListAllSubscriptionsMetadata
@@ -1180,43 +1650,50 @@ export type ListAllSubscriptionsPaymentOutput = {
     | null
     | undefined;
   /**
-   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/) and capture at a later time.
+   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
    * @remarks
+   * and capture at a later time.
    *
    * This field needs to be set to `manual` for method `riverty`.
-   *
-   * Possible values: `automatic` `manual` (default: `automatic`)
    */
-  captureMode?: string | null | undefined;
+  captureMode?: ListAllSubscriptionsCaptureMode | null | undefined;
   /**
    * **Only relevant if you wish to manage authorization and capturing separately.**
    *
    * @remarks
    *
-   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+   * later point either be 'captured' or canceled.
    *
-   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For example `8 hours` or `2 days`.
+   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+   * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+   * example `8 hours` or `2 days`.
    *
    * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
    *
    * The maximum delay is 7 days (168 hours).
-   *
-   * Possible values: `... hours` `... days`
    */
-  captureDelay?: string | null | undefined;
+  captureDelay?: ListAllSubscriptionsCaptureDelay | null | undefined;
   /**
-   * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
+   * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
+   *
+   * @remarks
+   * can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
    */
   captureBefore?: string | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
-   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+   * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+   * to your own account balance.
    *
-   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
+   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+   * `routing` parameter.
    */
   applicationFee?: ListAllSubscriptionsApplicationFee | null | undefined;
   /**
@@ -1224,15 +1701,20 @@ export type ListAllSubscriptionsPaymentOutput = {
    *
    * @remarks
    *
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+   * merchants.
    *
-   * If you create payments on your own account that you want to split between yourself and one or more connected merchants, you can use this `routing` parameter to route the payment accordingly.
+   * If you create payments on your own account that you want to split between yourself and one or more connected
+   * merchants, you can use this `routing` parameter to route the payment accordingly.
    *
-   * The `routing` parameter should contain an array of objects, with each object describing the destination for a specific portion of the payment.
+   * The `routing` parameter should contain an array of objects, with each object describing the destination for a
+   * specific portion of the payment.
    *
-   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total payment amount have been routed, the amount left will be routed to the current organization automatically.
+   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total
+   * payment amount have been routed, the amount left will be routed to the current organization automatically.
    *
-   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee` parameter.
+   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee`
+   * parameter.
    */
   routing?: Array<ListAllSubscriptionsRouting> | null | undefined;
   /**
@@ -1242,19 +1724,24 @@ export type ListAllSubscriptionsPaymentOutput = {
    *
    * Indicate which part of a recurring sequence this payment is for.
    *
-   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place on their account in the future.
+   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+   * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+   * on their account in the future.
    *
    * If set to `recurring`, the customer's card is charged automatically.
    *
    * Defaults to `oneoff`, which is a regular non-recurring payment.
    *
-   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account are set up correctly for recurring payments.
-   *
-   * Possible values: `oneoff` `first` `recurring` (default: `oneoff`)
+   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+   * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+   * are set up correctly for recurring payments.
    */
-  sequenceType: string | null;
+  sequenceType?: ListAllSubscriptionsSequenceType | null | undefined;
   /**
-   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will be added to the response.
+   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
+   *
+   * @remarks
+   * be added to the response.
    */
   subscriptionId?: string | null | undefined;
   /**
@@ -1262,13 +1749,15 @@ export type ListAllSubscriptionsPaymentOutput = {
    *
    * @remarks
    *
-   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of the customer's accounts should be credited.
+   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be credited.
    */
   mandateId?: string | null | undefined;
   /**
-   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring payments, but can also be used on regular payments to enable single-click payments.
+   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring
    *
    * @remarks
+   * payments, but can also be used on regular payments to enable single-click payments.
    *
    * If `sequenceType` is set to `recurring`, this field is required.
    */
@@ -1278,7 +1767,8 @@ export type ListAllSubscriptionsPaymentOutput = {
    *
    * @remarks
    *
-   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and Organization tokens, the `profileId` is required.
+   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+   * Organization tokens, the `profileId` is required.
    *
    * For more information, see [Authentication](authentication).
    */
@@ -1292,19 +1782,20 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   orderId?: string | null | undefined;
   /**
-   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which statuses occur at what point.
+   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
    *
    * @remarks
-   *
-   * Possible values: `open` `pending` `authorized` `paid` `canceled` `expired` `failed`
+   * statuses occur at what point.
    */
-  status: string;
+  status: ListAllSubscriptionsStatus;
   /**
-   * This object offers details about the status of a payment. Currently it is only available for point-of-sale payments.
+   * This object offers details about the status of a payment. Currently it is only available for point-of-sale
    *
    * @remarks
+   * payments.
    *
-   * You can find more information about the possible values of this object on [this page](status-reasons).**
+   * You can find more information about the possible values of this object on
+   * [this page](status-reasons).**
    */
   statusReason?: ListAllSubscriptionsStatusReason | null | undefined;
   /**
@@ -1312,7 +1803,11 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   isCancelable?: boolean | null | undefined;
   /**
-   * An object containing payment details collected during the payment process. For example, details may include the customer's card or bank details and a payment reference. For the full list of details, please refer to the [method-specific parameters](extra-payment-parameters) guide.
+   * An object containing payment details collected during the payment process. For example, details may include the
+   *
+   * @remarks
+   * customer's card or bank details and a payment reference. For the full list of details, please refer to the
+   * [method-specific parameters](extra-payment-parameters) guide.
    */
   details?: { [k: string]: any } | null | undefined;
   /**
@@ -1320,27 +1815,45 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   createdAt: string;
   /**
-   * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is not authorized (yet).
+   * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
+   *
+   * @remarks
+   * not authorized (yet).
    */
   authorizedAt?: string | null | undefined;
   /**
-   * The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not completed (yet).
+   * The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not
+   *
+   * @remarks
+   * completed (yet).
    */
   paidAt?: string | null | undefined;
   /**
-   * The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not canceled (yet).
+   * The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not
+   *
+   * @remarks
+   * canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
-   * The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no longer expire.
+   * The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no
+   *
+   * @remarks
+   * longer expire.
    */
   expiresAt?: string | null | undefined;
   /**
-   * The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not expire (yet).
+   * The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not
+   *
+   * @remarks
+   * expire (yet).
    */
   expiredAt?: string | null | undefined;
   /**
-   * The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail (yet).
+   * The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail
+   *
+   * @remarks
+   * (yet).
    */
   failedAt?: string | null | undefined;
   /**
@@ -1439,11 +1952,13 @@ export type ListAllSubscriptionsLinks = {
  */
 export type ListAllSubscriptionsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListAllSubscriptionsEmbedded | undefined;
@@ -1454,6 +1969,27 @@ export type ListAllSubscriptionsResponse = {
 };
 
 /** @internal */
+export const ListAllSubscriptionsSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsSort
+> = z.nativeEnum(ListAllSubscriptionsSort);
+
+/** @internal */
+export const ListAllSubscriptionsSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsSort
+> = ListAllSubscriptionsSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsSort$ {
+  /** @deprecated use `ListAllSubscriptionsSort$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsSort$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSort$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsSort$outboundSchema;
+}
+
+/** @internal */
 export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
   ListAllSubscriptionsRequest,
   z.ZodTypeDef,
@@ -1461,7 +1997,7 @@ export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListAllSubscriptionsSort$inboundSchema.default("desc")),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1470,7 +2006,7 @@ export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
 export type ListAllSubscriptionsRequest$Outbound = {
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -1483,7 +2019,7 @@ export const ListAllSubscriptionsRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListAllSubscriptionsSort$outboundSchema.default("desc")),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1652,6 +2188,27 @@ export function listAllSubscriptionsBadRequestLinksFromJSON(
       ListAllSubscriptionsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllSubscriptionsBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListAllSubscriptionsMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsMode
+> = z.nativeEnum(ListAllSubscriptionsMode);
+
+/** @internal */
+export const ListAllSubscriptionsMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsMode
+> = ListAllSubscriptionsMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsMode$ {
+  /** @deprecated use `ListAllSubscriptionsMode$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsMode$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsMode$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsMode$outboundSchema;
 }
 
 /** @internal */
@@ -2020,6 +2577,27 @@ export function listAllSubscriptionsSettlementAmountFromJSON(
 }
 
 /** @internal */
+export const ListAllSubscriptionsLineType$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsLineType
+> = z.nativeEnum(ListAllSubscriptionsLineType);
+
+/** @internal */
+export const ListAllSubscriptionsLineType$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsLineType
+> = ListAllSubscriptionsLineType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsLineType$ {
+  /** @deprecated use `ListAllSubscriptionsLineType$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsLineType$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsLineType$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsLineType$outboundSchema;
+}
+
+/** @internal */
 export const ListAllSubscriptionsUnitPrice$inboundSchema: z.ZodType<
   ListAllSubscriptionsUnitPrice,
   z.ZodTypeDef,
@@ -2279,6 +2857,27 @@ export namespace ListAllSubscriptionsCategory$ {
 }
 
 /** @internal */
+export const ListAllSubscriptionsInterval$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsInterval
+> = z.nativeEnum(ListAllSubscriptionsInterval);
+
+/** @internal */
+export const ListAllSubscriptionsInterval$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsInterval
+> = ListAllSubscriptionsInterval$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsInterval$ {
+  /** @deprecated use `ListAllSubscriptionsInterval$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsInterval$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsInterval$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsInterval$outboundSchema;
+}
+
+/** @internal */
 export const ListAllSubscriptionsRecurringAmount$inboundSchema: z.ZodType<
   ListAllSubscriptionsRecurringAmount,
   z.ZodTypeDef,
@@ -2347,7 +2946,7 @@ export const ListAllSubscriptionsRecurring$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: ListAllSubscriptionsInterval$inboundSchema,
   amount: z.lazy(() => ListAllSubscriptionsRecurringAmount$inboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -2370,7 +2969,7 @@ export const ListAllSubscriptionsRecurring$outboundSchema: z.ZodType<
   ListAllSubscriptionsRecurring
 > = z.object({
   description: z.string().optional(),
-  interval: z.string(),
+  interval: ListAllSubscriptionsInterval$outboundSchema,
   amount: z.lazy(() => ListAllSubscriptionsRecurringAmount$outboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -2416,7 +3015,7 @@ export const ListAllSubscriptionsLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: ListAllSubscriptionsLineType$inboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2437,7 +3036,7 @@ export const ListAllSubscriptionsLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListAllSubscriptionsLine$Outbound = {
-  type?: string | undefined;
+  type: string;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2459,7 +3058,7 @@ export const ListAllSubscriptionsLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsLine
 > = z.object({
-  type: z.string().optional(),
+  type: ListAllSubscriptionsLineType$outboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2694,6 +3293,48 @@ export function listAllSubscriptionsShippingAddressFromJSON(
 }
 
 /** @internal */
+export const ListAllSubscriptionsLocale$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsLocale
+> = z.nativeEnum(ListAllSubscriptionsLocale);
+
+/** @internal */
+export const ListAllSubscriptionsLocale$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsLocale
+> = ListAllSubscriptionsLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsLocale$ {
+  /** @deprecated use `ListAllSubscriptionsLocale$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsLocale$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsLocale$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsLocale$outboundSchema;
+}
+
+/** @internal */
+export const ListAllSubscriptionsMethod$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsMethod
+> = z.nativeEnum(ListAllSubscriptionsMethod);
+
+/** @internal */
+export const ListAllSubscriptionsMethod$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsMethod
+> = ListAllSubscriptionsMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsMethod$ {
+  /** @deprecated use `ListAllSubscriptionsMethod$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsMethod$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsMethod$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsMethod$outboundSchema;
+}
+
+/** @internal */
 export const ListAllSubscriptionsMetadata$inboundSchema: z.ZodType<
   ListAllSubscriptionsMetadata,
   z.ZodTypeDef,
@@ -2803,6 +3444,48 @@ export function listAllSubscriptionsMetadataUnionFromJSON(
     (x) => ListAllSubscriptionsMetadataUnion$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllSubscriptionsMetadataUnion' from JSON`,
   );
+}
+
+/** @internal */
+export const ListAllSubscriptionsCaptureMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsCaptureMode
+> = z.nativeEnum(ListAllSubscriptionsCaptureMode);
+
+/** @internal */
+export const ListAllSubscriptionsCaptureMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsCaptureMode
+> = ListAllSubscriptionsCaptureMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsCaptureMode$ {
+  /** @deprecated use `ListAllSubscriptionsCaptureMode$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsCaptureMode$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsCaptureMode$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsCaptureMode$outboundSchema;
+}
+
+/** @internal */
+export const ListAllSubscriptionsCaptureDelay$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsCaptureDelay
+> = z.nativeEnum(ListAllSubscriptionsCaptureDelay);
+
+/** @internal */
+export const ListAllSubscriptionsCaptureDelay$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsCaptureDelay
+> = ListAllSubscriptionsCaptureDelay$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsCaptureDelay$ {
+  /** @deprecated use `ListAllSubscriptionsCaptureDelay$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsCaptureDelay$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsCaptureDelay$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsCaptureDelay$outboundSchema;
 }
 
 /** @internal */
@@ -2937,6 +3620,27 @@ export function listAllSubscriptionsApplicationFeeFromJSON(
 }
 
 /** @internal */
+export const ListAllSubscriptionsRoutingMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsRoutingMode
+> = z.nativeEnum(ListAllSubscriptionsRoutingMode);
+
+/** @internal */
+export const ListAllSubscriptionsRoutingMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsRoutingMode
+> = ListAllSubscriptionsRoutingMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsRoutingMode$ {
+  /** @deprecated use `ListAllSubscriptionsRoutingMode$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsRoutingMode$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsRoutingMode$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsRoutingMode$outboundSchema;
+}
+
+/** @internal */
 export const ListAllSubscriptionsRoutingAmount$inboundSchema: z.ZodType<
   ListAllSubscriptionsRoutingAmount,
   z.ZodTypeDef,
@@ -2997,12 +3701,33 @@ export function listAllSubscriptionsRoutingAmountFromJSON(
 }
 
 /** @internal */
+export const ListAllSubscriptionsRoutingType$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsRoutingType
+> = z.nativeEnum(ListAllSubscriptionsRoutingType);
+
+/** @internal */
+export const ListAllSubscriptionsRoutingType$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsRoutingType
+> = ListAllSubscriptionsRoutingType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsRoutingType$ {
+  /** @deprecated use `ListAllSubscriptionsRoutingType$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsRoutingType$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsRoutingType$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsRoutingType$outboundSchema;
+}
+
+/** @internal */
 export const ListAllSubscriptionsDestination$inboundSchema: z.ZodType<
   ListAllSubscriptionsDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: ListAllSubscriptionsRoutingType$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -3018,7 +3743,7 @@ export const ListAllSubscriptionsDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsDestination
 > = z.object({
-  type: z.string(),
+  type: ListAllSubscriptionsRoutingType$outboundSchema,
   organizationId: z.string(),
 });
 
@@ -3242,7 +3967,7 @@ export const ListAllSubscriptionsRouting$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListAllSubscriptionsRoutingMode$inboundSchema,
   amount: z.lazy(() => ListAllSubscriptionsRoutingAmount$inboundSchema),
   destination: z.lazy(() => ListAllSubscriptionsDestination$inboundSchema),
   createdAt: z.string(),
@@ -3274,7 +3999,7 @@ export const ListAllSubscriptionsRouting$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListAllSubscriptionsRoutingMode$outboundSchema,
   amount: z.lazy(() => ListAllSubscriptionsRoutingAmount$outboundSchema),
   destination: z.lazy(() => ListAllSubscriptionsDestination$outboundSchema),
   createdAt: z.string(),
@@ -3317,6 +4042,48 @@ export function listAllSubscriptionsRoutingFromJSON(
     (x) => ListAllSubscriptionsRouting$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllSubscriptionsRouting' from JSON`,
   );
+}
+
+/** @internal */
+export const ListAllSubscriptionsSequenceType$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsSequenceType
+> = z.nativeEnum(ListAllSubscriptionsSequenceType);
+
+/** @internal */
+export const ListAllSubscriptionsSequenceType$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsSequenceType
+> = ListAllSubscriptionsSequenceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsSequenceType$ {
+  /** @deprecated use `ListAllSubscriptionsSequenceType$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsSequenceType$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSequenceType$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsSequenceType$outboundSchema;
+}
+
+/** @internal */
+export const ListAllSubscriptionsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsStatus
+> = z.nativeEnum(ListAllSubscriptionsStatus);
+
+/** @internal */
+export const ListAllSubscriptionsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsStatus
+> = ListAllSubscriptionsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsStatus$ {
+  /** @deprecated use `ListAllSubscriptionsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsStatus$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsStatus$outboundSchema;
 }
 
 /** @internal */
@@ -4409,7 +5176,7 @@ export const ListAllSubscriptionsPaymentOutput$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListAllSubscriptionsMode$inboundSchema,
   description: z.string(),
   amount: z.lazy(() => ListAllSubscriptionsAmount$inboundSchema),
   amountRefunded: z.lazy(() => ListAllSubscriptionsAmountRefunded$inboundSchema)
@@ -4436,9 +5203,9 @@ export const ListAllSubscriptionsPaymentOutput$inboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     ListAllSubscriptionsShippingAddress$inboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(ListAllSubscriptionsLocale$inboundSchema).optional(),
   countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(ListAllSubscriptionsMethod$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.union([
@@ -4447,8 +5214,11 @@ export const ListAllSubscriptionsPaymentOutput$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    ListAllSubscriptionsCaptureMode$inboundSchema.default("automatic"),
+  ),
+  captureDelay: z.nullable(ListAllSubscriptionsCaptureDelay$inboundSchema)
+    .optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListAllSubscriptionsApplicationFee$inboundSchema),
@@ -4456,14 +5226,16 @@ export const ListAllSubscriptionsPaymentOutput$inboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListAllSubscriptionsRouting$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()),
+  sequenceType: z.nullable(
+    ListAllSubscriptionsSequenceType$inboundSchema.default("oneoff"),
+  ),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: z.string(),
+  status: ListAllSubscriptionsStatus$inboundSchema,
   statusReason: z.nullable(
     z.lazy(() => ListAllSubscriptionsStatusReason$inboundSchema),
   ).optional(),
@@ -4513,7 +5285,7 @@ export type ListAllSubscriptionsPaymentOutput$Outbound = {
     | Array<string>
     | null
     | undefined;
-  captureMode?: string | null | undefined;
+  captureMode: string | null;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
   applicationFee?:
@@ -4550,7 +5322,7 @@ export const ListAllSubscriptionsPaymentOutput$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: ListAllSubscriptionsMode$outboundSchema,
   description: z.string(),
   amount: z.lazy(() => ListAllSubscriptionsAmount$outboundSchema),
   amountRefunded: z.lazy(() =>
@@ -4580,9 +5352,9 @@ export const ListAllSubscriptionsPaymentOutput$outboundSchema: z.ZodType<
   shippingAddress: z.lazy(() =>
     ListAllSubscriptionsShippingAddress$outboundSchema
   ).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(ListAllSubscriptionsLocale$outboundSchema).optional(),
   countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(ListAllSubscriptionsMethod$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.union([
@@ -4591,8 +5363,11 @@ export const ListAllSubscriptionsPaymentOutput$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(z.string()).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
+  captureMode: z.nullable(
+    ListAllSubscriptionsCaptureMode$outboundSchema.default("automatic"),
+  ),
+  captureDelay: z.nullable(ListAllSubscriptionsCaptureDelay$outboundSchema)
+    .optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListAllSubscriptionsApplicationFee$outboundSchema),
@@ -4600,14 +5375,16 @@ export const ListAllSubscriptionsPaymentOutput$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListAllSubscriptionsRouting$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(z.string()),
+  sequenceType: z.nullable(
+    ListAllSubscriptionsSequenceType$outboundSchema.default("oneoff"),
+  ),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: z.string(),
+  status: ListAllSubscriptionsStatus$outboundSchema,
   statusReason: z.nullable(
     z.lazy(() => ListAllSubscriptionsStatusReason$outboundSchema),
   ).optional(),

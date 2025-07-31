@@ -1,6 +1,7 @@
 # GetSalesInvoiceInvoicePayment
 
-The URL your customer should visit to make payment for the invoice. This is where you should redirect the customer to unless the `status` is set to `paid`.
+The URL your customer should visit to make payment for the invoice. This is where you should redirect the
+customer to unless the `status` is set to `paid`.
 
 ## Example Usage
 

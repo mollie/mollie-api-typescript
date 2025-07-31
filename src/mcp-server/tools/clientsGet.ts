@@ -14,11 +14,7 @@ export const tool$clientsGet: ToolDefinition<typeof args> = {
   name: "clients-get",
   description: `Get client
 
-Retrieve a single client by its ID.
-
-> 🔑 Access with
->
-> [Access token with **clients.read**](/reference/authentication)`,
+Retrieve a single client by its ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await clientsGet(

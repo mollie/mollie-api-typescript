@@ -70,7 +70,7 @@ let value: ListAllSubscriptionsEmbedded = {
           productUrl: "https://...",
           recurring: {
             description: "Gym subscription",
-            interval: "12 months",
+            interval: "... months",
             amount: {
               currency: "EUR",
               value: "10.00",
@@ -113,7 +113,7 @@ let value: ListAllSubscriptionsEmbedded = {
       method: "ideal",
       restrictPaymentMethodsToCountry: "NL",
       captureMode: "manual",
-      captureDelay: "8 hours",
+      captureDelay: "... days",
       captureBefore: "2024-03-20T09:28:37.0Z",
       applicationFee: {
         amount: {
@@ -149,7 +149,6 @@ let value: ListAllSubscriptionsEmbedded = {
           },
         },
       ],
-      sequenceType: "oneoff",
       subscriptionId: "sub_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",

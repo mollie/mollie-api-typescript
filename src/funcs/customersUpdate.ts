@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Update an existing customer.
  *
  * For an in-depth explanation of each parameter, refer to the [Create customer](create-customer) endpoint.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
  */
 export function customersUpdate(
   client: ClientCore,

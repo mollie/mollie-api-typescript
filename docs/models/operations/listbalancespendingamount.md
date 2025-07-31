@@ -1,6 +1,7 @@
 # ListBalancesPendingAmount
 
-The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a few days to clear.
+The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+few days to clear.
 
 ## Example Usage
 

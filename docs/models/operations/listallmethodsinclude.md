@@ -1,6 +1,7 @@
 # ListAllMethodsInclude
 
-This endpoint allows you to include additional information via the `include` query string parameter.
+This endpoint allows you to include additional information via the
+`include` query string parameter.
 
 ## Example Usage
 

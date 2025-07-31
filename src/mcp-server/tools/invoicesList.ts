@@ -14,13 +14,10 @@ export const tool$invoicesList: ToolDefinition<typeof args> = {
   name: "invoices-list",
   description: `List invoices
 
-Retrieve a list of all your invoices, optionally filtered by year or by invoice reference.
+Retrieve a list of all your invoices, optionally filtered by year or by
+invoice reference.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [Access token with **invoices.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await invoicesList(

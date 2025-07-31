@@ -70,7 +70,7 @@ let value: GetPaymentLinkPaymentsEmbedded = {
           productUrl: "https://...",
           recurring: {
             description: "Gym subscription",
-            interval: "12 months",
+            interval: "... months",
             amount: {
               currency: "EUR",
               value: "10.00",
@@ -113,7 +113,7 @@ let value: GetPaymentLinkPaymentsEmbedded = {
       method: "ideal",
       restrictPaymentMethodsToCountry: "NL",
       captureMode: "manual",
-      captureDelay: "8 hours",
+      captureDelay: "... hours",
       captureBefore: "2024-03-20T09:28:37.0Z",
       applicationFee: {
         amount: {
@@ -122,34 +122,7 @@ let value: GetPaymentLinkPaymentsEmbedded = {
         },
         description: "10",
       },
-      routing: [
-        {
-          resource: "route",
-          id: "rt_5B8cwPMGnU",
-          mode: "live",
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          destination: {
-            type: "organization",
-            organizationId: "org_1234567",
-          },
-          createdAt: "2024-12-12T10:00:00Z",
-          releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
-        },
-      ],
-      sequenceType: "oneoff",
+      routing: null,
       subscriptionId: "sub_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
@@ -157,7 +130,12 @@ let value: GetPaymentLinkPaymentsEmbedded = {
       settlementId: "stl_5B8cwPMGnU",
       orderId: "ord_5B8cwPMGnU",
       status: "open",
-      statusReason: null,
+      statusReason: {
+        code: "insufficient_funds",
+        message:
+          "The account associated with the card has insufficient funds. The shopper should use another payment method or\n"
+          + "contact their bank.",
+      },
       isCancelable: true,
       createdAt: "2024-03-20T09:13:37.0Z",
       authorizedAt: "2024-03-20T09:28:37.0Z",

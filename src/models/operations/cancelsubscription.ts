@@ -5,14 +5,16 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CancelSubscriptionRequestBody = {
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
    *
    * @remarks
+   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -47,7 +49,45 @@ export type CancelSubscriptionNotFoundLinks = {
 };
 
 /**
- * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CancelSubscriptionMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CancelSubscriptionMode = ClosedEnum<typeof CancelSubscriptionMode>;
+
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export const CancelSubscriptionStatus = {
+  Pending: "pending",
+  Active: "active",
+  Canceled: "canceled",
+  Suspended: "suspended",
+  Completed: "completed",
+} as const;
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export type CancelSubscriptionStatus = ClosedEnum<
+  typeof CancelSubscriptionStatus
+>;
+
+/**
+ * The amount for each individual payment that is charged with this subscription. For example, for a monthly
+ *
+ * @remarks
+ * subscription of €10, the subscription amount should be set to €10.
  */
 export type CancelSubscriptionAmount = {
   /**
@@ -59,6 +99,44 @@ export type CancelSubscriptionAmount = {
    */
   value: string;
 };
+
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export const CancelSubscriptionInterval = {
+  DotDotDotDays: "... days",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotMonths: "... months",
+} as const;
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export type CancelSubscriptionInterval = ClosedEnum<
+  typeof CancelSubscriptionInterval
+>;
+
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export const CancelSubscriptionMethod = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export type CancelSubscriptionMethod = ClosedEnum<
+  typeof CancelSubscriptionMethod
+>;
 
 /**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -75,13 +153,15 @@ export type CancelSubscriptionApplicationFeeAmount = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
  * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
  *
- * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+ * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+ * information.
  */
 export type CancelSubscriptionApplicationFee = {
   /**
@@ -94,9 +174,11 @@ export type CancelSubscriptionApplicationFee = {
 export type CancelSubscriptionMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
  * @remarks
+ * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+ * 1kB.
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
@@ -162,7 +244,10 @@ export type CancelSubscriptionProfile = {
 };
 
 /**
- * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+ * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+ *
+ * @remarks
+ * payments exist (yet).
  */
 export type CancelSubscriptionPayments = {
   /**
@@ -210,7 +295,10 @@ export type CancelSubscriptionLinks = {
    */
   profile?: CancelSubscriptionProfile | null | undefined;
   /**
-   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+   *
+   * @remarks
+   * payments exist (yet).
    */
   payments?: CancelSubscriptionPayments | null | undefined;
   /**
@@ -220,11 +308,17 @@ export type CancelSubscriptionLinks = {
 };
 
 /**
- * The updated subscription object with status `canceled`. For a complete reference of the subscription object, refer to the [Get subscription endpoint](get-subscription) documentation.
+ * The updated subscription object with status `canceled`. For a complete reference of the subscription object,
+ *
+ * @remarks
+ * refer to the [Get subscription endpoint](get-subscription) documentation.
  */
 export type CancelSubscriptionResponse = {
   /**
-   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this endpoint.
+   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -233,28 +327,27 @@ export type CancelSubscriptionResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode?: CancelSubscriptionMode | undefined;
+  /**
+   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
+   * enabling the subscription.
    */
-  mode?: string | undefined;
+  status?: CancelSubscriptionStatus | undefined;
   /**
-   * The subscription's current status is directly related to the status of the underlying customer or mandate that is enabling the subscription.
+   * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
-   *
-   * Possible values: `pending` `active` `canceled` `suspended` `completed`
-   */
-  status?: string | undefined;
-  /**
-   * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+   * subscription of €10, the subscription amount should be set to €10.
    */
   amount?: CancelSubscriptionAmount | undefined;
   /**
-   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is considered completed.
+   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
    * @remarks
+   * considered completed.
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
@@ -269,48 +362,50 @@ export type CancelSubscriptionResponse = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
-   *
-   * Possible values: `... days` `... weeks` `... months`
    */
-  interval?: string | undefined;
+  interval?: CancelSubscriptionInterval | undefined;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
   startDate?: string | undefined;
   /**
-   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled, this parameter will not be returned.
+   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
+   *
+   * @remarks
+   * this parameter will not be returned.
    */
   nextPaymentDate?: string | null | undefined;
   /**
-   * The subscription's description will be used as the description of the resulting individual payments and so showing up on the bank statement of the consumer.
+   * The subscription's description will be used as the description of the resulting individual payments and so showing
    *
    * @remarks
+   * up on the bank statement of the consumer.
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
   description?: string | undefined;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
-   *
-   * @remarks
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method?: string | null | undefined;
+  method?: CancelSubscriptionMethod | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
    * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
    *
-   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+   * information.
    */
   applicationFee?: CancelSubscriptionApplicationFee | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
    *
    * @remarks
+   * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+   * 1kB.
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
@@ -325,7 +420,8 @@ export type CancelSubscriptionResponse = {
    *
    * @remarks
    *
-   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as well. Be sure to verify the payment's subscription ID and its status.
+   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
+   * well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl?: string | undefined;
   /**
@@ -341,7 +437,10 @@ export type CancelSubscriptionResponse = {
    */
   createdAt?: string | undefined;
   /**
-   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the subscription is not canceled (yet).
+   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
+   *
+   * @remarks
+   * subscription is not canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
@@ -605,6 +704,48 @@ export function cancelSubscriptionNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const CancelSubscriptionMode$inboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionMode
+> = z.nativeEnum(CancelSubscriptionMode);
+
+/** @internal */
+export const CancelSubscriptionMode$outboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionMode
+> = CancelSubscriptionMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CancelSubscriptionMode$ {
+  /** @deprecated use `CancelSubscriptionMode$inboundSchema` instead. */
+  export const inboundSchema = CancelSubscriptionMode$inboundSchema;
+  /** @deprecated use `CancelSubscriptionMode$outboundSchema` instead. */
+  export const outboundSchema = CancelSubscriptionMode$outboundSchema;
+}
+
+/** @internal */
+export const CancelSubscriptionStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionStatus
+> = z.nativeEnum(CancelSubscriptionStatus);
+
+/** @internal */
+export const CancelSubscriptionStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionStatus
+> = CancelSubscriptionStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CancelSubscriptionStatus$ {
+  /** @deprecated use `CancelSubscriptionStatus$inboundSchema` instead. */
+  export const inboundSchema = CancelSubscriptionStatus$inboundSchema;
+  /** @deprecated use `CancelSubscriptionStatus$outboundSchema` instead. */
+  export const outboundSchema = CancelSubscriptionStatus$outboundSchema;
+}
+
+/** @internal */
 export const CancelSubscriptionAmount$inboundSchema: z.ZodType<
   CancelSubscriptionAmount,
   z.ZodTypeDef,
@@ -659,6 +800,48 @@ export function cancelSubscriptionAmountFromJSON(
     (x) => CancelSubscriptionAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CancelSubscriptionAmount' from JSON`,
   );
+}
+
+/** @internal */
+export const CancelSubscriptionInterval$inboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionInterval
+> = z.nativeEnum(CancelSubscriptionInterval);
+
+/** @internal */
+export const CancelSubscriptionInterval$outboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionInterval
+> = CancelSubscriptionInterval$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CancelSubscriptionInterval$ {
+  /** @deprecated use `CancelSubscriptionInterval$inboundSchema` instead. */
+  export const inboundSchema = CancelSubscriptionInterval$inboundSchema;
+  /** @deprecated use `CancelSubscriptionInterval$outboundSchema` instead. */
+  export const outboundSchema = CancelSubscriptionInterval$outboundSchema;
+}
+
+/** @internal */
+export const CancelSubscriptionMethod$inboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionMethod
+> = z.nativeEnum(CancelSubscriptionMethod);
+
+/** @internal */
+export const CancelSubscriptionMethod$outboundSchema: z.ZodNativeEnum<
+  typeof CancelSubscriptionMethod
+> = CancelSubscriptionMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CancelSubscriptionMethod$ {
+  /** @deprecated use `CancelSubscriptionMethod$inboundSchema` instead. */
+  export const inboundSchema = CancelSubscriptionMethod$inboundSchema;
+  /** @deprecated use `CancelSubscriptionMethod$outboundSchema` instead. */
+  export const outboundSchema = CancelSubscriptionMethod$outboundSchema;
 }
 
 /** @internal */
@@ -1325,16 +1508,16 @@ export const CancelSubscriptionResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: CancelSubscriptionMode$inboundSchema.optional(),
+  status: CancelSubscriptionStatus$inboundSchema.optional(),
   amount: z.lazy(() => CancelSubscriptionAmount$inboundSchema).optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: CancelSubscriptionInterval$inboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CancelSubscriptionMethod$inboundSchema).optional(),
   applicationFee: z.lazy(() => CancelSubscriptionApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1393,16 +1576,16 @@ export const CancelSubscriptionResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: CancelSubscriptionMode$outboundSchema.optional(),
+  status: CancelSubscriptionStatus$outboundSchema.optional(),
   amount: z.lazy(() => CancelSubscriptionAmount$outboundSchema).optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: CancelSubscriptionInterval$outboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CancelSubscriptionMethod$outboundSchema).optional(),
   applicationFee: z.lazy(() => CancelSubscriptionApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(

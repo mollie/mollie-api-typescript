@@ -14,13 +14,7 @@ export const tool$paymentLinksGet: ToolDefinition<typeof args> = {
   name: "payment-links-get",
   description: `Get payment link
 
-Retrieve a single payment link by its ID.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.read**](/reference/authentication)`,
+Retrieve a single payment link by its ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await paymentLinksGet(

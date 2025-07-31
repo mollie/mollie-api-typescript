@@ -1,6 +1,7 @@
 # ListSettlementPaymentsAmountChargedBack
 
-The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+The total amount that was charged back for this payment. Only available when the total charged back amount is not
+zero.
 
 ## Example Usage
 

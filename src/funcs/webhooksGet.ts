@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single webhook object by its ID.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **webhooks.read**](/reference/authentication)
  */
 export function webhooksGet(
   client: ClientCore,

@@ -14,12 +14,9 @@ Retrieve a list of all permissions available to the current access token.
 
 The results are **not** paginated.
 
-> 🔑 Access with
->
-> [Access token](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-permissions" method="get" path="/permissions" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -90,12 +87,9 @@ run();
 
 Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
 
-> 🔑 Access with
->
-> [Access token](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-permission" method="get" path="/permissions/{permissionId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

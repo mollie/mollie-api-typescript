@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all your settlements.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **settlements.read**](/reference/authentication)
  */
 export function settlementsList(
   client: ClientCore,

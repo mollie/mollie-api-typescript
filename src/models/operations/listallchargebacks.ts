@@ -10,21 +10,48 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This endpoint allows you to embed additional information via the `embed` query string parameter.
+ * This endpoint allows you to embed additional information via the
+ *
+ * @remarks
+ * `embed` query string parameter.
  */
 export const ListAllChargebacksEmbed = {
   Payment: "payment",
 } as const;
 /**
- * This endpoint allows you to embed additional information via the `embed` query string parameter.
+ * This endpoint allows you to embed additional information via the
+ *
+ * @remarks
+ * `embed` query string parameter.
  */
 export type ListAllChargebacksEmbed = ClosedEnum<
   typeof ListAllChargebacksEmbed
 >;
 
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListAllChargebacksSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListAllChargebacksSort = ClosedEnum<typeof ListAllChargebacksSort>;
+
 export type ListAllChargebacksRequest = {
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -32,31 +59,38 @@ export type ListAllChargebacksRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * This endpoint allows you to embed additional information via the `embed` query string parameter.
+   * This endpoint allows you to embed additional information via the
+   *
+   * @remarks
+   * `embed` query string parameter.
    */
   embed?: ListAllChargebacksEmbed | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListAllChargebacksSort | null | undefined;
   /**
-   * The identifier referring to the [profile](get-profile) you wish to retrieve chargebacks for.
+   * The identifier referring to the [profile](get-profile) you wish to
    *
    * @remarks
+   * retrieve chargebacks for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` is already implied.
+   * Most API credentials are linked to a single profile. In these cases the
+   * `profileId` is already implied.
    *
-   * To retrieve all chargebacks across the organization, use an organization-level API credential and omit the `profileId` parameter.
+   * To retrieve all chargebacks across the organization, use an
+   * organization-level API credential and omit the `profileId` parameter.
    */
   profileId?: string | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -108,13 +142,16 @@ export type ListAllChargebacksAmount = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
  *
  * @remarks
+ * to the currency your account is settled in.
  *
  * The amount is a **negative** amount.
  *
- * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve
+ * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+ * instead.
  */
 export type ListAllChargebacksSettlementAmount = {
   /**
@@ -170,7 +207,10 @@ export type ListAllChargebacksPayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if
+ *
+ * @remarks
+ * not yet settled.
  */
 export type ListAllChargebacksSettlement = {
   /**
@@ -210,7 +250,10 @@ export type ListAllChargebacksChargebackLinks = {
    */
   payment: ListAllChargebacksPayment;
   /**
-   * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if
+   *
+   * @remarks
+   * not yet settled.
    */
   settlement?: ListAllChargebacksSettlement | null | undefined;
   /**
@@ -221,7 +264,10 @@ export type ListAllChargebacksChargebackLinks = {
 
 export type ListAllChargebacksChargeback = {
   /**
-   * Indicates the response contains a chargeback object. Will always contain the string `chargeback` for this endpoint.
+   * Indicates the response contains a chargeback object. Will always contain the string `chargeback` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource: string;
   /**
@@ -233,13 +279,16 @@ export type ListAllChargebacksChargeback = {
    */
   amount: ListAllChargebacksAmount;
   /**
-   * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
    *
    * @remarks
+   * to the currency your account is settled in.
    *
    * The amount is a **negative** amount.
    *
-   * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve
+   * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+   * instead.
    */
   settlementAmount?: ListAllChargebacksSettlementAmount | null | undefined;
   /**
@@ -247,11 +296,17 @@ export type ListAllChargebacksChargeback = {
    */
   reason?: ListAllChargebacksReason | null | undefined;
   /**
-   * The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId: string;
   /**
-   * The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field is omitted if the refund is not settled (yet).
+   * The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field
+   *
+   * @remarks
+   * is omitted if the refund is not settled (yet).
    */
   settlementId?: string | null | undefined;
   /**
@@ -259,7 +314,10 @@ export type ListAllChargebacksChargeback = {
    */
   createdAt: string;
   /**
-   * The date and time the chargeback was reversed if applicable, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * The date and time the chargeback was reversed if applicable, in
+   *
+   * @remarks
+   * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   reversedAt?: string | null | undefined;
   /**
@@ -358,11 +416,13 @@ export type ListAllChargebacksLinks = {
  */
 export type ListAllChargebacksResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListAllChargebacksEmbedded | undefined;
@@ -394,6 +454,27 @@ export namespace ListAllChargebacksEmbed$ {
 }
 
 /** @internal */
+export const ListAllChargebacksSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllChargebacksSort
+> = z.nativeEnum(ListAllChargebacksSort);
+
+/** @internal */
+export const ListAllChargebacksSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllChargebacksSort
+> = ListAllChargebacksSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllChargebacksSort$ {
+  /** @deprecated use `ListAllChargebacksSort$inboundSchema` instead. */
+  export const inboundSchema = ListAllChargebacksSort$inboundSchema;
+  /** @deprecated use `ListAllChargebacksSort$outboundSchema` instead. */
+  export const outboundSchema = ListAllChargebacksSort$outboundSchema;
+}
+
+/** @internal */
 export const ListAllChargebacksRequest$inboundSchema: z.ZodType<
   ListAllChargebacksRequest,
   z.ZodTypeDef,
@@ -402,7 +483,7 @@ export const ListAllChargebacksRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
   embed: ListAllChargebacksEmbed$inboundSchema.optional(),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListAllChargebacksSort$inboundSchema.default("desc")),
   profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -412,7 +493,7 @@ export type ListAllChargebacksRequest$Outbound = {
   from?: string | undefined;
   limit: number | null;
   embed?: string | undefined;
-  sort?: string | null | undefined;
+  sort: string | null;
   profileId?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -426,7 +507,7 @@ export const ListAllChargebacksRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
   embed: ListAllChargebacksEmbed$outboundSchema.optional(),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListAllChargebacksSort$outboundSchema.default("desc")),
   profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

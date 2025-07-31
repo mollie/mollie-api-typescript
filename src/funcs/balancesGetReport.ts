@@ -31,13 +31,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve a summarized report for all transactions on a given balance within a given timeframe.
  *
- * The API also provides a detailed report on all 'prepayments' for Mollie fees that were deducted from your balance during the reported period, ahead of your Mollie invoice.
+ * The API also provides a detailed report on all 'prepayments' for Mollie fees that were deducted from your balance
+ * during the reported period, ahead of your Mollie invoice.
  *
- * The alias `primary` can be used instead of the balance ID to refer to the organization's primary balance.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **balance-reports.read**](/reference/authentication)
+ * The alias `primary` can be used instead of the balance ID to refer to the
+ * organization's primary balance.
  */
 export function balancesGetReport(
   client: ClientCore,

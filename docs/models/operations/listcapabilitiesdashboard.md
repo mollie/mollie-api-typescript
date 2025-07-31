@@ -1,6 +1,7 @@
 # ListCapabilitiesDashboard
 
-If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled. For example, where necessary documents are to be uploaded.
+If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
+For example, where necessary documents are to be uploaded.
 
 ## Example Usage
 

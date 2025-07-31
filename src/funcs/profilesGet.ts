@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single profile by its ID.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **profiles.read**](/reference/authentication)
  */
 export function profilesGet(
   client: ClientCore,

@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -31,7 +32,10 @@ export type PaymentListRoutesNotFoundLinks = {
 };
 
 /**
- * The amount of the route. That amount that will be routed to the specified destination.
+ * The amount of the route.
+ *
+ * @remarks
+ * That amount that will be routed to the specified destination.
  */
 export type PaymentListRoutesAmount = {
   /**
@@ -45,19 +49,29 @@ export type PaymentListRoutesAmount = {
 };
 
 /**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export const PaymentListRoutesType = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export type PaymentListRoutesType = ClosedEnum<typeof PaymentListRoutesType>;
+
+/**
  * The destination of the route.
  */
 export type PaymentListRoutesDestination = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: PaymentListRoutesType;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type: string;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   * routed to.
    */
   organizationId: string;
 };
@@ -110,15 +124,24 @@ export type Route = {
    */
   resource?: string | undefined;
   /**
-   * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
+   * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
    */
   id: string;
   /**
-   * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId: string;
   /**
-   * The amount of the route. That amount that will be routed to the specified destination.
+   * The amount of the route.
+   *
+   * @remarks
+   * That amount that will be routed to the specified destination.
    */
   amount: PaymentListRoutesAmount;
   /**
@@ -193,11 +216,13 @@ export type PaymentListRoutesLinks = {
  */
 export type PaymentListRoutesResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: PaymentListRoutesEmbedded | undefined;
@@ -442,12 +467,33 @@ export function paymentListRoutesAmountFromJSON(
 }
 
 /** @internal */
+export const PaymentListRoutesType$inboundSchema: z.ZodNativeEnum<
+  typeof PaymentListRoutesType
+> = z.nativeEnum(PaymentListRoutesType);
+
+/** @internal */
+export const PaymentListRoutesType$outboundSchema: z.ZodNativeEnum<
+  typeof PaymentListRoutesType
+> = PaymentListRoutesType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PaymentListRoutesType$ {
+  /** @deprecated use `PaymentListRoutesType$inboundSchema` instead. */
+  export const inboundSchema = PaymentListRoutesType$inboundSchema;
+  /** @deprecated use `PaymentListRoutesType$outboundSchema` instead. */
+  export const outboundSchema = PaymentListRoutesType$outboundSchema;
+}
+
+/** @internal */
 export const PaymentListRoutesDestination$inboundSchema: z.ZodType<
   PaymentListRoutesDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: PaymentListRoutesType$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -463,7 +509,7 @@ export const PaymentListRoutesDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentListRoutesDestination
 > = z.object({
-  type: z.string(),
+  type: PaymentListRoutesType$outboundSchema,
   organizationId: z.string(),
 });
 

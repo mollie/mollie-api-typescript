@@ -16,13 +16,7 @@ export const tool$refundsAll: ToolDefinition<typeof args> = {
 
 Retrieve a list of all of your refunds.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **refunds.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await refundsAll(

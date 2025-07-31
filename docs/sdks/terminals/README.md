@@ -14,14 +14,9 @@ Retrieve a list of all physical point-of-sale devices.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **terminals.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-terminals" method="get" path="/terminals" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -34,7 +29,6 @@ const client = new Client({
 async function run() {
   const result = await client.terminals.list({
     from: "term_vytxeTZskVKR7C7WgdSP3d",
-    sort: "desc",
     testmode: false,
   });
 
@@ -63,7 +57,6 @@ const client = new ClientCore({
 async function run() {
   const res = await terminalsList(client, {
     from: "term_vytxeTZskVKR7C7WgdSP3d",
-    sort: "desc",
     testmode: false,
   });
   if (res.ok) {
@@ -101,14 +94,9 @@ run();
 
 Retrieve a single terminal by its ID.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **terminals.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-terminal" method="get" path="/terminals/{terminalId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

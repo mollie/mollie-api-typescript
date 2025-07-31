@@ -1,10 +1,13 @@
 # GetPaymentChangePaymentState
 
-For test mode payments in certain scenarios, a hosted interface is available to help you test different payment states.
+For test mode payments in certain scenarios, a hosted interface is available to help you test different
+payment states.
 
-Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these payments are executed without any user interaction.
+Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+payments are executed without any user interaction.
 
-Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or chargeback for the test payment.
+Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+chargeback for the test payment.
 
 ## Example Usage
 

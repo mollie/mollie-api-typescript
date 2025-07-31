@@ -16,11 +16,7 @@ export const tool$customersUpdate: ToolDefinition<typeof args> = {
 
 Update an existing customer.
 
-For an in-depth explanation of each parameter, refer to the [Create customer](create-customer) endpoint.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)`,
+For an in-depth explanation of each parameter, refer to the [Create customer](create-customer) endpoint.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await customersUpdate(

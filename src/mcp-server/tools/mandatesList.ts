@@ -16,13 +16,7 @@ export const tool$mandatesList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all mandates.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await mandatesList(

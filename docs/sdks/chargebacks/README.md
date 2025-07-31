@@ -15,14 +15,9 @@ Retrieve the chargebacks initiated for a specific payment.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-chargebacks" method="get" path="/payments/{paymentId}/chargebacks" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -105,14 +100,9 @@ run();
 
 Retrieve a single payment chargeback by its ID and the ID of its parent payment.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-chargeback" method="get" path="/payments/{paymentId}/chargebacks/{chargebackId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -196,14 +186,9 @@ Retrieve all chargebacks initiated for all your payments.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-all-chargebacks" method="get" path="/chargebacks" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -217,7 +202,6 @@ async function run() {
   const result = await client.chargebacks.all({
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     embed: "payment",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -248,7 +232,6 @@ async function run() {
   const res = await chargebacksAll(client, {
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     embed: "payment",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });

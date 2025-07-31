@@ -20,13 +20,7 @@ export const tool$salesInvoicesList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all sales invoices created through the API.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoices.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await salesInvoicesList(

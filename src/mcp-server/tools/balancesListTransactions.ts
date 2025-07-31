@@ -14,17 +14,16 @@ export const tool$balancesListTransactions: ToolDefinition<typeof args> = {
   name: "balances-list-transactions",
   description: `List balance transactions
 
-Retrieve a list of all balance transactions. Transactions include for example payments, refunds, chargebacks, and settlements.
+Retrieve a list of all balance transactions. Transactions include for
+example payments, refunds, chargebacks, and settlements.
 
-For an aggregated report of these balance transactions, refer to the [Get balance report](get-balance-report) endpoint.
+For an aggregated report of these balance transactions, refer to the [Get
+balance report](get-balance-report) endpoint.
 
-The alias \`primary\` can be used instead of the balance ID to refer to the organization's primary balance.
+The alias \`primary\` can be used instead of the balance ID to refer to the
+organization's primary balance.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [Access token with **balances.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await balancesListTransactions(

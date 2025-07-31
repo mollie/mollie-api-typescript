@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,9 +15,11 @@ export type GetTerminalRequest = {
    */
   terminalId: string;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -37,6 +40,57 @@ export type GetTerminalNotFoundLinks = {
    */
   documentation: GetTerminalNotFoundDocumentation;
 };
+
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetTerminalMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetTerminalMode = ClosedEnum<typeof GetTerminalMode>;
+
+/**
+ * The status of the terminal.
+ */
+export const GetTerminalStatus = {
+  Pending: "pending",
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+/**
+ * The status of the terminal.
+ */
+export type GetTerminalStatus = ClosedEnum<typeof GetTerminalStatus>;
+
+/**
+ * The brand of the terminal.
+ */
+export const GetTerminalBrand = {
+  Pax: "PAX",
+} as const;
+/**
+ * The brand of the terminal.
+ */
+export type GetTerminalBrand = ClosedEnum<typeof GetTerminalBrand>;
+
+/**
+ * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
+ */
+export const GetTerminalModel = {
+  A35: "A35",
+  A77: "A77",
+  A920: "A920",
+  A920Pro: "A920 Pro",
+  Im30: "IM30",
+} as const;
+/**
+ * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
+ */
+export type GetTerminalModel = ClosedEnum<typeof GetTerminalModel>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -94,46 +148,37 @@ export type GetTerminalResponse = {
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode: GetTerminalMode;
+  /**
+   * A short description of the terminal. The description can be used as an identifier for the terminal. Currently, the
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
-   */
-  mode: string;
-  /**
-   * A short description of the terminal. The description can be used as an identifier for the terminal. Currently, the description is set when the terminal is initially configured. It will be visible in the Mollie Dashboard, and it may be visible on the device itself depending on the device.
+   * description is set when the terminal is initially configured. It will be visible in the Mollie Dashboard, and it
+   * may be visible on the device itself depending on the device.
    */
   description: string;
   /**
    * The status of the terminal.
-   *
-   * @remarks
-   *
-   * Possible values: `pending` `active` `inactive`
    */
-  status: string;
+  status: GetTerminalStatus;
   /**
    * The brand of the terminal.
-   *
-   * @remarks
-   *
-   * Possible values: `PAX`
    */
-  brand: string | null;
+  brand: GetTerminalBrand | null;
   /**
    * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
-   *
-   * @remarks
-   *
-   * Possible values: `A35` `A77` `A920` `A920 Pro` `IM30`
    */
-  model: string | null;
+  model: GetTerminalModel | null;
   /**
    * The serial number of the terminal. The serial number is provided at terminal creation time.
    */
   serialNumber: string | null;
   /**
-   * The currency configured on the terminal, in ISO 4217 format. Currently most of our terminals are bound to a specific currency, chosen during setup.
+   * The currency configured on the terminal, in ISO 4217 format. Currently most of our terminals are bound to a
+   *
+   * @remarks
+   * specific currency, chosen during setup.
    */
   currency: string;
   /**
@@ -141,7 +186,9 @@ export type GetTerminalResponse = {
    *
    * @remarks
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
    */
   profileId: string;
   /**
@@ -329,6 +376,90 @@ export function getTerminalNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const GetTerminalMode$inboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalMode
+> = z.nativeEnum(GetTerminalMode);
+
+/** @internal */
+export const GetTerminalMode$outboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalMode
+> = GetTerminalMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetTerminalMode$ {
+  /** @deprecated use `GetTerminalMode$inboundSchema` instead. */
+  export const inboundSchema = GetTerminalMode$inboundSchema;
+  /** @deprecated use `GetTerminalMode$outboundSchema` instead. */
+  export const outboundSchema = GetTerminalMode$outboundSchema;
+}
+
+/** @internal */
+export const GetTerminalStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalStatus
+> = z.nativeEnum(GetTerminalStatus);
+
+/** @internal */
+export const GetTerminalStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalStatus
+> = GetTerminalStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetTerminalStatus$ {
+  /** @deprecated use `GetTerminalStatus$inboundSchema` instead. */
+  export const inboundSchema = GetTerminalStatus$inboundSchema;
+  /** @deprecated use `GetTerminalStatus$outboundSchema` instead. */
+  export const outboundSchema = GetTerminalStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetTerminalBrand$inboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalBrand
+> = z.nativeEnum(GetTerminalBrand);
+
+/** @internal */
+export const GetTerminalBrand$outboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalBrand
+> = GetTerminalBrand$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetTerminalBrand$ {
+  /** @deprecated use `GetTerminalBrand$inboundSchema` instead. */
+  export const inboundSchema = GetTerminalBrand$inboundSchema;
+  /** @deprecated use `GetTerminalBrand$outboundSchema` instead. */
+  export const outboundSchema = GetTerminalBrand$outboundSchema;
+}
+
+/** @internal */
+export const GetTerminalModel$inboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalModel
+> = z.nativeEnum(GetTerminalModel);
+
+/** @internal */
+export const GetTerminalModel$outboundSchema: z.ZodNativeEnum<
+  typeof GetTerminalModel
+> = GetTerminalModel$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetTerminalModel$ {
+  /** @deprecated use `GetTerminalModel$inboundSchema` instead. */
+  export const inboundSchema = GetTerminalModel$inboundSchema;
+  /** @deprecated use `GetTerminalModel$outboundSchema` instead. */
+  export const outboundSchema = GetTerminalModel$outboundSchema;
+}
+
+/** @internal */
 export const GetTerminalSelf$inboundSchema: z.ZodType<
   GetTerminalSelf,
   z.ZodTypeDef,
@@ -505,11 +636,11 @@ export const GetTerminalResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("terminal"),
   id: z.string(),
-  mode: z.string(),
+  mode: GetTerminalMode$inboundSchema,
   description: z.string(),
-  status: z.string(),
-  brand: z.nullable(z.string()),
-  model: z.nullable(z.string()),
+  status: GetTerminalStatus$inboundSchema,
+  brand: z.nullable(GetTerminalBrand$inboundSchema),
+  model: z.nullable(GetTerminalModel$inboundSchema),
   serialNumber: z.nullable(z.string()),
   currency: z.string(),
   profileId: z.string(),
@@ -547,11 +678,11 @@ export const GetTerminalResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("terminal"),
   id: z.string(),
-  mode: z.string(),
+  mode: GetTerminalMode$outboundSchema,
   description: z.string(),
-  status: z.string(),
-  brand: z.nullable(z.string()),
-  model: z.nullable(z.string()),
+  status: GetTerminalStatus$outboundSchema,
+  brand: z.nullable(GetTerminalBrand$outboundSchema),
+  model: z.nullable(GetTerminalModel$outboundSchema),
   serialNumber: z.nullable(z.string()),
   currency: z.string(),
   profileId: z.string(),

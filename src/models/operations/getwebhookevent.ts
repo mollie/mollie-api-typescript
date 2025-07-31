@@ -32,17 +32,68 @@ export type GetWebhookEventNotFoundLinks = {
 };
 
 /**
- * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile has been requested. The review object will therefore usually be `null` in test mode.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetWebhookEventMode2 = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetWebhookEventMode2 = ClosedEnum<typeof GetWebhookEventMode2>;
+
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export const GetWebhookEventStatus = {
+  Unverified: "unverified",
+  Verified: "verified",
+  Blocked: "blocked",
+} as const;
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export type GetWebhookEventStatus = ClosedEnum<typeof GetWebhookEventStatus>;
+
+/**
+ * The status of the requested changes.
+ */
+export const GetWebhookEventReviewStatus = {
+  Pending: "pending",
+  Rejected: "rejected",
+} as const;
+/**
+ * The status of the requested changes.
+ */
+export type GetWebhookEventReviewStatus = ClosedEnum<
+  typeof GetWebhookEventReviewStatus
+>;
+
+/**
+ * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
+ *
+ * @remarks
+ * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
+ * `null` in test mode.
  */
 export type GetWebhookEventReview = {
   /**
    * The status of the requested changes.
-   *
-   * @remarks
-   *
-   * Possible values: `pending` `rejected`
    */
-  status?: string | undefined;
+  status?: GetWebhookEventReviewStatus | undefined;
 };
 
 /**
@@ -206,18 +257,20 @@ export type GetWebhookEventProfile = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode?: GetWebhookEventMode2 | undefined;
+  /**
+   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
-   */
-  mode?: string | undefined;
-  /**
-   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or application.
+   * application.
    */
   name?: string | undefined;
   /**
-   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are allowed.
+   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are
+   *
+   * @remarks
+   * allowed.
    */
   website?: string | undefined;
   /**
@@ -233,11 +286,17 @@ export type GetWebhookEventProfile = {
    */
   description?: string | undefined;
   /**
-   * A list of countries where you expect that the majority of the profile's customers reside, in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   * A list of countries where you expect that the majority of the profile's customers reside,
+   *
+   * @remarks
+   * in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   countriesOfActivity?: Array<string> | undefined;
   /**
-   * The industry associated with the profile's trade name or brand. Please refer to the [business category list](common-data-types#business-category) for all possible options.
+   * The industry associated with the profile's trade name or brand. Please refer to the
+   *
+   * @remarks
+   * [business category list](common-data-types#business-category) for all possible options.
    */
   businessCategory?: string | undefined;
   /**
@@ -248,12 +307,14 @@ export type GetWebhookEventProfile = {
    * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
    * * `verified`: The profile has been verified and can be used to create live payments and test payments.
    * * `blocked`: The profile is blocked and can no longer be used or changed.
-   *
-   * Possible values: `unverified` `verified` `blocked`
    */
-  status?: string | undefined;
+  status?: GetWebhookEventStatus | undefined;
   /**
-   * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile has been requested. The review object will therefore usually be `null` in test mode.
+   * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
+   *
+   * @remarks
+   * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
+   * `null` in test mode.
    */
   review?: GetWebhookEventReview | undefined;
   /**
@@ -267,7 +328,22 @@ export type GetWebhookEventProfile = {
 };
 
 /**
- * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetWebhookEventMode1 = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetWebhookEventMode1 = ClosedEnum<typeof GetWebhookEventMode1>;
+
+/**
+ * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an
+ *
+ * @remarks
+ * amount.
  */
 export type GetWebhookEventAmount = {
   /**
@@ -281,7 +357,10 @@ export type GetWebhookEventAmount = {
 };
 
 /**
- * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
+ * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The
+ *
+ * @remarks
+ * customer will be prompted to enter a value greater than or equal to the minimum amount.
  */
 export type GetWebhookEventMinimumAmount = {
   /**
@@ -293,6 +372,32 @@ export type GetWebhookEventMinimumAmount = {
    */
   value: string;
 };
+
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export const GetWebhookEventType = {
+  Physical: "physical",
+  Digital: "digital",
+  ShippingFee: "shipping_fee",
+  Discount: "discount",
+  StoreCredit: "store_credit",
+  GiftCard: "gift_card",
+  Surcharge: "surcharge",
+  Tip: "tip",
+} as const;
+/**
+ * The type of product purchased. For example, a physical or a digital product.
+ *
+ * @remarks
+ *
+ * The `tip` payment line type is not available when creating a payment.
+ */
+export type GetWebhookEventType = ClosedEnum<typeof GetWebhookEventType>;
 
 /**
  * The price of a single item including VAT.
@@ -317,7 +422,10 @@ export type GetWebhookEventUnitPrice = {
 };
 
 /**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+ * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+ *
+ * @remarks
+ * type.
  */
 export type GetWebhookEventDiscountAmount = {
   /**
@@ -351,13 +459,15 @@ export type GetWebhookEventTotalAmount = {
 };
 
 /**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+ * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
  *
  * @remarks
+ * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
  *
  * Any deviations from this will result in an error.
  *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+ * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+ * `SEK 100.00 × (25 / 125) = SEK 20.00`.
  */
 export type GetWebhookEventVatAmount = {
   /**
@@ -387,10 +497,8 @@ export type GetWebhookEventLine = {
    * @remarks
    *
    * The `tip` payment line type is not available when creating a payment.
-   *
-   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
    */
-  type?: string | undefined;
+  type?: GetWebhookEventType | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -416,7 +524,10 @@ export type GetWebhookEventLine = {
    */
   unitPrice: GetWebhookEventUnitPrice;
   /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+   *
+   * @remarks
+   * type.
    */
   discountAmount?: GetWebhookEventDiscountAmount | undefined;
   /**
@@ -430,17 +541,22 @@ export type GetWebhookEventLine = {
    */
   totalAmount: GetWebhookEventTotalAmount;
   /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+   *
+   * @remarks
+   * not as a float, to ensure the correct number of decimals are passed.
    */
   vatRate?: string | undefined;
   /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
    *
    * @remarks
+   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
    *
    * Any deviations from this will result in an error.
    *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
    */
   vatAmount?: GetWebhookEventVatAmount | undefined;
   /**
@@ -448,7 +564,10 @@ export type GetWebhookEventLine = {
    */
   sku?: string | undefined;
   /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the
+   *
+   * @remarks
+   * [Integrating Vouchers](integrating-vouchers) guide for more information.
    */
   categories?: Array<GetWebhookEventCategory> | undefined;
   /**
@@ -462,11 +581,13 @@ export type GetWebhookEventLine = {
 };
 
 /**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  *
  * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
  */
@@ -476,17 +597,19 @@ export type GetWebhookEventBillingAddress = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -520,7 +643,8 @@ export type GetWebhookEventBillingAddress = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -552,11 +676,13 @@ export type GetWebhookEventBillingAddress = {
 };
 
 /**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+ * The customer's shipping address details. We advise to provide these details to improve fraud protection and
  *
  * @remarks
+ * conversion.
  *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
  */
 export type GetWebhookEventShippingAddress = {
   /**
@@ -564,17 +690,19 @@ export type GetWebhookEventShippingAddress = {
    */
   title?: string | undefined;
   /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only numbers.
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
    *
    * @remarks
+   * numbers.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -608,7 +736,8 @@ export type GetWebhookEventShippingAddress = {
    *
    * @remarks
    *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
    * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
    */
@@ -644,7 +773,8 @@ export type GetWebhookEventShippingAddress = {
  *
  * @remarks
  *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+ * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+ * a €0.99 fee on a €1.00 payment.
  */
 export type GetWebhookEventApplicationFeeAmount = {
   /**
@@ -658,11 +788,14 @@ export type GetWebhookEventApplicationFeeAmount = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
- * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+ * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this
+ * `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent
+ * to your own account balance.
  */
 export type GetWebhookEventApplicationFee = {
   /**
@@ -670,11 +803,15 @@ export type GetWebhookEventApplicationFee = {
    *
    * @remarks
    *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+   * a €0.99 fee on a €1.00 payment.
    */
   amount: GetWebhookEventApplicationFeeAmount;
   /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the connected merchant.
+   * The description of the application fee. This will appear on settlement reports towards both you and the
+   *
+   * @remarks
+   * connected merchant.
    */
   description: string;
 };
@@ -723,7 +860,10 @@ export type EntityLinks1 = {
 
 export type GetWebhookEventPaymentLink = {
   /**
-   * Indicates the response contains a payment link object. Will always contain the string `payment-link` for this endpoint.
+   * Indicates the response contains a payment link object. Will always contain the string `payment-link` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -732,22 +872,27 @@ export type GetWebhookEventPaymentLink = {
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode: GetWebhookEventMode1;
+  /**
+   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
-   */
-  mode: string;
-  /**
-   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible.
+   * customer's bank or card statement when possible.
    */
   description: string;
   /**
-   * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an amount.
+   * The amount of the payment link. If no amount is provided initially, the customer will be prompted to enter an
+   *
+   * @remarks
+   * amount.
    */
   amount: GetWebhookEventAmount | null;
   /**
-   * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
+   * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The
+   *
+   * @remarks
+   * customer will be prompted to enter a value greater than or equal to the minimum amount.
    */
   minimumAmount?: GetWebhookEventMinimumAmount | null | undefined;
   /**
@@ -755,7 +900,10 @@ export type GetWebhookEventPaymentLink = {
    */
   archived: boolean;
   /**
-   * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided, the customer will be shown a generic message after completing the payment.
+   * The URL your customer will be redirected to after completing the payment process. If no redirect URL is provided,
+   *
+   * @remarks
+   * the customer will be shown a generic message after completing the payment.
    */
   redirectUrl: string | null;
   /**
@@ -763,15 +911,19 @@ export type GetWebhookEventPaymentLink = {
    *
    * @remarks
    *
-   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments resulting from the payment link.
+   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments
+   * resulting from the payment link.
    *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your local machine.
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+   * local machine.
    */
   webhookUrl: string | null;
   /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the payment.
    *
@@ -779,21 +931,25 @@ export type GetWebhookEventPaymentLink = {
    */
   lines?: Array<GetWebhookEventLine> | null | undefined;
   /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    *
    * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: GetWebhookEventBillingAddress | undefined;
   /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
    *
    * @remarks
+   * conversion.
    *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
    */
   shippingAddress?: GetWebhookEventShippingAddress | undefined;
   /**
@@ -801,13 +957,16 @@ export type GetWebhookEventPaymentLink = {
    *
    * @remarks
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
    */
   profileId: string | null;
   /**
-   * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple payments using the same link.
+   * Indicates whether the payment link is reusable. If this field is set to `true`, customers can make multiple
    *
    * @remarks
+   * payments using the same link.
    *
    * If no value is specified, the field defaults to `false`, allowing only a single payment per link.
    */
@@ -821,23 +980,32 @@ export type GetWebhookEventPaymentLink = {
    */
   paidAt: string | null;
   /**
-   * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front, the payment link will not expire automatically.
+   * The date and time the payment link is set to expire, in ISO 8601 format. If no expiry date was provided up front,
+   *
+   * @remarks
+   * the payment link will not expire automatically.
    */
   expiresAt: string | null;
   /**
-   * An array of payment methods that are allowed to be used for this payment link. When this parameter is not provided or is an empty array, all enabled payment methods will be available.
+   * An array of payment methods that are allowed to be used for this payment link. When this parameter is
    *
    * @remarks
+   * not provided or is an empty array, all enabled payment methods will be available.
    *
-   * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard', 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint', 'in3', 'riverty', 'klarna', 'billie'.
+   * Enum: 'applepay', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'blik', 'creditcard', 'eps', 'giftcard',
+   * 'ideal', 'kbc', 'mybank', 'paybybank', 'paypal', 'paysafecard', 'pointofsale', 'przelewy24', 'satispay', 'trustly', 'twint',
+   * 'in3', 'riverty', 'klarna', 'billie'.
    */
   allowedMethods: Array<string> | null;
   /**
-   * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
-   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this
+   * `applicationFee` parameter. If a payment on the payment link succeeds, the fee will be deducted from the merchant's balance and sent
+   * to your own account balance.
    */
   applicationFee?: GetWebhookEventApplicationFee | undefined;
   /**
@@ -1126,12 +1294,75 @@ export function getWebhookEventNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const GetWebhookEventMode2$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventMode2
+> = z.nativeEnum(GetWebhookEventMode2);
+
+/** @internal */
+export const GetWebhookEventMode2$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventMode2
+> = GetWebhookEventMode2$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookEventMode2$ {
+  /** @deprecated use `GetWebhookEventMode2$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookEventMode2$inboundSchema;
+  /** @deprecated use `GetWebhookEventMode2$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookEventMode2$outboundSchema;
+}
+
+/** @internal */
+export const GetWebhookEventStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventStatus
+> = z.nativeEnum(GetWebhookEventStatus);
+
+/** @internal */
+export const GetWebhookEventStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventStatus
+> = GetWebhookEventStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookEventStatus$ {
+  /** @deprecated use `GetWebhookEventStatus$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookEventStatus$inboundSchema;
+  /** @deprecated use `GetWebhookEventStatus$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookEventStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetWebhookEventReviewStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventReviewStatus
+> = z.nativeEnum(GetWebhookEventReviewStatus);
+
+/** @internal */
+export const GetWebhookEventReviewStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventReviewStatus
+> = GetWebhookEventReviewStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookEventReviewStatus$ {
+  /** @deprecated use `GetWebhookEventReviewStatus$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookEventReviewStatus$inboundSchema;
+  /** @deprecated use `GetWebhookEventReviewStatus$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookEventReviewStatus$outboundSchema;
+}
+
+/** @internal */
 export const GetWebhookEventReview$inboundSchema: z.ZodType<
   GetWebhookEventReview,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  status: z.string().optional(),
+  status: GetWebhookEventReviewStatus$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -1145,7 +1376,7 @@ export const GetWebhookEventReview$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventReview
 > = z.object({
-  status: z.string().optional(),
+  status: GetWebhookEventReviewStatus$outboundSchema.optional(),
 });
 
 /**
@@ -1719,7 +1950,7 @@ export const GetWebhookEventProfile$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("profile"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetWebhookEventMode2$inboundSchema.optional(),
   name: z.string().optional(),
   website: z.string().optional(),
   email: z.string().optional(),
@@ -1727,7 +1958,7 @@ export const GetWebhookEventProfile$inboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: z.string().optional(),
+  status: GetWebhookEventStatus$inboundSchema.optional(),
   review: z.lazy(() => GetWebhookEventReview$inboundSchema).optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => EntityLinks2$inboundSchema).optional(),
@@ -1763,7 +1994,7 @@ export const GetWebhookEventProfile$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("profile"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetWebhookEventMode2$outboundSchema.optional(),
   name: z.string().optional(),
   website: z.string().optional(),
   email: z.string().optional(),
@@ -1771,7 +2002,7 @@ export const GetWebhookEventProfile$outboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: z.string().optional(),
+  status: GetWebhookEventStatus$outboundSchema.optional(),
   review: z.lazy(() => GetWebhookEventReview$outboundSchema).optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => EntityLinks2$outboundSchema).optional(),
@@ -1810,6 +2041,27 @@ export function getWebhookEventProfileFromJSON(
     (x) => GetWebhookEventProfile$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetWebhookEventProfile' from JSON`,
   );
+}
+
+/** @internal */
+export const GetWebhookEventMode1$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventMode1
+> = z.nativeEnum(GetWebhookEventMode1);
+
+/** @internal */
+export const GetWebhookEventMode1$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventMode1
+> = GetWebhookEventMode1$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookEventMode1$ {
+  /** @deprecated use `GetWebhookEventMode1$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookEventMode1$inboundSchema;
+  /** @deprecated use `GetWebhookEventMode1$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookEventMode1$outboundSchema;
 }
 
 /** @internal */
@@ -1926,6 +2178,27 @@ export function getWebhookEventMinimumAmountFromJSON(
     (x) => GetWebhookEventMinimumAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetWebhookEventMinimumAmount' from JSON`,
   );
+}
+
+/** @internal */
+export const GetWebhookEventType$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventType
+> = z.nativeEnum(GetWebhookEventType);
+
+/** @internal */
+export const GetWebhookEventType$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventType
+> = GetWebhookEventType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookEventType$ {
+  /** @deprecated use `GetWebhookEventType$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookEventType$inboundSchema;
+  /** @deprecated use `GetWebhookEventType$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookEventType$outboundSchema;
 }
 
 /** @internal */
@@ -2185,7 +2458,7 @@ export const GetWebhookEventLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: GetWebhookEventType$inboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2203,7 +2476,7 @@ export const GetWebhookEventLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetWebhookEventLine$Outbound = {
-  type?: string | undefined;
+  type: string;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2224,7 +2497,7 @@ export const GetWebhookEventLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventLine
 > = z.object({
-  type: z.string().optional(),
+  type: GetWebhookEventType$outboundSchema.default("physical"),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2743,7 +3016,7 @@ export const GetWebhookEventPaymentLink$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("payment-link"),
   id: z.string(),
-  mode: z.string(),
+  mode: GetWebhookEventMode1$inboundSchema,
   description: z.string(),
   amount: z.nullable(z.lazy(() => GetWebhookEventAmount$inboundSchema)),
   minimumAmount: z.nullable(
@@ -2805,7 +3078,7 @@ export const GetWebhookEventPaymentLink$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("payment-link"),
   id: z.string(),
-  mode: z.string(),
+  mode: GetWebhookEventMode1$outboundSchema,
   description: z.string(),
   amount: z.nullable(z.lazy(() => GetWebhookEventAmount$outboundSchema)),
   minimumAmount: z.nullable(

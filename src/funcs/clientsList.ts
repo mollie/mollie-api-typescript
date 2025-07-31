@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all clients linked to your account.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **clients.read**](/reference/authentication)
  */
 export function clientsList(
   client: ClientCore,

@@ -14,16 +14,13 @@
 
 ## create
 
-With the Payment links API you can generate payment links that by default, unlike regular payments, do not expire. The payment link can be shared with your customers and will redirect them to them the payment page where they can complete the payment. A [payment](get-payment) will only be created once the customer initiates the payment.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.write**](/reference/authentication)
+With the Payment links API you can generate payment links that by default, unlike regular payments, do not expire.
+The payment link can be shared with your customers and will redirect them to them the payment page where they can
+complete the payment. A [payment](get-payment) will only be created once the customer initiates the payment.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-payment-link" method="post" path="/payment-links" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -260,14 +257,9 @@ Retrieve a list of all payment links.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-payment-links" method="get" path="/payment-links" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -345,14 +337,9 @@ run();
 
 Retrieve a single payment link by its ID.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-payment-link" method="get" path="/payment-links/{paymentLinkId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -430,14 +417,9 @@ run();
 
 Certain details of an existing payment link can be updated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="update-payment-link" method="patch" path="/payment-links/{paymentLinkId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -594,20 +576,17 @@ run();
 
 ## delete
 
-Payment links which have not been opened and no payments have been made yet can be deleted entirely. This can be useful for removing payment links that have been incorrectly configured or that are no longer relevant.
+Payment links which have not been opened and no payments have been made yet can be deleted entirely.
+This can be useful for removing payment links that have been incorrectly configured or that are no longer relevant.
 
 Once deleted, the payment link will no longer show up in the API or Mollie dashboard.
 
-To simply disable a payment link without fully deleting it, you can use the `archived` parameter on the [Update payment link](update-payment-link) endpoint instead.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.write**](/reference/authentication)
+To simply disable a payment link without fully deleting it, you can use the `archived` parameter on the
+[Update payment link](update-payment-link) endpoint instead.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="delete-payment-link" method="delete" path="/payment-links/{paymentLinkId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -692,14 +671,9 @@ Retrieve the list of payments for a specific payment link.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-payment-link-payments" method="get" path="/payment-links/{paymentLinkId}/payments" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -713,7 +687,6 @@ async function run() {
   const result = await client.paymentLinks.listPayments({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
 
@@ -743,7 +716,6 @@ async function run() {
   const res = await paymentLinksListPayments(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
   if (res.ok) {

@@ -14,13 +14,7 @@ export const tool$customersListPayments: ToolDefinition<typeof args> = {
   name: "customers-list-payments",
   description: `List customer payments
 
-Retrieve all payments linked to the customer.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)`,
+Retrieve all payments linked to the customer.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await customersListPayments(

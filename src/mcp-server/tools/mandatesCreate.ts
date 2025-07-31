@@ -14,15 +14,11 @@ export const tool$mandatesCreate: ToolDefinition<typeof args> = {
   name: "mandates-create",
   description: `Create mandate
 
-Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank account recurrently.
+Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank
+account recurrently.
 
-It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create mandates for cards, your customers need to perform a 'first payment' with their card.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.write**](/reference/authentication)`,
+It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create
+mandates for cards, your customers need to perform a 'first payment' with their card.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await mandatesCreate(

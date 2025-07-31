@@ -34,12 +34,6 @@ import { Result } from "../types/fp.js";
  * > This feature is currently in beta testing, and the final specification may still change.
  *
  * Retrieve a single sales invoice by its ID.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **sales-invoice.read**](/reference/authentication)
  */
 export function salesInvoicesGet(
   client: ClientCore,

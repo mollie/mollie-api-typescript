@@ -23,13 +23,8 @@ Linking customers to payments enables you to:
 * Improve payment insights in the Mollie dashboard
 * Use recurring payments
 
-This endpoint is effectively an alias of the [Create payment endpoint](create-payment) with the \`customerId\` parameter predefined.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.write**](/reference/authentication)`,
+This endpoint is effectively an alias of the [Create payment endpoint](create-payment) with the \`customerId\`
+parameter predefined.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await customersCreatePayment(

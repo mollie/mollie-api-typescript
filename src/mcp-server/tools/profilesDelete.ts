@@ -14,11 +14,7 @@ export const tool$profilesDelete: ToolDefinition<typeof args> = {
   name: "profiles-delete",
   description: `Delete profile
 
-Delete a profile. A deleted profile and its related credentials can no longer be used for accepting payments.
-
-> 🔑 Access with
->
-> [Access token with **profiles.write**](/reference/authentication)`,
+Delete a profile. A deleted profile and its related credentials can no longer be used for accepting payments.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await profilesDelete(

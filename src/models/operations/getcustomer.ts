@@ -30,9 +30,11 @@ export type GetCustomerRequest = {
    */
   include?: GetCustomerInclude | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -54,10 +56,63 @@ export type GetCustomerNotFoundLinks = {
   documentation: GetCustomerNotFoundDocumentation;
 };
 
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetCustomerMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetCustomerMode = ClosedEnum<typeof GetCustomerMode>;
+
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export const GetCustomerLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export type GetCustomerLocale = ClosedEnum<typeof GetCustomerLocale>;
+
 export type GetCustomerMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type GetCustomerMetadataUnion =
   | GetCustomerMetadata
@@ -93,7 +148,10 @@ export type GetCustomerDashboard = {
 };
 
 /**
- * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments exist (yet).
+ * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
+ *
+ * @remarks
+ * exist (yet).
  */
 export type GetCustomerPayments = {
   /**
@@ -107,7 +165,10 @@ export type GetCustomerPayments = {
 };
 
 /**
- * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates exist (yet).
+ * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
+ *
+ * @remarks
+ * exist (yet).
  */
 export type GetCustomerMandates = {
   /**
@@ -121,7 +182,10 @@ export type GetCustomerMandates = {
 };
 
 /**
- * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such subscriptions exist (yet).
+ * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
+ *
+ * @remarks
+ * subscriptions exist (yet).
  */
 export type GetCustomerSubscriptions = {
   /**
@@ -161,15 +225,24 @@ export type GetCustomerLinks = {
    */
   dashboard?: GetCustomerDashboard | undefined;
   /**
-   * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments exist (yet).
+   * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
+   *
+   * @remarks
+   * exist (yet).
    */
   payments?: GetCustomerPayments | null | undefined;
   /**
-   * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates exist (yet).
+   * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
+   *
+   * @remarks
+   * exist (yet).
    */
   mandates?: GetCustomerMandates | null | undefined;
   /**
-   * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such subscriptions exist (yet).
+   * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
+   *
+   * @remarks
+   * subscriptions exist (yet).
    */
   subscriptions?: GetCustomerSubscriptions | null | undefined;
   /**
@@ -230,12 +303,8 @@ export type GetCustomerResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: GetCustomerMode | undefined;
   /**
    * The full name of the customer.
    */
@@ -245,11 +314,17 @@ export type GetCustomerResponse = {
    */
   email?: string | null | undefined;
   /**
-   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+   *
+   * @remarks
+   * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
    */
-  locale?: string | null | undefined;
+  locale?: GetCustomerLocale | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: GetCustomerMetadata | string | Array<string> | null | undefined;
   /**
@@ -455,6 +530,48 @@ export function getCustomerNotFoundLinksFromJSON(
     (x) => GetCustomerNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetCustomerNotFoundLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const GetCustomerMode$inboundSchema: z.ZodNativeEnum<
+  typeof GetCustomerMode
+> = z.nativeEnum(GetCustomerMode);
+
+/** @internal */
+export const GetCustomerMode$outboundSchema: z.ZodNativeEnum<
+  typeof GetCustomerMode
+> = GetCustomerMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetCustomerMode$ {
+  /** @deprecated use `GetCustomerMode$inboundSchema` instead. */
+  export const inboundSchema = GetCustomerMode$inboundSchema;
+  /** @deprecated use `GetCustomerMode$outboundSchema` instead. */
+  export const outboundSchema = GetCustomerMode$outboundSchema;
+}
+
+/** @internal */
+export const GetCustomerLocale$inboundSchema: z.ZodNativeEnum<
+  typeof GetCustomerLocale
+> = z.nativeEnum(GetCustomerLocale);
+
+/** @internal */
+export const GetCustomerLocale$outboundSchema: z.ZodNativeEnum<
+  typeof GetCustomerLocale
+> = GetCustomerLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetCustomerLocale$ {
+  /** @deprecated use `GetCustomerLocale$inboundSchema` instead. */
+  export const inboundSchema = GetCustomerLocale$inboundSchema;
+  /** @deprecated use `GetCustomerLocale$outboundSchema` instead. */
+  export const outboundSchema = GetCustomerLocale$outboundSchema;
 }
 
 /** @internal */
@@ -1155,10 +1272,10 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("customer"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetCustomerMode$inboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(GetCustomerLocale$inboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => GetCustomerMetadata$inboundSchema),
@@ -1202,10 +1319,10 @@ export const GetCustomerResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("customer"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: GetCustomerMode$outboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(GetCustomerLocale$outboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => GetCustomerMetadata$outboundSchema),

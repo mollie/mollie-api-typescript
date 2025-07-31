@@ -13,10 +13,6 @@ export class WebhookEvents extends ClientSDK {
    *
    * @remarks
    * Retrieve a single webhook event object by its event ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **events.read**](/reference/authentication)
    */
   async get(
     request: operations.GetWebhookEventRequest,

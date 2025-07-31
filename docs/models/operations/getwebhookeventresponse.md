@@ -31,6 +31,7 @@ let value: GetWebhookEventResponse = {
       webhookUrl: "https://webshop.example.org/payment-links/webhook/",
       lines: [
         {
+          type: "physical",
           description: "LEGO 4440 Forest Police Station",
           quantity: 1,
           quantityUnit: "pcs",

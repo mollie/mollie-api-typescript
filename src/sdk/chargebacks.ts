@@ -17,12 +17,6 @@ export class Chargebacks extends ClientSDK {
    * Retrieve the chargebacks initiated for a specific payment.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.read**](/reference/authentication)
    */
   async list(
     request: operations.ListChargebacksRequest,
@@ -40,12 +34,6 @@ export class Chargebacks extends ClientSDK {
    *
    * @remarks
    * Retrieve a single payment chargeback by its ID and the ID of its parent payment.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.read**](/reference/authentication)
    */
   async get(
     request: operations.GetChargebackRequest,
@@ -65,12 +53,6 @@ export class Chargebacks extends ClientSDK {
    * Retrieve all chargebacks initiated for all your payments.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.read**](/reference/authentication)
    */
   async all(
     request?: operations.ListAllChargebacksRequest | undefined,

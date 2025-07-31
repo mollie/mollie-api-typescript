@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve all payments of a specific subscription.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **subscriptions.read** **payments.read**](/reference/authentication)
  */
 export function subscriptionsListPayments(
   client: ClientCore,

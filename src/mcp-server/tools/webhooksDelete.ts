@@ -14,11 +14,7 @@ export const tool$webhooksDelete: ToolDefinition<typeof args> = {
   name: "webhooks-delete",
   description: `Delete a webhook
 
-Delete a single webhook object by its webhook ID.
-
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)`,
+Delete a single webhook object by its webhook ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await webhooksDelete(

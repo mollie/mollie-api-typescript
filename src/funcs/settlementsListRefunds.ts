@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve all refunds 'deducted' from the given settlement.
  *
  * The response is in the same format as the response of the [List refunds endpoint](list-refunds).
- *
- * > 🔑 Access with
- * >
- * > [Access token with **settlements.read** **refunds.read**](/reference/authentication)
  */
 export function settlementsListRefunds(
   client: ClientCore,

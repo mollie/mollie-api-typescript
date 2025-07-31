@@ -5,11 +5,15 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+ * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+ *
+ * @remarks
+ * amount.
  */
 export type CreateRefundAmountRequest = {
   /**
@@ -25,22 +29,34 @@ export type CreateRefundAmountRequest = {
 export type CreateRefundMetadataRequest = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateRefundMetadataRequestUnion =
   | CreateRefundMetadataRequest
   | string
   | Array<string>;
 
+/**
+ * Specifies the reference type
+ */
+export const TypeAcquirerReferenceRequest = {
+  AcquirerReference: "acquirer-reference",
+} as const;
+/**
+ * Specifies the reference type
+ */
+export type TypeAcquirerReferenceRequest = ClosedEnum<
+  typeof TypeAcquirerReferenceRequest
+>;
+
 export type ExternalReferenceRequest = {
   /**
    * Specifies the reference type
-   *
-   * @remarks
-   *
-   * Possible values: `acquirer-reference`
    */
-  type?: string | undefined;
+  type?: TypeAcquirerReferenceRequest | undefined;
   /**
    * Unique reference from the payment provider
    */
@@ -62,19 +78,29 @@ export type RoutingReversalAmountRequest = {
 };
 
 /**
+ * The type of source. Currently only the source type `organization` is supported.
+ */
+export const RoutingReversalType = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of source. Currently only the source type `organization` is supported.
+ */
+export type RoutingReversalType = ClosedEnum<typeof RoutingReversalType>;
+
+/**
  * Where the funds will be pulled back from.
  */
-export type SourceRequest = {
+export type CreateRefundSourceRequest = {
   /**
    * The type of source. Currently only the source type `organization` is supported.
+   */
+  type?: RoutingReversalType | undefined;
+  /**
+   * Required for source type `organization`. The ID of the connected organization the funds should be pulled
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type?: string | undefined;
-  /**
-   * Required for source type `organization`. The ID of the connected organization the funds should be pulled back from.
+   * back from.
    */
   organizationId?: string | undefined;
 };
@@ -87,7 +113,7 @@ export type RoutingReversalRequest = {
   /**
    * Where the funds will be pulled back from.
    */
-  source?: SourceRequest | undefined;
+  source?: CreateRefundSourceRequest | undefined;
 };
 
 export type CreateRefundRequestBody = {
@@ -96,11 +122,17 @@ export type CreateRefundRequestBody = {
    */
   description?: string | undefined;
   /**
-   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+   *
+   * @remarks
+   * amount.
    */
   amount: CreateRefundAmountRequest;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | CreateRefundMetadataRequest
@@ -114,11 +146,13 @@ export type CreateRefundRequestBody = {
    *
    * @remarks
    *
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants, by providing the `routing` object during [payment creation](create-payment).
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+   * merchants, by providing the `routing` object during [payment creation](create-payment).
    *
    * When creating refunds for these *routed* payments, by default the full amount is deducted from your balance.
    *
-   * If you want to pull back the funds that were routed to the connected merchant(s), you can set this parameter to `true` when issuing a full refund.
+   * If you want to pull back the funds that were routed to the connected merchant(s), you can set this parameter to
+   * `true` when issuing a full refund.
    *
    * For more fine-grained control and for partial refunds, use the `routingReversals` parameter instead.
    */
@@ -130,7 +164,8 @@ export type CreateRefundRequestBody = {
    *
    * When creating refunds for *routed* payments, by default the full amount is deducted from your balance.
    *
-   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount needs to be reversed from which merchant(s).
+   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount
+   * needs to be reversed from which merchant(s).
    *
    * If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
    */
@@ -140,7 +175,9 @@ export type CreateRefundRequestBody = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
   testmode?: boolean | null | undefined;
 };
@@ -199,7 +236,22 @@ export type CreateRefundNotFoundLinks = {
 };
 
 /**
- * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreateRefundMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreateRefundMode = ClosedEnum<typeof CreateRefundMode>;
+
+/**
+ * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+ *
+ * @remarks
+ * amount.
  */
 export type CreateRefundAmountResponse = {
   /**
@@ -213,17 +265,21 @@ export type CreateRefundAmountResponse = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
  *
  * @remarks
+ * to the currency your account is settled in.
  *
  * The amount is a **negative** amount.
  *
- * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+ * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+ * zero.
  *
- * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+ * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+ * the refund is queued the settlement amount is likely not yet available.
  *
- * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * To retrieve accurate settlement amounts we recommend using the
+ * [List balance transactions endpoint](list-balance-transactions) instead.
  */
 export type CreateRefundSettlementAmount = {
   /**
@@ -239,22 +295,50 @@ export type CreateRefundSettlementAmount = {
 export type CreateRefundMetadataResponse = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateRefundMetadataResponseUnion =
   | CreateRefundMetadataResponse
   | string
   | Array<string>;
 
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export const CreateRefundStatus = {
+  Queued: "queued",
+  Pending: "pending",
+  Processing: "processing",
+  Refunded: "refunded",
+  Failed: "failed",
+  Canceled: "canceled",
+} as const;
+/**
+ * Refunds may take some time to get confirmed.
+ */
+export type CreateRefundStatus = ClosedEnum<typeof CreateRefundStatus>;
+
+/**
+ * Specifies the reference type
+ */
+export const CreateRefundTypeResponse = {
+  AcquirerReference: "acquirer-reference",
+} as const;
+/**
+ * Specifies the reference type
+ */
+export type CreateRefundTypeResponse = ClosedEnum<
+  typeof CreateRefundTypeResponse
+>;
+
 export type CreateRefundExternalReferenceResponse = {
   /**
    * Specifies the reference type
-   *
-   * @remarks
-   *
-   * Possible values: `acquirer-reference`
    */
-  type?: string | undefined;
+  type?: CreateRefundTypeResponse | undefined;
   /**
    * Unique reference from the payment provider
    */
@@ -278,9 +362,12 @@ export type CreateRefundRoutingReversalAmountResponse = {
 /**
  * Where the funds will be pulled back from.
  */
-export type CreateRefundSourceResponse = {
+export type CreateRefundSourceOutput = {
   /**
-   * Required for source type `organization`. The ID of the connected organization the funds should be pulled back from.
+   * Required for source type `organization`. The ID of the connected organization the funds should be pulled
+   *
+   * @remarks
+   * back from.
    */
   organizationId?: string | undefined;
 };
@@ -293,7 +380,7 @@ export type CreateRefundRoutingReversalResponse = {
   /**
    * Where the funds will be pulled back from.
    */
-  source?: CreateRefundSourceResponse | undefined;
+  source?: CreateRefundSourceOutput | undefined;
 };
 
 /**
@@ -325,7 +412,10 @@ export type CreateRefundPayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+ *
+ * @remarks
+ * yet settled.
  */
 export type CreateRefundSettlement = {
   /**
@@ -365,7 +455,10 @@ export type CreateRefundLinks = {
    */
   payment?: CreateRefundPayment | undefined;
   /**
-   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+   *
+   * @remarks
+   * yet settled.
    */
   settlement?: CreateRefundSettlement | null | undefined;
   /**
@@ -383,41 +476,50 @@ export type CreateRefundResponse = {
    */
   resource?: string | undefined;
   /**
-   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
+   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
    */
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: CreateRefundMode | undefined;
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    */
   description?: string | undefined;
   /**
-   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+   *
+   * @remarks
+   * amount.
    */
   amount?: CreateRefundAmountResponse | undefined;
   /**
-   * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
    *
    * @remarks
+   * to the currency your account is settled in.
    *
    * The amount is a **negative** amount.
    *
-   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be zero.
+   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+   * zero.
    *
-   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while the refund is queued the settlement amount is likely not yet available.
+   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+   * the refund is queued the settlement amount is likely not yet available.
    *
-   * To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * To retrieve accurate settlement amounts we recommend using the
+   * [List balance transactions endpoint](list-balance-transactions) instead.
    */
   settlementAmount?: CreateRefundSettlementAmount | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | CreateRefundMetadataResponse
@@ -426,7 +528,10 @@ export type CreateRefundResponse = {
     | null
     | undefined;
   /**
-   * The unique identifier of the payment this refund was created for. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this refund was created for.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId?: string | undefined;
   /**
@@ -435,12 +540,8 @@ export type CreateRefundResponse = {
   settlementId?: string | null | undefined;
   /**
    * Refunds may take some time to get confirmed.
-   *
-   * @remarks
-   *
-   * Possible values: `queued` `pending` `processing` `refunded` `failed` `canceled`
    */
-  status?: string | undefined;
+  status?: CreateRefundStatus | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -453,7 +554,8 @@ export type CreateRefundResponse = {
    *
    * When creating refunds for *routed* payments, by default the full amount is deducted from your balance.
    *
-   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount needs to be reversed from which merchant(s).
+   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount
+   * needs to be reversed from which merchant(s).
    *
    * If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
    */
@@ -636,12 +738,33 @@ export function createRefundMetadataRequestUnionFromJSON(
 }
 
 /** @internal */
+export const TypeAcquirerReferenceRequest$inboundSchema: z.ZodNativeEnum<
+  typeof TypeAcquirerReferenceRequest
+> = z.nativeEnum(TypeAcquirerReferenceRequest);
+
+/** @internal */
+export const TypeAcquirerReferenceRequest$outboundSchema: z.ZodNativeEnum<
+  typeof TypeAcquirerReferenceRequest
+> = TypeAcquirerReferenceRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace TypeAcquirerReferenceRequest$ {
+  /** @deprecated use `TypeAcquirerReferenceRequest$inboundSchema` instead. */
+  export const inboundSchema = TypeAcquirerReferenceRequest$inboundSchema;
+  /** @deprecated use `TypeAcquirerReferenceRequest$outboundSchema` instead. */
+  export const outboundSchema = TypeAcquirerReferenceRequest$outboundSchema;
+}
+
+/** @internal */
 export const ExternalReferenceRequest$inboundSchema: z.ZodType<
   ExternalReferenceRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: TypeAcquirerReferenceRequest$inboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -657,7 +780,7 @@ export const ExternalReferenceRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ExternalReferenceRequest
 > = z.object({
-  type: z.string().optional(),
+  type: TypeAcquirerReferenceRequest$outboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -752,28 +875,49 @@ export function routingReversalAmountRequestFromJSON(
 }
 
 /** @internal */
-export const SourceRequest$inboundSchema: z.ZodType<
-  SourceRequest,
+export const RoutingReversalType$inboundSchema: z.ZodNativeEnum<
+  typeof RoutingReversalType
+> = z.nativeEnum(RoutingReversalType);
+
+/** @internal */
+export const RoutingReversalType$outboundSchema: z.ZodNativeEnum<
+  typeof RoutingReversalType
+> = RoutingReversalType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RoutingReversalType$ {
+  /** @deprecated use `RoutingReversalType$inboundSchema` instead. */
+  export const inboundSchema = RoutingReversalType$inboundSchema;
+  /** @deprecated use `RoutingReversalType$outboundSchema` instead. */
+  export const outboundSchema = RoutingReversalType$outboundSchema;
+}
+
+/** @internal */
+export const CreateRefundSourceRequest$inboundSchema: z.ZodType<
+  CreateRefundSourceRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: RoutingReversalType$inboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 
 /** @internal */
-export type SourceRequest$Outbound = {
+export type CreateRefundSourceRequest$Outbound = {
   type?: string | undefined;
   organizationId?: string | undefined;
 };
 
 /** @internal */
-export const SourceRequest$outboundSchema: z.ZodType<
-  SourceRequest$Outbound,
+export const CreateRefundSourceRequest$outboundSchema: z.ZodType<
+  CreateRefundSourceRequest$Outbound,
   z.ZodTypeDef,
-  SourceRequest
+  CreateRefundSourceRequest
 > = z.object({
-  type: z.string().optional(),
+  type: RoutingReversalType$outboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 
@@ -781,26 +925,30 @@ export const SourceRequest$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SourceRequest$ {
-  /** @deprecated use `SourceRequest$inboundSchema` instead. */
-  export const inboundSchema = SourceRequest$inboundSchema;
-  /** @deprecated use `SourceRequest$outboundSchema` instead. */
-  export const outboundSchema = SourceRequest$outboundSchema;
-  /** @deprecated use `SourceRequest$Outbound` instead. */
-  export type Outbound = SourceRequest$Outbound;
+export namespace CreateRefundSourceRequest$ {
+  /** @deprecated use `CreateRefundSourceRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateRefundSourceRequest$inboundSchema;
+  /** @deprecated use `CreateRefundSourceRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateRefundSourceRequest$outboundSchema;
+  /** @deprecated use `CreateRefundSourceRequest$Outbound` instead. */
+  export type Outbound = CreateRefundSourceRequest$Outbound;
 }
 
-export function sourceRequestToJSON(sourceRequest: SourceRequest): string {
-  return JSON.stringify(SourceRequest$outboundSchema.parse(sourceRequest));
+export function createRefundSourceRequestToJSON(
+  createRefundSourceRequest: CreateRefundSourceRequest,
+): string {
+  return JSON.stringify(
+    CreateRefundSourceRequest$outboundSchema.parse(createRefundSourceRequest),
+  );
 }
 
-export function sourceRequestFromJSON(
+export function createRefundSourceRequestFromJSON(
   jsonString: string,
-): SafeParseResult<SourceRequest, SDKValidationError> {
+): SafeParseResult<CreateRefundSourceRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SourceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SourceRequest' from JSON`,
+    (x) => CreateRefundSourceRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateRefundSourceRequest' from JSON`,
   );
 }
 
@@ -811,13 +959,13 @@ export const RoutingReversalRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   amount: z.lazy(() => RoutingReversalAmountRequest$inboundSchema).optional(),
-  source: z.lazy(() => SourceRequest$inboundSchema).optional(),
+  source: z.lazy(() => CreateRefundSourceRequest$inboundSchema).optional(),
 });
 
 /** @internal */
 export type RoutingReversalRequest$Outbound = {
   amount?: RoutingReversalAmountRequest$Outbound | undefined;
-  source?: SourceRequest$Outbound | undefined;
+  source?: CreateRefundSourceRequest$Outbound | undefined;
 };
 
 /** @internal */
@@ -827,7 +975,7 @@ export const RoutingReversalRequest$outboundSchema: z.ZodType<
   RoutingReversalRequest
 > = z.object({
   amount: z.lazy(() => RoutingReversalAmountRequest$outboundSchema).optional(),
-  source: z.lazy(() => SourceRequest$outboundSchema).optional(),
+  source: z.lazy(() => CreateRefundSourceRequest$outboundSchema).optional(),
 });
 
 /**
@@ -1376,6 +1524,27 @@ export function createRefundNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const CreateRefundMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateRefundMode
+> = z.nativeEnum(CreateRefundMode);
+
+/** @internal */
+export const CreateRefundMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateRefundMode
+> = CreateRefundMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateRefundMode$ {
+  /** @deprecated use `CreateRefundMode$inboundSchema` instead. */
+  export const inboundSchema = CreateRefundMode$inboundSchema;
+  /** @deprecated use `CreateRefundMode$outboundSchema` instead. */
+  export const outboundSchema = CreateRefundMode$outboundSchema;
+}
+
+/** @internal */
 export const CreateRefundAmountResponse$inboundSchema: z.ZodType<
   CreateRefundAmountResponse,
   z.ZodTypeDef,
@@ -1604,12 +1773,54 @@ export function createRefundMetadataResponseUnionFromJSON(
 }
 
 /** @internal */
+export const CreateRefundStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CreateRefundStatus
+> = z.nativeEnum(CreateRefundStatus);
+
+/** @internal */
+export const CreateRefundStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CreateRefundStatus
+> = CreateRefundStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateRefundStatus$ {
+  /** @deprecated use `CreateRefundStatus$inboundSchema` instead. */
+  export const inboundSchema = CreateRefundStatus$inboundSchema;
+  /** @deprecated use `CreateRefundStatus$outboundSchema` instead. */
+  export const outboundSchema = CreateRefundStatus$outboundSchema;
+}
+
+/** @internal */
+export const CreateRefundTypeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateRefundTypeResponse
+> = z.nativeEnum(CreateRefundTypeResponse);
+
+/** @internal */
+export const CreateRefundTypeResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateRefundTypeResponse
+> = CreateRefundTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateRefundTypeResponse$ {
+  /** @deprecated use `CreateRefundTypeResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateRefundTypeResponse$inboundSchema;
+  /** @deprecated use `CreateRefundTypeResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateRefundTypeResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateRefundExternalReferenceResponse$inboundSchema: z.ZodType<
   CreateRefundExternalReferenceResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string().optional(),
+  type: CreateRefundTypeResponse$inboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -1625,7 +1836,7 @@ export const CreateRefundExternalReferenceResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateRefundExternalReferenceResponse
 > = z.object({
-  type: z.string().optional(),
+  type: CreateRefundTypeResponse$outboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -1735,8 +1946,8 @@ export function createRefundRoutingReversalAmountResponseFromJSON(
 }
 
 /** @internal */
-export const CreateRefundSourceResponse$inboundSchema: z.ZodType<
-  CreateRefundSourceResponse,
+export const CreateRefundSourceOutput$inboundSchema: z.ZodType<
+  CreateRefundSourceOutput,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1744,15 +1955,15 @@ export const CreateRefundSourceResponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type CreateRefundSourceResponse$Outbound = {
+export type CreateRefundSourceOutput$Outbound = {
   organizationId?: string | undefined;
 };
 
 /** @internal */
-export const CreateRefundSourceResponse$outboundSchema: z.ZodType<
-  CreateRefundSourceResponse$Outbound,
+export const CreateRefundSourceOutput$outboundSchema: z.ZodType<
+  CreateRefundSourceOutput$Outbound,
   z.ZodTypeDef,
-  CreateRefundSourceResponse
+  CreateRefundSourceOutput
 > = z.object({
   organizationId: z.string().optional(),
 });
@@ -1761,30 +1972,30 @@ export const CreateRefundSourceResponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CreateRefundSourceResponse$ {
-  /** @deprecated use `CreateRefundSourceResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateRefundSourceResponse$inboundSchema;
-  /** @deprecated use `CreateRefundSourceResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateRefundSourceResponse$outboundSchema;
-  /** @deprecated use `CreateRefundSourceResponse$Outbound` instead. */
-  export type Outbound = CreateRefundSourceResponse$Outbound;
+export namespace CreateRefundSourceOutput$ {
+  /** @deprecated use `CreateRefundSourceOutput$inboundSchema` instead. */
+  export const inboundSchema = CreateRefundSourceOutput$inboundSchema;
+  /** @deprecated use `CreateRefundSourceOutput$outboundSchema` instead. */
+  export const outboundSchema = CreateRefundSourceOutput$outboundSchema;
+  /** @deprecated use `CreateRefundSourceOutput$Outbound` instead. */
+  export type Outbound = CreateRefundSourceOutput$Outbound;
 }
 
-export function createRefundSourceResponseToJSON(
-  createRefundSourceResponse: CreateRefundSourceResponse,
+export function createRefundSourceOutputToJSON(
+  createRefundSourceOutput: CreateRefundSourceOutput,
 ): string {
   return JSON.stringify(
-    CreateRefundSourceResponse$outboundSchema.parse(createRefundSourceResponse),
+    CreateRefundSourceOutput$outboundSchema.parse(createRefundSourceOutput),
   );
 }
 
-export function createRefundSourceResponseFromJSON(
+export function createRefundSourceOutputFromJSON(
   jsonString: string,
-): SafeParseResult<CreateRefundSourceResponse, SDKValidationError> {
+): SafeParseResult<CreateRefundSourceOutput, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CreateRefundSourceResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateRefundSourceResponse' from JSON`,
+    (x) => CreateRefundSourceOutput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateRefundSourceOutput' from JSON`,
   );
 }
 
@@ -1796,13 +2007,13 @@ export const CreateRefundRoutingReversalResponse$inboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() => CreateRefundRoutingReversalAmountResponse$inboundSchema)
     .optional(),
-  source: z.lazy(() => CreateRefundSourceResponse$inboundSchema).optional(),
+  source: z.lazy(() => CreateRefundSourceOutput$inboundSchema).optional(),
 });
 
 /** @internal */
 export type CreateRefundRoutingReversalResponse$Outbound = {
   amount?: CreateRefundRoutingReversalAmountResponse$Outbound | undefined;
-  source?: CreateRefundSourceResponse$Outbound | undefined;
+  source?: CreateRefundSourceOutput$Outbound | undefined;
 };
 
 /** @internal */
@@ -1813,7 +2024,7 @@ export const CreateRefundRoutingReversalResponse$outboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() => CreateRefundRoutingReversalAmountResponse$outboundSchema)
     .optional(),
-  source: z.lazy(() => CreateRefundSourceResponse$outboundSchema).optional(),
+  source: z.lazy(() => CreateRefundSourceOutput$outboundSchema).optional(),
 });
 
 /**
@@ -2155,7 +2366,7 @@ export const CreateRefundResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: CreateRefundMode$inboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => CreateRefundAmountResponse$inboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -2170,7 +2381,7 @@ export const CreateRefundResponse$inboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: CreateRefundStatus$inboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() =>
     CreateRefundExternalReferenceResponse$inboundSchema
@@ -2221,7 +2432,7 @@ export const CreateRefundResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("refund"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: CreateRefundMode$outboundSchema.optional(),
   description: z.string().optional(),
   amount: z.lazy(() => CreateRefundAmountResponse$outboundSchema).optional(),
   settlementAmount: z.nullable(
@@ -2236,7 +2447,7 @@ export const CreateRefundResponse$outboundSchema: z.ZodType<
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: CreateRefundStatus$outboundSchema.optional(),
   createdAt: z.string().optional(),
   externalReference: z.lazy(() =>
     CreateRefundExternalReferenceResponse$outboundSchema

@@ -5,8 +5,51 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * Preset the language to be used for the login screen, if applicable. For the consent screen, the preferred
+ *
+ * @remarks
+ * language of the logged in merchant will be used and this parameter is ignored.
+ *
+ * When this parameter is omitted, the browser language will be used instead.
+ */
+export const CreateClientLinkLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Preset the language to be used for the login screen, if applicable. For the consent screen, the preferred
+ *
+ * @remarks
+ * language of the logged in merchant will be used and this parameter is ignored.
+ *
+ * When this parameter is omitted, the browser language will be used instead.
+ */
+export type CreateClientLinkLocale = ClosedEnum<typeof CreateClientLinkLocale>;
 
 /**
  * Personal data of your customer.
@@ -25,13 +68,14 @@ export type Owner = {
    */
   familyName: string;
   /**
-   * Preset the language to be used for the login screen, if applicable. For the consent screen, the preferred language of the logged in merchant will be used and this parameter is ignored.
+   * Preset the language to be used for the login screen, if applicable. For the consent screen, the preferred
    *
    * @remarks
+   * language of the logged in merchant will be used and this parameter is ignored.
    *
    * When this parameter is omitted, the browser language will be used instead.
    */
-  locale?: string | null | undefined;
+  locale?: CreateClientLinkLocale | null | undefined;
 };
 
 /**
@@ -43,7 +87,10 @@ export type CreateClientLinkAddress = {
    */
   streetAndNumber?: string | null | undefined;
   /**
-   * The postal code of the organization. Required if a street address is provided and if the country has a postal code system.
+   * The postal code of the organization. Required if a street address is provided and if the country has a postal
+   *
+   * @remarks
+   * code system.
    */
   postalCode?: string | null | undefined;
   /**
@@ -51,7 +98,10 @@ export type CreateClientLinkAddress = {
    */
   city?: string | null | undefined;
   /**
-   * The country of the address in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   * The country of the address in
+   *
+   * @remarks
+   * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   country: string;
 };
@@ -74,7 +124,10 @@ export type CreateClientLinkRequest = {
    */
   registrationNumber?: string | null | undefined;
   /**
-   * The VAT number of the organization, if based in the European Union. VAT numbers are verified against the international registry *VIES*.
+   * The VAT number of the organization, if based in the European Union. VAT numbers are verified against the
+   *
+   * @remarks
+   * international registry *VIES*.
    */
   vatNumber?: string | null | undefined;
 };
@@ -124,7 +177,10 @@ export type CreateClientLinkSelf = {
 };
 
 /**
- * The link you can send your customer to, where they can either log in and link their account, or sign up and proceed with onboarding.
+ * The link you can send your customer to, where they can either log in and link their account, or sign up and
+ *
+ * @remarks
+ * proceed with onboarding.
  */
 export type ClientLink = {
   /**
@@ -160,7 +216,10 @@ export type CreateClientLinkLinks = {
    */
   self?: CreateClientLinkSelf | undefined;
   /**
-   * The link you can send your customer to, where they can either log in and link their account, or sign up and proceed with onboarding.
+   * The link you can send your customer to, where they can either log in and link their account, or sign up and
+   *
+   * @remarks
+   * proceed with onboarding.
    */
   clientLink?: ClientLink | undefined;
   /**
@@ -174,7 +233,10 @@ export type CreateClientLinkLinks = {
  */
 export type CreateClientLinkResponse = {
   /**
-   * Indicates the response contains a client link object. Will always contain the string `client-link` for this endpoint.
+   * Indicates the response contains a client link object. Will always contain the string `client-link` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -188,12 +250,33 @@ export type CreateClientLinkResponse = {
 };
 
 /** @internal */
+export const CreateClientLinkLocale$inboundSchema: z.ZodNativeEnum<
+  typeof CreateClientLinkLocale
+> = z.nativeEnum(CreateClientLinkLocale);
+
+/** @internal */
+export const CreateClientLinkLocale$outboundSchema: z.ZodNativeEnum<
+  typeof CreateClientLinkLocale
+> = CreateClientLinkLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateClientLinkLocale$ {
+  /** @deprecated use `CreateClientLinkLocale$inboundSchema` instead. */
+  export const inboundSchema = CreateClientLinkLocale$inboundSchema;
+  /** @deprecated use `CreateClientLinkLocale$outboundSchema` instead. */
+  export const outboundSchema = CreateClientLinkLocale$outboundSchema;
+}
+
+/** @internal */
 export const Owner$inboundSchema: z.ZodType<Owner, z.ZodTypeDef, unknown> = z
   .object({
     email: z.string(),
     givenName: z.string(),
     familyName: z.string(),
-    locale: z.nullable(z.string()).optional(),
+    locale: z.nullable(CreateClientLinkLocale$inboundSchema).optional(),
   });
 
 /** @internal */
@@ -213,7 +296,7 @@ export const Owner$outboundSchema: z.ZodType<
   email: z.string(),
   givenName: z.string(),
   familyName: z.string(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateClientLinkLocale$outboundSchema).optional(),
 });
 
 /**

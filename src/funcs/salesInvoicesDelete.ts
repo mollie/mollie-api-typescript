@@ -34,13 +34,8 @@ import { Result } from "../types/fp.js";
  * >
  * > This feature is currently in beta testing, and the final specification may still change.
  *
- * Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the [Update sales invoice](update-sales-invoice) endpoint instead.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **sales-invoices.write**](/reference/authentication)
+ * Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
+ * [Update sales invoice](update-sales-invoice) endpoint instead.
  */
 export function salesInvoicesDelete(
   client: ClientCore,

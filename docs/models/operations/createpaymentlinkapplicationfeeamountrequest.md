@@ -2,7 +2,8 @@
 
 The fee that you wish to charge.
 
-Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge a €0.99 fee on a €1.00 payment.
+Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+a €0.99 fee on a €1.00 payment.
 
 ## Example Usage
 

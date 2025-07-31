@@ -10,16 +10,14 @@
 
 ## list
 
-Retrieve a list of all your invoices, optionally filtered by year or by invoice reference.
+Retrieve a list of all your invoices, optionally filtered by year or by
+invoice reference.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [Access token with **invoices.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-invoices" method="get" path="/invoices" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -35,7 +33,6 @@ async function run() {
     year: "2024",
     month: "01",
     from: "inv_xBEbP9rvAq",
-    sort: "desc",
   });
 
   console.log(result);
@@ -66,7 +63,6 @@ async function run() {
     year: "2024",
     month: "01",
     from: "inv_xBEbP9rvAq",
-    sort: "desc",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -104,14 +100,12 @@ run();
 
 Retrieve a single invoice by its ID.
 
-If you want to retrieve the details of an invoice by its invoice number, call the [List invoices](list-invoices) endpoint with the `reference` parameter.
-
-> 🔑 Access with
->
-> [Access token with **invoices.read**](/reference/authentication)
+If you want to retrieve the details of an invoice by its invoice number,
+call the [List invoices](list-invoices) endpoint with the `reference` parameter.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-invoice" method="get" path="/invoices/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

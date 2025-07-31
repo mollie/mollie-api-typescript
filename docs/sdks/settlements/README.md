@@ -20,12 +20,9 @@ Retrieve a list of all your settlements.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [Access token with **settlements.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-settlements" method="get" path="/settlements" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -110,20 +107,20 @@ run();
 
 Retrieve a single settlement by its ID.
 
-To lookup settlements by their bank reference, replace the ID in the URL by a reference. For example: `1234567.2404.03`.
+To lookup settlements by their bank reference, replace the ID in the URL by
+a reference. For example: `1234567.2404.03`.
 
 A settlement represents a transfer of your balance funds to your external bank account.
 
-Settlements will typically include a report that details what balance transactions have taken place between this settlement and the previous one.
+Settlements will typically include a report that details what balance transactions have taken place between this
+settlement and the previous one.
 
-For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the [balance transactions](list-balance-transactions) endpoint.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read**](/reference/authentication)
+For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
+[balance transactions](list-balance-transactions) endpoint.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-settlement" method="get" path="/settlements/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -197,18 +194,18 @@ run();
 
 ## getOpen
 
-Retrieve the details of the open balance of the organization. This will return a settlement object representing your organization's balance.
+Retrieve the details of the open balance of the organization. This will return a settlement object representing your
+organization's balance.
 
-For a complete reference of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation.
+For a complete reference of the settlement object, refer to the [Get settlement endpoint](get-settlement)
+documentation.
 
-For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the [balance transactions](list-balance-transactions) endpoint.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read**](/reference/authentication)
+For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
+[balance transactions](list-balance-transactions) endpoint.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-open-settlement" method="get" path="/settlements/open" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -278,16 +275,15 @@ run();
 
 Retrieve the details of the current settlement, that has not yet been paid out.
 
-For a complete reference of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation.
+For a complete reference of the settlement object, refer to the [Get settlement endpoint](get-settlement)
+documentation.
 
-For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the [balance transactions](list-balance-transactions) endpoint.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read**](/reference/authentication)
+For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
+[balance transactions](list-balance-transactions) endpoint.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-next-settlement" method="get" path="/settlements/next" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -359,14 +355,12 @@ Retrieve all payments included in the given settlement.
 
 The response is in the same format as the response of the [List payments endpoint](list-payments).
 
-For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the [List captures endpoint](list-captures) endpoint instead.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read** **payments.read**](/reference/authentication)
+For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the
+[List captures endpoint](list-captures) endpoint instead.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-settlement-payments" method="get" path="/settlements/{settlementId}/payments" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -380,7 +374,6 @@ async function run() {
   const result = await client.settlements.listPayments({
     settlementId: "stl_jDk30akdN",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -411,7 +404,6 @@ async function run() {
   const res = await settlementsListPayments(client, {
     settlementId: "stl_jDk30akdN",
     from: "tr_5B8cwPMGnU",
-    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -452,12 +444,9 @@ Retrieve all captures included in the given settlement.
 
 The response is in the same format as the response of the [List captures endpoint](list-captures).
 
-> 🔑 Access with
->
-> [Access token with **settlements.read** **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-settlement-captures" method="get" path="/settlements/{settlementId}/captures" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -542,12 +531,9 @@ Retrieve all refunds 'deducted' from the given settlement.
 
 The response is in the same format as the response of the [List refunds endpoint](list-refunds).
 
-> 🔑 Access with
->
-> [Access token with **settlements.read** **refunds.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-settlement-refunds" method="get" path="/settlements/{settlementId}/refunds" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -632,12 +618,9 @@ Retrieve all chargebacks 'deducted' from the given settlement.
 
 The response is in the same format as the response of the [List chargebacks endpoint](list-chargebacks).
 
-> 🔑 Access with
->
-> [Access token with **settlements.read** **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-settlement-chargebacks" method="get" path="/settlements/{settlementId}/chargebacks" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

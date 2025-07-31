@@ -5,12 +5,34 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListCustomersSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListCustomersSort = ClosedEnum<typeof ListCustomersSort>;
+
 export type ListCustomersRequest = {
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -18,17 +40,18 @@ export type ListCustomersRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListCustomersSort | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -65,10 +88,63 @@ export type ListCustomersBadRequestLinks = {
   documentation: ListCustomersBadRequestDocumentation;
 };
 
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListCustomersMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListCustomersMode = ClosedEnum<typeof ListCustomersMode>;
+
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export const ListCustomersLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export type ListCustomersLocale = ClosedEnum<typeof ListCustomersLocale>;
+
 export type ListCustomersMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type ListCustomersMetadataUnion =
   | ListCustomersMetadata
@@ -104,7 +180,10 @@ export type ListCustomersDashboard = {
 };
 
 /**
- * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments exist (yet).
+ * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
+ *
+ * @remarks
+ * exist (yet).
  */
 export type ListCustomersPayments = {
   /**
@@ -118,7 +197,10 @@ export type ListCustomersPayments = {
 };
 
 /**
- * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates exist (yet).
+ * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
+ *
+ * @remarks
+ * exist (yet).
  */
 export type ListCustomersMandates = {
   /**
@@ -132,7 +214,10 @@ export type ListCustomersMandates = {
 };
 
 /**
- * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such subscriptions exist (yet).
+ * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
+ *
+ * @remarks
+ * subscriptions exist (yet).
  */
 export type ListCustomersSubscriptions = {
   /**
@@ -172,15 +257,24 @@ export type CustomerLinks = {
    */
   dashboard?: ListCustomersDashboard | undefined;
   /**
-   * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments exist (yet).
+   * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
+   *
+   * @remarks
+   * exist (yet).
    */
   payments?: ListCustomersPayments | null | undefined;
   /**
-   * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates exist (yet).
+   * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
+   *
+   * @remarks
+   * exist (yet).
    */
   mandates?: ListCustomersMandates | null | undefined;
   /**
-   * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such subscriptions exist (yet).
+   * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
+   *
+   * @remarks
+   * subscriptions exist (yet).
    */
   subscriptions?: ListCustomersSubscriptions | null | undefined;
   /**
@@ -200,12 +294,8 @@ export type ListCustomersCustomer = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: ListCustomersMode | undefined;
   /**
    * The full name of the customer.
    */
@@ -215,11 +305,17 @@ export type ListCustomersCustomer = {
    */
   email?: string | null | undefined;
   /**
-   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+   *
+   * @remarks
+   * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
    */
-  locale?: string | null | undefined;
+  locale?: ListCustomersLocale | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: ListCustomersMetadata | string | Array<string> | null | undefined;
   /**
@@ -322,11 +418,13 @@ export type ListCustomersLinks = {
  */
 export type ListCustomersResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListCustomersEmbedded | undefined;
@@ -337,6 +435,27 @@ export type ListCustomersResponse = {
 };
 
 /** @internal */
+export const ListCustomersSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomersSort
+> = z.nativeEnum(ListCustomersSort);
+
+/** @internal */
+export const ListCustomersSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomersSort
+> = ListCustomersSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomersSort$ {
+  /** @deprecated use `ListCustomersSort$inboundSchema` instead. */
+  export const inboundSchema = ListCustomersSort$inboundSchema;
+  /** @deprecated use `ListCustomersSort$outboundSchema` instead. */
+  export const outboundSchema = ListCustomersSort$outboundSchema;
+}
+
+/** @internal */
 export const ListCustomersRequest$inboundSchema: z.ZodType<
   ListCustomersRequest,
   z.ZodTypeDef,
@@ -344,7 +463,7 @@ export const ListCustomersRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListCustomersSort$inboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -352,7 +471,7 @@ export const ListCustomersRequest$inboundSchema: z.ZodType<
 export type ListCustomersRequest$Outbound = {
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   testmode?: boolean | null | undefined;
 };
 
@@ -364,7 +483,7 @@ export const ListCustomersRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListCustomersSort$outboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -636,6 +755,48 @@ export function listCustomersBadRequestLinksFromJSON(
     (x) => ListCustomersBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCustomersBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListCustomersMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomersMode
+> = z.nativeEnum(ListCustomersMode);
+
+/** @internal */
+export const ListCustomersMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomersMode
+> = ListCustomersMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomersMode$ {
+  /** @deprecated use `ListCustomersMode$inboundSchema` instead. */
+  export const inboundSchema = ListCustomersMode$inboundSchema;
+  /** @deprecated use `ListCustomersMode$outboundSchema` instead. */
+  export const outboundSchema = ListCustomersMode$outboundSchema;
+}
+
+/** @internal */
+export const ListCustomersLocale$inboundSchema: z.ZodNativeEnum<
+  typeof ListCustomersLocale
+> = z.nativeEnum(ListCustomersLocale);
+
+/** @internal */
+export const ListCustomersLocale$outboundSchema: z.ZodNativeEnum<
+  typeof ListCustomersLocale
+> = ListCustomersLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCustomersLocale$ {
+  /** @deprecated use `ListCustomersLocale$inboundSchema` instead. */
+  export const inboundSchema = ListCustomersLocale$inboundSchema;
+  /** @deprecated use `ListCustomersLocale$outboundSchema` instead. */
+  export const outboundSchema = ListCustomersLocale$outboundSchema;
 }
 
 /** @internal */
@@ -1164,10 +1325,10 @@ export const ListCustomersCustomer$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("customer"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: ListCustomersMode$inboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(ListCustomersLocale$inboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => ListCustomersMetadata$inboundSchema),
@@ -1209,10 +1370,10 @@ export const ListCustomersCustomer$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("customer"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: ListCustomersMode$outboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(ListCustomersLocale$outboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => ListCustomersMetadata$outboundSchema),

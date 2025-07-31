@@ -31,10 +31,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Sends a test event to the webhook to verify the endpoint is working as expected.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **webhooks.write**](/reference/authentication)
  */
 export function webhooksTest(
   client: ClientCore,

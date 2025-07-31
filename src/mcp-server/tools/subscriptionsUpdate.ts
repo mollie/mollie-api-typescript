@@ -18,13 +18,7 @@ Update an existing subscription.
 
 Canceled subscriptions cannot be updated.
 
-For an in-depth explanation of each parameter, refer to the [Create subscription](create-subscription) endpoint.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.write**](/reference/authentication)`,
+For an in-depth explanation of each parameter, refer to the [Create subscription](create-subscription) endpoint.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await subscriptionsUpdate(

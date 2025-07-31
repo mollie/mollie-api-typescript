@@ -14,11 +14,7 @@ export const tool$webhooksUpdate: ToolDefinition<typeof args> = {
   name: "webhooks-update",
   description: `Update a webhook
 
-Updates the webhook. You may edit the name, url and the list of subscribed event types.
-
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)`,
+Updates the webhook. You may edit the name, url and the list of subscribed event types.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await webhooksUpdate(

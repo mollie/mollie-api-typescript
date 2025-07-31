@@ -14,13 +14,7 @@ export const tool$refundsGet: ToolDefinition<typeof args> = {
   name: "refunds-get",
   description: `Get payment refund
 
-Retrieve a single payment refund by its ID and the ID of its parent payment.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **refunds.read**](/reference/authentication)`,
+Retrieve a single payment refund by its ID and the ID of its parent payment.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await refundsGet(

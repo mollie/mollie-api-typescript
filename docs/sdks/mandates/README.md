@@ -12,18 +12,15 @@
 
 ## create
 
-Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank account recurrently.
+Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank
+account recurrently.
 
-It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create mandates for cards, your customers need to perform a 'first payment' with their card.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.write**](/reference/authentication)
+It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create
+mandates for cards, your customers need to perform a 'first payment' with their card.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/customers/{customerId}/mandates" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -127,14 +124,9 @@ Retrieve a list of all mandates.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-mandates" method="get" path="/customers/{customerId}/mandates" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -148,7 +140,6 @@ async function run() {
   const result = await client.mandates.list({
     customerId: "cst_5B8cwPMGnU",
     from: "mdt_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
 
@@ -178,7 +169,6 @@ async function run() {
   const res = await mandatesList(client, {
     customerId: "cst_5B8cwPMGnU",
     from: "mdt_5B8cwPMGnU",
-    sort: "desc",
     testmode: false,
   });
   if (res.ok) {
@@ -215,16 +205,12 @@ run();
 
 ## get
 
-Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank account details, card details, or PayPal account details.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.read**](/reference/authentication)
+Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank
+account details, card details, or PayPal account details.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-mandate" method="get" path="/customers/{customerId}/mandates/{mandateId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -302,16 +288,12 @@ run();
 
 ## revoke
 
-Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this mandate, and all connected subscriptions will be canceled.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.write**](/reference/authentication)
+Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this
+mandate, and all connected subscriptions will be canceled.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="revoke-mandate" method="delete" path="/customers/{customerId}/mandates/{mandateId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

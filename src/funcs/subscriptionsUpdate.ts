@@ -34,12 +34,6 @@ import { Result } from "../types/fp.js";
  * Canceled subscriptions cannot be updated.
  *
  * For an in-depth explanation of each parameter, refer to the [Create subscription](create-subscription) endpoint.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **subscriptions.write**](/reference/authentication)
  */
 export function subscriptionsUpdate(
   client: ClientCore,

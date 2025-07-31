@@ -14,13 +14,7 @@ export const tool$subscriptionsCancel: ToolDefinition<typeof args> = {
   name: "subscriptions-cancel",
   description: `Cancel subscription
 
-Cancel an existing subscription. Canceling a subscription has no effect on the mandates of the customer.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **subscriptions.write**](/reference/authentication)`,
+Cancel an existing subscription. Canceling a subscription has no effect on the mandates of the customer.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await subscriptionsCancel(

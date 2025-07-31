@@ -1,6 +1,7 @@
 # ListSettlementCapturesShipment
 
-The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if it isn't associated with a shipment.
+The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if
+it isn't associated with a shipment.
 
 ## Example Usage
 

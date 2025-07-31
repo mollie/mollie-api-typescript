@@ -5,8 +5,36 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * The current status of the organization's onboarding process.
+ *
+ * @remarks
+ *
+ * * `needs-data` — The merchant needs to provide additional information
+ * * `in-review` — The merchant provided all information, awaiting review from Mollie
+ * * `completed` — The onboarding is completed
+ */
+export const GetOnboardingStatusStatus = {
+  NeedsData: "needs-data",
+  InReview: "in-review",
+  Completed: "completed",
+} as const;
+/**
+ * The current status of the organization's onboarding process.
+ *
+ * @remarks
+ *
+ * * `needs-data` — The merchant needs to provide additional information
+ * * `in-review` — The merchant provided all information, awaiting review from Mollie
+ * * `completed` — The onboarding is completed
+ */
+export type GetOnboardingStatusStatus = ClosedEnum<
+  typeof GetOnboardingStatusStatus
+>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -23,7 +51,10 @@ export type GetOnboardingStatusSelf = {
 };
 
 /**
- * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to complete their onboarding.
+ * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to
+ *
+ * @remarks
+ * complete their onboarding.
  */
 export type GetOnboardingStatusDashboard = {
   /**
@@ -73,7 +104,10 @@ export type GetOnboardingStatusLinks = {
    */
   self?: GetOnboardingStatusSelf | undefined;
   /**
-   * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to complete their onboarding.
+   * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to
+   *
+   * @remarks
+   * complete their onboarding.
    */
   dashboard?: GetOnboardingStatusDashboard | undefined;
   /**
@@ -91,7 +125,10 @@ export type GetOnboardingStatusLinks = {
  */
 export type GetOnboardingStatusResponse = {
   /**
-   * Indicates the response contains an onboarding status object. Will always contain the string `onboarding` for this resource type.
+   * Indicates the response contains an onboarding status object. Will always contain the string `onboarding` for this
+   *
+   * @remarks
+   * resource type.
    */
   resource?: string | undefined;
   /**
@@ -106,10 +143,8 @@ export type GetOnboardingStatusResponse = {
    * * `needs-data` — The merchant needs to provide additional information
    * * `in-review` — The merchant provided all information, awaiting review from Mollie
    * * `completed` — The onboarding is completed
-   *
-   * Possible values: `needs-data` `in-review` `completed`
    */
-  status?: string | undefined;
+  status?: GetOnboardingStatusStatus | undefined;
   /**
    * Whether the organization can receive payments.
    */
@@ -127,6 +162,27 @@ export type GetOnboardingStatusResponse = {
    */
   links?: GetOnboardingStatusLinks | undefined;
 };
+
+/** @internal */
+export const GetOnboardingStatusStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetOnboardingStatusStatus
+> = z.nativeEnum(GetOnboardingStatusStatus);
+
+/** @internal */
+export const GetOnboardingStatusStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetOnboardingStatusStatus
+> = GetOnboardingStatusStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetOnboardingStatusStatus$ {
+  /** @deprecated use `GetOnboardingStatusStatus$inboundSchema` instead. */
+  export const inboundSchema = GetOnboardingStatusStatus$inboundSchema;
+  /** @deprecated use `GetOnboardingStatusStatus$outboundSchema` instead. */
+  export const outboundSchema = GetOnboardingStatusStatus$outboundSchema;
+}
 
 /** @internal */
 export const GetOnboardingStatusSelf$inboundSchema: z.ZodType<
@@ -439,7 +495,7 @@ export const GetOnboardingStatusResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("onboarding"),
   name: z.string().optional(),
-  status: z.string().optional(),
+  status: GetOnboardingStatusStatus$inboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),
@@ -469,7 +525,7 @@ export const GetOnboardingStatusResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("onboarding"),
   name: z.string().optional(),
-  status: z.string().optional(),
+  status: GetOnboardingStatusStatus$outboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),

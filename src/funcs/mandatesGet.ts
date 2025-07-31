@@ -29,13 +29,8 @@ import { Result } from "../types/fp.js";
  * Get mandate
  *
  * @remarks
- * Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank account details, card details, or PayPal account details.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **mandates.read**](/reference/authentication)
+ * Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank
+ * account details, card details, or PayPal account details.
  */
 export function mandatesGet(
   client: ClientCore,

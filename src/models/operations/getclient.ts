@@ -15,13 +15,17 @@ export type GetClientRequest = {
    */
   id: string;
   /**
-   * This endpoint allows embedding related API items by appending the following values via the `embed` query string parameter.
+   * This endpoint allows embedding related API items by appending the following values via the `embed` query string
    *
    * @remarks
+   * parameter.
    *
-   * * `organization`: Include the organization of the client. Available for `signuplink` partners, or for `oauth` partners with the `organizations.read` scope.
-   * * `onboarding`: Include the onboarding status of the client. Available for `signuplink` partners, or for `oauth` partners with the `onboarding.read` scope.
-   * * `capabilities`: Include the [capabilities](list-capabilities) of the client organization. Available for *oauth* partners with the `onboarding.read` scope.
+   * * `organization`: Include the organization of the client. Available for `signuplink` partners, or for `oauth`
+   *   partners with the `organizations.read` scope.
+   * * `onboarding`: Include the onboarding status of the client. Available for `signuplink` partners, or for `oauth`
+   *   partners with the `onboarding.read` scope.
+   * * `capabilities`: Include the [capabilities](list-capabilities) of the client organization.
+   *   Available for *oauth* partners with the `onboarding.read` scope.
    */
   embed?: string | null | undefined;
 };
@@ -130,6 +134,38 @@ export type GetClientLinks = {
 };
 
 /**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export const GetClientLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export type GetClientLocale = ClosedEnum<typeof GetClientLocale>;
+
+/**
  * The address of the organization.
  */
 export type GetClientAddress = {
@@ -147,6 +183,29 @@ export type GetClientAddress = {
    */
   country?: string | undefined;
 };
+
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export const GetClientVatRegulation = {
+  Dutch: "dutch",
+  British: "british",
+  Shifted: "shifted",
+} as const;
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export type GetClientVatRegulation = ClosedEnum<typeof GetClientVatRegulation>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -210,7 +269,10 @@ export type GetClientOrganizationLinks = {
 
 export type GetClientEmbeddedOrganization = {
   /**
-   * Indicates the response contains an organization object. Will always contain the string `organization` for this resource type.
+   * Indicates the response contains an organization object. Will always contain the string `organization` for this
+   *
+   * @remarks
+   * resource type.
    */
   resource?: string | undefined;
   /**
@@ -228,7 +290,7 @@ export type GetClientEmbeddedOrganization = {
   /**
    * The preferred locale of the merchant, as set in their Mollie dashboard.
    */
-  locale?: string | undefined;
+  locale?: GetClientLocale | undefined;
   /**
    * The address of the organization.
    */
@@ -238,28 +300,55 @@ export type GetClientEmbeddedOrganization = {
    */
   registrationNumber?: string | undefined;
   /**
-   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are verified against the international registry *VIES*.
+   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are
    *
    * @remarks
+   * verified against the international registry *VIES*.
    *
    * The field is not present for merchants residing in other countries.
    */
   vatNumber?: string | null | undefined;
   /**
-   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United Kingdom, and shifted VAT for merchants in the European Union.
+   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
    *
    * @remarks
+   * Kingdom, and shifted VAT for merchants in the European Union.
    *
    * The field is not present for merchants residing in other countries.
-   *
-   * Possible values: `dutch` `british` `shifted`
    */
-  vatRegulation?: string | null | undefined;
+  vatRegulation?: GetClientVatRegulation | null | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links?: GetClientOrganizationLinks | undefined;
 };
+
+/**
+ * The current status of the organization's onboarding process.
+ *
+ * @remarks
+ *
+ * * `needs-data` — The merchant needs to provide additional information
+ * * `in-review` — The merchant provided all information, awaiting review from Mollie
+ * * `completed` — The onboarding is completed
+ */
+export const GetClientOnboardingStatus = {
+  NeedsData: "needs-data",
+  InReview: "in-review",
+  Completed: "completed",
+} as const;
+/**
+ * The current status of the organization's onboarding process.
+ *
+ * @remarks
+ *
+ * * `needs-data` — The merchant needs to provide additional information
+ * * `in-review` — The merchant provided all information, awaiting review from Mollie
+ * * `completed` — The onboarding is completed
+ */
+export type GetClientOnboardingStatus = ClosedEnum<
+  typeof GetClientOnboardingStatus
+>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -276,7 +365,10 @@ export type GetClientOnboardingSelf = {
 };
 
 /**
- * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to complete their onboarding.
+ * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to
+ *
+ * @remarks
+ * complete their onboarding.
  */
 export type GetClientOnboardingDashboard = {
   /**
@@ -326,7 +418,10 @@ export type GetClientOnboardingLinks = {
    */
   self?: GetClientOnboardingSelf | undefined;
   /**
-   * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to complete their onboarding.
+   * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to
+   *
+   * @remarks
+   * complete their onboarding.
    */
   dashboard?: GetClientOnboardingDashboard | undefined;
   /**
@@ -341,7 +436,10 @@ export type GetClientOnboardingLinks = {
 
 export type GetClientEmbeddedOnboarding = {
   /**
-   * Indicates the response contains an onboarding status object. Will always contain the string `onboarding` for this resource type.
+   * Indicates the response contains an onboarding status object. Will always contain the string `onboarding` for this
+   *
+   * @remarks
+   * resource type.
    */
   resource?: string | undefined;
   /**
@@ -356,10 +454,8 @@ export type GetClientEmbeddedOnboarding = {
    * * `needs-data` — The merchant needs to provide additional information
    * * `in-review` — The merchant provided all information, awaiting review from Mollie
    * * `completed` — The onboarding is completed
-   *
-   * Possible values: `needs-data` `in-review` `completed`
    */
-  status?: string | undefined;
+  status?: GetClientOnboardingStatus | undefined;
   /**
    * Whether the organization can receive payments.
    */
@@ -378,13 +474,15 @@ export type GetClientEmbeddedOnboarding = {
   links?: GetClientOnboardingLinks | undefined;
 };
 
-export const GetClientStatus = {
+export const GetClientCapabilitiesStatus = {
   Unrequested: "unrequested",
   Enabled: "enabled",
   Disabled: "disabled",
   Pending: "pending",
 } as const;
-export type GetClientStatus = ClosedEnum<typeof GetClientStatus>;
+export type GetClientCapabilitiesStatus = ClosedEnum<
+  typeof GetClientCapabilitiesStatus
+>;
 
 export const GetClientStatusReason = {
   RequirementPastDue: "requirement-past-due",
@@ -393,7 +491,31 @@ export const GetClientStatusReason = {
 export type GetClientStatusReason = ClosedEnum<typeof GetClientStatusReason>;
 
 /**
- * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled. For example, where necessary documents are to be uploaded.
+ * The status of the requirement depends on its due date.
+ *
+ * @remarks
+ * If no due date is given, the status will be `requested`.
+ */
+export const GetClientRequirementStatus = {
+  CurrentlyDue: "currently-due",
+  PastDue: "past-due",
+  Requested: "requested",
+} as const;
+/**
+ * The status of the requirement depends on its due date.
+ *
+ * @remarks
+ * If no due date is given, the status will be `requested`.
+ */
+export type GetClientRequirementStatus = ClosedEnum<
+  typeof GetClientRequirementStatus
+>;
+
+/**
+ * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
+ *
+ * @remarks
+ * For example, where necessary documents are to be uploaded.
  */
 export type GetClientCapabilitiesDashboard = {
   /**
@@ -408,24 +530,30 @@ export type GetClientCapabilitiesDashboard = {
 
 export type GetClientRequirementLinks = {
   /**
-   * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled. For example, where necessary documents are to be uploaded.
+   * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
+   *
+   * @remarks
+   * For example, where necessary documents are to be uploaded.
    */
   dashboard?: GetClientCapabilitiesDashboard | undefined;
 };
 
 export type GetClientRequirement = {
   /**
-   * The name of this requirement, referring to the task to be fulfilled by the organization to enable or re-enable the capability. The name is unique among other requirements of the same capability.
+   * The name of this requirement, referring to the task to be fulfilled by the organization
+   *
+   * @remarks
+   * to enable or re-enable the capability. The name is unique among other requirements
+   * of the same capability.
    */
   id?: string | undefined;
   /**
-   * The status of the requirement depends on its due date. If no due date is given, the status will be `requested`.
+   * The status of the requirement depends on its due date.
    *
    * @remarks
-   *
-   * Possible values: `currently-due` `past-due` `requested`
+   * If no due date is given, the status will be `requested`.
    */
-  status?: string | undefined;
+  status?: GetClientRequirementStatus | undefined;
   /**
    * Due date until the requirement must be fulfilled, if any. The date is shown in ISO-8601 format.
    */
@@ -442,7 +570,7 @@ export type GetClientCapabilities = {
    * A unique name for this capability like `payments` / `settlements`.
    */
   name?: string | undefined;
-  status?: GetClientStatus | undefined;
+  status?: GetClientCapabilitiesStatus | undefined;
   statusReason?: GetClientStatusReason | null | undefined;
   requirements?: Array<GetClientRequirement> | undefined;
 };
@@ -470,7 +598,10 @@ export type GetClientResponse = {
    */
   commission?: GetClientCommission | null | undefined;
   /**
-   * The date and time the client organization was created, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * The date and time the client organization was created, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+   *
+   * @remarks
+   * format.
    */
   organizationCreatedAt?: string | undefined;
   /**
@@ -990,6 +1121,27 @@ export function getClientLinksFromJSON(
 }
 
 /** @internal */
+export const GetClientLocale$inboundSchema: z.ZodNativeEnum<
+  typeof GetClientLocale
+> = z.nativeEnum(GetClientLocale);
+
+/** @internal */
+export const GetClientLocale$outboundSchema: z.ZodNativeEnum<
+  typeof GetClientLocale
+> = GetClientLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetClientLocale$ {
+  /** @deprecated use `GetClientLocale$inboundSchema` instead. */
+  export const inboundSchema = GetClientLocale$inboundSchema;
+  /** @deprecated use `GetClientLocale$outboundSchema` instead. */
+  export const outboundSchema = GetClientLocale$outboundSchema;
+}
+
+/** @internal */
 export const GetClientAddress$inboundSchema: z.ZodType<
   GetClientAddress,
   z.ZodTypeDef,
@@ -1050,6 +1202,27 @@ export function getClientAddressFromJSON(
     (x) => GetClientAddress$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetClientAddress' from JSON`,
   );
+}
+
+/** @internal */
+export const GetClientVatRegulation$inboundSchema: z.ZodNativeEnum<
+  typeof GetClientVatRegulation
+> = z.nativeEnum(GetClientVatRegulation);
+
+/** @internal */
+export const GetClientVatRegulation$outboundSchema: z.ZodNativeEnum<
+  typeof GetClientVatRegulation
+> = GetClientVatRegulation$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetClientVatRegulation$ {
+  /** @deprecated use `GetClientVatRegulation$inboundSchema` instead. */
+  export const inboundSchema = GetClientVatRegulation$inboundSchema;
+  /** @deprecated use `GetClientVatRegulation$outboundSchema` instead. */
+  export const outboundSchema = GetClientVatRegulation$outboundSchema;
 }
 
 /** @internal */
@@ -1303,11 +1476,11 @@ export const GetClientEmbeddedOrganization$inboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: GetClientLocale$inboundSchema.optional(),
   address: z.lazy(() => GetClientAddress$inboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(GetClientVatRegulation$inboundSchema).optional(),
   _links: z.lazy(() => GetClientOrganizationLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -1339,11 +1512,11 @@ export const GetClientEmbeddedOrganization$outboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: GetClientLocale$outboundSchema.optional(),
   address: z.lazy(() => GetClientAddress$outboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(GetClientVatRegulation$outboundSchema).optional(),
   links: z.lazy(() => GetClientOrganizationLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -1382,6 +1555,27 @@ export function getClientEmbeddedOrganizationFromJSON(
     (x) => GetClientEmbeddedOrganization$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetClientEmbeddedOrganization' from JSON`,
   );
+}
+
+/** @internal */
+export const GetClientOnboardingStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetClientOnboardingStatus
+> = z.nativeEnum(GetClientOnboardingStatus);
+
+/** @internal */
+export const GetClientOnboardingStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetClientOnboardingStatus
+> = GetClientOnboardingStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetClientOnboardingStatus$ {
+  /** @deprecated use `GetClientOnboardingStatus$inboundSchema` instead. */
+  export const inboundSchema = GetClientOnboardingStatus$inboundSchema;
+  /** @deprecated use `GetClientOnboardingStatus$outboundSchema` instead. */
+  export const outboundSchema = GetClientOnboardingStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1695,7 +1889,7 @@ export const GetClientEmbeddedOnboarding$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("onboarding"),
   name: z.string().optional(),
-  status: z.string().optional(),
+  status: GetClientOnboardingStatus$inboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),
@@ -1725,7 +1919,7 @@ export const GetClientEmbeddedOnboarding$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("onboarding"),
   name: z.string().optional(),
-  status: z.string().optional(),
+  status: GetClientOnboardingStatus$outboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),
@@ -1770,24 +1964,24 @@ export function getClientEmbeddedOnboardingFromJSON(
 }
 
 /** @internal */
-export const GetClientStatus$inboundSchema: z.ZodNativeEnum<
-  typeof GetClientStatus
-> = z.nativeEnum(GetClientStatus);
+export const GetClientCapabilitiesStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetClientCapabilitiesStatus
+> = z.nativeEnum(GetClientCapabilitiesStatus);
 
 /** @internal */
-export const GetClientStatus$outboundSchema: z.ZodNativeEnum<
-  typeof GetClientStatus
-> = GetClientStatus$inboundSchema;
+export const GetClientCapabilitiesStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetClientCapabilitiesStatus
+> = GetClientCapabilitiesStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace GetClientStatus$ {
-  /** @deprecated use `GetClientStatus$inboundSchema` instead. */
-  export const inboundSchema = GetClientStatus$inboundSchema;
-  /** @deprecated use `GetClientStatus$outboundSchema` instead. */
-  export const outboundSchema = GetClientStatus$outboundSchema;
+export namespace GetClientCapabilitiesStatus$ {
+  /** @deprecated use `GetClientCapabilitiesStatus$inboundSchema` instead. */
+  export const inboundSchema = GetClientCapabilitiesStatus$inboundSchema;
+  /** @deprecated use `GetClientCapabilitiesStatus$outboundSchema` instead. */
+  export const outboundSchema = GetClientCapabilitiesStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1809,6 +2003,27 @@ export namespace GetClientStatusReason$ {
   export const inboundSchema = GetClientStatusReason$inboundSchema;
   /** @deprecated use `GetClientStatusReason$outboundSchema` instead. */
   export const outboundSchema = GetClientStatusReason$outboundSchema;
+}
+
+/** @internal */
+export const GetClientRequirementStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetClientRequirementStatus
+> = z.nativeEnum(GetClientRequirementStatus);
+
+/** @internal */
+export const GetClientRequirementStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetClientRequirementStatus
+> = GetClientRequirementStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetClientRequirementStatus$ {
+  /** @deprecated use `GetClientRequirementStatus$inboundSchema` instead. */
+  export const inboundSchema = GetClientRequirementStatus$inboundSchema;
+  /** @deprecated use `GetClientRequirementStatus$outboundSchema` instead. */
+  export const outboundSchema = GetClientRequirementStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1933,7 +2148,7 @@ export const GetClientRequirement$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  status: z.string().optional(),
+  status: GetClientRequirementStatus$inboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   _links: z.lazy(() => GetClientRequirementLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -1957,7 +2172,7 @@ export const GetClientRequirement$outboundSchema: z.ZodType<
   GetClientRequirement
 > = z.object({
   id: z.string().optional(),
-  status: z.string().optional(),
+  status: GetClientRequirementStatus$outboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   links: z.lazy(() => GetClientRequirementLinks$outboundSchema).optional(),
 }).transform((v) => {
@@ -2005,7 +2220,7 @@ export const GetClientCapabilities$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: GetClientStatus$inboundSchema.optional(),
+  status: GetClientCapabilitiesStatus$inboundSchema.optional(),
   statusReason: z.nullable(GetClientStatusReason$inboundSchema).optional(),
   requirements: z.array(z.lazy(() => GetClientRequirement$inboundSchema))
     .optional(),
@@ -2028,7 +2243,7 @@ export const GetClientCapabilities$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: GetClientStatus$outboundSchema.optional(),
+  status: GetClientCapabilitiesStatus$outboundSchema.optional(),
   statusReason: z.nullable(GetClientStatusReason$outboundSchema).optional(),
   requirements: z.array(z.lazy(() => GetClientRequirement$outboundSchema))
     .optional(),

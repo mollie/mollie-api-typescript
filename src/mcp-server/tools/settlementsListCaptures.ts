@@ -16,11 +16,7 @@ export const tool$settlementsListCaptures: ToolDefinition<typeof args> = {
 
 Retrieve all captures included in the given settlement.
 
-The response is in the same format as the response of the [List captures endpoint](list-captures).
-
-> 🔑 Access with
->
-> [Access token with **settlements.read** **payments.read**](/reference/authentication)`,
+The response is in the same format as the response of the [List captures endpoint](list-captures).`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsListCaptures(

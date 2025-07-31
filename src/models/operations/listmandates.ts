@@ -5,8 +5,27 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListMandatesSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListMandatesSort = ClosedEnum<typeof ListMandatesSort>;
 
 export type ListMandatesRequest = {
   /**
@@ -14,7 +33,10 @@ export type ListMandatesRequest = {
    */
   customerId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -22,17 +44,18 @@ export type ListMandatesRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListMandatesSort | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -69,6 +92,61 @@ export type ListMandatesBadRequestLinks = {
   documentation: ListMandatesBadRequestDocumentation;
 };
 
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListMandatesMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListMandatesMode = ClosedEnum<typeof ListMandatesMode>;
+
+/**
+ * Payment method of the mandate.
+ *
+ * @remarks
+ *
+ * SEPA Direct Debit and PayPal mandates can be created directly.
+ */
+export const ListMandatesMethod = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * Payment method of the mandate.
+ *
+ * @remarks
+ *
+ * SEPA Direct Debit and PayPal mandates can be created directly.
+ */
+export type ListMandatesMethod = ClosedEnum<typeof ListMandatesMethod>;
+
+/**
+ * The card's label. Available for card mandates, if the card label could be detected.
+ */
+export const ListMandatesCardLabel = {
+  AmericanExpress: "American Express",
+  CartaSi: "Carta Si",
+  CarteBleue: "Carte Bleue",
+  Dankort: "Dankort",
+  DinersClub: "Diners Club",
+  Discover: "Discover",
+  Jcb: "JCB",
+  Laser: "Laser",
+  Maestro: "Maestro",
+  Mastercard: "Mastercard",
+  Unionpay: "Unionpay",
+  Visa: "Visa",
+} as const;
+/**
+ * The card's label. Available for card mandates, if the card label could be detected.
+ */
+export type ListMandatesCardLabel = ClosedEnum<typeof ListMandatesCardLabel>;
+
 export type ListMandatesDetails = {
   /**
    * The customer's name. Available for SEPA Direct Debit and PayPal mandates.
@@ -96,17 +174,35 @@ export type ListMandatesDetails = {
   cardExpiryDate?: string | null | undefined;
   /**
    * The card's label. Available for card mandates, if the card label could be detected.
+   */
+  cardLabel?: ListMandatesCardLabel | null | undefined;
+  /**
+   * Unique alphanumeric representation of this specific card. Available for card mandates. Can be used to identify
    *
    * @remarks
-   *
-   * Possible values: `American Express` `Carta Si` `Carte Bleue` `Dankort` `Diners Club` `Discover` `JCB` `Laser` `Maestro` `Mastercard` `Unionpay` `Visa`
-   */
-  cardLabel?: string | null | undefined;
-  /**
-   * Unique alphanumeric representation of this specific card. Available for card mandates. Can be used to identify returning customers.
+   * returning customers.
    */
   cardFingerprint?: string | null | undefined;
 };
+
+/**
+ * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+ *
+ * @remarks
+ * when we did not received the IBAN yet from the first payment.
+ */
+export const ListMandatesStatus = {
+  Valid: "valid",
+  Pending: "pending",
+  Invalid: "invalid",
+} as const;
+/**
+ * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+ *
+ * @remarks
+ * when we did not received the IBAN yet from the first payment.
+ */
+export type ListMandatesStatus = ClosedEnum<typeof ListMandatesStatus>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -179,39 +275,35 @@ export type ListMandatesMandate = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: ListMandatesMode | undefined;
   /**
    * Payment method of the mandate.
    *
    * @remarks
    *
    * SEPA Direct Debit and PayPal mandates can be created directly.
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method?: string | undefined;
+  method?: ListMandatesMethod | undefined;
   details?: ListMandatesDetails | undefined;
   /**
    * The date when the mandate was signed in `YYYY-MM-DD` format.
    */
   signatureDate?: string | null | undefined;
   /**
-   * A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will decline Direct Debit payments if the mandate reference is not unique.
+   * A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will
+   *
+   * @remarks
+   * decline Direct Debit payments if the mandate reference is not unique.
    */
   mandateReference?: string | null | undefined;
   /**
-   * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or when we did not received the IBAN yet from the first payment.
+   * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
    *
    * @remarks
-   *
-   * Possible values: `valid` `pending` `invalid`
+   * when we did not received the IBAN yet from the first payment.
    */
-  status?: string | undefined;
+  status?: ListMandatesStatus | undefined;
   /**
    * The identifier referring to the [customer](get-customer) this mandate was linked to.
    */
@@ -316,11 +408,13 @@ export type ListMandatesLinks = {
  */
 export type ListMandatesResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListMandatesEmbedded | undefined;
@@ -331,6 +425,27 @@ export type ListMandatesResponse = {
 };
 
 /** @internal */
+export const ListMandatesSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesSort
+> = z.nativeEnum(ListMandatesSort);
+
+/** @internal */
+export const ListMandatesSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesSort
+> = ListMandatesSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMandatesSort$ {
+  /** @deprecated use `ListMandatesSort$inboundSchema` instead. */
+  export const inboundSchema = ListMandatesSort$inboundSchema;
+  /** @deprecated use `ListMandatesSort$outboundSchema` instead. */
+  export const outboundSchema = ListMandatesSort$outboundSchema;
+}
+
+/** @internal */
 export const ListMandatesRequest$inboundSchema: z.ZodType<
   ListMandatesRequest,
   z.ZodTypeDef,
@@ -339,7 +454,7 @@ export const ListMandatesRequest$inboundSchema: z.ZodType<
   customerId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListMandatesSort$inboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -348,7 +463,7 @@ export type ListMandatesRequest$Outbound = {
   customerId: string;
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   testmode?: boolean | null | undefined;
 };
 
@@ -361,7 +476,7 @@ export const ListMandatesRequest$outboundSchema: z.ZodType<
   customerId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListMandatesSort$outboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -633,6 +748,69 @@ export function listMandatesBadRequestLinksFromJSON(
 }
 
 /** @internal */
+export const ListMandatesMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesMode
+> = z.nativeEnum(ListMandatesMode);
+
+/** @internal */
+export const ListMandatesMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesMode
+> = ListMandatesMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMandatesMode$ {
+  /** @deprecated use `ListMandatesMode$inboundSchema` instead. */
+  export const inboundSchema = ListMandatesMode$inboundSchema;
+  /** @deprecated use `ListMandatesMode$outboundSchema` instead. */
+  export const outboundSchema = ListMandatesMode$outboundSchema;
+}
+
+/** @internal */
+export const ListMandatesMethod$inboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesMethod
+> = z.nativeEnum(ListMandatesMethod);
+
+/** @internal */
+export const ListMandatesMethod$outboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesMethod
+> = ListMandatesMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMandatesMethod$ {
+  /** @deprecated use `ListMandatesMethod$inboundSchema` instead. */
+  export const inboundSchema = ListMandatesMethod$inboundSchema;
+  /** @deprecated use `ListMandatesMethod$outboundSchema` instead. */
+  export const outboundSchema = ListMandatesMethod$outboundSchema;
+}
+
+/** @internal */
+export const ListMandatesCardLabel$inboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesCardLabel
+> = z.nativeEnum(ListMandatesCardLabel);
+
+/** @internal */
+export const ListMandatesCardLabel$outboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesCardLabel
+> = ListMandatesCardLabel$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMandatesCardLabel$ {
+  /** @deprecated use `ListMandatesCardLabel$inboundSchema` instead. */
+  export const inboundSchema = ListMandatesCardLabel$inboundSchema;
+  /** @deprecated use `ListMandatesCardLabel$outboundSchema` instead. */
+  export const outboundSchema = ListMandatesCardLabel$outboundSchema;
+}
+
+/** @internal */
 export const ListMandatesDetails$inboundSchema: z.ZodType<
   ListMandatesDetails,
   z.ZodTypeDef,
@@ -644,7 +822,7 @@ export const ListMandatesDetails$inboundSchema: z.ZodType<
   cardHolder: z.nullable(z.string()).optional(),
   cardNumber: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(z.string()).optional(),
+  cardLabel: z.nullable(ListMandatesCardLabel$inboundSchema).optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
 
@@ -672,7 +850,7 @@ export const ListMandatesDetails$outboundSchema: z.ZodType<
   cardHolder: z.nullable(z.string()).optional(),
   cardNumber: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(z.string()).optional(),
+  cardLabel: z.nullable(ListMandatesCardLabel$outboundSchema).optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
 
@@ -705,6 +883,27 @@ export function listMandatesDetailsFromJSON(
     (x) => ListMandatesDetails$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListMandatesDetails' from JSON`,
   );
+}
+
+/** @internal */
+export const ListMandatesStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesStatus
+> = z.nativeEnum(ListMandatesStatus);
+
+/** @internal */
+export const ListMandatesStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListMandatesStatus
+> = ListMandatesStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMandatesStatus$ {
+  /** @deprecated use `ListMandatesStatus$inboundSchema` instead. */
+  export const inboundSchema = ListMandatesStatus$inboundSchema;
+  /** @deprecated use `ListMandatesStatus$outboundSchema` instead. */
+  export const outboundSchema = ListMandatesStatus$outboundSchema;
 }
 
 /** @internal */
@@ -938,12 +1137,12 @@ export const ListMandatesMandate$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("mandate"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  method: z.string().optional(),
+  mode: ListMandatesMode$inboundSchema.optional(),
+  method: ListMandatesMethod$inboundSchema.optional(),
   details: z.lazy(() => ListMandatesDetails$inboundSchema).optional(),
   signatureDate: z.nullable(z.string()).optional(),
   mandateReference: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: ListMandatesStatus$inboundSchema.optional(),
   customerId: z.string().optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => MandateLinks$inboundSchema).optional(),
@@ -976,12 +1175,12 @@ export const ListMandatesMandate$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("mandate"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  method: z.string().optional(),
+  mode: ListMandatesMode$outboundSchema.optional(),
+  method: ListMandatesMethod$outboundSchema.optional(),
   details: z.lazy(() => ListMandatesDetails$outboundSchema).optional(),
   signatureDate: z.nullable(z.string()).optional(),
   mandateReference: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: ListMandatesStatus$outboundSchema.optional(),
   customerId: z.string().optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => MandateLinks$outboundSchema).optional(),

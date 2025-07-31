@@ -16,13 +16,7 @@ export const tool$customersList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all customers.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **customers.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await customersList(

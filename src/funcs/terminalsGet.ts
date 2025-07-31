@@ -30,12 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single terminal by its ID.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **terminals.read**](/reference/authentication)
  */
 export function terminalsGet(
   client: ClientCore,

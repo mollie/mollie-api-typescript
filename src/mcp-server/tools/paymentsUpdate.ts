@@ -16,13 +16,7 @@ export const tool$paymentsUpdate: ToolDefinition<typeof args> = {
 
 Certain details of an existing payment can be updated.
 
-Updating the payment details will not result in a webhook call.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.write**](/reference/authentication)`,
+Updating the payment details will not result in a webhook call.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await paymentsUpdate(

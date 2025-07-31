@@ -5,8 +5,32 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * Payment method of the mandate.
+ *
+ * @remarks
+ *
+ * SEPA Direct Debit and PayPal mandates can be created directly.
+ */
+export const CreateMandateMethodRequest = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * Payment method of the mandate.
+ *
+ * @remarks
+ *
+ * SEPA Direct Debit and PayPal mandates can be created directly.
+ */
+export type CreateMandateMethodRequest = ClosedEnum<
+  typeof CreateMandateMethodRequest
+>;
 
 export type CreateMandateRequestBody = {
   /**
@@ -19,10 +43,8 @@ export type CreateMandateRequestBody = {
    * @remarks
    *
    * SEPA Direct Debit and PayPal mandates can be created directly.
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method: string;
+  method: CreateMandateMethodRequest;
   /**
    * The customer's name.
    */
@@ -44,15 +66,24 @@ export type CreateMandateRequestBody = {
    */
   signatureDate?: string | null | undefined;
   /**
-   * A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will decline Direct Debit payments if the mandate reference is not unique.
+   * A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will
+   *
+   * @remarks
+   * decline Direct Debit payments if the mandate reference is not unique.
    */
   mandateReference?: string | null | undefined;
   /**
-   * The billing agreement ID given by PayPal. For example: `B-12A34567B8901234CD`. Required for PayPal mandates. Must provide either this field or `payPalVaultId`, but not both.
+   * The billing agreement ID given by PayPal. For example: `B-12A34567B8901234CD`. Required for PayPal mandates.
+   *
+   * @remarks
+   * Must provide either this field or `payPalVaultId`, but not both.
    */
   paypalBillingAgreementId?: string | null | undefined;
   /**
-   * The Vault ID given by PayPal. For example: `8kk8451t`. Required for PayPal mandates. Must provide either this field or `paypalBillingAgreementId`, but not both.
+   * The Vault ID given by PayPal. For example: `8kk8451t`. Required for PayPal mandates.
+   *
+   * @remarks
+   * Must provide either this field or `paypalBillingAgreementId`, but not both.
    */
   payPalVaultId?: string | null | undefined;
   /**
@@ -60,7 +91,9 @@ export type CreateMandateRequestBody = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
   testmode?: boolean | null | undefined;
 };
@@ -87,6 +120,63 @@ export type CreateMandateNotFoundLinks = {
    */
   documentation: CreateMandateNotFoundDocumentation;
 };
+
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreateMandateMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreateMandateMode = ClosedEnum<typeof CreateMandateMode>;
+
+/**
+ * Payment method of the mandate.
+ *
+ * @remarks
+ *
+ * SEPA Direct Debit and PayPal mandates can be created directly.
+ */
+export const CreateMandateMethodResponse = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * Payment method of the mandate.
+ *
+ * @remarks
+ *
+ * SEPA Direct Debit and PayPal mandates can be created directly.
+ */
+export type CreateMandateMethodResponse = ClosedEnum<
+  typeof CreateMandateMethodResponse
+>;
+
+/**
+ * The card's label. Available for card mandates, if the card label could be detected.
+ */
+export const CreateMandateCardLabel = {
+  AmericanExpress: "American Express",
+  CartaSi: "Carta Si",
+  CarteBleue: "Carte Bleue",
+  Dankort: "Dankort",
+  DinersClub: "Diners Club",
+  Discover: "Discover",
+  Jcb: "JCB",
+  Laser: "Laser",
+  Maestro: "Maestro",
+  Mastercard: "Mastercard",
+  Unionpay: "Unionpay",
+  Visa: "Visa",
+} as const;
+/**
+ * The card's label. Available for card mandates, if the card label could be detected.
+ */
+export type CreateMandateCardLabel = ClosedEnum<typeof CreateMandateCardLabel>;
 
 export type CreateMandateDetails = {
   /**
@@ -115,17 +205,35 @@ export type CreateMandateDetails = {
   cardExpiryDate?: string | null | undefined;
   /**
    * The card's label. Available for card mandates, if the card label could be detected.
+   */
+  cardLabel?: CreateMandateCardLabel | null | undefined;
+  /**
+   * Unique alphanumeric representation of this specific card. Available for card mandates. Can be used to identify
    *
    * @remarks
-   *
-   * Possible values: `American Express` `Carta Si` `Carte Bleue` `Dankort` `Diners Club` `Discover` `JCB` `Laser` `Maestro` `Mastercard` `Unionpay` `Visa`
-   */
-  cardLabel?: string | null | undefined;
-  /**
-   * Unique alphanumeric representation of this specific card. Available for card mandates. Can be used to identify returning customers.
+   * returning customers.
    */
   cardFingerprint?: string | null | undefined;
 };
+
+/**
+ * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+ *
+ * @remarks
+ * when we did not received the IBAN yet from the first payment.
+ */
+export const CreateMandateStatus = {
+  Valid: "valid",
+  Pending: "pending",
+  Invalid: "invalid",
+} as const;
+/**
+ * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+ *
+ * @remarks
+ * when we did not received the IBAN yet from the first payment.
+ */
+export type CreateMandateStatus = ClosedEnum<typeof CreateMandateStatus>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -201,39 +309,35 @@ export type CreateMandateResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: CreateMandateMode | undefined;
   /**
    * Payment method of the mandate.
    *
    * @remarks
    *
    * SEPA Direct Debit and PayPal mandates can be created directly.
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method?: string | undefined;
+  method?: CreateMandateMethodResponse | undefined;
   details?: CreateMandateDetails | undefined;
   /**
    * The date when the mandate was signed in `YYYY-MM-DD` format.
    */
   signatureDate?: string | null | undefined;
   /**
-   * A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will decline Direct Debit payments if the mandate reference is not unique.
+   * A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will
+   *
+   * @remarks
+   * decline Direct Debit payments if the mandate reference is not unique.
    */
   mandateReference?: string | null | undefined;
   /**
-   * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or when we did not received the IBAN yet from the first payment.
+   * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
    *
    * @remarks
-   *
-   * Possible values: `valid` `pending` `invalid`
+   * when we did not received the IBAN yet from the first payment.
    */
-  status?: string | undefined;
+  status?: CreateMandateStatus | undefined;
   /**
    * The identifier referring to the [customer](get-customer) this mandate was linked to.
    */
@@ -249,13 +353,34 @@ export type CreateMandateResponse = {
 };
 
 /** @internal */
+export const CreateMandateMethodRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateMethodRequest
+> = z.nativeEnum(CreateMandateMethodRequest);
+
+/** @internal */
+export const CreateMandateMethodRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateMethodRequest
+> = CreateMandateMethodRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateMandateMethodRequest$ {
+  /** @deprecated use `CreateMandateMethodRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateMandateMethodRequest$inboundSchema;
+  /** @deprecated use `CreateMandateMethodRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateMandateMethodRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateMandateRequestBody$inboundSchema: z.ZodType<
   CreateMandateRequestBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  method: z.string(),
+  method: CreateMandateMethodRequest$inboundSchema,
   consumerName: z.string(),
   consumerAccount: z.nullable(z.string()).optional(),
   consumerBic: z.nullable(z.string()).optional(),
@@ -289,7 +414,7 @@ export const CreateMandateRequestBody$outboundSchema: z.ZodType<
   CreateMandateRequestBody
 > = z.object({
   id: z.string().optional(),
-  method: z.string(),
+  method: CreateMandateMethodRequest$outboundSchema,
   consumerName: z.string(),
   consumerAccount: z.nullable(z.string()).optional(),
   consumerBic: z.nullable(z.string()).optional(),
@@ -515,6 +640,69 @@ export function createMandateNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const CreateMandateMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateMode
+> = z.nativeEnum(CreateMandateMode);
+
+/** @internal */
+export const CreateMandateMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateMode
+> = CreateMandateMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateMandateMode$ {
+  /** @deprecated use `CreateMandateMode$inboundSchema` instead. */
+  export const inboundSchema = CreateMandateMode$inboundSchema;
+  /** @deprecated use `CreateMandateMode$outboundSchema` instead. */
+  export const outboundSchema = CreateMandateMode$outboundSchema;
+}
+
+/** @internal */
+export const CreateMandateMethodResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateMethodResponse
+> = z.nativeEnum(CreateMandateMethodResponse);
+
+/** @internal */
+export const CreateMandateMethodResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateMethodResponse
+> = CreateMandateMethodResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateMandateMethodResponse$ {
+  /** @deprecated use `CreateMandateMethodResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateMandateMethodResponse$inboundSchema;
+  /** @deprecated use `CreateMandateMethodResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateMandateMethodResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateMandateCardLabel$inboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateCardLabel
+> = z.nativeEnum(CreateMandateCardLabel);
+
+/** @internal */
+export const CreateMandateCardLabel$outboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateCardLabel
+> = CreateMandateCardLabel$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateMandateCardLabel$ {
+  /** @deprecated use `CreateMandateCardLabel$inboundSchema` instead. */
+  export const inboundSchema = CreateMandateCardLabel$inboundSchema;
+  /** @deprecated use `CreateMandateCardLabel$outboundSchema` instead. */
+  export const outboundSchema = CreateMandateCardLabel$outboundSchema;
+}
+
+/** @internal */
 export const CreateMandateDetails$inboundSchema: z.ZodType<
   CreateMandateDetails,
   z.ZodTypeDef,
@@ -526,7 +714,7 @@ export const CreateMandateDetails$inboundSchema: z.ZodType<
   cardHolder: z.nullable(z.string()).optional(),
   cardNumber: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(z.string()).optional(),
+  cardLabel: z.nullable(CreateMandateCardLabel$inboundSchema).optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
 
@@ -554,7 +742,7 @@ export const CreateMandateDetails$outboundSchema: z.ZodType<
   cardHolder: z.nullable(z.string()).optional(),
   cardNumber: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(z.string()).optional(),
+  cardLabel: z.nullable(CreateMandateCardLabel$outboundSchema).optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
 
@@ -587,6 +775,27 @@ export function createMandateDetailsFromJSON(
     (x) => CreateMandateDetails$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateMandateDetails' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateMandateStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateStatus
+> = z.nativeEnum(CreateMandateStatus);
+
+/** @internal */
+export const CreateMandateStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CreateMandateStatus
+> = CreateMandateStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateMandateStatus$ {
+  /** @deprecated use `CreateMandateStatus$inboundSchema` instead. */
+  export const inboundSchema = CreateMandateStatus$inboundSchema;
+  /** @deprecated use `CreateMandateStatus$outboundSchema` instead. */
+  export const outboundSchema = CreateMandateStatus$outboundSchema;
 }
 
 /** @internal */
@@ -830,12 +1039,12 @@ export const CreateMandateResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("mandate"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  method: z.string().optional(),
+  mode: CreateMandateMode$inboundSchema.optional(),
+  method: CreateMandateMethodResponse$inboundSchema.optional(),
   details: z.lazy(() => CreateMandateDetails$inboundSchema).optional(),
   signatureDate: z.nullable(z.string()).optional(),
   mandateReference: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: CreateMandateStatus$inboundSchema.optional(),
   customerId: z.string().optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => CreateMandateLinks$inboundSchema).optional(),
@@ -868,12 +1077,12 @@ export const CreateMandateResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("mandate"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  method: z.string().optional(),
+  mode: CreateMandateMode$outboundSchema.optional(),
+  method: CreateMandateMethodResponse$outboundSchema.optional(),
   details: z.lazy(() => CreateMandateDetails$outboundSchema).optional(),
   signatureDate: z.nullable(z.string()).optional(),
   mandateReference: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
+  status: CreateMandateStatus$outboundSchema.optional(),
   customerId: z.string().optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => CreateMandateLinks$outboundSchema).optional(),

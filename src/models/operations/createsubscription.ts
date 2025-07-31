@@ -5,11 +5,15 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+ * The amount for each individual payment that is charged with this subscription. For example, for a monthly
+ *
+ * @remarks
+ * subscription of €10, the subscription amount should be set to €10.
  */
 export type CreateSubscriptionAmountRequest = {
   /**
@@ -21,6 +25,44 @@ export type CreateSubscriptionAmountRequest = {
    */
   value: string;
 };
+
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export const CreateSubscriptionIntervalRequest = {
+  DotDotDotDays: "... days",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotMonths: "... months",
+} as const;
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export type CreateSubscriptionIntervalRequest = ClosedEnum<
+  typeof CreateSubscriptionIntervalRequest
+>;
+
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export const CreateSubscriptionMethodRequest = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export type CreateSubscriptionMethodRequest = ClosedEnum<
+  typeof CreateSubscriptionMethodRequest
+>;
 
 /**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -37,13 +79,15 @@ export type CreateSubscriptionApplicationFeeAmountRequest = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
  * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
  *
- * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+ * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+ * information.
  */
 export type CreateSubscriptionApplicationFeeRequest = {
   /**
@@ -56,9 +100,11 @@ export type CreateSubscriptionApplicationFeeRequest = {
 export type CreateSubscriptionMetadataRequest = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
  * @remarks
+ * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+ * 1kB.
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
@@ -69,13 +115,17 @@ export type CreateSubscriptionMetadataRequestUnion =
 
 export type CreateSubscriptionRequestBody = {
   /**
-   * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+   * The amount for each individual payment that is charged with this subscription. For example, for a monthly
+   *
+   * @remarks
+   * subscription of €10, the subscription amount should be set to €10.
    */
   amount: CreateSubscriptionAmountRequest;
   /**
-   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is considered completed.
+   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
    * @remarks
+   * considered completed.
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
@@ -86,44 +136,43 @@ export type CreateSubscriptionRequestBody = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
-   *
-   * Possible values: `... days` `... weeks` `... months`
    */
-  interval: string;
+  interval: CreateSubscriptionIntervalRequest;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
   startDate?: string | undefined;
   /**
-   * The subscription's description will be used as the description of the resulting individual payments and so showing up on the bank statement of the consumer.
+   * The subscription's description will be used as the description of the resulting individual payments and so showing
    *
    * @remarks
+   * up on the bank statement of the consumer.
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
   description: string;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
-   *
-   * @remarks
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method?: string | null | undefined;
+  method?: CreateSubscriptionMethodRequest | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
    * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
    *
-   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+   * information.
    */
   applicationFee?: CreateSubscriptionApplicationFeeRequest | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
    *
    * @remarks
+   * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+   * 1kB.
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
@@ -138,7 +187,8 @@ export type CreateSubscriptionRequestBody = {
    *
    * @remarks
    *
-   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as well. Be sure to verify the payment's subscription ID and its status.
+   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
+   * well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl?: string | undefined;
   /**
@@ -150,7 +200,9 @@ export type CreateSubscriptionRequestBody = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
   testmode?: boolean | null | undefined;
 };
@@ -179,7 +231,45 @@ export type CreateSubscriptionNotFoundLinks = {
 };
 
 /**
- * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreateSubscriptionMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreateSubscriptionMode = ClosedEnum<typeof CreateSubscriptionMode>;
+
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export const CreateSubscriptionStatus = {
+  Pending: "pending",
+  Active: "active",
+  Canceled: "canceled",
+  Suspended: "suspended",
+  Completed: "completed",
+} as const;
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export type CreateSubscriptionStatus = ClosedEnum<
+  typeof CreateSubscriptionStatus
+>;
+
+/**
+ * The amount for each individual payment that is charged with this subscription. For example, for a monthly
+ *
+ * @remarks
+ * subscription of €10, the subscription amount should be set to €10.
  */
 export type CreateSubscriptionAmountResponse = {
   /**
@@ -191,6 +281,44 @@ export type CreateSubscriptionAmountResponse = {
    */
   value: string;
 };
+
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export const CreateSubscriptionIntervalResponse = {
+  DotDotDotDays: "... days",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotMonths: "... months",
+} as const;
+/**
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+ */
+export type CreateSubscriptionIntervalResponse = ClosedEnum<
+  typeof CreateSubscriptionIntervalResponse
+>;
+
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export const CreateSubscriptionMethodResponse = {
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Paypal: "paypal",
+} as const;
+/**
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+ */
+export type CreateSubscriptionMethodResponse = ClosedEnum<
+  typeof CreateSubscriptionMethodResponse
+>;
 
 /**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -207,13 +335,15 @@ export type CreateSubscriptionApplicationFeeAmountResponse = {
 };
 
 /**
- * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+ * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
+ * merchants.
  *
  * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
  *
- * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+ * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+ * information.
  */
 export type CreateSubscriptionApplicationFeeResponse = {
   /**
@@ -226,9 +356,11 @@ export type CreateSubscriptionApplicationFeeResponse = {
 export type CreateSubscriptionMetadataResponse = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
  * @remarks
+ * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+ * 1kB.
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
@@ -294,7 +426,10 @@ export type CreateSubscriptionProfile = {
 };
 
 /**
- * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+ * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+ *
+ * @remarks
+ * payments exist (yet).
  */
 export type CreateSubscriptionPayments = {
   /**
@@ -342,7 +477,10 @@ export type CreateSubscriptionLinks = {
    */
   profile?: CreateSubscriptionProfile | null | undefined;
   /**
-   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such payments exist (yet).
+   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+   *
+   * @remarks
+   * payments exist (yet).
    */
   payments?: CreateSubscriptionPayments | null | undefined;
   /**
@@ -356,7 +494,10 @@ export type CreateSubscriptionLinks = {
  */
 export type CreateSubscriptionResponse = {
   /**
-   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this endpoint.
+   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -365,28 +506,27 @@ export type CreateSubscriptionResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode?: CreateSubscriptionMode | undefined;
+  /**
+   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
+   * enabling the subscription.
    */
-  mode?: string | undefined;
+  status?: CreateSubscriptionStatus | undefined;
   /**
-   * The subscription's current status is directly related to the status of the underlying customer or mandate that is enabling the subscription.
+   * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
-   *
-   * Possible values: `pending` `active` `canceled` `suspended` `completed`
-   */
-  status?: string | undefined;
-  /**
-   * The amount for each individual payment that is charged with this subscription. For example, for a monthly subscription of €10, the subscription amount should be set to €10.
+   * subscription of €10, the subscription amount should be set to €10.
    */
   amount?: CreateSubscriptionAmountResponse | undefined;
   /**
-   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is considered completed.
+   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
    * @remarks
+   * considered completed.
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
@@ -401,48 +541,50 @@ export type CreateSubscriptionResponse = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
-   *
-   * Possible values: `... days` `... weeks` `... months`
    */
-  interval?: string | undefined;
+  interval?: CreateSubscriptionIntervalResponse | undefined;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
   startDate?: string | undefined;
   /**
-   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled, this parameter will not be returned.
+   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
+   *
+   * @remarks
+   * this parameter will not be returned.
    */
   nextPaymentDate?: string | null | undefined;
   /**
-   * The subscription's description will be used as the description of the resulting individual payments and so showing up on the bank statement of the consumer.
+   * The subscription's description will be used as the description of the resulting individual payments and so showing
    *
    * @remarks
+   * up on the bank statement of the consumer.
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
   description?: string | undefined;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
-   *
-   * @remarks
-   *
-   * Possible values: `creditcard` `directdebit` `paypal`
    */
-  method?: string | null | undefined;
+  method?: CreateSubscriptionMethodResponse | null | undefined;
   /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
    * @remarks
+   * merchants.
    *
    * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
    *
-   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more information.
+   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+   * information.
    */
   applicationFee?: CreateSubscriptionApplicationFeeResponse | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
    *
    * @remarks
+   * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+   * 1kB.
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
@@ -457,7 +599,8 @@ export type CreateSubscriptionResponse = {
    *
    * @remarks
    *
-   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as well. Be sure to verify the payment's subscription ID and its status.
+   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
+   * well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl?: string | undefined;
   /**
@@ -473,7 +616,10 @@ export type CreateSubscriptionResponse = {
    */
   createdAt?: string | undefined;
   /**
-   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the subscription is not canceled (yet).
+   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
+   *
+   * @remarks
+   * subscription is not canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
@@ -539,6 +685,49 @@ export function createSubscriptionAmountRequestFromJSON(
     (x) => CreateSubscriptionAmountRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateSubscriptionAmountRequest' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateSubscriptionIntervalRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionIntervalRequest
+> = z.nativeEnum(CreateSubscriptionIntervalRequest);
+
+/** @internal */
+export const CreateSubscriptionIntervalRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionIntervalRequest
+> = CreateSubscriptionIntervalRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSubscriptionIntervalRequest$ {
+  /** @deprecated use `CreateSubscriptionIntervalRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateSubscriptionIntervalRequest$inboundSchema;
+  /** @deprecated use `CreateSubscriptionIntervalRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSubscriptionIntervalRequest$outboundSchema;
+}
+
+/** @internal */
+export const CreateSubscriptionMethodRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionMethodRequest
+> = z.nativeEnum(CreateSubscriptionMethodRequest);
+
+/** @internal */
+export const CreateSubscriptionMethodRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionMethodRequest
+> = CreateSubscriptionMethodRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSubscriptionMethodRequest$ {
+  /** @deprecated use `CreateSubscriptionMethodRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateSubscriptionMethodRequest$inboundSchema;
+  /** @deprecated use `CreateSubscriptionMethodRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateSubscriptionMethodRequest$outboundSchema;
 }
 
 /** @internal */
@@ -807,10 +996,10 @@ export const CreateSubscriptionRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() => CreateSubscriptionAmountRequest$inboundSchema),
   times: z.nullable(z.number().int()).optional(),
-  interval: z.string(),
+  interval: CreateSubscriptionIntervalRequest$inboundSchema,
   startDate: z.string().optional(),
   description: z.string(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CreateSubscriptionMethodRequest$inboundSchema).optional(),
   applicationFee: z.lazy(() =>
     CreateSubscriptionApplicationFeeRequest$inboundSchema
   ).optional(),
@@ -854,10 +1043,10 @@ export const CreateSubscriptionRequestBody$outboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() => CreateSubscriptionAmountRequest$outboundSchema),
   times: z.nullable(z.number().int()).optional(),
-  interval: z.string(),
+  interval: CreateSubscriptionIntervalRequest$outboundSchema,
   startDate: z.string().optional(),
   description: z.string(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CreateSubscriptionMethodRequest$outboundSchema).optional(),
   applicationFee: z.lazy(() =>
     CreateSubscriptionApplicationFeeRequest$outboundSchema
   ).optional(),
@@ -1102,6 +1291,48 @@ export function createSubscriptionNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const CreateSubscriptionMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionMode
+> = z.nativeEnum(CreateSubscriptionMode);
+
+/** @internal */
+export const CreateSubscriptionMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionMode
+> = CreateSubscriptionMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSubscriptionMode$ {
+  /** @deprecated use `CreateSubscriptionMode$inboundSchema` instead. */
+  export const inboundSchema = CreateSubscriptionMode$inboundSchema;
+  /** @deprecated use `CreateSubscriptionMode$outboundSchema` instead. */
+  export const outboundSchema = CreateSubscriptionMode$outboundSchema;
+}
+
+/** @internal */
+export const CreateSubscriptionStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionStatus
+> = z.nativeEnum(CreateSubscriptionStatus);
+
+/** @internal */
+export const CreateSubscriptionStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionStatus
+> = CreateSubscriptionStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSubscriptionStatus$ {
+  /** @deprecated use `CreateSubscriptionStatus$inboundSchema` instead. */
+  export const inboundSchema = CreateSubscriptionStatus$inboundSchema;
+  /** @deprecated use `CreateSubscriptionStatus$outboundSchema` instead. */
+  export const outboundSchema = CreateSubscriptionStatus$outboundSchema;
+}
+
+/** @internal */
 export const CreateSubscriptionAmountResponse$inboundSchema: z.ZodType<
   CreateSubscriptionAmountResponse,
   z.ZodTypeDef,
@@ -1158,6 +1389,49 @@ export function createSubscriptionAmountResponseFromJSON(
     (x) => CreateSubscriptionAmountResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateSubscriptionAmountResponse' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateSubscriptionIntervalResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionIntervalResponse
+> = z.nativeEnum(CreateSubscriptionIntervalResponse);
+
+/** @internal */
+export const CreateSubscriptionIntervalResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionIntervalResponse
+> = CreateSubscriptionIntervalResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSubscriptionIntervalResponse$ {
+  /** @deprecated use `CreateSubscriptionIntervalResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateSubscriptionIntervalResponse$inboundSchema;
+  /** @deprecated use `CreateSubscriptionIntervalResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSubscriptionIntervalResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateSubscriptionMethodResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionMethodResponse
+> = z.nativeEnum(CreateSubscriptionMethodResponse);
+
+/** @internal */
+export const CreateSubscriptionMethodResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSubscriptionMethodResponse
+> = CreateSubscriptionMethodResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSubscriptionMethodResponse$ {
+  /** @deprecated use `CreateSubscriptionMethodResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateSubscriptionMethodResponse$inboundSchema;
+  /** @deprecated use `CreateSubscriptionMethodResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateSubscriptionMethodResponse$outboundSchema;
 }
 
 /** @internal */
@@ -1856,17 +2130,17 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: CreateSubscriptionMode$inboundSchema.optional(),
+  status: CreateSubscriptionStatus$inboundSchema.optional(),
   amount: z.lazy(() => CreateSubscriptionAmountResponse$inboundSchema)
     .optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: CreateSubscriptionIntervalResponse$inboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CreateSubscriptionMethodResponse$inboundSchema).optional(),
   applicationFee: z.lazy(() =>
     CreateSubscriptionApplicationFeeResponse$inboundSchema
   ).optional(),
@@ -1928,17 +2202,18 @@ export const CreateSubscriptionResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("subscription"),
   id: z.string().optional(),
-  mode: z.string().optional(),
-  status: z.string().optional(),
+  mode: CreateSubscriptionMode$outboundSchema.optional(),
+  status: CreateSubscriptionStatus$outboundSchema.optional(),
   amount: z.lazy(() => CreateSubscriptionAmountResponse$outboundSchema)
     .optional(),
   times: z.nullable(z.number().int()).optional(),
   timesRemaining: z.number().int().optional(),
-  interval: z.string().optional(),
+  interval: CreateSubscriptionIntervalResponse$outboundSchema.optional(),
   startDate: z.string().optional(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string().optional(),
-  method: z.nullable(z.string()).optional(),
+  method: z.nullable(CreateSubscriptionMethodResponse$outboundSchema)
+    .optional(),
   applicationFee: z.lazy(() =>
     CreateSubscriptionApplicationFeeResponse$outboundSchema
   ).optional(),

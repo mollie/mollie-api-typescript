@@ -1,6 +1,7 @@
 # ListAllMethodsResponse
 
-A list of payment method objects. For a complete reference of the payment method object, refer to the [Get payment method endpoint](get-method) documentation.
+A list of payment method objects. For a complete reference of the
+payment method object, refer to the [Get payment method endpoint](get-method) documentation.
 
 ## Example Usage
 

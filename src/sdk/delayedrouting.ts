@@ -13,11 +13,8 @@ export class DelayedRouting extends ClientSDK {
    * Create a delayed route
    *
    * @remarks
-   * Create a route for a specific payment. The routed amount is credited to the account of your customer.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
+   * Create a route for a specific payment.
+   * The routed amount is credited to the account of your customer.
    */
   async create(
     request: operations.PaymentCreateRouteRequest,
@@ -35,10 +32,6 @@ export class DelayedRouting extends ClientSDK {
    *
    * @remarks
    * Retrieve a list of all routes created for a specific payment.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
    */
   async list(
     request: operations.PaymentListRoutesRequest,

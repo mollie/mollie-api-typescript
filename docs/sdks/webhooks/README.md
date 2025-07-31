@@ -16,12 +16,9 @@
 
 A webhook must have a name, an url and a list of event types. You can also create webhooks in the webhooks settings section of the Dashboard.
 
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-webhook" method="post" path="/webhooks" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -103,12 +100,9 @@ run();
 
 Returns a paginated list of your webhooks. If no webhook endpoints are available, the resulting array will be empty. This request should never throw an error.
 
-> 🔑 Access with
->
-> [Access token with **webhooks.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-webhooks" method="get" path="/webhooks" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -121,7 +115,6 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.list({
     from: "hook_B2EyhTH5N4KWUnoYPcgiH",
-    sort: "desc",
     eventTypes: "payment-link.paid",
     testmode: false,
   });
@@ -151,7 +144,6 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksList(client, {
     from: "hook_B2EyhTH5N4KWUnoYPcgiH",
-    sort: "desc",
     eventTypes: "payment-link.paid",
     testmode: false,
   });
@@ -190,12 +182,9 @@ run();
 
 Updates the webhook. You may edit the name, url and the list of subscribed event types.
 
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/webhooks/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -284,12 +273,9 @@ run();
 
 Retrieve a single webhook object by its ID.
 
-> 🔑 Access with
->
-> [Access token with **webhooks.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-webhook" method="get" path="/webhooks/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -368,12 +354,9 @@ run();
 
 Delete a single webhook object by its webhook ID.
 
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="delete-webhook" method="delete" path="/webhooks/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -452,12 +435,9 @@ run();
 
 Sends a test event to the webhook to verify the endpoint is working as expected.
 
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="test-webhook" method="post" path="/webhooks/{id}/ping" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

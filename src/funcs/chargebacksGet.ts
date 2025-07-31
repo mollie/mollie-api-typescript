@@ -30,12 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single payment chargeback by its ID and the ID of its parent payment.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payments.read**](/reference/authentication)
  */
 export function chargebacksGet(
   client: ClientCore,

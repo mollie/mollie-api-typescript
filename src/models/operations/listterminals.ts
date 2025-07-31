@@ -5,12 +5,34 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export const ListTerminalsSort = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+/**
+ * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+ *
+ * @remarks
+ * newest to oldest.
+ */
+export type ListTerminalsSort = ClosedEnum<typeof ListTerminalsSort>;
+
 export type ListTerminalsRequest = {
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -18,17 +40,18 @@ export type ListTerminalsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from newest to oldest.
+   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
    *
    * @remarks
-   *
-   * Possible values: `asc` `desc` (default: `desc`)
+   * newest to oldest.
    */
-  sort?: string | null | undefined;
+  sort?: ListTerminalsSort | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -49,6 +72,57 @@ export type ListTerminalsBadRequestLinks = {
    */
   documentation: ListTerminalsBadRequestDocumentation;
 };
+
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const ListTerminalsMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type ListTerminalsMode = ClosedEnum<typeof ListTerminalsMode>;
+
+/**
+ * The status of the terminal.
+ */
+export const ListTerminalsStatus = {
+  Pending: "pending",
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+/**
+ * The status of the terminal.
+ */
+export type ListTerminalsStatus = ClosedEnum<typeof ListTerminalsStatus>;
+
+/**
+ * The brand of the terminal.
+ */
+export const ListTerminalsBrand = {
+  Pax: "PAX",
+} as const;
+/**
+ * The brand of the terminal.
+ */
+export type ListTerminalsBrand = ClosedEnum<typeof ListTerminalsBrand>;
+
+/**
+ * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
+ */
+export const ListTerminalsModel = {
+  A35: "A35",
+  A77: "A77",
+  A920: "A920",
+  A920Pro: "A920 Pro",
+  Im30: "IM30",
+} as const;
+/**
+ * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
+ */
+export type ListTerminalsModel = ClosedEnum<typeof ListTerminalsModel>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -103,46 +177,37 @@ export type ListTerminalsTerminal = {
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode: ListTerminalsMode;
+  /**
+   * A short description of the terminal. The description can be used as an identifier for the terminal. Currently, the
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
-   */
-  mode: string;
-  /**
-   * A short description of the terminal. The description can be used as an identifier for the terminal. Currently, the description is set when the terminal is initially configured. It will be visible in the Mollie Dashboard, and it may be visible on the device itself depending on the device.
+   * description is set when the terminal is initially configured. It will be visible in the Mollie Dashboard, and it
+   * may be visible on the device itself depending on the device.
    */
   description: string;
   /**
    * The status of the terminal.
-   *
-   * @remarks
-   *
-   * Possible values: `pending` `active` `inactive`
    */
-  status: string;
+  status: ListTerminalsStatus;
   /**
    * The brand of the terminal.
-   *
-   * @remarks
-   *
-   * Possible values: `PAX`
    */
-  brand: string | null;
+  brand: ListTerminalsBrand | null;
   /**
    * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
-   *
-   * @remarks
-   *
-   * Possible values: `A35` `A77` `A920` `A920 Pro` `IM30`
    */
-  model: string | null;
+  model: ListTerminalsModel | null;
   /**
    * The serial number of the terminal. The serial number is provided at terminal creation time.
    */
   serialNumber: string | null;
   /**
-   * The currency configured on the terminal, in ISO 4217 format. Currently most of our terminals are bound to a specific currency, chosen during setup.
+   * The currency configured on the terminal, in ISO 4217 format. Currently most of our terminals are bound to a
+   *
+   * @remarks
+   * specific currency, chosen during setup.
    */
   currency: string;
   /**
@@ -150,7 +215,9 @@ export type ListTerminalsTerminal = {
    *
    * @remarks
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
    */
   profileId: string;
   /**
@@ -257,11 +324,13 @@ export type ListTerminalsLinks = {
  */
 export type ListTerminalsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListTerminalsEmbedded | undefined;
@@ -272,6 +341,27 @@ export type ListTerminalsResponse = {
 };
 
 /** @internal */
+export const ListTerminalsSort$inboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsSort
+> = z.nativeEnum(ListTerminalsSort);
+
+/** @internal */
+export const ListTerminalsSort$outboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsSort
+> = ListTerminalsSort$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListTerminalsSort$ {
+  /** @deprecated use `ListTerminalsSort$inboundSchema` instead. */
+  export const inboundSchema = ListTerminalsSort$inboundSchema;
+  /** @deprecated use `ListTerminalsSort$outboundSchema` instead. */
+  export const outboundSchema = ListTerminalsSort$outboundSchema;
+}
+
+/** @internal */
 export const ListTerminalsRequest$inboundSchema: z.ZodType<
   ListTerminalsRequest,
   z.ZodTypeDef,
@@ -279,7 +369,7 @@ export const ListTerminalsRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListTerminalsSort$inboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -287,7 +377,7 @@ export const ListTerminalsRequest$inboundSchema: z.ZodType<
 export type ListTerminalsRequest$Outbound = {
   from?: string | undefined;
   limit: number | null;
-  sort?: string | null | undefined;
+  sort: string | null;
   testmode?: boolean | null | undefined;
 };
 
@@ -299,7 +389,7 @@ export const ListTerminalsRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(z.string()).optional(),
+  sort: z.nullable(ListTerminalsSort$outboundSchema.default("desc")),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -454,6 +544,90 @@ export function listTerminalsBadRequestLinksFromJSON(
     (x) => ListTerminalsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListTerminalsBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListTerminalsMode$inboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsMode
+> = z.nativeEnum(ListTerminalsMode);
+
+/** @internal */
+export const ListTerminalsMode$outboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsMode
+> = ListTerminalsMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListTerminalsMode$ {
+  /** @deprecated use `ListTerminalsMode$inboundSchema` instead. */
+  export const inboundSchema = ListTerminalsMode$inboundSchema;
+  /** @deprecated use `ListTerminalsMode$outboundSchema` instead. */
+  export const outboundSchema = ListTerminalsMode$outboundSchema;
+}
+
+/** @internal */
+export const ListTerminalsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsStatus
+> = z.nativeEnum(ListTerminalsStatus);
+
+/** @internal */
+export const ListTerminalsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsStatus
+> = ListTerminalsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListTerminalsStatus$ {
+  /** @deprecated use `ListTerminalsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListTerminalsStatus$inboundSchema;
+  /** @deprecated use `ListTerminalsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListTerminalsStatus$outboundSchema;
+}
+
+/** @internal */
+export const ListTerminalsBrand$inboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsBrand
+> = z.nativeEnum(ListTerminalsBrand);
+
+/** @internal */
+export const ListTerminalsBrand$outboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsBrand
+> = ListTerminalsBrand$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListTerminalsBrand$ {
+  /** @deprecated use `ListTerminalsBrand$inboundSchema` instead. */
+  export const inboundSchema = ListTerminalsBrand$inboundSchema;
+  /** @deprecated use `ListTerminalsBrand$outboundSchema` instead. */
+  export const outboundSchema = ListTerminalsBrand$outboundSchema;
+}
+
+/** @internal */
+export const ListTerminalsModel$inboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsModel
+> = z.nativeEnum(ListTerminalsModel);
+
+/** @internal */
+export const ListTerminalsModel$outboundSchema: z.ZodNativeEnum<
+  typeof ListTerminalsModel
+> = ListTerminalsModel$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListTerminalsModel$ {
+  /** @deprecated use `ListTerminalsModel$inboundSchema` instead. */
+  export const inboundSchema = ListTerminalsModel$inboundSchema;
+  /** @deprecated use `ListTerminalsModel$outboundSchema` instead. */
+  export const outboundSchema = ListTerminalsModel$outboundSchema;
 }
 
 /** @internal */
@@ -627,11 +801,11 @@ export const ListTerminalsTerminal$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("terminal"),
   id: z.string(),
-  mode: z.string(),
+  mode: ListTerminalsMode$inboundSchema,
   description: z.string(),
-  status: z.string(),
-  brand: z.nullable(z.string()),
-  model: z.nullable(z.string()),
+  status: ListTerminalsStatus$inboundSchema,
+  brand: z.nullable(ListTerminalsBrand$inboundSchema),
+  model: z.nullable(ListTerminalsModel$inboundSchema),
   serialNumber: z.nullable(z.string()),
   currency: z.string(),
   profileId: z.string(),
@@ -669,11 +843,11 @@ export const ListTerminalsTerminal$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("terminal"),
   id: z.string(),
-  mode: z.string(),
+  mode: ListTerminalsMode$outboundSchema,
   description: z.string(),
-  status: z.string(),
-  brand: z.nullable(z.string()),
-  model: z.nullable(z.string()),
+  status: ListTerminalsStatus$outboundSchema,
+  brand: z.nullable(ListTerminalsBrand$outboundSchema),
+  model: z.nullable(ListTerminalsModel$outboundSchema),
   serialNumber: z.nullable(z.string()),
   currency: z.string(),
   profileId: z.string(),

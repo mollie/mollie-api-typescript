@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Updates the webhook. You may edit the name, url and the list of subscribed event types.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **webhooks.write**](/reference/authentication)
  */
 export function webhooksUpdate(
   client: ClientCore,

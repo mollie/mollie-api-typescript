@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
- *
- * > 🔑 Access with
- * >
- * > [Access token](/reference/authentication)
  */
 export function permissionsGet(
   client: ClientCore,

@@ -31,23 +31,23 @@ import { Result } from "../types/fp.js";
  * @remarks
  * With subscriptions, you can schedule recurring payments to take place at regular intervals.
  *
- * For example, by simply specifying an `amount` and an `interval`, you can create an endless subscription to charge a monthly fee, until you cancel the subscription.
+ * For example, by simply specifying an `amount` and an `interval`, you can create an endless subscription to charge a
+ * monthly fee, until you cancel the subscription.
  *
- * Or, you could use the times parameter to only charge a limited number of times, for example to split a big transaction in multiple parts.
+ * Or, you could use the times parameter to only charge a limited number of times, for example to split a big
+ * transaction in multiple parts.
  *
  * A few example usages:
  *
- * `amount[currency]="EUR"` `amount[value]="5.00"` `interval="2 weeks"` Your customer will be charged €5 once every two weeks.
+ * `amount[currency]="EUR"` `amount[value]="5.00"` `interval="2 weeks"`
+ * Your customer will be charged €5 once every two weeks.
  *
- * `amount[currency]="EUR"` `amount[value]="20.00"` `interval="1 day" times=5` Your customer will be charged €20 every day, for five consecutive days.
+ * `amount[currency]="EUR"` `amount[value]="20.00"` `interval="1 day" times=5`
+ * Your customer will be charged €20 every day, for five consecutive days.
  *
- * `amount[currency]="EUR"` `amount[value]="10.00"` `interval="1 month"` `startDate="2018-04-30"` Your customer will be charged €10 on the last day of each month, starting in April 2018.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **subscriptions.write**](/reference/authentication)
+ * `amount[currency]="EUR"` `amount[value]="10.00"` `interval="1 month"`
+ * `startDate="2018-04-30"`
+ * Your customer will be charged €10 on the last day of each month, starting in April 2018.
  */
 export function subscriptionsCreate(
   client: ClientCore,

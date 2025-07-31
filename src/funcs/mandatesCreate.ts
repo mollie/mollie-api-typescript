@@ -29,15 +29,11 @@ import { Result } from "../types/fp.js";
  * Create mandate
  *
  * @remarks
- * Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank account recurrently.
+ * Create a mandate for a specific customer. Mandates allow you to charge a customer's card, PayPal account or bank
+ * account recurrently.
  *
- * It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create mandates for cards, your customers need to perform a 'first payment' with their card.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **mandates.write**](/reference/authentication)
+ * It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create
+ * mandates for cards, your customers need to perform a 'first payment' with their card.
  */
 export function mandatesCreate(
   client: ClientCore,

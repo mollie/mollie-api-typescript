@@ -14,13 +14,7 @@ export const tool$paymentLinksUpdate: ToolDefinition<typeof args> = {
   name: "payment-links-update",
   description: `Update payment link
 
-Certain details of an existing payment link can be updated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.write**](/reference/authentication)`,
+Certain details of an existing payment link can be updated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await paymentLinksUpdate(

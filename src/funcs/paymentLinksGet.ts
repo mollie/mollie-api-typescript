@@ -30,12 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single payment link by its ID.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payment-links.read**](/reference/authentication)
  */
 export function paymentLinksGet(
   client: ClientCore,

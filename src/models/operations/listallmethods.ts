@@ -10,6 +10,44 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
+ * Passing a locale will sort the payment methods in the preferred order
+ *
+ * @remarks
+ * for the country, and translate the payment method names in the corresponding language.
+ */
+export const ListAllMethodsLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Passing a locale will sort the payment methods in the preferred order
+ *
+ * @remarks
+ * for the country, and translate the payment method names in the corresponding language.
+ */
+export type ListAllMethodsLocale = ClosedEnum<typeof ListAllMethodsLocale>;
+
+/**
  * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
  */
 export type ListAllMethodsAmount = {
@@ -24,56 +62,97 @@ export type ListAllMethodsAmount = {
 };
 
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows you to include additional information via the
+ *
+ * @remarks
+ * `include` query string parameter.
  */
 export const ListAllMethodsInclude = {
   Issuers: "issuers",
   Pricing: "pricing",
 } as const;
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows you to include additional information via the
+ *
+ * @remarks
+ * `include` query string parameter.
  */
 export type ListAllMethodsInclude = ClosedEnum<typeof ListAllMethodsInclude>;
 
+/**
+ * Set this parameter to `first` to only return the methods that
+ *
+ * @remarks
+ * can be used for the first payment of a recurring sequence.
+ *
+ * Set it to `recurring` to only return methods that can be used for recurring payments or subscriptions.
+ */
+export const ListAllMethodsSequenceType = {
+  Oneoff: "oneoff",
+  First: "first",
+  Recurring: "recurring",
+} as const;
+/**
+ * Set this parameter to `first` to only return the methods that
+ *
+ * @remarks
+ * can be used for the first payment of a recurring sequence.
+ *
+ * Set it to `recurring` to only return methods that can be used for recurring payments or subscriptions.
+ */
+export type ListAllMethodsSequenceType = ClosedEnum<
+  typeof ListAllMethodsSequenceType
+>;
+
 export type ListAllMethodsRequest = {
   /**
-   * Passing a locale will sort the payment methods in the preferred order for the country, and translate the payment method names in the corresponding language.
-   */
-  locale?: string | undefined;
-  /**
-   * If supplied, only payment methods that support the amount and currency are returned.
+   * Passing a locale will sort the payment methods in the preferred order
    *
    * @remarks
+   * for the country, and translate the payment method names in the corresponding language.
+   */
+  locale?: ListAllMethodsLocale | undefined;
+  /**
+   * If supplied, only payment methods that support the amount and currency
+   *
+   * @remarks
+   * are returned.
    *
    * Example: `/v2/methods/all?amount[value]=100.00&amount[currency]=USD`
    */
   amount?: ListAllMethodsAmount | undefined;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
+   * This endpoint allows you to include additional information via the
+   *
+   * @remarks
+   * `include` query string parameter.
    */
   include?: ListAllMethodsInclude | null | undefined;
   /**
-   * Set this parameter to `first` to only return the methods that can be used for the first payment of a recurring sequence.
+   * Set this parameter to `first` to only return the methods that
    *
    * @remarks
+   * can be used for the first payment of a recurring sequence.
    *
    * Set it to `recurring` to only return methods that can be used for recurring payments or subscriptions.
-   *
-   * Possible values: `oneoff` `first` `recurring` (default: `oneoff`)
    */
-  sequenceType?: string | undefined;
+  sequenceType?: ListAllMethodsSequenceType | undefined;
   /**
-   * The identifier referring to the [profile](get-profile) you wish to retrieve the resources for.
+   * The identifier referring to the [profile](get-profile) you wish to
    *
    * @remarks
+   * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -96,6 +175,52 @@ export type ListAllMethodsBadRequestLinks = {
 };
 
 /**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export const ListAllMethodsId = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Klarnapaylater: "klarnapaylater",
+  Klarnapaynow: "klarnapaynow",
+  Klarnasliceit: "klarnasliceit",
+  Mybank: "mybank",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export type ListAllMethodsId = ClosedEnum<typeof ListAllMethodsId>;
+
+/**
  * The minimum payment amount required to use this payment method.
  */
 export type ListAllMethodsMinimumAmount = {
@@ -110,7 +235,10 @@ export type ListAllMethodsMinimumAmount = {
 };
 
 /**
- * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null` is returned instead.
+ * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+ *
+ * @remarks
+ * is returned instead.
  */
 export type ListAllMethodsMaximumAmount = {
   /**
@@ -136,13 +264,37 @@ export type ListAllMethodsImage = {
    */
   size2x: string;
   /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can scale to any desired size without compromising visual quality.
+   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+   *
+   * @remarks
+   * scale to any desired size without compromising visual quality.
    */
   svg: string;
 };
 
 /**
- * URLs of images representing the issuer. required: - size1x - size2x - svg
+ * The payment method's activation status for this profile.
+ */
+export const ListAllMethodsStatus = {
+  Activated: "activated",
+  PendingBoarding: "pending-boarding",
+  PendingReview: "pending-review",
+  PendingExternal: "pending-external",
+  Rejected: "rejected",
+} as const;
+/**
+ * The payment method's activation status for this profile.
+ */
+export type ListAllMethodsStatus = ClosedEnum<typeof ListAllMethodsStatus>;
+
+/**
+ * URLs of images representing the issuer.
+ *
+ * @remarks
+ * required:
+ *   - size1x
+ *   - size2x
+ *   - svg
  */
 export type ListAllMethodsIssuerImage = {
   /**
@@ -154,7 +306,10 @@ export type ListAllMethodsIssuerImage = {
    */
   size2x?: string | undefined;
   /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can scale to any desired size without compromising visual quality.
+   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+   *
+   * @remarks
+   * scale to any desired size without compromising visual quality.
    */
   svg?: string | undefined;
 };
@@ -167,7 +322,13 @@ export type ListAllMethodsIssuer = {
    */
   name: string;
   /**
-   * URLs of images representing the issuer. required: - size1x - size2x - svg
+   * URLs of images representing the issuer.
+   *
+   * @remarks
+   * required:
+   *   - size1x
+   *   - size2x
+   *   - svg
    */
   image: ListAllMethodsIssuerImage;
 };
@@ -230,7 +391,10 @@ export type ListAllMethodsFixed = {
 
 export type Pricing = {
   /**
-   * A description of what the pricing applies to. For example, a specific country (`The Netherlands`) or a category of cards (`American Express`). If a `locale` is provided, the description may be translated.
+   * A description of what the pricing applies to. For example, a specific country (`The Netherlands`) or a
+   *
+   * @remarks
+   * category of cards (`American Express`). If a `locale` is provided, the description may be translated.
    */
   description: string;
   /**
@@ -242,24 +406,29 @@ export type Pricing = {
    */
   variable: string;
   /**
-   * Only present for credit card pricing. It will correspond with the `feeRegion` of credit card payments as returned in the [Payments API](get-payment).
+   * Only present for credit card pricing. It will correspond with the `feeRegion` of credit card payments as
+   *
+   * @remarks
+   * returned in the [Payments API](get-payment).
    */
   feeRegion?: string | null | undefined;
 };
 
 export type ListAllMethodsMethod = {
   /**
-   * Indicates the response contains a payment method object. Will always contain the string `method` for this endpoint.
+   * Indicates the response contains a payment method object. Will always contain the string `method` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource: string;
   /**
-   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment method selection screen will be skipped.
+   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
    *
    * @remarks
-   *
-   * Possible values: `alma` `applepay` `bacs` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `blik` `creditcard` `directdebit` `eps` `giftcard` `ideal` `in3` `kbc` `klarna` `klarnapaylater` `klarnapaynow` `klarnasliceit` `mybank` `paypal` `paysafecard` `przelewy24` `riverty` `satispay` `swish` `trustly` `twint` `voucher`
+   * method selection screen will be skipped.
    */
-  id: string;
+  id: ListAllMethodsId;
   /**
    * The full name of the payment method.
    *
@@ -273,7 +442,10 @@ export type ListAllMethodsMethod = {
    */
   minimumAmount: ListAllMethodsMinimumAmount;
   /**
-   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null` is returned instead.
+   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+   *
+   * @remarks
+   * is returned instead.
    */
   maximumAmount: ListAllMethodsMaximumAmount | null;
   /**
@@ -282,14 +454,13 @@ export type ListAllMethodsMethod = {
   image: ListAllMethodsImage;
   /**
    * The payment method's activation status for this profile.
+   */
+  status: ListAllMethodsStatus | null;
+  /**
+   * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant
    *
    * @remarks
-   *
-   * Possible values: `activated` `pending-boarding` `pending-review` `pending-external` `rejected`
-   */
-  status: string | null;
-  /**
-   * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant for iDEAL, KBC/CBC, gift cards, and vouchers.
+   * for iDEAL, KBC/CBC, gift cards, and vouchers.
    */
   issuers?: Array<ListAllMethodsIssuer> | undefined;
   /**
@@ -297,14 +468,21 @@ export type ListAllMethodsMethod = {
    */
   links: ListAllMethodsMethodLinks;
   /**
-   * **Optional include.** Array of objects describing the pricing configuration applicable for this payment method on your account.
+   * **Optional include.** Array of objects describing the pricing configuration applicable for this payment method on
+   *
+   * @remarks
+   * your account.
    */
   pricing?: Array<Pricing> | undefined;
 };
 
 export type ListAllMethodsEmbedded = {
   /**
-   * An array of payment method objects. For a complete reference of the payment method object, refer to the [Get payment method endpoint](get-method) documentation.
+   * An array of payment method objects. For a complete
+   *
+   * @remarks
+   * reference of the payment method object, refer to the [Get payment method endpoint](get-method)
+   * documentation.
    */
   methods: Array<ListAllMethodsMethod>;
 };
@@ -349,7 +527,10 @@ export type ListAllMethodsLinks = {
 };
 
 /**
- * A list of payment method objects. For a complete reference of the payment method object, refer to the [Get payment method endpoint](get-method) documentation.
+ * A list of payment method objects. For a complete reference of the
+ *
+ * @remarks
+ * payment method object, refer to the [Get payment method endpoint](get-method) documentation.
  */
 export type ListAllMethodsResponse = {
   /**
@@ -359,6 +540,27 @@ export type ListAllMethodsResponse = {
   embedded: ListAllMethodsEmbedded;
   links: ListAllMethodsLinks;
 };
+
+/** @internal */
+export const ListAllMethodsLocale$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsLocale
+> = z.nativeEnum(ListAllMethodsLocale);
+
+/** @internal */
+export const ListAllMethodsLocale$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsLocale
+> = ListAllMethodsLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllMethodsLocale$ {
+  /** @deprecated use `ListAllMethodsLocale$inboundSchema` instead. */
+  export const inboundSchema = ListAllMethodsLocale$inboundSchema;
+  /** @deprecated use `ListAllMethodsLocale$outboundSchema` instead. */
+  export const outboundSchema = ListAllMethodsLocale$outboundSchema;
+}
 
 /** @internal */
 export const ListAllMethodsAmount$inboundSchema: z.ZodType<
@@ -439,15 +641,36 @@ export namespace ListAllMethodsInclude$ {
 }
 
 /** @internal */
+export const ListAllMethodsSequenceType$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsSequenceType
+> = z.nativeEnum(ListAllMethodsSequenceType);
+
+/** @internal */
+export const ListAllMethodsSequenceType$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsSequenceType
+> = ListAllMethodsSequenceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllMethodsSequenceType$ {
+  /** @deprecated use `ListAllMethodsSequenceType$inboundSchema` instead. */
+  export const inboundSchema = ListAllMethodsSequenceType$inboundSchema;
+  /** @deprecated use `ListAllMethodsSequenceType$outboundSchema` instead. */
+  export const outboundSchema = ListAllMethodsSequenceType$outboundSchema;
+}
+
+/** @internal */
 export const ListAllMethodsRequest$inboundSchema: z.ZodType<
   ListAllMethodsRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  locale: z.string().optional(),
+  locale: ListAllMethodsLocale$inboundSchema.optional(),
   amount: z.lazy(() => ListAllMethodsAmount$inboundSchema).optional(),
   include: z.nullable(ListAllMethodsInclude$inboundSchema).optional(),
-  sequenceType: z.string().optional(),
+  sequenceType: ListAllMethodsSequenceType$inboundSchema.default("oneoff"),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -457,7 +680,7 @@ export type ListAllMethodsRequest$Outbound = {
   locale?: string | undefined;
   amount?: ListAllMethodsAmount$Outbound | undefined;
   include?: string | null | undefined;
-  sequenceType?: string | undefined;
+  sequenceType: string;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -468,10 +691,10 @@ export const ListAllMethodsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllMethodsRequest
 > = z.object({
-  locale: z.string().optional(),
+  locale: ListAllMethodsLocale$outboundSchema.optional(),
   amount: z.lazy(() => ListAllMethodsAmount$outboundSchema).optional(),
   include: z.nullable(ListAllMethodsInclude$outboundSchema).optional(),
-  sequenceType: z.string().optional(),
+  sequenceType: ListAllMethodsSequenceType$outboundSchema.default("oneoff"),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -627,6 +850,27 @@ export function listAllMethodsBadRequestLinksFromJSON(
     (x) => ListAllMethodsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllMethodsBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListAllMethodsId$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsId
+> = z.nativeEnum(ListAllMethodsId);
+
+/** @internal */
+export const ListAllMethodsId$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsId
+> = ListAllMethodsId$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllMethodsId$ {
+  /** @deprecated use `ListAllMethodsId$inboundSchema` instead. */
+  export const inboundSchema = ListAllMethodsId$inboundSchema;
+  /** @deprecated use `ListAllMethodsId$outboundSchema` instead. */
+  export const outboundSchema = ListAllMethodsId$outboundSchema;
 }
 
 /** @internal */
@@ -805,6 +1049,27 @@ export function listAllMethodsImageFromJSON(
     (x) => ListAllMethodsImage$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllMethodsImage' from JSON`,
   );
+}
+
+/** @internal */
+export const ListAllMethodsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsStatus
+> = z.nativeEnum(ListAllMethodsStatus);
+
+/** @internal */
+export const ListAllMethodsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllMethodsStatus
+> = ListAllMethodsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllMethodsStatus$ {
+  /** @deprecated use `ListAllMethodsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListAllMethodsStatus$inboundSchema;
+  /** @deprecated use `ListAllMethodsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListAllMethodsStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1226,14 +1491,14 @@ export const ListAllMethodsMethod$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string(),
-  id: z.string(),
+  id: ListAllMethodsId$inboundSchema,
   description: z.string(),
   minimumAmount: z.lazy(() => ListAllMethodsMinimumAmount$inboundSchema),
   maximumAmount: z.nullable(
     z.lazy(() => ListAllMethodsMaximumAmount$inboundSchema),
   ),
   image: z.lazy(() => ListAllMethodsImage$inboundSchema),
-  status: z.nullable(z.string()),
+  status: z.nullable(ListAllMethodsStatus$inboundSchema),
   issuers: z.array(z.lazy(() => ListAllMethodsIssuer$inboundSchema)).optional(),
   _links: z.lazy(() => ListAllMethodsMethodLinks$inboundSchema),
   pricing: z.array(z.lazy(() => Pricing$inboundSchema)).optional(),
@@ -1264,14 +1529,14 @@ export const ListAllMethodsMethod$outboundSchema: z.ZodType<
   ListAllMethodsMethod
 > = z.object({
   resource: z.string(),
-  id: z.string(),
+  id: ListAllMethodsId$outboundSchema,
   description: z.string(),
   minimumAmount: z.lazy(() => ListAllMethodsMinimumAmount$outboundSchema),
   maximumAmount: z.nullable(
     z.lazy(() => ListAllMethodsMaximumAmount$outboundSchema),
   ),
   image: z.lazy(() => ListAllMethodsImage$outboundSchema),
-  status: z.nullable(z.string()),
+  status: z.nullable(ListAllMethodsStatus$outboundSchema),
   issuers: z.array(z.lazy(() => ListAllMethodsIssuer$outboundSchema))
     .optional(),
   links: z.lazy(() => ListAllMethodsMethodLinks$outboundSchema),

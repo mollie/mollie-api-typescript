@@ -13,18 +13,16 @@
 
 Capture an *authorized* payment.
 
-Some payment methods allow you to first collect a customer's authorization, and capture the amount at a later point.
+Some payment methods allow you to first collect a customer's authorization,
+and capture the amount at a later point.
 
-By default, Mollie captures payments automatically. If however you configured your payment with `captureMode: manual`, you can capture the payment using this endpoint after having collected the customer's authorization.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.write**](/reference/authentication)
+By default, Mollie captures payments automatically. If however you
+configured your payment with `captureMode: manual`, you can capture the payment using this endpoint after
+having collected the customer's authorization.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-capture" method="post" path="/payments/{paymentId}/captures" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -117,14 +115,9 @@ Retrieve a list of all captures created for a specific payment.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-captures" method="get" path="/payments/{paymentId}/captures" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -205,16 +198,12 @@ run();
 
 ## get
 
-Retrieve a single payment capture by its ID and the ID of its parent payment.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
+Retrieve a single payment capture by its ID and the ID of its parent
+payment.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-capture" method="get" path="/payments/{paymentId}/captures/{captureId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

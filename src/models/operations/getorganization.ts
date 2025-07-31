@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,9 +15,11 @@ export type GetOrganizationRequest = {
    */
   id: string;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -39,6 +42,38 @@ export type GetOrganizationNotFoundLinks = {
 };
 
 /**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export const GetOrganizationLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export type GetOrganizationLocale = ClosedEnum<typeof GetOrganizationLocale>;
+
+/**
  * The address of the organization.
  */
 export type GetOrganizationAddress = {
@@ -56,6 +91,31 @@ export type GetOrganizationAddress = {
    */
   country?: string | undefined;
 };
+
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export const GetOrganizationVatRegulation = {
+  Dutch: "dutch",
+  British: "british",
+  Shifted: "shifted",
+} as const;
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export type GetOrganizationVatRegulation = ClosedEnum<
+  typeof GetOrganizationVatRegulation
+>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -122,7 +182,10 @@ export type GetOrganizationLinks = {
  */
 export type GetOrganizationResponse = {
   /**
-   * Indicates the response contains an organization object. Will always contain the string `organization` for this resource type.
+   * Indicates the response contains an organization object. Will always contain the string `organization` for this
+   *
+   * @remarks
+   * resource type.
    */
   resource?: string | undefined;
   /**
@@ -140,7 +203,7 @@ export type GetOrganizationResponse = {
   /**
    * The preferred locale of the merchant, as set in their Mollie dashboard.
    */
-  locale?: string | undefined;
+  locale?: GetOrganizationLocale | undefined;
   /**
    * The address of the organization.
    */
@@ -150,23 +213,23 @@ export type GetOrganizationResponse = {
    */
   registrationNumber?: string | undefined;
   /**
-   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are verified against the international registry *VIES*.
+   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are
    *
    * @remarks
+   * verified against the international registry *VIES*.
    *
    * The field is not present for merchants residing in other countries.
    */
   vatNumber?: string | null | undefined;
   /**
-   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United Kingdom, and shifted VAT for merchants in the European Union.
+   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
    *
    * @remarks
+   * Kingdom, and shifted VAT for merchants in the European Union.
    *
    * The field is not present for merchants residing in other countries.
-   *
-   * Possible values: `dutch` `british` `shifted`
    */
-  vatRegulation?: string | null | undefined;
+  vatRegulation?: GetOrganizationVatRegulation | null | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
@@ -353,6 +416,27 @@ export function getOrganizationNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const GetOrganizationLocale$inboundSchema: z.ZodNativeEnum<
+  typeof GetOrganizationLocale
+> = z.nativeEnum(GetOrganizationLocale);
+
+/** @internal */
+export const GetOrganizationLocale$outboundSchema: z.ZodNativeEnum<
+  typeof GetOrganizationLocale
+> = GetOrganizationLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetOrganizationLocale$ {
+  /** @deprecated use `GetOrganizationLocale$inboundSchema` instead. */
+  export const inboundSchema = GetOrganizationLocale$inboundSchema;
+  /** @deprecated use `GetOrganizationLocale$outboundSchema` instead. */
+  export const outboundSchema = GetOrganizationLocale$outboundSchema;
+}
+
+/** @internal */
 export const GetOrganizationAddress$inboundSchema: z.ZodType<
   GetOrganizationAddress,
   z.ZodTypeDef,
@@ -413,6 +497,27 @@ export function getOrganizationAddressFromJSON(
     (x) => GetOrganizationAddress$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetOrganizationAddress' from JSON`,
   );
+}
+
+/** @internal */
+export const GetOrganizationVatRegulation$inboundSchema: z.ZodNativeEnum<
+  typeof GetOrganizationVatRegulation
+> = z.nativeEnum(GetOrganizationVatRegulation);
+
+/** @internal */
+export const GetOrganizationVatRegulation$outboundSchema: z.ZodNativeEnum<
+  typeof GetOrganizationVatRegulation
+> = GetOrganizationVatRegulation$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetOrganizationVatRegulation$ {
+  /** @deprecated use `GetOrganizationVatRegulation$inboundSchema` instead. */
+  export const inboundSchema = GetOrganizationVatRegulation$inboundSchema;
+  /** @deprecated use `GetOrganizationVatRegulation$outboundSchema` instead. */
+  export const outboundSchema = GetOrganizationVatRegulation$outboundSchema;
 }
 
 /** @internal */
@@ -660,11 +765,12 @@ export const GetOrganizationResponse$inboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: GetOrganizationLocale$inboundSchema.optional(),
   address: z.lazy(() => GetOrganizationAddress$inboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(GetOrganizationVatRegulation$inboundSchema)
+    .optional(),
   _links: z.lazy(() => GetOrganizationLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -696,11 +802,12 @@ export const GetOrganizationResponse$outboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: GetOrganizationLocale$outboundSchema.optional(),
   address: z.lazy(() => GetOrganizationAddress$outboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(GetOrganizationVatRegulation$outboundSchema)
+    .optional(),
   links: z.lazy(() => GetOrganizationLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {

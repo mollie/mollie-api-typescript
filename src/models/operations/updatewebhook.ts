@@ -40,9 +40,10 @@ export type UpdateWebhookRequestBody = {
    */
   eventTypes?: UpdateWebhookEventTypes | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
    *
    * @remarks
+   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -88,11 +89,39 @@ export type UpdateWebhookNotFoundLinks = {
 };
 
 /**
+ * The subscription's current status.
+ */
+export const UpdateWebhookStatus = {
+  Enabled: "enabled",
+  Blocked: "blocked",
+  Disabled: "disabled",
+} as const;
+/**
+ * The subscription's current status.
+ */
+export type UpdateWebhookStatus = ClosedEnum<typeof UpdateWebhookStatus>;
+
+/**
+ * The subscription's mode.
+ */
+export const UpdateWebhookMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * The subscription's mode.
+ */
+export type UpdateWebhookMode = ClosedEnum<typeof UpdateWebhookMode>;
+
+/**
  * The webhook object.
  */
 export type UpdateWebhookResponse = {
   /**
-   * Indicates the response contains a webhook subscription object. Will always contain the string `webhook` for this endpoint.
+   * Indicates the response contains a webhook subscription object.
+   *
+   * @remarks
+   * Will always contain the string `webhook` for this endpoint.
    */
   resource?: string | undefined;
   /**
@@ -121,20 +150,12 @@ export type UpdateWebhookResponse = {
   eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
-   *
-   * @remarks
-   *
-   * Possible values: `enabled` `blocked` `disabled`
    */
-  status?: string | undefined;
+  status?: UpdateWebhookStatus | undefined;
   /**
    * The subscription's mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: UpdateWebhookMode | undefined;
 };
 
 /** @internal */
@@ -537,6 +558,48 @@ export function updateWebhookNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const UpdateWebhookStatus$inboundSchema: z.ZodNativeEnum<
+  typeof UpdateWebhookStatus
+> = z.nativeEnum(UpdateWebhookStatus);
+
+/** @internal */
+export const UpdateWebhookStatus$outboundSchema: z.ZodNativeEnum<
+  typeof UpdateWebhookStatus
+> = UpdateWebhookStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateWebhookStatus$ {
+  /** @deprecated use `UpdateWebhookStatus$inboundSchema` instead. */
+  export const inboundSchema = UpdateWebhookStatus$inboundSchema;
+  /** @deprecated use `UpdateWebhookStatus$outboundSchema` instead. */
+  export const outboundSchema = UpdateWebhookStatus$outboundSchema;
+}
+
+/** @internal */
+export const UpdateWebhookMode$inboundSchema: z.ZodNativeEnum<
+  typeof UpdateWebhookMode
+> = z.nativeEnum(UpdateWebhookMode);
+
+/** @internal */
+export const UpdateWebhookMode$outboundSchema: z.ZodNativeEnum<
+  typeof UpdateWebhookMode
+> = UpdateWebhookMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateWebhookMode$ {
+  /** @deprecated use `UpdateWebhookMode$inboundSchema` instead. */
+  export const inboundSchema = UpdateWebhookMode$inboundSchema;
+  /** @deprecated use `UpdateWebhookMode$outboundSchema` instead. */
+  export const outboundSchema = UpdateWebhookMode$outboundSchema;
+}
+
+/** @internal */
 export const UpdateWebhookResponse$inboundSchema: z.ZodType<
   UpdateWebhookResponse,
   z.ZodTypeDef,
@@ -549,8 +612,8 @@ export const UpdateWebhookResponse$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   name: z.string().optional(),
   eventTypes: z.array(z.string()).optional(),
-  status: z.string().optional(),
-  mode: z.string().optional(),
+  status: UpdateWebhookStatus$inboundSchema.optional(),
+  mode: UpdateWebhookMode$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -579,8 +642,8 @@ export const UpdateWebhookResponse$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   name: z.string().optional(),
   eventTypes: z.array(z.string()).optional(),
-  status: z.string().optional(),
-  mode: z.string().optional(),
+  status: UpdateWebhookStatus$outboundSchema.optional(),
+  mode: UpdateWebhookMode$outboundSchema.optional(),
 });
 
 /**

@@ -16,13 +16,7 @@ export const tool$paymentLinksListPayments: ToolDefinition<typeof args> = {
 
 Retrieve the list of payments for a specific payment link.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payment-links.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await paymentLinksListPayments(

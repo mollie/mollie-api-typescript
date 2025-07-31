@@ -16,13 +16,7 @@ export const tool$capturesList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all captures created for a specific payment.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await capturesList(

@@ -16,11 +16,7 @@ export const tool$settlementsListRefunds: ToolDefinition<typeof args> = {
 
 Retrieve all refunds 'deducted' from the given settlement.
 
-The response is in the same format as the response of the [List refunds endpoint](list-refunds).
-
-> 🔑 Access with
->
-> [Access token with **settlements.read** **refunds.read**](/reference/authentication)`,
+The response is in the same format as the response of the [List refunds endpoint](list-refunds).`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsListRefunds(

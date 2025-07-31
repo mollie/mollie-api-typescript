@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all of your refunds.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **refunds.read**](/reference/authentication)
  */
 export function refundsAll(
   client: ClientCore,

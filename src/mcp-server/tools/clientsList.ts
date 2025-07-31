@@ -16,11 +16,7 @@ export const tool$clientsList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all clients linked to your account.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [Access token with **clients.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await clientsList(

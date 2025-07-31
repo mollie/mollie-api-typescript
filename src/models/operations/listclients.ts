@@ -11,17 +11,24 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ListClientsRequest = {
   /**
-   * This endpoint allows embedding related API items by appending the following values via the `embed` query string parameter.
+   * This endpoint allows embedding related API items by appending the
    *
    * @remarks
+   * following values via the `embed` query string parameter.
    *
-   * * `organization`: Include the organization of the client. Available for `signuplink` partners, or for `oauth` partners with the `organizations.read` scope.
-   * * `onboarding`: Include the onboarding status of the client. Available for `signuplink` partners, or for `oauth` partners with the `onboarding.read` scope.
-   * * `capabilities`: Include the [capabilities](list-capabilities) of the client organization. Available for *oauth* partners with the `onboarding.read` scope.
+   * * `organization`: Include the organization of the client. Available for `signuplink` partners, or for `oauth`
+   *   partners with the `organizations.read` scope.
+   * * `onboarding`: Include the onboarding status of the client. Available for `signuplink` partners, or for `oauth`
+   *   partners with the `onboarding.read` scope.
+   * * `capabilities`: Include the [capabilities](list-capabilities) of the client organization.
+   *   Available for *oauth* partners with the `onboarding.read` scope.
    */
   embed?: string | null | undefined;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -149,6 +156,38 @@ export type ClientLinks = {
 };
 
 /**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export const ListClientsLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export type ListClientsLocale = ClosedEnum<typeof ListClientsLocale>;
+
+/**
  * The address of the organization.
  */
 export type ListClientsAddress = {
@@ -166,6 +205,31 @@ export type ListClientsAddress = {
    */
   country?: string | undefined;
 };
+
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export const ListClientsVatRegulation = {
+  Dutch: "dutch",
+  British: "british",
+  Shifted: "shifted",
+} as const;
+/**
+ * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+ *
+ * @remarks
+ * Kingdom, and shifted VAT for merchants in the European Union.
+ *
+ * The field is not present for merchants residing in other countries.
+ */
+export type ListClientsVatRegulation = ClosedEnum<
+  typeof ListClientsVatRegulation
+>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -229,7 +293,10 @@ export type ClientOrganizationLinks = {
 
 export type ListClientsOrganization = {
   /**
-   * Indicates the response contains an organization object. Will always contain the string `organization` for this resource type.
+   * Indicates the response contains an organization object. Will always contain the string `organization` for this
+   *
+   * @remarks
+   * resource type.
    */
   resource?: string | undefined;
   /**
@@ -247,7 +314,7 @@ export type ListClientsOrganization = {
   /**
    * The preferred locale of the merchant, as set in their Mollie dashboard.
    */
-  locale?: string | undefined;
+  locale?: ListClientsLocale | undefined;
   /**
    * The address of the organization.
    */
@@ -257,28 +324,55 @@ export type ListClientsOrganization = {
    */
   registrationNumber?: string | undefined;
   /**
-   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are verified against the international registry *VIES*.
+   * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are
    *
    * @remarks
+   * verified against the international registry *VIES*.
    *
    * The field is not present for merchants residing in other countries.
    */
   vatNumber?: string | null | undefined;
   /**
-   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United Kingdom, and shifted VAT for merchants in the European Union.
+   * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
    *
    * @remarks
+   * Kingdom, and shifted VAT for merchants in the European Union.
    *
    * The field is not present for merchants residing in other countries.
-   *
-   * Possible values: `dutch` `british` `shifted`
    */
-  vatRegulation?: string | null | undefined;
+  vatRegulation?: ListClientsVatRegulation | null | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links?: ClientOrganizationLinks | undefined;
 };
+
+/**
+ * The current status of the organization's onboarding process.
+ *
+ * @remarks
+ *
+ * * `needs-data` — The merchant needs to provide additional information
+ * * `in-review` — The merchant provided all information, awaiting review from Mollie
+ * * `completed` — The onboarding is completed
+ */
+export const ListClientsOnboardingStatus = {
+  NeedsData: "needs-data",
+  InReview: "in-review",
+  Completed: "completed",
+} as const;
+/**
+ * The current status of the organization's onboarding process.
+ *
+ * @remarks
+ *
+ * * `needs-data` — The merchant needs to provide additional information
+ * * `in-review` — The merchant provided all information, awaiting review from Mollie
+ * * `completed` — The onboarding is completed
+ */
+export type ListClientsOnboardingStatus = ClosedEnum<
+  typeof ListClientsOnboardingStatus
+>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -295,7 +389,10 @@ export type ClientOnboardingSelf = {
 };
 
 /**
- * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to complete their onboarding.
+ * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to
+ *
+ * @remarks
+ * complete their onboarding.
  */
 export type ListClientsOnboardingDashboard = {
   /**
@@ -345,7 +442,10 @@ export type ClientOnboardingLinks = {
    */
   self?: ClientOnboardingSelf | undefined;
   /**
-   * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to complete their onboarding.
+   * Direct link to the onboarding process in the Mollie dashboard. The merchant can be redirected to this page to
+   *
+   * @remarks
+   * complete their onboarding.
    */
   dashboard?: ListClientsOnboardingDashboard | undefined;
   /**
@@ -360,7 +460,10 @@ export type ClientOnboardingLinks = {
 
 export type ListClientsOnboarding = {
   /**
-   * Indicates the response contains an onboarding status object. Will always contain the string `onboarding` for this resource type.
+   * Indicates the response contains an onboarding status object. Will always contain the string `onboarding` for this
+   *
+   * @remarks
+   * resource type.
    */
   resource?: string | undefined;
   /**
@@ -375,10 +478,8 @@ export type ListClientsOnboarding = {
    * * `needs-data` — The merchant needs to provide additional information
    * * `in-review` — The merchant provided all information, awaiting review from Mollie
    * * `completed` — The onboarding is completed
-   *
-   * Possible values: `needs-data` `in-review` `completed`
    */
-  status?: string | undefined;
+  status?: ListClientsOnboardingStatus | undefined;
   /**
    * Whether the organization can receive payments.
    */
@@ -397,13 +498,15 @@ export type ListClientsOnboarding = {
   links?: ClientOnboardingLinks | undefined;
 };
 
-export const ListClientsStatus = {
+export const ListClientsCapabilitiesStatus = {
   Unrequested: "unrequested",
   Enabled: "enabled",
   Disabled: "disabled",
   Pending: "pending",
 } as const;
-export type ListClientsStatus = ClosedEnum<typeof ListClientsStatus>;
+export type ListClientsCapabilitiesStatus = ClosedEnum<
+  typeof ListClientsCapabilitiesStatus
+>;
 
 export const ListClientsStatusReason = {
   RequirementPastDue: "requirement-past-due",
@@ -414,7 +517,31 @@ export type ListClientsStatusReason = ClosedEnum<
 >;
 
 /**
- * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled. For example, where necessary documents are to be uploaded.
+ * The status of the requirement depends on its due date.
+ *
+ * @remarks
+ * If no due date is given, the status will be `requested`.
+ */
+export const ListClientsRequirementStatus = {
+  CurrentlyDue: "currently-due",
+  PastDue: "past-due",
+  Requested: "requested",
+} as const;
+/**
+ * The status of the requirement depends on its due date.
+ *
+ * @remarks
+ * If no due date is given, the status will be `requested`.
+ */
+export type ListClientsRequirementStatus = ClosedEnum<
+  typeof ListClientsRequirementStatus
+>;
+
+/**
+ * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
+ *
+ * @remarks
+ * For example, where necessary documents are to be uploaded.
  */
 export type ListClientsCapabilitiesDashboard = {
   /**
@@ -429,24 +556,30 @@ export type ListClientsCapabilitiesDashboard = {
 
 export type ClientRequirementLinks = {
   /**
-   * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled. For example, where necessary documents are to be uploaded.
+   * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
+   *
+   * @remarks
+   * For example, where necessary documents are to be uploaded.
    */
   dashboard?: ListClientsCapabilitiesDashboard | undefined;
 };
 
 export type ListClientsRequirement = {
   /**
-   * The name of this requirement, referring to the task to be fulfilled by the organization to enable or re-enable the capability. The name is unique among other requirements of the same capability.
+   * The name of this requirement, referring to the task to be fulfilled by the organization
+   *
+   * @remarks
+   * to enable or re-enable the capability. The name is unique among other requirements
+   * of the same capability.
    */
   id?: string | undefined;
   /**
-   * The status of the requirement depends on its due date. If no due date is given, the status will be `requested`.
+   * The status of the requirement depends on its due date.
    *
    * @remarks
-   *
-   * Possible values: `currently-due` `past-due` `requested`
+   * If no due date is given, the status will be `requested`.
    */
-  status?: string | undefined;
+  status?: ListClientsRequirementStatus | undefined;
   /**
    * Due date until the requirement must be fulfilled, if any. The date is shown in ISO-8601 format.
    */
@@ -463,7 +596,7 @@ export type ListClientsCapabilities = {
    * A unique name for this capability like `payments` / `settlements`.
    */
   name?: string | undefined;
-  status?: ListClientsStatus | undefined;
+  status?: ListClientsCapabilitiesStatus | undefined;
   statusReason?: ListClientsStatusReason | null | undefined;
   requirements?: Array<ListClientsRequirement> | undefined;
 };
@@ -488,7 +621,10 @@ export type Client = {
    */
   commission?: ListClientsCommission | null | undefined;
   /**
-   * The date and time the client organization was created, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * The date and time the client organization was created, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+   *
+   * @remarks
+   * format.
    */
   organizationCreatedAt?: string | undefined;
   /**
@@ -500,7 +636,10 @@ export type Client = {
 
 export type ListClientsEmbedded = {
   /**
-   * An array of client objects. For a complete reference of the client object, refer to the [Get client endpoint](get-client) documentation.
+   * An array of client objects. For a complete reference of the client object, refer to the
+   *
+   * @remarks
+   * [Get client endpoint](get-client) documentation.
    */
   clients?: Array<Client> | undefined;
 };
@@ -584,15 +723,20 @@ export type ListClientsLinks = {
 };
 
 /**
- * A list of client objects. For a complete reference of the client object, refer to the [Get client endpoint](get-client) documentation.
+ * A list of client objects. For a complete reference of the client object, refer to the
+ *
+ * @remarks
+ * [Get client endpoint](get-client) documentation.
  */
 export type ListClientsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListClientsEmbedded | undefined;
@@ -1235,6 +1379,27 @@ export function clientLinksFromJSON(
 }
 
 /** @internal */
+export const ListClientsLocale$inboundSchema: z.ZodNativeEnum<
+  typeof ListClientsLocale
+> = z.nativeEnum(ListClientsLocale);
+
+/** @internal */
+export const ListClientsLocale$outboundSchema: z.ZodNativeEnum<
+  typeof ListClientsLocale
+> = ListClientsLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListClientsLocale$ {
+  /** @deprecated use `ListClientsLocale$inboundSchema` instead. */
+  export const inboundSchema = ListClientsLocale$inboundSchema;
+  /** @deprecated use `ListClientsLocale$outboundSchema` instead. */
+  export const outboundSchema = ListClientsLocale$outboundSchema;
+}
+
+/** @internal */
 export const ListClientsAddress$inboundSchema: z.ZodType<
   ListClientsAddress,
   z.ZodTypeDef,
@@ -1295,6 +1460,27 @@ export function listClientsAddressFromJSON(
     (x) => ListClientsAddress$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListClientsAddress' from JSON`,
   );
+}
+
+/** @internal */
+export const ListClientsVatRegulation$inboundSchema: z.ZodNativeEnum<
+  typeof ListClientsVatRegulation
+> = z.nativeEnum(ListClientsVatRegulation);
+
+/** @internal */
+export const ListClientsVatRegulation$outboundSchema: z.ZodNativeEnum<
+  typeof ListClientsVatRegulation
+> = ListClientsVatRegulation$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListClientsVatRegulation$ {
+  /** @deprecated use `ListClientsVatRegulation$inboundSchema` instead. */
+  export const inboundSchema = ListClientsVatRegulation$inboundSchema;
+  /** @deprecated use `ListClientsVatRegulation$outboundSchema` instead. */
+  export const outboundSchema = ListClientsVatRegulation$outboundSchema;
 }
 
 /** @internal */
@@ -1546,11 +1732,11 @@ export const ListClientsOrganization$inboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: ListClientsLocale$inboundSchema.optional(),
   address: z.lazy(() => ListClientsAddress$inboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(ListClientsVatRegulation$inboundSchema).optional(),
   _links: z.lazy(() => ClientOrganizationLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -1582,11 +1768,11 @@ export const ListClientsOrganization$outboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: z.string().optional(),
+  locale: ListClientsLocale$outboundSchema.optional(),
   address: z.lazy(() => ListClientsAddress$outboundSchema).optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(z.string()).optional(),
+  vatRegulation: z.nullable(ListClientsVatRegulation$outboundSchema).optional(),
   links: z.lazy(() => ClientOrganizationLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -1623,6 +1809,27 @@ export function listClientsOrganizationFromJSON(
     (x) => ListClientsOrganization$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListClientsOrganization' from JSON`,
   );
+}
+
+/** @internal */
+export const ListClientsOnboardingStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListClientsOnboardingStatus
+> = z.nativeEnum(ListClientsOnboardingStatus);
+
+/** @internal */
+export const ListClientsOnboardingStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListClientsOnboardingStatus
+> = ListClientsOnboardingStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListClientsOnboardingStatus$ {
+  /** @deprecated use `ListClientsOnboardingStatus$inboundSchema` instead. */
+  export const inboundSchema = ListClientsOnboardingStatus$inboundSchema;
+  /** @deprecated use `ListClientsOnboardingStatus$outboundSchema` instead. */
+  export const outboundSchema = ListClientsOnboardingStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1937,7 +2144,7 @@ export const ListClientsOnboarding$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("onboarding"),
   name: z.string().optional(),
-  status: z.string().optional(),
+  status: ListClientsOnboardingStatus$inboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),
@@ -1967,7 +2174,7 @@ export const ListClientsOnboarding$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("onboarding"),
   name: z.string().optional(),
-  status: z.string().optional(),
+  status: ListClientsOnboardingStatus$outboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),
@@ -2010,24 +2217,24 @@ export function listClientsOnboardingFromJSON(
 }
 
 /** @internal */
-export const ListClientsStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ListClientsStatus
-> = z.nativeEnum(ListClientsStatus);
+export const ListClientsCapabilitiesStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListClientsCapabilitiesStatus
+> = z.nativeEnum(ListClientsCapabilitiesStatus);
 
 /** @internal */
-export const ListClientsStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ListClientsStatus
-> = ListClientsStatus$inboundSchema;
+export const ListClientsCapabilitiesStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListClientsCapabilitiesStatus
+> = ListClientsCapabilitiesStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListClientsStatus$ {
-  /** @deprecated use `ListClientsStatus$inboundSchema` instead. */
-  export const inboundSchema = ListClientsStatus$inboundSchema;
-  /** @deprecated use `ListClientsStatus$outboundSchema` instead. */
-  export const outboundSchema = ListClientsStatus$outboundSchema;
+export namespace ListClientsCapabilitiesStatus$ {
+  /** @deprecated use `ListClientsCapabilitiesStatus$inboundSchema` instead. */
+  export const inboundSchema = ListClientsCapabilitiesStatus$inboundSchema;
+  /** @deprecated use `ListClientsCapabilitiesStatus$outboundSchema` instead. */
+  export const outboundSchema = ListClientsCapabilitiesStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2049,6 +2256,27 @@ export namespace ListClientsStatusReason$ {
   export const inboundSchema = ListClientsStatusReason$inboundSchema;
   /** @deprecated use `ListClientsStatusReason$outboundSchema` instead. */
   export const outboundSchema = ListClientsStatusReason$outboundSchema;
+}
+
+/** @internal */
+export const ListClientsRequirementStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListClientsRequirementStatus
+> = z.nativeEnum(ListClientsRequirementStatus);
+
+/** @internal */
+export const ListClientsRequirementStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListClientsRequirementStatus
+> = ListClientsRequirementStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListClientsRequirementStatus$ {
+  /** @deprecated use `ListClientsRequirementStatus$inboundSchema` instead. */
+  export const inboundSchema = ListClientsRequirementStatus$inboundSchema;
+  /** @deprecated use `ListClientsRequirementStatus$outboundSchema` instead. */
+  export const outboundSchema = ListClientsRequirementStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2173,7 +2401,7 @@ export const ListClientsRequirement$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  status: z.string().optional(),
+  status: ListClientsRequirementStatus$inboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   _links: z.lazy(() => ClientRequirementLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -2197,7 +2425,7 @@ export const ListClientsRequirement$outboundSchema: z.ZodType<
   ListClientsRequirement
 > = z.object({
   id: z.string().optional(),
-  status: z.string().optional(),
+  status: ListClientsRequirementStatus$outboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   links: z.lazy(() => ClientRequirementLinks$outboundSchema).optional(),
 }).transform((v) => {
@@ -2245,7 +2473,7 @@ export const ListClientsCapabilities$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: ListClientsStatus$inboundSchema.optional(),
+  status: ListClientsCapabilitiesStatus$inboundSchema.optional(),
   statusReason: z.nullable(ListClientsStatusReason$inboundSchema).optional(),
   requirements: z.array(z.lazy(() => ListClientsRequirement$inboundSchema))
     .optional(),
@@ -2268,7 +2496,7 @@ export const ListClientsCapabilities$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: ListClientsStatus$outboundSchema.optional(),
+  status: ListClientsCapabilitiesStatus$outboundSchema.optional(),
   statusReason: z.nullable(ListClientsStatusReason$outboundSchema).optional(),
   requirements: z.array(z.lazy(() => ListClientsRequirement$outboundSchema))
     .optional(),

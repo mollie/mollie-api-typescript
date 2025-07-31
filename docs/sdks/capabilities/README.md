@@ -19,14 +19,13 @@ This API provides detailed insights into the specific requirements and status of
 
 Capabilities are at the organization level, indicating if the organization can perform a given capability.
 
-For payments, regardless them being at the profile level, the capability is listed at the organization level. This means that if at least one of the clients's profiles can receive payments, the payments capability is enabled, communicating that the organization can indeed receive payments.
-
-> 🔑 Access with
->
-> [Access token with **onboarding.read**](/reference/authentication)
+For payments, regardless them being at the profile level, the capability is listed at the organization level.
+This means that if at least one of the clients's profiles can receive payments,
+the payments capability is enabled, communicating that the organization can indeed receive payments.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-capabilities" method="get" path="/capabilities" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

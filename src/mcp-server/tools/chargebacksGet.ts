@@ -14,13 +14,7 @@ export const tool$chargebacksGet: ToolDefinition<typeof args> = {
   name: "chargebacks-get",
   description: `Get payment chargeback
 
-Retrieve a single payment chargeback by its ID and the ID of its parent payment.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)`,
+Retrieve a single payment chargeback by its ID and the ID of its parent payment.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await chargebacksGet(

@@ -10,13 +10,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This endpoint allows you to embed additional resources via the `embed` query string parameter.
+ * This endpoint allows you to embed additional resources via the
+ *
+ * @remarks
+ * `embed` query string parameter.
  */
 export const GetCaptureEmbed = {
   Payment: "payment",
 } as const;
 /**
- * This endpoint allows you to embed additional resources via the `embed` query string parameter.
+ * This endpoint allows you to embed additional resources via the
+ *
+ * @remarks
+ * `embed` query string parameter.
  */
 export type GetCaptureEmbed = ClosedEnum<typeof GetCaptureEmbed>;
 
@@ -30,13 +36,18 @@ export type GetCaptureRequest = {
    */
   captureId: string;
   /**
-   * This endpoint allows you to embed additional resources via the `embed` query string parameter.
+   * This endpoint allows you to embed additional resources via the
+   *
+   * @remarks
+   * `embed` query string parameter.
    */
   embed?: GetCaptureEmbed | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -59,6 +70,18 @@ export type GetCaptureNotFoundLinks = {
 };
 
 /**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const GetCaptureMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type GetCaptureMode = ClosedEnum<typeof GetCaptureMode>;
+
+/**
  * The amount captured. If no amount is provided, the full authorized amount is captured.
  */
 export type GetCaptureAmount = {
@@ -73,11 +96,14 @@ export type GetCaptureAmount = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be settled to your account, converted to the
  *
  * @remarks
+ * currency your account is settled in.
  *
- * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve
+ * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+ * instead.
  */
 export type GetCaptureSettlementAmount = {
   /**
@@ -90,10 +116,26 @@ export type GetCaptureSettlementAmount = {
   value: string;
 };
 
+/**
+ * The capture's status.
+ */
+export const GetCaptureStatus = {
+  Pending: "pending",
+  Succeeded: "succeeded",
+  Failed: "failed",
+} as const;
+/**
+ * The capture's status.
+ */
+export type GetCaptureStatus = ClosedEnum<typeof GetCaptureStatus>;
+
 export type GetCaptureMetadata = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type GetCaptureMetadataUnion =
   | GetCaptureMetadata
@@ -129,7 +171,10 @@ export type GetCapturePayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if
+ *
+ * @remarks
+ * not yet settled.
  */
 export type GetCaptureSettlement = {
   /**
@@ -143,7 +188,10 @@ export type GetCaptureSettlement = {
 };
 
 /**
- * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if it isn't associated with a shipment.
+ * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if
+ *
+ * @remarks
+ * it isn't associated with a shipment.
  */
 export type GetCaptureShipment = {
   /**
@@ -183,11 +231,17 @@ export type GetCaptureLinks = {
    */
   payment: GetCapturePayment;
   /**
-   * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this capture has been settled with. Not present if
+   *
+   * @remarks
+   * not yet settled.
    */
   settlement?: GetCaptureSettlement | null | undefined;
   /**
-   * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if it isn't associated with a shipment.
+   * The API resource URL of the [shipment](get-shipment) this capture is associated with. Not present if
+   *
+   * @remarks
+   * it isn't associated with a shipment.
    */
   shipment?: GetCaptureShipment | null | undefined;
   /**
@@ -210,12 +264,8 @@ export type GetCaptureResponse = {
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode: string;
+  mode: GetCaptureMode;
   /**
    * The description of the capture.
    */
@@ -225,35 +275,46 @@ export type GetCaptureResponse = {
    */
   amount: GetCaptureAmount | null;
   /**
-   * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the
    *
    * @remarks
+   * currency your account is settled in.
    *
-   * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve
+   * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+   * instead.
    */
   settlementAmount?: GetCaptureSettlementAmount | null | undefined;
   /**
    * The capture's status.
+   */
+  status: GetCaptureStatus;
+  /**
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
-   *
-   * Possible values: `pending` `succeeded` `failed`
-   */
-  status: string;
-  /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: GetCaptureMetadata | string | Array<string> | null | undefined;
   /**
-   * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId: string;
   /**
-   * The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example: `shp_gNapNy9qQTUFZYnCrCF7J`.
+   * The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example:
+   *
+   * @remarks
+   * `shp_gNapNy9qQTUFZYnCrCF7J`.
    */
   shipmentId?: string | null | undefined;
   /**
-   * The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field is omitted if the capture is not settled (yet).
+   * The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field
+   *
+   * @remarks
+   * is omitted if the capture is not settled (yet).
    */
   settlementId?: string | null | undefined;
   /**
@@ -464,6 +525,27 @@ export function getCaptureNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const GetCaptureMode$inboundSchema: z.ZodNativeEnum<
+  typeof GetCaptureMode
+> = z.nativeEnum(GetCaptureMode);
+
+/** @internal */
+export const GetCaptureMode$outboundSchema: z.ZodNativeEnum<
+  typeof GetCaptureMode
+> = GetCaptureMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetCaptureMode$ {
+  /** @deprecated use `GetCaptureMode$inboundSchema` instead. */
+  export const inboundSchema = GetCaptureMode$inboundSchema;
+  /** @deprecated use `GetCaptureMode$outboundSchema` instead. */
+  export const outboundSchema = GetCaptureMode$outboundSchema;
+}
+
+/** @internal */
 export const GetCaptureAmount$inboundSchema: z.ZodType<
   GetCaptureAmount,
   z.ZodTypeDef,
@@ -575,6 +657,27 @@ export function getCaptureSettlementAmountFromJSON(
     (x) => GetCaptureSettlementAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetCaptureSettlementAmount' from JSON`,
   );
+}
+
+/** @internal */
+export const GetCaptureStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetCaptureStatus
+> = z.nativeEnum(GetCaptureStatus);
+
+/** @internal */
+export const GetCaptureStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetCaptureStatus
+> = GetCaptureStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetCaptureStatus$ {
+  /** @deprecated use `GetCaptureStatus$inboundSchema` instead. */
+  export const inboundSchema = GetCaptureStatus$inboundSchema;
+  /** @deprecated use `GetCaptureStatus$outboundSchema` instead. */
+  export const outboundSchema = GetCaptureStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1041,13 +1144,13 @@ export const GetCaptureResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: GetCaptureMode$inboundSchema,
   description: z.string().optional(),
   amount: z.nullable(z.lazy(() => GetCaptureAmount$inboundSchema)),
   settlementAmount: z.nullable(
     z.lazy(() => GetCaptureSettlementAmount$inboundSchema),
   ).optional(),
-  status: z.string(),
+  status: GetCaptureStatus$inboundSchema,
   metadata: z.nullable(
     z.union([
       z.lazy(() => GetCaptureMetadata$inboundSchema),
@@ -1096,13 +1199,13 @@ export const GetCaptureResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  mode: z.string(),
+  mode: GetCaptureMode$outboundSchema,
   description: z.string().optional(),
   amount: z.nullable(z.lazy(() => GetCaptureAmount$outboundSchema)),
   settlementAmount: z.nullable(
     z.lazy(() => GetCaptureSettlementAmount$outboundSchema),
   ).optional(),
-  status: z.string(),
+  status: GetCaptureStatus$outboundSchema,
   metadata: z.nullable(
     z.union([
       z.lazy(() => GetCaptureMetadata$outboundSchema),

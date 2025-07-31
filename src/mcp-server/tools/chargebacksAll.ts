@@ -16,13 +16,7 @@ export const tool$chargebacksAll: ToolDefinition<typeof args> = {
 
 Retrieve all chargebacks initiated for all your payments.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await chargebacksAll(

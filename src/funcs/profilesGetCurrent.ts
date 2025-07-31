@@ -26,13 +26,11 @@ import { Result } from "../types/fp.js";
  * Get current profile
  *
  * @remarks
- * Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile) endpoint.
+ * Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile)
+ * endpoint.
  *
- * For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint documentation.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
+ * For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint
+ * documentation.
  */
 export function profilesGetCurrent(
   client: ClientCore,

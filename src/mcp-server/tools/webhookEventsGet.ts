@@ -14,11 +14,7 @@ export const tool$webhookEventsGet: ToolDefinition<typeof args> = {
   name: "webhook-events-get",
   description: `Get a Webhook Event
 
-Retrieve a single webhook event object by its event ID.
-
-> 🔑 Access with
->
-> [Access token with **events.read**](/reference/authentication)`,
+Retrieve a single webhook event object by its event ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await webhookEventsGet(

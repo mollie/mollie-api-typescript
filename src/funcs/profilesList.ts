@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all of your profiles.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **profiles.read**](/reference/authentication)
  */
 export function profilesList(
   client: ClientCore,

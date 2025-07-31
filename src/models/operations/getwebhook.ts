@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -13,9 +14,11 @@ export type GetWebhookRequest = {
    */
   id: string;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -53,11 +56,39 @@ export type GetWebhookNotFoundLinks = {
 };
 
 /**
+ * The subscription's current status.
+ */
+export const GetWebhookStatus = {
+  Enabled: "enabled",
+  Blocked: "blocked",
+  Disabled: "disabled",
+} as const;
+/**
+ * The subscription's current status.
+ */
+export type GetWebhookStatus = ClosedEnum<typeof GetWebhookStatus>;
+
+/**
+ * The subscription's mode.
+ */
+export const GetWebhookMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * The subscription's mode.
+ */
+export type GetWebhookMode = ClosedEnum<typeof GetWebhookMode>;
+
+/**
  * The webhook object.
  */
 export type GetWebhookResponse = {
   /**
-   * Indicates the response contains a webhook subscription object. Will always contain the string `webhook` for this endpoint.
+   * Indicates the response contains a webhook subscription object.
+   *
+   * @remarks
+   * Will always contain the string `webhook` for this endpoint.
    */
   resource?: string | undefined;
   /**
@@ -86,20 +117,12 @@ export type GetWebhookResponse = {
   eventTypes?: Array<string> | undefined;
   /**
    * The subscription's current status.
-   *
-   * @remarks
-   *
-   * Possible values: `enabled` `blocked` `disabled`
    */
-  status?: string | undefined;
+  status?: GetWebhookStatus | undefined;
   /**
    * The subscription's mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: GetWebhookMode | undefined;
 };
 
 /** @internal */
@@ -402,6 +425,48 @@ export function getWebhookNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const GetWebhookStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookStatus
+> = z.nativeEnum(GetWebhookStatus);
+
+/** @internal */
+export const GetWebhookStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookStatus
+> = GetWebhookStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookStatus$ {
+  /** @deprecated use `GetWebhookStatus$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookStatus$inboundSchema;
+  /** @deprecated use `GetWebhookStatus$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetWebhookMode$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookMode
+> = z.nativeEnum(GetWebhookMode);
+
+/** @internal */
+export const GetWebhookMode$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookMode
+> = GetWebhookMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookMode$ {
+  /** @deprecated use `GetWebhookMode$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookMode$inboundSchema;
+  /** @deprecated use `GetWebhookMode$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookMode$outboundSchema;
+}
+
+/** @internal */
 export const GetWebhookResponse$inboundSchema: z.ZodType<
   GetWebhookResponse,
   z.ZodTypeDef,
@@ -414,8 +479,8 @@ export const GetWebhookResponse$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   name: z.string().optional(),
   eventTypes: z.array(z.string()).optional(),
-  status: z.string().optional(),
-  mode: z.string().optional(),
+  status: GetWebhookStatus$inboundSchema.optional(),
+  mode: GetWebhookMode$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -444,8 +509,8 @@ export const GetWebhookResponse$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   name: z.string().optional(),
   eventTypes: z.array(z.string()).optional(),
-  status: z.string().optional(),
-  mode: z.string().optional(),
+  status: GetWebhookStatus$outboundSchema.optional(),
+  mode: GetWebhookMode$outboundSchema.optional(),
 });
 
 /**

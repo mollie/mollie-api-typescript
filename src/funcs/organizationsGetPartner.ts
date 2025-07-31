@@ -26,11 +26,8 @@ import { Result } from "../types/fp.js";
  * Get partner status
  *
  * @remarks
- * Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner accounts*.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **organizations.read**](/reference/authentication)
+ * Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner
+ * accounts*.
  */
 export function organizationsGetPartner(
   client: ClientCore,

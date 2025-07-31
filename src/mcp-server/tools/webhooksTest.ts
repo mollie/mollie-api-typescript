@@ -14,11 +14,7 @@ export const tool$webhooksTest: ToolDefinition<typeof args> = {
   name: "webhooks-test",
   description: `Test a webhook
 
-Sends a test event to the webhook to verify the endpoint is working as expected.
-
-> 🔑 Access with
->
-> [Access token with **webhooks.write**](/reference/authentication)`,
+Sends a test event to the webhook to verify the endpoint is working as expected.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await webhooksTest(

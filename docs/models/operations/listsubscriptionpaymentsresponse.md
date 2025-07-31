@@ -74,7 +74,7 @@ let value: ListSubscriptionPaymentsResponse = {
             productUrl: "https://...",
             recurring: {
               description: "Gym subscription",
-              interval: "12 months",
+              interval: "... months",
               amount: {
                 currency: "EUR",
                 value: "10.00",
@@ -117,17 +117,36 @@ let value: ListSubscriptionPaymentsResponse = {
         method: "ideal",
         restrictPaymentMethodsToCountry: "NL",
         captureMode: "manual",
-        captureDelay: "8 hours",
+        captureDelay: "... hours",
         captureBefore: "2024-03-20T09:28:37.0Z",
-        applicationFee: {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
+        applicationFee: null,
+        routing: [
+          {
+            resource: "route",
+            id: "rt_5B8cwPMGnU",
+            mode: "live",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+            destination: {
+              type: "organization",
+              organizationId: "org_1234567",
+            },
+            createdAt: "2024-12-12T10:00:00Z",
+            releaseDate: "2024-12-12",
+            links: {
+              self: {
+                href: "https://...",
+                type: "application/hal+json",
+              },
+              payment: {
+                href: "https://...",
+                type: "application/hal+json",
+              },
+            },
           },
-          description: "10",
-        },
-        routing: null,
-        sequenceType: "oneoff",
+        ],
         subscriptionId: "sub_5B8cwPMGnU",
         mandateId: "mdt_5B8cwPMGnU",
         customerId: "cst_5B8cwPMGnU",
@@ -239,6 +258,6 @@ let value: ListSubscriptionPaymentsResponse = {
 
 | Field                                                                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                               | Example                                                                                                                                                                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
+| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
 | `embedded`                                                                                                                                                                                                                                                                | [operations.ListSubscriptionPaymentsEmbedded](../../models/operations/listsubscriptionpaymentsembedded.md)                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
 | `links`                                                                                                                                                                                                                                                                   | [operations.ListSubscriptionPaymentsLinks](../../models/operations/listsubscriptionpaymentslinks.md)                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |

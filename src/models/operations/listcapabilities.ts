@@ -26,7 +26,31 @@ export type ListCapabilitiesStatusReason = ClosedEnum<
 >;
 
 /**
- * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled. For example, where necessary documents are to be uploaded.
+ * The status of the requirement depends on its due date.
+ *
+ * @remarks
+ * If no due date is given, the status will be `requested`.
+ */
+export const ListCapabilitiesRequirementStatus = {
+  CurrentlyDue: "currently-due",
+  PastDue: "past-due",
+  Requested: "requested",
+} as const;
+/**
+ * The status of the requirement depends on its due date.
+ *
+ * @remarks
+ * If no due date is given, the status will be `requested`.
+ */
+export type ListCapabilitiesRequirementStatus = ClosedEnum<
+  typeof ListCapabilitiesRequirementStatus
+>;
+
+/**
+ * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
+ *
+ * @remarks
+ * For example, where necessary documents are to be uploaded.
  */
 export type ListCapabilitiesDashboard = {
   /**
@@ -41,24 +65,30 @@ export type ListCapabilitiesDashboard = {
 
 export type CapabilityLinks = {
   /**
-   * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled. For example, where necessary documents are to be uploaded.
+   * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
+   *
+   * @remarks
+   * For example, where necessary documents are to be uploaded.
    */
   dashboard?: ListCapabilitiesDashboard | undefined;
 };
 
 export type ListCapabilitiesRequirement = {
   /**
-   * The name of this requirement, referring to the task to be fulfilled by the organization to enable or re-enable the capability. The name is unique among other requirements of the same capability.
+   * The name of this requirement, referring to the task to be fulfilled by the organization
+   *
+   * @remarks
+   * to enable or re-enable the capability. The name is unique among other requirements
+   * of the same capability.
    */
   id?: string | undefined;
   /**
-   * The status of the requirement depends on its due date. If no due date is given, the status will be `requested`.
+   * The status of the requirement depends on its due date.
    *
    * @remarks
-   *
-   * Possible values: `currently-due` `past-due` `requested`
+   * If no due date is given, the status will be `requested`.
    */
-  status?: string | undefined;
+  status?: ListCapabilitiesRequirementStatus | undefined;
   /**
    * Due date until the requirement must be fulfilled, if any. The date is shown in ISO-8601 format.
    */
@@ -145,6 +175,28 @@ export namespace ListCapabilitiesStatusReason$ {
   export const inboundSchema = ListCapabilitiesStatusReason$inboundSchema;
   /** @deprecated use `ListCapabilitiesStatusReason$outboundSchema` instead. */
   export const outboundSchema = ListCapabilitiesStatusReason$outboundSchema;
+}
+
+/** @internal */
+export const ListCapabilitiesRequirementStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListCapabilitiesRequirementStatus
+> = z.nativeEnum(ListCapabilitiesRequirementStatus);
+
+/** @internal */
+export const ListCapabilitiesRequirementStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListCapabilitiesRequirementStatus
+> = ListCapabilitiesRequirementStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCapabilitiesRequirementStatus$ {
+  /** @deprecated use `ListCapabilitiesRequirementStatus$inboundSchema` instead. */
+  export const inboundSchema = ListCapabilitiesRequirementStatus$inboundSchema;
+  /** @deprecated use `ListCapabilitiesRequirementStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    ListCapabilitiesRequirementStatus$outboundSchema;
 }
 
 /** @internal */
@@ -263,7 +315,7 @@ export const ListCapabilitiesRequirement$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  status: z.string().optional(),
+  status: ListCapabilitiesRequirementStatus$inboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   _links: z.lazy(() => CapabilityLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -287,7 +339,7 @@ export const ListCapabilitiesRequirement$outboundSchema: z.ZodType<
   ListCapabilitiesRequirement
 > = z.object({
   id: z.string().optional(),
-  status: z.string().optional(),
+  status: ListCapabilitiesRequirementStatus$outboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   links: z.lazy(() => CapabilityLinks$outboundSchema).optional(),
 }).transform((v) => {

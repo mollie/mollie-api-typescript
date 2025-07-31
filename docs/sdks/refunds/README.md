@@ -13,16 +13,12 @@
 
 ## create
 
-Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank transfer or by refunding the amount to your customer's credit card.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **refunds.write**](/reference/authentication)
+Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank
+transfer or by refunding the amount to your customer's credit card.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-refund" method="post" path="/payments/{paymentId}/refunds" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -152,14 +148,9 @@ Retrieve a list of all refunds created for a specific payment.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **refunds.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-refunds" method="get" path="/payments/{paymentId}/refunds" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -242,14 +233,9 @@ run();
 
 Retrieve a single payment refund by its ID and the ID of its parent payment.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **refunds.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-refund" method="get" path="/payments/{paymentId}/refunds/{refundId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -329,18 +315,15 @@ run();
 
 ## cancel
 
-Refunds will be executed with a delay of two hours. Until that time, refunds may be canceled manually via the Mollie Dashboard, or by using this endpoint.
+Refunds will be executed with a delay of two hours. Until that time, refunds may be canceled manually via the
+Mollie Dashboard, or by using this endpoint.
 
-A refund can only be canceled while its `status` field is either `queued` or `pending`. See the [Get refund endpoint](get-refund) for more information.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **refunds.write**](/reference/authentication)
+A refund can only be canceled while its `status` field is either `queued` or `pending`. See the
+[Get refund endpoint](get-refund) for more information.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="cancel-refund" method="delete" path="/payments/{paymentId}/refunds/{refundId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -422,14 +405,9 @@ Retrieve a list of all of your refunds.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **refunds.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-all-refunds" method="get" path="/refunds" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -442,7 +420,6 @@ const client = new Client({
 async function run() {
   const result = await client.refunds.all({
     from: "re_5B8cwPMGnU",
-    sort: "desc",
     embed: "payment",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
@@ -473,7 +450,6 @@ const client = new ClientCore({
 async function run() {
   const res = await refundsAll(client, {
     from: "re_5B8cwPMGnU",
-    sort: "desc",
     embed: "payment",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,

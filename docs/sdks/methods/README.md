@@ -11,24 +11,26 @@
 
 ## list
 
-Retrieve all enabled payment methods. The results of this endpoint are **not** paginated — unlike most other list endpoints in our API.
+Retrieve all enabled payment methods. The results of this endpoint are
+**not** paginated — unlike most other list endpoints in our API.
 
-For test mode, all pending and enabled payment methods are returned. If no payment methods are requested yet, the most popular payment methods are returned in the test mode. For live mode, only fully enabled payment methods are returned.
+For test mode, all pending and enabled payment methods are returned. If no
+payment methods are requested yet, the most popular payment methods are returned in the test mode. For live
+mode, only fully enabled payment methods are returned.
 
-Payment methods can be requested and enabled via the Mollie Dashboard, or via the [Enable payment method endpoint](enable-method) of the Profiles API.
+Payment methods can be requested and enabled via the Mollie Dashboard, or
+via the [Enable payment method endpoint](enable-method) of the Profiles API.
 
-The list can optionally be filtered using a number of parameters described below.
+The list can optionally be filtered using a number of parameters described
+below.
 
-By default, only payment methods for the Euro currency are returned. If you wish to retrieve payment methods which exclusively support other currencies (e.g. Twint), you need to use the `amount` parameters.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
+By default, only payment methods for the Euro currency are returned. If you
+wish to retrieve payment methods which exclusively support other currencies (e.g. Twint), you need to use the
+`amount` parameters.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-methods" method="get" path="/methods" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -122,18 +124,14 @@ run();
 
 ## all
 
-Retrieve all payment methods that Mollie offers, regardless of the eligibility of the organization for the specific method. The results of this endpoint are **not** paginated — unlike most other list endpoints in our API.
+Retrieve all payment methods that Mollie offers, regardless of the eligibility of the organization for the specific
+method. The results of this endpoint are **not** paginated — unlike most other list endpoints in our API.
 
 The list can optionally be filtered using a number of parameters described below.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-all-methods" method="get" path="/methods/all" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -223,20 +221,20 @@ run();
 
 Retrieve a single payment method by its ID.
 
-If a method is not available on this profile, a `404 Not Found` response is returned. If the method is available but not enabled yet, a status `403 Forbidden` is returned. You can enable payments methods via the [Enable payment method endpoint](enable-method) of the Profiles API, or via the Mollie Dashboard.
+If a method is not available on this profile, a `404 Not Found` response is
+returned. If the method is available but not enabled yet, a status `403 Forbidden` is returned. You can enable
+payments methods via the [Enable payment method endpoint](enable-method) of the Profiles API, or via
+the Mollie Dashboard.
 
-If you do not know the method's ID, you can use the [methods list endpoint](list-methods) to retrieve all payment methods that are available.
+If you do not know the method's ID, you can use the [methods list
+endpoint](list-methods) to retrieve all payment methods that are available.
 
-Additionally, it is possible to check if wallet methods such as Apple Pay are enabled by passing the wallet ID (`applepay`) as the method ID.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **payments.read**](/reference/authentication)
+Additionally, it is possible to check if wallet methods such as Apple Pay
+are enabled by passing the wallet ID (`applepay`) as the method ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-method" method="get" path="/methods/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

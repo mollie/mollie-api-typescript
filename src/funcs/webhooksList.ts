@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a paginated list of your webhooks. If no webhook endpoints are available, the resulting array will be empty. This request should never throw an error.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **webhooks.read**](/reference/authentication)
  */
 export function webhooksList(
   client: ClientCore,

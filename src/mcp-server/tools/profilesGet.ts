@@ -14,11 +14,7 @@ export const tool$profilesGet: ToolDefinition<typeof args> = {
   name: "profiles-get",
   description: `Get profile
 
-Retrieve a single profile by its ID.
-
-> 🔑 Access with
->
-> [Access token with **profiles.read**](/reference/authentication)`,
+Retrieve a single profile by its ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await profilesGet(

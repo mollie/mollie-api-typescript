@@ -10,15 +10,82 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * Passing a locale will sort the payment methods in the preferred order
+ *
+ * @remarks
+ * for the country, and translate the payment method names in the corresponding language.
+ */
+export const GetMethodLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Passing a locale will sort the payment methods in the preferred order
+ *
+ * @remarks
+ * for the country, and translate the payment method names in the corresponding language.
+ */
+export type GetMethodLocale = ClosedEnum<typeof GetMethodLocale>;
+
+/**
+ * This endpoint allows you to include additional information via the
+ *
+ * @remarks
+ * `include` query string parameter.
  */
 export const GetMethodInclude = {
   Issuers: "issuers",
 } as const;
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows you to include additional information via the
+ *
+ * @remarks
+ * `include` query string parameter.
  */
 export type GetMethodInclude = ClosedEnum<typeof GetMethodInclude>;
+
+/**
+ * Set this parameter to `first` to only return the methods that
+ *
+ * @remarks
+ * can be used for the first payment of a recurring sequence.
+ *
+ * Set it to `recurring` to only return methods that can be used for recurring payments or subscriptions.
+ */
+export const GetMethodSequenceType = {
+  Oneoff: "oneoff",
+  First: "first",
+  Recurring: "recurring",
+} as const;
+/**
+ * Set this parameter to `first` to only return the methods that
+ *
+ * @remarks
+ * can be used for the first payment of a recurring sequence.
+ *
+ * Set it to `recurring` to only return methods that can be used for recurring payments or subscriptions.
+ */
+export type GetMethodSequenceType = ClosedEnum<typeof GetMethodSequenceType>;
 
 export type GetMethodRequest = {
   /**
@@ -26,39 +93,51 @@ export type GetMethodRequest = {
    */
   id: string;
   /**
-   * Passing a locale will sort the payment methods in the preferred order for the country, and translate the payment method names in the corresponding language.
+   * Passing a locale will sort the payment methods in the preferred order
+   *
+   * @remarks
+   * for the country, and translate the payment method names in the corresponding language.
    */
-  locale?: string | undefined;
+  locale?: GetMethodLocale | undefined;
   /**
-   * If provided, the `minimumAmount` and `maximumAmount` will be converted to the given currency. An error is returned if the currency is not supported by the payment method.
+   * If provided, the `minimumAmount` and `maximumAmount` will be converted
+   *
+   * @remarks
+   * to the given currency. An error is returned if the currency is not supported by the payment method.
    */
   currency?: string | undefined;
   /**
-   * The identifier referring to the [profile](get-profile) you wish to retrieve the resources for.
+   * The identifier referring to the [profile](get-profile) you wish to
    *
    * @remarks
+   * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
+   * This endpoint allows you to include additional information via the
+   *
+   * @remarks
+   * `include` query string parameter.
    */
   include?: GetMethodInclude | null | undefined;
   /**
-   * Set this parameter to `first` to only return the methods that can be used for the first payment of a recurring sequence.
+   * Set this parameter to `first` to only return the methods that
    *
    * @remarks
+   * can be used for the first payment of a recurring sequence.
    *
    * Set it to `recurring` to only return methods that can be used for recurring payments or subscriptions.
-   *
-   * Possible values: `oneoff` `first` `recurring` (default: `oneoff`)
    */
-  sequenceType?: string | undefined;
+  sequenceType?: GetMethodSequenceType | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -96,6 +175,52 @@ export type GetMethodBadRequestLinks = {
 };
 
 /**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export const GetMethodId = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Klarnapaylater: "klarnapaylater",
+  Klarnapaynow: "klarnapaynow",
+  Klarnasliceit: "klarnasliceit",
+  Mybank: "mybank",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Voucher: "voucher",
+} as const;
+/**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export type GetMethodId = ClosedEnum<typeof GetMethodId>;
+
+/**
  * The minimum payment amount required to use this payment method.
  */
 export type GetMethodMinimumAmount = {
@@ -110,7 +235,10 @@ export type GetMethodMinimumAmount = {
 };
 
 /**
- * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null` is returned instead.
+ * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+ *
+ * @remarks
+ * is returned instead.
  */
 export type GetMethodMaximumAmount = {
   /**
@@ -136,13 +264,37 @@ export type GetMethodImage = {
    */
   size2x: string;
   /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can scale to any desired size without compromising visual quality.
+   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+   *
+   * @remarks
+   * scale to any desired size without compromising visual quality.
    */
   svg: string;
 };
 
 /**
- * URLs of images representing the issuer. required: - size1x - size2x - svg
+ * The payment method's activation status for this profile.
+ */
+export const GetMethodStatus = {
+  Activated: "activated",
+  PendingBoarding: "pending-boarding",
+  PendingReview: "pending-review",
+  PendingExternal: "pending-external",
+  Rejected: "rejected",
+} as const;
+/**
+ * The payment method's activation status for this profile.
+ */
+export type GetMethodStatus = ClosedEnum<typeof GetMethodStatus>;
+
+/**
+ * URLs of images representing the issuer.
+ *
+ * @remarks
+ * required:
+ *   - size1x
+ *   - size2x
+ *   - svg
  */
 export type GetMethodIssuerImage = {
   /**
@@ -154,7 +306,10 @@ export type GetMethodIssuerImage = {
    */
   size2x?: string | undefined;
   /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can scale to any desired size without compromising visual quality.
+   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+   *
+   * @remarks
+   * scale to any desired size without compromising visual quality.
    */
   svg?: string | undefined;
 };
@@ -167,7 +322,13 @@ export type GetMethodIssuer = {
    */
   name: string;
   /**
-   * URLs of images representing the issuer. required: - size1x - size2x - svg
+   * URLs of images representing the issuer.
+   *
+   * @remarks
+   * required:
+   *   - size1x
+   *   - size2x
+   *   - svg
    */
   image: GetMethodIssuerImage;
 };
@@ -219,17 +380,19 @@ export type GetMethodLinks = {
  */
 export type GetMethodResponse = {
   /**
-   * Indicates the response contains a payment method object. Will always contain the string `method` for this endpoint.
+   * Indicates the response contains a payment method object. Will always contain the string `method` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource: string;
   /**
-   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment method selection screen will be skipped.
+   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
    *
    * @remarks
-   *
-   * Possible values: `alma` `applepay` `bacs` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `blik` `creditcard` `directdebit` `eps` `giftcard` `ideal` `in3` `kbc` `klarna` `klarnapaylater` `klarnapaynow` `klarnasliceit` `mybank` `paypal` `paysafecard` `przelewy24` `riverty` `satispay` `swish` `trustly` `twint` `voucher`
+   * method selection screen will be skipped.
    */
-  id: string;
+  id: GetMethodId;
   /**
    * The full name of the payment method.
    *
@@ -243,7 +406,10 @@ export type GetMethodResponse = {
    */
   minimumAmount: GetMethodMinimumAmount;
   /**
-   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null` is returned instead.
+   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+   *
+   * @remarks
+   * is returned instead.
    */
   maximumAmount: GetMethodMaximumAmount | null;
   /**
@@ -252,14 +418,13 @@ export type GetMethodResponse = {
   image: GetMethodImage;
   /**
    * The payment method's activation status for this profile.
+   */
+  status: GetMethodStatus | null;
+  /**
+   * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant
    *
    * @remarks
-   *
-   * Possible values: `activated` `pending-boarding` `pending-review` `pending-external` `rejected`
-   */
-  status: string | null;
-  /**
-   * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant for iDEAL, KBC/CBC, gift cards, and vouchers.
+   * for iDEAL, KBC/CBC, gift cards, and vouchers.
    */
   issuers?: Array<GetMethodIssuer> | undefined;
   /**
@@ -267,6 +432,27 @@ export type GetMethodResponse = {
    */
   links: GetMethodLinks;
 };
+
+/** @internal */
+export const GetMethodLocale$inboundSchema: z.ZodNativeEnum<
+  typeof GetMethodLocale
+> = z.nativeEnum(GetMethodLocale);
+
+/** @internal */
+export const GetMethodLocale$outboundSchema: z.ZodNativeEnum<
+  typeof GetMethodLocale
+> = GetMethodLocale$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMethodLocale$ {
+  /** @deprecated use `GetMethodLocale$inboundSchema` instead. */
+  export const inboundSchema = GetMethodLocale$inboundSchema;
+  /** @deprecated use `GetMethodLocale$outboundSchema` instead. */
+  export const outboundSchema = GetMethodLocale$outboundSchema;
+}
 
 /** @internal */
 export const GetMethodInclude$inboundSchema: z.ZodNativeEnum<
@@ -290,17 +476,38 @@ export namespace GetMethodInclude$ {
 }
 
 /** @internal */
+export const GetMethodSequenceType$inboundSchema: z.ZodNativeEnum<
+  typeof GetMethodSequenceType
+> = z.nativeEnum(GetMethodSequenceType);
+
+/** @internal */
+export const GetMethodSequenceType$outboundSchema: z.ZodNativeEnum<
+  typeof GetMethodSequenceType
+> = GetMethodSequenceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMethodSequenceType$ {
+  /** @deprecated use `GetMethodSequenceType$inboundSchema` instead. */
+  export const inboundSchema = GetMethodSequenceType$inboundSchema;
+  /** @deprecated use `GetMethodSequenceType$outboundSchema` instead. */
+  export const outboundSchema = GetMethodSequenceType$outboundSchema;
+}
+
+/** @internal */
 export const GetMethodRequest$inboundSchema: z.ZodType<
   GetMethodRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string(),
-  locale: z.string().optional(),
+  locale: GetMethodLocale$inboundSchema.optional(),
   currency: z.string().optional(),
   profileId: z.string().optional(),
   include: z.nullable(GetMethodInclude$inboundSchema).optional(),
-  sequenceType: z.string().optional(),
+  sequenceType: GetMethodSequenceType$inboundSchema.default("oneoff"),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -311,7 +518,7 @@ export type GetMethodRequest$Outbound = {
   currency?: string | undefined;
   profileId?: string | undefined;
   include?: string | null | undefined;
-  sequenceType?: string | undefined;
+  sequenceType: string;
   testmode?: boolean | null | undefined;
 };
 
@@ -322,11 +529,11 @@ export const GetMethodRequest$outboundSchema: z.ZodType<
   GetMethodRequest
 > = z.object({
   id: z.string(),
-  locale: z.string().optional(),
+  locale: GetMethodLocale$outboundSchema.optional(),
   currency: z.string().optional(),
   profileId: z.string().optional(),
   include: z.nullable(GetMethodInclude$outboundSchema).optional(),
-  sequenceType: z.string().optional(),
+  sequenceType: GetMethodSequenceType$outboundSchema.default("oneoff"),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -588,6 +795,25 @@ export function getMethodBadRequestLinksFromJSON(
 }
 
 /** @internal */
+export const GetMethodId$inboundSchema: z.ZodNativeEnum<typeof GetMethodId> = z
+  .nativeEnum(GetMethodId);
+
+/** @internal */
+export const GetMethodId$outboundSchema: z.ZodNativeEnum<typeof GetMethodId> =
+  GetMethodId$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMethodId$ {
+  /** @deprecated use `GetMethodId$inboundSchema` instead. */
+  export const inboundSchema = GetMethodId$inboundSchema;
+  /** @deprecated use `GetMethodId$outboundSchema` instead. */
+  export const outboundSchema = GetMethodId$outboundSchema;
+}
+
+/** @internal */
 export const GetMethodMinimumAmount$inboundSchema: z.ZodType<
   GetMethodMinimumAmount,
   z.ZodTypeDef,
@@ -755,6 +981,27 @@ export function getMethodImageFromJSON(
     (x) => GetMethodImage$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetMethodImage' from JSON`,
   );
+}
+
+/** @internal */
+export const GetMethodStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetMethodStatus
+> = z.nativeEnum(GetMethodStatus);
+
+/** @internal */
+export const GetMethodStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetMethodStatus
+> = GetMethodStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMethodStatus$ {
+  /** @deprecated use `GetMethodStatus$inboundSchema` instead. */
+  export const inboundSchema = GetMethodStatus$inboundSchema;
+  /** @deprecated use `GetMethodStatus$outboundSchema` instead. */
+  export const outboundSchema = GetMethodStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1048,12 +1295,12 @@ export const GetMethodResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string(),
-  id: z.string(),
+  id: GetMethodId$inboundSchema,
   description: z.string(),
   minimumAmount: z.lazy(() => GetMethodMinimumAmount$inboundSchema),
   maximumAmount: z.nullable(z.lazy(() => GetMethodMaximumAmount$inboundSchema)),
   image: z.lazy(() => GetMethodImage$inboundSchema),
-  status: z.nullable(z.string()),
+  status: z.nullable(GetMethodStatus$inboundSchema),
   issuers: z.array(z.lazy(() => GetMethodIssuer$inboundSchema)).optional(),
   _links: z.lazy(() => GetMethodLinks$inboundSchema),
 }).transform((v) => {
@@ -1082,14 +1329,14 @@ export const GetMethodResponse$outboundSchema: z.ZodType<
   GetMethodResponse
 > = z.object({
   resource: z.string(),
-  id: z.string(),
+  id: GetMethodId$outboundSchema,
   description: z.string(),
   minimumAmount: z.lazy(() => GetMethodMinimumAmount$outboundSchema),
   maximumAmount: z.nullable(
     z.lazy(() => GetMethodMaximumAmount$outboundSchema),
   ),
   image: z.lazy(() => GetMethodImage$outboundSchema),
-  status: z.nullable(z.string()),
+  status: z.nullable(GetMethodStatus$outboundSchema),
   issuers: z.array(z.lazy(() => GetMethodIssuer$outboundSchema)).optional(),
   links: z.lazy(() => GetMethodLinks$outboundSchema),
 }).transform((v) => {

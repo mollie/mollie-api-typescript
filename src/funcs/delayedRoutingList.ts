@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a list of all routes created for a specific payment.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
  */
 export function delayedRoutingList(
   client: ClientCore,

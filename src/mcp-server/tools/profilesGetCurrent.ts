@@ -9,13 +9,11 @@ export const tool$profilesGetCurrent: ToolDefinition = {
   name: "profiles-get-current",
   description: `Get current profile
 
-Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile) endpoint.
+Retrieve the currently authenticated profile. A convenient alias of the [Get profile](get-profile)
+endpoint.
 
-For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint documentation.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)`,
+For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint
+documentation.`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await profilesGetCurrent(
       client,

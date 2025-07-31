@@ -5,34 +5,150 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * The status for the invoice to end up in.
+ *
+ * @remarks
+ *
+ * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+ * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+ * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+ *
+ * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+ * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+ *
+ * Dependent parameters:
+ *   - `paymentDetails` is required if invoice should be set directly to `paid`
+ *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+ *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+ */
+export const CreateSalesInvoiceStatusRequest = {
+  Draft: "draft",
+  Issued: "issued",
+  Paid: "paid",
+} as const;
+/**
+ * The status for the invoice to end up in.
+ *
+ * @remarks
+ *
+ * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+ * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+ * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+ *
+ * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+ * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+ *
+ * Dependent parameters:
+ *   - `paymentDetails` is required if invoice should be set directly to `paid`
+ *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+ *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+ */
+export type CreateSalesInvoiceStatusRequest = ClosedEnum<
+  typeof CreateSalesInvoiceStatusRequest
+>;
+
+/**
+ * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+ */
+export const VatSchemeRequest = {
+  Standard: "standard",
+  OneStopShop: "one-stop-shop",
+} as const;
+/**
+ * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+ */
+export type VatSchemeRequest = ClosedEnum<typeof VatSchemeRequest>;
+
+/**
+ * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+ *
+ * @remarks
+ * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+ */
+export const VatModeRequest = {
+  Exclusive: "exclusive",
+  Inclusive: "inclusive",
+} as const;
+/**
+ * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+ *
+ * @remarks
+ * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+ */
+export type VatModeRequest = ClosedEnum<typeof VatModeRequest>;
+
+/**
+ * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateSalesInvoiceMetadataRequest = {};
 
 /**
- * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the provided details. Required for `paid` status.
+ * The payment term to be set on the invoice.
+ */
+export const CreateSalesInvoicePaymentTermRequest = {
+  Sevendays: "7 days",
+  Fourteendays: "14 days",
+  Thirtydays: "30 days",
+  FortyFivedays: "45 days",
+  Sixtydays: "60 days",
+  Ninetydays: "90 days",
+  OneHundredAndTwentydays: "120 days",
+} as const;
+/**
+ * The payment term to be set on the invoice.
+ */
+export type CreateSalesInvoicePaymentTermRequest = ClosedEnum<
+  typeof CreateSalesInvoicePaymentTermRequest
+>;
+
+/**
+ * The way through which the invoice is to be set to paid.
+ */
+export const CreateSalesInvoiceSourceRequest = {
+  Manual: "manual",
+  PaymentLink: "payment-link",
+  Payment: "payment",
+} as const;
+/**
+ * The way through which the invoice is to be set to paid.
+ */
+export type CreateSalesInvoiceSourceRequest = ClosedEnum<
+  typeof CreateSalesInvoiceSourceRequest
+>;
+
+/**
+ * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+ *
+ * @remarks
+ * provided details. Required for `paid` status.
  */
 export type CreateSalesInvoicePaymentDetailsRequest = {
   /**
    * The way through which the invoice is to be set to paid.
+   */
+  source: CreateSalesInvoiceSourceRequest;
+  /**
+   * A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
    *
    * @remarks
-   *
-   * Possible values: `manual` `payment-link` `payment`
-   */
-  source: string;
-  /**
-   * A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and `payment`.
+   * `payment`.
    */
   sourceReference?: string | null | undefined;
 };
 
 /**
- * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the recipient with the provided `subject` and `body`. Required for `issued` status.
+ * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
+ *
+ * @remarks
+ * recipient with the provided `subject` and `body`. Required for `issued` status.
  */
 export type CreateSalesInvoiceEmailDetailsRequest = {
   /**
@@ -45,25 +161,71 @@ export type CreateSalesInvoiceEmailDetailsRequest = {
   body: string;
 };
 
+/**
+ * The type of recipient, either `consumer` or `business`. This will determine what further fields are
+ *
+ * @remarks
+ * required on the `recipient` object.
+ */
+export const CreateSalesInvoiceRecipientTypeRequest = {
+  Consumer: "consumer",
+  Business: "business",
+} as const;
+/**
+ * The type of recipient, either `consumer` or `business`. This will determine what further fields are
+ *
+ * @remarks
+ * required on the `recipient` object.
+ */
+export type CreateSalesInvoiceRecipientTypeRequest = ClosedEnum<
+  typeof CreateSalesInvoiceRecipientTypeRequest
+>;
+
+/**
+ * The locale for the recipient, to be used for translations in PDF generation and payment pages.
+ */
+export const CreateSalesInvoiceLocaleRequest = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+} as const;
+/**
+ * The locale for the recipient, to be used for translations in PDF generation and payment pages.
+ */
+export type CreateSalesInvoiceLocaleRequest = ClosedEnum<
+  typeof CreateSalesInvoiceLocaleRequest
+>;
+
 export type CreateSalesInvoiceRecipientRequest = {
   /**
-   * The type of recipient, either `consumer` or `business`. This will determine what further fields are required on the `recipient` object.
+   * The type of recipient, either `consumer` or `business`. This will determine what further fields are
    *
    * @remarks
-   *
-   * Possible values: `consumer` `business`
+   * required on the `recipient` object.
    */
-  type: string;
+  type: CreateSalesInvoiceRecipientTypeRequest;
   /**
    * The title of the `consumer` type recipient, for example Mr. or Mrs..
    */
   title?: string | null | undefined;
   /**
-   * The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain
+   *
+   * @remarks
+   * only numbers.
    */
   givenName?: string | null | undefined;
   /**
-   * The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain only numbers.
+   * The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain
+   *
+   * @remarks
+   * only numbers.
    */
   familyName?: string | null | undefined;
   /**
@@ -71,11 +233,17 @@ export type CreateSalesInvoiceRecipientRequest = {
    */
   organizationName?: string | null | undefined;
   /**
-   * The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber` has to be provided.
+   * The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber`
+   *
+   * @remarks
+   * has to be provided.
    */
   organizationNumber?: string | null | undefined;
   /**
-   * The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber` has to be provided.
+   * The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber`
+   *
+   * @remarks
+   * has to be provided.
    */
   vatNumber?: string | null | undefined;
   /**
@@ -112,12 +280,8 @@ export type CreateSalesInvoiceRecipientRequest = {
   country: string;
   /**
    * The locale for the recipient, to be used for translations in PDF generation and payment pages.
-   *
-   * @remarks
-   *
-   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `de_DE` `de_AT` `de_CH` `fr_FR` `fr_BE`
    */
-  locale: string;
+  locale: CreateSalesInvoiceLocaleRequest;
 };
 
 /**
@@ -141,17 +305,27 @@ export type CreateSalesInvoiceUnitPriceRequest = {
 };
 
 /**
+ * The type of discount.
+ */
+export const CreateSalesInvoiceLineTypeRequest = {
+  Amount: "amount",
+  Percentage: "percentage",
+} as const;
+/**
+ * The type of discount.
+ */
+export type CreateSalesInvoiceLineTypeRequest = ClosedEnum<
+  typeof CreateSalesInvoiceLineTypeRequest
+>;
+
+/**
  * The discount to be applied to the line item.
  */
 export type CreateSalesInvoiceLineDiscountRequest = {
   /**
    * The type of discount.
-   *
-   * @remarks
-   *
-   * Possible values: `amount` `percentage`
    */
-  type: string;
+  type: CreateSalesInvoiceLineTypeRequest;
   /**
    * A string containing an exact monetary amount in the given currency, or the percentage.
    */
@@ -188,17 +362,27 @@ export type CreateSalesInvoiceLineRequest = {
 };
 
 /**
+ * The type of discount.
+ */
+export const CreateSalesInvoiceDiscountTypeRequest = {
+  Amount: "amount",
+  Percentage: "percentage",
+} as const;
+/**
+ * The type of discount.
+ */
+export type CreateSalesInvoiceDiscountTypeRequest = ClosedEnum<
+  typeof CreateSalesInvoiceDiscountTypeRequest
+>;
+
+/**
  * The discount to be applied to the entire invoice, applied on top of any line item discounts.
  */
 export type CreateSalesInvoiceDiscountRequest = {
   /**
    * The type of discount.
-   *
-   * @remarks
-   *
-   * Possible values: `amount` `percentage`
    */
-  type: string;
+  type: CreateSalesInvoiceDiscountTypeRequest;
   /**
    * A string containing an exact monetary amount in the given currency, or the percentage.
    */
@@ -211,7 +395,9 @@ export type CreateSalesInvoiceRequest = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
   testmode?: boolean | null | undefined;
   /**
@@ -219,7 +405,9 @@ export type CreateSalesInvoiceRequest = {
    *
    * @remarks
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
    */
   profileId?: string | null | undefined;
   /**
@@ -227,72 +415,87 @@ export type CreateSalesInvoiceRequest = {
    *
    * @remarks
    *
-   * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+   * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+   * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+   * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
    *
-   * A status value that cannot be set but can be returned is `canceled`, for invoices which were issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+   * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+   * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
    *
-   * Dependent parameters: - `paymentDetails` is required if invoice should be set directly to `paid` - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid` - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-   *
-   * Possible values: `draft` `issued` `paid`
+   * Dependent parameters:
+   *   - `paymentDetails` is required if invoice should be set directly to `paid`
+   *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+   *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
    */
-  status: string;
+  status: CreateSalesInvoiceStatusRequest;
   /**
    * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
-   *
-   * @remarks
-   *
-   * Possible values: `standard` `one-stop-shop` (default: `standard`)
    */
-  vatScheme?: string | undefined;
+  vatScheme?: VatSchemeRequest | undefined;
   /**
-   * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+   * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
    *
    * @remarks
-   *
-   * Possible values: `exclusive` `inclusive` (default: `exclusive`)
+   * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
    */
-  vatMode?: string | undefined;
+  vatMode?: VatModeRequest | undefined;
   /**
    * A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
    */
   memo?: string | null | undefined;
   /**
-   * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: CreateSalesInvoiceMetadataRequest | null | undefined;
   /**
    * The payment term to be set on the invoice.
+   */
+  paymentTerm?: CreateSalesInvoicePaymentTermRequest | null | undefined;
+  /**
+   * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
    *
    * @remarks
-   *
-   * Possible values: `7 days` `14 days` `30 days` `45 days` `60 days` `90 days` `120 days` (default: `30 days`)
-   */
-  paymentTerm?: string | null | undefined;
-  /**
-   * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the provided details. Required for `paid` status.
+   * provided details. Required for `paid` status.
    */
   paymentDetails?: CreateSalesInvoicePaymentDetailsRequest | null | undefined;
   /**
-   * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the recipient with the provided `subject` and `body`. Required for `issued` status.
+   * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
+   *
+   * @remarks
+   * recipient with the provided `subject` and `body`. Required for `issued` status.
    */
   emailDetails?: CreateSalesInvoiceEmailDetailsRequest | null | undefined;
   /**
-   * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
+   * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
+   *
+   * @remarks
+   * provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
    */
   customerId?: string | undefined;
   /**
-   * The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided, `customerId` becomes required as well. Only allowed for invoices with status `paid`.
+   * The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided,
+   *
+   * @remarks
+   * `customerId` becomes required as well. Only allowed for invoices with status `paid`.
    */
   mandateId?: string | undefined;
   /**
-   * An identifier tied to the recipient data. This should be a unique value based on data your system contains, so that both you and us know who we're referring to. It is a value you provide to us so that recipient management is not required to send a first invoice to a recipient.
+   * An identifier tied to the recipient data. This should be a unique value based on data your system contains,
+   *
+   * @remarks
+   * so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
+   * is not required to send a first invoice to a recipient.
    */
   recipientIdentifier: string;
   recipient: CreateSalesInvoiceRecipientRequest | null;
   /**
-   * Provide the line items for the invoice. Each line contains details such as a description of the item ordered and its price.
+   * Provide the line items for the invoice. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the invoice.
    */
@@ -334,30 +537,149 @@ export type CreateSalesInvoiceNotFoundLinks = {
 };
 
 /**
- * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * The status for the invoice to end up in.
+ *
+ * @remarks
+ *
+ * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+ * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+ * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+ *
+ * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+ * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+ *
+ * Dependent parameters:
+ *   - `paymentDetails` is required if invoice should be set directly to `paid`
+ *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+ *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+ */
+export const CreateSalesInvoiceStatusResponse = {
+  Draft: "draft",
+  Issued: "issued",
+  Paid: "paid",
+} as const;
+/**
+ * The status for the invoice to end up in.
+ *
+ * @remarks
+ *
+ * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+ * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+ * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+ *
+ * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+ * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+ *
+ * Dependent parameters:
+ *   - `paymentDetails` is required if invoice should be set directly to `paid`
+ *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+ *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+ */
+export type CreateSalesInvoiceStatusResponse = ClosedEnum<
+  typeof CreateSalesInvoiceStatusResponse
+>;
+
+/**
+ * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+ */
+export const CreateSalesInvoiceVatSchemeResponse = {
+  Standard: "standard",
+  OneStopShop: "one-stop-shop",
+} as const;
+/**
+ * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+ */
+export type CreateSalesInvoiceVatSchemeResponse = ClosedEnum<
+  typeof CreateSalesInvoiceVatSchemeResponse
+>;
+
+/**
+ * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+ *
+ * @remarks
+ * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+ */
+export const CreateSalesInvoiceVatModeResponse = {
+  Exclusive: "exclusive",
+  Inclusive: "inclusive",
+} as const;
+/**
+ * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+ *
+ * @remarks
+ * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+ */
+export type CreateSalesInvoiceVatModeResponse = ClosedEnum<
+  typeof CreateSalesInvoiceVatModeResponse
+>;
+
+/**
+ * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateSalesInvoiceMetadataResponse = {};
 
 /**
- * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the provided details. Required for `paid` status.
+ * The payment term to be set on the invoice.
+ */
+export const CreateSalesInvoicePaymentTermResponse = {
+  Sevendays: "7 days",
+  Fourteendays: "14 days",
+  Thirtydays: "30 days",
+  FortyFivedays: "45 days",
+  Sixtydays: "60 days",
+  Ninetydays: "90 days",
+  OneHundredAndTwentydays: "120 days",
+} as const;
+/**
+ * The payment term to be set on the invoice.
+ */
+export type CreateSalesInvoicePaymentTermResponse = ClosedEnum<
+  typeof CreateSalesInvoicePaymentTermResponse
+>;
+
+/**
+ * The way through which the invoice is to be set to paid.
+ */
+export const CreateSalesInvoiceSourceResponse = {
+  Manual: "manual",
+  PaymentLink: "payment-link",
+  Payment: "payment",
+} as const;
+/**
+ * The way through which the invoice is to be set to paid.
+ */
+export type CreateSalesInvoiceSourceResponse = ClosedEnum<
+  typeof CreateSalesInvoiceSourceResponse
+>;
+
+/**
+ * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+ *
+ * @remarks
+ * provided details. Required for `paid` status.
  */
 export type CreateSalesInvoicePaymentDetailsResponse = {
   /**
    * The way through which the invoice is to be set to paid.
+   */
+  source: CreateSalesInvoiceSourceResponse;
+  /**
+   * A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
    *
    * @remarks
-   *
-   * Possible values: `manual` `payment-link` `payment`
-   */
-  source: string;
-  /**
-   * A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and `payment`.
+   * `payment`.
    */
   sourceReference?: string | null | undefined;
 };
 
 /**
- * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the recipient with the provided `subject` and `body`. Required for `issued` status.
+ * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
+ *
+ * @remarks
+ * recipient with the provided `subject` and `body`. Required for `issued` status.
  */
 export type CreateSalesInvoiceEmailDetailsResponse = {
   /**
@@ -370,25 +692,71 @@ export type CreateSalesInvoiceEmailDetailsResponse = {
   body: string;
 };
 
+/**
+ * The type of recipient, either `consumer` or `business`. This will determine what further fields are
+ *
+ * @remarks
+ * required on the `recipient` object.
+ */
+export const CreateSalesInvoiceRecipientTypeResponse = {
+  Consumer: "consumer",
+  Business: "business",
+} as const;
+/**
+ * The type of recipient, either `consumer` or `business`. This will determine what further fields are
+ *
+ * @remarks
+ * required on the `recipient` object.
+ */
+export type CreateSalesInvoiceRecipientTypeResponse = ClosedEnum<
+  typeof CreateSalesInvoiceRecipientTypeResponse
+>;
+
+/**
+ * The locale for the recipient, to be used for translations in PDF generation and payment pages.
+ */
+export const CreateSalesInvoiceLocaleResponse = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+} as const;
+/**
+ * The locale for the recipient, to be used for translations in PDF generation and payment pages.
+ */
+export type CreateSalesInvoiceLocaleResponse = ClosedEnum<
+  typeof CreateSalesInvoiceLocaleResponse
+>;
+
 export type CreateSalesInvoiceRecipientResponse = {
   /**
-   * The type of recipient, either `consumer` or `business`. This will determine what further fields are required on the `recipient` object.
+   * The type of recipient, either `consumer` or `business`. This will determine what further fields are
    *
    * @remarks
-   *
-   * Possible values: `consumer` `business`
+   * required on the `recipient` object.
    */
-  type: string;
+  type: CreateSalesInvoiceRecipientTypeResponse;
   /**
    * The title of the `consumer` type recipient, for example Mr. or Mrs..
    */
   title?: string | null | undefined;
   /**
-   * The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain only numbers.
+   * The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain
+   *
+   * @remarks
+   * only numbers.
    */
   givenName?: string | null | undefined;
   /**
-   * The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain only numbers.
+   * The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain
+   *
+   * @remarks
+   * only numbers.
    */
   familyName?: string | null | undefined;
   /**
@@ -396,11 +764,17 @@ export type CreateSalesInvoiceRecipientResponse = {
    */
   organizationName?: string | null | undefined;
   /**
-   * The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber` has to be provided.
+   * The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber`
+   *
+   * @remarks
+   * has to be provided.
    */
   organizationNumber?: string | null | undefined;
   /**
-   * The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber` has to be provided.
+   * The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber`
+   *
+   * @remarks
+   * has to be provided.
    */
   vatNumber?: string | null | undefined;
   /**
@@ -437,12 +811,8 @@ export type CreateSalesInvoiceRecipientResponse = {
   country: string;
   /**
    * The locale for the recipient, to be used for translations in PDF generation and payment pages.
-   *
-   * @remarks
-   *
-   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `de_DE` `de_AT` `de_CH` `fr_FR` `fr_BE`
    */
-  locale: string;
+  locale: CreateSalesInvoiceLocaleResponse;
 };
 
 /**
@@ -466,17 +836,27 @@ export type CreateSalesInvoiceUnitPriceResponse = {
 };
 
 /**
+ * The type of discount.
+ */
+export const CreateSalesInvoiceLineTypeResponse = {
+  Amount: "amount",
+  Percentage: "percentage",
+} as const;
+/**
+ * The type of discount.
+ */
+export type CreateSalesInvoiceLineTypeResponse = ClosedEnum<
+  typeof CreateSalesInvoiceLineTypeResponse
+>;
+
+/**
  * The discount to be applied to the line item.
  */
 export type CreateSalesInvoiceLineDiscountResponse = {
   /**
    * The type of discount.
-   *
-   * @remarks
-   *
-   * Possible values: `amount` `percentage`
    */
-  type: string;
+  type: CreateSalesInvoiceLineTypeResponse;
   /**
    * A string containing an exact monetary amount in the given currency, or the percentage.
    */
@@ -513,17 +893,27 @@ export type CreateSalesInvoiceLineResponse = {
 };
 
 /**
+ * The type of discount.
+ */
+export const CreateSalesInvoiceDiscountTypeResponse = {
+  Amount: "amount",
+  Percentage: "percentage",
+} as const;
+/**
+ * The type of discount.
+ */
+export type CreateSalesInvoiceDiscountTypeResponse = ClosedEnum<
+  typeof CreateSalesInvoiceDiscountTypeResponse
+>;
+
+/**
  * The discount to be applied to the entire invoice, applied on top of any line item discounts.
  */
 export type CreateSalesInvoiceDiscountResponse = {
   /**
    * The type of discount.
-   *
-   * @remarks
-   *
-   * Possible values: `amount` `percentage`
    */
-  type: string;
+  type: CreateSalesInvoiceDiscountTypeResponse;
   /**
    * A string containing an exact monetary amount in the given currency, or the percentage.
    */
@@ -615,7 +1005,10 @@ export type CreateSalesInvoiceSelf = {
 };
 
 /**
- * The URL your customer should visit to make payment for the invoice. This is where you should redirect the customer to unless the `status` is set to `paid`.
+ * The URL your customer should visit to make payment for the invoice. This is where you should redirect the
+ *
+ * @remarks
+ * customer to unless the `status` is set to `paid`.
  */
 export type CreateSalesInvoiceInvoicePayment = {
   /**
@@ -665,7 +1058,10 @@ export type CreateSalesInvoiceLinks = {
    */
   self?: CreateSalesInvoiceSelf | undefined;
   /**
-   * The URL your customer should visit to make payment for the invoice. This is where you should redirect the customer to unless the `status` is set to `paid`.
+   * The URL your customer should visit to make payment for the invoice. This is where you should redirect the
+   *
+   * @remarks
+   * customer to unless the `status` is set to `paid`.
    */
   invoicePayment?: CreateSalesInvoiceInvoicePayment | undefined;
   /**
@@ -679,11 +1075,17 @@ export type CreateSalesInvoiceLinks = {
 };
 
 /**
- * The newly created invoice object. For a complete reference of the invoice object, refer to the [Get sales invoice endpoint](get-sales-invoice) documentation.
+ * The newly created invoice object. For a complete reference of the invoice object, refer to the
+ *
+ * @remarks
+ * [Get sales invoice endpoint](get-sales-invoice) documentation.
  */
 export type CreateSalesInvoiceResponse = {
   /**
-   * Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this endpoint.
+   * Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource?: string | undefined;
   /**
@@ -699,72 +1101,87 @@ export type CreateSalesInvoiceResponse = {
    *
    * @remarks
    *
-   * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+   * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+   * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+   * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
    *
-   * A status value that cannot be set but can be returned is `canceled`, for invoices which were issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+   * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+   * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
    *
-   * Dependent parameters: - `paymentDetails` is required if invoice should be set directly to `paid` - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid` - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-   *
-   * Possible values: `draft` `issued` `paid`
+   * Dependent parameters:
+   *   - `paymentDetails` is required if invoice should be set directly to `paid`
+   *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+   *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
    */
-  status?: string | undefined;
+  status?: CreateSalesInvoiceStatusResponse | undefined;
   /**
    * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
-   *
-   * @remarks
-   *
-   * Possible values: `standard` `one-stop-shop` (default: `standard`)
    */
-  vatScheme?: string | undefined;
+  vatScheme?: CreateSalesInvoiceVatSchemeResponse | undefined;
   /**
-   * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+   * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
    *
    * @remarks
-   *
-   * Possible values: `exclusive` `inclusive` (default: `exclusive`)
+   * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
    */
-  vatMode?: string | undefined;
+  vatMode?: CreateSalesInvoiceVatModeResponse | undefined;
   /**
    * A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
    */
   memo?: string | null | undefined;
   /**
-   * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: CreateSalesInvoiceMetadataResponse | null | undefined;
   /**
    * The payment term to be set on the invoice.
+   */
+  paymentTerm?: CreateSalesInvoicePaymentTermResponse | null | undefined;
+  /**
+   * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
    *
    * @remarks
-   *
-   * Possible values: `7 days` `14 days` `30 days` `45 days` `60 days` `90 days` `120 days` (default: `30 days`)
-   */
-  paymentTerm?: string | null | undefined;
-  /**
-   * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the provided details. Required for `paid` status.
+   * provided details. Required for `paid` status.
    */
   paymentDetails?: CreateSalesInvoicePaymentDetailsResponse | null | undefined;
   /**
-   * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the recipient with the provided `subject` and `body`. Required for `issued` status.
+   * Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
+   *
+   * @remarks
+   * recipient with the provided `subject` and `body`. Required for `issued` status.
    */
   emailDetails?: CreateSalesInvoiceEmailDetailsResponse | null | undefined;
   /**
-   * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
+   * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
+   *
+   * @remarks
+   * provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
    */
   customerId?: string | undefined;
   /**
-   * The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided, `customerId` becomes required as well. Only allowed for invoices with status `paid`.
+   * The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided,
+   *
+   * @remarks
+   * `customerId` becomes required as well. Only allowed for invoices with status `paid`.
    */
   mandateId?: string | undefined;
   /**
-   * An identifier tied to the recipient data. This should be a unique value based on data your system contains, so that both you and us know who we're referring to. It is a value you provide to us so that recipient management is not required to send a first invoice to a recipient.
+   * An identifier tied to the recipient data. This should be a unique value based on data your system contains,
+   *
+   * @remarks
+   * so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
+   * is not required to send a first invoice to a recipient.
    */
   recipientIdentifier?: string | undefined;
   recipient?: CreateSalesInvoiceRecipientResponse | null | undefined;
   /**
-   * Provide the line items for the invoice. Each line contains details such as a description of the item ordered and its price.
+   * Provide the line items for the invoice. Each line contains details such as a description of the item
    *
    * @remarks
+   * ordered and its price.
    *
    * All lines must have the same currency as the invoice.
    */
@@ -800,15 +1217,24 @@ export type CreateSalesInvoiceResponse = {
    */
   createdAt?: string | undefined;
   /**
-   * If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+   *
+   * @remarks
+   * format.
    */
   issuedAt?: string | null | undefined;
   /**
-   * If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+   *
+   * @remarks
+   * format.
    */
   paidAt?: string | null | undefined;
   /**
-   * If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+   *
+   * @remarks
+   * format.
    */
   dueAt?: string | null | undefined;
   /**
@@ -816,6 +1242,69 @@ export type CreateSalesInvoiceResponse = {
    */
   links?: CreateSalesInvoiceLinks | undefined;
 };
+
+/** @internal */
+export const CreateSalesInvoiceStatusRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceStatusRequest
+> = z.nativeEnum(CreateSalesInvoiceStatusRequest);
+
+/** @internal */
+export const CreateSalesInvoiceStatusRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceStatusRequest
+> = CreateSalesInvoiceStatusRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceStatusRequest$ {
+  /** @deprecated use `CreateSalesInvoiceStatusRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceStatusRequest$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceStatusRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateSalesInvoiceStatusRequest$outboundSchema;
+}
+
+/** @internal */
+export const VatSchemeRequest$inboundSchema: z.ZodNativeEnum<
+  typeof VatSchemeRequest
+> = z.nativeEnum(VatSchemeRequest);
+
+/** @internal */
+export const VatSchemeRequest$outboundSchema: z.ZodNativeEnum<
+  typeof VatSchemeRequest
+> = VatSchemeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VatSchemeRequest$ {
+  /** @deprecated use `VatSchemeRequest$inboundSchema` instead. */
+  export const inboundSchema = VatSchemeRequest$inboundSchema;
+  /** @deprecated use `VatSchemeRequest$outboundSchema` instead. */
+  export const outboundSchema = VatSchemeRequest$outboundSchema;
+}
+
+/** @internal */
+export const VatModeRequest$inboundSchema: z.ZodNativeEnum<
+  typeof VatModeRequest
+> = z.nativeEnum(VatModeRequest);
+
+/** @internal */
+export const VatModeRequest$outboundSchema: z.ZodNativeEnum<
+  typeof VatModeRequest
+> = VatModeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VatModeRequest$ {
+  /** @deprecated use `VatModeRequest$inboundSchema` instead. */
+  export const inboundSchema = VatModeRequest$inboundSchema;
+  /** @deprecated use `VatModeRequest$outboundSchema` instead. */
+  export const outboundSchema = VatModeRequest$outboundSchema;
+}
 
 /** @internal */
 export const CreateSalesInvoiceMetadataRequest$inboundSchema: z.ZodType<
@@ -869,12 +1358,57 @@ export function createSalesInvoiceMetadataRequestFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoicePaymentTermRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoicePaymentTermRequest> = z.nativeEnum(
+    CreateSalesInvoicePaymentTermRequest,
+  );
+
+/** @internal */
+export const CreateSalesInvoicePaymentTermRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoicePaymentTermRequest> =
+    CreateSalesInvoicePaymentTermRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoicePaymentTermRequest$ {
+  /** @deprecated use `CreateSalesInvoicePaymentTermRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateSalesInvoicePaymentTermRequest$inboundSchema;
+  /** @deprecated use `CreateSalesInvoicePaymentTermRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoicePaymentTermRequest$outboundSchema;
+}
+
+/** @internal */
+export const CreateSalesInvoiceSourceRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceSourceRequest
+> = z.nativeEnum(CreateSalesInvoiceSourceRequest);
+
+/** @internal */
+export const CreateSalesInvoiceSourceRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceSourceRequest
+> = CreateSalesInvoiceSourceRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceSourceRequest$ {
+  /** @deprecated use `CreateSalesInvoiceSourceRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceSourceRequest$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceSourceRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateSalesInvoiceSourceRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoicePaymentDetailsRequest$inboundSchema: z.ZodType<
   CreateSalesInvoicePaymentDetailsRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  source: z.string(),
+  source: CreateSalesInvoiceSourceRequest$inboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
 
@@ -890,7 +1424,7 @@ export const CreateSalesInvoicePaymentDetailsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoicePaymentDetailsRequest
 > = z.object({
-  source: z.string(),
+  source: CreateSalesInvoiceSourceRequest$outboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
 
@@ -999,12 +1533,57 @@ export function createSalesInvoiceEmailDetailsRequestFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoiceRecipientTypeRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceRecipientTypeRequest> = z.nativeEnum(
+    CreateSalesInvoiceRecipientTypeRequest,
+  );
+
+/** @internal */
+export const CreateSalesInvoiceRecipientTypeRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceRecipientTypeRequest> =
+    CreateSalesInvoiceRecipientTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceRecipientTypeRequest$ {
+  /** @deprecated use `CreateSalesInvoiceRecipientTypeRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateSalesInvoiceRecipientTypeRequest$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceRecipientTypeRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceRecipientTypeRequest$outboundSchema;
+}
+
+/** @internal */
+export const CreateSalesInvoiceLocaleRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLocaleRequest
+> = z.nativeEnum(CreateSalesInvoiceLocaleRequest);
+
+/** @internal */
+export const CreateSalesInvoiceLocaleRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLocaleRequest
+> = CreateSalesInvoiceLocaleRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceLocaleRequest$ {
+  /** @deprecated use `CreateSalesInvoiceLocaleRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceLocaleRequest$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceLocaleRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateSalesInvoiceLocaleRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoiceRecipientRequest$inboundSchema: z.ZodType<
   CreateSalesInvoiceRecipientRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceRecipientTypeRequest$inboundSchema,
   title: z.nullable(z.string()).optional(),
   givenName: z.nullable(z.string()).optional(),
   familyName: z.nullable(z.string()).optional(),
@@ -1019,7 +1598,7 @@ export const CreateSalesInvoiceRecipientRequest$inboundSchema: z.ZodType<
   city: z.string(),
   region: z.nullable(z.string()).optional(),
   country: z.string(),
-  locale: z.string(),
+  locale: CreateSalesInvoiceLocaleRequest$inboundSchema,
 });
 
 /** @internal */
@@ -1048,7 +1627,7 @@ export const CreateSalesInvoiceRecipientRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoiceRecipientRequest
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceRecipientTypeRequest$outboundSchema,
   title: z.nullable(z.string()).optional(),
   givenName: z.nullable(z.string()).optional(),
   familyName: z.nullable(z.string()).optional(),
@@ -1063,7 +1642,7 @@ export const CreateSalesInvoiceRecipientRequest$outboundSchema: z.ZodType<
   city: z.string(),
   region: z.nullable(z.string()).optional(),
   country: z.string(),
-  locale: z.string(),
+  locale: CreateSalesInvoiceLocaleRequest$outboundSchema,
 });
 
 /**
@@ -1163,12 +1742,34 @@ export function createSalesInvoiceUnitPriceRequestFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoiceLineTypeRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLineTypeRequest
+> = z.nativeEnum(CreateSalesInvoiceLineTypeRequest);
+
+/** @internal */
+export const CreateSalesInvoiceLineTypeRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLineTypeRequest
+> = CreateSalesInvoiceLineTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceLineTypeRequest$ {
+  /** @deprecated use `CreateSalesInvoiceLineTypeRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceLineTypeRequest$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceLineTypeRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceLineTypeRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoiceLineDiscountRequest$inboundSchema: z.ZodType<
   CreateSalesInvoiceLineDiscountRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceLineTypeRequest$inboundSchema,
   value: z.string(),
 });
 
@@ -1184,7 +1785,7 @@ export const CreateSalesInvoiceLineDiscountRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoiceLineDiscountRequest
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceLineTypeRequest$outboundSchema,
   value: z.string(),
 });
 
@@ -1297,12 +1898,36 @@ export function createSalesInvoiceLineRequestFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoiceDiscountTypeRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceDiscountTypeRequest> = z.nativeEnum(
+    CreateSalesInvoiceDiscountTypeRequest,
+  );
+
+/** @internal */
+export const CreateSalesInvoiceDiscountTypeRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceDiscountTypeRequest> =
+    CreateSalesInvoiceDiscountTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceDiscountTypeRequest$ {
+  /** @deprecated use `CreateSalesInvoiceDiscountTypeRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateSalesInvoiceDiscountTypeRequest$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceDiscountTypeRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceDiscountTypeRequest$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoiceDiscountRequest$inboundSchema: z.ZodType<
   CreateSalesInvoiceDiscountRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceDiscountTypeRequest$inboundSchema,
   value: z.string(),
 });
 
@@ -1318,7 +1943,7 @@ export const CreateSalesInvoiceDiscountRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoiceDiscountRequest
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceDiscountTypeRequest$outboundSchema,
   value: z.string(),
 });
 
@@ -1364,14 +1989,16 @@ export const CreateSalesInvoiceRequest$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
-  status: z.string(),
-  vatScheme: z.string().optional(),
-  vatMode: z.string().optional(),
+  status: CreateSalesInvoiceStatusRequest$inboundSchema,
+  vatScheme: VatSchemeRequest$inboundSchema.default("standard"),
+  vatMode: VatModeRequest$inboundSchema.default("exclusive"),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataRequest$inboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(z.string()).optional(),
+  paymentTerm: z.nullable(
+    CreateSalesInvoicePaymentTermRequest$inboundSchema.default("30 days"),
+  ),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsRequest$inboundSchema),
   ).optional(),
@@ -1397,11 +2024,11 @@ export type CreateSalesInvoiceRequest$Outbound = {
   testmode?: boolean | null | undefined;
   profileId?: string | null | undefined;
   status: string;
-  vatScheme?: string | undefined;
-  vatMode?: string | undefined;
+  vatScheme: string;
+  vatMode: string;
   memo?: string | null | undefined;
   metadata?: CreateSalesInvoiceMetadataRequest$Outbound | null | undefined;
-  paymentTerm?: string | null | undefined;
+  paymentTerm: string | null;
   paymentDetails?:
     | CreateSalesInvoicePaymentDetailsRequest$Outbound
     | null
@@ -1426,14 +2053,16 @@ export const CreateSalesInvoiceRequest$outboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
-  status: z.string(),
-  vatScheme: z.string().optional(),
-  vatMode: z.string().optional(),
+  status: CreateSalesInvoiceStatusRequest$outboundSchema,
+  vatScheme: VatSchemeRequest$outboundSchema.default("standard"),
+  vatMode: VatModeRequest$outboundSchema.default("exclusive"),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataRequest$outboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(z.string()).optional(),
+  paymentTerm: z.nullable(
+    CreateSalesInvoicePaymentTermRequest$outboundSchema.default("30 days"),
+  ),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsRequest$outboundSchema),
   ).optional(),
@@ -1753,6 +2382,72 @@ export function createSalesInvoiceNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoiceStatusResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceStatusResponse
+> = z.nativeEnum(CreateSalesInvoiceStatusResponse);
+
+/** @internal */
+export const CreateSalesInvoiceStatusResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceStatusResponse
+> = CreateSalesInvoiceStatusResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceStatusResponse$ {
+  /** @deprecated use `CreateSalesInvoiceStatusResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceStatusResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceStatusResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateSalesInvoiceStatusResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateSalesInvoiceVatSchemeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceVatSchemeResponse
+> = z.nativeEnum(CreateSalesInvoiceVatSchemeResponse);
+
+/** @internal */
+export const CreateSalesInvoiceVatSchemeResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceVatSchemeResponse> =
+    CreateSalesInvoiceVatSchemeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceVatSchemeResponse$ {
+  /** @deprecated use `CreateSalesInvoiceVatSchemeResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateSalesInvoiceVatSchemeResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceVatSchemeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceVatSchemeResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateSalesInvoiceVatModeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceVatModeResponse
+> = z.nativeEnum(CreateSalesInvoiceVatModeResponse);
+
+/** @internal */
+export const CreateSalesInvoiceVatModeResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceVatModeResponse
+> = CreateSalesInvoiceVatModeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceVatModeResponse$ {
+  /** @deprecated use `CreateSalesInvoiceVatModeResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceVatModeResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceVatModeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceVatModeResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoiceMetadataResponse$inboundSchema: z.ZodType<
   CreateSalesInvoiceMetadataResponse,
   z.ZodTypeDef,
@@ -1805,12 +2500,57 @@ export function createSalesInvoiceMetadataResponseFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoicePaymentTermResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoicePaymentTermResponse> = z.nativeEnum(
+    CreateSalesInvoicePaymentTermResponse,
+  );
+
+/** @internal */
+export const CreateSalesInvoicePaymentTermResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoicePaymentTermResponse> =
+    CreateSalesInvoicePaymentTermResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoicePaymentTermResponse$ {
+  /** @deprecated use `CreateSalesInvoicePaymentTermResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateSalesInvoicePaymentTermResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoicePaymentTermResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoicePaymentTermResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateSalesInvoiceSourceResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceSourceResponse
+> = z.nativeEnum(CreateSalesInvoiceSourceResponse);
+
+/** @internal */
+export const CreateSalesInvoiceSourceResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceSourceResponse
+> = CreateSalesInvoiceSourceResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceSourceResponse$ {
+  /** @deprecated use `CreateSalesInvoiceSourceResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceSourceResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceSourceResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateSalesInvoiceSourceResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoicePaymentDetailsResponse$inboundSchema: z.ZodType<
   CreateSalesInvoicePaymentDetailsResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  source: z.string(),
+  source: CreateSalesInvoiceSourceResponse$inboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
 
@@ -1826,7 +2566,7 @@ export const CreateSalesInvoicePaymentDetailsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoicePaymentDetailsResponse
 > = z.object({
-  source: z.string(),
+  source: CreateSalesInvoiceSourceResponse$outboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
 
@@ -1936,12 +2676,56 @@ export function createSalesInvoiceEmailDetailsResponseFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoiceRecipientTypeResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceRecipientTypeResponse> = z
+    .nativeEnum(CreateSalesInvoiceRecipientTypeResponse);
+
+/** @internal */
+export const CreateSalesInvoiceRecipientTypeResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceRecipientTypeResponse> =
+    CreateSalesInvoiceRecipientTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceRecipientTypeResponse$ {
+  /** @deprecated use `CreateSalesInvoiceRecipientTypeResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateSalesInvoiceRecipientTypeResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceRecipientTypeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceRecipientTypeResponse$outboundSchema;
+}
+
+/** @internal */
+export const CreateSalesInvoiceLocaleResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLocaleResponse
+> = z.nativeEnum(CreateSalesInvoiceLocaleResponse);
+
+/** @internal */
+export const CreateSalesInvoiceLocaleResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLocaleResponse
+> = CreateSalesInvoiceLocaleResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceLocaleResponse$ {
+  /** @deprecated use `CreateSalesInvoiceLocaleResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceLocaleResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceLocaleResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateSalesInvoiceLocaleResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
   CreateSalesInvoiceRecipientResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceRecipientTypeResponse$inboundSchema,
   title: z.nullable(z.string()).optional(),
   givenName: z.nullable(z.string()).optional(),
   familyName: z.nullable(z.string()).optional(),
@@ -1956,7 +2740,7 @@ export const CreateSalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
   city: z.string(),
   region: z.nullable(z.string()).optional(),
   country: z.string(),
-  locale: z.string(),
+  locale: CreateSalesInvoiceLocaleResponse$inboundSchema,
 });
 
 /** @internal */
@@ -1985,7 +2769,7 @@ export const CreateSalesInvoiceRecipientResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoiceRecipientResponse
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceRecipientTypeResponse$outboundSchema,
   title: z.nullable(z.string()).optional(),
   givenName: z.nullable(z.string()).optional(),
   familyName: z.nullable(z.string()).optional(),
@@ -2000,7 +2784,7 @@ export const CreateSalesInvoiceRecipientResponse$outboundSchema: z.ZodType<
   city: z.string(),
   region: z.nullable(z.string()).optional(),
   country: z.string(),
-  locale: z.string(),
+  locale: CreateSalesInvoiceLocaleResponse$outboundSchema,
 });
 
 /**
@@ -2102,12 +2886,34 @@ export function createSalesInvoiceUnitPriceResponseFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoiceLineTypeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLineTypeResponse
+> = z.nativeEnum(CreateSalesInvoiceLineTypeResponse);
+
+/** @internal */
+export const CreateSalesInvoiceLineTypeResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateSalesInvoiceLineTypeResponse
+> = CreateSalesInvoiceLineTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceLineTypeResponse$ {
+  /** @deprecated use `CreateSalesInvoiceLineTypeResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateSalesInvoiceLineTypeResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceLineTypeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceLineTypeResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoiceLineDiscountResponse$inboundSchema: z.ZodType<
   CreateSalesInvoiceLineDiscountResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceLineTypeResponse$inboundSchema,
   value: z.string(),
 });
 
@@ -2123,7 +2929,7 @@ export const CreateSalesInvoiceLineDiscountResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoiceLineDiscountResponse
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceLineTypeResponse$outboundSchema,
   value: z.string(),
 });
 
@@ -2237,12 +3043,36 @@ export function createSalesInvoiceLineResponseFromJSON(
 }
 
 /** @internal */
+export const CreateSalesInvoiceDiscountTypeResponse$inboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceDiscountTypeResponse> = z.nativeEnum(
+    CreateSalesInvoiceDiscountTypeResponse,
+  );
+
+/** @internal */
+export const CreateSalesInvoiceDiscountTypeResponse$outboundSchema:
+  z.ZodNativeEnum<typeof CreateSalesInvoiceDiscountTypeResponse> =
+    CreateSalesInvoiceDiscountTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateSalesInvoiceDiscountTypeResponse$ {
+  /** @deprecated use `CreateSalesInvoiceDiscountTypeResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateSalesInvoiceDiscountTypeResponse$inboundSchema;
+  /** @deprecated use `CreateSalesInvoiceDiscountTypeResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateSalesInvoiceDiscountTypeResponse$outboundSchema;
+}
+
+/** @internal */
 export const CreateSalesInvoiceDiscountResponse$inboundSchema: z.ZodType<
   CreateSalesInvoiceDiscountResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceDiscountTypeResponse$inboundSchema,
   value: z.string(),
 });
 
@@ -2258,7 +3088,7 @@ export const CreateSalesInvoiceDiscountResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoiceDiscountResponse
 > = z.object({
-  type: z.string(),
+  type: CreateSalesInvoiceDiscountTypeResponse$outboundSchema,
   value: z.string(),
 });
 
@@ -2910,14 +3740,18 @@ export const CreateSalesInvoiceResponse$inboundSchema: z.ZodType<
   resource: z.string().default("sales-invoice"),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
-  vatScheme: z.string().optional(),
-  vatMode: z.string().optional(),
+  status: CreateSalesInvoiceStatusResponse$inboundSchema.optional(),
+  vatScheme: CreateSalesInvoiceVatSchemeResponse$inboundSchema.default(
+    "standard",
+  ),
+  vatMode: CreateSalesInvoiceVatModeResponse$inboundSchema.default("exclusive"),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataResponse$inboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(z.string()).optional(),
+  paymentTerm: z.nullable(
+    CreateSalesInvoicePaymentTermResponse$inboundSchema.default("30 days"),
+  ),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsResponse$inboundSchema),
   ).optional(),
@@ -2963,11 +3797,11 @@ export type CreateSalesInvoiceResponse$Outbound = {
   id?: string | undefined;
   invoiceNumber?: string | null | undefined;
   status?: string | undefined;
-  vatScheme?: string | undefined;
-  vatMode?: string | undefined;
+  vatScheme: string;
+  vatMode: string;
   memo?: string | null | undefined;
   metadata?: CreateSalesInvoiceMetadataResponse$Outbound | null | undefined;
-  paymentTerm?: string | null | undefined;
+  paymentTerm: string | null;
   paymentDetails?:
     | CreateSalesInvoicePaymentDetailsResponse$Outbound
     | null
@@ -3005,14 +3839,20 @@ export const CreateSalesInvoiceResponse$outboundSchema: z.ZodType<
   resource: z.string().default("sales-invoice"),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
-  status: z.string().optional(),
-  vatScheme: z.string().optional(),
-  vatMode: z.string().optional(),
+  status: CreateSalesInvoiceStatusResponse$outboundSchema.optional(),
+  vatScheme: CreateSalesInvoiceVatSchemeResponse$outboundSchema.default(
+    "standard",
+  ),
+  vatMode: CreateSalesInvoiceVatModeResponse$outboundSchema.default(
+    "exclusive",
+  ),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataResponse$outboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(z.string()).optional(),
+  paymentTerm: z.nullable(
+    CreateSalesInvoicePaymentTermResponse$outboundSchema.default("30 days"),
+  ),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsResponse$outboundSchema),
   ).optional(),

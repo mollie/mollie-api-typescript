@@ -31,10 +31,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
  */
 export function customersDelete(
   client: ClientCore,

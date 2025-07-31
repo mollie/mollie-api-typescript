@@ -9,15 +9,14 @@ export const tool$settlementsGetOpen: ToolDefinition = {
   name: "settlements-get-open",
   description: `Get open settlement
 
-Retrieve the details of the open balance of the organization. This will return a settlement object representing your organization's balance.
+Retrieve the details of the open balance of the organization. This will return a settlement object representing your
+organization's balance.
 
-For a complete reference of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation.
+For a complete reference of the settlement object, refer to the [Get settlement endpoint](get-settlement)
+documentation.
 
-For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the [balance transactions](list-balance-transactions) endpoint.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read**](/reference/authentication)`,
+For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
+[balance transactions](list-balance-transactions) endpoint.`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await settlementsGetOpen(
       client,

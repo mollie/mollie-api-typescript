@@ -31,10 +31,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Delete a single webhook object by its webhook ID.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **webhooks.write**](/reference/authentication)
  */
 export function webhooksDelete(
   client: ClientCore,

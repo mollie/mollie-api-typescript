@@ -14,11 +14,7 @@ export const tool$delayedRoutingList: ToolDefinition<typeof args> = {
   name: "delayed-routing-list",
   description: `List payment routes
 
-Retrieve a list of all routes created for a specific payment.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)`,
+Retrieve a list of all routes created for a specific payment.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await delayedRoutingList(

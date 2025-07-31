@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,7 +15,10 @@ export type ListBalanceTransactionsRequest = {
    */
   balanceId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the result set.
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   *
+   * @remarks
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -22,9 +26,11 @@ export type ListBalanceTransactionsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -77,7 +83,86 @@ export type ListBalanceTransactionsBadRequestLinks = {
 };
 
 /**
- * The final amount that was moved to or from the balance. If the transaction moves funds away from the balance, for example when it concerns a refund, the amount will be negative.
+ * The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list
+ *
+ * @remarks
+ * is not definitive.
+ *
+ * * Regular payment processing: `payment` `capture` `unauthorized-direct-debit` `failed-payment`
+ * * Refunds and chargebacks: `refund` `returned-refund` `chargeback` `chargeback-reversal`
+ * * Settlements: `outgoing-transfer` `canceled-outgoing-transfer` `returned-transfer`
+ * * Invoicing: `invoice-compensation` `balance-correction`
+ * * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
+ */
+export const ListBalanceTransactionsType = {
+  ApplicationFee: "application-fee",
+  Capture: "capture",
+  Chargeback: "chargeback",
+  ChargebackReversal: "chargeback-reversal",
+  FailedPaymentFee: "failed-payment-fee",
+  FailedPayment: "failed-payment",
+  InvoiceCompensation: "invoice-compensation",
+  Payment: "payment",
+  PaymentFee: "payment-fee",
+  PaymentCommission: "payment-commission",
+  Refund: "refund",
+  ReturnedRefund: "returned-refund",
+  ReturnedTransfer: "returned-transfer",
+  SplitPayment: "split-payment",
+  OutgoingTransfer: "outgoing-transfer",
+  CaptureCommission: "capture-commission",
+  CanceledOutgoingTransfer: "canceled-outgoing-transfer",
+  IncomingTransfer: "incoming-transfer",
+  ApiPaymentRollingReserveRelease: "api-payment-rolling-reserve-release",
+  CaptureRollingReserveRelease: "capture-rolling-reserve-release",
+  ReimbursementFee: "reimbursement-fee",
+  BalanceCorrection: "balance-correction",
+  UnauthorizedDirectDebit: "unauthorized-direct-debit",
+  BankChargedFailureFee: "bank-charged-failure-fee",
+  PlatformPaymentRefund: "platform-payment-refund",
+  RefundCompensation: "refund-compensation",
+  ReturnedRefundCompensation: "returned-refund-compensation",
+  ReturnedPlatformPaymentRefund: "returned-platform-payment-refund",
+  PlatformPaymentChargeback: "platform-payment-chargeback",
+  ChargebackCompensation: "chargeback-compensation",
+  ReversedPlatformPaymentChargeback: "reversed-platform-payment-chargeback",
+  ReversedChargebackCompensation: "reversed-chargeback-compensation",
+  FailedSplitPaymentPlatform: "failed-split-payment-platform",
+  FailedSplitPaymentCompensation: "failed-split-payment-compensation",
+  CashAdvanceLoan: "cash-advance-loan",
+  PlatformConnectedOrganizationsFee: "platform-connected-organizations-fee",
+  SplitTransaction: "split-transaction",
+  ManagedFee: "managed-fee",
+  ReturnedManagedFee: "returned-managed-fee",
+  Topup: "topup",
+  BalanceReserve: "balance-reserve",
+  BalanceReserveReturn: "balance-reserve-return",
+  Movement: "movement",
+  PostPaymentSplitPayment: "post-payment-split-payment",
+  CashCollateralIssuance: "cash-collateral-issuance",
+  CashCollateralRelease: "cash-collateral-release",
+} as const;
+/**
+ * The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list
+ *
+ * @remarks
+ * is not definitive.
+ *
+ * * Regular payment processing: `payment` `capture` `unauthorized-direct-debit` `failed-payment`
+ * * Refunds and chargebacks: `refund` `returned-refund` `chargeback` `chargeback-reversal`
+ * * Settlements: `outgoing-transfer` `canceled-outgoing-transfer` `returned-transfer`
+ * * Invoicing: `invoice-compensation` `balance-correction`
+ * * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
+ */
+export type ListBalanceTransactionsType = ClosedEnum<
+  typeof ListBalanceTransactionsType
+>;
+
+/**
+ * The final amount that was moved to or from the balance. If the transaction moves funds away from the balance, for
+ *
+ * @remarks
+ * example when it concerns a refund, the amount will be negative.
  */
 export type ResultAmount = {
   /**
@@ -91,7 +176,10 @@ export type ResultAmount = {
 };
 
 /**
- * The amount that was to be moved to or from the balance, excluding deductions. If the transaction moves funds away from the balance, for example when it concerns a refund, the amount will be negative.
+ * The amount that was to be moved to or from the balance, excluding deductions. If the transaction moves funds away
+ *
+ * @remarks
+ * from the balance, for example when it concerns a refund, the amount will be negative.
  */
 export type InitialAmount = {
   /**
@@ -105,11 +193,13 @@ export type InitialAmount = {
 };
 
 /**
- * The total amount of deductions withheld from the movement. For example, if we charge a €0.29 fee on a €10 payment, the deductions amount will be `{"currency":"EUR", "value":"-0.29"}`.
+ * The total amount of deductions withheld from the movement. For example, if we charge a €0.29 fee on a €10 payment,
  *
  * @remarks
+ * the deductions amount will be `{"currency":"EUR", "value":"-0.29"}`.
  *
- * When moving funds to a balance, we always round the deduction to a 'real' amount. Any differences between these real-time rounded amounts and the final invoice will be compensated when the invoice is generated.
+ * When moving funds to a balance, we always round the deduction to a 'real' amount. Any differences between these
+ * real-time rounded amounts and the final invoice will be compensated when the invoice is generated.
  */
 export type Deductions = {
   /**
@@ -309,9 +399,11 @@ export type PostPaymentSplitPayment = {
 };
 
 /**
- * Depending on the type of the balance transaction, we will try to give more context about the specific event that triggered it. For example, the context object for a payment transaction will look like `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "paymentDescription": "Description"}`.
+ * Depending on the type of the balance transaction, we will try to give more context about the specific event that
  *
  * @remarks
+ * triggered it. For example, the context object for a payment transaction will look like
+ * `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "paymentDescription": "Description"}`.
  *
  * Below is a complete list of the context values that each type of transaction will have.
  *
@@ -404,7 +496,10 @@ export type Context = {
 
 export type BalanceTransaction = {
   /**
-   * Indicates the response contains a balance transaction object. Will always contain the string `balance-transaction` for this endpoint.
+   * Indicates the response contains a balance transaction object. Will always contain the string `balance-transaction`
+   *
+   * @remarks
+   * for this endpoint.
    */
   resource?: string | undefined;
   /**
@@ -412,39 +507,48 @@ export type BalanceTransaction = {
    */
   id?: string | undefined;
   /**
-   * The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list is not definitive.
+   * The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list
    *
    * @remarks
+   * is not definitive.
    *
    * * Regular payment processing: `payment` `capture` `unauthorized-direct-debit` `failed-payment`
    * * Refunds and chargebacks: `refund` `returned-refund` `chargeback` `chargeback-reversal`
    * * Settlements: `outgoing-transfer` `canceled-outgoing-transfer` `returned-transfer`
    * * Invoicing: `invoice-compensation` `balance-correction`
    * * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
-   *
-   * Possible values: `application-fee` `capture` `chargeback` `chargeback-reversal` `failed-payment-fee` `failed-payment` `invoice-compensation` `payment` `payment-fee` `payment-commission` `refund` `returned-refund` `returned-transfer` `split-payment` `outgoing-transfer` `capture-commission` `canceled-outgoing-transfer` `incoming-transfer` `api-payment-rolling-reserve-release` `capture-rolling-reserve-release` `reimbursement-fee` `balance-correction` `unauthorized-direct-debit` `bank-charged-failure-fee` `platform-payment-refund` `refund-compensation` `returned-refund-compensation` `returned-platform-payment-refund` `platform-payment-chargeback` `chargeback-compensation` `reversed-platform-payment-chargeback` `reversed-chargeback-compensation` `failed-split-payment-platform` `failed-split-payment-compensation` `cash-advance-loan` `platform-connected-organizations-fee` `split-transaction` `managed-fee` `returned-managed-fee` `topup` `balance-reserve` `balance-reserve-return` `movement` `post-payment-split-payment` `cash-collateral-issuance` `cash-collateral-release`
    */
-  type?: string | undefined;
+  type?: ListBalanceTransactionsType | undefined;
   /**
-   * The final amount that was moved to or from the balance. If the transaction moves funds away from the balance, for example when it concerns a refund, the amount will be negative.
+   * The final amount that was moved to or from the balance. If the transaction moves funds away from the balance, for
+   *
+   * @remarks
+   * example when it concerns a refund, the amount will be negative.
    */
   resultAmount?: ResultAmount | undefined;
   /**
-   * The amount that was to be moved to or from the balance, excluding deductions. If the transaction moves funds away from the balance, for example when it concerns a refund, the amount will be negative.
+   * The amount that was to be moved to or from the balance, excluding deductions. If the transaction moves funds away
+   *
+   * @remarks
+   * from the balance, for example when it concerns a refund, the amount will be negative.
    */
   initialAmount?: InitialAmount | undefined;
   /**
-   * The total amount of deductions withheld from the movement. For example, if we charge a €0.29 fee on a €10 payment, the deductions amount will be `{"currency":"EUR", "value":"-0.29"}`.
+   * The total amount of deductions withheld from the movement. For example, if we charge a €0.29 fee on a €10 payment,
    *
    * @remarks
+   * the deductions amount will be `{"currency":"EUR", "value":"-0.29"}`.
    *
-   * When moving funds to a balance, we always round the deduction to a 'real' amount. Any differences between these real-time rounded amounts and the final invoice will be compensated when the invoice is generated.
+   * When moving funds to a balance, we always round the deduction to a 'real' amount. Any differences between these
+   * real-time rounded amounts and the final invoice will be compensated when the invoice is generated.
    */
   deductions?: Deductions | null | undefined;
   /**
-   * Depending on the type of the balance transaction, we will try to give more context about the specific event that triggered it. For example, the context object for a payment transaction will look like `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "paymentDescription": "Description"}`.
+   * Depending on the type of the balance transaction, we will try to give more context about the specific event that
    *
    * @remarks
+   * triggered it. For example, the context object for a payment transaction will look like
+   * `{"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "paymentDescription": "Description"}`.
    *
    * Below is a complete list of the context values that each type of transaction will have.
    *
@@ -586,11 +690,13 @@ export type ListBalanceTransactionsLinks = {
  */
 export type ListBalanceTransactionsResponse = {
   /**
-   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result as well.
+   * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
    * @remarks
+   * as well.
    *
-   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default limit is 50 items.
+   * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
+   * limit is 50 items.
    */
   count?: number | undefined;
   embedded?: ListBalanceTransactionsEmbedded | undefined;
@@ -1044,6 +1150,27 @@ export function listBalanceTransactionsBadRequestLinksFromJSON(
       ListBalanceTransactionsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListBalanceTransactionsBadRequestLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const ListBalanceTransactionsType$inboundSchema: z.ZodNativeEnum<
+  typeof ListBalanceTransactionsType
+> = z.nativeEnum(ListBalanceTransactionsType);
+
+/** @internal */
+export const ListBalanceTransactionsType$outboundSchema: z.ZodNativeEnum<
+  typeof ListBalanceTransactionsType
+> = ListBalanceTransactionsType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalanceTransactionsType$ {
+  /** @deprecated use `ListBalanceTransactionsType$inboundSchema` instead. */
+  export const inboundSchema = ListBalanceTransactionsType$inboundSchema;
+  /** @deprecated use `ListBalanceTransactionsType$outboundSchema` instead. */
+  export const outboundSchema = ListBalanceTransactionsType$outboundSchema;
 }
 
 /** @internal */
@@ -3412,7 +3539,7 @@ export const BalanceTransaction$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("balance-transaction"),
   id: z.string().optional(),
-  type: z.string().optional(),
+  type: ListBalanceTransactionsType$inboundSchema.optional(),
   resultAmount: z.lazy(() => ResultAmount$inboundSchema).optional(),
   initialAmount: z.lazy(() => InitialAmount$inboundSchema).optional(),
   deductions: z.nullable(z.lazy(() => Deductions$inboundSchema)).optional(),
@@ -3440,7 +3567,7 @@ export const BalanceTransaction$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("balance-transaction"),
   id: z.string().optional(),
-  type: z.string().optional(),
+  type: ListBalanceTransactionsType$outboundSchema.optional(),
   resultAmount: z.lazy(() => ResultAmount$outboundSchema).optional(),
   initialAmount: z.lazy(() => InitialAmount$outboundSchema).optional(),
   deductions: z.nullable(z.lazy(() => Deductions$outboundSchema)).optional(),

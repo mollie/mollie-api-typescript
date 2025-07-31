@@ -5,11 +5,15 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The amount of the route. That amount that will be routed to the specified destination.
+ * The amount of the route.
+ *
+ * @remarks
+ * That amount that will be routed to the specified destination.
  */
 export type PaymentCreateRouteAmountRequest = {
   /**
@@ -23,26 +27,41 @@ export type PaymentCreateRouteAmountRequest = {
 };
 
 /**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export const PaymentCreateRouteTypeRequest = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export type PaymentCreateRouteTypeRequest = ClosedEnum<
+  typeof PaymentCreateRouteTypeRequest
+>;
+
+/**
  * The destination of the route.
  */
 export type PaymentCreateRouteDestinationRequest = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: PaymentCreateRouteTypeRequest;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type: string;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   * routed to.
    */
   organizationId: string;
 };
 
 export type PaymentCreateRouteRequestBody = {
   /**
-   * The amount of the route. That amount that will be routed to the specified destination.
+   * The amount of the route.
+   *
+   * @remarks
+   * That amount that will be routed to the specified destination.
    */
   amount?: PaymentCreateRouteAmountRequest | undefined;
   /**
@@ -79,7 +98,10 @@ export type PaymentCreateRouteNotFoundLinks = {
 };
 
 /**
- * The amount of the route. That amount that will be routed to the specified destination.
+ * The amount of the route.
+ *
+ * @remarks
+ * That amount that will be routed to the specified destination.
  */
 export type PaymentCreateRouteAmountResponse = {
   /**
@@ -93,19 +115,31 @@ export type PaymentCreateRouteAmountResponse = {
 };
 
 /**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export const PaymentCreateRouteTypeResponse = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of destination. Currently only the destination type `organization` is supported.
+ */
+export type PaymentCreateRouteTypeResponse = ClosedEnum<
+  typeof PaymentCreateRouteTypeResponse
+>;
+
+/**
  * The destination of the route.
  */
 export type PaymentCreateRouteDestinationResponse = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: PaymentCreateRouteTypeResponse;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be
    *
    * @remarks
-   *
-   * Possible values: `organization`
-   */
-  type: string;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   * routed to.
    */
   organizationId: string;
 };
@@ -161,15 +195,24 @@ export type PaymentCreateRouteResponse = {
    */
   resource?: string | undefined;
   /**
-   * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
+   * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
    */
   id: string;
   /**
-   * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId: string;
   /**
-   * The amount of the route. That amount that will be routed to the specified destination.
+   * The amount of the route.
+   *
+   * @remarks
+   * That amount that will be routed to the specified destination.
    */
   amount: PaymentCreateRouteAmountResponse;
   /**
@@ -246,12 +289,33 @@ export function paymentCreateRouteAmountRequestFromJSON(
 }
 
 /** @internal */
+export const PaymentCreateRouteTypeRequest$inboundSchema: z.ZodNativeEnum<
+  typeof PaymentCreateRouteTypeRequest
+> = z.nativeEnum(PaymentCreateRouteTypeRequest);
+
+/** @internal */
+export const PaymentCreateRouteTypeRequest$outboundSchema: z.ZodNativeEnum<
+  typeof PaymentCreateRouteTypeRequest
+> = PaymentCreateRouteTypeRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PaymentCreateRouteTypeRequest$ {
+  /** @deprecated use `PaymentCreateRouteTypeRequest$inboundSchema` instead. */
+  export const inboundSchema = PaymentCreateRouteTypeRequest$inboundSchema;
+  /** @deprecated use `PaymentCreateRouteTypeRequest$outboundSchema` instead. */
+  export const outboundSchema = PaymentCreateRouteTypeRequest$outboundSchema;
+}
+
+/** @internal */
 export const PaymentCreateRouteDestinationRequest$inboundSchema: z.ZodType<
   PaymentCreateRouteDestinationRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: PaymentCreateRouteTypeRequest$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -267,7 +331,7 @@ export const PaymentCreateRouteDestinationRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentCreateRouteDestinationRequest
 > = z.object({
-  type: z.string(),
+  type: PaymentCreateRouteTypeRequest$outboundSchema,
   organizationId: z.string(),
 });
 
@@ -628,12 +692,33 @@ export function paymentCreateRouteAmountResponseFromJSON(
 }
 
 /** @internal */
+export const PaymentCreateRouteTypeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof PaymentCreateRouteTypeResponse
+> = z.nativeEnum(PaymentCreateRouteTypeResponse);
+
+/** @internal */
+export const PaymentCreateRouteTypeResponse$outboundSchema: z.ZodNativeEnum<
+  typeof PaymentCreateRouteTypeResponse
+> = PaymentCreateRouteTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PaymentCreateRouteTypeResponse$ {
+  /** @deprecated use `PaymentCreateRouteTypeResponse$inboundSchema` instead. */
+  export const inboundSchema = PaymentCreateRouteTypeResponse$inboundSchema;
+  /** @deprecated use `PaymentCreateRouteTypeResponse$outboundSchema` instead. */
+  export const outboundSchema = PaymentCreateRouteTypeResponse$outboundSchema;
+}
+
+/** @internal */
 export const PaymentCreateRouteDestinationResponse$inboundSchema: z.ZodType<
   PaymentCreateRouteDestinationResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
+  type: PaymentCreateRouteTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -649,7 +734,7 @@ export const PaymentCreateRouteDestinationResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentCreateRouteDestinationResponse
 > = z.object({
-  type: z.string(),
+  type: PaymentCreateRouteTypeResponse$outboundSchema,
   organizationId: z.string(),
 });
 

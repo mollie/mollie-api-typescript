@@ -30,12 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single subscription by its ID and the ID of its parent customer.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **subscriptions.read**](/reference/authentication)
  */
 export function subscriptionsGet(
   client: ClientCore,

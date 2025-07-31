@@ -17,19 +17,18 @@ export class Payments extends ClientSDK {
    * Create payment
    *
    * @remarks
-   * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
+   * Payment creation is elemental to the Mollie API: this is where most payment
+   * implementations start off.
    *
-   * Once you have created a payment, you should redirect your customer to the URL in the `_links.checkout` property from the response.
+   * Once you have created a payment, you should redirect your customer to the
+   * URL in the `_links.checkout` property from the response.
    *
-   * To wrap your head around the payment process, an explanation and flow charts can be found in the 'Accepting payments' guide.
+   * To wrap your head around the payment process, an explanation and flow charts
+   * can be found in the 'Accepting payments' guide.
    *
-   * If you specify the `method` parameter when creating a payment, optional additional parameters may be available for the payment method that are not listed below. Please refer to the guide on [method-specific parameters](extra-payment-parameters).
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.write**](/reference/authentication)
+   * If you specify the `method` parameter when creating a payment, optional
+   * additional parameters may be available for the payment method that are not listed below. Please refer to the
+   * guide on [method-specific parameters](extra-payment-parameters).
    */
   async create(
     request?: operations.CreatePaymentRequest | undefined,
@@ -49,12 +48,6 @@ export class Payments extends ClientSDK {
    * Retrieve all payments created with the current website profile.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListPaymentsRequest | undefined,
@@ -72,12 +65,6 @@ export class Payments extends ClientSDK {
    *
    * @remarks
    * Retrieve a single payment object by its payment ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.read**](/reference/authentication)
    */
   async get(
     request: operations.GetPaymentRequest,
@@ -97,12 +84,6 @@ export class Payments extends ClientSDK {
    * Certain details of an existing payment can be updated.
    *
    * Updating the payment details will not result in a webhook call.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.write**](/reference/authentication)
    */
   async update(
     request: operations.UpdatePaymentRequest,
@@ -119,17 +100,12 @@ export class Payments extends ClientSDK {
    * Cancel payment
    *
    * @remarks
-   * Depending on the payment method, you may be able to cancel a payment for a certain amount of time — usually until the next business day or as long as the payment status is open.
+   * Depending on the payment method, you may be able to cancel a payment for a certain amount of time — usually until
+   * the next business day or as long as the payment status is open.
    *
    * Payments may also be canceled manually from the Mollie Dashboard.
    *
    * The `isCancelable` property on the [Payment object](get-payment) will indicate if the payment can be canceled.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.write**](/reference/authentication)
    */
   async cancel(
     request: operations.CancelPaymentRequest,
@@ -146,17 +122,14 @@ export class Payments extends ClientSDK {
    * Release payment authorization
    *
    * @remarks
-   * Releases the full remaining authorized amount. Call this endpoint when you will not be making any additional captures. Payment authorizations may also be released manually from the Mollie Dashboard.
+   * Releases the full remaining authorized amount. Call this endpoint when you will not be making any additional
+   * captures. Payment authorizations may also be released manually from the Mollie Dashboard.
    *
-   * Mollie will do its best to process release requests, but it is not guaranteed that it will succeed. It is up to the issuing bank if and when the hold will be released.
+   * Mollie will do its best to process release requests, but it is not guaranteed that it will succeed. It is up to
+   * the issuing bank if and when the hold will be released.
    *
-   * If the request does succeed, the payment status will change to `canceled` for payments without captures. If there is a successful capture, the payment will transition to `paid`.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.write**](/reference/authentication)
+   * If the request does succeed, the payment status will change to `canceled` for payments without captures.
+   * If there is a successful capture, the payment will transition to `paid`.
    */
   async releaseAuthorization(
     request: operations.ReleaseAuthorizationRequest,

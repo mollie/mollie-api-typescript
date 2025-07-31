@@ -18,15 +18,10 @@ export class Customers extends ClientSDK {
    * Create customer
    *
    * @remarks
-   * Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked to this customer object, which simplifies management of recurring payments.
+   * Creates a simple minimal representation of a customer. Payments, recurring mandates, and subscriptions can be linked
+   * to this customer object, which simplifies management of recurring payments.
    *
    * Once registered, customers will also appear in your Mollie dashboard.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **customers.write**](/reference/authentication)
    */
   async create(
     request?: operations.CreateCustomerRequest | undefined,
@@ -46,12 +41,6 @@ export class Customers extends ClientSDK {
    * Retrieve a list of all customers.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **customers.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListCustomersRequest | undefined,
@@ -69,10 +58,6 @@ export class Customers extends ClientSDK {
    *
    * @remarks
    * Retrieve a single customer by its ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
    */
   async get(
     request: operations.GetCustomerRequest,
@@ -92,10 +77,6 @@ export class Customers extends ClientSDK {
    * Update an existing customer.
    *
    * For an in-depth explanation of each parameter, refer to the [Create customer](create-customer) endpoint.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
    */
   async update(
     request: operations.UpdateCustomerRequest,
@@ -113,10 +94,6 @@ export class Customers extends ClientSDK {
    *
    * @remarks
    * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
    */
   async delete(
     request: operations.DeleteCustomerRequest,
@@ -142,13 +119,8 @@ export class Customers extends ClientSDK {
    * * Improve payment insights in the Mollie dashboard
    * * Use recurring payments
    *
-   * This endpoint is effectively an alias of the [Create payment endpoint](create-payment) with the `customerId` parameter predefined.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.write**](/reference/authentication)
+   * This endpoint is effectively an alias of the [Create payment endpoint](create-payment) with the `customerId`
+   * parameter predefined.
    */
   async createPayment(
     request: operations.CreateCustomerPaymentRequest,
@@ -166,12 +138,6 @@ export class Customers extends ClientSDK {
    *
    * @remarks
    * Retrieve all payments linked to the customer.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payments.read**](/reference/authentication)
    */
   async listPayments(
     request: operations.ListCustomerPaymentsRequest,

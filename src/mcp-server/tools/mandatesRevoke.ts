@@ -14,13 +14,8 @@ export const tool$mandatesRevoke: ToolDefinition<typeof args> = {
   name: "mandates-revoke",
   description: `Revoke mandate
 
-Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this mandate, and all connected subscriptions will be canceled.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **mandates.write**](/reference/authentication)`,
+Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this
+mandate, and all connected subscriptions will be canceled.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await mandatesRevoke(

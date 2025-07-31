@@ -29,18 +29,21 @@ import { Result } from "../types/fp.js";
  * Get balance
  *
  * @remarks
- * When processing payments with Mollie, we put all pending funds — usually minus Mollie fees — on a balance. Once you have linked a bank account to your Mollie account, we can pay out your balance towards this bank account.
+ * When processing payments with Mollie, we put all pending funds — usually
+ * minus Mollie fees — on a balance. Once you have linked a bank account to your Mollie account, we can pay out your
+ * balance towards this bank account.
  *
- * With the Balances API you can retrieve your current balance. The response includes two amounts:
+ * With the Balances API you can retrieve your current balance. The response
+ * includes two amounts:
  *
- * * The *pending amount*. These are payments that have been marked as `paid`, but are not yet available on your balance.
- * * The *available amount*. This is the amount that you can get paid out to your bank account, or use for refunds.
+ * * The *pending amount*. These are payments that have been marked as `paid`,
+ * but are not yet available on your balance.
+ * * The *available amount*. This is the amount that you can get paid out to
+ * your bank account, or use for refunds.
  *
- * With instant payment methods like iDEAL, payments are moved to the available balance instantly. With slower payment methods, like credit card for example, it can take a few days before the funds are available on your balance. These funds will be shown under the *pending amount* in the meanwhile.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **balances.read**](/reference/authentication)
+ * With instant payment methods like iDEAL, payments are moved to the available
+ * balance instantly. With slower payment methods, like credit card for example, it can take a few days before the
+ * funds are available on your balance. These funds will be shown under the *pending amount* in the meanwhile.
  */
 export function balancesGet(
   client: ClientCore,

@@ -16,10 +16,6 @@ export class Clients extends ClientSDK {
    * Retrieve a list of all clients linked to your account.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **clients.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListClientsRequest | undefined,
@@ -37,10 +33,6 @@ export class Clients extends ClientSDK {
    *
    * @remarks
    * Retrieve a single client by its ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [Access token with **clients.read**](/reference/authentication)
    */
   async get(
     request: operations.GetClientRequest,

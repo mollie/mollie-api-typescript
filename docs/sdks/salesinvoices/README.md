@@ -19,14 +19,9 @@
 
 With the Sales Invoice API you can generate sales invoices to send to your customers.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoices.write**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create-sales-invoice" method="post" path="/sales-invoices" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -183,14 +178,9 @@ Retrieve a list of all sales invoices created through the API.
 
 The results are paginated.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoices.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="list-sales-invoices" method="get" path="/sales-invoices" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -272,14 +262,9 @@ run();
 
 Retrieve a single sales invoice by its ID.
 
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoice.read**](/reference/authentication)
-
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="get-sales-invoice" method="get" path="/sales-invoices/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -359,16 +344,13 @@ run();
 >
 > This feature is currently in beta testing, and the final specification may still change.
 
-Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`, respectively).
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoices.write**](/reference/authentication)
+Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for
+statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`,
+respectively).
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="update-sales-invoice" method="patch" path="/sales-invoices/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -549,16 +531,12 @@ run();
 >
 > This feature is currently in beta testing, and the final specification may still change.
 
-Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the [Update sales invoice](update-sales-invoice) endpoint instead.
-
-> 🔑 Access with
->
-> [API key](/reference/authentication)
->
-> [Access token with **sales-invoices.write**](/reference/authentication)
+Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
+[Update sales invoice](update-sales-invoice) endpoint instead.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="delete-sales-invoice" method="delete" path="/sales-invoices/{id}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

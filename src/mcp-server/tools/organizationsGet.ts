@@ -16,13 +16,10 @@ export const tool$organizationsGet: ToolDefinition<typeof args> = {
 
 Retrieve a single organization by its ID.
 
-You can normally only retrieve the currently authenticated organization with this endpoint. This is primarily useful for OAuth apps. See also [Get current organization](get-current-organization).
+You can normally only retrieve the currently authenticated organization with this endpoint. This is primarily useful
+for OAuth apps. See also [Get current organization](get-current-organization).
 
-If you have a *partner account*', you can retrieve organization details of connected organizations.
-
-> 🔑 Access with
->
-> [Access token with **organizations.read**](/reference/authentication)`,
+If you have a *partner account*', you can retrieve organization details of connected organizations.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await organizationsGet(

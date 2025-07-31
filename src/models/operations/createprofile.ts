@@ -5,16 +5,23 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateProfileRequest = {
   /**
-   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or application.
+   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or
+   *
+   * @remarks
+   * application.
    */
   name: string;
   /**
-   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are allowed.
+   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are
+   *
+   * @remarks
+   * allowed.
    */
   website: string;
   /**
@@ -30,11 +37,17 @@ export type CreateProfileRequest = {
    */
   description?: string | undefined;
   /**
-   * A list of countries where you expect that the majority of the profile's customers reside, in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   * A list of countries where you expect that the majority of the profile's customers reside,
+   *
+   * @remarks
+   * in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   countriesOfActivity?: Array<string> | undefined;
   /**
-   * The industry associated with the profile's trade name or brand. Please refer to the [business category list](common-data-types#business-category) for all possible options.
+   * The industry associated with the profile's trade name or brand. Please refer to the
+   *
+   * @remarks
+   * [business category list](common-data-types#business-category) for all possible options.
    */
   businessCategory?: string | undefined;
 };
@@ -55,17 +68,68 @@ export type CreateProfileUnprocessableEntityLinks = {
 };
 
 /**
- * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile has been requested. The review object will therefore usually be `null` in test mode.
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreateProfileMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreateProfileMode = ClosedEnum<typeof CreateProfileMode>;
+
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export const CreateProfileStatus = {
+  Unverified: "unverified",
+  Verified: "verified",
+  Blocked: "blocked",
+} as const;
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export type CreateProfileStatus = ClosedEnum<typeof CreateProfileStatus>;
+
+/**
+ * The status of the requested changes.
+ */
+export const CreateProfileReviewStatus = {
+  Pending: "pending",
+  Rejected: "rejected",
+} as const;
+/**
+ * The status of the requested changes.
+ */
+export type CreateProfileReviewStatus = ClosedEnum<
+  typeof CreateProfileReviewStatus
+>;
+
+/**
+ * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
+ *
+ * @remarks
+ * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
+ * `null` in test mode.
  */
 export type CreateProfileReview = {
   /**
    * The status of the requested changes.
-   *
-   * @remarks
-   *
-   * Possible values: `pending` `rejected`
    */
-  status?: string | undefined;
+  status?: CreateProfileReviewStatus | undefined;
 };
 
 /**
@@ -232,18 +296,20 @@ export type CreateProfileResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
+   */
+  mode?: CreateProfileMode | undefined;
+  /**
+   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or
    *
    * @remarks
-   *
-   * Possible values: `live` `test`
-   */
-  mode?: string | undefined;
-  /**
-   * The profile's name, this will usually reflect the trade name or brand name of the profile's website or application.
+   * application.
    */
   name?: string | undefined;
   /**
-   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are allowed.
+   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are
+   *
+   * @remarks
+   * allowed.
    */
   website?: string | undefined;
   /**
@@ -259,11 +325,17 @@ export type CreateProfileResponse = {
    */
   description?: string | undefined;
   /**
-   * A list of countries where you expect that the majority of the profile's customers reside, in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   * A list of countries where you expect that the majority of the profile's customers reside,
+   *
+   * @remarks
+   * in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   countriesOfActivity?: Array<string> | undefined;
   /**
-   * The industry associated with the profile's trade name or brand. Please refer to the [business category list](common-data-types#business-category) for all possible options.
+   * The industry associated with the profile's trade name or brand. Please refer to the
+   *
+   * @remarks
+   * [business category list](common-data-types#business-category) for all possible options.
    */
   businessCategory?: string | undefined;
   /**
@@ -274,12 +346,14 @@ export type CreateProfileResponse = {
    * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
    * * `verified`: The profile has been verified and can be used to create live payments and test payments.
    * * `blocked`: The profile is blocked and can no longer be used or changed.
-   *
-   * Possible values: `unverified` `verified` `blocked`
    */
-  status?: string | undefined;
+  status?: CreateProfileStatus | undefined;
   /**
-   * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile has been requested. The review object will therefore usually be `null` in test mode.
+   * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
+   *
+   * @remarks
+   * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
+   * `null` in test mode.
    */
   review?: CreateProfileReview | undefined;
   /**
@@ -498,12 +572,75 @@ export function createProfileUnprocessableEntityLinksFromJSON(
 }
 
 /** @internal */
+export const CreateProfileMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateProfileMode
+> = z.nativeEnum(CreateProfileMode);
+
+/** @internal */
+export const CreateProfileMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateProfileMode
+> = CreateProfileMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateProfileMode$ {
+  /** @deprecated use `CreateProfileMode$inboundSchema` instead. */
+  export const inboundSchema = CreateProfileMode$inboundSchema;
+  /** @deprecated use `CreateProfileMode$outboundSchema` instead. */
+  export const outboundSchema = CreateProfileMode$outboundSchema;
+}
+
+/** @internal */
+export const CreateProfileStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CreateProfileStatus
+> = z.nativeEnum(CreateProfileStatus);
+
+/** @internal */
+export const CreateProfileStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CreateProfileStatus
+> = CreateProfileStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateProfileStatus$ {
+  /** @deprecated use `CreateProfileStatus$inboundSchema` instead. */
+  export const inboundSchema = CreateProfileStatus$inboundSchema;
+  /** @deprecated use `CreateProfileStatus$outboundSchema` instead. */
+  export const outboundSchema = CreateProfileStatus$outboundSchema;
+}
+
+/** @internal */
+export const CreateProfileReviewStatus$inboundSchema: z.ZodNativeEnum<
+  typeof CreateProfileReviewStatus
+> = z.nativeEnum(CreateProfileReviewStatus);
+
+/** @internal */
+export const CreateProfileReviewStatus$outboundSchema: z.ZodNativeEnum<
+  typeof CreateProfileReviewStatus
+> = CreateProfileReviewStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateProfileReviewStatus$ {
+  /** @deprecated use `CreateProfileReviewStatus$inboundSchema` instead. */
+  export const inboundSchema = CreateProfileReviewStatus$inboundSchema;
+  /** @deprecated use `CreateProfileReviewStatus$outboundSchema` instead. */
+  export const outboundSchema = CreateProfileReviewStatus$outboundSchema;
+}
+
+/** @internal */
 export const CreateProfileReview$inboundSchema: z.ZodType<
   CreateProfileReview,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  status: z.string().optional(),
+  status: CreateProfileReviewStatus$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -517,7 +654,7 @@ export const CreateProfileReview$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateProfileReview
 > = z.object({
-  status: z.string().optional(),
+  status: CreateProfileReviewStatus$outboundSchema.optional(),
 });
 
 /**
@@ -1098,7 +1235,7 @@ export const CreateProfileResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("profile"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: CreateProfileMode$inboundSchema.optional(),
   name: z.string().optional(),
   website: z.string().optional(),
   email: z.string().optional(),
@@ -1106,7 +1243,7 @@ export const CreateProfileResponse$inboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: z.string().optional(),
+  status: CreateProfileStatus$inboundSchema.optional(),
   review: z.lazy(() => CreateProfileReview$inboundSchema).optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => CreateProfileLinks$inboundSchema).optional(),
@@ -1142,7 +1279,7 @@ export const CreateProfileResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("profile"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: CreateProfileMode$outboundSchema.optional(),
   name: z.string().optional(),
   website: z.string().optional(),
   email: z.string().optional(),
@@ -1150,7 +1287,7 @@ export const CreateProfileResponse$outboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: z.string().optional(),
+  status: CreateProfileStatus$outboundSchema.optional(),
   review: z.lazy(() => CreateProfileReview$outboundSchema).optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => CreateProfileLinks$outboundSchema).optional(),

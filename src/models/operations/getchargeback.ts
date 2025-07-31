@@ -34,9 +34,11 @@ export type GetChargebackRequest = {
    */
   embed?: GetChargebackEmbed | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting the `testmode` query parameter to `true`.
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
@@ -73,13 +75,16 @@ export type GetChargebackAmount = {
 };
 
 /**
- * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
  *
  * @remarks
+ * to the currency your account is settled in.
  *
  * The amount is a **negative** amount.
  *
- * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+ * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve
+ * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+ * instead.
  */
 export type GetChargebackSettlementAmount = {
   /**
@@ -135,7 +140,10 @@ export type GetChargebackPayment = {
 };
 
 /**
- * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if not yet settled.
+ * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if
+ *
+ * @remarks
+ * not yet settled.
  */
 export type GetChargebackSettlement = {
   /**
@@ -175,7 +183,10 @@ export type GetChargebackLinks = {
    */
   payment: GetChargebackPayment;
   /**
-   * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if not yet settled.
+   * The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if
+   *
+   * @remarks
+   * not yet settled.
    */
   settlement?: GetChargebackSettlement | null | undefined;
   /**
@@ -189,7 +200,10 @@ export type GetChargebackLinks = {
  */
 export type GetChargebackResponse = {
   /**
-   * Indicates the response contains a chargeback object. Will always contain the string `chargeback` for this endpoint.
+   * Indicates the response contains a chargeback object. Will always contain the string `chargeback` for this
+   *
+   * @remarks
+   * endpoint.
    */
   resource: string;
   /**
@@ -201,13 +215,16 @@ export type GetChargebackResponse = {
    */
   amount: GetChargebackAmount;
   /**
-   * This optional field will contain the approximate amount that will be deducted from your account balance, converted to the currency your account is settled in.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
    *
    * @remarks
+   * to the currency your account is settled in.
    *
    * The amount is a **negative** amount.
    *
-   * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions) instead.
+   * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve
+   * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+   * instead.
    */
   settlementAmount?: GetChargebackSettlementAmount | null | undefined;
   /**
@@ -215,11 +232,17 @@ export type GetChargebackResponse = {
    */
   reason?: GetChargebackReason | null | undefined;
   /**
-   * The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`. The full payment object can be retrieved via the payment URL in the `_links` object.
+   * The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
   paymentId: string;
   /**
-   * The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field is omitted if the refund is not settled (yet).
+   * The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field
+   *
+   * @remarks
+   * is omitted if the refund is not settled (yet).
    */
   settlementId?: string | null | undefined;
   /**
@@ -227,7 +250,10 @@ export type GetChargebackResponse = {
    */
   createdAt: string;
   /**
-   * The date and time the chargeback was reversed if applicable, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * The date and time the chargeback was reversed if applicable, in
+   *
+   * @remarks
+   * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   reversedAt?: string | null | undefined;
   /**

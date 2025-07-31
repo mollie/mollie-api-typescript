@@ -27,10 +27,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve the onboarding status of the currently authenticated organization.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **onboarding.read**](/reference/authentication)
  */
 export function onboardingGet(
   client: ClientCore,

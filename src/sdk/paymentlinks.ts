@@ -17,13 +17,9 @@ export class PaymentLinks extends ClientSDK {
    * Create payment link
    *
    * @remarks
-   * With the Payment links API you can generate payment links that by default, unlike regular payments, do not expire. The payment link can be shared with your customers and will redirect them to them the payment page where they can complete the payment. A [payment](get-payment) will only be created once the customer initiates the payment.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payment-links.write**](/reference/authentication)
+   * With the Payment links API you can generate payment links that by default, unlike regular payments, do not expire.
+   * The payment link can be shared with your customers and will redirect them to them the payment page where they can
+   * complete the payment. A [payment](get-payment) will only be created once the customer initiates the payment.
    */
   async create(
     request?: operations.CreatePaymentLinkRequest | undefined,
@@ -43,12 +39,6 @@ export class PaymentLinks extends ClientSDK {
    * Retrieve a list of all payment links.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payment-links.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListPaymentLinksRequest | undefined,
@@ -66,12 +56,6 @@ export class PaymentLinks extends ClientSDK {
    *
    * @remarks
    * Retrieve a single payment link by its ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payment-links.read**](/reference/authentication)
    */
   async get(
     request: operations.GetPaymentLinkRequest,
@@ -89,12 +73,6 @@ export class PaymentLinks extends ClientSDK {
    *
    * @remarks
    * Certain details of an existing payment link can be updated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payment-links.write**](/reference/authentication)
    */
   async update(
     request: operations.UpdatePaymentLinkRequest,
@@ -111,17 +89,13 @@ export class PaymentLinks extends ClientSDK {
    * Delete payment link
    *
    * @remarks
-   * Payment links which have not been opened and no payments have been made yet can be deleted entirely. This can be useful for removing payment links that have been incorrectly configured or that are no longer relevant.
+   * Payment links which have not been opened and no payments have been made yet can be deleted entirely.
+   * This can be useful for removing payment links that have been incorrectly configured or that are no longer relevant.
    *
    * Once deleted, the payment link will no longer show up in the API or Mollie dashboard.
    *
-   * To simply disable a payment link without fully deleting it, you can use the `archived` parameter on the [Update payment link](update-payment-link) endpoint instead.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payment-links.write**](/reference/authentication)
+   * To simply disable a payment link without fully deleting it, you can use the `archived` parameter on the
+   * [Update payment link](update-payment-link) endpoint instead.
    */
   async delete(
     request: operations.DeletePaymentLinkRequest,
@@ -141,12 +115,6 @@ export class PaymentLinks extends ClientSDK {
    * Retrieve the list of payments for a specific payment link.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **payment-links.read**](/reference/authentication)
    */
   async listPayments(
     request: operations.GetPaymentLinkPaymentsRequest,

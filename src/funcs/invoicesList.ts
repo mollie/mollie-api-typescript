@@ -29,13 +29,10 @@ import { Result } from "../types/fp.js";
  * List invoices
  *
  * @remarks
- * Retrieve a list of all your invoices, optionally filtered by year or by invoice reference.
+ * Retrieve a list of all your invoices, optionally filtered by year or by
+ * invoice reference.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **invoices.read**](/reference/authentication)
  */
 export function invoicesList(
   client: ClientCore,

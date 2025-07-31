@@ -14,11 +14,7 @@ export const tool$webhooksGet: ToolDefinition<typeof args> = {
   name: "webhooks-get",
   description: `Get a webhook
 
-Retrieve a single webhook object by its ID.
-
-> 🔑 Access with
->
-> [Access token with **webhooks.read**](/reference/authentication)`,
+Retrieve a single webhook object by its ID.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await webhooksGet(

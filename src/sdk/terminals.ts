@@ -16,12 +16,6 @@ export class Terminals extends ClientSDK {
    * Retrieve a list of all physical point-of-sale devices.
    *
    * The results are paginated.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **terminals.read**](/reference/authentication)
    */
   async list(
     request?: operations.ListTerminalsRequest | undefined,
@@ -39,12 +33,6 @@ export class Terminals extends ClientSDK {
    *
    * @remarks
    * Retrieve a single terminal by its ID.
-   *
-   * > 🔑 Access with
-   * >
-   * > [API key](/reference/authentication)
-   * >
-   * > [Access token with **terminals.read**](/reference/authentication)
    */
   async get(
     request: operations.GetTerminalRequest,

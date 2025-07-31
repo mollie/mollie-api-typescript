@@ -5,8 +5,28 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * Indicates the type of partner. Will be `null` if the currently authenticated organization is not
+ *
+ * @remarks
+ * enrolled as a partner.
+ */
+export const PartnerType = {
+  Oauth: "oauth",
+  Signuplink: "signuplink",
+  Useragent: "useragent",
+} as const;
+/**
+ * Indicates the type of partner. Will be `null` if the currently authenticated organization is not
+ *
+ * @remarks
+ * enrolled as a partner.
+ */
+export type PartnerType = ClosedEnum<typeof PartnerType>;
 
 export type UserAgentToken = {
   /**
@@ -18,7 +38,10 @@ export type UserAgentToken = {
    */
   startsAt?: string | undefined;
   /**
-   * The date until when the token will be active, in ISO 8601 format. Will be `null` if the token does not have an end date (yet).
+   * The date until when the token will be active, in ISO 8601 format. Will be `null` if the token
+   *
+   * @remarks
+   * does not have an end date (yet).
    */
   endsAt?: string | null | undefined;
 };
@@ -38,7 +61,10 @@ export type GetPartnerStatusSelf = {
 };
 
 /**
- * The URL that can be used to have new organizations sign up and be automatically linked to this partner. Will be omitted if the partner is not of type `signuplink`.
+ * The URL that can be used to have new organizations sign up and be automatically linked to this
+ *
+ * @remarks
+ * partner. Will be omitted if the partner is not of type `signuplink`.
  */
 export type Signuplink = {
   /**
@@ -74,7 +100,10 @@ export type GetPartnerStatusLinks = {
    */
   self?: GetPartnerStatusSelf | undefined;
   /**
-   * The URL that can be used to have new organizations sign up and be automatically linked to this partner. Will be omitted if the partner is not of type `signuplink`.
+   * The URL that can be used to have new organizations sign up and be automatically linked to this
+   *
+   * @remarks
+   * partner. Will be omitted if the partner is not of type `signuplink`.
    */
   signuplink?: Signuplink | undefined;
   /**
@@ -88,27 +117,35 @@ export type GetPartnerStatusLinks = {
  */
 export type GetPartnerStatusResponse = {
   /**
-   * Indicates the response contains a partner status object. Will always contain the string `partner` for this endpoint.
+   * Indicates the response contains a partner status object. Will always contain the string `partner` for
+   *
+   * @remarks
+   * this endpoint.
    */
   resource?: string | undefined;
   /**
-   * Indicates the type of partner. Will be `null` if the currently authenticated organization is not enrolled as a partner.
+   * Indicates the type of partner. Will be `null` if the currently authenticated organization is not
    *
    * @remarks
-   *
-   * Possible values: `oauth` `signuplink` `useragent`
+   * enrolled as a partner.
    */
-  partnerType: string | null;
+  partnerType: PartnerType | null;
   /**
    * Whether the current organization is receiving commissions.
    */
   isCommissionPartner?: boolean | undefined;
   /**
-   * Array of User-Agent token objects. Present if the organization is a partner of type `useragent`, or if they were in the past.
+   * Array of User-Agent token objects. Present if the organization is a partner of type `useragent`, or if
+   *
+   * @remarks
+   * they were in the past.
    */
   userAgentTokens?: Array<UserAgentToken> | undefined;
   /**
-   * The date the partner contract was signed, in ISO 8601 format. Omitted if no contract has been signed (yet).
+   * The date the partner contract was signed, in ISO 8601 format. Omitted if no contract has been signed
+   *
+   * @remarks
+   * (yet).
    */
   partnerContractSignedAt?: string | null | undefined;
   /**
@@ -116,7 +153,10 @@ export type GetPartnerStatusResponse = {
    */
   partnerContractUpdateAvailable?: boolean | undefined;
   /**
-   * The expiration date of the signed partner contract, in ISO 8601 format. Omitted if contract has no expiration date (yet).
+   * The expiration date of the signed partner contract, in ISO 8601 format. Omitted if contract has no
+   *
+   * @remarks
+   * expiration date (yet).
    */
   partnerContractExpiresAt?: string | undefined;
   /**
@@ -124,6 +164,25 @@ export type GetPartnerStatusResponse = {
    */
   links?: GetPartnerStatusLinks | undefined;
 };
+
+/** @internal */
+export const PartnerType$inboundSchema: z.ZodNativeEnum<typeof PartnerType> = z
+  .nativeEnum(PartnerType);
+
+/** @internal */
+export const PartnerType$outboundSchema: z.ZodNativeEnum<typeof PartnerType> =
+  PartnerType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PartnerType$ {
+  /** @deprecated use `PartnerType$inboundSchema` instead. */
+  export const inboundSchema = PartnerType$inboundSchema;
+  /** @deprecated use `PartnerType$outboundSchema` instead. */
+  export const outboundSchema = PartnerType$outboundSchema;
+}
 
 /** @internal */
 export const UserAgentToken$inboundSchema: z.ZodType<
@@ -419,7 +478,7 @@ export const GetPartnerStatusResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("partner"),
-  partnerType: z.nullable(z.string()),
+  partnerType: z.nullable(PartnerType$inboundSchema),
   isCommissionPartner: z.boolean().optional(),
   userAgentTokens: z.array(z.lazy(() => UserAgentToken$inboundSchema))
     .optional(),
@@ -452,7 +511,7 @@ export const GetPartnerStatusResponse$outboundSchema: z.ZodType<
   GetPartnerStatusResponse
 > = z.object({
   resource: z.string().default("partner"),
-  partnerType: z.nullable(z.string()),
+  partnerType: z.nullable(PartnerType$outboundSchema),
   isCommissionPartner: z.boolean().optional(),
   userAgentTokens: z.array(z.lazy(() => UserAgentToken$outboundSchema))
     .optional(),

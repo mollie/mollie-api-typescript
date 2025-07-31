@@ -32,12 +32,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all customers.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **customers.read**](/reference/authentication)
  */
 export function customersList(
   client: ClientCore,

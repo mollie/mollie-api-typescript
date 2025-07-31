@@ -31,11 +31,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve a single invoice by its ID.
  *
- * If you want to retrieve the details of an invoice by its invoice number, call the [List invoices](list-invoices) endpoint with the `reference` parameter.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **invoices.read**](/reference/authentication)
+ * If you want to retrieve the details of an invoice by its invoice number,
+ * call the [List invoices](list-invoices) endpoint with the `reference` parameter.
  */
 export function invoicesGet(
   client: ClientCore,

@@ -9,11 +9,7 @@ export const tool$onboardingGet: ToolDefinition = {
   name: "onboarding-get",
   description: `Get onboarding status
 
-Retrieve the onboarding status of the currently authenticated organization.
-
-> 🔑 Access with
->
-> [Access token with **onboarding.read**](/reference/authentication)`,
+Retrieve the onboarding status of the currently authenticated organization.`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await onboardingGet(
       client,

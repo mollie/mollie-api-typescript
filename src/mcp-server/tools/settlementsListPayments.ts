@@ -18,11 +18,8 @@ Retrieve all payments included in the given settlement.
 
 The response is in the same format as the response of the [List payments endpoint](list-payments).
 
-For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the [List captures endpoint](list-captures) endpoint instead.
-
-> 🔑 Access with
->
-> [Access token with **settlements.read** **payments.read**](/reference/authentication)`,
+For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the
+[List captures endpoint](list-captures) endpoint instead.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsListPayments(

@@ -16,11 +16,7 @@ export const tool$profilesList: ToolDefinition<typeof args> = {
 
 Retrieve a list of all of your profiles.
 
-The results are paginated.
-
-> 🔑 Access with
->
-> [Access token with **profiles.read**](/reference/authentication)`,
+The results are paginated.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await profilesList(

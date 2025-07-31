@@ -29,13 +29,8 @@ import { Result } from "../types/fp.js";
  * Get capture
  *
  * @remarks
- * Retrieve a single payment capture by its ID and the ID of its parent payment.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **payments.read**](/reference/authentication)
+ * Retrieve a single payment capture by its ID and the ID of its parent
+ * payment.
  */
 export function capturesGet(
   client: ClientCore,

@@ -36,12 +36,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all sales invoices created through the API.
  *
  * The results are paginated.
- *
- * > 🔑 Access with
- * >
- * > [API key](/reference/authentication)
- * >
- * > [Access token with **sales-invoices.read**](/reference/authentication)
  */
 export function salesInvoicesList(
   client: ClientCore,

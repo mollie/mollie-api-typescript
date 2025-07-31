@@ -5,13 +5,57 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export const CreateCustomerLocaleRequest = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export type CreateCustomerLocaleRequest = ClosedEnum<
+  typeof CreateCustomerLocaleRequest
+>;
 
 export type CreateCustomerMetadataRequest = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateCustomerMetadataRequestUnion =
   | CreateCustomerMetadataRequest
@@ -28,11 +72,17 @@ export type CreateCustomerRequest = {
    */
   email?: string | null | undefined;
   /**
-   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+   *
+   * @remarks
+   * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
    */
-  locale?: string | null | undefined;
+  locale?: CreateCustomerLocaleRequest | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | CreateCustomerMetadataRequest
@@ -45,7 +95,9 @@ export type CreateCustomerRequest = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
   testmode?: boolean | null | undefined;
 };
@@ -65,10 +117,65 @@ export type CreateCustomerNotFoundLinks = {
   documentation: CreateCustomerNotFoundDocumentation;
 };
 
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export const CreateCustomerMode = {
+  Live: "live",
+  Test: "test",
+} as const;
+/**
+ * Whether this entity was created in live mode or in test mode.
+ */
+export type CreateCustomerMode = ClosedEnum<typeof CreateCustomerMode>;
+
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export const CreateCustomerLocaleResponse = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+} as const;
+/**
+ * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+ *
+ * @remarks
+ * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+ */
+export type CreateCustomerLocaleResponse = ClosedEnum<
+  typeof CreateCustomerLocaleResponse
+>;
+
 export type CreateCustomerMetadataResponse = {};
 
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+ *
+ * @remarks
+ * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type CreateCustomerMetadataResponseUnion =
   | CreateCustomerMetadataResponse
@@ -104,7 +211,10 @@ export type CreateCustomerDashboard = {
 };
 
 /**
- * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments exist (yet).
+ * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
+ *
+ * @remarks
+ * exist (yet).
  */
 export type CreateCustomerPayments = {
   /**
@@ -118,7 +228,10 @@ export type CreateCustomerPayments = {
 };
 
 /**
- * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates exist (yet).
+ * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
+ *
+ * @remarks
+ * exist (yet).
  */
 export type CreateCustomerMandates = {
   /**
@@ -132,7 +245,10 @@ export type CreateCustomerMandates = {
 };
 
 /**
- * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such subscriptions exist (yet).
+ * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
+ *
+ * @remarks
+ * subscriptions exist (yet).
  */
 export type CreateCustomerSubscriptions = {
   /**
@@ -172,15 +288,24 @@ export type CreateCustomerLinks = {
    */
   dashboard?: CreateCustomerDashboard | undefined;
   /**
-   * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments exist (yet).
+   * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
+   *
+   * @remarks
+   * exist (yet).
    */
   payments?: CreateCustomerPayments | null | undefined;
   /**
-   * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates exist (yet).
+   * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
+   *
+   * @remarks
+   * exist (yet).
    */
   mandates?: CreateCustomerMandates | null | undefined;
   /**
-   * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such subscriptions exist (yet).
+   * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
+   *
+   * @remarks
+   * subscriptions exist (yet).
    */
   subscriptions?: CreateCustomerSubscriptions | null | undefined;
   /**
@@ -203,12 +328,8 @@ export type CreateCustomerResponse = {
   id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
-   *
-   * @remarks
-   *
-   * Possible values: `live` `test`
    */
-  mode?: string | undefined;
+  mode?: CreateCustomerMode | undefined;
   /**
    * The full name of the customer.
    */
@@ -218,11 +339,17 @@ export type CreateCustomerResponse = {
    */
   email?: string | null | undefined;
   /**
-   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+   *
+   * @remarks
+   * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
    */
-  locale?: string | null | undefined;
+  locale?: CreateCustomerLocaleResponse | null | undefined;
   /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?:
     | CreateCustomerMetadataResponse
@@ -239,6 +366,27 @@ export type CreateCustomerResponse = {
    */
   links?: CreateCustomerLinks | undefined;
 };
+
+/** @internal */
+export const CreateCustomerLocaleRequest$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerLocaleRequest
+> = z.nativeEnum(CreateCustomerLocaleRequest);
+
+/** @internal */
+export const CreateCustomerLocaleRequest$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerLocaleRequest
+> = CreateCustomerLocaleRequest$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerLocaleRequest$ {
+  /** @deprecated use `CreateCustomerLocaleRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerLocaleRequest$inboundSchema;
+  /** @deprecated use `CreateCustomerLocaleRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateCustomerLocaleRequest$outboundSchema;
+}
 
 /** @internal */
 export const CreateCustomerMetadataRequest$inboundSchema: z.ZodType<
@@ -361,7 +509,7 @@ export const CreateCustomerRequest$inboundSchema: z.ZodType<
 > = z.object({
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerLocaleRequest$inboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => CreateCustomerMetadataRequest$inboundSchema),
@@ -394,7 +542,7 @@ export const CreateCustomerRequest$outboundSchema: z.ZodType<
 > = z.object({
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerLocaleRequest$outboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => CreateCustomerMetadataRequest$outboundSchema),
@@ -556,6 +704,48 @@ export function createCustomerNotFoundLinksFromJSON(
     (x) => CreateCustomerNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateCustomerNotFoundLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const CreateCustomerMode$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerMode
+> = z.nativeEnum(CreateCustomerMode);
+
+/** @internal */
+export const CreateCustomerMode$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerMode
+> = CreateCustomerMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerMode$ {
+  /** @deprecated use `CreateCustomerMode$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerMode$inboundSchema;
+  /** @deprecated use `CreateCustomerMode$outboundSchema` instead. */
+  export const outboundSchema = CreateCustomerMode$outboundSchema;
+}
+
+/** @internal */
+export const CreateCustomerLocaleResponse$inboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerLocaleResponse
+> = z.nativeEnum(CreateCustomerLocaleResponse);
+
+/** @internal */
+export const CreateCustomerLocaleResponse$outboundSchema: z.ZodNativeEnum<
+  typeof CreateCustomerLocaleResponse
+> = CreateCustomerLocaleResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateCustomerLocaleResponse$ {
+  /** @deprecated use `CreateCustomerLocaleResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateCustomerLocaleResponse$inboundSchema;
+  /** @deprecated use `CreateCustomerLocaleResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateCustomerLocaleResponse$outboundSchema;
 }
 
 /** @internal */
@@ -1105,10 +1295,10 @@ export const CreateCustomerResponse$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("customer"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: CreateCustomerMode$inboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerLocaleResponse$inboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => CreateCustomerMetadataResponse$inboundSchema),
@@ -1150,10 +1340,10 @@ export const CreateCustomerResponse$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().default("customer"),
   id: z.string().optional(),
-  mode: z.string().optional(),
+  mode: CreateCustomerMode$outboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: z.nullable(z.string()).optional(),
+  locale: z.nullable(CreateCustomerLocaleResponse$outboundSchema).optional(),
   metadata: z.nullable(
     z.union([
       z.lazy(() => CreateCustomerMetadataResponse$outboundSchema),

@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of all permissions available to the current access token.
  *
  * The results are **not** paginated.
- *
- * > 🔑 Access with
- * >
- * > [Access token](/reference/authentication)
  */
 export function permissionsList(
   client: ClientCore,

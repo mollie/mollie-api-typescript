@@ -30,10 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single webhook event object by its event ID.
- *
- * > 🔑 Access with
- * >
- * > [Access token with **events.read**](/reference/authentication)
  */
 export function webhookEventsGet(
   client: ClientCore,
