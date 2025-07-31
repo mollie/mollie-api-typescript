@@ -113,7 +113,7 @@ let value: ListCustomerPaymentsEmbedded = {
       method: "ideal",
       restrictPaymentMethodsToCountry: "NL",
       captureMode: "manual",
-      captureDelay: "... days",
+      captureDelay: "8 hours",
       captureBefore: "2024-03-20T09:28:37.0Z",
       applicationFee: {
         amount: {

@@ -792,44 +792,6 @@ export const GetPaymentCaptureMode = {
 export type GetPaymentCaptureMode = ClosedEnum<typeof GetPaymentCaptureMode>;
 
 /**
- * **Only relevant if you wish to manage authorization and capturing separately.**
- *
- * @remarks
- *
- * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
- * later point either be 'captured' or canceled.
- *
- * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
- * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
- * example `8 hours` or `2 days`.
- *
- * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
- *
- * The maximum delay is 7 days (168 hours).
- */
-export const GetPaymentCaptureDelay = {
-  DotDotDotHours: "... hours",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * **Only relevant if you wish to manage authorization and capturing separately.**
- *
- * @remarks
- *
- * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
- * later point either be 'captured' or canceled.
- *
- * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
- * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
- * example `8 hours` or `2 days`.
- *
- * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
- *
- * The maximum delay is 7 days (168 hours).
- */
-export type GetPaymentCaptureDelay = ClosedEnum<typeof GetPaymentCaptureDelay>;
-
-/**
  * The fee that you wish to charge.
  *
  * @remarks
@@ -1645,8 +1607,10 @@ export type GetPaymentResponse = {
    * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
    *
    * The maximum delay is 7 days (168 hours).
+   *
+   * Possible values: `... hours` `... days`
    */
-  captureDelay?: GetPaymentCaptureDelay | null | undefined;
+  captureDelay?: string | null | undefined;
   /**
    * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
    *
@@ -3264,27 +3228,6 @@ export namespace GetPaymentCaptureMode$ {
   export const inboundSchema = GetPaymentCaptureMode$inboundSchema;
   /** @deprecated use `GetPaymentCaptureMode$outboundSchema` instead. */
   export const outboundSchema = GetPaymentCaptureMode$outboundSchema;
-}
-
-/** @internal */
-export const GetPaymentCaptureDelay$inboundSchema: z.ZodNativeEnum<
-  typeof GetPaymentCaptureDelay
-> = z.nativeEnum(GetPaymentCaptureDelay);
-
-/** @internal */
-export const GetPaymentCaptureDelay$outboundSchema: z.ZodNativeEnum<
-  typeof GetPaymentCaptureDelay
-> = GetPaymentCaptureDelay$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentCaptureDelay$ {
-  /** @deprecated use `GetPaymentCaptureDelay$inboundSchema` instead. */
-  export const inboundSchema = GetPaymentCaptureDelay$inboundSchema;
-  /** @deprecated use `GetPaymentCaptureDelay$outboundSchema` instead. */
-  export const outboundSchema = GetPaymentCaptureDelay$outboundSchema;
 }
 
 /** @internal */
@@ -4906,10 +4849,8 @@ export const GetPaymentResponse$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(
-    GetPaymentCaptureMode$inboundSchema.default("automatic"),
-  ),
-  captureDelay: z.nullable(GetPaymentCaptureDelay$inboundSchema).optional(),
+  captureMode: z.nullable(GetPaymentCaptureMode$inboundSchema).optional(),
+  captureDelay: z.nullable(z.string()).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => GetPaymentApplicationFee$inboundSchema),
@@ -4972,7 +4913,7 @@ export type GetPaymentResponse$Outbound = {
     | Array<string>
     | null
     | undefined;
-  captureMode: string | null;
+  captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
   applicationFee?: GetPaymentApplicationFee$Outbound | null | undefined;
@@ -5039,10 +4980,8 @@ export const GetPaymentResponse$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(
-    GetPaymentCaptureMode$outboundSchema.default("automatic"),
-  ),
-  captureDelay: z.nullable(GetPaymentCaptureDelay$outboundSchema).optional(),
+  captureMode: z.nullable(GetPaymentCaptureMode$outboundSchema).optional(),
+  captureDelay: z.nullable(z.string()).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => GetPaymentApplicationFee$outboundSchema),

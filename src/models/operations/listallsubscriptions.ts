@@ -808,46 +808,6 @@ export type ListAllSubscriptionsCaptureMode = ClosedEnum<
 >;
 
 /**
- * **Only relevant if you wish to manage authorization and capturing separately.**
- *
- * @remarks
- *
- * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
- * later point either be 'captured' or canceled.
- *
- * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
- * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
- * example `8 hours` or `2 days`.
- *
- * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
- *
- * The maximum delay is 7 days (168 hours).
- */
-export const ListAllSubscriptionsCaptureDelay = {
-  DotDotDotHours: "... hours",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * **Only relevant if you wish to manage authorization and capturing separately.**
- *
- * @remarks
- *
- * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
- * later point either be 'captured' or canceled.
- *
- * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
- * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
- * example `8 hours` or `2 days`.
- *
- * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
- *
- * The maximum delay is 7 days (168 hours).
- */
-export type ListAllSubscriptionsCaptureDelay = ClosedEnum<
-  typeof ListAllSubscriptionsCaptureDelay
->;
-
-/**
  * The fee that you wish to charge.
  *
  * @remarks
@@ -1673,8 +1633,10 @@ export type ListAllSubscriptionsPaymentOutput = {
    * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
    *
    * The maximum delay is 7 days (168 hours).
+   *
+   * Possible values: `... hours` `... days`
    */
-  captureDelay?: ListAllSubscriptionsCaptureDelay | null | undefined;
+  captureDelay?: string | null | undefined;
   /**
    * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
    *
@@ -3468,27 +3430,6 @@ export namespace ListAllSubscriptionsCaptureMode$ {
 }
 
 /** @internal */
-export const ListAllSubscriptionsCaptureDelay$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsCaptureDelay
-> = z.nativeEnum(ListAllSubscriptionsCaptureDelay);
-
-/** @internal */
-export const ListAllSubscriptionsCaptureDelay$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsCaptureDelay
-> = ListAllSubscriptionsCaptureDelay$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsCaptureDelay$ {
-  /** @deprecated use `ListAllSubscriptionsCaptureDelay$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsCaptureDelay$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsCaptureDelay$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsCaptureDelay$outboundSchema;
-}
-
-/** @internal */
 export const ListAllSubscriptionsApplicationFeeAmount$inboundSchema: z.ZodType<
   ListAllSubscriptionsApplicationFeeAmount,
   z.ZodTypeDef,
@@ -5214,11 +5155,9 @@ export const ListAllSubscriptionsPaymentOutput$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(
-    ListAllSubscriptionsCaptureMode$inboundSchema.default("automatic"),
-  ),
-  captureDelay: z.nullable(ListAllSubscriptionsCaptureDelay$inboundSchema)
+  captureMode: z.nullable(ListAllSubscriptionsCaptureMode$inboundSchema)
     .optional(),
+  captureDelay: z.nullable(z.string()).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListAllSubscriptionsApplicationFee$inboundSchema),
@@ -5285,7 +5224,7 @@ export type ListAllSubscriptionsPaymentOutput$Outbound = {
     | Array<string>
     | null
     | undefined;
-  captureMode: string | null;
+  captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
   applicationFee?:
@@ -5363,11 +5302,9 @@ export const ListAllSubscriptionsPaymentOutput$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(
-    ListAllSubscriptionsCaptureMode$outboundSchema.default("automatic"),
-  ),
-  captureDelay: z.nullable(ListAllSubscriptionsCaptureDelay$outboundSchema)
+  captureMode: z.nullable(ListAllSubscriptionsCaptureMode$outboundSchema)
     .optional(),
+  captureDelay: z.nullable(z.string()).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListAllSubscriptionsApplicationFee$outboundSchema),

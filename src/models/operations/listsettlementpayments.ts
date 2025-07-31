@@ -812,46 +812,6 @@ export type ListSettlementPaymentsCaptureMode = ClosedEnum<
 >;
 
 /**
- * **Only relevant if you wish to manage authorization and capturing separately.**
- *
- * @remarks
- *
- * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
- * later point either be 'captured' or canceled.
- *
- * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
- * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
- * example `8 hours` or `2 days`.
- *
- * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
- *
- * The maximum delay is 7 days (168 hours).
- */
-export const ListSettlementPaymentsCaptureDelay = {
-  DotDotDotHours: "... hours",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * **Only relevant if you wish to manage authorization and capturing separately.**
- *
- * @remarks
- *
- * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
- * later point either be 'captured' or canceled.
- *
- * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
- * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
- * example `8 hours` or `2 days`.
- *
- * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
- *
- * The maximum delay is 7 days (168 hours).
- */
-export type ListSettlementPaymentsCaptureDelay = ClosedEnum<
-  typeof ListSettlementPaymentsCaptureDelay
->;
-
-/**
  * The fee that you wish to charge.
  *
  * @remarks
@@ -1677,8 +1637,10 @@ export type ListSettlementPaymentsPaymentOutput = {
    * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
    *
    * The maximum delay is 7 days (168 hours).
+   *
+   * Possible values: `... hours` `... days`
    */
-  captureDelay?: ListSettlementPaymentsCaptureDelay | null | undefined;
+  captureDelay?: string | null | undefined;
   /**
    * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
    *
@@ -3493,28 +3455,6 @@ export namespace ListSettlementPaymentsCaptureMode$ {
 }
 
 /** @internal */
-export const ListSettlementPaymentsCaptureDelay$inboundSchema: z.ZodNativeEnum<
-  typeof ListSettlementPaymentsCaptureDelay
-> = z.nativeEnum(ListSettlementPaymentsCaptureDelay);
-
-/** @internal */
-export const ListSettlementPaymentsCaptureDelay$outboundSchema: z.ZodNativeEnum<
-  typeof ListSettlementPaymentsCaptureDelay
-> = ListSettlementPaymentsCaptureDelay$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSettlementPaymentsCaptureDelay$ {
-  /** @deprecated use `ListSettlementPaymentsCaptureDelay$inboundSchema` instead. */
-  export const inboundSchema = ListSettlementPaymentsCaptureDelay$inboundSchema;
-  /** @deprecated use `ListSettlementPaymentsCaptureDelay$outboundSchema` instead. */
-  export const outboundSchema =
-    ListSettlementPaymentsCaptureDelay$outboundSchema;
-}
-
-/** @internal */
 export const ListSettlementPaymentsApplicationFeeAmount$inboundSchema:
   z.ZodType<ListSettlementPaymentsApplicationFeeAmount, z.ZodTypeDef, unknown> =
     z.object({
@@ -5282,11 +5222,9 @@ export const ListSettlementPaymentsPaymentOutput$inboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(
-    ListSettlementPaymentsCaptureMode$inboundSchema.default("automatic"),
-  ),
-  captureDelay: z.nullable(ListSettlementPaymentsCaptureDelay$inboundSchema)
+  captureMode: z.nullable(ListSettlementPaymentsCaptureMode$inboundSchema)
     .optional(),
+  captureDelay: z.nullable(z.string()).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListSettlementPaymentsApplicationFee$inboundSchema),
@@ -5355,7 +5293,7 @@ export type ListSettlementPaymentsPaymentOutput$Outbound = {
     | Array<string>
     | null
     | undefined;
-  captureMode: string | null;
+  captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
   applicationFee?:
@@ -5433,11 +5371,9 @@ export const ListSettlementPaymentsPaymentOutput$outboundSchema: z.ZodType<
       z.array(z.string()),
     ]),
   ).optional(),
-  captureMode: z.nullable(
-    ListSettlementPaymentsCaptureMode$outboundSchema.default("automatic"),
-  ),
-  captureDelay: z.nullable(ListSettlementPaymentsCaptureDelay$outboundSchema)
+  captureMode: z.nullable(ListSettlementPaymentsCaptureMode$outboundSchema)
     .optional(),
+  captureDelay: z.nullable(z.string()).optional(),
   captureBefore: z.nullable(z.string()).optional(),
   applicationFee: z.nullable(
     z.lazy(() => ListSettlementPaymentsApplicationFee$outboundSchema),

@@ -116,7 +116,7 @@ async function run() {
       issuer: "ideal_INGBNL2A",
       restrictPaymentMethodsToCountry: "NL",
       captureMode: "manual",
-      captureDelay: "... days",
+      captureDelay: "8 hours",
       applicationFee: {
         amount: {
           currency: "EUR",

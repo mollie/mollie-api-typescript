@@ -656,7 +656,6 @@ paths:
                   enum:
                     - automatic
                     - manual
-                  default: automatic
                 captureDelay:
                   type:
                     - string
@@ -674,10 +673,10 @@ paths:
                     To schedule an automatic capture, the `captureMode` must be set to `automatic`.
 
                     The maximum delay is 7 days (168 hours).
+
+                    Possible values: `... hours` `... days`
                   example: 8 hours
-                  enum:
-                    - ... hours
-                    - ... days
+                  pattern: ^\d+ (hours|days)$
                 captureBefore:
                   type:
                     - string
@@ -1428,7 +1427,6 @@ paths:
                         enum:
                           - automatic
                           - manual
-                        default: automatic
                       captureDelay:
                         type:
                           - string
@@ -1446,10 +1444,10 @@ paths:
                           To schedule an automatic capture, the `captureMode` must be set to `automatic`.
 
                           The maximum delay is 7 days (168 hours).
+
+                          Possible values: `... hours` `... days`
                         example: 8 hours
-                        enum:
-                          - ... hours
-                          - ... days
+                        pattern: ^\d+ (hours|days)$
                       captureBefore:
                         type:
                           - string
@@ -1865,7 +1863,7 @@ paths:
                       value: '10.00'
                       currency: EUR
                     description: I can do payments now
-                    method: null
+                    method: ideal
                     metadata: null
                     status: open
                     isCancelable: false
@@ -2196,7 +2194,7 @@ paths:
                       value: '10.00'
                       currency: EUR
                     description: I can do payments now
-                    method: null
+                    method: ideal
                     metadata: null
                     status: open
                     isCancelable: false
@@ -2229,7 +2227,7 @@ paths:
                       value: '10.00'
                       currency: EUR
                     description: I can do payments now
-                    method: null
+                    method: ideal
                     metadata: null
                     status: open
                     isCancelable: false
@@ -2736,7 +2734,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: Description
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-29T13:24:02+00:00'
@@ -2817,7 +2815,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-22T09:06:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -2848,7 +2846,7 @@ paths:
                           amountRemaining:
                             value: '10.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -2889,7 +2887,7 @@ paths:
                           amountRemaining:
                             value: '0.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -2938,7 +2936,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -2969,7 +2967,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -2995,7 +2993,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2022-01-19T07:59:02+00:00'
@@ -4138,7 +4136,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-08T08:54:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -4201,7 +4199,7 @@ paths:
                           amountRemaining:
                             value: '25.01'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -4229,7 +4227,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T14:06:02+00:00'
@@ -4252,7 +4250,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:57:02+00:00'
@@ -4275,11 +4273,11 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:56:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
                           redirectUrl: mollie-checkout://payments/51
@@ -4299,7 +4297,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:42:02+00:00'
@@ -14374,7 +14372,7 @@ paths:
                       value: '10.00'
                       currency: EUR
                     description: I can do payments now
-                    method: null
+                    method: ideal
                     metadata: null
                     status: open
                     isCancelable: false
@@ -14705,7 +14703,7 @@ paths:
                       value: '10.00'
                       currency: EUR
                     description: I can do payments now
-                    method: null
+                    method: ideal
                     metadata: null
                     status: open
                     isCancelable: false
@@ -14738,7 +14736,7 @@ paths:
                       value: '10.00'
                       currency: EUR
                     description: I can do payments now
-                    method: null
+                    method: ideal
                     metadata: null
                     status: open
                     isCancelable: false
@@ -15148,7 +15146,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: Description
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-29T13:24:02+00:00'
@@ -15229,7 +15227,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-22T09:06:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -15260,7 +15258,7 @@ paths:
                           amountRemaining:
                             value: '10.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -15301,7 +15299,7 @@ paths:
                           amountRemaining:
                             value: '0.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -15350,7 +15348,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -15381,7 +15379,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -15407,7 +15405,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2022-01-19T07:59:02+00:00'
@@ -16550,7 +16548,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-08T08:54:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -16613,7 +16611,7 @@ paths:
                           amountRemaining:
                             value: '25.01'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -16641,7 +16639,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T14:06:02+00:00'
@@ -16664,7 +16662,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:57:02+00:00'
@@ -16687,11 +16685,11 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:56:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
                           redirectUrl: mollie-checkout://payments/51
@@ -16711,7 +16709,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:42:02+00:00'
@@ -19048,7 +19046,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: Description
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-29T13:24:02+00:00'
@@ -19129,7 +19127,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-22T09:06:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -19160,7 +19158,7 @@ paths:
                           amountRemaining:
                             value: '10.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -19201,7 +19199,7 @@ paths:
                           amountRemaining:
                             value: '0.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -19250,7 +19248,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -19281,7 +19279,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -19307,7 +19305,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2022-01-19T07:59:02+00:00'
@@ -20450,7 +20448,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-08T08:54:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -20513,7 +20511,7 @@ paths:
                           amountRemaining:
                             value: '25.01'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -20541,7 +20539,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T14:06:02+00:00'
@@ -20564,7 +20562,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:57:02+00:00'
@@ -20587,11 +20585,11 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:56:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
                           redirectUrl: mollie-checkout://payments/51
@@ -20611,7 +20609,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:42:02+00:00'
@@ -21264,7 +21262,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: Description
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-29T13:24:02+00:00'
@@ -21345,7 +21343,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-22T09:06:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -21376,7 +21374,7 @@ paths:
                           amountRemaining:
                             value: '10.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -21417,7 +21415,7 @@ paths:
                           amountRemaining:
                             value: '0.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -21466,7 +21464,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -21497,7 +21495,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -21523,7 +21521,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2022-01-19T07:59:02+00:00'
@@ -22666,7 +22664,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-08T08:54:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -22729,7 +22727,7 @@ paths:
                           amountRemaining:
                             value: '25.01'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -22757,7 +22755,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T14:06:02+00:00'
@@ -22780,7 +22778,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:57:02+00:00'
@@ -22803,11 +22801,11 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:56:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
                           redirectUrl: mollie-checkout://payments/51
@@ -22827,7 +22825,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:42:02+00:00'
@@ -31917,7 +31915,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: Description
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-29T13:24:02+00:00'
@@ -31998,7 +31996,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-22T09:06:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -32029,7 +32027,7 @@ paths:
                           amountRemaining:
                             value: '10.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -32070,7 +32068,7 @@ paths:
                           amountRemaining:
                             value: '0.00'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_85dxyKqNHa
                           sequenceType: oneoff
@@ -32119,7 +32117,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -32150,7 +32148,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: open
                           isCancelable: false
@@ -32176,7 +32174,7 @@ paths:
                             value: '10.00'
                             currency: EUR
                           description: I can do payments now
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2022-01-19T07:59:02+00:00'
@@ -33319,7 +33317,7 @@ paths:
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-08T08:54:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -33382,7 +33380,7 @@ paths:
                           amountRemaining:
                             value: '25.01'
                             currency: EUR
-                          locale: en_NL
+                          locale: en_US
                           countryCode: NL
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
@@ -33410,7 +33408,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T14:06:02+00:00'
@@ -33433,7 +33431,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:57:02+00:00'
@@ -33456,11 +33454,11 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:56:02+00:00'
-                          locale: en_NL
+                          locale: en_US
                           profileId: pfl_zcfJRjkf6P
                           sequenceType: oneoff
                           redirectUrl: mollie-checkout://payments/51
@@ -33480,7 +33478,7 @@ paths:
                             value: '0.01'
                             currency: EUR
                           description: TEST Webuildapps - Mollie example
-                          method: null
+                          method: ideal
                           metadata: null
                           status: expired
                           expiredAt: '2021-12-06T13:42:02+00:00'
