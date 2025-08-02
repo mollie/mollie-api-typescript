@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: d1f16535b68039799c1cf3564e7e85d3
+  docChecksum: fc8d8d1ce875187ae052a9d3cc59b7eb
   docVersion: 1.0.0
-  speakeasyVersion: 1.593.0
-  generationVersion: 2.669.0
-  releaseVersion: 0.0.3
-  configChecksum: c58dfa6834bbbcf9ad8cd3583c949064
+  speakeasyVersion: 1.596.0
+  generationVersion: 2.672.0
+  releaseVersion: 0.0.4
+  configChecksum: 1615f5ee883060dbc0c636ae1ca2cf2e
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -14,7 +14,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.17
+    core: 3.21.19
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.0

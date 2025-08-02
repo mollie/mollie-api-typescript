@@ -572,6 +572,7 @@ paths:
                     - banktransfer
                     - belfius
                     - billie
+                    - bizum
                     - blik
                     - creditcard
                     - directdebit
@@ -584,6 +585,7 @@ paths:
                     - mbway
                     - multibanco
                     - mybank
+                    - paybybank
                     - payconiq
                     - paypal
                     - paysafecard
