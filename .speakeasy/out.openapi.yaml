@@ -582,6 +582,9 @@ paths:
                     - in3
                     - kbc
                     - klarna
+                    - klarnapaylater
+                    - klarnapaynow
+                    - klarnasliceit
                     - mbway
                     - multibanco
                     - mybank
@@ -5824,39 +5827,9 @@ paths:
                               description: |-
                                 The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
                                 method selection screen will be skipped.
-                              enum:
-                                - alma
-                                - applepay
-                                - bacs
-                                - bancomatpay
-                                - bancontact
-                                - banktransfer
-                                - belfius
-                                - billie
-                                - blik
-                                - creditcard
-                                - directdebit
-                                - eps
-                                - giftcard
-                                - ideal
-                                - in3
-                                - kbc
-                                - klarna
-                                - klarnapaylater
-                                - klarnapaynow
-                                - klarnasliceit
-                                - mybank
-                                - paypal
-                                - paysafecard
-                                - przelewy24
-                                - riverty
-                                - satispay
-                                - swish
-                                - trustly
-                                - twint
-                                - voucher
                               example: ideal
                               readOnly: true
+                              enum: *ref_12
                             description:
                               type: string
                               description: |-
@@ -11591,6 +11564,32 @@ paths:
                         connected merchant.
                       maxLength: 255
                       example: Platform fee
+                sequenceType:
+                  type:
+                    - string
+                    - 'null'
+                  description: |-
+                    If set to `first`, a payment mandate is established right after a payment is made by the customer.
+
+                    Defaults to `oneoff`, which is a regular payment link and will not establish a mandate after payment.
+
+                    The mandate ID can be retrieved by making a call to the
+                    [Payment Link Payments Endpoint](get-payment-link-payments).
+                  enum:
+                    - oneoff
+                    - first
+                  example: oneoff
+                customerId:
+                  type:
+                    - string
+                    - 'null'
+                  description: |-
+                    **Only relevant when `sequenceType` is set to `first`**
+
+                    The ID of the [customer](get-customer) the payment link is being created for. If a value is not provided,
+                    the customer will be required to input relevant information which will be used to establish a mandate after
+                    the payment is made.
+                  example: cst_XimFHuaEzd
                 _links:
                   type: object
                   description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -11814,6 +11813,32 @@ paths:
                           connected merchant.
                         maxLength: 255
                         example: Platform fee
+                  sequenceType:
+                    type:
+                      - string
+                      - 'null'
+                    description: |-
+                      If set to `first`, a payment mandate is established right after a payment is made by the customer.
+
+                      Defaults to `oneoff`, which is a regular payment link and will not establish a mandate after payment.
+
+                      The mandate ID can be retrieved by making a call to the
+                      [Payment Link Payments Endpoint](get-payment-link-payments).
+                    enum:
+                      - oneoff
+                      - first
+                    example: oneoff
+                  customerId:
+                    type:
+                      - string
+                      - 'null'
+                    description: |-
+                      **Only relevant when `sequenceType` is set to `first`**
+
+                      The ID of the [customer](get-customer) the payment link is being created for. If a value is not provided,
+                      the customer will be required to input relevant information which will be used to establish a mandate after
+                      the payment is made.
+                    example: cst_XimFHuaEzd
                   _links:
                     type: object
                     description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -11853,6 +11878,8 @@ paths:
                     reusable: false
                     allowedMethods:
                       - ideal
+                    sequenceType: oneoff
+                    customerId: null
                     _links:
                       self:
                         href: ...
@@ -11885,6 +11912,8 @@ paths:
                     reusable: false
                     allowedMethods:
                       - ideal
+                    sequenceType: oneoff
+                    customerId: null
                     _links:
                       self:
                         href: ...
@@ -11916,6 +11945,8 @@ paths:
                     expiresAt: '2029-12-24T11:00:16+00:00'
                     reusable: false
                     allowedMethods: null
+                    sequenceType: oneoff
+                    customerId: null
                     applicationFee:
                       amount:
                         value: '1.50'
@@ -12001,6 +12032,8 @@ paths:
                   -d "expiresAt=2023-06-06T11:00:00+00:00"
                   -d "reusable=false"
                   -d "allowedMethods[]=ideal"
+                  -d "sequenceType=first"
+                  -d "customerId=cst_vsKJpSsabw"
           - language: php
             code: |-
               <?php
@@ -12018,7 +12051,9 @@ paths:
                 "webhookUrl" => "https://webshop.example.org/payment-links/webhook/",
                 "expiresAt" => "2023-06-06T11:00:00+00:00",
                 "reusable" => false,
-                "allowedMethods" => ["ideal"]
+                "allowedMethods" => ["ideal"],
+                "sequenceType" => "first",
+                "customerId" => "cst_vsKJpSsabw",
               ]);
           - language: node
             code: |-
@@ -12035,7 +12070,9 @@ paths:
                 webhookUrl: 'https://webshop.example.org/payment-links/webhook/',
                 expiresAt: '2023-06-06T11:00:00+00:00',
                 reusable: false,
-                allowedMethods: ['ideal']
+                allowedMethods: ['ideal'],
+                sequenceType: 'first',
+                customerId: 'cst_vsKJpSsabw'
               });
           - language: python
             code: |-
@@ -12055,7 +12092,9 @@ paths:
                 "redirectUrl": "https://webshop.example.org/thanks",
                 "expiresAt": "2023-06-06T11:00:00+00:00",
                 "reusable": false,
-                "allowedMethods": ["ideal"]
+                "allowedMethods": ["ideal"],
+                "sequenceType": "first",
+                "customerId": "cst_vsKJpSsabw"
               })
           - language: ruby
             code: ''
@@ -12153,6 +12192,8 @@ paths:
                           reusable: false
                           allowedMethods:
                             - ideal
+                          sequenceType: oneoff
+                          customerId: null
                           _links:
                             self:
                               href: ...
@@ -12195,6 +12236,8 @@ paths:
                           reusable: false
                           allowedMethods:
                             - creditcard
+                          sequenceType: oneoff
+                          customerId: null
                           _links:
                             self:
                               href: ...
@@ -12219,6 +12262,8 @@ paths:
                           expiresAt: null
                           reusable: false
                           allowedMethods: null
+                          sequenceType: oneoff
+                          customerId: null
                           _links:
                             self:
                               href: ...
@@ -12243,6 +12288,8 @@ paths:
                           expiresAt: null
                           reusable: false
                           allowedMethods: null
+                          sequenceType: oneoff
+                          customerId: null
                           _links:
                             self:
                               href: ...
@@ -12494,6 +12541,8 @@ paths:
                     reusable: false
                     allowedMethods:
                       - creditcard
+                    sequenceType: oneoff
+                    customerId: null
                     _links:
                       self:
                         href: ...

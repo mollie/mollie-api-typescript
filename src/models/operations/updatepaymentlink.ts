@@ -1032,6 +1032,34 @@ export type UpdatePaymentLinkApplicationFee = {
 };
 
 /**
+ * If set to `first`, a payment mandate is established right after a payment is made by the customer.
+ *
+ * @remarks
+ *
+ * Defaults to `oneoff`, which is a regular payment link and will not establish a mandate after payment.
+ *
+ * The mandate ID can be retrieved by making a call to the
+ * [Payment Link Payments Endpoint](get-payment-link-payments).
+ */
+export const UpdatePaymentLinkSequenceType = {
+  Oneoff: "oneoff",
+  First: "first",
+} as const;
+/**
+ * If set to `first`, a payment mandate is established right after a payment is made by the customer.
+ *
+ * @remarks
+ *
+ * Defaults to `oneoff`, which is a regular payment link and will not establish a mandate after payment.
+ *
+ * The mandate ID can be retrieved by making a call to the
+ * [Payment Link Payments Endpoint](get-payment-link-payments).
+ */
+export type UpdatePaymentLinkSequenceType = ClosedEnum<
+  typeof UpdatePaymentLinkSequenceType
+>;
+
+/**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
  */
 export type UpdatePaymentLinkSelf = {
@@ -1226,6 +1254,27 @@ export type UpdatePaymentLinkResponse = {
    * to your own account balance.
    */
   applicationFee?: UpdatePaymentLinkApplicationFee | undefined;
+  /**
+   * If set to `first`, a payment mandate is established right after a payment is made by the customer.
+   *
+   * @remarks
+   *
+   * Defaults to `oneoff`, which is a regular payment link and will not establish a mandate after payment.
+   *
+   * The mandate ID can be retrieved by making a call to the
+   * [Payment Link Payments Endpoint](get-payment-link-payments).
+   */
+  sequenceType?: UpdatePaymentLinkSequenceType | null | undefined;
+  /**
+   * **Only relevant when `sequenceType` is set to `first`**
+   *
+   * @remarks
+   *
+   * The ID of the [customer](get-customer) the payment link is being created for. If a value is not provided,
+   * the customer will be required to input relevant information which will be used to establish a mandate after
+   * the payment is made.
+   */
+  customerId?: string | null | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
@@ -3154,6 +3203,27 @@ export function updatePaymentLinkApplicationFeeFromJSON(
 }
 
 /** @internal */
+export const UpdatePaymentLinkSequenceType$inboundSchema: z.ZodNativeEnum<
+  typeof UpdatePaymentLinkSequenceType
+> = z.nativeEnum(UpdatePaymentLinkSequenceType);
+
+/** @internal */
+export const UpdatePaymentLinkSequenceType$outboundSchema: z.ZodNativeEnum<
+  typeof UpdatePaymentLinkSequenceType
+> = UpdatePaymentLinkSequenceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdatePaymentLinkSequenceType$ {
+  /** @deprecated use `UpdatePaymentLinkSequenceType$inboundSchema` instead. */
+  export const inboundSchema = UpdatePaymentLinkSequenceType$inboundSchema;
+  /** @deprecated use `UpdatePaymentLinkSequenceType$outboundSchema` instead. */
+  export const outboundSchema = UpdatePaymentLinkSequenceType$outboundSchema;
+}
+
+/** @internal */
 export const UpdatePaymentLinkSelf$inboundSchema: z.ZodType<
   UpdatePaymentLinkSelf,
   z.ZodTypeDef,
@@ -3360,6 +3430,9 @@ export const UpdatePaymentLinkResponse$inboundSchema: z.ZodType<
   allowedMethods: z.nullable(z.array(z.string())),
   applicationFee: z.lazy(() => UpdatePaymentLinkApplicationFee$inboundSchema)
     .optional(),
+  sequenceType: z.nullable(UpdatePaymentLinkSequenceType$inboundSchema)
+    .optional(),
+  customerId: z.nullable(z.string()).optional(),
   _links: z.lazy(() => UpdatePaymentLinkLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
@@ -3393,6 +3466,8 @@ export type UpdatePaymentLinkResponse$Outbound = {
   expiresAt: string | null;
   allowedMethods: Array<string> | null;
   applicationFee?: UpdatePaymentLinkApplicationFee$Outbound | undefined;
+  sequenceType?: string | null | undefined;
+  customerId?: string | null | undefined;
   _links: UpdatePaymentLinkLinks$Outbound;
 };
 
@@ -3430,6 +3505,9 @@ export const UpdatePaymentLinkResponse$outboundSchema: z.ZodType<
   allowedMethods: z.nullable(z.array(z.string())),
   applicationFee: z.lazy(() => UpdatePaymentLinkApplicationFee$outboundSchema)
     .optional(),
+  sequenceType: z.nullable(UpdatePaymentLinkSequenceType$outboundSchema)
+    .optional(),
+  customerId: z.nullable(z.string()).optional(),
   links: z.lazy(() => UpdatePaymentLinkLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {

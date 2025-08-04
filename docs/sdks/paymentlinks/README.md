@@ -112,6 +112,8 @@ async function run() {
       },
       description: "Platform fee",
     },
+    sequenceType: "oneoff",
+    customerId: "cst_XimFHuaEzd",
   });
 
   console.log(result);
@@ -218,6 +220,8 @@ async function run() {
       },
       description: "Platform fee",
     },
+    sequenceType: "oneoff",
+    customerId: "cst_XimFHuaEzd",
   });
   if (res.ok) {
     const { value: result } = res;

@@ -99,6 +99,8 @@ let value: ListPaymentLinksResponse = {
           },
           description: "Platform fee",
         },
+        sequenceType: "oneoff",
+        customerId: "cst_XimFHuaEzd",
         links: {
           self: {
             href: "https://...",
