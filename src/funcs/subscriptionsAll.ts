@@ -40,7 +40,8 @@ export function subscriptionsAll(
 ): APIPromise<
   Result<
     operations.ListAllSubscriptionsResponse,
-    | errors.ListAllSubscriptionsHalJSONError
+    | errors.ListAllSubscriptionsBadRequestHalJSONError
+    | errors.ListAllSubscriptionsNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +67,8 @@ async function $do(
   [
     Result<
       operations.ListAllSubscriptionsResponse,
-      | errors.ListAllSubscriptionsHalJSONError
+      | errors.ListAllSubscriptionsBadRequestHalJSONError
+      | errors.ListAllSubscriptionsNotFoundHalJSONError
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -99,7 +101,6 @@ async function $do(
     "from": payload?.from,
     "limit": payload?.limit,
     "profileId": payload?.profileId,
-    "sort": payload?.sort,
     "testmode": payload?.testmode,
   });
 
@@ -153,7 +154,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "4XX", "5XX"],
+    errorCodes: ["400", "404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -168,7 +169,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListAllSubscriptionsResponse,
-    | errors.ListAllSubscriptionsHalJSONError
+    | errors.ListAllSubscriptionsBadRequestHalJSONError
+    | errors.ListAllSubscriptionsNotFoundHalJSONError
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -181,9 +183,16 @@ async function $do(
     M.json(200, operations.ListAllSubscriptionsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListAllSubscriptionsHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
+    M.jsonErr(
+      400,
+      errors.ListAllSubscriptionsBadRequestHalJSONError$inboundSchema,
+      { ctype: "application/hal+json" },
+    ),
+    M.jsonErr(
+      404,
+      errors.ListAllSubscriptionsNotFoundHalJSONError$inboundSchema,
+      { ctype: "application/hal+json" },
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

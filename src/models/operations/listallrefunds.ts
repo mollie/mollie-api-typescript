@@ -319,11 +319,11 @@ export type ListAllRefundsRefundLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: ListAllRefundsRefundSelf | undefined;
+  self: ListAllRefundsRefundSelf;
   /**
    * The API resource URL of the [payment](get-payment) that this refund belongs to.
    */
-  payment?: ListAllRefundsPayment | undefined;
+  payment: ListAllRefundsPayment;
   /**
    * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
    *
@@ -334,7 +334,7 @@ export type ListAllRefundsRefundLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListAllRefundsRefundDocumentation | undefined;
+  documentation: ListAllRefundsRefundDocumentation;
 };
 
 export type ListAllRefundsRefund = {
@@ -430,10 +430,7 @@ export type ListAllRefundsRefund = {
 
 export type ListAllRefundsEmbedded = {
   /**
-   * An array of refund objects. For a complete reference of the refund object, refer to the
-   *
-   * @remarks
-   * [Get refund endpoint](get-refund) documentation.
+   * An array of refund objects.
    */
   refunds?: Array<ListAllRefundsRefund> | undefined;
 };
@@ -517,10 +514,7 @@ export type ListAllRefundsLinks = {
 };
 
 /**
- * A list of refund objects. For a complete reference of the refund object, refer to the
- *
- * @remarks
- * [Get refund endpoint](get-refund) documentation.
+ * A list of refund objects
  */
 export type ListAllRefundsResponse = {
   /**
@@ -1534,20 +1528,19 @@ export const ListAllRefundsRefundLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListAllRefundsRefundSelf$inboundSchema).optional(),
-  payment: z.lazy(() => ListAllRefundsPayment$inboundSchema).optional(),
+  self: z.lazy(() => ListAllRefundsRefundSelf$inboundSchema),
+  payment: z.lazy(() => ListAllRefundsPayment$inboundSchema),
   settlement: z.nullable(z.lazy(() => ListAllRefundsSettlement$inboundSchema))
     .optional(),
-  documentation: z.lazy(() => ListAllRefundsRefundDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => ListAllRefundsRefundDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListAllRefundsRefundLinks$Outbound = {
-  self?: ListAllRefundsRefundSelf$Outbound | undefined;
-  payment?: ListAllRefundsPayment$Outbound | undefined;
+  self: ListAllRefundsRefundSelf$Outbound;
+  payment: ListAllRefundsPayment$Outbound;
   settlement?: ListAllRefundsSettlement$Outbound | null | undefined;
-  documentation?: ListAllRefundsRefundDocumentation$Outbound | undefined;
+  documentation: ListAllRefundsRefundDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1556,12 +1549,11 @@ export const ListAllRefundsRefundLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllRefundsRefundLinks
 > = z.object({
-  self: z.lazy(() => ListAllRefundsRefundSelf$outboundSchema).optional(),
-  payment: z.lazy(() => ListAllRefundsPayment$outboundSchema).optional(),
+  self: z.lazy(() => ListAllRefundsRefundSelf$outboundSchema),
+  payment: z.lazy(() => ListAllRefundsPayment$outboundSchema),
   settlement: z.nullable(z.lazy(() => ListAllRefundsSettlement$outboundSchema))
     .optional(),
-  documentation: z.lazy(() => ListAllRefundsRefundDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => ListAllRefundsRefundDocumentation$outboundSchema),
 });
 
 /**
@@ -1601,7 +1593,7 @@ export const ListAllRefundsRefund$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("refund"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: ListAllRefundsMode$inboundSchema.optional(),
   description: z.string().optional(),
@@ -1634,7 +1626,7 @@ export const ListAllRefundsRefund$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListAllRefundsRefund$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   description?: string | undefined;
@@ -1664,7 +1656,7 @@ export const ListAllRefundsRefund$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllRefundsRefund
 > = z.object({
-  resource: z.string().default("refund"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: ListAllRefundsMode$outboundSchema.optional(),
   description: z.string().optional(),

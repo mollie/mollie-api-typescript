@@ -219,11 +219,11 @@ export type GetCustomerLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: GetCustomerSelf | undefined;
+  self: GetCustomerSelf;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  dashboard?: GetCustomerDashboard | undefined;
+  dashboard: GetCustomerDashboard;
   /**
    * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
    *
@@ -248,7 +248,7 @@ export type GetCustomerLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: GetCustomerDocumentation | undefined;
+  documentation: GetCustomerDocumentation;
 };
 
 /**
@@ -277,12 +277,12 @@ export type EventLinks = {
 
 export type Event = {
   resource?: string | undefined;
-  type?: number | undefined;
+  type: number;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
-  message?: string | undefined;
+  createdAt: string;
+  message: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
@@ -300,41 +300,41 @@ export type GetCustomerResponse = {
   /**
    * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: GetCustomerMode | undefined;
+  mode: GetCustomerMode;
   /**
    * The full name of the customer.
    */
-  name?: string | null | undefined;
+  name: string | null;
   /**
    * The email address of the customer.
    */
-  email?: string | null | undefined;
+  email: string | null;
   /**
    * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
    *
    * @remarks
    * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
    */
-  locale?: GetCustomerLocale | null | undefined;
+  locale: GetCustomerLocale | null;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: GetCustomerMetadata | string | Array<string> | null | undefined;
+  metadata: GetCustomerMetadata | string | Array<string> | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: GetCustomerLinks | undefined;
+  links: GetCustomerLinks;
   events?: Array<Event> | undefined;
 };
 
@@ -1027,8 +1027,8 @@ export const GetCustomerLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => GetCustomerSelf$inboundSchema).optional(),
-  dashboard: z.lazy(() => GetCustomerDashboard$inboundSchema).optional(),
+  self: z.lazy(() => GetCustomerSelf$inboundSchema),
+  dashboard: z.lazy(() => GetCustomerDashboard$inboundSchema),
   payments: z.nullable(z.lazy(() => GetCustomerPayments$inboundSchema))
     .optional(),
   mandates: z.nullable(z.lazy(() => GetCustomerMandates$inboundSchema))
@@ -1036,18 +1036,17 @@ export const GetCustomerLinks$inboundSchema: z.ZodType<
   subscriptions: z.nullable(
     z.lazy(() => GetCustomerSubscriptions$inboundSchema),
   ).optional(),
-  documentation: z.lazy(() => GetCustomerDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => GetCustomerDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type GetCustomerLinks$Outbound = {
-  self?: GetCustomerSelf$Outbound | undefined;
-  dashboard?: GetCustomerDashboard$Outbound | undefined;
+  self: GetCustomerSelf$Outbound;
+  dashboard: GetCustomerDashboard$Outbound;
   payments?: GetCustomerPayments$Outbound | null | undefined;
   mandates?: GetCustomerMandates$Outbound | null | undefined;
   subscriptions?: GetCustomerSubscriptions$Outbound | null | undefined;
-  documentation?: GetCustomerDocumentation$Outbound | undefined;
+  documentation: GetCustomerDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1056,8 +1055,8 @@ export const GetCustomerLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetCustomerLinks
 > = z.object({
-  self: z.lazy(() => GetCustomerSelf$outboundSchema).optional(),
-  dashboard: z.lazy(() => GetCustomerDashboard$outboundSchema).optional(),
+  self: z.lazy(() => GetCustomerSelf$outboundSchema),
+  dashboard: z.lazy(() => GetCustomerDashboard$outboundSchema),
   payments: z.nullable(z.lazy(() => GetCustomerPayments$outboundSchema))
     .optional(),
   mandates: z.nullable(z.lazy(() => GetCustomerMandates$outboundSchema))
@@ -1065,8 +1064,7 @@ export const GetCustomerLinks$outboundSchema: z.ZodType<
   subscriptions: z.nullable(
     z.lazy(() => GetCustomerSubscriptions$outboundSchema),
   ).optional(),
-  documentation: z.lazy(() => GetCustomerDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => GetCustomerDocumentation$outboundSchema),
 });
 
 /**
@@ -1201,9 +1199,9 @@ export function eventLinksFromJSON(
 export const Event$inboundSchema: z.ZodType<Event, z.ZodTypeDef, unknown> = z
   .object({
     resource: z.string().default("event"),
-    type: z.number().int().optional(),
-    createdAt: z.string().optional(),
-    message: z.string().optional(),
+    type: z.number().int(),
+    createdAt: z.string(),
+    message: z.string(),
     _links: z.lazy(() => EventLinks$inboundSchema).optional(),
   }).transform((v) => {
     return remap$(v, {
@@ -1214,9 +1212,9 @@ export const Event$inboundSchema: z.ZodType<Event, z.ZodTypeDef, unknown> = z
 /** @internal */
 export type Event$Outbound = {
   resource: string;
-  type?: number | undefined;
-  createdAt?: string | undefined;
-  message?: string | undefined;
+  type: number;
+  createdAt: string;
+  message: string;
   _links?: EventLinks$Outbound | undefined;
 };
 
@@ -1227,9 +1225,9 @@ export const Event$outboundSchema: z.ZodType<
   Event
 > = z.object({
   resource: z.string().default("event"),
-  type: z.number().int().optional(),
-  createdAt: z.string().optional(),
-  message: z.string().optional(),
+  type: z.number().int(),
+  createdAt: z.string(),
+  message: z.string(),
   links: z.lazy(() => EventLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -1271,20 +1269,20 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("customer"),
-  id: z.string().optional(),
-  mode: GetCustomerMode$inboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(GetCustomerLocale$inboundSchema).optional(),
+  id: z.string(),
+  mode: GetCustomerMode$inboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(GetCustomerLocale$inboundSchema),
   metadata: z.nullable(
     z.union([
       z.lazy(() => GetCustomerMetadata$inboundSchema),
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => GetCustomerLinks$inboundSchema).optional(),
+  ),
+  createdAt: z.string(),
+  _links: z.lazy(() => GetCustomerLinks$inboundSchema),
   events: z.array(z.lazy(() => Event$inboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -1295,19 +1293,14 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type GetCustomerResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  name?: string | null | undefined;
-  email?: string | null | undefined;
-  locale?: string | null | undefined;
-  metadata?:
-    | GetCustomerMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
-  createdAt?: string | undefined;
-  _links?: GetCustomerLinks$Outbound | undefined;
+  id: string;
+  mode: string;
+  name: string | null;
+  email: string | null;
+  locale: string | null;
+  metadata: GetCustomerMetadata$Outbound | string | Array<string> | null;
+  createdAt: string;
+  _links: GetCustomerLinks$Outbound;
   events?: Array<Event$Outbound> | undefined;
 };
 
@@ -1318,20 +1311,20 @@ export const GetCustomerResponse$outboundSchema: z.ZodType<
   GetCustomerResponse
 > = z.object({
   resource: z.string().default("customer"),
-  id: z.string().optional(),
-  mode: GetCustomerMode$outboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(GetCustomerLocale$outboundSchema).optional(),
+  id: z.string(),
+  mode: GetCustomerMode$outboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(GetCustomerLocale$outboundSchema),
   metadata: z.nullable(
     z.union([
       z.lazy(() => GetCustomerMetadata$outboundSchema),
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => GetCustomerLinks$outboundSchema).optional(),
+  ),
+  createdAt: z.string(),
+  links: z.lazy(() => GetCustomerLinks$outboundSchema),
   events: z.array(z.lazy(() => Event$outboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {

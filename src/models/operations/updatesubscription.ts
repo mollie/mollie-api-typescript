@@ -282,8 +282,8 @@ export type UpdateSubscriptionApplicationFee = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: UpdateSubscriptionApplicationFeeAmount | undefined;
-  description?: string | undefined;
+  amount: UpdateSubscriptionApplicationFeeAmount;
+  description: string;
 };
 
 export type UpdateSubscriptionMetadataResponse = {};
@@ -396,11 +396,11 @@ export type UpdateSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: UpdateSubscriptionSelf | undefined;
+  self: UpdateSubscriptionSelf;
   /**
    * The API resource URL of the [customer](get-customer) this subscription was created for.
    */
-  customer?: UpdateSubscriptionCustomer | null | undefined;
+  customer: UpdateSubscriptionCustomer | null;
   /**
    * The API resource URL of the [mandate](get-mandate) this subscription was created for.
    */
@@ -408,7 +408,7 @@ export type UpdateSubscriptionLinks = {
   /**
    * The API resource URL of the [profile](get-profile) this subscription was created for.
    */
-  profile?: UpdateSubscriptionProfile | null | undefined;
+  profile: UpdateSubscriptionProfile | null;
   /**
    * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
    *
@@ -419,7 +419,7 @@ export type UpdateSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: UpdateSubscriptionDocumentation | undefined;
+  documentation: UpdateSubscriptionDocumentation;
 };
 
 /**
@@ -436,25 +436,25 @@ export type UpdateSubscriptionResponse = {
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: UpdateSubscriptionMode | undefined;
+  mode: UpdateSubscriptionMode;
   /**
    * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
    * enabling the subscription.
    */
-  status?: UpdateSubscriptionStatus | undefined;
+  status: UpdateSubscriptionStatus;
   /**
    * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
    * subscription of €10, the subscription amount should be set to €10.
    */
-  amount?: UpdateSubscriptionAmountResponse | undefined;
+  amount: UpdateSubscriptionAmountResponse;
   /**
    * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
@@ -463,11 +463,11 @@ export type UpdateSubscriptionResponse = {
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
-  times?: number | null | undefined;
+  times: number | null;
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining?: number | undefined;
+  timesRemaining: number;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
@@ -475,11 +475,11 @@ export type UpdateSubscriptionResponse = {
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
    */
-  interval?: UpdateSubscriptionIntervalResponse | undefined;
+  interval: UpdateSubscriptionIntervalResponse;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
-  startDate?: string | undefined;
+  startDate: string;
   /**
    * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
    *
@@ -495,11 +495,11 @@ export type UpdateSubscriptionResponse = {
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
    */
-  method?: UpdateSubscriptionMethod | null | undefined;
+  method: UpdateSubscriptionMethod | null;
   /**
    * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
@@ -521,12 +521,7 @@ export type UpdateSubscriptionResponse = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata?:
-    | UpdateSubscriptionMetadataResponse
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata: UpdateSubscriptionMetadataResponse | string | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -535,11 +530,11 @@ export type UpdateSubscriptionResponse = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl?: string | undefined;
+  webhookUrl: string;
   /**
    * The customer this subscription belongs to.
    */
-  customerId?: string | undefined;
+  customerId: string;
   /**
    * The mandate used for this subscription, if any.
    */
@@ -547,7 +542,7 @@ export type UpdateSubscriptionResponse = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
    *
@@ -1268,15 +1263,14 @@ export const UpdateSubscriptionApplicationFee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: z.lazy(() => UpdateSubscriptionApplicationFeeAmount$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => UpdateSubscriptionApplicationFeeAmount$inboundSchema),
+  description: z.string(),
 });
 
 /** @internal */
 export type UpdateSubscriptionApplicationFee$Outbound = {
-  amount?: UpdateSubscriptionApplicationFeeAmount$Outbound | undefined;
-  description?: string | undefined;
+  amount: UpdateSubscriptionApplicationFeeAmount$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -1285,9 +1279,8 @@ export const UpdateSubscriptionApplicationFee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateSubscriptionApplicationFee
 > = z.object({
-  amount: z.lazy(() => UpdateSubscriptionApplicationFeeAmount$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => UpdateSubscriptionApplicationFeeAmount$outboundSchema),
+  description: z.string(),
 });
 
 /**
@@ -1795,27 +1788,24 @@ export const UpdateSubscriptionLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => UpdateSubscriptionSelf$inboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => UpdateSubscriptionCustomer$inboundSchema))
-    .optional(),
+  self: z.lazy(() => UpdateSubscriptionSelf$inboundSchema),
+  customer: z.nullable(z.lazy(() => UpdateSubscriptionCustomer$inboundSchema)),
   mandate: z.nullable(z.lazy(() => UpdateSubscriptionMandate$inboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => UpdateSubscriptionProfile$inboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => UpdateSubscriptionProfile$inboundSchema)),
   payments: z.nullable(z.lazy(() => UpdateSubscriptionPayments$inboundSchema))
     .optional(),
-  documentation: z.lazy(() => UpdateSubscriptionDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => UpdateSubscriptionDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type UpdateSubscriptionLinks$Outbound = {
-  self?: UpdateSubscriptionSelf$Outbound | undefined;
-  customer?: UpdateSubscriptionCustomer$Outbound | null | undefined;
+  self: UpdateSubscriptionSelf$Outbound;
+  customer: UpdateSubscriptionCustomer$Outbound | null;
   mandate?: UpdateSubscriptionMandate$Outbound | null | undefined;
-  profile?: UpdateSubscriptionProfile$Outbound | null | undefined;
+  profile: UpdateSubscriptionProfile$Outbound | null;
   payments?: UpdateSubscriptionPayments$Outbound | null | undefined;
-  documentation?: UpdateSubscriptionDocumentation$Outbound | undefined;
+  documentation: UpdateSubscriptionDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1824,17 +1814,14 @@ export const UpdateSubscriptionLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateSubscriptionLinks
 > = z.object({
-  self: z.lazy(() => UpdateSubscriptionSelf$outboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => UpdateSubscriptionCustomer$outboundSchema))
-    .optional(),
+  self: z.lazy(() => UpdateSubscriptionSelf$outboundSchema),
+  customer: z.nullable(z.lazy(() => UpdateSubscriptionCustomer$outboundSchema)),
   mandate: z.nullable(z.lazy(() => UpdateSubscriptionMandate$outboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => UpdateSubscriptionProfile$outboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => UpdateSubscriptionProfile$outboundSchema)),
   payments: z.nullable(z.lazy(() => UpdateSubscriptionPayments$outboundSchema))
     .optional(),
-  documentation: z.lazy(() => UpdateSubscriptionDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => UpdateSubscriptionDocumentation$outboundSchema),
 });
 
 /**
@@ -1875,18 +1862,17 @@ export const UpdateSubscriptionResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: UpdateSubscriptionMode$inboundSchema.optional(),
-  status: UpdateSubscriptionStatus$inboundSchema.optional(),
-  amount: z.lazy(() => UpdateSubscriptionAmountResponse$inboundSchema)
-    .optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: UpdateSubscriptionIntervalResponse$inboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: UpdateSubscriptionMode$inboundSchema,
+  status: UpdateSubscriptionStatus$inboundSchema,
+  amount: z.lazy(() => UpdateSubscriptionAmountResponse$inboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: UpdateSubscriptionIntervalResponse$inboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(UpdateSubscriptionMethod$inboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(UpdateSubscriptionMethod$inboundSchema),
   applicationFee: z.lazy(() => UpdateSubscriptionApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1895,11 +1881,11 @@ export const UpdateSubscriptionResponse$inboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => UpdateSubscriptionLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -1911,28 +1897,27 @@ export const UpdateSubscriptionResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type UpdateSubscriptionResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  status?: string | undefined;
-  amount?: UpdateSubscriptionAmountResponse$Outbound | undefined;
-  times?: number | null | undefined;
-  timesRemaining?: number | undefined;
-  interval?: string | undefined;
-  startDate?: string | undefined;
+  id: string;
+  mode: string;
+  status: string;
+  amount: UpdateSubscriptionAmountResponse$Outbound;
+  times: number | null;
+  timesRemaining: number;
+  interval: string;
+  startDate: string;
   nextPaymentDate?: string | null | undefined;
-  description?: string | undefined;
-  method?: string | null | undefined;
+  description: string;
+  method: string | null;
   applicationFee?: UpdateSubscriptionApplicationFee$Outbound | undefined;
-  metadata?:
+  metadata:
     | UpdateSubscriptionMetadataResponse$Outbound
     | string
     | Array<string>
-    | null
-    | undefined;
-  webhookUrl?: string | undefined;
-  customerId?: string | undefined;
+    | null;
+  webhookUrl: string;
+  customerId: string;
   mandateId?: string | null | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
   canceledAt?: string | null | undefined;
   _links?: UpdateSubscriptionLinks$Outbound | undefined;
 };
@@ -1944,18 +1929,17 @@ export const UpdateSubscriptionResponse$outboundSchema: z.ZodType<
   UpdateSubscriptionResponse
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: UpdateSubscriptionMode$outboundSchema.optional(),
-  status: UpdateSubscriptionStatus$outboundSchema.optional(),
-  amount: z.lazy(() => UpdateSubscriptionAmountResponse$outboundSchema)
-    .optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: UpdateSubscriptionIntervalResponse$outboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: UpdateSubscriptionMode$outboundSchema,
+  status: UpdateSubscriptionStatus$outboundSchema,
+  amount: z.lazy(() => UpdateSubscriptionAmountResponse$outboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: UpdateSubscriptionIntervalResponse$outboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(UpdateSubscriptionMethod$outboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(UpdateSubscriptionMethod$outboundSchema),
   applicationFee: z.lazy(() => UpdateSubscriptionApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1964,11 +1948,11 @@ export const UpdateSubscriptionResponse$outboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   links: z.lazy(() => UpdateSubscriptionLinks$outboundSchema).optional(),
 }).transform((v) => {

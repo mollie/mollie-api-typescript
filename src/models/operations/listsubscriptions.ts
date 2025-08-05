@@ -211,8 +211,8 @@ export type ListSubscriptionsApplicationFee = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: ListSubscriptionsApplicationFeeAmount | undefined;
-  description?: string | undefined;
+  amount: ListSubscriptionsApplicationFeeAmount;
+  description: string;
 };
 
 export type ListSubscriptionsMetadata = {};
@@ -234,7 +234,7 @@ export type ListSubscriptionsMetadataUnion =
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
  */
-export type SubscriptionSelf = {
+export type ListSubscriptionsSubscriptionSelf = {
   /**
    * The actual URL string.
    */
@@ -307,7 +307,7 @@ export type ListSubscriptionsPayments = {
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
  */
-export type SubscriptionDocumentation = {
+export type ListSubscriptionsSubscriptionDocumentation = {
   /**
    * The actual URL string.
    */
@@ -321,15 +321,15 @@ export type SubscriptionDocumentation = {
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
-export type SubscriptionLinks = {
+export type ListSubscriptionsSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: SubscriptionSelf | undefined;
+  self: ListSubscriptionsSubscriptionSelf;
   /**
    * The API resource URL of the [customer](get-customer) this subscription was created for.
    */
-  customer?: ListSubscriptionsCustomer | null | undefined;
+  customer: ListSubscriptionsCustomer | null;
   /**
    * The API resource URL of the [mandate](get-mandate) this subscription was created for.
    */
@@ -337,7 +337,7 @@ export type SubscriptionLinks = {
   /**
    * The API resource URL of the [profile](get-profile) this subscription was created for.
    */
-  profile?: ListSubscriptionsProfile | null | undefined;
+  profile: ListSubscriptionsProfile | null;
   /**
    * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
    *
@@ -348,7 +348,7 @@ export type SubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: SubscriptionDocumentation | undefined;
+  documentation: ListSubscriptionsSubscriptionDocumentation;
 };
 
 export type ListSubscriptionsSubscription = {
@@ -362,25 +362,25 @@ export type ListSubscriptionsSubscription = {
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: ListSubscriptionsMode | undefined;
+  mode: ListSubscriptionsMode;
   /**
    * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
    * enabling the subscription.
    */
-  status?: ListSubscriptionsStatus | undefined;
+  status: ListSubscriptionsStatus;
   /**
    * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
    * subscription of €10, the subscription amount should be set to €10.
    */
-  amount?: ListSubscriptionsAmount | undefined;
+  amount: ListSubscriptionsAmount;
   /**
    * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
@@ -389,11 +389,11 @@ export type ListSubscriptionsSubscription = {
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
-  times?: number | null | undefined;
+  times: number | null;
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining?: number | undefined;
+  timesRemaining: number;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
@@ -401,11 +401,11 @@ export type ListSubscriptionsSubscription = {
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
    */
-  interval?: ListSubscriptionsInterval | undefined;
+  interval: ListSubscriptionsInterval;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
-  startDate?: string | undefined;
+  startDate: string;
   /**
    * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
    *
@@ -421,11 +421,11 @@ export type ListSubscriptionsSubscription = {
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
    */
-  method?: ListSubscriptionsMethod | null | undefined;
+  method: ListSubscriptionsMethod | null;
   /**
    * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
@@ -447,12 +447,7 @@ export type ListSubscriptionsSubscription = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata?:
-    | ListSubscriptionsMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata: ListSubscriptionsMetadata | string | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -461,11 +456,11 @@ export type ListSubscriptionsSubscription = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl?: string | undefined;
+  webhookUrl: string;
   /**
    * The customer this subscription belongs to.
    */
-  customerId?: string | undefined;
+  customerId: string;
   /**
    * The mandate used for this subscription, if any.
    */
@@ -473,7 +468,7 @@ export type ListSubscriptionsSubscription = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
    *
@@ -484,7 +479,7 @@ export type ListSubscriptionsSubscription = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: SubscriptionLinks | undefined;
+  links?: ListSubscriptionsSubscriptionLinks | undefined;
 };
 
 export type ListSubscriptionsEmbedded = {
@@ -1140,15 +1135,14 @@ export const ListSubscriptionsApplicationFee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: z.lazy(() => ListSubscriptionsApplicationFeeAmount$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => ListSubscriptionsApplicationFeeAmount$inboundSchema),
+  description: z.string(),
 });
 
 /** @internal */
 export type ListSubscriptionsApplicationFee$Outbound = {
-  amount?: ListSubscriptionsApplicationFeeAmount$Outbound | undefined;
-  description?: string | undefined;
+  amount: ListSubscriptionsApplicationFeeAmount$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -1157,9 +1151,8 @@ export const ListSubscriptionsApplicationFee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSubscriptionsApplicationFee
 > = z.object({
-  amount: z.lazy(() => ListSubscriptionsApplicationFeeAmount$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => ListSubscriptionsApplicationFeeAmount$outboundSchema),
+  description: z.string(),
 });
 
 /**
@@ -1305,8 +1298,8 @@ export function listSubscriptionsMetadataUnionFromJSON(
 }
 
 /** @internal */
-export const SubscriptionSelf$inboundSchema: z.ZodType<
-  SubscriptionSelf,
+export const ListSubscriptionsSubscriptionSelf$inboundSchema: z.ZodType<
+  ListSubscriptionsSubscriptionSelf,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1315,16 +1308,16 @@ export const SubscriptionSelf$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type SubscriptionSelf$Outbound = {
+export type ListSubscriptionsSubscriptionSelf$Outbound = {
   href: string;
   type: string;
 };
 
 /** @internal */
-export const SubscriptionSelf$outboundSchema: z.ZodType<
-  SubscriptionSelf$Outbound,
+export const ListSubscriptionsSubscriptionSelf$outboundSchema: z.ZodType<
+  ListSubscriptionsSubscriptionSelf$Outbound,
   z.ZodTypeDef,
-  SubscriptionSelf
+  ListSubscriptionsSubscriptionSelf
 > = z.object({
   href: z.string(),
   type: z.string(),
@@ -1334,30 +1327,33 @@ export const SubscriptionSelf$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SubscriptionSelf$ {
-  /** @deprecated use `SubscriptionSelf$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionSelf$inboundSchema;
-  /** @deprecated use `SubscriptionSelf$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionSelf$outboundSchema;
-  /** @deprecated use `SubscriptionSelf$Outbound` instead. */
-  export type Outbound = SubscriptionSelf$Outbound;
+export namespace ListSubscriptionsSubscriptionSelf$ {
+  /** @deprecated use `ListSubscriptionsSubscriptionSelf$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsSubscriptionSelf$inboundSchema;
+  /** @deprecated use `ListSubscriptionsSubscriptionSelf$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionsSubscriptionSelf$outboundSchema;
+  /** @deprecated use `ListSubscriptionsSubscriptionSelf$Outbound` instead. */
+  export type Outbound = ListSubscriptionsSubscriptionSelf$Outbound;
 }
 
-export function subscriptionSelfToJSON(
-  subscriptionSelf: SubscriptionSelf,
+export function listSubscriptionsSubscriptionSelfToJSON(
+  listSubscriptionsSubscriptionSelf: ListSubscriptionsSubscriptionSelf,
 ): string {
   return JSON.stringify(
-    SubscriptionSelf$outboundSchema.parse(subscriptionSelf),
+    ListSubscriptionsSubscriptionSelf$outboundSchema.parse(
+      listSubscriptionsSubscriptionSelf,
+    ),
   );
 }
 
-export function subscriptionSelfFromJSON(
+export function listSubscriptionsSubscriptionSelfFromJSON(
   jsonString: string,
-): SafeParseResult<SubscriptionSelf, SDKValidationError> {
+): SafeParseResult<ListSubscriptionsSubscriptionSelf, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SubscriptionSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubscriptionSelf' from JSON`,
+    (x) => ListSubscriptionsSubscriptionSelf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionsSubscriptionSelf' from JSON`,
   );
 }
 
@@ -1590,138 +1586,150 @@ export function listSubscriptionsPaymentsFromJSON(
 }
 
 /** @internal */
-export const SubscriptionDocumentation$inboundSchema: z.ZodType<
-  SubscriptionDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
+export const ListSubscriptionsSubscriptionDocumentation$inboundSchema:
+  z.ZodType<ListSubscriptionsSubscriptionDocumentation, z.ZodTypeDef, unknown> =
+    z.object({
+      href: z.string(),
+      type: z.string(),
+    });
 
 /** @internal */
-export type SubscriptionDocumentation$Outbound = {
+export type ListSubscriptionsSubscriptionDocumentation$Outbound = {
   href: string;
   type: string;
 };
 
 /** @internal */
-export const SubscriptionDocumentation$outboundSchema: z.ZodType<
-  SubscriptionDocumentation$Outbound,
-  z.ZodTypeDef,
-  SubscriptionDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
+export const ListSubscriptionsSubscriptionDocumentation$outboundSchema:
+  z.ZodType<
+    ListSubscriptionsSubscriptionDocumentation$Outbound,
+    z.ZodTypeDef,
+    ListSubscriptionsSubscriptionDocumentation
+  > = z.object({
+    href: z.string(),
+    type: z.string(),
+  });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SubscriptionDocumentation$ {
-  /** @deprecated use `SubscriptionDocumentation$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionDocumentation$inboundSchema;
-  /** @deprecated use `SubscriptionDocumentation$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionDocumentation$outboundSchema;
-  /** @deprecated use `SubscriptionDocumentation$Outbound` instead. */
-  export type Outbound = SubscriptionDocumentation$Outbound;
+export namespace ListSubscriptionsSubscriptionDocumentation$ {
+  /** @deprecated use `ListSubscriptionsSubscriptionDocumentation$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionsSubscriptionDocumentation$inboundSchema;
+  /** @deprecated use `ListSubscriptionsSubscriptionDocumentation$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionsSubscriptionDocumentation$outboundSchema;
+  /** @deprecated use `ListSubscriptionsSubscriptionDocumentation$Outbound` instead. */
+  export type Outbound = ListSubscriptionsSubscriptionDocumentation$Outbound;
 }
 
-export function subscriptionDocumentationToJSON(
-  subscriptionDocumentation: SubscriptionDocumentation,
+export function listSubscriptionsSubscriptionDocumentationToJSON(
+  listSubscriptionsSubscriptionDocumentation:
+    ListSubscriptionsSubscriptionDocumentation,
 ): string {
   return JSON.stringify(
-    SubscriptionDocumentation$outboundSchema.parse(subscriptionDocumentation),
+    ListSubscriptionsSubscriptionDocumentation$outboundSchema.parse(
+      listSubscriptionsSubscriptionDocumentation,
+    ),
   );
 }
 
-export function subscriptionDocumentationFromJSON(
+export function listSubscriptionsSubscriptionDocumentationFromJSON(
   jsonString: string,
-): SafeParseResult<SubscriptionDocumentation, SDKValidationError> {
+): SafeParseResult<
+  ListSubscriptionsSubscriptionDocumentation,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => SubscriptionDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubscriptionDocumentation' from JSON`,
+    (x) =>
+      ListSubscriptionsSubscriptionDocumentation$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListSubscriptionsSubscriptionDocumentation' from JSON`,
   );
 }
 
 /** @internal */
-export const SubscriptionLinks$inboundSchema: z.ZodType<
-  SubscriptionLinks,
+export const ListSubscriptionsSubscriptionLinks$inboundSchema: z.ZodType<
+  ListSubscriptionsSubscriptionLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => SubscriptionSelf$inboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => ListSubscriptionsCustomer$inboundSchema))
-    .optional(),
+  self: z.lazy(() => ListSubscriptionsSubscriptionSelf$inboundSchema),
+  customer: z.nullable(z.lazy(() => ListSubscriptionsCustomer$inboundSchema)),
   mandate: z.nullable(z.lazy(() => ListSubscriptionsMandate$inboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => ListSubscriptionsProfile$inboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => ListSubscriptionsProfile$inboundSchema)),
   payments: z.nullable(z.lazy(() => ListSubscriptionsPayments$inboundSchema))
     .optional(),
-  documentation: z.lazy(() => SubscriptionDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() =>
+    ListSubscriptionsSubscriptionDocumentation$inboundSchema
+  ),
 });
 
 /** @internal */
-export type SubscriptionLinks$Outbound = {
-  self?: SubscriptionSelf$Outbound | undefined;
-  customer?: ListSubscriptionsCustomer$Outbound | null | undefined;
+export type ListSubscriptionsSubscriptionLinks$Outbound = {
+  self: ListSubscriptionsSubscriptionSelf$Outbound;
+  customer: ListSubscriptionsCustomer$Outbound | null;
   mandate?: ListSubscriptionsMandate$Outbound | null | undefined;
-  profile?: ListSubscriptionsProfile$Outbound | null | undefined;
+  profile: ListSubscriptionsProfile$Outbound | null;
   payments?: ListSubscriptionsPayments$Outbound | null | undefined;
-  documentation?: SubscriptionDocumentation$Outbound | undefined;
+  documentation: ListSubscriptionsSubscriptionDocumentation$Outbound;
 };
 
 /** @internal */
-export const SubscriptionLinks$outboundSchema: z.ZodType<
-  SubscriptionLinks$Outbound,
+export const ListSubscriptionsSubscriptionLinks$outboundSchema: z.ZodType<
+  ListSubscriptionsSubscriptionLinks$Outbound,
   z.ZodTypeDef,
-  SubscriptionLinks
+  ListSubscriptionsSubscriptionLinks
 > = z.object({
-  self: z.lazy(() => SubscriptionSelf$outboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => ListSubscriptionsCustomer$outboundSchema))
-    .optional(),
+  self: z.lazy(() => ListSubscriptionsSubscriptionSelf$outboundSchema),
+  customer: z.nullable(z.lazy(() => ListSubscriptionsCustomer$outboundSchema)),
   mandate: z.nullable(z.lazy(() => ListSubscriptionsMandate$outboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => ListSubscriptionsProfile$outboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => ListSubscriptionsProfile$outboundSchema)),
   payments: z.nullable(z.lazy(() => ListSubscriptionsPayments$outboundSchema))
     .optional(),
-  documentation: z.lazy(() => SubscriptionDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() =>
+    ListSubscriptionsSubscriptionDocumentation$outboundSchema
+  ),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SubscriptionLinks$ {
-  /** @deprecated use `SubscriptionLinks$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionLinks$inboundSchema;
-  /** @deprecated use `SubscriptionLinks$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionLinks$outboundSchema;
-  /** @deprecated use `SubscriptionLinks$Outbound` instead. */
-  export type Outbound = SubscriptionLinks$Outbound;
+export namespace ListSubscriptionsSubscriptionLinks$ {
+  /** @deprecated use `ListSubscriptionsSubscriptionLinks$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsSubscriptionLinks$inboundSchema;
+  /** @deprecated use `ListSubscriptionsSubscriptionLinks$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionsSubscriptionLinks$outboundSchema;
+  /** @deprecated use `ListSubscriptionsSubscriptionLinks$Outbound` instead. */
+  export type Outbound = ListSubscriptionsSubscriptionLinks$Outbound;
 }
 
-export function subscriptionLinksToJSON(
-  subscriptionLinks: SubscriptionLinks,
+export function listSubscriptionsSubscriptionLinksToJSON(
+  listSubscriptionsSubscriptionLinks: ListSubscriptionsSubscriptionLinks,
 ): string {
   return JSON.stringify(
-    SubscriptionLinks$outboundSchema.parse(subscriptionLinks),
+    ListSubscriptionsSubscriptionLinks$outboundSchema.parse(
+      listSubscriptionsSubscriptionLinks,
+    ),
   );
 }
 
-export function subscriptionLinksFromJSON(
+export function listSubscriptionsSubscriptionLinksFromJSON(
   jsonString: string,
-): SafeParseResult<SubscriptionLinks, SDKValidationError> {
+): SafeParseResult<ListSubscriptionsSubscriptionLinks, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SubscriptionLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubscriptionLinks' from JSON`,
+    (x) =>
+      ListSubscriptionsSubscriptionLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionsSubscriptionLinks' from JSON`,
   );
 }
 
@@ -1732,17 +1740,17 @@ export const ListSubscriptionsSubscription$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: ListSubscriptionsMode$inboundSchema.optional(),
-  status: ListSubscriptionsStatus$inboundSchema.optional(),
-  amount: z.lazy(() => ListSubscriptionsAmount$inboundSchema).optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: ListSubscriptionsInterval$inboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: ListSubscriptionsMode$inboundSchema,
+  status: ListSubscriptionsStatus$inboundSchema,
+  amount: z.lazy(() => ListSubscriptionsAmount$inboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: ListSubscriptionsInterval$inboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(ListSubscriptionsMethod$inboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(ListSubscriptionsMethod$inboundSchema),
   applicationFee: z.lazy(() => ListSubscriptionsApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1751,13 +1759,14 @@ export const ListSubscriptionsSubscription$inboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => SubscriptionLinks$inboundSchema).optional(),
+  _links: z.lazy(() => ListSubscriptionsSubscriptionLinks$inboundSchema)
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1767,30 +1776,25 @@ export const ListSubscriptionsSubscription$inboundSchema: z.ZodType<
 /** @internal */
 export type ListSubscriptionsSubscription$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  status?: string | undefined;
-  amount?: ListSubscriptionsAmount$Outbound | undefined;
-  times?: number | null | undefined;
-  timesRemaining?: number | undefined;
-  interval?: string | undefined;
-  startDate?: string | undefined;
+  id: string;
+  mode: string;
+  status: string;
+  amount: ListSubscriptionsAmount$Outbound;
+  times: number | null;
+  timesRemaining: number;
+  interval: string;
+  startDate: string;
   nextPaymentDate?: string | null | undefined;
-  description?: string | undefined;
-  method?: string | null | undefined;
+  description: string;
+  method: string | null;
   applicationFee?: ListSubscriptionsApplicationFee$Outbound | undefined;
-  metadata?:
-    | ListSubscriptionsMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
-  webhookUrl?: string | undefined;
-  customerId?: string | undefined;
+  metadata: ListSubscriptionsMetadata$Outbound | string | Array<string> | null;
+  webhookUrl: string;
+  customerId: string;
   mandateId?: string | null | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
   canceledAt?: string | null | undefined;
-  _links?: SubscriptionLinks$Outbound | undefined;
+  _links?: ListSubscriptionsSubscriptionLinks$Outbound | undefined;
 };
 
 /** @internal */
@@ -1800,17 +1804,17 @@ export const ListSubscriptionsSubscription$outboundSchema: z.ZodType<
   ListSubscriptionsSubscription
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: ListSubscriptionsMode$outboundSchema.optional(),
-  status: ListSubscriptionsStatus$outboundSchema.optional(),
-  amount: z.lazy(() => ListSubscriptionsAmount$outboundSchema).optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: ListSubscriptionsInterval$outboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: ListSubscriptionsMode$outboundSchema,
+  status: ListSubscriptionsStatus$outboundSchema,
+  amount: z.lazy(() => ListSubscriptionsAmount$outboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: ListSubscriptionsInterval$outboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(ListSubscriptionsMethod$outboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(ListSubscriptionsMethod$outboundSchema),
   applicationFee: z.lazy(() => ListSubscriptionsApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1819,13 +1823,14 @@ export const ListSubscriptionsSubscription$outboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => SubscriptionLinks$outboundSchema).optional(),
+  links: z.lazy(() => ListSubscriptionsSubscriptionLinks$outboundSchema)
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

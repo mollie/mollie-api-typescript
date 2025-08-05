@@ -72,6 +72,16 @@ export type PaymentCreateRouteRequestBody = {
    * The destination of the route.
    */
   destination?: PaymentCreateRouteDestinationRequest | undefined;
+  /**
+   * Whether to create the entity in test mode or live mode.
+   *
+   * @remarks
+   *
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
+   */
+  testmode?: boolean | null | undefined;
 };
 
 export type PaymentCreateRouteRequest = {
@@ -382,6 +392,7 @@ export const PaymentCreateRouteRequestBody$inboundSchema: z.ZodType<
   description: z.string().optional(),
   destination: z.lazy(() => PaymentCreateRouteDestinationRequest$inboundSchema)
     .optional(),
+  testmode: z.nullable(z.boolean()).optional(),
 });
 
 /** @internal */
@@ -389,6 +400,7 @@ export type PaymentCreateRouteRequestBody$Outbound = {
   amount?: PaymentCreateRouteAmountRequest$Outbound | undefined;
   description?: string | undefined;
   destination?: PaymentCreateRouteDestinationRequest$Outbound | undefined;
+  testmode?: boolean | null | undefined;
 };
 
 /** @internal */
@@ -402,6 +414,7 @@ export const PaymentCreateRouteRequestBody$outboundSchema: z.ZodType<
   description: z.string().optional(),
   destination: z.lazy(() => PaymentCreateRouteDestinationRequest$outboundSchema)
     .optional(),
+  testmode: z.nullable(z.boolean()).optional(),
 });
 
 /**

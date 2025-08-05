@@ -1,13 +1,13 @@
-# ListAllSubscriptionsMobileAppCheckout
+# ListSubscriptionsSubscriptionDocumentation
 
-The deeplink URL to the app of the payment method. Currently only available for `bancontact`.
+In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
 
 ## Example Usage
 
 ```typescript
-import { ListAllSubscriptionsMobileAppCheckout } from "mollie-api-typescript/models/operations";
+import { ListSubscriptionsSubscriptionDocumentation } from "mollie-api-typescript/models/operations";
 
-let value: ListAllSubscriptionsMobileAppCheckout = {
+let value: ListSubscriptionsSubscriptionDocumentation = {
   href: "https://...",
   type: "application/hal+json",
 };

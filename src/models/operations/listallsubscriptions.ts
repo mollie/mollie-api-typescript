@@ -9,32 +9,12 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
- *
- * @remarks
- * newest to oldest.
- */
-export const ListAllSubscriptionsSort = {
-  Asc: "asc",
-  Desc: "desc",
-} as const;
-/**
- * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
- *
- * @remarks
- * newest to oldest.
- */
-export type ListAllSubscriptionsSort = ClosedEnum<
-  typeof ListAllSubscriptionsSort
->;
-
 export type ListAllSubscriptionsRequest = {
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
    *
    * @remarks
-   * the result set.
+   * result set.
    */
   from?: string | undefined;
   /**
@@ -42,22 +22,16 @@ export type ListAllSubscriptionsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+   * The identifier referring to the [profile](get-profile) you wish to retrieve subscriptions for.
    *
    * @remarks
-   * newest to oldest.
-   */
-  sort?: ListAllSubscriptionsSort | null | undefined;
-  /**
-   * The identifier referring to the [profile](get-profile) you wish to
    *
-   * @remarks
-   * retrieve the resources for.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` is already implied.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
-   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   * To retrieve all subscriptions across the organization, use an organization-level API credential and omit the
+   * `profileId` parameter.
    */
-  profileId?: string | undefined;
+  profileId?: string | null | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -68,6 +42,21 @@ export type ListAllSubscriptionsRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+};
+
+/**
+ * The URL to the generic Mollie API error handling guide.
+ */
+export type ListAllSubscriptionsNotFoundDocumentation = {
+  href: string;
+  type: string;
+};
+
+export type ListAllSubscriptionsNotFoundLinks = {
+  /**
+   * The URL to the generic Mollie API error handling guide.
+   */
+  documentation: ListAllSubscriptionsNotFoundDocumentation;
 };
 
 /**
@@ -100,15 +89,33 @@ export type ListAllSubscriptionsMode = ClosedEnum<
 >;
 
 /**
- * The amount that you want to charge, e.g. `{currency:"EUR", value:"1000.00"}` if you would want to charge €1000.00.
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
  *
  * @remarks
+ * enabling the subscription.
+ */
+export const ListAllSubscriptionsStatus = {
+  Pending: "pending",
+  Active: "active",
+  Canceled: "canceled",
+  Suspended: "suspended",
+  Completed: "completed",
+} as const;
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
  *
- * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
- * retrieved using the Get method endpoint.
+ * @remarks
+ * enabling the subscription.
+ */
+export type ListAllSubscriptionsStatus = ClosedEnum<
+  typeof ListAllSubscriptionsStatus
+>;
+
+/**
+ * The amount for each individual payment that is charged with this subscription. For example, for a monthly
  *
- * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
- * tip amount.
+ * @remarks
+ * subscription of €10, the subscription amount should be set to €10.
  */
 export type ListAllSubscriptionsAmount = {
   /**
@@ -122,703 +129,45 @@ export type ListAllSubscriptionsAmount = {
 };
 
 /**
- * The total amount that is already refunded. Only available when refunds are available for this payment. For some
- *
- * @remarks
- * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
- * costs for a return shipment to the customer.
- */
-export type ListAllSubscriptionsAmountRefunded = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The remaining amount that can be refunded. Only available when refunds are available for this payment.
- */
-export type ListAllSubscriptionsAmountRemaining = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The total amount that is already captured for this payment. Only available when this payment supports captures.
- */
-export type ListAllSubscriptionsAmountCaptured = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The total amount that was charged back for this payment. Only available when the total charged back amount is not
- *
- * @remarks
- * zero.
- */
-export type ListAllSubscriptionsAmountChargedBack = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * This optional field will contain the approximate amount that will be settled to your account, converted to the
- *
- * @remarks
- * currency your account is settled in.
- *
- * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
- * settled by Mollie the `settlementAmount` is omitted from the response.
- *
- * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
- * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
- */
-export type ListAllSubscriptionsSettlementAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The type of product purchased. For example, a physical or a digital product.
+ * Interval to wait between payments, for example `1 month` or `14 days`.
  *
  * @remarks
  *
- * The `tip` payment line type is not available when creating a payment.
- */
-export const ListAllSubscriptionsLineType = {
-  Physical: "physical",
-  Digital: "digital",
-  ShippingFee: "shipping_fee",
-  Discount: "discount",
-  StoreCredit: "store_credit",
-  GiftCard: "gift_card",
-  Surcharge: "surcharge",
-  Tip: "tip",
-} as const;
-/**
- * The type of product purchased. For example, a physical or a digital product.
- *
- * @remarks
- *
- * The `tip` payment line type is not available when creating a payment.
- */
-export type ListAllSubscriptionsLineType = ClosedEnum<
-  typeof ListAllSubscriptionsLineType
->;
-
-/**
- * The price of a single item including VAT.
- *
- * @remarks
- *
- * For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
- *
- * For types `discount`, `store_credit`, and `gift_card`, the unit price must be negative.
- *
- * The unit price can be zero in case of free items.
- */
-export type ListAllSubscriptionsUnitPrice = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
- *
- * @remarks
- * type.
- */
-export type ListAllSubscriptionsDiscountAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The total amount of the line, including VAT and discounts.
- *
- * @remarks
- *
- * Should match the following formula: `(unitPrice × quantity) - discountAmount`.
- *
- * The sum of all `totalAmount` values of all order lines should be equal to the full payment amount.
- */
-export type ListAllSubscriptionsTotalAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
- *
- * @remarks
- * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
- *
- * Any deviations from this will result in an error.
- *
- * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
- * `SEK 100.00 × (25 / 125) = SEK 20.00`.
- */
-export type ListAllSubscriptionsVatAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-export const ListAllSubscriptionsCategory = {
-  Meal: "meal",
-  Eco: "eco",
-  Gift: "gift",
-  SportCulture: "sport_culture",
-} as const;
-export type ListAllSubscriptionsCategory = ClosedEnum<
-  typeof ListAllSubscriptionsCategory
->;
-
-/**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
  */
 export const ListAllSubscriptionsInterval = {
-  DotDotDotMonths: "... months",
-  DotDotDotWeeks: "... weeks",
   DotDotDotDays: "... days",
+  DotDotDotWeeks: "... weeks",
+  DotDotDotMonths: "... months",
 } as const;
 /**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+ * Interval to wait between payments, for example `1 month` or `14 days`.
+ *
+ * @remarks
+ *
+ * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
  */
 export type ListAllSubscriptionsInterval = ClosedEnum<
   typeof ListAllSubscriptionsInterval
 >;
 
 /**
- * Total amount and currency of the recurring item.
- */
-export type ListAllSubscriptionsRecurringAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
- *
- * @remarks
- * to inform the shopper of the details for recurring products in the payments.
- */
-export type ListAllSubscriptionsRecurring = {
-  /**
-   * A description of the recurring item. If not present, the main description of the item will be used.
-   */
-  description?: string | undefined;
-  /**
-   * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
-   */
-  interval: ListAllSubscriptionsInterval;
-  /**
-   * Total amount and currency of the recurring item.
-   */
-  amount?: ListAllSubscriptionsRecurringAmount | undefined;
-  /**
-   * Total number of charges for the subscription to complete. Leave empty for ongoing subscription.
-   */
-  times?: number | undefined;
-  /**
-   * The start date of the subscription if it does not start right away (format `YYYY-MM-DD`)
-   */
-  startDate?: string | null | undefined;
-};
-
-export type ListAllSubscriptionsLine = {
-  /**
-   * The type of product purchased. For example, a physical or a digital product.
-   *
-   * @remarks
-   *
-   * The `tip` payment line type is not available when creating a payment.
-   */
-  type?: ListAllSubscriptionsLineType | undefined;
-  /**
-   * A description of the line item. For example *LEGO 4440 Forest Police Station*.
-   */
-  description: string;
-  /**
-   * The number of items.
-   */
-  quantity: number;
-  /**
-   * The unit for the quantity. For example *pcs*, *kg*, or *cm*.
-   */
-  quantityUnit?: string | undefined;
-  /**
-   * The price of a single item including VAT.
-   *
-   * @remarks
-   *
-   * For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
-   *
-   * For types `discount`, `store_credit`, and `gift_card`, the unit price must be negative.
-   *
-   * The unit price can be zero in case of free items.
-   */
-  unitPrice: ListAllSubscriptionsUnitPrice;
-  /**
-   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
-   *
-   * @remarks
-   * type.
-   */
-  discountAmount?: ListAllSubscriptionsDiscountAmount | undefined;
-  /**
-   * The total amount of the line, including VAT and discounts.
-   *
-   * @remarks
-   *
-   * Should match the following formula: `(unitPrice × quantity) - discountAmount`.
-   *
-   * The sum of all `totalAmount` values of all order lines should be equal to the full payment amount.
-   */
-  totalAmount: ListAllSubscriptionsTotalAmount;
-  /**
-   * The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
-   *
-   * @remarks
-   * not as a float, to ensure the correct number of decimals are passed.
-   */
-  vatRate?: string | undefined;
-  /**
-   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
-   *
-   * @remarks
-   * calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
-   *
-   * Any deviations from this will result in an error.
-   *
-   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
-   * `SEK 100.00 × (25 / 125) = SEK 20.00`.
-   */
-  vatAmount?: ListAllSubscriptionsVatAmount | undefined;
-  /**
-   * The SKU, EAN, ISBN or UPC of the product sold.
-   */
-  sku?: string | undefined;
-  /**
-   * An array with the voucher categories, in case of a line eligible for a voucher. See the
-   *
-   * @remarks
-   * [Integrating Vouchers](integrating-vouchers) guide for more information.
-   */
-  categories?: Array<ListAllSubscriptionsCategory> | undefined;
-  /**
-   * A link pointing to an image of the product sold.
-   */
-  imageUrl?: string | undefined;
-  /**
-   * A link pointing to the product page in your web shop of the product sold.
-   */
-  productUrl?: string | undefined;
-  /**
-   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
-   *
-   * @remarks
-   * to inform the shopper of the details for recurring products in the payments.
-   */
-  recurring?: ListAllSubscriptionsRecurring | undefined;
-};
-
-/**
- * The customer's billing address details. We advise to provide these details to improve fraud protection and
- *
- * @remarks
- * conversion.
- *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
- * `country`.
- *
- * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
- */
-export type ListAllSubscriptionsBillingAddress = {
-  /**
-   * The title of the person, for example *Mr.* or *Mrs.*.
-   */
-  title?: string | undefined;
-  /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only
-   *
-   * @remarks
-   * numbers.
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  givenName?: string | undefined;
-  /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only
-   *
-   * @remarks
-   * numbers.
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  familyName?: string | undefined;
-  /**
-   * The name of the organization, in case the addressee is an organization.
-   */
-  organizationName?: string | undefined;
-  /**
-   * A street and street number.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  streetAndNumber?: string | undefined;
-  /**
-   * Any additional addressing details, for example an apartment number.
-   */
-  streetAdditional?: string | undefined;
-  /**
-   * A postal code. This field may be required if the provided country has a postal code system.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  postalCode?: string | undefined;
-  /**
-   * A valid e-mail address.
-   *
-   * @remarks
-   *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
-   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  email?: string | undefined;
-  /**
-   * If provided, it must be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example: +31208202070.
-   */
-  phone?: string | undefined;
-  /**
-   * A city name.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  city?: string | undefined;
-  /**
-   * The top-level administrative subdivision of the country. For example: Noord-Holland.
-   */
-  region?: string | undefined;
-  /**
-   * A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  country?: string | undefined;
-};
-
-/**
- * The customer's shipping address details. We advise to provide these details to improve fraud protection and
- *
- * @remarks
- * conversion.
- *
- * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
- * `country`.
- */
-export type ListAllSubscriptionsShippingAddress = {
-  /**
-   * The title of the person, for example *Mr.* or *Mrs.*.
-   */
-  title?: string | undefined;
-  /**
-   * The given name (first name) of the person should be at least two characters and cannot contain only
-   *
-   * @remarks
-   * numbers.
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  givenName?: string | undefined;
-  /**
-   * The given family name (surname) of the person should be at least two characters and cannot contain only
-   *
-   * @remarks
-   * numbers.
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  familyName?: string | undefined;
-  /**
-   * The name of the organization, in case the addressee is an organization.
-   */
-  organizationName?: string | undefined;
-  /**
-   * A street and street number.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  streetAndNumber?: string | undefined;
-  /**
-   * Any additional addressing details, for example an apartment number.
-   */
-  streetAdditional?: string | undefined;
-  /**
-   * A postal code. This field may be required if the provided country has a postal code system.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  postalCode?: string | undefined;
-  /**
-   * A valid e-mail address.
-   *
-   * @remarks
-   *
-   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
-   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  email?: string | undefined;
-  /**
-   * If provided, it must be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example: +31208202070.
-   */
-  phone?: string | undefined;
-  /**
-   * A city name.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  city?: string | undefined;
-  /**
-   * The top-level administrative subdivision of the country. For example: Noord-Holland.
-   */
-  region?: string | undefined;
-  /**
-   * A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
-   *
-   * @remarks
-   *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
-   */
-  country?: string | undefined;
-};
-
-/**
- * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
- *
- * @remarks
- * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
- * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
- * locale, but our hosted payment pages currently only support the specified languages.
- *
- * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
- * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
- * customer use a local bank account greatly increases the conversion and speed of payment.
- */
-export const ListAllSubscriptionsLocale = {
-  EnUS: "en_US",
-  EnGB: "en_GB",
-  NLNL: "nl_NL",
-  NlBE: "nl_BE",
-  DEDE: "de_DE",
-  DeAT: "de_AT",
-  DeCH: "de_CH",
-  FRFR: "fr_FR",
-  FrBE: "fr_BE",
-  ESES: "es_ES",
-  CaES: "ca_ES",
-  PTPT: "pt_PT",
-  ITIT: "it_IT",
-  NbNO: "nb_NO",
-  SvSE: "sv_SE",
-  FIFI: "fi_FI",
-  DaDK: "da_DK",
-  ISIS: "is_IS",
-  HUHU: "hu_HU",
-  PLPL: "pl_PL",
-  LVLV: "lv_LV",
-  LTLT: "lt_LT",
-} as const;
-/**
- * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
- *
- * @remarks
- * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
- * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
- * locale, but our hosted payment pages currently only support the specified languages.
- *
- * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
- * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
- * customer use a local bank account greatly increases the conversion and speed of payment.
- */
-export type ListAllSubscriptionsLocale = ClosedEnum<
-  typeof ListAllSubscriptionsLocale
->;
-
-/**
- * The payment method used for this transaction. If a specific method was selected during payment initialization,
- *
- * @remarks
- * this field reflects that choice.
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
  */
 export const ListAllSubscriptionsMethod = {
-  Alma: "alma",
-  Applepay: "applepay",
-  Bacs: "bacs",
-  Bancomatpay: "bancomatpay",
-  Bancontact: "bancontact",
-  Banktransfer: "banktransfer",
-  Belfius: "belfius",
-  Billie: "billie",
-  Bizum: "bizum",
-  Blik: "blik",
   Creditcard: "creditcard",
   Directdebit: "directdebit",
-  Eps: "eps",
-  Giftcard: "giftcard",
-  Ideal: "ideal",
-  In3: "in3",
-  Kbc: "kbc",
-  Klarna: "klarna",
-  Klarnapaylater: "klarnapaylater",
-  Klarnapaynow: "klarnapaynow",
-  Klarnasliceit: "klarnasliceit",
-  Mbway: "mbway",
-  Multibanco: "multibanco",
-  Mybank: "mybank",
-  Paybybank: "paybybank",
-  Payconiq: "payconiq",
   Paypal: "paypal",
-  Paysafecard: "paysafecard",
-  Pointofsale: "pointofsale",
-  Przelewy24: "przelewy24",
-  Riverty: "riverty",
-  Satispay: "satispay",
-  Swish: "swish",
-  Trustly: "trustly",
-  Twint: "twint",
-  Voucher: "voucher",
 } as const;
 /**
- * The payment method used for this transaction. If a specific method was selected during payment initialization,
- *
- * @remarks
- * this field reflects that choice.
+ * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
  */
 export type ListAllSubscriptionsMethod = ClosedEnum<
   typeof ListAllSubscriptionsMethod
 >;
 
-export type ListAllSubscriptionsMetadata = {};
-
 /**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
- *
- * @remarks
- * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
- */
-export type ListAllSubscriptionsMetadataUnion =
-  | ListAllSubscriptionsMetadata
-  | string
-  | Array<string>;
-
-/**
- * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
- *
- * @remarks
- * and capture at a later time.
- *
- * This field needs to be set to `manual` for method `riverty`.
- */
-export const ListAllSubscriptionsCaptureMode = {
-  Automatic: "automatic",
-  Manual: "manual",
-} as const;
-/**
- * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
- *
- * @remarks
- * and capture at a later time.
- *
- * This field needs to be set to `manual` for method `riverty`.
- */
-export type ListAllSubscriptionsCaptureMode = ClosedEnum<
-  typeof ListAllSubscriptionsCaptureMode
->;
-
-/**
- * The fee that you wish to charge.
- *
- * @remarks
- *
- * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
- * a €0.99 fee on a €1.00 payment.
+ * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
  */
 export type ListAllSubscriptionsApplicationFeeAmount = {
   /**
@@ -837,94 +186,39 @@ export type ListAllSubscriptionsApplicationFeeAmount = {
  * @remarks
  * merchants.
  *
- * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
- * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
- * to your own account balance.
+ * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
  *
- * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
- * `routing` parameter.
+ * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+ * information.
  */
 export type ListAllSubscriptionsApplicationFee = {
   /**
-   * The fee that you wish to charge.
-   *
-   * @remarks
-   *
-   * Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
-   * a €0.99 fee on a €1.00 payment.
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: ListAllSubscriptionsApplicationFeeAmount | undefined;
-  /**
-   * The description of the application fee. This will appear on settlement reports towards both you and the
-   *
-   * @remarks
-   * connected merchant.
-   */
-  description?: string | undefined;
+  amount: ListAllSubscriptionsApplicationFeeAmount;
+  description: string;
 };
 
-/**
- * Whether this entity was created in live mode or in test mode.
- */
-export const ListAllSubscriptionsRoutingMode = {
-  Live: "live",
-  Test: "test",
-} as const;
-/**
- * Whether this entity was created in live mode or in test mode.
- */
-export type ListAllSubscriptionsRoutingMode = ClosedEnum<
-  typeof ListAllSubscriptionsRoutingMode
->;
+export type ListAllSubscriptionsMetadata = {};
 
 /**
- * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
+ * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
+ *
+ * @remarks
+ * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+ * 1kB.
+ *
+ * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
-export type ListAllSubscriptionsRoutingAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export const ListAllSubscriptionsRoutingType = {
-  Organization: "organization",
-} as const;
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export type ListAllSubscriptionsRoutingType = ClosedEnum<
-  typeof ListAllSubscriptionsRoutingType
->;
-
-/**
- * The destination of this portion of the payment.
- */
-export type ListAllSubscriptionsDestination = {
-  /**
-   * The type of destination. Currently only the destination type `organization` is supported.
-   */
-  type: ListAllSubscriptionsRoutingType;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be
-   *
-   * @remarks
-   * routed to.
-   */
-  organizationId: string;
-};
+export type ListAllSubscriptionsMetadataUnion =
+  | ListAllSubscriptionsMetadata
+  | string
+  | Array<string>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
  */
-export type ListAllSubscriptionsRoutingSelf = {
+export type ListAllSubscriptionsSubscriptionSelf = {
   /**
    * The actual URL string.
    */
@@ -936,389 +230,68 @@ export type ListAllSubscriptionsRoutingSelf = {
 };
 
 /**
- * The API resource URL of the [payment](get-payment) that belong to this route.
- */
-export type ListAllSubscriptionsRoutingPayment = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type ListAllSubscriptionsRoutingLinks = {
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  self: ListAllSubscriptionsRoutingSelf;
-  /**
-   * The API resource URL of the [payment](get-payment) that belong to this route.
-   */
-  payment: ListAllSubscriptionsRoutingPayment;
-};
-
-export type ListAllSubscriptionsRouting = {
-  /**
-   * Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
-   */
-  resource: string;
-  /**
-   * The identifier uniquely referring to this route. Mollie will always refer to the route by this ID.
-   *
-   * @remarks
-   * Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
-   */
-  id: string;
-  /**
-   * Whether this entity was created in live mode or in test mode.
-   */
-  mode: ListAllSubscriptionsRoutingMode;
-  /**
-   * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
-   */
-  amount: ListAllSubscriptionsRoutingAmount;
-  /**
-   * The destination of this portion of the payment.
-   */
-  destination: ListAllSubscriptionsDestination;
-  /**
-   * The date and time when the route was created. The date is given in ISO 8601 format.
-   */
-  createdAt: string;
-  /**
-   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The
-   *
-   * @remarks
-   * date must be given in `YYYY-MM-DD` format.
-   *
-   * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
-   */
-  releaseDate?: string | null | undefined;
-  /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links: ListAllSubscriptionsRoutingLinks;
-};
-
-/**
- * **Only relevant for recurring payments.**
- *
- * @remarks
- *
- * Indicate which part of a recurring sequence this payment is for.
- *
- * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
- * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
- * on their account in the future.
- *
- * If set to `recurring`, the customer's card is charged automatically.
- *
- * Defaults to `oneoff`, which is a regular non-recurring payment.
- *
- * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
- * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
- * are set up correctly for recurring payments.
- */
-export const ListAllSubscriptionsSequenceType = {
-  Oneoff: "oneoff",
-  First: "first",
-  Recurring: "recurring",
-} as const;
-/**
- * **Only relevant for recurring payments.**
- *
- * @remarks
- *
- * Indicate which part of a recurring sequence this payment is for.
- *
- * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
- * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
- * on their account in the future.
- *
- * If set to `recurring`, the customer's card is charged automatically.
- *
- * Defaults to `oneoff`, which is a regular non-recurring payment.
- *
- * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
- * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
- * are set up correctly for recurring payments.
- */
-export type ListAllSubscriptionsSequenceType = ClosedEnum<
-  typeof ListAllSubscriptionsSequenceType
->;
-
-/**
- * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
- *
- * @remarks
- * statuses occur at what point.
- */
-export const ListAllSubscriptionsStatus = {
-  Open: "open",
-  Pending: "pending",
-  Authorized: "authorized",
-  Paid: "paid",
-  Canceled: "canceled",
-  Expired: "expired",
-  Failed: "failed",
-} as const;
-/**
- * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
- *
- * @remarks
- * statuses occur at what point.
- */
-export type ListAllSubscriptionsStatus = ClosedEnum<
-  typeof ListAllSubscriptionsStatus
->;
-
-/**
- * This object offers details about the status of a payment. Currently it is only available for point-of-sale
- *
- * @remarks
- * payments.
- *
- * You can find more information about the possible values of this object on
- * [this page](status-reasons).**
- */
-export type ListAllSubscriptionsStatusReason = {
-  /**
-   * A machine-readable code that indicates the reason for the payment's status.
-   */
-  code: string;
-  /**
-   * A description of the status reason, localized according to the payment `locale`.
-   */
-  message: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListAllSubscriptionsPaymentSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The URL your customer should visit to make the payment. This is where you should redirect the customer to.
- */
-export type ListAllSubscriptionsCheckout = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The deeplink URL to the app of the payment method. Currently only available for `bancontact`.
- */
-export type ListAllSubscriptionsMobileAppCheckout = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * For test mode payments in certain scenarios, a hosted interface is available to help you test different
- *
- * @remarks
- * payment states.
- *
- * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
- * payments are executed without any user interaction.
- *
- * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
- * chargeback for the test payment.
- */
-export type ListAllSubscriptionsChangePaymentState = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * Direct link to the payment in the Mollie Dashboard.
- */
-export type ListAllSubscriptionsDashboard = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The API resource URL of the [refunds](list-payment-refunds) that belong to this payment.
- */
-export type ListAllSubscriptionsRefunds = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
- *
- * @remarks
- * payment.
- */
-export type ListAllSubscriptionsChargebacks = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The API resource URL of the [captures](list-payment-captures) that belong to this payment.
- */
-export type ListAllSubscriptionsCaptures = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
- *
- * @remarks
- * Not present if not yet settled.
- */
-export type ListAllSubscriptionsSettlement = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The API resource URL of the [customer](get-customer).
+ * The API resource URL of the [customer](get-customer) this subscription was created for.
  */
 export type ListAllSubscriptionsCustomer = {
   /**
    * The actual URL string.
    */
-  href: string;
+  href?: string | undefined;
   /**
    * The content type of the page or endpoint the URL points to.
    */
-  type: string;
+  type?: string | undefined;
 };
 
 /**
- * The API resource URL of the [mandate](get-mandate).
+ * The API resource URL of the [mandate](get-mandate) this subscription was created for.
  */
 export type ListAllSubscriptionsMandate = {
   /**
    * The actual URL string.
    */
-  href: string;
+  href?: string | undefined;
   /**
    * The content type of the page or endpoint the URL points to.
    */
-  type: string;
+  type?: string | undefined;
 };
 
 /**
- * The API resource URL of the [subscription](get-subscription).
+ * The API resource URL of the [profile](get-profile) this subscription was created for.
  */
-export type ListAllSubscriptionsSubscription = {
+export type ListAllSubscriptionsProfile = {
   /**
    * The actual URL string.
    */
-  href: string;
+  href?: string | undefined;
   /**
    * The content type of the page or endpoint the URL points to.
    */
-  type: string;
+  type?: string | undefined;
 };
 
 /**
- * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+ * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
  *
  * @remarks
- * order.
+ * payments exist (yet).
  */
-export type ListAllSubscriptionsOrder = {
+export type ListAllSubscriptionsPayments = {
   /**
    * The actual URL string.
    */
-  href: string;
+  href?: string | undefined;
   /**
    * The content type of the page or endpoint the URL points to.
    */
-  type: string;
-};
-
-/**
- * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
- *
- * @remarks
- * point-of-sale payments.
- */
-export type ListAllSubscriptionsTerminal = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
+  type?: string | undefined;
 };
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
  */
-export type ListAllSubscriptionsPaymentDocumentation = {
+export type ListAllSubscriptionsSubscriptionDocumentation = {
   /**
    * The actual URL string.
    */
@@ -1332,100 +305,46 @@ export type ListAllSubscriptionsPaymentDocumentation = {
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
-export type ListAllSubscriptionsPaymentLinks = {
+export type ListAllSubscriptionsSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self: ListAllSubscriptionsPaymentSelf;
+  self: ListAllSubscriptionsSubscriptionSelf;
   /**
-   * The URL your customer should visit to make the payment. This is where you should redirect the customer to.
+   * The API resource URL of the [customer](get-customer) this subscription was created for.
    */
-  checkout?: ListAllSubscriptionsCheckout | undefined;
+  customer: ListAllSubscriptionsCustomer | null;
   /**
-   * The deeplink URL to the app of the payment method. Currently only available for `bancontact`.
+   * The API resource URL of the [mandate](get-mandate) this subscription was created for.
    */
-  mobileAppCheckout?: ListAllSubscriptionsMobileAppCheckout | undefined;
+  mandate?: ListAllSubscriptionsMandate | null | undefined;
   /**
-   * For test mode payments in certain scenarios, a hosted interface is available to help you test different
+   * The API resource URL of the [profile](get-profile) this subscription was created for.
+   */
+  profile: ListAllSubscriptionsProfile | null;
+  /**
+   * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
    *
    * @remarks
-   * payment states.
-   *
-   * Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
-   * payments are executed without any user interaction.
-   *
-   * Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
-   * chargeback for the test payment.
+   * payments exist (yet).
    */
-  changePaymentState?: ListAllSubscriptionsChangePaymentState | undefined;
-  /**
-   * Direct link to the payment in the Mollie Dashboard.
-   */
-  dashboard: ListAllSubscriptionsDashboard;
-  /**
-   * The API resource URL of the [refunds](list-payment-refunds) that belong to this payment.
-   */
-  refunds?: ListAllSubscriptionsRefunds | undefined;
-  /**
-   * The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
-   *
-   * @remarks
-   * payment.
-   */
-  chargebacks?: ListAllSubscriptionsChargebacks | undefined;
-  /**
-   * The API resource URL of the [captures](list-payment-captures) that belong to this payment.
-   */
-  captures?: ListAllSubscriptionsCaptures | undefined;
-  /**
-   * The API resource URL of the [settlement](get-settlement) this payment has been settled with.
-   *
-   * @remarks
-   * Not present if not yet settled.
-   */
-  settlement?: ListAllSubscriptionsSettlement | undefined;
-  /**
-   * The API resource URL of the [customer](get-customer).
-   */
-  customer?: ListAllSubscriptionsCustomer | undefined;
-  /**
-   * The API resource URL of the [mandate](get-mandate).
-   */
-  mandate?: ListAllSubscriptionsMandate | undefined;
-  /**
-   * The API resource URL of the [subscription](get-subscription).
-   */
-  subscription?: ListAllSubscriptionsSubscription | undefined;
-  /**
-   * The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
-   *
-   * @remarks
-   * order.
-   */
-  order?: ListAllSubscriptionsOrder | undefined;
-  /**
-   * The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
-   *
-   * @remarks
-   * point-of-sale payments.
-   */
-  terminal?: ListAllSubscriptionsTerminal | undefined;
+  payments?: ListAllSubscriptionsPayments | null | undefined;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListAllSubscriptionsPaymentDocumentation | undefined;
+  documentation: ListAllSubscriptionsSubscriptionDocumentation;
 };
 
-export type ListAllSubscriptionsPaymentOutput = {
+export type ListAllSubscriptionsSubscription = {
   /**
-   * Indicates the response contains a payment object. Will always contain the string `payment` for this endpoint.
-   */
-  resource: string;
-  /**
-   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
+   * Indicates the response contains a subscription object. Will always contain the string `subscription` for this
    *
    * @remarks
-   * will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   * endpoint.
+   */
+  resource?: string | undefined;
+  /**
+   * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
   id: string;
   /**
@@ -1433,407 +352,125 @@ export type ListAllSubscriptionsPaymentOutput = {
    */
   mode: ListAllSubscriptionsMode;
   /**
-   * The description of the payment. This will be shown to your customer on their card or bank statement when possible.
+   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
-   * We truncate the description automatically according to the limits of the used payment method. The description is
-   * also visible in any exports you generate.
-   *
-   * We recommend you use a unique identifier so that you can always link the payment to the order in your back office.
-   * This is particularly useful for bookkeeping.
-   *
-   * The maximum length of the description field differs per payment method, with the absolute maximum being 255
-   * characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
-   */
-  description: string;
-  /**
-   * The amount that you want to charge, e.g. `{currency:"EUR", value:"1000.00"}` if you would want to charge €1000.00.
-   *
-   * @remarks
-   *
-   * You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
-   * retrieved using the Get method endpoint.
-   *
-   * If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
-   * tip amount.
-   */
-  amount: ListAllSubscriptionsAmount;
-  /**
-   * The total amount that is already refunded. Only available when refunds are available for this payment. For some
-   *
-   * @remarks
-   * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
-   * costs for a return shipment to the customer.
-   */
-  amountRefunded?: ListAllSubscriptionsAmountRefunded | undefined;
-  /**
-   * The remaining amount that can be refunded. Only available when refunds are available for this payment.
-   */
-  amountRemaining?: ListAllSubscriptionsAmountRemaining | undefined;
-  /**
-   * The total amount that is already captured for this payment. Only available when this payment supports captures.
-   */
-  amountCaptured?: ListAllSubscriptionsAmountCaptured | undefined;
-  /**
-   * The total amount that was charged back for this payment. Only available when the total charged back amount is not
-   *
-   * @remarks
-   * zero.
-   */
-  amountChargedBack?: ListAllSubscriptionsAmountChargedBack | undefined;
-  /**
-   * This optional field will contain the approximate amount that will be settled to your account, converted to the
-   *
-   * @remarks
-   * currency your account is settled in.
-   *
-   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
-   * settled by Mollie the `settlementAmount` is omitted from the response.
-   *
-   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
-   * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
-   */
-  settlementAmount?: ListAllSubscriptionsSettlementAmount | undefined;
-  /**
-   * The URL your customer will be redirected to after the payment process.
-   *
-   * @remarks
-   *
-   * It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
-   * right page referencing the order when your customer returns.
-   *
-   * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
-   * Apple Pay payments with an `applePayPaymentToken`.
-   */
-  redirectUrl?: string | null | undefined;
-  /**
-   * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
-   *
-   * @remarks
-   * provided, the customer will be redirected to the `redirectUrl` instead — see above.
-   *
-   * Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is
-   * therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle
-   * payment cancellations.
-   */
-  cancelUrl?: string | null | undefined;
-  /**
-   * The webhook URL where we will send payment status updates to.
-   *
-   * @remarks
-   *
-   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to your payment.
-   *
-   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
-   * webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
-   * local machine.
-   */
-  webhookUrl?: string | null | undefined;
-  /**
-   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
-   *
-   * @remarks
-   * ordered and its price.
-   *
-   * All lines must have the same currency as the payment.
-   *
-   * Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
-   */
-  lines?: Array<ListAllSubscriptionsLine> | null | undefined;
-  /**
-   * The customer's billing address details. We advise to provide these details to improve fraud protection and
-   *
-   * @remarks
-   * conversion.
-   *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
-   * `country`.
-   *
-   * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
-   */
-  billingAddress?: ListAllSubscriptionsBillingAddress | undefined;
-  /**
-   * The customer's shipping address details. We advise to provide these details to improve fraud protection and
-   *
-   * @remarks
-   * conversion.
-   *
-   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
-   * `country`.
-   */
-  shippingAddress?: ListAllSubscriptionsShippingAddress | undefined;
-  /**
-   * Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
-   *
-   * @remarks
-   * is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
-   * language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
-   * locale, but our hosted payment pages currently only support the specified languages.
-   *
-   * For bank transfer payments specifically, the locale will determine the target bank account the customer has to
-   * transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
-   * customer use a local bank account greatly increases the conversion and speed of payment.
-   */
-  locale?: ListAllSubscriptionsLocale | null | undefined;
-  /**
-   * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This
-   *
-   * @remarks
-   * field is omitted if the country code was not detected.
-   */
-  countryCode?: string | null | undefined;
-  /**
-   * The payment method used for this transaction. If a specific method was selected during payment initialization,
-   *
-   * @remarks
-   * this field reflects that choice.
-   */
-  method?: ListAllSubscriptionsMethod | null | undefined;
-  /**
-   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
-   *
-   * @remarks
-   * rates you have used for the order to ensure your customer's country matches the VAT country.
-   *
-   * Use this parameter to restrict the payment methods available to your customer to those from a single country.
-   *
-   * If available, the credit card method will still be offered, but only cards from the allowed country are accepted.
-   *
-   * The field expects a country code in ISO 3166-1 alpha-2 format, for example `NL`.
-   */
-  restrictPaymentMethodsToCountry?: string | null | undefined;
-  /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
-   *
-   * @remarks
-   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
-   */
-  metadata?:
-    | ListAllSubscriptionsMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
-  /**
-   * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
-   *
-   * @remarks
-   * and capture at a later time.
-   *
-   * This field needs to be set to `manual` for method `riverty`.
-   */
-  captureMode?: ListAllSubscriptionsCaptureMode | null | undefined;
-  /**
-   * **Only relevant if you wish to manage authorization and capturing separately.**
-   *
-   * @remarks
-   *
-   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
-   * later point either be 'captured' or canceled.
-   *
-   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
-   * capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
-   * example `8 hours` or `2 days`.
-   *
-   * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
-   *
-   * The maximum delay is 7 days (168 hours).
-   *
-   * Possible values: `... hours` `... days`
-   */
-  captureDelay?: string | null | undefined;
-  /**
-   * Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
-   *
-   * @remarks
-   * can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
-   */
-  captureBefore?: string | null | undefined;
-  /**
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
-   *
-   * @remarks
-   * merchants.
-   *
-   * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
-   * `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
-   * to your own account balance.
-   *
-   * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
-   * `routing` parameter.
-   */
-  applicationFee?: ListAllSubscriptionsApplicationFee | null | undefined;
-  /**
-   * *This functionality is not enabled by default. Reach out to our partner management team if you wish to use it.*
-   *
-   * @remarks
-   *
-   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
-   * merchants.
-   *
-   * If you create payments on your own account that you want to split between yourself and one or more connected
-   * merchants, you can use this `routing` parameter to route the payment accordingly.
-   *
-   * The `routing` parameter should contain an array of objects, with each object describing the destination for a
-   * specific portion of the payment.
-   *
-   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total
-   * payment amount have been routed, the amount left will be routed to the current organization automatically.
-   *
-   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee`
-   * parameter.
-   */
-  routing?: Array<ListAllSubscriptionsRouting> | null | undefined;
-  /**
-   * **Only relevant for recurring payments.**
-   *
-   * @remarks
-   *
-   * Indicate which part of a recurring sequence this payment is for.
-   *
-   * Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
-   * through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
-   * on their account in the future.
-   *
-   * If set to `recurring`, the customer's card is charged automatically.
-   *
-   * Defaults to `oneoff`, which is a regular non-recurring payment.
-   *
-   * For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
-   * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
-   * are set up correctly for recurring payments.
-   */
-  sequenceType?: ListAllSubscriptionsSequenceType | null | undefined;
-  /**
-   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
-   *
-   * @remarks
-   * be added to the response.
-   */
-  subscriptionId?: string | null | undefined;
-  /**
-   * **Only relevant for recurring payments.**
-   *
-   * @remarks
-   *
-   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
-   * the customer's accounts should be credited.
-   */
-  mandateId?: string | null | undefined;
-  /**
-   * The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring
-   *
-   * @remarks
-   * payments, but can also be used on regular payments to enable single-click payments.
-   *
-   * If `sequenceType` is set to `recurring`, this field is required.
-   */
-  customerId?: string | null | undefined;
-  /**
-   * The identifier referring to the [profile](get-profile) this entity belongs to.
-   *
-   * @remarks
-   *
-   * When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
-   * Organization tokens, the `profileId` is required.
-   *
-   * For more information, see [Authentication](authentication).
-   */
-  profileId: string;
-  /**
-   * The identifier referring to the [settlement](get-settlement) this payment was settled with.
-   */
-  settlementId?: string | null | undefined;
-  /**
-   * If the payment was created for an [order](get-order), the ID of that order will be part of the response.
-   */
-  orderId?: string | null | undefined;
-  /**
-   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
-   *
-   * @remarks
-   * statuses occur at what point.
+   * enabling the subscription.
    */
   status: ListAllSubscriptionsStatus;
   /**
-   * This object offers details about the status of a payment. Currently it is only available for point-of-sale
+   * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
-   * payments.
-   *
-   * You can find more information about the possible values of this object on
-   * [this page](status-reasons).**
+   * subscription of €10, the subscription amount should be set to €10.
    */
-  statusReason?: ListAllSubscriptionsStatusReason | null | undefined;
+  amount: ListAllSubscriptionsAmount;
   /**
-   * Whether the payment can be canceled. This parameter is omitted if the payment reaches a final state.
-   */
-  isCancelable?: boolean | null | undefined;
-  /**
-   * An object containing payment details collected during the payment process. For example, details may include the
+   * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
    * @remarks
-   * customer's card or bank details and a payment reference. For the full list of details, please refer to the
-   * [method-specific parameters](extra-payment-parameters) guide.
+   * considered completed.
+   *
+   * Test mode subscriptions will get canceled automatically after 10 payments.
    */
-  details?: { [k: string]: any } | null | undefined;
+  times: number | null;
+  /**
+   * Number of payments left for the subscription.
+   */
+  timesRemaining: number;
+  /**
+   * Interval to wait between payments, for example `1 month` or `14 days`.
+   *
+   * @remarks
+   *
+   * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+   */
+  interval: ListAllSubscriptionsInterval;
+  /**
+   * The start date of the subscription in `YYYY-MM-DD` format.
+   */
+  startDate: string;
+  /**
+   * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
+   *
+   * @remarks
+   * this parameter will not be returned.
+   */
+  nextPaymentDate?: string | null | undefined;
+  /**
+   * The subscription's description will be used as the description of the resulting individual payments and so showing
+   *
+   * @remarks
+   * up on the bank statement of the consumer.
+   *
+   * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
+   */
+  description: string;
+  /**
+   * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+   */
+  method: ListAllSubscriptionsMethod | null;
+  /**
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+   *
+   * @remarks
+   * merchants.
+   *
+   * Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
+   *
+   * Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+   * information.
+   */
+  applicationFee?: ListAllSubscriptionsApplicationFee | undefined;
+  /**
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
+   *
+   * @remarks
+   * Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+   * 1kB.
+   *
+   * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
+   */
+  metadata: ListAllSubscriptionsMetadata | string | Array<string> | null;
+  /**
+   * We will call this URL for any payment status changes of payments resulting from this subscription.
+   *
+   * @remarks
+   *
+   * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
+   * well. Be sure to verify the payment's subscription ID and its status.
+   */
+  webhookUrl: string;
+  /**
+   * The customer this subscription belongs to.
+   */
+  customerId: string;
+  /**
+   * The mandate used for this subscription, if any.
+   */
+  mandateId?: string | null | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   createdAt: string;
   /**
-   * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
+   * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
    *
    * @remarks
-   * not authorized (yet).
-   */
-  authorizedAt?: string | null | undefined;
-  /**
-   * The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not
-   *
-   * @remarks
-   * completed (yet).
-   */
-  paidAt?: string | null | undefined;
-  /**
-   * The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not
-   *
-   * @remarks
-   * canceled (yet).
+   * subscription is not canceled (yet).
    */
   canceledAt?: string | null | undefined;
   /**
-   * The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no
-   *
-   * @remarks
-   * longer expire.
-   */
-  expiresAt?: string | null | undefined;
-  /**
-   * The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not
-   *
-   * @remarks
-   * expire (yet).
-   */
-  expiredAt?: string | null | undefined;
-  /**
-   * The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail
-   *
-   * @remarks
-   * (yet).
-   */
-  failedAt?: string | null | undefined;
-  /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links: ListAllSubscriptionsPaymentLinks;
+  links?: ListAllSubscriptionsSubscriptionLinks | undefined;
 };
 
 export type ListAllSubscriptionsEmbedded = {
   /**
-   * An array of payment objects.
+   * A list of subscription objects.
    */
-  payments?: Array<ListAllSubscriptionsPaymentOutput> | undefined;
+  subscriptions?: Array<ListAllSubscriptionsSubscription> | undefined;
 };
 
 /**
@@ -1915,7 +552,7 @@ export type ListAllSubscriptionsLinks = {
 };
 
 /**
- * A list of payment objects.
+ * A list of subscription objects.
  */
 export type ListAllSubscriptionsResponse = {
   /**
@@ -1936,27 +573,6 @@ export type ListAllSubscriptionsResponse = {
 };
 
 /** @internal */
-export const ListAllSubscriptionsSort$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsSort
-> = z.nativeEnum(ListAllSubscriptionsSort);
-
-/** @internal */
-export const ListAllSubscriptionsSort$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsSort
-> = ListAllSubscriptionsSort$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsSort$ {
-  /** @deprecated use `ListAllSubscriptionsSort$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsSort$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsSort$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsSort$outboundSchema;
-}
-
-/** @internal */
 export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
   ListAllSubscriptionsRequest,
   z.ZodTypeDef,
@@ -1964,8 +580,7 @@ export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListAllSubscriptionsSort$inboundSchema.default("desc")),
-  profileId: z.string().optional(),
+  profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -1973,8 +588,7 @@ export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
 export type ListAllSubscriptionsRequest$Outbound = {
   from?: string | undefined;
   limit: number | null;
-  sort: string | null;
-  profileId?: string | undefined;
+  profileId?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -1986,8 +600,7 @@ export const ListAllSubscriptionsRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListAllSubscriptionsSort$outboundSchema.default("desc")),
-  profileId: z.string().optional(),
+  profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -2021,6 +634,136 @@ export function listAllSubscriptionsRequestFromJSON(
     jsonString,
     (x) => ListAllSubscriptionsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllSubscriptionsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAllSubscriptionsNotFoundDocumentation$inboundSchema: z.ZodType<
+  ListAllSubscriptionsNotFoundDocumentation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
+
+/** @internal */
+export type ListAllSubscriptionsNotFoundDocumentation$Outbound = {
+  href: string;
+  type: string;
+};
+
+/** @internal */
+export const ListAllSubscriptionsNotFoundDocumentation$outboundSchema:
+  z.ZodType<
+    ListAllSubscriptionsNotFoundDocumentation$Outbound,
+    z.ZodTypeDef,
+    ListAllSubscriptionsNotFoundDocumentation
+  > = z.object({
+    href: z.string(),
+    type: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsNotFoundDocumentation$ {
+  /** @deprecated use `ListAllSubscriptionsNotFoundDocumentation$inboundSchema` instead. */
+  export const inboundSchema =
+    ListAllSubscriptionsNotFoundDocumentation$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsNotFoundDocumentation$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsNotFoundDocumentation$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsNotFoundDocumentation$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsNotFoundDocumentation$Outbound;
+}
+
+export function listAllSubscriptionsNotFoundDocumentationToJSON(
+  listAllSubscriptionsNotFoundDocumentation:
+    ListAllSubscriptionsNotFoundDocumentation,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsNotFoundDocumentation$outboundSchema.parse(
+      listAllSubscriptionsNotFoundDocumentation,
+    ),
+  );
+}
+
+export function listAllSubscriptionsNotFoundDocumentationFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListAllSubscriptionsNotFoundDocumentation,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListAllSubscriptionsNotFoundDocumentation$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListAllSubscriptionsNotFoundDocumentation' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAllSubscriptionsNotFoundLinks$inboundSchema: z.ZodType<
+  ListAllSubscriptionsNotFoundLinks,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  documentation: z.lazy(() =>
+    ListAllSubscriptionsNotFoundDocumentation$inboundSchema
+  ),
+});
+
+/** @internal */
+export type ListAllSubscriptionsNotFoundLinks$Outbound = {
+  documentation: ListAllSubscriptionsNotFoundDocumentation$Outbound;
+};
+
+/** @internal */
+export const ListAllSubscriptionsNotFoundLinks$outboundSchema: z.ZodType<
+  ListAllSubscriptionsNotFoundLinks$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsNotFoundLinks
+> = z.object({
+  documentation: z.lazy(() =>
+    ListAllSubscriptionsNotFoundDocumentation$outboundSchema
+  ),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsNotFoundLinks$ {
+  /** @deprecated use `ListAllSubscriptionsNotFoundLinks$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsNotFoundLinks$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsNotFoundLinks$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsNotFoundLinks$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsNotFoundLinks$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsNotFoundLinks$Outbound;
+}
+
+export function listAllSubscriptionsNotFoundLinksToJSON(
+  listAllSubscriptionsNotFoundLinks: ListAllSubscriptionsNotFoundLinks,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsNotFoundLinks$outboundSchema.parse(
+      listAllSubscriptionsNotFoundLinks,
+    ),
+  );
+}
+
+export function listAllSubscriptionsNotFoundLinksFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllSubscriptionsNotFoundLinks, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAllSubscriptionsNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsNotFoundLinks' from JSON`,
   );
 }
 
@@ -2179,6 +922,27 @@ export namespace ListAllSubscriptionsMode$ {
 }
 
 /** @internal */
+export const ListAllSubscriptionsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsStatus
+> = z.nativeEnum(ListAllSubscriptionsStatus);
+
+/** @internal */
+export const ListAllSubscriptionsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ListAllSubscriptionsStatus
+> = ListAllSubscriptionsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsStatus$ {
+  /** @deprecated use `ListAllSubscriptionsStatus$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsStatus$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsStatus$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsStatus$outboundSchema;
+}
+
+/** @internal */
 export const ListAllSubscriptionsAmount$inboundSchema: z.ZodType<
   ListAllSubscriptionsAmount,
   z.ZodTypeDef,
@@ -2236,594 +1000,6 @@ export function listAllSubscriptionsAmountFromJSON(
 }
 
 /** @internal */
-export const ListAllSubscriptionsAmountRefunded$inboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountRefunded,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsAmountRefunded$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsAmountRefunded$outboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountRefunded$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsAmountRefunded
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsAmountRefunded$ {
-  /** @deprecated use `ListAllSubscriptionsAmountRefunded$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsAmountRefunded$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountRefunded$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsAmountRefunded$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountRefunded$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsAmountRefunded$Outbound;
-}
-
-export function listAllSubscriptionsAmountRefundedToJSON(
-  listAllSubscriptionsAmountRefunded: ListAllSubscriptionsAmountRefunded,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsAmountRefunded$outboundSchema.parse(
-      listAllSubscriptionsAmountRefunded,
-    ),
-  );
-}
-
-export function listAllSubscriptionsAmountRefundedFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsAmountRefunded, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsAmountRefunded$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsAmountRefunded' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsAmountRemaining$inboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountRemaining,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsAmountRemaining$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsAmountRemaining$outboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountRemaining$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsAmountRemaining
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsAmountRemaining$ {
-  /** @deprecated use `ListAllSubscriptionsAmountRemaining$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsAmountRemaining$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountRemaining$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsAmountRemaining$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountRemaining$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsAmountRemaining$Outbound;
-}
-
-export function listAllSubscriptionsAmountRemainingToJSON(
-  listAllSubscriptionsAmountRemaining: ListAllSubscriptionsAmountRemaining,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsAmountRemaining$outboundSchema.parse(
-      listAllSubscriptionsAmountRemaining,
-    ),
-  );
-}
-
-export function listAllSubscriptionsAmountRemainingFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsAmountRemaining, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsAmountRemaining$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsAmountRemaining' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsAmountCaptured$inboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountCaptured,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsAmountCaptured$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsAmountCaptured$outboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountCaptured$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsAmountCaptured
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsAmountCaptured$ {
-  /** @deprecated use `ListAllSubscriptionsAmountCaptured$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsAmountCaptured$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountCaptured$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsAmountCaptured$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountCaptured$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsAmountCaptured$Outbound;
-}
-
-export function listAllSubscriptionsAmountCapturedToJSON(
-  listAllSubscriptionsAmountCaptured: ListAllSubscriptionsAmountCaptured,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsAmountCaptured$outboundSchema.parse(
-      listAllSubscriptionsAmountCaptured,
-    ),
-  );
-}
-
-export function listAllSubscriptionsAmountCapturedFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsAmountCaptured, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsAmountCaptured$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsAmountCaptured' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsAmountChargedBack$inboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountChargedBack,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsAmountChargedBack$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsAmountChargedBack$outboundSchema: z.ZodType<
-  ListAllSubscriptionsAmountChargedBack$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsAmountChargedBack
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsAmountChargedBack$ {
-  /** @deprecated use `ListAllSubscriptionsAmountChargedBack$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsAmountChargedBack$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountChargedBack$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsAmountChargedBack$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsAmountChargedBack$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsAmountChargedBack$Outbound;
-}
-
-export function listAllSubscriptionsAmountChargedBackToJSON(
-  listAllSubscriptionsAmountChargedBack: ListAllSubscriptionsAmountChargedBack,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsAmountChargedBack$outboundSchema.parse(
-      listAllSubscriptionsAmountChargedBack,
-    ),
-  );
-}
-
-export function listAllSubscriptionsAmountChargedBackFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsAmountChargedBack, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsAmountChargedBack$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsAmountChargedBack' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsSettlementAmount$inboundSchema: z.ZodType<
-  ListAllSubscriptionsSettlementAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsSettlementAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsSettlementAmount$outboundSchema: z.ZodType<
-  ListAllSubscriptionsSettlementAmount$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsSettlementAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsSettlementAmount$ {
-  /** @deprecated use `ListAllSubscriptionsSettlementAmount$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsSettlementAmount$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsSettlementAmount$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsSettlementAmount$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsSettlementAmount$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsSettlementAmount$Outbound;
-}
-
-export function listAllSubscriptionsSettlementAmountToJSON(
-  listAllSubscriptionsSettlementAmount: ListAllSubscriptionsSettlementAmount,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsSettlementAmount$outboundSchema.parse(
-      listAllSubscriptionsSettlementAmount,
-    ),
-  );
-}
-
-export function listAllSubscriptionsSettlementAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsSettlementAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsSettlementAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsSettlementAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsLineType$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsLineType
-> = z.nativeEnum(ListAllSubscriptionsLineType);
-
-/** @internal */
-export const ListAllSubscriptionsLineType$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsLineType
-> = ListAllSubscriptionsLineType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsLineType$ {
-  /** @deprecated use `ListAllSubscriptionsLineType$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsLineType$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsLineType$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsLineType$outboundSchema;
-}
-
-/** @internal */
-export const ListAllSubscriptionsUnitPrice$inboundSchema: z.ZodType<
-  ListAllSubscriptionsUnitPrice,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsUnitPrice$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsUnitPrice$outboundSchema: z.ZodType<
-  ListAllSubscriptionsUnitPrice$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsUnitPrice
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsUnitPrice$ {
-  /** @deprecated use `ListAllSubscriptionsUnitPrice$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsUnitPrice$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsUnitPrice$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsUnitPrice$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsUnitPrice$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsUnitPrice$Outbound;
-}
-
-export function listAllSubscriptionsUnitPriceToJSON(
-  listAllSubscriptionsUnitPrice: ListAllSubscriptionsUnitPrice,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsUnitPrice$outboundSchema.parse(
-      listAllSubscriptionsUnitPrice,
-    ),
-  );
-}
-
-export function listAllSubscriptionsUnitPriceFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsUnitPrice, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsUnitPrice$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsUnitPrice' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsDiscountAmount$inboundSchema: z.ZodType<
-  ListAllSubscriptionsDiscountAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsDiscountAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsDiscountAmount$outboundSchema: z.ZodType<
-  ListAllSubscriptionsDiscountAmount$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsDiscountAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsDiscountAmount$ {
-  /** @deprecated use `ListAllSubscriptionsDiscountAmount$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsDiscountAmount$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsDiscountAmount$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsDiscountAmount$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsDiscountAmount$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsDiscountAmount$Outbound;
-}
-
-export function listAllSubscriptionsDiscountAmountToJSON(
-  listAllSubscriptionsDiscountAmount: ListAllSubscriptionsDiscountAmount,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsDiscountAmount$outboundSchema.parse(
-      listAllSubscriptionsDiscountAmount,
-    ),
-  );
-}
-
-export function listAllSubscriptionsDiscountAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsDiscountAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsDiscountAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsDiscountAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsTotalAmount$inboundSchema: z.ZodType<
-  ListAllSubscriptionsTotalAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsTotalAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsTotalAmount$outboundSchema: z.ZodType<
-  ListAllSubscriptionsTotalAmount$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsTotalAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsTotalAmount$ {
-  /** @deprecated use `ListAllSubscriptionsTotalAmount$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsTotalAmount$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsTotalAmount$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsTotalAmount$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsTotalAmount$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsTotalAmount$Outbound;
-}
-
-export function listAllSubscriptionsTotalAmountToJSON(
-  listAllSubscriptionsTotalAmount: ListAllSubscriptionsTotalAmount,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsTotalAmount$outboundSchema.parse(
-      listAllSubscriptionsTotalAmount,
-    ),
-  );
-}
-
-export function listAllSubscriptionsTotalAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsTotalAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsTotalAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsTotalAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsVatAmount$inboundSchema: z.ZodType<
-  ListAllSubscriptionsVatAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsVatAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsVatAmount$outboundSchema: z.ZodType<
-  ListAllSubscriptionsVatAmount$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsVatAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsVatAmount$ {
-  /** @deprecated use `ListAllSubscriptionsVatAmount$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsVatAmount$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsVatAmount$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsVatAmount$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsVatAmount$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsVatAmount$Outbound;
-}
-
-export function listAllSubscriptionsVatAmountToJSON(
-  listAllSubscriptionsVatAmount: ListAllSubscriptionsVatAmount,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsVatAmount$outboundSchema.parse(
-      listAllSubscriptionsVatAmount,
-    ),
-  );
-}
-
-export function listAllSubscriptionsVatAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsVatAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsVatAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsVatAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsCategory$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsCategory
-> = z.nativeEnum(ListAllSubscriptionsCategory);
-
-/** @internal */
-export const ListAllSubscriptionsCategory$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsCategory
-> = ListAllSubscriptionsCategory$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsCategory$ {
-  /** @deprecated use `ListAllSubscriptionsCategory$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsCategory$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsCategory$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsCategory$outboundSchema;
-}
-
-/** @internal */
 export const ListAllSubscriptionsInterval$inboundSchema: z.ZodNativeEnum<
   typeof ListAllSubscriptionsInterval
 > = z.nativeEnum(ListAllSubscriptionsInterval);
@@ -2845,442 +1021,6 @@ export namespace ListAllSubscriptionsInterval$ {
 }
 
 /** @internal */
-export const ListAllSubscriptionsRecurringAmount$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRecurringAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsRecurringAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRecurringAmount$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRecurringAmount$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRecurringAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRecurringAmount$ {
-  /** @deprecated use `ListAllSubscriptionsRecurringAmount$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsRecurringAmount$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRecurringAmount$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsRecurringAmount$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRecurringAmount$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRecurringAmount$Outbound;
-}
-
-export function listAllSubscriptionsRecurringAmountToJSON(
-  listAllSubscriptionsRecurringAmount: ListAllSubscriptionsRecurringAmount,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRecurringAmount$outboundSchema.parse(
-      listAllSubscriptionsRecurringAmount,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRecurringAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRecurringAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsRecurringAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRecurringAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRecurring$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRecurring,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string().optional(),
-  interval: ListAllSubscriptionsInterval$inboundSchema,
-  amount: z.lazy(() => ListAllSubscriptionsRecurringAmount$inboundSchema)
-    .optional(),
-  times: z.number().int().optional(),
-  startDate: z.nullable(z.string()).optional(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsRecurring$Outbound = {
-  description?: string | undefined;
-  interval: string;
-  amount?: ListAllSubscriptionsRecurringAmount$Outbound | undefined;
-  times?: number | undefined;
-  startDate?: string | null | undefined;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRecurring$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRecurring$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRecurring
-> = z.object({
-  description: z.string().optional(),
-  interval: ListAllSubscriptionsInterval$outboundSchema,
-  amount: z.lazy(() => ListAllSubscriptionsRecurringAmount$outboundSchema)
-    .optional(),
-  times: z.number().int().optional(),
-  startDate: z.nullable(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRecurring$ {
-  /** @deprecated use `ListAllSubscriptionsRecurring$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRecurring$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRecurring$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsRecurring$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRecurring$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRecurring$Outbound;
-}
-
-export function listAllSubscriptionsRecurringToJSON(
-  listAllSubscriptionsRecurring: ListAllSubscriptionsRecurring,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRecurring$outboundSchema.parse(
-      listAllSubscriptionsRecurring,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRecurringFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRecurring, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsRecurring$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRecurring' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsLine$inboundSchema: z.ZodType<
-  ListAllSubscriptionsLine,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: ListAllSubscriptionsLineType$inboundSchema.default("physical"),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: z.lazy(() => ListAllSubscriptionsUnitPrice$inboundSchema),
-  discountAmount: z.lazy(() => ListAllSubscriptionsDiscountAmount$inboundSchema)
-    .optional(),
-  totalAmount: z.lazy(() => ListAllSubscriptionsTotalAmount$inboundSchema),
-  vatRate: z.string().optional(),
-  vatAmount: z.lazy(() => ListAllSubscriptionsVatAmount$inboundSchema)
-    .optional(),
-  sku: z.string().optional(),
-  categories: z.array(ListAllSubscriptionsCategory$inboundSchema).optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-  recurring: z.lazy(() => ListAllSubscriptionsRecurring$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsLine$Outbound = {
-  type: string;
-  description: string;
-  quantity: number;
-  quantityUnit?: string | undefined;
-  unitPrice: ListAllSubscriptionsUnitPrice$Outbound;
-  discountAmount?: ListAllSubscriptionsDiscountAmount$Outbound | undefined;
-  totalAmount: ListAllSubscriptionsTotalAmount$Outbound;
-  vatRate?: string | undefined;
-  vatAmount?: ListAllSubscriptionsVatAmount$Outbound | undefined;
-  sku?: string | undefined;
-  categories?: Array<string> | undefined;
-  imageUrl?: string | undefined;
-  productUrl?: string | undefined;
-  recurring?: ListAllSubscriptionsRecurring$Outbound | undefined;
-};
-
-/** @internal */
-export const ListAllSubscriptionsLine$outboundSchema: z.ZodType<
-  ListAllSubscriptionsLine$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsLine
-> = z.object({
-  type: ListAllSubscriptionsLineType$outboundSchema.default("physical"),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: z.lazy(() => ListAllSubscriptionsUnitPrice$outboundSchema),
-  discountAmount: z.lazy(() =>
-    ListAllSubscriptionsDiscountAmount$outboundSchema
-  ).optional(),
-  totalAmount: z.lazy(() => ListAllSubscriptionsTotalAmount$outboundSchema),
-  vatRate: z.string().optional(),
-  vatAmount: z.lazy(() => ListAllSubscriptionsVatAmount$outboundSchema)
-    .optional(),
-  sku: z.string().optional(),
-  categories: z.array(ListAllSubscriptionsCategory$outboundSchema).optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-  recurring: z.lazy(() => ListAllSubscriptionsRecurring$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsLine$ {
-  /** @deprecated use `ListAllSubscriptionsLine$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsLine$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsLine$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsLine$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsLine$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsLine$Outbound;
-}
-
-export function listAllSubscriptionsLineToJSON(
-  listAllSubscriptionsLine: ListAllSubscriptionsLine,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsLine$outboundSchema.parse(listAllSubscriptionsLine),
-  );
-}
-
-export function listAllSubscriptionsLineFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsLine, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsLine$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsLine' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsBillingAddress$inboundSchema: z.ZodType<
-  ListAllSubscriptionsBillingAddress,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.string().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsBillingAddress$Outbound = {
-  title?: string | undefined;
-  givenName?: string | undefined;
-  familyName?: string | undefined;
-  organizationName?: string | undefined;
-  streetAndNumber?: string | undefined;
-  streetAdditional?: string | undefined;
-  postalCode?: string | undefined;
-  email?: string | undefined;
-  phone?: string | undefined;
-  city?: string | undefined;
-  region?: string | undefined;
-  country?: string | undefined;
-};
-
-/** @internal */
-export const ListAllSubscriptionsBillingAddress$outboundSchema: z.ZodType<
-  ListAllSubscriptionsBillingAddress$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsBillingAddress
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.string().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsBillingAddress$ {
-  /** @deprecated use `ListAllSubscriptionsBillingAddress$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsBillingAddress$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsBillingAddress$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsBillingAddress$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsBillingAddress$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsBillingAddress$Outbound;
-}
-
-export function listAllSubscriptionsBillingAddressToJSON(
-  listAllSubscriptionsBillingAddress: ListAllSubscriptionsBillingAddress,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsBillingAddress$outboundSchema.parse(
-      listAllSubscriptionsBillingAddress,
-    ),
-  );
-}
-
-export function listAllSubscriptionsBillingAddressFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsBillingAddress, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsBillingAddress$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsBillingAddress' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsShippingAddress$inboundSchema: z.ZodType<
-  ListAllSubscriptionsShippingAddress,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.string().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsShippingAddress$Outbound = {
-  title?: string | undefined;
-  givenName?: string | undefined;
-  familyName?: string | undefined;
-  organizationName?: string | undefined;
-  streetAndNumber?: string | undefined;
-  streetAdditional?: string | undefined;
-  postalCode?: string | undefined;
-  email?: string | undefined;
-  phone?: string | undefined;
-  city?: string | undefined;
-  region?: string | undefined;
-  country?: string | undefined;
-};
-
-/** @internal */
-export const ListAllSubscriptionsShippingAddress$outboundSchema: z.ZodType<
-  ListAllSubscriptionsShippingAddress$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsShippingAddress
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.string().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsShippingAddress$ {
-  /** @deprecated use `ListAllSubscriptionsShippingAddress$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsShippingAddress$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsShippingAddress$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsShippingAddress$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsShippingAddress$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsShippingAddress$Outbound;
-}
-
-export function listAllSubscriptionsShippingAddressToJSON(
-  listAllSubscriptionsShippingAddress: ListAllSubscriptionsShippingAddress,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsShippingAddress$outboundSchema.parse(
-      listAllSubscriptionsShippingAddress,
-    ),
-  );
-}
-
-export function listAllSubscriptionsShippingAddressFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsShippingAddress, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsShippingAddress$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsShippingAddress' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsLocale$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsLocale
-> = z.nativeEnum(ListAllSubscriptionsLocale);
-
-/** @internal */
-export const ListAllSubscriptionsLocale$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsLocale
-> = ListAllSubscriptionsLocale$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsLocale$ {
-  /** @deprecated use `ListAllSubscriptionsLocale$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsLocale$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsLocale$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsLocale$outboundSchema;
-}
-
-/** @internal */
 export const ListAllSubscriptionsMethod$inboundSchema: z.ZodNativeEnum<
   typeof ListAllSubscriptionsMethod
 > = z.nativeEnum(ListAllSubscriptionsMethod);
@@ -3299,6 +1039,135 @@ export namespace ListAllSubscriptionsMethod$ {
   export const inboundSchema = ListAllSubscriptionsMethod$inboundSchema;
   /** @deprecated use `ListAllSubscriptionsMethod$outboundSchema` instead. */
   export const outboundSchema = ListAllSubscriptionsMethod$outboundSchema;
+}
+
+/** @internal */
+export const ListAllSubscriptionsApplicationFeeAmount$inboundSchema: z.ZodType<
+  ListAllSubscriptionsApplicationFeeAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type ListAllSubscriptionsApplicationFeeAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const ListAllSubscriptionsApplicationFeeAmount$outboundSchema: z.ZodType<
+  ListAllSubscriptionsApplicationFeeAmount$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsApplicationFeeAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsApplicationFeeAmount$ {
+  /** @deprecated use `ListAllSubscriptionsApplicationFeeAmount$inboundSchema` instead. */
+  export const inboundSchema =
+    ListAllSubscriptionsApplicationFeeAmount$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsApplicationFeeAmount$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsApplicationFeeAmount$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsApplicationFeeAmount$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsApplicationFeeAmount$Outbound;
+}
+
+export function listAllSubscriptionsApplicationFeeAmountToJSON(
+  listAllSubscriptionsApplicationFeeAmount:
+    ListAllSubscriptionsApplicationFeeAmount,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsApplicationFeeAmount$outboundSchema.parse(
+      listAllSubscriptionsApplicationFeeAmount,
+    ),
+  );
+}
+
+export function listAllSubscriptionsApplicationFeeAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListAllSubscriptionsApplicationFeeAmount,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListAllSubscriptionsApplicationFeeAmount$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListAllSubscriptionsApplicationFeeAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAllSubscriptionsApplicationFee$inboundSchema: z.ZodType<
+  ListAllSubscriptionsApplicationFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  amount: z.lazy(() => ListAllSubscriptionsApplicationFeeAmount$inboundSchema),
+  description: z.string(),
+});
+
+/** @internal */
+export type ListAllSubscriptionsApplicationFee$Outbound = {
+  amount: ListAllSubscriptionsApplicationFeeAmount$Outbound;
+  description: string;
+};
+
+/** @internal */
+export const ListAllSubscriptionsApplicationFee$outboundSchema: z.ZodType<
+  ListAllSubscriptionsApplicationFee$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsApplicationFee
+> = z.object({
+  amount: z.lazy(() => ListAllSubscriptionsApplicationFeeAmount$outboundSchema),
+  description: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsApplicationFee$ {
+  /** @deprecated use `ListAllSubscriptionsApplicationFee$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsApplicationFee$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsApplicationFee$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsApplicationFee$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsApplicationFee$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsApplicationFee$Outbound;
+}
+
+export function listAllSubscriptionsApplicationFeeToJSON(
+  listAllSubscriptionsApplicationFee: ListAllSubscriptionsApplicationFee,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsApplicationFee$outboundSchema.parse(
+      listAllSubscriptionsApplicationFee,
+    ),
+  );
+}
+
+export function listAllSubscriptionsApplicationFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllSubscriptionsApplicationFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListAllSubscriptionsApplicationFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsApplicationFee' from JSON`,
+  );
 }
 
 /** @internal */
@@ -3414,1218 +1283,64 @@ export function listAllSubscriptionsMetadataUnionFromJSON(
 }
 
 /** @internal */
-export const ListAllSubscriptionsCaptureMode$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsCaptureMode
-> = z.nativeEnum(ListAllSubscriptionsCaptureMode);
-
-/** @internal */
-export const ListAllSubscriptionsCaptureMode$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsCaptureMode
-> = ListAllSubscriptionsCaptureMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsCaptureMode$ {
-  /** @deprecated use `ListAllSubscriptionsCaptureMode$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsCaptureMode$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsCaptureMode$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsCaptureMode$outboundSchema;
-}
-
-/** @internal */
-export const ListAllSubscriptionsApplicationFeeAmount$inboundSchema: z.ZodType<
-  ListAllSubscriptionsApplicationFeeAmount,
+export const ListAllSubscriptionsSubscriptionSelf$inboundSchema: z.ZodType<
+  ListAllSubscriptionsSubscriptionSelf,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  currency: z.string(),
-  value: z.string(),
+  href: z.string(),
+  type: z.string(),
 });
 
 /** @internal */
-export type ListAllSubscriptionsApplicationFeeAmount$Outbound = {
-  currency: string;
-  value: string;
+export type ListAllSubscriptionsSubscriptionSelf$Outbound = {
+  href: string;
+  type: string;
 };
 
 /** @internal */
-export const ListAllSubscriptionsApplicationFeeAmount$outboundSchema: z.ZodType<
-  ListAllSubscriptionsApplicationFeeAmount$Outbound,
+export const ListAllSubscriptionsSubscriptionSelf$outboundSchema: z.ZodType<
+  ListAllSubscriptionsSubscriptionSelf$Outbound,
   z.ZodTypeDef,
-  ListAllSubscriptionsApplicationFeeAmount
+  ListAllSubscriptionsSubscriptionSelf
 > = z.object({
-  currency: z.string(),
-  value: z.string(),
+  href: z.string(),
+  type: z.string(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListAllSubscriptionsApplicationFeeAmount$ {
-  /** @deprecated use `ListAllSubscriptionsApplicationFeeAmount$inboundSchema` instead. */
+export namespace ListAllSubscriptionsSubscriptionSelf$ {
+  /** @deprecated use `ListAllSubscriptionsSubscriptionSelf$inboundSchema` instead. */
   export const inboundSchema =
-    ListAllSubscriptionsApplicationFeeAmount$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsApplicationFeeAmount$outboundSchema` instead. */
+    ListAllSubscriptionsSubscriptionSelf$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSubscriptionSelf$outboundSchema` instead. */
   export const outboundSchema =
-    ListAllSubscriptionsApplicationFeeAmount$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsApplicationFeeAmount$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsApplicationFeeAmount$Outbound;
+    ListAllSubscriptionsSubscriptionSelf$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSubscriptionSelf$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsSubscriptionSelf$Outbound;
 }
 
-export function listAllSubscriptionsApplicationFeeAmountToJSON(
-  listAllSubscriptionsApplicationFeeAmount:
-    ListAllSubscriptionsApplicationFeeAmount,
+export function listAllSubscriptionsSubscriptionSelfToJSON(
+  listAllSubscriptionsSubscriptionSelf: ListAllSubscriptionsSubscriptionSelf,
 ): string {
   return JSON.stringify(
-    ListAllSubscriptionsApplicationFeeAmount$outboundSchema.parse(
-      listAllSubscriptionsApplicationFeeAmount,
+    ListAllSubscriptionsSubscriptionSelf$outboundSchema.parse(
+      listAllSubscriptionsSubscriptionSelf,
     ),
   );
 }
 
-export function listAllSubscriptionsApplicationFeeAmountFromJSON(
+export function listAllSubscriptionsSubscriptionSelfFromJSON(
   jsonString: string,
-): SafeParseResult<
-  ListAllSubscriptionsApplicationFeeAmount,
-  SDKValidationError
-> {
+): SafeParseResult<ListAllSubscriptionsSubscriptionSelf, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      ListAllSubscriptionsApplicationFeeAmount$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ListAllSubscriptionsApplicationFeeAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsApplicationFee$inboundSchema: z.ZodType<
-  ListAllSubscriptionsApplicationFee,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: z.lazy(() => ListAllSubscriptionsApplicationFeeAmount$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsApplicationFee$Outbound = {
-  amount?: ListAllSubscriptionsApplicationFeeAmount$Outbound | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const ListAllSubscriptionsApplicationFee$outboundSchema: z.ZodType<
-  ListAllSubscriptionsApplicationFee$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsApplicationFee
-> = z.object({
-  amount: z.lazy(() => ListAllSubscriptionsApplicationFeeAmount$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsApplicationFee$ {
-  /** @deprecated use `ListAllSubscriptionsApplicationFee$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsApplicationFee$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsApplicationFee$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsApplicationFee$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsApplicationFee$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsApplicationFee$Outbound;
-}
-
-export function listAllSubscriptionsApplicationFeeToJSON(
-  listAllSubscriptionsApplicationFee: ListAllSubscriptionsApplicationFee,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsApplicationFee$outboundSchema.parse(
-      listAllSubscriptionsApplicationFee,
-    ),
-  );
-}
-
-export function listAllSubscriptionsApplicationFeeFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsApplicationFee, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsApplicationFee$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsApplicationFee' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRoutingMode$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsRoutingMode
-> = z.nativeEnum(ListAllSubscriptionsRoutingMode);
-
-/** @internal */
-export const ListAllSubscriptionsRoutingMode$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsRoutingMode
-> = ListAllSubscriptionsRoutingMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRoutingMode$ {
-  /** @deprecated use `ListAllSubscriptionsRoutingMode$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRoutingMode$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingMode$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsRoutingMode$outboundSchema;
-}
-
-/** @internal */
-export const ListAllSubscriptionsRoutingAmount$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsRoutingAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRoutingAmount$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingAmount$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRoutingAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRoutingAmount$ {
-  /** @deprecated use `ListAllSubscriptionsRoutingAmount$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRoutingAmount$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingAmount$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsRoutingAmount$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingAmount$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRoutingAmount$Outbound;
-}
-
-export function listAllSubscriptionsRoutingAmountToJSON(
-  listAllSubscriptionsRoutingAmount: ListAllSubscriptionsRoutingAmount,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRoutingAmount$outboundSchema.parse(
-      listAllSubscriptionsRoutingAmount,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRoutingAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRoutingAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsRoutingAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRoutingAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRoutingType$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsRoutingType
-> = z.nativeEnum(ListAllSubscriptionsRoutingType);
-
-/** @internal */
-export const ListAllSubscriptionsRoutingType$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsRoutingType
-> = ListAllSubscriptionsRoutingType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRoutingType$ {
-  /** @deprecated use `ListAllSubscriptionsRoutingType$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRoutingType$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingType$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsRoutingType$outboundSchema;
-}
-
-/** @internal */
-export const ListAllSubscriptionsDestination$inboundSchema: z.ZodType<
-  ListAllSubscriptionsDestination,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: ListAllSubscriptionsRoutingType$inboundSchema,
-  organizationId: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsDestination$Outbound = {
-  type: string;
-  organizationId: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsDestination$outboundSchema: z.ZodType<
-  ListAllSubscriptionsDestination$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsDestination
-> = z.object({
-  type: ListAllSubscriptionsRoutingType$outboundSchema,
-  organizationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsDestination$ {
-  /** @deprecated use `ListAllSubscriptionsDestination$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsDestination$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsDestination$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsDestination$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsDestination$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsDestination$Outbound;
-}
-
-export function listAllSubscriptionsDestinationToJSON(
-  listAllSubscriptionsDestination: ListAllSubscriptionsDestination,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsDestination$outboundSchema.parse(
-      listAllSubscriptionsDestination,
-    ),
-  );
-}
-
-export function listAllSubscriptionsDestinationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsDestination, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsDestination$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsDestination' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRoutingSelf$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsRoutingSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRoutingSelf$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingSelf$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRoutingSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRoutingSelf$ {
-  /** @deprecated use `ListAllSubscriptionsRoutingSelf$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRoutingSelf$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingSelf$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsRoutingSelf$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingSelf$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRoutingSelf$Outbound;
-}
-
-export function listAllSubscriptionsRoutingSelfToJSON(
-  listAllSubscriptionsRoutingSelf: ListAllSubscriptionsRoutingSelf,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRoutingSelf$outboundSchema.parse(
-      listAllSubscriptionsRoutingSelf,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRoutingSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRoutingSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsRoutingSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRoutingSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRoutingPayment$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingPayment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsRoutingPayment$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRoutingPayment$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingPayment$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRoutingPayment
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRoutingPayment$ {
-  /** @deprecated use `ListAllSubscriptionsRoutingPayment$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRoutingPayment$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingPayment$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsRoutingPayment$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingPayment$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRoutingPayment$Outbound;
-}
-
-export function listAllSubscriptionsRoutingPaymentToJSON(
-  listAllSubscriptionsRoutingPayment: ListAllSubscriptionsRoutingPayment,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRoutingPayment$outboundSchema.parse(
-      listAllSubscriptionsRoutingPayment,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRoutingPaymentFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRoutingPayment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsRoutingPayment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRoutingPayment' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRoutingLinks$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: z.lazy(() => ListAllSubscriptionsRoutingSelf$inboundSchema),
-  payment: z.lazy(() => ListAllSubscriptionsRoutingPayment$inboundSchema),
-});
-
-/** @internal */
-export type ListAllSubscriptionsRoutingLinks$Outbound = {
-  self: ListAllSubscriptionsRoutingSelf$Outbound;
-  payment: ListAllSubscriptionsRoutingPayment$Outbound;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRoutingLinks$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRoutingLinks$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRoutingLinks
-> = z.object({
-  self: z.lazy(() => ListAllSubscriptionsRoutingSelf$outboundSchema),
-  payment: z.lazy(() => ListAllSubscriptionsRoutingPayment$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRoutingLinks$ {
-  /** @deprecated use `ListAllSubscriptionsRoutingLinks$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRoutingLinks$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingLinks$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsRoutingLinks$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRoutingLinks$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRoutingLinks$Outbound;
-}
-
-export function listAllSubscriptionsRoutingLinksToJSON(
-  listAllSubscriptionsRoutingLinks: ListAllSubscriptionsRoutingLinks,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRoutingLinks$outboundSchema.parse(
-      listAllSubscriptionsRoutingLinks,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRoutingLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRoutingLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsRoutingLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRoutingLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRouting$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRouting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: ListAllSubscriptionsRoutingMode$inboundSchema,
-  amount: z.lazy(() => ListAllSubscriptionsRoutingAmount$inboundSchema),
-  destination: z.lazy(() => ListAllSubscriptionsDestination$inboundSchema),
-  createdAt: z.string(),
-  releaseDate: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => ListAllSubscriptionsRoutingLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
-
-/** @internal */
-export type ListAllSubscriptionsRouting$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  amount: ListAllSubscriptionsRoutingAmount$Outbound;
-  destination: ListAllSubscriptionsDestination$Outbound;
-  createdAt: string;
-  releaseDate?: string | null | undefined;
-  _links: ListAllSubscriptionsRoutingLinks$Outbound;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRouting$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRouting$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRouting
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: ListAllSubscriptionsRoutingMode$outboundSchema,
-  amount: z.lazy(() => ListAllSubscriptionsRoutingAmount$outboundSchema),
-  destination: z.lazy(() => ListAllSubscriptionsDestination$outboundSchema),
-  createdAt: z.string(),
-  releaseDate: z.nullable(z.string()).optional(),
-  links: z.lazy(() => ListAllSubscriptionsRoutingLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRouting$ {
-  /** @deprecated use `ListAllSubscriptionsRouting$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRouting$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRouting$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsRouting$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRouting$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRouting$Outbound;
-}
-
-export function listAllSubscriptionsRoutingToJSON(
-  listAllSubscriptionsRouting: ListAllSubscriptionsRouting,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRouting$outboundSchema.parse(
-      listAllSubscriptionsRouting,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRoutingFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRouting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsRouting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRouting' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsSequenceType$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsSequenceType
-> = z.nativeEnum(ListAllSubscriptionsSequenceType);
-
-/** @internal */
-export const ListAllSubscriptionsSequenceType$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsSequenceType
-> = ListAllSubscriptionsSequenceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsSequenceType$ {
-  /** @deprecated use `ListAllSubscriptionsSequenceType$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsSequenceType$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsSequenceType$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsSequenceType$outboundSchema;
-}
-
-/** @internal */
-export const ListAllSubscriptionsStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsStatus
-> = z.nativeEnum(ListAllSubscriptionsStatus);
-
-/** @internal */
-export const ListAllSubscriptionsStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsStatus
-> = ListAllSubscriptionsStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsStatus$ {
-  /** @deprecated use `ListAllSubscriptionsStatus$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsStatus$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsStatus$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsStatus$outboundSchema;
-}
-
-/** @internal */
-export const ListAllSubscriptionsStatusReason$inboundSchema: z.ZodType<
-  ListAllSubscriptionsStatusReason,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.string(),
-  message: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsStatusReason$Outbound = {
-  code: string;
-  message: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsStatusReason$outboundSchema: z.ZodType<
-  ListAllSubscriptionsStatusReason$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsStatusReason
-> = z.object({
-  code: z.string(),
-  message: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsStatusReason$ {
-  /** @deprecated use `ListAllSubscriptionsStatusReason$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsStatusReason$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsStatusReason$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsStatusReason$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsStatusReason$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsStatusReason$Outbound;
-}
-
-export function listAllSubscriptionsStatusReasonToJSON(
-  listAllSubscriptionsStatusReason: ListAllSubscriptionsStatusReason,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsStatusReason$outboundSchema.parse(
-      listAllSubscriptionsStatusReason,
-    ),
-  );
-}
-
-export function listAllSubscriptionsStatusReasonFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsStatusReason, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsStatusReason$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsStatusReason' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsPaymentSelf$inboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsPaymentSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsPaymentSelf$outboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentSelf$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsPaymentSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsPaymentSelf$ {
-  /** @deprecated use `ListAllSubscriptionsPaymentSelf$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsPaymentSelf$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentSelf$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsPaymentSelf$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentSelf$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsPaymentSelf$Outbound;
-}
-
-export function listAllSubscriptionsPaymentSelfToJSON(
-  listAllSubscriptionsPaymentSelf: ListAllSubscriptionsPaymentSelf,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsPaymentSelf$outboundSchema.parse(
-      listAllSubscriptionsPaymentSelf,
-    ),
-  );
-}
-
-export function listAllSubscriptionsPaymentSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsPaymentSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsPaymentSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsPaymentSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsCheckout$inboundSchema: z.ZodType<
-  ListAllSubscriptionsCheckout,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsCheckout$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsCheckout$outboundSchema: z.ZodType<
-  ListAllSubscriptionsCheckout$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsCheckout
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsCheckout$ {
-  /** @deprecated use `ListAllSubscriptionsCheckout$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsCheckout$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsCheckout$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsCheckout$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsCheckout$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsCheckout$Outbound;
-}
-
-export function listAllSubscriptionsCheckoutToJSON(
-  listAllSubscriptionsCheckout: ListAllSubscriptionsCheckout,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsCheckout$outboundSchema.parse(
-      listAllSubscriptionsCheckout,
-    ),
-  );
-}
-
-export function listAllSubscriptionsCheckoutFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsCheckout, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsCheckout$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsCheckout' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsMobileAppCheckout$inboundSchema: z.ZodType<
-  ListAllSubscriptionsMobileAppCheckout,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsMobileAppCheckout$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsMobileAppCheckout$outboundSchema: z.ZodType<
-  ListAllSubscriptionsMobileAppCheckout$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsMobileAppCheckout
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsMobileAppCheckout$ {
-  /** @deprecated use `ListAllSubscriptionsMobileAppCheckout$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsMobileAppCheckout$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsMobileAppCheckout$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsMobileAppCheckout$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsMobileAppCheckout$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsMobileAppCheckout$Outbound;
-}
-
-export function listAllSubscriptionsMobileAppCheckoutToJSON(
-  listAllSubscriptionsMobileAppCheckout: ListAllSubscriptionsMobileAppCheckout,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsMobileAppCheckout$outboundSchema.parse(
-      listAllSubscriptionsMobileAppCheckout,
-    ),
-  );
-}
-
-export function listAllSubscriptionsMobileAppCheckoutFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsMobileAppCheckout, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsMobileAppCheckout$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsMobileAppCheckout' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsChangePaymentState$inboundSchema: z.ZodType<
-  ListAllSubscriptionsChangePaymentState,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsChangePaymentState$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsChangePaymentState$outboundSchema: z.ZodType<
-  ListAllSubscriptionsChangePaymentState$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsChangePaymentState
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsChangePaymentState$ {
-  /** @deprecated use `ListAllSubscriptionsChangePaymentState$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsChangePaymentState$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsChangePaymentState$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsChangePaymentState$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsChangePaymentState$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsChangePaymentState$Outbound;
-}
-
-export function listAllSubscriptionsChangePaymentStateToJSON(
-  listAllSubscriptionsChangePaymentState:
-    ListAllSubscriptionsChangePaymentState,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsChangePaymentState$outboundSchema.parse(
-      listAllSubscriptionsChangePaymentState,
-    ),
-  );
-}
-
-export function listAllSubscriptionsChangePaymentStateFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsChangePaymentState, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsChangePaymentState$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsChangePaymentState' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsDashboard$inboundSchema: z.ZodType<
-  ListAllSubscriptionsDashboard,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsDashboard$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsDashboard$outboundSchema: z.ZodType<
-  ListAllSubscriptionsDashboard$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsDashboard
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsDashboard$ {
-  /** @deprecated use `ListAllSubscriptionsDashboard$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsDashboard$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsDashboard$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsDashboard$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsDashboard$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsDashboard$Outbound;
-}
-
-export function listAllSubscriptionsDashboardToJSON(
-  listAllSubscriptionsDashboard: ListAllSubscriptionsDashboard,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsDashboard$outboundSchema.parse(
-      listAllSubscriptionsDashboard,
-    ),
-  );
-}
-
-export function listAllSubscriptionsDashboardFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsDashboard, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsDashboard$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsDashboard' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRefunds$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRefunds,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsRefunds$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsRefunds$outboundSchema: z.ZodType<
-  ListAllSubscriptionsRefunds$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsRefunds
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsRefunds$ {
-  /** @deprecated use `ListAllSubscriptionsRefunds$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsRefunds$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRefunds$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsRefunds$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsRefunds$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsRefunds$Outbound;
-}
-
-export function listAllSubscriptionsRefundsToJSON(
-  listAllSubscriptionsRefunds: ListAllSubscriptionsRefunds,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsRefunds$outboundSchema.parse(
-      listAllSubscriptionsRefunds,
-    ),
-  );
-}
-
-export function listAllSubscriptionsRefundsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRefunds, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsRefunds$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRefunds' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsChargebacks$inboundSchema: z.ZodType<
-  ListAllSubscriptionsChargebacks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsChargebacks$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsChargebacks$outboundSchema: z.ZodType<
-  ListAllSubscriptionsChargebacks$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsChargebacks
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsChargebacks$ {
-  /** @deprecated use `ListAllSubscriptionsChargebacks$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsChargebacks$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsChargebacks$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsChargebacks$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsChargebacks$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsChargebacks$Outbound;
-}
-
-export function listAllSubscriptionsChargebacksToJSON(
-  listAllSubscriptionsChargebacks: ListAllSubscriptionsChargebacks,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsChargebacks$outboundSchema.parse(
-      listAllSubscriptionsChargebacks,
-    ),
-  );
-}
-
-export function listAllSubscriptionsChargebacksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsChargebacks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsChargebacks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsChargebacks' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsCaptures$inboundSchema: z.ZodType<
-  ListAllSubscriptionsCaptures,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsCaptures$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsCaptures$outboundSchema: z.ZodType<
-  ListAllSubscriptionsCaptures$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsCaptures
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsCaptures$ {
-  /** @deprecated use `ListAllSubscriptionsCaptures$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsCaptures$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsCaptures$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsCaptures$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsCaptures$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsCaptures$Outbound;
-}
-
-export function listAllSubscriptionsCapturesToJSON(
-  listAllSubscriptionsCaptures: ListAllSubscriptionsCaptures,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsCaptures$outboundSchema.parse(
-      listAllSubscriptionsCaptures,
-    ),
-  );
-}
-
-export function listAllSubscriptionsCapturesFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsCaptures, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsCaptures$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsCaptures' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsSettlement$inboundSchema: z.ZodType<
-  ListAllSubscriptionsSettlement,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsSettlement$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsSettlement$outboundSchema: z.ZodType<
-  ListAllSubscriptionsSettlement$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsSettlement
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsSettlement$ {
-  /** @deprecated use `ListAllSubscriptionsSettlement$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsSettlement$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsSettlement$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsSettlement$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsSettlement$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsSettlement$Outbound;
-}
-
-export function listAllSubscriptionsSettlementToJSON(
-  listAllSubscriptionsSettlement: ListAllSubscriptionsSettlement,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsSettlement$outboundSchema.parse(
-      listAllSubscriptionsSettlement,
-    ),
-  );
-}
-
-export function listAllSubscriptionsSettlementFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsSettlement, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsSettlement$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsSettlement' from JSON`,
+      ListAllSubscriptionsSubscriptionSelf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsSubscriptionSelf' from JSON`,
   );
 }
 
@@ -4635,14 +1350,14 @@ export const ListAllSubscriptionsCustomer$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  href: z.string(),
-  type: z.string(),
+  href: z.string().optional(),
+  type: z.string().optional(),
 });
 
 /** @internal */
 export type ListAllSubscriptionsCustomer$Outbound = {
-  href: string;
-  type: string;
+  href?: string | undefined;
+  type?: string | undefined;
 };
 
 /** @internal */
@@ -4651,8 +1366,8 @@ export const ListAllSubscriptionsCustomer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsCustomer
 > = z.object({
-  href: z.string(),
-  type: z.string(),
+  href: z.string().optional(),
+  type: z.string().optional(),
 });
 
 /**
@@ -4694,14 +1409,14 @@ export const ListAllSubscriptionsMandate$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  href: z.string(),
-  type: z.string(),
+  href: z.string().optional(),
+  type: z.string().optional(),
 });
 
 /** @internal */
 export type ListAllSubscriptionsMandate$Outbound = {
-  href: string;
-  type: string;
+  href?: string | undefined;
+  type?: string | undefined;
 };
 
 /** @internal */
@@ -4710,8 +1425,8 @@ export const ListAllSubscriptionsMandate$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsMandate
 > = z.object({
-  href: z.string(),
-  type: z.string(),
+  href: z.string().optional(),
+  type: z.string().optional(),
 });
 
 /**
@@ -4748,19 +1463,346 @@ export function listAllSubscriptionsMandateFromJSON(
 }
 
 /** @internal */
+export const ListAllSubscriptionsProfile$inboundSchema: z.ZodType<
+  ListAllSubscriptionsProfile,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  href: z.string().optional(),
+  type: z.string().optional(),
+});
+
+/** @internal */
+export type ListAllSubscriptionsProfile$Outbound = {
+  href?: string | undefined;
+  type?: string | undefined;
+};
+
+/** @internal */
+export const ListAllSubscriptionsProfile$outboundSchema: z.ZodType<
+  ListAllSubscriptionsProfile$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsProfile
+> = z.object({
+  href: z.string().optional(),
+  type: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsProfile$ {
+  /** @deprecated use `ListAllSubscriptionsProfile$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsProfile$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsProfile$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsProfile$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsProfile$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsProfile$Outbound;
+}
+
+export function listAllSubscriptionsProfileToJSON(
+  listAllSubscriptionsProfile: ListAllSubscriptionsProfile,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsProfile$outboundSchema.parse(
+      listAllSubscriptionsProfile,
+    ),
+  );
+}
+
+export function listAllSubscriptionsProfileFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllSubscriptionsProfile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAllSubscriptionsProfile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsProfile' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAllSubscriptionsPayments$inboundSchema: z.ZodType<
+  ListAllSubscriptionsPayments,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  href: z.string().optional(),
+  type: z.string().optional(),
+});
+
+/** @internal */
+export type ListAllSubscriptionsPayments$Outbound = {
+  href?: string | undefined;
+  type?: string | undefined;
+};
+
+/** @internal */
+export const ListAllSubscriptionsPayments$outboundSchema: z.ZodType<
+  ListAllSubscriptionsPayments$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsPayments
+> = z.object({
+  href: z.string().optional(),
+  type: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsPayments$ {
+  /** @deprecated use `ListAllSubscriptionsPayments$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsPayments$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsPayments$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsPayments$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsPayments$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsPayments$Outbound;
+}
+
+export function listAllSubscriptionsPaymentsToJSON(
+  listAllSubscriptionsPayments: ListAllSubscriptionsPayments,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsPayments$outboundSchema.parse(
+      listAllSubscriptionsPayments,
+    ),
+  );
+}
+
+export function listAllSubscriptionsPaymentsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllSubscriptionsPayments, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAllSubscriptionsPayments$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsPayments' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAllSubscriptionsSubscriptionDocumentation$inboundSchema:
+  z.ZodType<
+    ListAllSubscriptionsSubscriptionDocumentation,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    href: z.string(),
+    type: z.string(),
+  });
+
+/** @internal */
+export type ListAllSubscriptionsSubscriptionDocumentation$Outbound = {
+  href: string;
+  type: string;
+};
+
+/** @internal */
+export const ListAllSubscriptionsSubscriptionDocumentation$outboundSchema:
+  z.ZodType<
+    ListAllSubscriptionsSubscriptionDocumentation$Outbound,
+    z.ZodTypeDef,
+    ListAllSubscriptionsSubscriptionDocumentation
+  > = z.object({
+    href: z.string(),
+    type: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsSubscriptionDocumentation$ {
+  /** @deprecated use `ListAllSubscriptionsSubscriptionDocumentation$inboundSchema` instead. */
+  export const inboundSchema =
+    ListAllSubscriptionsSubscriptionDocumentation$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSubscriptionDocumentation$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsSubscriptionDocumentation$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSubscriptionDocumentation$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsSubscriptionDocumentation$Outbound;
+}
+
+export function listAllSubscriptionsSubscriptionDocumentationToJSON(
+  listAllSubscriptionsSubscriptionDocumentation:
+    ListAllSubscriptionsSubscriptionDocumentation,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsSubscriptionDocumentation$outboundSchema.parse(
+      listAllSubscriptionsSubscriptionDocumentation,
+    ),
+  );
+}
+
+export function listAllSubscriptionsSubscriptionDocumentationFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListAllSubscriptionsSubscriptionDocumentation,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListAllSubscriptionsSubscriptionDocumentation$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListAllSubscriptionsSubscriptionDocumentation' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAllSubscriptionsSubscriptionLinks$inboundSchema: z.ZodType<
+  ListAllSubscriptionsSubscriptionLinks,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  self: z.lazy(() => ListAllSubscriptionsSubscriptionSelf$inboundSchema),
+  customer: z.nullable(
+    z.lazy(() => ListAllSubscriptionsCustomer$inboundSchema),
+  ),
+  mandate: z.nullable(z.lazy(() => ListAllSubscriptionsMandate$inboundSchema))
+    .optional(),
+  profile: z.nullable(z.lazy(() => ListAllSubscriptionsProfile$inboundSchema)),
+  payments: z.nullable(z.lazy(() => ListAllSubscriptionsPayments$inboundSchema))
+    .optional(),
+  documentation: z.lazy(() =>
+    ListAllSubscriptionsSubscriptionDocumentation$inboundSchema
+  ),
+});
+
+/** @internal */
+export type ListAllSubscriptionsSubscriptionLinks$Outbound = {
+  self: ListAllSubscriptionsSubscriptionSelf$Outbound;
+  customer: ListAllSubscriptionsCustomer$Outbound | null;
+  mandate?: ListAllSubscriptionsMandate$Outbound | null | undefined;
+  profile: ListAllSubscriptionsProfile$Outbound | null;
+  payments?: ListAllSubscriptionsPayments$Outbound | null | undefined;
+  documentation: ListAllSubscriptionsSubscriptionDocumentation$Outbound;
+};
+
+/** @internal */
+export const ListAllSubscriptionsSubscriptionLinks$outboundSchema: z.ZodType<
+  ListAllSubscriptionsSubscriptionLinks$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsSubscriptionLinks
+> = z.object({
+  self: z.lazy(() => ListAllSubscriptionsSubscriptionSelf$outboundSchema),
+  customer: z.nullable(
+    z.lazy(() => ListAllSubscriptionsCustomer$outboundSchema),
+  ),
+  mandate: z.nullable(z.lazy(() => ListAllSubscriptionsMandate$outboundSchema))
+    .optional(),
+  profile: z.nullable(z.lazy(() => ListAllSubscriptionsProfile$outboundSchema)),
+  payments: z.nullable(
+    z.lazy(() => ListAllSubscriptionsPayments$outboundSchema),
+  ).optional(),
+  documentation: z.lazy(() =>
+    ListAllSubscriptionsSubscriptionDocumentation$outboundSchema
+  ),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsSubscriptionLinks$ {
+  /** @deprecated use `ListAllSubscriptionsSubscriptionLinks$inboundSchema` instead. */
+  export const inboundSchema =
+    ListAllSubscriptionsSubscriptionLinks$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSubscriptionLinks$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsSubscriptionLinks$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsSubscriptionLinks$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsSubscriptionLinks$Outbound;
+}
+
+export function listAllSubscriptionsSubscriptionLinksToJSON(
+  listAllSubscriptionsSubscriptionLinks: ListAllSubscriptionsSubscriptionLinks,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsSubscriptionLinks$outboundSchema.parse(
+      listAllSubscriptionsSubscriptionLinks,
+    ),
+  );
+}
+
+export function listAllSubscriptionsSubscriptionLinksFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllSubscriptionsSubscriptionLinks, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListAllSubscriptionsSubscriptionLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsSubscriptionLinks' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListAllSubscriptionsSubscription$inboundSchema: z.ZodType<
   ListAllSubscriptionsSubscription,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  href: z.string(),
-  type: z.string(),
+  resource: z.string().default("subscription"),
+  id: z.string(),
+  mode: ListAllSubscriptionsMode$inboundSchema,
+  status: ListAllSubscriptionsStatus$inboundSchema,
+  amount: z.lazy(() => ListAllSubscriptionsAmount$inboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: ListAllSubscriptionsInterval$inboundSchema,
+  startDate: z.string(),
+  nextPaymentDate: z.nullable(z.string()).optional(),
+  description: z.string(),
+  method: z.nullable(ListAllSubscriptionsMethod$inboundSchema),
+  applicationFee: z.lazy(() => ListAllSubscriptionsApplicationFee$inboundSchema)
+    .optional(),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => ListAllSubscriptionsMetadata$inboundSchema),
+      z.string(),
+      z.array(z.string()),
+    ]),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
+  mandateId: z.nullable(z.string()).optional(),
+  createdAt: z.string(),
+  canceledAt: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => ListAllSubscriptionsSubscriptionLinks$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
 });
 
 /** @internal */
 export type ListAllSubscriptionsSubscription$Outbound = {
-  href: string;
-  type: string;
+  resource: string;
+  id: string;
+  mode: string;
+  status: string;
+  amount: ListAllSubscriptionsAmount$Outbound;
+  times: number | null;
+  timesRemaining: number;
+  interval: string;
+  startDate: string;
+  nextPaymentDate?: string | null | undefined;
+  description: string;
+  method: string | null;
+  applicationFee?: ListAllSubscriptionsApplicationFee$Outbound | undefined;
+  metadata:
+    | ListAllSubscriptionsMetadata$Outbound
+    | string
+    | Array<string>
+    | null;
+  webhookUrl: string;
+  customerId: string;
+  mandateId?: string | null | undefined;
+  createdAt: string;
+  canceledAt?: string | null | undefined;
+  _links?: ListAllSubscriptionsSubscriptionLinks$Outbound | undefined;
 };
 
 /** @internal */
@@ -4769,8 +1811,39 @@ export const ListAllSubscriptionsSubscription$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsSubscription
 > = z.object({
-  href: z.string(),
-  type: z.string(),
+  resource: z.string().default("subscription"),
+  id: z.string(),
+  mode: ListAllSubscriptionsMode$outboundSchema,
+  status: ListAllSubscriptionsStatus$outboundSchema,
+  amount: z.lazy(() => ListAllSubscriptionsAmount$outboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: ListAllSubscriptionsInterval$outboundSchema,
+  startDate: z.string(),
+  nextPaymentDate: z.nullable(z.string()).optional(),
+  description: z.string(),
+  method: z.nullable(ListAllSubscriptionsMethod$outboundSchema),
+  applicationFee: z.lazy(() =>
+    ListAllSubscriptionsApplicationFee$outboundSchema
+  ).optional(),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => ListAllSubscriptionsMetadata$outboundSchema),
+      z.string(),
+      z.array(z.string()),
+    ]),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
+  mandateId: z.nullable(z.string()).optional(),
+  createdAt: z.string(),
+  canceledAt: z.nullable(z.string()).optional(),
+  links: z.lazy(() => ListAllSubscriptionsSubscriptionLinks$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    links: "_links",
+  });
 });
 
 /**
@@ -4807,593 +1880,19 @@ export function listAllSubscriptionsSubscriptionFromJSON(
 }
 
 /** @internal */
-export const ListAllSubscriptionsOrder$inboundSchema: z.ZodType<
-  ListAllSubscriptionsOrder,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsOrder$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsOrder$outboundSchema: z.ZodType<
-  ListAllSubscriptionsOrder$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsOrder
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsOrder$ {
-  /** @deprecated use `ListAllSubscriptionsOrder$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsOrder$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsOrder$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsOrder$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsOrder$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsOrder$Outbound;
-}
-
-export function listAllSubscriptionsOrderToJSON(
-  listAllSubscriptionsOrder: ListAllSubscriptionsOrder,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsOrder$outboundSchema.parse(listAllSubscriptionsOrder),
-  );
-}
-
-export function listAllSubscriptionsOrderFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsOrder, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsOrder$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsOrder' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsTerminal$inboundSchema: z.ZodType<
-  ListAllSubscriptionsTerminal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsTerminal$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsTerminal$outboundSchema: z.ZodType<
-  ListAllSubscriptionsTerminal$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsTerminal
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsTerminal$ {
-  /** @deprecated use `ListAllSubscriptionsTerminal$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsTerminal$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsTerminal$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsTerminal$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsTerminal$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsTerminal$Outbound;
-}
-
-export function listAllSubscriptionsTerminalToJSON(
-  listAllSubscriptionsTerminal: ListAllSubscriptionsTerminal,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsTerminal$outboundSchema.parse(
-      listAllSubscriptionsTerminal,
-    ),
-  );
-}
-
-export function listAllSubscriptionsTerminalFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsTerminal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsTerminal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsTerminal' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsPaymentDocumentation$inboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsPaymentDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListAllSubscriptionsPaymentDocumentation$outboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsPaymentDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsPaymentDocumentation$ {
-  /** @deprecated use `ListAllSubscriptionsPaymentDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    ListAllSubscriptionsPaymentDocumentation$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsPaymentDocumentation$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentDocumentation$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsPaymentDocumentation$Outbound;
-}
-
-export function listAllSubscriptionsPaymentDocumentationToJSON(
-  listAllSubscriptionsPaymentDocumentation:
-    ListAllSubscriptionsPaymentDocumentation,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsPaymentDocumentation$outboundSchema.parse(
-      listAllSubscriptionsPaymentDocumentation,
-    ),
-  );
-}
-
-export function listAllSubscriptionsPaymentDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ListAllSubscriptionsPaymentDocumentation,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListAllSubscriptionsPaymentDocumentation$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ListAllSubscriptionsPaymentDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsPaymentLinks$inboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: z.lazy(() => ListAllSubscriptionsPaymentSelf$inboundSchema),
-  checkout: z.lazy(() => ListAllSubscriptionsCheckout$inboundSchema).optional(),
-  mobileAppCheckout: z.lazy(() =>
-    ListAllSubscriptionsMobileAppCheckout$inboundSchema
-  ).optional(),
-  changePaymentState: z.lazy(() =>
-    ListAllSubscriptionsChangePaymentState$inboundSchema
-  ).optional(),
-  dashboard: z.lazy(() => ListAllSubscriptionsDashboard$inboundSchema),
-  refunds: z.lazy(() => ListAllSubscriptionsRefunds$inboundSchema).optional(),
-  chargebacks: z.lazy(() => ListAllSubscriptionsChargebacks$inboundSchema)
-    .optional(),
-  captures: z.lazy(() => ListAllSubscriptionsCaptures$inboundSchema).optional(),
-  settlement: z.lazy(() => ListAllSubscriptionsSettlement$inboundSchema)
-    .optional(),
-  customer: z.lazy(() => ListAllSubscriptionsCustomer$inboundSchema).optional(),
-  mandate: z.lazy(() => ListAllSubscriptionsMandate$inboundSchema).optional(),
-  subscription: z.lazy(() => ListAllSubscriptionsSubscription$inboundSchema)
-    .optional(),
-  order: z.lazy(() => ListAllSubscriptionsOrder$inboundSchema).optional(),
-  terminal: z.lazy(() => ListAllSubscriptionsTerminal$inboundSchema).optional(),
-  documentation: z.lazy(() =>
-    ListAllSubscriptionsPaymentDocumentation$inboundSchema
-  ).optional(),
-});
-
-/** @internal */
-export type ListAllSubscriptionsPaymentLinks$Outbound = {
-  self: ListAllSubscriptionsPaymentSelf$Outbound;
-  checkout?: ListAllSubscriptionsCheckout$Outbound | undefined;
-  mobileAppCheckout?:
-    | ListAllSubscriptionsMobileAppCheckout$Outbound
-    | undefined;
-  changePaymentState?:
-    | ListAllSubscriptionsChangePaymentState$Outbound
-    | undefined;
-  dashboard: ListAllSubscriptionsDashboard$Outbound;
-  refunds?: ListAllSubscriptionsRefunds$Outbound | undefined;
-  chargebacks?: ListAllSubscriptionsChargebacks$Outbound | undefined;
-  captures?: ListAllSubscriptionsCaptures$Outbound | undefined;
-  settlement?: ListAllSubscriptionsSettlement$Outbound | undefined;
-  customer?: ListAllSubscriptionsCustomer$Outbound | undefined;
-  mandate?: ListAllSubscriptionsMandate$Outbound | undefined;
-  subscription?: ListAllSubscriptionsSubscription$Outbound | undefined;
-  order?: ListAllSubscriptionsOrder$Outbound | undefined;
-  terminal?: ListAllSubscriptionsTerminal$Outbound | undefined;
-  documentation?: ListAllSubscriptionsPaymentDocumentation$Outbound | undefined;
-};
-
-/** @internal */
-export const ListAllSubscriptionsPaymentLinks$outboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentLinks$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsPaymentLinks
-> = z.object({
-  self: z.lazy(() => ListAllSubscriptionsPaymentSelf$outboundSchema),
-  checkout: z.lazy(() => ListAllSubscriptionsCheckout$outboundSchema)
-    .optional(),
-  mobileAppCheckout: z.lazy(() =>
-    ListAllSubscriptionsMobileAppCheckout$outboundSchema
-  ).optional(),
-  changePaymentState: z.lazy(() =>
-    ListAllSubscriptionsChangePaymentState$outboundSchema
-  ).optional(),
-  dashboard: z.lazy(() => ListAllSubscriptionsDashboard$outboundSchema),
-  refunds: z.lazy(() => ListAllSubscriptionsRefunds$outboundSchema).optional(),
-  chargebacks: z.lazy(() => ListAllSubscriptionsChargebacks$outboundSchema)
-    .optional(),
-  captures: z.lazy(() => ListAllSubscriptionsCaptures$outboundSchema)
-    .optional(),
-  settlement: z.lazy(() => ListAllSubscriptionsSettlement$outboundSchema)
-    .optional(),
-  customer: z.lazy(() => ListAllSubscriptionsCustomer$outboundSchema)
-    .optional(),
-  mandate: z.lazy(() => ListAllSubscriptionsMandate$outboundSchema).optional(),
-  subscription: z.lazy(() => ListAllSubscriptionsSubscription$outboundSchema)
-    .optional(),
-  order: z.lazy(() => ListAllSubscriptionsOrder$outboundSchema).optional(),
-  terminal: z.lazy(() => ListAllSubscriptionsTerminal$outboundSchema)
-    .optional(),
-  documentation: z.lazy(() =>
-    ListAllSubscriptionsPaymentDocumentation$outboundSchema
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsPaymentLinks$ {
-  /** @deprecated use `ListAllSubscriptionsPaymentLinks$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsPaymentLinks$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentLinks$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsPaymentLinks$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentLinks$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsPaymentLinks$Outbound;
-}
-
-export function listAllSubscriptionsPaymentLinksToJSON(
-  listAllSubscriptionsPaymentLinks: ListAllSubscriptionsPaymentLinks,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsPaymentLinks$outboundSchema.parse(
-      listAllSubscriptionsPaymentLinks,
-    ),
-  );
-}
-
-export function listAllSubscriptionsPaymentLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsPaymentLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsPaymentLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsPaymentLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsPaymentOutput$inboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentOutput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: ListAllSubscriptionsMode$inboundSchema,
-  description: z.string(),
-  amount: z.lazy(() => ListAllSubscriptionsAmount$inboundSchema),
-  amountRefunded: z.lazy(() => ListAllSubscriptionsAmountRefunded$inboundSchema)
-    .optional(),
-  amountRemaining: z.lazy(() =>
-    ListAllSubscriptionsAmountRemaining$inboundSchema
-  ).optional(),
-  amountCaptured: z.lazy(() => ListAllSubscriptionsAmountCaptured$inboundSchema)
-    .optional(),
-  amountChargedBack: z.lazy(() =>
-    ListAllSubscriptionsAmountChargedBack$inboundSchema
-  ).optional(),
-  settlementAmount: z.lazy(() =>
-    ListAllSubscriptionsSettlementAmount$inboundSchema
-  ).optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  cancelUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  lines: z.nullable(
-    z.array(z.lazy(() => ListAllSubscriptionsLine$inboundSchema)),
-  ).optional(),
-  billingAddress: z.lazy(() => ListAllSubscriptionsBillingAddress$inboundSchema)
-    .optional(),
-  shippingAddress: z.lazy(() =>
-    ListAllSubscriptionsShippingAddress$inboundSchema
-  ).optional(),
-  locale: z.nullable(ListAllSubscriptionsLocale$inboundSchema).optional(),
-  countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(ListAllSubscriptionsMethod$inboundSchema).optional(),
-  restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListAllSubscriptionsMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
-  ).optional(),
-  captureMode: z.nullable(ListAllSubscriptionsCaptureMode$inboundSchema)
-    .optional(),
-  captureDelay: z.nullable(z.string()).optional(),
-  captureBefore: z.nullable(z.string()).optional(),
-  applicationFee: z.nullable(
-    z.lazy(() => ListAllSubscriptionsApplicationFee$inboundSchema),
-  ).optional(),
-  routing: z.nullable(
-    z.array(z.lazy(() => ListAllSubscriptionsRouting$inboundSchema)),
-  ).optional(),
-  sequenceType: z.nullable(
-    ListAllSubscriptionsSequenceType$inboundSchema.default("oneoff"),
-  ),
-  subscriptionId: z.nullable(z.string()).optional(),
-  mandateId: z.nullable(z.string()).optional(),
-  customerId: z.nullable(z.string()).optional(),
-  profileId: z.string(),
-  settlementId: z.nullable(z.string()).optional(),
-  orderId: z.nullable(z.string()).optional(),
-  status: ListAllSubscriptionsStatus$inboundSchema,
-  statusReason: z.nullable(
-    z.lazy(() => ListAllSubscriptionsStatusReason$inboundSchema),
-  ).optional(),
-  isCancelable: z.nullable(z.boolean()).optional(),
-  details: z.nullable(z.record(z.any())).optional(),
-  createdAt: z.string(),
-  authorizedAt: z.nullable(z.string()).optional(),
-  paidAt: z.nullable(z.string()).optional(),
-  canceledAt: z.nullable(z.string()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  expiredAt: z.nullable(z.string()).optional(),
-  failedAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => ListAllSubscriptionsPaymentLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
-
-/** @internal */
-export type ListAllSubscriptionsPaymentOutput$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  description: string;
-  amount: ListAllSubscriptionsAmount$Outbound;
-  amountRefunded?: ListAllSubscriptionsAmountRefunded$Outbound | undefined;
-  amountRemaining?: ListAllSubscriptionsAmountRemaining$Outbound | undefined;
-  amountCaptured?: ListAllSubscriptionsAmountCaptured$Outbound | undefined;
-  amountChargedBack?:
-    | ListAllSubscriptionsAmountChargedBack$Outbound
-    | undefined;
-  settlementAmount?: ListAllSubscriptionsSettlementAmount$Outbound | undefined;
-  redirectUrl?: string | null | undefined;
-  cancelUrl?: string | null | undefined;
-  webhookUrl?: string | null | undefined;
-  lines?: Array<ListAllSubscriptionsLine$Outbound> | null | undefined;
-  billingAddress?: ListAllSubscriptionsBillingAddress$Outbound | undefined;
-  shippingAddress?: ListAllSubscriptionsShippingAddress$Outbound | undefined;
-  locale?: string | null | undefined;
-  countryCode?: string | null | undefined;
-  method?: string | null | undefined;
-  restrictPaymentMethodsToCountry?: string | null | undefined;
-  metadata?:
-    | ListAllSubscriptionsMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
-  captureMode?: string | null | undefined;
-  captureDelay?: string | null | undefined;
-  captureBefore?: string | null | undefined;
-  applicationFee?:
-    | ListAllSubscriptionsApplicationFee$Outbound
-    | null
-    | undefined;
-  routing?: Array<ListAllSubscriptionsRouting$Outbound> | null | undefined;
-  sequenceType: string | null;
-  subscriptionId?: string | null | undefined;
-  mandateId?: string | null | undefined;
-  customerId?: string | null | undefined;
-  profileId: string;
-  settlementId?: string | null | undefined;
-  orderId?: string | null | undefined;
-  status: string;
-  statusReason?: ListAllSubscriptionsStatusReason$Outbound | null | undefined;
-  isCancelable?: boolean | null | undefined;
-  details?: { [k: string]: any } | null | undefined;
-  createdAt: string;
-  authorizedAt?: string | null | undefined;
-  paidAt?: string | null | undefined;
-  canceledAt?: string | null | undefined;
-  expiresAt?: string | null | undefined;
-  expiredAt?: string | null | undefined;
-  failedAt?: string | null | undefined;
-  _links: ListAllSubscriptionsPaymentLinks$Outbound;
-};
-
-/** @internal */
-export const ListAllSubscriptionsPaymentOutput$outboundSchema: z.ZodType<
-  ListAllSubscriptionsPaymentOutput$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsPaymentOutput
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: ListAllSubscriptionsMode$outboundSchema,
-  description: z.string(),
-  amount: z.lazy(() => ListAllSubscriptionsAmount$outboundSchema),
-  amountRefunded: z.lazy(() =>
-    ListAllSubscriptionsAmountRefunded$outboundSchema
-  ).optional(),
-  amountRemaining: z.lazy(() =>
-    ListAllSubscriptionsAmountRemaining$outboundSchema
-  ).optional(),
-  amountCaptured: z.lazy(() =>
-    ListAllSubscriptionsAmountCaptured$outboundSchema
-  ).optional(),
-  amountChargedBack: z.lazy(() =>
-    ListAllSubscriptionsAmountChargedBack$outboundSchema
-  ).optional(),
-  settlementAmount: z.lazy(() =>
-    ListAllSubscriptionsSettlementAmount$outboundSchema
-  ).optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  cancelUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  lines: z.nullable(
-    z.array(z.lazy(() => ListAllSubscriptionsLine$outboundSchema)),
-  ).optional(),
-  billingAddress: z.lazy(() =>
-    ListAllSubscriptionsBillingAddress$outboundSchema
-  ).optional(),
-  shippingAddress: z.lazy(() =>
-    ListAllSubscriptionsShippingAddress$outboundSchema
-  ).optional(),
-  locale: z.nullable(ListAllSubscriptionsLocale$outboundSchema).optional(),
-  countryCode: z.nullable(z.string()).optional(),
-  method: z.nullable(ListAllSubscriptionsMethod$outboundSchema).optional(),
-  restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListAllSubscriptionsMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
-  ).optional(),
-  captureMode: z.nullable(ListAllSubscriptionsCaptureMode$outboundSchema)
-    .optional(),
-  captureDelay: z.nullable(z.string()).optional(),
-  captureBefore: z.nullable(z.string()).optional(),
-  applicationFee: z.nullable(
-    z.lazy(() => ListAllSubscriptionsApplicationFee$outboundSchema),
-  ).optional(),
-  routing: z.nullable(
-    z.array(z.lazy(() => ListAllSubscriptionsRouting$outboundSchema)),
-  ).optional(),
-  sequenceType: z.nullable(
-    ListAllSubscriptionsSequenceType$outboundSchema.default("oneoff"),
-  ),
-  subscriptionId: z.nullable(z.string()).optional(),
-  mandateId: z.nullable(z.string()).optional(),
-  customerId: z.nullable(z.string()).optional(),
-  profileId: z.string(),
-  settlementId: z.nullable(z.string()).optional(),
-  orderId: z.nullable(z.string()).optional(),
-  status: ListAllSubscriptionsStatus$outboundSchema,
-  statusReason: z.nullable(
-    z.lazy(() => ListAllSubscriptionsStatusReason$outboundSchema),
-  ).optional(),
-  isCancelable: z.nullable(z.boolean()).optional(),
-  details: z.nullable(z.record(z.any())).optional(),
-  createdAt: z.string(),
-  authorizedAt: z.nullable(z.string()).optional(),
-  paidAt: z.nullable(z.string()).optional(),
-  canceledAt: z.nullable(z.string()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  expiredAt: z.nullable(z.string()).optional(),
-  failedAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => ListAllSubscriptionsPaymentLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsPaymentOutput$ {
-  /** @deprecated use `ListAllSubscriptionsPaymentOutput$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsPaymentOutput$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentOutput$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsPaymentOutput$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsPaymentOutput$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsPaymentOutput$Outbound;
-}
-
-export function listAllSubscriptionsPaymentOutputToJSON(
-  listAllSubscriptionsPaymentOutput: ListAllSubscriptionsPaymentOutput,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsPaymentOutput$outboundSchema.parse(
-      listAllSubscriptionsPaymentOutput,
-    ),
-  );
-}
-
-export function listAllSubscriptionsPaymentOutputFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsPaymentOutput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsPaymentOutput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsPaymentOutput' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListAllSubscriptionsEmbedded$inboundSchema: z.ZodType<
   ListAllSubscriptionsEmbedded,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  payments: z.array(
-    z.lazy(() => ListAllSubscriptionsPaymentOutput$inboundSchema),
+  subscriptions: z.array(
+    z.lazy(() => ListAllSubscriptionsSubscription$inboundSchema),
   ).optional(),
 });
 
 /** @internal */
 export type ListAllSubscriptionsEmbedded$Outbound = {
-  payments?: Array<ListAllSubscriptionsPaymentOutput$Outbound> | undefined;
+  subscriptions?: Array<ListAllSubscriptionsSubscription$Outbound> | undefined;
 };
 
 /** @internal */
@@ -5402,8 +1901,8 @@ export const ListAllSubscriptionsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsEmbedded
 > = z.object({
-  payments: z.array(
-    z.lazy(() => ListAllSubscriptionsPaymentOutput$outboundSchema),
+  subscriptions: z.array(
+    z.lazy(() => ListAllSubscriptionsSubscription$outboundSchema),
   ).optional(),
 });
 

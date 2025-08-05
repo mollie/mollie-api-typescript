@@ -1,6 +1,6 @@
 # ListAllSubscriptionsMandate
 
-The API resource URL of the [mandate](get-mandate).
+The API resource URL of the [mandate](get-mandate) this subscription was created for.
 
 ## Example Usage
 
@@ -17,5 +17,5 @@ let value: ListAllSubscriptionsMandate = {
 
 | Field                                                       | Type                                                        | Required                                                    | Description                                                 | Example                                                     |
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `href`                                                      | *string*                                                    | :heavy_check_mark:                                          | The actual URL string.                                      | https://...                                                 |
-| `type`                                                      | *string*                                                    | :heavy_check_mark:                                          | The content type of the page or endpoint the URL points to. | application/hal+json                                        |
+| `href`                                                      | *string*                                                    | :heavy_minus_sign:                                          | The actual URL string.                                      | https://...                                                 |
+| `type`                                                      | *string*                                                    | :heavy_minus_sign:                                          | The content type of the page or endpoint the URL points to. | application/hal+json                                        |

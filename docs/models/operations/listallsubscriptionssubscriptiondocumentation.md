@@ -1,14 +1,13 @@
-# ListAllSubscriptionsOrder
+# ListAllSubscriptionsSubscriptionDocumentation
 
-The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
-order.
+In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
 
 ## Example Usage
 
 ```typescript
-import { ListAllSubscriptionsOrder } from "mollie-api-typescript/models/operations";
+import { ListAllSubscriptionsSubscriptionDocumentation } from "mollie-api-typescript/models/operations";
 
-let value: ListAllSubscriptionsOrder = {
+let value: ListAllSubscriptionsSubscriptionDocumentation = {
   href: "https://...",
   type: "application/hal+json",
 };

@@ -282,11 +282,11 @@ export type CreateCustomerLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: CreateCustomerSelf | undefined;
+  self: CreateCustomerSelf;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  dashboard?: CreateCustomerDashboard | undefined;
+  dashboard: CreateCustomerDashboard;
   /**
    * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
    *
@@ -311,7 +311,7 @@ export type CreateCustomerLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: CreateCustomerDocumentation | undefined;
+  documentation: CreateCustomerDocumentation;
 };
 
 /**
@@ -325,46 +325,41 @@ export type CreateCustomerResponse = {
   /**
    * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: CreateCustomerMode | undefined;
+  mode: CreateCustomerMode;
   /**
    * The full name of the customer.
    */
-  name?: string | null | undefined;
+  name: string | null;
   /**
    * The email address of the customer.
    */
-  email?: string | null | undefined;
+  email: string | null;
   /**
    * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
    *
    * @remarks
    * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
    */
-  locale?: CreateCustomerLocaleResponse | null | undefined;
+  locale: CreateCustomerLocaleResponse | null;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | CreateCustomerMetadataResponse
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata: CreateCustomerMetadataResponse | string | Array<string> | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CreateCustomerLinks | undefined;
+  links: CreateCustomerLinks;
 };
 
 /** @internal */
@@ -1214,8 +1209,8 @@ export const CreateCustomerLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => CreateCustomerSelf$inboundSchema).optional(),
-  dashboard: z.lazy(() => CreateCustomerDashboard$inboundSchema).optional(),
+  self: z.lazy(() => CreateCustomerSelf$inboundSchema),
+  dashboard: z.lazy(() => CreateCustomerDashboard$inboundSchema),
   payments: z.nullable(z.lazy(() => CreateCustomerPayments$inboundSchema))
     .optional(),
   mandates: z.nullable(z.lazy(() => CreateCustomerMandates$inboundSchema))
@@ -1223,18 +1218,17 @@ export const CreateCustomerLinks$inboundSchema: z.ZodType<
   subscriptions: z.nullable(
     z.lazy(() => CreateCustomerSubscriptions$inboundSchema),
   ).optional(),
-  documentation: z.lazy(() => CreateCustomerDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CreateCustomerDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type CreateCustomerLinks$Outbound = {
-  self?: CreateCustomerSelf$Outbound | undefined;
-  dashboard?: CreateCustomerDashboard$Outbound | undefined;
+  self: CreateCustomerSelf$Outbound;
+  dashboard: CreateCustomerDashboard$Outbound;
   payments?: CreateCustomerPayments$Outbound | null | undefined;
   mandates?: CreateCustomerMandates$Outbound | null | undefined;
   subscriptions?: CreateCustomerSubscriptions$Outbound | null | undefined;
-  documentation?: CreateCustomerDocumentation$Outbound | undefined;
+  documentation: CreateCustomerDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1243,8 +1237,8 @@ export const CreateCustomerLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateCustomerLinks
 > = z.object({
-  self: z.lazy(() => CreateCustomerSelf$outboundSchema).optional(),
-  dashboard: z.lazy(() => CreateCustomerDashboard$outboundSchema).optional(),
+  self: z.lazy(() => CreateCustomerSelf$outboundSchema),
+  dashboard: z.lazy(() => CreateCustomerDashboard$outboundSchema),
   payments: z.nullable(z.lazy(() => CreateCustomerPayments$outboundSchema))
     .optional(),
   mandates: z.nullable(z.lazy(() => CreateCustomerMandates$outboundSchema))
@@ -1252,8 +1246,7 @@ export const CreateCustomerLinks$outboundSchema: z.ZodType<
   subscriptions: z.nullable(
     z.lazy(() => CreateCustomerSubscriptions$outboundSchema),
   ).optional(),
-  documentation: z.lazy(() => CreateCustomerDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CreateCustomerDocumentation$outboundSchema),
 });
 
 /**
@@ -1294,20 +1287,20 @@ export const CreateCustomerResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("customer"),
-  id: z.string().optional(),
-  mode: CreateCustomerMode$inboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(CreateCustomerLocaleResponse$inboundSchema).optional(),
+  id: z.string(),
+  mode: CreateCustomerMode$inboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(CreateCustomerLocaleResponse$inboundSchema),
   metadata: z.nullable(
     z.union([
       z.lazy(() => CreateCustomerMetadataResponse$inboundSchema),
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => CreateCustomerLinks$inboundSchema).optional(),
+  ),
+  createdAt: z.string(),
+  _links: z.lazy(() => CreateCustomerLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1317,19 +1310,18 @@ export const CreateCustomerResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type CreateCustomerResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  name?: string | null | undefined;
-  email?: string | null | undefined;
-  locale?: string | null | undefined;
-  metadata?:
+  id: string;
+  mode: string;
+  name: string | null;
+  email: string | null;
+  locale: string | null;
+  metadata:
     | CreateCustomerMetadataResponse$Outbound
     | string
     | Array<string>
-    | null
-    | undefined;
-  createdAt?: string | undefined;
-  _links?: CreateCustomerLinks$Outbound | undefined;
+    | null;
+  createdAt: string;
+  _links: CreateCustomerLinks$Outbound;
 };
 
 /** @internal */
@@ -1339,20 +1331,20 @@ export const CreateCustomerResponse$outboundSchema: z.ZodType<
   CreateCustomerResponse
 > = z.object({
   resource: z.string().default("customer"),
-  id: z.string().optional(),
-  mode: CreateCustomerMode$outboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(CreateCustomerLocaleResponse$outboundSchema).optional(),
+  id: z.string(),
+  mode: CreateCustomerMode$outboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(CreateCustomerLocaleResponse$outboundSchema),
   metadata: z.nullable(
     z.union([
       z.lazy(() => CreateCustomerMetadataResponse$outboundSchema),
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => CreateCustomerLinks$outboundSchema).optional(),
+  ),
+  createdAt: z.string(),
+  links: z.lazy(() => CreateCustomerLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

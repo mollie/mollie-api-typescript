@@ -302,11 +302,11 @@ export type ListSettlementRefundsRefundLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: ListSettlementRefundsRefundSelf | undefined;
+  self: ListSettlementRefundsRefundSelf;
   /**
    * The API resource URL of the [payment](get-payment) that this refund belongs to.
    */
-  payment?: ListSettlementRefundsPayment | undefined;
+  payment: ListSettlementRefundsPayment;
   /**
    * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
    *
@@ -317,7 +317,7 @@ export type ListSettlementRefundsRefundLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListSettlementRefundsRefundDocumentation | undefined;
+  documentation: ListSettlementRefundsRefundDocumentation;
 };
 
 export type ListSettlementRefundsRefund = {
@@ -1678,22 +1678,22 @@ export const ListSettlementRefundsRefundLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListSettlementRefundsRefundSelf$inboundSchema).optional(),
-  payment: z.lazy(() => ListSettlementRefundsPayment$inboundSchema).optional(),
+  self: z.lazy(() => ListSettlementRefundsRefundSelf$inboundSchema),
+  payment: z.lazy(() => ListSettlementRefundsPayment$inboundSchema),
   settlement: z.nullable(
     z.lazy(() => ListSettlementRefundsSettlement$inboundSchema),
   ).optional(),
   documentation: z.lazy(() =>
     ListSettlementRefundsRefundDocumentation$inboundSchema
-  ).optional(),
+  ),
 });
 
 /** @internal */
 export type ListSettlementRefundsRefundLinks$Outbound = {
-  self?: ListSettlementRefundsRefundSelf$Outbound | undefined;
-  payment?: ListSettlementRefundsPayment$Outbound | undefined;
+  self: ListSettlementRefundsRefundSelf$Outbound;
+  payment: ListSettlementRefundsPayment$Outbound;
   settlement?: ListSettlementRefundsSettlement$Outbound | null | undefined;
-  documentation?: ListSettlementRefundsRefundDocumentation$Outbound | undefined;
+  documentation: ListSettlementRefundsRefundDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1702,14 +1702,14 @@ export const ListSettlementRefundsRefundLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementRefundsRefundLinks
 > = z.object({
-  self: z.lazy(() => ListSettlementRefundsRefundSelf$outboundSchema).optional(),
-  payment: z.lazy(() => ListSettlementRefundsPayment$outboundSchema).optional(),
+  self: z.lazy(() => ListSettlementRefundsRefundSelf$outboundSchema),
+  payment: z.lazy(() => ListSettlementRefundsPayment$outboundSchema),
   settlement: z.nullable(
     z.lazy(() => ListSettlementRefundsSettlement$outboundSchema),
   ).optional(),
   documentation: z.lazy(() =>
     ListSettlementRefundsRefundDocumentation$outboundSchema
-  ).optional(),
+  ),
 });
 
 /**
@@ -1751,7 +1751,7 @@ export const ListSettlementRefundsRefund$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("refund"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: ListSettlementRefundsMode$inboundSchema.optional(),
   description: z.string().optional(),
@@ -1786,7 +1786,7 @@ export const ListSettlementRefundsRefund$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListSettlementRefundsRefund$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   description?: string | undefined;
@@ -1821,7 +1821,7 @@ export const ListSettlementRefundsRefund$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementRefundsRefund
 > = z.object({
-  resource: z.string().default("refund"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: ListSettlementRefundsMode$outboundSchema.optional(),
   description: z.string().optional(),

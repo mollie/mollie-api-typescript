@@ -93,8 +93,8 @@ export type CreateSubscriptionApplicationFeeRequest = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: CreateSubscriptionApplicationFeeAmountRequest | undefined;
-  description?: string | undefined;
+  amount: CreateSubscriptionApplicationFeeAmountRequest;
+  description: string;
 };
 
 export type CreateSubscriptionMetadataRequest = {};
@@ -349,8 +349,8 @@ export type CreateSubscriptionApplicationFeeResponse = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: CreateSubscriptionApplicationFeeAmountResponse | undefined;
-  description?: string | undefined;
+  amount: CreateSubscriptionApplicationFeeAmountResponse;
+  description: string;
 };
 
 export type CreateSubscriptionMetadataResponse = {};
@@ -463,11 +463,11 @@ export type CreateSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: CreateSubscriptionSelf | undefined;
+  self: CreateSubscriptionSelf;
   /**
    * The API resource URL of the [customer](get-customer) this subscription was created for.
    */
-  customer?: CreateSubscriptionCustomer | null | undefined;
+  customer: CreateSubscriptionCustomer | null;
   /**
    * The API resource URL of the [mandate](get-mandate) this subscription was created for.
    */
@@ -475,7 +475,7 @@ export type CreateSubscriptionLinks = {
   /**
    * The API resource URL of the [profile](get-profile) this subscription was created for.
    */
-  profile?: CreateSubscriptionProfile | null | undefined;
+  profile: CreateSubscriptionProfile | null;
   /**
    * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
    *
@@ -486,7 +486,7 @@ export type CreateSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: CreateSubscriptionDocumentation | undefined;
+  documentation: CreateSubscriptionDocumentation;
 };
 
 /**
@@ -503,25 +503,25 @@ export type CreateSubscriptionResponse = {
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: CreateSubscriptionMode | undefined;
+  mode: CreateSubscriptionMode;
   /**
    * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
    * enabling the subscription.
    */
-  status?: CreateSubscriptionStatus | undefined;
+  status: CreateSubscriptionStatus;
   /**
    * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
    * subscription of €10, the subscription amount should be set to €10.
    */
-  amount?: CreateSubscriptionAmountResponse | undefined;
+  amount: CreateSubscriptionAmountResponse;
   /**
    * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
@@ -530,11 +530,11 @@ export type CreateSubscriptionResponse = {
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
-  times?: number | null | undefined;
+  times: number | null;
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining?: number | undefined;
+  timesRemaining: number;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
@@ -542,11 +542,11 @@ export type CreateSubscriptionResponse = {
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
    */
-  interval?: CreateSubscriptionIntervalResponse | undefined;
+  interval: CreateSubscriptionIntervalResponse;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
-  startDate?: string | undefined;
+  startDate: string;
   /**
    * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
    *
@@ -562,11 +562,11 @@ export type CreateSubscriptionResponse = {
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
    */
-  method?: CreateSubscriptionMethodResponse | null | undefined;
+  method: CreateSubscriptionMethodResponse | null;
   /**
    * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
@@ -588,12 +588,7 @@ export type CreateSubscriptionResponse = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata?:
-    | CreateSubscriptionMetadataResponse
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata: CreateSubscriptionMetadataResponse | string | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -602,11 +597,11 @@ export type CreateSubscriptionResponse = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl?: string | undefined;
+  webhookUrl: string;
   /**
    * The customer this subscription belongs to.
    */
-  customerId?: string | undefined;
+  customerId: string;
   /**
    * The mandate used for this subscription, if any.
    */
@@ -614,7 +609,7 @@ export type CreateSubscriptionResponse = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
    *
@@ -808,14 +803,14 @@ export const CreateSubscriptionApplicationFeeRequest$inboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() =>
     CreateSubscriptionApplicationFeeAmountRequest$inboundSchema
-  ).optional(),
-  description: z.string().optional(),
+  ),
+  description: z.string(),
 });
 
 /** @internal */
 export type CreateSubscriptionApplicationFeeRequest$Outbound = {
-  amount?: CreateSubscriptionApplicationFeeAmountRequest$Outbound | undefined;
-  description?: string | undefined;
+  amount: CreateSubscriptionApplicationFeeAmountRequest$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -826,8 +821,8 @@ export const CreateSubscriptionApplicationFeeRequest$outboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() =>
     CreateSubscriptionApplicationFeeAmountRequest$outboundSchema
-  ).optional(),
-  description: z.string().optional(),
+  ),
+  description: z.string(),
 });
 
 /**
@@ -1513,14 +1508,14 @@ export const CreateSubscriptionApplicationFeeResponse$inboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() =>
     CreateSubscriptionApplicationFeeAmountResponse$inboundSchema
-  ).optional(),
-  description: z.string().optional(),
+  ),
+  description: z.string(),
 });
 
 /** @internal */
 export type CreateSubscriptionApplicationFeeResponse$Outbound = {
-  amount?: CreateSubscriptionApplicationFeeAmountResponse$Outbound | undefined;
-  description?: string | undefined;
+  amount: CreateSubscriptionApplicationFeeAmountResponse$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -1531,8 +1526,8 @@ export const CreateSubscriptionApplicationFeeResponse$outboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() =>
     CreateSubscriptionApplicationFeeAmountResponse$outboundSchema
-  ).optional(),
-  description: z.string().optional(),
+  ),
+  description: z.string(),
 });
 
 /**
@@ -2049,27 +2044,24 @@ export const CreateSubscriptionLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => CreateSubscriptionSelf$inboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => CreateSubscriptionCustomer$inboundSchema))
-    .optional(),
+  self: z.lazy(() => CreateSubscriptionSelf$inboundSchema),
+  customer: z.nullable(z.lazy(() => CreateSubscriptionCustomer$inboundSchema)),
   mandate: z.nullable(z.lazy(() => CreateSubscriptionMandate$inboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => CreateSubscriptionProfile$inboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => CreateSubscriptionProfile$inboundSchema)),
   payments: z.nullable(z.lazy(() => CreateSubscriptionPayments$inboundSchema))
     .optional(),
-  documentation: z.lazy(() => CreateSubscriptionDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CreateSubscriptionDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type CreateSubscriptionLinks$Outbound = {
-  self?: CreateSubscriptionSelf$Outbound | undefined;
-  customer?: CreateSubscriptionCustomer$Outbound | null | undefined;
+  self: CreateSubscriptionSelf$Outbound;
+  customer: CreateSubscriptionCustomer$Outbound | null;
   mandate?: CreateSubscriptionMandate$Outbound | null | undefined;
-  profile?: CreateSubscriptionProfile$Outbound | null | undefined;
+  profile: CreateSubscriptionProfile$Outbound | null;
   payments?: CreateSubscriptionPayments$Outbound | null | undefined;
-  documentation?: CreateSubscriptionDocumentation$Outbound | undefined;
+  documentation: CreateSubscriptionDocumentation$Outbound;
 };
 
 /** @internal */
@@ -2078,17 +2070,14 @@ export const CreateSubscriptionLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSubscriptionLinks
 > = z.object({
-  self: z.lazy(() => CreateSubscriptionSelf$outboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => CreateSubscriptionCustomer$outboundSchema))
-    .optional(),
+  self: z.lazy(() => CreateSubscriptionSelf$outboundSchema),
+  customer: z.nullable(z.lazy(() => CreateSubscriptionCustomer$outboundSchema)),
   mandate: z.nullable(z.lazy(() => CreateSubscriptionMandate$outboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => CreateSubscriptionProfile$outboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => CreateSubscriptionProfile$outboundSchema)),
   payments: z.nullable(z.lazy(() => CreateSubscriptionPayments$outboundSchema))
     .optional(),
-  documentation: z.lazy(() => CreateSubscriptionDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CreateSubscriptionDocumentation$outboundSchema),
 });
 
 /**
@@ -2129,18 +2118,17 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: CreateSubscriptionMode$inboundSchema.optional(),
-  status: CreateSubscriptionStatus$inboundSchema.optional(),
-  amount: z.lazy(() => CreateSubscriptionAmountResponse$inboundSchema)
-    .optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: CreateSubscriptionIntervalResponse$inboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: CreateSubscriptionMode$inboundSchema,
+  status: CreateSubscriptionStatus$inboundSchema,
+  amount: z.lazy(() => CreateSubscriptionAmountResponse$inboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: CreateSubscriptionIntervalResponse$inboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(CreateSubscriptionMethodResponse$inboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(CreateSubscriptionMethodResponse$inboundSchema),
   applicationFee: z.lazy(() =>
     CreateSubscriptionApplicationFeeResponse$inboundSchema
   ).optional(),
@@ -2150,11 +2138,11 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => CreateSubscriptionLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -2166,30 +2154,29 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type CreateSubscriptionResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  status?: string | undefined;
-  amount?: CreateSubscriptionAmountResponse$Outbound | undefined;
-  times?: number | null | undefined;
-  timesRemaining?: number | undefined;
-  interval?: string | undefined;
-  startDate?: string | undefined;
+  id: string;
+  mode: string;
+  status: string;
+  amount: CreateSubscriptionAmountResponse$Outbound;
+  times: number | null;
+  timesRemaining: number;
+  interval: string;
+  startDate: string;
   nextPaymentDate?: string | null | undefined;
-  description?: string | undefined;
-  method?: string | null | undefined;
+  description: string;
+  method: string | null;
   applicationFee?:
     | CreateSubscriptionApplicationFeeResponse$Outbound
     | undefined;
-  metadata?:
+  metadata:
     | CreateSubscriptionMetadataResponse$Outbound
     | string
     | Array<string>
-    | null
-    | undefined;
-  webhookUrl?: string | undefined;
-  customerId?: string | undefined;
+    | null;
+  webhookUrl: string;
+  customerId: string;
   mandateId?: string | null | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
   canceledAt?: string | null | undefined;
   _links?: CreateSubscriptionLinks$Outbound | undefined;
 };
@@ -2201,19 +2188,17 @@ export const CreateSubscriptionResponse$outboundSchema: z.ZodType<
   CreateSubscriptionResponse
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: CreateSubscriptionMode$outboundSchema.optional(),
-  status: CreateSubscriptionStatus$outboundSchema.optional(),
-  amount: z.lazy(() => CreateSubscriptionAmountResponse$outboundSchema)
-    .optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: CreateSubscriptionIntervalResponse$outboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: CreateSubscriptionMode$outboundSchema,
+  status: CreateSubscriptionStatus$outboundSchema,
+  amount: z.lazy(() => CreateSubscriptionAmountResponse$outboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: CreateSubscriptionIntervalResponse$outboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(CreateSubscriptionMethodResponse$outboundSchema)
-    .optional(),
+  description: z.string(),
+  method: z.nullable(CreateSubscriptionMethodResponse$outboundSchema),
   applicationFee: z.lazy(() =>
     CreateSubscriptionApplicationFeeResponse$outboundSchema
   ).optional(),
@@ -2223,11 +2208,11 @@ export const CreateSubscriptionResponse$outboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   links: z.lazy(() => CreateSubscriptionLinks$outboundSchema).optional(),
 }).transform((v) => {

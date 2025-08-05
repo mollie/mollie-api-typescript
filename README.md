@@ -1249,7 +1249,7 @@ run();
 **Primary error:**
 * [`ClientError`](./src/models/errors/clienterror.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (131)</summary>
+<details><summary>Less common errors (132)</summary>
 
 <br />
 
@@ -1278,7 +1278,7 @@ run();
 * [`ListCustomerPaymentsHalJSONError`](./src/models/errors/listcustomerpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListMandatesBadRequestHalJSONError`](./src/models/errors/listmandatesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListSubscriptionsBadRequestHalJSONError`](./src/models/errors/listsubscriptionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListAllSubscriptionsHalJSONError`](./src/models/errors/listallsubscriptionshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListAllSubscriptionsBadRequestHalJSONError`](./src/models/errors/listallsubscriptionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListSubscriptionPaymentsHalJSONError`](./src/models/errors/listsubscriptionpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListPermissionsHalJSONError`](./src/models/errors/listpermissionshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListProfilesHalJSONError`](./src/models/errors/listprofileshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
@@ -1329,6 +1329,7 @@ run();
 * [`GetSubscriptionHalJSONError`](./src/models/errors/getsubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`UpdateSubscriptionHalJSONError`](./src/models/errors/updatesubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`CancelSubscriptionHalJSONError`](./src/models/errors/cancelsubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListAllSubscriptionsNotFoundHalJSONError`](./src/models/errors/listallsubscriptionsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`GetPermissionHalJSONError`](./src/models/errors/getpermissionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`GetOrganizationHalJSONError`](./src/models/errors/getorganizationhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`GetProfileNotFoundHalJSONError`](./src/models/errors/getprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*

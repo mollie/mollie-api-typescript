@@ -10,7 +10,80 @@ import { ClientError } from "./clienterror.js";
 /**
  * An error response object.
  */
-export type ListAllSubscriptionsHalJSONErrorData = {
+export type ListAllSubscriptionsNotFoundHalJSONErrorData = {
+  /**
+   * The status code of the error message. This is always the same code as the status code of the HTTP message itself.
+   */
+  status: number;
+  /**
+   * The HTTP reason phrase of the error. For example, for a `404` error, the `title` will be `Not Found`.
+   */
+  title: string;
+  /**
+   * A detailed human-readable description of the error that occurred.
+   */
+  detail: string;
+  /**
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
+   */
+  field?: string | undefined;
+  links: operations.ListAllSubscriptionsNotFoundLinks;
+};
+
+/**
+ * An error response object.
+ */
+export class ListAllSubscriptionsNotFoundHalJSONError extends ClientError {
+  /**
+   * The status code of the error message. This is always the same code as the status code of the HTTP message itself.
+   */
+  status: number;
+  /**
+   * The HTTP reason phrase of the error. For example, for a `404` error, the `title` will be `Not Found`.
+   */
+  title: string;
+  /**
+   * A detailed human-readable description of the error that occurred.
+   */
+  detail: string;
+  /**
+   * If the error was caused by a value provided by you in a specific field, the `field` property will contain the name
+   *
+   * @remarks
+   * of the field that caused the issue.
+   */
+  field?: string | undefined;
+  links: operations.ListAllSubscriptionsNotFoundLinks;
+
+  /** The original data that was passed to this error instance. */
+  data$: ListAllSubscriptionsNotFoundHalJSONErrorData;
+
+  constructor(
+    err: ListAllSubscriptionsNotFoundHalJSONErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.status = err.status;
+    this.title = err.title;
+    this.detail = err.detail;
+    if (err.field != null) this.field = err.field;
+    this.links = err.links;
+
+    this.name = "ListAllSubscriptionsNotFoundHalJSONError";
+  }
+}
+
+/**
+ * An error response object.
+ */
+export type ListAllSubscriptionsBadRequestHalJSONErrorData = {
   /**
    * The status code of the error message. This is always the same code as the status code of the HTTP message itself.
    */
@@ -36,7 +109,7 @@ export type ListAllSubscriptionsHalJSONErrorData = {
 /**
  * An error response object.
  */
-export class ListAllSubscriptionsHalJSONError extends ClientError {
+export class ListAllSubscriptionsBadRequestHalJSONError extends ClientError {
   /**
    * The status code of the error message. This is always the same code as the status code of the HTTP message itself.
    */
@@ -59,10 +132,10 @@ export class ListAllSubscriptionsHalJSONError extends ClientError {
   links: operations.ListAllSubscriptionsBadRequestLinks;
 
   /** The original data that was passed to this error instance. */
-  data$: ListAllSubscriptionsHalJSONErrorData;
+  data$: ListAllSubscriptionsBadRequestHalJSONErrorData;
 
   constructor(
-    err: ListAllSubscriptionsHalJSONErrorData,
+    err: ListAllSubscriptionsBadRequestHalJSONErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = "message" in err && typeof err.message === "string"
@@ -76,13 +149,13 @@ export class ListAllSubscriptionsHalJSONError extends ClientError {
     if (err.field != null) this.field = err.field;
     this.links = err.links;
 
-    this.name = "ListAllSubscriptionsHalJSONError";
+    this.name = "ListAllSubscriptionsBadRequestHalJSONError";
   }
 }
 
 /** @internal */
-export const ListAllSubscriptionsHalJSONError$inboundSchema: z.ZodType<
-  ListAllSubscriptionsHalJSONError,
+export const ListAllSubscriptionsNotFoundHalJSONError$inboundSchema: z.ZodType<
+  ListAllSubscriptionsNotFoundHalJSONError,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -91,7 +164,7 @@ export const ListAllSubscriptionsHalJSONError$inboundSchema: z.ZodType<
   detail: z.string(),
   field: z.string().optional(),
   _links: z.lazy(() =>
-    operations.ListAllSubscriptionsBadRequestLinks$inboundSchema
+    operations.ListAllSubscriptionsNotFoundLinks$inboundSchema
   ),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -102,7 +175,7 @@ export const ListAllSubscriptionsHalJSONError$inboundSchema: z.ZodType<
       "_links": "links",
     });
 
-    return new ListAllSubscriptionsHalJSONError(remapped, {
+    return new ListAllSubscriptionsNotFoundHalJSONError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -110,20 +183,20 @@ export const ListAllSubscriptionsHalJSONError$inboundSchema: z.ZodType<
   });
 
 /** @internal */
-export type ListAllSubscriptionsHalJSONError$Outbound = {
+export type ListAllSubscriptionsNotFoundHalJSONError$Outbound = {
   status: number;
   title: string;
   detail: string;
   field?: string | undefined;
-  _links: operations.ListAllSubscriptionsBadRequestLinks$Outbound;
+  _links: operations.ListAllSubscriptionsNotFoundLinks$Outbound;
 };
 
 /** @internal */
-export const ListAllSubscriptionsHalJSONError$outboundSchema: z.ZodType<
-  ListAllSubscriptionsHalJSONError$Outbound,
+export const ListAllSubscriptionsNotFoundHalJSONError$outboundSchema: z.ZodType<
+  ListAllSubscriptionsNotFoundHalJSONError$Outbound,
   z.ZodTypeDef,
-  ListAllSubscriptionsHalJSONError
-> = z.instanceof(ListAllSubscriptionsHalJSONError)
+  ListAllSubscriptionsNotFoundHalJSONError
+> = z.instanceof(ListAllSubscriptionsNotFoundHalJSONError)
   .transform(v => v.data$)
   .pipe(
     z.object({
@@ -132,7 +205,7 @@ export const ListAllSubscriptionsHalJSONError$outboundSchema: z.ZodType<
       detail: z.string(),
       field: z.string().optional(),
       links: z.lazy(() =>
-        operations.ListAllSubscriptionsBadRequestLinks$outboundSchema
+        operations.ListAllSubscriptionsNotFoundLinks$outboundSchema
       ),
     }).transform((v) => {
       return remap$(v, {
@@ -145,11 +218,88 @@ export const ListAllSubscriptionsHalJSONError$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListAllSubscriptionsHalJSONError$ {
-  /** @deprecated use `ListAllSubscriptionsHalJSONError$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsHalJSONError$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsHalJSONError$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsHalJSONError$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsHalJSONError$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsHalJSONError$Outbound;
+export namespace ListAllSubscriptionsNotFoundHalJSONError$ {
+  /** @deprecated use `ListAllSubscriptionsNotFoundHalJSONError$inboundSchema` instead. */
+  export const inboundSchema =
+    ListAllSubscriptionsNotFoundHalJSONError$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsNotFoundHalJSONError$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsNotFoundHalJSONError$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsNotFoundHalJSONError$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsNotFoundHalJSONError$Outbound;
+}
+
+/** @internal */
+export const ListAllSubscriptionsBadRequestHalJSONError$inboundSchema:
+  z.ZodType<ListAllSubscriptionsBadRequestHalJSONError, z.ZodTypeDef, unknown> =
+    z.object({
+      status: z.number().int(),
+      title: z.string(),
+      detail: z.string(),
+      field: z.string().optional(),
+      _links: z.lazy(() =>
+        operations.ListAllSubscriptionsBadRequestLinks$inboundSchema
+      ),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        const remapped = remap$(v, {
+          "_links": "links",
+        });
+
+        return new ListAllSubscriptionsBadRequestHalJSONError(remapped, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      });
+
+/** @internal */
+export type ListAllSubscriptionsBadRequestHalJSONError$Outbound = {
+  status: number;
+  title: string;
+  detail: string;
+  field?: string | undefined;
+  _links: operations.ListAllSubscriptionsBadRequestLinks$Outbound;
+};
+
+/** @internal */
+export const ListAllSubscriptionsBadRequestHalJSONError$outboundSchema:
+  z.ZodType<
+    ListAllSubscriptionsBadRequestHalJSONError$Outbound,
+    z.ZodTypeDef,
+    ListAllSubscriptionsBadRequestHalJSONError
+  > = z.instanceof(ListAllSubscriptionsBadRequestHalJSONError)
+    .transform(v => v.data$)
+    .pipe(
+      z.object({
+        status: z.number().int(),
+        title: z.string(),
+        detail: z.string(),
+        field: z.string().optional(),
+        links: z.lazy(() =>
+          operations.ListAllSubscriptionsBadRequestLinks$outboundSchema
+        ),
+      }).transform((v) => {
+        return remap$(v, {
+          links: "_links",
+        });
+      }),
+    );
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsBadRequestHalJSONError$ {
+  /** @deprecated use `ListAllSubscriptionsBadRequestHalJSONError$inboundSchema` instead. */
+  export const inboundSchema =
+    ListAllSubscriptionsBadRequestHalJSONError$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsBadRequestHalJSONError$outboundSchema` instead. */
+  export const outboundSchema =
+    ListAllSubscriptionsBadRequestHalJSONError$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsBadRequestHalJSONError$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsBadRequestHalJSONError$Outbound;
 }

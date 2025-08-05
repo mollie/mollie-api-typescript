@@ -160,8 +160,8 @@ export type GetSubscriptionApplicationFee = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: GetSubscriptionApplicationFeeAmount | undefined;
-  description?: string | undefined;
+  amount: GetSubscriptionApplicationFeeAmount;
+  description: string;
 };
 
 export type GetSubscriptionMetadata = {};
@@ -274,11 +274,11 @@ export type GetSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: GetSubscriptionSelf | undefined;
+  self: GetSubscriptionSelf;
   /**
    * The API resource URL of the [customer](get-customer) this subscription was created for.
    */
-  customer?: GetSubscriptionCustomer | null | undefined;
+  customer: GetSubscriptionCustomer | null;
   /**
    * The API resource URL of the [mandate](get-mandate) this subscription was created for.
    */
@@ -286,7 +286,7 @@ export type GetSubscriptionLinks = {
   /**
    * The API resource URL of the [profile](get-profile) this subscription was created for.
    */
-  profile?: GetSubscriptionProfile | null | undefined;
+  profile: GetSubscriptionProfile | null;
   /**
    * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
    *
@@ -297,7 +297,7 @@ export type GetSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: GetSubscriptionDocumentation | undefined;
+  documentation: GetSubscriptionDocumentation;
 };
 
 /**
@@ -314,25 +314,25 @@ export type GetSubscriptionResponse = {
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: GetSubscriptionMode | undefined;
+  mode: GetSubscriptionMode;
   /**
    * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
    * enabling the subscription.
    */
-  status?: GetSubscriptionStatus | undefined;
+  status: GetSubscriptionStatus;
   /**
    * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
    * subscription of €10, the subscription amount should be set to €10.
    */
-  amount?: GetSubscriptionAmount | undefined;
+  amount: GetSubscriptionAmount;
   /**
    * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
@@ -341,11 +341,11 @@ export type GetSubscriptionResponse = {
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
-  times?: number | null | undefined;
+  times: number | null;
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining?: number | undefined;
+  timesRemaining: number;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
@@ -353,11 +353,11 @@ export type GetSubscriptionResponse = {
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
    */
-  interval?: GetSubscriptionInterval | undefined;
+  interval: GetSubscriptionInterval;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
-  startDate?: string | undefined;
+  startDate: string;
   /**
    * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
    *
@@ -373,11 +373,11 @@ export type GetSubscriptionResponse = {
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
    */
-  method?: GetSubscriptionMethod | null | undefined;
+  method: GetSubscriptionMethod | null;
   /**
    * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
@@ -399,12 +399,7 @@ export type GetSubscriptionResponse = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata?:
-    | GetSubscriptionMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata: GetSubscriptionMetadata | string | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -413,11 +408,11 @@ export type GetSubscriptionResponse = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl?: string | undefined;
+  webhookUrl: string;
   /**
    * The customer this subscription belongs to.
    */
-  customerId?: string | undefined;
+  customerId: string;
   /**
    * The mandate used for this subscription, if any.
    */
@@ -425,7 +420,7 @@ export type GetSubscriptionResponse = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
    *
@@ -830,15 +825,14 @@ export const GetSubscriptionApplicationFee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: z.lazy(() => GetSubscriptionApplicationFeeAmount$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => GetSubscriptionApplicationFeeAmount$inboundSchema),
+  description: z.string(),
 });
 
 /** @internal */
 export type GetSubscriptionApplicationFee$Outbound = {
-  amount?: GetSubscriptionApplicationFeeAmount$Outbound | undefined;
-  description?: string | undefined;
+  amount: GetSubscriptionApplicationFeeAmount$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -847,9 +841,8 @@ export const GetSubscriptionApplicationFee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSubscriptionApplicationFee
 > = z.object({
-  amount: z.lazy(() => GetSubscriptionApplicationFeeAmount$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => GetSubscriptionApplicationFeeAmount$outboundSchema),
+  description: z.string(),
 });
 
 /**
@@ -1344,27 +1337,24 @@ export const GetSubscriptionLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => GetSubscriptionSelf$inboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => GetSubscriptionCustomer$inboundSchema))
-    .optional(),
+  self: z.lazy(() => GetSubscriptionSelf$inboundSchema),
+  customer: z.nullable(z.lazy(() => GetSubscriptionCustomer$inboundSchema)),
   mandate: z.nullable(z.lazy(() => GetSubscriptionMandate$inboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => GetSubscriptionProfile$inboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => GetSubscriptionProfile$inboundSchema)),
   payments: z.nullable(z.lazy(() => GetSubscriptionPayments$inboundSchema))
     .optional(),
-  documentation: z.lazy(() => GetSubscriptionDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => GetSubscriptionDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type GetSubscriptionLinks$Outbound = {
-  self?: GetSubscriptionSelf$Outbound | undefined;
-  customer?: GetSubscriptionCustomer$Outbound | null | undefined;
+  self: GetSubscriptionSelf$Outbound;
+  customer: GetSubscriptionCustomer$Outbound | null;
   mandate?: GetSubscriptionMandate$Outbound | null | undefined;
-  profile?: GetSubscriptionProfile$Outbound | null | undefined;
+  profile: GetSubscriptionProfile$Outbound | null;
   payments?: GetSubscriptionPayments$Outbound | null | undefined;
-  documentation?: GetSubscriptionDocumentation$Outbound | undefined;
+  documentation: GetSubscriptionDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1373,17 +1363,14 @@ export const GetSubscriptionLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSubscriptionLinks
 > = z.object({
-  self: z.lazy(() => GetSubscriptionSelf$outboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => GetSubscriptionCustomer$outboundSchema))
-    .optional(),
+  self: z.lazy(() => GetSubscriptionSelf$outboundSchema),
+  customer: z.nullable(z.lazy(() => GetSubscriptionCustomer$outboundSchema)),
   mandate: z.nullable(z.lazy(() => GetSubscriptionMandate$outboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => GetSubscriptionProfile$outboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => GetSubscriptionProfile$outboundSchema)),
   payments: z.nullable(z.lazy(() => GetSubscriptionPayments$outboundSchema))
     .optional(),
-  documentation: z.lazy(() => GetSubscriptionDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => GetSubscriptionDocumentation$outboundSchema),
 });
 
 /**
@@ -1424,17 +1411,17 @@ export const GetSubscriptionResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: GetSubscriptionMode$inboundSchema.optional(),
-  status: GetSubscriptionStatus$inboundSchema.optional(),
-  amount: z.lazy(() => GetSubscriptionAmount$inboundSchema).optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: GetSubscriptionInterval$inboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: GetSubscriptionMode$inboundSchema,
+  status: GetSubscriptionStatus$inboundSchema,
+  amount: z.lazy(() => GetSubscriptionAmount$inboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: GetSubscriptionInterval$inboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(GetSubscriptionMethod$inboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(GetSubscriptionMethod$inboundSchema),
   applicationFee: z.lazy(() => GetSubscriptionApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1443,11 +1430,11 @@ export const GetSubscriptionResponse$inboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => GetSubscriptionLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -1459,28 +1446,23 @@ export const GetSubscriptionResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type GetSubscriptionResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  status?: string | undefined;
-  amount?: GetSubscriptionAmount$Outbound | undefined;
-  times?: number | null | undefined;
-  timesRemaining?: number | undefined;
-  interval?: string | undefined;
-  startDate?: string | undefined;
+  id: string;
+  mode: string;
+  status: string;
+  amount: GetSubscriptionAmount$Outbound;
+  times: number | null;
+  timesRemaining: number;
+  interval: string;
+  startDate: string;
   nextPaymentDate?: string | null | undefined;
-  description?: string | undefined;
-  method?: string | null | undefined;
+  description: string;
+  method: string | null;
   applicationFee?: GetSubscriptionApplicationFee$Outbound | undefined;
-  metadata?:
-    | GetSubscriptionMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
-  webhookUrl?: string | undefined;
-  customerId?: string | undefined;
+  metadata: GetSubscriptionMetadata$Outbound | string | Array<string> | null;
+  webhookUrl: string;
+  customerId: string;
   mandateId?: string | null | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
   canceledAt?: string | null | undefined;
   _links?: GetSubscriptionLinks$Outbound | undefined;
 };
@@ -1492,17 +1474,17 @@ export const GetSubscriptionResponse$outboundSchema: z.ZodType<
   GetSubscriptionResponse
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: GetSubscriptionMode$outboundSchema.optional(),
-  status: GetSubscriptionStatus$outboundSchema.optional(),
-  amount: z.lazy(() => GetSubscriptionAmount$outboundSchema).optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: GetSubscriptionInterval$outboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: GetSubscriptionMode$outboundSchema,
+  status: GetSubscriptionStatus$outboundSchema,
+  amount: z.lazy(() => GetSubscriptionAmount$outboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: GetSubscriptionInterval$outboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(GetSubscriptionMethod$outboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(GetSubscriptionMethod$outboundSchema),
   applicationFee: z.lazy(() => GetSubscriptionApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1511,11 +1493,11 @@ export const GetSubscriptionResponse$outboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   links: z.lazy(() => GetSubscriptionLinks$outboundSchema).optional(),
 }).transform((v) => {

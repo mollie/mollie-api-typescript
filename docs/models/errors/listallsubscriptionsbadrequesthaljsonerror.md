@@ -1,11 +1,11 @@
-# ListAllSubscriptionsHalJSONError
+# ListAllSubscriptionsBadRequestHalJSONError
 
 An error response object.
 
 ## Example Usage
 
 ```typescript
-import { ListAllSubscriptionsHalJSONError } from "mollie-api-typescript/models/errors";
+import { ListAllSubscriptionsBadRequestHalJSONError } from "mollie-api-typescript/models/errors";
 
 // No examples available for this model
 ```

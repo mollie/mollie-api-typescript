@@ -1,18 +1,18 @@
 # ListAllSubscriptionsStatus
 
-The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
-statuses occur at what point.
+The subscription's current status is directly related to the status of the underlying customer or mandate that is
+enabling the subscription.
 
 ## Example Usage
 
 ```typescript
 import { ListAllSubscriptionsStatus } from "mollie-api-typescript/models/operations";
 
-let value: ListAllSubscriptionsStatus = "open";
+let value: ListAllSubscriptionsStatus = "active";
 ```
 
 ## Values
 
 ```typescript
-"open" | "pending" | "authorized" | "paid" | "canceled" | "expired" | "failed"
+"pending" | "active" | "canceled" | "suspended" | "completed"
 ```

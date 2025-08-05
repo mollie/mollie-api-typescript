@@ -29,6 +29,7 @@ let value: ListSubscriptionsEmbedded = {
         },
         description: "Platform fee",
       },
+      metadata: "<value>",
       webhookUrl: "https://example.com/webhook",
       customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
@@ -39,15 +40,15 @@ let value: ListSubscriptionsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        customer: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
+        customer: null,
         mandate: {
           href: "https://...",
           type: "application/hal+json",
         },
-        profile: null,
+        profile: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
         payments: {
           href: "https://...",
           type: "application/hal+json",

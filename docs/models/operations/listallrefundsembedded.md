@@ -8,6 +8,7 @@ import { ListAllRefundsEmbedded } from "mollie-api-typescript/models/operations"
 let value: ListAllRefundsEmbedded = {
   refunds: [
     {
+      resource: "refund",
       id: "re_5B8cwPMGnU",
       mode: "live",
       description: "Refunding a Chess Board",
@@ -63,6 +64,6 @@ let value: ListAllRefundsEmbedded = {
 
 ## Fields
 
-| Field                                                                                                                                    | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `refunds`                                                                                                                                | [operations.ListAllRefundsRefund](../../models/operations/listallrefundsrefund.md)[]                                                     | :heavy_minus_sign:                                                                                                                       | An array of refund objects. For a complete reference of the refund object, refer to the<br/>[Get refund endpoint](get-refund) documentation. |
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `refunds`                                                                            | [operations.ListAllRefundsRefund](../../models/operations/listallrefundsrefund.md)[] | :heavy_minus_sign:                                                                   | An array of refund objects.                                                          |

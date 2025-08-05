@@ -13,6 +13,9 @@ let value: ListCustomersEmbedded = {
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
+      metadata: [
+        "<value 1>",
+      ],
       createdAt: "2024-03-20T09:13:37.0Z",
       links: {
         self: {

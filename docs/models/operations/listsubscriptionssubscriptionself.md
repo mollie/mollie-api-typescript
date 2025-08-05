@@ -1,13 +1,13 @@
-# ListAllSubscriptionsRoutingPayment
+# ListSubscriptionsSubscriptionSelf
 
-The API resource URL of the [payment](get-payment) that belong to this route.
+In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
 
 ## Example Usage
 
 ```typescript
-import { ListAllSubscriptionsRoutingPayment } from "mollie-api-typescript/models/operations";
+import { ListSubscriptionsSubscriptionSelf } from "mollie-api-typescript/models/operations";
 
-let value: ListAllSubscriptionsRoutingPayment = {
+let value: ListSubscriptionsSubscriptionSelf = {
   href: "https://...",
   type: "application/hal+json",
 };

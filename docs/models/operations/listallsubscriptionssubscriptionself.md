@@ -1,13 +1,13 @@
-# SubscriptionDocumentation
+# ListAllSubscriptionsSubscriptionSelf
 
 In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
 
 ## Example Usage
 
 ```typescript
-import { SubscriptionDocumentation } from "mollie-api-typescript/models/operations";
+import { ListAllSubscriptionsSubscriptionSelf } from "mollie-api-typescript/models/operations";
 
-let value: SubscriptionDocumentation = {
+let value: ListAllSubscriptionsSubscriptionSelf = {
   href: "https://...",
   type: "application/hal+json",
 };

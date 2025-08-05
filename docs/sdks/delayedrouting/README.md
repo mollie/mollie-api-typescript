@@ -38,6 +38,7 @@ async function run() {
         type: "organization",
         organizationId: "org_1234567",
       },
+      testmode: false,
     },
   });
 
@@ -76,6 +77,7 @@ async function run() {
         type: "organization",
         organizationId: "org_1234567",
       },
+      testmode: false,
     },
   });
   if (res.ok) {
@@ -128,6 +130,7 @@ const client = new Client({
 async function run() {
   const result = await client.delayedRouting.list({
     paymentId: "tr_5B8cwPMGnU",
+    testmode: false,
   });
 
   console.log(result);
@@ -155,6 +158,7 @@ const client = new ClientCore({
 async function run() {
   const res = await delayedRoutingList(client, {
     paymentId: "tr_5B8cwPMGnU",
+    testmode: false,
   });
   if (res.ok) {
     const { value: result } = res;

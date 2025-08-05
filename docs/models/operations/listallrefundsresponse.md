@@ -1,7 +1,6 @@
 # ListAllRefundsResponse
 
-A list of refund objects. For a complete reference of the refund object, refer to the
-[Get refund endpoint](get-refund) documentation.
+A list of refund objects
 
 ## Example Usage
 
@@ -13,6 +12,7 @@ let value: ListAllRefundsResponse = {
   embedded: {
     refunds: [
       {
+        resource: "refund",
         id: "re_5B8cwPMGnU",
         mode: "live",
         description: "Refunding a Chess Board",

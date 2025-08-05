@@ -251,11 +251,11 @@ export type CustomerLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: CustomerSelf | undefined;
+  self: CustomerSelf;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  dashboard?: ListCustomersDashboard | undefined;
+  dashboard: ListCustomersDashboard;
   /**
    * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
    *
@@ -280,7 +280,7 @@ export type CustomerLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: CustomerDocumentation | undefined;
+  documentation: CustomerDocumentation;
 };
 
 export type ListCustomersCustomer = {
@@ -291,41 +291,41 @@ export type ListCustomersCustomer = {
   /**
    * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: ListCustomersMode | undefined;
+  mode: ListCustomersMode;
   /**
    * The full name of the customer.
    */
-  name?: string | null | undefined;
+  name: string | null;
   /**
    * The email address of the customer.
    */
-  email?: string | null | undefined;
+  email: string | null;
   /**
    * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
    *
    * @remarks
    * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
    */
-  locale?: ListCustomersLocale | null | undefined;
+  locale: ListCustomersLocale | null;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: ListCustomersMetadata | string | Array<string> | null | undefined;
+  metadata: ListCustomersMetadata | string | Array<string> | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CustomerLinks | undefined;
+  links: CustomerLinks;
 };
 
 export type ListCustomersEmbedded = {
@@ -1250,8 +1250,8 @@ export const CustomerLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => CustomerSelf$inboundSchema).optional(),
-  dashboard: z.lazy(() => ListCustomersDashboard$inboundSchema).optional(),
+  self: z.lazy(() => CustomerSelf$inboundSchema),
+  dashboard: z.lazy(() => ListCustomersDashboard$inboundSchema),
   payments: z.nullable(z.lazy(() => ListCustomersPayments$inboundSchema))
     .optional(),
   mandates: z.nullable(z.lazy(() => ListCustomersMandates$inboundSchema))
@@ -1259,17 +1259,17 @@ export const CustomerLinks$inboundSchema: z.ZodType<
   subscriptions: z.nullable(
     z.lazy(() => ListCustomersSubscriptions$inboundSchema),
   ).optional(),
-  documentation: z.lazy(() => CustomerDocumentation$inboundSchema).optional(),
+  documentation: z.lazy(() => CustomerDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type CustomerLinks$Outbound = {
-  self?: CustomerSelf$Outbound | undefined;
-  dashboard?: ListCustomersDashboard$Outbound | undefined;
+  self: CustomerSelf$Outbound;
+  dashboard: ListCustomersDashboard$Outbound;
   payments?: ListCustomersPayments$Outbound | null | undefined;
   mandates?: ListCustomersMandates$Outbound | null | undefined;
   subscriptions?: ListCustomersSubscriptions$Outbound | null | undefined;
-  documentation?: CustomerDocumentation$Outbound | undefined;
+  documentation: CustomerDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1278,8 +1278,8 @@ export const CustomerLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CustomerLinks
 > = z.object({
-  self: z.lazy(() => CustomerSelf$outboundSchema).optional(),
-  dashboard: z.lazy(() => ListCustomersDashboard$outboundSchema).optional(),
+  self: z.lazy(() => CustomerSelf$outboundSchema),
+  dashboard: z.lazy(() => ListCustomersDashboard$outboundSchema),
   payments: z.nullable(z.lazy(() => ListCustomersPayments$outboundSchema))
     .optional(),
   mandates: z.nullable(z.lazy(() => ListCustomersMandates$outboundSchema))
@@ -1287,7 +1287,7 @@ export const CustomerLinks$outboundSchema: z.ZodType<
   subscriptions: z.nullable(
     z.lazy(() => ListCustomersSubscriptions$outboundSchema),
   ).optional(),
-  documentation: z.lazy(() => CustomerDocumentation$outboundSchema).optional(),
+  documentation: z.lazy(() => CustomerDocumentation$outboundSchema),
 });
 
 /**
@@ -1324,20 +1324,20 @@ export const ListCustomersCustomer$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("customer"),
-  id: z.string().optional(),
-  mode: ListCustomersMode$inboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(ListCustomersLocale$inboundSchema).optional(),
+  id: z.string(),
+  mode: ListCustomersMode$inboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(ListCustomersLocale$inboundSchema),
   metadata: z.nullable(
     z.union([
       z.lazy(() => ListCustomersMetadata$inboundSchema),
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => CustomerLinks$inboundSchema).optional(),
+  ),
+  createdAt: z.string(),
+  _links: z.lazy(() => CustomerLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1347,19 +1347,14 @@ export const ListCustomersCustomer$inboundSchema: z.ZodType<
 /** @internal */
 export type ListCustomersCustomer$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  name?: string | null | undefined;
-  email?: string | null | undefined;
-  locale?: string | null | undefined;
-  metadata?:
-    | ListCustomersMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
-  createdAt?: string | undefined;
-  _links?: CustomerLinks$Outbound | undefined;
+  id: string;
+  mode: string;
+  name: string | null;
+  email: string | null;
+  locale: string | null;
+  metadata: ListCustomersMetadata$Outbound | string | Array<string> | null;
+  createdAt: string;
+  _links: CustomerLinks$Outbound;
 };
 
 /** @internal */
@@ -1369,20 +1364,20 @@ export const ListCustomersCustomer$outboundSchema: z.ZodType<
   ListCustomersCustomer
 > = z.object({
   resource: z.string().default("customer"),
-  id: z.string().optional(),
-  mode: ListCustomersMode$outboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(ListCustomersLocale$outboundSchema).optional(),
+  id: z.string(),
+  mode: ListCustomersMode$outboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(ListCustomersLocale$outboundSchema),
   metadata: z.nullable(
     z.union([
       z.lazy(() => ListCustomersMetadata$outboundSchema),
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => CustomerLinks$outboundSchema).optional(),
+  ),
+  createdAt: z.string(),
+  links: z.lazy(() => CustomerLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

@@ -284,15 +284,15 @@ export type CreateMandateLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: CreateMandateSelf | undefined;
+  self: CreateMandateSelf;
   /**
    * The API resource URL of the [customer](get-customer) that this mandate belongs to.
    */
-  customer?: CreateMandateCustomer | undefined;
+  customer: CreateMandateCustomer;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: CreateMandateDocumentation | undefined;
+  documentation: CreateMandateDocumentation;
 };
 
 /**
@@ -306,11 +306,11 @@ export type CreateMandateResponse = {
   /**
    * The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: CreateMandateMode | undefined;
+  mode: CreateMandateMode;
   /**
    * Payment method of the mandate.
    *
@@ -318,38 +318,38 @@ export type CreateMandateResponse = {
    *
    * SEPA Direct Debit and PayPal mandates can be created directly.
    */
-  method?: CreateMandateMethodResponse | undefined;
-  details?: CreateMandateDetails | undefined;
+  method: CreateMandateMethodResponse;
+  details: CreateMandateDetails;
   /**
    * The date when the mandate was signed in `YYYY-MM-DD` format.
    */
-  signatureDate?: string | null | undefined;
+  signatureDate: string | null;
   /**
    * A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will
    *
    * @remarks
    * decline Direct Debit payments if the mandate reference is not unique.
    */
-  mandateReference?: string | null | undefined;
+  mandateReference: string | null;
   /**
    * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
    *
    * @remarks
    * when we did not received the IBAN yet from the first payment.
    */
-  status?: CreateMandateStatus | undefined;
+  status: CreateMandateStatus;
   /**
    * The identifier referring to the [customer](get-customer) this mandate was linked to.
    */
-  customerId?: string | undefined;
+  customerId: string;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CreateMandateLinks | undefined;
+  links: CreateMandateLinks;
 };
 
 /** @internal */
@@ -975,17 +975,16 @@ export const CreateMandateLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => CreateMandateSelf$inboundSchema).optional(),
-  customer: z.lazy(() => CreateMandateCustomer$inboundSchema).optional(),
-  documentation: z.lazy(() => CreateMandateDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => CreateMandateSelf$inboundSchema),
+  customer: z.lazy(() => CreateMandateCustomer$inboundSchema),
+  documentation: z.lazy(() => CreateMandateDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type CreateMandateLinks$Outbound = {
-  self?: CreateMandateSelf$Outbound | undefined;
-  customer?: CreateMandateCustomer$Outbound | undefined;
-  documentation?: CreateMandateDocumentation$Outbound | undefined;
+  self: CreateMandateSelf$Outbound;
+  customer: CreateMandateCustomer$Outbound;
+  documentation: CreateMandateDocumentation$Outbound;
 };
 
 /** @internal */
@@ -994,10 +993,9 @@ export const CreateMandateLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateMandateLinks
 > = z.object({
-  self: z.lazy(() => CreateMandateSelf$outboundSchema).optional(),
-  customer: z.lazy(() => CreateMandateCustomer$outboundSchema).optional(),
-  documentation: z.lazy(() => CreateMandateDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => CreateMandateSelf$outboundSchema),
+  customer: z.lazy(() => CreateMandateCustomer$outboundSchema),
+  documentation: z.lazy(() => CreateMandateDocumentation$outboundSchema),
 });
 
 /**
@@ -1038,16 +1036,16 @@ export const CreateMandateResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("mandate"),
-  id: z.string().optional(),
-  mode: CreateMandateMode$inboundSchema.optional(),
-  method: CreateMandateMethodResponse$inboundSchema.optional(),
-  details: z.lazy(() => CreateMandateDetails$inboundSchema).optional(),
-  signatureDate: z.nullable(z.string()).optional(),
-  mandateReference: z.nullable(z.string()).optional(),
-  status: CreateMandateStatus$inboundSchema.optional(),
-  customerId: z.string().optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => CreateMandateLinks$inboundSchema).optional(),
+  id: z.string(),
+  mode: CreateMandateMode$inboundSchema,
+  method: CreateMandateMethodResponse$inboundSchema,
+  details: z.lazy(() => CreateMandateDetails$inboundSchema),
+  signatureDate: z.nullable(z.string()),
+  mandateReference: z.nullable(z.string()),
+  status: CreateMandateStatus$inboundSchema,
+  customerId: z.string(),
+  createdAt: z.string(),
+  _links: z.lazy(() => CreateMandateLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1057,16 +1055,16 @@ export const CreateMandateResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type CreateMandateResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  method?: string | undefined;
-  details?: CreateMandateDetails$Outbound | undefined;
-  signatureDate?: string | null | undefined;
-  mandateReference?: string | null | undefined;
-  status?: string | undefined;
-  customerId?: string | undefined;
-  createdAt?: string | undefined;
-  _links?: CreateMandateLinks$Outbound | undefined;
+  id: string;
+  mode: string;
+  method: string;
+  details: CreateMandateDetails$Outbound;
+  signatureDate: string | null;
+  mandateReference: string | null;
+  status: string;
+  customerId: string;
+  createdAt: string;
+  _links: CreateMandateLinks$Outbound;
 };
 
 /** @internal */
@@ -1076,16 +1074,16 @@ export const CreateMandateResponse$outboundSchema: z.ZodType<
   CreateMandateResponse
 > = z.object({
   resource: z.string().default("mandate"),
-  id: z.string().optional(),
-  mode: CreateMandateMode$outboundSchema.optional(),
-  method: CreateMandateMethodResponse$outboundSchema.optional(),
-  details: z.lazy(() => CreateMandateDetails$outboundSchema).optional(),
-  signatureDate: z.nullable(z.string()).optional(),
-  mandateReference: z.nullable(z.string()).optional(),
-  status: CreateMandateStatus$outboundSchema.optional(),
-  customerId: z.string().optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => CreateMandateLinks$outboundSchema).optional(),
+  id: z.string(),
+  mode: CreateMandateMode$outboundSchema,
+  method: CreateMandateMethodResponse$outboundSchema,
+  details: z.lazy(() => CreateMandateDetails$outboundSchema),
+  signatureDate: z.nullable(z.string()),
+  mandateReference: z.nullable(z.string()),
+  status: CreateMandateStatus$outboundSchema,
+  customerId: z.string(),
+  createdAt: z.string(),
+  links: z.lazy(() => CreateMandateLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

@@ -269,11 +269,11 @@ export type GetRefundLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: GetRefundSelf | undefined;
+  self: GetRefundSelf;
   /**
    * The API resource URL of the [payment](get-payment) that this refund belongs to.
    */
-  payment?: GetRefundPayment | undefined;
+  payment: GetRefundPayment;
   /**
    * The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
    *
@@ -284,7 +284,7 @@ export type GetRefundLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: GetRefundDocumentation | undefined;
+  documentation: GetRefundDocumentation;
 };
 
 /**
@@ -1316,19 +1316,19 @@ export const GetRefundLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => GetRefundSelf$inboundSchema).optional(),
-  payment: z.lazy(() => GetRefundPayment$inboundSchema).optional(),
+  self: z.lazy(() => GetRefundSelf$inboundSchema),
+  payment: z.lazy(() => GetRefundPayment$inboundSchema),
   settlement: z.nullable(z.lazy(() => GetRefundSettlement$inboundSchema))
     .optional(),
-  documentation: z.lazy(() => GetRefundDocumentation$inboundSchema).optional(),
+  documentation: z.lazy(() => GetRefundDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type GetRefundLinks$Outbound = {
-  self?: GetRefundSelf$Outbound | undefined;
-  payment?: GetRefundPayment$Outbound | undefined;
+  self: GetRefundSelf$Outbound;
+  payment: GetRefundPayment$Outbound;
   settlement?: GetRefundSettlement$Outbound | null | undefined;
-  documentation?: GetRefundDocumentation$Outbound | undefined;
+  documentation: GetRefundDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1337,11 +1337,11 @@ export const GetRefundLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetRefundLinks
 > = z.object({
-  self: z.lazy(() => GetRefundSelf$outboundSchema).optional(),
-  payment: z.lazy(() => GetRefundPayment$outboundSchema).optional(),
+  self: z.lazy(() => GetRefundSelf$outboundSchema),
+  payment: z.lazy(() => GetRefundPayment$outboundSchema),
   settlement: z.nullable(z.lazy(() => GetRefundSettlement$outboundSchema))
     .optional(),
-  documentation: z.lazy(() => GetRefundDocumentation$outboundSchema).optional(),
+  documentation: z.lazy(() => GetRefundDocumentation$outboundSchema),
 });
 
 /**
@@ -1377,7 +1377,7 @@ export const GetRefundResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("refund"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetRefundMode$inboundSchema.optional(),
   description: z.string().optional(),
@@ -1410,7 +1410,7 @@ export const GetRefundResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetRefundResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   description?: string | undefined;
@@ -1440,7 +1440,7 @@ export const GetRefundResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetRefundResponse
 > = z.object({
-  resource: z.string().default("refund"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetRefundMode$outboundSchema.optional(),
   description: z.string().optional(),

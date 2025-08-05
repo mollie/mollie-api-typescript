@@ -8,6 +8,7 @@ import { ListSettlementRefundsEmbedded } from "mollie-api-typescript/models/oper
 let value: ListSettlementRefundsEmbedded = {
   refunds: [
     {
+      resource: "refund",
       id: "re_5B8cwPMGnU",
       mode: "live",
       description: "Refunding a Chess Board",

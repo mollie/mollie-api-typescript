@@ -1,13 +1,14 @@
-# ListAllSubscriptionsCustomer
+# ListAllSubscriptionsPayments
 
-The API resource URL of the [customer](get-customer) this subscription was created for.
+The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+payments exist (yet).
 
 ## Example Usage
 
 ```typescript
-import { ListAllSubscriptionsCustomer } from "mollie-api-typescript/models/operations";
+import { ListAllSubscriptionsPayments } from "mollie-api-typescript/models/operations";
 
-let value: ListAllSubscriptionsCustomer = {
+let value: ListAllSubscriptionsPayments = {
   href: "https://...",
   type: "application/hal+json",
 };

@@ -167,8 +167,8 @@ export type CancelSubscriptionApplicationFee = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: CancelSubscriptionApplicationFeeAmount | undefined;
-  description?: string | undefined;
+  amount: CancelSubscriptionApplicationFeeAmount;
+  description: string;
 };
 
 export type CancelSubscriptionMetadata = {};
@@ -281,11 +281,11 @@ export type CancelSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: CancelSubscriptionSelf | undefined;
+  self: CancelSubscriptionSelf;
   /**
    * The API resource URL of the [customer](get-customer) this subscription was created for.
    */
-  customer?: CancelSubscriptionCustomer | null | undefined;
+  customer: CancelSubscriptionCustomer | null;
   /**
    * The API resource URL of the [mandate](get-mandate) this subscription was created for.
    */
@@ -293,7 +293,7 @@ export type CancelSubscriptionLinks = {
   /**
    * The API resource URL of the [profile](get-profile) this subscription was created for.
    */
-  profile?: CancelSubscriptionProfile | null | undefined;
+  profile: CancelSubscriptionProfile | null;
   /**
    * The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
    *
@@ -304,7 +304,7 @@ export type CancelSubscriptionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: CancelSubscriptionDocumentation | undefined;
+  documentation: CancelSubscriptionDocumentation;
 };
 
 /**
@@ -324,25 +324,25 @@ export type CancelSubscriptionResponse = {
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: CancelSubscriptionMode | undefined;
+  mode: CancelSubscriptionMode;
   /**
    * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
    * enabling the subscription.
    */
-  status?: CancelSubscriptionStatus | undefined;
+  status: CancelSubscriptionStatus;
   /**
    * The amount for each individual payment that is charged with this subscription. For example, for a monthly
    *
    * @remarks
    * subscription of €10, the subscription amount should be set to €10.
    */
-  amount?: CancelSubscriptionAmount | undefined;
+  amount: CancelSubscriptionAmount;
   /**
    * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
@@ -351,11 +351,11 @@ export type CancelSubscriptionResponse = {
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
-  times?: number | null | undefined;
+  times: number | null;
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining?: number | undefined;
+  timesRemaining: number;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
@@ -363,11 +363,11 @@ export type CancelSubscriptionResponse = {
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
    */
-  interval?: CancelSubscriptionInterval | undefined;
+  interval: CancelSubscriptionInterval;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
-  startDate?: string | undefined;
+  startDate: string;
   /**
    * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
    *
@@ -383,11 +383,11 @@ export type CancelSubscriptionResponse = {
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
    */
-  method?: CancelSubscriptionMethod | null | undefined;
+  method: CancelSubscriptionMethod | null;
   /**
    * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
@@ -409,12 +409,7 @@ export type CancelSubscriptionResponse = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata?:
-    | CancelSubscriptionMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata: CancelSubscriptionMetadata | string | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -423,11 +418,11 @@ export type CancelSubscriptionResponse = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl?: string | undefined;
+  webhookUrl: string;
   /**
    * The customer this subscription belongs to.
    */
-  customerId?: string | undefined;
+  customerId: string;
   /**
    * The mandate used for this subscription, if any.
    */
@@ -435,7 +430,7 @@ export type CancelSubscriptionResponse = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
    *
@@ -913,15 +908,14 @@ export const CancelSubscriptionApplicationFee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: z.lazy(() => CancelSubscriptionApplicationFeeAmount$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => CancelSubscriptionApplicationFeeAmount$inboundSchema),
+  description: z.string(),
 });
 
 /** @internal */
 export type CancelSubscriptionApplicationFee$Outbound = {
-  amount?: CancelSubscriptionApplicationFeeAmount$Outbound | undefined;
-  description?: string | undefined;
+  amount: CancelSubscriptionApplicationFeeAmount$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -930,9 +924,8 @@ export const CancelSubscriptionApplicationFee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CancelSubscriptionApplicationFee
 > = z.object({
-  amount: z.lazy(() => CancelSubscriptionApplicationFeeAmount$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  amount: z.lazy(() => CancelSubscriptionApplicationFeeAmount$outboundSchema),
+  description: z.string(),
 });
 
 /**
@@ -1427,27 +1420,24 @@ export const CancelSubscriptionLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => CancelSubscriptionSelf$inboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => CancelSubscriptionCustomer$inboundSchema))
-    .optional(),
+  self: z.lazy(() => CancelSubscriptionSelf$inboundSchema),
+  customer: z.nullable(z.lazy(() => CancelSubscriptionCustomer$inboundSchema)),
   mandate: z.nullable(z.lazy(() => CancelSubscriptionMandate$inboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => CancelSubscriptionProfile$inboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => CancelSubscriptionProfile$inboundSchema)),
   payments: z.nullable(z.lazy(() => CancelSubscriptionPayments$inboundSchema))
     .optional(),
-  documentation: z.lazy(() => CancelSubscriptionDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CancelSubscriptionDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type CancelSubscriptionLinks$Outbound = {
-  self?: CancelSubscriptionSelf$Outbound | undefined;
-  customer?: CancelSubscriptionCustomer$Outbound | null | undefined;
+  self: CancelSubscriptionSelf$Outbound;
+  customer: CancelSubscriptionCustomer$Outbound | null;
   mandate?: CancelSubscriptionMandate$Outbound | null | undefined;
-  profile?: CancelSubscriptionProfile$Outbound | null | undefined;
+  profile: CancelSubscriptionProfile$Outbound | null;
   payments?: CancelSubscriptionPayments$Outbound | null | undefined;
-  documentation?: CancelSubscriptionDocumentation$Outbound | undefined;
+  documentation: CancelSubscriptionDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1456,17 +1446,14 @@ export const CancelSubscriptionLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CancelSubscriptionLinks
 > = z.object({
-  self: z.lazy(() => CancelSubscriptionSelf$outboundSchema).optional(),
-  customer: z.nullable(z.lazy(() => CancelSubscriptionCustomer$outboundSchema))
-    .optional(),
+  self: z.lazy(() => CancelSubscriptionSelf$outboundSchema),
+  customer: z.nullable(z.lazy(() => CancelSubscriptionCustomer$outboundSchema)),
   mandate: z.nullable(z.lazy(() => CancelSubscriptionMandate$outboundSchema))
     .optional(),
-  profile: z.nullable(z.lazy(() => CancelSubscriptionProfile$outboundSchema))
-    .optional(),
+  profile: z.nullable(z.lazy(() => CancelSubscriptionProfile$outboundSchema)),
   payments: z.nullable(z.lazy(() => CancelSubscriptionPayments$outboundSchema))
     .optional(),
-  documentation: z.lazy(() => CancelSubscriptionDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CancelSubscriptionDocumentation$outboundSchema),
 });
 
 /**
@@ -1507,17 +1494,17 @@ export const CancelSubscriptionResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: CancelSubscriptionMode$inboundSchema.optional(),
-  status: CancelSubscriptionStatus$inboundSchema.optional(),
-  amount: z.lazy(() => CancelSubscriptionAmount$inboundSchema).optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: CancelSubscriptionInterval$inboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: CancelSubscriptionMode$inboundSchema,
+  status: CancelSubscriptionStatus$inboundSchema,
+  amount: z.lazy(() => CancelSubscriptionAmount$inboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: CancelSubscriptionInterval$inboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(CancelSubscriptionMethod$inboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(CancelSubscriptionMethod$inboundSchema),
   applicationFee: z.lazy(() => CancelSubscriptionApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1526,11 +1513,11 @@ export const CancelSubscriptionResponse$inboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => CancelSubscriptionLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -1542,28 +1529,23 @@ export const CancelSubscriptionResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type CancelSubscriptionResponse$Outbound = {
   resource: string;
-  id?: string | undefined;
-  mode?: string | undefined;
-  status?: string | undefined;
-  amount?: CancelSubscriptionAmount$Outbound | undefined;
-  times?: number | null | undefined;
-  timesRemaining?: number | undefined;
-  interval?: string | undefined;
-  startDate?: string | undefined;
+  id: string;
+  mode: string;
+  status: string;
+  amount: CancelSubscriptionAmount$Outbound;
+  times: number | null;
+  timesRemaining: number;
+  interval: string;
+  startDate: string;
   nextPaymentDate?: string | null | undefined;
-  description?: string | undefined;
-  method?: string | null | undefined;
+  description: string;
+  method: string | null;
   applicationFee?: CancelSubscriptionApplicationFee$Outbound | undefined;
-  metadata?:
-    | CancelSubscriptionMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
-  webhookUrl?: string | undefined;
-  customerId?: string | undefined;
+  metadata: CancelSubscriptionMetadata$Outbound | string | Array<string> | null;
+  webhookUrl: string;
+  customerId: string;
   mandateId?: string | null | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
   canceledAt?: string | null | undefined;
   _links?: CancelSubscriptionLinks$Outbound | undefined;
 };
@@ -1575,17 +1557,17 @@ export const CancelSubscriptionResponse$outboundSchema: z.ZodType<
   CancelSubscriptionResponse
 > = z.object({
   resource: z.string().default("subscription"),
-  id: z.string().optional(),
-  mode: CancelSubscriptionMode$outboundSchema.optional(),
-  status: CancelSubscriptionStatus$outboundSchema.optional(),
-  amount: z.lazy(() => CancelSubscriptionAmount$outboundSchema).optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.number().int().optional(),
-  interval: CancelSubscriptionInterval$outboundSchema.optional(),
-  startDate: z.string().optional(),
+  id: z.string(),
+  mode: CancelSubscriptionMode$outboundSchema,
+  status: CancelSubscriptionStatus$outboundSchema,
+  amount: z.lazy(() => CancelSubscriptionAmount$outboundSchema),
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.number().int(),
+  interval: CancelSubscriptionInterval$outboundSchema,
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(CancelSubscriptionMethod$outboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(CancelSubscriptionMethod$outboundSchema),
   applicationFee: z.lazy(() => CancelSubscriptionApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(
@@ -1594,11 +1576,11 @@ export const CancelSubscriptionResponse$outboundSchema: z.ZodType<
       z.string(),
       z.array(z.string()),
     ]),
-  ).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  ),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
   links: z.lazy(() => CancelSubscriptionLinks$outboundSchema).optional(),
 }).transform((v) => {

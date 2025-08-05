@@ -13,6 +13,7 @@ let value: ListRefundsResponse = {
   embedded: {
     refunds: [
       {
+        resource: "refund",
         id: "re_5B8cwPMGnU",
         mode: "live",
         description: "Refunding a Chess Board",

@@ -593,10 +593,11 @@ run();
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.ListAllSubscriptionsHalJSONError | 400                                     | application/hal+json                    |
-| errors.ClientDefaultError               | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                                        | Status Code                                       | Content Type                                      |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| errors.ListAllSubscriptionsBadRequestHalJSONError | 400                                               | application/hal+json                              |
+| errors.ListAllSubscriptionsNotFoundHalJSONError   | 404                                               | application/hal+json                              |
+| errors.ClientDefaultError                         | 4XX, 5XX                                          | \*/\*                                             |
 
 ## listPayments
 
