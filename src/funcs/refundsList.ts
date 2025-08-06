@@ -102,8 +102,8 @@ async function $do(
   const path = pathToFunc("/payments/{paymentId}/refunds")(pathParams);
 
   const query = encodeFormQuery({
+    "embed": payload.embed,
     "from": payload.from,
-    "include": payload.include,
     "limit": payload.limit,
     "testmode": payload.testmode,
   });

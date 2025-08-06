@@ -164,7 +164,7 @@ async function run() {
   const result = await client.refunds.list({
     paymentId: "tr_5B8cwPMGnU",
     from: "re_5B8cwPMGnU",
-    include: "payment",
+    embed: "payment",
     testmode: false,
   });
 
@@ -194,7 +194,7 @@ async function run() {
   const res = await refundsList(client, {
     paymentId: "tr_5B8cwPMGnU",
     from: "re_5B8cwPMGnU",
-    include: "payment",
+    embed: "payment",
     testmode: false,
   });
   if (res.ok) {
@@ -249,7 +249,7 @@ async function run() {
   const result = await client.refunds.get({
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
-    include: "payment",
+    embed: "payment",
     testmode: false,
   });
 
@@ -279,7 +279,7 @@ async function run() {
   const res = await refundsGet(client, {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
-    include: "payment",
+    embed: "payment",
     testmode: false,
   });
   if (res.ok) {

@@ -10,15 +10,21 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+ *
+ * @remarks
+ * parameter.
  */
-export const GetRefundInclude = {
+export const GetRefundEmbed = {
   Payment: "payment",
 } as const;
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+ *
+ * @remarks
+ * parameter.
  */
-export type GetRefundInclude = ClosedEnum<typeof GetRefundInclude>;
+export type GetRefundEmbed = ClosedEnum<typeof GetRefundEmbed>;
 
 export type GetRefundRequest = {
   /**
@@ -30,9 +36,12 @@ export type GetRefundRequest = {
    */
   refundId: string;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
+   * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+   *
+   * @remarks
+   * parameter.
    */
-  include?: GetRefundInclude | null | undefined;
+  embed?: GetRefundEmbed | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -382,24 +391,24 @@ export type GetRefundResponse = {
 };
 
 /** @internal */
-export const GetRefundInclude$inboundSchema: z.ZodNativeEnum<
-  typeof GetRefundInclude
-> = z.nativeEnum(GetRefundInclude);
+export const GetRefundEmbed$inboundSchema: z.ZodNativeEnum<
+  typeof GetRefundEmbed
+> = z.nativeEnum(GetRefundEmbed);
 
 /** @internal */
-export const GetRefundInclude$outboundSchema: z.ZodNativeEnum<
-  typeof GetRefundInclude
-> = GetRefundInclude$inboundSchema;
+export const GetRefundEmbed$outboundSchema: z.ZodNativeEnum<
+  typeof GetRefundEmbed
+> = GetRefundEmbed$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace GetRefundInclude$ {
-  /** @deprecated use `GetRefundInclude$inboundSchema` instead. */
-  export const inboundSchema = GetRefundInclude$inboundSchema;
-  /** @deprecated use `GetRefundInclude$outboundSchema` instead. */
-  export const outboundSchema = GetRefundInclude$outboundSchema;
+export namespace GetRefundEmbed$ {
+  /** @deprecated use `GetRefundEmbed$inboundSchema` instead. */
+  export const inboundSchema = GetRefundEmbed$inboundSchema;
+  /** @deprecated use `GetRefundEmbed$outboundSchema` instead. */
+  export const outboundSchema = GetRefundEmbed$outboundSchema;
 }
 
 /** @internal */
@@ -410,7 +419,7 @@ export const GetRefundRequest$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   refundId: z.string(),
-  include: z.nullable(GetRefundInclude$inboundSchema).optional(),
+  embed: GetRefundEmbed$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -418,7 +427,7 @@ export const GetRefundRequest$inboundSchema: z.ZodType<
 export type GetRefundRequest$Outbound = {
   paymentId: string;
   refundId: string;
-  include?: string | null | undefined;
+  embed?: string | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -430,7 +439,7 @@ export const GetRefundRequest$outboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   refundId: z.string(),
-  include: z.nullable(GetRefundInclude$outboundSchema).optional(),
+  embed: GetRefundEmbed$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 

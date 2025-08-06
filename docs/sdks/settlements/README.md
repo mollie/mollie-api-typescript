@@ -547,7 +547,7 @@ async function run() {
   const result = await client.settlements.listRefunds({
     settlementId: "stl_jDk30akdN",
     from: "re_5B8cwPMGnU",
-    include: "payment",
+    embed: "payment",
     testmode: false,
   });
 
@@ -577,7 +577,7 @@ async function run() {
   const res = await settlementsListRefunds(client, {
     settlementId: "stl_jDk30akdN",
     from: "re_5B8cwPMGnU",
-    include: "payment",
+    embed: "payment",
     testmode: false,
   });
   if (res.ok) {

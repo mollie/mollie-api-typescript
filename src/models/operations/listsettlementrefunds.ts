@@ -10,16 +10,22 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+ *
+ * @remarks
+ * parameter.
  */
-export const ListSettlementRefundsInclude = {
+export const ListSettlementRefundsEmbed = {
   Payment: "payment",
 } as const;
 /**
- * This endpoint allows you to include additional information via the `include` query string parameter.
+ * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+ *
+ * @remarks
+ * parameter.
  */
-export type ListSettlementRefundsInclude = ClosedEnum<
-  typeof ListSettlementRefundsInclude
+export type ListSettlementRefundsEmbed = ClosedEnum<
+  typeof ListSettlementRefundsEmbed
 >;
 
 export type ListSettlementRefundsRequest = {
@@ -39,9 +45,12 @@ export type ListSettlementRefundsRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
+   * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+   *
+   * @remarks
+   * parameter.
    */
-  include?: ListSettlementRefundsInclude | null | undefined;
+  embed?: ListSettlementRefundsEmbed | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -529,24 +538,24 @@ export type ListSettlementRefundsResponse = {
 };
 
 /** @internal */
-export const ListSettlementRefundsInclude$inboundSchema: z.ZodNativeEnum<
-  typeof ListSettlementRefundsInclude
-> = z.nativeEnum(ListSettlementRefundsInclude);
+export const ListSettlementRefundsEmbed$inboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsEmbed
+> = z.nativeEnum(ListSettlementRefundsEmbed);
 
 /** @internal */
-export const ListSettlementRefundsInclude$outboundSchema: z.ZodNativeEnum<
-  typeof ListSettlementRefundsInclude
-> = ListSettlementRefundsInclude$inboundSchema;
+export const ListSettlementRefundsEmbed$outboundSchema: z.ZodNativeEnum<
+  typeof ListSettlementRefundsEmbed
+> = ListSettlementRefundsEmbed$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListSettlementRefundsInclude$ {
-  /** @deprecated use `ListSettlementRefundsInclude$inboundSchema` instead. */
-  export const inboundSchema = ListSettlementRefundsInclude$inboundSchema;
-  /** @deprecated use `ListSettlementRefundsInclude$outboundSchema` instead. */
-  export const outboundSchema = ListSettlementRefundsInclude$outboundSchema;
+export namespace ListSettlementRefundsEmbed$ {
+  /** @deprecated use `ListSettlementRefundsEmbed$inboundSchema` instead. */
+  export const inboundSchema = ListSettlementRefundsEmbed$inboundSchema;
+  /** @deprecated use `ListSettlementRefundsEmbed$outboundSchema` instead. */
+  export const outboundSchema = ListSettlementRefundsEmbed$outboundSchema;
 }
 
 /** @internal */
@@ -558,7 +567,7 @@ export const ListSettlementRefundsRequest$inboundSchema: z.ZodType<
   settlementId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  include: z.nullable(ListSettlementRefundsInclude$inboundSchema).optional(),
+  embed: ListSettlementRefundsEmbed$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -567,7 +576,7 @@ export type ListSettlementRefundsRequest$Outbound = {
   settlementId: string;
   from?: string | undefined;
   limit: number | null;
-  include?: string | null | undefined;
+  embed?: string | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -580,7 +589,7 @@ export const ListSettlementRefundsRequest$outboundSchema: z.ZodType<
   settlementId: z.string(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int().default(50)),
-  include: z.nullable(ListSettlementRefundsInclude$outboundSchema).optional(),
+  embed: ListSettlementRefundsEmbed$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 

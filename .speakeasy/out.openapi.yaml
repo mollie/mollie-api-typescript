@@ -9229,17 +9229,17 @@ paths:
           description: The maximum number of items to return. Defaults to 50 items.
           in: query
           schema: *ref_39
-        - description: This endpoint allows you to include additional information via the `include` query string parameter.
+        - description: |-
+            This endpoint allows embedding related API items by appending the following values via the `embed` query string
+            parameter.
           schema:
-            type:
-              - string
-              - 'null'
+            type: string
             enum:
               - payment
             x-enumDescriptions:
-              payment: Include the payments that the refunds were created for.
+              payment: Embed the payment related to this refund.
             example: payment
-          name: include
+          name: embed
           in: query
         - name: testmode
           description: |-
@@ -9394,17 +9394,17 @@ paths:
             - refunds.read
       description: Retrieve a single payment refund by its ID and the ID of its parent payment.
       parameters:
-        - description: This endpoint allows you to include additional information via the `include` query string parameter.
+        - description: |-
+            This endpoint allows embedding related API items by appending the following values via the `embed` query string
+            parameter.
           schema:
-            type:
-              - string
-              - 'null'
+            type: string
             enum:
               - payment
             x-enumDescriptions:
-              payment: Include the payment this refund was created for.
+              payment: Embed the payment related to this refund.
             example: payment
-          name: include
+          name: embed
           in: query
         - name: testmode
           description: |-
@@ -33030,17 +33030,17 @@ paths:
           description: The maximum number of items to return. Defaults to 50 items.
           in: query
           schema: *ref_39
-        - description: This endpoint allows you to include additional information via the `include` query string parameter.
+        - description: |-
+            This endpoint allows embedding related API items by appending the following values via the `embed` query string
+            parameter.
           schema:
-            type:
-              - string
-              - 'null'
+            type: string
             enum:
               - payment
             x-enumDescriptions:
-              payment: Include the payments that the refunds were created for.
+              payment: Embed the payment related to this refund.
             example: payment
-          name: include
+          name: embed
           in: query
         - name: testmode
           description: |-
