@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: eae8be0b6c73fee20d988868cc99425e
+  docChecksum: 48e57580e70d2f6a51e126a17fb691db
   docVersion: 1.0.0
-  speakeasyVersion: 1.598.0
-  generationVersion: 2.674.1
-  releaseVersion: 0.0.7
-  configChecksum: 190ba4196d70f29eab00c41d548c45fe
+  speakeasyVersion: 1.598.3
+  generationVersion: 2.674.3
+  releaseVersion: 0.0.8
+  configChecksum: 9a2a3c8c49222def9af38c2d5190c515
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -14,7 +14,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.19
+    core: 3.21.20
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.0
@@ -5831,7 +5831,7 @@ examples:
           testmode: false
       responses:
         "200":
-          application/hal+json: {"resource": "webhook", "id": "hook_B2EyhTH5N4KWUnoYPcgiH", "url": "https://mollie.com", "profileId": "pfl_8XcSdLtrNK", "createdAt": "2024-12-06T10:09:56+00:00", "name": "Webhook #1", "eventTypes": ["payment-link.paid"], "status": "blocked", "mode": "test"}
+          application/hal+json: {"resource": "webhook", "id": "hook_B2EyhTH5N4KWUnoYPcgiH", "url": "https://mollie.com", "profileId": "pfl_8XcSdLtrNK", "createdAt": "2024-12-06T10:09:56+00:00", "name": "Webhook #1", "eventTypes": ["payment-link.paid"], "status": "deleted", "mode": "test"}
     speakeasy-default-get-webhook:
       parameters:
         path:

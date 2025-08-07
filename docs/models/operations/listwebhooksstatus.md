@@ -13,5 +13,5 @@ let value: ListWebhooksStatus = "enabled";
 ## Values
 
 ```typescript
-"enabled" | "blocked" | "disabled"
+"enabled" | "blocked" | "disabled" | "deleted"
 ```

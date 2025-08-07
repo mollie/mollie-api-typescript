@@ -13,5 +13,5 @@ let value: GetWebhookStatus = "enabled";
 ## Values
 
 ```typescript
-"enabled" | "blocked" | "disabled"
+"enabled" | "blocked" | "disabled" | "deleted"
 ```

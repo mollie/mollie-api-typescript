@@ -25350,16 +25350,18 @@ paths:
                   description: The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
                   enum: &ref_83
                     - payment-link.paid
+                    - balance-transaction.created
                     - sales-invoice.created
                     - sales-invoice.issued
                     - sales-invoice.canceled
                     - sales-invoice.paid
                   x-enumDescriptions: &ref_84
-                    payment-link.paid: A payment link has been paid.
-                    sales-invoice.created: A sales invoice has been created.
-                    sales-invoice.issued: A sales invoice has been issued.
-                    sales-invoice.canceled: A sales invoice has been canceled.
-                    sales-invoice.paid: A sales invoice has been paid.
+                    payment-link.paid: Occurs when a payment link has been paid.
+                    balance-transaction.created: Occurs when a balance transaction is created to add to your available balance. It currently only supports positive amounts and non-captured payments.
+                    sales-invoice.created: Occurs when a sales invoice has been created.
+                    sales-invoice.issued: Occurs when a sales invoice has been issued.
+                    sales-invoice.canceled: Occurs when a sales invoice has been canceled.
+                    sales-invoice.paid: Occurs when a sales invoice has been paid.
                   example: payment-link.paid
                 testmode:
                   type: *ref_19
@@ -25624,6 +25626,7 @@ paths:
                                 - enabled
                                 - blocked
                                 - disabled
+                                - deleted
                               example: enabled
                             mode:
                               type: string

@@ -14,6 +14,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  */
 export const CreateWebhookEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
+  BalanceTransactionCreated: "balance-transaction.created",
   SalesInvoiceCreated: "sales-invoice.created",
   SalesInvoiceIssued: "sales-invoice.issued",
   SalesInvoiceCanceled: "sales-invoice.canceled",

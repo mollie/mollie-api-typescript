@@ -14,6 +14,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  */
 export const UpdateWebhookEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
+  BalanceTransactionCreated: "balance-transaction.created",
   SalesInvoiceCreated: "sales-invoice.created",
   SalesInvoiceIssued: "sales-invoice.issued",
   SalesInvoiceCanceled: "sales-invoice.canceled",
@@ -95,6 +96,7 @@ export const UpdateWebhookStatus = {
   Enabled: "enabled",
   Blocked: "blocked",
   Disabled: "disabled",
+  Deleted: "deleted",
 } as const;
 /**
  * The subscription's current status.

@@ -62,6 +62,7 @@ export const GetWebhookStatus = {
   Enabled: "enabled",
   Blocked: "blocked",
   Disabled: "disabled",
+  Deleted: "deleted",
 } as const;
 /**
  * The subscription's current status.

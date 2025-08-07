@@ -32,6 +32,7 @@ export type ListWebhooksSort = ClosedEnum<typeof ListWebhooksSort>;
  */
 export const ListWebhooksEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
+  BalanceTransactionCreated: "balance-transaction.created",
   SalesInvoiceCreated: "sales-invoice.created",
   SalesInvoiceIssued: "sales-invoice.issued",
   SalesInvoiceCanceled: "sales-invoice.canceled",
@@ -99,6 +100,7 @@ export const ListWebhooksStatus = {
   Enabled: "enabled",
   Blocked: "blocked",
   Disabled: "disabled",
+  Deleted: "deleted",
 } as const;
 /**
  * The subscription's current status.
