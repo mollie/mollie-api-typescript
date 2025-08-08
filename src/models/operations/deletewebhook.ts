@@ -3,25 +3,29 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+export type DeleteWebhookRequestBody = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+   *
+   * @remarks
+   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | null | undefined;
+};
 
 export type DeleteWebhookRequest = {
   /**
    * Provide the ID of the item you want to perform this operation on.
    */
   id: string;
-  /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | null | undefined;
+  requestBody?: DeleteWebhookRequestBody | undefined;
 };
 
 /**
@@ -55,19 +59,77 @@ export type DeleteWebhookNotFoundLinks = {
 };
 
 /** @internal */
+export const DeleteWebhookRequestBody$inboundSchema: z.ZodType<
+  DeleteWebhookRequestBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.nullable(z.boolean()).optional(),
+});
+
+/** @internal */
+export type DeleteWebhookRequestBody$Outbound = {
+  testmode?: boolean | null | undefined;
+};
+
+/** @internal */
+export const DeleteWebhookRequestBody$outboundSchema: z.ZodType<
+  DeleteWebhookRequestBody$Outbound,
+  z.ZodTypeDef,
+  DeleteWebhookRequestBody
+> = z.object({
+  testmode: z.nullable(z.boolean()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteWebhookRequestBody$ {
+  /** @deprecated use `DeleteWebhookRequestBody$inboundSchema` instead. */
+  export const inboundSchema = DeleteWebhookRequestBody$inboundSchema;
+  /** @deprecated use `DeleteWebhookRequestBody$outboundSchema` instead. */
+  export const outboundSchema = DeleteWebhookRequestBody$outboundSchema;
+  /** @deprecated use `DeleteWebhookRequestBody$Outbound` instead. */
+  export type Outbound = DeleteWebhookRequestBody$Outbound;
+}
+
+export function deleteWebhookRequestBodyToJSON(
+  deleteWebhookRequestBody: DeleteWebhookRequestBody,
+): string {
+  return JSON.stringify(
+    DeleteWebhookRequestBody$outboundSchema.parse(deleteWebhookRequestBody),
+  );
+}
+
+export function deleteWebhookRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteWebhookRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteWebhookRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteWebhookRequestBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const DeleteWebhookRequest$inboundSchema: z.ZodType<
   DeleteWebhookRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  RequestBody: z.lazy(() => DeleteWebhookRequestBody$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "RequestBody": "requestBody",
+  });
 });
 
 /** @internal */
 export type DeleteWebhookRequest$Outbound = {
   id: string;
-  testmode?: boolean | null | undefined;
+  RequestBody?: DeleteWebhookRequestBody$Outbound | undefined;
 };
 
 /** @internal */
@@ -77,7 +139,11 @@ export const DeleteWebhookRequest$outboundSchema: z.ZodType<
   DeleteWebhookRequest
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  requestBody: z.lazy(() => DeleteWebhookRequestBody$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    requestBody: "RequestBody",
+  });
 });
 
 /**

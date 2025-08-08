@@ -369,7 +369,9 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.delete({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
-    testmode: false,
+    requestBody: {
+      testmode: false,
+    },
   });
 
   console.log(result);
@@ -397,7 +399,9 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksDelete(client, {
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
-    testmode: false,
+    requestBody: {
+      testmode: false,
+    },
   });
   if (res.ok) {
     const { value: result } = res;

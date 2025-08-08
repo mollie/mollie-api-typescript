@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import { ClientCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -89,7 +89,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -100,11 +100,8 @@ async function $do(
 
   const path = pathToFunc("/webhooks/{id}")(pathParams);
 
-  const query = encodeFormQuery({
-    "testmode": payload.testmode,
-  });
-
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/hal+json",
   }));
 
@@ -142,7 +139,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,

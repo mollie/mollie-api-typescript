@@ -25921,16 +25921,21 @@ paths:
         - oAuth:
             - webhooks.write
       description: Delete a single webhook object by its webhook ID.
-      parameters:
-        - name: testmode
-          description: |-
-            Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-            parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-            setting the `testmode` query parameter to `true`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                testmode:
+                  type: *ref_56
+                  description: |-
+                    Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+                    such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
 
-            Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-          in: query
-          schema: *ref_25
+                    Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+                  writeOnly: true
+                  example: false
       responses:
         '204':
           description: No content.
@@ -26068,6 +26073,16 @@ paths:
         - oAuth:
             - events.read
       description: Retrieve a single webhook event object by its event ID.
+      parameters:
+        - name: testmode
+          description: |-
+            Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+            parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+            setting the `testmode` query parameter to `true`.
+
+            Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+          in: query
+          schema: *ref_25
       responses:
         '200':
           description: The webhook event object.

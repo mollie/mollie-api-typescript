@@ -14,6 +14,16 @@ export type GetWebhookEventRequest = {
    * Provide the ID of the item you want to perform this operation on.
    */
   id: string;
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | null | undefined;
 };
 
 /**
@@ -1173,11 +1183,13 @@ export const GetWebhookEventRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
+  testmode: z.nullable(z.boolean()).optional(),
 });
 
 /** @internal */
 export type GetWebhookEventRequest$Outbound = {
   id: string;
+  testmode?: boolean | null | undefined;
 };
 
 /** @internal */
@@ -1187,6 +1199,7 @@ export const GetWebhookEventRequest$outboundSchema: z.ZodType<
   GetWebhookEventRequest
 > = z.object({
   id: z.string(),
+  testmode: z.nullable(z.boolean()).optional(),
 });
 
 /**
