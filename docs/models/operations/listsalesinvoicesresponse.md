@@ -13,10 +13,14 @@ let value: ListSalesInvoicesResponse = {
   embedded: {
     salesInvoices: [
       {
+        resource: "sales-invoice",
         id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
         invoiceNumber: "INV-0000001",
         status: "draft",
+        vatScheme: "standard",
+        vatMode: "exclusive",
         memo: "This is a memo!",
+        paymentTerm: "30 days",
         paymentDetails: null,
         emailDetails: {
           subject: "Your invoice is available",

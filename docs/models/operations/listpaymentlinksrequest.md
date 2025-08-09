@@ -7,6 +7,7 @@ import { ListPaymentLinksRequest } from "mollie-api-typescript/models/operations
 
 let value: ListPaymentLinksRequest = {
   from: "pl_d9fQur83kFdhH8hIhaZfq",
+  limit: 50,
   testmode: false,
 };
 ```

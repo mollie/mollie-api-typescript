@@ -481,7 +481,7 @@ export const ListCapturesRequest$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListCapturesEmbed$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -490,7 +490,7 @@ export const ListCapturesRequest$inboundSchema: z.ZodType<
 export type ListCapturesRequest$Outbound = {
   paymentId: string;
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   embed?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -503,7 +503,7 @@ export const ListCapturesRequest$outboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListCapturesEmbed$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

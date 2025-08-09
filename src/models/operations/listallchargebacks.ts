@@ -481,9 +481,9 @@ export const ListAllChargebacksRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListAllChargebacksEmbed$inboundSchema.optional(),
-  sort: z.nullable(ListAllChargebacksSort$inboundSchema.default("desc")),
+  sort: z.nullable(ListAllChargebacksSort$inboundSchema).optional(),
   profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -491,9 +491,9 @@ export const ListAllChargebacksRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type ListAllChargebacksRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   embed?: string | undefined;
-  sort: string | null;
+  sort?: string | null | undefined;
   profileId?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -505,9 +505,9 @@ export const ListAllChargebacksRequest$outboundSchema: z.ZodType<
   ListAllChargebacksRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListAllChargebacksEmbed$outboundSchema.optional(),
-  sort: z.nullable(ListAllChargebacksSort$outboundSchema.default("desc")),
+  sort: z.nullable(ListAllChargebacksSort$outboundSchema).optional(),
   profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

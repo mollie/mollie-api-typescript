@@ -9,7 +9,7 @@ The `tip` payment line type is not available when creating a payment.
 ```typescript
 import { CreatePaymentLinkTypeRequest } from "mollie-api-typescript/models/operations";
 
-let value: CreatePaymentLinkTypeRequest = "digital";
+let value: CreatePaymentLinkTypeRequest = "physical";
 ```
 
 ## Values

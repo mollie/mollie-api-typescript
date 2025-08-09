@@ -281,7 +281,7 @@ paths:
                               - gift_card
                               - surcharge
                               - tip
-                            default: physical
+                            example: physical
                           description:
                             type: string
                             description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
@@ -863,7 +863,6 @@ paths:
                     - oneoff
                     - first
                     - recurring
-                  default: oneoff
                 subscriptionId:
                   type:
                     - string
@@ -1543,7 +1542,6 @@ paths:
                           - oneoff
                           - first
                           - recurring
-                        default: oneoff
                       subscriptionId:
                         type:
                           - string
@@ -2513,7 +2511,6 @@ paths:
               - 'null'
             minimum: 1
             maximum: 250
-            default: 50
             example: 50
         - name: sort
           description: |-
@@ -2527,7 +2524,6 @@ paths:
             enum:
               - asc
               - desc
-            default: desc
             example: desc
         - name: profileId
           description: |-
@@ -5642,7 +5638,7 @@ paths:
               - oneoff
               - first
               - recurring
-            default: oneoff
+            example: oneoff
         - description: |-
             Passing a locale will sort the payment methods in the preferred order
             for the country, and translate the payment method names in the corresponding language.
@@ -5702,7 +5698,7 @@ paths:
             enum:
               - payments
               - orders
-            default: payments
+            example: payments
         - name: billingCountry
           description: |-
             The country taken from your customer's billing address in ISO 3166-1 alpha-2 format. This parameter can be used
@@ -5920,7 +5916,7 @@ paths:
                                 properties:
                                   resource:
                                     type: string
-                                    default: issuer
+                                    example: issuer
                                   id:
                                     type: string
                                     example: ideal_ABNANL2A
@@ -6537,7 +6533,7 @@ paths:
           schema:
             type: string
             enum: *ref_31
-            default: oneoff
+            example: oneoff
         - name: profileId
           description: |-
             The identifier referring to the [profile](get-profile) you wish to
@@ -7950,7 +7946,7 @@ paths:
           schema:
             type: string
             enum: *ref_31
-            default: oneoff
+            example: oneoff
         - name: testmode
           description: |-
             Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
@@ -8089,7 +8085,7 @@ paths:
             - type: string
               enum:
                 - me
-              default: me
+              example: me
       - schema:
           type: string
           example: ideal
@@ -8362,7 +8358,7 @@ paths:
                           Indicates the response contains a payment method issuer object. Will always contain the string `issuer` for this
                           endpoint.
                         readOnly: true
-                        default: issuer
+                        example: issuer
                       id:
                         type: string
                         description: The unique identifier of the payment method issuer.
@@ -8414,7 +8410,7 @@ paths:
                           Indicates the response contains a payment method issuer object. Will always contain the string `issuer` for this
                           endpoint.
                         readOnly: true
-                        default: issuer
+                        example: issuer
                       id:
                         type: string
                         description: The unique identifier of the payment method issuer.
@@ -11577,7 +11573,7 @@ paths:
                     Indicates the response contains a payment link object. Will always contain the string `payment-link` for this
                     endpoint.
                   readOnly: true
-                  default: payment-link
+                  example: payment-link
                 id:
                   description: 'The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.'
                   readOnly: true
@@ -11692,7 +11688,7 @@ paths:
                     payments using the same link.
 
                     If no value is specified, the field defaults to `false`, allowing only a single payment per link.
-                  default: false
+                  example: false
                 createdAt:
                   type: string
                   description: The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -11830,7 +11826,7 @@ paths:
                       Indicates the response contains a payment link object. Will always contain the string `payment-link` for this
                       endpoint.
                     readOnly: true
-                    default: payment-link
+                    example: payment-link
                   id:
                     description: 'The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.'
                     readOnly: true
@@ -11945,7 +11941,7 @@ paths:
                       payments using the same link.
 
                       If no value is specified, the field defaults to `false`, allowing only a single payment per link.
-                    default: false
+                    example: false
                   createdAt:
                     type: string
                     description: The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -13108,7 +13104,7 @@ paths:
                               type: string
                               description: Indicates the response contains a terminal object. Will always contain the string `terminal` for this endpoint.
                               readOnly: true
-                              default: terminal
+                              example: terminal
                             id:
                               description: 'The identifier uniquely referring to this terminal. Example: `term_7MgL4wea46qkRcoTZjWEH`.'
                               readOnly: true
@@ -13475,7 +13471,7 @@ paths:
                   type: string
                   description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
                   readOnly: true
-                  default: route
+                  example: route
                 id:
                   description: |-
                     The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
@@ -13569,7 +13565,7 @@ paths:
                     type: string
                     description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
                     readOnly: true
-                    default: route
+                    example: route
                   id:
                     description: |-
                       The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
@@ -13751,7 +13747,7 @@ paths:
                                   type: string
                                   description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
                                   readOnly: true
-                                  default: route
+                                  example: route
                                 id:
                                   description: |-
                                     The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
@@ -13958,7 +13954,7 @@ paths:
                   type: string
                   description: Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
                   readOnly: true
-                  default: customer
+                  example: customer
                 id:
                   description: 'The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.'
                   readOnly: true
@@ -14075,7 +14071,7 @@ paths:
                     type: string
                     description: Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
                     readOnly: true
-                    default: customer
+                    example: customer
                   id:
                     description: 'The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.'
                     readOnly: true
@@ -14465,7 +14461,7 @@ paths:
                           properties: &ref_134
                             resource:
                               type: string
-                              default: event
+                              example: event
                             type:
                               type: integer
                               example: 200
@@ -17600,7 +17596,7 @@ paths:
                   type: string
                   description: Indicates the response contains a mandate object. Will always contain the string `mandate` for this endpoint.
                   readOnly: true
-                  default: mandate
+                  example: mandate
                 id:
                   description: 'The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.'
                   type: string
@@ -17826,7 +17822,7 @@ paths:
                     type: string
                     description: Indicates the response contains a mandate object. Will always contain the string `mandate` for this endpoint.
                     readOnly: true
-                    default: mandate
+                    example: mandate
                   id:
                     description: 'The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.'
                     type: string
@@ -18545,7 +18541,7 @@ paths:
                     Indicates the response contains a subscription object. Will always contain the string `subscription` for this
                     endpoint.
                   readOnly: true
-                  default: subscription
+                  example: subscription
                 id:
                   description: 'The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.'
                   readOnly: true
@@ -18775,7 +18771,7 @@ paths:
                       Indicates the response contains a subscription object. Will always contain the string `subscription` for this
                       endpoint.
                     readOnly: true
-                    default: subscription
+                    example: subscription
                   id:
                     description: 'The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.'
                     readOnly: true
@@ -22172,7 +22168,7 @@ paths:
                                 Indicates the response contains a permission object. Will always contain the string `permission` for this
                                 endpoint.
                               readOnly: true
-                              default: permission
+                              example: permission
                             id:
                               description: 'The identifier uniquely referring to this permission. Example: `payments.read`.'
                               readOnly: true
@@ -22652,7 +22648,7 @@ paths:
                       Indicates the response contains an organization object. Will always contain the string `organization` for this
                       resource type.
                     readOnly: true
-                    default: organization
+                    example: organization
                   id:
                     type: string
                     description: 'The identifier uniquely referring to this organization. Example: `org_12345678`.'
@@ -22929,7 +22925,7 @@ paths:
                       Indicates the response contains a partner status object. Will always contain the string `partner` for
                       this endpoint.
                     readOnly: true
-                    default: partner
+                    example: partner
                   partnerType:
                     type:
                       - string
@@ -23081,7 +23077,6 @@ paths:
                   type: string
                   description: Indicates the response contains a profile object. Will always contain the string `profile` for this endpoint.
                   readOnly: true
-                  default: profile
                   example: profile
                 id:
                   type: string
@@ -24098,7 +24093,7 @@ paths:
                       Indicates the response contains an onboarding status object. Will always contain the string `onboarding` for this
                       resource type.
                     readOnly: true
-                    default: onboarding
+                    example: onboarding
                   name:
                     type: string
                     description: The name of the organization.
@@ -24665,7 +24660,7 @@ paths:
                                   type: string
                                   description: Indicates the response contains a client object. Will always contain the string `client` for this resource type.
                                   readOnly: true
-                                  default: client
+                                  example: client
                                 id:
                                   type: string
                                   description: 'The identifier uniquely referring to this client. Example: `org_12345678`.'
@@ -25094,7 +25089,7 @@ paths:
                     Indicates the response contains a client link object. Will always contain the string `client-link` for this
                     endpoint.
                   readOnly: true
-                  default: client-link
+                  example: client-link
                 id:
                   type: string
                   description: 'The identifier uniquely referring to this client link. Example: `cl_vZCnNQsV2UtfXxYifWKWH`.'
@@ -25388,7 +25383,6 @@ paths:
                     type: string
                     description: Indicates the response contains a webhook subscription object. Will always contain the string `webhook` for this endpoint.
                     readOnly: true
-                    default: webhook
                     example: webhook
                   id:
                     type: string
@@ -25586,7 +25580,6 @@ paths:
                                 Indicates the response contains a webhook subscription object.
                                 Will always contain the string `webhook` for this endpoint.
                               readOnly: true
-                              default: webhook
                               example: webhook
                             id:
                               type: string
@@ -26095,7 +26088,7 @@ paths:
                     type: string
                     description: Indicates the response contains a webhook event object. Will always contain the string `event` for this endpoint.
                     readOnly: true
-                    default: event
+                    example: event
                   id:
                     type: string
                     description: The identifier uniquely referring to this event.
@@ -26299,7 +26292,6 @@ paths:
                               type: string
                               description: Indicates the response contains a balance object. Will always contain the string `balance` for this endpoint.
                               readOnly: true
-                              default: balance
                               example: balance
                             id:
                               description: The identifier uniquely referring to this balance.
@@ -26915,7 +26907,6 @@ paths:
             enum:
               - status-balances
               - transaction-categories
-            default: status-balances
             example: status-balances
         - name: testmode
           description: |-
@@ -26940,7 +26931,6 @@ paths:
                       Indicates the response contains a balance report object. Will always contain the string `balance-report` for this
                       endpoint.
                     readOnly: true
-                    default: balance-report
                     example: balance-report
                   balanceId:
                     description: The ID of the balance this report is generated for.
@@ -26978,7 +26968,6 @@ paths:
                     enum:
                       - status-balances
                       - transaction-categories
-                    default: status-balances
                     example: status-balances
                   totals:
                     type: object
@@ -28356,7 +28345,6 @@ paths:
                                 for this endpoint.
                               readOnly: true
                               example: balance-transaction
-                              default: balance-transaction
                             id:
                               description: The identifier uniquely referring to this balance transaction.
                               readOnly: true
@@ -29762,7 +29750,6 @@ paths:
                                 Indicates the response contains a settlement object. Will always contain the string `settlement` for this
                                 endpoint.
                               readOnly: true
-                              default: settlement
                               example: settlement
                             id:
                               description: The identifier uniquely referring to this settlement.
@@ -34533,7 +34520,7 @@ paths:
                       Indicates that the response contains an invoice object.
                       Will always contain the string `invoice` for this endpoint.
                     readOnly: true
-                    default: invoice
+                    example: invoice
                   id:
                     type: string
                     description: 'The identifier uniquely referring to this invoice. Example: `inv_FrvewDA3Pr`.'
@@ -34750,7 +34737,7 @@ paths:
                     Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
                     endpoint.
                   readOnly: true
-                  default: sales-invoice
+                  example: sales-invoice
                 id:
                   type: string
                   description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
@@ -34812,7 +34799,7 @@ paths:
                   enum:
                     - standard
                     - one-stop-shop
-                  default: standard
+                  example: standard
                 vatMode:
                   type: string
                   description: |-
@@ -34821,7 +34808,7 @@ paths:
                   enum:
                     - exclusive
                     - inclusive
-                  default: exclusive
+                  example: exclusive
                 memo:
                   example: This is a memo!
                   type:
@@ -34849,7 +34836,7 @@ paths:
                     - 60 days
                     - 90 days
                     - 120 days
-                  default: 30 days
+                  example: 30 days
                 paymentDetails:
                   description: |-
                     Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
@@ -35715,7 +35702,7 @@ paths:
                     - 60 days
                     - 90 days
                     - 120 days
-                  default: 30 days
+                  example: 30 days
                 paymentDetails:
                   description: |-
                     Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
@@ -36250,7 +36237,7 @@ components:
     sequence-type:
       type: string
       enum: *ref_31
-      default: oneoff
+      example: oneoff
     order-line-categories:
       type: string
       enum: *ref_116

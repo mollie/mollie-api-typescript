@@ -8,6 +8,7 @@ The updated profile object.
 import { UpdateProfileResponse } from "mollie-api-typescript/models/operations";
 
 let value: UpdateProfileResponse = {
+  resource: "profile",
   id: "pfl_QkEhN94Ba",
   mode: "live",
   name: "My website name",

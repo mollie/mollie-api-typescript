@@ -9,7 +9,7 @@ The `tip` payment line type is not available when creating a payment.
 ```typescript
 import { GetWebhookEventType } from "mollie-api-typescript/models/operations";
 
-let value: GetWebhookEventType = "tip";
+let value: GetWebhookEventType = "physical";
 ```
 
 ## Values

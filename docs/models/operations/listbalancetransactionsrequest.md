@@ -8,6 +8,7 @@ import { ListBalanceTransactionsRequest } from "mollie-api-typescript/models/ope
 let value: ListBalanceTransactionsRequest = {
   balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
   from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
+  limit: 50,
   testmode: false,
 };
 ```

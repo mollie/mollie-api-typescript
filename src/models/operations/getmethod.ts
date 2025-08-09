@@ -321,7 +321,7 @@ export type GetMethodIssuerImage = {
 };
 
 export type GetMethodIssuer = {
-  resource?: string | undefined;
+  resource: string;
   id: string;
   /**
    * The full name of the issuer.
@@ -513,7 +513,7 @@ export const GetMethodRequest$inboundSchema: z.ZodType<
   currency: z.string().optional(),
   profileId: z.string().optional(),
   include: z.nullable(GetMethodInclude$inboundSchema).optional(),
-  sequenceType: GetMethodSequenceType$inboundSchema.default("oneoff"),
+  sequenceType: GetMethodSequenceType$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -524,7 +524,7 @@ export type GetMethodRequest$Outbound = {
   currency?: string | undefined;
   profileId?: string | undefined;
   include?: string | null | undefined;
-  sequenceType: string;
+  sequenceType?: string | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -539,7 +539,7 @@ export const GetMethodRequest$outboundSchema: z.ZodType<
   currency: z.string().optional(),
   profileId: z.string().optional(),
   include: z.nullable(GetMethodInclude$outboundSchema).optional(),
-  sequenceType: GetMethodSequenceType$outboundSchema.default("oneoff"),
+  sequenceType: GetMethodSequenceType$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -1076,7 +1076,7 @@ export const GetMethodIssuer$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("issuer"),
+  resource: z.string(),
   id: z.string(),
   name: z.string(),
   image: z.lazy(() => GetMethodIssuerImage$inboundSchema),
@@ -1096,7 +1096,7 @@ export const GetMethodIssuer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetMethodIssuer
 > = z.object({
-  resource: z.string().default("issuer"),
+  resource: z.string(),
   id: z.string(),
   name: z.string(),
   image: z.lazy(() => GetMethodIssuerImage$outboundSchema),

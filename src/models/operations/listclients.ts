@@ -754,14 +754,14 @@ export const ListClientsRequest$inboundSchema: z.ZodType<
 > = z.object({
   embed: z.nullable(z.string()).optional(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
 });
 
 /** @internal */
 export type ListClientsRequest$Outbound = {
   embed?: string | null | undefined;
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
 };
 
 /** @internal */
@@ -772,7 +772,7 @@ export const ListClientsRequest$outboundSchema: z.ZodType<
 > = z.object({
   embed: z.nullable(z.string()).optional(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
 });
 
 /**
@@ -1728,7 +1728,7 @@ export const ListClientsOrganization$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("organization"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
@@ -1746,7 +1746,7 @@ export const ListClientsOrganization$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListClientsOrganization$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   name?: string | undefined;
   email?: string | undefined;
@@ -1764,7 +1764,7 @@ export const ListClientsOrganization$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListClientsOrganization
 > = z.object({
-  resource: z.string().default("organization"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
@@ -2142,7 +2142,7 @@ export const ListClientsOnboarding$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("onboarding"),
+  resource: z.string().optional(),
   name: z.string().optional(),
   status: ListClientsOnboardingStatus$inboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
@@ -2157,7 +2157,7 @@ export const ListClientsOnboarding$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListClientsOnboarding$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   name?: string | undefined;
   status?: string | undefined;
   canReceivePayments?: boolean | undefined;
@@ -2172,7 +2172,7 @@ export const ListClientsOnboarding$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListClientsOnboarding
 > = z.object({
-  resource: z.string().default("onboarding"),
+  resource: z.string().optional(),
   name: z.string().optional(),
   status: ListClientsOnboardingStatus$outboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
@@ -2592,7 +2592,7 @@ export function clientEmbeddedFromJSON(
 /** @internal */
 export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
   .object({
-    resource: z.string().default("client"),
+    resource: z.string().optional(),
     id: z.string().optional(),
     commission: z.nullable(z.lazy(() => ListClientsCommission$inboundSchema))
       .optional(),
@@ -2608,7 +2608,7 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
 
 /** @internal */
 export type Client$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   commission?: ListClientsCommission$Outbound | null | undefined;
   organizationCreatedAt?: string | undefined;
@@ -2622,7 +2622,7 @@ export const Client$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Client
 > = z.object({
-  resource: z.string().default("client"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   commission: z.nullable(z.lazy(() => ListClientsCommission$outboundSchema))
     .optional(),

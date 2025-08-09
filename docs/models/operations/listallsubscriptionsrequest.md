@@ -7,6 +7,7 @@ import { ListAllSubscriptionsRequest } from "mollie-api-typescript/models/operat
 
 let value: ListAllSubscriptionsRequest = {
   from: "sub_rVKGtNd6s3",
+  limit: 50,
   profileId: "pfl_QkEhN94Ba",
   testmode: false,
 };

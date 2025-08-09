@@ -8,6 +8,7 @@ import { ListBalancesRequest } from "mollie-api-typescript/models/operations";
 let value: ListBalancesRequest = {
   currency: "EUR",
   from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+  limit: 50,
   testmode: false,
 };
 ```

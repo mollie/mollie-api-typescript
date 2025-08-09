@@ -7,6 +7,7 @@ import { ListSalesInvoicesRequest } from "mollie-api-typescript/models/operation
 
 let value: ListSalesInvoicesRequest = {
   from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+  limit: 50,
   testmode: false,
 };
 ```

@@ -2067,7 +2067,7 @@ export type UpdatePaymentResponse = {
    * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
    * are set up correctly for recurring payments.
    */
-  sequenceType?: UpdatePaymentSequenceType | null | undefined;
+  sequenceType: UpdatePaymentSequenceType | null;
   /**
    * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
    *
@@ -3759,7 +3759,7 @@ export const UpdatePaymentLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: UpdatePaymentLineType$inboundSchema.default("physical"),
+  type: UpdatePaymentLineType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -3778,7 +3778,7 @@ export const UpdatePaymentLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type UpdatePaymentLine$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -3800,7 +3800,7 @@ export const UpdatePaymentLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdatePaymentLine
 > = z.object({
-  type: UpdatePaymentLineType$outboundSchema.default("physical"),
+  type: UpdatePaymentLineType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -5854,9 +5854,7 @@ export const UpdatePaymentResponse$inboundSchema: z.ZodType<
   ).optional(),
   routing: z.nullable(z.array(z.lazy(() => UpdatePaymentRouting$inboundSchema)))
     .optional(),
-  sequenceType: z.nullable(
-    UpdatePaymentSequenceType$inboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(UpdatePaymentSequenceType$inboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
@@ -5989,9 +5987,7 @@ export const UpdatePaymentResponse$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => UpdatePaymentRouting$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    UpdatePaymentSequenceType$outboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(UpdatePaymentSequenceType$outboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),

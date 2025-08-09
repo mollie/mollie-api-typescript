@@ -33,6 +33,7 @@ async function run() {
   const result = await client.balances.list({
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
     testmode: false,
   });
 
@@ -62,6 +63,7 @@ async function run() {
   const res = await balancesList(client, {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
     testmode: false,
   });
   if (res.ok) {
@@ -293,6 +295,7 @@ async function run() {
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     from: "2024-01-01",
     until: "2024-02-01",
+    grouping: "status-balances",
     testmode: false,
   });
 
@@ -323,6 +326,7 @@ async function run() {
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     from: "2024-01-01",
     until: "2024-02-01",
+    grouping: "status-balances",
     testmode: false,
   });
   if (res.ok) {
@@ -386,6 +390,7 @@ async function run() {
   const result = await client.balances.listTransactions({
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
+    limit: 50,
     testmode: false,
   });
 
@@ -415,6 +420,7 @@ async function run() {
   const res = await balancesListTransactions(client, {
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
+    limit: 50,
     testmode: false,
   });
   if (res.ok) {

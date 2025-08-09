@@ -8,6 +8,7 @@ import { ListProfilesEmbedded } from "mollie-api-typescript/models/operations";
 let value: ListProfilesEmbedded = {
   profiles: [
     {
+      resource: "profile",
       id: "pfl_QkEhN94Ba",
       mode: "live",
       name: "My website name",

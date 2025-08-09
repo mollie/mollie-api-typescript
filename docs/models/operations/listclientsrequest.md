@@ -8,6 +8,7 @@ import { ListClientsRequest } from "mollie-api-typescript/models/operations";
 let value: ListClientsRequest = {
   embed: "organization",
   from: "org_12345678",
+  limit: 50,
 };
 ```
 

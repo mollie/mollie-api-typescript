@@ -7,6 +7,7 @@ import { ListSettlementsRequest } from "mollie-api-typescript/models/operations"
 
 let value: ListSettlementsRequest = {
   from: "stl_jDk30akdN",
+  limit: 50,
   balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
   year: "2025",
   month: "1",

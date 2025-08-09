@@ -6,6 +6,7 @@
 import { ListSettlementsSettlement } from "mollie-api-typescript/models/operations";
 
 let value: ListSettlementsSettlement = {
+  resource: "settlement",
   id: "stl_5B8cwPMGnU",
   createdAt: "2024-03-20T09:13:37.0Z",
   reference: "07049691.2406.01",

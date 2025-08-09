@@ -447,13 +447,13 @@ export const ListProfilesRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
 });
 
 /** @internal */
 export type ListProfilesRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
 };
 
 /** @internal */
@@ -463,7 +463,7 @@ export const ListProfilesRequest$outboundSchema: z.ZodType<
   ListProfilesRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
 });
 
 /**
@@ -1270,7 +1270,7 @@ export const ListProfilesProfile$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: ListProfilesMode$inboundSchema.optional(),
   name: z.string().optional(),
@@ -1292,7 +1292,7 @@ export const ListProfilesProfile$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListProfilesProfile$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   name?: string | undefined;
@@ -1314,7 +1314,7 @@ export const ListProfilesProfile$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListProfilesProfile
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: ListProfilesMode$outboundSchema.optional(),
   name: z.string().optional(),

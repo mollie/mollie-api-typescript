@@ -16,6 +16,7 @@ let value: CreateCustomerPaymentRequestBody = {
   webhookUrl: "https://example.org/webhooks",
   lines: [
     {
+      type: "physical",
       description: "LEGO 4440 Forest Police Station",
       quantity: 1,
       quantityUnit: "pcs",
@@ -119,6 +120,7 @@ let value: CreateCustomerPaymentRequestBody = {
       },
     },
   ],
+  sequenceType: "oneoff",
   mandateId: "mdt_5B8cwPMGnU",
   customerId: "cst_5B8cwPMGnU",
   profileId: "pfl_5B8cwPMGnU",

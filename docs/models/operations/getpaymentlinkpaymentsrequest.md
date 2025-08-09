@@ -8,6 +8,8 @@ import { GetPaymentLinkPaymentsRequest } from "mollie-api-typescript/models/oper
 let value: GetPaymentLinkPaymentsRequest = {
   paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
   from: "tr_5B8cwPMGnU",
+  limit: 50,
+  sort: "desc",
   testmode: false,
 };
 ```

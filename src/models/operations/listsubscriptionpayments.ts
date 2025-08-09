@@ -1711,7 +1711,7 @@ export type ListSubscriptionPaymentsPaymentOutput = {
    * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
    * are set up correctly for recurring payments.
    */
-  sequenceType?: ListSubscriptionPaymentsSequenceType | null | undefined;
+  sequenceType: ListSubscriptionPaymentsSequenceType | null;
   /**
    * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
    *
@@ -1973,8 +1973,8 @@ export const ListSubscriptionPaymentsRequest$inboundSchema: z.ZodType<
   customerId: z.string(),
   subscriptionId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListSubscriptionPaymentsSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListSubscriptionPaymentsSort$inboundSchema).optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1984,8 +1984,8 @@ export type ListSubscriptionPaymentsRequest$Outbound = {
   customerId: string;
   subscriptionId: string;
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -1999,8 +1999,8 @@ export const ListSubscriptionPaymentsRequest$outboundSchema: z.ZodType<
   customerId: z.string(),
   subscriptionId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListSubscriptionPaymentsSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListSubscriptionPaymentsSort$outboundSchema).optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -3042,7 +3042,7 @@ export const ListSubscriptionPaymentsLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ListSubscriptionPaymentsLineType$inboundSchema.default("physical"),
+  type: ListSubscriptionPaymentsLineType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -3065,7 +3065,7 @@ export const ListSubscriptionPaymentsLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListSubscriptionPaymentsLine$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -3087,7 +3087,7 @@ export const ListSubscriptionPaymentsLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSubscriptionPaymentsLine
 > = z.object({
-  type: ListSubscriptionPaymentsLineType$outboundSchema.default("physical"),
+  type: ListSubscriptionPaymentsLineType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -5320,9 +5320,7 @@ export const ListSubscriptionPaymentsPaymentOutput$inboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListSubscriptionPaymentsRouting$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    ListSubscriptionPaymentsSequenceType$inboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(ListSubscriptionPaymentsSequenceType$inboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
@@ -5476,9 +5474,7 @@ export const ListSubscriptionPaymentsPaymentOutput$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListSubscriptionPaymentsRouting$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    ListSubscriptionPaymentsSequenceType$outboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(ListSubscriptionPaymentsSequenceType$outboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),

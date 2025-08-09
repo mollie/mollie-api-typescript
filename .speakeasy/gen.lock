@@ -1,19 +1,18 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: b94e03889a6492db61103c9793b2745a
+  docChecksum: bc9342ebd7b67eb1dcce3dd6525ac111
   docVersion: 1.0.0
-  speakeasyVersion: 1.599.0
-  generationVersion: 2.675.0
-  releaseVersion: 0.0.9
-  configChecksum: 3e6399eccd7e9302374d41815366891b
+  speakeasyVersion: 1.600.2
+  generationVersion: 2.677.3
+  releaseVersion: 0.1.0
+  configChecksum: 3d69a158c752f374dd1569363088d308
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    constsAndDefaults: 0.1.12
     core: 3.21.20
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
@@ -5448,7 +5447,7 @@ examples:
     list-permissions-200-1:
       responses:
         "200":
-          application/hal+json: {"count": 8, "_embedded": {"permissions": [{"resource": "permission", "id": "payments.read", "description": "View your payments", "granted": true, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "permission", "id": "payments.write", "description": "Create new payments", "granted": false, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "permission"}, {"resource": "permission"}, {"resource": "permission"}, {"resource": "permission"}, {"resource": "permission"}, {"resource": "permission"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 8, "_embedded": {"permissions": [{"resource": "permission", "id": "payments.read", "description": "View your payments", "granted": true, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "permission", "id": "payments.write", "description": "Create new payments", "granted": false, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {}, {}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     list-permissions-200-2:
       responses:
         "200":
@@ -5549,7 +5548,7 @@ examples:
           limit: 50
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"profiles": [{"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My website name", "website": "https://shop.example.org", "email": "info@example.org", "phone": "+31208202070", "businessCategory": "OTHER_MERCHANDISE", "status": "verified", "review": {"status": "pending"}, "createdAt": "2023-03-20T09:28:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "profile"}, {"resource": "profile"}, {"resource": "profile"}, {"resource": "profile"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/profiles?from=pfl_v9hTwCvYqw&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 5, "_embedded": {"profiles": [{"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My website name", "website": "https://shop.example.org", "email": "info@example.org", "phone": "+31208202070", "businessCategory": "OTHER_MERCHANDISE", "status": "verified", "review": {"status": "pending"}, "createdAt": "2023-03-20T09:28:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/profiles?from=pfl_v9hTwCvYqw&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-list-profiles:
       parameters:
         query:
@@ -5660,7 +5659,7 @@ examples:
           limit: 50
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"clients": [{"resource": "client", "id": "org_12345678", "commission": {"count": 0}, "organizationCreatedAt": "2023-04-06 13:10:19+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "client"}, {"resource": "client"}, {"resource": "client"}, {"resource": "client"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/clients?from=org_63916732&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 5, "_embedded": {"clients": [{"resource": "client", "id": "org_12345678", "commission": {"count": 0}, "organizationCreatedAt": "2023-04-06 13:10:19+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/clients?from=org_63916732&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-list-clients:
       parameters:
         query:
@@ -5907,7 +5906,7 @@ examples:
           testmode: false
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"balances": [{"resource": "balance", "id": "bal_gVMhHKqSSRYJyPsuoPNFH", "mode": "live", "createdAt": "2022-07-12T09:50:21+00:00", "currency": "EUR", "description": "Primary balance", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": "RF12-3456-7890-1234", "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "905.25"}, "pendingAmount": {"currency": "EUR", "value": "0.00"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "balance"}, {"resource": "balance"}, {"resource": "balance"}, {"resource": "balance"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances?from=bal_gVMhHKqSSRYJyPsuoPABC&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 5, "_embedded": {"balances": [{"resource": "balance", "id": "bal_gVMhHKqSSRYJyPsuoPNFH", "mode": "live", "createdAt": "2022-07-12T09:50:21+00:00", "currency": "EUR", "description": "Primary balance", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": "RF12-3456-7890-1234", "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "905.25"}, "pendingAmount": {"currency": "EUR", "value": "0.00"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances?from=bal_gVMhHKqSSRYJyPsuoPABC&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     list-balances-200-2:
       parameters:
         query:
@@ -6031,7 +6030,7 @@ examples:
           testmode: false
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29A", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-10.25"}, "initialAmount": {"currency": "EUR", "value": "-10.00"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_WhmDwNYR87FPDbiwBhUXCh", "type": "payment", "resultAmount": {"currency": "EUR", "value": "9.71"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "-0.29"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction"}, {"resource": "balance-transaction"}, {"resource": "balance-transaction"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_gVMhHKqSSRYJyPsuoPNFH/transactions?from=baltr_rXeW2yPqqDUyfAqq8fS5Bg&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 5, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29A", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-10.25"}, "initialAmount": {"currency": "EUR", "value": "-10.00"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_WhmDwNYR87FPDbiwBhUXCh", "type": "payment", "resultAmount": {"currency": "EUR", "value": "9.71"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "-0.29"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_gVMhHKqSSRYJyPsuoPNFH/transactions?from=baltr_rXeW2yPqqDUyfAqq8fS5Bg&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     list-balance-transactions-200-2:
       parameters:
         path:
@@ -6072,7 +6071,7 @@ examples:
           currencies: "EUR"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"settlements": [{"resource": "settlement", "id": "stl_jDk30akdN", "createdAt": "2024-04-31T12:50:14+00:00", "reference": "1234567.2404.03", "settledAt": "2024-04-06T09:41:44.0Z", "status": "paidout", "amount": {"currency": "EUR", "value": "39.75"}, "balanceId": "bal_3kUf4yU2nT", "invoiceId": "inv_FrvewDA3Pr", "periods": {}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payments": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/payments", "type": "application/hal+json"}, "captures": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/captures", "type": "application/hal+json"}, "refunds": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/refunds", "type": "application/hal+json"}, "chargebacks": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/chargebacks", "type": "application/hal+json"}, "invoice": {"href": "https://api.mollie.com/v2/invoices/inv_UQgMnkkTFz", "type": "application/hal+json"}}}, {"resource": "settlement"}, {"resource": "settlement"}, {"resource": "settlement"}, {"resource": "settlement"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/settlements?from=cst_stTC2WHAuS&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 5, "_embedded": {"settlements": [{"resource": "settlement", "id": "stl_jDk30akdN", "createdAt": "2024-04-31T12:50:14+00:00", "reference": "1234567.2404.03", "settledAt": "2024-04-06T09:41:44.0Z", "status": "paidout", "amount": {"currency": "EUR", "value": "39.75"}, "balanceId": "bal_3kUf4yU2nT", "invoiceId": "inv_FrvewDA3Pr", "periods": {}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payments": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/payments", "type": "application/hal+json"}, "captures": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/captures", "type": "application/hal+json"}, "refunds": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/refunds", "type": "application/hal+json"}, "chargebacks": {"href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/chargebacks", "type": "application/hal+json"}, "invoice": {"href": "https://api.mollie.com/v2/invoices/inv_UQgMnkkTFz", "type": "application/hal+json"}}}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/settlements?from=cst_stTC2WHAuS&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-list-settlements:
       parameters:
         query:

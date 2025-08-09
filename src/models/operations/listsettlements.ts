@@ -793,7 +793,7 @@ export const ListSettlementsRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   balanceId: z.nullable(z.string()).optional(),
   year: z.nullable(z.string()).optional(),
   month: z.nullable(z.string()).optional(),
@@ -803,7 +803,7 @@ export const ListSettlementsRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type ListSettlementsRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   balanceId?: string | null | undefined;
   year?: string | null | undefined;
   month?: string | null | undefined;
@@ -817,7 +817,7 @@ export const ListSettlementsRequest$outboundSchema: z.ZodType<
   ListSettlementsRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   balanceId: z.nullable(z.string()).optional(),
   year: z.nullable(z.string()).optional(),
   month: z.nullable(z.string()).optional(),
@@ -2587,7 +2587,7 @@ export const ListSettlementsSettlement$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("settlement"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
@@ -2606,7 +2606,7 @@ export const ListSettlementsSettlement$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListSettlementsSettlement$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   createdAt?: string | undefined;
   reference?: string | null | undefined;
@@ -2625,7 +2625,7 @@ export const ListSettlementsSettlement$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementsSettlement
 > = z.object({
-  resource: z.string().default("settlement"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),

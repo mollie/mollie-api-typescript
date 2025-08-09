@@ -8,6 +8,7 @@ import { ListCustomersEmbedded } from "mollie-api-typescript/models/operations";
 let value: ListCustomersEmbedded = {
   customers: [
     {
+      resource: "customer",
       id: "cst_5B8cwPMGnU",
       mode: "live",
       name: "John Doe",

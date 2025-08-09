@@ -714,7 +714,7 @@ export const ListBalanceTransactionsRequest$inboundSchema: z.ZodType<
 > = z.object({
   balanceId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -722,7 +722,7 @@ export const ListBalanceTransactionsRequest$inboundSchema: z.ZodType<
 export type ListBalanceTransactionsRequest$Outbound = {
   balanceId: string;
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -734,7 +734,7 @@ export const ListBalanceTransactionsRequest$outboundSchema: z.ZodType<
 > = z.object({
   balanceId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -3537,7 +3537,7 @@ export const BalanceTransaction$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("balance-transaction"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   type: ListBalanceTransactionsType$inboundSchema.optional(),
   resultAmount: z.lazy(() => ResultAmount$inboundSchema).optional(),
@@ -3549,7 +3549,7 @@ export const BalanceTransaction$inboundSchema: z.ZodType<
 
 /** @internal */
 export type BalanceTransaction$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   type?: string | undefined;
   resultAmount?: ResultAmount$Outbound | undefined;
@@ -3565,7 +3565,7 @@ export const BalanceTransaction$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BalanceTransaction
 > = z.object({
-  resource: z.string().default("balance-transaction"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   type: ListBalanceTransactionsType$outboundSchema.optional(),
   resultAmount: z.lazy(() => ResultAmount$outboundSchema).optional(),

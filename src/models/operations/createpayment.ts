@@ -2813,7 +2813,7 @@ export type CreatePaymentResponse = {
    * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
    * are set up correctly for recurring payments.
    */
-  sequenceType?: CreatePaymentSequenceTypeResponse | null | undefined;
+  sequenceType: CreatePaymentSequenceTypeResponse | null;
   /**
    * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
    *
@@ -3456,7 +3456,7 @@ export const CreatePaymentLineRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CreatePaymentLineTypeRequest$inboundSchema.default("physical"),
+  type: CreatePaymentLineTypeRequest$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -3477,7 +3477,7 @@ export const CreatePaymentLineRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreatePaymentLineRequest$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -3499,7 +3499,7 @@ export const CreatePaymentLineRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreatePaymentLineRequest
 > = z.object({
-  type: CreatePaymentLineTypeRequest$outboundSchema.default("physical"),
+  type: CreatePaymentLineTypeRequest$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -4485,9 +4485,8 @@ export const CreatePaymentRequestBody$inboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => CreatePaymentRoutingRequest$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    CreatePaymentSequenceTypeRequest$inboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(CreatePaymentSequenceTypeRequest$inboundSchema)
+    .optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string().optional(),
@@ -4522,7 +4521,7 @@ export type CreatePaymentRequestBody$Outbound = {
     | null
     | undefined;
   routing?: Array<CreatePaymentRoutingRequest$Outbound> | null | undefined;
-  sequenceType: string | null;
+  sequenceType?: string | null | undefined;
   mandateId?: string | null | undefined;
   customerId?: string | null | undefined;
   profileId?: string | undefined;
@@ -4570,9 +4569,8 @@ export const CreatePaymentRequestBody$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => CreatePaymentRoutingRequest$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    CreatePaymentSequenceTypeRequest$outboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(CreatePaymentSequenceTypeRequest$outboundSchema)
+    .optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
   profileId: z.string().optional(),
@@ -5757,7 +5755,7 @@ export const CreatePaymentLineResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CreatePaymentLineTypeResponse$inboundSchema.default("physical"),
+  type: CreatePaymentLineTypeResponse$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -5779,7 +5777,7 @@ export const CreatePaymentLineResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreatePaymentLineResponse$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -5801,7 +5799,7 @@ export const CreatePaymentLineResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreatePaymentLineResponse
 > = z.object({
-  type: CreatePaymentLineTypeResponse$outboundSchema.default("physical"),
+  type: CreatePaymentLineTypeResponse$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -7889,9 +7887,7 @@ export const CreatePaymentResponse$inboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => CreatePaymentRoutingResponse$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    CreatePaymentSequenceTypeResponse$inboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(CreatePaymentSequenceTypeResponse$inboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
@@ -8029,9 +8025,7 @@ export const CreatePaymentResponse$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => CreatePaymentRoutingResponse$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    CreatePaymentSequenceTypeResponse$outboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(CreatePaymentSequenceTypeResponse$outboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),

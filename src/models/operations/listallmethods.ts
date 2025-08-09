@@ -321,7 +321,7 @@ export type ListAllMethodsIssuerImage = {
 };
 
 export type ListAllMethodsIssuer = {
-  resource?: string | undefined;
+  resource: string;
   id: string;
   /**
    * The full name of the issuer.
@@ -676,7 +676,7 @@ export const ListAllMethodsRequest$inboundSchema: z.ZodType<
   locale: ListAllMethodsLocale$inboundSchema.optional(),
   amount: z.lazy(() => ListAllMethodsAmount$inboundSchema).optional(),
   include: z.nullable(ListAllMethodsInclude$inboundSchema).optional(),
-  sequenceType: ListAllMethodsSequenceType$inboundSchema.default("oneoff"),
+  sequenceType: ListAllMethodsSequenceType$inboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -686,7 +686,7 @@ export type ListAllMethodsRequest$Outbound = {
   locale?: string | undefined;
   amount?: ListAllMethodsAmount$Outbound | undefined;
   include?: string | null | undefined;
-  sequenceType: string;
+  sequenceType?: string | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -700,7 +700,7 @@ export const ListAllMethodsRequest$outboundSchema: z.ZodType<
   locale: ListAllMethodsLocale$outboundSchema.optional(),
   amount: z.lazy(() => ListAllMethodsAmount$outboundSchema).optional(),
   include: z.nullable(ListAllMethodsInclude$outboundSchema).optional(),
-  sequenceType: ListAllMethodsSequenceType$outboundSchema.default("oneoff"),
+  sequenceType: ListAllMethodsSequenceType$outboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1144,7 +1144,7 @@ export const ListAllMethodsIssuer$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("issuer"),
+  resource: z.string(),
   id: z.string(),
   name: z.string(),
   image: z.lazy(() => ListAllMethodsIssuerImage$inboundSchema),
@@ -1164,7 +1164,7 @@ export const ListAllMethodsIssuer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllMethodsIssuer
 > = z.object({
-  resource: z.string().default("issuer"),
+  resource: z.string(),
   id: z.string(),
   name: z.string(),
   image: z.lazy(() => ListAllMethodsIssuerImage$outboundSchema),

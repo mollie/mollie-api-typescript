@@ -6,6 +6,7 @@
 import { GetWebhookEventProfile } from "mollie-api-typescript/models/operations";
 
 let value: GetWebhookEventProfile = {
+  resource: "profile",
   id: "pfl_QkEhN94Ba",
   mode: "live",
   name: "My website name",

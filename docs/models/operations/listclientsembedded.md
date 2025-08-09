@@ -8,6 +8,7 @@ import { ListClientsEmbedded } from "mollie-api-typescript/models/operations";
 let value: ListClientsEmbedded = {
   clients: [
     {
+      resource: "client",
       links: {
         self: {
           href: "https://...",
@@ -28,6 +29,7 @@ let value: ListClientsEmbedded = {
       },
       embedded: {
         organization: {
+          resource: "organization",
           locale: "en_US",
           links: {
             self: {
@@ -45,6 +47,7 @@ let value: ListClientsEmbedded = {
           },
         },
         onboarding: {
+          resource: "onboarding",
           links: {
             self: {
               href: "https://...",

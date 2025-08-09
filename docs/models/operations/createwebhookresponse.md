@@ -8,6 +8,7 @@ The webhook object.
 import { CreateWebhookResponse } from "mollie-api-typescript/models/operations";
 
 let value: CreateWebhookResponse = {
+  resource: "webhook",
   id: "hook_tNP6fpF9fLJpFWziRcgiH",
   url: "https://example.com/webhook-endpoint",
   profileId: "pfl_YyoaNFjtHc",

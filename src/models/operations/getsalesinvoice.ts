@@ -2218,18 +2218,16 @@ export const GetSalesInvoiceResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("sales-invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
   status: GetSalesInvoiceStatus$inboundSchema.optional(),
-  vatScheme: GetSalesInvoiceVatScheme$inboundSchema.default("standard"),
-  vatMode: GetSalesInvoiceVatMode$inboundSchema.default("exclusive"),
+  vatScheme: GetSalesInvoiceVatScheme$inboundSchema.optional(),
+  vatMode: GetSalesInvoiceVatMode$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(z.lazy(() => GetSalesInvoiceMetadata$inboundSchema))
     .optional(),
-  paymentTerm: z.nullable(
-    GetSalesInvoicePaymentTerm$inboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(GetSalesInvoicePaymentTerm$inboundSchema).optional(),
   paymentDetails: z.nullable(
     z.lazy(() => GetSalesInvoicePaymentDetails$inboundSchema),
   ).optional(),
@@ -2268,15 +2266,15 @@ export const GetSalesInvoiceResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetSalesInvoiceResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   invoiceNumber?: string | null | undefined;
   status?: string | undefined;
-  vatScheme: string;
-  vatMode: string;
+  vatScheme?: string | undefined;
+  vatMode?: string | undefined;
   memo?: string | null | undefined;
   metadata?: GetSalesInvoiceMetadata$Outbound | null | undefined;
-  paymentTerm: string | null;
+  paymentTerm?: string | null | undefined;
   paymentDetails?: GetSalesInvoicePaymentDetails$Outbound | null | undefined;
   emailDetails?: GetSalesInvoiceEmailDetails$Outbound | null | undefined;
   customerId?: string | undefined;
@@ -2305,18 +2303,16 @@ export const GetSalesInvoiceResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSalesInvoiceResponse
 > = z.object({
-  resource: z.string().default("sales-invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
   status: GetSalesInvoiceStatus$outboundSchema.optional(),
-  vatScheme: GetSalesInvoiceVatScheme$outboundSchema.default("standard"),
-  vatMode: GetSalesInvoiceVatMode$outboundSchema.default("exclusive"),
+  vatScheme: GetSalesInvoiceVatScheme$outboundSchema.optional(),
+  vatMode: GetSalesInvoiceVatMode$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(z.lazy(() => GetSalesInvoiceMetadata$outboundSchema))
     .optional(),
-  paymentTerm: z.nullable(
-    GetSalesInvoicePaymentTerm$outboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(GetSalesInvoicePaymentTerm$outboundSchema).optional(),
   paymentDetails: z.nullable(
     z.lazy(() => GetSalesInvoicePaymentDetails$outboundSchema),
   ).optional(),

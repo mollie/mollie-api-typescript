@@ -141,7 +141,7 @@ export type GetTerminalResponse = {
   /**
    * Indicates the response contains a terminal object. Will always contain the string `terminal` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this terminal. Example: `term_7MgL4wea46qkRcoTZjWEH`.
    */
@@ -634,7 +634,7 @@ export const GetTerminalResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("terminal"),
+  resource: z.string(),
   id: z.string(),
   mode: GetTerminalMode$inboundSchema,
   description: z.string(),
@@ -676,7 +676,7 @@ export const GetTerminalResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetTerminalResponse
 > = z.object({
-  resource: z.string().default("terminal"),
+  resource: z.string(),
   id: z.string(),
   mode: GetTerminalMode$outboundSchema,
   description: z.string(),

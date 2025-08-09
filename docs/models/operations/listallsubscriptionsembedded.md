@@ -8,6 +8,7 @@ import { ListAllSubscriptionsEmbedded } from "mollie-api-typescript/models/opera
 let value: ListAllSubscriptionsEmbedded = {
   subscriptions: [
     {
+      resource: "subscription",
       id: "sub_5B8cwPMGnU",
       mode: "live",
       status: "active",

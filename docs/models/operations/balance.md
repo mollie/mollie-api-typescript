@@ -6,6 +6,7 @@
 import { Balance } from "mollie-api-typescript/models/operations";
 
 let value: Balance = {
+  resource: "balance",
   id: "bal_gVMhHKqSSRYJyPsuoPNFH",
   mode: "live",
   createdAt: "2024-03-20T09:13:37.0Z",

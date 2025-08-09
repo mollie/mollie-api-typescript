@@ -614,7 +614,7 @@ export type ListPaymentLinksPaymentLink = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.
    */
@@ -719,7 +719,7 @@ export type ListPaymentLinksPaymentLink = {
    *
    * If no value is specified, the field defaults to `false`, allowing only a single payment per link.
    */
-  reusable?: boolean | null | undefined;
+  reusable: boolean | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -897,14 +897,14 @@ export const ListPaymentLinksRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
 /** @internal */
 export type ListPaymentLinksRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -915,7 +915,7 @@ export const ListPaymentLinksRequest$outboundSchema: z.ZodType<
   ListPaymentLinksRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -1495,7 +1495,7 @@ export const ListPaymentLinksLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ListPaymentLinksType$inboundSchema.default("physical"),
+  type: ListPaymentLinksType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -1513,7 +1513,7 @@ export const ListPaymentLinksLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListPaymentLinksLine$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -1534,7 +1534,7 @@ export const ListPaymentLinksLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPaymentLinksLine
 > = z.object({
-  type: ListPaymentLinksType$outboundSchema.default("physical"),
+  type: ListPaymentLinksType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2078,7 +2078,7 @@ export const ListPaymentLinksPaymentLink$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("payment-link"),
+  resource: z.string(),
   id: z.string(),
   mode: ListPaymentLinksMode$inboundSchema,
   description: z.string(),
@@ -2096,7 +2096,7 @@ export const ListPaymentLinksPaymentLink$inboundSchema: z.ZodType<
   shippingAddress: z.lazy(() => ListPaymentLinksShippingAddress$inboundSchema)
     .optional(),
   profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean().default(false)),
+  reusable: z.nullable(z.boolean()),
   createdAt: z.string(),
   paidAt: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
@@ -2145,7 +2145,7 @@ export const ListPaymentLinksPaymentLink$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPaymentLinksPaymentLink
 > = z.object({
-  resource: z.string().default("payment-link"),
+  resource: z.string(),
   id: z.string(),
   mode: ListPaymentLinksMode$outboundSchema,
   description: z.string(),
@@ -2163,7 +2163,7 @@ export const ListPaymentLinksPaymentLink$outboundSchema: z.ZodType<
   shippingAddress: z.lazy(() => ListPaymentLinksShippingAddress$outboundSchema)
     .optional(),
   profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean().default(false)),
+  reusable: z.nullable(z.boolean()),
   createdAt: z.string(),
   paidAt: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),

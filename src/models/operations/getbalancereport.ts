@@ -19655,9 +19655,7 @@ export const GetBalanceReportRequest$inboundSchema: z.ZodType<
   balanceId: z.string(),
   from: z.string(),
   until: z.string(),
-  grouping: z.nullable(
-    QueryParamGrouping$inboundSchema.default("status-balances"),
-  ),
+  grouping: z.nullable(QueryParamGrouping$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -19666,7 +19664,7 @@ export type GetBalanceReportRequest$Outbound = {
   balanceId: string;
   from: string;
   until: string;
-  grouping: string | null;
+  grouping?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -19679,9 +19677,7 @@ export const GetBalanceReportRequest$outboundSchema: z.ZodType<
   balanceId: z.string(),
   from: z.string(),
   until: z.string(),
-  grouping: z.nullable(
-    QueryParamGrouping$outboundSchema.default("status-balances"),
-  ),
+  grouping: z.nullable(QueryParamGrouping$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -44913,12 +44909,12 @@ export const GetBalanceReportResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("balance-report"),
+  resource: z.string().optional(),
   balanceId: z.string().optional(),
   timeZone: z.string().optional(),
   from: z.string().optional(),
   until: z.string().optional(),
-  grouping: GroupingResponse$inboundSchema.default("status-balances"),
+  grouping: GroupingResponse$inboundSchema.optional(),
   totals: z.lazy(() => Totals$inboundSchema).optional(),
   _links: z.lazy(() => GetBalanceReportLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -44929,12 +44925,12 @@ export const GetBalanceReportResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetBalanceReportResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   balanceId?: string | undefined;
   timeZone?: string | undefined;
   from?: string | undefined;
   until?: string | undefined;
-  grouping: string;
+  grouping?: string | undefined;
   totals?: Totals$Outbound | undefined;
   _links?: GetBalanceReportLinks$Outbound | undefined;
 };
@@ -44945,12 +44941,12 @@ export const GetBalanceReportResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetBalanceReportResponse
 > = z.object({
-  resource: z.string().default("balance-report"),
+  resource: z.string().optional(),
   balanceId: z.string().optional(),
   timeZone: z.string().optional(),
   from: z.string().optional(),
   until: z.string().optional(),
-  grouping: GroupingResponse$outboundSchema.default("status-balances"),
+  grouping: GroupingResponse$outboundSchema.optional(),
   totals: z.lazy(() => Totals$outboundSchema).optional(),
   links: z.lazy(() => GetBalanceReportLinks$outboundSchema).optional(),
 }).transform((v) => {

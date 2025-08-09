@@ -35,6 +35,7 @@ const client = new Client({
 async function run() {
   const result = await client.settlements.list({
     from: "stl_jDk30akdN",
+    limit: 50,
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     year: "2025",
     month: "1",
@@ -66,6 +67,7 @@ const client = new ClientCore({
 async function run() {
   const res = await settlementsList(client, {
     from: "stl_jDk30akdN",
+    limit: 50,
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     year: "2025",
     month: "1",
@@ -374,6 +376,8 @@ async function run() {
   const result = await client.settlements.listPayments({
     settlementId: "stl_jDk30akdN",
     from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -404,6 +408,8 @@ async function run() {
   const res = await settlementsListPayments(client, {
     settlementId: "stl_jDk30akdN",
     from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -460,6 +466,7 @@ async function run() {
   const result = await client.settlements.listCaptures({
     settlementId: "stl_jDk30akdN",
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -490,6 +497,7 @@ async function run() {
   const res = await settlementsListCaptures(client, {
     settlementId: "stl_jDk30akdN",
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -547,6 +555,7 @@ async function run() {
   const result = await client.settlements.listRefunds({
     settlementId: "stl_jDk30akdN",
     from: "re_5B8cwPMGnU",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -577,6 +586,7 @@ async function run() {
   const res = await settlementsListRefunds(client, {
     settlementId: "stl_jDk30akdN",
     from: "re_5B8cwPMGnU",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -634,6 +644,7 @@ async function run() {
   const result = await client.settlements.listChargebacks({
     settlementId: "stl_jDk30akdN",
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -664,6 +675,7 @@ async function run() {
   const res = await settlementsListChargebacks(client, {
     settlementId: "stl_jDk30akdN",
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });

@@ -287,7 +287,7 @@ export type ListCustomersCustomer = {
   /**
    * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
    */
@@ -462,16 +462,16 @@ export const ListCustomersRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListCustomersSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListCustomersSort$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
 /** @internal */
 export type ListCustomersRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -482,8 +482,8 @@ export const ListCustomersRequest$outboundSchema: z.ZodType<
   ListCustomersRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListCustomersSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListCustomersSort$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -1323,7 +1323,7 @@ export const ListCustomersCustomer$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: ListCustomersMode$inboundSchema,
   name: z.nullable(z.string()),
@@ -1363,7 +1363,7 @@ export const ListCustomersCustomer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCustomersCustomer
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: ListCustomersMode$outboundSchema,
   name: z.nullable(z.string()),

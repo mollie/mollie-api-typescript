@@ -45,6 +45,7 @@ let value: ListSettlementPaymentsResponse = {
         webhookUrl: "https://example.org/webhooks",
         lines: [
           {
+            type: "physical",
             description: "LEGO 4440 Forest Police Station",
             quantity: 1,
             quantityUnit: "pcs",
@@ -153,6 +154,7 @@ let value: ListSettlementPaymentsResponse = {
             },
           },
         ],
+        sequenceType: "oneoff",
         subscriptionId: "sub_5B8cwPMGnU",
         mandateId: "mdt_5B8cwPMGnU",
         customerId: "cst_5B8cwPMGnU",

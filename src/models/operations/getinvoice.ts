@@ -962,7 +962,7 @@ export const GetInvoiceResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   reference: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
@@ -983,7 +983,7 @@ export const GetInvoiceResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetInvoiceResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   reference?: string | undefined;
   vatNumber?: string | null | undefined;
@@ -1004,7 +1004,7 @@ export const GetInvoiceResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetInvoiceResponse
 > = z.object({
-  resource: z.string().default("invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   reference: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),

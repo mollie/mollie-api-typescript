@@ -1615,7 +1615,7 @@ export const UpdateProfileResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: UpdateProfileModeResponse$inboundSchema.optional(),
   name: z.string().optional(),
@@ -1637,7 +1637,7 @@ export const UpdateProfileResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type UpdateProfileResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   name?: string | undefined;
@@ -1659,7 +1659,7 @@ export const UpdateProfileResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateProfileResponse
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: UpdateProfileModeResponse$outboundSchema.optional(),
   name: z.string().optional(),

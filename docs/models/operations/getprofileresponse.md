@@ -8,6 +8,7 @@ The profile object.
 import { GetProfileResponse } from "mollie-api-typescript/models/operations";
 
 let value: GetProfileResponse = {
+  resource: "profile",
   id: "pfl_QkEhN94Ba",
   mode: "live",
   name: "My website name",

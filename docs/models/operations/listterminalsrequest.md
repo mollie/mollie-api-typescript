@@ -7,6 +7,8 @@ import { ListTerminalsRequest } from "mollie-api-typescript/models/operations";
 
 let value: ListTerminalsRequest = {
   from: "term_vytxeTZskVKR7C7WgdSP3d",
+  limit: 50,
+  sort: "desc",
   testmode: false,
 };
 ```

@@ -1803,9 +1803,8 @@ export const UpdateSalesInvoiceRequestBody$inboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
   status: UpdateSalesInvoiceStatusRequest$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  paymentTerm: z.nullable(
-    UpdateSalesInvoicePaymentTermRequest$inboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(UpdateSalesInvoicePaymentTermRequest$inboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => UpdateSalesInvoicePaymentDetailsRequest$inboundSchema),
   ).optional(),
@@ -1829,7 +1828,7 @@ export type UpdateSalesInvoiceRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
   status?: string | undefined;
   memo?: string | null | undefined;
-  paymentTerm: string | null;
+  paymentTerm?: string | null | undefined;
   paymentDetails?:
     | UpdateSalesInvoicePaymentDetailsRequest$Outbound
     | null
@@ -1853,9 +1852,8 @@ export const UpdateSalesInvoiceRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
   status: UpdateSalesInvoiceStatusRequest$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  paymentTerm: z.nullable(
-    UpdateSalesInvoicePaymentTermRequest$outboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(UpdateSalesInvoicePaymentTermRequest$outboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => UpdateSalesInvoicePaymentDetailsRequest$outboundSchema),
   ).optional(),
@@ -3590,18 +3588,17 @@ export const UpdateSalesInvoiceResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("sales-invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
   status: UpdateSalesInvoiceStatusResponse$inboundSchema.optional(),
-  vatScheme: UpdateSalesInvoiceVatScheme$inboundSchema.default("standard"),
-  vatMode: UpdateSalesInvoiceVatMode$inboundSchema.default("exclusive"),
+  vatScheme: UpdateSalesInvoiceVatScheme$inboundSchema.optional(),
+  vatMode: UpdateSalesInvoiceVatMode$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(z.lazy(() => UpdateSalesInvoiceMetadata$inboundSchema))
     .optional(),
-  paymentTerm: z.nullable(
-    UpdateSalesInvoicePaymentTermResponse$inboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(UpdateSalesInvoicePaymentTermResponse$inboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => UpdateSalesInvoicePaymentDetailsResponse$inboundSchema),
   ).optional(),
@@ -3643,15 +3640,15 @@ export const UpdateSalesInvoiceResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type UpdateSalesInvoiceResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   invoiceNumber?: string | null | undefined;
   status?: string | undefined;
-  vatScheme: string;
-  vatMode: string;
+  vatScheme?: string | undefined;
+  vatMode?: string | undefined;
   memo?: string | null | undefined;
   metadata?: UpdateSalesInvoiceMetadata$Outbound | null | undefined;
-  paymentTerm: string | null;
+  paymentTerm?: string | null | undefined;
   paymentDetails?:
     | UpdateSalesInvoicePaymentDetailsResponse$Outbound
     | null
@@ -3686,18 +3683,17 @@ export const UpdateSalesInvoiceResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateSalesInvoiceResponse
 > = z.object({
-  resource: z.string().default("sales-invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
   status: UpdateSalesInvoiceStatusResponse$outboundSchema.optional(),
-  vatScheme: UpdateSalesInvoiceVatScheme$outboundSchema.default("standard"),
-  vatMode: UpdateSalesInvoiceVatMode$outboundSchema.default("exclusive"),
+  vatScheme: UpdateSalesInvoiceVatScheme$outboundSchema.optional(),
+  vatMode: UpdateSalesInvoiceVatMode$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(z.lazy(() => UpdateSalesInvoiceMetadata$outboundSchema))
     .optional(),
-  paymentTerm: z.nullable(
-    UpdateSalesInvoicePaymentTermResponse$outboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(UpdateSalesInvoicePaymentTermResponse$outboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => UpdateSalesInvoicePaymentDetailsResponse$outboundSchema),
   ).optional(),

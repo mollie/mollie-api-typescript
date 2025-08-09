@@ -29,6 +29,8 @@ const client = new Client({
 async function run() {
   const result = await client.terminals.list({
     from: "term_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
 
@@ -57,6 +59,8 @@ const client = new ClientCore({
 async function run() {
   const res = await terminalsList(client, {
     from: "term_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
   if (res.ok) {

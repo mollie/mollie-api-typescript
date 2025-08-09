@@ -8,6 +8,7 @@ The balance object.
 import { GetBalanceResponse } from "mollie-api-typescript/models/operations";
 
 let value: GetBalanceResponse = {
+  resource: "balance",
   id: "bal_gVMhHKqSSRYJyPsuoPNFH",
   mode: "live",
   createdAt: "2024-03-20T09:13:37.0Z",

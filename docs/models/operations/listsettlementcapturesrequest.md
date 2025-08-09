@@ -8,6 +8,7 @@ import { ListSettlementCapturesRequest } from "mollie-api-typescript/models/oper
 let value: ListSettlementCapturesRequest = {
   settlementId: "stl_jDk30akdN",
   from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+  limit: 50,
   embed: "payment",
   testmode: false,
 };

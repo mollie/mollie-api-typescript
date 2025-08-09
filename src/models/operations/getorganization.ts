@@ -761,7 +761,7 @@ export const GetOrganizationResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("organization"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
@@ -780,7 +780,7 @@ export const GetOrganizationResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetOrganizationResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   name?: string | undefined;
   email?: string | undefined;
@@ -798,7 +798,7 @@ export const GetOrganizationResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetOrganizationResponse
 > = z.object({
-  resource: z.string().default("organization"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),

@@ -7,6 +7,8 @@ import { ListWebhooksRequest } from "mollie-api-typescript/models/operations";
 
 let value: ListWebhooksRequest = {
   from: "hook_B2EyhTH5N4KWUnoYPcgiH",
+  limit: 50,
+  sort: "desc",
   eventTypes: "payment-link.paid",
   testmode: false,
 };

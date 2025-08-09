@@ -8,6 +8,7 @@ import { ListTerminalsEmbedded } from "mollie-api-typescript/models/operations";
 let value: ListTerminalsEmbedded = {
   terminals: [
     {
+      resource: "terminal",
       id: "term_vytxeTZskVKR7C7WgdSP3d",
       mode: "live",
       description: "Main Terminal",

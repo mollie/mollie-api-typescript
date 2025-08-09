@@ -8,6 +8,7 @@ import { ListWebhooksEmbedded } from "mollie-api-typescript/models/operations";
 let value: ListWebhooksEmbedded = {
   webhooks: [
     {
+      resource: "webhook",
       id: "hook_tNP6fpF9fLJpFWziRcgiH",
       url: "https://example.com/webhook-endpoint",
       profileId: "pfl_YyoaNFjtHc",

@@ -8,6 +8,7 @@ import { PaymentListRoutesEmbedded } from "mollie-api-typescript/models/operatio
 let value: PaymentListRoutesEmbedded = {
   routes: [
     {
+      resource: "route",
       id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
       paymentId: "tr_5B8cwPMGnU",
       amount: {

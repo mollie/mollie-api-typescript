@@ -8,6 +8,7 @@ The newly created profile object.
 import { CreateProfileResponse } from "mollie-api-typescript/models/operations";
 
 let value: CreateProfileResponse = {
+  resource: "profile",
   id: "pfl_QkEhN94Ba",
   mode: "live",
   name: "My website name",

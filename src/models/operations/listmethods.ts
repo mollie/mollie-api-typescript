@@ -427,7 +427,7 @@ export type ListMethodsIssuerImage = {
 };
 
 export type ListMethodsIssuer = {
-  resource?: string | undefined;
+  resource: string;
   id: string;
   /**
    * The full name of the issuer.
@@ -798,10 +798,10 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sequenceType: ListMethodsSequenceType$inboundSchema.default("oneoff"),
+  sequenceType: ListMethodsSequenceType$inboundSchema.optional(),
   locale: ListMethodsLocale$inboundSchema.optional(),
   amount: z.lazy(() => ListMethodsAmount$inboundSchema).optional(),
-  resource: Resource$inboundSchema.default("payments"),
+  resource: Resource$inboundSchema.optional(),
   billingCountry: z.string().optional(),
   includeWallets: IncludeWallets$inboundSchema.optional(),
   orderLineCategories: OrderLineCategories$inboundSchema.optional(),
@@ -812,10 +812,10 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListMethodsRequest$Outbound = {
-  sequenceType: string;
+  sequenceType?: string | undefined;
   locale?: string | undefined;
   amount?: ListMethodsAmount$Outbound | undefined;
-  resource: string;
+  resource?: string | undefined;
   billingCountry?: string | undefined;
   includeWallets?: string | undefined;
   orderLineCategories?: string | undefined;
@@ -830,10 +830,10 @@ export const ListMethodsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMethodsRequest
 > = z.object({
-  sequenceType: ListMethodsSequenceType$outboundSchema.default("oneoff"),
+  sequenceType: ListMethodsSequenceType$outboundSchema.optional(),
   locale: ListMethodsLocale$outboundSchema.optional(),
   amount: z.lazy(() => ListMethodsAmount$outboundSchema).optional(),
-  resource: Resource$outboundSchema.default("payments"),
+  resource: Resource$outboundSchema.optional(),
   billingCountry: z.string().optional(),
   includeWallets: IncludeWallets$outboundSchema.optional(),
   orderLineCategories: OrderLineCategories$outboundSchema.optional(),
@@ -1272,7 +1272,7 @@ export const ListMethodsIssuer$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("issuer"),
+  resource: z.string(),
   id: z.string(),
   name: z.string(),
   image: z.lazy(() => ListMethodsIssuerImage$inboundSchema),
@@ -1292,7 +1292,7 @@ export const ListMethodsIssuer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMethodsIssuer
 > = z.object({
-  resource: z.string().default("issuer"),
+  resource: z.string(),
   id: z.string(),
   name: z.string(),
   image: z.lazy(() => ListMethodsIssuerImage$outboundSchema),

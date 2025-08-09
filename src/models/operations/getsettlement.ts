@@ -2239,7 +2239,7 @@ export const GetSettlementResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("settlement"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
@@ -2258,7 +2258,7 @@ export const GetSettlementResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetSettlementResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   createdAt?: string | undefined;
   reference?: string | null | undefined;
@@ -2277,7 +2277,7 @@ export const GetSettlementResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSettlementResponse
 > = z.object({
-  resource: z.string().default("settlement"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),

@@ -7,6 +7,8 @@ import { ListAllRefundsRequest } from "mollie-api-typescript/models/operations";
 
 let value: ListAllRefundsRequest = {
   from: "re_5B8cwPMGnU",
+  limit: 50,
+  sort: "desc",
   embed: "payment",
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,

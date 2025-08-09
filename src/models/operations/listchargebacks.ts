@@ -416,7 +416,7 @@ export const ListChargebacksRequest$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListChargebacksEmbed$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -425,7 +425,7 @@ export const ListChargebacksRequest$inboundSchema: z.ZodType<
 export type ListChargebacksRequest$Outbound = {
   paymentId: string;
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   embed?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -438,7 +438,7 @@ export const ListChargebacksRequest$outboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListChargebacksEmbed$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

@@ -499,7 +499,7 @@ export type CreateSubscriptionResponse = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
@@ -2117,7 +2117,7 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("subscription"),
+  resource: z.string(),
   id: z.string(),
   mode: CreateSubscriptionMode$inboundSchema,
   status: CreateSubscriptionStatus$inboundSchema,
@@ -2187,7 +2187,7 @@ export const CreateSubscriptionResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSubscriptionResponse
 > = z.object({
-  resource: z.string().default("subscription"),
+  resource: z.string(),
   id: z.string(),
   mode: CreateSubscriptionMode$outboundSchema,
   status: CreateSubscriptionStatus$outboundSchema,

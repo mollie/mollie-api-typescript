@@ -42,11 +42,13 @@ const client = new Client({
 
 async function run() {
   const result = await client.methods.list({
+    sequenceType: "oneoff",
     locale: "en_US",
     amount: {
       currency: "EUR",
       value: "10.00",
     },
+    resource: "payments",
     billingCountry: "DE",
     includeWallets: "applepay",
     orderLineCategories: "eco",
@@ -79,11 +81,13 @@ const client = new ClientCore({
 
 async function run() {
   const res = await methodsList(client, {
+    sequenceType: "oneoff",
     locale: "en_US",
     amount: {
       currency: "EUR",
       value: "10.00",
     },
+    resource: "payments",
     billingCountry: "DE",
     includeWallets: "applepay",
     orderLineCategories: "eco",
@@ -149,6 +153,7 @@ async function run() {
       value: "10.00",
     },
     include: "issuers",
+    sequenceType: "oneoff",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -183,6 +188,7 @@ async function run() {
       value: "10.00",
     },
     include: "issuers",
+    sequenceType: "oneoff",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -251,6 +257,7 @@ async function run() {
     currency: "EUR",
     profileId: "pfl_5B8cwPMGnU",
     include: "issuers",
+    sequenceType: "oneoff",
     testmode: false,
   });
 
@@ -283,6 +290,7 @@ async function run() {
     currency: "EUR",
     profileId: "pfl_5B8cwPMGnU",
     include: "issuers",
+    sequenceType: "oneoff",
     testmode: false,
   });
   if (res.ok) {

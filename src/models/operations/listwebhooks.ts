@@ -319,8 +319,8 @@ export const ListWebhooksRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListWebhooksSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListWebhooksSort$inboundSchema).optional(),
   eventTypes: ListWebhooksEventTypes$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -328,8 +328,8 @@ export const ListWebhooksRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type ListWebhooksRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   eventTypes?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -341,8 +341,8 @@ export const ListWebhooksRequest$outboundSchema: z.ZodType<
   ListWebhooksRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListWebhooksSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListWebhooksSort$outboundSchema).optional(),
   eventTypes: ListWebhooksEventTypes$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -545,7 +545,7 @@ export namespace ListWebhooksMode$ {
 /** @internal */
 export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> =
   z.object({
-    resource: z.string().default("webhook"),
+    resource: z.string().optional(),
     id: z.string().optional(),
     url: z.string().optional(),
     profileId: z.string().optional(),
@@ -558,7 +558,7 @@ export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> =
 
 /** @internal */
 export type Webhook$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   url?: string | undefined;
   profileId?: string | undefined;
@@ -575,7 +575,7 @@ export const Webhook$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Webhook
 > = z.object({
-  resource: z.string().default("webhook"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   url: z.string().optional(),
   profileId: z.string().optional(),

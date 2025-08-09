@@ -115,6 +115,8 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.list({
     from: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    limit: 50,
+    sort: "desc",
     eventTypes: "payment-link.paid",
     testmode: false,
   });
@@ -144,6 +146,8 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksList(client, {
     from: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    limit: 50,
+    sort: "desc",
     eventTypes: "payment-link.paid",
     testmode: false,
   });

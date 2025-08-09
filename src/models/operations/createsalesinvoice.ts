@@ -1990,15 +1990,14 @@ export const CreateSalesInvoiceRequest$inboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
   status: CreateSalesInvoiceStatusRequest$inboundSchema,
-  vatScheme: VatSchemeRequest$inboundSchema.default("standard"),
-  vatMode: VatModeRequest$inboundSchema.default("exclusive"),
+  vatScheme: VatSchemeRequest$inboundSchema.optional(),
+  vatMode: VatModeRequest$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataRequest$inboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(
-    CreateSalesInvoicePaymentTermRequest$inboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(CreateSalesInvoicePaymentTermRequest$inboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsRequest$inboundSchema),
   ).optional(),
@@ -2024,11 +2023,11 @@ export type CreateSalesInvoiceRequest$Outbound = {
   testmode?: boolean | null | undefined;
   profileId?: string | null | undefined;
   status: string;
-  vatScheme: string;
-  vatMode: string;
+  vatScheme?: string | undefined;
+  vatMode?: string | undefined;
   memo?: string | null | undefined;
   metadata?: CreateSalesInvoiceMetadataRequest$Outbound | null | undefined;
-  paymentTerm: string | null;
+  paymentTerm?: string | null | undefined;
   paymentDetails?:
     | CreateSalesInvoicePaymentDetailsRequest$Outbound
     | null
@@ -2054,15 +2053,14 @@ export const CreateSalesInvoiceRequest$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
   status: CreateSalesInvoiceStatusRequest$outboundSchema,
-  vatScheme: VatSchemeRequest$outboundSchema.default("standard"),
-  vatMode: VatModeRequest$outboundSchema.default("exclusive"),
+  vatScheme: VatSchemeRequest$outboundSchema.optional(),
+  vatMode: VatModeRequest$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataRequest$outboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(
-    CreateSalesInvoicePaymentTermRequest$outboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(CreateSalesInvoicePaymentTermRequest$outboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsRequest$outboundSchema),
   ).optional(),
@@ -3737,21 +3735,18 @@ export const CreateSalesInvoiceResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("sales-invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
   status: CreateSalesInvoiceStatusResponse$inboundSchema.optional(),
-  vatScheme: CreateSalesInvoiceVatSchemeResponse$inboundSchema.default(
-    "standard",
-  ),
-  vatMode: CreateSalesInvoiceVatModeResponse$inboundSchema.default("exclusive"),
+  vatScheme: CreateSalesInvoiceVatSchemeResponse$inboundSchema.optional(),
+  vatMode: CreateSalesInvoiceVatModeResponse$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataResponse$inboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(
-    CreateSalesInvoicePaymentTermResponse$inboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(CreateSalesInvoicePaymentTermResponse$inboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsResponse$inboundSchema),
   ).optional(),
@@ -3793,15 +3788,15 @@ export const CreateSalesInvoiceResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateSalesInvoiceResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   invoiceNumber?: string | null | undefined;
   status?: string | undefined;
-  vatScheme: string;
-  vatMode: string;
+  vatScheme?: string | undefined;
+  vatMode?: string | undefined;
   memo?: string | null | undefined;
   metadata?: CreateSalesInvoiceMetadataResponse$Outbound | null | undefined;
-  paymentTerm: string | null;
+  paymentTerm?: string | null | undefined;
   paymentDetails?:
     | CreateSalesInvoicePaymentDetailsResponse$Outbound
     | null
@@ -3836,23 +3831,18 @@ export const CreateSalesInvoiceResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateSalesInvoiceResponse
 > = z.object({
-  resource: z.string().default("sales-invoice"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
   status: CreateSalesInvoiceStatusResponse$outboundSchema.optional(),
-  vatScheme: CreateSalesInvoiceVatSchemeResponse$outboundSchema.default(
-    "standard",
-  ),
-  vatMode: CreateSalesInvoiceVatModeResponse$outboundSchema.default(
-    "exclusive",
-  ),
+  vatScheme: CreateSalesInvoiceVatSchemeResponse$outboundSchema.optional(),
+  vatMode: CreateSalesInvoiceVatModeResponse$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => CreateSalesInvoiceMetadataResponse$outboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(
-    CreateSalesInvoicePaymentTermResponse$outboundSchema.default("30 days"),
-  ),
+  paymentTerm: z.nullable(CreateSalesInvoicePaymentTermResponse$outboundSchema)
+    .optional(),
   paymentDetails: z.nullable(
     z.lazy(() => CreateSalesInvoicePaymentDetailsResponse$outboundSchema),
   ).optional(),

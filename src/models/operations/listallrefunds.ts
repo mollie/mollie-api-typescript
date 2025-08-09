@@ -583,8 +583,8 @@ export const ListAllRefundsRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListAllRefundsSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListAllRefundsSort$inboundSchema).optional(),
   embed: ListAllRefundsEmbed$inboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -593,8 +593,8 @@ export const ListAllRefundsRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type ListAllRefundsRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   embed?: string | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
@@ -607,8 +607,8 @@ export const ListAllRefundsRequest$outboundSchema: z.ZodType<
   ListAllRefundsRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListAllRefundsSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListAllRefundsSort$outboundSchema).optional(),
   embed: ListAllRefundsEmbed$outboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),

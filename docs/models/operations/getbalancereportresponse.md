@@ -8,10 +8,12 @@ The balance report object.
 import { GetBalanceReportResponse } from "mollie-api-typescript/models/operations";
 
 let value: GetBalanceReportResponse = {
+  resource: "balance-report",
   balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
   timeZone: "Europe/Amsterdam",
   from: "2025-03-31",
   until: "2025-03-31",
+  grouping: "status-balances",
   totals: {
     pendingBalance: {
       open: {

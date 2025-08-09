@@ -492,7 +492,7 @@ export const ListSettlementCapturesRequest$inboundSchema: z.ZodType<
 > = z.object({
   settlementId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListSettlementCapturesEmbed$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -501,7 +501,7 @@ export const ListSettlementCapturesRequest$inboundSchema: z.ZodType<
 export type ListSettlementCapturesRequest$Outbound = {
   settlementId: string;
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   embed?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -514,7 +514,7 @@ export const ListSettlementCapturesRequest$outboundSchema: z.ZodType<
 > = z.object({
   settlementId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListSettlementCapturesEmbed$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

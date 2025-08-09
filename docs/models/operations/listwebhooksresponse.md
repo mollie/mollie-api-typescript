@@ -13,6 +13,7 @@ let value: ListWebhooksResponse = {
   embedded: {
     webhooks: [
       {
+        resource: "webhook",
         id: "hook_tNP6fpF9fLJpFWziRcgiH",
         url: "https://example.com/webhook-endpoint",
         profileId: "pfl_YyoaNFjtHc",

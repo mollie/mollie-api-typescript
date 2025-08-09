@@ -30,6 +30,7 @@ async function run() {
   const result = await client.clients.list({
     embed: "organization",
     from: "org_12345678",
+    limit: 50,
   });
 
   console.log(result);
@@ -58,6 +59,7 @@ async function run() {
   const res = await clientsList(client, {
     embed: "organization",
     from: "org_12345678",
+    limit: 50,
   });
   if (res.ok) {
     const { value: result } = res;

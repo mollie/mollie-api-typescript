@@ -33,6 +33,8 @@ async function run() {
     year: "2024",
     month: "01",
     from: "inv_xBEbP9rvAq",
+    limit: 50,
+    sort: "desc",
   });
 
   console.log(result);
@@ -63,6 +65,8 @@ async function run() {
     year: "2024",
     month: "01",
     from: "inv_xBEbP9rvAq",
+    limit: 50,
+    sort: "desc",
   });
   if (res.ok) {
     const { value: result } = res;

@@ -903,7 +903,7 @@ export type GetWebhookEventPaymentLink = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.
    */
@@ -1008,7 +1008,7 @@ export type GetWebhookEventPaymentLink = {
    *
    * If no value is specified, the field defaults to `false`, allowing only a single payment per link.
    */
-  reusable?: boolean | null | undefined;
+  reusable: boolean | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -2010,7 +2010,7 @@ export const GetWebhookEventProfile$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetWebhookEventMode2$inboundSchema.optional(),
   name: z.string().optional(),
@@ -2032,7 +2032,7 @@ export const GetWebhookEventProfile$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetWebhookEventProfile$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   name?: string | undefined;
@@ -2054,7 +2054,7 @@ export const GetWebhookEventProfile$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventProfile
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetWebhookEventMode2$outboundSchema.optional(),
   name: z.string().optional(),
@@ -2520,7 +2520,7 @@ export const GetWebhookEventLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: GetWebhookEventType$inboundSchema.default("physical"),
+  type: GetWebhookEventType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2538,7 +2538,7 @@ export const GetWebhookEventLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetWebhookEventLine$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2559,7 +2559,7 @@ export const GetWebhookEventLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventLine
 > = z.object({
-  type: GetWebhookEventType$outboundSchema.default("physical"),
+  type: GetWebhookEventType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -3097,7 +3097,7 @@ export const GetWebhookEventPaymentLink$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("payment-link"),
+  resource: z.string(),
   id: z.string(),
   mode: GetWebhookEventMode1$inboundSchema,
   description: z.string(),
@@ -3115,7 +3115,7 @@ export const GetWebhookEventPaymentLink$inboundSchema: z.ZodType<
   shippingAddress: z.lazy(() => GetWebhookEventShippingAddress$inboundSchema)
     .optional(),
   profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean().default(false)),
+  reusable: z.nullable(z.boolean()),
   createdAt: z.string(),
   paidAt: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
@@ -3164,7 +3164,7 @@ export const GetWebhookEventPaymentLink$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventPaymentLink
 > = z.object({
-  resource: z.string().default("payment-link"),
+  resource: z.string(),
   id: z.string(),
   mode: GetWebhookEventMode1$outboundSchema,
   description: z.string(),
@@ -3182,7 +3182,7 @@ export const GetWebhookEventPaymentLink$outboundSchema: z.ZodType<
   shippingAddress: z.lazy(() => GetWebhookEventShippingAddress$outboundSchema)
     .optional(),
   profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean().default(false)),
+  reusable: z.nullable(z.boolean()),
   createdAt: z.string(),
   paidAt: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
@@ -3579,7 +3579,7 @@ export const GetWebhookEventResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("event"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   type: z.string().optional(),
   entityId: z.string().optional(),
@@ -3596,7 +3596,7 @@ export const GetWebhookEventResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetWebhookEventResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   type?: string | undefined;
   entityId?: string | undefined;
@@ -3611,7 +3611,7 @@ export const GetWebhookEventResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventResponse
 > = z.object({
-  resource: z.string().default("event"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   type: z.string().optional(),
   entityId: z.string().optional(),

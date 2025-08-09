@@ -7,7 +7,7 @@ The payment term to be set on the invoice.
 ```typescript
 import { CreateSalesInvoicePaymentTermResponse } from "mollie-api-typescript/models/operations";
 
-let value: CreateSalesInvoicePaymentTermResponse = "14 days";
+let value: CreateSalesInvoicePaymentTermResponse = "30 days";
 ```
 
 ## Values

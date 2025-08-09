@@ -8,6 +8,7 @@ import { ListPermissionsEmbedded } from "mollie-api-typescript/models/operations
 let value: ListPermissionsEmbedded = {
   permissions: [
     {
+      resource: "permission",
       id: "payments.read",
       description: "View your payments",
       granted: true,

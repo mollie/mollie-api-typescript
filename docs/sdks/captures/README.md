@@ -131,6 +131,7 @@ async function run() {
   const result = await client.captures.list({
     paymentId: "tr_5B8cwPMGnU",
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -161,6 +162,7 @@ async function run() {
   const res = await capturesList(client, {
     paymentId: "tr_5B8cwPMGnU",
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });

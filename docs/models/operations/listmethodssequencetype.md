@@ -10,7 +10,7 @@ Set it to `recurring` to only return enabled methods that can be used for recurr
 ```typescript
 import { ListMethodsSequenceType } from "mollie-api-typescript/models/operations";
 
-let value: ListMethodsSequenceType = "first";
+let value: ListMethodsSequenceType = "oneoff";
 ```
 
 ## Values

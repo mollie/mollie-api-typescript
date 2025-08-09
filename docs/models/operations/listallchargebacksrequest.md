@@ -7,7 +7,9 @@ import { ListAllChargebacksRequest } from "mollie-api-typescript/models/operatio
 
 let value: ListAllChargebacksRequest = {
   from: "chb_xFzwUN4ci8HAmSGUACS4J",
+  limit: 50,
   embed: "payment",
+  sort: "desc",
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
 };

@@ -12,6 +12,7 @@ let value: ListMandatesResponse = {
   embedded: {
     mandates: [
       {
+        resource: "mandate",
         id: "mdt_5B8cwPMGnU",
         mode: "live",
         method: "directdebit",

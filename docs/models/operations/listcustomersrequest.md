@@ -7,6 +7,8 @@ import { ListCustomersRequest } from "mollie-api-typescript/models/operations";
 
 let value: ListCustomersRequest = {
   from: "cst_5B8cwPMGnU",
+  limit: 50,
+  sort: "desc",
   testmode: false,
 };
 ```

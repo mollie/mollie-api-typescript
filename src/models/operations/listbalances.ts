@@ -472,7 +472,7 @@ export const ListBalancesRequest$inboundSchema: z.ZodType<
 > = z.object({
   currency: z.nullable(z.string()).optional(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -480,7 +480,7 @@ export const ListBalancesRequest$inboundSchema: z.ZodType<
 export type ListBalancesRequest$Outbound = {
   currency?: string | null | undefined;
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -492,7 +492,7 @@ export const ListBalancesRequest$outboundSchema: z.ZodType<
 > = z.object({
   currency: z.nullable(z.string()).optional(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -1271,7 +1271,7 @@ export function balanceLinksFromJSON(
 /** @internal */
 export const Balance$inboundSchema: z.ZodType<Balance, z.ZodTypeDef, unknown> =
   z.object({
-    resource: z.string().default("balance"),
+    resource: z.string().optional(),
     id: z.string().optional(),
     mode: ListBalancesMode$inboundSchema.optional(),
     createdAt: z.string().optional(),
@@ -1298,7 +1298,7 @@ export const Balance$inboundSchema: z.ZodType<Balance, z.ZodTypeDef, unknown> =
 
 /** @internal */
 export type Balance$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   createdAt?: string | undefined;
@@ -1323,7 +1323,7 @@ export const Balance$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Balance
 > = z.object({
-  resource: z.string().default("balance"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: ListBalancesMode$outboundSchema.optional(),
   createdAt: z.string().optional(),

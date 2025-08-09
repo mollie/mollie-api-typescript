@@ -12,6 +12,7 @@ let value: ListProfilesResponse = {
   embedded: {
     profiles: [
       {
+        resource: "profile",
         id: "pfl_QkEhN94Ba",
         mode: "live",
         name: "My website name",

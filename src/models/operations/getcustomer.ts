@@ -276,7 +276,7 @@ export type EventLinks = {
 };
 
 export type Event = {
-  resource?: string | undefined;
+  resource: string;
   type: number;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -296,7 +296,7 @@ export type GetCustomerResponse = {
   /**
    * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
    */
@@ -1198,7 +1198,7 @@ export function eventLinksFromJSON(
 /** @internal */
 export const Event$inboundSchema: z.ZodType<Event, z.ZodTypeDef, unknown> = z
   .object({
-    resource: z.string().default("event"),
+    resource: z.string(),
     type: z.number().int(),
     createdAt: z.string(),
     message: z.string(),
@@ -1224,7 +1224,7 @@ export const Event$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Event
 > = z.object({
-  resource: z.string().default("event"),
+  resource: z.string(),
   type: z.number().int(),
   createdAt: z.string(),
   message: z.string(),
@@ -1268,7 +1268,7 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: GetCustomerMode$inboundSchema,
   name: z.nullable(z.string()),
@@ -1310,7 +1310,7 @@ export const GetCustomerResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetCustomerResponse
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: GetCustomerMode$outboundSchema,
   name: z.nullable(z.string()),

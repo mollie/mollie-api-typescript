@@ -321,7 +321,7 @@ export type CreateCustomerResponse = {
   /**
    * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
    */
@@ -1286,7 +1286,7 @@ export const CreateCustomerResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: CreateCustomerMode$inboundSchema,
   name: z.nullable(z.string()),
@@ -1330,7 +1330,7 @@ export const CreateCustomerResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateCustomerResponse
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: CreateCustomerMode$outboundSchema,
   name: z.nullable(z.string()),

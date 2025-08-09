@@ -464,7 +464,7 @@ export const GetPermissionResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("permission"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   description: z.string().optional(),
   granted: z.boolean().optional(),
@@ -477,7 +477,7 @@ export const GetPermissionResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetPermissionResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   description?: string | undefined;
   granted?: boolean | undefined;
@@ -490,7 +490,7 @@ export const GetPermissionResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetPermissionResponse
 > = z.object({
-  resource: z.string().default("permission"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   description: z.string().optional(),
   granted: z.boolean().optional(),

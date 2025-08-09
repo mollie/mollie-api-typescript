@@ -121,6 +121,8 @@ const client = new Client({
 async function run() {
   const result = await client.customers.list({
     from: "cst_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
 
@@ -149,6 +151,8 @@ const client = new ClientCore({
 async function run() {
   const res = await customersList(client, {
     from: "cst_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
   if (res.ok) {
@@ -481,6 +485,7 @@ async function run() {
       webhookUrl: "https://example.org/webhooks",
       lines: [
         {
+          type: "physical",
           description: "LEGO 4440 Forest Police Station",
           quantity: 1,
           quantityUnit: "pcs",
@@ -584,6 +589,7 @@ async function run() {
           },
         },
       ],
+      sequenceType: "oneoff",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
@@ -628,6 +634,7 @@ async function run() {
       webhookUrl: "https://example.org/webhooks",
       lines: [
         {
+          type: "physical",
           description: "LEGO 4440 Forest Police Station",
           quantity: 1,
           quantityUnit: "pcs",
@@ -731,6 +738,7 @@ async function run() {
           },
         },
       ],
+      sequenceType: "oneoff",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
@@ -790,6 +798,8 @@ async function run() {
   const result = await client.customers.listPayments({
     customerId: "cst_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -820,6 +830,8 @@ async function run() {
   const res = await customersListPayments(client, {
     customerId: "cst_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });

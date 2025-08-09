@@ -473,7 +473,7 @@ export const GetWebhookResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("webhook"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   url: z.string().optional(),
   profileId: z.string().optional(),
@@ -486,7 +486,7 @@ export const GetWebhookResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetWebhookResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   url?: string | undefined;
   profileId?: string | undefined;
@@ -503,7 +503,7 @@ export const GetWebhookResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookResponse
 > = z.object({
-  resource: z.string().default("webhook"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   url: z.string().optional(),
   profileId: z.string().optional(),

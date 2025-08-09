@@ -954,7 +954,7 @@ export const CreateClientLinkResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("client-link"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   _links: z.lazy(() => CreateClientLinkLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -965,7 +965,7 @@ export const CreateClientLinkResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateClientLinkResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   _links?: CreateClientLinkLinks$Outbound | undefined;
 };
@@ -976,7 +976,7 @@ export const CreateClientLinkResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateClientLinkResponse
 > = z.object({
-  resource: z.string().default("client-link"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   links: z.lazy(() => CreateClientLinkLinks$outboundSchema).optional(),
 }).transform((v) => {

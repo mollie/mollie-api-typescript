@@ -7,6 +7,7 @@
 
 ```typescript
 const value: operations.GetWebhookEventPaymentLink = {
+  resource: "payment-link",
   id: "pl_d9fQur83kFdhH8hIhaZfq",
   mode: "live",
   description: "Chess Board",
@@ -20,6 +21,7 @@ const value: operations.GetWebhookEventPaymentLink = {
   webhookUrl: "https://webshop.example.org/payment-links/webhook/",
   lines: [
     {
+      type: "physical",
       description: "LEGO 4440 Forest Police Station",
       quantity: 1,
       quantityUnit: "pcs",
@@ -78,6 +80,7 @@ const value: operations.GetWebhookEventPaymentLink = {
     country: "NL",
   },
   profileId: "pfl_QkEhN94Ba",
+  reusable: false,
   createdAt: "2024-03-20T09:13:37.0Z",
   paidAt: "2025-12-24T11:00:16+00:00",
   expiresAt: "2025-12-24T11:00:16+00:00",
@@ -110,6 +113,7 @@ const value: operations.GetWebhookEventPaymentLink = {
 
 ```typescript
 const value: operations.GetWebhookEventProfile = {
+  resource: "profile",
   id: "pfl_QkEhN94Ba",
   mode: "live",
   name: "My website name",

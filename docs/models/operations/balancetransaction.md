@@ -6,6 +6,7 @@
 import { BalanceTransaction } from "mollie-api-typescript/models/operations";
 
 let value: BalanceTransaction = {
+  resource: "balance-transaction",
   id: "baltr_QM24QwzUWR4ev4Xfgyt29d",
   type: "payment",
   resultAmount: {

@@ -164,6 +164,7 @@ async function run() {
   const result = await client.refunds.list({
     paymentId: "tr_5B8cwPMGnU",
     from: "re_5B8cwPMGnU",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -194,6 +195,7 @@ async function run() {
   const res = await refundsList(client, {
     paymentId: "tr_5B8cwPMGnU",
     from: "re_5B8cwPMGnU",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -420,6 +422,8 @@ const client = new Client({
 async function run() {
   const result = await client.refunds.all({
     from: "re_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     embed: "payment",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
@@ -450,6 +454,8 @@ const client = new ClientCore({
 async function run() {
   const res = await refundsAll(client, {
     from: "re_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     embed: "payment",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,

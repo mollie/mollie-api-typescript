@@ -12,6 +12,7 @@ let value: ListPermissionsResponse = {
   embedded: {
     permissions: [
       {
+        resource: "permission",
         id: "payments.read",
         description: "View your payments",
         granted: true,

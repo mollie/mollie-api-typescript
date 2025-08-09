@@ -6,6 +6,7 @@
 import { GetMethodIssuer } from "mollie-api-typescript/models/operations";
 
 let value: GetMethodIssuer = {
+  resource: "issuer",
   id: "ideal_ABNANL2A",
   name: "ING Bank",
   image: {
@@ -20,7 +21,7 @@ let value: GetMethodIssuer = {
 
 | Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `resource`                                                                         | *string*                                                                           | :heavy_minus_sign:                                                                 | N/A                                                                                |                                                                                    |
+| `resource`                                                                         | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                | issuer                                                                             |
 | `id`                                                                               | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                | ideal_ABNANL2A                                                                     |
 | `name`                                                                             | *string*                                                                           | :heavy_check_mark:                                                                 | The full name of the issuer.                                                       | ING Bank                                                                           |
 | `image`                                                                            | [operations.GetMethodIssuerImage](../../models/operations/getmethodissuerimage.md) | :heavy_check_mark:                                                                 | URLs of images representing the issuer.<br/>required:<br/>  - size1x<br/>  - size2x<br/>  - svg |                                                                                    |

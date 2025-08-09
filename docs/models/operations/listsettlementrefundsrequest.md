@@ -8,6 +8,7 @@ import { ListSettlementRefundsRequest } from "mollie-api-typescript/models/opera
 let value: ListSettlementRefundsRequest = {
   settlementId: "stl_jDk30akdN",
   from: "re_5B8cwPMGnU",
+  limit: 50,
   embed: "payment",
   testmode: false,
 };

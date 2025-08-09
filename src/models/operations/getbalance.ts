@@ -1011,7 +1011,7 @@ export const GetBalanceResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("balance"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetBalanceMode$inboundSchema.optional(),
   createdAt: z.string().optional(),
@@ -1037,7 +1037,7 @@ export const GetBalanceResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetBalanceResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   createdAt?: string | undefined;
@@ -1062,7 +1062,7 @@ export const GetBalanceResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetBalanceResponse
 > = z.object({
-  resource: z.string().default("balance"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetBalanceMode$outboundSchema.optional(),
   createdAt: z.string().optional(),

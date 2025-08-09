@@ -421,7 +421,7 @@ export const ListSettlementChargebacksRequest$inboundSchema: z.ZodType<
 > = z.object({
   settlementId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListSettlementChargebacksEmbed$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -430,7 +430,7 @@ export const ListSettlementChargebacksRequest$inboundSchema: z.ZodType<
 export type ListSettlementChargebacksRequest$Outbound = {
   settlementId: string;
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   embed?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -443,7 +443,7 @@ export const ListSettlementChargebacksRequest$outboundSchema: z.ZodType<
 > = z.object({
   settlementId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   embed: ListSettlementChargebacksEmbed$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

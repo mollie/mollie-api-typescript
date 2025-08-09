@@ -17,6 +17,7 @@ let value: UpdatePaymentLinkRequestBody = {
   ],
   lines: [
     {
+      type: "physical",
       description: "LEGO 4440 Forest Police Station",
       quantity: 1,
       quantityUnit: "pcs",

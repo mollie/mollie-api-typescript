@@ -238,8 +238,8 @@ export const ListInvoicesRequest$inboundSchema: z.ZodType<
   year: z.nullable(z.string()).optional(),
   month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListInvoicesSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListInvoicesSort$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -248,8 +248,8 @@ export type ListInvoicesRequest$Outbound = {
   year?: string | null | undefined;
   month?: string | null | undefined;
   from?: string | null | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
 };
 
 /** @internal */
@@ -262,8 +262,8 @@ export const ListInvoicesRequest$outboundSchema: z.ZodType<
   year: z.nullable(z.string()).optional(),
   month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListInvoicesSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListInvoicesSort$outboundSchema).optional(),
 });
 
 /**

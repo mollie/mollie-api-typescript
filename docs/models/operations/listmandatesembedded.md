@@ -8,6 +8,7 @@ import { ListMandatesEmbedded } from "mollie-api-typescript/models/operations";
 let value: ListMandatesEmbedded = {
   mandates: [
     {
+      resource: "mandate",
       id: "mdt_5B8cwPMGnU",
       mode: "live",
       method: "directdebit",

@@ -8,6 +8,8 @@ import { ListSettlementPaymentsRequest } from "mollie-api-typescript/models/oper
 let value: ListSettlementPaymentsRequest = {
   settlementId: "stl_jDk30akdN",
   from: "tr_5B8cwPMGnU",
+  limit: 50,
+  sort: "desc",
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
 };

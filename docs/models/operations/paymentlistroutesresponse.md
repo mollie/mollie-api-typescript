@@ -12,6 +12,7 @@ let value: PaymentListRoutesResponse = {
   embedded: {
     routes: [
       {
+        resource: "route",
         id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
         paymentId: "tr_5B8cwPMGnU",
         amount: {

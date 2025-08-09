@@ -170,7 +170,7 @@ export type ListTerminalsTerminal = {
   /**
    * Indicates the response contains a terminal object. Will always contain the string `terminal` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this terminal. Example: `term_7MgL4wea46qkRcoTZjWEH`.
    */
@@ -368,16 +368,16 @@ export const ListTerminalsRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListTerminalsSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListTerminalsSort$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
 /** @internal */
 export type ListTerminalsRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -388,8 +388,8 @@ export const ListTerminalsRequest$outboundSchema: z.ZodType<
   ListTerminalsRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListTerminalsSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListTerminalsSort$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -799,7 +799,7 @@ export const ListTerminalsTerminal$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("terminal"),
+  resource: z.string(),
   id: z.string(),
   mode: ListTerminalsMode$inboundSchema,
   description: z.string(),
@@ -841,7 +841,7 @@ export const ListTerminalsTerminal$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListTerminalsTerminal
 > = z.object({
-  resource: z.string().default("terminal"),
+  resource: z.string(),
   id: z.string(),
   mode: ListTerminalsMode$outboundSchema,
   description: z.string(),

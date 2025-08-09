@@ -13,7 +13,7 @@ that are only available for payments created via the Orders API.
 ```typescript
 import { Resource } from "mollie-api-typescript/models/operations";
 
-let value: Resource = "orders";
+let value: Resource = "payments";
 ```
 
 ## Values

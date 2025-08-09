@@ -122,7 +122,7 @@ export type GetPartnerStatusResponse = {
    * @remarks
    * this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * Indicates the type of partner. Will be `null` if the currently authenticated organization is not
    *
@@ -477,7 +477,7 @@ export const GetPartnerStatusResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("partner"),
+  resource: z.string(),
   partnerType: z.nullable(PartnerType$inboundSchema),
   isCommissionPartner: z.boolean().optional(),
   userAgentTokens: z.array(z.lazy(() => UserAgentToken$inboundSchema))
@@ -510,7 +510,7 @@ export const GetPartnerStatusResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetPartnerStatusResponse
 > = z.object({
-  resource: z.string().default("partner"),
+  resource: z.string(),
   partnerType: z.nullable(PartnerType$outboundSchema),
   isCommissionPartner: z.boolean().optional(),
   userAgentTokens: z.array(z.lazy(() => UserAgentToken$outboundSchema))

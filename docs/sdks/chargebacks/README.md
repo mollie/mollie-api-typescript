@@ -31,6 +31,7 @@ async function run() {
   const result = await client.chargebacks.list({
     paymentId: "tr_5B8cwPMGnU",
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -61,6 +62,7 @@ async function run() {
   const res = await chargebacksList(client, {
     paymentId: "tr_5B8cwPMGnU",
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
     embed: "payment",
     testmode: false,
   });
@@ -201,7 +203,9 @@ const client = new Client({
 async function run() {
   const result = await client.chargebacks.all({
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
     embed: "payment",
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -231,7 +235,9 @@ const client = new ClientCore({
 async function run() {
   const res = await chargebacksAll(client, {
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
     embed: "payment",
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });

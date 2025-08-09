@@ -25,6 +25,7 @@ let value: ListAllMethodsMethod = {
   status: "activated",
   issuers: [
     {
+      resource: "issuer",
       id: "ideal_ABNANL2A",
       name: "ING Bank",
       image: {

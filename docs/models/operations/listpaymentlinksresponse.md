@@ -12,6 +12,7 @@ let value: ListPaymentLinksResponse = {
   embedded: {
     paymentLinks: [
       {
+        resource: "payment-link",
         id: "pl_d9fQur83kFdhH8hIhaZfq",
         mode: "live",
         description: "Chess Board",
@@ -28,6 +29,7 @@ let value: ListPaymentLinksResponse = {
         webhookUrl: "https://webshop.example.org/payment-links/webhook/",
         lines: [
           {
+            type: "physical",
             description: "LEGO 4440 Forest Police Station",
             quantity: 1,
             quantityUnit: "pcs",
@@ -86,6 +88,7 @@ let value: ListPaymentLinksResponse = {
           country: "NL",
         },
         profileId: "pfl_QkEhN94Ba",
+        reusable: false,
         createdAt: "2024-03-20T09:13:37.0Z",
         paidAt: "2025-12-24T11:00:16+00:00",
         expiresAt: "2025-12-24T11:00:16+00:00",

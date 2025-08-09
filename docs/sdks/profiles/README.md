@@ -132,6 +132,7 @@ const client = new Client({
 async function run() {
   const result = await client.profiles.list({
     from: "pfl_QkEhN94Ba",
+    limit: 50,
   });
 
   console.log(result);
@@ -159,6 +160,7 @@ const client = new ClientCore({
 async function run() {
   const res = await profilesList(client, {
     from: "pfl_QkEhN94Ba",
+    limit: 50,
   });
   if (res.ok) {
     const { value: result } = res;

@@ -12,6 +12,7 @@ let value: ListAllSubscriptionsResponse = {
   embedded: {
     subscriptions: [
       {
+        resource: "subscription",
         id: "sub_5B8cwPMGnU",
         mode: "live",
         status: "active",

@@ -13,6 +13,7 @@ let value: ListClientsResponse = {
   embedded: {
     clients: [
       {
+        resource: "client",
         links: {
           self: {
             href: "https://...",
@@ -33,6 +34,7 @@ let value: ListClientsResponse = {
         },
         embedded: {
           organization: {
+            resource: "organization",
             locale: "en_US",
             links: {
               self: {
@@ -50,6 +52,7 @@ let value: ListClientsResponse = {
             },
           },
           onboarding: {
+            resource: "onboarding",
             links: {
               self: {
                 href: "https://...",

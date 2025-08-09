@@ -7,6 +7,7 @@ import { ListProfilesRequest } from "mollie-api-typescript/models/operations";
 
 let value: ListProfilesRequest = {
   from: "pfl_QkEhN94Ba",
+  limit: 50,
 };
 ```
 

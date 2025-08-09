@@ -8,6 +8,7 @@ import { ListSettlementChargebacksRequest } from "mollie-api-typescript/models/o
 let value: ListSettlementChargebacksRequest = {
   settlementId: "stl_jDk30akdN",
   from: "chb_xFzwUN4ci8HAmSGUACS4J",
+  limit: 50,
   embed: "payment",
   testmode: false,
 };

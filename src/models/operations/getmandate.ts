@@ -224,7 +224,7 @@ export type GetMandateResponse = {
   /**
    * Indicates the response contains a mandate object. Will always contain the string `mandate` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.
    */
@@ -837,7 +837,7 @@ export const GetMandateResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("mandate"),
+  resource: z.string(),
   id: z.string(),
   mode: GetMandateMode$inboundSchema,
   method: GetMandateMethod$inboundSchema,
@@ -875,7 +875,7 @@ export const GetMandateResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetMandateResponse
 > = z.object({
-  resource: z.string().default("mandate"),
+  resource: z.string(),
   id: z.string(),
   mode: GetMandateMode$outboundSchema,
   method: GetMandateMethod$outboundSchema,

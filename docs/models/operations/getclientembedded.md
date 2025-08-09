@@ -7,6 +7,7 @@ import { GetClientEmbedded } from "mollie-api-typescript/models/operations";
 
 let value: GetClientEmbedded = {
   organization: {
+    resource: "organization",
     locale: "en_US",
     links: {
       self: {
@@ -24,6 +25,7 @@ let value: GetClientEmbedded = {
     },
   },
   onboarding: {
+    resource: "onboarding",
     links: {
       self: {
         href: "https://...",

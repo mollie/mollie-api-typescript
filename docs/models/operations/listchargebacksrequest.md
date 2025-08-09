@@ -8,6 +8,7 @@ import { ListChargebacksRequest } from "mollie-api-typescript/models/operations"
 let value: ListChargebacksRequest = {
   paymentId: "tr_5B8cwPMGnU",
   from: "chb_xFzwUN4ci8HAmSGUACS4J",
+  limit: 50,
   embed: "payment",
   testmode: false,
 };

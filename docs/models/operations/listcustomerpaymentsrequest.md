@@ -8,6 +8,8 @@ import { ListCustomerPaymentsRequest } from "mollie-api-typescript/models/operat
 let value: ListCustomerPaymentsRequest = {
   customerId: "cst_5B8cwPMGnU",
   from: "tr_5B8cwPMGnU",
+  limit: 50,
+  sort: "desc",
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
 };

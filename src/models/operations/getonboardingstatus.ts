@@ -493,7 +493,7 @@ export const GetOnboardingStatusResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("onboarding"),
+  resource: z.string().optional(),
   name: z.string().optional(),
   status: GetOnboardingStatusStatus$inboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
@@ -508,7 +508,7 @@ export const GetOnboardingStatusResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetOnboardingStatusResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   name?: string | undefined;
   status?: string | undefined;
   canReceivePayments?: boolean | undefined;
@@ -523,7 +523,7 @@ export const GetOnboardingStatusResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetOnboardingStatusResponse
 > = z.object({
-  resource: z.string().default("onboarding"),
+  resource: z.string().optional(),
   name: z.string().optional(),
   status: GetOnboardingStatusStatus$outboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),

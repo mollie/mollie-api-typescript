@@ -173,6 +173,8 @@ async function run() {
   const result = await client.subscriptions.list({
     customerId: "cst_5B8cwPMGnU",
     from: "sub_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
 
@@ -202,6 +204,8 @@ async function run() {
   const res = await subscriptionsList(client, {
     customerId: "cst_5B8cwPMGnU",
     from: "sub_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
   if (res.ok) {
@@ -535,6 +539,7 @@ const client = new Client({
 async function run() {
   const result = await client.subscriptions.all({
     from: "tr_5B8cwPMGnU",
+    limit: 50,
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -564,6 +569,7 @@ const client = new ClientCore({
 async function run() {
   const res = await subscriptionsAll(client, {
     from: "tr_5B8cwPMGnU",
+    limit: 50,
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -622,6 +628,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });
@@ -653,6 +661,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
   });

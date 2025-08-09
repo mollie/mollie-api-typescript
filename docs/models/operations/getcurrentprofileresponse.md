@@ -9,6 +9,7 @@ The current profile object. For a complete reference of the profile object, refe
 import { GetCurrentProfileResponse } from "mollie-api-typescript/models/operations";
 
 let value: GetCurrentProfileResponse = {
+  resource: "profile",
   id: "pfl_QkEhN94Ba",
   mode: "live",
   name: "My website name",

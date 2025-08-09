@@ -329,7 +329,7 @@ export type UpdateCustomerResponse = {
   /**
    * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
    */
@@ -1360,7 +1360,7 @@ export const UpdateCustomerResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: UpdateCustomerMode$inboundSchema,
   name: z.nullable(z.string()),
@@ -1404,7 +1404,7 @@ export const UpdateCustomerResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateCustomerResponse
 > = z.object({
-  resource: z.string().default("customer"),
+  resource: z.string(),
   id: z.string(),
   mode: UpdateCustomerMode$outboundSchema,
   name: z.nullable(z.string()),

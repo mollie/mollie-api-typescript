@@ -8,6 +8,7 @@ The webhook object.
 import { UpdateWebhookResponse } from "mollie-api-typescript/models/operations";
 
 let value: UpdateWebhookResponse = {
+  resource: "webhook",
   id: "hook_tNP6fpF9fLJpFWziRcgiH",
   url: "https://example.com/webhook-endpoint",
   profileId: "pfl_YyoaNFjtHc",

@@ -342,7 +342,7 @@ export type ListAllSubscriptionsSubscription = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
@@ -579,7 +579,7 @@ export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -587,7 +587,7 @@ export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type ListAllSubscriptionsRequest$Outbound = {
   from?: string | undefined;
-  limit: number | null;
+  limit?: number | null | undefined;
   profileId?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -599,7 +599,7 @@ export const ListAllSubscriptionsRequest$outboundSchema: z.ZodType<
   ListAllSubscriptionsRequest
 > = z.object({
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
+  limit: z.nullable(z.number().int()).optional(),
   profileId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1743,7 +1743,7 @@ export const ListAllSubscriptionsSubscription$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("subscription"),
+  resource: z.string(),
   id: z.string(),
   mode: ListAllSubscriptionsMode$inboundSchema,
   status: ListAllSubscriptionsStatus$inboundSchema,
@@ -1811,7 +1811,7 @@ export const ListAllSubscriptionsSubscription$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsSubscription
 > = z.object({
-  resource: z.string().default("subscription"),
+  resource: z.string(),
   id: z.string(),
   mode: ListAllSubscriptionsMode$outboundSchema,
   status: ListAllSubscriptionsStatus$outboundSchema,

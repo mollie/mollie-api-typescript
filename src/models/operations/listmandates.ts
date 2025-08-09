@@ -268,7 +268,7 @@ export type ListMandatesMandate = {
   /**
    * Indicates the response contains a mandate object. Will always contain the string `mandate` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.
    */
@@ -453,8 +453,8 @@ export const ListMandatesRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListMandatesSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListMandatesSort$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -462,8 +462,8 @@ export const ListMandatesRequest$inboundSchema: z.ZodType<
 export type ListMandatesRequest$Outbound = {
   customerId: string;
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -475,8 +475,8 @@ export const ListMandatesRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListMandatesSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListMandatesSort$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -1135,7 +1135,7 @@ export const ListMandatesMandate$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("mandate"),
+  resource: z.string(),
   id: z.string(),
   mode: ListMandatesMode$inboundSchema,
   method: ListMandatesMethod$inboundSchema,
@@ -1173,7 +1173,7 @@ export const ListMandatesMandate$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMandatesMandate
 > = z.object({
-  resource: z.string().default("mandate"),
+  resource: z.string(),
   id: z.string(),
   mode: ListMandatesMode$outboundSchema,
   method: ListMandatesMethod$outboundSchema,

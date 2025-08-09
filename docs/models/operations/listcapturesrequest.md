@@ -8,6 +8,7 @@ import { ListCapturesRequest } from "mollie-api-typescript/models/operations";
 let value: ListCapturesRequest = {
   paymentId: "tr_5B8cwPMGnU",
   from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+  limit: 50,
   embed: "payment",
   testmode: false,
 };

@@ -358,7 +358,7 @@ export type ListSubscriptionsSubscription = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
    */
@@ -617,8 +617,8 @@ export const ListSubscriptionsRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListSubscriptionsSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListSubscriptionsSort$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -626,8 +626,8 @@ export const ListSubscriptionsRequest$inboundSchema: z.ZodType<
 export type ListSubscriptionsRequest$Outbound = {
   customerId: string;
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -639,8 +639,8 @@ export const ListSubscriptionsRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListSubscriptionsSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListSubscriptionsSort$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -1739,7 +1739,7 @@ export const ListSubscriptionsSubscription$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("subscription"),
+  resource: z.string(),
   id: z.string(),
   mode: ListSubscriptionsMode$inboundSchema,
   status: ListSubscriptionsStatus$inboundSchema,
@@ -1803,7 +1803,7 @@ export const ListSubscriptionsSubscription$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSubscriptionsSubscription
 > = z.object({
-  resource: z.string().default("subscription"),
+  resource: z.string(),
   id: z.string(),
   mode: ListSubscriptionsMode$outboundSchema,
   status: ListSubscriptionsStatus$outboundSchema,

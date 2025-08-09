@@ -8,6 +8,8 @@ import { ListSubscriptionsRequest } from "mollie-api-typescript/models/operation
 let value: ListSubscriptionsRequest = {
   customerId: "cst_5B8cwPMGnU",
   from: "sub_5B8cwPMGnU",
+  limit: 50,
+  sort: "desc",
   testmode: false,
 };
 ```

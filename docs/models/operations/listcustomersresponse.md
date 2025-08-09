@@ -12,6 +12,7 @@ let value: ListCustomersResponse = {
   embedded: {
     customers: [
       {
+        resource: "customer",
         id: "cst_5B8cwPMGnU",
         mode: "live",
         name: "John Doe",

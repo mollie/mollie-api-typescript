@@ -132,7 +132,7 @@ export type Route = {
   /**
    * Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
    *
@@ -725,7 +725,7 @@ export function routeLinksFromJSON(
 /** @internal */
 export const Route$inboundSchema: z.ZodType<Route, z.ZodTypeDef, unknown> = z
   .object({
-    resource: z.string().default("route"),
+    resource: z.string(),
     id: z.string(),
     paymentId: z.string(),
     amount: z.lazy(() => PaymentListRoutesAmount$inboundSchema),
@@ -757,7 +757,7 @@ export const Route$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Route
 > = z.object({
-  resource: z.string().default("route"),
+  resource: z.string(),
   id: z.string(),
   paymentId: z.string(),
   amount: z.lazy(() => PaymentListRoutesAmount$outboundSchema),

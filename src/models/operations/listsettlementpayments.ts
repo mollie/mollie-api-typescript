@@ -1707,7 +1707,7 @@ export type ListSettlementPaymentsPaymentOutput = {
    * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
    * are set up correctly for recurring payments.
    */
-  sequenceType?: ListSettlementPaymentsSequenceType | null | undefined;
+  sequenceType: ListSettlementPaymentsSequenceType | null;
   /**
    * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
    *
@@ -1968,8 +1968,8 @@ export const ListSettlementPaymentsRequest$inboundSchema: z.ZodType<
 > = z.object({
   settlementId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListSettlementPaymentsSort$inboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListSettlementPaymentsSort$inboundSchema).optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -1978,8 +1978,8 @@ export const ListSettlementPaymentsRequest$inboundSchema: z.ZodType<
 export type ListSettlementPaymentsRequest$Outbound = {
   settlementId: string;
   from?: string | undefined;
-  limit: number | null;
-  sort: string | null;
+  limit?: number | null | undefined;
+  sort?: string | null | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -1992,8 +1992,8 @@ export const ListSettlementPaymentsRequest$outboundSchema: z.ZodType<
 > = z.object({
   settlementId: z.string(),
   from: z.string().optional(),
-  limit: z.nullable(z.number().int().default(50)),
-  sort: z.nullable(ListSettlementPaymentsSort$outboundSchema.default("desc")),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: z.nullable(ListSettlementPaymentsSort$outboundSchema).optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -3002,7 +3002,7 @@ export const ListSettlementPaymentsLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ListSettlementPaymentsLineType$inboundSchema.default("physical"),
+  type: ListSettlementPaymentsLineType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -3024,7 +3024,7 @@ export const ListSettlementPaymentsLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListSettlementPaymentsLine$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -3046,7 +3046,7 @@ export const ListSettlementPaymentsLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementPaymentsLine
 > = z.object({
-  type: ListSettlementPaymentsLineType$outboundSchema.default("physical"),
+  type: ListSettlementPaymentsLineType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -5237,9 +5237,7 @@ export const ListSettlementPaymentsPaymentOutput$inboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListSettlementPaymentsRouting$inboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    ListSettlementPaymentsSequenceType$inboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(ListSettlementPaymentsSequenceType$inboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
@@ -5386,9 +5384,7 @@ export const ListSettlementPaymentsPaymentOutput$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => ListSettlementPaymentsRouting$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    ListSettlementPaymentsSequenceType$outboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(ListSettlementPaymentsSequenceType$outboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),

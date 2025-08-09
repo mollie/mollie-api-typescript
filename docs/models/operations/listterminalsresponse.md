@@ -12,6 +12,7 @@ let value: ListTerminalsResponse = {
   embedded: {
     terminals: [
       {
+        resource: "terminal",
         id: "term_vytxeTZskVKR7C7WgdSP3d",
         mode: "live",
         description: "Main Terminal",

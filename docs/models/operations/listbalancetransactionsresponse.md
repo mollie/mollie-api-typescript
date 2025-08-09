@@ -12,6 +12,7 @@ let value: ListBalanceTransactionsResponse = {
   embedded: {
     balanceTransactions: [
       {
+        resource: "balance-transaction",
         id: "baltr_QM24QwzUWR4ev4Xfgyt29d",
         type: "payment",
         resultAmount: {

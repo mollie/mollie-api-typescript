@@ -10,7 +10,7 @@ Set it to `recurring` to only return methods that can be used for recurring paym
 ```typescript
 import { ListAllMethodsSequenceType } from "mollie-api-typescript/models/operations";
 
-let value: ListAllMethodsSequenceType = "first";
+let value: ListAllMethodsSequenceType = "oneoff";
 ```
 
 ## Values

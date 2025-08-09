@@ -1662,7 +1662,7 @@ export type CancelPaymentResponse = {
    * [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
    * are set up correctly for recurring payments.
    */
-  sequenceType?: CancelPaymentSequenceType | null | undefined;
+  sequenceType: CancelPaymentSequenceType | null;
   /**
    * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
    *
@@ -2954,7 +2954,7 @@ export const CancelPaymentLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CancelPaymentLineType$inboundSchema.default("physical"),
+  type: CancelPaymentLineType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2973,7 +2973,7 @@ export const CancelPaymentLine$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CancelPaymentLine$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2995,7 +2995,7 @@ export const CancelPaymentLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CancelPaymentLine
 > = z.object({
-  type: CancelPaymentLineType$outboundSchema.default("physical"),
+  type: CancelPaymentLineType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -5035,9 +5035,7 @@ export const CancelPaymentResponse$inboundSchema: z.ZodType<
   ).optional(),
   routing: z.nullable(z.array(z.lazy(() => CancelPaymentRouting$inboundSchema)))
     .optional(),
-  sequenceType: z.nullable(
-    CancelPaymentSequenceType$inboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(CancelPaymentSequenceType$inboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),
@@ -5168,9 +5166,7 @@ export const CancelPaymentResponse$outboundSchema: z.ZodType<
   routing: z.nullable(
     z.array(z.lazy(() => CancelPaymentRouting$outboundSchema)),
   ).optional(),
-  sequenceType: z.nullable(
-    CancelPaymentSequenceType$outboundSchema.default("oneoff"),
-  ),
+  sequenceType: z.nullable(CancelPaymentSequenceType$outboundSchema),
   subscriptionId: z.nullable(z.string()).optional(),
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.nullable(z.string()).optional(),

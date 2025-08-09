@@ -10,6 +10,8 @@ let value: ListInvoicesRequest = {
   year: "2024",
   month: "01",
   from: "inv_xBEbP9rvAq",
+  limit: 50,
+  sort: "desc",
 };
 ```
 

@@ -8,7 +8,7 @@ price. `inclusive` means the prices you are providing to us already contain the 
 ```typescript
 import { CreateSalesInvoiceVatModeResponse } from "mollie-api-typescript/models/operations";
 
-let value: CreateSalesInvoiceVatModeResponse = "inclusive";
+let value: CreateSalesInvoiceVatModeResponse = "exclusive";
 ```
 
 ## Values

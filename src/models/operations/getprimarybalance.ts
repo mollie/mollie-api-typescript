@@ -832,7 +832,7 @@ export const GetPrimaryBalanceResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("balance"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetPrimaryBalanceMode$inboundSchema.optional(),
   createdAt: z.string().optional(),
@@ -861,7 +861,7 @@ export const GetPrimaryBalanceResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetPrimaryBalanceResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   createdAt?: string | undefined;
@@ -886,7 +886,7 @@ export const GetPrimaryBalanceResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetPrimaryBalanceResponse
 > = z.object({
-  resource: z.string().default("balance"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: GetPrimaryBalanceMode$outboundSchema.optional(),
   createdAt: z.string().optional(),

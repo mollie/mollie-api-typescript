@@ -9,6 +9,7 @@ let value: GetBalanceReportRequest = {
   balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
   from: "2024-01-01",
   until: "2024-02-01",
+  grouping: "status-balances",
   testmode: false,
 };
 ```

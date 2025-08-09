@@ -140,6 +140,8 @@ async function run() {
   const result = await client.mandates.list({
     customerId: "cst_5B8cwPMGnU",
     from: "mdt_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
 
@@ -169,6 +171,8 @@ async function run() {
   const res = await mandatesList(client, {
     customerId: "cst_5B8cwPMGnU",
     from: "mdt_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
     testmode: false,
   });
   if (res.ok) {

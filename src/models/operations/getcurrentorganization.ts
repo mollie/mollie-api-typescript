@@ -566,7 +566,7 @@ export const GetCurrentOrganizationResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("organization"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
@@ -585,7 +585,7 @@ export const GetCurrentOrganizationResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetCurrentOrganizationResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   name?: string | undefined;
   email?: string | undefined;
@@ -603,7 +603,7 @@ export const GetCurrentOrganizationResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetCurrentOrganizationResponse
 > = z.object({
-  resource: z.string().default("organization"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),

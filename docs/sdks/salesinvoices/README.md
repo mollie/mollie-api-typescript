@@ -36,7 +36,10 @@ async function run() {
     testmode: false,
     profileId: "pfl_QkEhN94Ba",
     status: "draft",
+    vatScheme: "standard",
+    vatMode: "exclusive",
     memo: "This is a memo!",
+    paymentTerm: "30 days",
     paymentDetails: {
       source: "payment-link",
       sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
@@ -100,7 +103,10 @@ async function run() {
     testmode: false,
     profileId: "pfl_QkEhN94Ba",
     status: "draft",
+    vatScheme: "standard",
+    vatMode: "exclusive",
     memo: "This is a memo!",
+    paymentTerm: "30 days",
     paymentDetails: {
       source: "payment-link",
       sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
@@ -193,6 +199,7 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.list({
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    limit: 50,
     testmode: false,
   });
 
@@ -221,6 +228,7 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesList(client, {
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    limit: 50,
     testmode: false,
   });
   if (res.ok) {
@@ -367,6 +375,7 @@ async function run() {
       testmode: false,
       status: "paid",
       memo: "An updated memo!",
+      paymentTerm: "30 days",
       paymentDetails: {
         source: "payment-link",
         sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
@@ -445,6 +454,7 @@ async function run() {
       testmode: false,
       status: "paid",
       memo: "An updated memo!",
+      paymentTerm: "30 days",
       paymentDetails: {
         source: "payment-link",
         sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",

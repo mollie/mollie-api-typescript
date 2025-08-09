@@ -1233,7 +1233,7 @@ export const CreateProfileResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: CreateProfileMode$inboundSchema.optional(),
   name: z.string().optional(),
@@ -1255,7 +1255,7 @@ export const CreateProfileResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateProfileResponse$Outbound = {
-  resource: string;
+  resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
   name?: string | undefined;
@@ -1277,7 +1277,7 @@ export const CreateProfileResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateProfileResponse
 > = z.object({
-  resource: z.string().default("profile"),
+  resource: z.string().optional(),
   id: z.string().optional(),
   mode: CreateProfileMode$outboundSchema.optional(),
   name: z.string().optional(),

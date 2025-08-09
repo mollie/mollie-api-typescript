@@ -1111,7 +1111,7 @@ export type UpdatePaymentLinkResponse = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.
    */
@@ -1216,7 +1216,7 @@ export type UpdatePaymentLinkResponse = {
    *
    * If no value is specified, the field defaults to `false`, allowing only a single payment per link.
    */
-  reusable?: boolean | null | undefined;
+  reusable: boolean | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -1636,7 +1636,7 @@ export const UpdatePaymentLinkLineRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: UpdatePaymentLinkTypeRequest$inboundSchema.default("physical"),
+  type: UpdatePaymentLinkTypeRequest$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -1657,7 +1657,7 @@ export const UpdatePaymentLinkLineRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type UpdatePaymentLinkLineRequest$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -1678,7 +1678,7 @@ export const UpdatePaymentLinkLineRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdatePaymentLinkLineRequest
 > = z.object({
-  type: UpdatePaymentLinkTypeRequest$outboundSchema.default("physical"),
+  type: UpdatePaymentLinkTypeRequest$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2789,7 +2789,7 @@ export const UpdatePaymentLinkLineResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: UpdatePaymentLinkTypeResponse$inboundSchema.default("physical"),
+  type: UpdatePaymentLinkTypeResponse$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -2810,7 +2810,7 @@ export const UpdatePaymentLinkLineResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type UpdatePaymentLinkLineResponse$Outbound = {
-  type: string;
+  type?: string | undefined;
   description: string;
   quantity: number;
   quantityUnit?: string | undefined;
@@ -2831,7 +2831,7 @@ export const UpdatePaymentLinkLineResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdatePaymentLinkLineResponse
 > = z.object({
-  type: UpdatePaymentLinkTypeResponse$outboundSchema.default("physical"),
+  type: UpdatePaymentLinkTypeResponse$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -3402,7 +3402,7 @@ export const UpdatePaymentLinkResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().default("payment-link"),
+  resource: z.string(),
   id: z.string(),
   mode: UpdatePaymentLinkMode$inboundSchema,
   description: z.string(),
@@ -3423,7 +3423,7 @@ export const UpdatePaymentLinkResponse$inboundSchema: z.ZodType<
     UpdatePaymentLinkShippingAddressResponse$inboundSchema
   ).optional(),
   profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean().default(false)),
+  reusable: z.nullable(z.boolean()),
   createdAt: z.string(),
   paidAt: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
@@ -3477,7 +3477,7 @@ export const UpdatePaymentLinkResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdatePaymentLinkResponse
 > = z.object({
-  resource: z.string().default("payment-link"),
+  resource: z.string(),
   id: z.string(),
   mode: UpdatePaymentLinkMode$outboundSchema,
   description: z.string(),
@@ -3498,7 +3498,7 @@ export const UpdatePaymentLinkResponse$outboundSchema: z.ZodType<
     UpdatePaymentLinkShippingAddressResponse$outboundSchema
   ).optional(),
   profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean().default(false)),
+  reusable: z.nullable(z.boolean()),
   createdAt: z.string(),
   paidAt: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
