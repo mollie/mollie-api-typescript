@@ -116,6 +116,7 @@ async function run() {
     },
     sequenceType: "oneoff",
     customerId: "cst_XimFHuaEzd",
+    testmode: false,
   });
 
   console.log(result);
@@ -226,6 +227,7 @@ async function run() {
     },
     sequenceType: "oneoff",
     customerId: "cst_XimFHuaEzd",
+    testmode: false,
   });
   if (res.ok) {
     const { value: result } = res;

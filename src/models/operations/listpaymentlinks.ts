@@ -607,7 +607,7 @@ export type PaymentLinkLinks = {
   paymentLink: ListPaymentLinksLinksPaymentLink;
 };
 
-export type ListPaymentLinksPaymentLink = {
+export type ListPaymentLinksPaymentLinkOutput = {
   /**
    * Indicates the response contains a payment link object. Will always contain the string `payment-link` for this
    *
@@ -788,7 +788,7 @@ export type ListPaymentLinksEmbedded = {
   /**
    * An array of payment link objects.
    */
-  paymentLinks?: Array<ListPaymentLinksPaymentLink> | undefined;
+  paymentLinks?: Array<ListPaymentLinksPaymentLinkOutput> | undefined;
 };
 
 /**
@@ -882,12 +882,12 @@ export type ListPaymentLinksResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListPaymentLinksEmbedded | undefined;
+  count: number;
+  embedded: ListPaymentLinksEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ListPaymentLinksLinks | undefined;
+  links: ListPaymentLinksLinks;
 };
 
 /** @internal */
@@ -2073,8 +2073,8 @@ export function paymentLinkLinksFromJSON(
 }
 
 /** @internal */
-export const ListPaymentLinksPaymentLink$inboundSchema: z.ZodType<
-  ListPaymentLinksPaymentLink,
+export const ListPaymentLinksPaymentLinkOutput$inboundSchema: z.ZodType<
+  ListPaymentLinksPaymentLinkOutput,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -2114,7 +2114,7 @@ export const ListPaymentLinksPaymentLink$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type ListPaymentLinksPaymentLink$Outbound = {
+export type ListPaymentLinksPaymentLinkOutput$Outbound = {
   resource: string;
   id: string;
   mode: string;
@@ -2140,10 +2140,10 @@ export type ListPaymentLinksPaymentLink$Outbound = {
 };
 
 /** @internal */
-export const ListPaymentLinksPaymentLink$outboundSchema: z.ZodType<
-  ListPaymentLinksPaymentLink$Outbound,
+export const ListPaymentLinksPaymentLinkOutput$outboundSchema: z.ZodType<
+  ListPaymentLinksPaymentLinkOutput$Outbound,
   z.ZodTypeDef,
-  ListPaymentLinksPaymentLink
+  ListPaymentLinksPaymentLinkOutput
 > = z.object({
   resource: z.string(),
   id: z.string(),
@@ -2184,32 +2184,33 @@ export const ListPaymentLinksPaymentLink$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListPaymentLinksPaymentLink$ {
-  /** @deprecated use `ListPaymentLinksPaymentLink$inboundSchema` instead. */
-  export const inboundSchema = ListPaymentLinksPaymentLink$inboundSchema;
-  /** @deprecated use `ListPaymentLinksPaymentLink$outboundSchema` instead. */
-  export const outboundSchema = ListPaymentLinksPaymentLink$outboundSchema;
-  /** @deprecated use `ListPaymentLinksPaymentLink$Outbound` instead. */
-  export type Outbound = ListPaymentLinksPaymentLink$Outbound;
+export namespace ListPaymentLinksPaymentLinkOutput$ {
+  /** @deprecated use `ListPaymentLinksPaymentLinkOutput$inboundSchema` instead. */
+  export const inboundSchema = ListPaymentLinksPaymentLinkOutput$inboundSchema;
+  /** @deprecated use `ListPaymentLinksPaymentLinkOutput$outboundSchema` instead. */
+  export const outboundSchema =
+    ListPaymentLinksPaymentLinkOutput$outboundSchema;
+  /** @deprecated use `ListPaymentLinksPaymentLinkOutput$Outbound` instead. */
+  export type Outbound = ListPaymentLinksPaymentLinkOutput$Outbound;
 }
 
-export function listPaymentLinksPaymentLinkToJSON(
-  listPaymentLinksPaymentLink: ListPaymentLinksPaymentLink,
+export function listPaymentLinksPaymentLinkOutputToJSON(
+  listPaymentLinksPaymentLinkOutput: ListPaymentLinksPaymentLinkOutput,
 ): string {
   return JSON.stringify(
-    ListPaymentLinksPaymentLink$outboundSchema.parse(
-      listPaymentLinksPaymentLink,
+    ListPaymentLinksPaymentLinkOutput$outboundSchema.parse(
+      listPaymentLinksPaymentLinkOutput,
     ),
   );
 }
 
-export function listPaymentLinksPaymentLinkFromJSON(
+export function listPaymentLinksPaymentLinkOutputFromJSON(
   jsonString: string,
-): SafeParseResult<ListPaymentLinksPaymentLink, SDKValidationError> {
+): SafeParseResult<ListPaymentLinksPaymentLinkOutput, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ListPaymentLinksPaymentLink$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPaymentLinksPaymentLink' from JSON`,
+    (x) => ListPaymentLinksPaymentLinkOutput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListPaymentLinksPaymentLinkOutput' from JSON`,
   );
 }
 
@@ -2220,7 +2221,7 @@ export const ListPaymentLinksEmbedded$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   payment_links: z.array(
-    z.lazy(() => ListPaymentLinksPaymentLink$inboundSchema),
+    z.lazy(() => ListPaymentLinksPaymentLinkOutput$inboundSchema),
   ).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -2230,7 +2231,7 @@ export const ListPaymentLinksEmbedded$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListPaymentLinksEmbedded$Outbound = {
-  payment_links?: Array<ListPaymentLinksPaymentLink$Outbound> | undefined;
+  payment_links?: Array<ListPaymentLinksPaymentLinkOutput$Outbound> | undefined;
 };
 
 /** @internal */
@@ -2240,7 +2241,7 @@ export const ListPaymentLinksEmbedded$outboundSchema: z.ZodType<
   ListPaymentLinksEmbedded
 > = z.object({
   paymentLinks: z.array(
-    z.lazy(() => ListPaymentLinksPaymentLink$outboundSchema),
+    z.lazy(() => ListPaymentLinksPaymentLinkOutput$outboundSchema),
   ).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -2583,9 +2584,9 @@ export const ListPaymentLinksResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListPaymentLinksEmbedded$inboundSchema).optional(),
-  _links: z.lazy(() => ListPaymentLinksLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListPaymentLinksEmbedded$inboundSchema),
+  _links: z.lazy(() => ListPaymentLinksLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -2595,9 +2596,9 @@ export const ListPaymentLinksResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListPaymentLinksResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListPaymentLinksEmbedded$Outbound | undefined;
-  _links?: ListPaymentLinksLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListPaymentLinksEmbedded$Outbound;
+  _links: ListPaymentLinksLinks$Outbound;
 };
 
 /** @internal */
@@ -2606,9 +2607,9 @@ export const ListPaymentLinksResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPaymentLinksResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListPaymentLinksEmbedded$outboundSchema).optional(),
-  links: z.lazy(() => ListPaymentLinksLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListPaymentLinksEmbedded$outboundSchema),
+  links: z.lazy(() => ListPaymentLinksLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

@@ -1,16 +1,19 @@
-# GetWebhookEventPaymentLink
+# GetWebhookEventPaymentLinkOutput
 
 ## Example Usage
 
 ```typescript
-import { GetWebhookEventPaymentLink } from "mollie-api-typescript/models/operations";
+import { GetWebhookEventPaymentLinkOutput } from "mollie-api-typescript/models/operations";
 
-let value: GetWebhookEventPaymentLink = {
+let value: GetWebhookEventPaymentLinkOutput = {
   resource: "payment-link",
   id: "pl_d9fQur83kFdhH8hIhaZfq",
   mode: "live",
   description: "Chess Board",
-  amount: null,
+  amount: {
+    currency: "EUR",
+    value: "10.00",
+  },
   minimumAmount: {
     currency: "EUR",
     value: "10.00",

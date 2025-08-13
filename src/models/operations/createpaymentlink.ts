@@ -660,6 +660,16 @@ export type CreatePaymentLinkRequest = {
    * the payment is made.
    */
   customerId?: string | null | undefined;
+  /**
+   * Whether to create the entity in test mode or live mode.
+   *
+   * @remarks
+   *
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
+   */
+  testmode?: boolean | null | undefined;
 };
 
 /**
@@ -2326,6 +2336,7 @@ export const CreatePaymentLinkRequest$inboundSchema: z.ZodType<
   sequenceType: z.nullable(CreatePaymentLinkSequenceTypeRequest$inboundSchema)
     .optional(),
   customerId: z.nullable(z.string()).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
 });
 
 /** @internal */
@@ -2350,6 +2361,7 @@ export type CreatePaymentLinkRequest$Outbound = {
   applicationFee?: CreatePaymentLinkApplicationFeeRequest$Outbound | undefined;
   sequenceType?: string | null | undefined;
   customerId?: string | null | undefined;
+  testmode?: boolean | null | undefined;
 };
 
 /** @internal */
@@ -2386,6 +2398,7 @@ export const CreatePaymentLinkRequest$outboundSchema: z.ZodType<
   sequenceType: z.nullable(CreatePaymentLinkSequenceTypeRequest$outboundSchema)
     .optional(),
   customerId: z.nullable(z.string()).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
 });
 
 /**

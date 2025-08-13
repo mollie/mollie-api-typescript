@@ -8,7 +8,7 @@ dotenv.config();
  * Example usage of the mollie-api-typescript SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx paymentsCreate.ts
+ * npm run build && npx tsx paymentsCreate.example.ts
  */
 
 import { Client } from "mollie-api-typescript";

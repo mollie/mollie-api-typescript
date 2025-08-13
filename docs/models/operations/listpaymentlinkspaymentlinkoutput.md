@@ -1,11 +1,11 @@
-# ListPaymentLinksPaymentLink
+# ListPaymentLinksPaymentLinkOutput
 
 ## Example Usage
 
 ```typescript
-import { ListPaymentLinksPaymentLink } from "mollie-api-typescript/models/operations";
+import { ListPaymentLinksPaymentLinkOutput } from "mollie-api-typescript/models/operations";
 
-let value: ListPaymentLinksPaymentLink = {
+let value: ListPaymentLinksPaymentLinkOutput = {
   resource: "payment-link",
   id: "pl_d9fQur83kFdhH8hIhaZfq",
   mode: "live",

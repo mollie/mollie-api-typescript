@@ -1921,12 +1921,12 @@ export type GetPaymentLinkPaymentsResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: GetPaymentLinkPaymentsEmbedded | undefined;
+  count: number;
+  embedded: GetPaymentLinkPaymentsEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: GetPaymentLinkPaymentsLinks | undefined;
+  links: GetPaymentLinkPaymentsLinks;
 };
 
 /** @internal */
@@ -5809,10 +5809,9 @@ export const GetPaymentLinkPaymentsResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => GetPaymentLinkPaymentsEmbedded$inboundSchema)
-    .optional(),
-  _links: z.lazy(() => GetPaymentLinkPaymentsLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => GetPaymentLinkPaymentsEmbedded$inboundSchema),
+  _links: z.lazy(() => GetPaymentLinkPaymentsLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -5822,9 +5821,9 @@ export const GetPaymentLinkPaymentsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetPaymentLinkPaymentsResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: GetPaymentLinkPaymentsEmbedded$Outbound | undefined;
-  _links?: GetPaymentLinkPaymentsLinks$Outbound | undefined;
+  count: number;
+  _embedded: GetPaymentLinkPaymentsEmbedded$Outbound;
+  _links: GetPaymentLinkPaymentsLinks$Outbound;
 };
 
 /** @internal */
@@ -5833,10 +5832,9 @@ export const GetPaymentLinkPaymentsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetPaymentLinkPaymentsResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => GetPaymentLinkPaymentsEmbedded$outboundSchema)
-    .optional(),
-  links: z.lazy(() => GetPaymentLinkPaymentsLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => GetPaymentLinkPaymentsEmbedded$outboundSchema),
+  links: z.lazy(() => GetPaymentLinkPaymentsLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

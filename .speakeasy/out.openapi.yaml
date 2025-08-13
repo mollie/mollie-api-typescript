@@ -5409,7 +5409,7 @@ paths:
               examples:
                 cancel-payment-200-1:
                   summary: The canceled payment object
-                  value: &ref_155
+                  value: &ref_154
                     resource: payment
                     id: tr_WDqYK6vllg
                     mode: live
@@ -9375,7 +9375,7 @@ paths:
         description: Provide the ID of the related refund.
         in: path
         required: true
-        schema: &ref_148
+        schema: &ref_147
           type: string
           example: re_5B8cwPMGnU
     get:
@@ -10149,7 +10149,7 @@ paths:
         description: Provide the ID of the related chargeback.
         in: path
         required: true
-        schema: &ref_149
+        schema: &ref_148
           type: string
           example: chb_xFzwUN4ci8HAmSGUACS4J
     get:
@@ -11284,7 +11284,7 @@ paths:
         description: Provide the ID of the related capture.
         in: path
         required: true
-        schema: &ref_150
+        schema: &ref_149
           type: string
           example: cpt_gVMhHKqSSRYJyPsuoPNFH
     get:
@@ -11563,10 +11563,7 @@ paths:
         content:
           application/json:
             schema:
-              required:
-                - description
-              type: object
-              properties: &ref_126
+              properties:
                 resource:
                   type: string
                   description: |-
@@ -11778,6 +11775,16 @@ paths:
                     the customer will be required to input relevant information which will be used to establish a mandate after
                     the payment is made.
                   example: cst_XimFHuaEzd
+                testmode:
+                  type: *ref_19
+                  description: |-
+                    Whether to create the entity in test mode or live mode.
+
+                    Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+                    omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+                    `testmode` to `true`.
+                  writeOnly: true
+                  example: false
                 _links:
                   type: object
                   description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -11796,6 +11803,8 @@ paths:
                       required: *ref_4
                       properties: *ref_5
                   readOnly: true
+              required:
+                - description
       responses:
         '201':
           description: The newly created payment link object.
@@ -12027,6 +12036,16 @@ paths:
                       the customer will be required to input relevant information which will be used to establish a mandate after
                       the payment is made.
                     example: cst_XimFHuaEzd
+                  testmode:
+                    type: *ref_19
+                    description: |-
+                      Whether to create the entity in test mode or live mode.
+
+                      Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+                      omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+                      `testmode` to `true`.
+                    writeOnly: true
+                    example: false
                   _links:
                     type: object
                     description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -12356,6 +12375,10 @@ paths:
                     type: object
                     description: Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
                     properties: *ref_41
+                required:
+                  - count
+                  - _embedded
+                  - _links
               examples:
                 list-payment-links-200-1:
                   summary: A list of payment link objects
@@ -12950,6 +12973,10 @@ paths:
                     type: object
                     description: Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
                     properties: *ref_41
+                required:
+                  - count
+                  - _embedded
+                  - _links
               examples:
                 get-payment-link-payments-200-1:
                   summary: A list of payment objects
@@ -13356,7 +13383,7 @@ paths:
         description: Provide the ID of the related terminal.
         in: path
         required: true
-        schema: &ref_151
+        schema: &ref_150
           type: string
           example: term_vytxeTZskVKR7C7WgdSP3d
     get:
@@ -13466,7 +13493,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties: &ref_130
+              properties: &ref_129
                 resource:
                   type: string
                   description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
@@ -13552,7 +13579,7 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                required: &ref_131
+                required: &ref_130
                   - resource
                   - id
                   - paymentId
@@ -13560,7 +13587,7 @@ paths:
                   - description
                   - destination
                   - _links
-                properties: &ref_132
+                properties: &ref_131
                   resource:
                     type: string
                     description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
@@ -13731,7 +13758,7 @@ paths:
                         type: array
                         items:
                           type: object
-                          required: &ref_128
+                          required: &ref_127
                             - resource
                             - id
                             - paymentId
@@ -13740,9 +13767,9 @@ paths:
                             - destination
                             - createdAt
                             - _links
-                          allOf: &ref_129
+                          allOf: &ref_128
                             - type: object
-                              properties: &ref_127
+                              properties: &ref_126
                                 resource:
                                   type: string
                                   description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
@@ -14453,12 +14480,12 @@ paths:
                         type: array
                         items:
                           type: object
-                          required: &ref_133
+                          required: &ref_132
                             - resource
                             - type
                             - createdAt
                             - message
-                          properties: &ref_134
+                          properties: &ref_133
                             resource:
                               type: string
                               example: event
@@ -14756,7 +14783,7 @@ paths:
         This endpoint is effectively an alias of the [Create payment endpoint](create-payment) with the `customerId`
         parameter predefined.
       requestBody:
-        content: &ref_156
+        content: &ref_155
           application/json:
             schema:
               type: object
@@ -17588,10 +17615,10 @@ paths:
           application/json:
             schema:
               type: object
-              required: &ref_135
+              required: &ref_134
                 - method
                 - consumerName
-              properties: &ref_136
+              properties: &ref_135
                 resource:
                   type: string
                   description: Indicates the response contains a mandate object. Will always contain the string `mandate` for this endpoint.
@@ -18325,7 +18352,7 @@ paths:
         description: Provide the ID of the related mandate.
         in: path
         required: true
-        schema: &ref_152
+        schema: &ref_151
           type: string
           example: mdt_5B8cwPMGnU
     get:
@@ -18534,7 +18561,7 @@ paths:
                 - interval
                 - description
               type: object
-              properties: &ref_137
+              properties: &ref_136
                 resource:
                   type: string
                   description: |-
@@ -22500,7 +22527,7 @@ paths:
         description: Provide the ID of the related permission.
         in: path
         required: true
-        schema: &ref_153
+        schema: &ref_152
           type: string
           example: payments.read
     get:
@@ -24482,7 +24509,7 @@ paths:
                               type: array
                               items:
                                 type: object
-                                properties: &ref_138
+                                properties: &ref_137
                                   id:
                                     type: string
                                     description: |-
@@ -25258,7 +25285,7 @@ paths:
           content: *ref_27
         '422':
           description: The request contains issues. For example, if the `owner` field is missing.
-          content: &ref_154
+          content: &ref_153
             application/hal+json:
               schema:
                 type: object
@@ -25378,7 +25405,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                properties: &ref_139
+                properties: &ref_138
                   resource:
                     type: string
                     description: Indicates the response contains a webhook subscription object. Will always contain the string `webhook` for this endpoint.
@@ -26083,7 +26110,7 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: &ref_140
+                properties: &ref_139
                   resource:
                     type: string
                     description: Indicates the response contains a webhook event object. Will always contain the string `event` for this endpoint.
@@ -26924,7 +26951,7 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: &ref_143
+                properties: &ref_142
                   resource:
                     type: string
                     description: |-
@@ -27013,14 +27040,14 @@ paths:
                                   - 'null'
                                 items:
                                   type: object
-                                  properties: &ref_142
+                                  properties: &ref_141
                                     sub-totals:
                                       type:
                                         - array
                                         - 'null'
                                       items:
                                         type: object
-                                        properties: &ref_141
+                                        properties: &ref_140
                                           count:
                                             type: integer
                                             description: Number of transactions of this type
@@ -28337,7 +28364,7 @@ paths:
                         type: array
                         items:
                           type: object
-                          properties: &ref_144
+                          properties: &ref_143
                             resource:
                               type: string
                               description: |-
@@ -34513,7 +34540,7 @@ paths:
             application/hal+json:
               schema:
                 type: object
-                properties: &ref_145
+                properties: &ref_144
                   resource:
                     type: string
                     description: |-
@@ -35662,7 +35689,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties: &ref_147
+              properties: &ref_146
                 testmode:
                   type: *ref_56
                   description: |-
@@ -35906,7 +35933,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties: &ref_146
+              properties: &ref_145
                 testmode:
                   type: *ref_56
                   description: |-
@@ -36312,9 +36339,6 @@ components:
       type: object
       required: *ref_53
       properties: *ref_54
-    payment-link-request:
-      type: object
-      properties: *ref_126
     testmode:
       type: *ref_56
       description: |-
@@ -36336,18 +36360,18 @@ components:
       example: crt_dyARQ3JzCgtPDhU2Pbq3J
     entity-route:
       type: object
-      properties: *ref_127
+      properties: *ref_126
     route-get-response:
       type: object
-      required: *ref_128
-      allOf: *ref_129
+      required: *ref_127
+      allOf: *ref_128
     route-create-request:
       type: object
-      properties: *ref_130
+      properties: *ref_129
     route-create-response:
       type: object
-      required: *ref_131
-      properties: *ref_132
+      required: *ref_130
+      properties: *ref_131
     customer-response:
       type: object
       required: *ref_60
@@ -36357,23 +36381,23 @@ components:
       properties: *ref_63
     entity-event:
       type: object
-      required: *ref_133
-      properties: *ref_134
+      required: *ref_132
+      properties: *ref_133
     mandate-response:
       type: object
       required: *ref_67
       properties: *ref_68
     mandate-request:
       type: object
-      required: *ref_135
-      properties: *ref_136
+      required: *ref_134
+      properties: *ref_135
     subscription-response:
       type: object
       required: *ref_70
       properties: *ref_71
     subscription-request:
       type: object
-      properties: *ref_137
+      properties: *ref_136
     permissionToken:
       type: string
       example: payments.read
@@ -36394,7 +36418,7 @@ components:
       properties: *ref_79
     entity-capability-requirement:
       type: object
-      properties: *ref_138
+      properties: *ref_137
     entity-capability:
       type: object
       properties: *ref_80
@@ -36413,10 +36437,10 @@ components:
       type: object
       properties: *ref_85
     create-webhook:
-      properties: *ref_139
+      properties: *ref_138
     entity-webhook-event:
       type: object
-      properties: *ref_140
+      properties: *ref_139
     balanceToken:
       type: string
       example: bal_gVMhHKqSSRYJyPsuoPNFH
@@ -36435,16 +36459,16 @@ components:
       example: creditcard
     sub-totals:
       type: object
-      properties: *ref_141
+      properties: *ref_140
     components-sub-totals:
       type: object
-      properties: *ref_142
+      properties: *ref_141
     sub-group:
       type: object
       properties: *ref_89
     entity-balance-report:
       type: object
-      properties: *ref_143
+      properties: *ref_142
     balanceTransactionToken:
       type: string
       example: baltr_QM24QwzUWR4ev4Xfgyt29d
@@ -36456,13 +36480,13 @@ components:
       example: inv_aHbjjdrUdm
     entity-balance-transaction:
       type: object
-      properties: *ref_144
+      properties: *ref_143
     entity-settlement:
       type: object
       properties: *ref_93
     entity-invoice:
       type: object
-      properties: *ref_145
+      properties: *ref_144
     salesInvoiceToken:
       type: string
       example: invoice_4Y0eZitmBnQ6IDoMqZQKh
@@ -36491,10 +36515,10 @@ components:
       properties: *ref_98
     delete-values-sales-invoice:
       type: object
-      properties: *ref_146
+      properties: *ref_145
     update-values-sales-invoice:
       type: object
-      properties: *ref_147
+      properties: *ref_146
   parameters:
     list-limit:
       name: limit
@@ -36583,19 +36607,19 @@ components:
       description: Provide the ID of the related refund.
       in: path
       required: true
-      schema: *ref_148
+      schema: *ref_147
     parent-chargeback-id:
       name: chargebackId
       description: Provide the ID of the related chargeback.
       in: path
       required: true
-      schema: *ref_149
+      schema: *ref_148
     parent-capture-id:
       name: captureId
       description: Provide the ID of the related capture.
       in: path
       required: true
-      schema: *ref_150
+      schema: *ref_149
     parent-payment-link-id:
       name: paymentLinkId
       description: Provide the ID of the related payment link.
@@ -36607,7 +36631,7 @@ components:
       description: Provide the ID of the related terminal.
       in: path
       required: true
-      schema: *ref_151
+      schema: *ref_150
     parent-customer-id:
       name: customerId
       description: Provide the ID of the related customer.
@@ -36619,7 +36643,7 @@ components:
       description: Provide the ID of the related mandate.
       in: path
       required: true
-      schema: *ref_152
+      schema: *ref_151
     parent-subscription-id:
       name: subscriptionId
       description: Provide the ID of the related subscription.
@@ -36641,7 +36665,7 @@ components:
       description: Provide the ID of the related permission.
       in: path
       required: true
-      schema: *ref_153
+      schema: *ref_152
     parent-balance-id:
       name: balanceId
       description: Provide the ID of the related balance.
@@ -36663,14 +36687,14 @@ components:
       content: *ref_27
     422-mandatory-owner:
       description: The request contains issues. For example, if the `owner` field is missing.
-      content: *ref_154
+      content: *ref_153
   examples:
     get-payment:
       summary: The payment object
       value: *ref_26
     cancel-payment:
       summary: The canceled payment object
-      value: *ref_155
+      value: *ref_154
     get-method:
       summary: The payment method object
       value: *ref_34
@@ -36700,7 +36724,7 @@ components:
       value: *ref_77
   requestBodies:
     requestBody:
-      content: *ref_156
+      content: *ref_155
 x-speakeasy-retries:
   strategy: backoff
   backoff:

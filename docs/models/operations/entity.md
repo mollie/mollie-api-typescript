@@ -3,15 +3,18 @@
 
 ## Supported Types
 
-### `operations.GetWebhookEventPaymentLink`
+### `operations.GetWebhookEventPaymentLinkOutput`
 
 ```typescript
-const value: operations.GetWebhookEventPaymentLink = {
+const value: operations.GetWebhookEventPaymentLinkOutput = {
   resource: "payment-link",
   id: "pl_d9fQur83kFdhH8hIhaZfq",
   mode: "live",
   description: "Chess Board",
-  amount: null,
+  amount: {
+    currency: "EUR",
+    value: "10.00",
+  },
   minimumAmount: {
     currency: "EUR",
     value: "10.00",

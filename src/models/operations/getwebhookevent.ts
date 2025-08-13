@@ -896,7 +896,7 @@ export type EntityLinks1 = {
   paymentLink: GetWebhookEventLinksPaymentLink;
 };
 
-export type GetWebhookEventPaymentLink = {
+export type GetWebhookEventPaymentLinkOutput = {
   /**
    * Indicates the response contains a payment link object. Will always contain the string `payment-link` for this
    *
@@ -1073,13 +1073,16 @@ export type GetWebhookEventPaymentLink = {
   links: EntityLinks1;
 };
 
-export type Entity = GetWebhookEventPaymentLink | GetWebhookEventProfile;
+export type Entity = GetWebhookEventPaymentLinkOutput | GetWebhookEventProfile;
 
 /**
  * Full payload of the event.
  */
 export type GetWebhookEventEmbedded = {
-  entity?: GetWebhookEventPaymentLink | GetWebhookEventProfile | undefined;
+  entity?:
+    | GetWebhookEventPaymentLinkOutput
+    | GetWebhookEventProfile
+    | undefined;
 };
 
 /**
@@ -3092,8 +3095,8 @@ export function entityLinks1FromJSON(
 }
 
 /** @internal */
-export const GetWebhookEventPaymentLink$inboundSchema: z.ZodType<
-  GetWebhookEventPaymentLink,
+export const GetWebhookEventPaymentLinkOutput$inboundSchema: z.ZodType<
+  GetWebhookEventPaymentLinkOutput,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -3133,7 +3136,7 @@ export const GetWebhookEventPaymentLink$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type GetWebhookEventPaymentLink$Outbound = {
+export type GetWebhookEventPaymentLinkOutput$Outbound = {
   resource: string;
   id: string;
   mode: string;
@@ -3159,10 +3162,10 @@ export type GetWebhookEventPaymentLink$Outbound = {
 };
 
 /** @internal */
-export const GetWebhookEventPaymentLink$outboundSchema: z.ZodType<
-  GetWebhookEventPaymentLink$Outbound,
+export const GetWebhookEventPaymentLinkOutput$outboundSchema: z.ZodType<
+  GetWebhookEventPaymentLinkOutput$Outbound,
   z.ZodTypeDef,
-  GetWebhookEventPaymentLink
+  GetWebhookEventPaymentLinkOutput
 > = z.object({
   resource: z.string(),
   id: z.string(),
@@ -3203,43 +3206,45 @@ export const GetWebhookEventPaymentLink$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace GetWebhookEventPaymentLink$ {
-  /** @deprecated use `GetWebhookEventPaymentLink$inboundSchema` instead. */
-  export const inboundSchema = GetWebhookEventPaymentLink$inboundSchema;
-  /** @deprecated use `GetWebhookEventPaymentLink$outboundSchema` instead. */
-  export const outboundSchema = GetWebhookEventPaymentLink$outboundSchema;
-  /** @deprecated use `GetWebhookEventPaymentLink$Outbound` instead. */
-  export type Outbound = GetWebhookEventPaymentLink$Outbound;
+export namespace GetWebhookEventPaymentLinkOutput$ {
+  /** @deprecated use `GetWebhookEventPaymentLinkOutput$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookEventPaymentLinkOutput$inboundSchema;
+  /** @deprecated use `GetWebhookEventPaymentLinkOutput$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookEventPaymentLinkOutput$outboundSchema;
+  /** @deprecated use `GetWebhookEventPaymentLinkOutput$Outbound` instead. */
+  export type Outbound = GetWebhookEventPaymentLinkOutput$Outbound;
 }
 
-export function getWebhookEventPaymentLinkToJSON(
-  getWebhookEventPaymentLink: GetWebhookEventPaymentLink,
+export function getWebhookEventPaymentLinkOutputToJSON(
+  getWebhookEventPaymentLinkOutput: GetWebhookEventPaymentLinkOutput,
 ): string {
   return JSON.stringify(
-    GetWebhookEventPaymentLink$outboundSchema.parse(getWebhookEventPaymentLink),
+    GetWebhookEventPaymentLinkOutput$outboundSchema.parse(
+      getWebhookEventPaymentLinkOutput,
+    ),
   );
 }
 
-export function getWebhookEventPaymentLinkFromJSON(
+export function getWebhookEventPaymentLinkOutputFromJSON(
   jsonString: string,
-): SafeParseResult<GetWebhookEventPaymentLink, SDKValidationError> {
+): SafeParseResult<GetWebhookEventPaymentLinkOutput, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => GetWebhookEventPaymentLink$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetWebhookEventPaymentLink' from JSON`,
+    (x) => GetWebhookEventPaymentLinkOutput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebhookEventPaymentLinkOutput' from JSON`,
   );
 }
 
 /** @internal */
 export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
   .union([
-    z.lazy(() => GetWebhookEventPaymentLink$inboundSchema),
+    z.lazy(() => GetWebhookEventPaymentLinkOutput$inboundSchema),
     z.lazy(() => GetWebhookEventProfile$inboundSchema),
   ]);
 
 /** @internal */
 export type Entity$Outbound =
-  | GetWebhookEventPaymentLink$Outbound
+  | GetWebhookEventPaymentLinkOutput$Outbound
   | GetWebhookEventProfile$Outbound;
 
 /** @internal */
@@ -3248,7 +3253,7 @@ export const Entity$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Entity
 > = z.union([
-  z.lazy(() => GetWebhookEventPaymentLink$outboundSchema),
+  z.lazy(() => GetWebhookEventPaymentLinkOutput$outboundSchema),
   z.lazy(() => GetWebhookEventProfile$outboundSchema),
 ]);
 
@@ -3286,7 +3291,7 @@ export const GetWebhookEventEmbedded$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   entity: z.union([
-    z.lazy(() => GetWebhookEventPaymentLink$inboundSchema),
+    z.lazy(() => GetWebhookEventPaymentLinkOutput$inboundSchema),
     z.lazy(() => GetWebhookEventProfile$inboundSchema),
   ]).optional(),
 });
@@ -3294,7 +3299,7 @@ export const GetWebhookEventEmbedded$inboundSchema: z.ZodType<
 /** @internal */
 export type GetWebhookEventEmbedded$Outbound = {
   entity?:
-    | GetWebhookEventPaymentLink$Outbound
+    | GetWebhookEventPaymentLinkOutput$Outbound
     | GetWebhookEventProfile$Outbound
     | undefined;
 };
@@ -3306,7 +3311,7 @@ export const GetWebhookEventEmbedded$outboundSchema: z.ZodType<
   GetWebhookEventEmbedded
 > = z.object({
   entity: z.union([
-    z.lazy(() => GetWebhookEventPaymentLink$outboundSchema),
+    z.lazy(() => GetWebhookEventPaymentLinkOutput$outboundSchema),
     z.lazy(() => GetWebhookEventProfile$outboundSchema),
   ]).optional(),
 });
