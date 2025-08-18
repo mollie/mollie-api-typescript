@@ -738,17 +738,15 @@ export const CancelPaymentMethod = {
  */
 export type CancelPaymentMethod = ClosedEnum<typeof CancelPaymentMethod>;
 
-export type CancelPaymentMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type CancelPaymentMetadataUnion =
-  | CancelPaymentMetadata
+export type CancelPaymentMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -1572,7 +1570,7 @@ export type CancelPaymentResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: CancelPaymentMetadata | string | Array<string> | null | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
@@ -3268,17 +3266,20 @@ export const CancelPaymentMetadata$inboundSchema: z.ZodType<
   CancelPaymentMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CancelPaymentMetadata$Outbound = {};
+export type CancelPaymentMetadata$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const CancelPaymentMetadata$outboundSchema: z.ZodType<
   CancelPaymentMetadata$Outbound,
   z.ZodTypeDef,
   CancelPaymentMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -3308,65 +3309,6 @@ export function cancelPaymentMetadataFromJSON(
     jsonString,
     (x) => CancelPaymentMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CancelPaymentMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const CancelPaymentMetadataUnion$inboundSchema: z.ZodType<
-  CancelPaymentMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CancelPaymentMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CancelPaymentMetadataUnion$Outbound =
-  | CancelPaymentMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CancelPaymentMetadataUnion$outboundSchema: z.ZodType<
-  CancelPaymentMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  CancelPaymentMetadataUnion
-> = z.union([
-  z.lazy(() => CancelPaymentMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelPaymentMetadataUnion$ {
-  /** @deprecated use `CancelPaymentMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = CancelPaymentMetadataUnion$inboundSchema;
-  /** @deprecated use `CancelPaymentMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = CancelPaymentMetadataUnion$outboundSchema;
-  /** @deprecated use `CancelPaymentMetadataUnion$Outbound` instead. */
-  export type Outbound = CancelPaymentMetadataUnion$Outbound;
-}
-
-export function cancelPaymentMetadataUnionToJSON(
-  cancelPaymentMetadataUnion: CancelPaymentMetadataUnion,
-): string {
-  return JSON.stringify(
-    CancelPaymentMetadataUnion$outboundSchema.parse(cancelPaymentMetadataUnion),
-  );
-}
-
-export function cancelPaymentMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelPaymentMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelPaymentMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelPaymentMetadataUnion' from JSON`,
   );
 }
 
@@ -5021,11 +4963,7 @@ export const CancelPaymentResponse$inboundSchema: z.ZodType<
   method: z.nullable(CancelPaymentMethod$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CancelPaymentMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(CancelPaymentCaptureMode$inboundSchema).optional(),
   captureDelay: z.nullable(z.string()).optional(),
@@ -5084,12 +5022,7 @@ export type CancelPaymentResponse$Outbound = {
   countryCode?: string | null | undefined;
   method?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
-  metadata?:
-    | CancelPaymentMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
@@ -5151,11 +5084,7 @@ export const CancelPaymentResponse$outboundSchema: z.ZodType<
   method: z.nullable(CancelPaymentMethod$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CancelPaymentMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(CancelPaymentCaptureMode$outboundSchema).optional(),
   captureDelay: z.nullable(z.string()).optional(),

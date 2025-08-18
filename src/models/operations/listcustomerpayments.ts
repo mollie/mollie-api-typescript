@@ -779,17 +779,15 @@ export type ListCustomerPaymentsMethod = ClosedEnum<
   typeof ListCustomerPaymentsMethod
 >;
 
-export type ListCustomerPaymentsMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type ListCustomerPaymentsMetadataUnion =
-  | ListCustomerPaymentsMetadata
+export type ListCustomerPaymentsMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -1612,12 +1610,7 @@ export type ListCustomerPaymentsPaymentOutput = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | ListCustomerPaymentsMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
@@ -3313,17 +3306,19 @@ export const ListCustomerPaymentsMetadata$inboundSchema: z.ZodType<
   ListCustomerPaymentsMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type ListCustomerPaymentsMetadata$Outbound = {};
+export type ListCustomerPaymentsMetadata$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const ListCustomerPaymentsMetadata$outboundSchema: z.ZodType<
   ListCustomerPaymentsMetadata$Outbound,
   z.ZodTypeDef,
   ListCustomerPaymentsMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -3355,68 +3350,6 @@ export function listCustomerPaymentsMetadataFromJSON(
     jsonString,
     (x) => ListCustomerPaymentsMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCustomerPaymentsMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListCustomerPaymentsMetadataUnion$inboundSchema: z.ZodType<
-  ListCustomerPaymentsMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListCustomerPaymentsMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type ListCustomerPaymentsMetadataUnion$Outbound =
-  | ListCustomerPaymentsMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const ListCustomerPaymentsMetadataUnion$outboundSchema: z.ZodType<
-  ListCustomerPaymentsMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  ListCustomerPaymentsMetadataUnion
-> = z.union([
-  z.lazy(() => ListCustomerPaymentsMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCustomerPaymentsMetadataUnion$ {
-  /** @deprecated use `ListCustomerPaymentsMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = ListCustomerPaymentsMetadataUnion$inboundSchema;
-  /** @deprecated use `ListCustomerPaymentsMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    ListCustomerPaymentsMetadataUnion$outboundSchema;
-  /** @deprecated use `ListCustomerPaymentsMetadataUnion$Outbound` instead. */
-  export type Outbound = ListCustomerPaymentsMetadataUnion$Outbound;
-}
-
-export function listCustomerPaymentsMetadataUnionToJSON(
-  listCustomerPaymentsMetadataUnion: ListCustomerPaymentsMetadataUnion,
-): string {
-  return JSON.stringify(
-    ListCustomerPaymentsMetadataUnion$outboundSchema.parse(
-      listCustomerPaymentsMetadataUnion,
-    ),
-  );
-}
-
-export function listCustomerPaymentsMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListCustomerPaymentsMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListCustomerPaymentsMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListCustomerPaymentsMetadataUnion' from JSON`,
   );
 }
 
@@ -5161,11 +5094,7 @@ export const ListCustomerPaymentsPaymentOutput$inboundSchema: z.ZodType<
   method: z.nullable(ListCustomerPaymentsMethod$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListCustomerPaymentsMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(ListCustomerPaymentsCaptureMode$inboundSchema)
     .optional(),
@@ -5228,12 +5157,7 @@ export type ListCustomerPaymentsPaymentOutput$Outbound = {
   countryCode?: string | null | undefined;
   method?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
-  metadata?:
-    | ListCustomerPaymentsMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
@@ -5306,11 +5230,7 @@ export const ListCustomerPaymentsPaymentOutput$outboundSchema: z.ZodType<
   method: z.nullable(ListCustomerPaymentsMethod$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListCustomerPaymentsMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(ListCustomerPaymentsCaptureMode$outboundSchema)
     .optional(),

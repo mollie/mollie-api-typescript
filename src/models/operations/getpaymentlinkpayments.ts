@@ -769,17 +769,15 @@ export type GetPaymentLinkPaymentsMethod = ClosedEnum<
   typeof GetPaymentLinkPaymentsMethod
 >;
 
-export type GetPaymentLinkPaymentsMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type GetPaymentLinkPaymentsMetadataUnion =
-  | GetPaymentLinkPaymentsMetadata
+export type GetPaymentLinkPaymentsMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -1602,12 +1600,7 @@ export type GetPaymentLinkPaymentsPaymentOutput = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | GetPaymentLinkPaymentsMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
@@ -3315,17 +3308,19 @@ export const GetPaymentLinkPaymentsMetadata$inboundSchema: z.ZodType<
   GetPaymentLinkPaymentsMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type GetPaymentLinkPaymentsMetadata$Outbound = {};
+export type GetPaymentLinkPaymentsMetadata$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const GetPaymentLinkPaymentsMetadata$outboundSchema: z.ZodType<
   GetPaymentLinkPaymentsMetadata$Outbound,
   z.ZodTypeDef,
   GetPaymentLinkPaymentsMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -3357,70 +3352,6 @@ export function getPaymentLinkPaymentsMetadataFromJSON(
     jsonString,
     (x) => GetPaymentLinkPaymentsMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetPaymentLinkPaymentsMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetPaymentLinkPaymentsMetadataUnion$inboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => GetPaymentLinkPaymentsMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type GetPaymentLinkPaymentsMetadataUnion$Outbound =
-  | GetPaymentLinkPaymentsMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const GetPaymentLinkPaymentsMetadataUnion$outboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  GetPaymentLinkPaymentsMetadataUnion
-> = z.union([
-  z.lazy(() => GetPaymentLinkPaymentsMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentLinkPaymentsMetadataUnion$ {
-  /** @deprecated use `GetPaymentLinkPaymentsMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    GetPaymentLinkPaymentsMetadataUnion$inboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    GetPaymentLinkPaymentsMetadataUnion$outboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsMetadataUnion$Outbound` instead. */
-  export type Outbound = GetPaymentLinkPaymentsMetadataUnion$Outbound;
-}
-
-export function getPaymentLinkPaymentsMetadataUnionToJSON(
-  getPaymentLinkPaymentsMetadataUnion: GetPaymentLinkPaymentsMetadataUnion,
-): string {
-  return JSON.stringify(
-    GetPaymentLinkPaymentsMetadataUnion$outboundSchema.parse(
-      getPaymentLinkPaymentsMetadataUnion,
-    ),
-  );
-}
-
-export function getPaymentLinkPaymentsMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPaymentLinkPaymentsMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetPaymentLinkPaymentsMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPaymentLinkPaymentsMetadataUnion' from JSON`,
   );
 }
 
@@ -5208,11 +5139,7 @@ export const GetPaymentLinkPaymentsPaymentOutput$inboundSchema: z.ZodType<
   method: z.nullable(GetPaymentLinkPaymentsMethod$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => GetPaymentLinkPaymentsMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(GetPaymentLinkPaymentsCaptureMode$inboundSchema)
     .optional(),
@@ -5277,12 +5204,7 @@ export type GetPaymentLinkPaymentsPaymentOutput$Outbound = {
   countryCode?: string | null | undefined;
   method?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
-  metadata?:
-    | GetPaymentLinkPaymentsMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
@@ -5355,11 +5277,7 @@ export const GetPaymentLinkPaymentsPaymentOutput$outboundSchema: z.ZodType<
   method: z.nullable(GetPaymentLinkPaymentsMethod$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => GetPaymentLinkPaymentsMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(GetPaymentLinkPaymentsCaptureMode$outboundSchema)
     .optional(),

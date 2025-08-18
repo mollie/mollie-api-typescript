@@ -126,15 +126,13 @@ export type GetRefundSettlementAmount = {
   value: string;
 };
 
-export type GetRefundMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type GetRefundMetadataUnion = GetRefundMetadata | string | Array<string>;
+export type GetRefundMetadata = string | { [k: string]: any } | Array<string>;
 
 /**
  * Refunds may take some time to get confirmed.
@@ -350,7 +348,7 @@ export type GetRefundResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: GetRefundMetadata | string | Array<string> | null | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * The unique identifier of the payment this refund was created for.
    *
@@ -725,17 +723,20 @@ export const GetRefundMetadata$inboundSchema: z.ZodType<
   GetRefundMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type GetRefundMetadata$Outbound = {};
+export type GetRefundMetadata$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const GetRefundMetadata$outboundSchema: z.ZodType<
   GetRefundMetadata$Outbound,
   z.ZodTypeDef,
   GetRefundMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -765,65 +766,6 @@ export function getRefundMetadataFromJSON(
     jsonString,
     (x) => GetRefundMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetRefundMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetRefundMetadataUnion$inboundSchema: z.ZodType<
-  GetRefundMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => GetRefundMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type GetRefundMetadataUnion$Outbound =
-  | GetRefundMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const GetRefundMetadataUnion$outboundSchema: z.ZodType<
-  GetRefundMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  GetRefundMetadataUnion
-> = z.union([
-  z.lazy(() => GetRefundMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetRefundMetadataUnion$ {
-  /** @deprecated use `GetRefundMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = GetRefundMetadataUnion$inboundSchema;
-  /** @deprecated use `GetRefundMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = GetRefundMetadataUnion$outboundSchema;
-  /** @deprecated use `GetRefundMetadataUnion$Outbound` instead. */
-  export type Outbound = GetRefundMetadataUnion$Outbound;
-}
-
-export function getRefundMetadataUnionToJSON(
-  getRefundMetadataUnion: GetRefundMetadataUnion,
-): string {
-  return JSON.stringify(
-    GetRefundMetadataUnion$outboundSchema.parse(getRefundMetadataUnion),
-  );
-}
-
-export function getRefundMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<GetRefundMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetRefundMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetRefundMetadataUnion' from JSON`,
   );
 }
 
@@ -1395,11 +1337,7 @@ export const GetRefundResponse$inboundSchema: z.ZodType<
     z.lazy(() => GetRefundSettlementAmount$inboundSchema),
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => GetRefundMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
@@ -1425,12 +1363,7 @@ export type GetRefundResponse$Outbound = {
   description?: string | undefined;
   amount?: GetRefundAmount$Outbound | undefined;
   settlementAmount?: GetRefundSettlementAmount$Outbound | null | undefined;
-  metadata?:
-    | GetRefundMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   paymentId?: string | undefined;
   settlementId?: string | null | undefined;
   status?: string | undefined;
@@ -1458,11 +1391,7 @@ export const GetRefundResponse$outboundSchema: z.ZodType<
     z.lazy(() => GetRefundSettlementAmount$outboundSchema),
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => GetRefundMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),

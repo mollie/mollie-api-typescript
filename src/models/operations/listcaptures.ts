@@ -151,17 +151,15 @@ export const ListCapturesStatus = {
  */
 export type ListCapturesStatus = ClosedEnum<typeof ListCapturesStatus>;
 
-export type ListCapturesMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type ListCapturesMetadataUnion =
-  | ListCapturesMetadata
+export type ListCapturesMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -314,7 +312,7 @@ export type ListCapturesCapture = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: ListCapturesMetadata | string | Array<string> | null | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    *
@@ -938,17 +936,20 @@ export const ListCapturesMetadata$inboundSchema: z.ZodType<
   ListCapturesMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type ListCapturesMetadata$Outbound = {};
+export type ListCapturesMetadata$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const ListCapturesMetadata$outboundSchema: z.ZodType<
   ListCapturesMetadata$Outbound,
   z.ZodTypeDef,
   ListCapturesMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -978,65 +979,6 @@ export function listCapturesMetadataFromJSON(
     jsonString,
     (x) => ListCapturesMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCapturesMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListCapturesMetadataUnion$inboundSchema: z.ZodType<
-  ListCapturesMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListCapturesMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type ListCapturesMetadataUnion$Outbound =
-  | ListCapturesMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const ListCapturesMetadataUnion$outboundSchema: z.ZodType<
-  ListCapturesMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  ListCapturesMetadataUnion
-> = z.union([
-  z.lazy(() => ListCapturesMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapturesMetadataUnion$ {
-  /** @deprecated use `ListCapturesMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = ListCapturesMetadataUnion$inboundSchema;
-  /** @deprecated use `ListCapturesMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = ListCapturesMetadataUnion$outboundSchema;
-  /** @deprecated use `ListCapturesMetadataUnion$Outbound` instead. */
-  export type Outbound = ListCapturesMetadataUnion$Outbound;
-}
-
-export function listCapturesMetadataUnionToJSON(
-  listCapturesMetadataUnion: ListCapturesMetadataUnion,
-): string {
-  return JSON.stringify(
-    ListCapturesMetadataUnion$outboundSchema.parse(listCapturesMetadataUnion),
-  );
-}
-
-export function listCapturesMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListCapturesMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListCapturesMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListCapturesMetadataUnion' from JSON`,
   );
 }
 
@@ -1413,11 +1355,7 @@ export const ListCapturesCapture$inboundSchema: z.ZodType<
   ).optional(),
   status: ListCapturesStatus$inboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListCapturesMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),
@@ -1439,12 +1377,7 @@ export type ListCapturesCapture$Outbound = {
   amount: ListCapturesAmount$Outbound | null;
   settlementAmount?: ListCapturesSettlementAmount$Outbound | null | undefined;
   status: string;
-  metadata?:
-    | ListCapturesMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   paymentId: string;
   shipmentId?: string | null | undefined;
   settlementId?: string | null | undefined;
@@ -1468,11 +1401,7 @@ export const ListCapturesCapture$outboundSchema: z.ZodType<
   ).optional(),
   status: ListCapturesStatus$outboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListCapturesMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),

@@ -26,17 +26,15 @@ export type CreateRefundAmountRequest = {
   value: string;
 };
 
-export type CreateRefundMetadataRequest = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type CreateRefundMetadataRequestUnion =
-  | CreateRefundMetadataRequest
+export type CreateRefundMetadataRequest =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -134,12 +132,7 @@ export type CreateRefundRequestBody = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | CreateRefundMetadataRequest
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   externalReference?: ExternalReferenceRequest | undefined;
   /**
    * *This feature is only available to marketplace operators.*
@@ -292,17 +285,15 @@ export type CreateRefundSettlementAmount = {
   value: string;
 };
 
-export type CreateRefundMetadataResponse = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type CreateRefundMetadataResponseUnion =
-  | CreateRefundMetadataResponse
+export type CreateRefundMetadataResponse =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -521,12 +512,7 @@ export type CreateRefundResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | CreateRefundMetadataResponse
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * The unique identifier of the payment this refund was created for.
    *
@@ -631,17 +617,20 @@ export const CreateRefundMetadataRequest$inboundSchema: z.ZodType<
   CreateRefundMetadataRequest,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateRefundMetadataRequest$Outbound = {};
+export type CreateRefundMetadataRequest$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const CreateRefundMetadataRequest$outboundSchema: z.ZodType<
   CreateRefundMetadataRequest$Outbound,
   z.ZodTypeDef,
   CreateRefundMetadataRequest
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -673,67 +662,6 @@ export function createRefundMetadataRequestFromJSON(
     jsonString,
     (x) => CreateRefundMetadataRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateRefundMetadataRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateRefundMetadataRequestUnion$inboundSchema: z.ZodType<
-  CreateRefundMetadataRequestUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateRefundMetadataRequest$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateRefundMetadataRequestUnion$Outbound =
-  | CreateRefundMetadataRequest$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateRefundMetadataRequestUnion$outboundSchema: z.ZodType<
-  CreateRefundMetadataRequestUnion$Outbound,
-  z.ZodTypeDef,
-  CreateRefundMetadataRequestUnion
-> = z.union([
-  z.lazy(() => CreateRefundMetadataRequest$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateRefundMetadataRequestUnion$ {
-  /** @deprecated use `CreateRefundMetadataRequestUnion$inboundSchema` instead. */
-  export const inboundSchema = CreateRefundMetadataRequestUnion$inboundSchema;
-  /** @deprecated use `CreateRefundMetadataRequestUnion$outboundSchema` instead. */
-  export const outboundSchema = CreateRefundMetadataRequestUnion$outboundSchema;
-  /** @deprecated use `CreateRefundMetadataRequestUnion$Outbound` instead. */
-  export type Outbound = CreateRefundMetadataRequestUnion$Outbound;
-}
-
-export function createRefundMetadataRequestUnionToJSON(
-  createRefundMetadataRequestUnion: CreateRefundMetadataRequestUnion,
-): string {
-  return JSON.stringify(
-    CreateRefundMetadataRequestUnion$outboundSchema.parse(
-      createRefundMetadataRequestUnion,
-    ),
-  );
-}
-
-export function createRefundMetadataRequestUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateRefundMetadataRequestUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateRefundMetadataRequestUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateRefundMetadataRequestUnion' from JSON`,
   );
 }
 
@@ -1018,11 +946,7 @@ export const CreateRefundRequestBody$inboundSchema: z.ZodType<
   description: z.string().optional(),
   amount: z.lazy(() => CreateRefundAmountRequest$inboundSchema),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateRefundMetadataRequest$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   externalReference: z.lazy(() => ExternalReferenceRequest$inboundSchema)
     .optional(),
@@ -1037,12 +961,7 @@ export const CreateRefundRequestBody$inboundSchema: z.ZodType<
 export type CreateRefundRequestBody$Outbound = {
   description?: string | undefined;
   amount: CreateRefundAmountRequest$Outbound;
-  metadata?:
-    | CreateRefundMetadataRequest$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   externalReference?: ExternalReferenceRequest$Outbound | undefined;
   reverseRouting?: boolean | null | undefined;
   routingReversals?: Array<RoutingReversalRequest$Outbound> | null | undefined;
@@ -1058,11 +977,7 @@ export const CreateRefundRequestBody$outboundSchema: z.ZodType<
   description: z.string().optional(),
   amount: z.lazy(() => CreateRefundAmountRequest$outboundSchema),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateRefundMetadataRequest$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   externalReference: z.lazy(() => ExternalReferenceRequest$outboundSchema)
     .optional(),
@@ -1665,17 +1580,19 @@ export const CreateRefundMetadataResponse$inboundSchema: z.ZodType<
   CreateRefundMetadataResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateRefundMetadataResponse$Outbound = {};
+export type CreateRefundMetadataResponse$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const CreateRefundMetadataResponse$outboundSchema: z.ZodType<
   CreateRefundMetadataResponse$Outbound,
   z.ZodTypeDef,
   CreateRefundMetadataResponse
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1707,68 +1624,6 @@ export function createRefundMetadataResponseFromJSON(
     jsonString,
     (x) => CreateRefundMetadataResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateRefundMetadataResponse' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateRefundMetadataResponseUnion$inboundSchema: z.ZodType<
-  CreateRefundMetadataResponseUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateRefundMetadataResponse$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateRefundMetadataResponseUnion$Outbound =
-  | CreateRefundMetadataResponse$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateRefundMetadataResponseUnion$outboundSchema: z.ZodType<
-  CreateRefundMetadataResponseUnion$Outbound,
-  z.ZodTypeDef,
-  CreateRefundMetadataResponseUnion
-> = z.union([
-  z.lazy(() => CreateRefundMetadataResponse$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateRefundMetadataResponseUnion$ {
-  /** @deprecated use `CreateRefundMetadataResponseUnion$inboundSchema` instead. */
-  export const inboundSchema = CreateRefundMetadataResponseUnion$inboundSchema;
-  /** @deprecated use `CreateRefundMetadataResponseUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateRefundMetadataResponseUnion$outboundSchema;
-  /** @deprecated use `CreateRefundMetadataResponseUnion$Outbound` instead. */
-  export type Outbound = CreateRefundMetadataResponseUnion$Outbound;
-}
-
-export function createRefundMetadataResponseUnionToJSON(
-  createRefundMetadataResponseUnion: CreateRefundMetadataResponseUnion,
-): string {
-  return JSON.stringify(
-    CreateRefundMetadataResponseUnion$outboundSchema.parse(
-      createRefundMetadataResponseUnion,
-    ),
-  );
-}
-
-export function createRefundMetadataResponseUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateRefundMetadataResponseUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateRefundMetadataResponseUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateRefundMetadataResponseUnion' from JSON`,
   );
 }
 
@@ -2371,11 +2226,7 @@ export const CreateRefundResponse$inboundSchema: z.ZodType<
     z.lazy(() => CreateRefundSettlementAmount$inboundSchema),
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateRefundMetadataResponse$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
@@ -2402,12 +2253,7 @@ export type CreateRefundResponse$Outbound = {
   description?: string | undefined;
   amount?: CreateRefundAmountResponse$Outbound | undefined;
   settlementAmount?: CreateRefundSettlementAmount$Outbound | null | undefined;
-  metadata?:
-    | CreateRefundMetadataResponse$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   paymentId?: string | undefined;
   settlementId?: string | null | undefined;
   status?: string | undefined;
@@ -2437,11 +2283,7 @@ export const CreateRefundResponse$outboundSchema: z.ZodType<
     z.lazy(() => CreateRefundSettlementAmount$outboundSchema),
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateRefundMetadataResponse$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),

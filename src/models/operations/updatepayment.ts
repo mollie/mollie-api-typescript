@@ -9,17 +9,15 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type UpdatePaymentMetadataRequest = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type UpdatePaymentMetadataRequestUnion =
-  | UpdatePaymentMetadataRequest
+export type UpdatePaymentMetadataRequest =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -344,12 +342,7 @@ export type UpdatePaymentRequestBody = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | UpdatePaymentMetadataRequest
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
    *
@@ -1138,17 +1131,15 @@ export type UpdatePaymentMethodResponse = ClosedEnum<
   typeof UpdatePaymentMethodResponse
 >;
 
-export type UpdatePaymentMetadataResponse = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type UpdatePaymentMetadataResponseUnion =
-  | UpdatePaymentMetadataResponse
+export type UpdatePaymentMetadataResponse =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -1972,12 +1963,7 @@ export type UpdatePaymentResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | UpdatePaymentMetadataResponse
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
@@ -2198,17 +2184,19 @@ export const UpdatePaymentMetadataRequest$inboundSchema: z.ZodType<
   UpdatePaymentMetadataRequest,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type UpdatePaymentMetadataRequest$Outbound = {};
+export type UpdatePaymentMetadataRequest$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const UpdatePaymentMetadataRequest$outboundSchema: z.ZodType<
   UpdatePaymentMetadataRequest$Outbound,
   z.ZodTypeDef,
   UpdatePaymentMetadataRequest
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -2240,68 +2228,6 @@ export function updatePaymentMetadataRequestFromJSON(
     jsonString,
     (x) => UpdatePaymentMetadataRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdatePaymentMetadataRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdatePaymentMetadataRequestUnion$inboundSchema: z.ZodType<
-  UpdatePaymentMetadataRequestUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => UpdatePaymentMetadataRequest$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type UpdatePaymentMetadataRequestUnion$Outbound =
-  | UpdatePaymentMetadataRequest$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const UpdatePaymentMetadataRequestUnion$outboundSchema: z.ZodType<
-  UpdatePaymentMetadataRequestUnion$Outbound,
-  z.ZodTypeDef,
-  UpdatePaymentMetadataRequestUnion
-> = z.union([
-  z.lazy(() => UpdatePaymentMetadataRequest$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePaymentMetadataRequestUnion$ {
-  /** @deprecated use `UpdatePaymentMetadataRequestUnion$inboundSchema` instead. */
-  export const inboundSchema = UpdatePaymentMetadataRequestUnion$inboundSchema;
-  /** @deprecated use `UpdatePaymentMetadataRequestUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdatePaymentMetadataRequestUnion$outboundSchema;
-  /** @deprecated use `UpdatePaymentMetadataRequestUnion$Outbound` instead. */
-  export type Outbound = UpdatePaymentMetadataRequestUnion$Outbound;
-}
-
-export function updatePaymentMetadataRequestUnionToJSON(
-  updatePaymentMetadataRequestUnion: UpdatePaymentMetadataRequestUnion,
-): string {
-  return JSON.stringify(
-    UpdatePaymentMetadataRequestUnion$outboundSchema.parse(
-      updatePaymentMetadataRequestUnion,
-    ),
-  );
-}
-
-export function updatePaymentMetadataRequestUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePaymentMetadataRequestUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePaymentMetadataRequestUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePaymentMetadataRequestUnion' from JSON`,
   );
 }
 
@@ -2541,11 +2467,7 @@ export const UpdatePaymentRequestBody$inboundSchema: z.ZodType<
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdatePaymentMetadataRequest$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   method: z.nullable(UpdatePaymentMethodRequest$inboundSchema).optional(),
   locale: UpdatePaymentLocaleRequest$inboundSchema.optional(),
@@ -2567,12 +2489,7 @@ export type UpdatePaymentRequestBody$Outbound = {
   redirectUrl?: string | null | undefined;
   cancelUrl?: string | null | undefined;
   webhookUrl?: string | null | undefined;
-  metadata?:
-    | UpdatePaymentMetadataRequest$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   method?: string | null | undefined;
   locale?: string | undefined;
   dueDate?: string | undefined;
@@ -2595,11 +2512,7 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdatePaymentMetadataRequest$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   method: z.nullable(UpdatePaymentMethodRequest$outboundSchema).optional(),
   locale: UpdatePaymentLocaleRequest$outboundSchema.optional(),
@@ -4079,17 +3992,19 @@ export const UpdatePaymentMetadataResponse$inboundSchema: z.ZodType<
   UpdatePaymentMetadataResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type UpdatePaymentMetadataResponse$Outbound = {};
+export type UpdatePaymentMetadataResponse$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const UpdatePaymentMetadataResponse$outboundSchema: z.ZodType<
   UpdatePaymentMetadataResponse$Outbound,
   z.ZodTypeDef,
   UpdatePaymentMetadataResponse
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -4121,69 +4036,6 @@ export function updatePaymentMetadataResponseFromJSON(
     jsonString,
     (x) => UpdatePaymentMetadataResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdatePaymentMetadataResponse' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdatePaymentMetadataResponseUnion$inboundSchema: z.ZodType<
-  UpdatePaymentMetadataResponseUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => UpdatePaymentMetadataResponse$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type UpdatePaymentMetadataResponseUnion$Outbound =
-  | UpdatePaymentMetadataResponse$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const UpdatePaymentMetadataResponseUnion$outboundSchema: z.ZodType<
-  UpdatePaymentMetadataResponseUnion$Outbound,
-  z.ZodTypeDef,
-  UpdatePaymentMetadataResponseUnion
-> = z.union([
-  z.lazy(() => UpdatePaymentMetadataResponse$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePaymentMetadataResponseUnion$ {
-  /** @deprecated use `UpdatePaymentMetadataResponseUnion$inboundSchema` instead. */
-  export const inboundSchema = UpdatePaymentMetadataResponseUnion$inboundSchema;
-  /** @deprecated use `UpdatePaymentMetadataResponseUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdatePaymentMetadataResponseUnion$outboundSchema;
-  /** @deprecated use `UpdatePaymentMetadataResponseUnion$Outbound` instead. */
-  export type Outbound = UpdatePaymentMetadataResponseUnion$Outbound;
-}
-
-export function updatePaymentMetadataResponseUnionToJSON(
-  updatePaymentMetadataResponseUnion: UpdatePaymentMetadataResponseUnion,
-): string {
-  return JSON.stringify(
-    UpdatePaymentMetadataResponseUnion$outboundSchema.parse(
-      updatePaymentMetadataResponseUnion,
-    ),
-  );
-}
-
-export function updatePaymentMetadataResponseUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePaymentMetadataResponseUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdatePaymentMetadataResponseUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePaymentMetadataResponseUnion' from JSON`,
   );
 }
 
@@ -5840,11 +5692,7 @@ export const UpdatePaymentResponse$inboundSchema: z.ZodType<
   method: z.nullable(UpdatePaymentMethodResponse$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdatePaymentMetadataResponse$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(UpdatePaymentCaptureMode$inboundSchema).optional(),
   captureDelay: z.nullable(z.string()).optional(),
@@ -5903,12 +5751,7 @@ export type UpdatePaymentResponse$Outbound = {
   countryCode?: string | null | undefined;
   method?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
-  metadata?:
-    | UpdatePaymentMetadataResponse$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
@@ -5972,11 +5815,7 @@ export const UpdatePaymentResponse$outboundSchema: z.ZodType<
   method: z.nullable(UpdatePaymentMethodResponse$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdatePaymentMetadataResponse$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(UpdatePaymentCaptureMode$outboundSchema).optional(),
   captureDelay: z.nullable(z.string()).optional(),

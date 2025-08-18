@@ -129,18 +129,13 @@ export const GetCaptureStatus = {
  */
 export type GetCaptureStatus = ClosedEnum<typeof GetCaptureStatus>;
 
-export type GetCaptureMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type GetCaptureMetadataUnion =
-  | GetCaptureMetadata
-  | string
-  | Array<string>;
+export type GetCaptureMetadata = string | { [k: string]: any } | Array<string>;
 
 /**
  * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -295,7 +290,7 @@ export type GetCaptureResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: GetCaptureMetadata | string | Array<string> | null | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    *
@@ -685,17 +680,20 @@ export const GetCaptureMetadata$inboundSchema: z.ZodType<
   GetCaptureMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type GetCaptureMetadata$Outbound = {};
+export type GetCaptureMetadata$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const GetCaptureMetadata$outboundSchema: z.ZodType<
   GetCaptureMetadata$Outbound,
   z.ZodTypeDef,
   GetCaptureMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -725,65 +723,6 @@ export function getCaptureMetadataFromJSON(
     jsonString,
     (x) => GetCaptureMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetCaptureMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCaptureMetadataUnion$inboundSchema: z.ZodType<
-  GetCaptureMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => GetCaptureMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type GetCaptureMetadataUnion$Outbound =
-  | GetCaptureMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const GetCaptureMetadataUnion$outboundSchema: z.ZodType<
-  GetCaptureMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  GetCaptureMetadataUnion
-> = z.union([
-  z.lazy(() => GetCaptureMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCaptureMetadataUnion$ {
-  /** @deprecated use `GetCaptureMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = GetCaptureMetadataUnion$inboundSchema;
-  /** @deprecated use `GetCaptureMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = GetCaptureMetadataUnion$outboundSchema;
-  /** @deprecated use `GetCaptureMetadataUnion$Outbound` instead. */
-  export type Outbound = GetCaptureMetadataUnion$Outbound;
-}
-
-export function getCaptureMetadataUnionToJSON(
-  getCaptureMetadataUnion: GetCaptureMetadataUnion,
-): string {
-  return JSON.stringify(
-    GetCaptureMetadataUnion$outboundSchema.parse(getCaptureMetadataUnion),
-  );
-}
-
-export function getCaptureMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCaptureMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCaptureMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCaptureMetadataUnion' from JSON`,
   );
 }
 
@@ -1152,11 +1091,7 @@ export const GetCaptureResponse$inboundSchema: z.ZodType<
   ).optional(),
   status: GetCaptureStatus$inboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => GetCaptureMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),
@@ -1178,12 +1113,7 @@ export type GetCaptureResponse$Outbound = {
   amount: GetCaptureAmount$Outbound | null;
   settlementAmount?: GetCaptureSettlementAmount$Outbound | null | undefined;
   status: string;
-  metadata?:
-    | GetCaptureMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   paymentId: string;
   shipmentId?: string | null | undefined;
   settlementId?: string | null | undefined;
@@ -1207,11 +1137,7 @@ export const GetCaptureResponse$outboundSchema: z.ZodType<
   ).optional(),
   status: GetCaptureStatus$outboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => GetCaptureMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),

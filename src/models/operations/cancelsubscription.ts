@@ -171,8 +171,6 @@ export type CancelSubscriptionApplicationFee = {
   description: string;
 };
 
-export type CancelSubscriptionMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
@@ -182,9 +180,9 @@ export type CancelSubscriptionMetadata = {};
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
-export type CancelSubscriptionMetadataUnion =
-  | CancelSubscriptionMetadata
+export type CancelSubscriptionMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -409,7 +407,7 @@ export type CancelSubscriptionResponse = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata: CancelSubscriptionMetadata | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -966,17 +964,20 @@ export const CancelSubscriptionMetadata$inboundSchema: z.ZodType<
   CancelSubscriptionMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CancelSubscriptionMetadata$Outbound = {};
+export type CancelSubscriptionMetadata$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const CancelSubscriptionMetadata$outboundSchema: z.ZodType<
   CancelSubscriptionMetadata$Outbound,
   z.ZodTypeDef,
   CancelSubscriptionMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1006,67 +1007,6 @@ export function cancelSubscriptionMetadataFromJSON(
     jsonString,
     (x) => CancelSubscriptionMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CancelSubscriptionMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const CancelSubscriptionMetadataUnion$inboundSchema: z.ZodType<
-  CancelSubscriptionMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CancelSubscriptionMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CancelSubscriptionMetadataUnion$Outbound =
-  | CancelSubscriptionMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CancelSubscriptionMetadataUnion$outboundSchema: z.ZodType<
-  CancelSubscriptionMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  CancelSubscriptionMetadataUnion
-> = z.union([
-  z.lazy(() => CancelSubscriptionMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelSubscriptionMetadataUnion$ {
-  /** @deprecated use `CancelSubscriptionMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = CancelSubscriptionMetadataUnion$inboundSchema;
-  /** @deprecated use `CancelSubscriptionMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = CancelSubscriptionMetadataUnion$outboundSchema;
-  /** @deprecated use `CancelSubscriptionMetadataUnion$Outbound` instead. */
-  export type Outbound = CancelSubscriptionMetadataUnion$Outbound;
-}
-
-export function cancelSubscriptionMetadataUnionToJSON(
-  cancelSubscriptionMetadataUnion: CancelSubscriptionMetadataUnion,
-): string {
-  return JSON.stringify(
-    CancelSubscriptionMetadataUnion$outboundSchema.parse(
-      cancelSubscriptionMetadataUnion,
-    ),
-  );
-}
-
-export function cancelSubscriptionMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelSubscriptionMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelSubscriptionMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelSubscriptionMetadataUnion' from JSON`,
   );
 }
 
@@ -1508,11 +1448,7 @@ export const CancelSubscriptionResponse$inboundSchema: z.ZodType<
   applicationFee: z.lazy(() => CancelSubscriptionApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CancelSubscriptionMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),
@@ -1541,7 +1477,7 @@ export type CancelSubscriptionResponse$Outbound = {
   description: string;
   method: string | null;
   applicationFee?: CancelSubscriptionApplicationFee$Outbound | undefined;
-  metadata: CancelSubscriptionMetadata$Outbound | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   webhookUrl: string;
   customerId: string;
   mandateId?: string | null | undefined;
@@ -1571,11 +1507,7 @@ export const CancelSubscriptionResponse$outboundSchema: z.ZodType<
   applicationFee: z.lazy(() => CancelSubscriptionApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CancelSubscriptionMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),

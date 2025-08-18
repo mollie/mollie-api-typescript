@@ -199,8 +199,6 @@ export type ListAllSubscriptionsApplicationFee = {
   description: string;
 };
 
-export type ListAllSubscriptionsMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
@@ -210,9 +208,9 @@ export type ListAllSubscriptionsMetadata = {};
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
-export type ListAllSubscriptionsMetadataUnion =
-  | ListAllSubscriptionsMetadata
+export type ListAllSubscriptionsMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -431,7 +429,7 @@ export type ListAllSubscriptionsSubscription = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata: ListAllSubscriptionsMetadata | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -1175,17 +1173,19 @@ export const ListAllSubscriptionsMetadata$inboundSchema: z.ZodType<
   ListAllSubscriptionsMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type ListAllSubscriptionsMetadata$Outbound = {};
+export type ListAllSubscriptionsMetadata$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const ListAllSubscriptionsMetadata$outboundSchema: z.ZodType<
   ListAllSubscriptionsMetadata$Outbound,
   z.ZodTypeDef,
   ListAllSubscriptionsMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1217,68 +1217,6 @@ export function listAllSubscriptionsMetadataFromJSON(
     jsonString,
     (x) => ListAllSubscriptionsMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllSubscriptionsMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsMetadataUnion$inboundSchema: z.ZodType<
-  ListAllSubscriptionsMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListAllSubscriptionsMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type ListAllSubscriptionsMetadataUnion$Outbound =
-  | ListAllSubscriptionsMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const ListAllSubscriptionsMetadataUnion$outboundSchema: z.ZodType<
-  ListAllSubscriptionsMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsMetadataUnion
-> = z.union([
-  z.lazy(() => ListAllSubscriptionsMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsMetadataUnion$ {
-  /** @deprecated use `ListAllSubscriptionsMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsMetadataUnion$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    ListAllSubscriptionsMetadataUnion$outboundSchema;
-  /** @deprecated use `ListAllSubscriptionsMetadataUnion$Outbound` instead. */
-  export type Outbound = ListAllSubscriptionsMetadataUnion$Outbound;
-}
-
-export function listAllSubscriptionsMetadataUnionToJSON(
-  listAllSubscriptionsMetadataUnion: ListAllSubscriptionsMetadataUnion,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsMetadataUnion$outboundSchema.parse(
-      listAllSubscriptionsMetadataUnion,
-    ),
-  );
-}
-
-export function listAllSubscriptionsMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsMetadataUnion' from JSON`,
   );
 }
 
@@ -1758,11 +1696,7 @@ export const ListAllSubscriptionsSubscription$inboundSchema: z.ZodType<
   applicationFee: z.lazy(() => ListAllSubscriptionsApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListAllSubscriptionsMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),
@@ -1792,11 +1726,7 @@ export type ListAllSubscriptionsSubscription$Outbound = {
   description: string;
   method: string | null;
   applicationFee?: ListAllSubscriptionsApplicationFee$Outbound | undefined;
-  metadata:
-    | ListAllSubscriptionsMetadata$Outbound
-    | string
-    | Array<string>
-    | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   webhookUrl: string;
   customerId: string;
   mandateId?: string | null | undefined;
@@ -1827,11 +1757,7 @@ export const ListAllSubscriptionsSubscription$outboundSchema: z.ZodType<
     ListAllSubscriptionsApplicationFee$outboundSchema
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListAllSubscriptionsMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),

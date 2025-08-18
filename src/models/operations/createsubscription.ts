@@ -97,8 +97,6 @@ export type CreateSubscriptionApplicationFeeRequest = {
   description: string;
 };
 
-export type CreateSubscriptionMetadataRequest = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
@@ -108,9 +106,9 @@ export type CreateSubscriptionMetadataRequest = {};
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
-export type CreateSubscriptionMetadataRequestUnion =
-  | CreateSubscriptionMetadataRequest
+export type CreateSubscriptionMetadataRequest =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 export type CreateSubscriptionRequestBody = {
@@ -176,12 +174,7 @@ export type CreateSubscriptionRequestBody = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata?:
-    | CreateSubscriptionMetadataRequest
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -353,8 +346,6 @@ export type CreateSubscriptionApplicationFeeResponse = {
   description: string;
 };
 
-export type CreateSubscriptionMetadataResponse = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
@@ -364,9 +355,9 @@ export type CreateSubscriptionMetadataResponse = {};
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
-export type CreateSubscriptionMetadataResponseUnion =
-  | CreateSubscriptionMetadataResponse
+export type CreateSubscriptionMetadataResponse =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -588,7 +579,7 @@ export type CreateSubscriptionResponse = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata: CreateSubscriptionMetadataResponse | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -872,17 +863,19 @@ export const CreateSubscriptionMetadataRequest$inboundSchema: z.ZodType<
   CreateSubscriptionMetadataRequest,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateSubscriptionMetadataRequest$Outbound = {};
+export type CreateSubscriptionMetadataRequest$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const CreateSubscriptionMetadataRequest$outboundSchema: z.ZodType<
   CreateSubscriptionMetadataRequest$Outbound,
   z.ZodTypeDef,
   CreateSubscriptionMetadataRequest
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -919,71 +912,6 @@ export function createSubscriptionMetadataRequestFromJSON(
 }
 
 /** @internal */
-export const CreateSubscriptionMetadataRequestUnion$inboundSchema: z.ZodType<
-  CreateSubscriptionMetadataRequestUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateSubscriptionMetadataRequest$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateSubscriptionMetadataRequestUnion$Outbound =
-  | CreateSubscriptionMetadataRequest$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateSubscriptionMetadataRequestUnion$outboundSchema: z.ZodType<
-  CreateSubscriptionMetadataRequestUnion$Outbound,
-  z.ZodTypeDef,
-  CreateSubscriptionMetadataRequestUnion
-> = z.union([
-  z.lazy(() => CreateSubscriptionMetadataRequest$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateSubscriptionMetadataRequestUnion$ {
-  /** @deprecated use `CreateSubscriptionMetadataRequestUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateSubscriptionMetadataRequestUnion$inboundSchema;
-  /** @deprecated use `CreateSubscriptionMetadataRequestUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateSubscriptionMetadataRequestUnion$outboundSchema;
-  /** @deprecated use `CreateSubscriptionMetadataRequestUnion$Outbound` instead. */
-  export type Outbound = CreateSubscriptionMetadataRequestUnion$Outbound;
-}
-
-export function createSubscriptionMetadataRequestUnionToJSON(
-  createSubscriptionMetadataRequestUnion:
-    CreateSubscriptionMetadataRequestUnion,
-): string {
-  return JSON.stringify(
-    CreateSubscriptionMetadataRequestUnion$outboundSchema.parse(
-      createSubscriptionMetadataRequestUnion,
-    ),
-  );
-}
-
-export function createSubscriptionMetadataRequestUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateSubscriptionMetadataRequestUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateSubscriptionMetadataRequestUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateSubscriptionMetadataRequestUnion' from JSON`,
-  );
-}
-
-/** @internal */
 export const CreateSubscriptionRequestBody$inboundSchema: z.ZodType<
   CreateSubscriptionRequestBody,
   z.ZodTypeDef,
@@ -999,11 +927,7 @@ export const CreateSubscriptionRequestBody$inboundSchema: z.ZodType<
     CreateSubscriptionApplicationFeeRequest$inboundSchema
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateSubscriptionMetadataRequest$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.nullable(z.string()).optional(),
@@ -1019,12 +943,7 @@ export type CreateSubscriptionRequestBody$Outbound = {
   description: string;
   method?: string | null | undefined;
   applicationFee?: CreateSubscriptionApplicationFeeRequest$Outbound | undefined;
-  metadata?:
-    | CreateSubscriptionMetadataRequest$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   webhookUrl?: string | undefined;
   mandateId?: string | null | undefined;
   testmode?: boolean | null | undefined;
@@ -1046,11 +965,7 @@ export const CreateSubscriptionRequestBody$outboundSchema: z.ZodType<
     CreateSubscriptionApplicationFeeRequest$outboundSchema
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateSubscriptionMetadataRequest$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.nullable(z.string()).optional(),
@@ -1577,17 +1492,19 @@ export const CreateSubscriptionMetadataResponse$inboundSchema: z.ZodType<
   CreateSubscriptionMetadataResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateSubscriptionMetadataResponse$Outbound = {};
+export type CreateSubscriptionMetadataResponse$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const CreateSubscriptionMetadataResponse$outboundSchema: z.ZodType<
   CreateSubscriptionMetadataResponse$Outbound,
   z.ZodTypeDef,
   CreateSubscriptionMetadataResponse
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1621,76 +1538,6 @@ export function createSubscriptionMetadataResponseFromJSON(
     (x) =>
       CreateSubscriptionMetadataResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateSubscriptionMetadataResponse' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateSubscriptionMetadataResponseUnion$inboundSchema: z.ZodType<
-  CreateSubscriptionMetadataResponseUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateSubscriptionMetadataResponse$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateSubscriptionMetadataResponseUnion$Outbound =
-  | CreateSubscriptionMetadataResponse$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateSubscriptionMetadataResponseUnion$outboundSchema: z.ZodType<
-  CreateSubscriptionMetadataResponseUnion$Outbound,
-  z.ZodTypeDef,
-  CreateSubscriptionMetadataResponseUnion
-> = z.union([
-  z.lazy(() => CreateSubscriptionMetadataResponse$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateSubscriptionMetadataResponseUnion$ {
-  /** @deprecated use `CreateSubscriptionMetadataResponseUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateSubscriptionMetadataResponseUnion$inboundSchema;
-  /** @deprecated use `CreateSubscriptionMetadataResponseUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateSubscriptionMetadataResponseUnion$outboundSchema;
-  /** @deprecated use `CreateSubscriptionMetadataResponseUnion$Outbound` instead. */
-  export type Outbound = CreateSubscriptionMetadataResponseUnion$Outbound;
-}
-
-export function createSubscriptionMetadataResponseUnionToJSON(
-  createSubscriptionMetadataResponseUnion:
-    CreateSubscriptionMetadataResponseUnion,
-): string {
-  return JSON.stringify(
-    CreateSubscriptionMetadataResponseUnion$outboundSchema.parse(
-      createSubscriptionMetadataResponseUnion,
-    ),
-  );
-}
-
-export function createSubscriptionMetadataResponseUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CreateSubscriptionMetadataResponseUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateSubscriptionMetadataResponseUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CreateSubscriptionMetadataResponseUnion' from JSON`,
   );
 }
 
@@ -2133,11 +1980,7 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
     CreateSubscriptionApplicationFeeResponse$inboundSchema
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateSubscriptionMetadataResponse$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),
@@ -2168,11 +2011,7 @@ export type CreateSubscriptionResponse$Outbound = {
   applicationFee?:
     | CreateSubscriptionApplicationFeeResponse$Outbound
     | undefined;
-  metadata:
-    | CreateSubscriptionMetadataResponse$Outbound
-    | string
-    | Array<string>
-    | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   webhookUrl: string;
   customerId: string;
   mandateId?: string | null | undefined;
@@ -2203,11 +2042,7 @@ export const CreateSubscriptionResponse$outboundSchema: z.ZodType<
     CreateSubscriptionApplicationFeeResponse$outboundSchema
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateSubscriptionMetadataResponse$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),

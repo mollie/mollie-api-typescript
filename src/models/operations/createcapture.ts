@@ -23,17 +23,15 @@ export type CreateCaptureAmountRequest = {
   value: string;
 };
 
-export type CreateCaptureMetadataRequest = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type CreateCaptureMetadataRequestUnion =
-  | CreateCaptureMetadataRequest
+export type CreateCaptureMetadataRequest =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 export type CreateCaptureRequestBody = {
@@ -51,12 +49,7 @@ export type CreateCaptureRequestBody = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | CreateCaptureMetadataRequest
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
 };
 
 export type CreateCaptureRequest = {
@@ -157,17 +150,15 @@ export const CreateCaptureStatus = {
  */
 export type CreateCaptureStatus = ClosedEnum<typeof CreateCaptureStatus>;
 
-export type CreateCaptureMetadataResponse = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type CreateCaptureMetadataResponseUnion =
-  | CreateCaptureMetadataResponse
+export type CreateCaptureMetadataResponse =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -326,12 +317,7 @@ export type CreateCaptureResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | CreateCaptureMetadataResponse
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    *
@@ -425,17 +411,19 @@ export const CreateCaptureMetadataRequest$inboundSchema: z.ZodType<
   CreateCaptureMetadataRequest,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateCaptureMetadataRequest$Outbound = {};
+export type CreateCaptureMetadataRequest$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const CreateCaptureMetadataRequest$outboundSchema: z.ZodType<
   CreateCaptureMetadataRequest$Outbound,
   z.ZodTypeDef,
   CreateCaptureMetadataRequest
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -471,68 +459,6 @@ export function createCaptureMetadataRequestFromJSON(
 }
 
 /** @internal */
-export const CreateCaptureMetadataRequestUnion$inboundSchema: z.ZodType<
-  CreateCaptureMetadataRequestUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateCaptureMetadataRequest$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateCaptureMetadataRequestUnion$Outbound =
-  | CreateCaptureMetadataRequest$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateCaptureMetadataRequestUnion$outboundSchema: z.ZodType<
-  CreateCaptureMetadataRequestUnion$Outbound,
-  z.ZodTypeDef,
-  CreateCaptureMetadataRequestUnion
-> = z.union([
-  z.lazy(() => CreateCaptureMetadataRequest$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCaptureMetadataRequestUnion$ {
-  /** @deprecated use `CreateCaptureMetadataRequestUnion$inboundSchema` instead. */
-  export const inboundSchema = CreateCaptureMetadataRequestUnion$inboundSchema;
-  /** @deprecated use `CreateCaptureMetadataRequestUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCaptureMetadataRequestUnion$outboundSchema;
-  /** @deprecated use `CreateCaptureMetadataRequestUnion$Outbound` instead. */
-  export type Outbound = CreateCaptureMetadataRequestUnion$Outbound;
-}
-
-export function createCaptureMetadataRequestUnionToJSON(
-  createCaptureMetadataRequestUnion: CreateCaptureMetadataRequestUnion,
-): string {
-  return JSON.stringify(
-    CreateCaptureMetadataRequestUnion$outboundSchema.parse(
-      createCaptureMetadataRequestUnion,
-    ),
-  );
-}
-
-export function createCaptureMetadataRequestUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCaptureMetadataRequestUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateCaptureMetadataRequestUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCaptureMetadataRequestUnion' from JSON`,
-  );
-}
-
-/** @internal */
 export const CreateCaptureRequestBody$inboundSchema: z.ZodType<
   CreateCaptureRequestBody,
   z.ZodTypeDef,
@@ -542,11 +468,7 @@ export const CreateCaptureRequestBody$inboundSchema: z.ZodType<
   amount: z.nullable(z.lazy(() => CreateCaptureAmountRequest$inboundSchema))
     .optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCaptureMetadataRequest$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
 });
 
@@ -554,12 +476,7 @@ export const CreateCaptureRequestBody$inboundSchema: z.ZodType<
 export type CreateCaptureRequestBody$Outbound = {
   description?: string | undefined;
   amount?: CreateCaptureAmountRequest$Outbound | null | undefined;
-  metadata?:
-    | CreateCaptureMetadataRequest$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -572,11 +489,7 @@ export const CreateCaptureRequestBody$outboundSchema: z.ZodType<
   amount: z.nullable(z.lazy(() => CreateCaptureAmountRequest$outboundSchema))
     .optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCaptureMetadataRequest$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
 });
 
@@ -1091,17 +1004,19 @@ export const CreateCaptureMetadataResponse$inboundSchema: z.ZodType<
   CreateCaptureMetadataResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateCaptureMetadataResponse$Outbound = {};
+export type CreateCaptureMetadataResponse$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const CreateCaptureMetadataResponse$outboundSchema: z.ZodType<
   CreateCaptureMetadataResponse$Outbound,
   z.ZodTypeDef,
   CreateCaptureMetadataResponse
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1133,69 +1048,6 @@ export function createCaptureMetadataResponseFromJSON(
     jsonString,
     (x) => CreateCaptureMetadataResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateCaptureMetadataResponse' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateCaptureMetadataResponseUnion$inboundSchema: z.ZodType<
-  CreateCaptureMetadataResponseUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateCaptureMetadataResponse$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateCaptureMetadataResponseUnion$Outbound =
-  | CreateCaptureMetadataResponse$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateCaptureMetadataResponseUnion$outboundSchema: z.ZodType<
-  CreateCaptureMetadataResponseUnion$Outbound,
-  z.ZodTypeDef,
-  CreateCaptureMetadataResponseUnion
-> = z.union([
-  z.lazy(() => CreateCaptureMetadataResponse$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCaptureMetadataResponseUnion$ {
-  /** @deprecated use `CreateCaptureMetadataResponseUnion$inboundSchema` instead. */
-  export const inboundSchema = CreateCaptureMetadataResponseUnion$inboundSchema;
-  /** @deprecated use `CreateCaptureMetadataResponseUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCaptureMetadataResponseUnion$outboundSchema;
-  /** @deprecated use `CreateCaptureMetadataResponseUnion$Outbound` instead. */
-  export type Outbound = CreateCaptureMetadataResponseUnion$Outbound;
-}
-
-export function createCaptureMetadataResponseUnionToJSON(
-  createCaptureMetadataResponseUnion: CreateCaptureMetadataResponseUnion,
-): string {
-  return JSON.stringify(
-    CreateCaptureMetadataResponseUnion$outboundSchema.parse(
-      createCaptureMetadataResponseUnion,
-    ),
-  );
-}
-
-export function createCaptureMetadataResponseUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCaptureMetadataResponseUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateCaptureMetadataResponseUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCaptureMetadataResponseUnion' from JSON`,
   );
 }
 
@@ -1570,11 +1422,7 @@ export const CreateCaptureResponse$inboundSchema: z.ZodType<
   ).optional(),
   status: CreateCaptureStatus$inboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCaptureMetadataResponse$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),
@@ -1596,12 +1444,7 @@ export type CreateCaptureResponse$Outbound = {
   amount: CreateCaptureAmountResponse$Outbound | null;
   settlementAmount?: CreateCaptureSettlementAmount$Outbound | null | undefined;
   status: string;
-  metadata?:
-    | CreateCaptureMetadataResponse$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   paymentId: string;
   shipmentId?: string | null | undefined;
   settlementId?: string | null | undefined;
@@ -1625,11 +1468,7 @@ export const CreateCaptureResponse$outboundSchema: z.ZodType<
   ).optional(),
   status: CreateCaptureStatus$outboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCaptureMetadataResponse$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),

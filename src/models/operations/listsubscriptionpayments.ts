@@ -783,17 +783,15 @@ export type ListSubscriptionPaymentsMethod = ClosedEnum<
   typeof ListSubscriptionPaymentsMethod
 >;
 
-export type ListSubscriptionPaymentsMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type ListSubscriptionPaymentsMetadataUnion =
-  | ListSubscriptionPaymentsMetadata
+export type ListSubscriptionPaymentsMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -1616,12 +1614,7 @@ export type ListSubscriptionPaymentsPaymentOutput = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | ListSubscriptionPaymentsMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
    *
@@ -3379,17 +3372,19 @@ export const ListSubscriptionPaymentsMetadata$inboundSchema: z.ZodType<
   ListSubscriptionPaymentsMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type ListSubscriptionPaymentsMetadata$Outbound = {};
+export type ListSubscriptionPaymentsMetadata$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const ListSubscriptionPaymentsMetadata$outboundSchema: z.ZodType<
   ListSubscriptionPaymentsMetadata$Outbound,
   z.ZodTypeDef,
   ListSubscriptionPaymentsMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -3421,70 +3416,6 @@ export function listSubscriptionPaymentsMetadataFromJSON(
     jsonString,
     (x) => ListSubscriptionPaymentsMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListSubscriptionPaymentsMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListSubscriptionPaymentsMetadataUnion$inboundSchema: z.ZodType<
-  ListSubscriptionPaymentsMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListSubscriptionPaymentsMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type ListSubscriptionPaymentsMetadataUnion$Outbound =
-  | ListSubscriptionPaymentsMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const ListSubscriptionPaymentsMetadataUnion$outboundSchema: z.ZodType<
-  ListSubscriptionPaymentsMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  ListSubscriptionPaymentsMetadataUnion
-> = z.union([
-  z.lazy(() => ListSubscriptionPaymentsMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSubscriptionPaymentsMetadataUnion$ {
-  /** @deprecated use `ListSubscriptionPaymentsMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    ListSubscriptionPaymentsMetadataUnion$inboundSchema;
-  /** @deprecated use `ListSubscriptionPaymentsMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    ListSubscriptionPaymentsMetadataUnion$outboundSchema;
-  /** @deprecated use `ListSubscriptionPaymentsMetadataUnion$Outbound` instead. */
-  export type Outbound = ListSubscriptionPaymentsMetadataUnion$Outbound;
-}
-
-export function listSubscriptionPaymentsMetadataUnionToJSON(
-  listSubscriptionPaymentsMetadataUnion: ListSubscriptionPaymentsMetadataUnion,
-): string {
-  return JSON.stringify(
-    ListSubscriptionPaymentsMetadataUnion$outboundSchema.parse(
-      listSubscriptionPaymentsMetadataUnion,
-    ),
-  );
-}
-
-export function listSubscriptionPaymentsMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSubscriptionPaymentsMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSubscriptionPaymentsMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSubscriptionPaymentsMetadataUnion' from JSON`,
   );
 }
 
@@ -5304,11 +5235,7 @@ export const ListSubscriptionPaymentsPaymentOutput$inboundSchema: z.ZodType<
   method: z.nullable(ListSubscriptionPaymentsMethod$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListSubscriptionPaymentsMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(ListSubscriptionPaymentsCaptureMode$inboundSchema)
     .optional(),
@@ -5377,12 +5304,7 @@ export type ListSubscriptionPaymentsPaymentOutput$Outbound = {
   countryCode?: string | null | undefined;
   method?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
-  metadata?:
-    | ListSubscriptionPaymentsMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   captureMode?: string | null | undefined;
   captureDelay?: string | null | undefined;
   captureBefore?: string | null | undefined;
@@ -5458,11 +5380,7 @@ export const ListSubscriptionPaymentsPaymentOutput$outboundSchema: z.ZodType<
   method: z.nullable(ListSubscriptionPaymentsMethod$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListSubscriptionPaymentsMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   captureMode: z.nullable(ListSubscriptionPaymentsCaptureMode$outboundSchema)
     .optional(),

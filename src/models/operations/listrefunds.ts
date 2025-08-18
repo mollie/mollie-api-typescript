@@ -148,18 +148,13 @@ export type ListRefundsSettlementAmount = {
   value: string;
 };
 
-export type ListRefundsMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type ListRefundsMetadataUnion =
-  | ListRefundsMetadata
-  | string
-  | Array<string>;
+export type ListRefundsMetadata = string | { [k: string]: any } | Array<string>;
 
 /**
  * Refunds may take some time to get confirmed.
@@ -372,7 +367,7 @@ export type ListRefundsRefund = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: ListRefundsMetadata | string | Array<string> | null | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * The unique identifier of the payment this refund was created for.
    *
@@ -980,17 +975,20 @@ export const ListRefundsMetadata$inboundSchema: z.ZodType<
   ListRefundsMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type ListRefundsMetadata$Outbound = {};
+export type ListRefundsMetadata$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const ListRefundsMetadata$outboundSchema: z.ZodType<
   ListRefundsMetadata$Outbound,
   z.ZodTypeDef,
   ListRefundsMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1020,65 +1018,6 @@ export function listRefundsMetadataFromJSON(
     jsonString,
     (x) => ListRefundsMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListRefundsMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListRefundsMetadataUnion$inboundSchema: z.ZodType<
-  ListRefundsMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListRefundsMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type ListRefundsMetadataUnion$Outbound =
-  | ListRefundsMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const ListRefundsMetadataUnion$outboundSchema: z.ZodType<
-  ListRefundsMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  ListRefundsMetadataUnion
-> = z.union([
-  z.lazy(() => ListRefundsMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListRefundsMetadataUnion$ {
-  /** @deprecated use `ListRefundsMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = ListRefundsMetadataUnion$inboundSchema;
-  /** @deprecated use `ListRefundsMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = ListRefundsMetadataUnion$outboundSchema;
-  /** @deprecated use `ListRefundsMetadataUnion$Outbound` instead. */
-  export type Outbound = ListRefundsMetadataUnion$Outbound;
-}
-
-export function listRefundsMetadataUnionToJSON(
-  listRefundsMetadataUnion: ListRefundsMetadataUnion,
-): string {
-  return JSON.stringify(
-    ListRefundsMetadataUnion$outboundSchema.parse(listRefundsMetadataUnion),
-  );
-}
-
-export function listRefundsMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListRefundsMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListRefundsMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListRefundsMetadataUnion' from JSON`,
   );
 }
 
@@ -1665,11 +1604,7 @@ export const ListRefundsRefund$inboundSchema: z.ZodType<
     z.lazy(() => ListRefundsSettlementAmount$inboundSchema),
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListRefundsMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),
@@ -1695,12 +1630,7 @@ export type ListRefundsRefund$Outbound = {
   description?: string | undefined;
   amount?: ListRefundsAmount$Outbound | undefined;
   settlementAmount?: ListRefundsSettlementAmount$Outbound | null | undefined;
-  metadata?:
-    | ListRefundsMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   paymentId?: string | undefined;
   settlementId?: string | null | undefined;
   status?: string | undefined;
@@ -1728,11 +1658,7 @@ export const ListRefundsRefund$outboundSchema: z.ZodType<
     z.lazy(() => ListRefundsSettlementAmount$outboundSchema),
   ).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListRefundsMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string().optional(),
   settlementId: z.nullable(z.string()).optional(),

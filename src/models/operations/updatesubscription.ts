@@ -46,8 +46,6 @@ export type UpdateSubscriptionIntervalRequest = ClosedEnum<
   typeof UpdateSubscriptionIntervalRequest
 >;
 
-export type UpdateSubscriptionMetadataRequest = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the
  *
@@ -57,9 +55,9 @@ export type UpdateSubscriptionMetadataRequest = {};
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
-export type UpdateSubscriptionMetadataRequestUnion =
-  | UpdateSubscriptionMetadataRequest
+export type UpdateSubscriptionMetadataRequest =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 export type UpdateSubscriptionRequestBody = {
@@ -106,12 +104,7 @@ export type UpdateSubscriptionRequestBody = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata?:
-    | UpdateSubscriptionMetadataRequest
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -286,8 +279,6 @@ export type UpdateSubscriptionApplicationFee = {
   description: string;
 };
 
-export type UpdateSubscriptionMetadataResponse = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
  *
@@ -297,9 +288,9 @@ export type UpdateSubscriptionMetadataResponse = {};
  *
  * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
  */
-export type UpdateSubscriptionMetadataResponseUnion =
-  | UpdateSubscriptionMetadataResponse
+export type UpdateSubscriptionMetadataResponse =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -521,7 +512,7 @@ export type UpdateSubscriptionResponse = {
    *
    * Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
    */
-  metadata: UpdateSubscriptionMetadataResponse | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -642,17 +633,19 @@ export const UpdateSubscriptionMetadataRequest$inboundSchema: z.ZodType<
   UpdateSubscriptionMetadataRequest,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type UpdateSubscriptionMetadataRequest$Outbound = {};
+export type UpdateSubscriptionMetadataRequest$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const UpdateSubscriptionMetadataRequest$outboundSchema: z.ZodType<
   UpdateSubscriptionMetadataRequest$Outbound,
   z.ZodTypeDef,
   UpdateSubscriptionMetadataRequest
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -689,71 +682,6 @@ export function updateSubscriptionMetadataRequestFromJSON(
 }
 
 /** @internal */
-export const UpdateSubscriptionMetadataRequestUnion$inboundSchema: z.ZodType<
-  UpdateSubscriptionMetadataRequestUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => UpdateSubscriptionMetadataRequest$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type UpdateSubscriptionMetadataRequestUnion$Outbound =
-  | UpdateSubscriptionMetadataRequest$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const UpdateSubscriptionMetadataRequestUnion$outboundSchema: z.ZodType<
-  UpdateSubscriptionMetadataRequestUnion$Outbound,
-  z.ZodTypeDef,
-  UpdateSubscriptionMetadataRequestUnion
-> = z.union([
-  z.lazy(() => UpdateSubscriptionMetadataRequest$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateSubscriptionMetadataRequestUnion$ {
-  /** @deprecated use `UpdateSubscriptionMetadataRequestUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateSubscriptionMetadataRequestUnion$inboundSchema;
-  /** @deprecated use `UpdateSubscriptionMetadataRequestUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateSubscriptionMetadataRequestUnion$outboundSchema;
-  /** @deprecated use `UpdateSubscriptionMetadataRequestUnion$Outbound` instead. */
-  export type Outbound = UpdateSubscriptionMetadataRequestUnion$Outbound;
-}
-
-export function updateSubscriptionMetadataRequestUnionToJSON(
-  updateSubscriptionMetadataRequestUnion:
-    UpdateSubscriptionMetadataRequestUnion,
-): string {
-  return JSON.stringify(
-    UpdateSubscriptionMetadataRequestUnion$outboundSchema.parse(
-      updateSubscriptionMetadataRequestUnion,
-    ),
-  );
-}
-
-export function updateSubscriptionMetadataRequestUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateSubscriptionMetadataRequestUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateSubscriptionMetadataRequestUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateSubscriptionMetadataRequestUnion' from JSON`,
-  );
-}
-
-/** @internal */
 export const UpdateSubscriptionRequestBody$inboundSchema: z.ZodType<
   UpdateSubscriptionRequestBody,
   z.ZodTypeDef,
@@ -766,11 +694,7 @@ export const UpdateSubscriptionRequestBody$inboundSchema: z.ZodType<
   startDate: z.string().optional(),
   times: z.number().int().optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdateSubscriptionMetadataRequest$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.string().optional(),
@@ -784,12 +708,7 @@ export type UpdateSubscriptionRequestBody$Outbound = {
   interval?: string | undefined;
   startDate?: string | undefined;
   times?: number | undefined;
-  metadata?:
-    | UpdateSubscriptionMetadataRequest$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   webhookUrl?: string | undefined;
   mandateId?: string | undefined;
   testmode?: boolean | null | undefined;
@@ -808,11 +727,7 @@ export const UpdateSubscriptionRequestBody$outboundSchema: z.ZodType<
   startDate: z.string().optional(),
   times: z.number().int().optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdateSubscriptionMetadataRequest$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.string().optional(),
@@ -1321,17 +1236,19 @@ export const UpdateSubscriptionMetadataResponse$inboundSchema: z.ZodType<
   UpdateSubscriptionMetadataResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type UpdateSubscriptionMetadataResponse$Outbound = {};
+export type UpdateSubscriptionMetadataResponse$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const UpdateSubscriptionMetadataResponse$outboundSchema: z.ZodType<
   UpdateSubscriptionMetadataResponse$Outbound,
   z.ZodTypeDef,
   UpdateSubscriptionMetadataResponse
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1365,76 +1282,6 @@ export function updateSubscriptionMetadataResponseFromJSON(
     (x) =>
       UpdateSubscriptionMetadataResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdateSubscriptionMetadataResponse' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdateSubscriptionMetadataResponseUnion$inboundSchema: z.ZodType<
-  UpdateSubscriptionMetadataResponseUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => UpdateSubscriptionMetadataResponse$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type UpdateSubscriptionMetadataResponseUnion$Outbound =
-  | UpdateSubscriptionMetadataResponse$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const UpdateSubscriptionMetadataResponseUnion$outboundSchema: z.ZodType<
-  UpdateSubscriptionMetadataResponseUnion$Outbound,
-  z.ZodTypeDef,
-  UpdateSubscriptionMetadataResponseUnion
-> = z.union([
-  z.lazy(() => UpdateSubscriptionMetadataResponse$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateSubscriptionMetadataResponseUnion$ {
-  /** @deprecated use `UpdateSubscriptionMetadataResponseUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateSubscriptionMetadataResponseUnion$inboundSchema;
-  /** @deprecated use `UpdateSubscriptionMetadataResponseUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateSubscriptionMetadataResponseUnion$outboundSchema;
-  /** @deprecated use `UpdateSubscriptionMetadataResponseUnion$Outbound` instead. */
-  export type Outbound = UpdateSubscriptionMetadataResponseUnion$Outbound;
-}
-
-export function updateSubscriptionMetadataResponseUnionToJSON(
-  updateSubscriptionMetadataResponseUnion:
-    UpdateSubscriptionMetadataResponseUnion,
-): string {
-  return JSON.stringify(
-    UpdateSubscriptionMetadataResponseUnion$outboundSchema.parse(
-      updateSubscriptionMetadataResponseUnion,
-    ),
-  );
-}
-
-export function updateSubscriptionMetadataResponseUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateSubscriptionMetadataResponseUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateSubscriptionMetadataResponseUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateSubscriptionMetadataResponseUnion' from JSON`,
   );
 }
 
@@ -1876,11 +1723,7 @@ export const UpdateSubscriptionResponse$inboundSchema: z.ZodType<
   applicationFee: z.lazy(() => UpdateSubscriptionApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdateSubscriptionMetadataResponse$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),
@@ -1909,11 +1752,7 @@ export type UpdateSubscriptionResponse$Outbound = {
   description: string;
   method: string | null;
   applicationFee?: UpdateSubscriptionApplicationFee$Outbound | undefined;
-  metadata:
-    | UpdateSubscriptionMetadataResponse$Outbound
-    | string
-    | Array<string>
-    | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   webhookUrl: string;
   customerId: string;
   mandateId?: string | null | undefined;
@@ -1943,11 +1782,7 @@ export const UpdateSubscriptionResponse$outboundSchema: z.ZodType<
   applicationFee: z.lazy(() => UpdateSubscriptionApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => UpdateSubscriptionMetadataResponse$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   webhookUrl: z.string(),
   customerId: z.string(),

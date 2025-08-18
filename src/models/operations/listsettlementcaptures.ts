@@ -157,17 +157,15 @@ export type ListSettlementCapturesStatus = ClosedEnum<
   typeof ListSettlementCapturesStatus
 >;
 
-export type ListSettlementCapturesMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type ListSettlementCapturesMetadataUnion =
-  | ListSettlementCapturesMetadata
+export type ListSettlementCapturesMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -320,12 +318,7 @@ export type ListSettlementCapturesCapture = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | ListSettlementCapturesMetadata
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    *
@@ -987,17 +980,19 @@ export const ListSettlementCapturesMetadata$inboundSchema: z.ZodType<
   ListSettlementCapturesMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type ListSettlementCapturesMetadata$Outbound = {};
+export type ListSettlementCapturesMetadata$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const ListSettlementCapturesMetadata$outboundSchema: z.ZodType<
   ListSettlementCapturesMetadata$Outbound,
   z.ZodTypeDef,
   ListSettlementCapturesMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -1029,70 +1024,6 @@ export function listSettlementCapturesMetadataFromJSON(
     jsonString,
     (x) => ListSettlementCapturesMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListSettlementCapturesMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListSettlementCapturesMetadataUnion$inboundSchema: z.ZodType<
-  ListSettlementCapturesMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListSettlementCapturesMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type ListSettlementCapturesMetadataUnion$Outbound =
-  | ListSettlementCapturesMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const ListSettlementCapturesMetadataUnion$outboundSchema: z.ZodType<
-  ListSettlementCapturesMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  ListSettlementCapturesMetadataUnion
-> = z.union([
-  z.lazy(() => ListSettlementCapturesMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSettlementCapturesMetadataUnion$ {
-  /** @deprecated use `ListSettlementCapturesMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    ListSettlementCapturesMetadataUnion$inboundSchema;
-  /** @deprecated use `ListSettlementCapturesMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    ListSettlementCapturesMetadataUnion$outboundSchema;
-  /** @deprecated use `ListSettlementCapturesMetadataUnion$Outbound` instead. */
-  export type Outbound = ListSettlementCapturesMetadataUnion$Outbound;
-}
-
-export function listSettlementCapturesMetadataUnionToJSON(
-  listSettlementCapturesMetadataUnion: ListSettlementCapturesMetadataUnion,
-): string {
-  return JSON.stringify(
-    ListSettlementCapturesMetadataUnion$outboundSchema.parse(
-      listSettlementCapturesMetadataUnion,
-    ),
-  );
-}
-
-export function listSettlementCapturesMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementCapturesMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementCapturesMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementCapturesMetadataUnion' from JSON`,
   );
 }
 
@@ -1498,11 +1429,7 @@ export const ListSettlementCapturesCapture$inboundSchema: z.ZodType<
   ).optional(),
   status: ListSettlementCapturesStatus$inboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListSettlementCapturesMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),
@@ -1527,12 +1454,7 @@ export type ListSettlementCapturesCapture$Outbound = {
     | null
     | undefined;
   status: string;
-  metadata?:
-    | ListSettlementCapturesMetadata$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   paymentId: string;
   shipmentId?: string | null | undefined;
   settlementId?: string | null | undefined;
@@ -1556,11 +1478,7 @@ export const ListSettlementCapturesCapture$outboundSchema: z.ZodType<
   ).optional(),
   status: ListSettlementCapturesStatus$outboundSchema,
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListSettlementCapturesMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   paymentId: z.string(),
   shipmentId: z.nullable(z.string()).optional(),

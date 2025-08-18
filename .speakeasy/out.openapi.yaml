@@ -641,6 +641,7 @@ paths:
                     - type: string
                     - type: object
                       properties: {}
+                      additionalProperties: true
                     - type: array
                       items:
                         type: string

@@ -138,17 +138,15 @@ export const ListCustomersLocale = {
  */
 export type ListCustomersLocale = ClosedEnum<typeof ListCustomersLocale>;
 
-export type ListCustomersMetadata = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type ListCustomersMetadataUnion =
-  | ListCustomersMetadata
+export type ListCustomersMetadata =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -317,7 +315,7 @@ export type ListCustomersCustomer = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata: ListCustomersMetadata | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -804,17 +802,20 @@ export const ListCustomersMetadata$inboundSchema: z.ZodType<
   ListCustomersMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type ListCustomersMetadata$Outbound = {};
+export type ListCustomersMetadata$Outbound =
+  | string
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const ListCustomersMetadata$outboundSchema: z.ZodType<
   ListCustomersMetadata$Outbound,
   z.ZodTypeDef,
   ListCustomersMetadata
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -844,65 +845,6 @@ export function listCustomersMetadataFromJSON(
     jsonString,
     (x) => ListCustomersMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListCustomersMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListCustomersMetadataUnion$inboundSchema: z.ZodType<
-  ListCustomersMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListCustomersMetadata$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type ListCustomersMetadataUnion$Outbound =
-  | ListCustomersMetadata$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const ListCustomersMetadataUnion$outboundSchema: z.ZodType<
-  ListCustomersMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  ListCustomersMetadataUnion
-> = z.union([
-  z.lazy(() => ListCustomersMetadata$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCustomersMetadataUnion$ {
-  /** @deprecated use `ListCustomersMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = ListCustomersMetadataUnion$inboundSchema;
-  /** @deprecated use `ListCustomersMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = ListCustomersMetadataUnion$outboundSchema;
-  /** @deprecated use `ListCustomersMetadataUnion$Outbound` instead. */
-  export type Outbound = ListCustomersMetadataUnion$Outbound;
-}
-
-export function listCustomersMetadataUnionToJSON(
-  listCustomersMetadataUnion: ListCustomersMetadataUnion,
-): string {
-  return JSON.stringify(
-    ListCustomersMetadataUnion$outboundSchema.parse(listCustomersMetadataUnion),
-  );
-}
-
-export function listCustomersMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListCustomersMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListCustomersMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListCustomersMetadataUnion' from JSON`,
   );
 }
 
@@ -1330,11 +1272,7 @@ export const ListCustomersCustomer$inboundSchema: z.ZodType<
   email: z.nullable(z.string()),
   locale: z.nullable(ListCustomersLocale$inboundSchema),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListCustomersMetadata$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   createdAt: z.string(),
   _links: z.lazy(() => CustomerLinks$inboundSchema),
@@ -1352,7 +1290,7 @@ export type ListCustomersCustomer$Outbound = {
   name: string | null;
   email: string | null;
   locale: string | null;
-  metadata: ListCustomersMetadata$Outbound | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   createdAt: string;
   _links: CustomerLinks$Outbound;
 };
@@ -1370,11 +1308,7 @@ export const ListCustomersCustomer$outboundSchema: z.ZodType<
   email: z.nullable(z.string()),
   locale: z.nullable(ListCustomersLocale$outboundSchema),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => ListCustomersMetadata$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   createdAt: z.string(),
   links: z.lazy(() => CustomerLinks$outboundSchema),

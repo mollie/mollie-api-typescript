@@ -30,11 +30,11 @@ let value: ListAllSubscriptionsEmbedded = {
         },
         description: "Platform fee",
       },
-      metadata: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+      metadata: {
+        "0": "<value 1>",
+        "1": "<value 2>",
+        "2": "<value 3>",
+      },
       webhookUrl: "https://example.com/webhook",
       customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",

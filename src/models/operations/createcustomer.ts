@@ -49,17 +49,15 @@ export type CreateCustomerLocaleRequest = ClosedEnum<
   typeof CreateCustomerLocaleRequest
 >;
 
-export type CreateCustomerMetadataRequest = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type CreateCustomerMetadataRequestUnion =
-  | CreateCustomerMetadataRequest
+export type CreateCustomerMetadataRequest =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 export type CreateCustomerRequest = {
@@ -84,12 +82,7 @@ export type CreateCustomerRequest = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?:
-    | CreateCustomerMetadataRequest
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -169,17 +162,15 @@ export type CreateCustomerLocaleResponse = ClosedEnum<
   typeof CreateCustomerLocaleResponse
 >;
 
-export type CreateCustomerMetadataResponse = {};
-
 /**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type CreateCustomerMetadataResponseUnion =
-  | CreateCustomerMetadataResponse
+export type CreateCustomerMetadataResponse =
   | string
+  | { [k: string]: any }
   | Array<string>;
 
 /**
@@ -351,7 +342,7 @@ export type CreateCustomerResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata: CreateCustomerMetadataResponse | string | Array<string> | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -388,17 +379,19 @@ export const CreateCustomerMetadataRequest$inboundSchema: z.ZodType<
   CreateCustomerMetadataRequest,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateCustomerMetadataRequest$Outbound = {};
+export type CreateCustomerMetadataRequest$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const CreateCustomerMetadataRequest$outboundSchema: z.ZodType<
   CreateCustomerMetadataRequest$Outbound,
   z.ZodTypeDef,
   CreateCustomerMetadataRequest
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -434,69 +427,6 @@ export function createCustomerMetadataRequestFromJSON(
 }
 
 /** @internal */
-export const CreateCustomerMetadataRequestUnion$inboundSchema: z.ZodType<
-  CreateCustomerMetadataRequestUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateCustomerMetadataRequest$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateCustomerMetadataRequestUnion$Outbound =
-  | CreateCustomerMetadataRequest$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateCustomerMetadataRequestUnion$outboundSchema: z.ZodType<
-  CreateCustomerMetadataRequestUnion$Outbound,
-  z.ZodTypeDef,
-  CreateCustomerMetadataRequestUnion
-> = z.union([
-  z.lazy(() => CreateCustomerMetadataRequest$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCustomerMetadataRequestUnion$ {
-  /** @deprecated use `CreateCustomerMetadataRequestUnion$inboundSchema` instead. */
-  export const inboundSchema = CreateCustomerMetadataRequestUnion$inboundSchema;
-  /** @deprecated use `CreateCustomerMetadataRequestUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCustomerMetadataRequestUnion$outboundSchema;
-  /** @deprecated use `CreateCustomerMetadataRequestUnion$Outbound` instead. */
-  export type Outbound = CreateCustomerMetadataRequestUnion$Outbound;
-}
-
-export function createCustomerMetadataRequestUnionToJSON(
-  createCustomerMetadataRequestUnion: CreateCustomerMetadataRequestUnion,
-): string {
-  return JSON.stringify(
-    CreateCustomerMetadataRequestUnion$outboundSchema.parse(
-      createCustomerMetadataRequestUnion,
-    ),
-  );
-}
-
-export function createCustomerMetadataRequestUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCustomerMetadataRequestUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateCustomerMetadataRequestUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCustomerMetadataRequestUnion' from JSON`,
-  );
-}
-
-/** @internal */
 export const CreateCustomerRequest$inboundSchema: z.ZodType<
   CreateCustomerRequest,
   z.ZodTypeDef,
@@ -506,11 +436,7 @@ export const CreateCustomerRequest$inboundSchema: z.ZodType<
   email: z.nullable(z.string()).optional(),
   locale: z.nullable(CreateCustomerLocaleRequest$inboundSchema).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCustomerMetadataRequest$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -520,12 +446,7 @@ export type CreateCustomerRequest$Outbound = {
   name?: string | null | undefined;
   email?: string | null | undefined;
   locale?: string | null | undefined;
-  metadata?:
-    | CreateCustomerMetadataRequest$Outbound
-    | string
-    | Array<string>
-    | null
-    | undefined;
+  metadata?: string | { [k: string]: any } | Array<string> | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -539,11 +460,7 @@ export const CreateCustomerRequest$outboundSchema: z.ZodType<
   email: z.nullable(z.string()).optional(),
   locale: z.nullable(CreateCustomerLocaleRequest$outboundSchema).optional(),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCustomerMetadataRequest$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -748,17 +665,19 @@ export const CreateCustomerMetadataResponse$inboundSchema: z.ZodType<
   CreateCustomerMetadataResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /** @internal */
-export type CreateCustomerMetadataResponse$Outbound = {};
+export type CreateCustomerMetadataResponse$Outbound = string | {
+  [k: string]: any;
+} | Array<string>;
 
 /** @internal */
 export const CreateCustomerMetadataResponse$outboundSchema: z.ZodType<
   CreateCustomerMetadataResponse$Outbound,
   z.ZodTypeDef,
   CreateCustomerMetadataResponse
-> = z.object({});
+> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
 
 /**
  * @internal
@@ -790,70 +709,6 @@ export function createCustomerMetadataResponseFromJSON(
     jsonString,
     (x) => CreateCustomerMetadataResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateCustomerMetadataResponse' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateCustomerMetadataResponseUnion$inboundSchema: z.ZodType<
-  CreateCustomerMetadataResponseUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CreateCustomerMetadataResponse$inboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/** @internal */
-export type CreateCustomerMetadataResponseUnion$Outbound =
-  | CreateCustomerMetadataResponse$Outbound
-  | string
-  | Array<string>;
-
-/** @internal */
-export const CreateCustomerMetadataResponseUnion$outboundSchema: z.ZodType<
-  CreateCustomerMetadataResponseUnion$Outbound,
-  z.ZodTypeDef,
-  CreateCustomerMetadataResponseUnion
-> = z.union([
-  z.lazy(() => CreateCustomerMetadataResponse$outboundSchema),
-  z.string(),
-  z.array(z.string()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCustomerMetadataResponseUnion$ {
-  /** @deprecated use `CreateCustomerMetadataResponseUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateCustomerMetadataResponseUnion$inboundSchema;
-  /** @deprecated use `CreateCustomerMetadataResponseUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCustomerMetadataResponseUnion$outboundSchema;
-  /** @deprecated use `CreateCustomerMetadataResponseUnion$Outbound` instead. */
-  export type Outbound = CreateCustomerMetadataResponseUnion$Outbound;
-}
-
-export function createCustomerMetadataResponseUnionToJSON(
-  createCustomerMetadataResponseUnion: CreateCustomerMetadataResponseUnion,
-): string {
-  return JSON.stringify(
-    CreateCustomerMetadataResponseUnion$outboundSchema.parse(
-      createCustomerMetadataResponseUnion,
-    ),
-  );
-}
-
-export function createCustomerMetadataResponseUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCustomerMetadataResponseUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateCustomerMetadataResponseUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCustomerMetadataResponseUnion' from JSON`,
   );
 }
 
@@ -1293,11 +1148,7 @@ export const CreateCustomerResponse$inboundSchema: z.ZodType<
   email: z.nullable(z.string()),
   locale: z.nullable(CreateCustomerLocaleResponse$inboundSchema),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCustomerMetadataResponse$inboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   createdAt: z.string(),
   _links: z.lazy(() => CreateCustomerLinks$inboundSchema),
@@ -1315,11 +1166,7 @@ export type CreateCustomerResponse$Outbound = {
   name: string | null;
   email: string | null;
   locale: string | null;
-  metadata:
-    | CreateCustomerMetadataResponse$Outbound
-    | string
-    | Array<string>
-    | null;
+  metadata: string | { [k: string]: any } | Array<string> | null;
   createdAt: string;
   _links: CreateCustomerLinks$Outbound;
 };
@@ -1337,11 +1184,7 @@ export const CreateCustomerResponse$outboundSchema: z.ZodType<
   email: z.nullable(z.string()),
   locale: z.nullable(CreateCustomerLocaleResponse$outboundSchema),
   metadata: z.nullable(
-    z.union([
-      z.lazy(() => CreateCustomerMetadataResponse$outboundSchema),
-      z.string(),
-      z.array(z.string()),
-    ]),
+    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
   ),
   createdAt: z.string(),
   links: z.lazy(() => CreateCustomerLinks$outboundSchema),
