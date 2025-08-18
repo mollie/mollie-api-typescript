@@ -21,6 +21,7 @@ specific category of applications.
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
 import { paymentsCreate } from "mollie-api-typescript/funcs/paymentsCreate.js";
+import { RFCDate } from "mollie-api-typescript/types";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -154,6 +155,18 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
   if (res.ok) {

@@ -534,19 +534,19 @@ export type ListAllSubscriptionsLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListAllSubscriptionsSelf | undefined;
+  self: ListAllSubscriptionsSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListAllSubscriptionsPrevious | null | undefined;
+  previous: ListAllSubscriptionsPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListAllSubscriptionsNext | null | undefined;
+  next: ListAllSubscriptionsNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListAllSubscriptionsDocumentation | undefined;
+  documentation: ListAllSubscriptionsDocumentation;
 };
 
 /**
@@ -2104,21 +2104,20 @@ export const ListAllSubscriptionsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListAllSubscriptionsSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListAllSubscriptionsPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListAllSubscriptionsNext$inboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListAllSubscriptionsDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListAllSubscriptionsSelf$inboundSchema),
+  previous: z.nullable(
+    z.lazy(() => ListAllSubscriptionsPrevious$inboundSchema),
+  ),
+  next: z.nullable(z.lazy(() => ListAllSubscriptionsNext$inboundSchema)),
+  documentation: z.lazy(() => ListAllSubscriptionsDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListAllSubscriptionsLinks$Outbound = {
-  self?: ListAllSubscriptionsSelf$Outbound | undefined;
-  previous?: ListAllSubscriptionsPrevious$Outbound | null | undefined;
-  next?: ListAllSubscriptionsNext$Outbound | null | undefined;
-  documentation?: ListAllSubscriptionsDocumentation$Outbound | undefined;
+  self: ListAllSubscriptionsSelf$Outbound;
+  previous: ListAllSubscriptionsPrevious$Outbound | null;
+  next: ListAllSubscriptionsNext$Outbound | null;
+  documentation: ListAllSubscriptionsDocumentation$Outbound;
 };
 
 /** @internal */
@@ -2127,14 +2126,12 @@ export const ListAllSubscriptionsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsLinks
 > = z.object({
-  self: z.lazy(() => ListAllSubscriptionsSelf$outboundSchema).optional(),
+  self: z.lazy(() => ListAllSubscriptionsSelf$outboundSchema),
   previous: z.nullable(
     z.lazy(() => ListAllSubscriptionsPrevious$outboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListAllSubscriptionsNext$outboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListAllSubscriptionsDocumentation$outboundSchema)
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListAllSubscriptionsNext$outboundSchema)),
+  documentation: z.lazy(() => ListAllSubscriptionsDocumentation$outboundSchema),
 });
 
 /**

@@ -168,19 +168,19 @@ export type ListInvoicesLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListInvoicesSelf | undefined;
+  self: ListInvoicesSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListInvoicesPrevious | null | undefined;
+  previous: ListInvoicesPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListInvoicesNext | null | undefined;
+  next: ListInvoicesNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListInvoicesDocumentation | undefined;
+  documentation: ListInvoicesDocumentation;
 };
 
 /**
@@ -870,20 +870,18 @@ export const ListInvoicesLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListInvoicesSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListInvoicesPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListInvoicesNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListInvoicesDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListInvoicesSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListInvoicesPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListInvoicesNext$inboundSchema)),
+  documentation: z.lazy(() => ListInvoicesDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListInvoicesLinks$Outbound = {
-  self?: ListInvoicesSelf$Outbound | undefined;
-  previous?: ListInvoicesPrevious$Outbound | null | undefined;
-  next?: ListInvoicesNext$Outbound | null | undefined;
-  documentation?: ListInvoicesDocumentation$Outbound | undefined;
+  self: ListInvoicesSelf$Outbound;
+  previous: ListInvoicesPrevious$Outbound | null;
+  next: ListInvoicesNext$Outbound | null;
+  documentation: ListInvoicesDocumentation$Outbound;
 };
 
 /** @internal */
@@ -892,12 +890,10 @@ export const ListInvoicesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListInvoicesLinks
 > = z.object({
-  self: z.lazy(() => ListInvoicesSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListInvoicesPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListInvoicesNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListInvoicesDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListInvoicesSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListInvoicesPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListInvoicesNext$outboundSchema)),
+  documentation: z.lazy(() => ListInvoicesDocumentation$outboundSchema),
 });
 
 /**

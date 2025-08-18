@@ -351,19 +351,19 @@ export type ListChargebacksLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListChargebacksSelf | undefined;
+  self: ListChargebacksSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListChargebacksPrevious | null | undefined;
+  previous: ListChargebacksPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListChargebacksNext | null | undefined;
+  next: ListChargebacksNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListChargebacksDocumentation | undefined;
+  documentation: ListChargebacksDocumentation;
 };
 
 /**
@@ -1589,20 +1589,18 @@ export const ListChargebacksLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListChargebacksSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListChargebacksPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListChargebacksNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListChargebacksDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListChargebacksSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListChargebacksPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListChargebacksNext$inboundSchema)),
+  documentation: z.lazy(() => ListChargebacksDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListChargebacksLinks$Outbound = {
-  self?: ListChargebacksSelf$Outbound | undefined;
-  previous?: ListChargebacksPrevious$Outbound | null | undefined;
-  next?: ListChargebacksNext$Outbound | null | undefined;
-  documentation?: ListChargebacksDocumentation$Outbound | undefined;
+  self: ListChargebacksSelf$Outbound;
+  previous: ListChargebacksPrevious$Outbound | null;
+  next: ListChargebacksNext$Outbound | null;
+  documentation: ListChargebacksDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1611,12 +1609,10 @@ export const ListChargebacksLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListChargebacksLinks
 > = z.object({
-  self: z.lazy(() => ListChargebacksSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListChargebacksPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListChargebacksNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListChargebacksDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListChargebacksSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListChargebacksPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListChargebacksNext$outboundSchema)),
+  documentation: z.lazy(() => ListChargebacksDocumentation$outboundSchema),
 });
 
 /**

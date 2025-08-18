@@ -670,19 +670,19 @@ export type ListBalanceTransactionsLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListBalanceTransactionsSelf | undefined;
+  self: ListBalanceTransactionsSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListBalanceTransactionsPrevious | null | undefined;
+  previous: ListBalanceTransactionsPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListBalanceTransactionsNext | null | undefined;
+  next: ListBalanceTransactionsNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListBalanceTransactionsDocumentation | undefined;
+  documentation: ListBalanceTransactionsDocumentation;
 };
 
 /**
@@ -3917,23 +3917,22 @@ export const ListBalanceTransactionsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListBalanceTransactionsSelf$inboundSchema).optional(),
+  self: z.lazy(() => ListBalanceTransactionsSelf$inboundSchema),
   previous: z.nullable(
     z.lazy(() => ListBalanceTransactionsPrevious$inboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListBalanceTransactionsNext$inboundSchema))
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListBalanceTransactionsNext$inboundSchema)),
   documentation: z.lazy(() =>
     ListBalanceTransactionsDocumentation$inboundSchema
-  ).optional(),
+  ),
 });
 
 /** @internal */
 export type ListBalanceTransactionsLinks$Outbound = {
-  self?: ListBalanceTransactionsSelf$Outbound | undefined;
-  previous?: ListBalanceTransactionsPrevious$Outbound | null | undefined;
-  next?: ListBalanceTransactionsNext$Outbound | null | undefined;
-  documentation?: ListBalanceTransactionsDocumentation$Outbound | undefined;
+  self: ListBalanceTransactionsSelf$Outbound;
+  previous: ListBalanceTransactionsPrevious$Outbound | null;
+  next: ListBalanceTransactionsNext$Outbound | null;
+  documentation: ListBalanceTransactionsDocumentation$Outbound;
 };
 
 /** @internal */
@@ -3942,15 +3941,14 @@ export const ListBalanceTransactionsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListBalanceTransactionsLinks
 > = z.object({
-  self: z.lazy(() => ListBalanceTransactionsSelf$outboundSchema).optional(),
+  self: z.lazy(() => ListBalanceTransactionsSelf$outboundSchema),
   previous: z.nullable(
     z.lazy(() => ListBalanceTransactionsPrevious$outboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListBalanceTransactionsNext$outboundSchema))
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListBalanceTransactionsNext$outboundSchema)),
   documentation: z.lazy(() =>
     ListBalanceTransactionsDocumentation$outboundSchema
-  ).optional(),
+  ),
 });
 
 /**

@@ -1,6 +1,7 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
 import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -132,6 +133,19 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken:
+        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
 

@@ -491,19 +491,19 @@ export type ListSettlementRefundsLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListSettlementRefundsSelf | undefined;
+  self: ListSettlementRefundsSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListSettlementRefundsPrevious | null | undefined;
+  previous: ListSettlementRefundsPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListSettlementRefundsNext | null | undefined;
+  next: ListSettlementRefundsNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListSettlementRefundsDocumentation | undefined;
+  documentation: ListSettlementRefundsDocumentation;
 };
 
 /**
@@ -2113,22 +2113,20 @@ export const ListSettlementRefundsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListSettlementRefundsSelf$inboundSchema).optional(),
+  self: z.lazy(() => ListSettlementRefundsSelf$inboundSchema),
   previous: z.nullable(
     z.lazy(() => ListSettlementRefundsPrevious$inboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListSettlementRefundsNext$inboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListSettlementRefundsDocumentation$inboundSchema)
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListSettlementRefundsNext$inboundSchema)),
+  documentation: z.lazy(() => ListSettlementRefundsDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListSettlementRefundsLinks$Outbound = {
-  self?: ListSettlementRefundsSelf$Outbound | undefined;
-  previous?: ListSettlementRefundsPrevious$Outbound | null | undefined;
-  next?: ListSettlementRefundsNext$Outbound | null | undefined;
-  documentation?: ListSettlementRefundsDocumentation$Outbound | undefined;
+  self: ListSettlementRefundsSelf$Outbound;
+  previous: ListSettlementRefundsPrevious$Outbound | null;
+  next: ListSettlementRefundsNext$Outbound | null;
+  documentation: ListSettlementRefundsDocumentation$Outbound;
 };
 
 /** @internal */
@@ -2137,14 +2135,14 @@ export const ListSettlementRefundsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementRefundsLinks
 > = z.object({
-  self: z.lazy(() => ListSettlementRefundsSelf$outboundSchema).optional(),
+  self: z.lazy(() => ListSettlementRefundsSelf$outboundSchema),
   previous: z.nullable(
     z.lazy(() => ListSettlementRefundsPrevious$outboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListSettlementRefundsNext$outboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListSettlementRefundsDocumentation$outboundSchema)
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListSettlementRefundsNext$outboundSchema)),
+  documentation: z.lazy(() =>
+    ListSettlementRefundsDocumentation$outboundSchema
+  ),
 });
 
 /**

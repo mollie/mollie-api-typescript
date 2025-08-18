@@ -420,19 +420,19 @@ export type ListSettlementCapturesLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListSettlementCapturesSelf | undefined;
+  self: ListSettlementCapturesSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListSettlementCapturesPrevious | null | undefined;
+  previous: ListSettlementCapturesPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListSettlementCapturesNext | null | undefined;
+  next: ListSettlementCapturesNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListSettlementCapturesDocumentation | undefined;
+  documentation: ListSettlementCapturesDocumentation;
 };
 
 /**
@@ -1823,22 +1823,22 @@ export const ListSettlementCapturesLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListSettlementCapturesSelf$inboundSchema).optional(),
+  self: z.lazy(() => ListSettlementCapturesSelf$inboundSchema),
   previous: z.nullable(
     z.lazy(() => ListSettlementCapturesPrevious$inboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListSettlementCapturesNext$inboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListSettlementCapturesDocumentation$inboundSchema)
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListSettlementCapturesNext$inboundSchema)),
+  documentation: z.lazy(() =>
+    ListSettlementCapturesDocumentation$inboundSchema
+  ),
 });
 
 /** @internal */
 export type ListSettlementCapturesLinks$Outbound = {
-  self?: ListSettlementCapturesSelf$Outbound | undefined;
-  previous?: ListSettlementCapturesPrevious$Outbound | null | undefined;
-  next?: ListSettlementCapturesNext$Outbound | null | undefined;
-  documentation?: ListSettlementCapturesDocumentation$Outbound | undefined;
+  self: ListSettlementCapturesSelf$Outbound;
+  previous: ListSettlementCapturesPrevious$Outbound | null;
+  next: ListSettlementCapturesNext$Outbound | null;
+  documentation: ListSettlementCapturesDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1847,15 +1847,14 @@ export const ListSettlementCapturesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementCapturesLinks
 > = z.object({
-  self: z.lazy(() => ListSettlementCapturesSelf$outboundSchema).optional(),
+  self: z.lazy(() => ListSettlementCapturesSelf$outboundSchema),
   previous: z.nullable(
     z.lazy(() => ListSettlementCapturesPrevious$outboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListSettlementCapturesNext$outboundSchema))
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListSettlementCapturesNext$outboundSchema)),
   documentation: z.lazy(() =>
     ListSettlementCapturesDocumentation$outboundSchema
-  ).optional(),
+  ),
 });
 
 /**

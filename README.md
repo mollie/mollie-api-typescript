@@ -171,6 +171,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -302,6 +303,19 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken:
+        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
 
@@ -328,6 +342,7 @@ This SDK supports the following security schemes globally:
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
 import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -459,6 +474,19 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken:
+        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
 
@@ -768,6 +796,7 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
 import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -899,6 +928,19 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken:
+        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   }, {
     retries: {
@@ -923,6 +965,7 @@ run();
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
 import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   retryConfig: {
@@ -1064,6 +1107,19 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken:
+        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
 
@@ -1093,6 +1149,7 @@ run();
 ```typescript
 import { Client } from "mollie-api-typescript";
 import * as errors from "mollie-api-typescript/models/errors";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -1225,6 +1282,19 @@ async function run() {
         profileId: "pfl_5B8cwPMGnU",
         dueDate: "2025-01-01",
         testmode: false,
+        applePayPaymentToken:
+          "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+        company: {
+          registrationNumber: "12345678",
+          vatNumber: "NL123456789B01",
+        },
+        cardToken: "tkn_12345",
+        voucherNumber: "1234567890",
+        voucherPin: "1234",
+        consumerDateOfBirth: new RFCDate("2000-01-01"),
+        digitalGoods: true,
+        customerReference: "1234567890",
+        terminalId: "term_1234567890",
       },
     });
 
@@ -1413,6 +1483,7 @@ run();
 The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   serverURL: "https://api.mollie.com/v2",
@@ -1545,6 +1616,19 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken:
+        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
 

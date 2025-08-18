@@ -464,6 +464,7 @@ parameter predefined.
 <!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -595,6 +596,18 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
 
@@ -611,6 +624,7 @@ The standalone function version of this method:
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
 import { customersCreatePayment } from "mollie-api-typescript/funcs/customersCreatePayment.js";
+import { RFCDate } from "mollie-api-typescript/types";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -744,6 +758,18 @@ async function run() {
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
+      applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
     },
   });
   if (res.ok) {

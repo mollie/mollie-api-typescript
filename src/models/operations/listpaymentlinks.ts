@@ -288,7 +288,7 @@ export type ListPaymentLinksLine = {
    * An array with the voucher categories, in case of a line eligible for a voucher. See the
    *
    * @remarks
-   * [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * [Integrating Vouchers](https://docs.mollie.com/docs/integrating-vouchers/) guide for more information.
    */
   categories?: Array<ListPaymentLinksCategory> | undefined;
   /**
@@ -854,19 +854,19 @@ export type ListPaymentLinksLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListPaymentLinksSelf | undefined;
+  self: ListPaymentLinksSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListPaymentLinksPrevious | null | undefined;
+  previous: ListPaymentLinksPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListPaymentLinksNext | null | undefined;
+  next: ListPaymentLinksNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListPaymentLinksDocumentation | undefined;
+  documentation: ListPaymentLinksDocumentation;
 };
 
 /**
@@ -2516,20 +2516,18 @@ export const ListPaymentLinksLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListPaymentLinksSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListPaymentLinksPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListPaymentLinksNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListPaymentLinksDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListPaymentLinksSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListPaymentLinksPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListPaymentLinksNext$inboundSchema)),
+  documentation: z.lazy(() => ListPaymentLinksDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListPaymentLinksLinks$Outbound = {
-  self?: ListPaymentLinksSelf$Outbound | undefined;
-  previous?: ListPaymentLinksPrevious$Outbound | null | undefined;
-  next?: ListPaymentLinksNext$Outbound | null | undefined;
-  documentation?: ListPaymentLinksDocumentation$Outbound | undefined;
+  self: ListPaymentLinksSelf$Outbound;
+  previous: ListPaymentLinksPrevious$Outbound | null;
+  next: ListPaymentLinksNext$Outbound | null;
+  documentation: ListPaymentLinksDocumentation$Outbound;
 };
 
 /** @internal */
@@ -2538,13 +2536,10 @@ export const ListPaymentLinksLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPaymentLinksLinks
 > = z.object({
-  self: z.lazy(() => ListPaymentLinksSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListPaymentLinksPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListPaymentLinksNext$outboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListPaymentLinksDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListPaymentLinksSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListPaymentLinksPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListPaymentLinksNext$outboundSchema)),
+  documentation: z.lazy(() => ListPaymentLinksDocumentation$outboundSchema),
 });
 
 /**

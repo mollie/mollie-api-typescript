@@ -425,19 +425,19 @@ export type ListBalancesLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListBalancesSelf | undefined;
+  self: ListBalancesSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListBalancesPrevious | null | undefined;
+  previous: ListBalancesPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListBalancesNext | null | undefined;
+  next: ListBalancesNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListBalancesDocumentation | undefined;
+  documentation: ListBalancesDocumentation;
 };
 
 /**
@@ -1663,20 +1663,18 @@ export const ListBalancesLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListBalancesSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListBalancesPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListBalancesNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListBalancesDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListBalancesSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListBalancesPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListBalancesNext$inboundSchema)),
+  documentation: z.lazy(() => ListBalancesDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListBalancesLinks$Outbound = {
-  self?: ListBalancesSelf$Outbound | undefined;
-  previous?: ListBalancesPrevious$Outbound | null | undefined;
-  next?: ListBalancesNext$Outbound | null | undefined;
-  documentation?: ListBalancesDocumentation$Outbound | undefined;
+  self: ListBalancesSelf$Outbound;
+  previous: ListBalancesPrevious$Outbound | null;
+  next: ListBalancesNext$Outbound | null;
+  documentation: ListBalancesDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1685,12 +1683,10 @@ export const ListBalancesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListBalancesLinks
 > = z.object({
-  self: z.lazy(() => ListBalancesSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListBalancesPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListBalancesNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListBalancesDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListBalancesSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListBalancesPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListBalancesNext$outboundSchema)),
+  documentation: z.lazy(() => ListBalancesDocumentation$outboundSchema),
 });
 
 /**

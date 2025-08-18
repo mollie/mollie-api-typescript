@@ -822,19 +822,19 @@ export type ListSalesInvoicesLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListSalesInvoicesSelf | undefined;
+  self: ListSalesInvoicesSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListSalesInvoicesPrevious | null | undefined;
+  previous: ListSalesInvoicesPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListSalesInvoicesNext | null | undefined;
+  next: ListSalesInvoicesNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListSalesInvoicesDocumentation | undefined;
+  documentation: ListSalesInvoicesDocumentation;
 };
 
 /**
@@ -2812,21 +2812,18 @@ export const ListSalesInvoicesLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListSalesInvoicesSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListSalesInvoicesPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListSalesInvoicesNext$inboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListSalesInvoicesDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListSalesInvoicesSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListSalesInvoicesPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListSalesInvoicesNext$inboundSchema)),
+  documentation: z.lazy(() => ListSalesInvoicesDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListSalesInvoicesLinks$Outbound = {
-  self?: ListSalesInvoicesSelf$Outbound | undefined;
-  previous?: ListSalesInvoicesPrevious$Outbound | null | undefined;
-  next?: ListSalesInvoicesNext$Outbound | null | undefined;
-  documentation?: ListSalesInvoicesDocumentation$Outbound | undefined;
+  self: ListSalesInvoicesSelf$Outbound;
+  previous: ListSalesInvoicesPrevious$Outbound | null;
+  next: ListSalesInvoicesNext$Outbound | null;
+  documentation: ListSalesInvoicesDocumentation$Outbound;
 };
 
 /** @internal */
@@ -2835,13 +2832,10 @@ export const ListSalesInvoicesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSalesInvoicesLinks
 > = z.object({
-  self: z.lazy(() => ListSalesInvoicesSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListSalesInvoicesPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListSalesInvoicesNext$outboundSchema))
-    .optional(),
-  documentation: z.lazy(() => ListSalesInvoicesDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListSalesInvoicesSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListSalesInvoicesPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListSalesInvoicesNext$outboundSchema)),
+  documentation: z.lazy(() => ListSalesInvoicesDocumentation$outboundSchema),
 });
 
 /**

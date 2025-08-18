@@ -496,19 +496,19 @@ export type ListAllRefundsLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListAllRefundsSelf | undefined;
+  self: ListAllRefundsSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListAllRefundsPrevious | null | undefined;
+  previous: ListAllRefundsPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListAllRefundsNext | null | undefined;
+  next: ListAllRefundsNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListAllRefundsDocumentation | undefined;
+  documentation: ListAllRefundsDocumentation;
 };
 
 /**
@@ -1937,20 +1937,18 @@ export const ListAllRefundsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListAllRefundsSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListAllRefundsPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListAllRefundsNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListAllRefundsDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListAllRefundsSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListAllRefundsPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListAllRefundsNext$inboundSchema)),
+  documentation: z.lazy(() => ListAllRefundsDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListAllRefundsLinks$Outbound = {
-  self?: ListAllRefundsSelf$Outbound | undefined;
-  previous?: ListAllRefundsPrevious$Outbound | null | undefined;
-  next?: ListAllRefundsNext$Outbound | null | undefined;
-  documentation?: ListAllRefundsDocumentation$Outbound | undefined;
+  self: ListAllRefundsSelf$Outbound;
+  previous: ListAllRefundsPrevious$Outbound | null;
+  next: ListAllRefundsNext$Outbound | null;
+  documentation: ListAllRefundsDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1959,12 +1957,10 @@ export const ListAllRefundsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllRefundsLinks
 > = z.object({
-  self: z.lazy(() => ListAllRefundsSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListAllRefundsPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListAllRefundsNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListAllRefundsDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListAllRefundsSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListAllRefundsPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListAllRefundsNext$outboundSchema)),
+  documentation: z.lazy(() => ListAllRefundsDocumentation$outboundSchema),
 });
 
 /**

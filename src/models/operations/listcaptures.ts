@@ -414,19 +414,19 @@ export type ListCapturesLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListCapturesSelf | undefined;
+  self: ListCapturesSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListCapturesPrevious | null | undefined;
+  previous: ListCapturesPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListCapturesNext | null | undefined;
+  next: ListCapturesNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListCapturesDocumentation | undefined;
+  documentation: ListCapturesDocumentation;
 };
 
 /**
@@ -1734,20 +1734,18 @@ export const ListCapturesLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListCapturesSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListCapturesPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListCapturesNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListCapturesDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListCapturesSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListCapturesPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListCapturesNext$inboundSchema)),
+  documentation: z.lazy(() => ListCapturesDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListCapturesLinks$Outbound = {
-  self?: ListCapturesSelf$Outbound | undefined;
-  previous?: ListCapturesPrevious$Outbound | null | undefined;
-  next?: ListCapturesNext$Outbound | null | undefined;
-  documentation?: ListCapturesDocumentation$Outbound | undefined;
+  self: ListCapturesSelf$Outbound;
+  previous: ListCapturesPrevious$Outbound | null;
+  next: ListCapturesNext$Outbound | null;
+  documentation: ListCapturesDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1756,12 +1754,10 @@ export const ListCapturesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCapturesLinks
 > = z.object({
-  self: z.lazy(() => ListCapturesSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListCapturesPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListCapturesNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListCapturesDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListCapturesSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListCapturesPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListCapturesNext$outboundSchema)),
+  documentation: z.lazy(() => ListCapturesDocumentation$outboundSchema),
 });
 
 /**

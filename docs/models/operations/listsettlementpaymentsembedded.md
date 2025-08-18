@@ -4,6 +4,7 @@
 
 ```typescript
 import { ListSettlementPaymentsEmbedded } from "mollie-api-typescript/models/operations";
+import { RFCDate } from "mollie-api-typescript/types";
 
 let value: ListSettlementPaymentsEmbedded = {
   payments: [
@@ -165,6 +166,48 @@ let value: ListSettlementPaymentsEmbedded = {
           + "contact their bank.",
       },
       isCancelable: true,
+      details: {
+        consumerName: "John Doe",
+        consumerAccount: "NL91ABNA0417164300",
+        consumerBic: "ABNANL2A",
+        cardNumber: "************1234",
+        bankName: "Mollie Bank",
+        bankAccount: "NL91ABNA0417164300",
+        bankBic: "ABNANL2A",
+        cardHolder: "John Doe",
+        cardAudition: "consumer",
+        cardLabel: "Mastercard",
+        cardCountryCode: "NL",
+        cardExpiryDate: "12/25",
+        cardFunding: "credit",
+        cardSecurity: "normal",
+        feeRegion: "maestro",
+        failureReason: "card_declined",
+        failureMessage: "Your card was declined.",
+        wallet: "applepay",
+        sellerProtection: "Eligible",
+        paypalFee: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        terminalId: "term_12345",
+        receipt: {
+          cardReadMethod: "contactless",
+          cardVerificationMethod: "no-cvm-required",
+        },
+        dueDate: new RFCDate("2025-01-01"),
+        signatureDate: new RFCDate("2024-03-20"),
+        qrCode: {
+          height: 300,
+          width: 300,
+          src: "https://www.mollie.com/images/qr-code.png",
+        },
+        remainderAmount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        remainderMethod: "creditcard",
+      },
       createdAt: "2024-03-20T09:13:37.0Z",
       authorizedAt: "2024-03-20T09:28:37.0Z",
       paidAt: "2024-03-20T09:28:37.0Z",
@@ -230,6 +273,14 @@ let value: ListSettlementPaymentsEmbedded = {
           type: "application/hal+json",
         },
         documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
+        status: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
+        payOnline: {
           href: "https://...",
           type: "application/hal+json",
         },

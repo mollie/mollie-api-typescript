@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
@@ -469,7 +470,7 @@ export type ListSubscriptionPaymentsLine = {
    * An array with the voucher categories, in case of a line eligible for a voucher. See the
    *
    * @remarks
-   * [Integrating Vouchers](integrating-vouchers) guide for more information.
+   * [Integrating Vouchers](https://docs.mollie.com/docs/integrating-vouchers/) guide for more information.
    */
   categories?: Array<ListSubscriptionPaymentsCategory> | undefined;
   /**
@@ -1065,7 +1066,7 @@ export type ListSubscriptionPaymentsSequenceType = ClosedEnum<
  * @remarks
  * statuses occur at what point.
  */
-export const ListSubscriptionPaymentsStatus = {
+export const ListSubscriptionPaymentsStatusEnum = {
   Open: "open",
   Pending: "pending",
   Authorized: "authorized",
@@ -1080,8 +1081,144 @@ export const ListSubscriptionPaymentsStatus = {
  * @remarks
  * statuses occur at what point.
  */
-export type ListSubscriptionPaymentsStatus = ClosedEnum<
-  typeof ListSubscriptionPaymentsStatus
+export type ListSubscriptionPaymentsStatusEnum = ClosedEnum<
+  typeof ListSubscriptionPaymentsStatusEnum
+>;
+
+/**
+ * A machine-readable code that indicates the reason for the payment's status.
+ */
+export const ListSubscriptionPaymentsCode = {
+  ApprovedOrCompletedSuccessfully: "approved_or_completed_successfully",
+  ReferToCardIssuer: "refer_to_card_issuer",
+  InvalidMerchant: "invalid_merchant",
+  CaptureCard: "capture_card",
+  DoNotHonor: "do_not_honor",
+  Error: "error",
+  PartialApproval: "partial_approval",
+  InvalidTransaction: "invalid_transaction",
+  InvalidAmount: "invalid_amount",
+  InvalidIssuer: "invalid_issuer",
+  LostCard: "lost_card",
+  StolenCard: "stolen_card",
+  InsufficientFunds: "insufficient_funds",
+  ExpiredCard: "expired_card",
+  InvalidPin: "invalid_pin",
+  TransactionNotPermittedToCardholder:
+    "transaction_not_permitted_to_cardholder",
+  TransactionNotAllowedAtTerminal: "transaction_not_allowed_at_terminal",
+  ExceedsWithdrawalAmountLimit: "exceeds_withdrawal_amount_limit",
+  RestrictedCard: "restricted_card",
+  SecurityViolation: "security_violation",
+  ExceedsWithdrawalCountLimit: "exceeds_withdrawal_count_limit",
+  AllowableNumberOfPinTriesExceeded: "allowable_number_of_pin_tries_exceeded",
+  NoReasonToDecline: "no_reason_to_decline",
+  CannotVerifyPin: "cannot_verify_pin",
+  IssuerUnavailable: "issuer_unavailable",
+  UnableToRouteTransaction: "unable_to_route_transaction",
+  DuplicateTransaction: "duplicate_transaction",
+  SystemMalfunction: "system_malfunction",
+  HonorWithId: "honor_with_id",
+  InvalidCardNumber: "invalid_card_number",
+  FormatError: "format_error",
+  ContactCardIssuer: "contact_card_issuer",
+  PinNotChanged: "pin_not_changed",
+  InvalidNonexistentToAccountSpecified:
+    "invalid_nonexistent_to_account_specified",
+  InvalidNonexistentFromAccountSpecified:
+    "invalid_nonexistent_from_account_specified",
+  InvalidNonexistentAccountSpecified: "invalid_nonexistent_account_specified",
+  LifecycleRelated: "lifecycle_related",
+  DomesticDebitTransactionNotAllowed: "domestic_debit_transaction_not_allowed",
+  PolicyRelated: "policy_related",
+  FraudSecurityRelated: "fraud_security_related",
+  InvalidAuthorizationLifeCycle: "invalid_authorization_life_cycle",
+  PurchaseAmountOnlyNoCashBackAllowed:
+    "purchase_amount_only_no_cash_back_allowed",
+  CryptographicFailure: "cryptographic_failure",
+  UnacceptablePin: "unacceptable_pin",
+  ReferToCardIssuerSpecialCondition: "refer_to_card_issuer_special_condition",
+  PickUpCardSpecialCondition: "pick_up_card_special_condition",
+  VipApproval: "vip_approval",
+  InvalidAccountNumber: "invalid_account_number",
+  ReEnterTransaction: "re_enter_transaction",
+  NoActionTaken: "no_action_taken",
+  UnableToLocateRecord: "unable_to_locate_record",
+  FileTemporarilyUnavailable: "file_temporarily_unavailable",
+  NoCreditAccount: "no_credit_account",
+  ClosedAccount: "closed_account",
+  NoCheckingAccount: "no_checking_account",
+  NoSavingsAccount: "no_savings_account",
+  SuspectedFraud: "suspected_fraud",
+  TransactionDoesNotFulfillAmlRequirement:
+    "transaction_does_not_fulfill_aml_requirement",
+  PinDataRequired: "pin_data_required",
+  UnableToLocatePreviousMessage: "unable_to_locate_previous_message",
+  PreviousMessageLocatedInconsistentData:
+    "previous_message_located_inconsistent_data",
+  BlockedFirstUsed: "blocked_first_used",
+  TransactionReversed: "transaction_reversed",
+  CreditIssuerUnavailable: "credit_issuer_unavailable",
+  PinCryptographicErrorFound: "pin_cryptographic_error_found",
+  NegativeOnlineCamResult: "negative_online_cam_result",
+  ViolationOfLaw: "violation_of_law",
+  ForceStip: "force_stip",
+  CashServiceNotAvailable: "cash_service_not_available",
+  CashbackRequestExceedsIssuerLimit: "cashback_request_exceeds_issuer_limit",
+  DeclineForCvv2Failure: "decline_for_cvv2_failure",
+  TransactionAmountExceedsPreAuthorizedAmount:
+    "transaction_amount_exceeds_pre_authorized_amount",
+  InvalidBillerInformation: "invalid_biller_information",
+  PinChangeUnblockRequestDeclined: "pin_change_unblock_request_declined",
+  UnsafePin: "unsafe_pin",
+  CardAuthenticationFailed: "card_authentication_failed",
+  StopPaymentOrder: "stop_payment_order",
+  RevocationOfAuthorization: "revocation_of_authorization",
+  RevocationOfAllAuthorizations: "revocation_of_all_authorizations",
+  ForwardToIssuerXa: "forward_to_issuer_xa",
+  ForwardToIssuerXd: "forward_to_issuer_xd",
+  UnableToGoOnline: "unable_to_go_online",
+  AdditionalCustomerAuthenticationRequired:
+    "additional_customer_authentication_required",
+  MerchantIdNotFound: "merchant_id_not_found",
+  MerchantAccountClosed: "merchant_account_closed",
+  TerminalIdNotFound: "terminal_id_not_found",
+  TerminalClosed: "terminal_closed",
+  InvalidCategoryCode: "invalid_category_code",
+  InvalidCurrency: "invalid_currency",
+  MissingCvv2Cvc2: "missing_cvv2_cvc2",
+  Cvv2NotAllowed: "cvv2_not_allowed",
+  MerchantNotRegisteredVbv: "merchant_not_registered_vbv",
+  MerchantNotRegisteredForAmex: "merchant_not_registered_for_amex",
+  TransactionNotPermittedAtTerminal: "transaction_not_permitted_at_terminal",
+  AgreementTerminalNotRelated: "agreement_terminal_not_related",
+  InvalidProcessorId: "invalid_processor_id",
+  InvalidMerchantData: "invalid_merchant_data",
+  SubMerchantAccountClosed: "sub_merchant_account_closed",
+  TerminalBusy: "terminal_busy",
+  TerminalUnreachable: "terminal_unreachable",
+  ServiceFailed: "service_failed",
+  InvalidOperation: "invalid_operation",
+  AuthorizationError: "authorization_error",
+  LoginFailedWithoutReason: "login_failed_without_reason",
+  InvalidRetailer: "invalid_retailer",
+  CardDoesNotExist: "card_does_not_exist",
+  CardIsBlocked: "card_is_blocked",
+  InvalidCardId: "invalid_card_id",
+  CardIsTransferred: "card_is_transferred",
+  CardIsNotActive: "card_is_not_active",
+  IncorrectPurchaseValue: "incorrect_purchase_value",
+  CardNotAvailable: "card_not_available",
+  WrongCurrency: "wrong_currency",
+  LoginFailedUnknownUser: "login_failed_unknown_user",
+  LoginFailedInvalidPassword: "login_failed_invalid_password",
+  InvalidEanCode: "invalid_ean_code",
+} as const;
+/**
+ * A machine-readable code that indicates the reason for the payment's status.
+ */
+export type ListSubscriptionPaymentsCode = ClosedEnum<
+  typeof ListSubscriptionPaymentsCode
 >;
 
 /**
@@ -1094,14 +1231,550 @@ export type ListSubscriptionPaymentsStatus = ClosedEnum<
  * [this page](status-reasons).**
  */
 export type ListSubscriptionPaymentsStatusReason = {
-  /**
-   * A machine-readable code that indicates the reason for the payment's status.
-   */
-  code: string;
+  code: ListSubscriptionPaymentsCode;
   /**
    * A description of the status reason, localized according to the payment `locale`.
    */
   message: string;
+};
+
+/**
+ * The card's target audience, if known.
+ */
+export const ListSubscriptionPaymentsCardAudition = {
+  Consumer: "consumer",
+  Business: "business",
+} as const;
+/**
+ * The card's target audience, if known.
+ */
+export type ListSubscriptionPaymentsCardAudition = ClosedEnum<
+  typeof ListSubscriptionPaymentsCardAudition
+>;
+
+/**
+ * The card's label, if known.
+ */
+export const ListSubscriptionPaymentsCardLabel = {
+  AmericanExpress: "American Express",
+  CartaSi: "Carta Si",
+  CarteBleue: "Carte Bleue",
+  Dankort: "Dankort",
+  DinersClub: "Diners Club",
+  Discover: "Discover",
+  Jcb: "JCB",
+  Laser: "Laser",
+  Maestro: "Maestro",
+  Mastercard: "Mastercard",
+  Unionpay: "Unionpay",
+  Visa: "Visa",
+  Vpay: "Vpay",
+} as const;
+/**
+ * The card's label, if known.
+ */
+export type ListSubscriptionPaymentsCardLabel = ClosedEnum<
+  typeof ListSubscriptionPaymentsCardLabel
+>;
+
+/**
+ * The card type.
+ */
+export const ListSubscriptionPaymentsCardFunding = {
+  Debit: "debit",
+  Credit: "credit",
+  Prepaid: "prepaid",
+  DeferredDebit: "deferred-debit",
+} as const;
+/**
+ * The card type.
+ */
+export type ListSubscriptionPaymentsCardFunding = ClosedEnum<
+  typeof ListSubscriptionPaymentsCardFunding
+>;
+
+/**
+ * The level of security applied during card processing.
+ */
+export const ListSubscriptionPaymentsCardSecurity = {
+  Normal: "normal",
+  Threedsecure: "3dsecure",
+} as const;
+/**
+ * The level of security applied during card processing.
+ */
+export type ListSubscriptionPaymentsCardSecurity = ClosedEnum<
+  typeof ListSubscriptionPaymentsCardSecurity
+>;
+
+/**
+ * The applicable card fee region.
+ */
+export const ListSubscriptionPaymentsFeeRegion = {
+  AmericanExpress: "american-express",
+  AmexIntraEea: "amex-intra-eea",
+  CarteBancaire: "carte-bancaire",
+  IntraEu: "intra-eu",
+  IntraEuCorporate: "intra-eu-corporate",
+  Domestic: "domestic",
+  Maestro: "maestro",
+  Other: "other",
+  Inter: "inter",
+  IntraEea: "intra-eea",
+} as const;
+/**
+ * The applicable card fee region.
+ */
+export type ListSubscriptionPaymentsFeeRegion = ClosedEnum<
+  typeof ListSubscriptionPaymentsFeeRegion
+>;
+
+/**
+ * A failure code to help understand why the payment failed.
+ */
+export const ListSubscriptionPaymentsFailureReason = {
+  AuthenticationAbandoned: "authentication_abandoned",
+  AuthenticationFailed: "authentication_failed",
+  AuthenticationRequired: "authentication_required",
+  AuthenticationUnavailableAcs: "authentication_unavailable_acs",
+  CardDeclined: "card_declined",
+  CardExpired: "card_expired",
+  InactiveCard: "inactive_card",
+  InsufficientFunds: "insufficient_funds",
+  InvalidCvv: "invalid_cvv",
+  InvalidCardHolderName: "invalid_card_holder_name",
+  InvalidCardNumber: "invalid_card_number",
+  InvalidCardType: "invalid_card_type",
+  PossibleFraud: "possible_fraud",
+  RefusedByIssuer: "refused_by_issuer",
+  UnknownReason: "unknown_reason",
+} as const;
+/**
+ * A failure code to help understand why the payment failed.
+ */
+export type ListSubscriptionPaymentsFailureReason = ClosedEnum<
+  typeof ListSubscriptionPaymentsFailureReason
+>;
+
+/**
+ * The wallet used when creating the payment.
+ */
+export const ListSubscriptionPaymentsWallet = {
+  Applepay: "applepay",
+} as const;
+/**
+ * The wallet used when creating the payment.
+ */
+export type ListSubscriptionPaymentsWallet = ClosedEnum<
+  typeof ListSubscriptionPaymentsWallet
+>;
+
+/**
+ * Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
+ *
+ * @remarks
+ * payments, and if the information is made available by PayPal.
+ */
+export const ListSubscriptionPaymentsSellerProtection = {
+  Eligible: "Eligible",
+  Ineligible: "Ineligible",
+  PartiallyEligibleINROnly: "Partially Eligible - INR Only",
+  PartiallyEligibleUnauthOnly: "Partially Eligible - Unauth Only",
+  PartiallyEligible: "Partially Eligible",
+  None: "None",
+  Active: "Active",
+  FraudControlUnauthPremiumEligible: "Fraud Control - Unauth Premium Eligible",
+} as const;
+/**
+ * Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
+ *
+ * @remarks
+ * payments, and if the information is made available by PayPal.
+ */
+export type ListSubscriptionPaymentsSellerProtection = ClosedEnum<
+  typeof ListSubscriptionPaymentsSellerProtection
+>;
+
+/**
+ * An amount object containing the fee PayPal will charge for this transaction. The field may be omitted if
+ *
+ * @remarks
+ * PayPal will not charge a fee for this transaction.
+ */
+export type ListSubscriptionPaymentsPaypalFee = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * The method by which the card was read by the terminal.
+ */
+export const ListSubscriptionPaymentsCardReadMethod = {
+  Chip: "chip",
+  MagneticStripe: "magnetic-stripe",
+  NearFieldCommunication: "near-field-communication",
+  Contactless: "contactless",
+  Moto: "moto",
+} as const;
+/**
+ * The method by which the card was read by the terminal.
+ */
+export type ListSubscriptionPaymentsCardReadMethod = ClosedEnum<
+  typeof ListSubscriptionPaymentsCardReadMethod
+>;
+
+/**
+ * The method used to verify the cardholder's identity.
+ */
+export const ListSubscriptionPaymentsCardVerificationMethod = {
+  NoCvmRequired: "no-cvm-required",
+  OnlinePin: "online-pin",
+  OfflinePin: "offline-pin",
+  ConsumerDevice: "consumer-device",
+  Signature: "signature",
+  SignatureAndOnlinePin: "signature-and-online-pin",
+  OnlinePinAndSignature: "online-pin-and-signature",
+  None: "none",
+  Failed: "failed",
+} as const;
+/**
+ * The method used to verify the cardholder's identity.
+ */
+export type ListSubscriptionPaymentsCardVerificationMethod = ClosedEnum<
+  typeof ListSubscriptionPaymentsCardVerificationMethod
+>;
+
+/**
+ * The Point of sale receipt object.
+ */
+export type ListSubscriptionPaymentsReceipt = {
+  /**
+   * A unique code provided by the cardholder’s bank to confirm that the transaction was successfully approved.
+   */
+  authorizationCode?: string | null | undefined;
+  /**
+   * The unique number that identifies a specific payment application on a chip card.
+   */
+  applicationIdentifier?: string | null | undefined;
+  /**
+   * The method by which the card was read by the terminal.
+   */
+  cardReadMethod?: ListSubscriptionPaymentsCardReadMethod | null | undefined;
+  /**
+   * The method used to verify the cardholder's identity.
+   */
+  cardVerificationMethod?:
+    | ListSubscriptionPaymentsCardVerificationMethod
+    | null
+    | undefined;
+};
+
+/**
+ * Optional include. If a QR code was requested during payment creation for a QR-compatible payment method,
+ *
+ * @remarks
+ * the QR code details will be available in this object.
+ *
+ * The QR code can be scanned by the customer to complete the payment on their mobile device. For example,
+ * Bancontact QR payments can be completed by the customer using the Bancontact app.
+ */
+export type ListSubscriptionPaymentsQrCode = {
+  /**
+   * The height of the QR code image in pixels.
+   */
+  height?: number | undefined;
+  /**
+   * The width of the QR code image in pixels.
+   */
+  width?: number | undefined;
+  /**
+   * The URL to the QR code image. The image is a PNG file, and can be displayed directly in the browser or
+   *
+   * @remarks
+   * downloaded.
+   */
+  src?: string | undefined;
+};
+
+/**
+ * An amount object for the amount that remained after all gift cards or vouchers were applied.
+ */
+export type ListSubscriptionPaymentsRemainderAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * An object containing payment details collected during the payment process. For example, details may include the
+ *
+ * @remarks
+ * customer's card or bank details and a payment reference. For the full list of details, please refer to the
+ * [method-specific parameters](extra-payment-parameters) guide.
+ */
+export type ListSubscriptionPaymentsDetails = {
+  /**
+   * The customer's name, if made available by the payment method. For card payments, refer to details.cardHolder.
+   */
+  consumerName?: string | null | undefined;
+  /**
+   * The customer's account reference.
+   *
+   * @remarks
+   *
+   * For banking-based payment methods — such as iDEAL — this is normally either an IBAN or a domestic bank account
+   * number.
+   *
+   * For PayPal, the account reference is an email address.
+   *
+   * For card and Bancontact payments, refer to details.cardNumber.
+   */
+  consumerAccount?: string | null | undefined;
+  /**
+   * The BIC of the customer's bank account, if applicable.
+   */
+  consumerBic?: string | null | undefined;
+  /**
+   * For wallet payment methods — such as Apple Pay and PayPal — the shipping address is often already known by the
+   *
+   * @remarks
+   * wallet provider. In these cases the shipping address may be available as a payment detail.
+   */
+  shippingAddress?: { [k: string]: any } | null | undefined;
+  /**
+   * For bancontact, it will be the customer's masked card number. For cards, it will be the last 4-digit of the
+   *
+   * @remarks
+   * PAN. For Point-of-sale, it will be the the last 4 digits of the customer's masked card number.
+   */
+  cardNumber?: string | null | undefined;
+  /**
+   * The name of the bank that the customer will need to make the bank transfer payment towards.
+   */
+  bankName?: string | undefined;
+  /**
+   * The bank account number the customer will need to make the bank transfer payment towards.
+   */
+  bankAccount?: string | undefined;
+  /**
+   * The BIC of the bank the customer will need to make the bank transfer payment towards.
+   */
+  bankBic?: string | undefined;
+  /**
+   * The Mollie-generated reference the customer needs to use when transfering the amount. Do not apply any
+   *
+   * @remarks
+   * formatting here; show it to the customer as-is.
+   */
+  transferReference?: string | null | undefined;
+  /**
+   * A unique fingerprint for a specific card. Can be used to identify returning customers.
+   *
+   * @remarks
+   *
+   * In the case of Point-of-sale payments, it's a unique identifier assigned to a cardholder's payment account,
+   * linking multiple transactions from wallets and physical card to a single account, also across payment methods
+   * or when the card is reissued.
+   */
+  cardFingerprint?: string | null | undefined;
+  /**
+   * The customer's name as shown on their card.
+   */
+  cardHolder?: string | null | undefined;
+  /**
+   * The card's target audience, if known.
+   */
+  cardAudition?: ListSubscriptionPaymentsCardAudition | null | undefined;
+  /**
+   * The card's label, if known.
+   */
+  cardLabel?: ListSubscriptionPaymentsCardLabel | null | undefined;
+  /**
+   * The ISO 3166-1 alpha-2 country code of the country the card was issued in.
+   */
+  cardCountryCode?: string | null | undefined;
+  /**
+   * The expiry date (MM/YY) of the card as displayed on the card.
+   */
+  cardExpiryDate?: string | null | undefined;
+  /**
+   * The card type.
+   */
+  cardFunding?: ListSubscriptionPaymentsCardFunding | null | undefined;
+  /**
+   * The level of security applied during card processing.
+   */
+  cardSecurity?: ListSubscriptionPaymentsCardSecurity | null | undefined;
+  /**
+   * The applicable card fee region.
+   */
+  feeRegion?: ListSubscriptionPaymentsFeeRegion | null | undefined;
+  /**
+   * The first 6 and last 4 digits of the card number.
+   */
+  cardMaskedNumber?: string | null | undefined;
+  /**
+   * The outcome of authentication attempted on transactions enforced by 3DS (ie valid only for oneoff and first).
+   */
+  card3dsEci?: string | null | undefined;
+  /**
+   * The first 6 digit of the card bank identification number.
+   */
+  cardBin?: string | null | undefined;
+  /**
+   * The issuer of the Card.
+   */
+  cardIssuer?: string | null | undefined;
+  /**
+   * A failure code to help understand why the payment failed.
+   */
+  failureReason?: ListSubscriptionPaymentsFailureReason | null | undefined;
+  /**
+   * A human-friendly failure message that can be shown to the customer. The message is translated in accordance
+   *
+   * @remarks
+   * with the payment's locale setting.
+   */
+  failureMessage?: string | null | undefined;
+  /**
+   * The wallet used when creating the payment.
+   */
+  wallet?: ListSubscriptionPaymentsWallet | null | undefined;
+  /**
+   * PayPal's reference for the payment.
+   */
+  paypalReference?: string | null | undefined;
+  /**
+   * ID of the customer's PayPal account.
+   */
+  paypalPayerId?: string | null | undefined;
+  /**
+   * Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
+   *
+   * @remarks
+   * payments, and if the information is made available by PayPal.
+   */
+  sellerProtection?:
+    | ListSubscriptionPaymentsSellerProtection
+    | null
+    | undefined;
+  /**
+   * An amount object containing the fee PayPal will charge for this transaction. The field may be omitted if
+   *
+   * @remarks
+   * PayPal will not charge a fee for this transaction.
+   */
+  paypalFee?: ListSubscriptionPaymentsPaypalFee | null | undefined;
+  /**
+   * The paysafecard customer reference either provided via the API or otherwise auto-generated by Mollie.
+   */
+  customerReference?: string | undefined;
+  /**
+   * The ID of the terminal device where the payment took place on.
+   */
+  terminalId?: string | undefined;
+  /**
+   * The first 6 digits & last 4 digits of the customer's masked card number.
+   */
+  maskedNumber?: string | null | undefined;
+  /**
+   * The Point of sale receipt object.
+   */
+  receipt?: ListSubscriptionPaymentsReceipt | undefined;
+  /**
+   * The creditor identifier indicates who is authorized to execute the payment. In this case, it is a
+   *
+   * @remarks
+   * reference to Mollie.
+   */
+  creditorIdentifier?: string | null | undefined;
+  /**
+   * Estimated date the payment is debited from the customer's bank account, in YYYY-MM-DD format.
+   */
+  dueDate?: RFCDate | null | undefined;
+  /**
+   * Date the payment has been signed by the customer, in YYYY-MM-DD format. Only available if the payment
+   *
+   * @remarks
+   * has been signed.
+   */
+  signatureDate?: RFCDate | null | undefined;
+  /**
+   * The official reason why this payment has failed. A detailed description of each reason is available on the
+   *
+   * @remarks
+   * website of the European Payments Council.
+   */
+  bankReasonCode?: string | null | undefined;
+  /**
+   * A human-friendly description of the failure reason.
+   */
+  bankReason?: string | null | undefined;
+  /**
+   * The end-to-end identifier you provided in the batch file.
+   */
+  endToEndIdentifier?: string | null | undefined;
+  /**
+   * The mandate reference you provided in the batch file.
+   */
+  mandateReference?: string | null | undefined;
+  /**
+   * The batch reference you provided in the batch file.
+   */
+  batchReference?: string | null | undefined;
+  /**
+   * The file reference you provided in the batch file.
+   */
+  fileReference?: string | null | undefined;
+  /**
+   * Optional include. If a QR code was requested during payment creation for a QR-compatible payment method,
+   *
+   * @remarks
+   * the QR code details will be available in this object.
+   *
+   * The QR code can be scanned by the customer to complete the payment on their mobile device. For example,
+   * Bancontact QR payments can be completed by the customer using the Bancontact app.
+   */
+  qrCode?: ListSubscriptionPaymentsQrCode | undefined;
+  /**
+   * For payments with gift cards: the masked gift card number of the first gift card applied to the payment.
+   */
+  voucherNumber?: string | undefined;
+  /**
+   * An array of detail objects for each gift card that was used on this payment, if any.
+   */
+  giftcards?: Array<{ [k: string]: any }> | undefined;
+  /**
+   * For payments with vouchers: the brand name of the first voucher applied.
+   */
+  issuer?: string | undefined;
+  /**
+   * An array of detail objects for each voucher that was used on this payment, if any.
+   */
+  vouchers?: Array<{ [k: string]: any }> | undefined;
+  /**
+   * An amount object for the amount that remained after all gift cards or vouchers were applied.
+   */
+  remainderAmount?: ListSubscriptionPaymentsRemainderAmount | undefined;
+  /**
+   * The payment method used to pay the remainder amount, after all gift cards or vouchers were applied.
+   */
+  remainderMethod?: string | undefined;
+  /**
+   * Optional include. The full payment method details of the remainder payment.
+   */
+  remainderDetails?: { [k: string]: any } | undefined;
 };
 
 /**
@@ -1336,6 +2009,40 @@ export type ListSubscriptionPaymentsPaymentDocumentation = {
 };
 
 /**
+ * Link to customer-facing page showing the status of the bank transfer (to verify if the transaction was
+ *
+ * @remarks
+ * successful).
+ */
+export type ListSubscriptionPaymentsLinksStatus = {
+  /**
+   * The actual URL string.
+   */
+  href: string;
+  /**
+   * The content type of the page or endpoint the URL points to.
+   */
+  type: string;
+};
+
+/**
+ * Link to Mollie Checkout page allowing customers to select a different payment method instead of legacy
+ *
+ * @remarks
+ * bank transfer.
+ */
+export type ListSubscriptionPaymentsPayOnline = {
+  /**
+   * The actual URL string.
+   */
+  href: string;
+  /**
+   * The content type of the page or endpoint the URL points to.
+   */
+  type: string;
+};
+
+/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type ListSubscriptionPaymentsPaymentLinks = {
@@ -1420,6 +2127,20 @@ export type ListSubscriptionPaymentsPaymentLinks = {
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
   documentation?: ListSubscriptionPaymentsPaymentDocumentation | undefined;
+  /**
+   * Link to customer-facing page showing the status of the bank transfer (to verify if the transaction was
+   *
+   * @remarks
+   * successful).
+   */
+  status?: ListSubscriptionPaymentsLinksStatus | undefined;
+  /**
+   * Link to Mollie Checkout page allowing customers to select a different payment method instead of legacy
+   *
+   * @remarks
+   * bank transfer.
+   */
+  payOnline?: ListSubscriptionPaymentsPayOnline | undefined;
 };
 
 export type ListSubscriptionPaymentsPaymentOutput = {
@@ -1755,7 +2476,7 @@ export type ListSubscriptionPaymentsPaymentOutput = {
    * @remarks
    * statuses occur at what point.
    */
-  status: ListSubscriptionPaymentsStatus;
+  status: ListSubscriptionPaymentsStatusEnum;
   /**
    * This object offers details about the status of a payment. Currently it is only available for point-of-sale
    *
@@ -1777,7 +2498,7 @@ export type ListSubscriptionPaymentsPaymentOutput = {
    * customer's card or bank details and a payment reference. For the full list of details, please refer to the
    * [method-specific parameters](extra-payment-parameters) guide.
    */
-  details?: { [k: string]: any } | null | undefined;
+  details?: ListSubscriptionPaymentsDetails | null | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -1900,19 +2621,19 @@ export type ListSubscriptionPaymentsLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListSubscriptionPaymentsSelf | undefined;
+  self: ListSubscriptionPaymentsSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListSubscriptionPaymentsPrevious | null | undefined;
+  previous: ListSubscriptionPaymentsPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListSubscriptionPaymentsNext | null | undefined;
+  next: ListSubscriptionPaymentsNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListSubscriptionPaymentsDocumentation | undefined;
+  documentation: ListSubscriptionPaymentsDocumentation;
 };
 
 /**
@@ -1928,12 +2649,12 @@ export type ListSubscriptionPaymentsResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListSubscriptionPaymentsEmbedded | undefined;
+  count: number;
+  embedded: ListSubscriptionPaymentsEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ListSubscriptionPaymentsLinks | undefined;
+  links: ListSubscriptionPaymentsLinks;
 };
 
 /** @internal */
@@ -4046,24 +4767,46 @@ export namespace ListSubscriptionPaymentsSequenceType$ {
 }
 
 /** @internal */
-export const ListSubscriptionPaymentsStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ListSubscriptionPaymentsStatus
-> = z.nativeEnum(ListSubscriptionPaymentsStatus);
+export const ListSubscriptionPaymentsStatusEnum$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsStatusEnum
+> = z.nativeEnum(ListSubscriptionPaymentsStatusEnum);
 
 /** @internal */
-export const ListSubscriptionPaymentsStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ListSubscriptionPaymentsStatus
-> = ListSubscriptionPaymentsStatus$inboundSchema;
+export const ListSubscriptionPaymentsStatusEnum$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsStatusEnum
+> = ListSubscriptionPaymentsStatusEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListSubscriptionPaymentsStatus$ {
-  /** @deprecated use `ListSubscriptionPaymentsStatus$inboundSchema` instead. */
-  export const inboundSchema = ListSubscriptionPaymentsStatus$inboundSchema;
-  /** @deprecated use `ListSubscriptionPaymentsStatus$outboundSchema` instead. */
-  export const outboundSchema = ListSubscriptionPaymentsStatus$outboundSchema;
+export namespace ListSubscriptionPaymentsStatusEnum$ {
+  /** @deprecated use `ListSubscriptionPaymentsStatusEnum$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsStatusEnum$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsStatusEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsStatusEnum$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsCode$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsCode
+> = z.nativeEnum(ListSubscriptionPaymentsCode);
+
+/** @internal */
+export const ListSubscriptionPaymentsCode$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsCode
+> = ListSubscriptionPaymentsCode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsCode$ {
+  /** @deprecated use `ListSubscriptionPaymentsCode$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsCode$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsCode$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionPaymentsCode$outboundSchema;
 }
 
 /** @internal */
@@ -4072,7 +4815,7 @@ export const ListSubscriptionPaymentsStatusReason$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.string(),
+  code: ListSubscriptionPaymentsCode$inboundSchema,
   message: z.string(),
 });
 
@@ -4088,7 +4831,7 @@ export const ListSubscriptionPaymentsStatusReason$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSubscriptionPaymentsStatusReason
 > = z.object({
-  code: z.string(),
+  code: ListSubscriptionPaymentsCode$outboundSchema,
   message: z.string(),
 });
 
@@ -4125,6 +4868,735 @@ export function listSubscriptionPaymentsStatusReasonFromJSON(
     (x) =>
       ListSubscriptionPaymentsStatusReason$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListSubscriptionPaymentsStatusReason' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsCardAudition$inboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardAudition> = z.nativeEnum(
+    ListSubscriptionPaymentsCardAudition,
+  );
+
+/** @internal */
+export const ListSubscriptionPaymentsCardAudition$outboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardAudition> =
+    ListSubscriptionPaymentsCardAudition$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsCardAudition$ {
+  /** @deprecated use `ListSubscriptionPaymentsCardAudition$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsCardAudition$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsCardAudition$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsCardAudition$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsCardLabel$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsCardLabel
+> = z.nativeEnum(ListSubscriptionPaymentsCardLabel);
+
+/** @internal */
+export const ListSubscriptionPaymentsCardLabel$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsCardLabel
+> = ListSubscriptionPaymentsCardLabel$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsCardLabel$ {
+  /** @deprecated use `ListSubscriptionPaymentsCardLabel$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsCardLabel$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsCardLabel$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsCardLabel$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsCardFunding$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsCardFunding
+> = z.nativeEnum(ListSubscriptionPaymentsCardFunding);
+
+/** @internal */
+export const ListSubscriptionPaymentsCardFunding$outboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardFunding> =
+    ListSubscriptionPaymentsCardFunding$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsCardFunding$ {
+  /** @deprecated use `ListSubscriptionPaymentsCardFunding$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsCardFunding$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsCardFunding$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsCardFunding$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsCardSecurity$inboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardSecurity> = z.nativeEnum(
+    ListSubscriptionPaymentsCardSecurity,
+  );
+
+/** @internal */
+export const ListSubscriptionPaymentsCardSecurity$outboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardSecurity> =
+    ListSubscriptionPaymentsCardSecurity$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsCardSecurity$ {
+  /** @deprecated use `ListSubscriptionPaymentsCardSecurity$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsCardSecurity$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsCardSecurity$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsCardSecurity$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsFeeRegion$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsFeeRegion
+> = z.nativeEnum(ListSubscriptionPaymentsFeeRegion);
+
+/** @internal */
+export const ListSubscriptionPaymentsFeeRegion$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsFeeRegion
+> = ListSubscriptionPaymentsFeeRegion$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsFeeRegion$ {
+  /** @deprecated use `ListSubscriptionPaymentsFeeRegion$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsFeeRegion$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsFeeRegion$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsFeeRegion$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsFailureReason$inboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsFailureReason> = z.nativeEnum(
+    ListSubscriptionPaymentsFailureReason,
+  );
+
+/** @internal */
+export const ListSubscriptionPaymentsFailureReason$outboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsFailureReason> =
+    ListSubscriptionPaymentsFailureReason$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsFailureReason$ {
+  /** @deprecated use `ListSubscriptionPaymentsFailureReason$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsFailureReason$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsFailureReason$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsFailureReason$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsWallet$inboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsWallet
+> = z.nativeEnum(ListSubscriptionPaymentsWallet);
+
+/** @internal */
+export const ListSubscriptionPaymentsWallet$outboundSchema: z.ZodNativeEnum<
+  typeof ListSubscriptionPaymentsWallet
+> = ListSubscriptionPaymentsWallet$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsWallet$ {
+  /** @deprecated use `ListSubscriptionPaymentsWallet$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsWallet$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsWallet$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionPaymentsWallet$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsSellerProtection$inboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsSellerProtection> = z
+    .nativeEnum(ListSubscriptionPaymentsSellerProtection);
+
+/** @internal */
+export const ListSubscriptionPaymentsSellerProtection$outboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsSellerProtection> =
+    ListSubscriptionPaymentsSellerProtection$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsSellerProtection$ {
+  /** @deprecated use `ListSubscriptionPaymentsSellerProtection$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsSellerProtection$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsSellerProtection$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsSellerProtection$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsPaypalFee$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsPaypalFee,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type ListSubscriptionPaymentsPaypalFee$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsPaypalFee$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsPaypalFee$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsPaypalFee
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsPaypalFee$ {
+  /** @deprecated use `ListSubscriptionPaymentsPaypalFee$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsPaypalFee$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsPaypalFee$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsPaypalFee$outboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsPaypalFee$Outbound` instead. */
+  export type Outbound = ListSubscriptionPaymentsPaypalFee$Outbound;
+}
+
+export function listSubscriptionPaymentsPaypalFeeToJSON(
+  listSubscriptionPaymentsPaypalFee: ListSubscriptionPaymentsPaypalFee,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsPaypalFee$outboundSchema.parse(
+      listSubscriptionPaymentsPaypalFee,
+    ),
+  );
+}
+
+export function listSubscriptionPaymentsPaypalFeeFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionPaymentsPaypalFee, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSubscriptionPaymentsPaypalFee$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionPaymentsPaypalFee' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsCardReadMethod$inboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardReadMethod> = z.nativeEnum(
+    ListSubscriptionPaymentsCardReadMethod,
+  );
+
+/** @internal */
+export const ListSubscriptionPaymentsCardReadMethod$outboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardReadMethod> =
+    ListSubscriptionPaymentsCardReadMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsCardReadMethod$ {
+  /** @deprecated use `ListSubscriptionPaymentsCardReadMethod$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsCardReadMethod$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsCardReadMethod$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsCardReadMethod$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsCardVerificationMethod$inboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardVerificationMethod> = z
+    .nativeEnum(ListSubscriptionPaymentsCardVerificationMethod);
+
+/** @internal */
+export const ListSubscriptionPaymentsCardVerificationMethod$outboundSchema:
+  z.ZodNativeEnum<typeof ListSubscriptionPaymentsCardVerificationMethod> =
+    ListSubscriptionPaymentsCardVerificationMethod$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsCardVerificationMethod$ {
+  /** @deprecated use `ListSubscriptionPaymentsCardVerificationMethod$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsCardVerificationMethod$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsCardVerificationMethod$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsCardVerificationMethod$outboundSchema;
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsReceipt$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsReceipt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authorizationCode: z.nullable(z.string()).optional(),
+  applicationIdentifier: z.nullable(z.string()).optional(),
+  cardReadMethod: z.nullable(
+    ListSubscriptionPaymentsCardReadMethod$inboundSchema,
+  ).optional(),
+  cardVerificationMethod: z.nullable(
+    ListSubscriptionPaymentsCardVerificationMethod$inboundSchema,
+  ).optional(),
+});
+
+/** @internal */
+export type ListSubscriptionPaymentsReceipt$Outbound = {
+  authorizationCode?: string | null | undefined;
+  applicationIdentifier?: string | null | undefined;
+  cardReadMethod?: string | null | undefined;
+  cardVerificationMethod?: string | null | undefined;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsReceipt$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsReceipt$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsReceipt
+> = z.object({
+  authorizationCode: z.nullable(z.string()).optional(),
+  applicationIdentifier: z.nullable(z.string()).optional(),
+  cardReadMethod: z.nullable(
+    ListSubscriptionPaymentsCardReadMethod$outboundSchema,
+  ).optional(),
+  cardVerificationMethod: z.nullable(
+    ListSubscriptionPaymentsCardVerificationMethod$outboundSchema,
+  ).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsReceipt$ {
+  /** @deprecated use `ListSubscriptionPaymentsReceipt$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsReceipt$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsReceipt$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionPaymentsReceipt$outboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsReceipt$Outbound` instead. */
+  export type Outbound = ListSubscriptionPaymentsReceipt$Outbound;
+}
+
+export function listSubscriptionPaymentsReceiptToJSON(
+  listSubscriptionPaymentsReceipt: ListSubscriptionPaymentsReceipt,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsReceipt$outboundSchema.parse(
+      listSubscriptionPaymentsReceipt,
+    ),
+  );
+}
+
+export function listSubscriptionPaymentsReceiptFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionPaymentsReceipt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSubscriptionPaymentsReceipt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionPaymentsReceipt' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsQrCode$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsQrCode,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  height: z.number().int().optional(),
+  width: z.number().int().optional(),
+  src: z.string().optional(),
+});
+
+/** @internal */
+export type ListSubscriptionPaymentsQrCode$Outbound = {
+  height?: number | undefined;
+  width?: number | undefined;
+  src?: string | undefined;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsQrCode$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsQrCode$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsQrCode
+> = z.object({
+  height: z.number().int().optional(),
+  width: z.number().int().optional(),
+  src: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsQrCode$ {
+  /** @deprecated use `ListSubscriptionPaymentsQrCode$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsQrCode$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsQrCode$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionPaymentsQrCode$outboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsQrCode$Outbound` instead. */
+  export type Outbound = ListSubscriptionPaymentsQrCode$Outbound;
+}
+
+export function listSubscriptionPaymentsQrCodeToJSON(
+  listSubscriptionPaymentsQrCode: ListSubscriptionPaymentsQrCode,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsQrCode$outboundSchema.parse(
+      listSubscriptionPaymentsQrCode,
+    ),
+  );
+}
+
+export function listSubscriptionPaymentsQrCodeFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionPaymentsQrCode, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSubscriptionPaymentsQrCode$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionPaymentsQrCode' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsRemainderAmount$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsRemainderAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type ListSubscriptionPaymentsRemainderAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsRemainderAmount$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsRemainderAmount$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsRemainderAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsRemainderAmount$ {
+  /** @deprecated use `ListSubscriptionPaymentsRemainderAmount$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsRemainderAmount$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsRemainderAmount$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsRemainderAmount$outboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsRemainderAmount$Outbound` instead. */
+  export type Outbound = ListSubscriptionPaymentsRemainderAmount$Outbound;
+}
+
+export function listSubscriptionPaymentsRemainderAmountToJSON(
+  listSubscriptionPaymentsRemainderAmount:
+    ListSubscriptionPaymentsRemainderAmount,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsRemainderAmount$outboundSchema.parse(
+      listSubscriptionPaymentsRemainderAmount,
+    ),
+  );
+}
+
+export function listSubscriptionPaymentsRemainderAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListSubscriptionPaymentsRemainderAmount,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSubscriptionPaymentsRemainderAmount$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListSubscriptionPaymentsRemainderAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsDetails$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsDetails,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  consumerName: z.nullable(z.string()).optional(),
+  consumerAccount: z.nullable(z.string()).optional(),
+  consumerBic: z.nullable(z.string()).optional(),
+  shippingAddress: z.nullable(z.record(z.any())).optional(),
+  cardNumber: z.nullable(z.string()).optional(),
+  bankName: z.string().optional(),
+  bankAccount: z.string().optional(),
+  bankBic: z.string().optional(),
+  transferReference: z.nullable(z.string()).optional(),
+  cardFingerprint: z.nullable(z.string()).optional(),
+  cardHolder: z.nullable(z.string()).optional(),
+  cardAudition: z.nullable(ListSubscriptionPaymentsCardAudition$inboundSchema)
+    .optional(),
+  cardLabel: z.nullable(ListSubscriptionPaymentsCardLabel$inboundSchema)
+    .optional(),
+  cardCountryCode: z.nullable(z.string()).optional(),
+  cardExpiryDate: z.nullable(z.string()).optional(),
+  cardFunding: z.nullable(ListSubscriptionPaymentsCardFunding$inboundSchema)
+    .optional(),
+  cardSecurity: z.nullable(ListSubscriptionPaymentsCardSecurity$inboundSchema)
+    .optional(),
+  feeRegion: z.nullable(ListSubscriptionPaymentsFeeRegion$inboundSchema)
+    .optional(),
+  cardMaskedNumber: z.nullable(z.string()).optional(),
+  card3dsEci: z.nullable(z.string()).optional(),
+  cardBin: z.nullable(z.string()).optional(),
+  cardIssuer: z.nullable(z.string()).optional(),
+  failureReason: z.nullable(ListSubscriptionPaymentsFailureReason$inboundSchema)
+    .optional(),
+  failureMessage: z.nullable(z.string()).optional(),
+  wallet: z.nullable(ListSubscriptionPaymentsWallet$inboundSchema).optional(),
+  paypalReference: z.nullable(z.string()).optional(),
+  paypalPayerId: z.nullable(z.string()).optional(),
+  sellerProtection: z.nullable(
+    ListSubscriptionPaymentsSellerProtection$inboundSchema,
+  ).optional(),
+  paypalFee: z.nullable(
+    z.lazy(() => ListSubscriptionPaymentsPaypalFee$inboundSchema),
+  ).optional(),
+  customerReference: z.string().optional(),
+  terminalId: z.string().optional(),
+  maskedNumber: z.nullable(z.string()).optional(),
+  receipt: z.lazy(() => ListSubscriptionPaymentsReceipt$inboundSchema)
+    .optional(),
+  creditorIdentifier: z.nullable(z.string()).optional(),
+  dueDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
+  signatureDate: z.nullable(z.string().transform(v => new RFCDate(v)))
+    .optional(),
+  bankReasonCode: z.nullable(z.string()).optional(),
+  bankReason: z.nullable(z.string()).optional(),
+  endToEndIdentifier: z.nullable(z.string()).optional(),
+  mandateReference: z.nullable(z.string()).optional(),
+  batchReference: z.nullable(z.string()).optional(),
+  fileReference: z.nullable(z.string()).optional(),
+  qrCode: z.lazy(() => ListSubscriptionPaymentsQrCode$inboundSchema).optional(),
+  voucherNumber: z.string().optional(),
+  giftcards: z.array(z.record(z.any())).optional(),
+  issuer: z.string().optional(),
+  vouchers: z.array(z.record(z.any())).optional(),
+  remainderAmount: z.lazy(() =>
+    ListSubscriptionPaymentsRemainderAmount$inboundSchema
+  ).optional(),
+  remainderMethod: z.string().optional(),
+  remainderDetails: z.record(z.any()).optional(),
+});
+
+/** @internal */
+export type ListSubscriptionPaymentsDetails$Outbound = {
+  consumerName?: string | null | undefined;
+  consumerAccount?: string | null | undefined;
+  consumerBic?: string | null | undefined;
+  shippingAddress?: { [k: string]: any } | null | undefined;
+  cardNumber?: string | null | undefined;
+  bankName?: string | undefined;
+  bankAccount?: string | undefined;
+  bankBic?: string | undefined;
+  transferReference?: string | null | undefined;
+  cardFingerprint?: string | null | undefined;
+  cardHolder?: string | null | undefined;
+  cardAudition?: string | null | undefined;
+  cardLabel?: string | null | undefined;
+  cardCountryCode?: string | null | undefined;
+  cardExpiryDate?: string | null | undefined;
+  cardFunding?: string | null | undefined;
+  cardSecurity?: string | null | undefined;
+  feeRegion?: string | null | undefined;
+  cardMaskedNumber?: string | null | undefined;
+  card3dsEci?: string | null | undefined;
+  cardBin?: string | null | undefined;
+  cardIssuer?: string | null | undefined;
+  failureReason?: string | null | undefined;
+  failureMessage?: string | null | undefined;
+  wallet?: string | null | undefined;
+  paypalReference?: string | null | undefined;
+  paypalPayerId?: string | null | undefined;
+  sellerProtection?: string | null | undefined;
+  paypalFee?: ListSubscriptionPaymentsPaypalFee$Outbound | null | undefined;
+  customerReference?: string | undefined;
+  terminalId?: string | undefined;
+  maskedNumber?: string | null | undefined;
+  receipt?: ListSubscriptionPaymentsReceipt$Outbound | undefined;
+  creditorIdentifier?: string | null | undefined;
+  dueDate?: string | null | undefined;
+  signatureDate?: string | null | undefined;
+  bankReasonCode?: string | null | undefined;
+  bankReason?: string | null | undefined;
+  endToEndIdentifier?: string | null | undefined;
+  mandateReference?: string | null | undefined;
+  batchReference?: string | null | undefined;
+  fileReference?: string | null | undefined;
+  qrCode?: ListSubscriptionPaymentsQrCode$Outbound | undefined;
+  voucherNumber?: string | undefined;
+  giftcards?: Array<{ [k: string]: any }> | undefined;
+  issuer?: string | undefined;
+  vouchers?: Array<{ [k: string]: any }> | undefined;
+  remainderAmount?:
+    | ListSubscriptionPaymentsRemainderAmount$Outbound
+    | undefined;
+  remainderMethod?: string | undefined;
+  remainderDetails?: { [k: string]: any } | undefined;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsDetails$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsDetails$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsDetails
+> = z.object({
+  consumerName: z.nullable(z.string()).optional(),
+  consumerAccount: z.nullable(z.string()).optional(),
+  consumerBic: z.nullable(z.string()).optional(),
+  shippingAddress: z.nullable(z.record(z.any())).optional(),
+  cardNumber: z.nullable(z.string()).optional(),
+  bankName: z.string().optional(),
+  bankAccount: z.string().optional(),
+  bankBic: z.string().optional(),
+  transferReference: z.nullable(z.string()).optional(),
+  cardFingerprint: z.nullable(z.string()).optional(),
+  cardHolder: z.nullable(z.string()).optional(),
+  cardAudition: z.nullable(ListSubscriptionPaymentsCardAudition$outboundSchema)
+    .optional(),
+  cardLabel: z.nullable(ListSubscriptionPaymentsCardLabel$outboundSchema)
+    .optional(),
+  cardCountryCode: z.nullable(z.string()).optional(),
+  cardExpiryDate: z.nullable(z.string()).optional(),
+  cardFunding: z.nullable(ListSubscriptionPaymentsCardFunding$outboundSchema)
+    .optional(),
+  cardSecurity: z.nullable(ListSubscriptionPaymentsCardSecurity$outboundSchema)
+    .optional(),
+  feeRegion: z.nullable(ListSubscriptionPaymentsFeeRegion$outboundSchema)
+    .optional(),
+  cardMaskedNumber: z.nullable(z.string()).optional(),
+  card3dsEci: z.nullable(z.string()).optional(),
+  cardBin: z.nullable(z.string()).optional(),
+  cardIssuer: z.nullable(z.string()).optional(),
+  failureReason: z.nullable(
+    ListSubscriptionPaymentsFailureReason$outboundSchema,
+  ).optional(),
+  failureMessage: z.nullable(z.string()).optional(),
+  wallet: z.nullable(ListSubscriptionPaymentsWallet$outboundSchema).optional(),
+  paypalReference: z.nullable(z.string()).optional(),
+  paypalPayerId: z.nullable(z.string()).optional(),
+  sellerProtection: z.nullable(
+    ListSubscriptionPaymentsSellerProtection$outboundSchema,
+  ).optional(),
+  paypalFee: z.nullable(
+    z.lazy(() => ListSubscriptionPaymentsPaypalFee$outboundSchema),
+  ).optional(),
+  customerReference: z.string().optional(),
+  terminalId: z.string().optional(),
+  maskedNumber: z.nullable(z.string()).optional(),
+  receipt: z.lazy(() => ListSubscriptionPaymentsReceipt$outboundSchema)
+    .optional(),
+  creditorIdentifier: z.nullable(z.string()).optional(),
+  dueDate: z.nullable(z.instanceof(RFCDate).transform(v => v.toString()))
+    .optional(),
+  signatureDate: z.nullable(z.instanceof(RFCDate).transform(v => v.toString()))
+    .optional(),
+  bankReasonCode: z.nullable(z.string()).optional(),
+  bankReason: z.nullable(z.string()).optional(),
+  endToEndIdentifier: z.nullable(z.string()).optional(),
+  mandateReference: z.nullable(z.string()).optional(),
+  batchReference: z.nullable(z.string()).optional(),
+  fileReference: z.nullable(z.string()).optional(),
+  qrCode: z.lazy(() => ListSubscriptionPaymentsQrCode$outboundSchema)
+    .optional(),
+  voucherNumber: z.string().optional(),
+  giftcards: z.array(z.record(z.any())).optional(),
+  issuer: z.string().optional(),
+  vouchers: z.array(z.record(z.any())).optional(),
+  remainderAmount: z.lazy(() =>
+    ListSubscriptionPaymentsRemainderAmount$outboundSchema
+  ).optional(),
+  remainderMethod: z.string().optional(),
+  remainderDetails: z.record(z.any()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsDetails$ {
+  /** @deprecated use `ListSubscriptionPaymentsDetails$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsDetails$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsDetails$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionPaymentsDetails$outboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsDetails$Outbound` instead. */
+  export type Outbound = ListSubscriptionPaymentsDetails$Outbound;
+}
+
+export function listSubscriptionPaymentsDetailsToJSON(
+  listSubscriptionPaymentsDetails: ListSubscriptionPaymentsDetails,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsDetails$outboundSchema.parse(
+      listSubscriptionPaymentsDetails,
+    ),
+  );
+}
+
+export function listSubscriptionPaymentsDetailsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionPaymentsDetails, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSubscriptionPaymentsDetails$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionPaymentsDetails' from JSON`,
   );
 }
 
@@ -5055,6 +6527,128 @@ export function listSubscriptionPaymentsPaymentDocumentationFromJSON(
 }
 
 /** @internal */
+export const ListSubscriptionPaymentsLinksStatus$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsLinksStatus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
+
+/** @internal */
+export type ListSubscriptionPaymentsLinksStatus$Outbound = {
+  href: string;
+  type: string;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsLinksStatus$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsLinksStatus$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsLinksStatus
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsLinksStatus$ {
+  /** @deprecated use `ListSubscriptionPaymentsLinksStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    ListSubscriptionPaymentsLinksStatus$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsLinksStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsLinksStatus$outboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsLinksStatus$Outbound` instead. */
+  export type Outbound = ListSubscriptionPaymentsLinksStatus$Outbound;
+}
+
+export function listSubscriptionPaymentsLinksStatusToJSON(
+  listSubscriptionPaymentsLinksStatus: ListSubscriptionPaymentsLinksStatus,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsLinksStatus$outboundSchema.parse(
+      listSubscriptionPaymentsLinksStatus,
+    ),
+  );
+}
+
+export function listSubscriptionPaymentsLinksStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionPaymentsLinksStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSubscriptionPaymentsLinksStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionPaymentsLinksStatus' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsPayOnline$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsPayOnline,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
+
+/** @internal */
+export type ListSubscriptionPaymentsPayOnline$Outbound = {
+  href: string;
+  type: string;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsPayOnline$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsPayOnline$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsPayOnline
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionPaymentsPayOnline$ {
+  /** @deprecated use `ListSubscriptionPaymentsPayOnline$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionPaymentsPayOnline$inboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsPayOnline$outboundSchema` instead. */
+  export const outboundSchema =
+    ListSubscriptionPaymentsPayOnline$outboundSchema;
+  /** @deprecated use `ListSubscriptionPaymentsPayOnline$Outbound` instead. */
+  export type Outbound = ListSubscriptionPaymentsPayOnline$Outbound;
+}
+
+export function listSubscriptionPaymentsPayOnlineToJSON(
+  listSubscriptionPaymentsPayOnline: ListSubscriptionPaymentsPayOnline,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsPayOnline$outboundSchema.parse(
+      listSubscriptionPaymentsPayOnline,
+    ),
+  );
+}
+
+export function listSubscriptionPaymentsPayOnlineFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionPaymentsPayOnline, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSubscriptionPaymentsPayOnline$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionPaymentsPayOnline' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSubscriptionPaymentsPaymentLinks$inboundSchema: z.ZodType<
   ListSubscriptionPaymentsPaymentLinks,
   z.ZodTypeDef,
@@ -5090,6 +6684,10 @@ export const ListSubscriptionPaymentsPaymentLinks$inboundSchema: z.ZodType<
   documentation: z.lazy(() =>
     ListSubscriptionPaymentsPaymentDocumentation$inboundSchema
   ).optional(),
+  status: z.lazy(() => ListSubscriptionPaymentsLinksStatus$inboundSchema)
+    .optional(),
+  payOnline: z.lazy(() => ListSubscriptionPaymentsPayOnline$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -5115,6 +6713,8 @@ export type ListSubscriptionPaymentsPaymentLinks$Outbound = {
   documentation?:
     | ListSubscriptionPaymentsPaymentDocumentation$Outbound
     | undefined;
+  status?: ListSubscriptionPaymentsLinksStatus$Outbound | undefined;
+  payOnline?: ListSubscriptionPaymentsPayOnline$Outbound | undefined;
 };
 
 /** @internal */
@@ -5154,6 +6754,10 @@ export const ListSubscriptionPaymentsPaymentLinks$outboundSchema: z.ZodType<
   documentation: z.lazy(() =>
     ListSubscriptionPaymentsPaymentDocumentation$outboundSchema
   ).optional(),
+  status: z.lazy(() => ListSubscriptionPaymentsLinksStatus$outboundSchema)
+    .optional(),
+  payOnline: z.lazy(() => ListSubscriptionPaymentsPayOnline$outboundSchema)
+    .optional(),
 });
 
 /**
@@ -5254,12 +6858,14 @@ export const ListSubscriptionPaymentsPaymentOutput$inboundSchema: z.ZodType<
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: ListSubscriptionPaymentsStatus$inboundSchema,
+  status: ListSubscriptionPaymentsStatusEnum$inboundSchema,
   statusReason: z.nullable(
     z.lazy(() => ListSubscriptionPaymentsStatusReason$inboundSchema),
   ).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
-  details: z.nullable(z.record(z.any())).optional(),
+  details: z.nullable(
+    z.lazy(() => ListSubscriptionPaymentsDetails$inboundSchema),
+  ).optional(),
   createdAt: z.string(),
   authorizedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
@@ -5326,7 +6932,7 @@ export type ListSubscriptionPaymentsPaymentOutput$Outbound = {
     | null
     | undefined;
   isCancelable?: boolean | null | undefined;
-  details?: { [k: string]: any } | null | undefined;
+  details?: ListSubscriptionPaymentsDetails$Outbound | null | undefined;
   createdAt: string;
   authorizedAt?: string | null | undefined;
   paidAt?: string | null | undefined;
@@ -5399,12 +7005,14 @@ export const ListSubscriptionPaymentsPaymentOutput$outboundSchema: z.ZodType<
   profileId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   orderId: z.nullable(z.string()).optional(),
-  status: ListSubscriptionPaymentsStatus$outboundSchema,
+  status: ListSubscriptionPaymentsStatusEnum$outboundSchema,
   statusReason: z.nullable(
     z.lazy(() => ListSubscriptionPaymentsStatusReason$outboundSchema),
   ).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
-  details: z.nullable(z.record(z.any())).optional(),
+  details: z.nullable(
+    z.lazy(() => ListSubscriptionPaymentsDetails$outboundSchema),
+  ).optional(),
   createdAt: z.string(),
   authorizedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
@@ -5760,23 +7368,22 @@ export const ListSubscriptionPaymentsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListSubscriptionPaymentsSelf$inboundSchema).optional(),
+  self: z.lazy(() => ListSubscriptionPaymentsSelf$inboundSchema),
   previous: z.nullable(
     z.lazy(() => ListSubscriptionPaymentsPrevious$inboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListSubscriptionPaymentsNext$inboundSchema))
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListSubscriptionPaymentsNext$inboundSchema)),
   documentation: z.lazy(() =>
     ListSubscriptionPaymentsDocumentation$inboundSchema
-  ).optional(),
+  ),
 });
 
 /** @internal */
 export type ListSubscriptionPaymentsLinks$Outbound = {
-  self?: ListSubscriptionPaymentsSelf$Outbound | undefined;
-  previous?: ListSubscriptionPaymentsPrevious$Outbound | null | undefined;
-  next?: ListSubscriptionPaymentsNext$Outbound | null | undefined;
-  documentation?: ListSubscriptionPaymentsDocumentation$Outbound | undefined;
+  self: ListSubscriptionPaymentsSelf$Outbound;
+  previous: ListSubscriptionPaymentsPrevious$Outbound | null;
+  next: ListSubscriptionPaymentsNext$Outbound | null;
+  documentation: ListSubscriptionPaymentsDocumentation$Outbound;
 };
 
 /** @internal */
@@ -5785,15 +7392,14 @@ export const ListSubscriptionPaymentsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSubscriptionPaymentsLinks
 > = z.object({
-  self: z.lazy(() => ListSubscriptionPaymentsSelf$outboundSchema).optional(),
+  self: z.lazy(() => ListSubscriptionPaymentsSelf$outboundSchema),
   previous: z.nullable(
     z.lazy(() => ListSubscriptionPaymentsPrevious$outboundSchema),
-  ).optional(),
-  next: z.nullable(z.lazy(() => ListSubscriptionPaymentsNext$outboundSchema))
-    .optional(),
+  ),
+  next: z.nullable(z.lazy(() => ListSubscriptionPaymentsNext$outboundSchema)),
   documentation: z.lazy(() =>
     ListSubscriptionPaymentsDocumentation$outboundSchema
-  ).optional(),
+  ),
 });
 
 /**
@@ -5835,10 +7441,9 @@ export const ListSubscriptionPaymentsResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListSubscriptionPaymentsEmbedded$inboundSchema)
-    .optional(),
-  _links: z.lazy(() => ListSubscriptionPaymentsLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListSubscriptionPaymentsEmbedded$inboundSchema),
+  _links: z.lazy(() => ListSubscriptionPaymentsLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -5848,9 +7453,9 @@ export const ListSubscriptionPaymentsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListSubscriptionPaymentsResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListSubscriptionPaymentsEmbedded$Outbound | undefined;
-  _links?: ListSubscriptionPaymentsLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListSubscriptionPaymentsEmbedded$Outbound;
+  _links: ListSubscriptionPaymentsLinks$Outbound;
 };
 
 /** @internal */
@@ -5859,10 +7464,9 @@ export const ListSubscriptionPaymentsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSubscriptionPaymentsResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListSubscriptionPaymentsEmbedded$outboundSchema)
-    .optional(),
-  links: z.lazy(() => ListSubscriptionPaymentsLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListSubscriptionPaymentsEmbedded$outboundSchema),
+  links: z.lazy(() => ListSubscriptionPaymentsLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

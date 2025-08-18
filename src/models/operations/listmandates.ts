@@ -388,19 +388,19 @@ export type ListMandatesLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListMandatesSelf | undefined;
+  self: ListMandatesSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListMandatesPrevious | null | undefined;
+  previous: ListMandatesPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListMandatesNext | null | undefined;
+  next: ListMandatesNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListMandatesDocumentation | undefined;
+  documentation: ListMandatesDocumentation;
 };
 
 /**
@@ -1510,20 +1510,18 @@ export const ListMandatesLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListMandatesSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListMandatesPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListMandatesNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListMandatesDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListMandatesSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListMandatesPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListMandatesNext$inboundSchema)),
+  documentation: z.lazy(() => ListMandatesDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListMandatesLinks$Outbound = {
-  self?: ListMandatesSelf$Outbound | undefined;
-  previous?: ListMandatesPrevious$Outbound | null | undefined;
-  next?: ListMandatesNext$Outbound | null | undefined;
-  documentation?: ListMandatesDocumentation$Outbound | undefined;
+  self: ListMandatesSelf$Outbound;
+  previous: ListMandatesPrevious$Outbound | null;
+  next: ListMandatesNext$Outbound | null;
+  documentation: ListMandatesDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1532,12 +1530,10 @@ export const ListMandatesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMandatesLinks
 > = z.object({
-  self: z.lazy(() => ListMandatesSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListMandatesPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListMandatesNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListMandatesDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListMandatesSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListMandatesPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListMandatesNext$outboundSchema)),
+  documentation: z.lazy(() => ListMandatesDocumentation$outboundSchema),
 });
 
 /**

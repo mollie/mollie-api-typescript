@@ -707,19 +707,19 @@ export type ListClientsLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListClientsSelf | undefined;
+  self: ListClientsSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListClientsPrevious | null | undefined;
+  previous: ListClientsPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListClientsNext | null | undefined;
+  next: ListClientsNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListClientsDocumentation | undefined;
+  documentation: ListClientsDocumentation;
 };
 
 /**
@@ -2947,20 +2947,18 @@ export const ListClientsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListClientsSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListClientsPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListClientsNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListClientsDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListClientsSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListClientsPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListClientsNext$inboundSchema)),
+  documentation: z.lazy(() => ListClientsDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListClientsLinks$Outbound = {
-  self?: ListClientsSelf$Outbound | undefined;
-  previous?: ListClientsPrevious$Outbound | null | undefined;
-  next?: ListClientsNext$Outbound | null | undefined;
-  documentation?: ListClientsDocumentation$Outbound | undefined;
+  self: ListClientsSelf$Outbound;
+  previous: ListClientsPrevious$Outbound | null;
+  next: ListClientsNext$Outbound | null;
+  documentation: ListClientsDocumentation$Outbound;
 };
 
 /** @internal */
@@ -2969,12 +2967,10 @@ export const ListClientsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListClientsLinks
 > = z.object({
-  self: z.lazy(() => ListClientsSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListClientsPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListClientsNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListClientsDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListClientsSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListClientsPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListClientsNext$outboundSchema)),
+  documentation: z.lazy(() => ListClientsDocumentation$outboundSchema),
 });
 
 /**

@@ -231,19 +231,19 @@ export type ListWebhooksLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListWebhooksSelf | undefined;
+  self: ListWebhooksSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListWebhooksPrevious | null | undefined;
+  previous: ListWebhooksPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListWebhooksNext | null | undefined;
+  next: ListWebhooksNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListWebhooksDocumentation | undefined;
+  documentation: ListWebhooksDocumentation;
 };
 
 /**
@@ -901,20 +901,18 @@ export const ListWebhooksLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListWebhooksSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListWebhooksPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListWebhooksNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListWebhooksDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListWebhooksSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListWebhooksPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListWebhooksNext$inboundSchema)),
+  documentation: z.lazy(() => ListWebhooksDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListWebhooksLinks$Outbound = {
-  self?: ListWebhooksSelf$Outbound | undefined;
-  previous?: ListWebhooksPrevious$Outbound | null | undefined;
-  next?: ListWebhooksNext$Outbound | null | undefined;
-  documentation?: ListWebhooksDocumentation$Outbound | undefined;
+  self: ListWebhooksSelf$Outbound;
+  previous: ListWebhooksPrevious$Outbound | null;
+  next: ListWebhooksNext$Outbound | null;
+  documentation: ListWebhooksDocumentation$Outbound;
 };
 
 /** @internal */
@@ -923,12 +921,10 @@ export const ListWebhooksLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListWebhooksLinks
 > = z.object({
-  self: z.lazy(() => ListWebhooksSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListWebhooksPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListWebhooksNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListWebhooksDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListWebhooksSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListWebhooksPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListWebhooksNext$outboundSchema)),
+  documentation: z.lazy(() => ListWebhooksDocumentation$outboundSchema),
 });
 
 /**

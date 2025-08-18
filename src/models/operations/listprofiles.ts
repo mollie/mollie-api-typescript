@@ -404,19 +404,19 @@ export type ListProfilesLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListProfilesSelf | undefined;
+  self: ListProfilesSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListProfilesPrevious | null | undefined;
+  previous: ListProfilesPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListProfilesNext | null | undefined;
+  next: ListProfilesNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListProfilesDocumentation | undefined;
+  documentation: ListProfilesDocumentation;
 };
 
 /**
@@ -1654,20 +1654,18 @@ export const ListProfilesLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListProfilesSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListProfilesPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListProfilesNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListProfilesDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListProfilesSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListProfilesPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListProfilesNext$inboundSchema)),
+  documentation: z.lazy(() => ListProfilesDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListProfilesLinks$Outbound = {
-  self?: ListProfilesSelf$Outbound | undefined;
-  previous?: ListProfilesPrevious$Outbound | null | undefined;
-  next?: ListProfilesNext$Outbound | null | undefined;
-  documentation?: ListProfilesDocumentation$Outbound | undefined;
+  self: ListProfilesSelf$Outbound;
+  previous: ListProfilesPrevious$Outbound | null;
+  next: ListProfilesNext$Outbound | null;
+  documentation: ListProfilesDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1676,12 +1674,10 @@ export const ListProfilesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListProfilesLinks
 > = z.object({
-  self: z.lazy(() => ListProfilesSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListProfilesPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListProfilesNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListProfilesDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListProfilesSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListProfilesPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListProfilesNext$outboundSchema)),
+  documentation: z.lazy(() => ListProfilesDocumentation$outboundSchema),
 });
 
 /**

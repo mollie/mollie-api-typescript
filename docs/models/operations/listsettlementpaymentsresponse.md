@@ -6,6 +6,7 @@ A list of payment objects.
 
 ```typescript
 import { ListSettlementPaymentsResponse } from "mollie-api-typescript/models/operations";
+import { RFCDate } from "mollie-api-typescript/types";
 
 let value: ListSettlementPaymentsResponse = {
   count: 5,
@@ -169,6 +170,48 @@ let value: ListSettlementPaymentsResponse = {
             + "contact their bank.",
         },
         isCancelable: true,
+        details: {
+          consumerName: "John Doe",
+          consumerAccount: "NL91ABNA0417164300",
+          consumerBic: "ABNANL2A",
+          cardNumber: "************1234",
+          bankName: "Mollie Bank",
+          bankAccount: "NL91ABNA0417164300",
+          bankBic: "ABNANL2A",
+          cardHolder: "John Doe",
+          cardAudition: "consumer",
+          cardLabel: "Mastercard",
+          cardCountryCode: "NL",
+          cardExpiryDate: "12/25",
+          cardFunding: "credit",
+          cardSecurity: "normal",
+          feeRegion: "maestro",
+          failureReason: "card_declined",
+          failureMessage: "Your card was declined.",
+          wallet: "applepay",
+          sellerProtection: "Eligible",
+          paypalFee: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          terminalId: "term_12345",
+          receipt: {
+            cardReadMethod: "contactless",
+            cardVerificationMethod: "no-cvm-required",
+          },
+          dueDate: new RFCDate("2025-01-01"),
+          signatureDate: new RFCDate("2024-03-20"),
+          qrCode: {
+            height: 300,
+            width: 300,
+            src: "https://www.mollie.com/images/qr-code.png",
+          },
+          remainderAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          remainderMethod: "creditcard",
+        },
         createdAt: "2024-03-20T09:13:37.0Z",
         authorizedAt: "2024-03-20T09:28:37.0Z",
         paidAt: "2024-03-20T09:28:37.0Z",
@@ -237,6 +280,14 @@ let value: ListSettlementPaymentsResponse = {
             href: "https://...",
             type: "application/hal+json",
           },
+          status: {
+            href: "https://...",
+            type: "application/hal+json",
+          },
+          payOnline: {
+            href: "https://...",
+            type: "application/hal+json",
+          },
         },
       },
     ],
@@ -266,6 +317,6 @@ let value: ListSettlementPaymentsResponse = {
 
 | Field                                                                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                               | Example                                                                                                                                                                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
-| `embedded`                                                                                                                                                                                                                                                                | [operations.ListSettlementPaymentsEmbedded](../../models/operations/listsettlementpaymentsembedded.md)                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
-| `links`                                                                                                                                                                                                                                                                   | [operations.ListSettlementPaymentsLinks](../../models/operations/listsettlementpaymentslinks.md)                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |
+| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
+| `embedded`                                                                                                                                                                                                                                                                | [operations.ListSettlementPaymentsEmbedded](../../models/operations/listsettlementpaymentsembedded.md)                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
+| `links`                                                                                                                                                                                                                                                                   | [operations.ListSettlementPaymentsLinks](../../models/operations/listsettlementpaymentslinks.md)                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |

@@ -304,19 +304,19 @@ export type ListTerminalsLinks = {
   /**
    * The URL to the current set of items.
    */
-  self?: ListTerminalsSelf | undefined;
+  self: ListTerminalsSelf;
   /**
    * The previous set of items, if available.
    */
-  previous?: ListTerminalsPrevious | null | undefined;
+  previous: ListTerminalsPrevious | null;
   /**
    * The next set of items, if available.
    */
-  next?: ListTerminalsNext | null | undefined;
+  next: ListTerminalsNext | null;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListTerminalsDocumentation | undefined;
+  documentation: ListTerminalsDocumentation;
 };
 
 /**
@@ -1181,20 +1181,18 @@ export const ListTerminalsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListTerminalsSelf$inboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListTerminalsPrevious$inboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListTerminalsNext$inboundSchema)).optional(),
-  documentation: z.lazy(() => ListTerminalsDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => ListTerminalsSelf$inboundSchema),
+  previous: z.nullable(z.lazy(() => ListTerminalsPrevious$inboundSchema)),
+  next: z.nullable(z.lazy(() => ListTerminalsNext$inboundSchema)),
+  documentation: z.lazy(() => ListTerminalsDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type ListTerminalsLinks$Outbound = {
-  self?: ListTerminalsSelf$Outbound | undefined;
-  previous?: ListTerminalsPrevious$Outbound | null | undefined;
-  next?: ListTerminalsNext$Outbound | null | undefined;
-  documentation?: ListTerminalsDocumentation$Outbound | undefined;
+  self: ListTerminalsSelf$Outbound;
+  previous: ListTerminalsPrevious$Outbound | null;
+  next: ListTerminalsNext$Outbound | null;
+  documentation: ListTerminalsDocumentation$Outbound;
 };
 
 /** @internal */
@@ -1203,12 +1201,10 @@ export const ListTerminalsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListTerminalsLinks
 > = z.object({
-  self: z.lazy(() => ListTerminalsSelf$outboundSchema).optional(),
-  previous: z.nullable(z.lazy(() => ListTerminalsPrevious$outboundSchema))
-    .optional(),
-  next: z.nullable(z.lazy(() => ListTerminalsNext$outboundSchema)).optional(),
-  documentation: z.lazy(() => ListTerminalsDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => ListTerminalsSelf$outboundSchema),
+  previous: z.nullable(z.lazy(() => ListTerminalsPrevious$outboundSchema)),
+  next: z.nullable(z.lazy(() => ListTerminalsNext$outboundSchema)),
+  documentation: z.lazy(() => ListTerminalsDocumentation$outboundSchema),
 });
 
 /**

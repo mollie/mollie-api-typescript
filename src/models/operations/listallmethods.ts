@@ -384,7 +384,7 @@ export type ListAllMethodsMethodLinks = {
 /**
  * The fixed price charged per payment.
  */
-export type ListAllMethodsFixed = {
+export type Fixed = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -406,7 +406,7 @@ export type Pricing = {
   /**
    * The fixed price charged per payment.
    */
-  fixed: ListAllMethodsFixed;
+  fixed: Fixed;
   /**
    * The variable price charged per payment, as a percentage string.
    */
@@ -1378,26 +1378,23 @@ export function listAllMethodsMethodLinksFromJSON(
 }
 
 /** @internal */
-export const ListAllMethodsFixed$inboundSchema: z.ZodType<
-  ListAllMethodsFixed,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
+export const Fixed$inboundSchema: z.ZodType<Fixed, z.ZodTypeDef, unknown> = z
+  .object({
+    currency: z.string(),
+    value: z.string(),
+  });
 
 /** @internal */
-export type ListAllMethodsFixed$Outbound = {
+export type Fixed$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const ListAllMethodsFixed$outboundSchema: z.ZodType<
-  ListAllMethodsFixed$Outbound,
+export const Fixed$outboundSchema: z.ZodType<
+  Fixed$Outbound,
   z.ZodTypeDef,
-  ListAllMethodsFixed
+  Fixed
 > = z.object({
   currency: z.string(),
   value: z.string(),
@@ -1407,30 +1404,26 @@ export const ListAllMethodsFixed$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListAllMethodsFixed$ {
-  /** @deprecated use `ListAllMethodsFixed$inboundSchema` instead. */
-  export const inboundSchema = ListAllMethodsFixed$inboundSchema;
-  /** @deprecated use `ListAllMethodsFixed$outboundSchema` instead. */
-  export const outboundSchema = ListAllMethodsFixed$outboundSchema;
-  /** @deprecated use `ListAllMethodsFixed$Outbound` instead. */
-  export type Outbound = ListAllMethodsFixed$Outbound;
+export namespace Fixed$ {
+  /** @deprecated use `Fixed$inboundSchema` instead. */
+  export const inboundSchema = Fixed$inboundSchema;
+  /** @deprecated use `Fixed$outboundSchema` instead. */
+  export const outboundSchema = Fixed$outboundSchema;
+  /** @deprecated use `Fixed$Outbound` instead. */
+  export type Outbound = Fixed$Outbound;
 }
 
-export function listAllMethodsFixedToJSON(
-  listAllMethodsFixed: ListAllMethodsFixed,
-): string {
-  return JSON.stringify(
-    ListAllMethodsFixed$outboundSchema.parse(listAllMethodsFixed),
-  );
+export function fixedToJSON(fixed: Fixed): string {
+  return JSON.stringify(Fixed$outboundSchema.parse(fixed));
 }
 
-export function listAllMethodsFixedFromJSON(
+export function fixedFromJSON(
   jsonString: string,
-): SafeParseResult<ListAllMethodsFixed, SDKValidationError> {
+): SafeParseResult<Fixed, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ListAllMethodsFixed$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllMethodsFixed' from JSON`,
+    (x) => Fixed$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Fixed' from JSON`,
   );
 }
 
@@ -1438,7 +1431,7 @@ export function listAllMethodsFixedFromJSON(
 export const Pricing$inboundSchema: z.ZodType<Pricing, z.ZodTypeDef, unknown> =
   z.object({
     description: z.string(),
-    fixed: z.lazy(() => ListAllMethodsFixed$inboundSchema),
+    fixed: z.lazy(() => Fixed$inboundSchema),
     variable: z.string(),
     feeRegion: z.nullable(z.string()).optional(),
   });
@@ -1446,7 +1439,7 @@ export const Pricing$inboundSchema: z.ZodType<Pricing, z.ZodTypeDef, unknown> =
 /** @internal */
 export type Pricing$Outbound = {
   description: string;
-  fixed: ListAllMethodsFixed$Outbound;
+  fixed: Fixed$Outbound;
   variable: string;
   feeRegion?: string | null | undefined;
 };
@@ -1458,7 +1451,7 @@ export const Pricing$outboundSchema: z.ZodType<
   Pricing
 > = z.object({
   description: z.string(),
-  fixed: z.lazy(() => ListAllMethodsFixed$outboundSchema),
+  fixed: z.lazy(() => Fixed$outboundSchema),
   variable: z.string(),
   feeRegion: z.nullable(z.string()).optional(),
 });
