@@ -152,21 +152,6 @@ export type CreateCustomerPaymentCategoryRequest = ClosedEnum<
 >;
 
 /**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export const CreateCustomerPaymentIntervalRequest = {
-  DotDotDotMonths: "... months",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export type CreateCustomerPaymentIntervalRequest = ClosedEnum<
-  typeof CreateCustomerPaymentIntervalRequest
->;
-
-/**
  * Total amount and currency of the recurring item.
  */
 export type CreateCustomerPaymentRecurringAmountRequest = {
@@ -193,8 +178,12 @@ export type CreateCustomerPaymentRecurringRequest = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+   *
+   * @remarks
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CreateCustomerPaymentIntervalRequest;
+  interval: string;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -1523,21 +1512,6 @@ export type CreateCustomerPaymentCategoryResponse = ClosedEnum<
 >;
 
 /**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export const CreateCustomerPaymentIntervalResponse = {
-  DotDotDotMonths: "... months",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export type CreateCustomerPaymentIntervalResponse = ClosedEnum<
-  typeof CreateCustomerPaymentIntervalResponse
->;
-
-/**
  * Total amount and currency of the recurring item.
  */
 export type CreateCustomerPaymentRecurringAmountResponse = {
@@ -1564,8 +1538,12 @@ export type CreateCustomerPaymentRecurringResponse = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+   *
+   * @remarks
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CreateCustomerPaymentIntervalResponse;
+  interval: string;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -4109,30 +4087,6 @@ export namespace CreateCustomerPaymentCategoryRequest$ {
 }
 
 /** @internal */
-export const CreateCustomerPaymentIntervalRequest$inboundSchema:
-  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalRequest> = z.nativeEnum(
-    CreateCustomerPaymentIntervalRequest,
-  );
-
-/** @internal */
-export const CreateCustomerPaymentIntervalRequest$outboundSchema:
-  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalRequest> =
-    CreateCustomerPaymentIntervalRequest$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCustomerPaymentIntervalRequest$ {
-  /** @deprecated use `CreateCustomerPaymentIntervalRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateCustomerPaymentIntervalRequest$inboundSchema;
-  /** @deprecated use `CreateCustomerPaymentIntervalRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCustomerPaymentIntervalRequest$outboundSchema;
-}
-
-/** @internal */
 export const CreateCustomerPaymentRecurringAmountRequest$inboundSchema:
   z.ZodType<
     CreateCustomerPaymentRecurringAmountRequest,
@@ -4209,7 +4163,7 @@ export const CreateCustomerPaymentRecurringRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: CreateCustomerPaymentIntervalRequest$inboundSchema,
+  interval: z.string(),
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountRequest$inboundSchema
   ).optional(),
@@ -4233,7 +4187,7 @@ export const CreateCustomerPaymentRecurringRequest$outboundSchema: z.ZodType<
   CreateCustomerPaymentRecurringRequest
 > = z.object({
   description: z.string().optional(),
-  interval: CreateCustomerPaymentIntervalRequest$outboundSchema,
+  interval: z.string(),
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountRequest$outboundSchema
   ).optional(),
@@ -6620,30 +6574,6 @@ export namespace CreateCustomerPaymentCategoryResponse$ {
 }
 
 /** @internal */
-export const CreateCustomerPaymentIntervalResponse$inboundSchema:
-  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalResponse> = z.nativeEnum(
-    CreateCustomerPaymentIntervalResponse,
-  );
-
-/** @internal */
-export const CreateCustomerPaymentIntervalResponse$outboundSchema:
-  z.ZodNativeEnum<typeof CreateCustomerPaymentIntervalResponse> =
-    CreateCustomerPaymentIntervalResponse$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCustomerPaymentIntervalResponse$ {
-  /** @deprecated use `CreateCustomerPaymentIntervalResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateCustomerPaymentIntervalResponse$inboundSchema;
-  /** @deprecated use `CreateCustomerPaymentIntervalResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCustomerPaymentIntervalResponse$outboundSchema;
-}
-
-/** @internal */
 export const CreateCustomerPaymentRecurringAmountResponse$inboundSchema:
   z.ZodType<
     CreateCustomerPaymentRecurringAmountResponse,
@@ -6720,7 +6650,7 @@ export const CreateCustomerPaymentRecurringResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: CreateCustomerPaymentIntervalResponse$inboundSchema,
+  interval: z.string(),
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountResponse$inboundSchema
   ).optional(),
@@ -6744,7 +6674,7 @@ export const CreateCustomerPaymentRecurringResponse$outboundSchema: z.ZodType<
   CreateCustomerPaymentRecurringResponse
 > = z.object({
   description: z.string().optional(),
-  interval: CreateCustomerPaymentIntervalResponse$outboundSchema,
+  interval: z.string(),
   amount: z.lazy(() =>
     CreateCustomerPaymentRecurringAmountResponse$outboundSchema
   ).optional(),

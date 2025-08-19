@@ -101,29 +101,6 @@ export type CancelSubscriptionAmount = {
 };
 
 /**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export const CancelSubscriptionInterval = {
-  DotDotDotDays: "... days",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotMonths: "... months",
-} as const;
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export type CancelSubscriptionInterval = ClosedEnum<
-  typeof CancelSubscriptionInterval
->;
-
-/**
  * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
  */
 export const CancelSubscriptionMethod = {
@@ -353,15 +330,17 @@ export type CancelSubscriptionResponse = {
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining: number;
+  timesRemaining: number | null;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CancelSubscriptionInterval;
+  interval: string;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
@@ -439,7 +418,7 @@ export type CancelSubscriptionResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CancelSubscriptionLinks | undefined;
+  links: CancelSubscriptionLinks;
 };
 
 /** @internal */
@@ -793,27 +772,6 @@ export function cancelSubscriptionAmountFromJSON(
     (x) => CancelSubscriptionAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CancelSubscriptionAmount' from JSON`,
   );
-}
-
-/** @internal */
-export const CancelSubscriptionInterval$inboundSchema: z.ZodNativeEnum<
-  typeof CancelSubscriptionInterval
-> = z.nativeEnum(CancelSubscriptionInterval);
-
-/** @internal */
-export const CancelSubscriptionInterval$outboundSchema: z.ZodNativeEnum<
-  typeof CancelSubscriptionInterval
-> = CancelSubscriptionInterval$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelSubscriptionInterval$ {
-  /** @deprecated use `CancelSubscriptionInterval$inboundSchema` instead. */
-  export const inboundSchema = CancelSubscriptionInterval$inboundSchema;
-  /** @deprecated use `CancelSubscriptionInterval$outboundSchema` instead. */
-  export const outboundSchema = CancelSubscriptionInterval$outboundSchema;
 }
 
 /** @internal */
@@ -1439,8 +1397,8 @@ export const CancelSubscriptionResponse$inboundSchema: z.ZodType<
   status: CancelSubscriptionStatus$inboundSchema,
   amount: z.lazy(() => CancelSubscriptionAmount$inboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: CancelSubscriptionInterval$inboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -1455,7 +1413,7 @@ export const CancelSubscriptionResponse$inboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => CancelSubscriptionLinks$inboundSchema).optional(),
+  _links: z.lazy(() => CancelSubscriptionLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1470,7 +1428,7 @@ export type CancelSubscriptionResponse$Outbound = {
   status: string;
   amount: CancelSubscriptionAmount$Outbound;
   times: number | null;
-  timesRemaining: number;
+  timesRemaining: number | null;
   interval: string;
   startDate: string;
   nextPaymentDate?: string | null | undefined;
@@ -1483,7 +1441,7 @@ export type CancelSubscriptionResponse$Outbound = {
   mandateId?: string | null | undefined;
   createdAt: string;
   canceledAt?: string | null | undefined;
-  _links?: CancelSubscriptionLinks$Outbound | undefined;
+  _links: CancelSubscriptionLinks$Outbound;
 };
 
 /** @internal */
@@ -1498,8 +1456,8 @@ export const CancelSubscriptionResponse$outboundSchema: z.ZodType<
   status: CancelSubscriptionStatus$outboundSchema,
   amount: z.lazy(() => CancelSubscriptionAmount$outboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: CancelSubscriptionInterval$outboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -1514,7 +1472,7 @@ export const CancelSubscriptionResponse$outboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => CancelSubscriptionLinks$outboundSchema).optional(),
+  links: z.lazy(() => CancelSubscriptionLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

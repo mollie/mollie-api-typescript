@@ -336,21 +336,6 @@ export type ListSubscriptionPaymentsCategory = ClosedEnum<
 >;
 
 /**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export const ListSubscriptionPaymentsInterval = {
-  DotDotDotMonths: "... months",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export type ListSubscriptionPaymentsInterval = ClosedEnum<
-  typeof ListSubscriptionPaymentsInterval
->;
-
-/**
  * Total amount and currency of the recurring item.
  */
 export type ListSubscriptionPaymentsRecurringAmount = {
@@ -377,8 +362,12 @@ export type ListSubscriptionPaymentsRecurring = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+   *
+   * @remarks
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: ListSubscriptionPaymentsInterval;
+  interval: string;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -3591,27 +3580,6 @@ export namespace ListSubscriptionPaymentsCategory$ {
 }
 
 /** @internal */
-export const ListSubscriptionPaymentsInterval$inboundSchema: z.ZodNativeEnum<
-  typeof ListSubscriptionPaymentsInterval
-> = z.nativeEnum(ListSubscriptionPaymentsInterval);
-
-/** @internal */
-export const ListSubscriptionPaymentsInterval$outboundSchema: z.ZodNativeEnum<
-  typeof ListSubscriptionPaymentsInterval
-> = ListSubscriptionPaymentsInterval$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSubscriptionPaymentsInterval$ {
-  /** @deprecated use `ListSubscriptionPaymentsInterval$inboundSchema` instead. */
-  export const inboundSchema = ListSubscriptionPaymentsInterval$inboundSchema;
-  /** @deprecated use `ListSubscriptionPaymentsInterval$outboundSchema` instead. */
-  export const outboundSchema = ListSubscriptionPaymentsInterval$outboundSchema;
-}
-
-/** @internal */
 export const ListSubscriptionPaymentsRecurringAmount$inboundSchema: z.ZodType<
   ListSubscriptionPaymentsRecurringAmount,
   z.ZodTypeDef,
@@ -3686,7 +3654,7 @@ export const ListSubscriptionPaymentsRecurring$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: ListSubscriptionPaymentsInterval$inboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => ListSubscriptionPaymentsRecurringAmount$inboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -3709,7 +3677,7 @@ export const ListSubscriptionPaymentsRecurring$outboundSchema: z.ZodType<
   ListSubscriptionPaymentsRecurring
 > = z.object({
   description: z.string().optional(),
-  interval: ListSubscriptionPaymentsInterval$outboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => ListSubscriptionPaymentsRecurringAmount$outboundSchema)
     .optional(),
   times: z.number().int().optional(),

@@ -297,19 +297,6 @@ export const CancelPaymentCategory = {
 export type CancelPaymentCategory = ClosedEnum<typeof CancelPaymentCategory>;
 
 /**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export const CancelPaymentInterval = {
-  DotDotDotMonths: "... months",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export type CancelPaymentInterval = ClosedEnum<typeof CancelPaymentInterval>;
-
-/**
  * Total amount and currency of the recurring item.
  */
 export type CancelPaymentRecurringAmount = {
@@ -336,8 +323,12 @@ export type CancelPaymentRecurring = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+   *
+   * @remarks
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CancelPaymentInterval;
+  interval: string;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -3513,27 +3504,6 @@ export namespace CancelPaymentCategory$ {
 }
 
 /** @internal */
-export const CancelPaymentInterval$inboundSchema: z.ZodNativeEnum<
-  typeof CancelPaymentInterval
-> = z.nativeEnum(CancelPaymentInterval);
-
-/** @internal */
-export const CancelPaymentInterval$outboundSchema: z.ZodNativeEnum<
-  typeof CancelPaymentInterval
-> = CancelPaymentInterval$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelPaymentInterval$ {
-  /** @deprecated use `CancelPaymentInterval$inboundSchema` instead. */
-  export const inboundSchema = CancelPaymentInterval$inboundSchema;
-  /** @deprecated use `CancelPaymentInterval$outboundSchema` instead. */
-  export const outboundSchema = CancelPaymentInterval$outboundSchema;
-}
-
-/** @internal */
 export const CancelPaymentRecurringAmount$inboundSchema: z.ZodType<
   CancelPaymentRecurringAmount,
   z.ZodTypeDef,
@@ -3599,7 +3569,7 @@ export const CancelPaymentRecurring$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: CancelPaymentInterval$inboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => CancelPaymentRecurringAmount$inboundSchema).optional(),
   times: z.number().int().optional(),
   startDate: z.nullable(z.string()).optional(),
@@ -3621,7 +3591,7 @@ export const CancelPaymentRecurring$outboundSchema: z.ZodType<
   CancelPaymentRecurring
 > = z.object({
   description: z.string().optional(),
-  interval: CancelPaymentInterval$outboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => CancelPaymentRecurringAmount$outboundSchema).optional(),
   times: z.number().int().optional(),
   startDate: z.nullable(z.string()).optional(),

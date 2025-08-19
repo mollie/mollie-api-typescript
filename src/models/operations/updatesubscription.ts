@@ -24,29 +24,6 @@ export type UpdateSubscriptionAmountRequest = {
 };
 
 /**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export const UpdateSubscriptionIntervalRequest = {
-  DotDotDotDays: "... days",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotMonths: "... months",
-} as const;
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export type UpdateSubscriptionIntervalRequest = ClosedEnum<
-  typeof UpdateSubscriptionIntervalRequest
->;
-
-/**
  * Provide any data you like, for example a string or a JSON object. We will save the data alongside the
  *
  * @remarks
@@ -80,8 +57,10 @@ export type UpdateSubscriptionRequestBody = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval?: UpdateSubscriptionIntervalRequest | undefined;
+  interval?: string | undefined;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
@@ -207,29 +186,6 @@ export type UpdateSubscriptionAmountResponse = {
    */
   value: string;
 };
-
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export const UpdateSubscriptionIntervalResponse = {
-  DotDotDotDays: "... days",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotMonths: "... months",
-} as const;
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export type UpdateSubscriptionIntervalResponse = ClosedEnum<
-  typeof UpdateSubscriptionIntervalResponse
->;
 
 /**
  * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
@@ -458,15 +414,17 @@ export type UpdateSubscriptionResponse = {
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining: number;
+  timesRemaining: number | null;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: UpdateSubscriptionIntervalResponse;
+  interval: string;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
@@ -544,7 +502,7 @@ export type UpdateSubscriptionResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: UpdateSubscriptionLinks | undefined;
+  links: UpdateSubscriptionLinks;
 };
 
 /** @internal */
@@ -604,28 +562,6 @@ export function updateSubscriptionAmountRequestFromJSON(
     (x) => UpdateSubscriptionAmountRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdateSubscriptionAmountRequest' from JSON`,
   );
-}
-
-/** @internal */
-export const UpdateSubscriptionIntervalRequest$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateSubscriptionIntervalRequest
-> = z.nativeEnum(UpdateSubscriptionIntervalRequest);
-
-/** @internal */
-export const UpdateSubscriptionIntervalRequest$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateSubscriptionIntervalRequest
-> = UpdateSubscriptionIntervalRequest$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateSubscriptionIntervalRequest$ {
-  /** @deprecated use `UpdateSubscriptionIntervalRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateSubscriptionIntervalRequest$inboundSchema;
-  /** @deprecated use `UpdateSubscriptionIntervalRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateSubscriptionIntervalRequest$outboundSchema;
 }
 
 /** @internal */
@@ -690,7 +626,7 @@ export const UpdateSubscriptionRequestBody$inboundSchema: z.ZodType<
   amount: z.lazy(() => UpdateSubscriptionAmountRequest$inboundSchema)
     .optional(),
   description: z.string().optional(),
-  interval: UpdateSubscriptionIntervalRequest$inboundSchema.optional(),
+  interval: z.string().optional(),
   startDate: z.string().optional(),
   times: z.number().int().optional(),
   metadata: z.nullable(
@@ -723,7 +659,7 @@ export const UpdateSubscriptionRequestBody$outboundSchema: z.ZodType<
   amount: z.lazy(() => UpdateSubscriptionAmountRequest$outboundSchema)
     .optional(),
   description: z.string().optional(),
-  interval: UpdateSubscriptionIntervalRequest$outboundSchema.optional(),
+  interval: z.string().optional(),
   startDate: z.string().optional(),
   times: z.number().int().optional(),
   metadata: z.nullable(
@@ -1064,28 +1000,6 @@ export function updateSubscriptionAmountResponseFromJSON(
     (x) => UpdateSubscriptionAmountResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdateSubscriptionAmountResponse' from JSON`,
   );
-}
-
-/** @internal */
-export const UpdateSubscriptionIntervalResponse$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateSubscriptionIntervalResponse
-> = z.nativeEnum(UpdateSubscriptionIntervalResponse);
-
-/** @internal */
-export const UpdateSubscriptionIntervalResponse$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateSubscriptionIntervalResponse
-> = UpdateSubscriptionIntervalResponse$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateSubscriptionIntervalResponse$ {
-  /** @deprecated use `UpdateSubscriptionIntervalResponse$inboundSchema` instead. */
-  export const inboundSchema = UpdateSubscriptionIntervalResponse$inboundSchema;
-  /** @deprecated use `UpdateSubscriptionIntervalResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateSubscriptionIntervalResponse$outboundSchema;
 }
 
 /** @internal */
@@ -1714,8 +1628,8 @@ export const UpdateSubscriptionResponse$inboundSchema: z.ZodType<
   status: UpdateSubscriptionStatus$inboundSchema,
   amount: z.lazy(() => UpdateSubscriptionAmountResponse$inboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: UpdateSubscriptionIntervalResponse$inboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -1730,7 +1644,7 @@ export const UpdateSubscriptionResponse$inboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => UpdateSubscriptionLinks$inboundSchema).optional(),
+  _links: z.lazy(() => UpdateSubscriptionLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1745,7 +1659,7 @@ export type UpdateSubscriptionResponse$Outbound = {
   status: string;
   amount: UpdateSubscriptionAmountResponse$Outbound;
   times: number | null;
-  timesRemaining: number;
+  timesRemaining: number | null;
   interval: string;
   startDate: string;
   nextPaymentDate?: string | null | undefined;
@@ -1758,7 +1672,7 @@ export type UpdateSubscriptionResponse$Outbound = {
   mandateId?: string | null | undefined;
   createdAt: string;
   canceledAt?: string | null | undefined;
-  _links?: UpdateSubscriptionLinks$Outbound | undefined;
+  _links: UpdateSubscriptionLinks$Outbound;
 };
 
 /** @internal */
@@ -1773,8 +1687,8 @@ export const UpdateSubscriptionResponse$outboundSchema: z.ZodType<
   status: UpdateSubscriptionStatus$outboundSchema,
   amount: z.lazy(() => UpdateSubscriptionAmountResponse$outboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: UpdateSubscriptionIntervalResponse$outboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -1789,7 +1703,7 @@ export const UpdateSubscriptionResponse$outboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => UpdateSubscriptionLinks$outboundSchema).optional(),
+  links: z.lazy(() => UpdateSubscriptionLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

@@ -27,29 +27,6 @@ export type CreateSubscriptionAmountRequest = {
 };
 
 /**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export const CreateSubscriptionIntervalRequest = {
-  DotDotDotDays: "... days",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotMonths: "... months",
-} as const;
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export type CreateSubscriptionIntervalRequest = ClosedEnum<
-  typeof CreateSubscriptionIntervalRequest
->;
-
-/**
  * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
  */
 export const CreateSubscriptionMethodRequest = {
@@ -134,8 +111,10 @@ export type CreateSubscriptionRequestBody = {
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CreateSubscriptionIntervalRequest;
+  interval: string;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
@@ -274,29 +253,6 @@ export type CreateSubscriptionAmountResponse = {
    */
   value: string;
 };
-
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export const CreateSubscriptionIntervalResponse = {
-  DotDotDotDays: "... days",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotMonths: "... months",
-} as const;
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export type CreateSubscriptionIntervalResponse = ClosedEnum<
-  typeof CreateSubscriptionIntervalResponse
->;
 
 /**
  * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
@@ -525,15 +481,17 @@ export type CreateSubscriptionResponse = {
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining: number;
+  timesRemaining: number | null;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CreateSubscriptionIntervalResponse;
+  interval: string;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
@@ -611,7 +569,7 @@ export type CreateSubscriptionResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CreateSubscriptionLinks | undefined;
+  links: CreateSubscriptionLinks;
 };
 
 /** @internal */
@@ -671,28 +629,6 @@ export function createSubscriptionAmountRequestFromJSON(
     (x) => CreateSubscriptionAmountRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateSubscriptionAmountRequest' from JSON`,
   );
-}
-
-/** @internal */
-export const CreateSubscriptionIntervalRequest$inboundSchema: z.ZodNativeEnum<
-  typeof CreateSubscriptionIntervalRequest
-> = z.nativeEnum(CreateSubscriptionIntervalRequest);
-
-/** @internal */
-export const CreateSubscriptionIntervalRequest$outboundSchema: z.ZodNativeEnum<
-  typeof CreateSubscriptionIntervalRequest
-> = CreateSubscriptionIntervalRequest$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateSubscriptionIntervalRequest$ {
-  /** @deprecated use `CreateSubscriptionIntervalRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateSubscriptionIntervalRequest$inboundSchema;
-  /** @deprecated use `CreateSubscriptionIntervalRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateSubscriptionIntervalRequest$outboundSchema;
 }
 
 /** @internal */
@@ -919,7 +855,7 @@ export const CreateSubscriptionRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() => CreateSubscriptionAmountRequest$inboundSchema),
   times: z.nullable(z.number().int()).optional(),
-  interval: CreateSubscriptionIntervalRequest$inboundSchema,
+  interval: z.string(),
   startDate: z.string().optional(),
   description: z.string(),
   method: z.nullable(CreateSubscriptionMethodRequest$inboundSchema).optional(),
@@ -957,7 +893,7 @@ export const CreateSubscriptionRequestBody$outboundSchema: z.ZodType<
 > = z.object({
   amount: z.lazy(() => CreateSubscriptionAmountRequest$outboundSchema),
   times: z.nullable(z.number().int()).optional(),
-  interval: CreateSubscriptionIntervalRequest$outboundSchema,
+  interval: z.string(),
   startDate: z.string().optional(),
   description: z.string(),
   method: z.nullable(CreateSubscriptionMethodRequest$outboundSchema).optional(),
@@ -1299,28 +1235,6 @@ export function createSubscriptionAmountResponseFromJSON(
     (x) => CreateSubscriptionAmountResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateSubscriptionAmountResponse' from JSON`,
   );
-}
-
-/** @internal */
-export const CreateSubscriptionIntervalResponse$inboundSchema: z.ZodNativeEnum<
-  typeof CreateSubscriptionIntervalResponse
-> = z.nativeEnum(CreateSubscriptionIntervalResponse);
-
-/** @internal */
-export const CreateSubscriptionIntervalResponse$outboundSchema: z.ZodNativeEnum<
-  typeof CreateSubscriptionIntervalResponse
-> = CreateSubscriptionIntervalResponse$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateSubscriptionIntervalResponse$ {
-  /** @deprecated use `CreateSubscriptionIntervalResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateSubscriptionIntervalResponse$inboundSchema;
-  /** @deprecated use `CreateSubscriptionIntervalResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateSubscriptionIntervalResponse$outboundSchema;
 }
 
 /** @internal */
@@ -1970,8 +1884,8 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
   status: CreateSubscriptionStatus$inboundSchema,
   amount: z.lazy(() => CreateSubscriptionAmountResponse$inboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: CreateSubscriptionIntervalResponse$inboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -1987,7 +1901,7 @@ export const CreateSubscriptionResponse$inboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => CreateSubscriptionLinks$inboundSchema).optional(),
+  _links: z.lazy(() => CreateSubscriptionLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -2002,7 +1916,7 @@ export type CreateSubscriptionResponse$Outbound = {
   status: string;
   amount: CreateSubscriptionAmountResponse$Outbound;
   times: number | null;
-  timesRemaining: number;
+  timesRemaining: number | null;
   interval: string;
   startDate: string;
   nextPaymentDate?: string | null | undefined;
@@ -2017,7 +1931,7 @@ export type CreateSubscriptionResponse$Outbound = {
   mandateId?: string | null | undefined;
   createdAt: string;
   canceledAt?: string | null | undefined;
-  _links?: CreateSubscriptionLinks$Outbound | undefined;
+  _links: CreateSubscriptionLinks$Outbound;
 };
 
 /** @internal */
@@ -2032,8 +1946,8 @@ export const CreateSubscriptionResponse$outboundSchema: z.ZodType<
   status: CreateSubscriptionStatus$outboundSchema,
   amount: z.lazy(() => CreateSubscriptionAmountResponse$outboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: CreateSubscriptionIntervalResponse$outboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -2049,7 +1963,7 @@ export const CreateSubscriptionResponse$outboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => CreateSubscriptionLinks$outboundSchema).optional(),
+  links: z.lazy(() => CreateSubscriptionLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

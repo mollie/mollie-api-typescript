@@ -129,29 +129,6 @@ export type ListAllSubscriptionsAmount = {
 };
 
 /**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export const ListAllSubscriptionsInterval = {
-  DotDotDotDays: "... days",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotMonths: "... months",
-} as const;
-/**
- * Interval to wait between payments, for example `1 month` or `14 days`.
- *
- * @remarks
- *
- * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
- */
-export type ListAllSubscriptionsInterval = ClosedEnum<
-  typeof ListAllSubscriptionsInterval
->;
-
-/**
  * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
  */
 export const ListAllSubscriptionsMethod = {
@@ -375,15 +352,17 @@ export type ListAllSubscriptionsSubscription = {
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining: number;
+  timesRemaining: number | null;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
    * @remarks
    *
    * The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: ListAllSubscriptionsInterval;
+  interval: string;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
@@ -461,7 +440,7 @@ export type ListAllSubscriptionsSubscription = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ListAllSubscriptionsSubscriptionLinks | undefined;
+  links: ListAllSubscriptionsSubscriptionLinks;
 };
 
 export type ListAllSubscriptionsEmbedded = {
@@ -562,12 +541,12 @@ export type ListAllSubscriptionsResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListAllSubscriptionsEmbedded | undefined;
+  count: number;
+  embedded: ListAllSubscriptionsEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ListAllSubscriptionsLinks | undefined;
+  links: ListAllSubscriptionsLinks;
 };
 
 /** @internal */
@@ -995,27 +974,6 @@ export function listAllSubscriptionsAmountFromJSON(
     (x) => ListAllSubscriptionsAmount$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAllSubscriptionsAmount' from JSON`,
   );
-}
-
-/** @internal */
-export const ListAllSubscriptionsInterval$inboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsInterval
-> = z.nativeEnum(ListAllSubscriptionsInterval);
-
-/** @internal */
-export const ListAllSubscriptionsInterval$outboundSchema: z.ZodNativeEnum<
-  typeof ListAllSubscriptionsInterval
-> = ListAllSubscriptionsInterval$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllSubscriptionsInterval$ {
-  /** @deprecated use `ListAllSubscriptionsInterval$inboundSchema` instead. */
-  export const inboundSchema = ListAllSubscriptionsInterval$inboundSchema;
-  /** @deprecated use `ListAllSubscriptionsInterval$outboundSchema` instead. */
-  export const outboundSchema = ListAllSubscriptionsInterval$outboundSchema;
 }
 
 /** @internal */
@@ -1687,8 +1645,8 @@ export const ListAllSubscriptionsSubscription$inboundSchema: z.ZodType<
   status: ListAllSubscriptionsStatus$inboundSchema,
   amount: z.lazy(() => ListAllSubscriptionsAmount$inboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: ListAllSubscriptionsInterval$inboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -1703,8 +1661,7 @@ export const ListAllSubscriptionsSubscription$inboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => ListAllSubscriptionsSubscriptionLinks$inboundSchema)
-    .optional(),
+  _links: z.lazy(() => ListAllSubscriptionsSubscriptionLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1719,7 +1676,7 @@ export type ListAllSubscriptionsSubscription$Outbound = {
   status: string;
   amount: ListAllSubscriptionsAmount$Outbound;
   times: number | null;
-  timesRemaining: number;
+  timesRemaining: number | null;
   interval: string;
   startDate: string;
   nextPaymentDate?: string | null | undefined;
@@ -1732,7 +1689,7 @@ export type ListAllSubscriptionsSubscription$Outbound = {
   mandateId?: string | null | undefined;
   createdAt: string;
   canceledAt?: string | null | undefined;
-  _links?: ListAllSubscriptionsSubscriptionLinks$Outbound | undefined;
+  _links: ListAllSubscriptionsSubscriptionLinks$Outbound;
 };
 
 /** @internal */
@@ -1747,8 +1704,8 @@ export const ListAllSubscriptionsSubscription$outboundSchema: z.ZodType<
   status: ListAllSubscriptionsStatus$outboundSchema,
   amount: z.lazy(() => ListAllSubscriptionsAmount$outboundSchema),
   times: z.nullable(z.number().int()),
-  timesRemaining: z.number().int(),
-  interval: ListAllSubscriptionsInterval$outboundSchema,
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
   startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
   description: z.string(),
@@ -1764,8 +1721,7 @@ export const ListAllSubscriptionsSubscription$outboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => ListAllSubscriptionsSubscriptionLinks$outboundSchema)
-    .optional(),
+  links: z.lazy(() => ListAllSubscriptionsSubscriptionLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
@@ -2171,10 +2127,9 @@ export const ListAllSubscriptionsResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListAllSubscriptionsEmbedded$inboundSchema)
-    .optional(),
-  _links: z.lazy(() => ListAllSubscriptionsLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListAllSubscriptionsEmbedded$inboundSchema),
+  _links: z.lazy(() => ListAllSubscriptionsLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -2184,9 +2139,9 @@ export const ListAllSubscriptionsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListAllSubscriptionsResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListAllSubscriptionsEmbedded$Outbound | undefined;
-  _links?: ListAllSubscriptionsLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListAllSubscriptionsEmbedded$Outbound;
+  _links: ListAllSubscriptionsLinks$Outbound;
 };
 
 /** @internal */
@@ -2195,10 +2150,9 @@ export const ListAllSubscriptionsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllSubscriptionsResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListAllSubscriptionsEmbedded$outboundSchema)
-    .optional(),
-  links: z.lazy(() => ListAllSubscriptionsLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListAllSubscriptionsEmbedded$outboundSchema),
+  links: z.lazy(() => ListAllSubscriptionsLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

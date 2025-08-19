@@ -76,7 +76,7 @@ let value: ListCustomerPaymentsResponse = {
             productUrl: "https://...",
             recurring: {
               description: "Gym subscription",
-              interval: "... days",
+              interval: "12 months",
               amount: {
                 currency: "EUR",
                 value: "10.00",

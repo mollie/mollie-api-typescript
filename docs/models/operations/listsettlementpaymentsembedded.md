@@ -72,7 +72,7 @@ let value: ListSettlementPaymentsEmbedded = {
           productUrl: "https://...",
           recurring: {
             description: "Gym subscription",
-            interval: "... weeks",
+            interval: "12 months",
             amount: {
               currency: "EUR",
               value: "10.00",

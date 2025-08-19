@@ -163,21 +163,6 @@ export type CreatePaymentCategoryRequest = ClosedEnum<
 >;
 
 /**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export const CreatePaymentIntervalRequest = {
-  DotDotDotMonths: "... months",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export type CreatePaymentIntervalRequest = ClosedEnum<
-  typeof CreatePaymentIntervalRequest
->;
-
-/**
  * Total amount and currency of the recurring item.
  */
 export type CreatePaymentRecurringAmountRequest = {
@@ -204,8 +189,12 @@ export type CreatePaymentRecurringRequest = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+   *
+   * @remarks
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CreatePaymentIntervalRequest;
+  interval: string;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -1529,21 +1518,6 @@ export type CreatePaymentCategoryResponse = ClosedEnum<
 >;
 
 /**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export const CreatePaymentIntervalResponse = {
-  DotDotDotMonths: "... months",
-  DotDotDotWeeks: "... weeks",
-  DotDotDotDays: "... days",
-} as const;
-/**
- * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
- */
-export type CreatePaymentIntervalResponse = ClosedEnum<
-  typeof CreatePaymentIntervalResponse
->;
-
-/**
  * Total amount and currency of the recurring item.
  */
 export type CreatePaymentRecurringAmountResponse = {
@@ -1570,8 +1544,12 @@ export type CreatePaymentRecurringResponse = {
   description?: string | undefined;
   /**
    * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+   *
+   * @remarks
+   *
+   * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval: CreatePaymentIntervalResponse;
+  interval: string;
   /**
    * Total amount and currency of the recurring item.
    */
@@ -4095,27 +4073,6 @@ export namespace CreatePaymentCategoryRequest$ {
 }
 
 /** @internal */
-export const CreatePaymentIntervalRequest$inboundSchema: z.ZodNativeEnum<
-  typeof CreatePaymentIntervalRequest
-> = z.nativeEnum(CreatePaymentIntervalRequest);
-
-/** @internal */
-export const CreatePaymentIntervalRequest$outboundSchema: z.ZodNativeEnum<
-  typeof CreatePaymentIntervalRequest
-> = CreatePaymentIntervalRequest$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreatePaymentIntervalRequest$ {
-  /** @deprecated use `CreatePaymentIntervalRequest$inboundSchema` instead. */
-  export const inboundSchema = CreatePaymentIntervalRequest$inboundSchema;
-  /** @deprecated use `CreatePaymentIntervalRequest$outboundSchema` instead. */
-  export const outboundSchema = CreatePaymentIntervalRequest$outboundSchema;
-}
-
-/** @internal */
 export const CreatePaymentRecurringAmountRequest$inboundSchema: z.ZodType<
   CreatePaymentRecurringAmountRequest,
   z.ZodTypeDef,
@@ -4184,7 +4141,7 @@ export const CreatePaymentRecurringRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: CreatePaymentIntervalRequest$inboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => CreatePaymentRecurringAmountRequest$inboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -4207,7 +4164,7 @@ export const CreatePaymentRecurringRequest$outboundSchema: z.ZodType<
   CreatePaymentRecurringRequest
 > = z.object({
   description: z.string().optional(),
-  interval: CreatePaymentIntervalRequest$outboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => CreatePaymentRecurringAmountRequest$outboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -6415,27 +6372,6 @@ export namespace CreatePaymentCategoryResponse$ {
 }
 
 /** @internal */
-export const CreatePaymentIntervalResponse$inboundSchema: z.ZodNativeEnum<
-  typeof CreatePaymentIntervalResponse
-> = z.nativeEnum(CreatePaymentIntervalResponse);
-
-/** @internal */
-export const CreatePaymentIntervalResponse$outboundSchema: z.ZodNativeEnum<
-  typeof CreatePaymentIntervalResponse
-> = CreatePaymentIntervalResponse$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreatePaymentIntervalResponse$ {
-  /** @deprecated use `CreatePaymentIntervalResponse$inboundSchema` instead. */
-  export const inboundSchema = CreatePaymentIntervalResponse$inboundSchema;
-  /** @deprecated use `CreatePaymentIntervalResponse$outboundSchema` instead. */
-  export const outboundSchema = CreatePaymentIntervalResponse$outboundSchema;
-}
-
-/** @internal */
 export const CreatePaymentRecurringAmountResponse$inboundSchema: z.ZodType<
   CreatePaymentRecurringAmountResponse,
   z.ZodTypeDef,
@@ -6504,7 +6440,7 @@ export const CreatePaymentRecurringResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string().optional(),
-  interval: CreatePaymentIntervalResponse$inboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => CreatePaymentRecurringAmountResponse$inboundSchema)
     .optional(),
   times: z.number().int().optional(),
@@ -6527,7 +6463,7 @@ export const CreatePaymentRecurringResponse$outboundSchema: z.ZodType<
   CreatePaymentRecurringResponse
 > = z.object({
   description: z.string().optional(),
-  interval: CreatePaymentIntervalResponse$outboundSchema,
+  interval: z.string(),
   amount: z.lazy(() => CreatePaymentRecurringAmountResponse$outboundSchema)
     .optional(),
   times: z.number().int().optional(),

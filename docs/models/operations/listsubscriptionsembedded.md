@@ -18,7 +18,7 @@ let value: ListSubscriptionsEmbedded = {
       },
       times: 6,
       timesRemaining: 5,
-      interval: "... days",
+      interval: "2 days",
       startDate: "2025-01-01",
       nextPaymentDate: "2025-01-01",
       description: "Subscription of streaming channel",
@@ -41,15 +41,15 @@ let value: ListSubscriptionsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        customer: null,
+        customer: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
         mandate: {
           href: "https://...",
           type: "application/hal+json",
         },
-        profile: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
+        profile: null,
         payments: {
           href: "https://...",
           type: "application/hal+json",
