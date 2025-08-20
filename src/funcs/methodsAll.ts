@@ -3,7 +3,11 @@
  */
 
 import { ClientCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import {
+  encodeDeepObjectQuery,
+  encodeFormQuery,
+  queryJoin,
+} from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -94,14 +98,18 @@ async function $do(
 
   const path = pathToFunc("/methods/all")();
 
-  const query = encodeFormQuery({
-    "amount": payload?.amount,
-    "include": payload?.include,
-    "locale": payload?.locale,
-    "profileId": payload?.profileId,
-    "sequenceType": payload?.sequenceType,
-    "testmode": payload?.testmode,
-  });
+  const query = queryJoin(
+    encodeDeepObjectQuery({
+      "amount": payload?.amount,
+    }),
+    encodeFormQuery({
+      "include": payload?.include,
+      "locale": payload?.locale,
+      "profileId": payload?.profileId,
+      "sequenceType": payload?.sequenceType,
+      "testmode": payload?.testmode,
+    }),
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",

@@ -3,7 +3,11 @@
  */
 
 import { ClientCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import {
+  encodeDeepObjectQuery,
+  encodeFormQuery,
+  queryJoin,
+} from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -106,18 +110,22 @@ async function $do(
 
   const path = pathToFunc("/methods")();
 
-  const query = encodeFormQuery({
-    "amount": payload?.amount,
-    "billingCountry": payload?.billingCountry,
-    "include": payload?.include,
-    "includeWallets": payload?.includeWallets,
-    "locale": payload?.locale,
-    "orderLineCategories": payload?.orderLineCategories,
-    "profileId": payload?.profileId,
-    "resource": payload?.resource,
-    "sequenceType": payload?.sequenceType,
-    "testmode": payload?.testmode,
-  });
+  const query = queryJoin(
+    encodeDeepObjectQuery({
+      "amount": payload?.amount,
+    }),
+    encodeFormQuery({
+      "billingCountry": payload?.billingCountry,
+      "include": payload?.include,
+      "includeWallets": payload?.includeWallets,
+      "locale": payload?.locale,
+      "orderLineCategories": payload?.orderLineCategories,
+      "profileId": payload?.profileId,
+      "resource": payload?.resource,
+      "sequenceType": payload?.sequenceType,
+      "testmode": payload?.testmode,
+    }),
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",

@@ -528,7 +528,7 @@ export type ListMethodsMethod = {
   /**
    * The payment method's activation status for this profile.
    */
-  status: ListMethodsStatus | null;
+  status: ListMethodsStatus;
   /**
    * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant
    *
@@ -1518,7 +1518,7 @@ export const ListMethodsMethod$inboundSchema: z.ZodType<
     z.lazy(() => ListMethodsMaximumAmount$inboundSchema),
   ),
   image: z.lazy(() => ListMethodsImage$inboundSchema),
-  status: z.nullable(ListMethodsStatus$inboundSchema),
+  status: ListMethodsStatus$inboundSchema,
   issuers: z.array(z.lazy(() => ListMethodsIssuer$inboundSchema)).optional(),
   _links: z.lazy(() => ListMethodsMethodLinks$inboundSchema),
 }).transform((v) => {
@@ -1535,7 +1535,7 @@ export type ListMethodsMethod$Outbound = {
   minimumAmount: ListMethodsMinimumAmount$Outbound;
   maximumAmount: ListMethodsMaximumAmount$Outbound | null;
   image: ListMethodsImage$Outbound;
-  status: string | null;
+  status: string;
   issuers?: Array<ListMethodsIssuer$Outbound> | undefined;
   _links: ListMethodsMethodLinks$Outbound;
 };
@@ -1554,7 +1554,7 @@ export const ListMethodsMethod$outboundSchema: z.ZodType<
     z.lazy(() => ListMethodsMaximumAmount$outboundSchema),
   ),
   image: z.lazy(() => ListMethodsImage$outboundSchema),
-  status: z.nullable(ListMethodsStatus$outboundSchema),
+  status: ListMethodsStatus$outboundSchema,
   issuers: z.array(z.lazy(() => ListMethodsIssuer$outboundSchema)).optional(),
   links: z.lazy(() => ListMethodsMethodLinks$outboundSchema),
 }).transform((v) => {

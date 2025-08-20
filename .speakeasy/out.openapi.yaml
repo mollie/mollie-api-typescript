@@ -5811,6 +5811,8 @@ paths:
 
             Example: `/v2/methods?amount[value]=100.00&amount[currency]=USD`
           in: query
+          style: deepObject
+          explode: true
           schema:
             type: object
             description: In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -6006,9 +6008,7 @@ paths:
                                   example: https://...
                               readOnly: true
                             status:
-                              type:
-                                - string
-                                - 'null'
+                              type: string
                               description: The payment method's activation status for this profile.
                               enum:
                                 - activated
@@ -6352,24 +6352,6 @@ paths:
                               href: ...
                               type: application/hal+json
                         - resource: method
-                          id: sofort
-                          description: SOFORT Banking
-                          minimumAmount:
-                            value: '0.10'
-                            currency: EUR
-                          maximumAmount:
-                            value: '50000.00'
-                            currency: EUR
-                          image:
-                            size1x: https://www.mollie.com/external/icons/payment-methods/sofort.png
-                            size2x: https://www.mollie.com/external/icons/payment-methods/sofort%402x.png
-                            svg: https://www.mollie.com/external/icons/payment-methods/sofort.svg
-                          status: activated
-                          _links:
-                            self:
-                              href: ...
-                              type: application/hal+json
-                        - resource: method
                           id: bancontact
                           description: Bancontact
                           minimumAmount:
@@ -6400,24 +6382,6 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/eps.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/eps%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/eps.svg
-                          status: activated
-                          _links:
-                            self:
-                              href: ...
-                              type: application/hal+json
-                        - resource: method
-                          id: giropay
-                          description: giropay
-                          minimumAmount:
-                            value: '1.00'
-                            currency: EUR
-                          maximumAmount:
-                            value: '10000.00'
-                            currency: EUR
-                          image:
-                            size1x: https://www.mollie.com/external/icons/payment-methods/giropay.png
-                            size2x: https://www.mollie.com/external/icons/payment-methods/giropay%402x.png
-                            svg: https://www.mollie.com/external/icons/payment-methods/giropay.svg
                           status: activated
                           _links:
                             self:
@@ -6490,7 +6454,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/voucher.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/voucher%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/voucher.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -6508,12 +6472,12 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/directdebit.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/directdebit%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/directdebit.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
                               type: application/hal+json
-                    count: 16
+                    count: 14
                     _links:
                       documentation:
                         href: ...
@@ -6635,6 +6599,8 @@ paths:
 
             Example: `/v2/methods/all?amount[value]=100.00&amount[currency]=USD`
           in: query
+          style: deepObject
+          explode: true
           schema:
             type: object
             description: In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -6896,7 +6862,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/klarnapaylater.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/klarnapaylater%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/klarnapaylater.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -6930,7 +6896,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/paypal.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/paypal%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/paypal.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -6954,24 +6920,6 @@ paths:
                               href: ...
                               type: application/hal+json
                         - resource: method
-                          id: sofort
-                          description: SOFORT Banking
-                          minimumAmount:
-                            value: '0.10'
-                            currency: EUR
-                          maximumAmount:
-                            value: '50000.00'
-                            currency: EUR
-                          image:
-                            size1x: https://www.mollie.com/external/icons/payment-methods/sofort.png
-                            size2x: https://www.mollie.com/external/icons/payment-methods/sofort%402x.png
-                            svg: https://www.mollie.com/external/icons/payment-methods/sofort.svg
-                          status: null
-                          _links:
-                            self:
-                              href: ...
-                              type: application/hal+json
-                        - resource: method
                           id: giftcard
                           description: Gift cards
                           minimumAmount:
@@ -6982,7 +6930,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/giftcard.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/giftcard%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/giftcard.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7000,7 +6948,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/bancontact.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/bancontact%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/bancontact.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7018,25 +6966,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/eps.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/eps%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/eps.svg
-                          status: null
-                          _links:
-                            self:
-                              href: ...
-                              type: application/hal+json
-                        - resource: method
-                          id: giropay
-                          description: giropay
-                          minimumAmount:
-                            value: '1.00'
-                            currency: EUR
-                          maximumAmount:
-                            value: '10000.00'
-                            currency: EUR
-                          image:
-                            size1x: https://www.mollie.com/external/icons/payment-methods/giropay.png
-                            size2x: https://www.mollie.com/external/icons/payment-methods/giropay%402x.png
-                            svg: https://www.mollie.com/external/icons/payment-methods/giropay.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7054,7 +6984,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/przelewy24.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/przelewy24%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/przelewy24.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7072,7 +7002,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/kbc.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/kbc%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/kbc.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7090,7 +7020,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/belfius.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/belfius%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/belfius.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7108,7 +7038,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/voucher.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/voucher%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/voucher.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7126,12 +7056,12 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/directdebit.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/directdebit%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/directdebit.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
                               type: application/hal+json
-                    count: 17
+                    count: 15
                     _links:
                       documentation:
                         href: ...
@@ -7297,7 +7227,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/klarnapaylater.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/klarnapaylater%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/klarnapaylater.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7333,7 +7263,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/klarnasliceit.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/klarnasliceit%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/klarnasliceit.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7349,7 +7279,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/paypal.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/paypal%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/paypal.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7373,24 +7303,6 @@ paths:
                               href: ...
                               type: application/hal+json
                         - resource: method
-                          id: sofort
-                          description: SOFORT Banking
-                          minimumAmount:
-                            value: '0.10'
-                            currency: EUR
-                          maximumAmount:
-                            value: '50000.00'
-                            currency: EUR
-                          image:
-                            size1x: https://www.mollie.com/external/icons/payment-methods/sofort.png
-                            size2x: https://www.mollie.com/external/icons/payment-methods/sofort%402x.png
-                            svg: https://www.mollie.com/external/icons/payment-methods/sofort.svg
-                          status: null
-                          _links:
-                            self:
-                              href: ...
-                              type: application/hal+json
-                        - resource: method
                           id: giftcard
                           description: Gift cards
                           minimumAmount:
@@ -7401,7 +7313,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/giftcard.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/giftcard%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/giftcard.svg
-                          status: null
+                          status: activated
                           issuers:
                             - resource: issuer
                               id: beautycadeaukaart
@@ -7637,7 +7549,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/bancontact.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/bancontact%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/bancontact.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7655,25 +7567,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/eps.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/eps%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/eps.svg
-                          status: null
-                          _links:
-                            self:
-                              href: ...
-                              type: application/hal+json
-                        - resource: method
-                          id: giropay
-                          description: giropay
-                          minimumAmount:
-                            value: '1.00'
-                            currency: EUR
-                          maximumAmount:
-                            value: '10000.00'
-                            currency: EUR
-                          image:
-                            size1x: https://www.mollie.com/external/icons/payment-methods/giropay.png
-                            size2x: https://www.mollie.com/external/icons/payment-methods/giropay%402x.png
-                            svg: https://www.mollie.com/external/icons/payment-methods/giropay.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7691,7 +7585,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/przelewy24.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/przelewy24%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/przelewy24.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7709,7 +7603,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/kbc.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/kbc%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/kbc.svg
-                          status: null
+                          status: activated
                           issuers:
                             - resource: issuer
                               id: cbc
@@ -7742,7 +7636,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/belfius.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/belfius%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/belfius.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
@@ -7760,7 +7654,7 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/voucher.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/voucher%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/voucher.svg
-                          status: null
+                          status: activated
                           issuers:
                             - resource: issuer
                               id: appetiz
@@ -7849,12 +7743,12 @@ paths:
                             size1x: https://www.mollie.com/external/icons/payment-methods/directdebit.png
                             size2x: https://www.mollie.com/external/icons/payment-methods/directdebit%402x.png
                             svg: https://www.mollie.com/external/icons/payment-methods/directdebit.svg
-                          status: null
+                          status: activated
                           _links:
                             self:
                               href: ...
                               type: application/hal+json
-                    count: 18
+                    count: 16
                     _links:
                       documentation:
                         href: ...
