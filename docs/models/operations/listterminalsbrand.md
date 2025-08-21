@@ -13,5 +13,5 @@ let value: ListTerminalsBrand = "PAX";
 ## Values
 
 ```typescript
-"PAX"
+"PAX" | "Tap"
 ```

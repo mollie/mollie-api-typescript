@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 8acf17d3241327b1beafce478d9bc643
+  docChecksum: 48456f665cac7aa7053a6d2f11db0ec7
   docVersion: 1.0.0
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.1.5
-  configChecksum: 1741a0563b741f163fc61c620f0d525b
+  releaseVersion: 0.1.6
+  configChecksum: f3c5a052f250cbe3a9429317172eb5ba
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -6680,4 +6680,6 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## SDK Changes Detected:\n* `client.methods.list()`: \n  *  `request.amount` **Changed**\n  *  `response._embedded.methods.[].status` **Changed** **Breaking** :warning:\n* `client.methods.all()`: \n  *  `request.amount` **Changed**\n  *  `response._embedded.methods.[].status` **Changed** **Breaking** :warning:\n* `client.methods.get()`:  `response.status` **Changed** **Breaking** :warning:\n"
+releaseNotes: |
+  ## SDK Changes Detected:
+  * `client.terminals.list()`:  `response` **Changed**

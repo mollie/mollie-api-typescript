@@ -13,5 +13,5 @@ let value: GetTerminalBrand = "PAX";
 ## Values
 
 ```typescript
-"PAX"
+"PAX" | "Tap"
 ```

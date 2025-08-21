@@ -103,6 +103,7 @@ export type ListTerminalsStatus = ClosedEnum<typeof ListTerminalsStatus>;
  */
 export const ListTerminalsBrand = {
   Pax: "PAX",
+  Tap: "Tap",
 } as const;
 /**
  * The brand of the terminal.
@@ -116,8 +117,9 @@ export const ListTerminalsModel = {
   A35: "A35",
   A77: "A77",
   A920: "A920",
-  A920Pro: "A920 Pro",
+  A920Pro: "A920Pro",
   Im30: "IM30",
+  Tap: "Tap",
 } as const;
 /**
  * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
@@ -332,12 +334,12 @@ export type ListTerminalsResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListTerminalsEmbedded | undefined;
+  count: number;
+  embedded: ListTerminalsEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ListTerminalsLinks | undefined;
+  links: ListTerminalsLinks;
 };
 
 /** @internal */
@@ -1244,9 +1246,9 @@ export const ListTerminalsResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListTerminalsEmbedded$inboundSchema).optional(),
-  _links: z.lazy(() => ListTerminalsLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListTerminalsEmbedded$inboundSchema),
+  _links: z.lazy(() => ListTerminalsLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -1256,9 +1258,9 @@ export const ListTerminalsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListTerminalsResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListTerminalsEmbedded$Outbound | undefined;
-  _links?: ListTerminalsLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListTerminalsEmbedded$Outbound;
+  _links: ListTerminalsLinks$Outbound;
 };
 
 /** @internal */
@@ -1267,9 +1269,9 @@ export const ListTerminalsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListTerminalsResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListTerminalsEmbedded$outboundSchema).optional(),
-  links: z.lazy(() => ListTerminalsLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListTerminalsEmbedded$outboundSchema),
+  links: z.lazy(() => ListTerminalsLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

@@ -13265,6 +13265,10 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     type: integer
@@ -13347,6 +13351,7 @@ paths:
                                 - 'null'
                               enum:
                                 - PAX
+                                - Tap
                               example: PAX
                               description: The brand of the terminal.
                             model:
@@ -13357,8 +13362,9 @@ paths:
                                 - A35
                                 - A77
                                 - A920
-                                - A920 Pro
+                                - A920Pro
                                 - IM30
+                                - Tap
                               example: A920
                               description: The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
                             serialNumber:

@@ -13,5 +13,5 @@ let value: GetTerminalModel = "A920";
 ## Values
 
 ```typescript
-"A35" | "A77" | "A920" | "A920 Pro" | "IM30"
+"A35" | "A77" | "A920" | "A920Pro" | "IM30" | "Tap"
 ```
