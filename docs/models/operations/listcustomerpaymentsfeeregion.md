@@ -13,5 +13,5 @@ let value: ListCustomerPaymentsFeeRegion = "maestro";
 ## Values
 
 ```typescript
-"american-express" | "amex-intra-eea" | "carte-bancaire" | "intra-eu" | "intra-eu-corporate" | "domestic" | "maestro" | "other" | "inter" | "intra-eea"
+"american-express" | "amex-intra-eea" | "carte-bancaire" | "intra-eu" | "intra-eu-corporate" | "domestic" | "maestro" | "other" | "inter" | "intra_eea"
 ```

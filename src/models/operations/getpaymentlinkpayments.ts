@@ -1295,7 +1295,7 @@ export const GetPaymentLinkPaymentsFeeRegion = {
   Maestro: "maestro",
   Other: "other",
   Inter: "inter",
-  IntraEea: "intra-eea",
+  IntraEea: "intra_eea",
 } as const;
 /**
  * The applicable card fee region.
