@@ -81,7 +81,7 @@ export type UpdatePaymentRequestBody = {
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: models.Locale | undefined;
+  locale?: models.Locale | null | undefined;
   /**
    * The date by which the payment should be completed in `YYYY-MM-DD` format
    */
@@ -154,7 +154,7 @@ export const UpdatePaymentRequestBody$inboundSchema: z.ZodType<
   webhookUrl: z.nullable(z.string()).optional(),
   metadata: z.nullable(models.Metadata$inboundSchema).optional(),
   method: z.nullable(models.Method$inboundSchema).optional(),
-  locale: models.Locale$inboundSchema.optional(),
+  locale: z.nullable(models.Locale$inboundSchema).optional(),
   dueDate: z.string().optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -172,7 +172,7 @@ export type UpdatePaymentRequestBody$Outbound = {
   webhookUrl?: string | null | undefined;
   metadata?: models.Metadata$Outbound | null | undefined;
   method?: string | null | undefined;
-  locale?: string | undefined;
+  locale?: string | null | undefined;
   dueDate?: string | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
   testmode?: boolean | null | undefined;
@@ -194,7 +194,7 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   webhookUrl: z.nullable(z.string()).optional(),
   metadata: z.nullable(models.Metadata$outboundSchema).optional(),
   method: z.nullable(models.Method$outboundSchema).optional(),
-  locale: models.Locale$outboundSchema.optional(),
+  locale: z.nullable(models.Locale$outboundSchema).optional(),
   dueDate: z.string().optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),

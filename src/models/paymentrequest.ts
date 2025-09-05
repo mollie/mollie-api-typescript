@@ -299,7 +299,7 @@ export type PaymentRequest = {
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: Locale | undefined;
+  locale?: Locale | null | undefined;
   /**
    * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
    *
@@ -792,7 +792,7 @@ export const PaymentRequest$inboundSchema: z.ZodType<
     .optional(),
   billingAddress: PaymentAddress$inboundSchema.optional(),
   shippingAddress: PaymentAddress$inboundSchema.optional(),
-  locale: Locale$inboundSchema.optional(),
+  locale: z.nullable(Locale$inboundSchema).optional(),
   method: z.nullable(Method$inboundSchema).optional(),
   issuer: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
@@ -841,7 +841,7 @@ export type PaymentRequest$Outbound = {
   lines?: Array<PaymentRequestLine$Outbound> | null | undefined;
   billingAddress?: PaymentAddress$Outbound | undefined;
   shippingAddress?: PaymentAddress$Outbound | undefined;
-  locale?: string | undefined;
+  locale?: string | null | undefined;
   method?: string | null | undefined;
   issuer?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
@@ -893,7 +893,7 @@ export const PaymentRequest$outboundSchema: z.ZodType<
     .optional(),
   billingAddress: PaymentAddress$outboundSchema.optional(),
   shippingAddress: PaymentAddress$outboundSchema.optional(),
-  locale: Locale$outboundSchema.optional(),
+  locale: z.nullable(Locale$outboundSchema).optional(),
   method: z.nullable(Method$outboundSchema).optional(),
   issuer: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),

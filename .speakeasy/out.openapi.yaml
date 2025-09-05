@@ -28716,7 +28716,9 @@ components:
             Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
           example: NL
     locale:
-      type: string
+      type:
+        - string
+        - 'null'
       description: Allows you to preset the language to be used.
       enum:
         - en_US
@@ -28741,6 +28743,7 @@ components:
         - pl_PL
         - lv_LV
         - lt_LT
+        - null
       example: en_US
     method:
       type:
@@ -32539,9 +32542,6 @@ components:
           description: The email address of the customer.
           example: example@email.com
         locale:
-          type:
-            - string
-            - 'null'
           $ref: '#/components/schemas/locale-response'
           description: |-
             Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
@@ -34850,7 +34850,9 @@ components:
           example: https://...
       x-speakeasy-unknown-values: allow
     locale-response:
-      type: string
+      type:
+        - string
+        - 'null'
       description: Allows you to preset the language to be used.
       enum:
         - en_US
@@ -34875,6 +34877,7 @@ components:
         - pl_PL
         - lv_LV
         - lt_LT
+        - null
       example: en_US
       x-speakeasy-unknown-values: allow
     method-response:
@@ -35606,9 +35609,6 @@ components:
           description: The email address of the customer.
           example: example@email.com
         locale:
-          type:
-            - string
-            - 'null'
           $ref: '#/components/schemas/locale-response'
           description: |-
             Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if

@@ -90,7 +90,7 @@ export type EntityOrganization = {
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: LocaleResponse | undefined;
+  locale?: LocaleResponse | null | undefined;
   address?: Address | undefined;
   /**
    * The registration number of the organization at their local chamber of commerce.
@@ -211,7 +211,7 @@ export const EntityOrganization$inboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: LocaleResponse$inboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
   address: Address$inboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
@@ -229,7 +229,7 @@ export type EntityOrganization$Outbound = {
   id?: string | undefined;
   name?: string | undefined;
   email?: string | undefined;
-  locale?: string | undefined;
+  locale?: string | null | undefined;
   address?: Address$Outbound | undefined;
   registrationNumber?: string | undefined;
   vatNumber?: string | null | undefined;
@@ -247,7 +247,7 @@ export const EntityOrganization$outboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
-  locale: LocaleResponse$outboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
   address: Address$outboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),

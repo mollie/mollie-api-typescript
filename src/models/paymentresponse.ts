@@ -885,7 +885,7 @@ export type PaymentResponse = {
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: LocaleResponse | undefined;
+  locale?: LocaleResponse | null | undefined;
   /**
    * This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This
    *
@@ -1947,7 +1947,7 @@ export const PaymentResponse$inboundSchema: z.ZodType<
     .optional(),
   billingAddress: PaymentAddress$inboundSchema.optional(),
   shippingAddress: PaymentAddress$inboundSchema.optional(),
-  locale: LocaleResponse$inboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
   countryCode: z.nullable(z.string()).optional(),
   method: z.nullable(MethodResponse$inboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
@@ -2004,7 +2004,7 @@ export type PaymentResponse$Outbound = {
   lines?: Array<PaymentResponseLine$Outbound> | null | undefined;
   billingAddress?: PaymentAddress$Outbound | undefined;
   shippingAddress?: PaymentAddress$Outbound | undefined;
-  locale?: string | undefined;
+  locale?: string | null | undefined;
   countryCode?: string | null | undefined;
   method?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
@@ -2058,7 +2058,7 @@ export const PaymentResponse$outboundSchema: z.ZodType<
     .optional(),
   billingAddress: PaymentAddress$outboundSchema.optional(),
   shippingAddress: PaymentAddress$outboundSchema.optional(),
-  locale: LocaleResponse$outboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
   countryCode: z.nullable(z.string()).optional(),
   method: z.nullable(MethodResponse$outboundSchema).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),

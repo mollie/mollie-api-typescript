@@ -31,7 +31,7 @@ export type Owner = {
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: LocaleResponse | undefined;
+  locale?: LocaleResponse | null | undefined;
 };
 
 /**
@@ -94,7 +94,7 @@ export const Owner$inboundSchema: z.ZodType<Owner, z.ZodTypeDef, unknown> = z
     email: z.string(),
     givenName: z.string(),
     familyName: z.string(),
-    locale: LocaleResponse$inboundSchema.optional(),
+    locale: z.nullable(LocaleResponse$inboundSchema).optional(),
   });
 
 /** @internal */
@@ -102,7 +102,7 @@ export type Owner$Outbound = {
   email: string;
   givenName: string;
   familyName: string;
-  locale?: string | undefined;
+  locale?: string | null | undefined;
 };
 
 /** @internal */
@@ -114,7 +114,7 @@ export const Owner$outboundSchema: z.ZodType<
   email: z.string(),
   givenName: z.string(),
   familyName: z.string(),
-  locale: LocaleResponse$outboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
 });
 
 /**

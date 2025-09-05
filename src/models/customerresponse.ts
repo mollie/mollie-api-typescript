@@ -83,7 +83,7 @@ export type CustomerResponse = {
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: LocaleResponse | undefined;
+  locale?: LocaleResponse | null | undefined;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
@@ -181,7 +181,7 @@ export const CustomerResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: LocaleResponse$inboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => CustomerResponseLinks$inboundSchema).optional(),
@@ -198,7 +198,7 @@ export type CustomerResponse$Outbound = {
   mode?: string | undefined;
   name?: string | null | undefined;
   email?: string | null | undefined;
-  locale?: string | undefined;
+  locale?: string | null | undefined;
   metadata?: Metadata$Outbound | null | undefined;
   createdAt?: string | undefined;
   _links?: CustomerResponseLinks$Outbound | undefined;
@@ -215,7 +215,7 @@ export const CustomerResponse$outboundSchema: z.ZodType<
   mode: Mode$outboundSchema.optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: LocaleResponse$outboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => CustomerResponseLinks$outboundSchema).optional(),

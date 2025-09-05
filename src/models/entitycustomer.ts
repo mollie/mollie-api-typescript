@@ -31,7 +31,7 @@ export type EntityCustomer = {
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: LocaleResponse | undefined;
+  locale?: LocaleResponse | null | undefined;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
@@ -60,7 +60,7 @@ export const EntityCustomer$inboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: LocaleResponse$inboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -70,7 +70,7 @@ export type EntityCustomer$Outbound = {
   id?: string | undefined;
   name?: string | null | undefined;
   email?: string | null | undefined;
-  locale?: string | undefined;
+  locale?: string | null | undefined;
   metadata?: Metadata$Outbound | null | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -84,7 +84,7 @@ export const EntityCustomer$outboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
-  locale: LocaleResponse$outboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
