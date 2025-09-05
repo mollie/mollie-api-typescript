@@ -171,7 +171,6 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { Client } from "mollie-api-typescript";
-import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -180,143 +179,11 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.payments.create({
-    include: "details.qrCode",
-    requestBody: {
-      description: "Chess Board",
-      amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      redirectUrl: "https://example.org/redirect",
-      cancelUrl: "https://example.org/cancel",
-      webhookUrl: "https://example.org/webhooks",
-      lines: [
-        {
-          type: "physical",
-          description: "LEGO 4440 Forest Police Station",
-          quantity: 1,
-          quantityUnit: "pcs",
-          unitPrice: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          discountAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          totalAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          vatRate: "21.00",
-          vatAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          sku: "9780241661628",
-          categories: [
-            "meal",
-            "eco",
-          ],
-          imageUrl: "https://...",
-          productUrl: "https://...",
-          recurring: {
-            description: "Gym subscription",
-            interval: "... days",
-            amount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            times: 1,
-            startDate: "2024-12-12",
-          },
-        },
-      ],
-      billingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      shippingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      locale: "en_US",
-      method: "ideal",
-      issuer: "ideal_INGBNL2A",
-      restrictPaymentMethodsToCountry: "NL",
-      captureMode: "manual",
-      captureDelay: "8 hours",
-      applicationFee: {
-        amount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        description: "10",
-      },
-      routing: [
-        {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          destination: {
-            type: "organization",
-            organizationId: "org_1234567",
-          },
-          releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
-        },
-      ],
-      sequenceType: "oneoff",
-      mandateId: "mdt_5B8cwPMGnU",
-      customerId: "cst_5B8cwPMGnU",
-      profileId: "pfl_5B8cwPMGnU",
-      dueDate: "2025-01-01",
-      testmode: false,
-      applePayPaymentToken:
-        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
-      company: {
-        registrationNumber: "12345678",
-        vatNumber: "NL123456789B01",
-      },
-      cardToken: "tkn_12345",
-      voucherNumber: "1234567890",
-      voucherPin: "1234",
-      consumerDateOfBirth: new RFCDate("2000-01-01"),
-      digitalGoods: true,
-      customerReference: "1234567890",
-      terminalId: "term_1234567890",
-    },
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    testmode: false,
   });
 
   console.log(result);
@@ -342,7 +209,6 @@ This SDK supports the following security schemes globally:
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
 import { Client } from "mollie-api-typescript";
-import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -351,143 +217,11 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.payments.create({
-    include: "details.qrCode",
-    requestBody: {
-      description: "Chess Board",
-      amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      redirectUrl: "https://example.org/redirect",
-      cancelUrl: "https://example.org/cancel",
-      webhookUrl: "https://example.org/webhooks",
-      lines: [
-        {
-          type: "physical",
-          description: "LEGO 4440 Forest Police Station",
-          quantity: 1,
-          quantityUnit: "pcs",
-          unitPrice: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          discountAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          totalAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          vatRate: "21.00",
-          vatAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          sku: "9780241661628",
-          categories: [
-            "meal",
-            "eco",
-          ],
-          imageUrl: "https://...",
-          productUrl: "https://...",
-          recurring: {
-            description: "Gym subscription",
-            interval: "... days",
-            amount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            times: 1,
-            startDate: "2024-12-12",
-          },
-        },
-      ],
-      billingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      shippingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      locale: "en_US",
-      method: "ideal",
-      issuer: "ideal_INGBNL2A",
-      restrictPaymentMethodsToCountry: "NL",
-      captureMode: "manual",
-      captureDelay: "8 hours",
-      applicationFee: {
-        amount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        description: "10",
-      },
-      routing: [
-        {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          destination: {
-            type: "organization",
-            organizationId: "org_1234567",
-          },
-          releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
-        },
-      ],
-      sequenceType: "oneoff",
-      mandateId: "mdt_5B8cwPMGnU",
-      customerId: "cst_5B8cwPMGnU",
-      profileId: "pfl_5B8cwPMGnU",
-      dueDate: "2025-01-01",
-      testmode: false,
-      applePayPaymentToken:
-        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
-      company: {
-        registrationNumber: "12345678",
-        vatNumber: "NL123456789B01",
-      },
-      cardToken: "tkn_12345",
-      voucherNumber: "1234567890",
-      voucherPin: "1234",
-      consumerDateOfBirth: new RFCDate("2000-01-01"),
-      digitalGoods: true,
-      customerReference: "1234567890",
-      terminalId: "term_1234567890",
-    },
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    testmode: false,
   });
 
   console.log(result);
@@ -796,7 +530,6 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
 import { Client } from "mollie-api-typescript";
-import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -805,143 +538,11 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.payments.create({
-    include: "details.qrCode",
-    requestBody: {
-      description: "Chess Board",
-      amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      redirectUrl: "https://example.org/redirect",
-      cancelUrl: "https://example.org/cancel",
-      webhookUrl: "https://example.org/webhooks",
-      lines: [
-        {
-          type: "physical",
-          description: "LEGO 4440 Forest Police Station",
-          quantity: 1,
-          quantityUnit: "pcs",
-          unitPrice: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          discountAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          totalAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          vatRate: "21.00",
-          vatAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          sku: "9780241661628",
-          categories: [
-            "meal",
-            "eco",
-          ],
-          imageUrl: "https://...",
-          productUrl: "https://...",
-          recurring: {
-            description: "Gym subscription",
-            interval: "... days",
-            amount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            times: 1,
-            startDate: "2024-12-12",
-          },
-        },
-      ],
-      billingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      shippingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      locale: "en_US",
-      method: "ideal",
-      issuer: "ideal_INGBNL2A",
-      restrictPaymentMethodsToCountry: "NL",
-      captureMode: "manual",
-      captureDelay: "8 hours",
-      applicationFee: {
-        amount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        description: "10",
-      },
-      routing: [
-        {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          destination: {
-            type: "organization",
-            organizationId: "org_1234567",
-          },
-          releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
-        },
-      ],
-      sequenceType: "oneoff",
-      mandateId: "mdt_5B8cwPMGnU",
-      customerId: "cst_5B8cwPMGnU",
-      profileId: "pfl_5B8cwPMGnU",
-      dueDate: "2025-01-01",
-      testmode: false,
-      applePayPaymentToken:
-        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
-      company: {
-        registrationNumber: "12345678",
-        vatNumber: "NL123456789B01",
-      },
-      cardToken: "tkn_12345",
-      voucherNumber: "1234567890",
-      voucherPin: "1234",
-      consumerDateOfBirth: new RFCDate("2000-01-01"),
-      digitalGoods: true,
-      customerReference: "1234567890",
-      terminalId: "term_1234567890",
-    },
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    testmode: false,
   }, {
     retries: {
       strategy: "backoff",
@@ -965,7 +566,6 @@ run();
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
 import { Client } from "mollie-api-typescript";
-import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   retryConfig: {
@@ -984,143 +584,11 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.payments.create({
-    include: "details.qrCode",
-    requestBody: {
-      description: "Chess Board",
-      amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      redirectUrl: "https://example.org/redirect",
-      cancelUrl: "https://example.org/cancel",
-      webhookUrl: "https://example.org/webhooks",
-      lines: [
-        {
-          type: "physical",
-          description: "LEGO 4440 Forest Police Station",
-          quantity: 1,
-          quantityUnit: "pcs",
-          unitPrice: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          discountAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          totalAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          vatRate: "21.00",
-          vatAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          sku: "9780241661628",
-          categories: [
-            "meal",
-            "eco",
-          ],
-          imageUrl: "https://...",
-          productUrl: "https://...",
-          recurring: {
-            description: "Gym subscription",
-            interval: "... days",
-            amount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            times: 1,
-            startDate: "2024-12-12",
-          },
-        },
-      ],
-      billingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      shippingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      locale: "en_US",
-      method: "ideal",
-      issuer: "ideal_INGBNL2A",
-      restrictPaymentMethodsToCountry: "NL",
-      captureMode: "manual",
-      captureDelay: "8 hours",
-      applicationFee: {
-        amount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        description: "10",
-      },
-      routing: [
-        {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          destination: {
-            type: "organization",
-            organizationId: "org_1234567",
-          },
-          releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
-        },
-      ],
-      sequenceType: "oneoff",
-      mandateId: "mdt_5B8cwPMGnU",
-      customerId: "cst_5B8cwPMGnU",
-      profileId: "pfl_5B8cwPMGnU",
-      dueDate: "2025-01-01",
-      testmode: false,
-      applePayPaymentToken:
-        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
-      company: {
-        registrationNumber: "12345678",
-        vatNumber: "NL123456789B01",
-      },
-      cardToken: "tkn_12345",
-      voucherNumber: "1234567890",
-      voucherPin: "1234",
-      consumerDateOfBirth: new RFCDate("2000-01-01"),
-      digitalGoods: true,
-      customerReference: "1234567890",
-      terminalId: "term_1234567890",
-    },
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    testmode: false,
   });
 
   console.log(result);
@@ -1149,7 +617,6 @@ run();
 ```typescript
 import { Client } from "mollie-api-typescript";
 import * as errors from "mollie-api-typescript/models/errors";
-import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   security: {
@@ -1159,143 +626,11 @@ const client = new Client({
 
 async function run() {
   try {
-    const result = await client.payments.create({
-      include: "details.qrCode",
-      requestBody: {
-        description: "Chess Board",
-        amount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        redirectUrl: "https://example.org/redirect",
-        cancelUrl: "https://example.org/cancel",
-        webhookUrl: "https://example.org/webhooks",
-        lines: [
-          {
-            type: "physical",
-            description: "LEGO 4440 Forest Police Station",
-            quantity: 1,
-            quantityUnit: "pcs",
-            unitPrice: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            discountAmount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            totalAmount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            vatRate: "21.00",
-            vatAmount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            sku: "9780241661628",
-            categories: [
-              "meal",
-              "eco",
-            ],
-            imageUrl: "https://...",
-            productUrl: "https://...",
-            recurring: {
-              description: "Gym subscription",
-              interval: "... days",
-              amount: {
-                currency: "EUR",
-                value: "10.00",
-              },
-              times: 1,
-              startDate: "2024-12-12",
-            },
-          },
-        ],
-        billingAddress: {
-          title: "Mr.",
-          givenName: "Piet",
-          familyName: "Mondriaan",
-          organizationName: "Mollie B.V.",
-          streetAndNumber: "Keizersgracht 126",
-          streetAdditional: "Apt. 1",
-          postalCode: "1234AB",
-          email: "piet@example.org",
-          phone: "31208202070",
-          city: "Amsterdam",
-          region: "Noord-Holland",
-          country: "NL",
-        },
-        shippingAddress: {
-          title: "Mr.",
-          givenName: "Piet",
-          familyName: "Mondriaan",
-          organizationName: "Mollie B.V.",
-          streetAndNumber: "Keizersgracht 126",
-          streetAdditional: "Apt. 1",
-          postalCode: "1234AB",
-          email: "piet@example.org",
-          phone: "31208202070",
-          city: "Amsterdam",
-          region: "Noord-Holland",
-          country: "NL",
-        },
-        locale: "en_US",
-        method: "ideal",
-        issuer: "ideal_INGBNL2A",
-        restrictPaymentMethodsToCountry: "NL",
-        captureMode: "manual",
-        captureDelay: "8 hours",
-        applicationFee: {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          description: "10",
-        },
-        routing: [
-          {
-            amount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            destination: {
-              type: "organization",
-              organizationId: "org_1234567",
-            },
-            releaseDate: "2024-12-12",
-            links: {
-              self: {
-                href: "https://...",
-                type: "application/hal+json",
-              },
-              payment: {
-                href: "https://...",
-                type: "application/hal+json",
-              },
-            },
-          },
-        ],
-        sequenceType: "oneoff",
-        mandateId: "mdt_5B8cwPMGnU",
-        customerId: "cst_5B8cwPMGnU",
-        profileId: "pfl_5B8cwPMGnU",
-        dueDate: "2025-01-01",
-        testmode: false,
-        applePayPaymentToken:
-          "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
-        company: {
-          registrationNumber: "12345678",
-          vatNumber: "NL123456789B01",
-        },
-        cardToken: "tkn_12345",
-        voucherNumber: "1234567890",
-        voucherPin: "1234",
-        consumerDateOfBirth: new RFCDate("2000-01-01"),
-        digitalGoods: true,
-        customerReference: "1234567890",
-        terminalId: "term_1234567890",
-      },
+    const result = await client.balances.list({
+      currency: "EUR",
+      from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+      limit: 50,
+      testmode: false,
     });
 
     console.log(result);
@@ -1308,14 +643,12 @@ async function run() {
       console.log(error.headers);
 
       // Depending on the method different errors may be thrown
-      if (
-        error instanceof errors.CreatePaymentUnprocessableEntityHalJSONError
-      ) {
+      if (error instanceof errors.ListBalancesBadRequestHalJSONError) {
         console.log(error.data$.status); // number
         console.log(error.data$.title); // string
         console.log(error.data$.detail); // string
         console.log(error.data$.field); // string
-        console.log(error.data$.links); // operations.CreatePaymentUnprocessableEntityLinks
+        console.log(error.data$.links); // operations.ListBalancesBadRequestLinks
       }
     }
   }
@@ -1342,6 +675,18 @@ run();
 
 
 **Inherit from [`ClientError`](./src/models/errors/clienterror.ts)**:
+* [`ListBalancesBadRequestHalJSONError`](./src/models/errors/listbalancesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListBalanceTransactionsBadRequestHalJSONError`](./src/models/errors/listbalancetransactionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListSettlementsBadRequestHalJSONError`](./src/models/errors/listsettlementsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListSettlementPaymentsHalJSONError`](./src/models/errors/listsettlementpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListSettlementCapturesBadRequestHalJSONError`](./src/models/errors/listsettlementcapturesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListSettlementRefundsBadRequestHalJSONError`](./src/models/errors/listsettlementrefundsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListSettlementChargebacksBadRequestHalJSONError`](./src/models/errors/listsettlementchargebacksbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListInvoicesBadRequestHalJSONError`](./src/models/errors/listinvoicesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListPermissionsHalJSONError`](./src/models/errors/listpermissionshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListProfilesHalJSONError`](./src/models/errors/listprofileshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListClientsBadRequestHalJSONError`](./src/models/errors/listclientsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListWebhooksHalJSONError`](./src/models/errors/listwebhookshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListPaymentsHalJSONError`](./src/models/errors/listpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListMethodsHalJSONError`](./src/models/errors/listmethodshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListAllMethodsHalJSONError`](./src/models/errors/listallmethodshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
@@ -1360,19 +705,31 @@ run();
 * [`ListSubscriptionsBadRequestHalJSONError`](./src/models/errors/listsubscriptionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListAllSubscriptionsBadRequestHalJSONError`](./src/models/errors/listallsubscriptionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListSubscriptionPaymentsHalJSONError`](./src/models/errors/listsubscriptionpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListPermissionsHalJSONError`](./src/models/errors/listpermissionshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListProfilesHalJSONError`](./src/models/errors/listprofileshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListClientsBadRequestHalJSONError`](./src/models/errors/listclientsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListWebhooksHalJSONError`](./src/models/errors/listwebhookshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListBalancesBadRequestHalJSONError`](./src/models/errors/listbalancesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListBalanceTransactionsBadRequestHalJSONError`](./src/models/errors/listbalancetransactionsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListSettlementsBadRequestHalJSONError`](./src/models/errors/listsettlementsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListSettlementPaymentsHalJSONError`](./src/models/errors/listsettlementpaymentshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListSettlementCapturesBadRequestHalJSONError`](./src/models/errors/listsettlementcapturesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListSettlementRefundsBadRequestHalJSONError`](./src/models/errors/listsettlementrefundsbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListSettlementChargebacksBadRequestHalJSONError`](./src/models/errors/listsettlementchargebacksbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
-* [`ListInvoicesBadRequestHalJSONError`](./src/models/errors/listinvoicesbadrequesthaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
 * [`ListSalesInvoicesHalJSONError`](./src/models/errors/listsalesinvoiceshaljsonerror.ts): An error response object. Status code `400`. Applicable to 1 of 93 methods.*
+* [`ListBalancesNotFoundHalJSONError`](./src/models/errors/listbalancesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetBalanceHalJSONError`](./src/models/errors/getbalancehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetBalanceReportNotFoundHalJSONError`](./src/models/errors/getbalancereportnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListBalanceTransactionsNotFoundHalJSONError`](./src/models/errors/listbalancetransactionsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListSettlementsNotFoundHalJSONError`](./src/models/errors/listsettlementsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetSettlementHalJSONError`](./src/models/errors/getsettlementhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListSettlementCapturesNotFoundHalJSONError`](./src/models/errors/listsettlementcapturesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListSettlementRefundsNotFoundHalJSONError`](./src/models/errors/listsettlementrefundsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListSettlementChargebacksNotFoundHalJSONError`](./src/models/errors/listsettlementchargebacksnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListInvoicesNotFoundHalJSONError`](./src/models/errors/listinvoicesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetInvoiceHalJSONError`](./src/models/errors/getinvoicehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetPermissionHalJSONError`](./src/models/errors/getpermissionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetOrganizationHalJSONError`](./src/models/errors/getorganizationhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetProfileNotFoundHalJSONError`](./src/models/errors/getprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`UpdateProfileNotFoundHalJSONError`](./src/models/errors/updateprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`DeleteProfileNotFoundHalJSONError`](./src/models/errors/deleteprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`ListClientsNotFoundHalJSONError`](./src/models/errors/listclientsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetClientHalJSONError`](./src/models/errors/getclienthaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`CreateClientLinkNotFoundHalJSONError`](./src/models/errors/createclientlinknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`UpdateWebhookNotFoundHalJSONError`](./src/models/errors/updatewebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetWebhookNotFoundHalJSONError`](./src/models/errors/getwebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`DeleteWebhookNotFoundHalJSONError`](./src/models/errors/deletewebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`TestWebhookNotFoundHalJSONError`](./src/models/errors/testwebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
+* [`GetWebhookEventHalJSONError`](./src/models/errors/getwebhookeventhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`GetPaymentHalJSONError`](./src/models/errors/getpaymenthaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`UpdatePaymentNotFoundHalJSONError`](./src/models/errors/updatepaymentnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`CancelPaymentNotFoundHalJSONError`](./src/models/errors/cancelpaymentnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
@@ -1410,30 +767,6 @@ run();
 * [`UpdateSubscriptionHalJSONError`](./src/models/errors/updatesubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`CancelSubscriptionHalJSONError`](./src/models/errors/cancelsubscriptionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`ListAllSubscriptionsNotFoundHalJSONError`](./src/models/errors/listallsubscriptionsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetPermissionHalJSONError`](./src/models/errors/getpermissionhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetOrganizationHalJSONError`](./src/models/errors/getorganizationhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetProfileNotFoundHalJSONError`](./src/models/errors/getprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`UpdateProfileNotFoundHalJSONError`](./src/models/errors/updateprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`DeleteProfileNotFoundHalJSONError`](./src/models/errors/deleteprofilenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListClientsNotFoundHalJSONError`](./src/models/errors/listclientsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetClientHalJSONError`](./src/models/errors/getclienthaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`CreateClientLinkNotFoundHalJSONError`](./src/models/errors/createclientlinknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`UpdateWebhookNotFoundHalJSONError`](./src/models/errors/updatewebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetWebhookNotFoundHalJSONError`](./src/models/errors/getwebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`DeleteWebhookNotFoundHalJSONError`](./src/models/errors/deletewebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`TestWebhookNotFoundHalJSONError`](./src/models/errors/testwebhooknotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetWebhookEventHalJSONError`](./src/models/errors/getwebhookeventhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListBalancesNotFoundHalJSONError`](./src/models/errors/listbalancesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetBalanceHalJSONError`](./src/models/errors/getbalancehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetBalanceReportNotFoundHalJSONError`](./src/models/errors/getbalancereportnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListBalanceTransactionsNotFoundHalJSONError`](./src/models/errors/listbalancetransactionsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListSettlementsNotFoundHalJSONError`](./src/models/errors/listsettlementsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetSettlementHalJSONError`](./src/models/errors/getsettlementhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListSettlementCapturesNotFoundHalJSONError`](./src/models/errors/listsettlementcapturesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListSettlementRefundsNotFoundHalJSONError`](./src/models/errors/listsettlementrefundsnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListSettlementChargebacksNotFoundHalJSONError`](./src/models/errors/listsettlementchargebacksnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`ListInvoicesNotFoundHalJSONError`](./src/models/errors/listinvoicesnotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
-* [`GetInvoiceHalJSONError`](./src/models/errors/getinvoicehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`CreateSalesInvoiceNotFoundHalJSONError`](./src/models/errors/createsalesinvoicenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`GetSalesInvoiceHalJSONError`](./src/models/errors/getsalesinvoicehaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
 * [`UpdateSalesInvoiceNotFoundHalJSONError`](./src/models/errors/updatesalesinvoicenotfoundhaljsonerror.ts): An error response object. Status code `404`. Applicable to 1 of 93 methods.*
@@ -1442,6 +775,15 @@ run();
 * [`GetProfileGoneHalJSONError`](./src/models/errors/getprofilegonehaljsonerror.ts): An error response object. Status code `410`. Applicable to 1 of 93 methods.*
 * [`UpdateProfileGoneHalJSONError`](./src/models/errors/updateprofilegonehaljsonerror.ts): An error response object. Status code `410`. Applicable to 1 of 93 methods.*
 * [`DeleteProfileGoneHalJSONError`](./src/models/errors/deleteprofilegonehaljsonerror.ts): An error response object. Status code `410`. Applicable to 1 of 93 methods.*
+* [`GetBalanceReportUnprocessableEntityHalJSONError`](./src/models/errors/getbalancereportunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`CreateProfileHalJSONError`](./src/models/errors/createprofilehaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`UpdateProfileUnprocessableEntityHalJSONError`](./src/models/errors/updateprofileunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`CreateClientLinkUnprocessableEntityHalJSONError`](./src/models/errors/createclientlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`CreateWebhookHalJSONError`](./src/models/errors/createwebhookhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`UpdateWebhookUnprocessableEntityHalJSONError`](./src/models/errors/updatewebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`GetWebhookUnprocessableEntityHalJSONError`](./src/models/errors/getwebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`DeleteWebhookUnprocessableEntityHalJSONError`](./src/models/errors/deletewebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
+* [`TestWebhookUnprocessableEntityHalJSONError`](./src/models/errors/testwebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`CreatePaymentUnprocessableEntityHalJSONError`](./src/models/errors/createpaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`UpdatePaymentUnprocessableEntityHalJSONError`](./src/models/errors/updatepaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`CancelPaymentUnprocessableEntityHalJSONError`](./src/models/errors/cancelpaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
@@ -1453,15 +795,6 @@ run();
 * [`UpdatePaymentLinkUnprocessableEntityHalJSONError`](./src/models/errors/updatepaymentlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`DeletePaymentLinkUnprocessableEntityHalJSONError`](./src/models/errors/deletepaymentlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`CreateCustomerPaymentUnprocessableEntityHalJSONError`](./src/models/errors/createcustomerpaymentunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`CreateProfileHalJSONError`](./src/models/errors/createprofilehaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`UpdateProfileUnprocessableEntityHalJSONError`](./src/models/errors/updateprofileunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`CreateClientLinkUnprocessableEntityHalJSONError`](./src/models/errors/createclientlinkunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`CreateWebhookHalJSONError`](./src/models/errors/createwebhookhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`UpdateWebhookUnprocessableEntityHalJSONError`](./src/models/errors/updatewebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`GetWebhookUnprocessableEntityHalJSONError`](./src/models/errors/getwebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`DeleteWebhookUnprocessableEntityHalJSONError`](./src/models/errors/deletewebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`TestWebhookUnprocessableEntityHalJSONError`](./src/models/errors/testwebhookunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
-* [`GetBalanceReportUnprocessableEntityHalJSONError`](./src/models/errors/getbalancereportunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`CreateSalesInvoiceUnprocessableEntityHalJSONError`](./src/models/errors/createsalesinvoiceunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`UpdateSalesInvoiceUnprocessableEntityHalJSONError`](./src/models/errors/updatesalesinvoiceunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
 * [`DeleteSalesInvoiceUnprocessableEntityHalJSONError`](./src/models/errors/deletesalesinvoiceunprocessableentityhaljsonerror.ts): An error response object. Status code `422`. Applicable to 1 of 93 methods.*
@@ -1483,7 +816,6 @@ run();
 The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { Client } from "mollie-api-typescript";
-import { RFCDate } from "mollie-api-typescript/types";
 
 const client = new Client({
   serverURL: "https://api.mollie.com/v2",
@@ -1493,143 +825,11 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.payments.create({
-    include: "details.qrCode",
-    requestBody: {
-      description: "Chess Board",
-      amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      redirectUrl: "https://example.org/redirect",
-      cancelUrl: "https://example.org/cancel",
-      webhookUrl: "https://example.org/webhooks",
-      lines: [
-        {
-          type: "physical",
-          description: "LEGO 4440 Forest Police Station",
-          quantity: 1,
-          quantityUnit: "pcs",
-          unitPrice: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          discountAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          totalAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          vatRate: "21.00",
-          vatAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          sku: "9780241661628",
-          categories: [
-            "meal",
-            "eco",
-          ],
-          imageUrl: "https://...",
-          productUrl: "https://...",
-          recurring: {
-            description: "Gym subscription",
-            interval: "... days",
-            amount: {
-              currency: "EUR",
-              value: "10.00",
-            },
-            times: 1,
-            startDate: "2024-12-12",
-          },
-        },
-      ],
-      billingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      shippingAddress: {
-        title: "Mr.",
-        givenName: "Piet",
-        familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "Apt. 1",
-        postalCode: "1234AB",
-        email: "piet@example.org",
-        phone: "31208202070",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      locale: "en_US",
-      method: "ideal",
-      issuer: "ideal_INGBNL2A",
-      restrictPaymentMethodsToCountry: "NL",
-      captureMode: "manual",
-      captureDelay: "8 hours",
-      applicationFee: {
-        amount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        description: "10",
-      },
-      routing: [
-        {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          destination: {
-            type: "organization",
-            organizationId: "org_1234567",
-          },
-          releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
-        },
-      ],
-      sequenceType: "oneoff",
-      mandateId: "mdt_5B8cwPMGnU",
-      customerId: "cst_5B8cwPMGnU",
-      profileId: "pfl_5B8cwPMGnU",
-      dueDate: "2025-01-01",
-      testmode: false,
-      applePayPaymentToken:
-        "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
-      company: {
-        registrationNumber: "12345678",
-        vatNumber: "NL123456789B01",
-      },
-      cardToken: "tkn_12345",
-      voucherNumber: "1234567890",
-      voucherPin: "1234",
-      consumerDateOfBirth: new RFCDate("2000-01-01"),
-      digitalGoods: true,
-      customerReference: "1234567890",
-      terminalId: "term_1234567890",
-    },
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    testmode: false,
   });
 
   console.log(result);

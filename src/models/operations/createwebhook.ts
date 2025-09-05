@@ -10,21 +10,28 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection. Separate multiple event types with a comma.
  */
-export const CreateWebhookEventTypes = {
+export const CreateWebhookWebhookEventTypesRequest = {
   PaymentLinkPaid: "payment-link.paid",
   BalanceTransactionCreated: "balance-transaction.created",
   SalesInvoiceCreated: "sales-invoice.created",
   SalesInvoiceIssued: "sales-invoice.issued",
   SalesInvoiceCanceled: "sales-invoice.canceled",
   SalesInvoicePaid: "sales-invoice.paid",
+  Wildcard: "*",
 } as const;
 /**
- * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection. Separate multiple event types with a comma.
  */
-export type CreateWebhookEventTypes = ClosedEnum<
-  typeof CreateWebhookEventTypes
+export type CreateWebhookWebhookEventTypesRequest = ClosedEnum<
+  typeof CreateWebhookWebhookEventTypesRequest
 >;
 
 export type CreateWebhookRequest = {
@@ -37,9 +44,12 @@ export type CreateWebhookRequest = {
    */
   url: string;
   /**
-   * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
+   * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+   *
+   * @remarks
+   * that require explicit selection. Separate multiple event types with a comma.
    */
-  eventTypes: CreateWebhookEventTypes;
+  webhookEventTypes: CreateWebhookWebhookEventTypesRequest;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -68,6 +78,25 @@ export type CreateWebhookUnprocessableEntityLinks = {
 };
 
 /**
+ * The event's type
+ */
+export const CreateWebhookEventTypeWebhookEventTypes = {
+  PaymentLinkPaid: "payment-link.paid",
+  BalanceTransactionCreated: "balance-transaction.created",
+  SalesInvoiceCreated: "sales-invoice.created",
+  SalesInvoiceIssued: "sales-invoice.issued",
+  SalesInvoiceCanceled: "sales-invoice.canceled",
+  SalesInvoicePaid: "sales-invoice.paid",
+  Wildcard: "*",
+} as const;
+/**
+ * The event's type
+ */
+export type CreateWebhookEventTypeWebhookEventTypes = ClosedEnum<
+  typeof CreateWebhookEventTypeWebhookEventTypes
+>;
+
+/**
  * The subscription's current status.
  */
 export const CreateWebhookStatus = {
@@ -81,14 +110,14 @@ export const CreateWebhookStatus = {
 export type CreateWebhookStatus = ClosedEnum<typeof CreateWebhookStatus>;
 
 /**
- * The subscription's mode.
+ * Whether this entity was created in live mode or in test mode.
  */
 export const CreateWebhookMode = {
   Live: "live",
   Test: "test",
 } as const;
 /**
- * The subscription's mode.
+ * Whether this entity was created in live mode or in test mode.
  */
 export type CreateWebhookMode = ClosedEnum<typeof CreateWebhookMode>;
 
@@ -113,7 +142,7 @@ export type CreateWebhookLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: CreateWebhookDocumentation | undefined;
+  documentation: CreateWebhookDocumentation;
 };
 
 /**
@@ -123,68 +152,71 @@ export type CreateWebhookResponse = {
   /**
    * Indicates the response contains a webhook subscription object. Will always contain the string `webhook` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this subscription.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * The subscription's events destination.
    */
-  url?: string | undefined;
+  url: string;
   /**
    * The identifier uniquely referring to the profile that created the subscription.
    */
-  profileId?: string | undefined;
+  profileId: string;
   /**
    * The subscription's date time of creation.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's name.
    */
-  name?: string | undefined;
+  name: string;
   /**
    * The events types that are subscribed.
    */
-  eventTypes?: Array<string> | undefined;
+  eventTypes: Array<CreateWebhookEventTypeWebhookEventTypes>;
   /**
    * The subscription's current status.
    */
-  status?: CreateWebhookStatus | undefined;
+  status: CreateWebhookStatus;
   /**
-   * The subscription's mode.
+   * Whether this entity was created in live mode or in test mode.
    */
-  mode?: CreateWebhookMode | undefined;
+  mode: CreateWebhookMode;
   /**
    * The subscription's secret.
    */
-  webhookSecret?: string | undefined;
+  webhookSecret: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CreateWebhookLinks | undefined;
+  links: CreateWebhookLinks;
 };
 
 /** @internal */
-export const CreateWebhookEventTypes$inboundSchema: z.ZodNativeEnum<
-  typeof CreateWebhookEventTypes
-> = z.nativeEnum(CreateWebhookEventTypes);
+export const CreateWebhookWebhookEventTypesRequest$inboundSchema:
+  z.ZodNativeEnum<typeof CreateWebhookWebhookEventTypesRequest> = z.nativeEnum(
+    CreateWebhookWebhookEventTypesRequest,
+  );
 
 /** @internal */
-export const CreateWebhookEventTypes$outboundSchema: z.ZodNativeEnum<
-  typeof CreateWebhookEventTypes
-> = CreateWebhookEventTypes$inboundSchema;
+export const CreateWebhookWebhookEventTypesRequest$outboundSchema:
+  z.ZodNativeEnum<typeof CreateWebhookWebhookEventTypesRequest> =
+    CreateWebhookWebhookEventTypesRequest$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CreateWebhookEventTypes$ {
-  /** @deprecated use `CreateWebhookEventTypes$inboundSchema` instead. */
-  export const inboundSchema = CreateWebhookEventTypes$inboundSchema;
-  /** @deprecated use `CreateWebhookEventTypes$outboundSchema` instead. */
-  export const outboundSchema = CreateWebhookEventTypes$outboundSchema;
+export namespace CreateWebhookWebhookEventTypesRequest$ {
+  /** @deprecated use `CreateWebhookWebhookEventTypesRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateWebhookWebhookEventTypesRequest$inboundSchema;
+  /** @deprecated use `CreateWebhookWebhookEventTypesRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateWebhookWebhookEventTypesRequest$outboundSchema;
 }
 
 /** @internal */
@@ -195,8 +227,12 @@ export const CreateWebhookRequest$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   url: z.string(),
-  eventTypes: CreateWebhookEventTypes$inboundSchema,
+  eventTypes: CreateWebhookWebhookEventTypesRequest$inboundSchema,
   testmode: z.nullable(z.boolean()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "eventTypes": "webhookEventTypes",
+  });
 });
 
 /** @internal */
@@ -215,8 +251,12 @@ export const CreateWebhookRequest$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   url: z.string(),
-  eventTypes: CreateWebhookEventTypes$outboundSchema,
+  webhookEventTypes: CreateWebhookWebhookEventTypesRequest$outboundSchema,
   testmode: z.nullable(z.boolean()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    webhookEventTypes: "eventTypes",
+  });
 });
 
 /**
@@ -384,6 +424,29 @@ export function createWebhookUnprocessableEntityLinksFromJSON(
 }
 
 /** @internal */
+export const CreateWebhookEventTypeWebhookEventTypes$inboundSchema:
+  z.ZodNativeEnum<typeof CreateWebhookEventTypeWebhookEventTypes> = z
+    .nativeEnum(CreateWebhookEventTypeWebhookEventTypes);
+
+/** @internal */
+export const CreateWebhookEventTypeWebhookEventTypes$outboundSchema:
+  z.ZodNativeEnum<typeof CreateWebhookEventTypeWebhookEventTypes> =
+    CreateWebhookEventTypeWebhookEventTypes$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateWebhookEventTypeWebhookEventTypes$ {
+  /** @deprecated use `CreateWebhookEventTypeWebhookEventTypes$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateWebhookEventTypeWebhookEventTypes$inboundSchema;
+  /** @deprecated use `CreateWebhookEventTypeWebhookEventTypes$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateWebhookEventTypeWebhookEventTypes$outboundSchema;
+}
+
+/** @internal */
 export const CreateWebhookStatus$inboundSchema: z.ZodNativeEnum<
   typeof CreateWebhookStatus
 > = z.nativeEnum(CreateWebhookStatus);
@@ -488,13 +551,12 @@ export const CreateWebhookLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  documentation: z.lazy(() => CreateWebhookDocumentation$inboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CreateWebhookDocumentation$inboundSchema),
 });
 
 /** @internal */
 export type CreateWebhookLinks$Outbound = {
-  documentation?: CreateWebhookDocumentation$Outbound | undefined;
+  documentation: CreateWebhookDocumentation$Outbound;
 };
 
 /** @internal */
@@ -503,8 +565,7 @@ export const CreateWebhookLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateWebhookLinks
 > = z.object({
-  documentation: z.lazy(() => CreateWebhookDocumentation$outboundSchema)
-    .optional(),
+  documentation: z.lazy(() => CreateWebhookDocumentation$outboundSchema),
 });
 
 /**
@@ -544,17 +605,17 @@ export const CreateWebhookResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  url: z.string().optional(),
-  profileId: z.string().optional(),
-  createdAt: z.string().optional(),
-  name: z.string().optional(),
-  eventTypes: z.array(z.string()).optional(),
-  status: CreateWebhookStatus$inboundSchema.optional(),
-  mode: CreateWebhookMode$inboundSchema.optional(),
-  webhookSecret: z.string().optional(),
-  _links: z.lazy(() => CreateWebhookLinks$inboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  url: z.string(),
+  profileId: z.string(),
+  createdAt: z.string(),
+  name: z.string(),
+  eventTypes: z.array(CreateWebhookEventTypeWebhookEventTypes$inboundSchema),
+  status: CreateWebhookStatus$inboundSchema,
+  mode: CreateWebhookMode$inboundSchema,
+  webhookSecret: z.string(),
+  _links: z.lazy(() => CreateWebhookLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -563,17 +624,17 @@ export const CreateWebhookResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateWebhookResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  url?: string | undefined;
-  profileId?: string | undefined;
-  createdAt?: string | undefined;
-  name?: string | undefined;
-  eventTypes?: Array<string> | undefined;
-  status?: string | undefined;
-  mode?: string | undefined;
-  webhookSecret?: string | undefined;
-  _links?: CreateWebhookLinks$Outbound | undefined;
+  resource: string;
+  id: string;
+  url: string;
+  profileId: string;
+  createdAt: string;
+  name: string;
+  eventTypes: Array<string>;
+  status: string;
+  mode: string;
+  webhookSecret: string;
+  _links: CreateWebhookLinks$Outbound;
 };
 
 /** @internal */
@@ -582,17 +643,17 @@ export const CreateWebhookResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateWebhookResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  url: z.string().optional(),
-  profileId: z.string().optional(),
-  createdAt: z.string().optional(),
-  name: z.string().optional(),
-  eventTypes: z.array(z.string()).optional(),
-  status: CreateWebhookStatus$outboundSchema.optional(),
-  mode: CreateWebhookMode$outboundSchema.optional(),
-  webhookSecret: z.string().optional(),
-  links: z.lazy(() => CreateWebhookLinks$outboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  url: z.string(),
+  profileId: z.string(),
+  createdAt: z.string(),
+  name: z.string(),
+  eventTypes: z.array(CreateWebhookEventTypeWebhookEventTypes$outboundSchema),
+  status: CreateWebhookStatus$outboundSchema,
+  mode: CreateWebhookMode$outboundSchema,
+  webhookSecret: z.string(),
+  links: z.lazy(() => CreateWebhookLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

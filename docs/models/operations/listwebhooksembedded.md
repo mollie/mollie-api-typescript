@@ -15,11 +15,17 @@ let value: ListWebhooksEmbedded = {
       createdAt: "2023-03-15T10:00:00Z",
       name: "Profile Updates Webhook",
       eventTypes: [
-        "profile.create",
-        "profile.blocked",
+        "*",
+        "*",
       ],
       status: "enabled",
       mode: "live",
+      links: {
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
+      },
     },
   ],
 };
@@ -29,4 +35,4 @@ let value: ListWebhooksEmbedded = {
 
 | Field                                                      | Type                                                       | Required                                                   | Description                                                |
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `webhooks`                                                 | [operations.Webhook](../../models/operations/webhook.md)[] | :heavy_minus_sign:                                         | A list of webhooks.                                        |
+| `webhooks`                                                 | [operations.Webhook](../../models/operations/webhook.md)[] | :heavy_check_mark:                                         | A list of webhooks.                                        |

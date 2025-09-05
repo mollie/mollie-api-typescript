@@ -30,6 +30,66 @@ import { WebhookEvents } from "./webhookevents.js";
 import { Webhooks } from "./webhooks.js";
 
 export class Client extends ClientSDK {
+  private _balances?: Balances;
+  get balances(): Balances {
+    return (this._balances ??= new Balances(this._options));
+  }
+
+  private _settlements?: Settlements;
+  get settlements(): Settlements {
+    return (this._settlements ??= new Settlements(this._options));
+  }
+
+  private _invoices?: Invoices;
+  get invoices(): Invoices {
+    return (this._invoices ??= new Invoices(this._options));
+  }
+
+  private _permissions?: Permissions;
+  get permissions(): Permissions {
+    return (this._permissions ??= new Permissions(this._options));
+  }
+
+  private _organizations?: Organizations;
+  get organizations(): Organizations {
+    return (this._organizations ??= new Organizations(this._options));
+  }
+
+  private _profiles?: Profiles;
+  get profiles(): Profiles {
+    return (this._profiles ??= new Profiles(this._options));
+  }
+
+  private _onboarding?: Onboarding;
+  get onboarding(): Onboarding {
+    return (this._onboarding ??= new Onboarding(this._options));
+  }
+
+  private _capabilities?: Capabilities;
+  get capabilities(): Capabilities {
+    return (this._capabilities ??= new Capabilities(this._options));
+  }
+
+  private _clients?: Clients;
+  get clients(): Clients {
+    return (this._clients ??= new Clients(this._options));
+  }
+
+  private _clientLinks?: ClientLinks;
+  get clientLinks(): ClientLinks {
+    return (this._clientLinks ??= new ClientLinks(this._options));
+  }
+
+  private _webhooks?: Webhooks;
+  get webhooks(): Webhooks {
+    return (this._webhooks ??= new Webhooks(this._options));
+  }
+
+  private _webhookEvents?: WebhookEvents;
+  get webhookEvents(): WebhookEvents {
+    return (this._webhookEvents ??= new WebhookEvents(this._options));
+  }
+
   private _payments?: Payments;
   get payments(): Payments {
     return (this._payments ??= new Payments(this._options));
@@ -88,66 +148,6 @@ export class Client extends ClientSDK {
   private _subscriptions?: Subscriptions;
   get subscriptions(): Subscriptions {
     return (this._subscriptions ??= new Subscriptions(this._options));
-  }
-
-  private _permissions?: Permissions;
-  get permissions(): Permissions {
-    return (this._permissions ??= new Permissions(this._options));
-  }
-
-  private _organizations?: Organizations;
-  get organizations(): Organizations {
-    return (this._organizations ??= new Organizations(this._options));
-  }
-
-  private _profiles?: Profiles;
-  get profiles(): Profiles {
-    return (this._profiles ??= new Profiles(this._options));
-  }
-
-  private _onboarding?: Onboarding;
-  get onboarding(): Onboarding {
-    return (this._onboarding ??= new Onboarding(this._options));
-  }
-
-  private _capabilities?: Capabilities;
-  get capabilities(): Capabilities {
-    return (this._capabilities ??= new Capabilities(this._options));
-  }
-
-  private _clients?: Clients;
-  get clients(): Clients {
-    return (this._clients ??= new Clients(this._options));
-  }
-
-  private _clientLinks?: ClientLinks;
-  get clientLinks(): ClientLinks {
-    return (this._clientLinks ??= new ClientLinks(this._options));
-  }
-
-  private _webhooks?: Webhooks;
-  get webhooks(): Webhooks {
-    return (this._webhooks ??= new Webhooks(this._options));
-  }
-
-  private _webhookEvents?: WebhookEvents;
-  get webhookEvents(): WebhookEvents {
-    return (this._webhookEvents ??= new WebhookEvents(this._options));
-  }
-
-  private _balances?: Balances;
-  get balances(): Balances {
-    return (this._balances ??= new Balances(this._options));
-  }
-
-  private _settlements?: Settlements;
-  get settlements(): Settlements {
-    return (this._settlements ??= new Settlements(this._options));
-  }
-
-  private _invoices?: Invoices;
-  get invoices(): Invoices {
-    return (this._invoices ??= new Invoices(this._options));
   }
 
   private _salesInvoices?: SalesInvoices;

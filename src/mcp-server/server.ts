@@ -117,7 +117,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "0.1.7",
+    version: "0.1.8",
   });
 
   const client = new ClientCore({
@@ -147,6 +147,45 @@ export function createMCPServer(deps: {
   const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
 
+  tool(tool$balancesList);
+  tool(tool$balancesGet);
+  tool(tool$balancesGetPrimary);
+  tool(tool$balancesGetReport);
+  tool(tool$balancesListTransactions);
+  tool(tool$settlementsList);
+  tool(tool$settlementsGet);
+  tool(tool$settlementsGetOpen);
+  tool(tool$settlementsGetNext);
+  tool(tool$settlementsListPayments);
+  tool(tool$settlementsListCaptures);
+  tool(tool$settlementsListRefunds);
+  tool(tool$settlementsListChargebacks);
+  tool(tool$invoicesList);
+  tool(tool$invoicesGet);
+  tool(tool$permissionsList);
+  tool(tool$permissionsGet);
+  tool(tool$organizationsGet);
+  tool(tool$organizationsGetCurrent);
+  tool(tool$organizationsGetPartner);
+  tool(tool$profilesCreate);
+  tool(tool$profilesList);
+  tool(tool$profilesGet);
+  tool(tool$profilesUpdate);
+  tool(tool$profilesDelete);
+  tool(tool$profilesGetCurrent);
+  tool(tool$onboardingGet);
+  tool(tool$onboardingSubmit);
+  tool(tool$capabilitiesList);
+  tool(tool$clientsList);
+  tool(tool$clientsGet);
+  tool(tool$clientLinksCreate);
+  tool(tool$webhooksCreate);
+  tool(tool$webhooksList);
+  tool(tool$webhooksUpdate);
+  tool(tool$webhooksGet);
+  tool(tool$webhooksDelete);
+  tool(tool$webhooksTest);
+  tool(tool$webhookEventsGet);
   tool(tool$paymentsCreate);
   tool(tool$paymentsList);
   tool(tool$paymentsGet);
@@ -196,45 +235,6 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsCancel);
   tool(tool$subscriptionsAll);
   tool(tool$subscriptionsListPayments);
-  tool(tool$permissionsList);
-  tool(tool$permissionsGet);
-  tool(tool$organizationsGet);
-  tool(tool$organizationsGetCurrent);
-  tool(tool$organizationsGetPartner);
-  tool(tool$profilesCreate);
-  tool(tool$profilesList);
-  tool(tool$profilesGet);
-  tool(tool$profilesUpdate);
-  tool(tool$profilesDelete);
-  tool(tool$profilesGetCurrent);
-  tool(tool$onboardingGet);
-  tool(tool$onboardingSubmit);
-  tool(tool$capabilitiesList);
-  tool(tool$clientsList);
-  tool(tool$clientsGet);
-  tool(tool$clientLinksCreate);
-  tool(tool$webhooksCreate);
-  tool(tool$webhooksList);
-  tool(tool$webhooksUpdate);
-  tool(tool$webhooksGet);
-  tool(tool$webhooksDelete);
-  tool(tool$webhooksTest);
-  tool(tool$webhookEventsGet);
-  tool(tool$balancesList);
-  tool(tool$balancesGet);
-  tool(tool$balancesGetPrimary);
-  tool(tool$balancesGetReport);
-  tool(tool$balancesListTransactions);
-  tool(tool$settlementsList);
-  tool(tool$settlementsGet);
-  tool(tool$settlementsGetOpen);
-  tool(tool$settlementsGetNext);
-  tool(tool$settlementsListPayments);
-  tool(tool$settlementsListCaptures);
-  tool(tool$settlementsListRefunds);
-  tool(tool$settlementsListChargebacks);
-  tool(tool$invoicesList);
-  tool(tool$invoicesGet);
   tool(tool$salesInvoicesCreate);
   tool(tool$salesInvoicesList);
   tool(tool$salesInvoicesGet);

@@ -1,6 +1,6 @@
 # ListWebhooksMode
 
-The subscription's mode.
+Whether this entity was created in live mode or in test mode.
 
 ## Example Usage
 

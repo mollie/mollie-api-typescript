@@ -1,13 +1,13 @@
-# CreateWebhookLinks
+# UpdateWebhookLinks
 
 An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
 
 ## Example Usage
 
 ```typescript
-import { CreateWebhookLinks } from "mollie-api-typescript/models/operations";
+import { UpdateWebhookLinks } from "mollie-api-typescript/models/operations";
 
-let value: CreateWebhookLinks = {
+let value: UpdateWebhookLinks = {
   documentation: {
     href: "https://...",
     type: "application/hal+json",
@@ -19,4 +19,4 @@ let value: CreateWebhookLinks = {
 
 | Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
 | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `documentation`                                                                                | [operations.CreateWebhookDocumentation](../../models/operations/createwebhookdocumentation.md) | :heavy_check_mark:                                                                             | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.     |
+| `documentation`                                                                                | [operations.UpdateWebhookDocumentation](../../models/operations/updatewebhookdocumentation.md) | :heavy_check_mark:                                                                             | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.     |

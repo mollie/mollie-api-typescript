@@ -32,7 +32,7 @@ async function run() {
   const result = await client.webhooks.create({
     name: "Webhook #1",
     url: "https://mollie.com/",
-    eventTypes: "payment-link.paid",
+    webhookEventTypes: "payment-link.paid",
     testmode: false,
   });
 
@@ -62,7 +62,7 @@ async function run() {
   const res = await webhooksCreate(client, {
     name: "Webhook #1",
     url: "https://mollie.com/",
-    eventTypes: "payment-link.paid",
+    webhookEventTypes: "payment-link.paid",
     testmode: false,
   });
   if (res.ok) {
@@ -204,7 +204,7 @@ async function run() {
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
-      eventTypes: "payment-link.paid",
+      webhookEventTypes: "payment-link.paid",
       testmode: false,
     },
   });
@@ -237,7 +237,7 @@ async function run() {
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
-      eventTypes: "payment-link.paid",
+      webhookEventTypes: "payment-link.paid",
       testmode: false,
     },
   });

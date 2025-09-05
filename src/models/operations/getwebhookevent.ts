@@ -42,6 +42,25 @@ export type GetWebhookEventNotFoundLinks = {
 };
 
 /**
+ * The event's type
+ */
+export const GetWebhookEventWebhookEventTypes = {
+  PaymentLinkPaid: "payment-link.paid",
+  BalanceTransactionCreated: "balance-transaction.created",
+  SalesInvoiceCreated: "sales-invoice.created",
+  SalesInvoiceIssued: "sales-invoice.issued",
+  SalesInvoiceCanceled: "sales-invoice.canceled",
+  SalesInvoicePaid: "sales-invoice.paid",
+  Wildcard: "*",
+} as const;
+/**
+ * The event's type
+ */
+export type GetWebhookEventWebhookEventTypes = ClosedEnum<
+  typeof GetWebhookEventWebhookEventTypes
+>;
+
+/**
  * Whether this entity was created in live mode or in test mode.
  */
 export const GetWebhookEventMode2 = {
@@ -1134,11 +1153,11 @@ export type GetWebhookEventLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: GetWebhookEventSelf | undefined;
+  self: GetWebhookEventSelf;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: GetWebhookEventDocumentation | undefined;
+  documentation: GetWebhookEventDocumentation;
   /**
    * The API resource URL of the entity that this event belongs to.
    */
@@ -1152,23 +1171,23 @@ export type GetWebhookEventResponse = {
   /**
    * Indicates the response contains a webhook event object. Will always contain the string `event` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this event.
    */
-  id?: string | undefined;
+  id: string;
   /**
-   * The event's type.
+   * The event's type
    */
-  type?: string | undefined;
+  webhookEventTypes: GetWebhookEventWebhookEventTypes;
   /**
    * The entity token that triggered the event
    */
-  entityId?: string | undefined;
+  entityId: string;
   /**
    * The event's date time of creation.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * Full payload of the event.
    */
@@ -1176,7 +1195,7 @@ export type GetWebhookEventResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: GetWebhookEventLinks | undefined;
+  links: GetWebhookEventLinks;
 };
 
 /** @internal */
@@ -1356,6 +1375,27 @@ export function getWebhookEventNotFoundLinksFromJSON(
     (x) => GetWebhookEventNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetWebhookEventNotFoundLinks' from JSON`,
   );
+}
+
+/** @internal */
+export const GetWebhookEventWebhookEventTypes$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventWebhookEventTypes
+> = z.nativeEnum(GetWebhookEventWebhookEventTypes);
+
+/** @internal */
+export const GetWebhookEventWebhookEventTypes$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebhookEventWebhookEventTypes
+> = GetWebhookEventWebhookEventTypes$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebhookEventWebhookEventTypes$ {
+  /** @deprecated use `GetWebhookEventWebhookEventTypes$inboundSchema` instead. */
+  export const inboundSchema = GetWebhookEventWebhookEventTypes$inboundSchema;
+  /** @deprecated use `GetWebhookEventWebhookEventTypes$outboundSchema` instead. */
+  export const outboundSchema = GetWebhookEventWebhookEventTypes$outboundSchema;
 }
 
 /** @internal */
@@ -3522,16 +3562,15 @@ export const GetWebhookEventLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => GetWebhookEventSelf$inboundSchema).optional(),
-  documentation: z.lazy(() => GetWebhookEventDocumentation$inboundSchema)
-    .optional(),
+  self: z.lazy(() => GetWebhookEventSelf$inboundSchema),
+  documentation: z.lazy(() => GetWebhookEventDocumentation$inboundSchema),
   entity: z.lazy(() => LinksEntity$inboundSchema).optional(),
 });
 
 /** @internal */
 export type GetWebhookEventLinks$Outbound = {
-  self?: GetWebhookEventSelf$Outbound | undefined;
-  documentation?: GetWebhookEventDocumentation$Outbound | undefined;
+  self: GetWebhookEventSelf$Outbound;
+  documentation: GetWebhookEventDocumentation$Outbound;
   entity?: LinksEntity$Outbound | undefined;
 };
 
@@ -3541,9 +3580,8 @@ export const GetWebhookEventLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventLinks
 > = z.object({
-  self: z.lazy(() => GetWebhookEventSelf$outboundSchema).optional(),
-  documentation: z.lazy(() => GetWebhookEventDocumentation$outboundSchema)
-    .optional(),
+  self: z.lazy(() => GetWebhookEventSelf$outboundSchema),
+  documentation: z.lazy(() => GetWebhookEventDocumentation$outboundSchema),
   entity: z.lazy(() => LinksEntity$outboundSchema).optional(),
 });
 
@@ -3584,16 +3622,17 @@ export const GetWebhookEventResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  type: z.string().optional(),
-  entityId: z.string().optional(),
-  createdAt: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  type: GetWebhookEventWebhookEventTypes$inboundSchema,
+  entityId: z.string(),
+  createdAt: z.string(),
   _embedded: z.nullable(z.lazy(() => GetWebhookEventEmbedded$inboundSchema))
     .optional(),
-  _links: z.lazy(() => GetWebhookEventLinks$inboundSchema).optional(),
+  _links: z.lazy(() => GetWebhookEventLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
+    "type": "webhookEventTypes",
     "_embedded": "embedded",
     "_links": "links",
   });
@@ -3601,13 +3640,13 @@ export const GetWebhookEventResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetWebhookEventResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  type?: string | undefined;
-  entityId?: string | undefined;
-  createdAt?: string | undefined;
+  resource: string;
+  id: string;
+  type: string;
+  entityId: string;
+  createdAt: string;
   _embedded?: GetWebhookEventEmbedded$Outbound | null | undefined;
-  _links?: GetWebhookEventLinks$Outbound | undefined;
+  _links: GetWebhookEventLinks$Outbound;
 };
 
 /** @internal */
@@ -3616,16 +3655,17 @@ export const GetWebhookEventResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookEventResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  type: z.string().optional(),
-  entityId: z.string().optional(),
-  createdAt: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  webhookEventTypes: GetWebhookEventWebhookEventTypes$outboundSchema,
+  entityId: z.string(),
+  createdAt: z.string(),
   embedded: z.nullable(z.lazy(() => GetWebhookEventEmbedded$outboundSchema))
     .optional(),
-  links: z.lazy(() => GetWebhookEventLinks$outboundSchema).optional(),
+  links: z.lazy(() => GetWebhookEventLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
+    webhookEventTypes: "type",
     embedded: "_embedded",
     links: "_links",
   });

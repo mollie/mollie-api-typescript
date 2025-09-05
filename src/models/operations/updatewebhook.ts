@@ -10,21 +10,28 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection. Separate multiple event types with a comma.
  */
-export const UpdateWebhookEventTypes = {
+export const UpdateWebhookWebhookEventTypesRequest = {
   PaymentLinkPaid: "payment-link.paid",
   BalanceTransactionCreated: "balance-transaction.created",
   SalesInvoiceCreated: "sales-invoice.created",
   SalesInvoiceIssued: "sales-invoice.issued",
   SalesInvoiceCanceled: "sales-invoice.canceled",
   SalesInvoicePaid: "sales-invoice.paid",
+  Wildcard: "*",
 } as const;
 /**
- * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection. Separate multiple event types with a comma.
  */
-export type UpdateWebhookEventTypes = ClosedEnum<
-  typeof UpdateWebhookEventTypes
+export type UpdateWebhookWebhookEventTypesRequest = ClosedEnum<
+  typeof UpdateWebhookWebhookEventTypesRequest
 >;
 
 export type UpdateWebhookRequestBody = {
@@ -37,9 +44,12 @@ export type UpdateWebhookRequestBody = {
    */
   url?: string | undefined;
   /**
-   * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those that require explicit selection. Separate multiple event types with a comma.
+   * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+   *
+   * @remarks
+   * that require explicit selection. Separate multiple event types with a comma.
    */
-  eventTypes?: UpdateWebhookEventTypes | undefined;
+  webhookEventTypes?: UpdateWebhookWebhookEventTypesRequest | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
    *
@@ -90,6 +100,25 @@ export type UpdateWebhookNotFoundLinks = {
 };
 
 /**
+ * The event's type
+ */
+export const UpdateWebhookEventTypeWebhookEventTypes = {
+  PaymentLinkPaid: "payment-link.paid",
+  BalanceTransactionCreated: "balance-transaction.created",
+  SalesInvoiceCreated: "sales-invoice.created",
+  SalesInvoiceIssued: "sales-invoice.issued",
+  SalesInvoiceCanceled: "sales-invoice.canceled",
+  SalesInvoicePaid: "sales-invoice.paid",
+  Wildcard: "*",
+} as const;
+/**
+ * The event's type
+ */
+export type UpdateWebhookEventTypeWebhookEventTypes = ClosedEnum<
+  typeof UpdateWebhookEventTypeWebhookEventTypes
+>;
+
+/**
  * The subscription's current status.
  */
 export const UpdateWebhookStatus = {
@@ -104,16 +133,40 @@ export const UpdateWebhookStatus = {
 export type UpdateWebhookStatus = ClosedEnum<typeof UpdateWebhookStatus>;
 
 /**
- * The subscription's mode.
+ * Whether this entity was created in live mode or in test mode.
  */
 export const UpdateWebhookMode = {
   Live: "live",
   Test: "test",
 } as const;
 /**
- * The subscription's mode.
+ * Whether this entity was created in live mode or in test mode.
  */
 export type UpdateWebhookMode = ClosedEnum<typeof UpdateWebhookMode>;
+
+/**
+ * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+ */
+export type UpdateWebhookDocumentation = {
+  /**
+   * The actual URL string.
+   */
+  href: string;
+  /**
+   * The content type of the page or endpoint the URL points to.
+   */
+  type: string;
+};
+
+/**
+ * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+ */
+export type UpdateWebhookLinks = {
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  documentation: UpdateWebhookDocumentation;
+};
 
 /**
  * The webhook object.
@@ -125,60 +178,67 @@ export type UpdateWebhookResponse = {
    * @remarks
    * Will always contain the string `webhook` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this subscription.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * The subscription's events destination.
    */
-  url?: string | undefined;
+  url: string;
   /**
    * The identifier uniquely referring to the profile that created the subscription.
    */
-  profileId?: string | undefined;
+  profileId: string | null;
   /**
    * The subscription's date time of creation.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's name.
    */
-  name?: string | undefined;
+  name: string;
   /**
    * The events types that are subscribed.
    */
-  eventTypes?: Array<string> | undefined;
+  eventTypes: Array<UpdateWebhookEventTypeWebhookEventTypes>;
   /**
    * The subscription's current status.
    */
-  status?: UpdateWebhookStatus | undefined;
+  status: UpdateWebhookStatus;
   /**
-   * The subscription's mode.
+   * Whether this entity was created in live mode or in test mode.
    */
-  mode?: UpdateWebhookMode | undefined;
+  mode: UpdateWebhookMode;
+  /**
+   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+   */
+  links: UpdateWebhookLinks;
 };
 
 /** @internal */
-export const UpdateWebhookEventTypes$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateWebhookEventTypes
-> = z.nativeEnum(UpdateWebhookEventTypes);
+export const UpdateWebhookWebhookEventTypesRequest$inboundSchema:
+  z.ZodNativeEnum<typeof UpdateWebhookWebhookEventTypesRequest> = z.nativeEnum(
+    UpdateWebhookWebhookEventTypesRequest,
+  );
 
 /** @internal */
-export const UpdateWebhookEventTypes$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateWebhookEventTypes
-> = UpdateWebhookEventTypes$inboundSchema;
+export const UpdateWebhookWebhookEventTypesRequest$outboundSchema:
+  z.ZodNativeEnum<typeof UpdateWebhookWebhookEventTypesRequest> =
+    UpdateWebhookWebhookEventTypesRequest$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace UpdateWebhookEventTypes$ {
-  /** @deprecated use `UpdateWebhookEventTypes$inboundSchema` instead. */
-  export const inboundSchema = UpdateWebhookEventTypes$inboundSchema;
-  /** @deprecated use `UpdateWebhookEventTypes$outboundSchema` instead. */
-  export const outboundSchema = UpdateWebhookEventTypes$outboundSchema;
+export namespace UpdateWebhookWebhookEventTypesRequest$ {
+  /** @deprecated use `UpdateWebhookWebhookEventTypesRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    UpdateWebhookWebhookEventTypesRequest$inboundSchema;
+  /** @deprecated use `UpdateWebhookWebhookEventTypesRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    UpdateWebhookWebhookEventTypesRequest$outboundSchema;
 }
 
 /** @internal */
@@ -189,8 +249,12 @@ export const UpdateWebhookRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   url: z.string().optional(),
-  eventTypes: UpdateWebhookEventTypes$inboundSchema.optional(),
+  eventTypes: UpdateWebhookWebhookEventTypesRequest$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "eventTypes": "webhookEventTypes",
+  });
 });
 
 /** @internal */
@@ -209,8 +273,13 @@ export const UpdateWebhookRequestBody$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   url: z.string().optional(),
-  eventTypes: UpdateWebhookEventTypes$outboundSchema.optional(),
+  webhookEventTypes: UpdateWebhookWebhookEventTypesRequest$outboundSchema
+    .optional(),
   testmode: z.nullable(z.boolean()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    webhookEventTypes: "eventTypes",
+  });
 });
 
 /**
@@ -560,6 +629,29 @@ export function updateWebhookNotFoundLinksFromJSON(
 }
 
 /** @internal */
+export const UpdateWebhookEventTypeWebhookEventTypes$inboundSchema:
+  z.ZodNativeEnum<typeof UpdateWebhookEventTypeWebhookEventTypes> = z
+    .nativeEnum(UpdateWebhookEventTypeWebhookEventTypes);
+
+/** @internal */
+export const UpdateWebhookEventTypeWebhookEventTypes$outboundSchema:
+  z.ZodNativeEnum<typeof UpdateWebhookEventTypeWebhookEventTypes> =
+    UpdateWebhookEventTypeWebhookEventTypes$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateWebhookEventTypeWebhookEventTypes$ {
+  /** @deprecated use `UpdateWebhookEventTypeWebhookEventTypes$inboundSchema` instead. */
+  export const inboundSchema =
+    UpdateWebhookEventTypeWebhookEventTypes$inboundSchema;
+  /** @deprecated use `UpdateWebhookEventTypeWebhookEventTypes$outboundSchema` instead. */
+  export const outboundSchema =
+    UpdateWebhookEventTypeWebhookEventTypes$outboundSchema;
+}
+
+/** @internal */
 export const UpdateWebhookStatus$inboundSchema: z.ZodNativeEnum<
   typeof UpdateWebhookStatus
 > = z.nativeEnum(UpdateWebhookStatus);
@@ -602,33 +694,150 @@ export namespace UpdateWebhookMode$ {
 }
 
 /** @internal */
+export const UpdateWebhookDocumentation$inboundSchema: z.ZodType<
+  UpdateWebhookDocumentation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
+
+/** @internal */
+export type UpdateWebhookDocumentation$Outbound = {
+  href: string;
+  type: string;
+};
+
+/** @internal */
+export const UpdateWebhookDocumentation$outboundSchema: z.ZodType<
+  UpdateWebhookDocumentation$Outbound,
+  z.ZodTypeDef,
+  UpdateWebhookDocumentation
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateWebhookDocumentation$ {
+  /** @deprecated use `UpdateWebhookDocumentation$inboundSchema` instead. */
+  export const inboundSchema = UpdateWebhookDocumentation$inboundSchema;
+  /** @deprecated use `UpdateWebhookDocumentation$outboundSchema` instead. */
+  export const outboundSchema = UpdateWebhookDocumentation$outboundSchema;
+  /** @deprecated use `UpdateWebhookDocumentation$Outbound` instead. */
+  export type Outbound = UpdateWebhookDocumentation$Outbound;
+}
+
+export function updateWebhookDocumentationToJSON(
+  updateWebhookDocumentation: UpdateWebhookDocumentation,
+): string {
+  return JSON.stringify(
+    UpdateWebhookDocumentation$outboundSchema.parse(updateWebhookDocumentation),
+  );
+}
+
+export function updateWebhookDocumentationFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateWebhookDocumentation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateWebhookDocumentation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateWebhookDocumentation' from JSON`,
+  );
+}
+
+/** @internal */
+export const UpdateWebhookLinks$inboundSchema: z.ZodType<
+  UpdateWebhookLinks,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  documentation: z.lazy(() => UpdateWebhookDocumentation$inboundSchema),
+});
+
+/** @internal */
+export type UpdateWebhookLinks$Outbound = {
+  documentation: UpdateWebhookDocumentation$Outbound;
+};
+
+/** @internal */
+export const UpdateWebhookLinks$outboundSchema: z.ZodType<
+  UpdateWebhookLinks$Outbound,
+  z.ZodTypeDef,
+  UpdateWebhookLinks
+> = z.object({
+  documentation: z.lazy(() => UpdateWebhookDocumentation$outboundSchema),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateWebhookLinks$ {
+  /** @deprecated use `UpdateWebhookLinks$inboundSchema` instead. */
+  export const inboundSchema = UpdateWebhookLinks$inboundSchema;
+  /** @deprecated use `UpdateWebhookLinks$outboundSchema` instead. */
+  export const outboundSchema = UpdateWebhookLinks$outboundSchema;
+  /** @deprecated use `UpdateWebhookLinks$Outbound` instead. */
+  export type Outbound = UpdateWebhookLinks$Outbound;
+}
+
+export function updateWebhookLinksToJSON(
+  updateWebhookLinks: UpdateWebhookLinks,
+): string {
+  return JSON.stringify(
+    UpdateWebhookLinks$outboundSchema.parse(updateWebhookLinks),
+  );
+}
+
+export function updateWebhookLinksFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateWebhookLinks, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateWebhookLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateWebhookLinks' from JSON`,
+  );
+}
+
+/** @internal */
 export const UpdateWebhookResponse$inboundSchema: z.ZodType<
   UpdateWebhookResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  url: z.string().optional(),
-  profileId: z.string().optional(),
-  createdAt: z.string().optional(),
-  name: z.string().optional(),
-  eventTypes: z.array(z.string()).optional(),
-  status: UpdateWebhookStatus$inboundSchema.optional(),
-  mode: UpdateWebhookMode$inboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  url: z.string(),
+  profileId: z.nullable(z.string()),
+  createdAt: z.string(),
+  name: z.string(),
+  eventTypes: z.array(UpdateWebhookEventTypeWebhookEventTypes$inboundSchema),
+  status: UpdateWebhookStatus$inboundSchema,
+  mode: UpdateWebhookMode$inboundSchema,
+  _links: z.lazy(() => UpdateWebhookLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
 });
 
 /** @internal */
 export type UpdateWebhookResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  url?: string | undefined;
-  profileId?: string | undefined;
-  createdAt?: string | undefined;
-  name?: string | undefined;
-  eventTypes?: Array<string> | undefined;
-  status?: string | undefined;
-  mode?: string | undefined;
+  resource: string;
+  id: string;
+  url: string;
+  profileId: string | null;
+  createdAt: string;
+  name: string;
+  eventTypes: Array<string>;
+  status: string;
+  mode: string;
+  _links: UpdateWebhookLinks$Outbound;
 };
 
 /** @internal */
@@ -637,15 +846,20 @@ export const UpdateWebhookResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateWebhookResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  url: z.string().optional(),
-  profileId: z.string().optional(),
-  createdAt: z.string().optional(),
-  name: z.string().optional(),
-  eventTypes: z.array(z.string()).optional(),
-  status: UpdateWebhookStatus$outboundSchema.optional(),
-  mode: UpdateWebhookMode$outboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  url: z.string(),
+  profileId: z.nullable(z.string()),
+  createdAt: z.string(),
+  name: z.string(),
+  eventTypes: z.array(UpdateWebhookEventTypeWebhookEventTypes$outboundSchema),
+  status: UpdateWebhookStatus$outboundSchema,
+  mode: UpdateWebhookMode$outboundSchema,
+  links: z.lazy(() => UpdateWebhookLinks$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    links: "_links",
+  });
 });
 
 /**
