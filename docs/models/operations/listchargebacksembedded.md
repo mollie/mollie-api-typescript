@@ -14,7 +14,10 @@ let value: ListChargebacksEmbedded = {
         currency: "EUR",
         value: "10.00",
       },
-      settlementAmount: null,
+      settlementAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
       reason: {
         code: "AC01",
         description: "Account identifier incorrect (i.e. invalid IBAN)",
@@ -48,6 +51,6 @@ let value: ListChargebacksEmbedded = {
 
 ## Fields
 
-| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
-| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `chargebacks`                                                                                  | [operations.ListChargebacksChargeback](../../models/operations/listchargebackschargeback.md)[] | :heavy_minus_sign:                                                                             | A list of chargeback objects.                                                                  |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `chargebacks`                                                 | [models.EntityChargeback](../../models/entitychargeback.md)[] | :heavy_minus_sign:                                            | A list of chargeback objects.                                 |

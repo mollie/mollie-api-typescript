@@ -38,7 +38,7 @@ export function delayedRoutingList(
 ): APIPromise<
   Result<
     operations.PaymentListRoutesResponse,
-    | errors.PaymentListRoutesHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -64,7 +64,7 @@ async function $do(
   [
     Result<
       operations.PaymentListRoutesResponse,
-      | errors.PaymentListRoutesHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -166,7 +166,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.PaymentListRoutesResponse,
-    | errors.PaymentListRoutesHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -179,7 +179,7 @@ async function $do(
     M.json(200, operations.PaymentListRoutesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.PaymentListRoutesHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

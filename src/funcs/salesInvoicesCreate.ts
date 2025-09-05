@@ -21,7 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -37,13 +37,12 @@ import { Result } from "../types/fp.js";
  */
 export function salesInvoicesCreate(
   client: ClientCore,
-  request?: operations.CreateSalesInvoiceRequest | undefined,
+  request?: models.EntitySalesInvoice | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateSalesInvoiceResponse,
-    | errors.CreateSalesInvoiceNotFoundHalJSONError
-    | errors.CreateSalesInvoiceUnprocessableEntityHalJSONError
+    models.EntitySalesInvoiceResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -63,14 +62,13 @@ export function salesInvoicesCreate(
 
 async function $do(
   client: ClientCore,
-  request?: operations.CreateSalesInvoiceRequest | undefined,
+  request?: models.EntitySalesInvoice | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateSalesInvoiceResponse,
-      | errors.CreateSalesInvoiceNotFoundHalJSONError
-      | errors.CreateSalesInvoiceUnprocessableEntityHalJSONError
+      models.EntitySalesInvoiceResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -85,10 +83,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.CreateSalesInvoiceRequest$outboundSchema.optional().parse(
-        value,
-      ),
+    (value) => models.EntitySalesInvoice$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -165,9 +160,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateSalesInvoiceResponse,
-    | errors.CreateSalesInvoiceNotFoundHalJSONError
-    | errors.CreateSalesInvoiceUnprocessableEntityHalJSONError
+    models.EntitySalesInvoiceResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -177,19 +171,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.CreateSalesInvoiceResponse$inboundSchema, {
+    M.json(201, models.EntitySalesInvoiceResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      404,
-      errors.CreateSalesInvoiceNotFoundHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
-    M.jsonErr(
-      422,
-      errors.CreateSalesInvoiceUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

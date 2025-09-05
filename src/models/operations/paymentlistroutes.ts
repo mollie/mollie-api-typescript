@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type PaymentListRoutesRequest = {
   /**
@@ -26,185 +26,11 @@ export type PaymentListRoutesRequest = {
   testmode?: boolean | null | undefined;
 };
 
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type PaymentListRoutesNotFoundDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type PaymentListRoutesNotFoundLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: PaymentListRoutesNotFoundDocumentation;
-};
-
-/**
- * The amount of the route.
- *
- * @remarks
- * That amount that will be routed to the specified destination.
- */
-export type PaymentListRoutesAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export const PaymentListRoutesType = {
-  Organization: "organization",
-} as const;
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export type PaymentListRoutesType = ClosedEnum<typeof PaymentListRoutesType>;
-
-/**
- * The destination of the route.
- */
-export type PaymentListRoutesDestination = {
-  /**
-   * The type of destination. Currently only the destination type `organization` is supported.
-   */
-  type: PaymentListRoutesType;
-  /**
-   * Required for destination type `organization`. The ID of the connected organization the funds should be
-   *
-   * @remarks
-   * routed to.
-   */
-  organizationId: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type RouteSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type RouteDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type RouteLinks = {
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  self: RouteSelf;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation: RouteDocumentation;
-};
-
-export type Route = {
-  /**
-   * Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
-   */
-  resource: string;
-  /**
-   * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
-   *
-   * @remarks
-   * will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
-   */
-  id: string;
-  /**
-   * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
-   *
-   * @remarks
-   * The full payment object can be retrieved via the payment URL in the `_links` object.
-   */
-  paymentId: string;
-  /**
-   * The amount of the route.
-   *
-   * @remarks
-   * That amount that will be routed to the specified destination.
-   */
-  amount: PaymentListRoutesAmount;
-  /**
-   * The description of the route. This description is shown in the reports.
-   */
-  description: string;
-  /**
-   * The destination of the route.
-   */
-  destination: PaymentListRoutesDestination;
-  /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links: RouteLinks;
-  /**
-   * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  createdAt: string;
-};
-
 export type PaymentListRoutesEmbedded = {
   /**
    * An array of route objects.
    */
-  routes?: Array<Route> | undefined;
-};
-
-/**
- * The URL to the current set of items.
- */
-export type PaymentListRoutesSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type PaymentListRoutesDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
+  routes?: Array<models.RouteGetResponse> | undefined;
 };
 
 /**
@@ -212,13 +38,13 @@ export type PaymentListRoutesDocumentation = {
  */
 export type PaymentListRoutesLinks = {
   /**
-   * The URL to the current set of items.
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: PaymentListRoutesSelf | undefined;
+  self?: models.Url | undefined;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: PaymentListRoutesDocumentation | undefined;
+  documentation?: models.Url | undefined;
 };
 
 /**
@@ -300,516 +126,17 @@ export function paymentListRoutesRequestFromJSON(
 }
 
 /** @internal */
-export const PaymentListRoutesNotFoundDocumentation$inboundSchema: z.ZodType<
-  PaymentListRoutesNotFoundDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type PaymentListRoutesNotFoundDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const PaymentListRoutesNotFoundDocumentation$outboundSchema: z.ZodType<
-  PaymentListRoutesNotFoundDocumentation$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesNotFoundDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesNotFoundDocumentation$ {
-  /** @deprecated use `PaymentListRoutesNotFoundDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    PaymentListRoutesNotFoundDocumentation$inboundSchema;
-  /** @deprecated use `PaymentListRoutesNotFoundDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    PaymentListRoutesNotFoundDocumentation$outboundSchema;
-  /** @deprecated use `PaymentListRoutesNotFoundDocumentation$Outbound` instead. */
-  export type Outbound = PaymentListRoutesNotFoundDocumentation$Outbound;
-}
-
-export function paymentListRoutesNotFoundDocumentationToJSON(
-  paymentListRoutesNotFoundDocumentation:
-    PaymentListRoutesNotFoundDocumentation,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesNotFoundDocumentation$outboundSchema.parse(
-      paymentListRoutesNotFoundDocumentation,
-    ),
-  );
-}
-
-export function paymentListRoutesNotFoundDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesNotFoundDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PaymentListRoutesNotFoundDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesNotFoundDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const PaymentListRoutesNotFoundLinks$inboundSchema: z.ZodType<
-  PaymentListRoutesNotFoundLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() =>
-    PaymentListRoutesNotFoundDocumentation$inboundSchema
-  ),
-});
-
-/** @internal */
-export type PaymentListRoutesNotFoundLinks$Outbound = {
-  documentation: PaymentListRoutesNotFoundDocumentation$Outbound;
-};
-
-/** @internal */
-export const PaymentListRoutesNotFoundLinks$outboundSchema: z.ZodType<
-  PaymentListRoutesNotFoundLinks$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesNotFoundLinks
-> = z.object({
-  documentation: z.lazy(() =>
-    PaymentListRoutesNotFoundDocumentation$outboundSchema
-  ),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesNotFoundLinks$ {
-  /** @deprecated use `PaymentListRoutesNotFoundLinks$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesNotFoundLinks$inboundSchema;
-  /** @deprecated use `PaymentListRoutesNotFoundLinks$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesNotFoundLinks$outboundSchema;
-  /** @deprecated use `PaymentListRoutesNotFoundLinks$Outbound` instead. */
-  export type Outbound = PaymentListRoutesNotFoundLinks$Outbound;
-}
-
-export function paymentListRoutesNotFoundLinksToJSON(
-  paymentListRoutesNotFoundLinks: PaymentListRoutesNotFoundLinks,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesNotFoundLinks$outboundSchema.parse(
-      paymentListRoutesNotFoundLinks,
-    ),
-  );
-}
-
-export function paymentListRoutesNotFoundLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesNotFoundLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesNotFoundLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const PaymentListRoutesAmount$inboundSchema: z.ZodType<
-  PaymentListRoutesAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type PaymentListRoutesAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const PaymentListRoutesAmount$outboundSchema: z.ZodType<
-  PaymentListRoutesAmount$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesAmount$ {
-  /** @deprecated use `PaymentListRoutesAmount$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesAmount$inboundSchema;
-  /** @deprecated use `PaymentListRoutesAmount$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesAmount$outboundSchema;
-  /** @deprecated use `PaymentListRoutesAmount$Outbound` instead. */
-  export type Outbound = PaymentListRoutesAmount$Outbound;
-}
-
-export function paymentListRoutesAmountToJSON(
-  paymentListRoutesAmount: PaymentListRoutesAmount,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesAmount$outboundSchema.parse(paymentListRoutesAmount),
-  );
-}
-
-export function paymentListRoutesAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const PaymentListRoutesType$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentListRoutesType
-> = z.nativeEnum(PaymentListRoutesType);
-
-/** @internal */
-export const PaymentListRoutesType$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentListRoutesType
-> = PaymentListRoutesType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesType$ {
-  /** @deprecated use `PaymentListRoutesType$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesType$inboundSchema;
-  /** @deprecated use `PaymentListRoutesType$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesType$outboundSchema;
-}
-
-/** @internal */
-export const PaymentListRoutesDestination$inboundSchema: z.ZodType<
-  PaymentListRoutesDestination,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: PaymentListRoutesType$inboundSchema,
-  organizationId: z.string(),
-});
-
-/** @internal */
-export type PaymentListRoutesDestination$Outbound = {
-  type: string;
-  organizationId: string;
-};
-
-/** @internal */
-export const PaymentListRoutesDestination$outboundSchema: z.ZodType<
-  PaymentListRoutesDestination$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesDestination
-> = z.object({
-  type: PaymentListRoutesType$outboundSchema,
-  organizationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesDestination$ {
-  /** @deprecated use `PaymentListRoutesDestination$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesDestination$inboundSchema;
-  /** @deprecated use `PaymentListRoutesDestination$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesDestination$outboundSchema;
-  /** @deprecated use `PaymentListRoutesDestination$Outbound` instead. */
-  export type Outbound = PaymentListRoutesDestination$Outbound;
-}
-
-export function paymentListRoutesDestinationToJSON(
-  paymentListRoutesDestination: PaymentListRoutesDestination,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesDestination$outboundSchema.parse(
-      paymentListRoutesDestination,
-    ),
-  );
-}
-
-export function paymentListRoutesDestinationFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesDestination, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesDestination$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesDestination' from JSON`,
-  );
-}
-
-/** @internal */
-export const RouteSelf$inboundSchema: z.ZodType<
-  RouteSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type RouteSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const RouteSelf$outboundSchema: z.ZodType<
-  RouteSelf$Outbound,
-  z.ZodTypeDef,
-  RouteSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteSelf$ {
-  /** @deprecated use `RouteSelf$inboundSchema` instead. */
-  export const inboundSchema = RouteSelf$inboundSchema;
-  /** @deprecated use `RouteSelf$outboundSchema` instead. */
-  export const outboundSchema = RouteSelf$outboundSchema;
-  /** @deprecated use `RouteSelf$Outbound` instead. */
-  export type Outbound = RouteSelf$Outbound;
-}
-
-export function routeSelfToJSON(routeSelf: RouteSelf): string {
-  return JSON.stringify(RouteSelf$outboundSchema.parse(routeSelf));
-}
-
-export function routeSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<RouteSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RouteSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RouteSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const RouteDocumentation$inboundSchema: z.ZodType<
-  RouteDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type RouteDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const RouteDocumentation$outboundSchema: z.ZodType<
-  RouteDocumentation$Outbound,
-  z.ZodTypeDef,
-  RouteDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteDocumentation$ {
-  /** @deprecated use `RouteDocumentation$inboundSchema` instead. */
-  export const inboundSchema = RouteDocumentation$inboundSchema;
-  /** @deprecated use `RouteDocumentation$outboundSchema` instead. */
-  export const outboundSchema = RouteDocumentation$outboundSchema;
-  /** @deprecated use `RouteDocumentation$Outbound` instead. */
-  export type Outbound = RouteDocumentation$Outbound;
-}
-
-export function routeDocumentationToJSON(
-  routeDocumentation: RouteDocumentation,
-): string {
-  return JSON.stringify(
-    RouteDocumentation$outboundSchema.parse(routeDocumentation),
-  );
-}
-
-export function routeDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<RouteDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RouteDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RouteDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const RouteLinks$inboundSchema: z.ZodType<
-  RouteLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: z.lazy(() => RouteSelf$inboundSchema),
-  documentation: z.lazy(() => RouteDocumentation$inboundSchema),
-});
-
-/** @internal */
-export type RouteLinks$Outbound = {
-  self: RouteSelf$Outbound;
-  documentation: RouteDocumentation$Outbound;
-};
-
-/** @internal */
-export const RouteLinks$outboundSchema: z.ZodType<
-  RouteLinks$Outbound,
-  z.ZodTypeDef,
-  RouteLinks
-> = z.object({
-  self: z.lazy(() => RouteSelf$outboundSchema),
-  documentation: z.lazy(() => RouteDocumentation$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteLinks$ {
-  /** @deprecated use `RouteLinks$inboundSchema` instead. */
-  export const inboundSchema = RouteLinks$inboundSchema;
-  /** @deprecated use `RouteLinks$outboundSchema` instead. */
-  export const outboundSchema = RouteLinks$outboundSchema;
-  /** @deprecated use `RouteLinks$Outbound` instead. */
-  export type Outbound = RouteLinks$Outbound;
-}
-
-export function routeLinksToJSON(routeLinks: RouteLinks): string {
-  return JSON.stringify(RouteLinks$outboundSchema.parse(routeLinks));
-}
-
-export function routeLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<RouteLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RouteLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RouteLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const Route$inboundSchema: z.ZodType<Route, z.ZodTypeDef, unknown> = z
-  .object({
-    resource: z.string(),
-    id: z.string(),
-    paymentId: z.string(),
-    amount: z.lazy(() => PaymentListRoutesAmount$inboundSchema),
-    description: z.string(),
-    destination: z.lazy(() => PaymentListRoutesDestination$inboundSchema),
-    _links: z.lazy(() => RouteLinks$inboundSchema),
-    createdAt: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  });
-
-/** @internal */
-export type Route$Outbound = {
-  resource: string;
-  id: string;
-  paymentId: string;
-  amount: PaymentListRoutesAmount$Outbound;
-  description: string;
-  destination: PaymentListRoutesDestination$Outbound;
-  _links: RouteLinks$Outbound;
-  createdAt: string;
-};
-
-/** @internal */
-export const Route$outboundSchema: z.ZodType<
-  Route$Outbound,
-  z.ZodTypeDef,
-  Route
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  paymentId: z.string(),
-  amount: z.lazy(() => PaymentListRoutesAmount$outboundSchema),
-  description: z.string(),
-  destination: z.lazy(() => PaymentListRoutesDestination$outboundSchema),
-  links: z.lazy(() => RouteLinks$outboundSchema),
-  createdAt: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Route$ {
-  /** @deprecated use `Route$inboundSchema` instead. */
-  export const inboundSchema = Route$inboundSchema;
-  /** @deprecated use `Route$outboundSchema` instead. */
-  export const outboundSchema = Route$outboundSchema;
-  /** @deprecated use `Route$Outbound` instead. */
-  export type Outbound = Route$Outbound;
-}
-
-export function routeToJSON(route: Route): string {
-  return JSON.stringify(Route$outboundSchema.parse(route));
-}
-
-export function routeFromJSON(
-  jsonString: string,
-): SafeParseResult<Route, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Route$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Route' from JSON`,
-  );
-}
-
-/** @internal */
 export const PaymentListRoutesEmbedded$inboundSchema: z.ZodType<
   PaymentListRoutesEmbedded,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  routes: z.array(z.lazy(() => Route$inboundSchema)).optional(),
+  routes: z.array(models.RouteGetResponse$inboundSchema).optional(),
 });
 
 /** @internal */
 export type PaymentListRoutesEmbedded$Outbound = {
-  routes?: Array<Route$Outbound> | undefined;
+  routes?: Array<models.RouteGetResponse$Outbound> | undefined;
 };
 
 /** @internal */
@@ -818,7 +145,7 @@ export const PaymentListRoutesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentListRoutesEmbedded
 > = z.object({
-  routes: z.array(z.lazy(() => Route$outboundSchema)).optional(),
+  routes: z.array(models.RouteGetResponse$outboundSchema).optional(),
 });
 
 /**
@@ -853,136 +180,19 @@ export function paymentListRoutesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const PaymentListRoutesSelf$inboundSchema: z.ZodType<
-  PaymentListRoutesSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type PaymentListRoutesSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const PaymentListRoutesSelf$outboundSchema: z.ZodType<
-  PaymentListRoutesSelf$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesSelf$ {
-  /** @deprecated use `PaymentListRoutesSelf$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesSelf$inboundSchema;
-  /** @deprecated use `PaymentListRoutesSelf$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesSelf$outboundSchema;
-  /** @deprecated use `PaymentListRoutesSelf$Outbound` instead. */
-  export type Outbound = PaymentListRoutesSelf$Outbound;
-}
-
-export function paymentListRoutesSelfToJSON(
-  paymentListRoutesSelf: PaymentListRoutesSelf,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesSelf$outboundSchema.parse(paymentListRoutesSelf),
-  );
-}
-
-export function paymentListRoutesSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const PaymentListRoutesDocumentation$inboundSchema: z.ZodType<
-  PaymentListRoutesDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type PaymentListRoutesDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const PaymentListRoutesDocumentation$outboundSchema: z.ZodType<
-  PaymentListRoutesDocumentation$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesDocumentation$ {
-  /** @deprecated use `PaymentListRoutesDocumentation$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesDocumentation$inboundSchema;
-  /** @deprecated use `PaymentListRoutesDocumentation$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesDocumentation$outboundSchema;
-  /** @deprecated use `PaymentListRoutesDocumentation$Outbound` instead. */
-  export type Outbound = PaymentListRoutesDocumentation$Outbound;
-}
-
-export function paymentListRoutesDocumentationToJSON(
-  paymentListRoutesDocumentation: PaymentListRoutesDocumentation,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesDocumentation$outboundSchema.parse(
-      paymentListRoutesDocumentation,
-    ),
-  );
-}
-
-export function paymentListRoutesDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const PaymentListRoutesLinks$inboundSchema: z.ZodType<
   PaymentListRoutesLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => PaymentListRoutesSelf$inboundSchema).optional(),
-  documentation: z.lazy(() => PaymentListRoutesDocumentation$inboundSchema)
-    .optional(),
+  self: models.Url$inboundSchema.optional(),
+  documentation: models.Url$inboundSchema.optional(),
 });
 
 /** @internal */
 export type PaymentListRoutesLinks$Outbound = {
-  self?: PaymentListRoutesSelf$Outbound | undefined;
-  documentation?: PaymentListRoutesDocumentation$Outbound | undefined;
+  self?: models.Url$Outbound | undefined;
+  documentation?: models.Url$Outbound | undefined;
 };
 
 /** @internal */
@@ -991,9 +201,8 @@ export const PaymentListRoutesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentListRoutesLinks
 > = z.object({
-  self: z.lazy(() => PaymentListRoutesSelf$outboundSchema).optional(),
-  documentation: z.lazy(() => PaymentListRoutesDocumentation$outboundSchema)
-    .optional(),
+  self: models.Url$outboundSchema.optional(),
+  documentation: models.Url$outboundSchema.optional(),
 });
 
 /**

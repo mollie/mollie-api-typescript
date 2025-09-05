@@ -38,7 +38,7 @@ export function customersListPayments(
 ): APIPromise<
   Result<
     operations.ListCustomerPaymentsResponse,
-    | errors.ListCustomerPaymentsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -64,7 +64,7 @@ async function $do(
   [
     Result<
       operations.ListCustomerPaymentsResponse,
-      | errors.ListCustomerPaymentsHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -171,7 +171,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListCustomerPaymentsResponse,
-    | errors.ListCustomerPaymentsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -184,7 +184,7 @@ async function $do(
     M.json(200, operations.ListCustomerPaymentsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListCustomerPaymentsHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

@@ -6,6 +6,7 @@ import { organizationsGet } from "../funcs/organizationsGet.js";
 import { organizationsGetCurrent } from "../funcs/organizationsGetCurrent.js";
 import { organizationsGetPartner } from "../funcs/organizationsGetPartner.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -24,7 +25,7 @@ export class Organizations extends ClientSDK {
   async get(
     request: operations.GetOrganizationRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetOrganizationResponse> {
+  ): Promise<models.EntityOrganization> {
     return unwrapAsync(organizationsGet(
       this,
       request,
@@ -44,7 +45,7 @@ export class Organizations extends ClientSDK {
    */
   async getCurrent(
     options?: RequestOptions,
-  ): Promise<operations.GetCurrentOrganizationResponse> {
+  ): Promise<models.EntityOrganization> {
     return unwrapAsync(organizationsGetCurrent(
       this,
       options,

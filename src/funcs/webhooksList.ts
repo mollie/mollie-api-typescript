@@ -38,7 +38,7 @@ export function webhooksList(
 ): APIPromise<
   Result<
     operations.ListWebhooksResponse,
-    | errors.ListWebhooksHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -64,7 +64,7 @@ async function $do(
   [
     Result<
       operations.ListWebhooksResponse,
-      | errors.ListWebhooksHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -164,7 +164,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListWebhooksResponse,
-    | errors.ListWebhooksHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -177,7 +177,7 @@ async function $do(
     M.json(200, operations.ListWebhooksResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListWebhooksHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

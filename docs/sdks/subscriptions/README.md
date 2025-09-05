@@ -50,7 +50,8 @@ const client = new Client({
 async function run() {
   const result = await client.subscriptions.create({
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    subscriptionRequest: {
+      id: "sub_5B8cwPMGnU",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -68,6 +69,7 @@ async function run() {
         description: "Platform fee",
       },
       webhookUrl: "https://example.com/webhook",
+      customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       testmode: false,
     },
@@ -98,7 +100,8 @@ const client = new ClientCore({
 async function run() {
   const res = await subscriptionsCreate(client, {
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    subscriptionRequest: {
+      id: "sub_5B8cwPMGnU",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -116,6 +119,7 @@ async function run() {
         description: "Platform fee",
       },
       webhookUrl: "https://example.com/webhook",
+      customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       testmode: false,
     },
@@ -142,14 +146,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateSubscriptionResponse](../../models/operations/createsubscriptionresponse.md)\>**
+**Promise\<[models.SubscriptionResponse](../../models/subscriptionresponse.md)\>**
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.CreateSubscriptionHalJSONError | 404                                   | application/hal+json                  |
-| errors.ClientDefaultError             | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -234,11 +238,10 @@ run();
 
 ### Errors
 
-| Error Type                                     | Status Code                                    | Content Type                                   |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| errors.ListSubscriptionsBadRequestHalJSONError | 400                                            | application/hal+json                           |
-| errors.ListSubscriptionsNotFoundHalJSONError   | 404                                            | application/hal+json                           |
-| errors.ClientDefaultError                      | 4XX, 5XX                                       | \*/\*                                          |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -313,14 +316,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetSubscriptionResponse](../../models/operations/getsubscriptionresponse.md)\>**
+**Promise\<[models.SubscriptionResponse](../../models/subscriptionresponse.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetSubscriptionHalJSONError | 404                                | application/hal+json               |
-| errors.ClientDefaultError          | 4XX, 5XX                           | \*/\*                              |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -423,14 +426,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateSubscriptionResponse](../../models/operations/updatesubscriptionresponse.md)\>**
+**Promise\<[models.SubscriptionResponse](../../models/subscriptionresponse.md)\>**
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.UpdateSubscriptionHalJSONError | 404                                   | application/hal+json                  |
-| errors.ClientDefaultError             | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## cancel
 
@@ -509,14 +512,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.CancelSubscriptionResponse](../../models/operations/cancelsubscriptionresponse.md)\>**
+**Promise\<[models.SubscriptionResponse](../../models/subscriptionresponse.md)\>**
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.CancelSubscriptionHalJSONError | 404                                   | application/hal+json                  |
-| errors.ClientDefaultError             | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## all
 
@@ -599,11 +602,10 @@ run();
 
 ### Errors
 
-| Error Type                                        | Status Code                                       | Content Type                                      |
-| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| errors.ListAllSubscriptionsBadRequestHalJSONError | 400                                               | application/hal+json                              |
-| errors.ListAllSubscriptionsNotFoundHalJSONError   | 404                                               | application/hal+json                              |
-| errors.ClientDefaultError                         | 4XX, 5XX                                          | \*/\*                                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listPayments
 
@@ -692,7 +694,7 @@ run();
 
 ### Errors
 
-| Error Type                                  | Status Code                                 | Content Type                                |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| errors.ListSubscriptionPaymentsHalJSONError | 400                                         | application/hal+json                        |
-| errors.ClientDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

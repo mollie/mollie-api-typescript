@@ -34,6 +34,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.customers.create({
+    id: "cst_5B8cwPMGnU",
     name: "John Doe",
     email: "example@email.com",
     locale: "en_US",
@@ -64,6 +65,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await customersCreate(client, {
+    id: "cst_5B8cwPMGnU",
     name: "John Doe",
     email: "example@email.com",
     locale: "en_US",
@@ -84,21 +86,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateCustomerRequest](../../models/operations/createcustomerrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.EntityCustomer](../../models/entitycustomer.md)                                                                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.CreateCustomerResponse](../../models/operations/createcustomerresponse.md)\>**
+**Promise\<[models.CustomerResponse](../../models/customerresponse.md)\>**
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.CreateCustomerHalJSONError | 404                               | application/hal+json              |
-| errors.ClientDefaultError         | 4XX, 5XX                          | \*/\*                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -181,11 +183,10 @@ run();
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.ListCustomersBadRequestHalJSONError | 400                                        | application/hal+json                       |
-| errors.ListCustomersNotFoundHalJSONError   | 404                                        | application/hal+json                       |
-| errors.ClientDefaultError                  | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -264,10 +265,10 @@ run();
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.GetCustomerHalJSONError | 404                            | application/hal+json           |
-| errors.ClientDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -290,7 +291,8 @@ const client = new Client({
 async function run() {
   const result = await client.customers.update({
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    entityCustomer: {
+      id: "cst_5B8cwPMGnU",
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
@@ -323,7 +325,8 @@ const client = new ClientCore({
 async function run() {
   const res = await customersUpdate(client, {
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    entityCustomer: {
+      id: "cst_5B8cwPMGnU",
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
@@ -352,14 +355,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateCustomerResponse](../../models/operations/updatecustomerresponse.md)\>**
+**Promise\<[models.CustomerResponse](../../models/customerresponse.md)\>**
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.UpdateCustomerHalJSONError | 404                               | application/hal+json              |
-| errors.ClientDefaultError         | 4XX, 5XX                          | \*/\*                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -440,10 +443,10 @@ run();
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.DeleteCustomerHalJSONError | 404                               | application/hal+json              |
-| errors.ClientDefaultError         | 4XX, 5XX                          | \*/\*                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## createPayment
 
@@ -475,9 +478,30 @@ const client = new Client({
 async function run() {
   const result = await client.customers.createPayment({
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    paymentRequest: {
+      id: "tr_5B8cwPMGnU",
       description: "Chess Board",
       amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountRefunded: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountRemaining: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountCaptured: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountChargedBack: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      settlementAmount: {
         currency: "EUR",
         value: "10.00",
       },
@@ -569,6 +593,7 @@ async function run() {
       },
       routing: [
         {
+          id: "rt_5B8cwPMGnU",
           amount: {
             currency: "EUR",
             value: "10.00",
@@ -591,9 +616,12 @@ async function run() {
         },
       ],
       sequenceType: "oneoff",
+      subscriptionId: "sub_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
+      settlementId: "stl_5B8cwPMGnU",
+      orderId: "ord_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
@@ -637,9 +665,30 @@ const client = new ClientCore({
 async function run() {
   const res = await customersCreatePayment(client, {
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    paymentRequest: {
+      id: "tr_5B8cwPMGnU",
       description: "Chess Board",
       amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountRefunded: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountRemaining: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountCaptured: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      amountChargedBack: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      settlementAmount: {
         currency: "EUR",
         value: "10.00",
       },
@@ -731,6 +780,7 @@ async function run() {
       },
       routing: [
         {
+          id: "rt_5B8cwPMGnU",
           amount: {
             currency: "EUR",
             value: "10.00",
@@ -753,9 +803,12 @@ async function run() {
         },
       ],
       sequenceType: "oneoff",
+      subscriptionId: "sub_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
+      settlementId: "stl_5B8cwPMGnU",
+      orderId: "ord_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
@@ -794,15 +847,15 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateCustomerPaymentResponse](../../models/operations/createcustomerpaymentresponse.md)\>**
+**Promise\<[models.PaymentResponse](../../models/paymentresponse.md)\>**
 
 ### Errors
 
-| Error Type                                                  | Status Code                                                 | Content Type                                                |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| errors.CreateCustomerPaymentUnprocessableEntityHalJSONError | 422                                                         | application/hal+json                                        |
-| errors.CreateCustomerPaymentServiceUnavailableHalJSONError  | 503                                                         | application/hal+json                                        |
-| errors.ClientDefaultError                                   | 4XX, 5XX                                                    | \*/\*                                                       |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 422                       | application/hal+json      |
+| errors.ErrorResponse      | 503                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listPayments
 
@@ -887,7 +940,7 @@ run();
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.ListCustomerPaymentsHalJSONError | 400                                     | application/hal+json                    |
-| errors.ClientDefaultError               | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

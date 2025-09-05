@@ -92,11 +92,10 @@ run();
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.ListChargebacksBadRequestHalJSONError | 400                                          | application/hal+json                         |
-| errors.ListChargebacksNotFoundHalJSONError   | 404                                          | application/hal+json                         |
-| errors.ClientDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -173,14 +172,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetChargebackResponse](../../models/operations/getchargebackresponse.md)\>**
+**Promise\<[models.EntityChargeback](../../models/entitychargeback.md)\>**
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.GetChargebackHalJSONError | 404                              | application/hal+json             |
-| errors.ClientDefaultError        | 4XX, 5XX                         | \*/\*                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## all
 
@@ -267,8 +266,7 @@ run();
 
 ### Errors
 
-| Error Type                                      | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| errors.ListAllChargebacksBadRequestHalJSONError | 400                                             | application/hal+json                            |
-| errors.ListAllChargebacksNotFoundHalJSONError   | 404                                             | application/hal+json                            |
-| errors.ClientDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

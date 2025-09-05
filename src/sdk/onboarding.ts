@@ -5,6 +5,7 @@
 import { onboardingGet } from "../funcs/onboardingGet.js";
 import { onboardingSubmit } from "../funcs/onboardingSubmit.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -17,7 +18,7 @@ export class Onboarding extends ClientSDK {
    */
   async get(
     options?: RequestOptions,
-  ): Promise<operations.GetOnboardingStatusResponse> {
+  ): Promise<models.EntityOnboardingStatus> {
     return unwrapAsync(onboardingGet(
       this,
       options,

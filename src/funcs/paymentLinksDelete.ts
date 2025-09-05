@@ -45,8 +45,7 @@ export function paymentLinksDelete(
 ): APIPromise<
   Result<
     any,
-    | errors.DeletePaymentLinkNotFoundHalJSONError
-    | errors.DeletePaymentLinkUnprocessableEntityHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -72,8 +71,7 @@ async function $do(
   [
     Result<
       any,
-      | errors.DeletePaymentLinkNotFoundHalJSONError
-      | errors.DeletePaymentLinkUnprocessableEntityHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -171,8 +169,7 @@ async function $do(
 
   const [result] = await M.match<
     any,
-    | errors.DeletePaymentLinkNotFoundHalJSONError
-    | errors.DeletePaymentLinkUnprocessableEntityHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -183,14 +180,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(204, z.any(), { ctype: "application/hal+json" }),
-    M.jsonErr(404, errors.DeletePaymentLinkNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      422,
-      errors.DeletePaymentLinkUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

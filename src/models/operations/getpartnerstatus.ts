@@ -8,6 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 /**
  * Indicates the type of partner. Will be `null` if the currently authenticated organization is not
@@ -47,69 +48,21 @@ export type UserAgentToken = {
 };
 
 /**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type GetPartnerStatusSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The URL that can be used to have new organizations sign up and be automatically linked to this
- *
- * @remarks
- * partner. Will be omitted if the partner is not of type `signuplink`.
- */
-export type Signuplink = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type GetPartnerStatusDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type GetPartnerStatusLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: GetPartnerStatusSelf | undefined;
-  /**
-   * The URL that can be used to have new organizations sign up and be automatically linked to this
-   *
-   * @remarks
-   * partner. Will be omitted if the partner is not of type `signuplink`.
-   */
-  signuplink?: Signuplink | undefined;
+  self?: models.Url | undefined;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: GetPartnerStatusDocumentation | undefined;
+  signuplink?: models.Url | undefined;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  documentation?: models.Url | undefined;
 };
 
 /**
@@ -241,191 +194,21 @@ export function userAgentTokenFromJSON(
 }
 
 /** @internal */
-export const GetPartnerStatusSelf$inboundSchema: z.ZodType<
-  GetPartnerStatusSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type GetPartnerStatusSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const GetPartnerStatusSelf$outboundSchema: z.ZodType<
-  GetPartnerStatusSelf$Outbound,
-  z.ZodTypeDef,
-  GetPartnerStatusSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPartnerStatusSelf$ {
-  /** @deprecated use `GetPartnerStatusSelf$inboundSchema` instead. */
-  export const inboundSchema = GetPartnerStatusSelf$inboundSchema;
-  /** @deprecated use `GetPartnerStatusSelf$outboundSchema` instead. */
-  export const outboundSchema = GetPartnerStatusSelf$outboundSchema;
-  /** @deprecated use `GetPartnerStatusSelf$Outbound` instead. */
-  export type Outbound = GetPartnerStatusSelf$Outbound;
-}
-
-export function getPartnerStatusSelfToJSON(
-  getPartnerStatusSelf: GetPartnerStatusSelf,
-): string {
-  return JSON.stringify(
-    GetPartnerStatusSelf$outboundSchema.parse(getPartnerStatusSelf),
-  );
-}
-
-export function getPartnerStatusSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPartnerStatusSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPartnerStatusSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPartnerStatusSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const Signuplink$inboundSchema: z.ZodType<
-  Signuplink,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type Signuplink$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const Signuplink$outboundSchema: z.ZodType<
-  Signuplink$Outbound,
-  z.ZodTypeDef,
-  Signuplink
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Signuplink$ {
-  /** @deprecated use `Signuplink$inboundSchema` instead. */
-  export const inboundSchema = Signuplink$inboundSchema;
-  /** @deprecated use `Signuplink$outboundSchema` instead. */
-  export const outboundSchema = Signuplink$outboundSchema;
-  /** @deprecated use `Signuplink$Outbound` instead. */
-  export type Outbound = Signuplink$Outbound;
-}
-
-export function signuplinkToJSON(signuplink: Signuplink): string {
-  return JSON.stringify(Signuplink$outboundSchema.parse(signuplink));
-}
-
-export function signuplinkFromJSON(
-  jsonString: string,
-): SafeParseResult<Signuplink, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Signuplink$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Signuplink' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetPartnerStatusDocumentation$inboundSchema: z.ZodType<
-  GetPartnerStatusDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type GetPartnerStatusDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const GetPartnerStatusDocumentation$outboundSchema: z.ZodType<
-  GetPartnerStatusDocumentation$Outbound,
-  z.ZodTypeDef,
-  GetPartnerStatusDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPartnerStatusDocumentation$ {
-  /** @deprecated use `GetPartnerStatusDocumentation$inboundSchema` instead. */
-  export const inboundSchema = GetPartnerStatusDocumentation$inboundSchema;
-  /** @deprecated use `GetPartnerStatusDocumentation$outboundSchema` instead. */
-  export const outboundSchema = GetPartnerStatusDocumentation$outboundSchema;
-  /** @deprecated use `GetPartnerStatusDocumentation$Outbound` instead. */
-  export type Outbound = GetPartnerStatusDocumentation$Outbound;
-}
-
-export function getPartnerStatusDocumentationToJSON(
-  getPartnerStatusDocumentation: GetPartnerStatusDocumentation,
-): string {
-  return JSON.stringify(
-    GetPartnerStatusDocumentation$outboundSchema.parse(
-      getPartnerStatusDocumentation,
-    ),
-  );
-}
-
-export function getPartnerStatusDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPartnerStatusDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPartnerStatusDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPartnerStatusDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const GetPartnerStatusLinks$inboundSchema: z.ZodType<
   GetPartnerStatusLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => GetPartnerStatusSelf$inboundSchema).optional(),
-  signuplink: z.lazy(() => Signuplink$inboundSchema).optional(),
-  documentation: z.lazy(() => GetPartnerStatusDocumentation$inboundSchema)
-    .optional(),
+  self: models.Url$inboundSchema.optional(),
+  signuplink: models.Url$inboundSchema.optional(),
+  documentation: models.Url$inboundSchema.optional(),
 });
 
 /** @internal */
 export type GetPartnerStatusLinks$Outbound = {
-  self?: GetPartnerStatusSelf$Outbound | undefined;
-  signuplink?: Signuplink$Outbound | undefined;
-  documentation?: GetPartnerStatusDocumentation$Outbound | undefined;
+  self?: models.Url$Outbound | undefined;
+  signuplink?: models.Url$Outbound | undefined;
+  documentation?: models.Url$Outbound | undefined;
 };
 
 /** @internal */
@@ -434,10 +217,9 @@ export const GetPartnerStatusLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetPartnerStatusLinks
 > = z.object({
-  self: z.lazy(() => GetPartnerStatusSelf$outboundSchema).optional(),
-  signuplink: z.lazy(() => Signuplink$outboundSchema).optional(),
-  documentation: z.lazy(() => GetPartnerStatusDocumentation$outboundSchema)
-    .optional(),
+  self: models.Url$outboundSchema.optional(),
+  signuplink: models.Url$outboundSchema.optional(),
+  documentation: models.Url$outboundSchema.optional(),
 });
 
 /**

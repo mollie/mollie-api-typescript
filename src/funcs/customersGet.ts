@@ -38,7 +38,7 @@ export function customersGet(
 ): APIPromise<
   Result<
     operations.GetCustomerResponse,
-    | errors.GetCustomerHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -64,7 +64,7 @@ async function $do(
   [
     Result<
       operations.GetCustomerResponse,
-      | errors.GetCustomerHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -167,7 +167,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.GetCustomerResponse,
-    | errors.GetCustomerHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -180,7 +180,7 @@ async function $do(
     M.json(200, operations.GetCustomerResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.GetCustomerHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

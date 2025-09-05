@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -44,9 +45,8 @@ export function capturesCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateCaptureResponse,
-    | errors.CreateCaptureNotFoundHalJSONError
-    | errors.CreateCaptureUnprocessableEntityHalJSONError
+    models.CaptureResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -71,9 +71,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.CreateCaptureResponse,
-      | errors.CreateCaptureNotFoundHalJSONError
-      | errors.CreateCaptureUnprocessableEntityHalJSONError
+      models.CaptureResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -95,7 +94,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload["entity-capture"], { explode: true });
 
   const pathParams = {
     paymentId: encodeSimple("paymentId", payload.paymentId, {
@@ -170,9 +169,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateCaptureResponse,
-    | errors.CreateCaptureNotFoundHalJSONError
-    | errors.CreateCaptureUnprocessableEntityHalJSONError
+    models.CaptureResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -182,17 +180,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.CreateCaptureResponse$inboundSchema, {
+    M.json(201, models.CaptureResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.CreateCaptureNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      422,
-      errors.CreateCaptureUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -42,8 +43,8 @@ export function organizationsGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetOrganizationResponse,
-    | errors.GetOrganizationHalJSONError
+    models.EntityOrganization,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -68,8 +69,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetOrganizationResponse,
-      | errors.GetOrganizationHalJSONError
+      models.EntityOrganization,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -170,8 +171,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetOrganizationResponse,
-    | errors.GetOrganizationHalJSONError
+    models.EntityOrganization,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -181,10 +182,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetOrganizationResponse$inboundSchema, {
+    M.json(200, models.EntityOrganization$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.GetOrganizationHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

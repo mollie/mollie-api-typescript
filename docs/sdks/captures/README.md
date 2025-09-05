@@ -35,12 +35,20 @@ const client = new Client({
 async function run() {
   const result = await client.captures.create({
     paymentId: "tr_5B8cwPMGnU",
-    requestBody: {
+    entityCapture: {
+      id: "cpt_vytxeTZskVKR7C7WgdSP3d",
       description: "Capture for cart #12345",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
+      settlementAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      paymentId: "tr_5B8cwPMGnU",
+      shipmentId: "shp_5x4xQJDWGNcY3tKGL7X5J",
+      settlementId: "stl_5B8cwPMGnU",
     },
   });
 
@@ -69,12 +77,20 @@ const client = new ClientCore({
 async function run() {
   const res = await capturesCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
-    requestBody: {
+    entityCapture: {
+      id: "cpt_vytxeTZskVKR7C7WgdSP3d",
       description: "Capture for cart #12345",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
+      settlementAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      paymentId: "tr_5B8cwPMGnU",
+      shipmentId: "shp_5x4xQJDWGNcY3tKGL7X5J",
+      settlementId: "stl_5B8cwPMGnU",
     },
   });
   if (res.ok) {
@@ -99,15 +115,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateCaptureResponse](../../models/operations/createcaptureresponse.md)\>**
+**Promise\<[models.CaptureResponse](../../models/captureresponse.md)\>**
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.CreateCaptureNotFoundHalJSONError            | 404                                                 | application/hal+json                                |
-| errors.CreateCaptureUnprocessableEntityHalJSONError | 422                                                 | application/hal+json                                |
-| errors.ClientDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -192,11 +207,10 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.ListCapturesBadRequestHalJSONError | 400                                       | application/hal+json                      |
-| errors.ListCapturesNotFoundHalJSONError   | 404                                       | application/hal+json                      |
-| errors.ClientDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -274,11 +288,11 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCaptureResponse](../../models/operations/getcaptureresponse.md)\>**
+**Promise\<[models.CaptureResponse](../../models/captureresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.GetCaptureHalJSONError | 404                           | application/hal+json          |
-| errors.ClientDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

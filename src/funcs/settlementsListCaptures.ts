@@ -40,8 +40,7 @@ export function settlementsListCaptures(
 ): APIPromise<
   Result<
     operations.ListSettlementCapturesResponse,
-    | errors.ListSettlementCapturesBadRequestHalJSONError
-    | errors.ListSettlementCapturesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListSettlementCapturesResponse,
-      | errors.ListSettlementCapturesBadRequestHalJSONError
-      | errors.ListSettlementCapturesNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -174,8 +172,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListSettlementCapturesResponse,
-    | errors.ListSettlementCapturesBadRequestHalJSONError
-    | errors.ListSettlementCapturesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -188,16 +185,9 @@ async function $do(
     M.json(200, operations.ListSettlementCapturesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      400,
-      errors.ListSettlementCapturesBadRequestHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
-    M.jsonErr(
-      404,
-      errors.ListSettlementCapturesNotFoundHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

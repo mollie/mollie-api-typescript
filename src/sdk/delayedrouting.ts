@@ -5,6 +5,7 @@
 import { delayedRoutingCreate } from "../funcs/delayedRoutingCreate.js";
 import { delayedRoutingList } from "../funcs/delayedRoutingList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +20,7 @@ export class DelayedRouting extends ClientSDK {
   async create(
     request: operations.PaymentCreateRouteRequest,
     options?: RequestOptions,
-  ): Promise<operations.PaymentCreateRouteResponse> {
+  ): Promise<models.RouteCreateResponse> {
     return unwrapAsync(delayedRoutingCreate(
       this,
       request,

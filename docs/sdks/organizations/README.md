@@ -85,14 +85,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOrganizationResponse](../../models/operations/getorganizationresponse.md)\>**
+**Promise\<[models.EntityOrganization](../../models/entityorganization.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetOrganizationHalJSONError | 404                                | application/hal+json               |
-| errors.ClientDefaultError          | 4XX, 5XX                           | \*/\*                              |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## getCurrent
 
@@ -162,7 +162,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCurrentOrganizationResponse](../../models/operations/getcurrentorganizationresponse.md)\>**
+**Promise\<[models.EntityOrganization](../../models/entityorganization.md)\>**
 
 ### Errors
 

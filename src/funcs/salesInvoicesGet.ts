@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -41,8 +42,8 @@ export function salesInvoicesGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetSalesInvoiceResponse,
-    | errors.GetSalesInvoiceHalJSONError
+    models.EntitySalesInvoiceResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +68,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetSalesInvoiceResponse,
-      | errors.GetSalesInvoiceHalJSONError
+      models.EntitySalesInvoiceResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -169,8 +170,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetSalesInvoiceResponse,
-    | errors.GetSalesInvoiceHalJSONError
+    models.EntitySalesInvoiceResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -180,10 +181,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetSalesInvoiceResponse$inboundSchema, {
+    M.json(200, models.EntitySalesInvoiceResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.GetSalesInvoiceHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

@@ -3,11 +3,11 @@
  */
 
 import { clientLinksCreate } from "../../funcs/clientLinksCreate.js";
-import * as operations from "../../models/operations/index.js";
+import * as models from "../../models/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.CreateClientLinkRequest$inboundSchema.optional(),
+  request: models.EntityClientLink$inboundSchema.optional(),
 };
 
 export const tool$clientLinksCreate: ToolDefinition<typeof args> = {

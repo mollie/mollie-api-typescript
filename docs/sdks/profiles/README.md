@@ -95,21 +95,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateProfileRequest](../../models/operations/createprofilerequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.EntityProfile](../../models/entityprofile.md)                                                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.CreateProfileResponse](../../models/operations/createprofileresponse.md)\>**
+**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.CreateProfileHalJSONError | 422                              | application/hal+json             |
-| errors.ClientDefaultError        | 4XX, 5XX                         | \*/\*                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 422                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -188,10 +188,10 @@ run();
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.ListProfilesHalJSONError | 400                             | application/hal+json            |
-| errors.ClientDefaultError       | 4XX, 5XX                        | \*/\*                           |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -264,15 +264,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetProfileResponse](../../models/operations/getprofileresponse.md)\>**
+**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.GetProfileNotFoundHalJSONError | 404                                   | application/hal+json                  |
-| errors.GetProfileGoneHalJSONError     | 410                                   | application/hal+json                  |
-| errors.ClientDefaultError             | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 410                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -372,16 +371,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateProfileResponse](../../models/operations/updateprofileresponse.md)\>**
+**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.UpdateProfileNotFoundHalJSONError            | 404                                                 | application/hal+json                                |
-| errors.UpdateProfileGoneHalJSONError                | 410                                                 | application/hal+json                                |
-| errors.UpdateProfileUnprocessableEntityHalJSONError | 422                                                 | application/hal+json                                |
-| errors.ClientDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 410, 422             | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -456,11 +453,10 @@ run();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.DeleteProfileNotFoundHalJSONError | 404                                      | application/hal+json                     |
-| errors.DeleteProfileGoneHalJSONError     | 410                                      | application/hal+json                     |
-| errors.ClientDefaultError                | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 410                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## getCurrent
 
@@ -530,7 +526,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCurrentProfileResponse](../../models/operations/getcurrentprofileresponse.md)\>**
+**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
 
 ### Errors
 

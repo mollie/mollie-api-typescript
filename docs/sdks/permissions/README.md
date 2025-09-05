@@ -78,10 +78,10 @@ run();
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.ListPermissionsHalJSONError | 400                                | application/hal+json               |
-| errors.ClientDefaultError          | 4XX, 5XX                           | \*/\*                              |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -154,11 +154,11 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPermissionResponse](../../models/operations/getpermissionresponse.md)\>**
+**Promise\<[models.EntityPermission](../../models/entitypermission.md)\>**
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.GetPermissionHalJSONError | 404                              | application/hal+json             |
-| errors.ClientDefaultError        | 4XX, 5XX                         | \*/\*                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

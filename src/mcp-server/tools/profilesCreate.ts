@@ -3,11 +3,11 @@
  */
 
 import { profilesCreate } from "../../funcs/profilesCreate.js";
-import * as operations from "../../models/operations/index.js";
+import * as models from "../../models/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.CreateProfileRequest$inboundSchema,
+  request: models.EntityProfile$inboundSchema,
 };
 
 export const tool$profilesCreate: ToolDefinition<typeof args> = {

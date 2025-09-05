@@ -31,12 +31,22 @@ const client = new Client({
 async function run() {
   const result = await client.refunds.create({
     paymentId: "tr_5B8cwPMGnU",
-    requestBody: {
+    entityRefund: {
+      id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
+      settlementAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      metadata: {
+
+      },
+      paymentId: "tr_5B8cwPMGnU",
+      settlementId: "stl_5B8cwPMGnU",
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",
@@ -83,12 +93,22 @@ const client = new ClientCore({
 async function run() {
   const res = await refundsCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
-    requestBody: {
+    entityRefund: {
+      id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
+      settlementAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      metadata: {
+  
+      },
+      paymentId: "tr_5B8cwPMGnU",
+      settlementId: "stl_5B8cwPMGnU",
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",
@@ -131,16 +151,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateRefundResponse](../../models/operations/createrefundresponse.md)\>**
+**Promise\<[models.EntityRefundResponse](../../models/entityrefundresponse.md)\>**
 
 ### Errors
 
-| Error Type                                         | Status Code                                        | Content Type                                       |
-| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| errors.CreateRefundNotFoundHalJSONError            | 404                                                | application/hal+json                               |
-| errors.ConflictHalJSONError                        | 409                                                | application/hal+json                               |
-| errors.CreateRefundUnprocessableEntityHalJSONError | 422                                                | application/hal+json                               |
-| errors.ClientDefaultError                          | 4XX, 5XX                                           | \*/\*                                              |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 409, 422             | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -225,11 +243,10 @@ run();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.ListRefundsBadRequestHalJSONError | 400                                      | application/hal+json                     |
-| errors.ListRefundsNotFoundHalJSONError   | 404                                      | application/hal+json                     |
-| errors.ClientDefaultError                | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -306,14 +323,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetRefundResponse](../../models/operations/getrefundresponse.md)\>**
+**Promise\<[models.EntityRefundResponse](../../models/entityrefundresponse.md)\>**
 
 ### Errors
 
-| Error Type                   | Status Code                  | Content Type                 |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.GetRefundHalJSONError | 404                          | application/hal+json         |
-| errors.ClientDefaultError    | 4XX, 5XX                     | \*/\*                        |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## cancel
 
@@ -396,10 +413,10 @@ run();
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.CancelRefundHalJSONError | 404                             | application/hal+json            |
-| errors.ClientDefaultError       | 4XX, 5XX                        | \*/\*                           |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## all
 
@@ -486,7 +503,7 @@ run();
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.ListAllRefundsHalJSONError | 400                               | application/hal+json              |
-| errors.ClientDefaultError         | 4XX, 5XX                          | \*/\*                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

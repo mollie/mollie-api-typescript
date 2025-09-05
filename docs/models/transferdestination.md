@@ -1,0 +1,24 @@
+# TransferDestination
+
+The destination where the available amount will be automatically transferred to according to the configured
+transfer frequency.
+
+## Example Usage
+
+```typescript
+import { TransferDestination } from "mollie-api-typescript/models";
+
+let value: TransferDestination = {
+  type: "bank-account",
+  bankAccount: "123456",
+  beneficiaryName: "John Doe",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                             | Type                                                                                                                                                                              | Required                                                                                                                                                                          | Description                                                                                                                                                                       | Example                                                                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                                                            | [models.EntityBalanceType](../models/entitybalancetype.md)                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                | The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.<br/><br/>* `bank-account` — Transfer the balance amount to an external bank account | bank-account                                                                                                                                                                      |
+| `bankAccount`                                                                                                                                                                     | *string*                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                | The configured bank account number of the beneficiary the balance amount is to be transferred to.                                                                                 | 123456                                                                                                                                                                            |
+| `beneficiaryName`                                                                                                                                                                 | *string*                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                | The full name of the beneficiary the balance amount is to be transferred to.                                                                                                      | John Doe                                                                                                                                                                          |

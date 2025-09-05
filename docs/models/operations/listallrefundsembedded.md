@@ -20,6 +20,7 @@ let value: ListAllRefundsEmbedded = {
         currency: "EUR",
         value: "10.00",
       },
+      metadata: "<value>",
       paymentId: "tr_5B8cwPMGnU",
       settlementId: "stl_5B8cwPMGnU",
       status: "queued",
@@ -28,17 +29,7 @@ let value: ListAllRefundsEmbedded = {
         type: "acquirer-reference",
         id: "123456789012345",
       },
-      routingReversals: [
-        {
-          amount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          source: {
-            organizationId: "org_1234567",
-          },
-        },
-      ],
+      routingReversals: null,
       links: {
         self: {
           href: "https://...",
@@ -64,6 +55,6 @@ let value: ListAllRefundsEmbedded = {
 
 ## Fields
 
-| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `refunds`                                                                            | [operations.ListAllRefundsRefund](../../models/operations/listallrefundsrefund.md)[] | :heavy_minus_sign:                                                                   | An array of refund objects.                                                          |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `refunds`                                                             | [models.EntityRefundResponse](../../models/entityrefundresponse.md)[] | :heavy_check_mark:                                                    | An array of refund objects.                                           |

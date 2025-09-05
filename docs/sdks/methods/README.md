@@ -121,10 +121,10 @@ run();
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.ListMethodsHalJSONError | 400                            | application/hal+json           |
-| errors.ClientDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## all
 
@@ -218,10 +218,10 @@ run();
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.ListAllMethodsHalJSONError | 400                               | application/hal+json              |
-| errors.ClientDefaultError         | 4XX, 5XX                          | \*/\*                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -315,12 +315,11 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetMethodResponse](../../models/operations/getmethodresponse.md)\>**
+**Promise\<[models.EntityMethod](../../models/entitymethod.md)\>**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetMethodBadRequestHalJSONError | 400                                    | application/hal+json                   |
-| errors.GetMethodNotFoundHalJSONError   | 404                                    | application/hal+json                   |
-| errors.ClientDefaultError              | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

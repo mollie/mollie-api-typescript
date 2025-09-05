@@ -40,8 +40,7 @@ export function chargebacksList(
 ): APIPromise<
   Result<
     operations.ListChargebacksResponse,
-    | errors.ListChargebacksBadRequestHalJSONError
-    | errors.ListChargebacksNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListChargebacksResponse,
-      | errors.ListChargebacksBadRequestHalJSONError
-      | errors.ListChargebacksNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -173,8 +171,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListChargebacksResponse,
-    | errors.ListChargebacksBadRequestHalJSONError
-    | errors.ListChargebacksNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -187,10 +184,7 @@ async function $do(
     M.json(200, operations.ListChargebacksResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListChargebacksBadRequestHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(404, errors.ListChargebacksNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

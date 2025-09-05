@@ -40,7 +40,7 @@ export function refundsAll(
 ): APIPromise<
   Result<
     operations.ListAllRefundsResponse,
-    | errors.ListAllRefundsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.ListAllRefundsResponse,
-      | errors.ListAllRefundsHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -167,7 +167,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListAllRefundsResponse,
-    | errors.ListAllRefundsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -180,7 +180,7 @@ async function $do(
     M.json(200, operations.ListAllRefundsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListAllRefundsHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

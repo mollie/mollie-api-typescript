@@ -9,6 +9,7 @@ import { webhooksList } from "../funcs/webhooksList.js";
 import { webhooksTest } from "../funcs/webhooksTest.js";
 import { webhooksUpdate } from "../funcs/webhooksUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -22,7 +23,7 @@ export class Webhooks extends ClientSDK {
   async create(
     request?: operations.CreateWebhookRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.CreateWebhookResponse> {
+  ): Promise<models.CreateWebhook> {
     return unwrapAsync(webhooksCreate(
       this,
       request,
@@ -56,7 +57,7 @@ export class Webhooks extends ClientSDK {
   async update(
     request: operations.UpdateWebhookRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateWebhookResponse> {
+  ): Promise<models.EntityWebhook> {
     return unwrapAsync(webhooksUpdate(
       this,
       request,
@@ -73,7 +74,7 @@ export class Webhooks extends ClientSDK {
   async get(
     request: operations.GetWebhookRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetWebhookResponse> {
+  ): Promise<models.EntityWebhook> {
     return unwrapAsync(webhooksGet(
       this,
       request,

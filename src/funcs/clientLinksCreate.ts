@@ -21,7 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -85,13 +85,12 @@ import { Result } from "../types/fp.js";
  */
 export function clientLinksCreate(
   client: ClientCore,
-  request?: operations.CreateClientLinkRequest | undefined,
+  request?: models.EntityClientLink | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateClientLinkResponse,
-    | errors.CreateClientLinkNotFoundHalJSONError
-    | errors.CreateClientLinkUnprocessableEntityHalJSONError
+    models.EntityClientLinkResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -111,14 +110,13 @@ export function clientLinksCreate(
 
 async function $do(
   client: ClientCore,
-  request?: operations.CreateClientLinkRequest | undefined,
+  request?: models.EntityClientLink | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateClientLinkResponse,
-      | errors.CreateClientLinkNotFoundHalJSONError
-      | errors.CreateClientLinkUnprocessableEntityHalJSONError
+      models.EntityClientLinkResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -133,8 +131,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.CreateClientLinkRequest$outboundSchema.optional().parse(value),
+    (value) => models.EntityClientLink$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -211,9 +208,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateClientLinkResponse,
-    | errors.CreateClientLinkNotFoundHalJSONError
-    | errors.CreateClientLinkUnprocessableEntityHalJSONError
+    models.EntityClientLinkResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -223,17 +219,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.CreateClientLinkResponse$inboundSchema, {
+    M.json(201, models.EntityClientLinkResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.CreateClientLinkNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      422,
-      errors.CreateClientLinkUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

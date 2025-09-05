@@ -40,8 +40,7 @@ export function settlementsList(
 ): APIPromise<
   Result<
     operations.ListSettlementsResponse,
-    | errors.ListSettlementsBadRequestHalJSONError
-    | errors.ListSettlementsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListSettlementsResponse,
-      | errors.ListSettlementsBadRequestHalJSONError
-      | errors.ListSettlementsNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -169,8 +167,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListSettlementsResponse,
-    | errors.ListSettlementsBadRequestHalJSONError
-    | errors.ListSettlementsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -183,10 +180,7 @@ async function $do(
     M.json(200, operations.ListSettlementsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListSettlementsBadRequestHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(404, errors.ListSettlementsNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

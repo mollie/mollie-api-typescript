@@ -8,6 +8,7 @@ import { refundsCreate } from "../funcs/refundsCreate.js";
 import { refundsGet } from "../funcs/refundsGet.js";
 import { refundsList } from "../funcs/refundsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -22,7 +23,7 @@ export class Refunds extends ClientSDK {
   async create(
     request: operations.CreateRefundRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateRefundResponse> {
+  ): Promise<models.EntityRefundResponse> {
     return unwrapAsync(refundsCreate(
       this,
       request,
@@ -58,7 +59,7 @@ export class Refunds extends ClientSDK {
   async get(
     request: operations.GetRefundRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetRefundResponse> {
+  ): Promise<models.EntityRefundResponse> {
     return unwrapAsync(refundsGet(
       this,
       request,

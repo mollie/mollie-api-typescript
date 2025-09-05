@@ -28,7 +28,10 @@ let value: ListBalanceTransactionsResponse = {
           value: "10.00",
         },
         context: {
-          payment: null,
+          payment: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+          },
           capture: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -92,13 +95,11 @@ let value: ListBalanceTransactionsResponse = {
             chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
             chargebackDescription: "Chargeback Description",
           },
-          reversedChargebackCompensation: {
-            paymentId: "tr_5B8cwPMGnU",
-            paymentDescription: "Payment Description",
-            chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-            chargebackDescription: "Chargeback Description",
+          reversedChargebackCompensation: null,
+          outgoingTransfer: {
+            transferId: "trf_nyjwa2",
+            settlementId: "stl_5B8cwPMGnU",
           },
-          outgoingTransfer: null,
           canceledOutgoingTransfer: {
             transferId: "trf_nyjwa2",
             settlementId: "stl_5B8cwPMGnU",
@@ -169,7 +170,9 @@ let value: ListBalanceTransactionsResponse = {
             feeType: "feeType",
             feeId: "feeId",
           },
-          postPaymentSplitPayment: null,
+          postPaymentSplitPayment: {
+            paymentId: "tr_5B8cwPMGnU",
+          },
         },
         createdAt: "2024-03-20T09:13:37.0Z",
       },
@@ -202,4 +205,4 @@ let value: ListBalanceTransactionsResponse = {
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
 | `embedded`                                                                                                                                                                                                                                                                | [operations.ListBalanceTransactionsEmbedded](../../models/operations/listbalancetransactionsembedded.md)                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
-| `links`                                                                                                                                                                                                                                                                   | [operations.ListBalanceTransactionsLinks](../../models/operations/listbalancetransactionslinks.md)                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |
+| `links`                                                                                                                                                                                                                                                                   | [models.ListLinks](../../models/listlinks.md)                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |

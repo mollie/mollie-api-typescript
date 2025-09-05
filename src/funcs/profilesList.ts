@@ -40,7 +40,7 @@ export function profilesList(
 ): APIPromise<
   Result<
     operations.ListProfilesResponse,
-    | errors.ListProfilesHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.ListProfilesResponse,
-      | errors.ListProfilesHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -163,7 +163,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListProfilesResponse,
-    | errors.ListProfilesHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -176,7 +176,7 @@ async function $do(
     M.json(200, operations.ListProfilesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListProfilesHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

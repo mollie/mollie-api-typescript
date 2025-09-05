@@ -57,7 +57,7 @@ export function walletsRequestApplePaySession(
 ): APIPromise<
   Result<
     { [k: string]: any },
-    | errors.RequestApplePayPaymentSessionHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -83,7 +83,7 @@ async function $do(
   [
     Result<
       { [k: string]: any },
-      | errors.RequestApplePayPaymentSessionHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -178,7 +178,7 @@ async function $do(
 
   const [result] = await M.match<
     { [k: string]: any },
-    | errors.RequestApplePayPaymentSessionHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -189,11 +189,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(201, z.record(z.any()), { ctype: "application/hal+json" }),
-    M.jsonErr(
-      422,
-      errors.RequestApplePayPaymentSessionHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
+    M.jsonErr(422, errors.ErrorResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

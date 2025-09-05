@@ -6,6 +6,7 @@ import { capturesCreate } from "../funcs/capturesCreate.js";
 import { capturesGet } from "../funcs/capturesGet.js";
 import { capturesList } from "../funcs/capturesList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -26,7 +27,7 @@ export class Captures extends ClientSDK {
   async create(
     request: operations.CreateCaptureRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateCaptureResponse> {
+  ): Promise<models.CaptureResponse> {
     return unwrapAsync(capturesCreate(
       this,
       request,
@@ -63,7 +64,7 @@ export class Captures extends ClientSDK {
   async get(
     request: operations.GetCaptureRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetCaptureResponse> {
+  ): Promise<models.CaptureResponse> {
     return unwrapAsync(capturesGet(
       this,
       request,

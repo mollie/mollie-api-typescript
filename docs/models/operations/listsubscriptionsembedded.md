@@ -30,7 +30,6 @@ let value: ListSubscriptionsEmbedded = {
         },
         description: "Platform fee",
       },
-      metadata: "<value>",
       webhookUrl: "https://example.com/webhook",
       customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
@@ -49,7 +48,10 @@ let value: ListSubscriptionsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        profile: null,
+        profile: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
         payments: {
           href: "https://...",
           type: "application/hal+json",
@@ -66,6 +68,6 @@ let value: ListSubscriptionsEmbedded = {
 
 ## Fields
 
-| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `subscriptions`                                                                                        | [operations.ListSubscriptionsSubscription](../../models/operations/listsubscriptionssubscription.md)[] | :heavy_minus_sign:                                                                                     | An array of subscription objects.                                                                      |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `subscriptions`                                                       | [models.SubscriptionResponse](../../models/subscriptionresponse.md)[] | :heavy_minus_sign:                                                    | An array of subscription objects.                                     |

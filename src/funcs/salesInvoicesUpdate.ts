@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -43,9 +44,8 @@ export function salesInvoicesUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdateSalesInvoiceResponse,
-    | errors.UpdateSalesInvoiceNotFoundHalJSONError
-    | errors.UpdateSalesInvoiceUnprocessableEntityHalJSONError
+    models.EntitySalesInvoiceResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -70,9 +70,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.UpdateSalesInvoiceResponse,
-      | errors.UpdateSalesInvoiceNotFoundHalJSONError
-      | errors.UpdateSalesInvoiceUnprocessableEntityHalJSONError
+      models.EntitySalesInvoiceResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -94,7 +93,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload["update-values-sales-invoice"], {
+    explode: true,
+  });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -169,9 +170,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdateSalesInvoiceResponse,
-    | errors.UpdateSalesInvoiceNotFoundHalJSONError
-    | errors.UpdateSalesInvoiceUnprocessableEntityHalJSONError
+    models.EntitySalesInvoiceResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -181,19 +181,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdateSalesInvoiceResponse$inboundSchema, {
+    M.json(200, models.EntitySalesInvoiceResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      404,
-      errors.UpdateSalesInvoiceNotFoundHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
-    M.jsonErr(
-      422,
-      errors.UpdateSalesInvoiceUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

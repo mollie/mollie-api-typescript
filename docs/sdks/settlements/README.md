@@ -99,11 +99,10 @@ run();
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.ListSettlementsBadRequestHalJSONError | 400                                          | application/hal+json                         |
-| errors.ListSettlementsNotFoundHalJSONError   | 404                                          | application/hal+json                         |
-| errors.ClientDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -185,14 +184,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetSettlementResponse](../../models/operations/getsettlementresponse.md)\>**
+**Promise\<[models.EntitySettlement](../../models/entitysettlement.md)\>**
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.GetSettlementHalJSONError | 404                              | application/hal+json             |
-| errors.ClientDefaultError        | 4XX, 5XX                         | \*/\*                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## getOpen
 
@@ -265,7 +264,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOpenSettlementResponse](../../models/operations/getopensettlementresponse.md)\>**
+**Promise\<[models.EntitySettlement](../../models/entitysettlement.md)\>**
 
 ### Errors
 
@@ -343,7 +342,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetNextSettlementResponse](../../models/operations/getnextsettlementresponse.md)\>**
+**Promise\<[models.EntitySettlement](../../models/entitysettlement.md)\>**
 
 ### Errors
 
@@ -439,10 +438,10 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.ListSettlementPaymentsHalJSONError | 400                                       | application/hal+json                      |
-| errors.ClientDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listCaptures
 
@@ -527,11 +526,10 @@ run();
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.ListSettlementCapturesBadRequestHalJSONError | 400                                                 | application/hal+json                                |
-| errors.ListSettlementCapturesNotFoundHalJSONError   | 404                                                 | application/hal+json                                |
-| errors.ClientDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listRefunds
 
@@ -616,11 +614,10 @@ run();
 
 ### Errors
 
-| Error Type                                         | Status Code                                        | Content Type                                       |
-| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| errors.ListSettlementRefundsBadRequestHalJSONError | 400                                                | application/hal+json                               |
-| errors.ListSettlementRefundsNotFoundHalJSONError   | 404                                                | application/hal+json                               |
-| errors.ClientDefaultError                          | 4XX, 5XX                                           | \*/\*                                              |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listChargebacks
 
@@ -705,8 +702,7 @@ run();
 
 ### Errors
 
-| Error Type                                             | Status Code                                            | Content Type                                           |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| errors.ListSettlementChargebacksBadRequestHalJSONError | 400                                                    | application/hal+json                                   |
-| errors.ListSettlementChargebacksNotFoundHalJSONError   | 404                                                    | application/hal+json                                   |
-| errors.ClientDefaultError                              | 4XX, 5XX                                               | \*/\*                                                  |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

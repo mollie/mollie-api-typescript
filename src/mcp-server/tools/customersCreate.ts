@@ -3,11 +3,11 @@
  */
 
 import { customersCreate } from "../../funcs/customersCreate.js";
-import * as operations from "../../models/operations/index.js";
+import * as models from "../../models/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.CreateCustomerRequest$inboundSchema.optional(),
+  request: models.EntityCustomer$inboundSchema.optional(),
 };
 
 export const tool$customersCreate: ToolDefinition<typeof args> = {

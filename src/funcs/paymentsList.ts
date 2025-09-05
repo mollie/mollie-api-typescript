@@ -40,7 +40,7 @@ export function paymentsList(
 ): APIPromise<
   Result<
     operations.ListPaymentsResponse,
-    | errors.ListPaymentsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.ListPaymentsResponse,
-      | errors.ListPaymentsHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -166,7 +166,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListPaymentsResponse,
-    | errors.ListPaymentsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -179,7 +179,7 @@ async function $do(
     M.json(200, operations.ListPaymentsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListPaymentsHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

@@ -8,6 +8,7 @@ import { balancesGetReport } from "../funcs/balancesGetReport.js";
 import { balancesList } from "../funcs/balancesList.js";
 import { balancesListTransactions } from "../funcs/balancesListTransactions.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -54,7 +55,7 @@ export class Balances extends ClientSDK {
   async get(
     request: operations.GetBalanceRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetBalanceResponse> {
+  ): Promise<models.EntityBalance> {
     return unwrapAsync(balancesGet(
       this,
       request,
@@ -74,7 +75,7 @@ export class Balances extends ClientSDK {
    */
   async getPrimary(
     options?: RequestOptions,
-  ): Promise<operations.GetPrimaryBalanceResponse> {
+  ): Promise<models.EntityBalance> {
     return unwrapAsync(balancesGetPrimary(
       this,
       options,
@@ -96,7 +97,7 @@ export class Balances extends ClientSDK {
   async getReport(
     request: operations.GetBalanceReportRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetBalanceReportResponse> {
+  ): Promise<models.EntityBalanceReport> {
     return unwrapAsync(balancesGetReport(
       this,
       request,

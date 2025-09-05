@@ -39,8 +39,7 @@ export function webhooksTest(
 ): APIPromise<
   Result<
     any,
-    | errors.TestWebhookNotFoundHalJSONError
-    | errors.TestWebhookUnprocessableEntityHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,8 +65,7 @@ async function $do(
   [
     Result<
       any,
-      | errors.TestWebhookNotFoundHalJSONError
-      | errors.TestWebhookUnprocessableEntityHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -165,8 +163,7 @@ async function $do(
 
   const [result] = await M.match<
     any,
-    | errors.TestWebhookNotFoundHalJSONError
-    | errors.TestWebhookUnprocessableEntityHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -177,14 +174,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(202, z.any(), { ctype: "application/hal+json" }),
-    M.jsonErr(404, errors.TestWebhookNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      422,
-      errors.TestWebhookUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

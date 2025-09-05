@@ -14,9 +14,6 @@ let value: ListCustomersEmbedded = {
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
-      metadata: {
-        "0": "<value 1>",
-      },
       createdAt: "2024-03-20T09:13:37.0Z",
       links: {
         self: {
@@ -51,6 +48,6 @@ let value: ListCustomersEmbedded = {
 
 ## Fields
 
-| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `customers`                                                                            | [operations.ListCustomersCustomer](../../models/operations/listcustomerscustomer.md)[] | :heavy_minus_sign:                                                                     | An array of customer objects.                                                          |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `customers`                                                   | [models.CustomerResponse](../../models/customerresponse.md)[] | :heavy_check_mark:                                            | An array of customer objects.                                 |

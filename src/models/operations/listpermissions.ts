@@ -7,123 +7,13 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type ListPermissionsBadRequestDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type ListPermissionsBadRequestLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: ListPermissionsBadRequestDocumentation;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type PermissionSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type PermissionDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type PermissionLinks = {
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  self?: PermissionSelf | undefined;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation?: PermissionDocumentation | undefined;
-};
-
-export type Permission = {
-  /**
-   * Indicates the response contains a permission object. Will always contain the string `permission` for this
-   *
-   * @remarks
-   * endpoint.
-   */
-  resource?: string | undefined;
-  /**
-   * The identifier uniquely referring to this permission. Example: `payments.read`.
-   */
-  id?: string | undefined;
-  /**
-   * A short description of what kind of access the permission enables.
-   */
-  description?: string | undefined;
-  /**
-   * Whether this permission is granted to the app by the organization.
-   */
-  granted?: boolean | undefined;
-  /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links?: PermissionLinks | undefined;
-};
+import * as models from "../index.js";
 
 export type ListPermissionsEmbedded = {
   /**
    * An array of permission objects.
    */
-  permissions?: Array<Permission> | undefined;
-};
-
-/**
- * The URL to the current set of items.
- */
-export type ListPermissionsSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListPermissionsDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
+  permissions?: Array<models.EntityPermission> | undefined;
 };
 
 /**
@@ -131,13 +21,13 @@ export type ListPermissionsDocumentation = {
  */
 export type ListPermissionsLinks = {
   /**
-   * The URL to the current set of items.
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: ListPermissionsSelf | undefined;
+  self?: models.Url | undefined;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: ListPermissionsDocumentation | undefined;
+  documentation?: models.Url | undefined;
 };
 
 /**
@@ -162,376 +52,17 @@ export type ListPermissionsResponse = {
 };
 
 /** @internal */
-export const ListPermissionsBadRequestDocumentation$inboundSchema: z.ZodType<
-  ListPermissionsBadRequestDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListPermissionsBadRequestDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListPermissionsBadRequestDocumentation$outboundSchema: z.ZodType<
-  ListPermissionsBadRequestDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListPermissionsBadRequestDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsBadRequestDocumentation$ {
-  /** @deprecated use `ListPermissionsBadRequestDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    ListPermissionsBadRequestDocumentation$inboundSchema;
-  /** @deprecated use `ListPermissionsBadRequestDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    ListPermissionsBadRequestDocumentation$outboundSchema;
-  /** @deprecated use `ListPermissionsBadRequestDocumentation$Outbound` instead. */
-  export type Outbound = ListPermissionsBadRequestDocumentation$Outbound;
-}
-
-export function listPermissionsBadRequestDocumentationToJSON(
-  listPermissionsBadRequestDocumentation:
-    ListPermissionsBadRequestDocumentation,
-): string {
-  return JSON.stringify(
-    ListPermissionsBadRequestDocumentation$outboundSchema.parse(
-      listPermissionsBadRequestDocumentation,
-    ),
-  );
-}
-
-export function listPermissionsBadRequestDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListPermissionsBadRequestDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListPermissionsBadRequestDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPermissionsBadRequestDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListPermissionsBadRequestLinks$inboundSchema: z.ZodType<
-  ListPermissionsBadRequestLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() =>
-    ListPermissionsBadRequestDocumentation$inboundSchema
-  ),
-});
-
-/** @internal */
-export type ListPermissionsBadRequestLinks$Outbound = {
-  documentation: ListPermissionsBadRequestDocumentation$Outbound;
-};
-
-/** @internal */
-export const ListPermissionsBadRequestLinks$outboundSchema: z.ZodType<
-  ListPermissionsBadRequestLinks$Outbound,
-  z.ZodTypeDef,
-  ListPermissionsBadRequestLinks
-> = z.object({
-  documentation: z.lazy(() =>
-    ListPermissionsBadRequestDocumentation$outboundSchema
-  ),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsBadRequestLinks$ {
-  /** @deprecated use `ListPermissionsBadRequestLinks$inboundSchema` instead. */
-  export const inboundSchema = ListPermissionsBadRequestLinks$inboundSchema;
-  /** @deprecated use `ListPermissionsBadRequestLinks$outboundSchema` instead. */
-  export const outboundSchema = ListPermissionsBadRequestLinks$outboundSchema;
-  /** @deprecated use `ListPermissionsBadRequestLinks$Outbound` instead. */
-  export type Outbound = ListPermissionsBadRequestLinks$Outbound;
-}
-
-export function listPermissionsBadRequestLinksToJSON(
-  listPermissionsBadRequestLinks: ListPermissionsBadRequestLinks,
-): string {
-  return JSON.stringify(
-    ListPermissionsBadRequestLinks$outboundSchema.parse(
-      listPermissionsBadRequestLinks,
-    ),
-  );
-}
-
-export function listPermissionsBadRequestLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListPermissionsBadRequestLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListPermissionsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPermissionsBadRequestLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const PermissionSelf$inboundSchema: z.ZodType<
-  PermissionSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type PermissionSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const PermissionSelf$outboundSchema: z.ZodType<
-  PermissionSelf$Outbound,
-  z.ZodTypeDef,
-  PermissionSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PermissionSelf$ {
-  /** @deprecated use `PermissionSelf$inboundSchema` instead. */
-  export const inboundSchema = PermissionSelf$inboundSchema;
-  /** @deprecated use `PermissionSelf$outboundSchema` instead. */
-  export const outboundSchema = PermissionSelf$outboundSchema;
-  /** @deprecated use `PermissionSelf$Outbound` instead. */
-  export type Outbound = PermissionSelf$Outbound;
-}
-
-export function permissionSelfToJSON(permissionSelf: PermissionSelf): string {
-  return JSON.stringify(PermissionSelf$outboundSchema.parse(permissionSelf));
-}
-
-export function permissionSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<PermissionSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PermissionSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PermissionSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const PermissionDocumentation$inboundSchema: z.ZodType<
-  PermissionDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type PermissionDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const PermissionDocumentation$outboundSchema: z.ZodType<
-  PermissionDocumentation$Outbound,
-  z.ZodTypeDef,
-  PermissionDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PermissionDocumentation$ {
-  /** @deprecated use `PermissionDocumentation$inboundSchema` instead. */
-  export const inboundSchema = PermissionDocumentation$inboundSchema;
-  /** @deprecated use `PermissionDocumentation$outboundSchema` instead. */
-  export const outboundSchema = PermissionDocumentation$outboundSchema;
-  /** @deprecated use `PermissionDocumentation$Outbound` instead. */
-  export type Outbound = PermissionDocumentation$Outbound;
-}
-
-export function permissionDocumentationToJSON(
-  permissionDocumentation: PermissionDocumentation,
-): string {
-  return JSON.stringify(
-    PermissionDocumentation$outboundSchema.parse(permissionDocumentation),
-  );
-}
-
-export function permissionDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<PermissionDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PermissionDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PermissionDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const PermissionLinks$inboundSchema: z.ZodType<
-  PermissionLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: z.lazy(() => PermissionSelf$inboundSchema).optional(),
-  documentation: z.lazy(() => PermissionDocumentation$inboundSchema).optional(),
-});
-
-/** @internal */
-export type PermissionLinks$Outbound = {
-  self?: PermissionSelf$Outbound | undefined;
-  documentation?: PermissionDocumentation$Outbound | undefined;
-};
-
-/** @internal */
-export const PermissionLinks$outboundSchema: z.ZodType<
-  PermissionLinks$Outbound,
-  z.ZodTypeDef,
-  PermissionLinks
-> = z.object({
-  self: z.lazy(() => PermissionSelf$outboundSchema).optional(),
-  documentation: z.lazy(() => PermissionDocumentation$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PermissionLinks$ {
-  /** @deprecated use `PermissionLinks$inboundSchema` instead. */
-  export const inboundSchema = PermissionLinks$inboundSchema;
-  /** @deprecated use `PermissionLinks$outboundSchema` instead. */
-  export const outboundSchema = PermissionLinks$outboundSchema;
-  /** @deprecated use `PermissionLinks$Outbound` instead. */
-  export type Outbound = PermissionLinks$Outbound;
-}
-
-export function permissionLinksToJSON(
-  permissionLinks: PermissionLinks,
-): string {
-  return JSON.stringify(PermissionLinks$outboundSchema.parse(permissionLinks));
-}
-
-export function permissionLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<PermissionLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PermissionLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PermissionLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const Permission$inboundSchema: z.ZodType<
-  Permission,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  description: z.string().optional(),
-  granted: z.boolean().optional(),
-  _links: z.lazy(() => PermissionLinks$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
-
-/** @internal */
-export type Permission$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  description?: string | undefined;
-  granted?: boolean | undefined;
-  _links?: PermissionLinks$Outbound | undefined;
-};
-
-/** @internal */
-export const Permission$outboundSchema: z.ZodType<
-  Permission$Outbound,
-  z.ZodTypeDef,
-  Permission
-> = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  description: z.string().optional(),
-  granted: z.boolean().optional(),
-  links: z.lazy(() => PermissionLinks$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Permission$ {
-  /** @deprecated use `Permission$inboundSchema` instead. */
-  export const inboundSchema = Permission$inboundSchema;
-  /** @deprecated use `Permission$outboundSchema` instead. */
-  export const outboundSchema = Permission$outboundSchema;
-  /** @deprecated use `Permission$Outbound` instead. */
-  export type Outbound = Permission$Outbound;
-}
-
-export function permissionToJSON(permission: Permission): string {
-  return JSON.stringify(Permission$outboundSchema.parse(permission));
-}
-
-export function permissionFromJSON(
-  jsonString: string,
-): SafeParseResult<Permission, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Permission$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Permission' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListPermissionsEmbedded$inboundSchema: z.ZodType<
   ListPermissionsEmbedded,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  permissions: z.array(z.lazy(() => Permission$inboundSchema)).optional(),
+  permissions: z.array(models.EntityPermission$inboundSchema).optional(),
 });
 
 /** @internal */
 export type ListPermissionsEmbedded$Outbound = {
-  permissions?: Array<Permission$Outbound> | undefined;
+  permissions?: Array<models.EntityPermission$Outbound> | undefined;
 };
 
 /** @internal */
@@ -540,7 +71,7 @@ export const ListPermissionsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPermissionsEmbedded
 > = z.object({
-  permissions: z.array(z.lazy(() => Permission$outboundSchema)).optional(),
+  permissions: z.array(models.EntityPermission$outboundSchema).optional(),
 });
 
 /**
@@ -575,136 +106,19 @@ export function listPermissionsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListPermissionsSelf$inboundSchema: z.ZodType<
-  ListPermissionsSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListPermissionsSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListPermissionsSelf$outboundSchema: z.ZodType<
-  ListPermissionsSelf$Outbound,
-  z.ZodTypeDef,
-  ListPermissionsSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsSelf$ {
-  /** @deprecated use `ListPermissionsSelf$inboundSchema` instead. */
-  export const inboundSchema = ListPermissionsSelf$inboundSchema;
-  /** @deprecated use `ListPermissionsSelf$outboundSchema` instead. */
-  export const outboundSchema = ListPermissionsSelf$outboundSchema;
-  /** @deprecated use `ListPermissionsSelf$Outbound` instead. */
-  export type Outbound = ListPermissionsSelf$Outbound;
-}
-
-export function listPermissionsSelfToJSON(
-  listPermissionsSelf: ListPermissionsSelf,
-): string {
-  return JSON.stringify(
-    ListPermissionsSelf$outboundSchema.parse(listPermissionsSelf),
-  );
-}
-
-export function listPermissionsSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<ListPermissionsSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListPermissionsSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPermissionsSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListPermissionsDocumentation$inboundSchema: z.ZodType<
-  ListPermissionsDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListPermissionsDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListPermissionsDocumentation$outboundSchema: z.ZodType<
-  ListPermissionsDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListPermissionsDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsDocumentation$ {
-  /** @deprecated use `ListPermissionsDocumentation$inboundSchema` instead. */
-  export const inboundSchema = ListPermissionsDocumentation$inboundSchema;
-  /** @deprecated use `ListPermissionsDocumentation$outboundSchema` instead. */
-  export const outboundSchema = ListPermissionsDocumentation$outboundSchema;
-  /** @deprecated use `ListPermissionsDocumentation$Outbound` instead. */
-  export type Outbound = ListPermissionsDocumentation$Outbound;
-}
-
-export function listPermissionsDocumentationToJSON(
-  listPermissionsDocumentation: ListPermissionsDocumentation,
-): string {
-  return JSON.stringify(
-    ListPermissionsDocumentation$outboundSchema.parse(
-      listPermissionsDocumentation,
-    ),
-  );
-}
-
-export function listPermissionsDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListPermissionsDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListPermissionsDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPermissionsDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListPermissionsLinks$inboundSchema: z.ZodType<
   ListPermissionsLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListPermissionsSelf$inboundSchema).optional(),
-  documentation: z.lazy(() => ListPermissionsDocumentation$inboundSchema)
-    .optional(),
+  self: models.Url$inboundSchema.optional(),
+  documentation: models.Url$inboundSchema.optional(),
 });
 
 /** @internal */
 export type ListPermissionsLinks$Outbound = {
-  self?: ListPermissionsSelf$Outbound | undefined;
-  documentation?: ListPermissionsDocumentation$Outbound | undefined;
+  self?: models.Url$Outbound | undefined;
+  documentation?: models.Url$Outbound | undefined;
 };
 
 /** @internal */
@@ -713,9 +127,8 @@ export const ListPermissionsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPermissionsLinks
 > = z.object({
-  self: z.lazy(() => ListPermissionsSelf$outboundSchema).optional(),
-  documentation: z.lazy(() => ListPermissionsDocumentation$outboundSchema)
-    .optional(),
+  self: models.Url$outboundSchema.optional(),
+  documentation: models.Url$outboundSchema.optional(),
 });
 
 /**

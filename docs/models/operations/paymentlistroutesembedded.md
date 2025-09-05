@@ -38,6 +38,6 @@ let value: PaymentListRoutesEmbedded = {
 
 ## Fields
 
-| Field                                                  | Type                                                   | Required                                               | Description                                            |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| `routes`                                               | [operations.Route](../../models/operations/route.md)[] | :heavy_minus_sign:                                     | An array of route objects.                             |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `routes`                                                      | [models.RouteGetResponse](../../models/routegetresponse.md)[] | :heavy_minus_sign:                                            | An array of route objects.                                    |

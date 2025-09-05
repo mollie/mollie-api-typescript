@@ -159,7 +159,12 @@ let value: GetPaymentLinkPaymentsEmbedded = {
       settlementId: "stl_5B8cwPMGnU",
       orderId: "ord_5B8cwPMGnU",
       status: "open",
-      statusReason: null,
+      statusReason: {
+        code: "insufficient_funds",
+        message:
+          "The account associated with the card has insufficient funds. The shopper should use another payment method or\n"
+          + "contact their bank.",
+      },
       isCancelable: true,
       details: {
         consumerName: "John Doe",
@@ -287,6 +292,6 @@ let value: GetPaymentLinkPaymentsEmbedded = {
 
 ## Fields
 
-| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `payments`                                                                                                         | [operations.GetPaymentLinkPaymentsPaymentOutput](../../models/operations/getpaymentlinkpaymentspaymentoutput.md)[] | :heavy_minus_sign:                                                                                                 | An array of payment objects.                                                                                       |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `payments`                                                  | [models.PaymentResponse](../../models/paymentresponse.md)[] | :heavy_minus_sign:                                          | An array of payment objects.                                |

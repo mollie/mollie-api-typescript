@@ -5,6 +5,7 @@
 import { terminalsGet } from "../funcs/terminalsGet.js";
 import { terminalsList } from "../funcs/terminalsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -37,7 +38,7 @@ export class Terminals extends ClientSDK {
   async get(
     request: operations.GetTerminalRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetTerminalResponse> {
+  ): Promise<models.EntityTerminal> {
     return unwrapAsync(terminalsGet(
       this,
       request,

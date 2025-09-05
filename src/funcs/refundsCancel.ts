@@ -43,7 +43,7 @@ export function refundsCancel(
 ): APIPromise<
   Result<
     any,
-    | errors.CancelRefundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -69,7 +69,7 @@ async function $do(
   [
     Result<
       any,
-      | errors.CancelRefundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -177,7 +177,7 @@ async function $do(
 
   const [result] = await M.match<
     any,
-    | errors.CancelRefundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -188,7 +188,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(204, z.any(), { ctype: "application/hal+json" }),
-    M.jsonErr(404, errors.CancelRefundHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

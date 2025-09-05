@@ -33,6 +33,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.salesInvoices.create({
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     testmode: false,
     profileId: "pfl_QkEhN94Ba",
     status: "draft",
@@ -72,6 +73,26 @@ async function run() {
     lines: [],
     discount: {
       type: "amount",
+      value: "10.00",
+    },
+    amountDue: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    subtotalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    totalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    totalVatAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    discountedSubtotalAmount: {
+      currency: "EUR",
       value: "10.00",
     },
   });
@@ -100,6 +121,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await salesInvoicesCreate(client, {
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     testmode: false,
     profileId: "pfl_QkEhN94Ba",
     status: "draft",
@@ -141,6 +163,26 @@ async function run() {
       type: "amount",
       value: "10.00",
     },
+    amountDue: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    subtotalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    totalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    totalVatAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    discountedSubtotalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -157,22 +199,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateSalesInvoiceRequest](../../models/operations/createsalesinvoicerequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.EntitySalesInvoice](../../models/entitysalesinvoice.md)                                                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.CreateSalesInvoiceResponse](../../models/operations/createsalesinvoiceresponse.md)\>**
+**Promise\<[models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)\>**
 
 ### Errors
 
-| Error Type                                               | Status Code                                              | Content Type                                             |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| errors.CreateSalesInvoiceNotFoundHalJSONError            | 404                                                      | application/hal+json                                     |
-| errors.CreateSalesInvoiceUnprocessableEntityHalJSONError | 422                                                      | application/hal+json                                     |
-| errors.ClientDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -257,10 +298,10 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ListSalesInvoicesHalJSONError | 400                                  | application/hal+json                 |
-| errors.ClientDefaultError            | 4XX, 5XX                             | \*/\*                                |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -337,14 +378,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetSalesInvoiceResponse](../../models/operations/getsalesinvoiceresponse.md)\>**
+**Promise\<[models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetSalesInvoiceHalJSONError | 404                                | application/hal+json               |
-| errors.ClientDefaultError          | 4XX, 5XX                           | \*/\*                              |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -371,7 +412,7 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.update({
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    requestBody: {
+    updateValuesSalesInvoice: {
       testmode: false,
       status: "paid",
       memo: "An updated memo!",
@@ -450,7 +491,7 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesUpdate(client, {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    requestBody: {
+    updateValuesSalesInvoice: {
       testmode: false,
       status: "paid",
       memo: "An updated memo!",
@@ -525,15 +566,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateSalesInvoiceResponse](../../models/operations/updatesalesinvoiceresponse.md)\>**
+**Promise\<[models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)\>**
 
 ### Errors
 
-| Error Type                                               | Status Code                                              | Content Type                                             |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| errors.UpdateSalesInvoiceNotFoundHalJSONError            | 404                                                      | application/hal+json                                     |
-| errors.UpdateSalesInvoiceUnprocessableEntityHalJSONError | 422                                                      | application/hal+json                                     |
-| errors.ClientDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -559,7 +599,7 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.delete({
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    requestBody: {
+    deleteValuesSalesInvoice: {
       testmode: false,
     },
   });
@@ -589,7 +629,7 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesDelete(client, {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    requestBody: {
+    deleteValuesSalesInvoice: {
       testmode: false,
     },
   });
@@ -619,8 +659,7 @@ run();
 
 ### Errors
 
-| Error Type                                               | Status Code                                              | Content Type                                             |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| errors.DeleteSalesInvoiceNotFoundHalJSONError            | 404                                                      | application/hal+json                                     |
-| errors.DeleteSalesInvoiceUnprocessableEntityHalJSONError | 422                                                      | application/hal+json                                     |
-| errors.ClientDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

@@ -7,6 +7,7 @@ import { mandatesGet } from "../funcs/mandatesGet.js";
 import { mandatesList } from "../funcs/mandatesList.js";
 import { mandatesRevoke } from "../funcs/mandatesRevoke.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -24,7 +25,7 @@ export class Mandates extends ClientSDK {
   async create(
     request: operations.CreateMandateRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateMandateResponse> {
+  ): Promise<models.MandateResponse> {
     return unwrapAsync(mandatesCreate(
       this,
       request,
@@ -61,7 +62,7 @@ export class Mandates extends ClientSDK {
   async get(
     request: operations.GetMandateRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetMandateResponse> {
+  ): Promise<models.MandateResponse> {
     return unwrapAsync(mandatesGet(
       this,
       request,

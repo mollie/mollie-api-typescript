@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -40,10 +41,8 @@ export function profilesUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdateProfileResponse,
-    | errors.UpdateProfileNotFoundHalJSONError
-    | errors.UpdateProfileGoneHalJSONError
-    | errors.UpdateProfileUnprocessableEntityHalJSONError
+    models.EntityProfileResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -68,10 +67,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.UpdateProfileResponse,
-      | errors.UpdateProfileNotFoundHalJSONError
-      | errors.UpdateProfileGoneHalJSONError
-      | errors.UpdateProfileUnprocessableEntityHalJSONError
+      models.EntityProfileResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -168,10 +165,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdateProfileResponse,
-    | errors.UpdateProfileNotFoundHalJSONError
-    | errors.UpdateProfileGoneHalJSONError
-    | errors.UpdateProfileUnprocessableEntityHalJSONError
+    models.EntityProfileResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -181,20 +176,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdateProfileResponse$inboundSchema, {
+    M.json(200, models.EntityProfileResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.UpdateProfileNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([404, 410, 422], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(410, errors.UpdateProfileGoneHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(
-      422,
-      errors.UpdateProfileUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

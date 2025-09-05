@@ -37,6 +37,6 @@ let value: ListTerminalsEmbedded = {
 
 ## Fields
 
-| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `terminals`                                                                            | [operations.ListTerminalsTerminal](../../models/operations/listterminalsterminal.md)[] | :heavy_minus_sign:                                                                     | An array of terminal objects.                                                          |
+| Field                                                     | Type                                                      | Required                                                  | Description                                               |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `terminals`                                               | [models.EntityTerminal](../../models/entityterminal.md)[] | :heavy_minus_sign:                                        | An array of terminal objects.                             |

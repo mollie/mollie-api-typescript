@@ -24,7 +24,10 @@ let value: ListBalanceTransactionsEmbedded = {
         value: "10.00",
       },
       context: {
-        payment: null,
+        payment: {
+          paymentId: "tr_5B8cwPMGnU",
+          paymentDescription: "Payment Description",
+        },
         capture: {
           paymentId: "tr_5B8cwPMGnU",
           paymentDescription: "Payment Description",
@@ -88,13 +91,11 @@ let value: ListBalanceTransactionsEmbedded = {
           chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
           chargebackDescription: "Chargeback Description",
         },
-        reversedChargebackCompensation: {
-          paymentId: "tr_5B8cwPMGnU",
-          paymentDescription: "Payment Description",
-          chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-          chargebackDescription: "Chargeback Description",
+        reversedChargebackCompensation: null,
+        outgoingTransfer: {
+          transferId: "trf_nyjwa2",
+          settlementId: "stl_5B8cwPMGnU",
         },
-        outgoingTransfer: null,
         canceledOutgoingTransfer: {
           transferId: "trf_nyjwa2",
           settlementId: "stl_5B8cwPMGnU",
@@ -165,7 +166,9 @@ let value: ListBalanceTransactionsEmbedded = {
           feeType: "feeType",
           feeId: "feeId",
         },
-        postPaymentSplitPayment: null,
+        postPaymentSplitPayment: {
+          paymentId: "tr_5B8cwPMGnU",
+        },
       },
       createdAt: "2024-03-20T09:13:37.0Z",
     },
@@ -175,6 +178,6 @@ let value: ListBalanceTransactionsEmbedded = {
 
 ## Fields
 
-| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `balanceTransactions`                                                            | [operations.BalanceTransaction](../../models/operations/balancetransaction.md)[] | :heavy_minus_sign:                                                               | An array of balance transaction objects.                                         |
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `balanceTransactions`                                                         | [models.EntityBalanceTransaction](../../models/entitybalancetransaction.md)[] | :heavy_minus_sign:                                                            | An array of balance transaction objects.                                      |

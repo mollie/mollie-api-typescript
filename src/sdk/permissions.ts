@@ -5,6 +5,7 @@
 import { permissionsGet } from "../funcs/permissionsGet.js";
 import { permissionsList } from "../funcs/permissionsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -35,7 +36,7 @@ export class Permissions extends ClientSDK {
   async get(
     request: operations.GetPermissionRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetPermissionResponse> {
+  ): Promise<models.EntityPermission> {
     return unwrapAsync(permissionsGet(
       this,
       request,

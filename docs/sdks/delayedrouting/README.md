@@ -28,7 +28,9 @@ const client = new Client({
 async function run() {
   const result = await client.delayedRouting.create({
     paymentId: "tr_5B8cwPMGnU",
-    requestBody: {
+    routeCreateRequest: {
+      id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
+      paymentId: "tr_5B8cwPMGnU",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -67,7 +69,9 @@ const client = new ClientCore({
 async function run() {
   const res = await delayedRoutingCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
-    requestBody: {
+    routeCreateRequest: {
+      id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
+      paymentId: "tr_5B8cwPMGnU",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -102,14 +106,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.PaymentCreateRouteResponse](../../models/operations/paymentcreaterouteresponse.md)\>**
+**Promise\<[models.RouteCreateResponse](../../models/routecreateresponse.md)\>**
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.PaymentCreateRouteHalJSONError | 404                                   | application/hal+json                  |
-| errors.ClientDefaultError             | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -186,7 +190,7 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.PaymentListRoutesHalJSONError | 404                                  | application/hal+json                 |
-| errors.ClientDefaultError            | 4XX, 5XX                             | \*/\*                                |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

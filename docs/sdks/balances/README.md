@@ -92,11 +92,10 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.ListBalancesBadRequestHalJSONError | 400                                       | application/hal+json                      |
-| errors.ListBalancesNotFoundHalJSONError   | 404                                       | application/hal+json                      |
-| errors.ClientDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -183,14 +182,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetBalanceResponse](../../models/operations/getbalanceresponse.md)\>**
+**Promise\<[models.EntityBalance](../../models/entitybalance.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.GetBalanceHalJSONError | 404                           | application/hal+json          |
-| errors.ClientDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## getPrimary
 
@@ -260,7 +259,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPrimaryBalanceResponse](../../models/operations/getprimarybalanceresponse.md)\>**
+**Promise\<[models.EntityBalance](../../models/entitybalance.md)\>**
 
 ### Errors
 
@@ -351,15 +350,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetBalanceReportResponse](../../models/operations/getbalancereportresponse.md)\>**
+**Promise\<[models.EntityBalanceReport](../../models/entitybalancereport.md)\>**
 
 ### Errors
 
-| Error Type                                             | Status Code                                            | Content Type                                           |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| errors.GetBalanceReportNotFoundHalJSONError            | 404                                                    | application/hal+json                                   |
-| errors.GetBalanceReportUnprocessableEntityHalJSONError | 422                                                    | application/hal+json                                   |
-| errors.ClientDefaultError                              | 4XX, 5XX                                               | \*/\*                                                  |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listTransactions
 
@@ -449,9 +447,7 @@ run();
 
 ### Errors
 
-| Error Type                                           | Status Code                                          | Content Type                                         |
-| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| errors.ListBalanceTransactionsBadRequestHalJSONError | 400                                                  | application/hal+json                                 |
-| errors.ListBalanceTransactionsNotFoundHalJSONError   | 404                                                  | application/hal+json                                 |
-| errors.TooManyRequestsHalJSONError                   | 429                                                  | application/hal+json                                 |
-| errors.ClientDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404, 429             | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

@@ -7,112 +7,15 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type DeleteSalesInvoiceRequestBody = {
-  /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
-   *
-   * @remarks
-   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | null | undefined;
-};
+import * as models from "../index.js";
 
 export type DeleteSalesInvoiceRequest = {
   /**
    * Provide the ID of the item you want to perform this operation on.
    */
   id: string;
-  requestBody?: DeleteSalesInvoiceRequestBody | undefined;
+  deleteValuesSalesInvoice?: models.DeleteValuesSalesInvoice | undefined;
 };
-
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type DeleteSalesInvoiceUnprocessableEntityDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type DeleteSalesInvoiceUnprocessableEntityLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: DeleteSalesInvoiceUnprocessableEntityDocumentation;
-};
-
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type DeleteSalesInvoiceNotFoundDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type DeleteSalesInvoiceNotFoundLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: DeleteSalesInvoiceNotFoundDocumentation;
-};
-
-/** @internal */
-export const DeleteSalesInvoiceRequestBody$inboundSchema: z.ZodType<
-  DeleteSalesInvoiceRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
-
-/** @internal */
-export type DeleteSalesInvoiceRequestBody$Outbound = {
-  testmode?: boolean | null | undefined;
-};
-
-/** @internal */
-export const DeleteSalesInvoiceRequestBody$outboundSchema: z.ZodType<
-  DeleteSalesInvoiceRequestBody$Outbound,
-  z.ZodTypeDef,
-  DeleteSalesInvoiceRequestBody
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteSalesInvoiceRequestBody$ {
-  /** @deprecated use `DeleteSalesInvoiceRequestBody$inboundSchema` instead. */
-  export const inboundSchema = DeleteSalesInvoiceRequestBody$inboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceRequestBody$outboundSchema` instead. */
-  export const outboundSchema = DeleteSalesInvoiceRequestBody$outboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceRequestBody$Outbound` instead. */
-  export type Outbound = DeleteSalesInvoiceRequestBody$Outbound;
-}
-
-export function deleteSalesInvoiceRequestBodyToJSON(
-  deleteSalesInvoiceRequestBody: DeleteSalesInvoiceRequestBody,
-): string {
-  return JSON.stringify(
-    DeleteSalesInvoiceRequestBody$outboundSchema.parse(
-      deleteSalesInvoiceRequestBody,
-    ),
-  );
-}
-
-export function deleteSalesInvoiceRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteSalesInvoiceRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteSalesInvoiceRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteSalesInvoiceRequestBody' from JSON`,
-  );
-}
 
 /** @internal */
 export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
@@ -121,18 +24,20 @@ export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  RequestBody: z.lazy(() => DeleteSalesInvoiceRequestBody$inboundSchema)
+  "delete-values-sales-invoice": models.DeleteValuesSalesInvoice$inboundSchema
     .optional(),
 }).transform((v) => {
   return remap$(v, {
-    "RequestBody": "requestBody",
+    "delete-values-sales-invoice": "deleteValuesSalesInvoice",
   });
 });
 
 /** @internal */
 export type DeleteSalesInvoiceRequest$Outbound = {
   id: string;
-  RequestBody?: DeleteSalesInvoiceRequestBody$Outbound | undefined;
+  "delete-values-sales-invoice"?:
+    | models.DeleteValuesSalesInvoice$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -142,11 +47,11 @@ export const DeleteSalesInvoiceRequest$outboundSchema: z.ZodType<
   DeleteSalesInvoiceRequest
 > = z.object({
   id: z.string(),
-  requestBody: z.lazy(() => DeleteSalesInvoiceRequestBody$outboundSchema)
+  deleteValuesSalesInvoice: models.DeleteValuesSalesInvoice$outboundSchema
     .optional(),
 }).transform((v) => {
   return remap$(v, {
-    requestBody: "RequestBody",
+    deleteValuesSalesInvoice: "delete-values-sales-invoice",
   });
 });
 
@@ -178,272 +83,5 @@ export function deleteSalesInvoiceRequestFromJSON(
     jsonString,
     (x) => DeleteSalesInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'DeleteSalesInvoiceRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const DeleteSalesInvoiceUnprocessableEntityDocumentation$inboundSchema:
-  z.ZodType<
-    DeleteSalesInvoiceUnprocessableEntityDocumentation,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    href: z.string(),
-    type: z.string(),
-  });
-
-/** @internal */
-export type DeleteSalesInvoiceUnprocessableEntityDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const DeleteSalesInvoiceUnprocessableEntityDocumentation$outboundSchema:
-  z.ZodType<
-    DeleteSalesInvoiceUnprocessableEntityDocumentation$Outbound,
-    z.ZodTypeDef,
-    DeleteSalesInvoiceUnprocessableEntityDocumentation
-  > = z.object({
-    href: z.string(),
-    type: z.string(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteSalesInvoiceUnprocessableEntityDocumentation$ {
-  /** @deprecated use `DeleteSalesInvoiceUnprocessableEntityDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteSalesInvoiceUnprocessableEntityDocumentation$inboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceUnprocessableEntityDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteSalesInvoiceUnprocessableEntityDocumentation$outboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceUnprocessableEntityDocumentation$Outbound` instead. */
-  export type Outbound =
-    DeleteSalesInvoiceUnprocessableEntityDocumentation$Outbound;
-}
-
-export function deleteSalesInvoiceUnprocessableEntityDocumentationToJSON(
-  deleteSalesInvoiceUnprocessableEntityDocumentation:
-    DeleteSalesInvoiceUnprocessableEntityDocumentation,
-): string {
-  return JSON.stringify(
-    DeleteSalesInvoiceUnprocessableEntityDocumentation$outboundSchema.parse(
-      deleteSalesInvoiceUnprocessableEntityDocumentation,
-    ),
-  );
-}
-
-export function deleteSalesInvoiceUnprocessableEntityDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DeleteSalesInvoiceUnprocessableEntityDocumentation,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DeleteSalesInvoiceUnprocessableEntityDocumentation$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DeleteSalesInvoiceUnprocessableEntityDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const DeleteSalesInvoiceUnprocessableEntityLinks$inboundSchema:
-  z.ZodType<DeleteSalesInvoiceUnprocessableEntityLinks, z.ZodTypeDef, unknown> =
-    z.object({
-      documentation: z.lazy(() =>
-        DeleteSalesInvoiceUnprocessableEntityDocumentation$inboundSchema
-      ),
-    });
-
-/** @internal */
-export type DeleteSalesInvoiceUnprocessableEntityLinks$Outbound = {
-  documentation: DeleteSalesInvoiceUnprocessableEntityDocumentation$Outbound;
-};
-
-/** @internal */
-export const DeleteSalesInvoiceUnprocessableEntityLinks$outboundSchema:
-  z.ZodType<
-    DeleteSalesInvoiceUnprocessableEntityLinks$Outbound,
-    z.ZodTypeDef,
-    DeleteSalesInvoiceUnprocessableEntityLinks
-  > = z.object({
-    documentation: z.lazy(() =>
-      DeleteSalesInvoiceUnprocessableEntityDocumentation$outboundSchema
-    ),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteSalesInvoiceUnprocessableEntityLinks$ {
-  /** @deprecated use `DeleteSalesInvoiceUnprocessableEntityLinks$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteSalesInvoiceUnprocessableEntityLinks$inboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceUnprocessableEntityLinks$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteSalesInvoiceUnprocessableEntityLinks$outboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceUnprocessableEntityLinks$Outbound` instead. */
-  export type Outbound = DeleteSalesInvoiceUnprocessableEntityLinks$Outbound;
-}
-
-export function deleteSalesInvoiceUnprocessableEntityLinksToJSON(
-  deleteSalesInvoiceUnprocessableEntityLinks:
-    DeleteSalesInvoiceUnprocessableEntityLinks,
-): string {
-  return JSON.stringify(
-    DeleteSalesInvoiceUnprocessableEntityLinks$outboundSchema.parse(
-      deleteSalesInvoiceUnprocessableEntityLinks,
-    ),
-  );
-}
-
-export function deleteSalesInvoiceUnprocessableEntityLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DeleteSalesInvoiceUnprocessableEntityLinks,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DeleteSalesInvoiceUnprocessableEntityLinks$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DeleteSalesInvoiceUnprocessableEntityLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const DeleteSalesInvoiceNotFoundDocumentation$inboundSchema: z.ZodType<
-  DeleteSalesInvoiceNotFoundDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type DeleteSalesInvoiceNotFoundDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const DeleteSalesInvoiceNotFoundDocumentation$outboundSchema: z.ZodType<
-  DeleteSalesInvoiceNotFoundDocumentation$Outbound,
-  z.ZodTypeDef,
-  DeleteSalesInvoiceNotFoundDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteSalesInvoiceNotFoundDocumentation$ {
-  /** @deprecated use `DeleteSalesInvoiceNotFoundDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteSalesInvoiceNotFoundDocumentation$inboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceNotFoundDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteSalesInvoiceNotFoundDocumentation$outboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceNotFoundDocumentation$Outbound` instead. */
-  export type Outbound = DeleteSalesInvoiceNotFoundDocumentation$Outbound;
-}
-
-export function deleteSalesInvoiceNotFoundDocumentationToJSON(
-  deleteSalesInvoiceNotFoundDocumentation:
-    DeleteSalesInvoiceNotFoundDocumentation,
-): string {
-  return JSON.stringify(
-    DeleteSalesInvoiceNotFoundDocumentation$outboundSchema.parse(
-      deleteSalesInvoiceNotFoundDocumentation,
-    ),
-  );
-}
-
-export function deleteSalesInvoiceNotFoundDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DeleteSalesInvoiceNotFoundDocumentation,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DeleteSalesInvoiceNotFoundDocumentation$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DeleteSalesInvoiceNotFoundDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const DeleteSalesInvoiceNotFoundLinks$inboundSchema: z.ZodType<
-  DeleteSalesInvoiceNotFoundLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() =>
-    DeleteSalesInvoiceNotFoundDocumentation$inboundSchema
-  ),
-});
-
-/** @internal */
-export type DeleteSalesInvoiceNotFoundLinks$Outbound = {
-  documentation: DeleteSalesInvoiceNotFoundDocumentation$Outbound;
-};
-
-/** @internal */
-export const DeleteSalesInvoiceNotFoundLinks$outboundSchema: z.ZodType<
-  DeleteSalesInvoiceNotFoundLinks$Outbound,
-  z.ZodTypeDef,
-  DeleteSalesInvoiceNotFoundLinks
-> = z.object({
-  documentation: z.lazy(() =>
-    DeleteSalesInvoiceNotFoundDocumentation$outboundSchema
-  ),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteSalesInvoiceNotFoundLinks$ {
-  /** @deprecated use `DeleteSalesInvoiceNotFoundLinks$inboundSchema` instead. */
-  export const inboundSchema = DeleteSalesInvoiceNotFoundLinks$inboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceNotFoundLinks$outboundSchema` instead. */
-  export const outboundSchema = DeleteSalesInvoiceNotFoundLinks$outboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceNotFoundLinks$Outbound` instead. */
-  export type Outbound = DeleteSalesInvoiceNotFoundLinks$Outbound;
-}
-
-export function deleteSalesInvoiceNotFoundLinksToJSON(
-  deleteSalesInvoiceNotFoundLinks: DeleteSalesInvoiceNotFoundLinks,
-): string {
-  return JSON.stringify(
-    DeleteSalesInvoiceNotFoundLinks$outboundSchema.parse(
-      deleteSalesInvoiceNotFoundLinks,
-    ),
-  );
-}
-
-export function deleteSalesInvoiceNotFoundLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteSalesInvoiceNotFoundLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteSalesInvoiceNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteSalesInvoiceNotFoundLinks' from JSON`,
   );
 }

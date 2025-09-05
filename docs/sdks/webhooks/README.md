@@ -87,14 +87,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateWebhookResponse](../../models/operations/createwebhookresponse.md)\>**
+**Promise\<[models.CreateWebhook](../../models/createwebhook.md)\>**
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.CreateWebhookHalJSONError | 422                              | application/hal+json             |
-| errors.ClientDefaultError        | 4XX, 5XX                         | \*/\*                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 422                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -177,10 +177,10 @@ run();
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.ListWebhooksHalJSONError | 400                             | application/hal+json            |
-| errors.ClientDefaultError       | 4XX, 5XX                        | \*/\*                           |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -263,15 +263,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateWebhookResponse](../../models/operations/updatewebhookresponse.md)\>**
+**Promise\<[models.EntityWebhook](../../models/entitywebhook.md)\>**
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.UpdateWebhookNotFoundHalJSONError            | 404                                                 | application/hal+json                                |
-| errors.UpdateWebhookUnprocessableEntityHalJSONError | 422                                                 | application/hal+json                                |
-| errors.ClientDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -344,15 +343,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetWebhookResponse](../../models/operations/getwebhookresponse.md)\>**
+**Promise\<[models.EntityWebhook](../../models/entitywebhook.md)\>**
 
 ### Errors
 
-| Error Type                                       | Status Code                                      | Content Type                                     |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| errors.GetWebhookNotFoundHalJSONError            | 404                                              | application/hal+json                             |
-| errors.GetWebhookUnprocessableEntityHalJSONError | 422                                              | application/hal+json                             |
-| errors.ClientDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -433,11 +431,10 @@ run();
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.DeleteWebhookNotFoundHalJSONError            | 404                                                 | application/hal+json                                |
-| errors.DeleteWebhookUnprocessableEntityHalJSONError | 422                                                 | application/hal+json                                |
-| errors.ClientDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## test
 
@@ -518,8 +515,7 @@ run();
 
 ### Errors
 
-| Error Type                                        | Status Code                                       | Content Type                                      |
-| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| errors.TestWebhookNotFoundHalJSONError            | 404                                               | application/hal+json                              |
-| errors.TestWebhookUnprocessableEntityHalJSONError | 422                                               | application/hal+json                              |
-| errors.ClientDefaultError                         | 4XX, 5XX                                          | \*/\*                                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

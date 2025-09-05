@@ -5,46 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
- *
- * @remarks
- * newest to oldest.
- */
-export const ListWebhooksSort = {
-  Asc: "asc",
-  Desc: "desc",
-} as const;
-/**
- * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
- *
- * @remarks
- * newest to oldest.
- */
-export type ListWebhooksSort = ClosedEnum<typeof ListWebhooksSort>;
-
-/**
- * The event's type
- */
-export const EventTypesWebhookEventTypes = {
-  PaymentLinkPaid: "payment-link.paid",
-  BalanceTransactionCreated: "balance-transaction.created",
-  SalesInvoiceCreated: "sales-invoice.created",
-  SalesInvoiceIssued: "sales-invoice.issued",
-  SalesInvoiceCanceled: "sales-invoice.canceled",
-  SalesInvoicePaid: "sales-invoice.paid",
-  Wildcard: "*",
-} as const;
-/**
- * The event's type
- */
-export type EventTypesWebhookEventTypes = ClosedEnum<
-  typeof EventTypesWebhookEventTypes
->;
+import * as models from "../index.js";
 
 export type ListWebhooksRequest = {
   /**
@@ -53,7 +16,7 @@ export type ListWebhooksRequest = {
    * @remarks
    * result set.
    */
-  from?: string | undefined;
+  from?: string | null | undefined;
   /**
    * The maximum number of items to return. Defaults to 50 items.
    */
@@ -64,11 +27,11 @@ export type ListWebhooksRequest = {
    * @remarks
    * newest to oldest.
    */
-  sort?: ListWebhooksSort | null | undefined;
+  sort?: models.ListSort | null | undefined;
   /**
    * Used to filter out only the webhooks that are subscribed to certain types of events.
    */
-  eventTypes?: EventTypesWebhookEventTypes | undefined;
+  eventTypes?: models.WebhookEventTypes | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -81,219 +44,11 @@ export type ListWebhooksRequest = {
   testmode?: boolean | null | undefined;
 };
 
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type ListWebhooksBadRequestDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type ListWebhooksBadRequestLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: ListWebhooksBadRequestDocumentation;
-};
-
-/**
- * The event's type
- */
-export const WebhookWebhookEventTypes = {
-  PaymentLinkPaid: "payment-link.paid",
-  BalanceTransactionCreated: "balance-transaction.created",
-  SalesInvoiceCreated: "sales-invoice.created",
-  SalesInvoiceIssued: "sales-invoice.issued",
-  SalesInvoiceCanceled: "sales-invoice.canceled",
-  SalesInvoicePaid: "sales-invoice.paid",
-  Wildcard: "*",
-} as const;
-/**
- * The event's type
- */
-export type WebhookWebhookEventTypes = ClosedEnum<
-  typeof WebhookWebhookEventTypes
->;
-
-/**
- * The subscription's current status.
- */
-export const ListWebhooksStatus = {
-  Enabled: "enabled",
-  Blocked: "blocked",
-  Disabled: "disabled",
-  Deleted: "deleted",
-} as const;
-/**
- * The subscription's current status.
- */
-export type ListWebhooksStatus = ClosedEnum<typeof ListWebhooksStatus>;
-
-/**
- * Whether this entity was created in live mode or in test mode.
- */
-export const ListWebhooksMode = {
-  Live: "live",
-  Test: "test",
-} as const;
-/**
- * Whether this entity was created in live mode or in test mode.
- */
-export type ListWebhooksMode = ClosedEnum<typeof ListWebhooksMode>;
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type WebhookDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type WebhookLinks = {
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation: WebhookDocumentation;
-};
-
-export type Webhook = {
-  /**
-   * Indicates the response contains a webhook subscription object.
-   *
-   * @remarks
-   * Will always contain the string `webhook` for this endpoint.
-   */
-  resource: string;
-  /**
-   * The identifier uniquely referring to this subscription.
-   */
-  id: string;
-  /**
-   * The subscription's events destination.
-   */
-  url: string;
-  /**
-   * The identifier uniquely referring to the profile that created the subscription.
-   */
-  profileId: string | null;
-  /**
-   * The subscription's date time of creation.
-   */
-  createdAt: string;
-  /**
-   * The subscription's name.
-   */
-  name: string;
-  /**
-   * The events types that are subscribed.
-   */
-  eventTypes: Array<WebhookWebhookEventTypes>;
-  /**
-   * The subscription's current status.
-   */
-  status: ListWebhooksStatus;
-  /**
-   * Whether this entity was created in live mode or in test mode.
-   */
-  mode: ListWebhooksMode;
-  /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links: WebhookLinks;
-};
-
 export type ListWebhooksEmbedded = {
   /**
    * A list of webhooks.
    */
-  webhooks: Array<Webhook>;
-};
-
-/**
- * The URL to the current set of items.
- */
-export type ListWebhooksSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The previous set of items, if available.
- */
-export type ListWebhooksPrevious = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * The next set of items, if available.
- */
-export type ListWebhooksNext = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListWebhooksDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
- */
-export type ListWebhooksLinks = {
-  /**
-   * The URL to the current set of items.
-   */
-  self: ListWebhooksSelf;
-  /**
-   * The previous set of items, if available.
-   */
-  previous: ListWebhooksPrevious | null;
-  /**
-   * The next set of items, if available.
-   */
-  next: ListWebhooksNext | null;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation: ListWebhooksDocumentation;
+  webhooks: Array<models.EntityWebhook>;
 };
 
 /**
@@ -317,50 +72,8 @@ export type ListWebhooksResponse = {
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links: ListWebhooksLinks;
+  links: models.ListLinks;
 };
-
-/** @internal */
-export const ListWebhooksSort$inboundSchema: z.ZodNativeEnum<
-  typeof ListWebhooksSort
-> = z.nativeEnum(ListWebhooksSort);
-
-/** @internal */
-export const ListWebhooksSort$outboundSchema: z.ZodNativeEnum<
-  typeof ListWebhooksSort
-> = ListWebhooksSort$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksSort$ {
-  /** @deprecated use `ListWebhooksSort$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksSort$inboundSchema;
-  /** @deprecated use `ListWebhooksSort$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksSort$outboundSchema;
-}
-
-/** @internal */
-export const EventTypesWebhookEventTypes$inboundSchema: z.ZodNativeEnum<
-  typeof EventTypesWebhookEventTypes
-> = z.nativeEnum(EventTypesWebhookEventTypes);
-
-/** @internal */
-export const EventTypesWebhookEventTypes$outboundSchema: z.ZodNativeEnum<
-  typeof EventTypesWebhookEventTypes
-> = EventTypesWebhookEventTypes$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EventTypesWebhookEventTypes$ {
-  /** @deprecated use `EventTypesWebhookEventTypes$inboundSchema` instead. */
-  export const inboundSchema = EventTypesWebhookEventTypes$inboundSchema;
-  /** @deprecated use `EventTypesWebhookEventTypes$outboundSchema` instead. */
-  export const outboundSchema = EventTypesWebhookEventTypes$outboundSchema;
-}
 
 /** @internal */
 export const ListWebhooksRequest$inboundSchema: z.ZodType<
@@ -368,16 +81,16 @@ export const ListWebhooksRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  from: z.string().optional(),
+  from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
-  sort: z.nullable(ListWebhooksSort$inboundSchema).optional(),
-  eventTypes: EventTypesWebhookEventTypes$inboundSchema.optional(),
+  sort: z.nullable(models.ListSort$inboundSchema).optional(),
+  eventTypes: models.WebhookEventTypes$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
 /** @internal */
 export type ListWebhooksRequest$Outbound = {
-  from?: string | undefined;
+  from?: string | null | undefined;
   limit?: number | null | undefined;
   sort?: string | null | undefined;
   eventTypes?: string | undefined;
@@ -390,10 +103,10 @@ export const ListWebhooksRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListWebhooksRequest
 > = z.object({
-  from: z.string().optional(),
+  from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
-  sort: z.nullable(ListWebhooksSort$outboundSchema).optional(),
-  eventTypes: EventTypesWebhookEventTypes$outboundSchema.optional(),
+  sort: z.nullable(models.ListSort$outboundSchema).optional(),
+  eventTypes: models.WebhookEventTypes$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -429,391 +142,17 @@ export function listWebhooksRequestFromJSON(
 }
 
 /** @internal */
-export const ListWebhooksBadRequestDocumentation$inboundSchema: z.ZodType<
-  ListWebhooksBadRequestDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListWebhooksBadRequestDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListWebhooksBadRequestDocumentation$outboundSchema: z.ZodType<
-  ListWebhooksBadRequestDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksBadRequestDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksBadRequestDocumentation$ {
-  /** @deprecated use `ListWebhooksBadRequestDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    ListWebhooksBadRequestDocumentation$inboundSchema;
-  /** @deprecated use `ListWebhooksBadRequestDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    ListWebhooksBadRequestDocumentation$outboundSchema;
-  /** @deprecated use `ListWebhooksBadRequestDocumentation$Outbound` instead. */
-  export type Outbound = ListWebhooksBadRequestDocumentation$Outbound;
-}
-
-export function listWebhooksBadRequestDocumentationToJSON(
-  listWebhooksBadRequestDocumentation: ListWebhooksBadRequestDocumentation,
-): string {
-  return JSON.stringify(
-    ListWebhooksBadRequestDocumentation$outboundSchema.parse(
-      listWebhooksBadRequestDocumentation,
-    ),
-  );
-}
-
-export function listWebhooksBadRequestDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksBadRequestDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListWebhooksBadRequestDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksBadRequestDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListWebhooksBadRequestLinks$inboundSchema: z.ZodType<
-  ListWebhooksBadRequestLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() =>
-    ListWebhooksBadRequestDocumentation$inboundSchema
-  ),
-});
-
-/** @internal */
-export type ListWebhooksBadRequestLinks$Outbound = {
-  documentation: ListWebhooksBadRequestDocumentation$Outbound;
-};
-
-/** @internal */
-export const ListWebhooksBadRequestLinks$outboundSchema: z.ZodType<
-  ListWebhooksBadRequestLinks$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksBadRequestLinks
-> = z.object({
-  documentation: z.lazy(() =>
-    ListWebhooksBadRequestDocumentation$outboundSchema
-  ),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksBadRequestLinks$ {
-  /** @deprecated use `ListWebhooksBadRequestLinks$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksBadRequestLinks$inboundSchema;
-  /** @deprecated use `ListWebhooksBadRequestLinks$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksBadRequestLinks$outboundSchema;
-  /** @deprecated use `ListWebhooksBadRequestLinks$Outbound` instead. */
-  export type Outbound = ListWebhooksBadRequestLinks$Outbound;
-}
-
-export function listWebhooksBadRequestLinksToJSON(
-  listWebhooksBadRequestLinks: ListWebhooksBadRequestLinks,
-): string {
-  return JSON.stringify(
-    ListWebhooksBadRequestLinks$outboundSchema.parse(
-      listWebhooksBadRequestLinks,
-    ),
-  );
-}
-
-export function listWebhooksBadRequestLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksBadRequestLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksBadRequestLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const WebhookWebhookEventTypes$inboundSchema: z.ZodNativeEnum<
-  typeof WebhookWebhookEventTypes
-> = z.nativeEnum(WebhookWebhookEventTypes);
-
-/** @internal */
-export const WebhookWebhookEventTypes$outboundSchema: z.ZodNativeEnum<
-  typeof WebhookWebhookEventTypes
-> = WebhookWebhookEventTypes$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WebhookWebhookEventTypes$ {
-  /** @deprecated use `WebhookWebhookEventTypes$inboundSchema` instead. */
-  export const inboundSchema = WebhookWebhookEventTypes$inboundSchema;
-  /** @deprecated use `WebhookWebhookEventTypes$outboundSchema` instead. */
-  export const outboundSchema = WebhookWebhookEventTypes$outboundSchema;
-}
-
-/** @internal */
-export const ListWebhooksStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ListWebhooksStatus
-> = z.nativeEnum(ListWebhooksStatus);
-
-/** @internal */
-export const ListWebhooksStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ListWebhooksStatus
-> = ListWebhooksStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksStatus$ {
-  /** @deprecated use `ListWebhooksStatus$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksStatus$inboundSchema;
-  /** @deprecated use `ListWebhooksStatus$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksStatus$outboundSchema;
-}
-
-/** @internal */
-export const ListWebhooksMode$inboundSchema: z.ZodNativeEnum<
-  typeof ListWebhooksMode
-> = z.nativeEnum(ListWebhooksMode);
-
-/** @internal */
-export const ListWebhooksMode$outboundSchema: z.ZodNativeEnum<
-  typeof ListWebhooksMode
-> = ListWebhooksMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksMode$ {
-  /** @deprecated use `ListWebhooksMode$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksMode$inboundSchema;
-  /** @deprecated use `ListWebhooksMode$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksMode$outboundSchema;
-}
-
-/** @internal */
-export const WebhookDocumentation$inboundSchema: z.ZodType<
-  WebhookDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type WebhookDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const WebhookDocumentation$outboundSchema: z.ZodType<
-  WebhookDocumentation$Outbound,
-  z.ZodTypeDef,
-  WebhookDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WebhookDocumentation$ {
-  /** @deprecated use `WebhookDocumentation$inboundSchema` instead. */
-  export const inboundSchema = WebhookDocumentation$inboundSchema;
-  /** @deprecated use `WebhookDocumentation$outboundSchema` instead. */
-  export const outboundSchema = WebhookDocumentation$outboundSchema;
-  /** @deprecated use `WebhookDocumentation$Outbound` instead. */
-  export type Outbound = WebhookDocumentation$Outbound;
-}
-
-export function webhookDocumentationToJSON(
-  webhookDocumentation: WebhookDocumentation,
-): string {
-  return JSON.stringify(
-    WebhookDocumentation$outboundSchema.parse(webhookDocumentation),
-  );
-}
-
-export function webhookDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<WebhookDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => WebhookDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'WebhookDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const WebhookLinks$inboundSchema: z.ZodType<
-  WebhookLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() => WebhookDocumentation$inboundSchema),
-});
-
-/** @internal */
-export type WebhookLinks$Outbound = {
-  documentation: WebhookDocumentation$Outbound;
-};
-
-/** @internal */
-export const WebhookLinks$outboundSchema: z.ZodType<
-  WebhookLinks$Outbound,
-  z.ZodTypeDef,
-  WebhookLinks
-> = z.object({
-  documentation: z.lazy(() => WebhookDocumentation$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WebhookLinks$ {
-  /** @deprecated use `WebhookLinks$inboundSchema` instead. */
-  export const inboundSchema = WebhookLinks$inboundSchema;
-  /** @deprecated use `WebhookLinks$outboundSchema` instead. */
-  export const outboundSchema = WebhookLinks$outboundSchema;
-  /** @deprecated use `WebhookLinks$Outbound` instead. */
-  export type Outbound = WebhookLinks$Outbound;
-}
-
-export function webhookLinksToJSON(webhookLinks: WebhookLinks): string {
-  return JSON.stringify(WebhookLinks$outboundSchema.parse(webhookLinks));
-}
-
-export function webhookLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<WebhookLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => WebhookLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'WebhookLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> =
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    url: z.string(),
-    profileId: z.nullable(z.string()),
-    createdAt: z.string(),
-    name: z.string(),
-    eventTypes: z.array(WebhookWebhookEventTypes$inboundSchema),
-    status: ListWebhooksStatus$inboundSchema,
-    mode: ListWebhooksMode$inboundSchema,
-    _links: z.lazy(() => WebhookLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  });
-
-/** @internal */
-export type Webhook$Outbound = {
-  resource: string;
-  id: string;
-  url: string;
-  profileId: string | null;
-  createdAt: string;
-  name: string;
-  eventTypes: Array<string>;
-  status: string;
-  mode: string;
-  _links: WebhookLinks$Outbound;
-};
-
-/** @internal */
-export const Webhook$outboundSchema: z.ZodType<
-  Webhook$Outbound,
-  z.ZodTypeDef,
-  Webhook
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  url: z.string(),
-  profileId: z.nullable(z.string()),
-  createdAt: z.string(),
-  name: z.string(),
-  eventTypes: z.array(WebhookWebhookEventTypes$outboundSchema),
-  status: ListWebhooksStatus$outboundSchema,
-  mode: ListWebhooksMode$outboundSchema,
-  links: z.lazy(() => WebhookLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Webhook$ {
-  /** @deprecated use `Webhook$inboundSchema` instead. */
-  export const inboundSchema = Webhook$inboundSchema;
-  /** @deprecated use `Webhook$outboundSchema` instead. */
-  export const outboundSchema = Webhook$outboundSchema;
-  /** @deprecated use `Webhook$Outbound` instead. */
-  export type Outbound = Webhook$Outbound;
-}
-
-export function webhookToJSON(webhook: Webhook): string {
-  return JSON.stringify(Webhook$outboundSchema.parse(webhook));
-}
-
-export function webhookFromJSON(
-  jsonString: string,
-): SafeParseResult<Webhook, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Webhook$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Webhook' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListWebhooksEmbedded$inboundSchema: z.ZodType<
   ListWebhooksEmbedded,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  webhooks: z.array(z.lazy(() => Webhook$inboundSchema)),
+  webhooks: z.array(models.EntityWebhook$inboundSchema),
 });
 
 /** @internal */
 export type ListWebhooksEmbedded$Outbound = {
-  webhooks: Array<Webhook$Outbound>;
+  webhooks: Array<models.EntityWebhook$Outbound>;
 };
 
 /** @internal */
@@ -822,7 +161,7 @@ export const ListWebhooksEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListWebhooksEmbedded
 > = z.object({
-  webhooks: z.array(z.lazy(() => Webhook$outboundSchema)),
+  webhooks: z.array(models.EntityWebhook$outboundSchema),
 });
 
 /**
@@ -857,297 +196,6 @@ export function listWebhooksEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListWebhooksSelf$inboundSchema: z.ZodType<
-  ListWebhooksSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListWebhooksSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListWebhooksSelf$outboundSchema: z.ZodType<
-  ListWebhooksSelf$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksSelf$ {
-  /** @deprecated use `ListWebhooksSelf$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksSelf$inboundSchema;
-  /** @deprecated use `ListWebhooksSelf$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksSelf$outboundSchema;
-  /** @deprecated use `ListWebhooksSelf$Outbound` instead. */
-  export type Outbound = ListWebhooksSelf$Outbound;
-}
-
-export function listWebhooksSelfToJSON(
-  listWebhooksSelf: ListWebhooksSelf,
-): string {
-  return JSON.stringify(
-    ListWebhooksSelf$outboundSchema.parse(listWebhooksSelf),
-  );
-}
-
-export function listWebhooksSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListWebhooksPrevious$inboundSchema: z.ZodType<
-  ListWebhooksPrevious,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type ListWebhooksPrevious$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const ListWebhooksPrevious$outboundSchema: z.ZodType<
-  ListWebhooksPrevious$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksPrevious
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksPrevious$ {
-  /** @deprecated use `ListWebhooksPrevious$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksPrevious$inboundSchema;
-  /** @deprecated use `ListWebhooksPrevious$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksPrevious$outboundSchema;
-  /** @deprecated use `ListWebhooksPrevious$Outbound` instead. */
-  export type Outbound = ListWebhooksPrevious$Outbound;
-}
-
-export function listWebhooksPreviousToJSON(
-  listWebhooksPrevious: ListWebhooksPrevious,
-): string {
-  return JSON.stringify(
-    ListWebhooksPrevious$outboundSchema.parse(listWebhooksPrevious),
-  );
-}
-
-export function listWebhooksPreviousFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksPrevious, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksPrevious$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksPrevious' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListWebhooksNext$inboundSchema: z.ZodType<
-  ListWebhooksNext,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type ListWebhooksNext$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const ListWebhooksNext$outboundSchema: z.ZodType<
-  ListWebhooksNext$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksNext
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksNext$ {
-  /** @deprecated use `ListWebhooksNext$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksNext$inboundSchema;
-  /** @deprecated use `ListWebhooksNext$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksNext$outboundSchema;
-  /** @deprecated use `ListWebhooksNext$Outbound` instead. */
-  export type Outbound = ListWebhooksNext$Outbound;
-}
-
-export function listWebhooksNextToJSON(
-  listWebhooksNext: ListWebhooksNext,
-): string {
-  return JSON.stringify(
-    ListWebhooksNext$outboundSchema.parse(listWebhooksNext),
-  );
-}
-
-export function listWebhooksNextFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksNext, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksNext$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksNext' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListWebhooksDocumentation$inboundSchema: z.ZodType<
-  ListWebhooksDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListWebhooksDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListWebhooksDocumentation$outboundSchema: z.ZodType<
-  ListWebhooksDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksDocumentation$ {
-  /** @deprecated use `ListWebhooksDocumentation$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksDocumentation$inboundSchema;
-  /** @deprecated use `ListWebhooksDocumentation$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksDocumentation$outboundSchema;
-  /** @deprecated use `ListWebhooksDocumentation$Outbound` instead. */
-  export type Outbound = ListWebhooksDocumentation$Outbound;
-}
-
-export function listWebhooksDocumentationToJSON(
-  listWebhooksDocumentation: ListWebhooksDocumentation,
-): string {
-  return JSON.stringify(
-    ListWebhooksDocumentation$outboundSchema.parse(listWebhooksDocumentation),
-  );
-}
-
-export function listWebhooksDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListWebhooksLinks$inboundSchema: z.ZodType<
-  ListWebhooksLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: z.lazy(() => ListWebhooksSelf$inboundSchema),
-  previous: z.nullable(z.lazy(() => ListWebhooksPrevious$inboundSchema)),
-  next: z.nullable(z.lazy(() => ListWebhooksNext$inboundSchema)),
-  documentation: z.lazy(() => ListWebhooksDocumentation$inboundSchema),
-});
-
-/** @internal */
-export type ListWebhooksLinks$Outbound = {
-  self: ListWebhooksSelf$Outbound;
-  previous: ListWebhooksPrevious$Outbound | null;
-  next: ListWebhooksNext$Outbound | null;
-  documentation: ListWebhooksDocumentation$Outbound;
-};
-
-/** @internal */
-export const ListWebhooksLinks$outboundSchema: z.ZodType<
-  ListWebhooksLinks$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksLinks
-> = z.object({
-  self: z.lazy(() => ListWebhooksSelf$outboundSchema),
-  previous: z.nullable(z.lazy(() => ListWebhooksPrevious$outboundSchema)),
-  next: z.nullable(z.lazy(() => ListWebhooksNext$outboundSchema)),
-  documentation: z.lazy(() => ListWebhooksDocumentation$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksLinks$ {
-  /** @deprecated use `ListWebhooksLinks$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksLinks$inboundSchema;
-  /** @deprecated use `ListWebhooksLinks$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksLinks$outboundSchema;
-  /** @deprecated use `ListWebhooksLinks$Outbound` instead. */
-  export type Outbound = ListWebhooksLinks$Outbound;
-}
-
-export function listWebhooksLinksToJSON(
-  listWebhooksLinks: ListWebhooksLinks,
-): string {
-  return JSON.stringify(
-    ListWebhooksLinks$outboundSchema.parse(listWebhooksLinks),
-  );
-}
-
-export function listWebhooksLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksLinks' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListWebhooksResponse$inboundSchema: z.ZodType<
   ListWebhooksResponse,
   z.ZodTypeDef,
@@ -1155,7 +203,7 @@ export const ListWebhooksResponse$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int(),
   _embedded: z.lazy(() => ListWebhooksEmbedded$inboundSchema),
-  _links: z.lazy(() => ListWebhooksLinks$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -1167,7 +215,7 @@ export const ListWebhooksResponse$inboundSchema: z.ZodType<
 export type ListWebhooksResponse$Outbound = {
   count: number;
   _embedded: ListWebhooksEmbedded$Outbound;
-  _links: ListWebhooksLinks$Outbound;
+  _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
@@ -1178,7 +226,7 @@ export const ListWebhooksResponse$outboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListWebhooksEmbedded$outboundSchema),
-  links: z.lazy(() => ListWebhooksLinks$outboundSchema),
+  links: models.ListLinks$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

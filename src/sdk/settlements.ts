@@ -11,6 +11,7 @@ import { settlementsListChargebacks } from "../funcs/settlementsListChargebacks.
 import { settlementsListPayments } from "../funcs/settlementsListPayments.js";
 import { settlementsListRefunds } from "../funcs/settlementsListRefunds.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -54,7 +55,7 @@ export class Settlements extends ClientSDK {
   async get(
     request: operations.GetSettlementRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetSettlementResponse> {
+  ): Promise<models.EntitySettlement> {
     return unwrapAsync(settlementsGet(
       this,
       request,
@@ -77,7 +78,7 @@ export class Settlements extends ClientSDK {
    */
   async getOpen(
     options?: RequestOptions,
-  ): Promise<operations.GetOpenSettlementResponse> {
+  ): Promise<models.EntitySettlement> {
     return unwrapAsync(settlementsGetOpen(
       this,
       options,
@@ -98,7 +99,7 @@ export class Settlements extends ClientSDK {
    */
   async getNext(
     options?: RequestOptions,
-  ): Promise<operations.GetNextSettlementResponse> {
+  ): Promise<models.EntitySettlement> {
     return unwrapAsync(settlementsGetNext(
       this,
       options,

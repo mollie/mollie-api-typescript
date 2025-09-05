@@ -9,6 +9,7 @@ import { paymentsList } from "../funcs/paymentsList.js";
 import { paymentsReleaseAuthorization } from "../funcs/paymentsReleaseAuthorization.js";
 import { paymentsUpdate } from "../funcs/paymentsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -33,7 +34,7 @@ export class Payments extends ClientSDK {
   async create(
     request?: operations.CreatePaymentRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.CreatePaymentResponse> {
+  ): Promise<models.PaymentResponse> {
     return unwrapAsync(paymentsCreate(
       this,
       request,
@@ -69,7 +70,7 @@ export class Payments extends ClientSDK {
   async get(
     request: operations.GetPaymentRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetPaymentResponse> {
+  ): Promise<models.PaymentResponse> {
     return unwrapAsync(paymentsGet(
       this,
       request,
@@ -88,7 +89,7 @@ export class Payments extends ClientSDK {
   async update(
     request: operations.UpdatePaymentRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdatePaymentResponse> {
+  ): Promise<models.PaymentResponse> {
     return unwrapAsync(paymentsUpdate(
       this,
       request,
@@ -110,7 +111,7 @@ export class Payments extends ClientSDK {
   async cancel(
     request: operations.CancelPaymentRequest,
     options?: RequestOptions,
-  ): Promise<operations.CancelPaymentResponse> {
+  ): Promise<models.PaymentResponse> {
     return unwrapAsync(paymentsCancel(
       this,
       request,

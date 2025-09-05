@@ -40,8 +40,7 @@ export function subscriptionsList(
 ): APIPromise<
   Result<
     operations.ListSubscriptionsResponse,
-    | errors.ListSubscriptionsBadRequestHalJSONError
-    | errors.ListSubscriptionsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListSubscriptionsResponse,
-      | errors.ListSubscriptionsBadRequestHalJSONError
-      | errors.ListSubscriptionsNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -173,8 +171,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListSubscriptionsResponse,
-    | errors.ListSubscriptionsBadRequestHalJSONError
-    | errors.ListSubscriptionsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -187,12 +184,7 @@ async function $do(
     M.json(200, operations.ListSubscriptionsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      400,
-      errors.ListSubscriptionsBadRequestHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
-    M.jsonErr(404, errors.ListSubscriptionsNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

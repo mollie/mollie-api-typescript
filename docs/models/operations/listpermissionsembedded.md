@@ -29,6 +29,6 @@ let value: ListPermissionsEmbedded = {
 
 ## Fields
 
-| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `permissions`                                                    | [operations.Permission](../../models/operations/permission.md)[] | :heavy_minus_sign:                                               | An array of permission objects.                                  |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `permissions`                                                 | [models.EntityPermission](../../models/entitypermission.md)[] | :heavy_minus_sign:                                            | An array of permission objects.                               |

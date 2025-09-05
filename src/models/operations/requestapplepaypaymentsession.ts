@@ -32,26 +32,11 @@ export type RequestApplePayPaymentSessionRequest = {
    *
    * @remarks
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in
-   * the creation request. For organization-level credentials such as OAuth access tokens however, the
-   * `profileId` parameter is required.
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
    */
-  profileId?: string | null | undefined;
-};
-
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type RequestApplePayPaymentSessionDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type RequestApplePayPaymentSessionLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: RequestApplePayPaymentSessionDocumentation;
+  profileId?: string | undefined;
 };
 
 /** @internal */
@@ -62,14 +47,14 @@ export const RequestApplePayPaymentSessionRequest$inboundSchema: z.ZodType<
 > = z.object({
   validationUrl: z.string(),
   domain: z.string(),
-  profileId: z.nullable(z.string()).optional(),
+  profileId: z.string().optional(),
 });
 
 /** @internal */
 export type RequestApplePayPaymentSessionRequest$Outbound = {
   validationUrl: string;
   domain: string;
-  profileId?: string | null | undefined;
+  profileId?: string | undefined;
 };
 
 /** @internal */
@@ -80,7 +65,7 @@ export const RequestApplePayPaymentSessionRequest$outboundSchema: z.ZodType<
 > = z.object({
   validationUrl: z.string(),
   domain: z.string(),
-  profileId: z.nullable(z.string()).optional(),
+  profileId: z.string().optional(),
 });
 
 /**
@@ -116,134 +101,5 @@ export function requestApplePayPaymentSessionRequestFromJSON(
     (x) =>
       RequestApplePayPaymentSessionRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'RequestApplePayPaymentSessionRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const RequestApplePayPaymentSessionDocumentation$inboundSchema:
-  z.ZodType<RequestApplePayPaymentSessionDocumentation, z.ZodTypeDef, unknown> =
-    z.object({
-      href: z.string(),
-      type: z.string(),
-    });
-
-/** @internal */
-export type RequestApplePayPaymentSessionDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const RequestApplePayPaymentSessionDocumentation$outboundSchema:
-  z.ZodType<
-    RequestApplePayPaymentSessionDocumentation$Outbound,
-    z.ZodTypeDef,
-    RequestApplePayPaymentSessionDocumentation
-  > = z.object({
-    href: z.string(),
-    type: z.string(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RequestApplePayPaymentSessionDocumentation$ {
-  /** @deprecated use `RequestApplePayPaymentSessionDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    RequestApplePayPaymentSessionDocumentation$inboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    RequestApplePayPaymentSessionDocumentation$outboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionDocumentation$Outbound` instead. */
-  export type Outbound = RequestApplePayPaymentSessionDocumentation$Outbound;
-}
-
-export function requestApplePayPaymentSessionDocumentationToJSON(
-  requestApplePayPaymentSessionDocumentation:
-    RequestApplePayPaymentSessionDocumentation,
-): string {
-  return JSON.stringify(
-    RequestApplePayPaymentSessionDocumentation$outboundSchema.parse(
-      requestApplePayPaymentSessionDocumentation,
-    ),
-  );
-}
-
-export function requestApplePayPaymentSessionDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RequestApplePayPaymentSessionDocumentation,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RequestApplePayPaymentSessionDocumentation$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RequestApplePayPaymentSessionDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const RequestApplePayPaymentSessionLinks$inboundSchema: z.ZodType<
-  RequestApplePayPaymentSessionLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() =>
-    RequestApplePayPaymentSessionDocumentation$inboundSchema
-  ),
-});
-
-/** @internal */
-export type RequestApplePayPaymentSessionLinks$Outbound = {
-  documentation: RequestApplePayPaymentSessionDocumentation$Outbound;
-};
-
-/** @internal */
-export const RequestApplePayPaymentSessionLinks$outboundSchema: z.ZodType<
-  RequestApplePayPaymentSessionLinks$Outbound,
-  z.ZodTypeDef,
-  RequestApplePayPaymentSessionLinks
-> = z.object({
-  documentation: z.lazy(() =>
-    RequestApplePayPaymentSessionDocumentation$outboundSchema
-  ),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RequestApplePayPaymentSessionLinks$ {
-  /** @deprecated use `RequestApplePayPaymentSessionLinks$inboundSchema` instead. */
-  export const inboundSchema = RequestApplePayPaymentSessionLinks$inboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionLinks$outboundSchema` instead. */
-  export const outboundSchema =
-    RequestApplePayPaymentSessionLinks$outboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionLinks$Outbound` instead. */
-  export type Outbound = RequestApplePayPaymentSessionLinks$Outbound;
-}
-
-export function requestApplePayPaymentSessionLinksToJSON(
-  requestApplePayPaymentSessionLinks: RequestApplePayPaymentSessionLinks,
-): string {
-  return JSON.stringify(
-    RequestApplePayPaymentSessionLinks$outboundSchema.parse(
-      requestApplePayPaymentSessionLinks,
-    ),
-  );
-}
-
-export function requestApplePayPaymentSessionLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<RequestApplePayPaymentSessionLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RequestApplePayPaymentSessionLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RequestApplePayPaymentSessionLinks' from JSON`,
   );
 }

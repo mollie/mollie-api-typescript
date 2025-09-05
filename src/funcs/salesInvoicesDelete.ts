@@ -44,8 +44,7 @@ export function salesInvoicesDelete(
 ): APIPromise<
   Result<
     any,
-    | errors.DeleteSalesInvoiceNotFoundHalJSONError
-    | errors.DeleteSalesInvoiceUnprocessableEntityHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -71,8 +70,7 @@ async function $do(
   [
     Result<
       any,
-      | errors.DeleteSalesInvoiceNotFoundHalJSONError
-      | errors.DeleteSalesInvoiceUnprocessableEntityHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -94,7 +92,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload["delete-values-sales-invoice"], {
+    explode: true,
+  });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -170,8 +170,7 @@ async function $do(
 
   const [result] = await M.match<
     any,
-    | errors.DeleteSalesInvoiceNotFoundHalJSONError
-    | errors.DeleteSalesInvoiceUnprocessableEntityHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -182,16 +181,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(204, z.any(), { ctype: "application/hal+json" }),
-    M.jsonErr(
-      404,
-      errors.DeleteSalesInvoiceNotFoundHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
-    M.jsonErr(
-      422,
-      errors.DeleteSalesInvoiceUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -40,8 +40,7 @@ export function balancesList(
 ): APIPromise<
   Result<
     operations.ListBalancesResponse,
-    | errors.ListBalancesBadRequestHalJSONError
-    | errors.ListBalancesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListBalancesResponse,
-      | errors.ListBalancesBadRequestHalJSONError
-      | errors.ListBalancesNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -167,8 +165,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListBalancesResponse,
-    | errors.ListBalancesBadRequestHalJSONError
-    | errors.ListBalancesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -181,10 +178,7 @@ async function $do(
     M.json(200, operations.ListBalancesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListBalancesBadRequestHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(404, errors.ListBalancesNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

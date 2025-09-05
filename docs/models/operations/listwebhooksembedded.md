@@ -33,6 +33,6 @@ let value: ListWebhooksEmbedded = {
 
 ## Fields
 
-| Field                                                      | Type                                                       | Required                                                   | Description                                                |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `webhooks`                                                 | [operations.Webhook](../../models/operations/webhook.md)[] | :heavy_check_mark:                                         | A list of webhooks.                                        |
+| Field                                                   | Type                                                    | Required                                                | Description                                             |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `webhooks`                                              | [models.EntityWebhook](../../models/entitywebhook.md)[] | :heavy_check_mark:                                      | A list of webhooks.                                     |

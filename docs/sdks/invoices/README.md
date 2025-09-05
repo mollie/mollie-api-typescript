@@ -94,11 +94,10 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.ListInvoicesBadRequestHalJSONError | 400                                       | application/hal+json                      |
-| errors.ListInvoicesNotFoundHalJSONError   | 404                                       | application/hal+json                      |
-| errors.ClientDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -172,11 +171,11 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetInvoiceResponse](../../models/operations/getinvoiceresponse.md)\>**
+**Promise\<[models.EntityInvoice](../../models/entityinvoice.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.GetInvoiceHalJSONError | 404                           | application/hal+json          |
-| errors.ClientDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -39,9 +40,8 @@ export function paymentLinksCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreatePaymentLinkResponse,
-    | errors.CreatePaymentLinkNotFoundHalJSONError
-    | errors.CreatePaymentLinkUnprocessableEntityHalJSONError
+    models.PaymentLinkResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,9 +66,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.CreatePaymentLinkResponse,
-      | errors.CreatePaymentLinkNotFoundHalJSONError
-      | errors.CreatePaymentLinkUnprocessableEntityHalJSONError
+      models.PaymentLinkResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -163,9 +162,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreatePaymentLinkResponse,
-    | errors.CreatePaymentLinkNotFoundHalJSONError
-    | errors.CreatePaymentLinkUnprocessableEntityHalJSONError
+    models.PaymentLinkResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -175,17 +173,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.CreatePaymentLinkResponse$inboundSchema, {
+    M.json(201, models.PaymentLinkResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.CreatePaymentLinkNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      422,
-      errors.CreatePaymentLinkUnprocessableEntityHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

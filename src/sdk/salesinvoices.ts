@@ -8,6 +8,7 @@ import { salesInvoicesGet } from "../funcs/salesInvoicesGet.js";
 import { salesInvoicesList } from "../funcs/salesInvoicesList.js";
 import { salesInvoicesUpdate } from "../funcs/salesInvoicesUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -23,9 +24,9 @@ export class SalesInvoices extends ClientSDK {
    * With the Sales Invoice API you can generate sales invoices to send to your customers.
    */
   async create(
-    request?: operations.CreateSalesInvoiceRequest | undefined,
+    request?: models.EntitySalesInvoice | undefined,
     options?: RequestOptions,
-  ): Promise<operations.CreateSalesInvoiceResponse> {
+  ): Promise<models.EntitySalesInvoiceResponse> {
     return unwrapAsync(salesInvoicesCreate(
       this,
       request,
@@ -69,7 +70,7 @@ export class SalesInvoices extends ClientSDK {
   async get(
     request: operations.GetSalesInvoiceRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetSalesInvoiceResponse> {
+  ): Promise<models.EntitySalesInvoiceResponse> {
     return unwrapAsync(salesInvoicesGet(
       this,
       request,
@@ -92,7 +93,7 @@ export class SalesInvoices extends ClientSDK {
   async update(
     request: operations.UpdateSalesInvoiceRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateSalesInvoiceResponse> {
+  ): Promise<models.EntitySalesInvoiceResponse> {
     return unwrapAsync(salesInvoicesUpdate(
       this,
       request,

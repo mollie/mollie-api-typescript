@@ -7,25 +7,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * The address of the organization.
- */
-export type SubmitOnboardingDataAddress = {
-  /**
-   * A street and street number.
-   */
-  streetAndNumber?: string | undefined;
-  /**
-   * A postal code. This field may be required if the provided country has a postal code system.
-   */
-  postalCode?: string | undefined;
-  city?: string | undefined;
-  /**
-   * A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
-   */
-  country?: string | undefined;
-};
+import * as models from "../index.js";
 
 /**
  * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
@@ -35,7 +17,7 @@ export type SubmitOnboardingDataAddress = {
  *
  * The field can be omitted for merchants residing in other countries.
  */
-export const SubmitOnboardingDataVatRegulation = {
+export const VatRegulation = {
   Dutch: "dutch",
   British: "british",
   Shifted: "shifted",
@@ -48,19 +30,14 @@ export const SubmitOnboardingDataVatRegulation = {
  *
  * The field can be omitted for merchants residing in other countries.
  */
-export type SubmitOnboardingDataVatRegulation = ClosedEnum<
-  typeof SubmitOnboardingDataVatRegulation
->;
+export type VatRegulation = ClosedEnum<typeof VatRegulation>;
 
-export type SubmitOnboardingDataOrganization = {
+export type Organization = {
   /**
    * The name of the organization.
    */
   name?: string | undefined;
-  /**
-   * The address of the organization.
-   */
-  address?: SubmitOnboardingDataAddress | undefined;
+  address?: models.Address | undefined;
   /**
    * The registration number of the organization at their local chamber of commerce.
    */
@@ -82,10 +59,10 @@ export type SubmitOnboardingDataOrganization = {
    *
    * The field can be omitted for merchants residing in other countries.
    */
-  vatRegulation?: SubmitOnboardingDataVatRegulation | null | undefined;
+  vatRegulation?: VatRegulation | null | undefined;
 };
 
-export type SubmitOnboardingDataProfile = {
+export type Profile = {
   /**
    * The profile's name, this will usually reflect the trade name or brand name of the profile's website
    *
@@ -122,183 +99,106 @@ export type SubmitOnboardingDataProfile = {
 };
 
 export type SubmitOnboardingDataRequest = {
-  organization?: SubmitOnboardingDataOrganization | undefined;
-  profile?: SubmitOnboardingDataProfile | undefined;
+  organization?: Organization | undefined;
+  profile?: Profile | undefined;
 };
 
 /** @internal */
-export const SubmitOnboardingDataAddress$inboundSchema: z.ZodType<
-  SubmitOnboardingDataAddress,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  streetAndNumber: z.string().optional(),
-  postalCode: z.string().optional(),
-  city: z.string().optional(),
-  country: z.string().optional(),
-});
+export const VatRegulation$inboundSchema: z.ZodNativeEnum<
+  typeof VatRegulation
+> = z.nativeEnum(VatRegulation);
 
 /** @internal */
-export type SubmitOnboardingDataAddress$Outbound = {
-  streetAndNumber?: string | undefined;
-  postalCode?: string | undefined;
-  city?: string | undefined;
-  country?: string | undefined;
-};
-
-/** @internal */
-export const SubmitOnboardingDataAddress$outboundSchema: z.ZodType<
-  SubmitOnboardingDataAddress$Outbound,
-  z.ZodTypeDef,
-  SubmitOnboardingDataAddress
-> = z.object({
-  streetAndNumber: z.string().optional(),
-  postalCode: z.string().optional(),
-  city: z.string().optional(),
-  country: z.string().optional(),
-});
+export const VatRegulation$outboundSchema: z.ZodNativeEnum<
+  typeof VatRegulation
+> = VatRegulation$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SubmitOnboardingDataAddress$ {
-  /** @deprecated use `SubmitOnboardingDataAddress$inboundSchema` instead. */
-  export const inboundSchema = SubmitOnboardingDataAddress$inboundSchema;
-  /** @deprecated use `SubmitOnboardingDataAddress$outboundSchema` instead. */
-  export const outboundSchema = SubmitOnboardingDataAddress$outboundSchema;
-  /** @deprecated use `SubmitOnboardingDataAddress$Outbound` instead. */
-  export type Outbound = SubmitOnboardingDataAddress$Outbound;
-}
-
-export function submitOnboardingDataAddressToJSON(
-  submitOnboardingDataAddress: SubmitOnboardingDataAddress,
-): string {
-  return JSON.stringify(
-    SubmitOnboardingDataAddress$outboundSchema.parse(
-      submitOnboardingDataAddress,
-    ),
-  );
-}
-
-export function submitOnboardingDataAddressFromJSON(
-  jsonString: string,
-): SafeParseResult<SubmitOnboardingDataAddress, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SubmitOnboardingDataAddress$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubmitOnboardingDataAddress' from JSON`,
-  );
+export namespace VatRegulation$ {
+  /** @deprecated use `VatRegulation$inboundSchema` instead. */
+  export const inboundSchema = VatRegulation$inboundSchema;
+  /** @deprecated use `VatRegulation$outboundSchema` instead. */
+  export const outboundSchema = VatRegulation$outboundSchema;
 }
 
 /** @internal */
-export const SubmitOnboardingDataVatRegulation$inboundSchema: z.ZodNativeEnum<
-  typeof SubmitOnboardingDataVatRegulation
-> = z.nativeEnum(SubmitOnboardingDataVatRegulation);
-
-/** @internal */
-export const SubmitOnboardingDataVatRegulation$outboundSchema: z.ZodNativeEnum<
-  typeof SubmitOnboardingDataVatRegulation
-> = SubmitOnboardingDataVatRegulation$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubmitOnboardingDataVatRegulation$ {
-  /** @deprecated use `SubmitOnboardingDataVatRegulation$inboundSchema` instead. */
-  export const inboundSchema = SubmitOnboardingDataVatRegulation$inboundSchema;
-  /** @deprecated use `SubmitOnboardingDataVatRegulation$outboundSchema` instead. */
-  export const outboundSchema =
-    SubmitOnboardingDataVatRegulation$outboundSchema;
-}
-
-/** @internal */
-export const SubmitOnboardingDataOrganization$inboundSchema: z.ZodType<
-  SubmitOnboardingDataOrganization,
+export const Organization$inboundSchema: z.ZodType<
+  Organization,
   z.ZodTypeDef,
   unknown
 > = z.object({
   name: z.string().optional(),
-  address: z.lazy(() => SubmitOnboardingDataAddress$inboundSchema).optional(),
+  address: models.Address$inboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(SubmitOnboardingDataVatRegulation$inboundSchema)
-    .optional(),
+  vatRegulation: z.nullable(VatRegulation$inboundSchema).optional(),
 });
 
 /** @internal */
-export type SubmitOnboardingDataOrganization$Outbound = {
+export type Organization$Outbound = {
   name?: string | undefined;
-  address?: SubmitOnboardingDataAddress$Outbound | undefined;
+  address?: models.Address$Outbound | undefined;
   registrationNumber?: string | undefined;
   vatNumber?: string | null | undefined;
   vatRegulation?: string | null | undefined;
 };
 
 /** @internal */
-export const SubmitOnboardingDataOrganization$outboundSchema: z.ZodType<
-  SubmitOnboardingDataOrganization$Outbound,
+export const Organization$outboundSchema: z.ZodType<
+  Organization$Outbound,
   z.ZodTypeDef,
-  SubmitOnboardingDataOrganization
+  Organization
 > = z.object({
   name: z.string().optional(),
-  address: z.lazy(() => SubmitOnboardingDataAddress$outboundSchema).optional(),
+  address: models.Address$outboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(SubmitOnboardingDataVatRegulation$outboundSchema)
-    .optional(),
+  vatRegulation: z.nullable(VatRegulation$outboundSchema).optional(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SubmitOnboardingDataOrganization$ {
-  /** @deprecated use `SubmitOnboardingDataOrganization$inboundSchema` instead. */
-  export const inboundSchema = SubmitOnboardingDataOrganization$inboundSchema;
-  /** @deprecated use `SubmitOnboardingDataOrganization$outboundSchema` instead. */
-  export const outboundSchema = SubmitOnboardingDataOrganization$outboundSchema;
-  /** @deprecated use `SubmitOnboardingDataOrganization$Outbound` instead. */
-  export type Outbound = SubmitOnboardingDataOrganization$Outbound;
+export namespace Organization$ {
+  /** @deprecated use `Organization$inboundSchema` instead. */
+  export const inboundSchema = Organization$inboundSchema;
+  /** @deprecated use `Organization$outboundSchema` instead. */
+  export const outboundSchema = Organization$outboundSchema;
+  /** @deprecated use `Organization$Outbound` instead. */
+  export type Outbound = Organization$Outbound;
 }
 
-export function submitOnboardingDataOrganizationToJSON(
-  submitOnboardingDataOrganization: SubmitOnboardingDataOrganization,
-): string {
-  return JSON.stringify(
-    SubmitOnboardingDataOrganization$outboundSchema.parse(
-      submitOnboardingDataOrganization,
-    ),
-  );
+export function organizationToJSON(organization: Organization): string {
+  return JSON.stringify(Organization$outboundSchema.parse(organization));
 }
 
-export function submitOnboardingDataOrganizationFromJSON(
+export function organizationFromJSON(
   jsonString: string,
-): SafeParseResult<SubmitOnboardingDataOrganization, SDKValidationError> {
+): SafeParseResult<Organization, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SubmitOnboardingDataOrganization$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubmitOnboardingDataOrganization' from JSON`,
+    (x) => Organization$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Organization' from JSON`,
   );
 }
 
 /** @internal */
-export const SubmitOnboardingDataProfile$inboundSchema: z.ZodType<
-  SubmitOnboardingDataProfile,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  url: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  businessCategory: z.string().optional(),
-});
+export const Profile$inboundSchema: z.ZodType<Profile, z.ZodTypeDef, unknown> =
+  z.object({
+    name: z.string().optional(),
+    url: z.string().optional(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    description: z.nullable(z.string()).optional(),
+    businessCategory: z.string().optional(),
+  });
 
 /** @internal */
-export type SubmitOnboardingDataProfile$Outbound = {
+export type Profile$Outbound = {
   name?: string | undefined;
   url?: string | undefined;
   email?: string | undefined;
@@ -308,10 +208,10 @@ export type SubmitOnboardingDataProfile$Outbound = {
 };
 
 /** @internal */
-export const SubmitOnboardingDataProfile$outboundSchema: z.ZodType<
-  SubmitOnboardingDataProfile$Outbound,
+export const Profile$outboundSchema: z.ZodType<
+  Profile$Outbound,
   z.ZodTypeDef,
-  SubmitOnboardingDataProfile
+  Profile
 > = z.object({
   name: z.string().optional(),
   url: z.string().optional(),
@@ -325,32 +225,26 @@ export const SubmitOnboardingDataProfile$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SubmitOnboardingDataProfile$ {
-  /** @deprecated use `SubmitOnboardingDataProfile$inboundSchema` instead. */
-  export const inboundSchema = SubmitOnboardingDataProfile$inboundSchema;
-  /** @deprecated use `SubmitOnboardingDataProfile$outboundSchema` instead. */
-  export const outboundSchema = SubmitOnboardingDataProfile$outboundSchema;
-  /** @deprecated use `SubmitOnboardingDataProfile$Outbound` instead. */
-  export type Outbound = SubmitOnboardingDataProfile$Outbound;
+export namespace Profile$ {
+  /** @deprecated use `Profile$inboundSchema` instead. */
+  export const inboundSchema = Profile$inboundSchema;
+  /** @deprecated use `Profile$outboundSchema` instead. */
+  export const outboundSchema = Profile$outboundSchema;
+  /** @deprecated use `Profile$Outbound` instead. */
+  export type Outbound = Profile$Outbound;
 }
 
-export function submitOnboardingDataProfileToJSON(
-  submitOnboardingDataProfile: SubmitOnboardingDataProfile,
-): string {
-  return JSON.stringify(
-    SubmitOnboardingDataProfile$outboundSchema.parse(
-      submitOnboardingDataProfile,
-    ),
-  );
+export function profileToJSON(profile: Profile): string {
+  return JSON.stringify(Profile$outboundSchema.parse(profile));
 }
 
-export function submitOnboardingDataProfileFromJSON(
+export function profileFromJSON(
   jsonString: string,
-): SafeParseResult<SubmitOnboardingDataProfile, SDKValidationError> {
+): SafeParseResult<Profile, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SubmitOnboardingDataProfile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubmitOnboardingDataProfile' from JSON`,
+    (x) => Profile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Profile' from JSON`,
   );
 }
 
@@ -360,15 +254,14 @@ export const SubmitOnboardingDataRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  organization: z.lazy(() => SubmitOnboardingDataOrganization$inboundSchema)
-    .optional(),
-  profile: z.lazy(() => SubmitOnboardingDataProfile$inboundSchema).optional(),
+  organization: z.lazy(() => Organization$inboundSchema).optional(),
+  profile: z.lazy(() => Profile$inboundSchema).optional(),
 });
 
 /** @internal */
 export type SubmitOnboardingDataRequest$Outbound = {
-  organization?: SubmitOnboardingDataOrganization$Outbound | undefined;
-  profile?: SubmitOnboardingDataProfile$Outbound | undefined;
+  organization?: Organization$Outbound | undefined;
+  profile?: Profile$Outbound | undefined;
 };
 
 /** @internal */
@@ -377,9 +270,8 @@ export const SubmitOnboardingDataRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SubmitOnboardingDataRequest
 > = z.object({
-  organization: z.lazy(() => SubmitOnboardingDataOrganization$outboundSchema)
-    .optional(),
-  profile: z.lazy(() => SubmitOnboardingDataProfile$outboundSchema).optional(),
+  organization: z.lazy(() => Organization$outboundSchema).optional(),
+  profile: z.lazy(() => Profile$outboundSchema).optional(),
 });
 
 /**

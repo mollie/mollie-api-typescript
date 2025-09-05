@@ -25,7 +25,7 @@ let value: ListProfilesEmbedded = {
       review: {
         status: "pending",
       },
-      createdAt: "2022-01-19T12:30:22+00:00",
+      createdAt: "2024-03-20T09:13:37.0Z",
       links: {
         self: {
           href: "https://...",
@@ -69,6 +69,6 @@ let value: ListProfilesEmbedded = {
 
 ## Fields
 
-| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `profiles`                                                                         | [operations.ListProfilesProfile](../../models/operations/listprofilesprofile.md)[] | :heavy_minus_sign:                                                                 | An array of profile objects.                                                       |
+| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `profiles`                                                              | [models.EntityProfileResponse](../../models/entityprofileresponse.md)[] | :heavy_minus_sign:                                                      | An array of profile objects.                                            |

@@ -51,13 +51,13 @@ let value: ListSalesInvoicesEmbedded = {
             currency: "EUR",
             value: "10.00",
           },
-          discount: {
-            type: "amount",
-            value: "10.00",
-          },
+          discount: null,
         },
       ],
-      discount: null,
+      discount: {
+        type: "amount",
+        value: "10.00",
+      },
       amountDue: {
         currency: "EUR",
         value: "10.00",
@@ -109,4 +109,4 @@ let value: ListSalesInvoicesEmbedded = {
 
 | Field                                                                                                                                                                | Type                                                                                                                                                                 | Required                                                                                                                                                             | Description                                                                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `salesInvoices`                                                                                                                                                      | [operations.SalesInvoice](../../models/operations/salesinvoice.md)[]                                                                                                 | :heavy_minus_sign:                                                                                                                                                   | An array of sales invoice objects. For a complete reference of the sales invoice object, refer to<br/>the [Get sales invoice endpoint](get-sales-invoice) documentation. |
+| `salesInvoices`                                                                                                                                                      | [models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)[]                                                                                    | :heavy_minus_sign:                                                                                                                                                   | An array of sales invoice objects. For a complete reference of the sales invoice object, refer to<br/>the [Get sales invoice endpoint](get-sales-invoice) documentation. |

@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -55,8 +56,8 @@ export function subscriptionsCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateSubscriptionResponse,
-    | errors.CreateSubscriptionHalJSONError
+    models.SubscriptionResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -81,8 +82,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.CreateSubscriptionResponse,
-      | errors.CreateSubscriptionHalJSONError
+      models.SubscriptionResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -104,7 +105,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload["subscription-request"], {
+    explode: true,
+  });
 
   const pathParams = {
     customerId: encodeSimple("customerId", payload.customerId, {
@@ -179,8 +182,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateSubscriptionResponse,
-    | errors.CreateSubscriptionHalJSONError
+    models.SubscriptionResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -190,10 +193,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.CreateSubscriptionResponse$inboundSchema, {
+    M.json(201, models.SubscriptionResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.CreateSubscriptionHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

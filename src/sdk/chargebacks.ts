@@ -6,6 +6,7 @@ import { chargebacksAll } from "../funcs/chargebacksAll.js";
 import { chargebacksGet } from "../funcs/chargebacksGet.js";
 import { chargebacksList } from "../funcs/chargebacksList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -38,7 +39,7 @@ export class Chargebacks extends ClientSDK {
   async get(
     request: operations.GetChargebackRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetChargebackResponse> {
+  ): Promise<models.EntityChargeback> {
     return unwrapAsync(chargebacksGet(
       this,
       request,

@@ -39,7 +39,7 @@ export function customersDelete(
 ): APIPromise<
   Result<
     any,
-    | errors.DeleteCustomerHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -65,7 +65,7 @@ async function $do(
   [
     Result<
       any,
-      | errors.DeleteCustomerHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -163,7 +163,7 @@ async function $do(
 
   const [result] = await M.match<
     any,
-    | errors.DeleteCustomerHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -174,7 +174,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(204, z.any(), { ctype: "application/hal+json" }),
-    M.jsonErr(404, errors.DeleteCustomerHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

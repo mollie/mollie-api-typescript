@@ -6,6 +6,7 @@ import { methodsAll } from "../funcs/methodsAll.js";
 import { methodsGet } from "../funcs/methodsGet.js";
 import { methodsList } from "../funcs/methodsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -82,7 +83,7 @@ export class Methods extends ClientSDK {
   async get(
     request: operations.GetMethodRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetMethodResponse> {
+  ): Promise<models.EntityMethod> {
     return unwrapAsync(methodsGet(
       this,
       request,

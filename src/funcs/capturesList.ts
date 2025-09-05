@@ -40,8 +40,7 @@ export function capturesList(
 ): APIPromise<
   Result<
     operations.ListCapturesResponse,
-    | errors.ListCapturesBadRequestHalJSONError
-    | errors.ListCapturesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListCapturesResponse,
-      | errors.ListCapturesBadRequestHalJSONError
-      | errors.ListCapturesNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -173,8 +171,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListCapturesResponse,
-    | errors.ListCapturesBadRequestHalJSONError
-    | errors.ListCapturesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -187,10 +184,7 @@ async function $do(
     M.json(200, operations.ListCapturesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListCapturesBadRequestHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(404, errors.ListCapturesNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

@@ -5,20 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * This endpoint allows you to include additional information via the `include` query string parameter.
- */
-export const GetCustomerInclude = {
-  Events: "events",
-} as const;
-/**
- * This endpoint allows you to include additional information via the `include` query string parameter.
- */
-export type GetCustomerInclude = ClosedEnum<typeof GetCustomerInclude>;
+import * as models from "../index.js";
 
 export type GetCustomerRequest = {
   /**
@@ -28,7 +17,7 @@ export type GetCustomerRequest = {
   /**
    * This endpoint allows you to include additional information via the `include` query string parameter.
    */
-  include?: GetCustomerInclude | null | undefined;
+  include?: string | null | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -42,246 +31,33 @@ export type GetCustomerRequest = {
 };
 
 /**
- * The URL to the generic Mollie API error handling guide.
- */
-export type GetCustomerNotFoundDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type GetCustomerNotFoundLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: GetCustomerNotFoundDocumentation;
-};
-
-/**
- * Whether this entity was created in live mode or in test mode.
- */
-export const GetCustomerMode = {
-  Live: "live",
-  Test: "test",
-} as const;
-/**
- * Whether this entity was created in live mode or in test mode.
- */
-export type GetCustomerMode = ClosedEnum<typeof GetCustomerMode>;
-
-/**
- * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
- *
- * @remarks
- * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
- */
-export const GetCustomerLocale = {
-  EnUS: "en_US",
-  EnGB: "en_GB",
-  NLNL: "nl_NL",
-  NlBE: "nl_BE",
-  DEDE: "de_DE",
-  DeAT: "de_AT",
-  DeCH: "de_CH",
-  FRFR: "fr_FR",
-  FrBE: "fr_BE",
-  ESES: "es_ES",
-  CaES: "ca_ES",
-  PTPT: "pt_PT",
-  ITIT: "it_IT",
-  NbNO: "nb_NO",
-  SvSE: "sv_SE",
-  FIFI: "fi_FI",
-  DaDK: "da_DK",
-  ISIS: "is_IS",
-  HUHU: "hu_HU",
-  PLPL: "pl_PL",
-  LVLV: "lv_LV",
-  LTLT: "lt_LT",
-} as const;
-/**
- * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
- *
- * @remarks
- * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
- */
-export type GetCustomerLocale = ClosedEnum<typeof GetCustomerLocale>;
-
-/**
- * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
- *
- * @remarks
- * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
- */
-export type GetCustomerMetadata = string | { [k: string]: any } | Array<string>;
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type GetCustomerSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type GetCustomerDashboard = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
- *
- * @remarks
- * exist (yet).
- */
-export type GetCustomerPayments = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
- *
- * @remarks
- * exist (yet).
- */
-export type GetCustomerMandates = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
- *
- * @remarks
- * subscriptions exist (yet).
- */
-export type GetCustomerSubscriptions = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type GetCustomerDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type GetCustomerLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self: GetCustomerSelf;
+  self: models.Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  dashboard: GetCustomerDashboard;
-  /**
-   * The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
-   *
-   * @remarks
-   * exist (yet).
-   */
-  payments?: GetCustomerPayments | null | undefined;
-  /**
-   * The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
-   *
-   * @remarks
-   * exist (yet).
-   */
-  mandates?: GetCustomerMandates | null | undefined;
-  /**
-   * The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
-   *
-   * @remarks
-   * subscriptions exist (yet).
-   */
-  subscriptions?: GetCustomerSubscriptions | null | undefined;
+  dashboard: models.Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation: GetCustomerDocumentation;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type Url = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type EventLinks = {
+  payments?: models.UrlNullable | null | undefined;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  url?: Url | undefined;
-};
-
-export type Event = {
-  resource: string;
-  type: number;
+  mandates?: models.UrlNullable | null | undefined;
   /**
-   * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  createdAt: string;
-  message: string;
+  subscriptions?: models.UrlNullable | null | undefined;
   /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  links?: EventLinks | undefined;
+  documentation: models.Url;
 };
 
 /**
@@ -291,68 +67,41 @@ export type GetCustomerResponse = {
   /**
    * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
    */
-  resource: string;
-  /**
-   * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
-   */
-  id: string;
+  resource?: string | undefined;
+  id?: string | undefined;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode: GetCustomerMode;
+  mode?: models.Mode | undefined;
   /**
    * The full name of the customer.
    */
-  name: string | null;
+  name?: string | null | undefined;
   /**
    * The email address of the customer.
    */
-  email: string | null;
+  email?: string | null | undefined;
   /**
-   * Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
-   *
-   * @remarks
-   * absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+   * Allows you to preset the language to be used.
    */
-  locale: GetCustomerLocale | null;
+  locale?: models.LocaleResponse | undefined;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata: string | { [k: string]: any } | Array<string> | null;
+  metadata?: models.Metadata | null | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt: string;
+  createdAt?: string | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links: GetCustomerLinks;
-  events?: Array<Event> | undefined;
+  links?: GetCustomerLinks | undefined;
+  events?: Array<models.EntityEvent> | undefined;
 };
-
-/** @internal */
-export const GetCustomerInclude$inboundSchema: z.ZodNativeEnum<
-  typeof GetCustomerInclude
-> = z.nativeEnum(GetCustomerInclude);
-
-/** @internal */
-export const GetCustomerInclude$outboundSchema: z.ZodNativeEnum<
-  typeof GetCustomerInclude
-> = GetCustomerInclude$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerInclude$ {
-  /** @deprecated use `GetCustomerInclude$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerInclude$inboundSchema;
-  /** @deprecated use `GetCustomerInclude$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerInclude$outboundSchema;
-}
 
 /** @internal */
 export const GetCustomerRequest$inboundSchema: z.ZodType<
@@ -361,7 +110,7 @@ export const GetCustomerRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   customerId: z.string(),
-  include: z.nullable(GetCustomerInclude$inboundSchema).optional(),
+  include: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -379,7 +128,7 @@ export const GetCustomerRequest$outboundSchema: z.ZodType<
   GetCustomerRequest
 > = z.object({
   customerId: z.string(),
-  include: z.nullable(GetCustomerInclude$outboundSchema).optional(),
+  include: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -415,577 +164,27 @@ export function getCustomerRequestFromJSON(
 }
 
 /** @internal */
-export const GetCustomerNotFoundDocumentation$inboundSchema: z.ZodType<
-  GetCustomerNotFoundDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type GetCustomerNotFoundDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const GetCustomerNotFoundDocumentation$outboundSchema: z.ZodType<
-  GetCustomerNotFoundDocumentation$Outbound,
-  z.ZodTypeDef,
-  GetCustomerNotFoundDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerNotFoundDocumentation$ {
-  /** @deprecated use `GetCustomerNotFoundDocumentation$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerNotFoundDocumentation$inboundSchema;
-  /** @deprecated use `GetCustomerNotFoundDocumentation$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerNotFoundDocumentation$outboundSchema;
-  /** @deprecated use `GetCustomerNotFoundDocumentation$Outbound` instead. */
-  export type Outbound = GetCustomerNotFoundDocumentation$Outbound;
-}
-
-export function getCustomerNotFoundDocumentationToJSON(
-  getCustomerNotFoundDocumentation: GetCustomerNotFoundDocumentation,
-): string {
-  return JSON.stringify(
-    GetCustomerNotFoundDocumentation$outboundSchema.parse(
-      getCustomerNotFoundDocumentation,
-    ),
-  );
-}
-
-export function getCustomerNotFoundDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerNotFoundDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerNotFoundDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerNotFoundDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerNotFoundLinks$inboundSchema: z.ZodType<
-  GetCustomerNotFoundLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() => GetCustomerNotFoundDocumentation$inboundSchema),
-});
-
-/** @internal */
-export type GetCustomerNotFoundLinks$Outbound = {
-  documentation: GetCustomerNotFoundDocumentation$Outbound;
-};
-
-/** @internal */
-export const GetCustomerNotFoundLinks$outboundSchema: z.ZodType<
-  GetCustomerNotFoundLinks$Outbound,
-  z.ZodTypeDef,
-  GetCustomerNotFoundLinks
-> = z.object({
-  documentation: z.lazy(() => GetCustomerNotFoundDocumentation$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerNotFoundLinks$ {
-  /** @deprecated use `GetCustomerNotFoundLinks$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerNotFoundLinks$inboundSchema;
-  /** @deprecated use `GetCustomerNotFoundLinks$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerNotFoundLinks$outboundSchema;
-  /** @deprecated use `GetCustomerNotFoundLinks$Outbound` instead. */
-  export type Outbound = GetCustomerNotFoundLinks$Outbound;
-}
-
-export function getCustomerNotFoundLinksToJSON(
-  getCustomerNotFoundLinks: GetCustomerNotFoundLinks,
-): string {
-  return JSON.stringify(
-    GetCustomerNotFoundLinks$outboundSchema.parse(getCustomerNotFoundLinks),
-  );
-}
-
-export function getCustomerNotFoundLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerNotFoundLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerNotFoundLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerMode$inboundSchema: z.ZodNativeEnum<
-  typeof GetCustomerMode
-> = z.nativeEnum(GetCustomerMode);
-
-/** @internal */
-export const GetCustomerMode$outboundSchema: z.ZodNativeEnum<
-  typeof GetCustomerMode
-> = GetCustomerMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerMode$ {
-  /** @deprecated use `GetCustomerMode$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerMode$inboundSchema;
-  /** @deprecated use `GetCustomerMode$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerMode$outboundSchema;
-}
-
-/** @internal */
-export const GetCustomerLocale$inboundSchema: z.ZodNativeEnum<
-  typeof GetCustomerLocale
-> = z.nativeEnum(GetCustomerLocale);
-
-/** @internal */
-export const GetCustomerLocale$outboundSchema: z.ZodNativeEnum<
-  typeof GetCustomerLocale
-> = GetCustomerLocale$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerLocale$ {
-  /** @deprecated use `GetCustomerLocale$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerLocale$inboundSchema;
-  /** @deprecated use `GetCustomerLocale$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerLocale$outboundSchema;
-}
-
-/** @internal */
-export const GetCustomerMetadata$inboundSchema: z.ZodType<
-  GetCustomerMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
-
-/** @internal */
-export type GetCustomerMetadata$Outbound =
-  | string
-  | { [k: string]: any }
-  | Array<string>;
-
-/** @internal */
-export const GetCustomerMetadata$outboundSchema: z.ZodType<
-  GetCustomerMetadata$Outbound,
-  z.ZodTypeDef,
-  GetCustomerMetadata
-> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerMetadata$ {
-  /** @deprecated use `GetCustomerMetadata$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerMetadata$inboundSchema;
-  /** @deprecated use `GetCustomerMetadata$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerMetadata$outboundSchema;
-  /** @deprecated use `GetCustomerMetadata$Outbound` instead. */
-  export type Outbound = GetCustomerMetadata$Outbound;
-}
-
-export function getCustomerMetadataToJSON(
-  getCustomerMetadata: GetCustomerMetadata,
-): string {
-  return JSON.stringify(
-    GetCustomerMetadata$outboundSchema.parse(getCustomerMetadata),
-  );
-}
-
-export function getCustomerMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerSelf$inboundSchema: z.ZodType<
-  GetCustomerSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type GetCustomerSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const GetCustomerSelf$outboundSchema: z.ZodType<
-  GetCustomerSelf$Outbound,
-  z.ZodTypeDef,
-  GetCustomerSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerSelf$ {
-  /** @deprecated use `GetCustomerSelf$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerSelf$inboundSchema;
-  /** @deprecated use `GetCustomerSelf$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerSelf$outboundSchema;
-  /** @deprecated use `GetCustomerSelf$Outbound` instead. */
-  export type Outbound = GetCustomerSelf$Outbound;
-}
-
-export function getCustomerSelfToJSON(
-  getCustomerSelf: GetCustomerSelf,
-): string {
-  return JSON.stringify(GetCustomerSelf$outboundSchema.parse(getCustomerSelf));
-}
-
-export function getCustomerSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerDashboard$inboundSchema: z.ZodType<
-  GetCustomerDashboard,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type GetCustomerDashboard$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const GetCustomerDashboard$outboundSchema: z.ZodType<
-  GetCustomerDashboard$Outbound,
-  z.ZodTypeDef,
-  GetCustomerDashboard
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerDashboard$ {
-  /** @deprecated use `GetCustomerDashboard$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerDashboard$inboundSchema;
-  /** @deprecated use `GetCustomerDashboard$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerDashboard$outboundSchema;
-  /** @deprecated use `GetCustomerDashboard$Outbound` instead. */
-  export type Outbound = GetCustomerDashboard$Outbound;
-}
-
-export function getCustomerDashboardToJSON(
-  getCustomerDashboard: GetCustomerDashboard,
-): string {
-  return JSON.stringify(
-    GetCustomerDashboard$outboundSchema.parse(getCustomerDashboard),
-  );
-}
-
-export function getCustomerDashboardFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerDashboard, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerDashboard$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerDashboard' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerPayments$inboundSchema: z.ZodType<
-  GetCustomerPayments,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type GetCustomerPayments$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const GetCustomerPayments$outboundSchema: z.ZodType<
-  GetCustomerPayments$Outbound,
-  z.ZodTypeDef,
-  GetCustomerPayments
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerPayments$ {
-  /** @deprecated use `GetCustomerPayments$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerPayments$inboundSchema;
-  /** @deprecated use `GetCustomerPayments$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerPayments$outboundSchema;
-  /** @deprecated use `GetCustomerPayments$Outbound` instead. */
-  export type Outbound = GetCustomerPayments$Outbound;
-}
-
-export function getCustomerPaymentsToJSON(
-  getCustomerPayments: GetCustomerPayments,
-): string {
-  return JSON.stringify(
-    GetCustomerPayments$outboundSchema.parse(getCustomerPayments),
-  );
-}
-
-export function getCustomerPaymentsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerPayments, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerPayments$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerPayments' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerMandates$inboundSchema: z.ZodType<
-  GetCustomerMandates,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type GetCustomerMandates$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const GetCustomerMandates$outboundSchema: z.ZodType<
-  GetCustomerMandates$Outbound,
-  z.ZodTypeDef,
-  GetCustomerMandates
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerMandates$ {
-  /** @deprecated use `GetCustomerMandates$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerMandates$inboundSchema;
-  /** @deprecated use `GetCustomerMandates$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerMandates$outboundSchema;
-  /** @deprecated use `GetCustomerMandates$Outbound` instead. */
-  export type Outbound = GetCustomerMandates$Outbound;
-}
-
-export function getCustomerMandatesToJSON(
-  getCustomerMandates: GetCustomerMandates,
-): string {
-  return JSON.stringify(
-    GetCustomerMandates$outboundSchema.parse(getCustomerMandates),
-  );
-}
-
-export function getCustomerMandatesFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerMandates, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerMandates$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerMandates' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerSubscriptions$inboundSchema: z.ZodType<
-  GetCustomerSubscriptions,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type GetCustomerSubscriptions$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const GetCustomerSubscriptions$outboundSchema: z.ZodType<
-  GetCustomerSubscriptions$Outbound,
-  z.ZodTypeDef,
-  GetCustomerSubscriptions
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerSubscriptions$ {
-  /** @deprecated use `GetCustomerSubscriptions$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerSubscriptions$inboundSchema;
-  /** @deprecated use `GetCustomerSubscriptions$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerSubscriptions$outboundSchema;
-  /** @deprecated use `GetCustomerSubscriptions$Outbound` instead. */
-  export type Outbound = GetCustomerSubscriptions$Outbound;
-}
-
-export function getCustomerSubscriptionsToJSON(
-  getCustomerSubscriptions: GetCustomerSubscriptions,
-): string {
-  return JSON.stringify(
-    GetCustomerSubscriptions$outboundSchema.parse(getCustomerSubscriptions),
-  );
-}
-
-export function getCustomerSubscriptionsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerSubscriptions, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerSubscriptions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerSubscriptions' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerDocumentation$inboundSchema: z.ZodType<
-  GetCustomerDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type GetCustomerDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const GetCustomerDocumentation$outboundSchema: z.ZodType<
-  GetCustomerDocumentation$Outbound,
-  z.ZodTypeDef,
-  GetCustomerDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerDocumentation$ {
-  /** @deprecated use `GetCustomerDocumentation$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerDocumentation$inboundSchema;
-  /** @deprecated use `GetCustomerDocumentation$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerDocumentation$outboundSchema;
-  /** @deprecated use `GetCustomerDocumentation$Outbound` instead. */
-  export type Outbound = GetCustomerDocumentation$Outbound;
-}
-
-export function getCustomerDocumentationToJSON(
-  getCustomerDocumentation: GetCustomerDocumentation,
-): string {
-  return JSON.stringify(
-    GetCustomerDocumentation$outboundSchema.parse(getCustomerDocumentation),
-  );
-}
-
-export function getCustomerDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const GetCustomerLinks$inboundSchema: z.ZodType<
   GetCustomerLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => GetCustomerSelf$inboundSchema),
-  dashboard: z.lazy(() => GetCustomerDashboard$inboundSchema),
-  payments: z.nullable(z.lazy(() => GetCustomerPayments$inboundSchema))
-    .optional(),
-  mandates: z.nullable(z.lazy(() => GetCustomerMandates$inboundSchema))
-    .optional(),
-  subscriptions: z.nullable(
-    z.lazy(() => GetCustomerSubscriptions$inboundSchema),
-  ).optional(),
-  documentation: z.lazy(() => GetCustomerDocumentation$inboundSchema),
+  self: models.Url$inboundSchema,
+  dashboard: models.Url$inboundSchema,
+  payments: z.nullable(models.UrlNullable$inboundSchema).optional(),
+  mandates: z.nullable(models.UrlNullable$inboundSchema).optional(),
+  subscriptions: z.nullable(models.UrlNullable$inboundSchema).optional(),
+  documentation: models.Url$inboundSchema,
 });
 
 /** @internal */
 export type GetCustomerLinks$Outbound = {
-  self: GetCustomerSelf$Outbound;
-  dashboard: GetCustomerDashboard$Outbound;
-  payments?: GetCustomerPayments$Outbound | null | undefined;
-  mandates?: GetCustomerMandates$Outbound | null | undefined;
-  subscriptions?: GetCustomerSubscriptions$Outbound | null | undefined;
-  documentation: GetCustomerDocumentation$Outbound;
+  self: models.Url$Outbound;
+  dashboard: models.Url$Outbound;
+  payments?: models.UrlNullable$Outbound | null | undefined;
+  mandates?: models.UrlNullable$Outbound | null | undefined;
+  subscriptions?: models.UrlNullable$Outbound | null | undefined;
+  documentation: models.Url$Outbound;
 };
 
 /** @internal */
@@ -994,16 +193,12 @@ export const GetCustomerLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetCustomerLinks
 > = z.object({
-  self: z.lazy(() => GetCustomerSelf$outboundSchema),
-  dashboard: z.lazy(() => GetCustomerDashboard$outboundSchema),
-  payments: z.nullable(z.lazy(() => GetCustomerPayments$outboundSchema))
-    .optional(),
-  mandates: z.nullable(z.lazy(() => GetCustomerMandates$outboundSchema))
-    .optional(),
-  subscriptions: z.nullable(
-    z.lazy(() => GetCustomerSubscriptions$outboundSchema),
-  ).optional(),
-  documentation: z.lazy(() => GetCustomerDocumentation$outboundSchema),
+  self: models.Url$outboundSchema,
+  dashboard: models.Url$outboundSchema,
+  payments: z.nullable(models.UrlNullable$outboundSchema).optional(),
+  mandates: z.nullable(models.UrlNullable$outboundSchema).optional(),
+  subscriptions: z.nullable(models.UrlNullable$outboundSchema).optional(),
+  documentation: models.Url$outboundSchema,
 });
 
 /**
@@ -1038,187 +233,21 @@ export function getCustomerLinksFromJSON(
 }
 
 /** @internal */
-export const Url$inboundSchema: z.ZodType<Url, z.ZodTypeDef, unknown> = z
-  .object({
-    href: z.string(),
-    type: z.string(),
-  });
-
-/** @internal */
-export type Url$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const Url$outboundSchema: z.ZodType<Url$Outbound, z.ZodTypeDef, Url> = z
-  .object({
-    href: z.string(),
-    type: z.string(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Url$ {
-  /** @deprecated use `Url$inboundSchema` instead. */
-  export const inboundSchema = Url$inboundSchema;
-  /** @deprecated use `Url$outboundSchema` instead. */
-  export const outboundSchema = Url$outboundSchema;
-  /** @deprecated use `Url$Outbound` instead. */
-  export type Outbound = Url$Outbound;
-}
-
-export function urlToJSON(url: Url): string {
-  return JSON.stringify(Url$outboundSchema.parse(url));
-}
-
-export function urlFromJSON(
-  jsonString: string,
-): SafeParseResult<Url, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Url$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Url' from JSON`,
-  );
-}
-
-/** @internal */
-export const EventLinks$inboundSchema: z.ZodType<
-  EventLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.lazy(() => Url$inboundSchema).optional(),
-});
-
-/** @internal */
-export type EventLinks$Outbound = {
-  url?: Url$Outbound | undefined;
-};
-
-/** @internal */
-export const EventLinks$outboundSchema: z.ZodType<
-  EventLinks$Outbound,
-  z.ZodTypeDef,
-  EventLinks
-> = z.object({
-  url: z.lazy(() => Url$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EventLinks$ {
-  /** @deprecated use `EventLinks$inboundSchema` instead. */
-  export const inboundSchema = EventLinks$inboundSchema;
-  /** @deprecated use `EventLinks$outboundSchema` instead. */
-  export const outboundSchema = EventLinks$outboundSchema;
-  /** @deprecated use `EventLinks$Outbound` instead. */
-  export type Outbound = EventLinks$Outbound;
-}
-
-export function eventLinksToJSON(eventLinks: EventLinks): string {
-  return JSON.stringify(EventLinks$outboundSchema.parse(eventLinks));
-}
-
-export function eventLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<EventLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EventLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EventLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const Event$inboundSchema: z.ZodType<Event, z.ZodTypeDef, unknown> = z
-  .object({
-    resource: z.string(),
-    type: z.number().int(),
-    createdAt: z.string(),
-    message: z.string(),
-    _links: z.lazy(() => EventLinks$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  });
-
-/** @internal */
-export type Event$Outbound = {
-  resource: string;
-  type: number;
-  createdAt: string;
-  message: string;
-  _links?: EventLinks$Outbound | undefined;
-};
-
-/** @internal */
-export const Event$outboundSchema: z.ZodType<
-  Event$Outbound,
-  z.ZodTypeDef,
-  Event
-> = z.object({
-  resource: z.string(),
-  type: z.number().int(),
-  createdAt: z.string(),
-  message: z.string(),
-  links: z.lazy(() => EventLinks$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Event$ {
-  /** @deprecated use `Event$inboundSchema` instead. */
-  export const inboundSchema = Event$inboundSchema;
-  /** @deprecated use `Event$outboundSchema` instead. */
-  export const outboundSchema = Event$outboundSchema;
-  /** @deprecated use `Event$Outbound` instead. */
-  export type Outbound = Event$Outbound;
-}
-
-export function eventToJSON(event: Event): string {
-  return JSON.stringify(Event$outboundSchema.parse(event));
-}
-
-export function eventFromJSON(
-  jsonString: string,
-): SafeParseResult<Event, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Event$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Event' from JSON`,
-  );
-}
-
-/** @internal */
 export const GetCustomerResponse$inboundSchema: z.ZodType<
   GetCustomerResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: GetCustomerMode$inboundSchema,
-  name: z.nullable(z.string()),
-  email: z.nullable(z.string()),
-  locale: z.nullable(GetCustomerLocale$inboundSchema),
-  metadata: z.nullable(
-    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
-  ),
-  createdAt: z.string(),
-  _links: z.lazy(() => GetCustomerLinks$inboundSchema),
-  events: z.array(z.lazy(() => Event$inboundSchema)).optional(),
+  resource: z.string().optional(),
+  id: z.string().optional(),
+  mode: models.Mode$inboundSchema.optional(),
+  name: z.nullable(z.string()).optional(),
+  email: z.nullable(z.string()).optional(),
+  locale: models.LocaleResponse$inboundSchema.optional(),
+  metadata: z.nullable(models.Metadata$inboundSchema).optional(),
+  createdAt: z.string().optional(),
+  _links: z.lazy(() => GetCustomerLinks$inboundSchema).optional(),
+  events: z.array(models.EntityEvent$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1227,16 +256,16 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetCustomerResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  name: string | null;
-  email: string | null;
-  locale: string | null;
-  metadata: string | { [k: string]: any } | Array<string> | null;
-  createdAt: string;
-  _links: GetCustomerLinks$Outbound;
-  events?: Array<Event$Outbound> | undefined;
+  resource?: string | undefined;
+  id?: string | undefined;
+  mode?: string | undefined;
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  locale?: string | undefined;
+  metadata?: models.Metadata$Outbound | null | undefined;
+  createdAt?: string | undefined;
+  _links?: GetCustomerLinks$Outbound | undefined;
+  events?: Array<models.EntityEvent$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1245,18 +274,16 @@ export const GetCustomerResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetCustomerResponse
 > = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: GetCustomerMode$outboundSchema,
-  name: z.nullable(z.string()),
-  email: z.nullable(z.string()),
-  locale: z.nullable(GetCustomerLocale$outboundSchema),
-  metadata: z.nullable(
-    z.union([z.string(), z.record(z.any()), z.array(z.string())]),
-  ),
-  createdAt: z.string(),
-  links: z.lazy(() => GetCustomerLinks$outboundSchema),
-  events: z.array(z.lazy(() => Event$outboundSchema)).optional(),
+  resource: z.string().optional(),
+  id: z.string().optional(),
+  mode: models.Mode$outboundSchema.optional(),
+  name: z.nullable(z.string()).optional(),
+  email: z.nullable(z.string()).optional(),
+  locale: models.LocaleResponse$outboundSchema.optional(),
+  metadata: z.nullable(models.Metadata$outboundSchema).optional(),
+  createdAt: z.string().optional(),
+  links: z.lazy(() => GetCustomerLinks$outboundSchema).optional(),
+  events: z.array(models.EntityEvent$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

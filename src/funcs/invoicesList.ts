@@ -41,8 +41,7 @@ export function invoicesList(
 ): APIPromise<
   Result<
     operations.ListInvoicesResponse,
-    | errors.ListInvoicesBadRequestHalJSONError
-    | errors.ListInvoicesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -68,8 +67,7 @@ async function $do(
   [
     Result<
       operations.ListInvoicesResponse,
-      | errors.ListInvoicesBadRequestHalJSONError
-      | errors.ListInvoicesNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -170,8 +168,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListInvoicesResponse,
-    | errors.ListInvoicesBadRequestHalJSONError
-    | errors.ListInvoicesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -184,10 +181,7 @@ async function $do(
     M.json(200, operations.ListInvoicesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListInvoicesBadRequestHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(404, errors.ListInvoicesNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

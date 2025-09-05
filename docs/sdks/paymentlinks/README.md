@@ -32,6 +32,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.paymentLinks.create({
+    id: "pl_d9fQur83kFdhH8hIhaZfq",
     description: "Chess Board",
     amount: {
       currency: "EUR",
@@ -143,6 +144,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await paymentLinksCreate(client, {
+    id: "pl_d9fQur83kFdhH8hIhaZfq",
     description: "Chess Board",
     amount: {
       currency: "EUR",
@@ -251,15 +253,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreatePaymentLinkResponse](../../models/operations/createpaymentlinkresponse.md)\>**
+**Promise\<[models.PaymentLinkResponse](../../models/paymentlinkresponse.md)\>**
 
 ### Errors
 
-| Error Type                                              | Status Code                                             | Content Type                                            |
-| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| errors.CreatePaymentLinkNotFoundHalJSONError            | 404                                                     | application/hal+json                                    |
-| errors.CreatePaymentLinkUnprocessableEntityHalJSONError | 422                                                     | application/hal+json                                    |
-| errors.ClientDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -340,10 +341,10 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.ListPaymentLinksHalJSONError | 400                                 | application/hal+json                |
-| errors.ClientDefaultError           | 4XX, 5XX                            | \*/\*                               |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -416,14 +417,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPaymentLinkResponse](../../models/operations/getpaymentlinkresponse.md)\>**
+**Promise\<[models.PaymentLinkResponse](../../models/paymentlinkresponse.md)\>**
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.GetPaymentLinkHalJSONError | 404                               | application/hal+json              |
-| errors.ClientDefaultError         | 4XX, 5XX                          | \*/\*                             |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -576,15 +577,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdatePaymentLinkResponse](../../models/operations/updatepaymentlinkresponse.md)\>**
+**Promise\<[models.PaymentLinkResponse](../../models/paymentlinkresponse.md)\>**
 
 ### Errors
 
-| Error Type                                              | Status Code                                             | Content Type                                            |
-| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| errors.UpdatePaymentLinkNotFoundHalJSONError            | 404                                                     | application/hal+json                                    |
-| errors.UpdatePaymentLinkUnprocessableEntityHalJSONError | 422                                                     | application/hal+json                                    |
-| errors.ClientDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -671,11 +671,10 @@ run();
 
 ### Errors
 
-| Error Type                                              | Status Code                                             | Content Type                                            |
-| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| errors.DeletePaymentLinkNotFoundHalJSONError            | 404                                                     | application/hal+json                                    |
-| errors.DeletePaymentLinkUnprocessableEntityHalJSONError | 422                                                     | application/hal+json                                    |
-| errors.ClientDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listPayments
 
@@ -760,7 +759,7 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.GetPaymentLinkPaymentsHalJSONError | 400                                       | application/hal+json                      |
-| errors.ClientDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

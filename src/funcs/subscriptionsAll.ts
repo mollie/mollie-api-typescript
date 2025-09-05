@@ -40,8 +40,7 @@ export function subscriptionsAll(
 ): APIPromise<
   Result<
     operations.ListAllSubscriptionsResponse,
-    | errors.ListAllSubscriptionsBadRequestHalJSONError
-    | errors.ListAllSubscriptionsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListAllSubscriptionsResponse,
-      | errors.ListAllSubscriptionsBadRequestHalJSONError
-      | errors.ListAllSubscriptionsNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -169,8 +167,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListAllSubscriptionsResponse,
-    | errors.ListAllSubscriptionsBadRequestHalJSONError
-    | errors.ListAllSubscriptionsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -183,16 +180,9 @@ async function $do(
     M.json(200, operations.ListAllSubscriptionsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(
-      400,
-      errors.ListAllSubscriptionsBadRequestHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
-    M.jsonErr(
-      404,
-      errors.ListAllSubscriptionsNotFoundHalJSONError$inboundSchema,
-      { ctype: "application/hal+json" },
-    ),
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

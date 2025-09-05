@@ -5,27 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
- *
- * @remarks
- * newest to oldest.
- */
-export const ListInvoicesSort = {
-  Asc: "asc",
-  Desc: "desc",
-} as const;
-/**
- * Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
- *
- * @remarks
- * newest to oldest.
- */
-export type ListInvoicesSort = ClosedEnum<typeof ListInvoicesSort>;
+import * as models from "../index.js";
 
 export type ListInvoicesRequest = {
   /**
@@ -60,40 +42,10 @@ export type ListInvoicesRequest = {
    * @remarks
    * newest to oldest.
    */
-  sort?: ListInvoicesSort | null | undefined;
+  sort?: models.ListSort | null | undefined;
 };
 
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type ListInvoicesNotFoundDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type ListInvoicesNotFoundLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: ListInvoicesNotFoundDocumentation;
-};
-
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type ListInvoicesBadRequestDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type ListInvoicesBadRequestLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: ListInvoicesBadRequestDocumentation;
-};
-
-export type ListInvoicesInvoice = {};
+export type Invoice = {};
 
 export type ListInvoicesEmbedded = {
   /**
@@ -102,85 +54,7 @@ export type ListInvoicesEmbedded = {
    * @remarks
    * the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
    */
-  invoices?: Array<ListInvoicesInvoice> | undefined;
-};
-
-/**
- * The URL to the current set of items.
- */
-export type ListInvoicesSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * The previous set of items, if available.
- */
-export type ListInvoicesPrevious = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * The next set of items, if available.
- */
-export type ListInvoicesNext = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListInvoicesDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
- */
-export type ListInvoicesLinks = {
-  /**
-   * The URL to the current set of items.
-   */
-  self: ListInvoicesSelf;
-  /**
-   * The previous set of items, if available.
-   */
-  previous: ListInvoicesPrevious | null;
-  /**
-   * The next set of items, if available.
-   */
-  next: ListInvoicesNext | null;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation: ListInvoicesDocumentation;
+  invoices?: Array<Invoice> | undefined;
 };
 
 /**
@@ -204,29 +78,8 @@ export type ListInvoicesResponse = {
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ListInvoicesLinks | undefined;
+  links?: models.ListLinks | undefined;
 };
-
-/** @internal */
-export const ListInvoicesSort$inboundSchema: z.ZodNativeEnum<
-  typeof ListInvoicesSort
-> = z.nativeEnum(ListInvoicesSort);
-
-/** @internal */
-export const ListInvoicesSort$outboundSchema: z.ZodNativeEnum<
-  typeof ListInvoicesSort
-> = ListInvoicesSort$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesSort$ {
-  /** @deprecated use `ListInvoicesSort$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesSort$inboundSchema;
-  /** @deprecated use `ListInvoicesSort$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesSort$outboundSchema;
-}
 
 /** @internal */
 export const ListInvoicesRequest$inboundSchema: z.ZodType<
@@ -239,7 +92,7 @@ export const ListInvoicesRequest$inboundSchema: z.ZodType<
   month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
-  sort: z.nullable(ListInvoicesSort$inboundSchema).optional(),
+  sort: z.nullable(models.ListSort$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -263,7 +116,7 @@ export const ListInvoicesRequest$outboundSchema: z.ZodType<
   month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
-  sort: z.nullable(ListInvoicesSort$outboundSchema).optional(),
+  sort: z.nullable(models.ListSort$outboundSchema).optional(),
 });
 
 /**
@@ -298,286 +151,43 @@ export function listInvoicesRequestFromJSON(
 }
 
 /** @internal */
-export const ListInvoicesNotFoundDocumentation$inboundSchema: z.ZodType<
-  ListInvoicesNotFoundDocumentation,
+export const Invoice$inboundSchema: z.ZodType<Invoice, z.ZodTypeDef, unknown> =
+  z.object({});
+
+/** @internal */
+export type Invoice$Outbound = {};
+
+/** @internal */
+export const Invoice$outboundSchema: z.ZodType<
+  Invoice$Outbound,
   z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListInvoicesNotFoundDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListInvoicesNotFoundDocumentation$outboundSchema: z.ZodType<
-  ListInvoicesNotFoundDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesNotFoundDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesNotFoundDocumentation$ {
-  /** @deprecated use `ListInvoicesNotFoundDocumentation$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesNotFoundDocumentation$inboundSchema;
-  /** @deprecated use `ListInvoicesNotFoundDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    ListInvoicesNotFoundDocumentation$outboundSchema;
-  /** @deprecated use `ListInvoicesNotFoundDocumentation$Outbound` instead. */
-  export type Outbound = ListInvoicesNotFoundDocumentation$Outbound;
-}
-
-export function listInvoicesNotFoundDocumentationToJSON(
-  listInvoicesNotFoundDocumentation: ListInvoicesNotFoundDocumentation,
-): string {
-  return JSON.stringify(
-    ListInvoicesNotFoundDocumentation$outboundSchema.parse(
-      listInvoicesNotFoundDocumentation,
-    ),
-  );
-}
-
-export function listInvoicesNotFoundDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesNotFoundDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesNotFoundDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesNotFoundDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesNotFoundLinks$inboundSchema: z.ZodType<
-  ListInvoicesNotFoundLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() => ListInvoicesNotFoundDocumentation$inboundSchema),
-});
-
-/** @internal */
-export type ListInvoicesNotFoundLinks$Outbound = {
-  documentation: ListInvoicesNotFoundDocumentation$Outbound;
-};
-
-/** @internal */
-export const ListInvoicesNotFoundLinks$outboundSchema: z.ZodType<
-  ListInvoicesNotFoundLinks$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesNotFoundLinks
-> = z.object({
-  documentation: z.lazy(() => ListInvoicesNotFoundDocumentation$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesNotFoundLinks$ {
-  /** @deprecated use `ListInvoicesNotFoundLinks$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesNotFoundLinks$inboundSchema;
-  /** @deprecated use `ListInvoicesNotFoundLinks$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesNotFoundLinks$outboundSchema;
-  /** @deprecated use `ListInvoicesNotFoundLinks$Outbound` instead. */
-  export type Outbound = ListInvoicesNotFoundLinks$Outbound;
-}
-
-export function listInvoicesNotFoundLinksToJSON(
-  listInvoicesNotFoundLinks: ListInvoicesNotFoundLinks,
-): string {
-  return JSON.stringify(
-    ListInvoicesNotFoundLinks$outboundSchema.parse(listInvoicesNotFoundLinks),
-  );
-}
-
-export function listInvoicesNotFoundLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesNotFoundLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesNotFoundLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesNotFoundLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesBadRequestDocumentation$inboundSchema: z.ZodType<
-  ListInvoicesBadRequestDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListInvoicesBadRequestDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListInvoicesBadRequestDocumentation$outboundSchema: z.ZodType<
-  ListInvoicesBadRequestDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesBadRequestDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesBadRequestDocumentation$ {
-  /** @deprecated use `ListInvoicesBadRequestDocumentation$inboundSchema` instead. */
-  export const inboundSchema =
-    ListInvoicesBadRequestDocumentation$inboundSchema;
-  /** @deprecated use `ListInvoicesBadRequestDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    ListInvoicesBadRequestDocumentation$outboundSchema;
-  /** @deprecated use `ListInvoicesBadRequestDocumentation$Outbound` instead. */
-  export type Outbound = ListInvoicesBadRequestDocumentation$Outbound;
-}
-
-export function listInvoicesBadRequestDocumentationToJSON(
-  listInvoicesBadRequestDocumentation: ListInvoicesBadRequestDocumentation,
-): string {
-  return JSON.stringify(
-    ListInvoicesBadRequestDocumentation$outboundSchema.parse(
-      listInvoicesBadRequestDocumentation,
-    ),
-  );
-}
-
-export function listInvoicesBadRequestDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesBadRequestDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListInvoicesBadRequestDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesBadRequestDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesBadRequestLinks$inboundSchema: z.ZodType<
-  ListInvoicesBadRequestLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() =>
-    ListInvoicesBadRequestDocumentation$inboundSchema
-  ),
-});
-
-/** @internal */
-export type ListInvoicesBadRequestLinks$Outbound = {
-  documentation: ListInvoicesBadRequestDocumentation$Outbound;
-};
-
-/** @internal */
-export const ListInvoicesBadRequestLinks$outboundSchema: z.ZodType<
-  ListInvoicesBadRequestLinks$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesBadRequestLinks
-> = z.object({
-  documentation: z.lazy(() =>
-    ListInvoicesBadRequestDocumentation$outboundSchema
-  ),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesBadRequestLinks$ {
-  /** @deprecated use `ListInvoicesBadRequestLinks$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesBadRequestLinks$inboundSchema;
-  /** @deprecated use `ListInvoicesBadRequestLinks$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesBadRequestLinks$outboundSchema;
-  /** @deprecated use `ListInvoicesBadRequestLinks$Outbound` instead. */
-  export type Outbound = ListInvoicesBadRequestLinks$Outbound;
-}
-
-export function listInvoicesBadRequestLinksToJSON(
-  listInvoicesBadRequestLinks: ListInvoicesBadRequestLinks,
-): string {
-  return JSON.stringify(
-    ListInvoicesBadRequestLinks$outboundSchema.parse(
-      listInvoicesBadRequestLinks,
-    ),
-  );
-}
-
-export function listInvoicesBadRequestLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesBadRequestLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesBadRequestLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesInvoice$inboundSchema: z.ZodType<
-  ListInvoicesInvoice,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ListInvoicesInvoice$Outbound = {};
-
-/** @internal */
-export const ListInvoicesInvoice$outboundSchema: z.ZodType<
-  ListInvoicesInvoice$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesInvoice
+  Invoice
 > = z.object({});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListInvoicesInvoice$ {
-  /** @deprecated use `ListInvoicesInvoice$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesInvoice$inboundSchema;
-  /** @deprecated use `ListInvoicesInvoice$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesInvoice$outboundSchema;
-  /** @deprecated use `ListInvoicesInvoice$Outbound` instead. */
-  export type Outbound = ListInvoicesInvoice$Outbound;
+export namespace Invoice$ {
+  /** @deprecated use `Invoice$inboundSchema` instead. */
+  export const inboundSchema = Invoice$inboundSchema;
+  /** @deprecated use `Invoice$outboundSchema` instead. */
+  export const outboundSchema = Invoice$outboundSchema;
+  /** @deprecated use `Invoice$Outbound` instead. */
+  export type Outbound = Invoice$Outbound;
 }
 
-export function listInvoicesInvoiceToJSON(
-  listInvoicesInvoice: ListInvoicesInvoice,
-): string {
-  return JSON.stringify(
-    ListInvoicesInvoice$outboundSchema.parse(listInvoicesInvoice),
-  );
+export function invoiceToJSON(invoice: Invoice): string {
+  return JSON.stringify(Invoice$outboundSchema.parse(invoice));
 }
 
-export function listInvoicesInvoiceFromJSON(
+export function invoiceFromJSON(
   jsonString: string,
-): SafeParseResult<ListInvoicesInvoice, SDKValidationError> {
+): SafeParseResult<Invoice, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ListInvoicesInvoice$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesInvoice' from JSON`,
+    (x) => Invoice$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Invoice' from JSON`,
   );
 }
 
@@ -587,12 +197,12 @@ export const ListInvoicesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  invoices: z.array(z.lazy(() => ListInvoicesInvoice$inboundSchema)).optional(),
+  invoices: z.array(z.lazy(() => Invoice$inboundSchema)).optional(),
 });
 
 /** @internal */
 export type ListInvoicesEmbedded$Outbound = {
-  invoices?: Array<ListInvoicesInvoice$Outbound> | undefined;
+  invoices?: Array<Invoice$Outbound> | undefined;
 };
 
 /** @internal */
@@ -601,8 +211,7 @@ export const ListInvoicesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListInvoicesEmbedded
 > = z.object({
-  invoices: z.array(z.lazy(() => ListInvoicesInvoice$outboundSchema))
-    .optional(),
+  invoices: z.array(z.lazy(() => Invoice$outboundSchema)).optional(),
 });
 
 /**
@@ -637,297 +246,6 @@ export function listInvoicesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListInvoicesSelf$inboundSchema: z.ZodType<
-  ListInvoicesSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListInvoicesSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListInvoicesSelf$outboundSchema: z.ZodType<
-  ListInvoicesSelf$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesSelf$ {
-  /** @deprecated use `ListInvoicesSelf$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesSelf$inboundSchema;
-  /** @deprecated use `ListInvoicesSelf$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesSelf$outboundSchema;
-  /** @deprecated use `ListInvoicesSelf$Outbound` instead. */
-  export type Outbound = ListInvoicesSelf$Outbound;
-}
-
-export function listInvoicesSelfToJSON(
-  listInvoicesSelf: ListInvoicesSelf,
-): string {
-  return JSON.stringify(
-    ListInvoicesSelf$outboundSchema.parse(listInvoicesSelf),
-  );
-}
-
-export function listInvoicesSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesPrevious$inboundSchema: z.ZodType<
-  ListInvoicesPrevious,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type ListInvoicesPrevious$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const ListInvoicesPrevious$outboundSchema: z.ZodType<
-  ListInvoicesPrevious$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesPrevious
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesPrevious$ {
-  /** @deprecated use `ListInvoicesPrevious$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesPrevious$inboundSchema;
-  /** @deprecated use `ListInvoicesPrevious$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesPrevious$outboundSchema;
-  /** @deprecated use `ListInvoicesPrevious$Outbound` instead. */
-  export type Outbound = ListInvoicesPrevious$Outbound;
-}
-
-export function listInvoicesPreviousToJSON(
-  listInvoicesPrevious: ListInvoicesPrevious,
-): string {
-  return JSON.stringify(
-    ListInvoicesPrevious$outboundSchema.parse(listInvoicesPrevious),
-  );
-}
-
-export function listInvoicesPreviousFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesPrevious, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesPrevious$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesPrevious' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesNext$inboundSchema: z.ZodType<
-  ListInvoicesNext,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type ListInvoicesNext$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const ListInvoicesNext$outboundSchema: z.ZodType<
-  ListInvoicesNext$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesNext
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesNext$ {
-  /** @deprecated use `ListInvoicesNext$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesNext$inboundSchema;
-  /** @deprecated use `ListInvoicesNext$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesNext$outboundSchema;
-  /** @deprecated use `ListInvoicesNext$Outbound` instead. */
-  export type Outbound = ListInvoicesNext$Outbound;
-}
-
-export function listInvoicesNextToJSON(
-  listInvoicesNext: ListInvoicesNext,
-): string {
-  return JSON.stringify(
-    ListInvoicesNext$outboundSchema.parse(listInvoicesNext),
-  );
-}
-
-export function listInvoicesNextFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesNext, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesNext$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesNext' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesDocumentation$inboundSchema: z.ZodType<
-  ListInvoicesDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListInvoicesDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListInvoicesDocumentation$outboundSchema: z.ZodType<
-  ListInvoicesDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesDocumentation$ {
-  /** @deprecated use `ListInvoicesDocumentation$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesDocumentation$inboundSchema;
-  /** @deprecated use `ListInvoicesDocumentation$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesDocumentation$outboundSchema;
-  /** @deprecated use `ListInvoicesDocumentation$Outbound` instead. */
-  export type Outbound = ListInvoicesDocumentation$Outbound;
-}
-
-export function listInvoicesDocumentationToJSON(
-  listInvoicesDocumentation: ListInvoicesDocumentation,
-): string {
-  return JSON.stringify(
-    ListInvoicesDocumentation$outboundSchema.parse(listInvoicesDocumentation),
-  );
-}
-
-export function listInvoicesDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListInvoicesLinks$inboundSchema: z.ZodType<
-  ListInvoicesLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: z.lazy(() => ListInvoicesSelf$inboundSchema),
-  previous: z.nullable(z.lazy(() => ListInvoicesPrevious$inboundSchema)),
-  next: z.nullable(z.lazy(() => ListInvoicesNext$inboundSchema)),
-  documentation: z.lazy(() => ListInvoicesDocumentation$inboundSchema),
-});
-
-/** @internal */
-export type ListInvoicesLinks$Outbound = {
-  self: ListInvoicesSelf$Outbound;
-  previous: ListInvoicesPrevious$Outbound | null;
-  next: ListInvoicesNext$Outbound | null;
-  documentation: ListInvoicesDocumentation$Outbound;
-};
-
-/** @internal */
-export const ListInvoicesLinks$outboundSchema: z.ZodType<
-  ListInvoicesLinks$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesLinks
-> = z.object({
-  self: z.lazy(() => ListInvoicesSelf$outboundSchema),
-  previous: z.nullable(z.lazy(() => ListInvoicesPrevious$outboundSchema)),
-  next: z.nullable(z.lazy(() => ListInvoicesNext$outboundSchema)),
-  documentation: z.lazy(() => ListInvoicesDocumentation$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInvoicesLinks$ {
-  /** @deprecated use `ListInvoicesLinks$inboundSchema` instead. */
-  export const inboundSchema = ListInvoicesLinks$inboundSchema;
-  /** @deprecated use `ListInvoicesLinks$outboundSchema` instead. */
-  export const outboundSchema = ListInvoicesLinks$outboundSchema;
-  /** @deprecated use `ListInvoicesLinks$Outbound` instead. */
-  export type Outbound = ListInvoicesLinks$Outbound;
-}
-
-export function listInvoicesLinksToJSON(
-  listInvoicesLinks: ListInvoicesLinks,
-): string {
-  return JSON.stringify(
-    ListInvoicesLinks$outboundSchema.parse(listInvoicesLinks),
-  );
-}
-
-export function listInvoicesLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesLinks' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListInvoicesResponse$inboundSchema: z.ZodType<
   ListInvoicesResponse,
   z.ZodTypeDef,
@@ -935,7 +253,7 @@ export const ListInvoicesResponse$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int().optional(),
   _embedded: z.lazy(() => ListInvoicesEmbedded$inboundSchema).optional(),
-  _links: z.lazy(() => ListInvoicesLinks$inboundSchema).optional(),
+  _links: models.ListLinks$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -947,7 +265,7 @@ export const ListInvoicesResponse$inboundSchema: z.ZodType<
 export type ListInvoicesResponse$Outbound = {
   count?: number | undefined;
   _embedded?: ListInvoicesEmbedded$Outbound | undefined;
-  _links?: ListInvoicesLinks$Outbound | undefined;
+  _links?: models.ListLinks$Outbound | undefined;
 };
 
 /** @internal */
@@ -958,7 +276,7 @@ export const ListInvoicesResponse$outboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int().optional(),
   embedded: z.lazy(() => ListInvoicesEmbedded$outboundSchema).optional(),
-  links: z.lazy(() => ListInvoicesLinks$outboundSchema).optional(),
+  links: models.ListLinks$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

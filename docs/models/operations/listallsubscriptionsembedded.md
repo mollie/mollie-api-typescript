@@ -30,11 +30,6 @@ let value: ListAllSubscriptionsEmbedded = {
         },
         description: "Platform fee",
       },
-      metadata: {
-        "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
-      },
       webhookUrl: "https://example.com/webhook",
       customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
@@ -73,6 +68,6 @@ let value: ListAllSubscriptionsEmbedded = {
 
 ## Fields
 
-| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `subscriptions`                                                                                              | [operations.ListAllSubscriptionsSubscription](../../models/operations/listallsubscriptionssubscription.md)[] | :heavy_minus_sign:                                                                                           | A list of subscription objects.                                                                              |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `subscriptions`                                                       | [models.SubscriptionResponse](../../models/subscriptionresponse.md)[] | :heavy_minus_sign:                                                    | A list of subscription objects.                                       |

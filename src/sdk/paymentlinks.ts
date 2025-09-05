@@ -9,6 +9,7 @@ import { paymentLinksList } from "../funcs/paymentLinksList.js";
 import { paymentLinksListPayments } from "../funcs/paymentLinksListPayments.js";
 import { paymentLinksUpdate } from "../funcs/paymentLinksUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -24,7 +25,7 @@ export class PaymentLinks extends ClientSDK {
   async create(
     request?: operations.CreatePaymentLinkRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.CreatePaymentLinkResponse> {
+  ): Promise<models.PaymentLinkResponse> {
     return unwrapAsync(paymentLinksCreate(
       this,
       request,
@@ -60,7 +61,7 @@ export class PaymentLinks extends ClientSDK {
   async get(
     request: operations.GetPaymentLinkRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetPaymentLinkResponse> {
+  ): Promise<models.PaymentLinkResponse> {
     return unwrapAsync(paymentLinksGet(
       this,
       request,
@@ -77,7 +78,7 @@ export class PaymentLinks extends ClientSDK {
   async update(
     request: operations.UpdatePaymentLinkRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdatePaymentLinkResponse> {
+  ): Promise<models.PaymentLinkResponse> {
     return unwrapAsync(paymentLinksUpdate(
       this,
       request,

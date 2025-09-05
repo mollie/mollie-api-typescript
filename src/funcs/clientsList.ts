@@ -40,8 +40,7 @@ export function clientsList(
 ): APIPromise<
   Result<
     operations.ListClientsResponse,
-    | errors.ListClientsBadRequestHalJSONError
-    | errors.ListClientsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListClientsResponse,
-      | errors.ListClientsBadRequestHalJSONError
-      | errors.ListClientsNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -166,8 +164,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListClientsResponse,
-    | errors.ListClientsBadRequestHalJSONError
-    | errors.ListClientsNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -180,10 +177,7 @@ async function $do(
     M.json(200, operations.ListClientsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListClientsBadRequestHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(404, errors.ListClientsNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

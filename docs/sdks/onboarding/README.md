@@ -72,7 +72,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOnboardingStatusResponse](../../models/operations/getonboardingstatusresponse.md)\>**
+**Promise\<[models.EntityOnboardingStatus](../../models/entityonboardingstatus.md)\>**
 
 ### Errors
 

@@ -4,6 +4,7 @@
 
 import { webhookEventsGet } from "../funcs/webhookEventsGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -17,7 +18,7 @@ export class WebhookEvents extends ClientSDK {
   async get(
     request: operations.GetWebhookEventRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetWebhookEventResponse> {
+  ): Promise<models.EntityWebhookEvent> {
     return unwrapAsync(webhookEventsGet(
       this,
       request,

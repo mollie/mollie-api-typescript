@@ -21,7 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function customersCreate(
   client: ClientCore,
-  request?: operations.CreateCustomerRequest | undefined,
+  request?: models.EntityCustomer | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateCustomerResponse,
-    | errors.CreateCustomerHalJSONError
+    models.CustomerResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function customersCreate(
 
 async function $do(
   client: ClientCore,
-  request?: operations.CreateCustomerRequest | undefined,
+  request?: models.EntityCustomer | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateCustomerResponse,
-      | errors.CreateCustomerHalJSONError
+      models.CustomerResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -82,8 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.CreateCustomerRequest$outboundSchema.optional().parse(value),
+    (value) => models.EntityCustomer$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -160,8 +159,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateCustomerResponse,
-    | errors.CreateCustomerHalJSONError
+    models.CustomerResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -171,10 +170,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.CreateCustomerResponse$inboundSchema, {
+    M.json(201, models.CustomerResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(404, errors.CreateCustomerHalJSONError$inboundSchema, {
+    M.jsonErr(404, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

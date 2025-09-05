@@ -40,7 +40,7 @@ export function terminalsList(
 ): APIPromise<
   Result<
     operations.ListTerminalsResponse,
-    | errors.ListTerminalsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.ListTerminalsResponse,
-      | errors.ListTerminalsHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -165,7 +165,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListTerminalsResponse,
-    | errors.ListTerminalsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -178,7 +178,7 @@ async function $do(
     M.json(200, operations.ListTerminalsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListTerminalsHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

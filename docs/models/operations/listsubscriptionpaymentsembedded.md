@@ -124,7 +124,33 @@ let value: ListSubscriptionPaymentsEmbedded = {
         },
         description: "10",
       },
-      routing: null,
+      routing: [
+        {
+          resource: "route",
+          id: "rt_5B8cwPMGnU",
+          mode: "live",
+          amount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          destination: {
+            type: "organization",
+            organizationId: "org_1234567",
+          },
+          createdAt: "2024-12-12T10:00:00Z",
+          releaseDate: "2024-12-12",
+          links: {
+            self: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+            payment: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+          },
+        },
+      ],
       sequenceType: "oneoff",
       subscriptionId: "sub_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
@@ -266,6 +292,6 @@ let value: ListSubscriptionPaymentsEmbedded = {
 
 ## Fields
 
-| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `payments`                                                                                                             | [operations.ListSubscriptionPaymentsPaymentOutput](../../models/operations/listsubscriptionpaymentspaymentoutput.md)[] | :heavy_minus_sign:                                                                                                     | An array of payment objects.                                                                                           |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `payments`                                                  | [models.PaymentResponse](../../models/paymentresponse.md)[] | :heavy_minus_sign:                                          | An array of payment objects.                                |

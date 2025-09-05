@@ -40,8 +40,7 @@ export function mandatesList(
 ): APIPromise<
   Result<
     operations.ListMandatesResponse,
-    | errors.ListMandatesBadRequestHalJSONError
-    | errors.ListMandatesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.ListMandatesResponse,
-      | errors.ListMandatesBadRequestHalJSONError
-      | errors.ListMandatesNotFoundHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -173,8 +171,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListMandatesResponse,
-    | errors.ListMandatesBadRequestHalJSONError
-    | errors.ListMandatesNotFoundHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -187,10 +184,7 @@ async function $do(
     M.json(200, operations.ListMandatesResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListMandatesBadRequestHalJSONError$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
-    M.jsonErr(404, errors.ListMandatesNotFoundHalJSONError$inboundSchema, {
+    M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

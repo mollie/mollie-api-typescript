@@ -18,7 +18,7 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -37,7 +37,7 @@ export function balancesGetPrimary(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetPrimaryBalanceResponse,
+    models.EntityBalance,
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -60,7 +60,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetPrimaryBalanceResponse,
+      models.EntityBalance,
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -133,7 +133,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetPrimaryBalanceResponse,
+    models.EntityBalance,
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -143,7 +143,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetPrimaryBalanceResponse$inboundSchema, {
+    M.json(200, models.EntityBalance$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

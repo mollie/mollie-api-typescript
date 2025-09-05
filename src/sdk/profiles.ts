@@ -9,6 +9,7 @@ import { profilesGetCurrent } from "../funcs/profilesGetCurrent.js";
 import { profilesList } from "../funcs/profilesList.js";
 import { profilesUpdate } from "../funcs/profilesUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -23,9 +24,9 @@ export class Profiles extends ClientSDK {
    * can use this endpoint to automate profile creation.
    */
   async create(
-    request: operations.CreateProfileRequest,
+    request: models.EntityProfile,
     options?: RequestOptions,
-  ): Promise<operations.CreateProfileResponse> {
+  ): Promise<models.EntityProfileResponse> {
     return unwrapAsync(profilesCreate(
       this,
       request,
@@ -61,7 +62,7 @@ export class Profiles extends ClientSDK {
   async get(
     request: operations.GetProfileRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetProfileResponse> {
+  ): Promise<models.EntityProfileResponse> {
     return unwrapAsync(profilesGet(
       this,
       request,
@@ -81,7 +82,7 @@ export class Profiles extends ClientSDK {
   async update(
     request: operations.UpdateProfileRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateProfileResponse> {
+  ): Promise<models.EntityProfileResponse> {
     return unwrapAsync(profilesUpdate(
       this,
       request,
@@ -118,7 +119,7 @@ export class Profiles extends ClientSDK {
    */
   async getCurrent(
     options?: RequestOptions,
-  ): Promise<operations.GetCurrentProfileResponse> {
+  ): Promise<models.EntityProfileResponse> {
     return unwrapAsync(profilesGetCurrent(
       this,
       options,

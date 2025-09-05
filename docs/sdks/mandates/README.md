@@ -33,7 +33,7 @@ const client = new Client({
 async function run() {
   const result = await client.mandates.create({
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    entityMandate: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
       consumerName: "John Doe",
@@ -44,6 +44,7 @@ async function run() {
       mandateReference: "ID-1023892",
       paypalBillingAgreementId: "B-12A34567B8901234CD",
       payPalVaultId: "8kk8451t",
+      customerId: "cst_5B8cwPMGnU",
       testmode: false,
     },
   });
@@ -73,7 +74,7 @@ const client = new ClientCore({
 async function run() {
   const res = await mandatesCreate(client, {
     customerId: "cst_5B8cwPMGnU",
-    requestBody: {
+    entityMandate: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
       consumerName: "John Doe",
@@ -84,6 +85,7 @@ async function run() {
       mandateReference: "ID-1023892",
       paypalBillingAgreementId: "B-12A34567B8901234CD",
       payPalVaultId: "8kk8451t",
+      customerId: "cst_5B8cwPMGnU",
       testmode: false,
     },
   });
@@ -109,14 +111,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateMandateResponse](../../models/operations/createmandateresponse.md)\>**
+**Promise\<[models.MandateResponse](../../models/mandateresponse.md)\>**
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.CreateMandateHalJSONError | 404                              | application/hal+json             |
-| errors.ClientDefaultError        | 4XX, 5XX                         | \*/\*                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -201,11 +203,10 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.ListMandatesBadRequestHalJSONError | 400                                       | application/hal+json                      |
-| errors.ListMandatesNotFoundHalJSONError   | 404                                       | application/hal+json                      |
-| errors.ClientDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -281,14 +282,14 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetMandateResponse](../../models/operations/getmandateresponse.md)\>**
+**Promise\<[models.MandateResponse](../../models/mandateresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.GetMandateHalJSONError | 404                           | application/hal+json          |
-| errors.ClientDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke
 
@@ -372,7 +373,7 @@ run();
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.RevokeMandateHalJSONError | 404                              | application/hal+json             |
-| errors.ClientDefaultError        | 4XX, 5XX                         | \*/\*                            |
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

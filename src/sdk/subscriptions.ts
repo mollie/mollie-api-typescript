@@ -10,6 +10,7 @@ import { subscriptionsList } from "../funcs/subscriptionsList.js";
 import { subscriptionsListPayments } from "../funcs/subscriptionsListPayments.js";
 import { subscriptionsUpdate } from "../funcs/subscriptionsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -41,7 +42,7 @@ export class Subscriptions extends ClientSDK {
   async create(
     request: operations.CreateSubscriptionRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateSubscriptionResponse> {
+  ): Promise<models.SubscriptionResponse> {
     return unwrapAsync(subscriptionsCreate(
       this,
       request,
@@ -77,7 +78,7 @@ export class Subscriptions extends ClientSDK {
   async get(
     request: operations.GetSubscriptionRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetSubscriptionResponse> {
+  ): Promise<models.SubscriptionResponse> {
     return unwrapAsync(subscriptionsGet(
       this,
       request,
@@ -98,7 +99,7 @@ export class Subscriptions extends ClientSDK {
   async update(
     request: operations.UpdateSubscriptionRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateSubscriptionResponse> {
+  ): Promise<models.SubscriptionResponse> {
     return unwrapAsync(subscriptionsUpdate(
       this,
       request,
@@ -115,7 +116,7 @@ export class Subscriptions extends ClientSDK {
   async cancel(
     request: operations.CancelSubscriptionRequest,
     options?: RequestOptions,
-  ): Promise<operations.CancelSubscriptionResponse> {
+  ): Promise<models.SubscriptionResponse> {
     return unwrapAsync(subscriptionsCancel(
       this,
       request,

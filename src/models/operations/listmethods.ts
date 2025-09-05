@@ -8,83 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * Set this parameter to `first` to only return the enabled methods that
- *
- * @remarks
- * can be used for the first payment of a recurring sequence.
- *
- * Set it to `recurring` to only return enabled methods that can be used for recurring payments or subscriptions.
- */
-export const ListMethodsSequenceType = {
-  Oneoff: "oneoff",
-  First: "first",
-  Recurring: "recurring",
-} as const;
-/**
- * Set this parameter to `first` to only return the enabled methods that
- *
- * @remarks
- * can be used for the first payment of a recurring sequence.
- *
- * Set it to `recurring` to only return enabled methods that can be used for recurring payments or subscriptions.
- */
-export type ListMethodsSequenceType = ClosedEnum<
-  typeof ListMethodsSequenceType
->;
-
-/**
- * Passing a locale will sort the payment methods in the preferred order
- *
- * @remarks
- * for the country, and translate the payment method names in the corresponding language.
- */
-export const ListMethodsLocale = {
-  EnUS: "en_US",
-  EnGB: "en_GB",
-  NLNL: "nl_NL",
-  NlBE: "nl_BE",
-  DEDE: "de_DE",
-  DeAT: "de_AT",
-  DeCH: "de_CH",
-  FRFR: "fr_FR",
-  FrBE: "fr_BE",
-  ESES: "es_ES",
-  CaES: "ca_ES",
-  PTPT: "pt_PT",
-  ITIT: "it_IT",
-  NbNO: "nb_NO",
-  SvSE: "sv_SE",
-  FIFI: "fi_FI",
-  DaDK: "da_DK",
-  ISIS: "is_IS",
-  HUHU: "hu_HU",
-  PLPL: "pl_PL",
-  LVLV: "lv_LV",
-  LTLT: "lt_LT",
-} as const;
-/**
- * Passing a locale will sort the payment methods in the preferred order
- *
- * @remarks
- * for the country, and translate the payment method names in the corresponding language.
- */
-export type ListMethodsLocale = ClosedEnum<typeof ListMethodsLocale>;
-
-/**
- * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
- */
-export type ListMethodsAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
+import * as models from "../index.js";
 
 /**
  * **⚠️ We no longer recommend using the Orders API. Please refer to the [Payments API](payments-api) instead.**
@@ -131,47 +55,6 @@ export const IncludeWallets = {
  */
 export type IncludeWallets = ClosedEnum<typeof IncludeWallets>;
 
-/**
- * A comma-separated list of the line categories you support in your checkout.
- *
- * @remarks
- *
- * Example: `/v2/methods?orderLineCategories=eco,meal`
- */
-export const OrderLineCategories = {
-  Eco: "eco",
-  Gift: "gift",
-  Meal: "meal",
-  SportCulture: "sport_culture",
-  Additional: "additional",
-  Consume: "consume",
-} as const;
-/**
- * A comma-separated list of the line categories you support in your checkout.
- *
- * @remarks
- *
- * Example: `/v2/methods?orderLineCategories=eco,meal`
- */
-export type OrderLineCategories = ClosedEnum<typeof OrderLineCategories>;
-
-/**
- * This endpoint allows you to include additional information via the
- *
- * @remarks
- * `include` query string parameter.
- */
-export const ListMethodsInclude = {
-  Issuers: "issuers",
-} as const;
-/**
- * This endpoint allows you to include additional information via the
- *
- * @remarks
- * `include` query string parameter.
- */
-export type ListMethodsInclude = ClosedEnum<typeof ListMethodsInclude>;
-
 export type ListMethodsRequest = {
   /**
    * Set this parameter to `first` to only return the enabled methods that
@@ -181,14 +64,11 @@ export type ListMethodsRequest = {
    *
    * Set it to `recurring` to only return enabled methods that can be used for recurring payments or subscriptions.
    */
-  sequenceType?: ListMethodsSequenceType | undefined;
+  sequenceType?: models.SequenceType | undefined;
   /**
-   * Passing a locale will sort the payment methods in the preferred order
-   *
-   * @remarks
-   * for the country, and translate the payment method names in the corresponding language.
+   * Response language
    */
-  locale?: ListMethodsLocale | undefined;
+  locale?: models.LocaleParameter | undefined;
   /**
    * If supplied, only payment methods that support the amount and currency
    *
@@ -197,7 +77,7 @@ export type ListMethodsRequest = {
    *
    * Example: `/v2/methods?amount[value]=100.00&amount[currency]=USD`
    */
-  amount?: ListMethodsAmount | undefined;
+  amount?: models.Amount | undefined;
   /**
    * **⚠️ We no longer recommend using the Orders API. Please refer to the [Payments API](payments-api) instead.**
    *
@@ -235,7 +115,7 @@ export type ListMethodsRequest = {
    *
    * Example: `/v2/methods?orderLineCategories=eco,meal`
    */
-  orderLineCategories?: OrderLineCategories | undefined;
+  orderLineCategories?: models.OrderLineCategories | undefined;
   /**
    * The identifier referring to the [profile](get-profile) you wish to
    *
@@ -247,12 +127,9 @@ export type ListMethodsRequest = {
    */
   profileId?: string | undefined;
   /**
-   * This endpoint allows you to include additional information via the
-   *
-   * @remarks
-   * `include` query string parameter.
+   * This endpoint allows you to include additional information via the `include` query string parameter.
    */
-  include?: ListMethodsInclude | null | undefined;
+  include?: string | null | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -265,283 +142,6 @@ export type ListMethodsRequest = {
   testmode?: boolean | null | undefined;
 };
 
-/**
- * The URL to the generic Mollie API error handling guide.
- */
-export type ListMethodsBadRequestDocumentation = {
-  href: string;
-  type: string;
-};
-
-export type ListMethodsBadRequestLinks = {
-  /**
-   * The URL to the generic Mollie API error handling guide.
-   */
-  documentation: ListMethodsBadRequestDocumentation;
-};
-
-/**
- * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
- *
- * @remarks
- * method selection screen will be skipped.
- */
-export const ListMethodsId = {
-  Alma: "alma",
-  Applepay: "applepay",
-  Bacs: "bacs",
-  Bancomatpay: "bancomatpay",
-  Bancontact: "bancontact",
-  Banktransfer: "banktransfer",
-  Belfius: "belfius",
-  Billie: "billie",
-  Bizum: "bizum",
-  Blik: "blik",
-  Creditcard: "creditcard",
-  Directdebit: "directdebit",
-  Eps: "eps",
-  Giftcard: "giftcard",
-  Ideal: "ideal",
-  In3: "in3",
-  Kbc: "kbc",
-  Klarna: "klarna",
-  Klarnapaylater: "klarnapaylater",
-  Klarnapaynow: "klarnapaynow",
-  Klarnasliceit: "klarnasliceit",
-  Mbway: "mbway",
-  Multibanco: "multibanco",
-  Mybank: "mybank",
-  Paybybank: "paybybank",
-  Payconiq: "payconiq",
-  Paypal: "paypal",
-  Paysafecard: "paysafecard",
-  Pointofsale: "pointofsale",
-  Przelewy24: "przelewy24",
-  Riverty: "riverty",
-  Satispay: "satispay",
-  Swish: "swish",
-  Trustly: "trustly",
-  Twint: "twint",
-  Voucher: "voucher",
-} as const;
-/**
- * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
- *
- * @remarks
- * method selection screen will be skipped.
- */
-export type ListMethodsId = ClosedEnum<typeof ListMethodsId>;
-
-/**
- * The minimum payment amount required to use this payment method.
- */
-export type ListMethodsMinimumAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
- *
- * @remarks
- * is returned instead.
- */
-export type ListMethodsMaximumAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * URLs of images representing the payment method.
- */
-export type ListMethodsImage = {
-  /**
-   * The URL pointing to an icon of 32 by 24 pixels.
-   */
-  size1x: string;
-  /**
-   * The URL pointing to an icon of 64 by 48 pixels.
-   */
-  size2x: string;
-  /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
-   *
-   * @remarks
-   * scale to any desired size without compromising visual quality.
-   */
-  svg: string;
-};
-
-/**
- * The payment method's activation status for this profile.
- */
-export const ListMethodsStatus = {
-  Activated: "activated",
-  PendingBoarding: "pending-boarding",
-  PendingReview: "pending-review",
-  PendingExternal: "pending-external",
-  Rejected: "rejected",
-} as const;
-/**
- * The payment method's activation status for this profile.
- */
-export type ListMethodsStatus = ClosedEnum<typeof ListMethodsStatus>;
-
-/**
- * URLs of images representing the issuer.
- *
- * @remarks
- * required:
- *   - size1x
- *   - size2x
- *   - svg
- */
-export type ListMethodsIssuerImage = {
-  /**
-   * The URL pointing to an icon of 32 by 24 pixels.
-   */
-  size1x?: string | undefined;
-  /**
-   * The URL pointing to an icon of 64 by 48 pixels.
-   */
-  size2x?: string | undefined;
-  /**
-   * The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
-   *
-   * @remarks
-   * scale to any desired size without compromising visual quality.
-   */
-  svg?: string | undefined;
-};
-
-export type ListMethodsIssuer = {
-  resource: string;
-  id: string;
-  /**
-   * The full name of the issuer.
-   */
-  name: string;
-  /**
-   * URLs of images representing the issuer.
-   *
-   * @remarks
-   * required:
-   *   - size1x
-   *   - size2x
-   *   - svg
-   */
-  image: ListMethodsIssuerImage;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListMethodsMethodSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListMethodsMethodDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type ListMethodsMethodLinks = {
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  self: ListMethodsMethodSelf;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation?: ListMethodsMethodDocumentation | undefined;
-};
-
-export type ListMethodsMethod = {
-  /**
-   * Indicates the response contains a payment method object. Will always contain the string `method` for this
-   *
-   * @remarks
-   * endpoint.
-   */
-  resource: string;
-  /**
-   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
-   *
-   * @remarks
-   * method selection screen will be skipped.
-   */
-  id: ListMethodsId;
-  /**
-   * The full name of the payment method.
-   *
-   * @remarks
-   *
-   * If a `locale` parameter is provided, the name is translated to the given locale if possible.
-   */
-  description: string;
-  /**
-   * The minimum payment amount required to use this payment method.
-   */
-  minimumAmount: ListMethodsMinimumAmount;
-  /**
-   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
-   *
-   * @remarks
-   * is returned instead.
-   */
-  maximumAmount: ListMethodsMaximumAmount | null;
-  /**
-   * URLs of images representing the payment method.
-   */
-  image: ListMethodsImage;
-  /**
-   * The payment method's activation status for this profile.
-   */
-  status: ListMethodsStatus;
-  /**
-   * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant
-   *
-   * @remarks
-   * for iDEAL, KBC/CBC, gift cards, and vouchers.
-   */
-  issuers?: Array<ListMethodsIssuer> | undefined;
-  /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links: ListMethodsMethodLinks;
-};
-
 export type ListMethodsEmbedded = {
   /**
    * An array of payment method objects. For a complete
@@ -551,46 +151,18 @@ export type ListMethodsEmbedded = {
    * to the [Get payment method endpoint](get-method)
    * documentation.
    */
-  methods: Array<ListMethodsMethod>;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListMethodsSelf = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
-};
-
-/**
- * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
- */
-export type ListMethodsDocumentation = {
-  /**
-   * The actual URL string.
-   */
-  href: string;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type: string;
+  methods: Array<models.EntityMethod>;
 };
 
 export type ListMethodsLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self: ListMethodsSelf;
+  self: models.Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation: ListMethodsDocumentation;
+  documentation: models.Url;
 };
 
 /**
@@ -610,105 +182,6 @@ export type ListMethodsResponse = {
   embedded: ListMethodsEmbedded;
   links: ListMethodsLinks;
 };
-
-/** @internal */
-export const ListMethodsSequenceType$inboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsSequenceType
-> = z.nativeEnum(ListMethodsSequenceType);
-
-/** @internal */
-export const ListMethodsSequenceType$outboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsSequenceType
-> = ListMethodsSequenceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsSequenceType$ {
-  /** @deprecated use `ListMethodsSequenceType$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsSequenceType$inboundSchema;
-  /** @deprecated use `ListMethodsSequenceType$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsSequenceType$outboundSchema;
-}
-
-/** @internal */
-export const ListMethodsLocale$inboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsLocale
-> = z.nativeEnum(ListMethodsLocale);
-
-/** @internal */
-export const ListMethodsLocale$outboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsLocale
-> = ListMethodsLocale$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsLocale$ {
-  /** @deprecated use `ListMethodsLocale$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsLocale$inboundSchema;
-  /** @deprecated use `ListMethodsLocale$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsLocale$outboundSchema;
-}
-
-/** @internal */
-export const ListMethodsAmount$inboundSchema: z.ZodType<
-  ListMethodsAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListMethodsAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListMethodsAmount$outboundSchema: z.ZodType<
-  ListMethodsAmount$Outbound,
-  z.ZodTypeDef,
-  ListMethodsAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsAmount$ {
-  /** @deprecated use `ListMethodsAmount$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsAmount$inboundSchema;
-  /** @deprecated use `ListMethodsAmount$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsAmount$outboundSchema;
-  /** @deprecated use `ListMethodsAmount$Outbound` instead. */
-  export type Outbound = ListMethodsAmount$Outbound;
-}
-
-export function listMethodsAmountToJSON(
-  listMethodsAmount: ListMethodsAmount,
-): string {
-  return JSON.stringify(
-    ListMethodsAmount$outboundSchema.parse(listMethodsAmount),
-  );
-}
-
-export function listMethodsAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsAmount' from JSON`,
-  );
-}
 
 /** @internal */
 export const Resource$inboundSchema: z.ZodNativeEnum<typeof Resource> = z
@@ -751,62 +224,20 @@ export namespace IncludeWallets$ {
 }
 
 /** @internal */
-export const OrderLineCategories$inboundSchema: z.ZodNativeEnum<
-  typeof OrderLineCategories
-> = z.nativeEnum(OrderLineCategories);
-
-/** @internal */
-export const OrderLineCategories$outboundSchema: z.ZodNativeEnum<
-  typeof OrderLineCategories
-> = OrderLineCategories$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrderLineCategories$ {
-  /** @deprecated use `OrderLineCategories$inboundSchema` instead. */
-  export const inboundSchema = OrderLineCategories$inboundSchema;
-  /** @deprecated use `OrderLineCategories$outboundSchema` instead. */
-  export const outboundSchema = OrderLineCategories$outboundSchema;
-}
-
-/** @internal */
-export const ListMethodsInclude$inboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsInclude
-> = z.nativeEnum(ListMethodsInclude);
-
-/** @internal */
-export const ListMethodsInclude$outboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsInclude
-> = ListMethodsInclude$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsInclude$ {
-  /** @deprecated use `ListMethodsInclude$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsInclude$inboundSchema;
-  /** @deprecated use `ListMethodsInclude$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsInclude$outboundSchema;
-}
-
-/** @internal */
 export const ListMethodsRequest$inboundSchema: z.ZodType<
   ListMethodsRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sequenceType: ListMethodsSequenceType$inboundSchema.optional(),
-  locale: ListMethodsLocale$inboundSchema.optional(),
-  amount: z.lazy(() => ListMethodsAmount$inboundSchema).optional(),
+  sequenceType: models.SequenceType$inboundSchema.optional(),
+  locale: models.LocaleParameter$inboundSchema.optional(),
+  amount: models.Amount$inboundSchema.optional(),
   resource: Resource$inboundSchema.optional(),
   billingCountry: z.string().optional(),
   includeWallets: IncludeWallets$inboundSchema.optional(),
-  orderLineCategories: OrderLineCategories$inboundSchema.optional(),
+  orderLineCategories: models.OrderLineCategories$inboundSchema.optional(),
   profileId: z.string().optional(),
-  include: z.nullable(ListMethodsInclude$inboundSchema).optional(),
+  include: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -814,7 +245,7 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
 export type ListMethodsRequest$Outbound = {
   sequenceType?: string | undefined;
   locale?: string | undefined;
-  amount?: ListMethodsAmount$Outbound | undefined;
+  amount?: models.Amount$Outbound | undefined;
   resource?: string | undefined;
   billingCountry?: string | undefined;
   includeWallets?: string | undefined;
@@ -830,15 +261,15 @@ export const ListMethodsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMethodsRequest
 > = z.object({
-  sequenceType: ListMethodsSequenceType$outboundSchema.optional(),
-  locale: ListMethodsLocale$outboundSchema.optional(),
-  amount: z.lazy(() => ListMethodsAmount$outboundSchema).optional(),
+  sequenceType: models.SequenceType$outboundSchema.optional(),
+  locale: models.LocaleParameter$outboundSchema.optional(),
+  amount: models.Amount$outboundSchema.optional(),
   resource: Resource$outboundSchema.optional(),
   billingCountry: z.string().optional(),
   includeWallets: IncludeWallets$outboundSchema.optional(),
-  orderLineCategories: OrderLineCategories$outboundSchema.optional(),
+  orderLineCategories: models.OrderLineCategories$outboundSchema.optional(),
   profileId: z.string().optional(),
-  include: z.nullable(ListMethodsInclude$outboundSchema).optional(),
+  include: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
@@ -874,738 +305,17 @@ export function listMethodsRequestFromJSON(
 }
 
 /** @internal */
-export const ListMethodsBadRequestDocumentation$inboundSchema: z.ZodType<
-  ListMethodsBadRequestDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListMethodsBadRequestDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListMethodsBadRequestDocumentation$outboundSchema: z.ZodType<
-  ListMethodsBadRequestDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListMethodsBadRequestDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsBadRequestDocumentation$ {
-  /** @deprecated use `ListMethodsBadRequestDocumentation$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsBadRequestDocumentation$inboundSchema;
-  /** @deprecated use `ListMethodsBadRequestDocumentation$outboundSchema` instead. */
-  export const outboundSchema =
-    ListMethodsBadRequestDocumentation$outboundSchema;
-  /** @deprecated use `ListMethodsBadRequestDocumentation$Outbound` instead. */
-  export type Outbound = ListMethodsBadRequestDocumentation$Outbound;
-}
-
-export function listMethodsBadRequestDocumentationToJSON(
-  listMethodsBadRequestDocumentation: ListMethodsBadRequestDocumentation,
-): string {
-  return JSON.stringify(
-    ListMethodsBadRequestDocumentation$outboundSchema.parse(
-      listMethodsBadRequestDocumentation,
-    ),
-  );
-}
-
-export function listMethodsBadRequestDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsBadRequestDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListMethodsBadRequestDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsBadRequestDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsBadRequestLinks$inboundSchema: z.ZodType<
-  ListMethodsBadRequestLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  documentation: z.lazy(() => ListMethodsBadRequestDocumentation$inboundSchema),
-});
-
-/** @internal */
-export type ListMethodsBadRequestLinks$Outbound = {
-  documentation: ListMethodsBadRequestDocumentation$Outbound;
-};
-
-/** @internal */
-export const ListMethodsBadRequestLinks$outboundSchema: z.ZodType<
-  ListMethodsBadRequestLinks$Outbound,
-  z.ZodTypeDef,
-  ListMethodsBadRequestLinks
-> = z.object({
-  documentation: z.lazy(() =>
-    ListMethodsBadRequestDocumentation$outboundSchema
-  ),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsBadRequestLinks$ {
-  /** @deprecated use `ListMethodsBadRequestLinks$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsBadRequestLinks$inboundSchema;
-  /** @deprecated use `ListMethodsBadRequestLinks$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsBadRequestLinks$outboundSchema;
-  /** @deprecated use `ListMethodsBadRequestLinks$Outbound` instead. */
-  export type Outbound = ListMethodsBadRequestLinks$Outbound;
-}
-
-export function listMethodsBadRequestLinksToJSON(
-  listMethodsBadRequestLinks: ListMethodsBadRequestLinks,
-): string {
-  return JSON.stringify(
-    ListMethodsBadRequestLinks$outboundSchema.parse(listMethodsBadRequestLinks),
-  );
-}
-
-export function listMethodsBadRequestLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsBadRequestLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsBadRequestLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsBadRequestLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsId$inboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsId
-> = z.nativeEnum(ListMethodsId);
-
-/** @internal */
-export const ListMethodsId$outboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsId
-> = ListMethodsId$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsId$ {
-  /** @deprecated use `ListMethodsId$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsId$inboundSchema;
-  /** @deprecated use `ListMethodsId$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsId$outboundSchema;
-}
-
-/** @internal */
-export const ListMethodsMinimumAmount$inboundSchema: z.ZodType<
-  ListMethodsMinimumAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListMethodsMinimumAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListMethodsMinimumAmount$outboundSchema: z.ZodType<
-  ListMethodsMinimumAmount$Outbound,
-  z.ZodTypeDef,
-  ListMethodsMinimumAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsMinimumAmount$ {
-  /** @deprecated use `ListMethodsMinimumAmount$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsMinimumAmount$inboundSchema;
-  /** @deprecated use `ListMethodsMinimumAmount$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsMinimumAmount$outboundSchema;
-  /** @deprecated use `ListMethodsMinimumAmount$Outbound` instead. */
-  export type Outbound = ListMethodsMinimumAmount$Outbound;
-}
-
-export function listMethodsMinimumAmountToJSON(
-  listMethodsMinimumAmount: ListMethodsMinimumAmount,
-): string {
-  return JSON.stringify(
-    ListMethodsMinimumAmount$outboundSchema.parse(listMethodsMinimumAmount),
-  );
-}
-
-export function listMethodsMinimumAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsMinimumAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsMinimumAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsMinimumAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsMaximumAmount$inboundSchema: z.ZodType<
-  ListMethodsMaximumAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type ListMethodsMaximumAmount$Outbound = {
-  currency: string;
-  value: string;
-};
-
-/** @internal */
-export const ListMethodsMaximumAmount$outboundSchema: z.ZodType<
-  ListMethodsMaximumAmount$Outbound,
-  z.ZodTypeDef,
-  ListMethodsMaximumAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsMaximumAmount$ {
-  /** @deprecated use `ListMethodsMaximumAmount$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsMaximumAmount$inboundSchema;
-  /** @deprecated use `ListMethodsMaximumAmount$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsMaximumAmount$outboundSchema;
-  /** @deprecated use `ListMethodsMaximumAmount$Outbound` instead. */
-  export type Outbound = ListMethodsMaximumAmount$Outbound;
-}
-
-export function listMethodsMaximumAmountToJSON(
-  listMethodsMaximumAmount: ListMethodsMaximumAmount,
-): string {
-  return JSON.stringify(
-    ListMethodsMaximumAmount$outboundSchema.parse(listMethodsMaximumAmount),
-  );
-}
-
-export function listMethodsMaximumAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsMaximumAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsMaximumAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsMaximumAmount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsImage$inboundSchema: z.ZodType<
-  ListMethodsImage,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  size1x: z.string(),
-  size2x: z.string(),
-  svg: z.string(),
-});
-
-/** @internal */
-export type ListMethodsImage$Outbound = {
-  size1x: string;
-  size2x: string;
-  svg: string;
-};
-
-/** @internal */
-export const ListMethodsImage$outboundSchema: z.ZodType<
-  ListMethodsImage$Outbound,
-  z.ZodTypeDef,
-  ListMethodsImage
-> = z.object({
-  size1x: z.string(),
-  size2x: z.string(),
-  svg: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsImage$ {
-  /** @deprecated use `ListMethodsImage$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsImage$inboundSchema;
-  /** @deprecated use `ListMethodsImage$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsImage$outboundSchema;
-  /** @deprecated use `ListMethodsImage$Outbound` instead. */
-  export type Outbound = ListMethodsImage$Outbound;
-}
-
-export function listMethodsImageToJSON(
-  listMethodsImage: ListMethodsImage,
-): string {
-  return JSON.stringify(
-    ListMethodsImage$outboundSchema.parse(listMethodsImage),
-  );
-}
-
-export function listMethodsImageFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsImage, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsImage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsImage' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsStatus
-> = z.nativeEnum(ListMethodsStatus);
-
-/** @internal */
-export const ListMethodsStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ListMethodsStatus
-> = ListMethodsStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsStatus$ {
-  /** @deprecated use `ListMethodsStatus$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsStatus$inboundSchema;
-  /** @deprecated use `ListMethodsStatus$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsStatus$outboundSchema;
-}
-
-/** @internal */
-export const ListMethodsIssuerImage$inboundSchema: z.ZodType<
-  ListMethodsIssuerImage,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  size1x: z.string().optional(),
-  size2x: z.string().optional(),
-  svg: z.string().optional(),
-});
-
-/** @internal */
-export type ListMethodsIssuerImage$Outbound = {
-  size1x?: string | undefined;
-  size2x?: string | undefined;
-  svg?: string | undefined;
-};
-
-/** @internal */
-export const ListMethodsIssuerImage$outboundSchema: z.ZodType<
-  ListMethodsIssuerImage$Outbound,
-  z.ZodTypeDef,
-  ListMethodsIssuerImage
-> = z.object({
-  size1x: z.string().optional(),
-  size2x: z.string().optional(),
-  svg: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsIssuerImage$ {
-  /** @deprecated use `ListMethodsIssuerImage$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsIssuerImage$inboundSchema;
-  /** @deprecated use `ListMethodsIssuerImage$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsIssuerImage$outboundSchema;
-  /** @deprecated use `ListMethodsIssuerImage$Outbound` instead. */
-  export type Outbound = ListMethodsIssuerImage$Outbound;
-}
-
-export function listMethodsIssuerImageToJSON(
-  listMethodsIssuerImage: ListMethodsIssuerImage,
-): string {
-  return JSON.stringify(
-    ListMethodsIssuerImage$outboundSchema.parse(listMethodsIssuerImage),
-  );
-}
-
-export function listMethodsIssuerImageFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsIssuerImage, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsIssuerImage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsIssuerImage' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsIssuer$inboundSchema: z.ZodType<
-  ListMethodsIssuer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  name: z.string(),
-  image: z.lazy(() => ListMethodsIssuerImage$inboundSchema),
-});
-
-/** @internal */
-export type ListMethodsIssuer$Outbound = {
-  resource: string;
-  id: string;
-  name: string;
-  image: ListMethodsIssuerImage$Outbound;
-};
-
-/** @internal */
-export const ListMethodsIssuer$outboundSchema: z.ZodType<
-  ListMethodsIssuer$Outbound,
-  z.ZodTypeDef,
-  ListMethodsIssuer
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  name: z.string(),
-  image: z.lazy(() => ListMethodsIssuerImage$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsIssuer$ {
-  /** @deprecated use `ListMethodsIssuer$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsIssuer$inboundSchema;
-  /** @deprecated use `ListMethodsIssuer$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsIssuer$outboundSchema;
-  /** @deprecated use `ListMethodsIssuer$Outbound` instead. */
-  export type Outbound = ListMethodsIssuer$Outbound;
-}
-
-export function listMethodsIssuerToJSON(
-  listMethodsIssuer: ListMethodsIssuer,
-): string {
-  return JSON.stringify(
-    ListMethodsIssuer$outboundSchema.parse(listMethodsIssuer),
-  );
-}
-
-export function listMethodsIssuerFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsIssuer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsIssuer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsIssuer' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsMethodSelf$inboundSchema: z.ZodType<
-  ListMethodsMethodSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListMethodsMethodSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListMethodsMethodSelf$outboundSchema: z.ZodType<
-  ListMethodsMethodSelf$Outbound,
-  z.ZodTypeDef,
-  ListMethodsMethodSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsMethodSelf$ {
-  /** @deprecated use `ListMethodsMethodSelf$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsMethodSelf$inboundSchema;
-  /** @deprecated use `ListMethodsMethodSelf$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsMethodSelf$outboundSchema;
-  /** @deprecated use `ListMethodsMethodSelf$Outbound` instead. */
-  export type Outbound = ListMethodsMethodSelf$Outbound;
-}
-
-export function listMethodsMethodSelfToJSON(
-  listMethodsMethodSelf: ListMethodsMethodSelf,
-): string {
-  return JSON.stringify(
-    ListMethodsMethodSelf$outboundSchema.parse(listMethodsMethodSelf),
-  );
-}
-
-export function listMethodsMethodSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsMethodSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsMethodSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsMethodSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsMethodDocumentation$inboundSchema: z.ZodType<
-  ListMethodsMethodDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListMethodsMethodDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListMethodsMethodDocumentation$outboundSchema: z.ZodType<
-  ListMethodsMethodDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListMethodsMethodDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsMethodDocumentation$ {
-  /** @deprecated use `ListMethodsMethodDocumentation$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsMethodDocumentation$inboundSchema;
-  /** @deprecated use `ListMethodsMethodDocumentation$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsMethodDocumentation$outboundSchema;
-  /** @deprecated use `ListMethodsMethodDocumentation$Outbound` instead. */
-  export type Outbound = ListMethodsMethodDocumentation$Outbound;
-}
-
-export function listMethodsMethodDocumentationToJSON(
-  listMethodsMethodDocumentation: ListMethodsMethodDocumentation,
-): string {
-  return JSON.stringify(
-    ListMethodsMethodDocumentation$outboundSchema.parse(
-      listMethodsMethodDocumentation,
-    ),
-  );
-}
-
-export function listMethodsMethodDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsMethodDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsMethodDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsMethodDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsMethodLinks$inboundSchema: z.ZodType<
-  ListMethodsMethodLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: z.lazy(() => ListMethodsMethodSelf$inboundSchema),
-  documentation: z.lazy(() => ListMethodsMethodDocumentation$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type ListMethodsMethodLinks$Outbound = {
-  self: ListMethodsMethodSelf$Outbound;
-  documentation?: ListMethodsMethodDocumentation$Outbound | undefined;
-};
-
-/** @internal */
-export const ListMethodsMethodLinks$outboundSchema: z.ZodType<
-  ListMethodsMethodLinks$Outbound,
-  z.ZodTypeDef,
-  ListMethodsMethodLinks
-> = z.object({
-  self: z.lazy(() => ListMethodsMethodSelf$outboundSchema),
-  documentation: z.lazy(() => ListMethodsMethodDocumentation$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsMethodLinks$ {
-  /** @deprecated use `ListMethodsMethodLinks$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsMethodLinks$inboundSchema;
-  /** @deprecated use `ListMethodsMethodLinks$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsMethodLinks$outboundSchema;
-  /** @deprecated use `ListMethodsMethodLinks$Outbound` instead. */
-  export type Outbound = ListMethodsMethodLinks$Outbound;
-}
-
-export function listMethodsMethodLinksToJSON(
-  listMethodsMethodLinks: ListMethodsMethodLinks,
-): string {
-  return JSON.stringify(
-    ListMethodsMethodLinks$outboundSchema.parse(listMethodsMethodLinks),
-  );
-}
-
-export function listMethodsMethodLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsMethodLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsMethodLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsMethodLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsMethod$inboundSchema: z.ZodType<
-  ListMethodsMethod,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resource: z.string(),
-  id: ListMethodsId$inboundSchema,
-  description: z.string(),
-  minimumAmount: z.lazy(() => ListMethodsMinimumAmount$inboundSchema),
-  maximumAmount: z.nullable(
-    z.lazy(() => ListMethodsMaximumAmount$inboundSchema),
-  ),
-  image: z.lazy(() => ListMethodsImage$inboundSchema),
-  status: ListMethodsStatus$inboundSchema,
-  issuers: z.array(z.lazy(() => ListMethodsIssuer$inboundSchema)).optional(),
-  _links: z.lazy(() => ListMethodsMethodLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
-
-/** @internal */
-export type ListMethodsMethod$Outbound = {
-  resource: string;
-  id: string;
-  description: string;
-  minimumAmount: ListMethodsMinimumAmount$Outbound;
-  maximumAmount: ListMethodsMaximumAmount$Outbound | null;
-  image: ListMethodsImage$Outbound;
-  status: string;
-  issuers?: Array<ListMethodsIssuer$Outbound> | undefined;
-  _links: ListMethodsMethodLinks$Outbound;
-};
-
-/** @internal */
-export const ListMethodsMethod$outboundSchema: z.ZodType<
-  ListMethodsMethod$Outbound,
-  z.ZodTypeDef,
-  ListMethodsMethod
-> = z.object({
-  resource: z.string(),
-  id: ListMethodsId$outboundSchema,
-  description: z.string(),
-  minimumAmount: z.lazy(() => ListMethodsMinimumAmount$outboundSchema),
-  maximumAmount: z.nullable(
-    z.lazy(() => ListMethodsMaximumAmount$outboundSchema),
-  ),
-  image: z.lazy(() => ListMethodsImage$outboundSchema),
-  status: ListMethodsStatus$outboundSchema,
-  issuers: z.array(z.lazy(() => ListMethodsIssuer$outboundSchema)).optional(),
-  links: z.lazy(() => ListMethodsMethodLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsMethod$ {
-  /** @deprecated use `ListMethodsMethod$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsMethod$inboundSchema;
-  /** @deprecated use `ListMethodsMethod$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsMethod$outboundSchema;
-  /** @deprecated use `ListMethodsMethod$Outbound` instead. */
-  export type Outbound = ListMethodsMethod$Outbound;
-}
-
-export function listMethodsMethodToJSON(
-  listMethodsMethod: ListMethodsMethod,
-): string {
-  return JSON.stringify(
-    ListMethodsMethod$outboundSchema.parse(listMethodsMethod),
-  );
-}
-
-export function listMethodsMethodFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsMethod, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsMethod$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsMethod' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListMethodsEmbedded$inboundSchema: z.ZodType<
   ListMethodsEmbedded,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  methods: z.array(z.lazy(() => ListMethodsMethod$inboundSchema)),
+  methods: z.array(models.EntityMethod$inboundSchema),
 });
 
 /** @internal */
 export type ListMethodsEmbedded$Outbound = {
-  methods: Array<ListMethodsMethod$Outbound>;
+  methods: Array<models.EntityMethod$Outbound>;
 };
 
 /** @internal */
@@ -1614,7 +324,7 @@ export const ListMethodsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMethodsEmbedded
 > = z.object({
-  methods: z.array(z.lazy(() => ListMethodsMethod$outboundSchema)),
+  methods: z.array(models.EntityMethod$outboundSchema),
 });
 
 /**
@@ -1649,131 +359,19 @@ export function listMethodsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListMethodsSelf$inboundSchema: z.ZodType<
-  ListMethodsSelf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListMethodsSelf$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListMethodsSelf$outboundSchema: z.ZodType<
-  ListMethodsSelf$Outbound,
-  z.ZodTypeDef,
-  ListMethodsSelf
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsSelf$ {
-  /** @deprecated use `ListMethodsSelf$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsSelf$inboundSchema;
-  /** @deprecated use `ListMethodsSelf$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsSelf$outboundSchema;
-  /** @deprecated use `ListMethodsSelf$Outbound` instead. */
-  export type Outbound = ListMethodsSelf$Outbound;
-}
-
-export function listMethodsSelfToJSON(
-  listMethodsSelf: ListMethodsSelf,
-): string {
-  return JSON.stringify(ListMethodsSelf$outboundSchema.parse(listMethodsSelf));
-}
-
-export function listMethodsSelfFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsSelf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsSelf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsSelf' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsDocumentation$inboundSchema: z.ZodType<
-  ListMethodsDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/** @internal */
-export type ListMethodsDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
-
-/** @internal */
-export const ListMethodsDocumentation$outboundSchema: z.ZodType<
-  ListMethodsDocumentation$Outbound,
-  z.ZodTypeDef,
-  ListMethodsDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMethodsDocumentation$ {
-  /** @deprecated use `ListMethodsDocumentation$inboundSchema` instead. */
-  export const inboundSchema = ListMethodsDocumentation$inboundSchema;
-  /** @deprecated use `ListMethodsDocumentation$outboundSchema` instead. */
-  export const outboundSchema = ListMethodsDocumentation$outboundSchema;
-  /** @deprecated use `ListMethodsDocumentation$Outbound` instead. */
-  export type Outbound = ListMethodsDocumentation$Outbound;
-}
-
-export function listMethodsDocumentationToJSON(
-  listMethodsDocumentation: ListMethodsDocumentation,
-): string {
-  return JSON.stringify(
-    ListMethodsDocumentation$outboundSchema.parse(listMethodsDocumentation),
-  );
-}
-
-export function listMethodsDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListMethodsLinks$inboundSchema: z.ZodType<
   ListMethodsLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: z.lazy(() => ListMethodsSelf$inboundSchema),
-  documentation: z.lazy(() => ListMethodsDocumentation$inboundSchema),
+  self: models.Url$inboundSchema,
+  documentation: models.Url$inboundSchema,
 });
 
 /** @internal */
 export type ListMethodsLinks$Outbound = {
-  self: ListMethodsSelf$Outbound;
-  documentation: ListMethodsDocumentation$Outbound;
+  self: models.Url$Outbound;
+  documentation: models.Url$Outbound;
 };
 
 /** @internal */
@@ -1782,8 +380,8 @@ export const ListMethodsLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMethodsLinks
 > = z.object({
-  self: z.lazy(() => ListMethodsSelf$outboundSchema),
-  documentation: z.lazy(() => ListMethodsDocumentation$outboundSchema),
+  self: models.Url$outboundSchema,
+  documentation: models.Url$outboundSchema,
 });
 
 /**

@@ -21,7 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function profilesCreate(
   client: ClientCore,
-  request: operations.CreateProfileRequest,
+  request: models.EntityProfile,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateProfileResponse,
-    | errors.CreateProfileHalJSONError
+    models.EntityProfileResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function profilesCreate(
 
 async function $do(
   client: ClientCore,
-  request: operations.CreateProfileRequest,
+  request: models.EntityProfile,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateProfileResponse,
-      | errors.CreateProfileHalJSONError
+      models.EntityProfileResponse,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -82,7 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.CreateProfileRequest$outboundSchema.parse(value),
+    (value) => models.EntityProfile$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -157,8 +157,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateProfileResponse,
-    | errors.CreateProfileHalJSONError
+    models.EntityProfileResponse,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -168,10 +168,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.CreateProfileResponse$inboundSchema, {
+    M.json(201, models.EntityProfileResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(422, errors.CreateProfileHalJSONError$inboundSchema, {
+    M.jsonErr(422, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

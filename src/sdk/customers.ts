@@ -10,6 +10,7 @@ import { customersList } from "../funcs/customersList.js";
 import { customersListPayments } from "../funcs/customersListPayments.js";
 import { customersUpdate } from "../funcs/customersUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -24,9 +25,9 @@ export class Customers extends ClientSDK {
    * Once registered, customers will also appear in your Mollie dashboard.
    */
   async create(
-    request?: operations.CreateCustomerRequest | undefined,
+    request?: models.EntityCustomer | undefined,
     options?: RequestOptions,
-  ): Promise<operations.CreateCustomerResponse> {
+  ): Promise<models.CustomerResponse> {
     return unwrapAsync(customersCreate(
       this,
       request,
@@ -81,7 +82,7 @@ export class Customers extends ClientSDK {
   async update(
     request: operations.UpdateCustomerRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateCustomerResponse> {
+  ): Promise<models.CustomerResponse> {
     return unwrapAsync(customersUpdate(
       this,
       request,
@@ -125,7 +126,7 @@ export class Customers extends ClientSDK {
   async createPayment(
     request: operations.CreateCustomerPaymentRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateCustomerPaymentResponse> {
+  ): Promise<models.PaymentResponse> {
     return unwrapAsync(customersCreatePayment(
       this,
       request,

@@ -3,11 +3,11 @@
  */
 
 import { salesInvoicesCreate } from "../../funcs/salesInvoicesCreate.js";
-import * as operations from "../../models/operations/index.js";
+import * as models from "../../models/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: operations.CreateSalesInvoiceRequest$inboundSchema.optional(),
+  request: models.EntitySalesInvoice$inboundSchema.optional(),
 };
 
 export const tool$salesInvoicesCreate: ToolDefinition<typeof args> = {

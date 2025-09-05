@@ -37,7 +37,7 @@ export function permissionsList(
 ): APIPromise<
   Result<
     operations.ListPermissionsResponse,
-    | errors.ListPermissionsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -61,7 +61,7 @@ async function $do(
   [
     Result<
       operations.ListPermissionsResponse,
-      | errors.ListPermissionsHalJSONError
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -139,7 +139,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.ListPermissionsResponse,
-    | errors.ListPermissionsHalJSONError
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -152,7 +152,7 @@ async function $do(
     M.json(200, operations.ListPermissionsResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr(400, errors.ListPermissionsHalJSONError$inboundSchema, {
+    M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),
