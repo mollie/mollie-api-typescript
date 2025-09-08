@@ -254,27 +254,23 @@ let idempotencyKey = '<some-idempotency-key>';
 let payload = {
   description: "Description",
   amount: {
-      currency: "EUR",
-      value: "5.00",
+    currency: "EUR",
+    value: "5.00",
   },
   redirectUrl: "https://example.org/redirect",
 }
 
 let payment1 = await client.payments.create(
-  {paymentRequest: payload},
   {
-    headers: {
-      'Idempotency-Key': idempotencyKey
-    }
+    paymentRequest: payload,
+    idempotencyKey: idempotencyKey  
   }
 );
 
 let payment2 = await client.payments.create(
-  {paymentRequest: payload},
   {
-    headers: {
-      'Idempotency-Key': idempotencyKey
-    }
+    paymentRequest: payload,
+    idempotencyKey: idempotencyKey
   }
 );
 
