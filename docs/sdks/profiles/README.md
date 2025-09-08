@@ -43,6 +43,7 @@ async function run() {
       "GB",
     ],
     businessCategory: "OTHER_MERCHANDISE",
+    status: "unverified",
   });
 
   console.log(result);
@@ -79,6 +80,7 @@ async function run() {
       "GB",
     ],
     businessCategory: "OTHER_MERCHANDISE",
+    status: "unverified",
   });
   if (res.ok) {
     const { value: result } = res;

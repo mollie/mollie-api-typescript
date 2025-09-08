@@ -52,6 +52,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionRequest: {
       id: "sub_5B8cwPMGnU",
+      status: "active",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -102,6 +103,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionRequest: {
       id: "sub_5B8cwPMGnU",
+      status: "active",
       amount: {
         currency: "EUR",
         value: "10.00",

@@ -5,55 +5,25 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import {
+  ProfileReviewStatusResponse,
+  ProfileReviewStatusResponse$inboundSchema,
+  ProfileReviewStatusResponse$outboundSchema,
+} from "./profilereviewstatusresponse.js";
+import {
+  ProfileStatus,
+  ProfileStatus$inboundSchema,
+  ProfileStatus$outboundSchema,
+} from "./profilestatus.js";
 import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * The profile status determines whether the profile is able to receive live payments.
- *
- * @remarks
- *
- * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
- * * `verified`: The profile has been verified and can be used to create live payments and test payments.
- * * `blocked`: The profile is blocked and can no longer be used or changed.
- */
-export const EntityProfileResponseStatus = {
-  Unverified: "unverified",
-  Verified: "verified",
-  Blocked: "blocked",
-} as const;
-/**
- * The profile status determines whether the profile is able to receive live payments.
- *
- * @remarks
- *
- * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
- * * `verified`: The profile has been verified and can be used to create live payments and test payments.
- * * `blocked`: The profile is blocked and can no longer be used or changed.
- */
-export type EntityProfileResponseStatus = ClosedEnum<
-  typeof EntityProfileResponseStatus
->;
-
-/**
- * The status of the requested changes.
- */
-export const ReviewStatus = {
-  Pending: "pending",
-  Rejected: "rejected",
-} as const;
-/**
- * The status of the requested changes.
- */
-export type ReviewStatus = ClosedEnum<typeof ReviewStatus>;
 
 /**
  * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
@@ -66,7 +36,7 @@ export type Review = {
   /**
    * The status of the requested changes.
    */
-  status?: ReviewStatus | undefined;
+  status?: ProfileReviewStatusResponse | undefined;
 };
 
 /**
@@ -169,7 +139,7 @@ export type EntityProfileResponse = {
    * * `verified`: The profile has been verified and can be used to create live payments and test payments.
    * * `blocked`: The profile is blocked and can no longer be used or changed.
    */
-  status?: EntityProfileResponseStatus | undefined;
+  status?: ProfileStatus | undefined;
   /**
    * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
    *
@@ -189,49 +159,9 @@ export type EntityProfileResponse = {
 };
 
 /** @internal */
-export const EntityProfileResponseStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityProfileResponseStatus
-> = z.nativeEnum(EntityProfileResponseStatus);
-
-/** @internal */
-export const EntityProfileResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityProfileResponseStatus
-> = EntityProfileResponseStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityProfileResponseStatus$ {
-  /** @deprecated use `EntityProfileResponseStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityProfileResponseStatus$inboundSchema;
-  /** @deprecated use `EntityProfileResponseStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityProfileResponseStatus$outboundSchema;
-}
-
-/** @internal */
-export const ReviewStatus$inboundSchema: z.ZodNativeEnum<typeof ReviewStatus> =
-  z.nativeEnum(ReviewStatus);
-
-/** @internal */
-export const ReviewStatus$outboundSchema: z.ZodNativeEnum<typeof ReviewStatus> =
-  ReviewStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReviewStatus$ {
-  /** @deprecated use `ReviewStatus$inboundSchema` instead. */
-  export const inboundSchema = ReviewStatus$inboundSchema;
-  /** @deprecated use `ReviewStatus$outboundSchema` instead. */
-  export const outboundSchema = ReviewStatus$outboundSchema;
-}
-
-/** @internal */
 export const Review$inboundSchema: z.ZodType<Review, z.ZodTypeDef, unknown> = z
   .object({
-    status: ReviewStatus$inboundSchema.optional(),
+    status: ProfileReviewStatusResponse$inboundSchema.optional(),
   });
 
 /** @internal */
@@ -245,7 +175,7 @@ export const Review$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Review
 > = z.object({
-  status: ReviewStatus$outboundSchema.optional(),
+  status: ProfileReviewStatusResponse$outboundSchema.optional(),
 });
 
 /**
@@ -366,7 +296,7 @@ export const EntityProfileResponse$inboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: EntityProfileResponseStatus$inboundSchema.optional(),
+  status: ProfileStatus$inboundSchema.optional(),
   review: z.lazy(() => Review$inboundSchema).optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => EntityProfileResponseLinks$inboundSchema).optional(),
@@ -410,7 +340,7 @@ export const EntityProfileResponse$outboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
-  status: EntityProfileResponseStatus$outboundSchema.optional(),
+  status: ProfileStatus$outboundSchema.optional(),
   review: z.lazy(() => Review$outboundSchema).optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => EntityProfileResponseLinks$outboundSchema).optional(),

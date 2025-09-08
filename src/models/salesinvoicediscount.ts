@@ -4,23 +4,13 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The type of discount.
- */
-export const SalesInvoiceDiscountType = {
-  Amount: "amount",
-  Percentage: "percentage",
-} as const;
-/**
- * The type of discount.
- */
-export type SalesInvoiceDiscountType = ClosedEnum<
-  typeof SalesInvoiceDiscountType
->;
+import {
+  SalesInvoiceDiscountType,
+  SalesInvoiceDiscountType$inboundSchema,
+  SalesInvoiceDiscountType$outboundSchema,
+} from "./salesinvoicediscounttype.js";
 
 export type SalesInvoiceDiscount = {
   /**
@@ -32,27 +22,6 @@ export type SalesInvoiceDiscount = {
    */
   value: string;
 };
-
-/** @internal */
-export const SalesInvoiceDiscountType$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceDiscountType
-> = z.nativeEnum(SalesInvoiceDiscountType);
-
-/** @internal */
-export const SalesInvoiceDiscountType$outboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceDiscountType
-> = SalesInvoiceDiscountType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceDiscountType$ {
-  /** @deprecated use `SalesInvoiceDiscountType$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceDiscountType$inboundSchema;
-  /** @deprecated use `SalesInvoiceDiscountType$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceDiscountType$outboundSchema;
-}
 
 /** @internal */
 export const SalesInvoiceDiscount$inboundSchema: z.ZodType<

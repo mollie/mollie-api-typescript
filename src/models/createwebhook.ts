@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
@@ -20,19 +19,11 @@ import {
   WebhookEventTypes$inboundSchema,
   WebhookEventTypes$outboundSchema,
 } from "./webhookeventtypes.js";
-
-/**
- * The subscription's current status.
- */
-export const CreateWebhookStatus = {
-  Enabled: "enabled",
-  Blocked: "blocked",
-  Disabled: "disabled",
-} as const;
-/**
- * The subscription's current status.
- */
-export type CreateWebhookStatus = ClosedEnum<typeof CreateWebhookStatus>;
+import {
+  WebhookStatus,
+  WebhookStatus$inboundSchema,
+  WebhookStatus$outboundSchema,
+} from "./webhookstatus.js";
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -76,7 +67,7 @@ export type CreateWebhook = {
   /**
    * The subscription's current status.
    */
-  status: CreateWebhookStatus;
+  status: WebhookStatus;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
@@ -90,27 +81,6 @@ export type CreateWebhook = {
    */
   links: CreateWebhookLinks;
 };
-
-/** @internal */
-export const CreateWebhookStatus$inboundSchema: z.ZodNativeEnum<
-  typeof CreateWebhookStatus
-> = z.nativeEnum(CreateWebhookStatus);
-
-/** @internal */
-export const CreateWebhookStatus$outboundSchema: z.ZodNativeEnum<
-  typeof CreateWebhookStatus
-> = CreateWebhookStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateWebhookStatus$ {
-  /** @deprecated use `CreateWebhookStatus$inboundSchema` instead. */
-  export const inboundSchema = CreateWebhookStatus$inboundSchema;
-  /** @deprecated use `CreateWebhookStatus$outboundSchema` instead. */
-  export const outboundSchema = CreateWebhookStatus$outboundSchema;
-}
 
 /** @internal */
 export const CreateWebhookLinks$inboundSchema: z.ZodType<
@@ -179,7 +149,7 @@ export const CreateWebhook$inboundSchema: z.ZodType<
   createdAt: z.string(),
   name: z.string(),
   eventTypes: z.array(WebhookEventTypes$inboundSchema),
-  status: CreateWebhookStatus$inboundSchema,
+  status: WebhookStatus$inboundSchema,
   mode: Mode$inboundSchema,
   webhookSecret: z.string(),
   _links: z.lazy(() => CreateWebhookLinks$inboundSchema),
@@ -217,7 +187,7 @@ export const CreateWebhook$outboundSchema: z.ZodType<
   createdAt: z.string(),
   name: z.string(),
   eventTypes: z.array(WebhookEventTypes$outboundSchema),
-  status: CreateWebhookStatus$outboundSchema,
+  status: WebhookStatus$outboundSchema,
   mode: Mode$outboundSchema,
   webhookSecret: z.string(),
   links: z.lazy(() => CreateWebhookLinks$outboundSchema),

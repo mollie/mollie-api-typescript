@@ -5,42 +5,19 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  OnboardingStatus,
+  OnboardingStatus$inboundSchema,
+  OnboardingStatus$outboundSchema,
+} from "./onboardingstatus.js";
 import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * The current status of the organization's onboarding process.
- *
- * @remarks
- *
- * * `needs-data` — The merchant needs to provide additional information
- * * `in-review` — The merchant provided all information, awaiting review from Mollie
- * * `completed` — The onboarding is completed
- */
-export const EntityOnboardingStatusStatus = {
-  NeedsData: "needs-data",
-  InReview: "in-review",
-  Completed: "completed",
-} as const;
-/**
- * The current status of the organization's onboarding process.
- *
- * @remarks
- *
- * * `needs-data` — The merchant needs to provide additional information
- * * `in-review` — The merchant provided all information, awaiting review from Mollie
- * * `completed` — The onboarding is completed
- */
-export type EntityOnboardingStatusStatus = ClosedEnum<
-  typeof EntityOnboardingStatusStatus
->;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -78,14 +55,8 @@ export type EntityOnboardingStatus = {
   name?: string | undefined;
   /**
    * The current status of the organization's onboarding process.
-   *
-   * @remarks
-   *
-   * * `needs-data` — The merchant needs to provide additional information
-   * * `in-review` — The merchant provided all information, awaiting review from Mollie
-   * * `completed` — The onboarding is completed
    */
-  status?: EntityOnboardingStatusStatus | undefined;
+  status?: OnboardingStatus | undefined;
   /**
    * Whether the organization can receive payments.
    */
@@ -103,27 +74,6 @@ export type EntityOnboardingStatus = {
    */
   links?: EntityOnboardingStatusLinks | undefined;
 };
-
-/** @internal */
-export const EntityOnboardingStatusStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityOnboardingStatusStatus
-> = z.nativeEnum(EntityOnboardingStatusStatus);
-
-/** @internal */
-export const EntityOnboardingStatusStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityOnboardingStatusStatus
-> = EntityOnboardingStatusStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityOnboardingStatusStatus$ {
-  /** @deprecated use `EntityOnboardingStatusStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityOnboardingStatusStatus$inboundSchema;
-  /** @deprecated use `EntityOnboardingStatusStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityOnboardingStatusStatus$outboundSchema;
-}
 
 /** @internal */
 export const EntityOnboardingStatusLinks$inboundSchema: z.ZodType<
@@ -198,7 +148,7 @@ export const EntityOnboardingStatus$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: EntityOnboardingStatusStatus$inboundSchema.optional(),
+  status: OnboardingStatus$inboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),
@@ -228,7 +178,7 @@ export const EntityOnboardingStatus$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: EntityOnboardingStatusStatus$outboundSchema.optional(),
+  status: OnboardingStatus$outboundSchema.optional(),
   canReceivePayments: z.boolean().optional(),
   canReceiveSettlements: z.boolean().optional(),
   signedUpAt: z.string().optional(),

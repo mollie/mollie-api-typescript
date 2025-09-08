@@ -5,9 +5,23 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MandateDetailsCardLabelResponse,
+  MandateDetailsCardLabelResponse$inboundSchema,
+  MandateDetailsCardLabelResponse$outboundSchema,
+} from "./mandatedetailscardlabelresponse.js";
+import {
+  MandateMethodResponse,
+  MandateMethodResponse$inboundSchema,
+  MandateMethodResponse$outboundSchema,
+} from "./mandatemethodresponse.js";
+import {
+  MandateStatus,
+  MandateStatus$inboundSchema,
+  MandateStatus$outboundSchema,
+} from "./mandatestatus.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
 import {
   Url,
@@ -15,51 +29,6 @@ import {
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * Payment method of the mandate.
- *
- * @remarks
- *
- * SEPA Direct Debit and PayPal mandates can be created directly.
- */
-export const MandateResponseMethod = {
-  Creditcard: "creditcard",
-  Directdebit: "directdebit",
-  Paypal: "paypal",
-} as const;
-/**
- * Payment method of the mandate.
- *
- * @remarks
- *
- * SEPA Direct Debit and PayPal mandates can be created directly.
- */
-export type MandateResponseMethod = ClosedEnum<typeof MandateResponseMethod>;
-
-/**
- * The card's label. Available for card mandates, if the card label could be detected.
- */
-export const MandateResponseCardLabel = {
-  AmericanExpress: "American Express",
-  CartaSi: "Carta Si",
-  CarteBleue: "Carte Bleue",
-  Dankort: "Dankort",
-  DinersClub: "Diners Club",
-  Discover: "Discover",
-  Jcb: "JCB",
-  Laser: "Laser",
-  Maestro: "Maestro",
-  Mastercard: "Mastercard",
-  Unionpay: "Unionpay",
-  Visa: "Visa",
-} as const;
-/**
- * The card's label. Available for card mandates, if the card label could be detected.
- */
-export type MandateResponseCardLabel = ClosedEnum<
-  typeof MandateResponseCardLabel
->;
 
 export type MandateResponseDetails = {
   /**
@@ -89,7 +58,7 @@ export type MandateResponseDetails = {
   /**
    * The card's label. Available for card mandates, if the card label could be detected.
    */
-  cardLabel?: MandateResponseCardLabel | null | undefined;
+  cardLabel?: MandateDetailsCardLabelResponse | null | undefined;
   /**
    * Unique alphanumeric representation of this specific card. Available for card mandates. Can be used to identify
    *
@@ -98,25 +67,6 @@ export type MandateResponseDetails = {
    */
   cardFingerprint?: string | null | undefined;
 };
-
-/**
- * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
- *
- * @remarks
- * when we did not received the IBAN yet from the first payment.
- */
-export const MandateResponseStatus = {
-  Valid: "valid",
-  Pending: "pending",
-  Invalid: "invalid",
-} as const;
-/**
- * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
- *
- * @remarks
- * when we did not received the IBAN yet from the first payment.
- */
-export type MandateResponseStatus = ClosedEnum<typeof MandateResponseStatus>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -153,7 +103,7 @@ export type MandateResponse = {
    *
    * SEPA Direct Debit and PayPal mandates can be created directly.
    */
-  method?: MandateResponseMethod | undefined;
+  method?: MandateMethodResponse | undefined;
   details?: MandateResponseDetails | undefined;
   /**
    * The date when the mandate was signed in `YYYY-MM-DD` format.
@@ -172,7 +122,7 @@ export type MandateResponse = {
    * @remarks
    * when we did not received the IBAN yet from the first payment.
    */
-  status?: MandateResponseStatus | undefined;
+  status?: MandateStatus | undefined;
   customerId?: string | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -183,48 +133,6 @@ export type MandateResponse = {
    */
   links?: MandateResponseLinks | undefined;
 };
-
-/** @internal */
-export const MandateResponseMethod$inboundSchema: z.ZodNativeEnum<
-  typeof MandateResponseMethod
-> = z.nativeEnum(MandateResponseMethod);
-
-/** @internal */
-export const MandateResponseMethod$outboundSchema: z.ZodNativeEnum<
-  typeof MandateResponseMethod
-> = MandateResponseMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateResponseMethod$ {
-  /** @deprecated use `MandateResponseMethod$inboundSchema` instead. */
-  export const inboundSchema = MandateResponseMethod$inboundSchema;
-  /** @deprecated use `MandateResponseMethod$outboundSchema` instead. */
-  export const outboundSchema = MandateResponseMethod$outboundSchema;
-}
-
-/** @internal */
-export const MandateResponseCardLabel$inboundSchema: z.ZodNativeEnum<
-  typeof MandateResponseCardLabel
-> = z.nativeEnum(MandateResponseCardLabel);
-
-/** @internal */
-export const MandateResponseCardLabel$outboundSchema: z.ZodNativeEnum<
-  typeof MandateResponseCardLabel
-> = MandateResponseCardLabel$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateResponseCardLabel$ {
-  /** @deprecated use `MandateResponseCardLabel$inboundSchema` instead. */
-  export const inboundSchema = MandateResponseCardLabel$inboundSchema;
-  /** @deprecated use `MandateResponseCardLabel$outboundSchema` instead. */
-  export const outboundSchema = MandateResponseCardLabel$outboundSchema;
-}
 
 /** @internal */
 export const MandateResponseDetails$inboundSchema: z.ZodType<
@@ -238,7 +146,8 @@ export const MandateResponseDetails$inboundSchema: z.ZodType<
   cardHolder: z.nullable(z.string()).optional(),
   cardNumber: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(MandateResponseCardLabel$inboundSchema).optional(),
+  cardLabel: z.nullable(MandateDetailsCardLabelResponse$inboundSchema)
+    .optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
 
@@ -266,7 +175,8 @@ export const MandateResponseDetails$outboundSchema: z.ZodType<
   cardHolder: z.nullable(z.string()).optional(),
   cardNumber: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(MandateResponseCardLabel$outboundSchema).optional(),
+  cardLabel: z.nullable(MandateDetailsCardLabelResponse$outboundSchema)
+    .optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
 
@@ -299,27 +209,6 @@ export function mandateResponseDetailsFromJSON(
     (x) => MandateResponseDetails$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MandateResponseDetails' from JSON`,
   );
-}
-
-/** @internal */
-export const MandateResponseStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MandateResponseStatus
-> = z.nativeEnum(MandateResponseStatus);
-
-/** @internal */
-export const MandateResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MandateResponseStatus
-> = MandateResponseStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateResponseStatus$ {
-  /** @deprecated use `MandateResponseStatus$inboundSchema` instead. */
-  export const inboundSchema = MandateResponseStatus$inboundSchema;
-  /** @deprecated use `MandateResponseStatus$outboundSchema` instead. */
-  export const outboundSchema = MandateResponseStatus$outboundSchema;
 }
 
 /** @internal */
@@ -391,11 +280,11 @@ export const MandateResponse$inboundSchema: z.ZodType<
   resource: z.string().optional(),
   id: z.string().optional(),
   mode: Mode$inboundSchema.optional(),
-  method: MandateResponseMethod$inboundSchema.optional(),
+  method: MandateMethodResponse$inboundSchema.optional(),
   details: z.lazy(() => MandateResponseDetails$inboundSchema).optional(),
   signatureDate: z.nullable(z.string()).optional(),
   mandateReference: z.nullable(z.string()).optional(),
-  status: MandateResponseStatus$inboundSchema.optional(),
+  status: MandateStatus$inboundSchema.optional(),
   customerId: z.string().optional(),
   createdAt: z.string().optional(),
   _links: z.lazy(() => MandateResponseLinks$inboundSchema).optional(),
@@ -429,11 +318,11 @@ export const MandateResponse$outboundSchema: z.ZodType<
   resource: z.string().optional(),
   id: z.string().optional(),
   mode: Mode$outboundSchema.optional(),
-  method: MandateResponseMethod$outboundSchema.optional(),
+  method: MandateMethodResponse$outboundSchema.optional(),
   details: z.lazy(() => MandateResponseDetails$outboundSchema).optional(),
   signatureDate: z.nullable(z.string()).optional(),
   mandateReference: z.nullable(z.string()).optional(),
-  status: MandateResponseStatus$outboundSchema.optional(),
+  status: MandateStatus$outboundSchema.optional(),
   customerId: z.string().optional(),
   createdAt: z.string().optional(),
   links: z.lazy(() => MandateResponseLinks$outboundSchema).optional(),

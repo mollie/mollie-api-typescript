@@ -4,50 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The type of recipient, either `consumer` or `business`. This will determine what further fields are
- *
- * @remarks
- * required on the `recipient` object.
- */
-export const SalesInvoiceRecipientType = {
-  Consumer: "consumer",
-  Business: "business",
-} as const;
-/**
- * The type of recipient, either `consumer` or `business`. This will determine what further fields are
- *
- * @remarks
- * required on the `recipient` object.
- */
-export type SalesInvoiceRecipientType = ClosedEnum<
-  typeof SalesInvoiceRecipientType
->;
-
-/**
- * The locale for the recipient, to be used for translations in PDF generation and payment pages.
- */
-export const SalesInvoiceRecipientLocale = {
-  EnUS: "en_US",
-  EnGB: "en_GB",
-  NLNL: "nl_NL",
-  NlBE: "nl_BE",
-  DEDE: "de_DE",
-  DeAT: "de_AT",
-  DeCH: "de_CH",
-  FRFR: "fr_FR",
-  FrBE: "fr_BE",
-} as const;
-/**
- * The locale for the recipient, to be used for translations in PDF generation and payment pages.
- */
-export type SalesInvoiceRecipientLocale = ClosedEnum<
-  typeof SalesInvoiceRecipientLocale
->;
+import {
+  SalesInvoiceRecipientLocale,
+  SalesInvoiceRecipientLocale$inboundSchema,
+  SalesInvoiceRecipientLocale$outboundSchema,
+} from "./salesinvoicerecipientlocale.js";
+import {
+  SalesInvoiceRecipientType,
+  SalesInvoiceRecipientType$inboundSchema,
+  SalesInvoiceRecipientType$outboundSchema,
+} from "./salesinvoicerecipienttype.js";
 
 export type SalesInvoiceRecipient = {
   /**
@@ -130,48 +98,6 @@ export type SalesInvoiceRecipient = {
    */
   locale: SalesInvoiceRecipientLocale;
 };
-
-/** @internal */
-export const SalesInvoiceRecipientType$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientType
-> = z.nativeEnum(SalesInvoiceRecipientType);
-
-/** @internal */
-export const SalesInvoiceRecipientType$outboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientType
-> = SalesInvoiceRecipientType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceRecipientType$ {
-  /** @deprecated use `SalesInvoiceRecipientType$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceRecipientType$inboundSchema;
-  /** @deprecated use `SalesInvoiceRecipientType$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceRecipientType$outboundSchema;
-}
-
-/** @internal */
-export const SalesInvoiceRecipientLocale$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientLocale
-> = z.nativeEnum(SalesInvoiceRecipientLocale);
-
-/** @internal */
-export const SalesInvoiceRecipientLocale$outboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientLocale
-> = SalesInvoiceRecipientLocale$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceRecipientLocale$ {
-  /** @deprecated use `SalesInvoiceRecipientLocale$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceRecipientLocale$inboundSchema;
-  /** @deprecated use `SalesInvoiceRecipientLocale$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceRecipientLocale$outboundSchema;
-}
 
 /** @internal */
 export const SalesInvoiceRecipient$inboundSchema: z.ZodType<

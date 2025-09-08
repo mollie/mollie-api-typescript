@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -19,83 +18,12 @@ import {
   AmountNullable$Outbound,
   AmountNullable$outboundSchema,
 } from "./amountnullable.js";
+import {
+  BalanceTransactionType,
+  BalanceTransactionType$inboundSchema,
+  BalanceTransactionType$outboundSchema,
+} from "./balancetransactiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list
- *
- * @remarks
- * is not definitive.
- *
- * * Regular payment processing: `payment` `capture` `unauthorized-direct-debit` `failed-payment`
- * * Refunds and chargebacks: `refund` `returned-refund` `chargeback` `chargeback-reversal`
- * * Settlements: `outgoing-transfer` `canceled-outgoing-transfer` `returned-transfer`
- * * Invoicing: `invoice-compensation` `balance-correction`
- * * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
- */
-export const EntityBalanceTransactionType = {
-  ApplicationFee: "application-fee",
-  Capture: "capture",
-  Chargeback: "chargeback",
-  ChargebackReversal: "chargeback-reversal",
-  FailedPaymentFee: "failed-payment-fee",
-  FailedPayment: "failed-payment",
-  InvoiceCompensation: "invoice-compensation",
-  Payment: "payment",
-  PaymentFee: "payment-fee",
-  PaymentCommission: "payment-commission",
-  Refund: "refund",
-  ReturnedRefund: "returned-refund",
-  ReturnedTransfer: "returned-transfer",
-  SplitPayment: "split-payment",
-  OutgoingTransfer: "outgoing-transfer",
-  CaptureCommission: "capture-commission",
-  CanceledOutgoingTransfer: "canceled-outgoing-transfer",
-  IncomingTransfer: "incoming-transfer",
-  ApiPaymentRollingReserveRelease: "api-payment-rolling-reserve-release",
-  CaptureRollingReserveRelease: "capture-rolling-reserve-release",
-  ReimbursementFee: "reimbursement-fee",
-  BalanceCorrection: "balance-correction",
-  UnauthorizedDirectDebit: "unauthorized-direct-debit",
-  BankChargedFailureFee: "bank-charged-failure-fee",
-  PlatformPaymentRefund: "platform-payment-refund",
-  RefundCompensation: "refund-compensation",
-  ReturnedRefundCompensation: "returned-refund-compensation",
-  ReturnedPlatformPaymentRefund: "returned-platform-payment-refund",
-  PlatformPaymentChargeback: "platform-payment-chargeback",
-  ChargebackCompensation: "chargeback-compensation",
-  ReversedPlatformPaymentChargeback: "reversed-platform-payment-chargeback",
-  ReversedChargebackCompensation: "reversed-chargeback-compensation",
-  FailedSplitPaymentPlatform: "failed-split-payment-platform",
-  FailedSplitPaymentCompensation: "failed-split-payment-compensation",
-  CashAdvanceLoan: "cash-advance-loan",
-  PlatformConnectedOrganizationsFee: "platform-connected-organizations-fee",
-  SplitTransaction: "split-transaction",
-  ManagedFee: "managed-fee",
-  ReturnedManagedFee: "returned-managed-fee",
-  Topup: "topup",
-  BalanceReserve: "balance-reserve",
-  BalanceReserveReturn: "balance-reserve-return",
-  Movement: "movement",
-  PostPaymentSplitPayment: "post-payment-split-payment",
-  CashCollateralIssuance: "cash-collateral-issuance",
-  CashCollateralRelease: "cash-collateral-release",
-} as const;
-/**
- * The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list
- *
- * @remarks
- * is not definitive.
- *
- * * Regular payment processing: `payment` `capture` `unauthorized-direct-debit` `failed-payment`
- * * Refunds and chargebacks: `refund` `returned-refund` `chargeback` `chargeback-reversal`
- * * Settlements: `outgoing-transfer` `canceled-outgoing-transfer` `returned-transfer`
- * * Invoicing: `invoice-compensation` `balance-correction`
- * * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
- */
-export type EntityBalanceTransactionType = ClosedEnum<
-  typeof EntityBalanceTransactionType
->;
 
 export type Payment = {
   paymentId?: string | undefined;
@@ -388,19 +316,7 @@ export type EntityBalanceTransaction = {
    */
   resource?: string | undefined;
   id?: string | undefined;
-  /**
-   * The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list
-   *
-   * @remarks
-   * is not definitive.
-   *
-   * * Regular payment processing: `payment` `capture` `unauthorized-direct-debit` `failed-payment`
-   * * Refunds and chargebacks: `refund` `returned-refund` `chargeback` `chargeback-reversal`
-   * * Settlements: `outgoing-transfer` `canceled-outgoing-transfer` `returned-transfer`
-   * * Invoicing: `invoice-compensation` `balance-correction`
-   * * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
-   */
-  type?: EntityBalanceTransactionType | undefined;
+  type?: BalanceTransactionType | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -469,27 +385,6 @@ export type EntityBalanceTransaction = {
    */
   createdAt?: string | undefined;
 };
-
-/** @internal */
-export const EntityBalanceTransactionType$inboundSchema: z.ZodNativeEnum<
-  typeof EntityBalanceTransactionType
-> = z.nativeEnum(EntityBalanceTransactionType);
-
-/** @internal */
-export const EntityBalanceTransactionType$outboundSchema: z.ZodNativeEnum<
-  typeof EntityBalanceTransactionType
-> = EntityBalanceTransactionType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceTransactionType$ {
-  /** @deprecated use `EntityBalanceTransactionType$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceTransactionType$inboundSchema;
-  /** @deprecated use `EntityBalanceTransactionType$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceTransactionType$outboundSchema;
-}
 
 /** @internal */
 export const Payment$inboundSchema: z.ZodType<Payment, z.ZodTypeDef, unknown> =
@@ -2650,7 +2545,7 @@ export const EntityBalanceTransaction$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   id: z.string().optional(),
-  type: EntityBalanceTransactionType$inboundSchema.optional(),
+  type: BalanceTransactionType$inboundSchema.optional(),
   resultAmount: Amount$inboundSchema.optional(),
   initialAmount: Amount$inboundSchema.optional(),
   deductions: z.nullable(AmountNullable$inboundSchema).optional(),
@@ -2678,7 +2573,7 @@ export const EntityBalanceTransaction$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   id: z.string().optional(),
-  type: EntityBalanceTransactionType$outboundSchema.optional(),
+  type: BalanceTransactionType$outboundSchema.optional(),
   resultAmount: Amount$outboundSchema.optional(),
   initialAmount: Amount$outboundSchema.optional(),
   deductions: z.nullable(AmountNullable$outboundSchema).optional(),

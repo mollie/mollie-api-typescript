@@ -47,6 +47,7 @@ async function run() {
       },
       paymentId: "tr_5B8cwPMGnU",
       settlementId: "stl_5B8cwPMGnU",
+      status: "queued",
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",
@@ -109,6 +110,7 @@ async function run() {
       },
       paymentId: "tr_5B8cwPMGnU",
       settlementId: "stl_5B8cwPMGnU",
+      status: "queued",
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",

@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -15,22 +14,16 @@ import {
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  RouteDestinationType,
+  RouteDestinationType$inboundSchema,
+  RouteDestinationType$outboundSchema,
+} from "./routedestinationtype.js";
+import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export const EntityPaymentRouteType = {
-  Organization: "organization",
-} as const;
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export type EntityPaymentRouteType = ClosedEnum<typeof EntityPaymentRouteType>;
 
 /**
  * The destination of this portion of the payment.
@@ -39,7 +32,7 @@ export type EntityPaymentRouteDestination = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
    */
-  type: EntityPaymentRouteType;
+  type: RouteDestinationType;
   organizationId: string;
 };
 
@@ -83,33 +76,12 @@ export type EntityPaymentRoute = {
 };
 
 /** @internal */
-export const EntityPaymentRouteType$inboundSchema: z.ZodNativeEnum<
-  typeof EntityPaymentRouteType
-> = z.nativeEnum(EntityPaymentRouteType);
-
-/** @internal */
-export const EntityPaymentRouteType$outboundSchema: z.ZodNativeEnum<
-  typeof EntityPaymentRouteType
-> = EntityPaymentRouteType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRouteType$ {
-  /** @deprecated use `EntityPaymentRouteType$inboundSchema` instead. */
-  export const inboundSchema = EntityPaymentRouteType$inboundSchema;
-  /** @deprecated use `EntityPaymentRouteType$outboundSchema` instead. */
-  export const outboundSchema = EntityPaymentRouteType$outboundSchema;
-}
-
-/** @internal */
 export const EntityPaymentRouteDestination$inboundSchema: z.ZodType<
   EntityPaymentRouteDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: EntityPaymentRouteType$inboundSchema,
+  type: RouteDestinationType$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -125,7 +97,7 @@ export const EntityPaymentRouteDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityPaymentRouteDestination
 > = z.object({
-  type: EntityPaymentRouteType$outboundSchema,
+  type: RouteDestinationType$outboundSchema,
   organizationId: z.string(),
 });
 

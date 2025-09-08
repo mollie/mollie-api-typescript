@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
@@ -13,6 +12,11 @@ import {
   AmountNullable$Outbound,
   AmountNullable$outboundSchema,
 } from "./amountnullable.js";
+import {
+  CaptureStatus,
+  CaptureStatus$inboundSchema,
+  CaptureStatus$outboundSchema,
+} from "./capturestatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Metadata,
@@ -33,19 +37,6 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
-
-/**
- * The capture's status.
- */
-export const CaptureResponseStatus = {
-  Pending: "pending",
-  Succeeded: "succeeded",
-  Failed: "failed",
-} as const;
-/**
- * The capture's status.
- */
-export type CaptureResponseStatus = ClosedEnum<typeof CaptureResponseStatus>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -98,7 +89,7 @@ export type CaptureResponse = {
   /**
    * The capture's status.
    */
-  status?: CaptureResponseStatus | undefined;
+  status?: CaptureStatus | undefined;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
@@ -118,27 +109,6 @@ export type CaptureResponse = {
    */
   links?: CaptureResponseLinks | undefined;
 };
-
-/** @internal */
-export const CaptureResponseStatus$inboundSchema: z.ZodNativeEnum<
-  typeof CaptureResponseStatus
-> = z.nativeEnum(CaptureResponseStatus);
-
-/** @internal */
-export const CaptureResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof CaptureResponseStatus
-> = CaptureResponseStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureResponseStatus$ {
-  /** @deprecated use `CaptureResponseStatus$inboundSchema` instead. */
-  export const inboundSchema = CaptureResponseStatus$inboundSchema;
-  /** @deprecated use `CaptureResponseStatus$outboundSchema` instead. */
-  export const outboundSchema = CaptureResponseStatus$outboundSchema;
-}
 
 /** @internal */
 export const CaptureResponseLinks$inboundSchema: z.ZodType<
@@ -218,7 +188,7 @@ export const CaptureResponse$inboundSchema: z.ZodType<
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$inboundSchema).optional(),
   settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
-  status: CaptureResponseStatus$inboundSchema.optional(),
+  status: CaptureStatus$inboundSchema.optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   paymentId: z.string().optional(),
   shipmentId: z.string().optional(),
@@ -260,7 +230,7 @@ export const CaptureResponse$outboundSchema: z.ZodType<
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$outboundSchema).optional(),
   settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
-  status: CaptureResponseStatus$outboundSchema.optional(),
+  status: CaptureStatus$outboundSchema.optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   paymentId: z.string().optional(),
   shipmentId: z.string().optional(),

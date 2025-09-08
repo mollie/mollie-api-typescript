@@ -4,7 +4,6 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -32,53 +31,21 @@ import {
   SalesInvoicePaymentDetails$outboundSchema,
 } from "./salesinvoicepaymentdetails.js";
 import {
+  SalesInvoicePaymentTerm,
+  SalesInvoicePaymentTerm$inboundSchema,
+  SalesInvoicePaymentTerm$outboundSchema,
+} from "./salesinvoicepaymentterm.js";
+import {
   SalesInvoiceRecipient,
   SalesInvoiceRecipient$inboundSchema,
   SalesInvoiceRecipient$Outbound,
   SalesInvoiceRecipient$outboundSchema,
 } from "./salesinvoicerecipient.js";
-
-/**
- * The status for the invoice to end up in.
- *
- * @remarks
- *
- * Dependent parameters: `paymentDetails` for `paid`, `emailDetails` for `issued` and `paid`.
- */
-export const UpdateValuesSalesInvoiceStatus = {
-  Draft: "draft",
-  Issued: "issued",
-  Paid: "paid",
-} as const;
-/**
- * The status for the invoice to end up in.
- *
- * @remarks
- *
- * Dependent parameters: `paymentDetails` for `paid`, `emailDetails` for `issued` and `paid`.
- */
-export type UpdateValuesSalesInvoiceStatus = ClosedEnum<
-  typeof UpdateValuesSalesInvoiceStatus
->;
-
-/**
- * The payment term to be set on the invoice.
- */
-export const UpdateValuesSalesInvoicePaymentTerm = {
-  Sevendays: "7 days",
-  Fourteendays: "14 days",
-  Thirtydays: "30 days",
-  FortyFivedays: "45 days",
-  Sixtydays: "60 days",
-  Ninetydays: "90 days",
-  OneHundredAndTwentydays: "120 days",
-} as const;
-/**
- * The payment term to be set on the invoice.
- */
-export type UpdateValuesSalesInvoicePaymentTerm = ClosedEnum<
-  typeof UpdateValuesSalesInvoicePaymentTerm
->;
+import {
+  SalesInvoiceStatus,
+  SalesInvoiceStatus$inboundSchema,
+  SalesInvoiceStatus$outboundSchema,
+} from "./salesinvoicestatus.js";
 
 export type UpdateValuesSalesInvoice = {
   /**
@@ -95,9 +62,19 @@ export type UpdateValuesSalesInvoice = {
    *
    * @remarks
    *
-   * Dependent parameters: `paymentDetails` for `paid`, `emailDetails` for `issued` and `paid`.
+   * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+   * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+   * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+   *
+   * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+   * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+   *
+   * Dependent parameters:
+   *   - `paymentDetails` is required if invoice should be set directly to `paid`
+   *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+   *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
    */
-  status?: UpdateValuesSalesInvoiceStatus | undefined;
+  status?: SalesInvoiceStatus | undefined;
   /**
    * A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
    */
@@ -105,7 +82,7 @@ export type UpdateValuesSalesInvoice = {
   /**
    * The payment term to be set on the invoice.
    */
-  paymentTerm?: UpdateValuesSalesInvoicePaymentTerm | null | undefined;
+  paymentTerm?: SalesInvoicePaymentTerm | null | undefined;
   paymentDetails?: SalesInvoicePaymentDetails | null | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
@@ -130,60 +107,15 @@ export type UpdateValuesSalesInvoice = {
 };
 
 /** @internal */
-export const UpdateValuesSalesInvoiceStatus$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateValuesSalesInvoiceStatus
-> = z.nativeEnum(UpdateValuesSalesInvoiceStatus);
-
-/** @internal */
-export const UpdateValuesSalesInvoiceStatus$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateValuesSalesInvoiceStatus
-> = UpdateValuesSalesInvoiceStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateValuesSalesInvoiceStatus$ {
-  /** @deprecated use `UpdateValuesSalesInvoiceStatus$inboundSchema` instead. */
-  export const inboundSchema = UpdateValuesSalesInvoiceStatus$inboundSchema;
-  /** @deprecated use `UpdateValuesSalesInvoiceStatus$outboundSchema` instead. */
-  export const outboundSchema = UpdateValuesSalesInvoiceStatus$outboundSchema;
-}
-
-/** @internal */
-export const UpdateValuesSalesInvoicePaymentTerm$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateValuesSalesInvoicePaymentTerm
-> = z.nativeEnum(UpdateValuesSalesInvoicePaymentTerm);
-
-/** @internal */
-export const UpdateValuesSalesInvoicePaymentTerm$outboundSchema:
-  z.ZodNativeEnum<typeof UpdateValuesSalesInvoicePaymentTerm> =
-    UpdateValuesSalesInvoicePaymentTerm$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateValuesSalesInvoicePaymentTerm$ {
-  /** @deprecated use `UpdateValuesSalesInvoicePaymentTerm$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateValuesSalesInvoicePaymentTerm$inboundSchema;
-  /** @deprecated use `UpdateValuesSalesInvoicePaymentTerm$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateValuesSalesInvoicePaymentTerm$outboundSchema;
-}
-
-/** @internal */
 export const UpdateValuesSalesInvoice$inboundSchema: z.ZodType<
   UpdateValuesSalesInvoice,
   z.ZodTypeDef,
   unknown
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
-  status: UpdateValuesSalesInvoiceStatus$inboundSchema.optional(),
+  status: SalesInvoiceStatus$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  paymentTerm: z.nullable(UpdateValuesSalesInvoicePaymentTerm$inboundSchema)
-    .optional(),
+  paymentTerm: z.nullable(SalesInvoicePaymentTerm$inboundSchema).optional(),
   paymentDetails: z.nullable(SalesInvoicePaymentDetails$inboundSchema)
     .optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
@@ -214,10 +146,9 @@ export const UpdateValuesSalesInvoice$outboundSchema: z.ZodType<
   UpdateValuesSalesInvoice
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
-  status: UpdateValuesSalesInvoiceStatus$outboundSchema.optional(),
+  status: SalesInvoiceStatus$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  paymentTerm: z.nullable(UpdateValuesSalesInvoicePaymentTerm$outboundSchema)
-    .optional(),
+  paymentTerm: z.nullable(SalesInvoicePaymentTerm$outboundSchema).optional(),
   paymentDetails: z.nullable(SalesInvoicePaymentDetails$outboundSchema)
     .optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),

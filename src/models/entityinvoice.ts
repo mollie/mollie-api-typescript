@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -15,36 +14,16 @@ import {
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InvoiceStatus,
+  InvoiceStatus$inboundSchema,
+  InvoiceStatus$outboundSchema,
+} from "./invoicestatus.js";
+import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * Status of the invoice.
- *
- * @remarks
- *
- * * `open` — The invoice is not paid yet.
- * * `paid` — The invoice is paid.
- * * `overdue` — Payment of the invoice is overdue.
- */
-export const EntityInvoiceStatus = {
-  Open: "open",
-  Paid: "paid",
-  Overdue: "overdue",
-} as const;
-/**
- * Status of the invoice.
- *
- * @remarks
- *
- * * `open` — The invoice is not paid yet.
- * * `paid` — The invoice is paid.
- * * `overdue` — Payment of the invoice is overdue.
- */
-export type EntityInvoiceStatus = ClosedEnum<typeof EntityInvoiceStatus>;
 
 export type EntityInvoiceLine = {
   /**
@@ -109,14 +88,8 @@ export type EntityInvoice = {
   vatNumber?: string | null | undefined;
   /**
    * Status of the invoice.
-   *
-   * @remarks
-   *
-   * * `open` — The invoice is not paid yet.
-   * * `paid` — The invoice is paid.
-   * * `overdue` — Payment of the invoice is overdue.
    */
-  status?: EntityInvoiceStatus | undefined;
+  status?: InvoiceStatus | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -150,27 +123,6 @@ export type EntityInvoice = {
    */
   links?: EntityInvoiceLinks | undefined;
 };
-
-/** @internal */
-export const EntityInvoiceStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityInvoiceStatus
-> = z.nativeEnum(EntityInvoiceStatus);
-
-/** @internal */
-export const EntityInvoiceStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityInvoiceStatus
-> = EntityInvoiceStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityInvoiceStatus$ {
-  /** @deprecated use `EntityInvoiceStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityInvoiceStatus$inboundSchema;
-  /** @deprecated use `EntityInvoiceStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityInvoiceStatus$outboundSchema;
-}
 
 /** @internal */
 export const EntityInvoiceLine$inboundSchema: z.ZodType<
@@ -308,7 +260,7 @@ export const EntityInvoice$inboundSchema: z.ZodType<
   id: z.string().optional(),
   reference: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  status: EntityInvoiceStatus$inboundSchema.optional(),
+  status: InvoiceStatus$inboundSchema.optional(),
   netAmount: Amount$inboundSchema.optional(),
   vatAmount: Amount$inboundSchema.optional(),
   grossAmount: Amount$inboundSchema.optional(),
@@ -350,7 +302,7 @@ export const EntityInvoice$outboundSchema: z.ZodType<
   id: z.string().optional(),
   reference: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  status: EntityInvoiceStatus$outboundSchema.optional(),
+  status: InvoiceStatus$outboundSchema.optional(),
   netAmount: Amount$outboundSchema.optional(),
   vatAmount: Amount$outboundSchema.optional(),
   grossAmount: Amount$outboundSchema.optional(),

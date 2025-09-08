@@ -5,46 +5,30 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import {
+  TerminalBrand,
+  TerminalBrand$inboundSchema,
+  TerminalBrand$outboundSchema,
+} from "./terminalbrand.js";
 import {
   TerminalModel,
   TerminalModel$inboundSchema,
   TerminalModel$outboundSchema,
 } from "./terminalmodel.js";
 import {
+  TerminalStatus,
+  TerminalStatus$inboundSchema,
+  TerminalStatus$outboundSchema,
+} from "./terminalstatus.js";
+import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * The status of the terminal.
- */
-export const EntityTerminalStatus = {
-  Pending: "pending",
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-/**
- * The status of the terminal.
- */
-export type EntityTerminalStatus = ClosedEnum<typeof EntityTerminalStatus>;
-
-/**
- * The brand of the terminal.
- */
-export const Brand = {
-  Pax: "PAX",
-  Tap: "Tap",
-} as const;
-/**
- * The brand of the terminal.
- */
-export type Brand = ClosedEnum<typeof Brand>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -81,11 +65,11 @@ export type EntityTerminal = {
   /**
    * The status of the terminal.
    */
-  status: EntityTerminalStatus;
+  status: TerminalStatus;
   /**
    * The brand of the terminal.
    */
-  brand: Brand | null;
+  brand: TerminalBrand | null;
   /**
    * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
    */
@@ -124,47 +108,6 @@ export type EntityTerminal = {
    */
   links: EntityTerminalLinks;
 };
-
-/** @internal */
-export const EntityTerminalStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityTerminalStatus
-> = z.nativeEnum(EntityTerminalStatus);
-
-/** @internal */
-export const EntityTerminalStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityTerminalStatus
-> = EntityTerminalStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityTerminalStatus$ {
-  /** @deprecated use `EntityTerminalStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityTerminalStatus$inboundSchema;
-  /** @deprecated use `EntityTerminalStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityTerminalStatus$outboundSchema;
-}
-
-/** @internal */
-export const Brand$inboundSchema: z.ZodNativeEnum<typeof Brand> = z.nativeEnum(
-  Brand,
-);
-
-/** @internal */
-export const Brand$outboundSchema: z.ZodNativeEnum<typeof Brand> =
-  Brand$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Brand$ {
-  /** @deprecated use `Brand$inboundSchema` instead. */
-  export const inboundSchema = Brand$inboundSchema;
-  /** @deprecated use `Brand$outboundSchema` instead. */
-  export const outboundSchema = Brand$outboundSchema;
-}
 
 /** @internal */
 export const EntityTerminalLinks$inboundSchema: z.ZodType<
@@ -233,8 +176,8 @@ export const EntityTerminal$inboundSchema: z.ZodType<
   id: z.string(),
   mode: Mode$inboundSchema,
   description: z.string(),
-  status: EntityTerminalStatus$inboundSchema,
-  brand: z.nullable(Brand$inboundSchema),
+  status: TerminalStatus$inboundSchema,
+  brand: z.nullable(TerminalBrand$inboundSchema),
   model: z.nullable(TerminalModel$inboundSchema),
   serialNumber: z.nullable(z.string()),
   currency: z.string(),
@@ -275,8 +218,8 @@ export const EntityTerminal$outboundSchema: z.ZodType<
   id: z.string(),
   mode: Mode$outboundSchema,
   description: z.string(),
-  status: EntityTerminalStatus$outboundSchema,
-  brand: z.nullable(Brand$outboundSchema),
+  status: TerminalStatus$outboundSchema,
+  brand: z.nullable(TerminalBrand$outboundSchema),
   model: z.nullable(TerminalModel$outboundSchema),
   serialNumber: z.nullable(z.string()),
   currency: z.string(),

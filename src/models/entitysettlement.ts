@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -14,6 +13,11 @@ import {
   Amount$outboundSchema,
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  SettlementStatus,
+  SettlementStatus$inboundSchema,
+  SettlementStatus$outboundSchema,
+} from "./settlementstatus.js";
 import {
   Url,
   Url$inboundSchema,
@@ -26,20 +30,6 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
-
-/**
- * The status of the settlement.
- */
-export const EntitySettlementStatus = {
-  Open: "open",
-  Pending: "pending",
-  Paidout: "paidout",
-  Failed: "failed",
-} as const;
-/**
- * The status of the settlement.
- */
-export type EntitySettlementStatus = ClosedEnum<typeof EntitySettlementStatus>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -104,7 +94,7 @@ export type EntitySettlement = {
   /**
    * The status of the settlement.
    */
-  status?: EntitySettlementStatus | undefined;
+  status?: SettlementStatus | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -131,27 +121,6 @@ export type EntitySettlement = {
    */
   links?: EntitySettlementLinks | undefined;
 };
-
-/** @internal */
-export const EntitySettlementStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntitySettlementStatus
-> = z.nativeEnum(EntitySettlementStatus);
-
-/** @internal */
-export const EntitySettlementStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntitySettlementStatus
-> = EntitySettlementStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySettlementStatus$ {
-  /** @deprecated use `EntitySettlementStatus$inboundSchema` instead. */
-  export const inboundSchema = EntitySettlementStatus$inboundSchema;
-  /** @deprecated use `EntitySettlementStatus$outboundSchema` instead. */
-  export const outboundSchema = EntitySettlementStatus$outboundSchema;
-}
 
 /** @internal */
 export const EntitySettlementLinks$inboundSchema: z.ZodType<
@@ -236,7 +205,7 @@ export const EntitySettlement$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: EntitySettlementStatus$inboundSchema.optional(),
+  status: SettlementStatus$inboundSchema.optional(),
   amount: Amount$inboundSchema.optional(),
   balanceId: z.string().optional(),
   invoiceId: z.string().optional(),
@@ -274,7 +243,7 @@ export const EntitySettlement$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: EntitySettlementStatus$outboundSchema.optional(),
+  status: SettlementStatus$outboundSchema.optional(),
   amount: Amount$outboundSchema.optional(),
   balanceId: z.string().optional(),
   invoiceId: z.string().optional(),

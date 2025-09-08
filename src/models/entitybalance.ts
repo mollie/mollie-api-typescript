@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -13,6 +12,21 @@ import {
   Amount$Outbound,
   Amount$outboundSchema,
 } from "./amount.js";
+import {
+  BalanceStatus,
+  BalanceStatus$inboundSchema,
+  BalanceStatus$outboundSchema,
+} from "./balancestatus.js";
+import {
+  BalanceTransferDestinationType,
+  BalanceTransferDestinationType$inboundSchema,
+  BalanceTransferDestinationType$outboundSchema,
+} from "./balancetransferdestinationtype.js";
+import {
+  BalanceTransferFrequency,
+  BalanceTransferFrequency$inboundSchema,
+  BalanceTransferFrequency$outboundSchema,
+} from "./balancetransferfrequency.js";
 import {
   Currencies,
   Currencies$inboundSchema,
@@ -28,65 +42,6 @@ import {
 } from "./url.js";
 
 /**
- * The status of the balance.
- */
-export const EntityBalanceStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-/**
- * The status of the balance.
- */
-export type EntityBalanceStatus = ClosedEnum<typeof EntityBalanceStatus>;
-
-/**
- * The frequency with which the available amount on the balance will be settled to the configured transfer
- *
- * @remarks
- * destination.
- *
- * Settlements created during weekends or on bank holidays will take place on the next business day.
- */
-export const TransferFrequency = {
-  Daily: "daily",
-  EveryMonday: "every-monday",
-  EveryTuesday: "every-tuesday",
-  EveryWednesday: "every-wednesday",
-  EveryThursday: "every-thursday",
-  EveryFriday: "every-friday",
-  Monthly: "monthly",
-  Never: "never",
-} as const;
-/**
- * The frequency with which the available amount on the balance will be settled to the configured transfer
- *
- * @remarks
- * destination.
- *
- * Settlements created during weekends or on bank holidays will take place on the next business day.
- */
-export type TransferFrequency = ClosedEnum<typeof TransferFrequency>;
-
-/**
- * The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
- *
- * @remarks
- *
- * * `bank-account` — Transfer the balance amount to an external bank account
- */
-export const EntityBalanceType = {
-  BankAccount: "bank-account",
-} as const;
-/**
- * The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
- *
- * @remarks
- *
- * * `bank-account` — Transfer the balance amount to an external bank account
- */
-export type EntityBalanceType = ClosedEnum<typeof EntityBalanceType>;
-
-/**
  * The destination where the available amount will be automatically transferred to according to the configured
  *
  * @remarks
@@ -100,7 +55,7 @@ export type TransferDestination = {
    *
    * * `bank-account` — Transfer the balance amount to an external bank account
    */
-  type?: EntityBalanceType | undefined;
+  type?: BalanceTransferDestinationType | undefined;
   /**
    * The configured bank account number of the beneficiary the balance amount is to be transferred to.
    */
@@ -147,7 +102,7 @@ export type EntityBalance = {
   /**
    * The status of the balance.
    */
-  status?: EntityBalanceStatus | undefined;
+  status?: BalanceStatus | undefined;
   /**
    * The frequency with which the available amount on the balance will be settled to the configured transfer
    *
@@ -156,7 +111,7 @@ export type EntityBalance = {
    *
    * Settlements created during weekends or on bank holidays will take place on the next business day.
    */
-  transferFrequency?: TransferFrequency | undefined;
+  transferFrequency?: BalanceTransferFrequency | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -187,75 +142,12 @@ export type EntityBalance = {
 };
 
 /** @internal */
-export const EntityBalanceStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityBalanceStatus
-> = z.nativeEnum(EntityBalanceStatus);
-
-/** @internal */
-export const EntityBalanceStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityBalanceStatus
-> = EntityBalanceStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceStatus$ {
-  /** @deprecated use `EntityBalanceStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceStatus$inboundSchema;
-  /** @deprecated use `EntityBalanceStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceStatus$outboundSchema;
-}
-
-/** @internal */
-export const TransferFrequency$inboundSchema: z.ZodNativeEnum<
-  typeof TransferFrequency
-> = z.nativeEnum(TransferFrequency);
-
-/** @internal */
-export const TransferFrequency$outboundSchema: z.ZodNativeEnum<
-  typeof TransferFrequency
-> = TransferFrequency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferFrequency$ {
-  /** @deprecated use `TransferFrequency$inboundSchema` instead. */
-  export const inboundSchema = TransferFrequency$inboundSchema;
-  /** @deprecated use `TransferFrequency$outboundSchema` instead. */
-  export const outboundSchema = TransferFrequency$outboundSchema;
-}
-
-/** @internal */
-export const EntityBalanceType$inboundSchema: z.ZodNativeEnum<
-  typeof EntityBalanceType
-> = z.nativeEnum(EntityBalanceType);
-
-/** @internal */
-export const EntityBalanceType$outboundSchema: z.ZodNativeEnum<
-  typeof EntityBalanceType
-> = EntityBalanceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceType$ {
-  /** @deprecated use `EntityBalanceType$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceType$inboundSchema;
-  /** @deprecated use `EntityBalanceType$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceType$outboundSchema;
-}
-
-/** @internal */
 export const TransferDestination$inboundSchema: z.ZodType<
   TransferDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: EntityBalanceType$inboundSchema.optional(),
+  type: BalanceTransferDestinationType$inboundSchema.optional(),
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
@@ -273,7 +165,7 @@ export const TransferDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TransferDestination
 > = z.object({
-  type: EntityBalanceType$outboundSchema.optional(),
+  type: BalanceTransferDestinationType$outboundSchema.optional(),
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
@@ -378,8 +270,8 @@ export const EntityBalance$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   currency: Currencies$inboundSchema.optional(),
   description: z.string().optional(),
-  status: EntityBalanceStatus$inboundSchema.optional(),
-  transferFrequency: TransferFrequency$inboundSchema.optional(),
+  status: BalanceStatus$inboundSchema.optional(),
+  transferFrequency: BalanceTransferFrequency$inboundSchema.optional(),
   transferThreshold: Amount$inboundSchema.optional(),
   transferReference: z.nullable(z.string()).optional(),
   transferDestination: z.nullable(
@@ -424,8 +316,8 @@ export const EntityBalance$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   currency: Currencies$outboundSchema.optional(),
   description: z.string().optional(),
-  status: EntityBalanceStatus$outboundSchema.optional(),
-  transferFrequency: TransferFrequency$outboundSchema.optional(),
+  status: BalanceStatus$outboundSchema.optional(),
+  transferFrequency: BalanceTransferFrequency$outboundSchema.optional(),
   transferThreshold: Amount$outboundSchema.optional(),
   transferReference: z.nullable(z.string()).optional(),
   transferDestination: z.nullable(

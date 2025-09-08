@@ -31,6 +31,7 @@ let value: GetClientResponse = {
     organization: {
       resource: "organization",
       locale: "en_US",
+      vatRegulation: "dutch",
       links: {
         self: {
           href: "https://...",

@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -16,24 +15,16 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
 import {
+  RouteDestinationTypeResponse,
+  RouteDestinationTypeResponse$inboundSchema,
+  RouteDestinationTypeResponse$outboundSchema,
+} from "./routedestinationtyperesponse.js";
+import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export const EntityPaymentRouteResponseType = {
-  Organization: "organization",
-} as const;
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export type EntityPaymentRouteResponseType = ClosedEnum<
-  typeof EntityPaymentRouteResponseType
->;
 
 /**
  * The destination of this portion of the payment.
@@ -42,7 +33,7 @@ export type EntityPaymentRouteResponseDestination = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
    */
-  type: EntityPaymentRouteResponseType;
+  type: RouteDestinationTypeResponse;
   organizationId: string;
 };
 
@@ -98,33 +89,12 @@ export type EntityPaymentRouteResponse = {
 };
 
 /** @internal */
-export const EntityPaymentRouteResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof EntityPaymentRouteResponseType
-> = z.nativeEnum(EntityPaymentRouteResponseType);
-
-/** @internal */
-export const EntityPaymentRouteResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof EntityPaymentRouteResponseType
-> = EntityPaymentRouteResponseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRouteResponseType$ {
-  /** @deprecated use `EntityPaymentRouteResponseType$inboundSchema` instead. */
-  export const inboundSchema = EntityPaymentRouteResponseType$inboundSchema;
-  /** @deprecated use `EntityPaymentRouteResponseType$outboundSchema` instead. */
-  export const outboundSchema = EntityPaymentRouteResponseType$outboundSchema;
-}
-
-/** @internal */
 export const EntityPaymentRouteResponseDestination$inboundSchema: z.ZodType<
   EntityPaymentRouteResponseDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: EntityPaymentRouteResponseType$inboundSchema,
+  type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -140,7 +110,7 @@ export const EntityPaymentRouteResponseDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityPaymentRouteResponseDestination
 > = z.object({
-  type: EntityPaymentRouteResponseType$outboundSchema,
+  type: RouteDestinationTypeResponse$outboundSchema,
   organizationId: z.string(),
 });
 

@@ -4,30 +4,19 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The way through which the invoice is to be set to paid.
- */
-export const SalesInvoicePaymentDetailsResponseSource = {
-  Manual: "manual",
-  PaymentLink: "payment-link",
-  Payment: "payment",
-} as const;
-/**
- * The way through which the invoice is to be set to paid.
- */
-export type SalesInvoicePaymentDetailsResponseSource = ClosedEnum<
-  typeof SalesInvoicePaymentDetailsResponseSource
->;
+import {
+  SalesInvoicePaymentDetailsSourceResponse,
+  SalesInvoicePaymentDetailsSourceResponse$inboundSchema,
+  SalesInvoicePaymentDetailsSourceResponse$outboundSchema,
+} from "./salesinvoicepaymentdetailssourceresponse.js";
 
 export type SalesInvoicePaymentDetailsResponse = {
   /**
    * The way through which the invoice is to be set to paid.
    */
-  source: SalesInvoicePaymentDetailsResponseSource;
+  source: SalesInvoicePaymentDetailsSourceResponse;
   /**
    * A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
    *
@@ -38,35 +27,12 @@ export type SalesInvoicePaymentDetailsResponse = {
 };
 
 /** @internal */
-export const SalesInvoicePaymentDetailsResponseSource$inboundSchema:
-  z.ZodNativeEnum<typeof SalesInvoicePaymentDetailsResponseSource> = z
-    .nativeEnum(SalesInvoicePaymentDetailsResponseSource);
-
-/** @internal */
-export const SalesInvoicePaymentDetailsResponseSource$outboundSchema:
-  z.ZodNativeEnum<typeof SalesInvoicePaymentDetailsResponseSource> =
-    SalesInvoicePaymentDetailsResponseSource$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoicePaymentDetailsResponseSource$ {
-  /** @deprecated use `SalesInvoicePaymentDetailsResponseSource$inboundSchema` instead. */
-  export const inboundSchema =
-    SalesInvoicePaymentDetailsResponseSource$inboundSchema;
-  /** @deprecated use `SalesInvoicePaymentDetailsResponseSource$outboundSchema` instead. */
-  export const outboundSchema =
-    SalesInvoicePaymentDetailsResponseSource$outboundSchema;
-}
-
-/** @internal */
 export const SalesInvoicePaymentDetailsResponse$inboundSchema: z.ZodType<
   SalesInvoicePaymentDetailsResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  source: SalesInvoicePaymentDetailsResponseSource$inboundSchema,
+  source: SalesInvoicePaymentDetailsSourceResponse$inboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
 
@@ -82,7 +48,7 @@ export const SalesInvoicePaymentDetailsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SalesInvoicePaymentDetailsResponse
 > = z.object({
-  source: SalesInvoicePaymentDetailsResponseSource$outboundSchema,
+  source: SalesInvoicePaymentDetailsSourceResponse$outboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
 

@@ -13,32 +13,11 @@ import {
   Amount$outboundSchema,
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The type of product purchased. For example, a physical or a digital product.
- *
- * @remarks
- *
- * The `tip` payment line type is not available when creating a payment.
- */
-export const PaymentLineItemType = {
-  Physical: "physical",
-  Digital: "digital",
-  ShippingFee: "shipping_fee",
-  Discount: "discount",
-  StoreCredit: "store_credit",
-  GiftCard: "gift_card",
-  Surcharge: "surcharge",
-  Tip: "tip",
-} as const;
-/**
- * The type of product purchased. For example, a physical or a digital product.
- *
- * @remarks
- *
- * The `tip` payment line type is not available when creating a payment.
- */
-export type PaymentLineItemType = ClosedEnum<typeof PaymentLineItemType>;
+import {
+  PaymentLineType,
+  PaymentLineType$inboundSchema,
+  PaymentLineType$outboundSchema,
+} from "./paymentlinetype.js";
 
 export const PaymentLineItemCategory = {
   Meal: "meal",
@@ -58,7 +37,7 @@ export type PaymentLineItem = {
    *
    * The `tip` payment line type is not available when creating a payment.
    */
-  type?: PaymentLineItemType | undefined;
+  type?: PaymentLineType | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -116,27 +95,6 @@ export type PaymentLineItem = {
 };
 
 /** @internal */
-export const PaymentLineItemType$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentLineItemType
-> = z.nativeEnum(PaymentLineItemType);
-
-/** @internal */
-export const PaymentLineItemType$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentLineItemType
-> = PaymentLineItemType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLineItemType$ {
-  /** @deprecated use `PaymentLineItemType$inboundSchema` instead. */
-  export const inboundSchema = PaymentLineItemType$inboundSchema;
-  /** @deprecated use `PaymentLineItemType$outboundSchema` instead. */
-  export const outboundSchema = PaymentLineItemType$outboundSchema;
-}
-
-/** @internal */
 export const PaymentLineItemCategory$inboundSchema: z.ZodNativeEnum<
   typeof PaymentLineItemCategory
 > = z.nativeEnum(PaymentLineItemCategory);
@@ -163,7 +121,7 @@ export const PaymentLineItem$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: PaymentLineItemType$inboundSchema.optional(),
+  type: PaymentLineType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -201,7 +159,7 @@ export const PaymentLineItem$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentLineItem
 > = z.object({
-  type: PaymentLineItemType$outboundSchema.optional(),
+  type: PaymentLineType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),

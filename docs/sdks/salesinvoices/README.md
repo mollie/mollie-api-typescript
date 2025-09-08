@@ -414,7 +414,7 @@ async function run() {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     updateValuesSalesInvoice: {
       testmode: false,
-      status: "paid",
+      status: "draft",
       memo: "An updated memo!",
       paymentTerm: "30 days",
       paymentDetails: {
@@ -493,7 +493,7 @@ async function run() {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     updateValuesSalesInvoice: {
       testmode: false,
-      status: "paid",
+      status: "draft",
       memo: "An updated memo!",
       paymentTerm: "30 days",
       paymentDetails: {

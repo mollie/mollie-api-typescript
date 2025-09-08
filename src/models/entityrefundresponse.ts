@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -28,6 +27,21 @@ import {
 } from "./metadata.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
 import {
+  RefundExternalReferenceTypeResponse,
+  RefundExternalReferenceTypeResponse$inboundSchema,
+  RefundExternalReferenceTypeResponse$outboundSchema,
+} from "./refundexternalreferencetyperesponse.js";
+import {
+  RefundRoutingReversalsSourceType,
+  RefundRoutingReversalsSourceType$inboundSchema,
+  RefundRoutingReversalsSourceType$outboundSchema,
+} from "./refundroutingreversalssourcetype.js";
+import {
+  RefundStatus,
+  RefundStatus$inboundSchema,
+  RefundStatus$outboundSchema,
+} from "./refundstatus.js";
+import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
@@ -40,42 +54,11 @@ import {
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
 
-/**
- * Refunds may take some time to get confirmed.
- */
-export const EntityRefundResponseStatus = {
-  Queued: "queued",
-  Pending: "pending",
-  Processing: "processing",
-  Refunded: "refunded",
-  Failed: "failed",
-  Canceled: "canceled",
-} as const;
-/**
- * Refunds may take some time to get confirmed.
- */
-export type EntityRefundResponseStatus = ClosedEnum<
-  typeof EntityRefundResponseStatus
->;
-
-/**
- * Specifies the reference type
- */
-export const EntityRefundResponseType = {
-  AcquirerReference: "acquirer-reference",
-} as const;
-/**
- * Specifies the reference type
- */
-export type EntityRefundResponseType = ClosedEnum<
-  typeof EntityRefundResponseType
->;
-
 export type EntityRefundResponseExternalReference = {
   /**
    * Specifies the reference type
    */
-  type?: EntityRefundResponseType | undefined;
+  type?: RefundExternalReferenceTypeResponse | undefined;
   /**
    * Unique reference from the payment provider
    */
@@ -86,6 +69,10 @@ export type EntityRefundResponseExternalReference = {
  * Where the funds will be pulled back from.
  */
 export type EntityRefundResponseSource = {
+  /**
+   * The type of source. Currently only the source type `organization` is supported.
+   */
+  type?: RefundRoutingReversalsSourceType | undefined;
   organizationId?: string | undefined;
 };
 
@@ -153,10 +140,7 @@ export type EntityRefundResponse = {
   metadata: Metadata | null;
   paymentId?: string | undefined;
   settlementId?: string | undefined;
-  /**
-   * Refunds may take some time to get confirmed.
-   */
-  status: EntityRefundResponseStatus;
+  status: RefundStatus;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -185,54 +169,12 @@ export type EntityRefundResponse = {
 };
 
 /** @internal */
-export const EntityRefundResponseStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityRefundResponseStatus
-> = z.nativeEnum(EntityRefundResponseStatus);
-
-/** @internal */
-export const EntityRefundResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityRefundResponseStatus
-> = EntityRefundResponseStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRefundResponseStatus$ {
-  /** @deprecated use `EntityRefundResponseStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityRefundResponseStatus$inboundSchema;
-  /** @deprecated use `EntityRefundResponseStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityRefundResponseStatus$outboundSchema;
-}
-
-/** @internal */
-export const EntityRefundResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof EntityRefundResponseType
-> = z.nativeEnum(EntityRefundResponseType);
-
-/** @internal */
-export const EntityRefundResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof EntityRefundResponseType
-> = EntityRefundResponseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRefundResponseType$ {
-  /** @deprecated use `EntityRefundResponseType$inboundSchema` instead. */
-  export const inboundSchema = EntityRefundResponseType$inboundSchema;
-  /** @deprecated use `EntityRefundResponseType$outboundSchema` instead. */
-  export const outboundSchema = EntityRefundResponseType$outboundSchema;
-}
-
-/** @internal */
 export const EntityRefundResponseExternalReference$inboundSchema: z.ZodType<
   EntityRefundResponseExternalReference,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: EntityRefundResponseType$inboundSchema.optional(),
+  type: RefundExternalReferenceTypeResponse$inboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -248,7 +190,7 @@ export const EntityRefundResponseExternalReference$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityRefundResponseExternalReference
 > = z.object({
-  type: EntityRefundResponseType$outboundSchema.optional(),
+  type: RefundExternalReferenceTypeResponse$outboundSchema.optional(),
   id: z.string().optional(),
 });
 
@@ -294,11 +236,13 @@ export const EntityRefundResponseSource$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  type: RefundRoutingReversalsSourceType$inboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 
 /** @internal */
 export type EntityRefundResponseSource$Outbound = {
+  type?: string | undefined;
   organizationId?: string | undefined;
 };
 
@@ -308,6 +252,7 @@ export const EntityRefundResponseSource$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityRefundResponseSource
 > = z.object({
+  type: RefundRoutingReversalsSourceType$outboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 
@@ -482,7 +427,7 @@ export const EntityRefundResponse$inboundSchema: z.ZodType<
   metadata: z.nullable(Metadata$inboundSchema),
   paymentId: z.string().optional(),
   settlementId: z.string().optional(),
-  status: EntityRefundResponseStatus$inboundSchema,
+  status: RefundStatus$inboundSchema,
   createdAt: z.string(),
   externalReference: z.lazy(() =>
     EntityRefundResponseExternalReference$inboundSchema
@@ -535,7 +480,7 @@ export const EntityRefundResponse$outboundSchema: z.ZodType<
   metadata: z.nullable(Metadata$outboundSchema),
   paymentId: z.string().optional(),
   settlementId: z.string().optional(),
-  status: EntityRefundResponseStatus$outboundSchema,
+  status: RefundStatus$outboundSchema,
   createdAt: z.string(),
   externalReference: z.lazy(() =>
     EntityRefundResponseExternalReference$outboundSchema

@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -39,11 +38,31 @@ import {
   SalesInvoicePaymentDetailsResponse$outboundSchema,
 } from "./salesinvoicepaymentdetailsresponse.js";
 import {
+  SalesInvoicePaymentTermResponse,
+  SalesInvoicePaymentTermResponse$inboundSchema,
+  SalesInvoicePaymentTermResponse$outboundSchema,
+} from "./salesinvoicepaymenttermresponse.js";
+import {
   SalesInvoiceRecipientResponse,
   SalesInvoiceRecipientResponse$inboundSchema,
   SalesInvoiceRecipientResponse$Outbound,
   SalesInvoiceRecipientResponse$outboundSchema,
 } from "./salesinvoicerecipientresponse.js";
+import {
+  SalesInvoiceStatusResponse,
+  SalesInvoiceStatusResponse$inboundSchema,
+  SalesInvoiceStatusResponse$outboundSchema,
+} from "./salesinvoicestatusresponse.js";
+import {
+  SalesInvoiceVatModeResponse,
+  SalesInvoiceVatModeResponse$inboundSchema,
+  SalesInvoiceVatModeResponse$outboundSchema,
+} from "./salesinvoicevatmoderesponse.js";
+import {
+  SalesInvoiceVatSchemeResponse,
+  SalesInvoiceVatSchemeResponse$inboundSchema,
+  SalesInvoiceVatSchemeResponse$outboundSchema,
+} from "./salesinvoicevatschemeresponse.js";
 import {
   Url,
   Url$inboundSchema,
@@ -52,108 +71,12 @@ import {
 } from "./url.js";
 
 /**
- * The status for the invoice to end up in.
- *
- * @remarks
- *
- * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
- * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
- * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
- *
- * A status value that cannot be set but can be returned is `canceled`, for invoices which were
- * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
- *
- * Dependent parameters:
- *   - `paymentDetails` is required if invoice should be set directly to `paid`
- *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
- *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
- */
-export const EntitySalesInvoiceResponseStatus = {
-  Draft: "draft",
-  Issued: "issued",
-  Paid: "paid",
-} as const;
-/**
- * The status for the invoice to end up in.
- *
- * @remarks
- *
- * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
- * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
- * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
- *
- * A status value that cannot be set but can be returned is `canceled`, for invoices which were
- * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
- *
- * Dependent parameters:
- *   - `paymentDetails` is required if invoice should be set directly to `paid`
- *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
- *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
- */
-export type EntitySalesInvoiceResponseStatus = ClosedEnum<
-  typeof EntitySalesInvoiceResponseStatus
->;
-
-/**
- * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
- */
-export const EntitySalesInvoiceResponseVatScheme = {
-  Standard: "standard",
-  OneStopShop: "one-stop-shop",
-} as const;
-/**
- * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
- */
-export type EntitySalesInvoiceResponseVatScheme = ClosedEnum<
-  typeof EntitySalesInvoiceResponseVatScheme
->;
-
-/**
- * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
- *
- * @remarks
- * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
- */
-export const EntitySalesInvoiceResponseVatMode = {
-  Exclusive: "exclusive",
-  Inclusive: "inclusive",
-} as const;
-/**
- * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
- *
- * @remarks
- * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
- */
-export type EntitySalesInvoiceResponseVatMode = ClosedEnum<
-  typeof EntitySalesInvoiceResponseVatMode
->;
-
-/**
  * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
  *
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
 export type EntitySalesInvoiceResponseMetadata = {};
-
-/**
- * The payment term to be set on the invoice.
- */
-export const EntitySalesInvoiceResponsePaymentTerm = {
-  Sevendays: "7 days",
-  Fourteendays: "14 days",
-  Thirtydays: "30 days",
-  FortyFivedays: "45 days",
-  Sixtydays: "60 days",
-  Ninetydays: "90 days",
-  OneHundredAndTwentydays: "120 days",
-} as const;
-/**
- * The payment term to be set on the invoice.
- */
-export type EntitySalesInvoiceResponsePaymentTerm = ClosedEnum<
-  typeof EntitySalesInvoiceResponsePaymentTerm
->;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -207,18 +130,18 @@ export type EntitySalesInvoiceResponse = {
    *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
    *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
    */
-  status?: EntitySalesInvoiceResponseStatus | undefined;
+  status?: SalesInvoiceStatusResponse | undefined;
   /**
    * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
    */
-  vatScheme?: EntitySalesInvoiceResponseVatScheme | undefined;
+  vatScheme?: SalesInvoiceVatSchemeResponse | undefined;
   /**
    * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
    *
    * @remarks
    * price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
    */
-  vatMode?: EntitySalesInvoiceResponseVatMode | undefined;
+  vatMode?: SalesInvoiceVatModeResponse | undefined;
   /**
    * A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
    */
@@ -233,7 +156,7 @@ export type EntitySalesInvoiceResponse = {
   /**
    * The payment term to be set on the invoice.
    */
-  paymentTerm?: EntitySalesInvoiceResponsePaymentTerm | null | undefined;
+  paymentTerm?: SalesInvoicePaymentTermResponse | null | undefined;
   paymentDetails?: SalesInvoicePaymentDetailsResponse | null | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
@@ -321,72 +244,6 @@ export type EntitySalesInvoiceResponse = {
 };
 
 /** @internal */
-export const EntitySalesInvoiceResponseStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntitySalesInvoiceResponseStatus
-> = z.nativeEnum(EntitySalesInvoiceResponseStatus);
-
-/** @internal */
-export const EntitySalesInvoiceResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntitySalesInvoiceResponseStatus
-> = EntitySalesInvoiceResponseStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceResponseStatus$ {
-  /** @deprecated use `EntitySalesInvoiceResponseStatus$inboundSchema` instead. */
-  export const inboundSchema = EntitySalesInvoiceResponseStatus$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponseStatus$outboundSchema` instead. */
-  export const outboundSchema = EntitySalesInvoiceResponseStatus$outboundSchema;
-}
-
-/** @internal */
-export const EntitySalesInvoiceResponseVatScheme$inboundSchema: z.ZodNativeEnum<
-  typeof EntitySalesInvoiceResponseVatScheme
-> = z.nativeEnum(EntitySalesInvoiceResponseVatScheme);
-
-/** @internal */
-export const EntitySalesInvoiceResponseVatScheme$outboundSchema:
-  z.ZodNativeEnum<typeof EntitySalesInvoiceResponseVatScheme> =
-    EntitySalesInvoiceResponseVatScheme$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceResponseVatScheme$ {
-  /** @deprecated use `EntitySalesInvoiceResponseVatScheme$inboundSchema` instead. */
-  export const inboundSchema =
-    EntitySalesInvoiceResponseVatScheme$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponseVatScheme$outboundSchema` instead. */
-  export const outboundSchema =
-    EntitySalesInvoiceResponseVatScheme$outboundSchema;
-}
-
-/** @internal */
-export const EntitySalesInvoiceResponseVatMode$inboundSchema: z.ZodNativeEnum<
-  typeof EntitySalesInvoiceResponseVatMode
-> = z.nativeEnum(EntitySalesInvoiceResponseVatMode);
-
-/** @internal */
-export const EntitySalesInvoiceResponseVatMode$outboundSchema: z.ZodNativeEnum<
-  typeof EntitySalesInvoiceResponseVatMode
-> = EntitySalesInvoiceResponseVatMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceResponseVatMode$ {
-  /** @deprecated use `EntitySalesInvoiceResponseVatMode$inboundSchema` instead. */
-  export const inboundSchema = EntitySalesInvoiceResponseVatMode$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponseVatMode$outboundSchema` instead. */
-  export const outboundSchema =
-    EntitySalesInvoiceResponseVatMode$outboundSchema;
-}
-
-/** @internal */
 export const EntitySalesInvoiceResponseMetadata$inboundSchema: z.ZodType<
   EntitySalesInvoiceResponseMetadata,
   z.ZodTypeDef,
@@ -436,30 +293,6 @@ export function entitySalesInvoiceResponseMetadataFromJSON(
       EntitySalesInvoiceResponseMetadata$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'EntitySalesInvoiceResponseMetadata' from JSON`,
   );
-}
-
-/** @internal */
-export const EntitySalesInvoiceResponsePaymentTerm$inboundSchema:
-  z.ZodNativeEnum<typeof EntitySalesInvoiceResponsePaymentTerm> = z.nativeEnum(
-    EntitySalesInvoiceResponsePaymentTerm,
-  );
-
-/** @internal */
-export const EntitySalesInvoiceResponsePaymentTerm$outboundSchema:
-  z.ZodNativeEnum<typeof EntitySalesInvoiceResponsePaymentTerm> =
-    EntitySalesInvoiceResponsePaymentTerm$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceResponsePaymentTerm$ {
-  /** @deprecated use `EntitySalesInvoiceResponsePaymentTerm$inboundSchema` instead. */
-  export const inboundSchema =
-    EntitySalesInvoiceResponsePaymentTerm$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponsePaymentTerm$outboundSchema` instead. */
-  export const outboundSchema =
-    EntitySalesInvoiceResponsePaymentTerm$outboundSchema;
 }
 
 /** @internal */
@@ -536,14 +369,14 @@ export const EntitySalesInvoiceResponse$inboundSchema: z.ZodType<
   resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
-  status: EntitySalesInvoiceResponseStatus$inboundSchema.optional(),
-  vatScheme: EntitySalesInvoiceResponseVatScheme$inboundSchema.optional(),
-  vatMode: EntitySalesInvoiceResponseVatMode$inboundSchema.optional(),
+  status: SalesInvoiceStatusResponse$inboundSchema.optional(),
+  vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
+  vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => EntitySalesInvoiceResponseMetadata$inboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(EntitySalesInvoiceResponsePaymentTerm$inboundSchema)
+  paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
     .optional(),
   paymentDetails: z.nullable(SalesInvoicePaymentDetailsResponse$inboundSchema)
     .optional(),
@@ -615,14 +448,14 @@ export const EntitySalesInvoiceResponse$outboundSchema: z.ZodType<
   resource: z.string().optional(),
   id: z.string().optional(),
   invoiceNumber: z.nullable(z.string()).optional(),
-  status: EntitySalesInvoiceResponseStatus$outboundSchema.optional(),
-  vatScheme: EntitySalesInvoiceResponseVatScheme$outboundSchema.optional(),
-  vatMode: EntitySalesInvoiceResponseVatMode$outboundSchema.optional(),
+  status: SalesInvoiceStatusResponse$outboundSchema.optional(),
+  vatScheme: SalesInvoiceVatSchemeResponse$outboundSchema.optional(),
+  vatMode: SalesInvoiceVatModeResponse$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
     z.lazy(() => EntitySalesInvoiceResponseMetadata$outboundSchema),
   ).optional(),
-  paymentTerm: z.nullable(EntitySalesInvoiceResponsePaymentTerm$outboundSchema)
+  paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$outboundSchema)
     .optional(),
   paymentDetails: z.nullable(SalesInvoicePaymentDetailsResponse$outboundSchema)
     .optional(),

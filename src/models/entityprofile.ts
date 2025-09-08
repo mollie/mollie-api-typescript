@@ -6,6 +6,11 @@ import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ProfileStatus,
+  ProfileStatus$inboundSchema,
+  ProfileStatus$outboundSchema,
+} from "./profilestatus.js";
 
 export type EntityProfile = {
   /**
@@ -48,6 +53,16 @@ export type EntityProfile = {
    * [business category list](common-data-types#business-category) for all possible options.
    */
   businessCategory?: string | undefined;
+  /**
+   * The profile status determines whether the profile is able to receive live payments.
+   *
+   * @remarks
+   *
+   * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+   * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+   * * `blocked`: The profile is blocked and can no longer be used or changed.
+   */
+  status?: ProfileStatus | undefined;
 };
 
 /** @internal */
@@ -63,6 +78,7 @@ export const EntityProfile$inboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
+  status: ProfileStatus$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -74,6 +90,7 @@ export type EntityProfile$Outbound = {
   description?: string | undefined;
   countriesOfActivity?: Array<string> | undefined;
   businessCategory?: string | undefined;
+  status?: string | undefined;
 };
 
 /** @internal */
@@ -89,6 +106,7 @@ export const EntityProfile$outboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
+  status: ProfileStatus$outboundSchema.optional(),
 });
 
 /**

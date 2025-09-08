@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -25,6 +24,11 @@ import {
   MethodResponse$inboundSchema,
   MethodResponse$outboundSchema,
 } from "./methodresponse.js";
+import {
+  MethodStatus,
+  MethodStatus$inboundSchema,
+  MethodStatus$outboundSchema,
+} from "./methodstatus.js";
 import {
   Url,
   Url$inboundSchema,
@@ -52,21 +56,6 @@ export type EntityMethodImage = {
    */
   svg: string;
 };
-
-/**
- * The payment method's activation status for this profile.
- */
-export const EntityMethodStatus = {
-  Activated: "activated",
-  PendingBoarding: "pending-boarding",
-  PendingReview: "pending-review",
-  PendingExternal: "pending-external",
-  Rejected: "rejected",
-} as const;
-/**
- * The payment method's activation status for this profile.
- */
-export type EntityMethodStatus = ClosedEnum<typeof EntityMethodStatus>;
 
 /**
  * URLs of images representing the issuer.
@@ -171,7 +160,7 @@ export type EntityMethod = {
   /**
    * The payment method's activation status for this profile.
    */
-  status: EntityMethodStatus;
+  status: MethodStatus;
   /**
    * **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant
    *
@@ -243,27 +232,6 @@ export function entityMethodImageFromJSON(
     (x) => EntityMethodImage$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'EntityMethodImage' from JSON`,
   );
-}
-
-/** @internal */
-export const EntityMethodStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityMethodStatus
-> = z.nativeEnum(EntityMethodStatus);
-
-/** @internal */
-export const EntityMethodStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityMethodStatus
-> = EntityMethodStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodStatus$ {
-  /** @deprecated use `EntityMethodStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodStatus$inboundSchema;
-  /** @deprecated use `EntityMethodStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodStatus$outboundSchema;
 }
 
 /** @internal */
@@ -458,7 +426,7 @@ export const EntityMethod$inboundSchema: z.ZodType<
   minimumAmount: Amount$inboundSchema,
   maximumAmount: z.nullable(AmountNullable$inboundSchema),
   image: z.lazy(() => EntityMethodImage$inboundSchema),
-  status: EntityMethodStatus$inboundSchema,
+  status: MethodStatus$inboundSchema,
   issuers: z.array(z.lazy(() => EntityMethodIssuer$inboundSchema)).optional(),
   _links: z.lazy(() => EntityMethodLinks$inboundSchema),
 }).transform((v) => {
@@ -492,7 +460,7 @@ export const EntityMethod$outboundSchema: z.ZodType<
   minimumAmount: Amount$outboundSchema,
   maximumAmount: z.nullable(AmountNullable$outboundSchema),
   image: z.lazy(() => EntityMethodImage$outboundSchema),
-  status: EntityMethodStatus$outboundSchema,
+  status: MethodStatus$outboundSchema,
   issuers: z.array(z.lazy(() => EntityMethodIssuer$outboundSchema)).optional(),
   links: z.lazy(() => EntityMethodLinks$outboundSchema),
 }).transform((v) => {

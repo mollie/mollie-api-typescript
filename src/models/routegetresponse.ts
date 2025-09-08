@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -15,22 +14,16 @@ import {
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  RouteDestinationTypeResponse,
+  RouteDestinationTypeResponse$inboundSchema,
+  RouteDestinationTypeResponse$outboundSchema,
+} from "./routedestinationtyperesponse.js";
+import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export const RouteGetResponseType = {
-  Organization: "organization",
-} as const;
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export type RouteGetResponseType = ClosedEnum<typeof RouteGetResponseType>;
 
 /**
  * The destination of the route.
@@ -39,7 +32,7 @@ export type RouteGetResponseDestination = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
    */
-  type: RouteGetResponseType;
+  type: RouteDestinationTypeResponse;
   organizationId: string;
 };
 
@@ -87,33 +80,12 @@ export type RouteGetResponse = {
 };
 
 /** @internal */
-export const RouteGetResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof RouteGetResponseType
-> = z.nativeEnum(RouteGetResponseType);
-
-/** @internal */
-export const RouteGetResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof RouteGetResponseType
-> = RouteGetResponseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteGetResponseType$ {
-  /** @deprecated use `RouteGetResponseType$inboundSchema` instead. */
-  export const inboundSchema = RouteGetResponseType$inboundSchema;
-  /** @deprecated use `RouteGetResponseType$outboundSchema` instead. */
-  export const outboundSchema = RouteGetResponseType$outboundSchema;
-}
-
-/** @internal */
 export const RouteGetResponseDestination$inboundSchema: z.ZodType<
   RouteGetResponseDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RouteGetResponseType$inboundSchema,
+  type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -129,7 +101,7 @@ export const RouteGetResponseDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RouteGetResponseDestination
 > = z.object({
-  type: RouteGetResponseType$outboundSchema,
+  type: RouteDestinationTypeResponse$outboundSchema,
   organizationId: z.string(),
 });
 

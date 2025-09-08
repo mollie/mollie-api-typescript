@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 5b3c94b71c47f8438aa46ead6de7e7fd
+  docChecksum: 150d1c9453c094e3fb1016906ad8d062
   docVersion: 1.0.0
-  speakeasyVersion: 1.611.0
+  speakeasyVersion: 1.611.1
   generationVersion: 2.694.1
-  releaseVersion: 0.2.1
-  configChecksum: 66016432db75fc2ea15f794fb065a1d2
+  releaseVersion: 0.2.2
+  configChecksum: ffc5c4ce62532e46a45795535709574c
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -47,8 +47,15 @@ generatedFiles:
   - docs/models/amount.md
   - docs/models/amountnullable.md
   - docs/models/availablebalance.md
-  - docs/models/brand.md
+  - docs/models/balancereportgrouping.md
+  - docs/models/balancestatus.md
+  - docs/models/balancetransactiontype.md
+  - docs/models/balancetransferdestinationtype.md
+  - docs/models/balancetransferfrequency.md
   - docs/models/canceledoutgoingtransfer.md
+  - docs/models/capabilityrequirementstatus.md
+  - docs/models/capabilitystatus.md
+  - docs/models/capabilitystatusreason.md
   - docs/models/capital.md
   - docs/models/capture.md
   - docs/models/capturecommision.md
@@ -56,13 +63,8 @@ generatedFiles:
   - docs/models/capturemoderesponse.md
   - docs/models/captureresponse.md
   - docs/models/captureresponselinks.md
-  - docs/models/captureresponsestatus.md
   - docs/models/capturerollingreserverelease.md
-  - docs/models/cardaudition.md
-  - docs/models/cardfunding.md
-  - docs/models/cardreadmethod.md
-  - docs/models/cardsecurity.md
-  - docs/models/cardverificationmethod.md
+  - docs/models/capturestatus.md
   - docs/models/chargeback.md
   - docs/models/chargebackcompensation.md
   - docs/models/chargebackreversal.md
@@ -81,7 +83,6 @@ generatedFiles:
   - docs/models/corrections.md
   - docs/models/createwebhook.md
   - docs/models/createwebhooklinks.md
-  - docs/models/createwebhookstatus.md
   - docs/models/currencies.md
   - docs/models/customerresponse.md
   - docs/models/customerresponselinks.md
@@ -94,16 +95,11 @@ generatedFiles:
   - docs/models/entitybalancelinks.md
   - docs/models/entitybalancereport.md
   - docs/models/entitybalancereportlinks.md
-  - docs/models/entitybalancestatus.md
   - docs/models/entitybalancetransaction.md
   - docs/models/entitybalancetransactionapplicationfee.md
-  - docs/models/entitybalancetransactiontype.md
-  - docs/models/entitybalancetype.md
   - docs/models/entitycapability.md
   - docs/models/entitycapabilityrequirement.md
   - docs/models/entitycapabilityrequirementlinks.md
-  - docs/models/entitycapabilityrequirementstatus.md
-  - docs/models/entitycapabilitystatus.md
   - docs/models/entitycapture.md
   - docs/models/entitychargeback.md
   - docs/models/entitychargebacklinks.md
@@ -117,24 +113,19 @@ generatedFiles:
   - docs/models/entityinvoice.md
   - docs/models/entityinvoiceline.md
   - docs/models/entityinvoicelinks.md
-  - docs/models/entityinvoicestatus.md
   - docs/models/entitymandate.md
-  - docs/models/entitymandatemethod.md
   - docs/models/entitymethod.md
   - docs/models/entitymethodall.md
   - docs/models/entitymethodallimage.md
   - docs/models/entitymethodallissuer.md
   - docs/models/entitymethodallissuerimage.md
   - docs/models/entitymethodalllinks.md
-  - docs/models/entitymethodallstatus.md
   - docs/models/entitymethodimage.md
   - docs/models/entitymethodissuer.md
   - docs/models/entitymethodissuerimage.md
   - docs/models/entitymethodlinks.md
-  - docs/models/entitymethodstatus.md
   - docs/models/entityonboardingstatus.md
   - docs/models/entityonboardingstatuslinks.md
-  - docs/models/entityonboardingstatusstatus.md
   - docs/models/entityorganization.md
   - docs/models/entityorganizationlinks.md
   - docs/models/entitypaymentroute.md
@@ -143,14 +134,11 @@ generatedFiles:
   - docs/models/entitypaymentrouteresponse.md
   - docs/models/entitypaymentrouteresponsedestination.md
   - docs/models/entitypaymentrouteresponselinks.md
-  - docs/models/entitypaymentrouteresponsetype.md
-  - docs/models/entitypaymentroutetype.md
   - docs/models/entitypermission.md
   - docs/models/entitypermissionlinks.md
   - docs/models/entityprofile.md
   - docs/models/entityprofileresponse.md
   - docs/models/entityprofileresponselinks.md
-  - docs/models/entityprofileresponsestatus.md
   - docs/models/entityrefund.md
   - docs/models/entityrefundexternalreference.md
   - docs/models/entityrefundresponse.md
@@ -158,60 +146,47 @@ generatedFiles:
   - docs/models/entityrefundresponselinks.md
   - docs/models/entityrefundresponseroutingreversal.md
   - docs/models/entityrefundresponsesource.md
-  - docs/models/entityrefundresponsestatus.md
-  - docs/models/entityrefundresponsetype.md
   - docs/models/entityrefundroutingreversal.md
   - docs/models/entityrefundsource.md
-  - docs/models/entityrefundtypeacquirerreference.md
   - docs/models/entitysalesinvoice.md
   - docs/models/entitysalesinvoicemetadata.md
-  - docs/models/entitysalesinvoicepaymentterm.md
   - docs/models/entitysalesinvoiceresponse.md
   - docs/models/entitysalesinvoiceresponselinks.md
   - docs/models/entitysalesinvoiceresponsemetadata.md
-  - docs/models/entitysalesinvoiceresponsepaymentterm.md
-  - docs/models/entitysalesinvoiceresponsestatus.md
-  - docs/models/entitysalesinvoiceresponsevatmode.md
-  - docs/models/entitysalesinvoiceresponsevatscheme.md
-  - docs/models/entitysalesinvoicestatus.md
-  - docs/models/entitysalesinvoicevatmode.md
-  - docs/models/entitysalesinvoicevatscheme.md
   - docs/models/entitysettlement.md
   - docs/models/entitysettlementlinks.md
-  - docs/models/entitysettlementstatus.md
   - docs/models/entityterminal.md
   - docs/models/entityterminallinks.md
-  - docs/models/entityterminalstatus.md
   - docs/models/entitywebhook.md
   - docs/models/entitywebhookevent.md
   - docs/models/entitywebhookeventlinks.md
   - docs/models/entitywebhooklinks.md
-  - docs/models/entitywebhookstatus.md
   - docs/models/errorresponselinks.md
   - docs/models/errors/errorresponse.md
   - docs/models/failedpayment.md
   - docs/models/failedpaymentfee.md
-  - docs/models/failurereason.md
   - docs/models/feeprepayments.md
-  - docs/models/feeregion.md
-  - docs/models/grouping.md
   - docs/models/invoicecompensation.md
+  - docs/models/invoicestatus.md
   - docs/models/listlinks.md
   - docs/models/listsort.md
   - docs/models/locale.md
   - docs/models/localeparameter.md
   - docs/models/localeresponse.md
   - docs/models/managedfee.md
+  - docs/models/mandatedetailscardlabelresponse.md
+  - docs/models/mandatemethod.md
+  - docs/models/mandatemethodresponse.md
   - docs/models/mandateresponse.md
-  - docs/models/mandateresponsecardlabel.md
   - docs/models/mandateresponsedetails.md
   - docs/models/mandateresponselinks.md
-  - docs/models/mandateresponsemethod.md
-  - docs/models/mandateresponsestatus.md
+  - docs/models/mandatestatus.md
   - docs/models/metadata.md
   - docs/models/method.md
   - docs/models/methodresponse.md
+  - docs/models/methodstatus.md
   - docs/models/mode.md
+  - docs/models/onboardingstatus.md
   - docs/models/open.md
   - docs/models/operations/applicationfee.md
   - docs/models/operations/cancelpaymentrequest.md
@@ -400,18 +375,29 @@ generatedFiles:
   - docs/models/operations/useragenttoken.md
   - docs/models/operations/vatregulation.md
   - docs/models/orderlinecategories.md
+  - docs/models/organizationvatregulation.md
   - docs/models/outgoingtransfer.md
   - docs/models/owner.md
   - docs/models/payment.md
   - docs/models/paymentaddress.md
   - docs/models/paymentcommission.md
+  - docs/models/paymentdetailscardauditionresponse.md
+  - docs/models/paymentdetailscardfundingresponse.md
+  - docs/models/paymentdetailscardlabelresponse.md
+  - docs/models/paymentdetailscardsecurityresponse.md
+  - docs/models/paymentdetailsfailurereasonresponse.md
+  - docs/models/paymentdetailsfeeregionresponse.md
+  - docs/models/paymentdetailsreceiptcardreadmethodresponse.md
+  - docs/models/paymentdetailsreceiptcardverificationmethodresponse.md
+  - docs/models/paymentdetailssellerprotectionresponse.md
+  - docs/models/paymentdetailswalletresponse.md
   - docs/models/paymentfee.md
   - docs/models/paymentlineitem.md
   - docs/models/paymentlineitemcategory.md
   - docs/models/paymentlineitemresponse.md
   - docs/models/paymentlineitemresponsecategory.md
-  - docs/models/paymentlineitemresponsetype.md
-  - docs/models/paymentlineitemtype.md
+  - docs/models/paymentlinetype.md
+  - docs/models/paymentlinetyperesponse.md
   - docs/models/paymentlinkresponse.md
   - docs/models/paymentlinkresponseapplicationfee.md
   - docs/models/paymentlinkresponselinks.md
@@ -422,29 +408,32 @@ generatedFiles:
   - docs/models/paymentrequestapplicationfee.md
   - docs/models/paymentrequestcategory.md
   - docs/models/paymentrequestline.md
-  - docs/models/paymentrequesttype.md
   - docs/models/paymentresponse.md
   - docs/models/paymentresponseapplicationfee.md
-  - docs/models/paymentresponsecardlabel.md
   - docs/models/paymentresponsecategory.md
   - docs/models/paymentresponsedetails.md
   - docs/models/paymentresponseline.md
   - docs/models/paymentresponselinks.md
-  - docs/models/paymentresponsestatus.md
-  - docs/models/paymentresponsetype.md
   - docs/models/payments.md
+  - docs/models/paymentstatus.md
   - docs/models/pendingbalance.md
   - docs/models/platformpaymentchargeback.md
   - docs/models/platformpaymentrefund.md
   - docs/models/postpaymentsplitpayment.md
   - docs/models/pricing.md
+  - docs/models/profilereviewstatusresponse.md
+  - docs/models/profilestatus.md
   - docs/models/qrcode.md
   - docs/models/reason.md
   - docs/models/receipt.md
   - docs/models/recurringlineitem.md
   - docs/models/refund.md
   - docs/models/refundcompensation.md
+  - docs/models/refundexternalreferencetype.md
+  - docs/models/refundexternalreferencetyperesponse.md
+  - docs/models/refundroutingreversalssourcetype.md
   - docs/models/refunds.md
+  - docs/models/refundstatus.md
   - docs/models/reimbursementfee.md
   - docs/models/returnedmanagedfee.md
   - docs/models/returnedplatformpaymentrefund.md
@@ -454,52 +443,56 @@ generatedFiles:
   - docs/models/reversedchargebackcompensation.md
   - docs/models/reversedplatformpaymentchargeback.md
   - docs/models/review.md
-  - docs/models/reviewstatus.md
   - docs/models/routecreaterequest.md
   - docs/models/routecreaterequestdestination.md
-  - docs/models/routecreaterequesttype.md
   - docs/models/routecreateresponse.md
   - docs/models/routecreateresponsedestination.md
   - docs/models/routecreateresponselinks.md
-  - docs/models/routecreateresponsetype.md
+  - docs/models/routedestinationtype.md
+  - docs/models/routedestinationtyperesponse.md
   - docs/models/routegetresponse.md
   - docs/models/routegetresponsedestination.md
   - docs/models/routegetresponselinks.md
-  - docs/models/routegetresponsetype.md
-  - docs/models/routingreversaltype.md
   - docs/models/salesinvoicediscount.md
   - docs/models/salesinvoicediscountresponse.md
-  - docs/models/salesinvoicediscountresponsetype.md
   - docs/models/salesinvoicediscounttype.md
+  - docs/models/salesinvoicediscounttyperesponse.md
   - docs/models/salesinvoiceemaildetails.md
   - docs/models/salesinvoicelineitem.md
   - docs/models/salesinvoicelineitemresponse.md
   - docs/models/salesinvoicepaymentdetails.md
   - docs/models/salesinvoicepaymentdetailsresponse.md
-  - docs/models/salesinvoicepaymentdetailsresponsesource.md
   - docs/models/salesinvoicepaymentdetailssource.md
+  - docs/models/salesinvoicepaymentdetailssourceresponse.md
+  - docs/models/salesinvoicepaymentterm.md
+  - docs/models/salesinvoicepaymenttermresponse.md
   - docs/models/salesinvoicerecipient.md
   - docs/models/salesinvoicerecipientlocale.md
+  - docs/models/salesinvoicerecipientlocaleresponse.md
   - docs/models/salesinvoicerecipientresponse.md
-  - docs/models/salesinvoicerecipientresponselocale.md
-  - docs/models/salesinvoicerecipientresponsetype.md
   - docs/models/salesinvoicerecipienttype.md
+  - docs/models/salesinvoicerecipienttyperesponse.md
+  - docs/models/salesinvoicestatus.md
+  - docs/models/salesinvoicestatusresponse.md
+  - docs/models/salesinvoicevatmode.md
+  - docs/models/salesinvoicevatmoderesponse.md
+  - docs/models/salesinvoicevatscheme.md
+  - docs/models/salesinvoicevatschemeresponse.md
   - docs/models/security.md
-  - docs/models/sellerprotection.md
   - docs/models/sequencetype.md
   - docs/models/sequencetyperesponse.md
+  - docs/models/settlementstatus.md
   - docs/models/splitpayment.md
   - docs/models/statusreason.md
-  - docs/models/statusreasonenum.md
   - docs/models/subgroup.md
+  - docs/models/subscriptionmethod.md
+  - docs/models/subscriptionmethodresponse.md
   - docs/models/subscriptionrequest.md
   - docs/models/subscriptionrequestapplicationfee.md
-  - docs/models/subscriptionrequestmethod.md
   - docs/models/subscriptionresponse.md
   - docs/models/subscriptionresponseapplicationfee.md
   - docs/models/subscriptionresponselinks.md
-  - docs/models/subscriptionresponsemethod.md
-  - docs/models/subscriptionresponsestatus.md
+  - docs/models/subscriptionstatus.md
   - docs/models/subtotals.md
   - docs/models/subtotalscardaudience.md
   - docs/models/subtotalscardissuer.md
@@ -507,21 +500,19 @@ generatedFiles:
   - docs/models/subtotalsfeetype.md
   - docs/models/subtotalsprepaymentparttype.md
   - docs/models/subtotalstransactiontype.md
+  - docs/models/terminalbrand.md
   - docs/models/terminalmodel.md
+  - docs/models/terminalstatus.md
   - docs/models/topups.md
   - docs/models/totals.md
   - docs/models/transferdestination.md
-  - docs/models/transferfrequency.md
   - docs/models/transfers.md
   - docs/models/unauthorizeddirectdebit.md
   - docs/models/updatevaluessalesinvoice.md
-  - docs/models/updatevaluessalesinvoicepaymentterm.md
-  - docs/models/updatevaluessalesinvoicestatus.md
   - docs/models/url.md
   - docs/models/urlnullable.md
-  - docs/models/vatregulation.md
-  - docs/models/wallet.md
   - docs/models/webhookeventtypes.md
+  - docs/models/webhookstatus.md
   - docs/sdks/balances/README.md
   - docs/sdks/capabilities/README.md
   - docs/sdks/captures/README.md
@@ -779,9 +770,18 @@ generatedFiles:
   - src/models/address.ts
   - src/models/amount.ts
   - src/models/amountnullable.ts
+  - src/models/balancereportgrouping.ts
+  - src/models/balancestatus.ts
+  - src/models/balancetransactiontype.ts
+  - src/models/balancetransferdestinationtype.ts
+  - src/models/balancetransferfrequency.ts
+  - src/models/capabilityrequirementstatus.ts
+  - src/models/capabilitystatus.ts
+  - src/models/capabilitystatusreason.ts
   - src/models/capturemode.ts
   - src/models/capturemoderesponse.ts
   - src/models/captureresponse.ts
+  - src/models/capturestatus.ts
   - src/models/componentssubtotals.ts
   - src/models/createwebhook.ts
   - src/models/currencies.ts
@@ -826,16 +826,23 @@ generatedFiles:
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/models/index.ts
+  - src/models/invoicestatus.ts
   - src/models/listlinks.ts
   - src/models/listsort.ts
   - src/models/locale.ts
   - src/models/localeparameter.ts
   - src/models/localeresponse.ts
+  - src/models/mandatedetailscardlabelresponse.ts
+  - src/models/mandatemethod.ts
+  - src/models/mandatemethodresponse.ts
   - src/models/mandateresponse.ts
+  - src/models/mandatestatus.ts
   - src/models/metadata.ts
   - src/models/method.ts
   - src/models/methodresponse.ts
+  - src/models/methodstatus.ts
   - src/models/mode.ts
+  - src/models/onboardingstatus.ts
   - src/models/operations/cancelpayment.ts
   - src/models/operations/cancelrefund.ts
   - src/models/operations/cancelsubscription.ts
@@ -921,41 +928,86 @@ generatedFiles:
   - src/models/operations/updatesubscription.ts
   - src/models/operations/updatewebhook.ts
   - src/models/orderlinecategories.ts
+  - src/models/organizationvatregulation.ts
   - src/models/paymentaddress.ts
+  - src/models/paymentdetailscardauditionresponse.ts
+  - src/models/paymentdetailscardfundingresponse.ts
+  - src/models/paymentdetailscardlabelresponse.ts
+  - src/models/paymentdetailscardsecurityresponse.ts
+  - src/models/paymentdetailsfailurereasonresponse.ts
+  - src/models/paymentdetailsfeeregionresponse.ts
+  - src/models/paymentdetailsreceiptcardreadmethodresponse.ts
+  - src/models/paymentdetailsreceiptcardverificationmethodresponse.ts
+  - src/models/paymentdetailssellerprotectionresponse.ts
+  - src/models/paymentdetailswalletresponse.ts
   - src/models/paymentlineitem.ts
   - src/models/paymentlineitemresponse.ts
+  - src/models/paymentlinetype.ts
+  - src/models/paymentlinetyperesponse.ts
   - src/models/paymentlinkresponse.ts
   - src/models/paymentlinksequencetype.ts
   - src/models/paymentlinksequencetyperesponse.ts
   - src/models/paymentmethod.ts
   - src/models/paymentrequest.ts
   - src/models/paymentresponse.ts
+  - src/models/paymentstatus.ts
+  - src/models/profilereviewstatusresponse.ts
+  - src/models/profilestatus.ts
   - src/models/recurringlineitem.ts
+  - src/models/refundexternalreferencetype.ts
+  - src/models/refundexternalreferencetyperesponse.ts
+  - src/models/refundroutingreversalssourcetype.ts
+  - src/models/refundstatus.ts
   - src/models/routecreaterequest.ts
   - src/models/routecreateresponse.ts
+  - src/models/routedestinationtype.ts
+  - src/models/routedestinationtyperesponse.ts
   - src/models/routegetresponse.ts
   - src/models/salesinvoicediscount.ts
   - src/models/salesinvoicediscountresponse.ts
+  - src/models/salesinvoicediscounttype.ts
+  - src/models/salesinvoicediscounttyperesponse.ts
   - src/models/salesinvoiceemaildetails.ts
   - src/models/salesinvoicelineitem.ts
   - src/models/salesinvoicelineitemresponse.ts
   - src/models/salesinvoicepaymentdetails.ts
   - src/models/salesinvoicepaymentdetailsresponse.ts
+  - src/models/salesinvoicepaymentdetailssource.ts
+  - src/models/salesinvoicepaymentdetailssourceresponse.ts
+  - src/models/salesinvoicepaymentterm.ts
+  - src/models/salesinvoicepaymenttermresponse.ts
   - src/models/salesinvoicerecipient.ts
+  - src/models/salesinvoicerecipientlocale.ts
+  - src/models/salesinvoicerecipientlocaleresponse.ts
   - src/models/salesinvoicerecipientresponse.ts
+  - src/models/salesinvoicerecipienttype.ts
+  - src/models/salesinvoicerecipienttyperesponse.ts
+  - src/models/salesinvoicestatus.ts
+  - src/models/salesinvoicestatusresponse.ts
+  - src/models/salesinvoicevatmode.ts
+  - src/models/salesinvoicevatmoderesponse.ts
+  - src/models/salesinvoicevatscheme.ts
+  - src/models/salesinvoicevatschemeresponse.ts
   - src/models/security.ts
   - src/models/sequencetype.ts
   - src/models/sequencetyperesponse.ts
+  - src/models/settlementstatus.ts
   - src/models/statusreason.ts
   - src/models/subgroup.ts
+  - src/models/subscriptionmethod.ts
+  - src/models/subscriptionmethodresponse.ts
   - src/models/subscriptionrequest.ts
   - src/models/subscriptionresponse.ts
+  - src/models/subscriptionstatus.ts
   - src/models/subtotals.ts
+  - src/models/terminalbrand.ts
   - src/models/terminalmodel.ts
+  - src/models/terminalstatus.ts
   - src/models/updatevaluessalesinvoice.ts
   - src/models/url.ts
   - src/models/urlnullable.ts
   - src/models/webhookeventtypes.ts
+  - src/models/webhookstatus.ts
   - src/sdk/balances.ts
   - src/sdk/capabilities.ts
   - src/sdk/captures.ts
@@ -1457,7 +1509,7 @@ examples:
         path:
           paymentId: "tr_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "re_5B8cwPMGnU", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "reverseRouting": false, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"type": "organization", "organizationId": "org_1234567"}}], "testmode": false}
+        application/json: {"id": "re_5B8cwPMGnU", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "reverseRouting": false, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"type": "organization", "organizationId": "org_1234567"}}], "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "refund", "id": "re_4qqhO89gsT", "mode": "live", "description": "Order", "amount": {"currency": "EUR", "value": "5.95"}, "metadata": "{\"bookkeeping_id\":12345}", "paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "status": "pending", "createdAt": "2023-03-14T17:09:02.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -1466,7 +1518,7 @@ examples:
         path:
           paymentId: "tr_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "re_5B8cwPMGnU", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "reverseRouting": false, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"type": "organization", "organizationId": "org_1234567"}}], "testmode": false}
+        application/json: {"id": "re_5B8cwPMGnU", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "reverseRouting": false, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"type": "organization", "organizationId": "org_1234567"}}], "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "refund", "id": "re_GKQYmNNAfL", "mode": "live", "description": "Refund description of example payment", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "-10.00"}, "metadata": null, "paymentId": "tr_aZm7dgj5zs", "status": "pending", "createdAt": "2023-02-06T15:55:57+00:00", "routingReversals": [{"amount": {"currency": "EUR", "value": "7.50"}, "source": {"organizationId": "org_7049691"}}], "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_aZm7dgj5zs?testmode=true", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -1475,7 +1527,7 @@ examples:
         path:
           paymentId: "tr_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "re_5B8cwPMGnU", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "reverseRouting": false, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"type": "organization", "organizationId": "org_1234567"}}], "testmode": false}
+        application/json: {"id": "re_5B8cwPMGnU", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "reverseRouting": false, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"type": "organization", "organizationId": "org_1234567"}}], "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "refund", "id": "re_5B8cwPMGnU", "mode": "live", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "createdAt": "2024-03-20T09:13:37.0Z", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"organizationId": "org_1234567"}}], "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
@@ -1781,7 +1833,7 @@ examples:
         path:
           paymentId: "tr_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "cpt_vytxeTZskVKR7C7WgdSP3d", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU"}
+        application/json: {"id": "cpt_vytxeTZskVKR7C7WgdSP3d", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU"}
       responses:
         "201":
           application/hal+json: {"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "35.95"}, "status": "pending", "metadata": "{\"bookkeeping_id\":12345}", "paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "createdAt": "2023-08-02T09:29:56.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -1790,7 +1842,7 @@ examples:
         path:
           paymentId: "tr_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "cpt_vytxeTZskVKR7C7WgdSP3d", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU"}
+        application/json: {"id": "cpt_vytxeTZskVKR7C7WgdSP3d", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU"}
       responses:
         "201":
           application/hal+json: {"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "test", "amount": {"currency": "EUR", "value": "467.92"}, "settlementAmount": {"currency": "EUR", "value": "467.92"}, "status": "pending", "paymentId": "tr_V9kqkGtyUH", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "createdAt": "2021-06-03T11:50:58+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://api.mollie.com/v2/payments/tr_V9kqkGtyUH", "type": "application/hal+json"}, "shipment": {"href": "https://api.mollie.com/v2/orders/ord_uvpptr/shipments/shp_5x4xQJDWGNcY3tKGL7X5J", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -1799,7 +1851,7 @@ examples:
         path:
           paymentId: "tr_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "cpt_vytxeTZskVKR7C7WgdSP3d", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU"}
+        application/json: {"id": "cpt_vytxeTZskVKR7C7WgdSP3d", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU"}
       responses:
         "201":
           application/hal+json: {"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "shipment": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
@@ -2433,7 +2485,7 @@ examples:
         path:
           customerId: "cst_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "mdt_5B8cwPMGnU", "method": "directdebit", "consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "BANKBIC", "consumerEmail": "example@email.com", "signatureDate": "2025-01-01", "mandateReference": "ID-1023892", "paypalBillingAgreementId": "B-12A34567B8901234CD", "payPalVaultId": "8kk8451t", "customerId": "cst_5B8cwPMGnU", "testmode": false}
+        application/json: {"id": "mdt_5B8cwPMGnU", "method": "directdebit", "consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "BANKBIC", "consumerEmail": "example@email.com", "signatureDate": "2025-01-01", "mandateReference": "ID-1023892", "paypalBillingAgreementId": "B-12A34567B8901234CD", "payPalVaultId": "8kk8451t", "status": "valid", "customerId": "cst_5B8cwPMGnU", "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "mandate", "id": "mdt_h3gAaD5zP", "mode": "live", "method": "directdebit", "details": {"consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "INGBNL2A"}, "signatureDate": "2023-05-07", "mandateReference": "EXAMPLE-CORP-MD13804", "status": "valid", "customerId": "cst_4qqhO89gsT", "createdAt": "2023-05-07T10:49:08.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_4qqhO89gsT", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -2442,7 +2494,7 @@ examples:
         path:
           customerId: "cst_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "mdt_5B8cwPMGnU", "method": "directdebit", "consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "BANKBIC", "consumerEmail": "example@email.com", "signatureDate": "2025-01-01", "mandateReference": "ID-1023892", "paypalBillingAgreementId": "B-12A34567B8901234CD", "payPalVaultId": "8kk8451t", "customerId": "cst_5B8cwPMGnU", "testmode": false}
+        application/json: {"id": "mdt_5B8cwPMGnU", "method": "directdebit", "consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "BANKBIC", "consumerEmail": "example@email.com", "signatureDate": "2025-01-01", "mandateReference": "ID-1023892", "paypalBillingAgreementId": "B-12A34567B8901234CD", "payPalVaultId": "8kk8451t", "status": "valid", "customerId": "cst_5B8cwPMGnU", "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "mandate", "id": "mdt_gDSN2rx3My", "mode": "test", "method": "directdebit", "details": {"consumerName": "Jane Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "INGBNL2A"}, "signatureDate": "2021-12-31", "mandateReference": "YOUR-COMPANY-MD13804", "status": "valid", "customerId": "cst_tKt44u85MM", "createdAt": "2022-01-03T15:42:11+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_tKt44u85MM", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -2451,7 +2503,7 @@ examples:
         path:
           customerId: "cst_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "mdt_5B8cwPMGnU", "method": "directdebit", "consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "BANKBIC", "consumerEmail": "example@email.com", "signatureDate": "2025-01-01", "mandateReference": "ID-1023892", "paypalBillingAgreementId": "B-12A34567B8901234CD", "payPalVaultId": "8kk8451t", "customerId": "cst_5B8cwPMGnU", "testmode": false}
+        application/json: {"id": "mdt_5B8cwPMGnU", "method": "directdebit", "consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "BANKBIC", "consumerEmail": "example@email.com", "signatureDate": "2025-01-01", "mandateReference": "ID-1023892", "paypalBillingAgreementId": "B-12A34567B8901234CD", "payPalVaultId": "8kk8451t", "status": "valid", "customerId": "cst_5B8cwPMGnU", "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "mandate", "id": "mdt_5B8cwPMGnU", "mode": "live", "method": "directdebit", "details": {"consumerName": "John Doe", "consumerAccount": "NL55INGB0000000000", "consumerBic": "BANKBIC", "cardHolder": "John Doe", "cardNumber": "3240", "cardExpiryDate": "2025-01-01", "cardLabel": "Visa", "cardFingerprint": "d3290e932k02f"}, "signatureDate": "2025-01-01", "mandateReference": "ID-1023892", "status": "valid", "customerId": "cst_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
@@ -2528,7 +2580,7 @@ examples:
         path:
           customerId: "cst_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "sub_5B8cwPMGnU", "amount": {"currency": "EUR", "value": "10.00"}, "times": 6, "interval": "2 days", "startDate": "2025-01-01", "description": "Subscription of streaming channel", "method": "paypal", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Platform fee"}, "webhookUrl": "https://example.com/webhook", "customerId": "cst_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "testmode": false}
+        application/json: {"id": "sub_5B8cwPMGnU", "status": "active", "amount": {"currency": "EUR", "value": "10.00"}, "times": 6, "interval": "2 days", "startDate": "2025-01-01", "description": "Subscription of streaming channel", "method": "paypal", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Platform fee"}, "webhookUrl": "https://example.com/webhook", "customerId": "cst_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "subscription", "id": "sub_rVKGtNd6s3", "mode": "live", "status": "active", "amount": {"currency": "EUR", "value": "25.00"}, "times": 4, "timesRemaining": 4, "interval": "3 months", "startDate": "2023-06-01", "nextPaymentDate": "2023-09-01", "description": "Quarterly payment", "method": null, "metadata": null, "webhookUrl": "https://webshop.example.org/payments/webhook", "customerId": "cst_stTC2WHAuS", "mandateId": "mdt_38HS4fsS", "createdAt": "2023-04-06T13:10:19.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS", "type": "application/hal+json"}, "profile": {"href": "https://...", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -2537,7 +2589,7 @@ examples:
         path:
           customerId: "cst_5B8cwPMGnU"
       requestBody:
-        application/json: {"id": "sub_5B8cwPMGnU", "amount": {"currency": "EUR", "value": "10.00"}, "times": 6, "interval": "2 days", "startDate": "2025-01-01", "description": "Subscription of streaming channel", "method": "paypal", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Platform fee"}, "webhookUrl": "https://example.com/webhook", "customerId": "cst_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "testmode": false}
+        application/json: {"id": "sub_5B8cwPMGnU", "status": "active", "amount": {"currency": "EUR", "value": "10.00"}, "times": 6, "interval": "2 days", "startDate": "2025-01-01", "description": "Subscription of streaming channel", "method": "paypal", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Platform fee"}, "webhookUrl": "https://example.com/webhook", "customerId": "cst_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "testmode": false}
       responses:
         "201":
           application/hal+json: {"resource": "subscription", "id": "sub_5B8cwPMGnU", "mode": "live", "status": "active", "amount": {"currency": "EUR", "value": "10.00"}, "times": 6, "timesRemaining": 5, "interval": "2 days", "startDate": "2025-01-01", "nextPaymentDate": "2025-01-01", "description": "Subscription of streaming channel", "method": "paypal", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Platform fee"}, "webhookUrl": "https://example.com/webhook", "customerId": "cst_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37.0Z", "canceledAt": "2025-01-01T13:10:19.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "profile": {"href": "https://...", "type": "application/hal+json"}, "payments": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
@@ -2832,7 +2884,7 @@ examples:
           testmode: false
       responses:
         "200":
-          application/hal+json: {"resource": "organization", "locale": "en_US", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "organization", "locale": "en_US", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   get-current-organization:
@@ -2848,19 +2900,19 @@ examples:
   create-profile:
     create-profile-201-1:
       requestBody:
-        application/json: {"name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE"}
+        application/json: {"name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "status": "unverified"}
       responses:
         "201":
           application/hal+json: {"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My website name", "website": "https://shop.example.org", "email": "info@example.org", "phone": "+31208202070", "businessCategory": "OTHER_MERCHANDISE", "status": "verified", "review": {"status": "pending"}, "createdAt": "2023-03-20T09:28:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_123456789/settings/profiles/pfl_QkEhN94Ba", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     create-profile-201-2:
       requestBody:
-        application/json: {"name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE"}
+        application/json: {"name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "status": "unverified"}
       responses:
         "201":
           application/hal+json: {"resource": "profile", "id": "pfl_2q3RyuMGry", "mode": "live", "name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "businessCategory": "OTHER_MERCHANDISE", "status": "unverified", "review": {"status": "pending"}, "createdAt": "2022-01-19T12:30:22+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/settings/profiles/pfl_2q3RyuMGry", "type": "text/html"}, "chargebacks": {"href": "https://api.mollie.com/v2/chargebacks?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "methods": {"href": "https://api.mollie.com/v2/methods?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "payments": {"href": "https://api.mollie.com/v2/payments?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "refunds": {"href": "https://api.mollie.com/v2/refunds?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "checkoutPreviewUrl": {"href": "https://www.mollie.com/checkout/preview/pfl_2q3RyuMGry", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-create-profile:
       requestBody:
-        application/json: {"name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE"}
+        application/json: {"name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "status": "unverified"}
       responses:
         "201":
           application/hal+json: {"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "status": "unverified", "review": {"status": "pending"}, "createdAt": "2024-03-20T09:13:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/settings/profiles/pfl_2q3RyuMGry", "type": "text/html"}, "chargebacks": {"href": "https://api.mollie.com/v2/chargebacks?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "methods": {"href": "https://api.mollie.com/v2/methods?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "payments": {"href": "https://api.mollie.com/v2/payments?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "refunds": {"href": "https://api.mollie.com/v2/refunds?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "checkoutPreviewUrl": {"href": "https://www.mollie.com/checkout/preview/pfl_2q3RyuMGry", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -3044,7 +3096,7 @@ examples:
           embed: "organization"
       responses:
         "200":
-          application/hal+json: {"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "locale": "en_US", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}
+          application/hal+json: {"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "locale": "en_US", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   create-client-link:
@@ -3742,7 +3794,7 @@ examples:
         path:
           id: "invoice_4Y0eZitmBnQ6IDoMqZQKh"
       requestBody:
-        application/json: {"testmode": false, "status": "paid", "memo": "An updated memo!", "paymentTerm": "30 days", "paymentDetails": {"source": "payment-link", "sourceReference": "pl_d9fQur83kFdhH8hIhaZfq"}, "emailDetails": {"subject": "Your invoice is available", "body": "Please find your invoice enclosed."}, "recipientIdentifier": "customer-xyz-0123", "recipient": {"type": "consumer", "title": "Mrs.", "givenName": "Jane", "familyName": "Doe", "organizationName": "Organization Corp.", "organizationNumber": "12345678", "vatNumber": "NL123456789B01", "email": "example@email.com", "phone": "+0123456789", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "4th floor", "postalCode": "5678AB", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL", "locale": "nl_NL"}, "lines": [{"description": "LEGO 4440 Forest Police Station", "quantity": 1, "vatRate": "21.00", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discount": {"type": "amount", "value": "10.00"}}], "discount": {"type": "amount", "value": "10.00"}}
+        application/json: {"testmode": false, "status": "draft", "memo": "An updated memo!", "paymentTerm": "30 days", "paymentDetails": {"source": "payment-link", "sourceReference": "pl_d9fQur83kFdhH8hIhaZfq"}, "emailDetails": {"subject": "Your invoice is available", "body": "Please find your invoice enclosed."}, "recipientIdentifier": "customer-xyz-0123", "recipient": {"type": "consumer", "title": "Mrs.", "givenName": "Jane", "familyName": "Doe", "organizationName": "Organization Corp.", "organizationNumber": "12345678", "vatNumber": "NL123456789B01", "email": "example@email.com", "phone": "+0123456789", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "4th floor", "postalCode": "5678AB", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL", "locale": "nl_NL"}, "lines": [{"description": "LEGO 4440 Forest Police Station", "quantity": 1, "vatRate": "21.00", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discount": {"type": "amount", "value": "10.00"}}], "discount": {"type": "amount", "value": "10.00"}}
       responses:
         "200":
           application/hal+json: {"resource": "sales-invoice", "id": "invoice_4Y0eZitmBnQ6IDoMqZQKh", "invoiceNumber": "INV-0000001", "status": "draft", "vatScheme": "standard", "vatMode": "exclusive", "memo": "This is a memo!", "paymentTerm": "30 days", "paymentDetails": {"source": "payment-link", "sourceReference": "pl_d9fQur83kFdhH8hIhaZfq"}, "emailDetails": {"subject": "Your invoice is available", "body": "Please find your invoice enclosed."}, "customerId": "cst_8wmqcHMN4U", "mandateId": "mdt_pWUnw6pkBN", "recipientIdentifier": "customer-xyz-0123", "recipient": {"type": "consumer", "title": "Mrs.", "givenName": "Jane", "familyName": "Doe", "organizationName": "Organization Corp.", "organizationNumber": "12345678", "vatNumber": "NL123456789B01", "email": "example@email.com", "phone": "+0123456789", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "4th floor", "postalCode": "5678AB", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL", "locale": "nl_NL"}, "lines": [{"description": "LEGO 4440 Forest Police Station", "quantity": 1, "vatRate": "21.00", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discount": {"type": "amount", "value": "10.00"}}], "discount": null, "amountDue": {"currency": "EUR", "value": "10.00"}, "subtotalAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "totalVatAmount": {"currency": "EUR", "value": "10.00"}, "discountedSubtotalAmount": {"currency": "EUR", "value": "10.00"}, "createdAt": "2024-03-20T09:13:37.0Z", "issuedAt": "2024-10-03T10:47:38+00:00", "paidAt": "2024-10-04T10:47:38+00:00", "dueAt": "2024-11-01T10:47:38+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "invoicePayment": {"href": "https://...", "type": "application/hal+json"}, "pdfLink": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
@@ -3945,4 +3997,4 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes Detected:\n* `client.payments.get()`:  `response.locale` **Changed** **Breaking** :warning:\n* `client.customers.list()`:  `response._embedded.customers.[].locale` **Changed** **Breaking** :warning:\n* `client.organizations.getCurrent()`:  `response.locale` **Changed** **Breaking** :warning:\n* `client.payments.update()`: \n  *  `request.requestBody.locale` **Changed**\n  *  `response.locale` **Changed** **Breaking** :warning:\n* `client.clients.get()`:  `response._embedded.organization.locale` **Changed** **Breaking** :warning:\n* `client.subscriptions.listPayments()`:  `response._embedded.payments.[].locale` **Changed** **Breaking** :warning:\n* `client.payments.create()`: \n  *  `request.payment-request.locale` **Changed**\n  *  `response.locale` **Changed** **Breaking** :warning:\n* `client.payments.list()`:  `response._embedded.payments.[].locale` **Changed** **Breaking** :warning:\n* `client.organizations.get()`:  `response.locale` **Changed** **Breaking** :warning:\n* `client.payments.cancel()`:  `response.locale` **Changed** **Breaking** :warning:\n* `client.clients.list()`:  `response._embedded.clients.[].Embedded.organization.locale` **Changed** **Breaking** :warning:\n* `client.paymentLinks.listPayments()`:  `response._embedded.payments.[].locale` **Changed** **Breaking** :warning:\n* `client.customers.create()`: \n  *  `request.locale` **Changed**\n  *  `response.locale` **Changed** **Breaking** :warning:\n* `client.settlements.listPayments()`:  `response._embedded.payments.[].locale` **Changed** **Breaking** :warning:\n* `client.customers.get()`:  `response.locale` **Changed** **Breaking** :warning:\n* `client.customers.update()`: \n  *  `request.entity-customer.locale` **Changed**\n  *  `response.locale` **Changed** **Breaking** :warning:\n* `client.customers.createPayment()`: \n  *  `request.payment-request.locale` **Changed**\n  *  `response.locale` **Changed** **Breaking** :warning:\n* `client.customers.listPayments()`:  `response._embedded.payments.[].locale` **Changed** **Breaking** :warning:\n* `client.clientLinks.create()`: \n  *  `request.owner.locale` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `client.capabilities.list()`:  `response._embedded.capabilities.[].statusReason` **Changed** **Breaking** :warning:\n* `client.clients.list()`:  `response._embedded.clients.[].Embedded.capabilities.statusReason` **Changed** **Breaking** :warning:\n* `client.clients.get()`:  `response._embedded.capabilities.statusReason` **Changed** **Breaking** :warning:\n* `client.refunds.create()`: \n  *  `request.entity-refund.status` **Added** **Breaking** :warning:\n  *  `response.routingreversals.[].source.type` **Added**\n* `client.settlements.listRefunds()`:  `response._embedded.refunds.[].routingReversals.[].source.type` **Added**\n* `client.profiles.create()`: \n  *  `request.status` **Added**\n* `client.refunds.list()`:  `response._embedded.refunds.[].routingReversals.[].source.type` **Added**\n* `client.refunds.get()`:  `response.routingreversals.[].source.type` **Added**\n* `client.refunds.all()`:  `response._embedded.refunds.[].routingReversals.[].source.type` **Added**\n* `client.captures.create()`: \n  *  `request.entity-capture.status` **Added**\n* `client.mandates.create()`: \n  *  `request.entity-mandate.status` **Added**\n* `client.subscriptions.create()`: \n  *  `request.subscription-request.status` **Added**\n"

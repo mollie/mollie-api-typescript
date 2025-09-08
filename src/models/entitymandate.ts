@@ -4,30 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Payment method of the mandate.
- *
- * @remarks
- *
- * SEPA Direct Debit and PayPal mandates can be created directly.
- */
-export const EntityMandateMethod = {
-  Creditcard: "creditcard",
-  Directdebit: "directdebit",
-  Paypal: "paypal",
-} as const;
-/**
- * Payment method of the mandate.
- *
- * @remarks
- *
- * SEPA Direct Debit and PayPal mandates can be created directly.
- */
-export type EntityMandateMethod = ClosedEnum<typeof EntityMandateMethod>;
+import {
+  MandateMethod,
+  MandateMethod$inboundSchema,
+  MandateMethod$outboundSchema,
+} from "./mandatemethod.js";
+import {
+  MandateStatus,
+  MandateStatus$inboundSchema,
+  MandateStatus$outboundSchema,
+} from "./mandatestatus.js";
 
 export type EntityMandate = {
   id?: string | undefined;
@@ -38,7 +26,7 @@ export type EntityMandate = {
    *
    * SEPA Direct Debit and PayPal mandates can be created directly.
    */
-  method?: EntityMandateMethod | undefined;
+  method?: MandateMethod | undefined;
   /**
    * The customer's name.
    */
@@ -80,6 +68,13 @@ export type EntityMandate = {
    * Must provide either this field or `paypalBillingAgreementId`, but not both.
    */
   payPalVaultId?: string | null | undefined;
+  /**
+   * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+   *
+   * @remarks
+   * when we did not received the IBAN yet from the first payment.
+   */
+  status?: MandateStatus | undefined;
   customerId?: string | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
@@ -94,34 +89,13 @@ export type EntityMandate = {
 };
 
 /** @internal */
-export const EntityMandateMethod$inboundSchema: z.ZodNativeEnum<
-  typeof EntityMandateMethod
-> = z.nativeEnum(EntityMandateMethod);
-
-/** @internal */
-export const EntityMandateMethod$outboundSchema: z.ZodNativeEnum<
-  typeof EntityMandateMethod
-> = EntityMandateMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMandateMethod$ {
-  /** @deprecated use `EntityMandateMethod$inboundSchema` instead. */
-  export const inboundSchema = EntityMandateMethod$inboundSchema;
-  /** @deprecated use `EntityMandateMethod$outboundSchema` instead. */
-  export const outboundSchema = EntityMandateMethod$outboundSchema;
-}
-
-/** @internal */
 export const EntityMandate$inboundSchema: z.ZodType<
   EntityMandate,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  method: EntityMandateMethod$inboundSchema.optional(),
+  method: MandateMethod$inboundSchema.optional(),
   consumerName: z.string().optional(),
   consumerAccount: z.nullable(z.string()).optional(),
   consumerBic: z.nullable(z.string()).optional(),
@@ -130,6 +104,7 @@ export const EntityMandate$inboundSchema: z.ZodType<
   mandateReference: z.nullable(z.string()).optional(),
   paypalBillingAgreementId: z.nullable(z.string()).optional(),
   payPalVaultId: z.nullable(z.string()).optional(),
+  status: MandateStatus$inboundSchema.optional(),
   customerId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -146,6 +121,7 @@ export type EntityMandate$Outbound = {
   mandateReference?: string | null | undefined;
   paypalBillingAgreementId?: string | null | undefined;
   payPalVaultId?: string | null | undefined;
+  status?: string | undefined;
   customerId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -157,7 +133,7 @@ export const EntityMandate$outboundSchema: z.ZodType<
   EntityMandate
 > = z.object({
   id: z.string().optional(),
-  method: EntityMandateMethod$outboundSchema.optional(),
+  method: MandateMethod$outboundSchema.optional(),
   consumerName: z.string().optional(),
   consumerAccount: z.nullable(z.string()).optional(),
   consumerBic: z.nullable(z.string()).optional(),
@@ -166,6 +142,7 @@ export const EntityMandate$outboundSchema: z.ZodType<
   mandateReference: z.nullable(z.string()).optional(),
   paypalBillingAgreementId: z.nullable(z.string()).optional(),
   payPalVaultId: z.nullable(z.string()).optional(),
+  status: MandateStatus$outboundSchema.optional(),
   customerId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

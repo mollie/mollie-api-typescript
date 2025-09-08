@@ -4,8 +4,17 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CapabilityStatus,
+  CapabilityStatus$inboundSchema,
+  CapabilityStatus$outboundSchema,
+} from "./capabilitystatus.js";
+import {
+  CapabilityStatusReason,
+  CapabilityStatusReason$inboundSchema,
+  CapabilityStatusReason$outboundSchema,
+} from "./capabilitystatusreason.js";
 import {
   EntityCapabilityRequirement,
   EntityCapabilityRequirement$inboundSchema,
@@ -13,20 +22,6 @@ import {
   EntityCapabilityRequirement$outboundSchema,
 } from "./entitycapabilityrequirement.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const EntityCapabilityStatus = {
-  Unrequested: "unrequested",
-  Enabled: "enabled",
-  Disabled: "disabled",
-  Pending: "pending",
-} as const;
-export type EntityCapabilityStatus = ClosedEnum<typeof EntityCapabilityStatus>;
-
-export const StatusReasonEnum = {
-  RequirementPastDue: "requirement-past-due",
-  OnboardingInformationNeeded: "onboarding-information-needed",
-} as const;
-export type StatusReasonEnum = ClosedEnum<typeof StatusReasonEnum>;
 
 export type EntityCapability = {
   /**
@@ -37,52 +32,10 @@ export type EntityCapability = {
    * A unique name for this capability like `payments` / `settlements`.
    */
   name?: string | undefined;
-  status?: EntityCapabilityStatus | undefined;
-  statusReason?: StatusReasonEnum | null | undefined;
+  status?: CapabilityStatus | undefined;
+  statusReason?: CapabilityStatusReason | undefined;
   requirements?: Array<EntityCapabilityRequirement> | undefined;
 };
-
-/** @internal */
-export const EntityCapabilityStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityCapabilityStatus
-> = z.nativeEnum(EntityCapabilityStatus);
-
-/** @internal */
-export const EntityCapabilityStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityCapabilityStatus
-> = EntityCapabilityStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityCapabilityStatus$ {
-  /** @deprecated use `EntityCapabilityStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityCapabilityStatus$inboundSchema;
-  /** @deprecated use `EntityCapabilityStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityCapabilityStatus$outboundSchema;
-}
-
-/** @internal */
-export const StatusReasonEnum$inboundSchema: z.ZodNativeEnum<
-  typeof StatusReasonEnum
-> = z.nativeEnum(StatusReasonEnum);
-
-/** @internal */
-export const StatusReasonEnum$outboundSchema: z.ZodNativeEnum<
-  typeof StatusReasonEnum
-> = StatusReasonEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace StatusReasonEnum$ {
-  /** @deprecated use `StatusReasonEnum$inboundSchema` instead. */
-  export const inboundSchema = StatusReasonEnum$inboundSchema;
-  /** @deprecated use `StatusReasonEnum$outboundSchema` instead. */
-  export const outboundSchema = StatusReasonEnum$outboundSchema;
-}
 
 /** @internal */
 export const EntityCapability$inboundSchema: z.ZodType<
@@ -92,8 +45,8 @@ export const EntityCapability$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: EntityCapabilityStatus$inboundSchema.optional(),
-  statusReason: z.nullable(StatusReasonEnum$inboundSchema).optional(),
+  status: CapabilityStatus$inboundSchema.optional(),
+  statusReason: CapabilityStatusReason$inboundSchema.optional(),
   requirements: z.array(EntityCapabilityRequirement$inboundSchema).optional(),
 });
 
@@ -102,7 +55,7 @@ export type EntityCapability$Outbound = {
   resource?: string | undefined;
   name?: string | undefined;
   status?: string | undefined;
-  statusReason?: string | null | undefined;
+  statusReason?: string | undefined;
   requirements?: Array<EntityCapabilityRequirement$Outbound> | undefined;
 };
 
@@ -114,8 +67,8 @@ export const EntityCapability$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string().optional(),
   name: z.string().optional(),
-  status: EntityCapabilityStatus$outboundSchema.optional(),
-  statusReason: z.nullable(StatusReasonEnum$outboundSchema).optional(),
+  status: CapabilityStatus$outboundSchema.optional(),
+  statusReason: CapabilityStatusReason$outboundSchema.optional(),
   requirements: z.array(EntityCapabilityRequirement$outboundSchema).optional(),
 });
 

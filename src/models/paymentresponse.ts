@@ -56,6 +56,66 @@ import {
   PaymentAddress$outboundSchema,
 } from "./paymentaddress.js";
 import {
+  PaymentDetailsCardAuditionResponse,
+  PaymentDetailsCardAuditionResponse$inboundSchema,
+  PaymentDetailsCardAuditionResponse$outboundSchema,
+} from "./paymentdetailscardauditionresponse.js";
+import {
+  PaymentDetailsCardFundingResponse,
+  PaymentDetailsCardFundingResponse$inboundSchema,
+  PaymentDetailsCardFundingResponse$outboundSchema,
+} from "./paymentdetailscardfundingresponse.js";
+import {
+  PaymentDetailsCardLabelResponse,
+  PaymentDetailsCardLabelResponse$inboundSchema,
+  PaymentDetailsCardLabelResponse$outboundSchema,
+} from "./paymentdetailscardlabelresponse.js";
+import {
+  PaymentDetailsCardSecurityResponse,
+  PaymentDetailsCardSecurityResponse$inboundSchema,
+  PaymentDetailsCardSecurityResponse$outboundSchema,
+} from "./paymentdetailscardsecurityresponse.js";
+import {
+  PaymentDetailsFailureReasonResponse,
+  PaymentDetailsFailureReasonResponse$inboundSchema,
+  PaymentDetailsFailureReasonResponse$outboundSchema,
+} from "./paymentdetailsfailurereasonresponse.js";
+import {
+  PaymentDetailsFeeRegionResponse,
+  PaymentDetailsFeeRegionResponse$inboundSchema,
+  PaymentDetailsFeeRegionResponse$outboundSchema,
+} from "./paymentdetailsfeeregionresponse.js";
+import {
+  PaymentDetailsReceiptCardReadMethodResponse,
+  PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
+  PaymentDetailsReceiptCardReadMethodResponse$outboundSchema,
+} from "./paymentdetailsreceiptcardreadmethodresponse.js";
+import {
+  PaymentDetailsReceiptCardVerificationMethodResponse,
+  PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
+  PaymentDetailsReceiptCardVerificationMethodResponse$outboundSchema,
+} from "./paymentdetailsreceiptcardverificationmethodresponse.js";
+import {
+  PaymentDetailsSellerProtectionResponse,
+  PaymentDetailsSellerProtectionResponse$inboundSchema,
+  PaymentDetailsSellerProtectionResponse$outboundSchema,
+} from "./paymentdetailssellerprotectionresponse.js";
+import {
+  PaymentDetailsWalletResponse,
+  PaymentDetailsWalletResponse$inboundSchema,
+  PaymentDetailsWalletResponse$outboundSchema,
+} from "./paymentdetailswalletresponse.js";
+import {
+  PaymentLineTypeResponse,
+  PaymentLineTypeResponse$inboundSchema,
+  PaymentLineTypeResponse$outboundSchema,
+} from "./paymentlinetyperesponse.js";
+import {
+  PaymentStatus,
+  PaymentStatus$inboundSchema,
+  PaymentStatus$outboundSchema,
+} from "./paymentstatus.js";
+import {
   RecurringLineItem,
   RecurringLineItem$inboundSchema,
   RecurringLineItem$Outbound,
@@ -79,32 +139,6 @@ import {
   Url$outboundSchema,
 } from "./url.js";
 
-/**
- * The type of product purchased. For example, a physical or a digital product.
- *
- * @remarks
- *
- * The `tip` payment line type is not available when creating a payment.
- */
-export const PaymentResponseType = {
-  Physical: "physical",
-  Digital: "digital",
-  ShippingFee: "shipping_fee",
-  Discount: "discount",
-  StoreCredit: "store_credit",
-  GiftCard: "gift_card",
-  Surcharge: "surcharge",
-  Tip: "tip",
-} as const;
-/**
- * The type of product purchased. For example, a physical or a digital product.
- *
- * @remarks
- *
- * The `tip` payment line type is not available when creating a payment.
- */
-export type PaymentResponseType = ClosedEnum<typeof PaymentResponseType>;
-
 export const PaymentResponseCategory = {
   Meal: "meal",
   Eco: "eco",
@@ -123,7 +157,7 @@ export type PaymentResponseLine = {
    *
    * The `tip` payment line type is not available when creating a payment.
    */
-  type?: PaymentResponseType | undefined;
+  type?: PaymentLineTypeResponse | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -209,206 +243,6 @@ export type PaymentResponseApplicationFee = {
 };
 
 /**
- * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
- *
- * @remarks
- * statuses occur at what point.
- */
-export const PaymentResponseStatus = {
-  Open: "open",
-  Pending: "pending",
-  Authorized: "authorized",
-  Paid: "paid",
-  Canceled: "canceled",
-  Expired: "expired",
-  Failed: "failed",
-} as const;
-/**
- * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
- *
- * @remarks
- * statuses occur at what point.
- */
-export type PaymentResponseStatus = ClosedEnum<typeof PaymentResponseStatus>;
-
-/**
- * The card's target audience, if known.
- */
-export const CardAudition = {
-  Consumer: "consumer",
-  Business: "business",
-} as const;
-/**
- * The card's target audience, if known.
- */
-export type CardAudition = ClosedEnum<typeof CardAudition>;
-
-/**
- * The card's label, if known.
- */
-export const PaymentResponseCardLabel = {
-  AmericanExpress: "American Express",
-  CartaSi: "Carta Si",
-  CarteBleue: "Carte Bleue",
-  Dankort: "Dankort",
-  DinersClub: "Diners Club",
-  Discover: "Discover",
-  Jcb: "JCB",
-  Laser: "Laser",
-  Maestro: "Maestro",
-  Mastercard: "Mastercard",
-  Unionpay: "Unionpay",
-  Visa: "Visa",
-  Vpay: "Vpay",
-} as const;
-/**
- * The card's label, if known.
- */
-export type PaymentResponseCardLabel = ClosedEnum<
-  typeof PaymentResponseCardLabel
->;
-
-/**
- * The card type.
- */
-export const CardFunding = {
-  Debit: "debit",
-  Credit: "credit",
-  Prepaid: "prepaid",
-  DeferredDebit: "deferred-debit",
-} as const;
-/**
- * The card type.
- */
-export type CardFunding = ClosedEnum<typeof CardFunding>;
-
-/**
- * The level of security applied during card processing.
- */
-export const CardSecurity = {
-  Normal: "normal",
-  Threedsecure: "3dsecure",
-} as const;
-/**
- * The level of security applied during card processing.
- */
-export type CardSecurity = ClosedEnum<typeof CardSecurity>;
-
-/**
- * The applicable card fee region.
- */
-export const FeeRegion = {
-  AmericanExpress: "american-express",
-  AmexIntraEea: "amex-intra-eea",
-  CarteBancaire: "carte-bancaire",
-  IntraEu: "intra-eu",
-  IntraEuCorporate: "intra-eu-corporate",
-  Domestic: "domestic",
-  Maestro: "maestro",
-  Other: "other",
-  Inter: "inter",
-  IntraEea: "intra_eea",
-} as const;
-/**
- * The applicable card fee region.
- */
-export type FeeRegion = ClosedEnum<typeof FeeRegion>;
-
-/**
- * A failure code to help understand why the payment failed.
- */
-export const FailureReason = {
-  AuthenticationAbandoned: "authentication_abandoned",
-  AuthenticationFailed: "authentication_failed",
-  AuthenticationRequired: "authentication_required",
-  AuthenticationUnavailableAcs: "authentication_unavailable_acs",
-  CardDeclined: "card_declined",
-  CardExpired: "card_expired",
-  InactiveCard: "inactive_card",
-  InsufficientFunds: "insufficient_funds",
-  InvalidCvv: "invalid_cvv",
-  InvalidCardHolderName: "invalid_card_holder_name",
-  InvalidCardNumber: "invalid_card_number",
-  InvalidCardType: "invalid_card_type",
-  PossibleFraud: "possible_fraud",
-  RefusedByIssuer: "refused_by_issuer",
-  UnknownReason: "unknown_reason",
-} as const;
-/**
- * A failure code to help understand why the payment failed.
- */
-export type FailureReason = ClosedEnum<typeof FailureReason>;
-
-/**
- * The wallet used when creating the payment.
- */
-export const Wallet = {
-  Applepay: "applepay",
-} as const;
-/**
- * The wallet used when creating the payment.
- */
-export type Wallet = ClosedEnum<typeof Wallet>;
-
-/**
- * Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
- *
- * @remarks
- * payments, and if the information is made available by PayPal.
- */
-export const SellerProtection = {
-  Eligible: "Eligible",
-  Ineligible: "Ineligible",
-  PartiallyEligibleINROnly: "Partially Eligible - INR Only",
-  PartiallyEligibleUnauthOnly: "Partially Eligible - Unauth Only",
-  PartiallyEligible: "Partially Eligible",
-  None: "None",
-  Active: "Active",
-  FraudControlUnauthPremiumEligible: "Fraud Control - Unauth Premium Eligible",
-} as const;
-/**
- * Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
- *
- * @remarks
- * payments, and if the information is made available by PayPal.
- */
-export type SellerProtection = ClosedEnum<typeof SellerProtection>;
-
-/**
- * The method by which the card was read by the terminal.
- */
-export const CardReadMethod = {
-  Chip: "chip",
-  MagneticStripe: "magnetic-stripe",
-  NearFieldCommunication: "near-field-communication",
-  Contactless: "contactless",
-  Moto: "moto",
-} as const;
-/**
- * The method by which the card was read by the terminal.
- */
-export type CardReadMethod = ClosedEnum<typeof CardReadMethod>;
-
-/**
- * The method used to verify the cardholder's identity.
- */
-export const CardVerificationMethod = {
-  NoCvmRequired: "no-cvm-required",
-  OnlinePin: "online-pin",
-  OfflinePin: "offline-pin",
-  ConsumerDevice: "consumer-device",
-  Signature: "signature",
-  SignatureAndOnlinePin: "signature-and-online-pin",
-  OnlinePinAndSignature: "online-pin-and-signature",
-  None: "none",
-  Failed: "failed",
-} as const;
-/**
- * The method used to verify the cardholder's identity.
- */
-export type CardVerificationMethod = ClosedEnum<typeof CardVerificationMethod>;
-
-/**
  * The Point of sale receipt object.
  */
 export type Receipt = {
@@ -423,11 +257,17 @@ export type Receipt = {
   /**
    * The method by which the card was read by the terminal.
    */
-  cardReadMethod?: CardReadMethod | null | undefined;
+  cardReadMethod?:
+    | PaymentDetailsReceiptCardReadMethodResponse
+    | null
+    | undefined;
   /**
    * The method used to verify the cardholder's identity.
    */
-  cardVerificationMethod?: CardVerificationMethod | null | undefined;
+  cardVerificationMethod?:
+    | PaymentDetailsReceiptCardVerificationMethodResponse
+    | null
+    | undefined;
 };
 
 /**
@@ -536,11 +376,11 @@ export type PaymentResponseDetails = {
   /**
    * The card's target audience, if known.
    */
-  cardAudition?: CardAudition | null | undefined;
+  cardAudition?: PaymentDetailsCardAuditionResponse | null | undefined;
   /**
    * The card's label, if known.
    */
-  cardLabel?: PaymentResponseCardLabel | null | undefined;
+  cardLabel?: PaymentDetailsCardLabelResponse | null | undefined;
   /**
    * The ISO 3166-1 alpha-2 country code of the country the card was issued in.
    */
@@ -552,15 +392,15 @@ export type PaymentResponseDetails = {
   /**
    * The card type.
    */
-  cardFunding?: CardFunding | null | undefined;
+  cardFunding?: PaymentDetailsCardFundingResponse | null | undefined;
   /**
    * The level of security applied during card processing.
    */
-  cardSecurity?: CardSecurity | null | undefined;
+  cardSecurity?: PaymentDetailsCardSecurityResponse | null | undefined;
   /**
    * The applicable card fee region.
    */
-  feeRegion?: FeeRegion | null | undefined;
+  feeRegion?: PaymentDetailsFeeRegionResponse | null | undefined;
   /**
    * The first 6 and last 4 digits of the card number.
    */
@@ -580,7 +420,7 @@ export type PaymentResponseDetails = {
   /**
    * A failure code to help understand why the payment failed.
    */
-  failureReason?: FailureReason | null | undefined;
+  failureReason?: PaymentDetailsFailureReasonResponse | null | undefined;
   /**
    * A human-friendly failure message that can be shown to the customer. The message is translated in accordance
    *
@@ -591,7 +431,7 @@ export type PaymentResponseDetails = {
   /**
    * The wallet used when creating the payment.
    */
-  wallet?: Wallet | null | undefined;
+  wallet?: PaymentDetailsWalletResponse | null | undefined;
   /**
    * PayPal's reference for the payment.
    */
@@ -606,7 +446,7 @@ export type PaymentResponseDetails = {
    * @remarks
    * payments, and if the information is made available by PayPal.
    */
-  sellerProtection?: SellerProtection | null | undefined;
+  sellerProtection?: PaymentDetailsSellerProtectionResponse | null | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -1017,7 +857,7 @@ export type PaymentResponse = {
    * @remarks
    * statuses occur at what point.
    */
-  status?: PaymentResponseStatus | undefined;
+  status?: PaymentStatus | undefined;
   /**
    * This object offers details about the status of a payment. Currently it is only available for point-of-sale
    *
@@ -1093,27 +933,6 @@ export type PaymentResponse = {
 };
 
 /** @internal */
-export const PaymentResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseType
-> = z.nativeEnum(PaymentResponseType);
-
-/** @internal */
-export const PaymentResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseType
-> = PaymentResponseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseType$ {
-  /** @deprecated use `PaymentResponseType$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseType$inboundSchema;
-  /** @deprecated use `PaymentResponseType$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseType$outboundSchema;
-}
-
-/** @internal */
 export const PaymentResponseCategory$inboundSchema: z.ZodNativeEnum<
   typeof PaymentResponseCategory
 > = z.nativeEnum(PaymentResponseCategory);
@@ -1140,7 +959,7 @@ export const PaymentResponseLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: PaymentResponseType$inboundSchema.optional(),
+  type: PaymentLineTypeResponse$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -1180,7 +999,7 @@ export const PaymentResponseLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentResponseLine
 > = z.object({
-  type: PaymentResponseType$outboundSchema.optional(),
+  type: PaymentLineTypeResponse$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -1287,234 +1106,16 @@ export function paymentResponseApplicationFeeFromJSON(
 }
 
 /** @internal */
-export const PaymentResponseStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseStatus
-> = z.nativeEnum(PaymentResponseStatus);
-
-/** @internal */
-export const PaymentResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseStatus
-> = PaymentResponseStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseStatus$ {
-  /** @deprecated use `PaymentResponseStatus$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseStatus$inboundSchema;
-  /** @deprecated use `PaymentResponseStatus$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseStatus$outboundSchema;
-}
-
-/** @internal */
-export const CardAudition$inboundSchema: z.ZodNativeEnum<typeof CardAudition> =
-  z.nativeEnum(CardAudition);
-
-/** @internal */
-export const CardAudition$outboundSchema: z.ZodNativeEnum<typeof CardAudition> =
-  CardAudition$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardAudition$ {
-  /** @deprecated use `CardAudition$inboundSchema` instead. */
-  export const inboundSchema = CardAudition$inboundSchema;
-  /** @deprecated use `CardAudition$outboundSchema` instead. */
-  export const outboundSchema = CardAudition$outboundSchema;
-}
-
-/** @internal */
-export const PaymentResponseCardLabel$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseCardLabel
-> = z.nativeEnum(PaymentResponseCardLabel);
-
-/** @internal */
-export const PaymentResponseCardLabel$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseCardLabel
-> = PaymentResponseCardLabel$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseCardLabel$ {
-  /** @deprecated use `PaymentResponseCardLabel$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseCardLabel$inboundSchema;
-  /** @deprecated use `PaymentResponseCardLabel$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseCardLabel$outboundSchema;
-}
-
-/** @internal */
-export const CardFunding$inboundSchema: z.ZodNativeEnum<typeof CardFunding> = z
-  .nativeEnum(CardFunding);
-
-/** @internal */
-export const CardFunding$outboundSchema: z.ZodNativeEnum<typeof CardFunding> =
-  CardFunding$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardFunding$ {
-  /** @deprecated use `CardFunding$inboundSchema` instead. */
-  export const inboundSchema = CardFunding$inboundSchema;
-  /** @deprecated use `CardFunding$outboundSchema` instead. */
-  export const outboundSchema = CardFunding$outboundSchema;
-}
-
-/** @internal */
-export const CardSecurity$inboundSchema: z.ZodNativeEnum<typeof CardSecurity> =
-  z.nativeEnum(CardSecurity);
-
-/** @internal */
-export const CardSecurity$outboundSchema: z.ZodNativeEnum<typeof CardSecurity> =
-  CardSecurity$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardSecurity$ {
-  /** @deprecated use `CardSecurity$inboundSchema` instead. */
-  export const inboundSchema = CardSecurity$inboundSchema;
-  /** @deprecated use `CardSecurity$outboundSchema` instead. */
-  export const outboundSchema = CardSecurity$outboundSchema;
-}
-
-/** @internal */
-export const FeeRegion$inboundSchema: z.ZodNativeEnum<typeof FeeRegion> = z
-  .nativeEnum(FeeRegion);
-
-/** @internal */
-export const FeeRegion$outboundSchema: z.ZodNativeEnum<typeof FeeRegion> =
-  FeeRegion$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FeeRegion$ {
-  /** @deprecated use `FeeRegion$inboundSchema` instead. */
-  export const inboundSchema = FeeRegion$inboundSchema;
-  /** @deprecated use `FeeRegion$outboundSchema` instead. */
-  export const outboundSchema = FeeRegion$outboundSchema;
-}
-
-/** @internal */
-export const FailureReason$inboundSchema: z.ZodNativeEnum<
-  typeof FailureReason
-> = z.nativeEnum(FailureReason);
-
-/** @internal */
-export const FailureReason$outboundSchema: z.ZodNativeEnum<
-  typeof FailureReason
-> = FailureReason$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FailureReason$ {
-  /** @deprecated use `FailureReason$inboundSchema` instead. */
-  export const inboundSchema = FailureReason$inboundSchema;
-  /** @deprecated use `FailureReason$outboundSchema` instead. */
-  export const outboundSchema = FailureReason$outboundSchema;
-}
-
-/** @internal */
-export const Wallet$inboundSchema: z.ZodNativeEnum<typeof Wallet> = z
-  .nativeEnum(Wallet);
-
-/** @internal */
-export const Wallet$outboundSchema: z.ZodNativeEnum<typeof Wallet> =
-  Wallet$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Wallet$ {
-  /** @deprecated use `Wallet$inboundSchema` instead. */
-  export const inboundSchema = Wallet$inboundSchema;
-  /** @deprecated use `Wallet$outboundSchema` instead. */
-  export const outboundSchema = Wallet$outboundSchema;
-}
-
-/** @internal */
-export const SellerProtection$inboundSchema: z.ZodNativeEnum<
-  typeof SellerProtection
-> = z.nativeEnum(SellerProtection);
-
-/** @internal */
-export const SellerProtection$outboundSchema: z.ZodNativeEnum<
-  typeof SellerProtection
-> = SellerProtection$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SellerProtection$ {
-  /** @deprecated use `SellerProtection$inboundSchema` instead. */
-  export const inboundSchema = SellerProtection$inboundSchema;
-  /** @deprecated use `SellerProtection$outboundSchema` instead. */
-  export const outboundSchema = SellerProtection$outboundSchema;
-}
-
-/** @internal */
-export const CardReadMethod$inboundSchema: z.ZodNativeEnum<
-  typeof CardReadMethod
-> = z.nativeEnum(CardReadMethod);
-
-/** @internal */
-export const CardReadMethod$outboundSchema: z.ZodNativeEnum<
-  typeof CardReadMethod
-> = CardReadMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardReadMethod$ {
-  /** @deprecated use `CardReadMethod$inboundSchema` instead. */
-  export const inboundSchema = CardReadMethod$inboundSchema;
-  /** @deprecated use `CardReadMethod$outboundSchema` instead. */
-  export const outboundSchema = CardReadMethod$outboundSchema;
-}
-
-/** @internal */
-export const CardVerificationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof CardVerificationMethod
-> = z.nativeEnum(CardVerificationMethod);
-
-/** @internal */
-export const CardVerificationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof CardVerificationMethod
-> = CardVerificationMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardVerificationMethod$ {
-  /** @deprecated use `CardVerificationMethod$inboundSchema` instead. */
-  export const inboundSchema = CardVerificationMethod$inboundSchema;
-  /** @deprecated use `CardVerificationMethod$outboundSchema` instead. */
-  export const outboundSchema = CardVerificationMethod$outboundSchema;
-}
-
-/** @internal */
 export const Receipt$inboundSchema: z.ZodType<Receipt, z.ZodTypeDef, unknown> =
   z.object({
     authorizationCode: z.nullable(z.string()).optional(),
     applicationIdentifier: z.nullable(z.string()).optional(),
-    cardReadMethod: z.nullable(CardReadMethod$inboundSchema).optional(),
-    cardVerificationMethod: z.nullable(CardVerificationMethod$inboundSchema)
-      .optional(),
+    cardReadMethod: z.nullable(
+      PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
+    ).optional(),
+    cardVerificationMethod: z.nullable(
+      PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
+    ).optional(),
   });
 
 /** @internal */
@@ -1533,9 +1134,12 @@ export const Receipt$outboundSchema: z.ZodType<
 > = z.object({
   authorizationCode: z.nullable(z.string()).optional(),
   applicationIdentifier: z.nullable(z.string()).optional(),
-  cardReadMethod: z.nullable(CardReadMethod$outboundSchema).optional(),
-  cardVerificationMethod: z.nullable(CardVerificationMethod$outboundSchema)
-    .optional(),
+  cardReadMethod: z.nullable(
+    PaymentDetailsReceiptCardReadMethodResponse$outboundSchema,
+  ).optional(),
+  cardVerificationMethod: z.nullable(
+    PaymentDetailsReceiptCardVerificationMethodResponse$outboundSchema,
+  ).optional(),
 });
 
 /**
@@ -1635,23 +1239,31 @@ export const PaymentResponseDetails$inboundSchema: z.ZodType<
   transferReference: z.nullable(z.string()).optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
   cardHolder: z.nullable(z.string()).optional(),
-  cardAudition: z.nullable(CardAudition$inboundSchema).optional(),
-  cardLabel: z.nullable(PaymentResponseCardLabel$inboundSchema).optional(),
+  cardAudition: z.nullable(PaymentDetailsCardAuditionResponse$inboundSchema)
+    .optional(),
+  cardLabel: z.nullable(PaymentDetailsCardLabelResponse$inboundSchema)
+    .optional(),
   cardCountryCode: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardFunding: z.nullable(CardFunding$inboundSchema).optional(),
-  cardSecurity: z.nullable(CardSecurity$inboundSchema).optional(),
-  feeRegion: z.nullable(FeeRegion$inboundSchema).optional(),
+  cardFunding: z.nullable(PaymentDetailsCardFundingResponse$inboundSchema)
+    .optional(),
+  cardSecurity: z.nullable(PaymentDetailsCardSecurityResponse$inboundSchema)
+    .optional(),
+  feeRegion: z.nullable(PaymentDetailsFeeRegionResponse$inboundSchema)
+    .optional(),
   cardMaskedNumber: z.nullable(z.string()).optional(),
   card3dsEci: z.nullable(z.string()).optional(),
   cardBin: z.nullable(z.string()).optional(),
   cardIssuer: z.nullable(z.string()).optional(),
-  failureReason: z.nullable(FailureReason$inboundSchema).optional(),
+  failureReason: z.nullable(PaymentDetailsFailureReasonResponse$inboundSchema)
+    .optional(),
   failureMessage: z.nullable(z.string()).optional(),
-  wallet: z.nullable(Wallet$inboundSchema).optional(),
+  wallet: z.nullable(PaymentDetailsWalletResponse$inboundSchema).optional(),
   paypalReference: z.nullable(z.string()).optional(),
   paypalPayerId: z.nullable(z.string()).optional(),
-  sellerProtection: z.nullable(SellerProtection$inboundSchema).optional(),
+  sellerProtection: z.nullable(
+    PaymentDetailsSellerProtectionResponse$inboundSchema,
+  ).optional(),
   paypalFee: z.nullable(AmountNullable$inboundSchema).optional(),
   customerReference: z.string().optional(),
   terminalId: z.string().optional(),
@@ -1748,23 +1360,31 @@ export const PaymentResponseDetails$outboundSchema: z.ZodType<
   transferReference: z.nullable(z.string()).optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
   cardHolder: z.nullable(z.string()).optional(),
-  cardAudition: z.nullable(CardAudition$outboundSchema).optional(),
-  cardLabel: z.nullable(PaymentResponseCardLabel$outboundSchema).optional(),
+  cardAudition: z.nullable(PaymentDetailsCardAuditionResponse$outboundSchema)
+    .optional(),
+  cardLabel: z.nullable(PaymentDetailsCardLabelResponse$outboundSchema)
+    .optional(),
   cardCountryCode: z.nullable(z.string()).optional(),
   cardExpiryDate: z.nullable(z.string()).optional(),
-  cardFunding: z.nullable(CardFunding$outboundSchema).optional(),
-  cardSecurity: z.nullable(CardSecurity$outboundSchema).optional(),
-  feeRegion: z.nullable(FeeRegion$outboundSchema).optional(),
+  cardFunding: z.nullable(PaymentDetailsCardFundingResponse$outboundSchema)
+    .optional(),
+  cardSecurity: z.nullable(PaymentDetailsCardSecurityResponse$outboundSchema)
+    .optional(),
+  feeRegion: z.nullable(PaymentDetailsFeeRegionResponse$outboundSchema)
+    .optional(),
   cardMaskedNumber: z.nullable(z.string()).optional(),
   card3dsEci: z.nullable(z.string()).optional(),
   cardBin: z.nullable(z.string()).optional(),
   cardIssuer: z.nullable(z.string()).optional(),
-  failureReason: z.nullable(FailureReason$outboundSchema).optional(),
+  failureReason: z.nullable(PaymentDetailsFailureReasonResponse$outboundSchema)
+    .optional(),
   failureMessage: z.nullable(z.string()).optional(),
-  wallet: z.nullable(Wallet$outboundSchema).optional(),
+  wallet: z.nullable(PaymentDetailsWalletResponse$outboundSchema).optional(),
   paypalReference: z.nullable(z.string()).optional(),
   paypalPayerId: z.nullable(z.string()).optional(),
-  sellerProtection: z.nullable(SellerProtection$outboundSchema).optional(),
+  sellerProtection: z.nullable(
+    PaymentDetailsSellerProtectionResponse$outboundSchema,
+  ).optional(),
   paypalFee: z.nullable(AmountNullable$outboundSchema).optional(),
   customerReference: z.string().optional(),
   terminalId: z.string().optional(),
@@ -1967,7 +1587,7 @@ export const PaymentResponse$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   settlementId: z.string().optional(),
   orderId: z.string().optional(),
-  status: PaymentResponseStatus$inboundSchema.optional(),
+  status: PaymentStatus$inboundSchema.optional(),
   statusReason: z.nullable(StatusReason$inboundSchema).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
   details: z.nullable(z.lazy(() => PaymentResponseDetails$inboundSchema))
@@ -2078,7 +1698,7 @@ export const PaymentResponse$outboundSchema: z.ZodType<
   profileId: z.string().optional(),
   settlementId: z.string().optional(),
   orderId: z.string().optional(),
-  status: PaymentResponseStatus$outboundSchema.optional(),
+  status: PaymentStatus$outboundSchema.optional(),
   statusReason: z.nullable(StatusReason$outboundSchema).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
   details: z.nullable(z.lazy(() => PaymentResponseDetails$outboundSchema))

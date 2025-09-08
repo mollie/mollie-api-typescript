@@ -4,50 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The type of recipient, either `consumer` or `business`. This will determine what further fields are
- *
- * @remarks
- * required on the `recipient` object.
- */
-export const SalesInvoiceRecipientResponseType = {
-  Consumer: "consumer",
-  Business: "business",
-} as const;
-/**
- * The type of recipient, either `consumer` or `business`. This will determine what further fields are
- *
- * @remarks
- * required on the `recipient` object.
- */
-export type SalesInvoiceRecipientResponseType = ClosedEnum<
-  typeof SalesInvoiceRecipientResponseType
->;
-
-/**
- * The locale for the recipient, to be used for translations in PDF generation and payment pages.
- */
-export const SalesInvoiceRecipientResponseLocale = {
-  EnUS: "en_US",
-  EnGB: "en_GB",
-  NLNL: "nl_NL",
-  NlBE: "nl_BE",
-  DEDE: "de_DE",
-  DeAT: "de_AT",
-  DeCH: "de_CH",
-  FRFR: "fr_FR",
-  FrBE: "fr_BE",
-} as const;
-/**
- * The locale for the recipient, to be used for translations in PDF generation and payment pages.
- */
-export type SalesInvoiceRecipientResponseLocale = ClosedEnum<
-  typeof SalesInvoiceRecipientResponseLocale
->;
+import {
+  SalesInvoiceRecipientLocaleResponse,
+  SalesInvoiceRecipientLocaleResponse$inboundSchema,
+  SalesInvoiceRecipientLocaleResponse$outboundSchema,
+} from "./salesinvoicerecipientlocaleresponse.js";
+import {
+  SalesInvoiceRecipientTypeResponse,
+  SalesInvoiceRecipientTypeResponse$inboundSchema,
+  SalesInvoiceRecipientTypeResponse$outboundSchema,
+} from "./salesinvoicerecipienttyperesponse.js";
 
 export type SalesInvoiceRecipientResponse = {
   /**
@@ -56,7 +24,7 @@ export type SalesInvoiceRecipientResponse = {
    * @remarks
    * required on the `recipient` object.
    */
-  type: SalesInvoiceRecipientResponseType;
+  type: SalesInvoiceRecipientTypeResponse;
   /**
    * The title of the `consumer` type recipient, for example Mr. or Mrs..
    */
@@ -128,53 +96,8 @@ export type SalesInvoiceRecipientResponse = {
   /**
    * The locale for the recipient, to be used for translations in PDF generation and payment pages.
    */
-  locale: SalesInvoiceRecipientResponseLocale;
+  locale: SalesInvoiceRecipientLocaleResponse;
 };
-
-/** @internal */
-export const SalesInvoiceRecipientResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientResponseType
-> = z.nativeEnum(SalesInvoiceRecipientResponseType);
-
-/** @internal */
-export const SalesInvoiceRecipientResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientResponseType
-> = SalesInvoiceRecipientResponseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceRecipientResponseType$ {
-  /** @deprecated use `SalesInvoiceRecipientResponseType$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceRecipientResponseType$inboundSchema;
-  /** @deprecated use `SalesInvoiceRecipientResponseType$outboundSchema` instead. */
-  export const outboundSchema =
-    SalesInvoiceRecipientResponseType$outboundSchema;
-}
-
-/** @internal */
-export const SalesInvoiceRecipientResponseLocale$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientResponseLocale
-> = z.nativeEnum(SalesInvoiceRecipientResponseLocale);
-
-/** @internal */
-export const SalesInvoiceRecipientResponseLocale$outboundSchema:
-  z.ZodNativeEnum<typeof SalesInvoiceRecipientResponseLocale> =
-    SalesInvoiceRecipientResponseLocale$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceRecipientResponseLocale$ {
-  /** @deprecated use `SalesInvoiceRecipientResponseLocale$inboundSchema` instead. */
-  export const inboundSchema =
-    SalesInvoiceRecipientResponseLocale$inboundSchema;
-  /** @deprecated use `SalesInvoiceRecipientResponseLocale$outboundSchema` instead. */
-  export const outboundSchema =
-    SalesInvoiceRecipientResponseLocale$outboundSchema;
-}
 
 /** @internal */
 export const SalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
@@ -182,7 +105,7 @@ export const SalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SalesInvoiceRecipientResponseType$inboundSchema,
+  type: SalesInvoiceRecipientTypeResponse$inboundSchema,
   title: z.nullable(z.string()).optional(),
   givenName: z.nullable(z.string()).optional(),
   familyName: z.nullable(z.string()).optional(),
@@ -197,7 +120,7 @@ export const SalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
   city: z.string(),
   region: z.nullable(z.string()).optional(),
   country: z.string(),
-  locale: SalesInvoiceRecipientResponseLocale$inboundSchema,
+  locale: SalesInvoiceRecipientLocaleResponse$inboundSchema,
 });
 
 /** @internal */
@@ -226,7 +149,7 @@ export const SalesInvoiceRecipientResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SalesInvoiceRecipientResponse
 > = z.object({
-  type: SalesInvoiceRecipientResponseType$outboundSchema,
+  type: SalesInvoiceRecipientTypeResponse$outboundSchema,
   title: z.nullable(z.string()).optional(),
   givenName: z.nullable(z.string()).optional(),
   familyName: z.nullable(z.string()).optional(),
@@ -241,7 +164,7 @@ export const SalesInvoiceRecipientResponse$outboundSchema: z.ZodType<
   city: z.string(),
   region: z.nullable(z.string()).optional(),
   country: z.string(),
-  locale: SalesInvoiceRecipientResponseLocale$outboundSchema,
+  locale: SalesInvoiceRecipientLocaleResponse$outboundSchema,
 });
 
 /**

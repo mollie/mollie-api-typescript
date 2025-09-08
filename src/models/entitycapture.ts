@@ -11,6 +11,11 @@ import {
   AmountNullable$Outbound,
   AmountNullable$outboundSchema,
 } from "./amountnullable.js";
+import {
+  CaptureStatus,
+  CaptureStatus$inboundSchema,
+  CaptureStatus$outboundSchema,
+} from "./capturestatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Metadata,
@@ -34,6 +39,10 @@ export type EntityCapture = {
    */
   settlementAmount?: AmountNullable | null | undefined;
   /**
+   * The capture's status.
+   */
+  status?: CaptureStatus | undefined;
+  /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
@@ -55,6 +64,7 @@ export const EntityCapture$inboundSchema: z.ZodType<
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$inboundSchema).optional(),
   settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
+  status: CaptureStatus$inboundSchema.optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   paymentId: z.string().optional(),
   shipmentId: z.string().optional(),
@@ -67,6 +77,7 @@ export type EntityCapture$Outbound = {
   description?: string | undefined;
   amount?: AmountNullable$Outbound | null | undefined;
   settlementAmount?: AmountNullable$Outbound | null | undefined;
+  status?: string | undefined;
   metadata?: Metadata$Outbound | null | undefined;
   paymentId?: string | undefined;
   shipmentId?: string | undefined;
@@ -83,6 +94,7 @@ export const EntityCapture$outboundSchema: z.ZodType<
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$outboundSchema).optional(),
   settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
+  status: CaptureStatus$outboundSchema.optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   paymentId: z.string().optional(),
   shipmentId: z.string().optional(),

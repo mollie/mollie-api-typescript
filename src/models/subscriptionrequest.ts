@@ -4,7 +4,6 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -19,21 +18,16 @@ import {
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
-
-/**
- * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
- */
-export const SubscriptionRequestMethod = {
-  Creditcard: "creditcard",
-  Directdebit: "directdebit",
-  Paypal: "paypal",
-} as const;
-/**
- * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
- */
-export type SubscriptionRequestMethod = ClosedEnum<
-  typeof SubscriptionRequestMethod
->;
+import {
+  SubscriptionMethod,
+  SubscriptionMethod$inboundSchema,
+  SubscriptionMethod$outboundSchema,
+} from "./subscriptionmethod.js";
+import {
+  SubscriptionStatus,
+  SubscriptionStatus$inboundSchema,
+  SubscriptionStatus$outboundSchema,
+} from "./subscriptionstatus.js";
 
 /**
  * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
@@ -56,6 +50,13 @@ export type SubscriptionRequestApplicationFee = {
 
 export type SubscriptionRequest = {
   id?: string | undefined;
+  /**
+   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+   *
+   * @remarks
+   * enabling the subscription.
+   */
+  status?: SubscriptionStatus | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -95,7 +96,7 @@ export type SubscriptionRequest = {
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
    */
-  method?: SubscriptionRequestMethod | null | undefined;
+  method?: SubscriptionMethod | null | undefined;
   /**
    * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
@@ -137,27 +138,6 @@ export type SubscriptionRequest = {
    */
   testmode?: boolean | null | undefined;
 };
-
-/** @internal */
-export const SubscriptionRequestMethod$inboundSchema: z.ZodNativeEnum<
-  typeof SubscriptionRequestMethod
-> = z.nativeEnum(SubscriptionRequestMethod);
-
-/** @internal */
-export const SubscriptionRequestMethod$outboundSchema: z.ZodNativeEnum<
-  typeof SubscriptionRequestMethod
-> = SubscriptionRequestMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionRequestMethod$ {
-  /** @deprecated use `SubscriptionRequestMethod$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionRequestMethod$inboundSchema;
-  /** @deprecated use `SubscriptionRequestMethod$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionRequestMethod$outboundSchema;
-}
 
 /** @internal */
 export const SubscriptionRequestApplicationFee$inboundSchema: z.ZodType<
@@ -226,12 +206,13 @@ export const SubscriptionRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
+  status: SubscriptionStatus$inboundSchema.optional(),
   amount: Amount$inboundSchema.optional(),
   times: z.nullable(z.number().int()).optional(),
   interval: z.string().optional(),
   startDate: z.string().optional(),
   description: z.string().optional(),
-  method: z.nullable(SubscriptionRequestMethod$inboundSchema).optional(),
+  method: z.nullable(SubscriptionMethod$inboundSchema).optional(),
   applicationFee: z.lazy(() => SubscriptionRequestApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
@@ -244,6 +225,7 @@ export const SubscriptionRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type SubscriptionRequest$Outbound = {
   id?: string | undefined;
+  status?: string | undefined;
   amount?: Amount$Outbound | undefined;
   times?: number | null | undefined;
   interval?: string | undefined;
@@ -265,12 +247,13 @@ export const SubscriptionRequest$outboundSchema: z.ZodType<
   SubscriptionRequest
 > = z.object({
   id: z.string().optional(),
+  status: SubscriptionStatus$outboundSchema.optional(),
   amount: Amount$outboundSchema.optional(),
   times: z.nullable(z.number().int()).optional(),
   interval: z.string().optional(),
   startDate: z.string().optional(),
   description: z.string().optional(),
-  method: z.nullable(SubscriptionRequestMethod$outboundSchema).optional(),
+  method: z.nullable(SubscriptionMethod$outboundSchema).optional(),
   applicationFee: z.lazy(() => SubscriptionRequestApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),

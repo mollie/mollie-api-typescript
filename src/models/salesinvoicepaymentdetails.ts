@@ -4,24 +4,13 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The way through which the invoice is to be set to paid.
- */
-export const SalesInvoicePaymentDetailsSource = {
-  Manual: "manual",
-  PaymentLink: "payment-link",
-  Payment: "payment",
-} as const;
-/**
- * The way through which the invoice is to be set to paid.
- */
-export type SalesInvoicePaymentDetailsSource = ClosedEnum<
-  typeof SalesInvoicePaymentDetailsSource
->;
+import {
+  SalesInvoicePaymentDetailsSource,
+  SalesInvoicePaymentDetailsSource$inboundSchema,
+  SalesInvoicePaymentDetailsSource$outboundSchema,
+} from "./salesinvoicepaymentdetailssource.js";
 
 export type SalesInvoicePaymentDetails = {
   /**
@@ -36,27 +25,6 @@ export type SalesInvoicePaymentDetails = {
    */
   sourceReference?: string | null | undefined;
 };
-
-/** @internal */
-export const SalesInvoicePaymentDetailsSource$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoicePaymentDetailsSource
-> = z.nativeEnum(SalesInvoicePaymentDetailsSource);
-
-/** @internal */
-export const SalesInvoicePaymentDetailsSource$outboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoicePaymentDetailsSource
-> = SalesInvoicePaymentDetailsSource$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoicePaymentDetailsSource$ {
-  /** @deprecated use `SalesInvoicePaymentDetailsSource$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoicePaymentDetailsSource$inboundSchema;
-  /** @deprecated use `SalesInvoicePaymentDetailsSource$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoicePaymentDetailsSource$outboundSchema;
-}
 
 /** @internal */
 export const SalesInvoicePaymentDetails$inboundSchema: z.ZodType<

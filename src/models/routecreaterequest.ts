@@ -4,7 +4,6 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -13,17 +12,11 @@ import {
   Amount$outboundSchema,
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export const RouteCreateRequestType = {
-  Organization: "organization",
-} as const;
-/**
- * The type of destination. Currently only the destination type `organization` is supported.
- */
-export type RouteCreateRequestType = ClosedEnum<typeof RouteCreateRequestType>;
+import {
+  RouteDestinationType,
+  RouteDestinationType$inboundSchema,
+  RouteDestinationType$outboundSchema,
+} from "./routedestinationtype.js";
 
 /**
  * The destination of the route.
@@ -32,7 +25,7 @@ export type RouteCreateRequestDestination = {
   /**
    * The type of destination. Currently only the destination type `organization` is supported.
    */
-  type: RouteCreateRequestType;
+  type: RouteDestinationType;
   organizationId: string;
 };
 
@@ -64,33 +57,12 @@ export type RouteCreateRequest = {
 };
 
 /** @internal */
-export const RouteCreateRequestType$inboundSchema: z.ZodNativeEnum<
-  typeof RouteCreateRequestType
-> = z.nativeEnum(RouteCreateRequestType);
-
-/** @internal */
-export const RouteCreateRequestType$outboundSchema: z.ZodNativeEnum<
-  typeof RouteCreateRequestType
-> = RouteCreateRequestType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteCreateRequestType$ {
-  /** @deprecated use `RouteCreateRequestType$inboundSchema` instead. */
-  export const inboundSchema = RouteCreateRequestType$inboundSchema;
-  /** @deprecated use `RouteCreateRequestType$outboundSchema` instead. */
-  export const outboundSchema = RouteCreateRequestType$outboundSchema;
-}
-
-/** @internal */
 export const RouteCreateRequestDestination$inboundSchema: z.ZodType<
   RouteCreateRequestDestination,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RouteCreateRequestType$inboundSchema,
+  type: RouteDestinationType$inboundSchema,
   organizationId: z.string(),
 });
 
@@ -106,7 +78,7 @@ export const RouteCreateRequestDestination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RouteCreateRequestDestination
 > = z.object({
-  type: RouteCreateRequestType$outboundSchema,
+  type: RouteDestinationType$outboundSchema,
   organizationId: z.string(),
 });
 

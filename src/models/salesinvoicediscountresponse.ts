@@ -4,29 +4,19 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The type of discount.
- */
-export const SalesInvoiceDiscountResponseType = {
-  Amount: "amount",
-  Percentage: "percentage",
-} as const;
-/**
- * The type of discount.
- */
-export type SalesInvoiceDiscountResponseType = ClosedEnum<
-  typeof SalesInvoiceDiscountResponseType
->;
+import {
+  SalesInvoiceDiscountTypeResponse,
+  SalesInvoiceDiscountTypeResponse$inboundSchema,
+  SalesInvoiceDiscountTypeResponse$outboundSchema,
+} from "./salesinvoicediscounttyperesponse.js";
 
 export type SalesInvoiceDiscountResponse = {
   /**
    * The type of discount.
    */
-  type: SalesInvoiceDiscountResponseType;
+  type: SalesInvoiceDiscountTypeResponse;
   /**
    * A string containing an exact monetary amount in the given currency, or the percentage.
    */
@@ -34,33 +24,12 @@ export type SalesInvoiceDiscountResponse = {
 };
 
 /** @internal */
-export const SalesInvoiceDiscountResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceDiscountResponseType
-> = z.nativeEnum(SalesInvoiceDiscountResponseType);
-
-/** @internal */
-export const SalesInvoiceDiscountResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceDiscountResponseType
-> = SalesInvoiceDiscountResponseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceDiscountResponseType$ {
-  /** @deprecated use `SalesInvoiceDiscountResponseType$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceDiscountResponseType$inboundSchema;
-  /** @deprecated use `SalesInvoiceDiscountResponseType$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceDiscountResponseType$outboundSchema;
-}
-
-/** @internal */
 export const SalesInvoiceDiscountResponse$inboundSchema: z.ZodType<
   SalesInvoiceDiscountResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SalesInvoiceDiscountResponseType$inboundSchema,
+  type: SalesInvoiceDiscountTypeResponse$inboundSchema,
   value: z.string(),
 });
 
@@ -76,7 +45,7 @@ export const SalesInvoiceDiscountResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SalesInvoiceDiscountResponse
 > = z.object({
-  type: SalesInvoiceDiscountResponseType$outboundSchema,
+  type: SalesInvoiceDiscountTypeResponse$outboundSchema,
   value: z.string(),
 });
 

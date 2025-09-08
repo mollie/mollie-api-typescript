@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
@@ -20,20 +19,11 @@ import {
   WebhookEventTypes$inboundSchema,
   WebhookEventTypes$outboundSchema,
 } from "./webhookeventtypes.js";
-
-/**
- * The subscription's current status.
- */
-export const EntityWebhookStatus = {
-  Enabled: "enabled",
-  Blocked: "blocked",
-  Disabled: "disabled",
-  Deleted: "deleted",
-} as const;
-/**
- * The subscription's current status.
- */
-export type EntityWebhookStatus = ClosedEnum<typeof EntityWebhookStatus>;
+import {
+  WebhookStatus,
+  WebhookStatus$inboundSchema,
+  WebhookStatus$outboundSchema,
+} from "./webhookstatus.js";
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -80,7 +70,7 @@ export type EntityWebhook = {
   /**
    * The subscription's current status.
    */
-  status: EntityWebhookStatus;
+  status: WebhookStatus;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
@@ -90,27 +80,6 @@ export type EntityWebhook = {
    */
   links: EntityWebhookLinks;
 };
-
-/** @internal */
-export const EntityWebhookStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityWebhookStatus
-> = z.nativeEnum(EntityWebhookStatus);
-
-/** @internal */
-export const EntityWebhookStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityWebhookStatus
-> = EntityWebhookStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityWebhookStatus$ {
-  /** @deprecated use `EntityWebhookStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityWebhookStatus$inboundSchema;
-  /** @deprecated use `EntityWebhookStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityWebhookStatus$outboundSchema;
-}
 
 /** @internal */
 export const EntityWebhookLinks$inboundSchema: z.ZodType<
@@ -179,7 +148,7 @@ export const EntityWebhook$inboundSchema: z.ZodType<
   createdAt: z.string(),
   name: z.string(),
   eventTypes: z.array(WebhookEventTypes$inboundSchema),
-  status: EntityWebhookStatus$inboundSchema,
+  status: WebhookStatus$inboundSchema,
   mode: Mode$inboundSchema,
   _links: z.lazy(() => EntityWebhookLinks$inboundSchema),
 }).transform((v) => {
@@ -215,7 +184,7 @@ export const EntityWebhook$outboundSchema: z.ZodType<
   createdAt: z.string(),
   name: z.string(),
   eventTypes: z.array(WebhookEventTypes$outboundSchema),
-  status: EntityWebhookStatus$outboundSchema,
+  status: WebhookStatus$outboundSchema,
   mode: Mode$outboundSchema,
   links: z.lazy(() => EntityWebhookLinks$outboundSchema),
 }).transform((v) => {

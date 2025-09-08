@@ -5,30 +5,13 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CapabilityRequirementStatus,
+  CapabilityRequirementStatus$inboundSchema,
+  CapabilityRequirementStatus$outboundSchema,
+} from "./capabilityrequirementstatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The status of the requirement depends on its due date.
- *
- * @remarks
- * If no due date is given, the status will be `requested`.
- */
-export const EntityCapabilityRequirementStatus = {
-  CurrentlyDue: "currently-due",
-  PastDue: "past-due",
-  Requested: "requested",
-} as const;
-/**
- * The status of the requirement depends on its due date.
- *
- * @remarks
- * If no due date is given, the status will be `requested`.
- */
-export type EntityCapabilityRequirementStatus = ClosedEnum<
-  typeof EntityCapabilityRequirementStatus
->;
 
 /**
  * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
@@ -72,35 +55,13 @@ export type EntityCapabilityRequirement = {
    * @remarks
    * If no due date is given, the status will be `requested`.
    */
-  status?: EntityCapabilityRequirementStatus | undefined;
+  status?: CapabilityRequirementStatus | undefined;
   /**
    * Due date until the requirement must be fulfilled, if any. The date is shown in ISO-8601 format.
    */
   dueDate?: string | null | undefined;
   links?: EntityCapabilityRequirementLinks | undefined;
 };
-
-/** @internal */
-export const EntityCapabilityRequirementStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EntityCapabilityRequirementStatus
-> = z.nativeEnum(EntityCapabilityRequirementStatus);
-
-/** @internal */
-export const EntityCapabilityRequirementStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EntityCapabilityRequirementStatus
-> = EntityCapabilityRequirementStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityCapabilityRequirementStatus$ {
-  /** @deprecated use `EntityCapabilityRequirementStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityCapabilityRequirementStatus$inboundSchema;
-  /** @deprecated use `EntityCapabilityRequirementStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    EntityCapabilityRequirementStatus$outboundSchema;
-}
 
 /** @internal */
 export const Dashboard$inboundSchema: z.ZodType<
@@ -218,7 +179,7 @@ export const EntityCapabilityRequirement$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  status: EntityCapabilityRequirementStatus$inboundSchema.optional(),
+  status: CapabilityRequirementStatus$inboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   _links: z.lazy(() => EntityCapabilityRequirementLinks$inboundSchema)
     .optional(),
@@ -243,7 +204,7 @@ export const EntityCapabilityRequirement$outboundSchema: z.ZodType<
   EntityCapabilityRequirement
 > = z.object({
   id: z.string().optional(),
-  status: EntityCapabilityRequirementStatus$outboundSchema.optional(),
+  status: CapabilityRequirementStatus$outboundSchema.optional(),
   dueDate: z.nullable(z.string()).optional(),
   links: z.lazy(() => EntityCapabilityRequirementLinks$outboundSchema)
     .optional(),

@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Address,
@@ -20,34 +19,16 @@ import {
   LocaleResponse$outboundSchema,
 } from "./localeresponse.js";
 import {
+  OrganizationVatRegulation,
+  OrganizationVatRegulation$inboundSchema,
+  OrganizationVatRegulation$outboundSchema,
+} from "./organizationvatregulation.js";
+import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
- *
- * @remarks
- * Kingdom, and shifted VAT for merchants in the European Union.
- *
- * The field is not present for merchants residing in other countries.
- */
-export const VatRegulation = {
-  Dutch: "dutch",
-  British: "british",
-  Shifted: "shifted",
-} as const;
-/**
- * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
- *
- * @remarks
- * Kingdom, and shifted VAT for merchants in the European Union.
- *
- * The field is not present for merchants residing in other countries.
- */
-export type VatRegulation = ClosedEnum<typeof VatRegulation>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -113,33 +94,12 @@ export type EntityOrganization = {
    *
    * The field is not present for merchants residing in other countries.
    */
-  vatRegulation?: VatRegulation | null | undefined;
+  vatRegulation?: OrganizationVatRegulation | null | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links?: EntityOrganizationLinks | undefined;
 };
-
-/** @internal */
-export const VatRegulation$inboundSchema: z.ZodNativeEnum<
-  typeof VatRegulation
-> = z.nativeEnum(VatRegulation);
-
-/** @internal */
-export const VatRegulation$outboundSchema: z.ZodNativeEnum<
-  typeof VatRegulation
-> = VatRegulation$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace VatRegulation$ {
-  /** @deprecated use `VatRegulation$inboundSchema` instead. */
-  export const inboundSchema = VatRegulation$inboundSchema;
-  /** @deprecated use `VatRegulation$outboundSchema` instead. */
-  export const outboundSchema = VatRegulation$outboundSchema;
-}
 
 /** @internal */
 export const EntityOrganizationLinks$inboundSchema: z.ZodType<
@@ -215,7 +175,7 @@ export const EntityOrganization$inboundSchema: z.ZodType<
   address: Address$inboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(VatRegulation$inboundSchema).optional(),
+  vatRegulation: z.nullable(OrganizationVatRegulation$inboundSchema).optional(),
   _links: z.lazy(() => EntityOrganizationLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -251,7 +211,8 @@ export const EntityOrganization$outboundSchema: z.ZodType<
   address: Address$outboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(VatRegulation$outboundSchema).optional(),
+  vatRegulation: z.nullable(OrganizationVatRegulation$outboundSchema)
+    .optional(),
   links: z.lazy(() => EntityOrganizationLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {

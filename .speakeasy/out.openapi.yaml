@@ -9199,7 +9199,7 @@ paths:
                   description: |-
                     The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
                     that require explicit selection. Separate multiple event types with a comma.
-                  $ref: '#/components/schemas/event-types'
+                  $ref: '#/components/schemas/webhook-event-types'
                 testmode:
                   $ref: '#/components/schemas/testmode-create'
               required:
@@ -9299,7 +9299,7 @@ paths:
           description: Used to filter out only the webhooks that are subscribed to certain types of events.
           in: query
           schema:
-            $ref: '#/components/schemas/event-types'
+            $ref: '#/components/schemas/webhook-event-types'
         - $ref: '#/components/parameters/testmode'
       responses:
         '200':
@@ -9438,7 +9438,7 @@ paths:
                   description: |-
                     The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
                     that require explicit selection. Separate multiple event types with a comma.
-                  $ref: '#/components/schemas/event-types'
+                  $ref: '#/components/schemas/webhook-event-types'
                 testmode:
                   $ref: '#/components/schemas/testmode'
       responses:
@@ -27041,6 +27041,44 @@ components:
         CAD: Canadian Dollar
       example: EUR
       x-speakeasy-unknown-values: allow
+    balance-status:
+      type: string
+      description: The status of the balance.
+      enum:
+        - active
+        - inactive
+      x-enumDescriptions:
+        active: The balance is operational and ready to be used.
+        inactive: The account is being validated by our team, or the balance has been blocked. Contact us for more information.
+      example: active
+      x-speakeasy-unknown-values: allow
+    balance-transfer-frequency:
+      type: string
+      description: |-
+        The frequency with which the available amount on the balance will be settled to the configured transfer
+        destination.
+
+        Settlements created during weekends or on bank holidays will take place on the next business day.
+      enum:
+        - daily
+        - every-monday
+        - every-tuesday
+        - every-wednesday
+        - every-thursday
+        - every-friday
+        - monthly
+        - never
+      x-enumDescriptions:
+        daily: Every business day
+        every-monday: Every Monday
+        every-tuesday: Every Tuesday
+        every-wednesday: Every Wednesday
+        every-thursday: Every Thursday
+        every-friday: Every Friday
+        monthly: On the first of the month
+        never: Automatic settlements are paused for this balance
+      example: daily
+      x-speakeasy-unknown-values: allow
     amount:
       type: object
       description: In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
@@ -27056,6 +27094,16 @@ components:
           type: string
           description: A string containing an exact monetary amount in the given currency.
           example: '10.00'
+    balance-transfer-destination-type:
+      type: string
+      description: |-
+        The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
+
+        * `bank-account` — Transfer the balance amount to an external bank account
+      enum:
+        - bank-account
+      example: bank-account
+      x-speakeasy-unknown-values: allow
     url:
       type: object
       description: In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
@@ -27097,43 +27145,11 @@ components:
           readOnly: true
           example: Balance description
         status:
-          type: string
-          description: The status of the balance.
-          enum:
-            - active
-            - inactive
-          x-enumDescriptions:
-            active: The balance is operational and ready to be used.
-            inactive: The account is being validated by our team, or the balance has been blocked. Contact us for more information.
+          $ref: '#/components/schemas/balance-status'
           readOnly: true
-          example: active
         transferFrequency:
-          type: string
-          description: |-
-            The frequency with which the available amount on the balance will be settled to the configured transfer
-            destination.
-
-            Settlements created during weekends or on bank holidays will take place on the next business day.
-          enum:
-            - daily
-            - every-monday
-            - every-tuesday
-            - every-wednesday
-            - every-thursday
-            - every-friday
-            - monthly
-            - never
-          x-enumDescriptions:
-            daily: Every business day
-            every-monday: Every Monday
-            every-tuesday: Every Tuesday
-            every-wednesday: Every Wednesday
-            every-thursday: Every Thursday
-            every-friday: Every Friday
-            monthly: On the first of the month
-            never: Automatic settlements are paused for this balance
+          $ref: '#/components/schemas/balance-transfer-frequency'
           readOnly: true
-          example: daily
         transferThreshold:
           $ref: '#/components/schemas/amount'
           description: |-
@@ -27157,14 +27173,7 @@ components:
             transfer frequency.
           properties:
             type:
-              type: string
-              description: |-
-                The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
-
-                * `bank-account` — Transfer the balance amount to an external bank account
-              enum:
-                - bank-account
-              example: bank-account
+              $ref: '#/components/schemas/balance-transfer-destination-type'
             bankAccount:
               type: string
               description: The configured bank account number of the beneficiary the balance amount is to be transferred to.
@@ -27275,6 +27284,13 @@ components:
                 type:
                   type: string
                   example: text/html
+    balance-report-grouping:
+      type: string
+      enum:
+        - status-balances
+        - transaction-categories
+      example: status-balances
+      x-speakeasy-unknown-values: allow
     payment-method:
       type:
         - string
@@ -27642,21 +27658,7 @@ components:
             This means a report with for example `until=2024-02-01` will include movements up until 2024-01-31 23:59:59 CET.
           example: '2025-03-31'
         grouping:
-          type: string
-          description: |-
-            You can retrieve reports in two different formats. With the `status-balances` format, transactions are grouped by
-            status (e.g. `pending`, `available`), then by direction of movement (e.g. moved from pending to available), then
-            by transaction type, and then by other sub-groupings where available (e.g. payment method).
-
-            With the `transaction-categories` format, transactions are grouped by transaction type, then by direction of
-            movement, and then again by other sub-groupings where available.
-
-            Both reporting formats will always contain opening and closing amounts that correspond to the start and end dates
-            of the report.
-          enum:
-            - status-balances
-            - transaction-categories
-          example: status-balances
+          $ref: '#/components/schemas/balance-report-grouping'
         totals:
           type: object
           description: |-
@@ -27818,6 +27820,57 @@ components:
     balanceTransactionToken:
       type: string
       example: baltr_QM24QwzUWR4ev4Xfgyt29d
+    balance-transaction-type:
+      type: string
+      enum:
+        - application-fee
+        - capture
+        - chargeback
+        - chargeback-reversal
+        - failed-payment-fee
+        - failed-payment
+        - invoice-compensation
+        - payment
+        - payment-fee
+        - payment-commission
+        - refund
+        - returned-refund
+        - returned-transfer
+        - split-payment
+        - outgoing-transfer
+        - capture-commission
+        - canceled-outgoing-transfer
+        - incoming-transfer
+        - api-payment-rolling-reserve-release
+        - capture-rolling-reserve-release
+        - reimbursement-fee
+        - balance-correction
+        - unauthorized-direct-debit
+        - bank-charged-failure-fee
+        - platform-payment-refund
+        - refund-compensation
+        - returned-refund-compensation
+        - returned-platform-payment-refund
+        - platform-payment-chargeback
+        - chargeback-compensation
+        - reversed-platform-payment-chargeback
+        - reversed-chargeback-compensation
+        - failed-split-payment-platform
+        - failed-split-payment-compensation
+        - cash-advance-loan
+        - platform-connected-organizations-fee
+        - split-transaction
+        - managed-fee
+        - returned-managed-fee
+        - topup
+        - balance-reserve
+        - balance-reserve-return
+        - movement
+        - post-payment-split-payment
+        - cash-collateral-issuance
+        - cash-collateral-release
+      example: payment
+      x-speakeasy-unknown-values: allow
     amount-nullable:
       type:
         - object
@@ -27874,7 +27927,7 @@ components:
           description: The identifier uniquely referring to this balance transaction.
           readOnly: true
         type:
-          type: string
+          $ref: '#/components/schemas/balance-transaction-type'
           description: |-
             The type of transaction, for example `payment` or `refund`. Values include the below examples, although this list
             is not definitive.
@@ -27884,54 +27937,6 @@ components:
             * Settlements: `outgoing-transfer` `canceled-outgoing-transfer` `returned-transfer`
             * Invoicing: `invoice-compensation` `balance-correction`
             * Mollie Connect: `application-fee` `split-payment` `platform-payment-refund` `platform-payment-chargeback`
-          enum:
-            - application-fee
-            - capture
-            - chargeback
-            - chargeback-reversal
-            - failed-payment-fee
-            - failed-payment
-            - invoice-compensation
-            - payment
-            - payment-fee
-            - payment-commission
-            - refund
-            - returned-refund
-            - returned-transfer
-            - split-payment
-            - outgoing-transfer
-            - capture-commission
-            - canceled-outgoing-transfer
-            - incoming-transfer
-            - api-payment-rolling-reserve-release
-            - capture-rolling-reserve-release
-            - reimbursement-fee
-            - balance-correction
-            - unauthorized-direct-debit
-            - bank-charged-failure-fee
-            - platform-payment-refund
-            - refund-compensation
-            - returned-refund-compensation
-            - returned-platform-payment-refund
-            - platform-payment-chargeback
-            - chargeback-compensation
-            - reversed-platform-payment-chargeback
-            - reversed-chargeback-compensation
-            - failed-split-payment-platform
-            - failed-split-payment-compensation
-            - cash-advance-loan
-            - platform-connected-organizations-fee
-            - split-transaction
-            - managed-fee
-            - returned-managed-fee
-            - topup
-            - balance-reserve
-            - balance-reserve-return
-            - movement
-            - post-payment-split-payment
-            - cash-collateral-issuance
-            - cash-collateral-release
-          example: payment
         resultAmount:
           $ref: '#/components/schemas/amount'
           description: |-
@@ -28389,6 +28394,21 @@ components:
         createdAt:
           $ref: '#/components/schemas/created-at'
       x-speakeasy-unknown-values: allow
+    settlement-status:
+      type: string
+      description: The status of the settlement.
+      enum:
+        - open
+        - pending
+        - paidout
+        - failed
+      x-enumDescriptions:
+        open: The settlement has not been closed yet
+        pending: The settlement has been closed and is being processed
+        paidout: The settlement has been paid out
+        failed: The settlement could not be paid out
+      example: paidout
+      x-speakeasy-unknown-values: allow
     entity-settlement:
       type: object
       properties:
@@ -28424,20 +28444,8 @@ components:
           readOnly: true
           example: '2025-03-31T12:54:39Z'
         status:
-          type: string
-          description: The status of the settlement.
-          enum:
-            - open
-            - pending
-            - paidout
-            - failed
-          x-enumDescriptions:
-            open: The settlement has not been closed yet
-            pending: The settlement has been closed and is being processed
-            paidout: The settlement has been paid out
-            failed: The settlement could not be paid out
+          $ref: '#/components/schemas/settlement-status'
           readOnly: true
-          example: paidout
         amount:
           $ref: '#/components/schemas/amount'
           description: The total amount of the settlement.
@@ -28503,6 +28511,22 @@ components:
         Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
         request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
         required.
+    payment-line-type:
+      type: string
+      description: |-
+        The type of product purchased. For example, a physical or a digital product.
+
+        The `tip` payment line type is not available when creating a payment.
+      enum:
+        - physical
+        - digital
+        - shipping_fee
+        - discount
+        - store_credit
+        - gift_card
+        - surcharge
+        - tip
+      example: physical
     payment-line-item:
       type: object
       required:
@@ -28512,21 +28536,7 @@ components:
         - totalAmount
       properties:
         type:
-          type: string
-          description: |-
-            The type of product purchased. For example, a physical or a digital product.
-
-            The `tip` payment line type is not available when creating a payment.
-          enum:
-            - physical
-            - digital
-            - shipping_fee
-            - discount
-            - store_credit
-            - gift_card
-            - surcharge
-            - tip
-          example: physical
+          $ref: '#/components/schemas/payment-line-type'
         description:
           type: string
           description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
@@ -28824,6 +28834,12 @@ components:
     routeToken:
       type: string
       example: rt_5B8cwPMGnU
+    route-destination-type:
+      type: string
+      description: The type of destination. Currently only the destination type `organization` is supported.
+      enum:
+        - organization
+      example: organization
     entity-payment-route:
       type: object
       required:
@@ -28859,11 +28875,7 @@ components:
             - organizationId
           properties:
             type:
-              type: string
-              description: The type of destination. Currently only the destination type `organization` is supported.
-              enum:
-                - organization
-              example: organization
+              $ref: '#/components/schemas/route-destination-type'
             organizationId:
               $ref: '#/components/schemas/organizationToken'
               description: |-
@@ -28915,6 +28927,22 @@ components:
     orderToken:
       type: string
       example: ord_5B8cwPMGnU
+    payment-status:
+      type: string
+      description: |-
+        The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+        statuses occur at what point.
+      enum:
+        - open
+        - pending
+        - authorized
+        - paid
+        - canceled
+        - expired
+        - failed
+      readOnly: true
+      example: open
+      x-speakeasy-unknown-values: allow
     status-reason:
       type:
         - object
@@ -29061,6 +29089,147 @@ components:
             The account associated with the card has insufficient funds. The shopper should use another payment method or
             contact their bank.
       x-speakeasy-unknown-values: allow
+    payment-details-card-audition:
+      type:
+        - string
+        - 'null'
+      description: The card's target audience, if known.
+      enum:
+        - consumer
+        - business
+      example: consumer
+    payment-details-card-label:
+      type:
+        - string
+        - 'null'
+      description: The card's label, if known.
+      enum:
+        - American Express
+        - Carta Si
+        - Carte Bleue
+        - Dankort
+        - Diners Club
+        - Discover
+        - JCB
+        - Laser
+        - Maestro
+        - Mastercard
+        - Unionpay
+        - Visa
+        - Vpay
+      example: Mastercard
+    payment-details-card-funding:
+      type:
+        - string
+        - 'null'
+      description: The card type.
+      enum:
+        - debit
+        - credit
+        - prepaid
+        - deferred-debit
+      example: credit
+    payment-details-card-security:
+      type:
+        - string
+        - 'null'
+      description: The level of security applied during card processing.
+      enum:
+        - normal
+        - 3dsecure
+      example: normal
+    payment-details-fee-region:
+      type:
+        - string
+        - 'null'
+      description: The applicable card fee region.
+      enum:
+        - american-express
+        - amex-intra-eea
+        - carte-bancaire
+        - intra-eu
+        - intra-eu-corporate
+        - domestic
+        - maestro
+        - other
+        - inter
+        - intra_eea
+      example: maestro
+    payment-details-failure-reason:
+      type:
+        - string
+        - 'null'
+      description: A failure code to help understand why the payment failed.
+      enum:
+        - authentication_abandoned
+        - authentication_failed
+        - authentication_required
+        - authentication_unavailable_acs
+        - card_declined
+        - card_expired
+        - inactive_card
+        - insufficient_funds
+        - invalid_cvv
+        - invalid_card_holder_name
+        - invalid_card_number
+        - invalid_card_type
+        - possible_fraud
+        - refused_by_issuer
+        - unknown_reason
+      example: card_declined
+    payment-details-wallet:
+      type:
+        - string
+        - 'null'
+      description: The wallet used when creating the payment.
+      enum:
+        - applepay
+      example: applepay
+    payment-details-seller-protection:
+      type:
+        - string
+        - 'null'
+      description: |-
+        Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
+        payments, and if the information is made available by PayPal.
+      enum:
+        - Eligible
+        - Ineligible
+        - Partially Eligible - INR Only
+        - Partially Eligible - Unauth Only
+        - Partially Eligible
+        - None
+        - Active
+        - Fraud Control - Unauth Premium Eligible
+      example: Eligible
+    payment-details-receipt-card-read-method:
+      type:
+        - string
+        - 'null'
+      description: The method by which the card was read by the terminal.
+      enum:
+        - chip
+        - magnetic-stripe
+        - near-field-communication
+        - contactless
+        - moto
+      example: contactless
+    payment-details-receipt-card-verification-method:
+      type:
+        - string
+        - 'null'
+      description: The method used to verify the cardholder's identity.
+      enum:
+        - no-cvm-required
+        - online-pin
+        - offline-pin
+        - consumer-device
+        - signature
+        - signature-and-online-pin
+        - online-pin-and-signature
+        - none
+        - failed
+      example: no-cvm-required
     testmode-create:
       type:
         - boolean
@@ -29444,20 +29613,8 @@ components:
           description: If the payment was created for an [order](get-order), the ID of that order will be part of the response.
           readOnly: true
         status:
-          type: string
-          description: |-
-            The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
-            statuses occur at what point.
-          enum:
-            - open
-            - pending
-            - authorized
-            - paid
-            - canceled
-            - expired
-            - failed
+          $ref: '#/components/schemas/payment-status'
           readOnly: true
-          example: open
         statusReason:
           $ref: '#/components/schemas/status-reason'
         isCancelable:
@@ -29569,35 +29726,10 @@ components:
               example: John Doe
               x-methodSpecific: true
             cardAudition:
-              type:
-                - string
-                - 'null'
-              description: The card's target audience, if known.
-              enum:
-                - consumer
-                - business
-              example: consumer
+              $ref: '#/components/schemas/payment-details-card-audition'
               x-methodSpecific: true
             cardLabel:
-              type:
-                - string
-                - 'null'
-              description: The card's label, if known.
-              enum:
-                - American Express
-                - Carta Si
-                - Carte Bleue
-                - Dankort
-                - Diners Club
-                - Discover
-                - JCB
-                - Laser
-                - Maestro
-                - Mastercard
-                - Unionpay
-                - Visa
-                - Vpay
-              example: Mastercard
+              $ref: '#/components/schemas/payment-details-card-label'
               x-methodSpecific: true
             cardCountryCode:
               type:
@@ -29614,44 +29746,13 @@ components:
               example: 12/25
               x-methodSpecific: true
             cardFunding:
-              type:
-                - string
-                - 'null'
-              description: The card type.
-              enum:
-                - debit
-                - credit
-                - prepaid
-                - deferred-debit
-              example: credit
+              $ref: '#/components/schemas/payment-details-card-funding'
               x-methodSpecific: true
             cardSecurity:
-              type:
-                - string
-                - 'null'
-              description: The level of security applied during card processing.
-              enum:
-                - normal
-                - 3dsecure
-              example: normal
+              $ref: '#/components/schemas/payment-details-card-security'
               x-methodSpecific: true
             feeRegion:
-              type:
-                - string
-                - 'null'
-              description: The applicable card fee region.
-              enum:
-                - american-express
-                - amex-intra-eea
-                - carte-bancaire
-                - intra-eu
-                - intra-eu-corporate
-                - domestic
-                - maestro
-                - other
-                - inter
-                - intra_eea
-              example: maestro
+              $ref: '#/components/schemas/payment-details-fee-region'
               x-methodSpecific: true
             cardMaskedNumber:
               type:
@@ -29682,27 +29783,7 @@ components:
               example: ...
               x-methodSpecific: true
             failureReason:
-              type:
-                - string
-                - 'null'
-              description: A failure code to help understand why the payment failed.
-              enum:
-                - authentication_abandoned
-                - authentication_failed
-                - authentication_required
-                - authentication_unavailable_acs
-                - card_declined
-                - card_expired
-                - inactive_card
-                - insufficient_funds
-                - invalid_cvv
-                - invalid_card_holder_name
-                - invalid_card_number
-                - invalid_card_type
-                - possible_fraud
-                - refused_by_issuer
-                - unknown_reason
-              example: card_declined
+              $ref: '#/components/schemas/payment-details-failure-reason'
               x-methodSpecific: true
             failureMessage:
               type:
@@ -29714,13 +29795,7 @@ components:
               example: Your card was declined.
               x-methodSpecific: true
             wallet:
-              type:
-                - string
-                - 'null'
-              description: The wallet used when creating the payment.
-              enum:
-                - applepay
-              example: applepay
+              $ref: '#/components/schemas/payment-details-wallet'
               x-methodSpecific: true
             paypalReference:
               type:
@@ -29737,22 +29812,7 @@ components:
               example: ...
               x-methodSpecific: true
             sellerProtection:
-              type:
-                - string
-                - 'null'
-              description: |-
-                Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
-                payments, and if the information is made available by PayPal.
-              enum:
-                - Eligible
-                - Ineligible
-                - Partially Eligible - INR Only
-                - Partially Eligible - Unauth Only
-                - Partially Eligible
-                - None
-                - Active
-                - Fraud Control - Unauth Premium Eligible
-              example: Eligible
+              $ref: '#/components/schemas/payment-details-seller-protection'
               x-methodSpecific: true
             paypalFee:
               $ref: '#/components/schemas/amount-nullable'
@@ -29794,33 +29854,9 @@ components:
                   description: The unique number that identifies a specific payment application on a chip card.
                   example: ...
                 cardReadMethod:
-                  type:
-                    - string
-                    - 'null'
-                  description: The method by which the card was read by the terminal.
-                  enum:
-                    - chip
-                    - magnetic-stripe
-                    - near-field-communication
-                    - contactless
-                    - moto
-                  example: contactless
+                  $ref: '#/components/schemas/payment-details-receipt-card-read-method'
                 cardVerificationMethod:
-                  type:
-                    - string
-                    - 'null'
-                  description: The method used to verify the cardholder's identity.
-                  enum:
-                    - no-cvm-required
-                    - online-pin
-                    - offline-pin
-                    - consumer-device
-                    - signature
-                    - signature-and-online-pin
-                    - online-pin-and-signature
-                    - none
-                    - failed
-                  example: no-cvm-required
+                  $ref: '#/components/schemas/payment-details-receipt-card-verification-method'
               x-methodSpecific: true
             creditorIdentifier:
               type:
@@ -30123,6 +30159,15 @@ components:
                 The payment method used for this transaction. If a specific method was selected during payment initialization,
                 this field reflects that choice.
       x-speakeasy-unknown-values: allow
+    capture-status:
+      type: string
+      description: The capture's status.
+      enum:
+        - pending
+        - succeeded
+        - failed
+      example: succeeded
+      x-speakeasy-unknown-values: allow
     shipmentToken:
       type: string
       example: shp_5x4xQJDWGNcY3tKGL7X5J
@@ -30159,13 +30204,7 @@ components:
             instead.
           readOnly: true
         status:
-          type: string
-          description: The capture's status.
-          enum:
-            - pending
-            - succeeded
-            - failed
-          example: succeeded
+          $ref: '#/components/schemas/capture-status'
           readOnly: true
         metadata:
           $ref: '#/components/schemas/metadata'
@@ -30234,6 +30273,29 @@ components:
             - paymentId
             - _links
       x-speakeasy-unknown-values: allow
+    refund-status:
+      type: string
+      enum:
+        - queued
+        - pending
+        - processing
+        - refunded
+        - failed
+        - canceled
+      example: queued
+      x-speakeasy-unknown-values: allow
+    refund-external-reference-type:
+      type: string
+      description: Specifies the reference type
+      enum:
+        - acquirer-reference
+      example: acquirer-reference
+    refund-routing-reversals-source-type:
+      type: string
+      description: The type of source. Currently only the source type `organization` is supported.
+      enum:
+        - organization
+      example: organization
     entity-refund:
       type: object
       required:
@@ -30303,16 +30365,7 @@ components:
           description: The identifier referring to the settlement this refund was settled with. This field is omitted if the refund is not settled (yet).
           readOnly: true
         status:
-          type: string
-          description: Refunds may take some time to get confirmed.
-          enum:
-            - queued
-            - pending
-            - processing
-            - refunded
-            - failed
-            - canceled
-          example: queued
+          $ref: '#/components/schemas/refund-status'
           readOnly: true
         createdAt:
           $ref: '#/components/schemas/created-at'
@@ -30320,11 +30373,7 @@ components:
           type: object
           properties:
             type:
-              type: string
-              description: Specifies the reference type
-              enum:
-                - acquirer-reference
-              example: acquirer-reference
+              $ref: '#/components/schemas/refund-external-reference-type'
             id:
               type: string
               description: Unique reference from the payment provider
@@ -30371,11 +30420,7 @@ components:
                 description: Where the funds will be pulled back from.
                 properties:
                   type:
-                    type: string
-                    description: The type of source. Currently only the source type `organization` is supported.
-                    enum:
-                      - organization
-                    example: organization
+                    $ref: '#/components/schemas/refund-routing-reversals-source-type'
                     writeOnly: true
                   organizationId:
                     $ref: '#/components/schemas/organizationToken'
@@ -30506,6 +30551,18 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
+    invoice-status:
+      type: string
+      description: Status of the invoice.
+      enum:
+        - open
+        - paid
+        - overdue
+      x-enumDescriptions:
+        open: The invoice is not paid yet.
+        paid: The invoice is paid.
+        overdue: Payment of the invoice is overdue.
+      x-speakeasy-unknown-values: allow
     entity-invoice:
       type: object
       properties:
@@ -30531,17 +30588,7 @@ components:
           description: The VAT number to which the invoice was issued to, if applicable.
           readOnly: true
         status:
-          type: string
-          description: |-
-            Status of the invoice.
-
-            * `open` — The invoice is not paid yet.
-            * `paid` — The invoice is paid.
-            * `overdue` — Payment of the invoice is overdue.
-          enum:
-            - open
-            - paid
-            - overdue
+          $ref: '#/components/schemas/invoice-status'
           readOnly: true
         netAmount:
           $ref: '#/components/schemas/amount'
@@ -30661,6 +30708,21 @@ components:
         country:
           type: string
           description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+    organization-vat-regulation:
+      type:
+        - string
+        - 'null'
+      description: |-
+        Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
+        Kingdom, and shifted VAT for merchants in the European Union.
+
+        The field is not present for merchants residing in other countries.
+      enum:
+        - dutch
+        - british
+        - shifted
+      example: dutch
+      x-speakeasy-unknown-values: allow
     entity-organization:
       type: object
       properties:
@@ -30704,18 +30766,7 @@ components:
 
             The field is not present for merchants residing in other countries.
         vatRegulation:
-          type:
-            - string
-            - 'null'
-          description: |-
-            Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
-            Kingdom, and shifted VAT for merchants in the European Union.
-
-            The field is not present for merchants residing in other countries.
-          enum:
-            - dutch
-            - british
-            - shifted
+          $ref: '#/components/schemas/organization-vat-regulation'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -30729,6 +30780,27 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    profile-status:
+      type: string
+      description: |-
+        The profile status determines whether the profile is able to receive live payments.
+
+        * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+        * `verified`: The profile has been verified and can be used to create live payments and test payments.
+        * `blocked`: The profile is blocked and can no longer be used or changed.
+      enum:
+        - unverified
+        - verified
+        - blocked
+      example: unverified
+      x-speakeasy-unknown-values: allow
+    profile-review-status:
+      type: string
+      description: The status of the requested changes.
+      enum:
+        - pending
+        - rejected
+      example: pending
     entity-profile:
       type: object
       properties:
@@ -30787,19 +30859,8 @@ components:
             [business category list](common-data-types#business-category) for all possible options.
           example: OTHER_MERCHANDISE
         status:
-          type: string
-          description: |-
-            The profile status determines whether the profile is able to receive live payments.
-
-            * `unverified`: The profile has not been verified yet and can only be used to create test payments.
-            * `verified`: The profile has been verified and can be used to create live payments and test payments.
-            * `blocked`: The profile is blocked and can no longer be used or changed.
-          enum:
-            - unverified
-            - verified
-            - blocked
+          $ref: '#/components/schemas/profile-status'
           readOnly: true
-          example: unverified
         review:
           type: object
           description: |-
@@ -30808,12 +30869,7 @@ components:
             `null` in test mode.
           properties:
             status:
-              type: string
-              description: The status of the requested changes.
-              enum:
-                - pending
-                - rejected
-              example: pending
+              $ref: '#/components/schemas/profile-review-status'
           readOnly: true
           example:
             status: pending
@@ -30872,6 +30928,18 @@ components:
             documentation:
               href: ...
               type: text/html
+    onboarding-status:
+      type: string
+      description: The current status of the organization's onboarding process.
+      enum:
+        - needs-data
+        - in-review
+        - completed
+      x-enumDescriptions:
+        needs-data: The merchant needs to provide additional information
+        in-review: The merchant provided all information, awaiting review from Mollie
+        completed: The onboarding is completed
+      x-speakeasy-unknown-values: allow
     entity-onboarding-status:
       type: object
       properties:
@@ -30887,17 +30955,7 @@ components:
           description: The name of the organization.
           readOnly: true
         status:
-          type: string
-          description: |-
-            The current status of the organization's onboarding process.
-
-            * `needs-data` — The merchant needs to provide additional information
-            * `in-review` — The merchant provided all information, awaiting review from Mollie
-            * `completed` — The onboarding is completed
-          enum:
-            - needs-data
-            - in-review
-            - completed
+          $ref: '#/components/schemas/onboarding-status'
           readOnly: true
         canReceivePayments:
           type: boolean
@@ -30929,6 +30987,33 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    capability-status:
+      type: string
+      enum:
+        - unrequested
+        - enabled
+        - disabled
+        - pending
+      example: pending
+      x-speakeasy-unknown-values: allow
+    capability-status-reason:
+      type: string
+      enum:
+        - requirement-past-due
+        - onboarding-information-needed
+      example: requirement-past-due
+      x-speakeasy-unknown-values: allow
+    capability-requirement-status:
+      type: string
+      description: |-
+        The status of the requirement depends on its due date.
+        If no due date is given, the status will be `requested`.
+      enum:
+        - currently-due
+        - past-due
+        - requested
+      example: past-due
+      x-speakeasy-unknown-values: allow
     entity-capability-requirement:
       type: object
       properties:
@@ -30940,15 +31025,7 @@ components:
             of the same capability.
           example: legal-representatives
         status:
-          description: |-
-            The status of the requirement depends on its due date.
-            If no due date is given, the status will be `requested`.
-          type: string
-          enum:
-            - currently-due
-            - past-due
-            - requested
-          example: past-due
+          $ref: '#/components/schemas/capability-requirement-status'
         dueDate:
           type: string
           description: Due date until the requirement must be fulfilled, if any. The date is shown in ISO-8601 format.
@@ -30986,19 +31063,9 @@ components:
           description: A unique name for this capability like `payments` / `settlements`.
           example: payments
         status:
-          type: string
-          enum:
-            - unrequested
-            - enabled
-            - disabled
-            - pending
-          example: pending
+          $ref: '#/components/schemas/capability-status'
         statusReason:
-          type: string
-          enum:
-            - requirement-past-due
-            - onboarding-information-needed
-          example: requirement-past-due
+          $ref: '#/components/schemas/capability-status-reason'
           nullable: true
         requirements:
           type: array
@@ -31160,7 +31227,7 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
-    event-types:
+    webhook-event-types:
       type: string
       description: The event's type
       x-speakeasy-name-override: webhook-event-types
@@ -31181,6 +31248,16 @@ components:
         sales-invoice.paid: Occurs when a sales invoice has been paid.
         '*': All event types.
       example: payment-link.paid
+    webhook-status:
+      type: string
+      description: The subscription's current status.
+      enum:
+        - enabled
+        - blocked
+        - disabled
+        - deleted
+      example: enabled
+      x-speakeasy-unknown-values: allow
     entity-webhook:
       type: object
       required:
@@ -31230,20 +31307,13 @@ components:
         eventTypes:
           type: array
           items:
-            $ref: '#/components/schemas/event-types-response'
+            $ref: '#/components/schemas/webhook-event-types-response'
           description: The events types that are subscribed.
           example:
             - profile.create
             - profile.blocked
         status:
-          type: string
-          description: The subscription's current status.
-          enum:
-            - enabled
-            - blocked
-            - disabled
-            - deleted
-          example: enabled
+          $ref: '#/components/schemas/webhook-status'
         mode:
           $ref: '#/components/schemas/mode'
         _links:
@@ -31302,18 +31372,12 @@ components:
         eventTypes:
           type: array
           items:
-            $ref: '#/components/schemas/event-types-response'
+            $ref: '#/components/schemas/webhook-event-types-response'
           description: The events types that are subscribed.
           example:
             - sales-invoice.paid, sales-invoice.canceled
         status:
-          type: string
-          description: The subscription's current status.
-          enum:
-            - enabled
-            - blocked
-            - disabled
-          example: enabled
+          $ref: '#/components/schemas/webhook-status'
         mode:
           $ref: '#/components/schemas/mode'
         webhookSecret:
@@ -31599,7 +31663,7 @@ components:
           readOnly: true
           example: event_GvJ8WHrp5isUdRub9CJyH
         type:
-          $ref: '#/components/schemas/event-types-response'
+          $ref: '#/components/schemas/webhook-event-types-response'
           readOnly: true
         entityId:
           type: string
@@ -31858,6 +31922,23 @@ components:
         - additional
         - consume
       example: eco
+    method-status:
+      type: string
+      description: The payment method's activation status for this profile.
+      enum:
+        - activated
+        - pending-boarding
+        - pending-review
+        - pending-external
+        - rejected
+      x-enumDescriptions:
+        activated: The payment method is activated and ready for use.
+        pending-boarding: Mollie is waiting for you to finish onboarding in the Merchant Dashboard before the payment method can be activated.
+        pending-review: Mollie needs to review your request for this payment method before it can be activated.
+        pending-external: Activation of this payment method relies on you taking action with an external party, for example signing up with PayPal or a giftcard issuer.
+        rejected: Your request for this payment method was rejected. Whenever Mollie rejects such a request, you will always be informed via email.
+      example: activated
+      x-speakeasy-unknown-values: allow
     entity-method:
       type: object
       required:
@@ -31927,21 +32008,7 @@ components:
               example: https://...
           readOnly: true
         status:
-          type: string
-          description: The payment method's activation status for this profile.
-          enum:
-            - activated
-            - pending-boarding
-            - pending-review
-            - pending-external
-            - rejected
-          x-enumDescriptions:
-            activated: The payment method is activated and ready for use.
-            pending-boarding: Mollie is waiting for you to finish onboarding in the Merchant Dashboard before the payment method can be activated.
-            pending-review: Mollie needs to review your request for this payment method before it can be activated.
-            pending-external: Activation of this payment method relies on you taking action with an external party, for example signing up with PayPal or a giftcard issuer.
-            rejected: Your request for this payment method was rejected. Whenever Mollie rejects such a request, you will always be informed via email.
-          example: activated
+          $ref: '#/components/schemas/method-status'
         issuers:
           type: array
           description: |-
@@ -32041,6 +32108,16 @@ components:
                     example: other
               readOnly: true
       x-speakeasy-unknown-values: allow
+    method-issuer-status:
+      type: string
+      description: |-
+        The status of the issuer.
+        If the status is `pending-issuer`, an additional action from your side may be required with the issuer.
+      enum:
+        - activated
+        - pending-issuer
+      example: activated
+      x-speakeasy-unknown-values: allow
     giftcard:
       type: object
       required:
@@ -32068,14 +32145,7 @@ components:
           readOnly: true
           example: FestivalCadeau Giftcard
         status:
-          type: string
-          description: |-
-            The status of the issuer.
-            If the status is `pending-issuer`, an additional action from your side may be required with the issuer.
-          enum:
-            - activated
-            - pending-issuer
-          example: activated
+          $ref: '#/components/schemas/method-issuer-status'
           readOnly: true
         _links:
           type: object
@@ -32135,14 +32205,7 @@ components:
               example: https://...
           readOnly: true
         status:
-          type: string
-          description: |-
-            The status of the issuer.
-            If the status is `pending-issuer`, an additional action from your side may be required with the issuer.
-          enum:
-            - activated
-            - pending-issuer
-          example: activated
+          $ref: '#/components/schemas/method-issuer-status'
           readOnly: true
         contractor:
           type: object
@@ -32180,6 +32243,33 @@ components:
     terminalToken:
       type: string
       example: term_vytxeTZskVKR7C7WgdSP3d
+    terminal-status:
+      type: string
+      description: The status of the terminal.
+      enum:
+        - pending
+        - active
+        - inactive
+      x-enumDescriptions:
+        pending: |-
+          The device has been linked to your account, but has not yet been activated. If you ordered a terminal
+          from us, it may already become visible in your account with this status.
+        active: The terminal is fully configured and ready to accept payments.
+        inactive: |-
+          The terminal has been deactivated. Deactivation happens for example if you returned the device to
+          Mollie, or if you requested to move it to another profile or organization.
+      example: active
+      x-speakeasy-unknown-values: allow
+    terminal-brand:
+      type:
+        - string
+        - 'null'
+      enum:
+        - PAX
+        - Tap
+      example: PAX
+      description: The brand of the terminal.
+      x-speakeasy-unknown-values: allow
     terminal-model:
       type:
         - string
@@ -32231,31 +32321,10 @@ components:
           maxLength: 255
           example: Main Terminal
         status:
-          type: string
-          description: The status of the terminal.
-          enum:
-            - pending
-            - active
-            - inactive
-          x-enumDescriptions:
-            pending: |-
-              The device has been linked to your account, but has not yet been activated. If you ordered a terminal
-              from us, it may already become visible in your account with this status.
-            active: The terminal is fully configured and ready to accept payments.
-            inactive: |-
-              The terminal has been deactivated. Deactivation happens for example if you returned the device to
-              Mollie, or if you requested to move it to another profile or organization.
-          example: active
+          $ref: '#/components/schemas/terminal-status'
           readOnly: true
         brand:
-          type:
-            - string
-            - 'null'
-          enum:
-            - PAX
-            - Tap
-          example: PAX
-          description: The brand of the terminal.
+          $ref: '#/components/schemas/terminal-brand'
         model:
           $ref: '#/components/schemas/terminal-model'
         serialNumber:
@@ -32339,11 +32408,7 @@ components:
             - organizationId
           properties:
             type:
-              type: string
-              description: The type of destination. Currently only the destination type `organization` is supported.
-              enum:
-                - organization
-              example: organization
+              $ref: '#/components/schemas/route-destination-type-response'
             organizationId:
               $ref: '#/components/schemas/organizationToken'
               description: |-
@@ -32420,11 +32485,7 @@ components:
             - organizationId
           properties:
             type:
-              type: string
-              description: The type of destination. Currently only the destination type `organization` is supported.
-              enum:
-                - organization
-              example: organization
+              $ref: '#/components/schemas/route-destination-type'
             organizationId:
               $ref: '#/components/schemas/organizationToken'
               description: |-
@@ -32490,11 +32551,7 @@ components:
             - organizationId
           properties:
             type:
-              type: string
-              description: The type of destination. Currently only the destination type `organization` is supported.
-              enum:
-                - organization
-              example: organization
+              $ref: '#/components/schemas/route-destination-type-response'
             organizationId:
               $ref: '#/components/schemas/organizationToken'
               description: |-
@@ -32542,6 +32599,9 @@ components:
           description: The email address of the customer.
           example: example@email.com
         locale:
+          type:
+            - string
+            - 'null'
           $ref: '#/components/schemas/locale-response'
           description: |-
             Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
@@ -32621,6 +32681,47 @@ components:
           properties:
             url:
               $ref: '#/components/schemas/url'
+    mandate-method:
+      type: string
+      description: |-
+        Payment method of the mandate.
+
+        SEPA Direct Debit and PayPal mandates can be created directly.
+      enum:
+        - creditcard
+        - directdebit
+        - paypal
+      example: directdebit
+    mandate-details-card-label:
+      type:
+        - string
+        - 'null'
+      description: The card's label. Available for card mandates, if the card label could be detected.
+      enum:
+        - American Express
+        - Carta Si
+        - Carte Bleue
+        - Dankort
+        - Diners Club
+        - Discover
+        - JCB
+        - Laser
+        - Maestro
+        - Mastercard
+        - Unionpay
+        - Visa
+      example: Visa
+    mandate-status:
+      type: string
+      description: |-
+        The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+        when we did not received the IBAN yet from the first payment.
+      enum:
+        - valid
+        - pending
+        - invalid
+      example: valid
+      x-speakeasy-unknown-values: allow
     entity-mandate:
       type: object
       properties:
@@ -32635,16 +32736,7 @@ components:
         mode:
           $ref: '#/components/schemas/mode'
         method:
-          type: string
-          description: |-
-            Payment method of the mandate.
-
-            SEPA Direct Debit and PayPal mandates can be created directly.
-          enum:
-            - creditcard
-            - directdebit
-            - paypal
-          example: directdebit
+          $ref: '#/components/schemas/mandate-method'
         consumerName:
           type: string
           description: The customer's name.
@@ -32711,24 +32803,7 @@ components:
               description: The card's expiry date in `YYYY-MM-DD` format. Available for card mandates.
               example: '2025-01-01'
             cardLabel:
-              type:
-                - string
-                - 'null'
-              description: The card's label. Available for card mandates, if the card label could be detected.
-              enum:
-                - American Express
-                - Carta Si
-                - Carte Bleue
-                - Dankort
-                - Diners Club
-                - Discover
-                - JCB
-                - Laser
-                - Maestro
-                - Mastercard
-                - Unionpay
-                - Visa
-              example: Visa
+              $ref: '#/components/schemas/mandate-details-card-label'
             cardFingerprint:
               type:
                 - string
@@ -32771,15 +32846,7 @@ components:
           example: 8kk8451t
           writeOnly: true
         status:
-          type: string
-          description: |-
-            The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
-            when we did not received the IBAN yet from the first payment.
-          enum:
-            - valid
-            - pending
-            - invalid
-          example: valid
+          $ref: '#/components/schemas/mandate-status'
           readOnly: true
         customerId:
           type: string
@@ -32828,6 +32895,30 @@ components:
           required:
             - method
             - consumerName
+    subscription-status:
+      type: string
+      description: |-
+        The subscription's current status is directly related to the status of the underlying customer or mandate that is
+        enabling the subscription.
+      enum:
+        - pending
+        - active
+        - canceled
+        - suspended
+        - completed
+      example: active
+      x-speakeasy-unknown-values: allow
+    subscription-method:
+      type:
+        - string
+        - 'null'
+      description: The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+      enum:
+        - creditcard
+        - directdebit
+        - paypal
+        - null
+      example: paypal
     entity-subscription:
       type: object
       properties:
@@ -32845,17 +32936,7 @@ components:
         mode:
           $ref: '#/components/schemas/mode'
         status:
-          type: string
-          description: |-
-            The subscription's current status is directly related to the status of the underlying customer or mandate that is
-            enabling the subscription.
-          enum:
-            - pending
-            - active
-            - canceled
-            - suspended
-            - completed
-          example: active
+          $ref: '#/components/schemas/subscription-status'
           readOnly: true
         amount:
           $ref: '#/components/schemas/amount'
@@ -32911,16 +32992,7 @@ components:
             **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
           example: Subscription of streaming channel
         method:
-          type:
-            - string
-            - 'null'
-          description: The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
-          enum:
-            - creditcard
-            - directdebit
-            - paypal
-            - null
-          example: paypal
+          $ref: '#/components/schemas/subscription-method-response'
         applicationFee:
           type: object
           description: |-
@@ -33046,17 +33118,7 @@ components:
         mode:
           $ref: '#/components/schemas/mode'
         status:
-          type: string
-          description: |-
-            The subscription's current status is directly related to the status of the underlying customer or mandate that is
-            enabling the subscription.
-          enum:
-            - pending
-            - active
-            - canceled
-            - suspended
-            - completed
-          example: active
+          $ref: '#/components/schemas/subscription-status'
           readOnly: true
         amount:
           $ref: '#/components/schemas/amount'
@@ -33112,16 +33174,7 @@ components:
             **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
           example: Subscription of streaming channel
         method:
-          type:
-            - string
-            - 'null'
-          description: The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
-          enum:
-            - creditcard
-            - directdebit
-            - paypal
-            - null
-          example: paypal
+          $ref: '#/components/schemas/subscription-method'
         applicationFee:
           type: object
           description: |-
@@ -33211,6 +33264,65 @@ components:
     salesInvoiceToken:
       type: string
       example: invoice_4Y0eZitmBnQ6IDoMqZQKh
+    sales-invoice-status:
+      type: string
+      description: |-
+        The status for the invoice to end up in.
+
+        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+
+        A status value that cannot be set but can be returned is `canceled`, for invoices which were
+        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+
+        Dependent parameters:
+          - `paymentDetails` is required if invoice should be set directly to `paid`
+          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      enum:
+        - draft
+        - issued
+        - paid
+      example: draft
+    sales-invoice-vat-scheme:
+      type: string
+      description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+      enum:
+        - standard
+        - one-stop-shop
+      example: standard
+    sales-invoice-vat-mode:
+      type: string
+      description: |-
+        The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+        price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+      enum:
+        - exclusive
+        - inclusive
+      example: exclusive
+    sales-invoice-payment-term:
+      type:
+        - string
+        - 'null'
+      description: The payment term to be set on the invoice.
+      enum:
+        - 7 days
+        - 14 days
+        - 30 days
+        - 45 days
+        - 60 days
+        - 90 days
+        - 120 days
+      example: 30 days
+    sales-invoice-payment-details-source:
+      type: string
+      description: The way through which the invoice is to be set to paid.
+      enum:
+        - manual
+        - payment-link
+        - payment
+      example: payment-link
     sales-invoice-payment-details:
       type:
         - object
@@ -33219,13 +33331,7 @@ components:
         - source
       properties:
         source:
-          example: payment-link
-          type: string
-          description: The way through which the invoice is to be set to paid.
-          enum:
-            - manual
-            - payment-link
-            - payment
+          $ref: '#/components/schemas/sales-invoice-payment-details-source'
         sourceReference:
           example: pl_d9fQur83kFdhH8hIhaZfq
           type:
@@ -33250,6 +33356,29 @@ components:
           example: Please find your invoice enclosed.
           type: string
           description: The body of the email to be sent. To add newline characters, you can use `\n`.
+    sales-invoice-recipient-type:
+      type: string
+      description: |-
+        The type of recipient, either `consumer` or `business`. This will determine what further fields are
+        required on the `recipient` object.
+      enum:
+        - consumer
+        - business
+      example: consumer
+    sales-invoice-recipient-locale:
+      type: string
+      description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
+      enum:
+        - en_US
+        - en_GB
+        - nl_NL
+        - nl_BE
+        - de_DE
+        - de_AT
+        - de_CH
+        - fr_FR
+        - fr_BE
+      example: nl_NL
     sales-invoice-recipient:
       type:
         - object
@@ -33264,14 +33393,7 @@ components:
         - locale
       properties:
         type:
-          example: consumer
-          type: string
-          description: |-
-            The type of recipient, either `consumer` or `business`. This will determine what further fields are
-            required on the `recipient` object.
-          enum:
-            - consumer
-            - business
+          $ref: '#/components/schemas/sales-invoice-recipient-type'
         title:
           example: Mrs.
           type:
@@ -33355,19 +33477,14 @@ components:
           type: string
           description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
         locale:
-          example: nl_NL
-          type: string
-          description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
-          enum:
-            - en_US
-            - en_GB
-            - nl_NL
-            - nl_BE
-            - de_DE
-            - de_AT
-            - de_CH
-            - fr_FR
-            - fr_BE
+          $ref: '#/components/schemas/sales-invoice-recipient-locale'
+    sales-invoice-discount-type:
+      type: string
+      description: The type of discount.
+      enum:
+        - amount
+        - percentage
+      example: amount
     sales-invoice-discount:
       type:
         - object
@@ -33377,12 +33494,7 @@ components:
         - value
       properties:
         type:
-          example: amount
-          type: string
-          description: The type of discount.
-          enum:
-            - amount
-            - percentage
+          $ref: '#/components/schemas/sales-invoice-discount-type'
         value:
           example: '10.00'
           type: string
@@ -33457,42 +33569,11 @@ components:
           example: pfl_QkEhN94Ba
           writeOnly: true
         status:
-          example: draft
-          type: string
-          description: |-
-            The status for the invoice to end up in.
-
-            A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
-            the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
-            mark it as paid. It can then subsequently be sent as well, same as with `issued`.
-
-            A status value that cannot be set but can be returned is `canceled`, for invoices which were
-            issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
-
-            Dependent parameters:
-              - `paymentDetails` is required if invoice should be set directly to `paid`
-              - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
-              - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-          enum:
-            - draft
-            - issued
-            - paid
+          $ref: '#/components/schemas/sales-invoice-status'
         vatScheme:
-          type: string
-          description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
-          enum:
-            - standard
-            - one-stop-shop
-          example: standard
+          $ref: '#/components/schemas/sales-invoice-vat-scheme'
         vatMode:
-          type: string
-          description: |-
-            The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
-            price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
-          enum:
-            - exclusive
-            - inclusive
-          example: exclusive
+          $ref: '#/components/schemas/sales-invoice-vat-mode'
         memo:
           example: This is a memo!
           type:
@@ -33508,19 +33589,7 @@ components:
             Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
             you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
         paymentTerm:
-          type:
-            - string
-            - 'null'
-          description: The payment term to be set on the invoice.
-          enum:
-            - 7 days
-            - 14 days
-            - 30 days
-            - 45 days
-            - 60 days
-            - 90 days
-            - 120 days
-          example: 30 days
+          $ref: '#/components/schemas/sales-invoice-payment-term'
         paymentDetails:
           $ref: '#/components/schemas/sales-invoice-payment-details'
           description: |-
@@ -33648,16 +33717,11 @@ components:
         testmode:
           $ref: '#/components/schemas/testmode'
         status:
-          example: paid
-          type: string
+          $ref: '#/components/schemas/sales-invoice-status'
           description: |-
             The status for the invoice to end up in.
 
             Dependent parameters: `paymentDetails` for `paid`, `emailDetails` for `issued` and `paid`.
-          enum:
-            - draft
-            - issued
-            - paid
         memo:
           example: An updated memo!
           type:
@@ -33665,19 +33729,7 @@ components:
             - 'null'
           description: A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
         paymentTerm:
-          type:
-            - string
-            - 'null'
-          description: The payment term to be set on the invoice.
-          enum:
-            - 7 days
-            - 14 days
-            - 30 days
-            - 45 days
-            - 60 days
-            - 90 days
-            - 120 days
-          example: 30 days
+          $ref: '#/components/schemas/sales-invoice-payment-term'
         paymentDetails:
           $ref: '#/components/schemas/sales-invoice-payment-details'
           description: |-
@@ -34085,20 +34137,8 @@ components:
           description: If the payment was created for an [order](get-order), the ID of that order will be part of the response.
           readOnly: true
         status:
-          type: string
-          description: |-
-            The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
-            statuses occur at what point.
-          enum:
-            - open
-            - pending
-            - authorized
-            - paid
-            - canceled
-            - expired
-            - failed
+          $ref: '#/components/schemas/payment-status'
           readOnly: true
-          example: open
         statusReason:
           $ref: '#/components/schemas/status-reason'
         isCancelable:
@@ -34210,35 +34250,10 @@ components:
               example: John Doe
               x-methodSpecific: true
             cardAudition:
-              type:
-                - string
-                - 'null'
-              description: The card's target audience, if known.
-              enum:
-                - consumer
-                - business
-              example: consumer
+              $ref: '#/components/schemas/payment-details-card-audition-response'
               x-methodSpecific: true
             cardLabel:
-              type:
-                - string
-                - 'null'
-              description: The card's label, if known.
-              enum:
-                - American Express
-                - Carta Si
-                - Carte Bleue
-                - Dankort
-                - Diners Club
-                - Discover
-                - JCB
-                - Laser
-                - Maestro
-                - Mastercard
-                - Unionpay
-                - Visa
-                - Vpay
-              example: Mastercard
+              $ref: '#/components/schemas/payment-details-card-label-response'
               x-methodSpecific: true
             cardCountryCode:
               type:
@@ -34255,44 +34270,13 @@ components:
               example: 12/25
               x-methodSpecific: true
             cardFunding:
-              type:
-                - string
-                - 'null'
-              description: The card type.
-              enum:
-                - debit
-                - credit
-                - prepaid
-                - deferred-debit
-              example: credit
+              $ref: '#/components/schemas/payment-details-card-funding-response'
               x-methodSpecific: true
             cardSecurity:
-              type:
-                - string
-                - 'null'
-              description: The level of security applied during card processing.
-              enum:
-                - normal
-                - 3dsecure
-              example: normal
+              $ref: '#/components/schemas/payment-details-card-security-response'
               x-methodSpecific: true
             feeRegion:
-              type:
-                - string
-                - 'null'
-              description: The applicable card fee region.
-              enum:
-                - american-express
-                - amex-intra-eea
-                - carte-bancaire
-                - intra-eu
-                - intra-eu-corporate
-                - domestic
-                - maestro
-                - other
-                - inter
-                - intra_eea
-              example: maestro
+              $ref: '#/components/schemas/payment-details-fee-region-response'
               x-methodSpecific: true
             cardMaskedNumber:
               type:
@@ -34323,27 +34307,7 @@ components:
               example: ...
               x-methodSpecific: true
             failureReason:
-              type:
-                - string
-                - 'null'
-              description: A failure code to help understand why the payment failed.
-              enum:
-                - authentication_abandoned
-                - authentication_failed
-                - authentication_required
-                - authentication_unavailable_acs
-                - card_declined
-                - card_expired
-                - inactive_card
-                - insufficient_funds
-                - invalid_cvv
-                - invalid_card_holder_name
-                - invalid_card_number
-                - invalid_card_type
-                - possible_fraud
-                - refused_by_issuer
-                - unknown_reason
-              example: card_declined
+              $ref: '#/components/schemas/payment-details-failure-reason-response'
               x-methodSpecific: true
             failureMessage:
               type:
@@ -34355,13 +34319,7 @@ components:
               example: Your card was declined.
               x-methodSpecific: true
             wallet:
-              type:
-                - string
-                - 'null'
-              description: The wallet used when creating the payment.
-              enum:
-                - applepay
-              example: applepay
+              $ref: '#/components/schemas/payment-details-wallet-response'
               x-methodSpecific: true
             paypalReference:
               type:
@@ -34378,22 +34336,7 @@ components:
               example: ...
               x-methodSpecific: true
             sellerProtection:
-              type:
-                - string
-                - 'null'
-              description: |-
-                Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
-                payments, and if the information is made available by PayPal.
-              enum:
-                - Eligible
-                - Ineligible
-                - Partially Eligible - INR Only
-                - Partially Eligible - Unauth Only
-                - Partially Eligible
-                - None
-                - Active
-                - Fraud Control - Unauth Premium Eligible
-              example: Eligible
+              $ref: '#/components/schemas/payment-details-seller-protection-response'
               x-methodSpecific: true
             paypalFee:
               $ref: '#/components/schemas/amount-nullable'
@@ -34435,33 +34378,9 @@ components:
                   description: The unique number that identifies a specific payment application on a chip card.
                   example: ...
                 cardReadMethod:
-                  type:
-                    - string
-                    - 'null'
-                  description: The method by which the card was read by the terminal.
-                  enum:
-                    - chip
-                    - magnetic-stripe
-                    - near-field-communication
-                    - contactless
-                    - moto
-                  example: contactless
+                  $ref: '#/components/schemas/payment-details-receipt-card-read-method-response'
                 cardVerificationMethod:
-                  type:
-                    - string
-                    - 'null'
-                  description: The method used to verify the cardholder's identity.
-                  enum:
-                    - no-cvm-required
-                    - online-pin
-                    - offline-pin
-                    - consumer-device
-                    - signature
-                    - signature-and-online-pin
-                    - online-pin-and-signature
-                    - none
-                    - failed
-                  example: no-cvm-required
+                  $ref: '#/components/schemas/payment-details-receipt-card-verification-method-response'
               x-methodSpecific: true
             creditorIdentifier:
               type:
@@ -34752,21 +34671,7 @@ components:
         - totalAmount
       properties:
         type:
-          type: string
-          description: |-
-            The type of product purchased. For example, a physical or a digital product.
-
-            The `tip` payment line type is not available when creating a payment.
-          enum:
-            - physical
-            - digital
-            - shipping_fee
-            - discount
-            - store_credit
-            - gift_card
-            - surcharge
-            - tip
-          example: physical
+          $ref: '#/components/schemas/payment-line-type-response'
         description:
           type: string
           description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
@@ -34848,6 +34753,23 @@ components:
           type: string
           description: A link pointing to the product page in your web shop of the product sold.
           example: https://...
+      x-speakeasy-unknown-values: allow
+    payment-line-type-response:
+      type: string
+      description: |-
+        The type of product purchased. For example, a physical or a digital product.
+
+        The `tip` payment line type is not available when creating a payment.
+      enum:
+        - physical
+        - digital
+        - shipping_fee
+        - discount
+        - store_credit
+        - gift_card
+        - surcharge
+        - tip
+      example: physical
       x-speakeasy-unknown-values: allow
     locale-response:
       type:
@@ -34980,11 +34902,7 @@ components:
             - organizationId
           properties:
             type:
-              type: string
-              description: The type of destination. Currently only the destination type `organization` is supported.
-              enum:
-                - organization
-              example: organization
+              $ref: '#/components/schemas/route-destination-type-response'
             organizationId:
               $ref: '#/components/schemas/organizationToken'
               description: |-
@@ -35018,6 +34936,13 @@ components:
               $ref: '#/components/schemas/url'
               description: The API resource URL of the [payment](get-payment) that belong to this route.
       x-speakeasy-unknown-values: allow
+    route-destination-type-response:
+      type: string
+      description: The type of destination. Currently only the destination type `organization` is supported.
+      enum:
+        - organization
+      example: organization
+      x-speakeasy-unknown-values: allow
     sequence-type-response:
       type: string
       enum:
@@ -35025,6 +34950,157 @@ components:
         - first
         - recurring
       example: oneoff
+      x-speakeasy-unknown-values: allow
+    payment-details-card-audition-response:
+      type:
+        - string
+        - 'null'
+      description: The card's target audience, if known.
+      enum:
+        - consumer
+        - business
+      example: consumer
+      x-speakeasy-unknown-values: allow
+    payment-details-card-label-response:
+      type:
+        - string
+        - 'null'
+      description: The card's label, if known.
+      enum:
+        - American Express
+        - Carta Si
+        - Carte Bleue
+        - Dankort
+        - Diners Club
+        - Discover
+        - JCB
+        - Laser
+        - Maestro
+        - Mastercard
+        - Unionpay
+        - Visa
+        - Vpay
+      example: Mastercard
+      x-speakeasy-unknown-values: allow
+    payment-details-card-funding-response:
+      type:
+        - string
+        - 'null'
+      description: The card type.
+      enum:
+        - debit
+        - credit
+        - prepaid
+        - deferred-debit
+      example: credit
+      x-speakeasy-unknown-values: allow
+    payment-details-card-security-response:
+      type:
+        - string
+        - 'null'
+      description: The level of security applied during card processing.
+      enum:
+        - normal
+        - 3dsecure
+      example: normal
+      x-speakeasy-unknown-values: allow
+    payment-details-fee-region-response:
+      type:
+        - string
+        - 'null'
+      description: The applicable card fee region.
+      enum:
+        - american-express
+        - amex-intra-eea
+        - carte-bancaire
+        - intra-eu
+        - intra-eu-corporate
+        - domestic
+        - maestro
+        - other
+        - inter
+        - intra_eea
+      example: maestro
+      x-speakeasy-unknown-values: allow
+    payment-details-failure-reason-response:
+      type:
+        - string
+        - 'null'
+      description: A failure code to help understand why the payment failed.
+      enum:
+        - authentication_abandoned
+        - authentication_failed
+        - authentication_required
+        - authentication_unavailable_acs
+        - card_declined
+        - card_expired
+        - inactive_card
+        - insufficient_funds
+        - invalid_cvv
+        - invalid_card_holder_name
+        - invalid_card_number
+        - invalid_card_type
+        - possible_fraud
+        - refused_by_issuer
+        - unknown_reason
+      example: card_declined
+      x-speakeasy-unknown-values: allow
+    payment-details-wallet-response:
+      type:
+        - string
+        - 'null'
+      description: The wallet used when creating the payment.
+      enum:
+        - applepay
+      example: applepay
+      x-speakeasy-unknown-values: allow
+    payment-details-seller-protection-response:
+      type:
+        - string
+        - 'null'
+      description: |-
+        Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
+        payments, and if the information is made available by PayPal.
+      enum:
+        - Eligible
+        - Ineligible
+        - Partially Eligible - INR Only
+        - Partially Eligible - Unauth Only
+        - Partially Eligible
+        - None
+        - Active
+        - Fraud Control - Unauth Premium Eligible
+      example: Eligible
+      x-speakeasy-unknown-values: allow
+    payment-details-receipt-card-read-method-response:
+      type:
+        - string
+        - 'null'
+      description: The method by which the card was read by the terminal.
+      enum:
+        - chip
+        - magnetic-stripe
+        - near-field-communication
+        - contactless
+        - moto
+      example: contactless
+      x-speakeasy-unknown-values: allow
+    payment-details-receipt-card-verification-method-response:
+      type:
+        - string
+        - 'null'
+      description: The method used to verify the cardholder's identity.
+      enum:
+        - no-cvm-required
+        - online-pin
+        - offline-pin
+        - consumer-device
+        - signature
+        - signature-and-online-pin
+        - online-pin-and-signature
+        - none
+        - failed
+      example: no-cvm-required
       x-speakeasy-unknown-values: allow
     entity-capture-response:
       type: object
@@ -35059,13 +35135,7 @@ components:
             instead.
           readOnly: true
         status:
-          type: string
-          description: The capture's status.
-          enum:
-            - pending
-            - succeeded
-            - failed
-          example: succeeded
+          $ref: '#/components/schemas/capture-status'
           readOnly: true
         metadata:
           $ref: '#/components/schemas/metadata'
@@ -35191,16 +35261,7 @@ components:
           description: The identifier referring to the settlement this refund was settled with. This field is omitted if the refund is not settled (yet).
           readOnly: true
         status:
-          type: string
-          description: Refunds may take some time to get confirmed.
-          enum:
-            - queued
-            - pending
-            - processing
-            - refunded
-            - failed
-            - canceled
-          example: queued
+          $ref: '#/components/schemas/refund-status'
           readOnly: true
         createdAt:
           $ref: '#/components/schemas/created-at'
@@ -35208,11 +35269,7 @@ components:
           type: object
           properties:
             type:
-              type: string
-              description: Specifies the reference type
-              enum:
-                - acquirer-reference
-              example: acquirer-reference
+              $ref: '#/components/schemas/refund-external-reference-type-response'
             id:
               type: string
               description: Unique reference from the payment provider
@@ -35259,11 +35316,7 @@ components:
                 description: Where the funds will be pulled back from.
                 properties:
                   type:
-                    type: string
-                    description: The type of source. Currently only the source type `organization` is supported.
-                    enum:
-                      - organization
-                    example: organization
+                    $ref: '#/components/schemas/refund-routing-reversals-source-type'
                     writeOnly: true
                   organizationId:
                     $ref: '#/components/schemas/organizationToken'
@@ -35293,6 +35346,13 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
+      x-speakeasy-unknown-values: allow
+    refund-external-reference-type-response:
+      type: string
+      description: Specifies the reference type
+      enum:
+        - acquirer-reference
+      example: acquirer-reference
       x-speakeasy-unknown-values: allow
     entity-profile-response:
       type: object
@@ -35352,19 +35412,8 @@ components:
             [business category list](common-data-types#business-category) for all possible options.
           example: OTHER_MERCHANDISE
         status:
-          type: string
-          description: |-
-            The profile status determines whether the profile is able to receive live payments.
-
-            * `unverified`: The profile has not been verified yet and can only be used to create test payments.
-            * `verified`: The profile has been verified and can be used to create live payments and test payments.
-            * `blocked`: The profile is blocked and can no longer be used or changed.
-          enum:
-            - unverified
-            - verified
-            - blocked
+          $ref: '#/components/schemas/profile-status'
           readOnly: true
-          example: unverified
         review:
           type: object
           description: |-
@@ -35373,12 +35422,7 @@ components:
             `null` in test mode.
           properties:
             status:
-              type: string
-              description: The status of the requested changes.
-              enum:
-                - pending
-                - rejected
-              example: pending
+              $ref: '#/components/schemas/profile-review-status-response'
           readOnly: true
           example:
             status: pending
@@ -35437,6 +35481,14 @@ components:
             documentation:
               href: ...
               type: text/html
+      x-speakeasy-unknown-values: allow
+    profile-review-status-response:
+      type: string
+      description: The status of the requested changes.
+      enum:
+        - pending
+        - rejected
+      example: pending
       x-speakeasy-unknown-values: allow
     entity-client-link-response:
       type: object
@@ -35553,7 +35605,7 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
-    event-types-response:
+    webhook-event-types-response:
       type: string
       description: The event's type
       x-speakeasy-name-override: webhook-event-types
@@ -35609,6 +35661,9 @@ components:
           description: The email address of the customer.
           example: example@email.com
         locale:
+          type:
+            - string
+            - 'null'
           $ref: '#/components/schemas/locale-response'
           description: |-
             Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
@@ -35664,16 +35719,7 @@ components:
         mode:
           $ref: '#/components/schemas/mode'
         method:
-          type: string
-          description: |-
-            Payment method of the mandate.
-
-            SEPA Direct Debit and PayPal mandates can be created directly.
-          enum:
-            - creditcard
-            - directdebit
-            - paypal
-          example: directdebit
+          $ref: '#/components/schemas/mandate-method-response'
         consumerName:
           type: string
           description: The customer's name.
@@ -35740,24 +35786,7 @@ components:
               description: The card's expiry date in `YYYY-MM-DD` format. Available for card mandates.
               example: '2025-01-01'
             cardLabel:
-              type:
-                - string
-                - 'null'
-              description: The card's label. Available for card mandates, if the card label could be detected.
-              enum:
-                - American Express
-                - Carta Si
-                - Carte Bleue
-                - Dankort
-                - Diners Club
-                - Discover
-                - JCB
-                - Laser
-                - Maestro
-                - Mastercard
-                - Unionpay
-                - Visa
-              example: Visa
+              $ref: '#/components/schemas/mandate-details-card-label-response'
             cardFingerprint:
               type:
                 - string
@@ -35800,15 +35829,7 @@ components:
           example: 8kk8451t
           writeOnly: true
         status:
-          type: string
-          description: |-
-            The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
-            when we did not received the IBAN yet from the first payment.
-          enum:
-            - valid
-            - pending
-            - invalid
-          example: valid
+          $ref: '#/components/schemas/mandate-status'
           readOnly: true
         customerId:
           type: string
@@ -35835,6 +35856,50 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
+      x-speakeasy-unknown-values: allow
+    mandate-method-response:
+      type: string
+      description: |-
+        Payment method of the mandate.
+
+        SEPA Direct Debit and PayPal mandates can be created directly.
+      enum:
+        - creditcard
+        - directdebit
+        - paypal
+      example: directdebit
+      x-speakeasy-unknown-values: allow
+    mandate-details-card-label-response:
+      type:
+        - string
+        - 'null'
+      description: The card's label. Available for card mandates, if the card label could be detected.
+      enum:
+        - American Express
+        - Carta Si
+        - Carte Bleue
+        - Dankort
+        - Diners Club
+        - Discover
+        - JCB
+        - Laser
+        - Maestro
+        - Mastercard
+        - Unionpay
+        - Visa
+      example: Visa
+      x-speakeasy-unknown-values: allow
+    subscription-method-response:
+      type:
+        - string
+        - 'null'
+      description: The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
+      enum:
+        - creditcard
+        - directdebit
+        - paypal
+        - null
+      example: paypal
       x-speakeasy-unknown-values: allow
     entity-sales-invoice-response:
       type: object
@@ -35873,42 +35938,11 @@ components:
           example: pfl_QkEhN94Ba
           writeOnly: true
         status:
-          example: draft
-          type: string
-          description: |-
-            The status for the invoice to end up in.
-
-            A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
-            the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
-            mark it as paid. It can then subsequently be sent as well, same as with `issued`.
-
-            A status value that cannot be set but can be returned is `canceled`, for invoices which were
-            issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
-
-            Dependent parameters:
-              - `paymentDetails` is required if invoice should be set directly to `paid`
-              - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
-              - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-          enum:
-            - draft
-            - issued
-            - paid
+          $ref: '#/components/schemas/sales-invoice-status-response'
         vatScheme:
-          type: string
-          description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
-          enum:
-            - standard
-            - one-stop-shop
-          example: standard
+          $ref: '#/components/schemas/sales-invoice-vat-scheme-response'
         vatMode:
-          type: string
-          description: |-
-            The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
-            price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
-          enum:
-            - exclusive
-            - inclusive
-          example: exclusive
+          $ref: '#/components/schemas/sales-invoice-vat-mode-response'
         memo:
           example: This is a memo!
           type:
@@ -35924,19 +35958,7 @@ components:
             Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
             you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
         paymentTerm:
-          type:
-            - string
-            - 'null'
-          description: The payment term to be set on the invoice.
-          enum:
-            - 7 days
-            - 14 days
-            - 30 days
-            - 45 days
-            - 60 days
-            - 90 days
-            - 120 days
-          example: 30 days
+          $ref: '#/components/schemas/sales-invoice-payment-term-response'
         paymentDetails:
           $ref: '#/components/schemas/sales-invoice-payment-details-response'
           description: |-
@@ -36054,6 +36076,61 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    sales-invoice-status-response:
+      type: string
+      description: |-
+        The status for the invoice to end up in.
+
+        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+
+        A status value that cannot be set but can be returned is `canceled`, for invoices which were
+        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+
+        Dependent parameters:
+          - `paymentDetails` is required if invoice should be set directly to `paid`
+          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      enum:
+        - draft
+        - issued
+        - paid
+      example: draft
+      x-speakeasy-unknown-values: allow
+    sales-invoice-vat-scheme-response:
+      type: string
+      description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+      enum:
+        - standard
+        - one-stop-shop
+      example: standard
+      x-speakeasy-unknown-values: allow
+    sales-invoice-vat-mode-response:
+      type: string
+      description: |-
+        The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+        price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+      enum:
+        - exclusive
+        - inclusive
+      example: exclusive
+      x-speakeasy-unknown-values: allow
+    sales-invoice-payment-term-response:
+      type:
+        - string
+        - 'null'
+      description: The payment term to be set on the invoice.
+      enum:
+        - 7 days
+        - 14 days
+        - 30 days
+        - 45 days
+        - 60 days
+        - 90 days
+        - 120 days
+      example: 30 days
+      x-speakeasy-unknown-values: allow
     sales-invoice-payment-details-response:
       type:
         - object
@@ -36062,13 +36139,7 @@ components:
         - source
       properties:
         source:
-          example: payment-link
-          type: string
-          description: The way through which the invoice is to be set to paid.
-          enum:
-            - manual
-            - payment-link
-            - payment
+          $ref: '#/components/schemas/sales-invoice-payment-details-source-response'
         sourceReference:
           example: pl_d9fQur83kFdhH8hIhaZfq
           type:
@@ -36077,6 +36148,15 @@ components:
           description: |-
             A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
             `payment`.
+      x-speakeasy-unknown-values: allow
+    sales-invoice-payment-details-source-response:
+      type: string
+      description: The way through which the invoice is to be set to paid.
+      enum:
+        - manual
+        - payment-link
+        - payment
+      example: payment-link
       x-speakeasy-unknown-values: allow
     sales-invoice-recipient-response:
       type:
@@ -36092,14 +36172,7 @@ components:
         - locale
       properties:
         type:
-          example: consumer
-          type: string
-          description: |-
-            The type of recipient, either `consumer` or `business`. This will determine what further fields are
-            required on the `recipient` object.
-          enum:
-            - consumer
-            - business
+          $ref: '#/components/schemas/sales-invoice-recipient-type-response'
         title:
           example: Mrs.
           type:
@@ -36183,19 +36256,32 @@ components:
           type: string
           description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
         locale:
-          example: nl_NL
-          type: string
-          description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
-          enum:
-            - en_US
-            - en_GB
-            - nl_NL
-            - nl_BE
-            - de_DE
-            - de_AT
-            - de_CH
-            - fr_FR
-            - fr_BE
+          $ref: '#/components/schemas/sales-invoice-recipient-locale-response'
+      x-speakeasy-unknown-values: allow
+    sales-invoice-recipient-type-response:
+      type: string
+      description: |-
+        The type of recipient, either `consumer` or `business`. This will determine what further fields are
+        required on the `recipient` object.
+      enum:
+        - consumer
+        - business
+      example: consumer
+      x-speakeasy-unknown-values: allow
+    sales-invoice-recipient-locale-response:
+      type: string
+      description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
+      enum:
+        - en_US
+        - en_GB
+        - nl_NL
+        - nl_BE
+        - de_DE
+        - de_AT
+        - de_CH
+        - fr_FR
+        - fr_BE
+      example: nl_NL
       x-speakeasy-unknown-values: allow
     sales-invoice-line-item-response:
       type: object
@@ -36240,16 +36326,19 @@ components:
         - value
       properties:
         type:
-          example: amount
-          type: string
-          description: The type of discount.
-          enum:
-            - amount
-            - percentage
+          $ref: '#/components/schemas/sales-invoice-discount-type-response'
         value:
           example: '10.00'
           type: string
           description: A string containing an exact monetary amount in the given currency, or the percentage.
+      x-speakeasy-unknown-values: allow
+    sales-invoice-discount-type-response:
+      type: string
+      description: The type of discount.
+      enum:
+        - amount
+        - percentage
+      example: amount
       x-speakeasy-unknown-values: allow
   responses:
     400-invalid-list-request:

@@ -48,6 +48,11 @@ import {
   PaymentAddress$outboundSchema,
 } from "./paymentaddress.js";
 import {
+  PaymentLineType,
+  PaymentLineType$inboundSchema,
+  PaymentLineType$outboundSchema,
+} from "./paymentlinetype.js";
+import {
   RecurringLineItem,
   RecurringLineItem$inboundSchema,
   RecurringLineItem$Outbound,
@@ -58,32 +63,6 @@ import {
   SequenceType$inboundSchema,
   SequenceType$outboundSchema,
 } from "./sequencetype.js";
-
-/**
- * The type of product purchased. For example, a physical or a digital product.
- *
- * @remarks
- *
- * The `tip` payment line type is not available when creating a payment.
- */
-export const PaymentRequestType = {
-  Physical: "physical",
-  Digital: "digital",
-  ShippingFee: "shipping_fee",
-  Discount: "discount",
-  StoreCredit: "store_credit",
-  GiftCard: "gift_card",
-  Surcharge: "surcharge",
-  Tip: "tip",
-} as const;
-/**
- * The type of product purchased. For example, a physical or a digital product.
- *
- * @remarks
- *
- * The `tip` payment line type is not available when creating a payment.
- */
-export type PaymentRequestType = ClosedEnum<typeof PaymentRequestType>;
 
 export const PaymentRequestCategory = {
   Meal: "meal",
@@ -101,7 +80,7 @@ export type PaymentRequestLine = {
    *
    * The `tip` payment line type is not available when creating a payment.
    */
-  type?: PaymentRequestType | undefined;
+  type?: PaymentLineType | undefined;
   /**
    * A description of the line item. For example *LEGO 4440 Forest Police Station*.
    */
@@ -525,27 +504,6 @@ export type PaymentRequest = {
 };
 
 /** @internal */
-export const PaymentRequestType$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentRequestType
-> = z.nativeEnum(PaymentRequestType);
-
-/** @internal */
-export const PaymentRequestType$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentRequestType
-> = PaymentRequestType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentRequestType$ {
-  /** @deprecated use `PaymentRequestType$inboundSchema` instead. */
-  export const inboundSchema = PaymentRequestType$inboundSchema;
-  /** @deprecated use `PaymentRequestType$outboundSchema` instead. */
-  export const outboundSchema = PaymentRequestType$outboundSchema;
-}
-
-/** @internal */
 export const PaymentRequestCategory$inboundSchema: z.ZodNativeEnum<
   typeof PaymentRequestCategory
 > = z.nativeEnum(PaymentRequestCategory);
@@ -572,7 +530,7 @@ export const PaymentRequestLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: PaymentRequestType$inboundSchema.optional(),
+  type: PaymentLineType$inboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),
@@ -612,7 +570,7 @@ export const PaymentRequestLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentRequestLine
 > = z.object({
-  type: PaymentRequestType$outboundSchema.optional(),
+  type: PaymentLineType$outboundSchema.optional(),
   description: z.string(),
   quantity: z.number().int(),
   quantityUnit: z.string().optional(),

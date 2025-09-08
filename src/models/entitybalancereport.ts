@@ -5,8 +5,12 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BalanceReportGrouping,
+  BalanceReportGrouping$inboundSchema,
+  BalanceReportGrouping$outboundSchema,
+} from "./balancereportgrouping.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SubGroup,
@@ -20,38 +24,6 @@ import {
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-
-/**
- * You can retrieve reports in two different formats. With the `status-balances` format, transactions are grouped by
- *
- * @remarks
- * status (e.g. `pending`, `available`), then by direction of movement (e.g. moved from pending to available), then
- * by transaction type, and then by other sub-groupings where available (e.g. payment method).
- *
- * With the `transaction-categories` format, transactions are grouped by transaction type, then by direction of
- * movement, and then again by other sub-groupings where available.
- *
- * Both reporting formats will always contain opening and closing amounts that correspond to the start and end dates
- * of the report.
- */
-export const Grouping = {
-  StatusBalances: "status-balances",
-  TransactionCategories: "transaction-categories",
-} as const;
-/**
- * You can retrieve reports in two different formats. With the `status-balances` format, transactions are grouped by
- *
- * @remarks
- * status (e.g. `pending`, `available`), then by direction of movement (e.g. moved from pending to available), then
- * by transaction type, and then by other sub-groupings where available (e.g. payment method).
- *
- * With the `transaction-categories` format, transactions are grouped by transaction type, then by direction of
- * movement, and then again by other sub-groupings where available.
- *
- * Both reporting formats will always contain opening and closing amounts that correspond to the start and end dates
- * of the report.
- */
-export type Grouping = ClosedEnum<typeof Grouping>;
 
 /**
  * The pending balance. Only available if grouping is `status-balances`.
@@ -278,20 +250,7 @@ export type EntityBalanceReport = {
    * This means a report with for example `until=2024-02-01` will include movements up until 2024-01-31 23:59:59 CET.
    */
   until?: string | undefined;
-  /**
-   * You can retrieve reports in two different formats. With the `status-balances` format, transactions are grouped by
-   *
-   * @remarks
-   * status (e.g. `pending`, `available`), then by direction of movement (e.g. moved from pending to available), then
-   * by transaction type, and then by other sub-groupings where available (e.g. payment method).
-   *
-   * With the `transaction-categories` format, transactions are grouped by transaction type, then by direction of
-   * movement, and then again by other sub-groupings where available.
-   *
-   * Both reporting formats will always contain opening and closing amounts that correspond to the start and end dates
-   * of the report.
-   */
-  grouping?: Grouping | undefined;
+  grouping?: BalanceReportGrouping | undefined;
   /**
    * Totals are grouped according to the chosen grouping rule. The example response should give a good idea of what a
    *
@@ -322,25 +281,6 @@ export type EntityBalanceReport = {
    */
   links?: EntityBalanceReportLinks | undefined;
 };
-
-/** @internal */
-export const Grouping$inboundSchema: z.ZodNativeEnum<typeof Grouping> = z
-  .nativeEnum(Grouping);
-
-/** @internal */
-export const Grouping$outboundSchema: z.ZodNativeEnum<typeof Grouping> =
-  Grouping$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Grouping$ {
-  /** @deprecated use `Grouping$inboundSchema` instead. */
-  export const inboundSchema = Grouping$inboundSchema;
-  /** @deprecated use `Grouping$outboundSchema` instead. */
-  export const outboundSchema = Grouping$outboundSchema;
-}
 
 /** @internal */
 export const PendingBalance$inboundSchema: z.ZodType<
@@ -1160,7 +1100,7 @@ export const EntityBalanceReport$inboundSchema: z.ZodType<
   timeZone: z.string().optional(),
   from: z.string().optional(),
   until: z.string().optional(),
-  grouping: Grouping$inboundSchema.optional(),
+  grouping: BalanceReportGrouping$inboundSchema.optional(),
   totals: z.lazy(() => Totals$inboundSchema).optional(),
   _links: z.lazy(() => EntityBalanceReportLinks$inboundSchema).optional(),
 }).transform((v) => {
@@ -1192,7 +1132,7 @@ export const EntityBalanceReport$outboundSchema: z.ZodType<
   timeZone: z.string().optional(),
   from: z.string().optional(),
   until: z.string().optional(),
-  grouping: Grouping$outboundSchema.optional(),
+  grouping: BalanceReportGrouping$outboundSchema.optional(),
   totals: z.lazy(() => Totals$outboundSchema).optional(),
   links: z.lazy(() => EntityBalanceReportLinks$outboundSchema).optional(),
 }).transform((v) => {
