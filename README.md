@@ -23,6 +23,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
+  * [Idempotency Key](#idempotency-key)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
   * [Retries](#retries)
@@ -231,6 +232,55 @@ run();
 
 ```
 <!-- End Authentication [security] -->
+
+<!-- Start Idempotency Key -->
+## Idempotency Key
+
+This SDK supports the usage of Idempotency Keys. See our [documentation](https://docs.mollie.com/reference/api-idempotency) on how to use it.
+
+```typescript
+import { Client } from "mollie-api-typescript";
+
+let client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  }
+})
+
+let idempotencyKey = '<some-idempotency-key>';
+
+let payload = {
+  description: "Description",
+  amount: {
+      currency: "EUR",
+      value: "5.00",
+  },
+  redirectUrl: "https://example.org/redirect",
+}
+
+let payment1 = await client.payments.create(
+  {paymentRequest: payload},
+  {
+    headers: {
+      'Idempotency-Key': idempotencyKey
+    }
+  }
+);
+
+let payment2 = await client.payments.create(
+  {paymentRequest: payload},
+  {
+    headers: {
+      'Idempotency-Key': idempotencyKey
+    }
+  }
+);
+
+console.log(`Payment with id: ${payment1.id}`);
+console.log(`Payment with id: ${payment2.id}`);
+console.log(payment1.id === payment2.id ? "Payments are the same" : "Payments are different");
+```
+<!-- End Idempotency Key -->
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
