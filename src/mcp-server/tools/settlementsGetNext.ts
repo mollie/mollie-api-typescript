@@ -3,9 +3,14 @@
  */
 
 import { settlementsGetNext } from "../../funcs/settlementsGetNext.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$settlementsGetNext: ToolDefinition = {
+const args = {
+  request: operations.GetNextSettlementRequest$inboundSchema.optional(),
+};
+
+export const tool$settlementsGetNext: ToolDefinition<typeof args> = {
   name: "settlements-get-next",
   description: `Get next settlement
 
@@ -16,9 +21,11 @@ documentation.
 
 For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
 [balance transactions](list-balance-transactions) endpoint.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsGetNext(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

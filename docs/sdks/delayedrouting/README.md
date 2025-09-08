@@ -28,6 +28,7 @@ const client = new Client({
 async function run() {
   const result = await client.delayedRouting.create({
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     routeCreateRequest: {
       id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
       paymentId: "tr_5B8cwPMGnU",
@@ -69,6 +70,7 @@ const client = new ClientCore({
 async function run() {
   const res = await delayedRoutingCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     routeCreateRequest: {
       id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
       paymentId: "tr_5B8cwPMGnU",
@@ -135,6 +137,7 @@ async function run() {
   const result = await client.delayedRouting.list({
     paymentId: "tr_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -163,6 +166,7 @@ async function run() {
   const res = await delayedRoutingList(client, {
     paymentId: "tr_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

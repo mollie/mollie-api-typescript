@@ -35,6 +35,7 @@ async function run() {
     from: "inv_xBEbP9rvAq",
     limit: 50,
     sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -67,6 +68,7 @@ async function run() {
     from: "inv_xBEbP9rvAq",
     limit: 50,
     sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -121,6 +123,7 @@ const client = new Client({
 async function run() {
   const result = await client.invoices.get({
     id: "inv_FrvewDA3Pr",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -148,6 +151,7 @@ const client = new ClientCore({
 async function run() {
   const res = await invoicesGet(client, {
     id: "inv_FrvewDA3Pr",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

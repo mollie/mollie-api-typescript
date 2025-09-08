@@ -3,9 +3,14 @@
  */
 
 import { profilesGetCurrent } from "../../funcs/profilesGetCurrent.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$profilesGetCurrent: ToolDefinition = {
+const args = {
+  request: operations.GetCurrentProfileRequest$inboundSchema.optional(),
+};
+
+export const tool$profilesGetCurrent: ToolDefinition<typeof args> = {
   name: "profiles-get-current",
   description: `Get current profile
 
@@ -14,9 +19,11 @@ endpoint.
 
 For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint
 documentation.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await profilesGetCurrent(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

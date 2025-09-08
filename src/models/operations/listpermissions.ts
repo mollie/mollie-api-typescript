@@ -9,6 +9,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListPermissionsRequest = {
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
+};
+
 export type ListPermissionsEmbedded = {
   /**
    * An array of permission objects.
@@ -50,6 +57,68 @@ export type ListPermissionsResponse = {
    */
   links?: ListPermissionsLinks | undefined;
 };
+
+/** @internal */
+export const ListPermissionsRequest$inboundSchema: z.ZodType<
+  ListPermissionsRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
+});
+
+/** @internal */
+export type ListPermissionsRequest$Outbound = {
+  "idempotency-key"?: string | undefined;
+};
+
+/** @internal */
+export const ListPermissionsRequest$outboundSchema: z.ZodType<
+  ListPermissionsRequest$Outbound,
+  z.ZodTypeDef,
+  ListPermissionsRequest
+> = z.object({
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListPermissionsRequest$ {
+  /** @deprecated use `ListPermissionsRequest$inboundSchema` instead. */
+  export const inboundSchema = ListPermissionsRequest$inboundSchema;
+  /** @deprecated use `ListPermissionsRequest$outboundSchema` instead. */
+  export const outboundSchema = ListPermissionsRequest$outboundSchema;
+  /** @deprecated use `ListPermissionsRequest$Outbound` instead. */
+  export type Outbound = ListPermissionsRequest$Outbound;
+}
+
+export function listPermissionsRequestToJSON(
+  listPermissionsRequest: ListPermissionsRequest,
+): string {
+  return JSON.stringify(
+    ListPermissionsRequest$outboundSchema.parse(listPermissionsRequest),
+  );
+}
+
+export function listPermissionsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<ListPermissionsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListPermissionsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListPermissionsRequest' from JSON`,
+  );
+}
 
 /** @internal */
 export const ListPermissionsEmbedded$inboundSchema: z.ZodType<

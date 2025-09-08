@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type CreateWebhookRequest = {
+export type CreateWebhookRequestBody = {
   /**
    * A name that identifies the webhook.
    */
@@ -34,9 +34,17 @@ export type CreateWebhookRequest = {
   testmode?: boolean | null | undefined;
 };
 
+export type CreateWebhookRequest = {
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
+  requestBody?: CreateWebhookRequestBody | undefined;
+};
+
 /** @internal */
-export const CreateWebhookRequest$inboundSchema: z.ZodType<
-  CreateWebhookRequest,
+export const CreateWebhookRequestBody$inboundSchema: z.ZodType<
+  CreateWebhookRequestBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -51,7 +59,7 @@ export const CreateWebhookRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type CreateWebhookRequest$Outbound = {
+export type CreateWebhookRequestBody$Outbound = {
   name: string;
   url: string;
   eventTypes: string;
@@ -59,10 +67,10 @@ export type CreateWebhookRequest$Outbound = {
 };
 
 /** @internal */
-export const CreateWebhookRequest$outboundSchema: z.ZodType<
-  CreateWebhookRequest$Outbound,
+export const CreateWebhookRequestBody$outboundSchema: z.ZodType<
+  CreateWebhookRequestBody$Outbound,
   z.ZodTypeDef,
-  CreateWebhookRequest
+  CreateWebhookRequestBody
 > = z.object({
   name: z.string(),
   url: z.string(),
@@ -71,6 +79,73 @@ export const CreateWebhookRequest$outboundSchema: z.ZodType<
 }).transform((v) => {
   return remap$(v, {
     webhookEventTypes: "eventTypes",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateWebhookRequestBody$ {
+  /** @deprecated use `CreateWebhookRequestBody$inboundSchema` instead. */
+  export const inboundSchema = CreateWebhookRequestBody$inboundSchema;
+  /** @deprecated use `CreateWebhookRequestBody$outboundSchema` instead. */
+  export const outboundSchema = CreateWebhookRequestBody$outboundSchema;
+  /** @deprecated use `CreateWebhookRequestBody$Outbound` instead. */
+  export type Outbound = CreateWebhookRequestBody$Outbound;
+}
+
+export function createWebhookRequestBodyToJSON(
+  createWebhookRequestBody: CreateWebhookRequestBody,
+): string {
+  return JSON.stringify(
+    CreateWebhookRequestBody$outboundSchema.parse(createWebhookRequestBody),
+  );
+}
+
+export function createWebhookRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateWebhookRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateWebhookRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateWebhookRequestBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateWebhookRequest$inboundSchema: z.ZodType<
+  CreateWebhookRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  "idempotency-key": z.string().optional(),
+  RequestBody: z.lazy(() => CreateWebhookRequestBody$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+    "RequestBody": "requestBody",
+  });
+});
+
+/** @internal */
+export type CreateWebhookRequest$Outbound = {
+  "idempotency-key"?: string | undefined;
+  RequestBody?: CreateWebhookRequestBody$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateWebhookRequest$outboundSchema: z.ZodType<
+  CreateWebhookRequest$Outbound,
+  z.ZodTypeDef,
+  CreateWebhookRequest
+> = z.object({
+  idempotencyKey: z.string().optional(),
+  requestBody: z.lazy(() => CreateWebhookRequestBody$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    requestBody: "RequestBody",
   });
 });
 

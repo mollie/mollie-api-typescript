@@ -9,6 +9,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListCapabilitiesRequest = {
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
+};
+
 export type ListCapabilitiesEmbedded = {
   capabilities?: Array<models.EntityCapability> | undefined;
 };
@@ -33,6 +40,68 @@ export type ListCapabilitiesResponse = {
   embedded?: ListCapabilitiesEmbedded | undefined;
   links?: ListCapabilitiesLinks | undefined;
 };
+
+/** @internal */
+export const ListCapabilitiesRequest$inboundSchema: z.ZodType<
+  ListCapabilitiesRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
+});
+
+/** @internal */
+export type ListCapabilitiesRequest$Outbound = {
+  "idempotency-key"?: string | undefined;
+};
+
+/** @internal */
+export const ListCapabilitiesRequest$outboundSchema: z.ZodType<
+  ListCapabilitiesRequest$Outbound,
+  z.ZodTypeDef,
+  ListCapabilitiesRequest
+> = z.object({
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCapabilitiesRequest$ {
+  /** @deprecated use `ListCapabilitiesRequest$inboundSchema` instead. */
+  export const inboundSchema = ListCapabilitiesRequest$inboundSchema;
+  /** @deprecated use `ListCapabilitiesRequest$outboundSchema` instead. */
+  export const outboundSchema = ListCapabilitiesRequest$outboundSchema;
+  /** @deprecated use `ListCapabilitiesRequest$Outbound` instead. */
+  export type Outbound = ListCapabilitiesRequest$Outbound;
+}
+
+export function listCapabilitiesRequestToJSON(
+  listCapabilitiesRequest: ListCapabilitiesRequest,
+): string {
+  return JSON.stringify(
+    ListCapabilitiesRequest$outboundSchema.parse(listCapabilitiesRequest),
+  );
+}
+
+export function listCapabilitiesRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<ListCapabilitiesRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListCapabilitiesRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListCapabilitiesRequest' from JSON`,
+  );
+}
 
 /** @internal */
 export const ListCapabilitiesEmbedded$inboundSchema: z.ZodType<

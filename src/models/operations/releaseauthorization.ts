@@ -36,6 +36,10 @@ export type ReleaseAuthorizationRequest = {
    * Provide the ID of the related payment.
    */
   paymentId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: ReleaseAuthorizationRequestBody | undefined;
 };
 
@@ -105,10 +109,12 @@ export const ReleaseAuthorizationRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => ReleaseAuthorizationRequestBody$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -116,6 +122,7 @@ export const ReleaseAuthorizationRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type ReleaseAuthorizationRequest$Outbound = {
   paymentId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: ReleaseAuthorizationRequestBody$Outbound | undefined;
 };
 
@@ -126,10 +133,12 @@ export const ReleaseAuthorizationRequest$outboundSchema: z.ZodType<
   ReleaseAuthorizationRequest
 > = z.object({
   paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => ReleaseAuthorizationRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

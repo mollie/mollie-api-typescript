@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
@@ -98,9 +99,17 @@ export type Profile = {
   businessCategory?: string | undefined;
 };
 
-export type SubmitOnboardingDataRequest = {
+export type SubmitOnboardingDataRequestBody = {
   organization?: Organization | undefined;
   profile?: Profile | undefined;
+};
+
+export type SubmitOnboardingDataRequest = {
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
+  requestBody?: SubmitOnboardingDataRequestBody | undefined;
 };
 
 /** @internal */
@@ -249,8 +258,8 @@ export function profileFromJSON(
 }
 
 /** @internal */
-export const SubmitOnboardingDataRequest$inboundSchema: z.ZodType<
-  SubmitOnboardingDataRequest,
+export const SubmitOnboardingDataRequestBody$inboundSchema: z.ZodType<
+  SubmitOnboardingDataRequestBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -259,9 +268,74 @@ export const SubmitOnboardingDataRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type SubmitOnboardingDataRequest$Outbound = {
+export type SubmitOnboardingDataRequestBody$Outbound = {
   organization?: Organization$Outbound | undefined;
   profile?: Profile$Outbound | undefined;
+};
+
+/** @internal */
+export const SubmitOnboardingDataRequestBody$outboundSchema: z.ZodType<
+  SubmitOnboardingDataRequestBody$Outbound,
+  z.ZodTypeDef,
+  SubmitOnboardingDataRequestBody
+> = z.object({
+  organization: z.lazy(() => Organization$outboundSchema).optional(),
+  profile: z.lazy(() => Profile$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace SubmitOnboardingDataRequestBody$ {
+  /** @deprecated use `SubmitOnboardingDataRequestBody$inboundSchema` instead. */
+  export const inboundSchema = SubmitOnboardingDataRequestBody$inboundSchema;
+  /** @deprecated use `SubmitOnboardingDataRequestBody$outboundSchema` instead. */
+  export const outboundSchema = SubmitOnboardingDataRequestBody$outboundSchema;
+  /** @deprecated use `SubmitOnboardingDataRequestBody$Outbound` instead. */
+  export type Outbound = SubmitOnboardingDataRequestBody$Outbound;
+}
+
+export function submitOnboardingDataRequestBodyToJSON(
+  submitOnboardingDataRequestBody: SubmitOnboardingDataRequestBody,
+): string {
+  return JSON.stringify(
+    SubmitOnboardingDataRequestBody$outboundSchema.parse(
+      submitOnboardingDataRequestBody,
+    ),
+  );
+}
+
+export function submitOnboardingDataRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<SubmitOnboardingDataRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SubmitOnboardingDataRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SubmitOnboardingDataRequestBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const SubmitOnboardingDataRequest$inboundSchema: z.ZodType<
+  SubmitOnboardingDataRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  "idempotency-key": z.string().optional(),
+  RequestBody: z.lazy(() => SubmitOnboardingDataRequestBody$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+    "RequestBody": "requestBody",
+  });
+});
+
+/** @internal */
+export type SubmitOnboardingDataRequest$Outbound = {
+  "idempotency-key"?: string | undefined;
+  RequestBody?: SubmitOnboardingDataRequestBody$Outbound | undefined;
 };
 
 /** @internal */
@@ -270,8 +344,14 @@ export const SubmitOnboardingDataRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SubmitOnboardingDataRequest
 > = z.object({
-  organization: z.lazy(() => Organization$outboundSchema).optional(),
-  profile: z.lazy(() => Profile$outboundSchema).optional(),
+  idempotencyKey: z.string().optional(),
+  requestBody: z.lazy(() => SubmitOnboardingDataRequestBody$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    requestBody: "RequestBody",
+  });
 });
 
 /**

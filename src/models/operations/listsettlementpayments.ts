@@ -52,6 +52,10 @@ export type ListSettlementPaymentsRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 export type ListSettlementPaymentsEmbedded = {
@@ -94,6 +98,11 @@ export const ListSettlementPaymentsRequest$inboundSchema: z.ZodType<
   sort: z.nullable(models.ListSort$inboundSchema).optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
@@ -104,6 +113,7 @@ export type ListSettlementPaymentsRequest$Outbound = {
   sort?: string | null | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -118,6 +128,11 @@ export const ListSettlementPaymentsRequest$outboundSchema: z.ZodType<
   sort: z.nullable(models.ListSort$outboundSchema).optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

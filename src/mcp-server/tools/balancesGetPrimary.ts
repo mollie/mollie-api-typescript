@@ -3,9 +3,14 @@
  */
 
 import { balancesGetPrimary } from "../../funcs/balancesGetPrimary.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$balancesGetPrimary: ToolDefinition = {
+const args = {
+  request: operations.GetPrimaryBalanceRequest$inboundSchema.optional(),
+};
+
+export const tool$balancesGetPrimary: ToolDefinition<typeof args> = {
   name: "balances-get-primary",
   description: `Get primary balance
 
@@ -14,9 +19,11 @@ currency, where all payments are settled to by default.
 
 This endpoint is a convenient alias of the [Get balance](get-balance)
 endpoint.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await balancesGetPrimary(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

@@ -185,6 +185,7 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -223,6 +224,7 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -593,6 +595,7 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   }, {
     retries: {
       strategy: "backoff",
@@ -639,6 +642,7 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -681,6 +685,7 @@ async function run() {
       from: "bal_gVMhHKqSSRYJyPsuoPNFH",
       limit: 50,
       testmode: false,
+      idempotencyKey: "123e4567-e89b-12d3-a456-426",
     });
 
     console.log(result);
@@ -755,6 +760,7 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);

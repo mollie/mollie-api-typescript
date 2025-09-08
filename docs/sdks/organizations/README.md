@@ -34,6 +34,7 @@ async function run() {
   const result = await client.organizations.get({
     id: "org_12345678",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -62,6 +63,7 @@ async function run() {
   const res = await organizationsGet(client, {
     id: "org_12345678",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -115,7 +117,9 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.organizations.getCurrent();
+  const result = await client.organizations.getCurrent({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
 
   console.log(result);
 }
@@ -140,7 +144,9 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await organizationsGetCurrent(client);
+  const res = await organizationsGetCurrent(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -156,6 +162,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetCurrentOrganizationRequest](../../models/operations/getcurrentorganizationrequest.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -188,7 +195,9 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.organizations.getPartner();
+  const result = await client.organizations.getPartner({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
 
   console.log(result);
 }
@@ -213,7 +222,9 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await organizationsGetPartner(client);
+  const res = await organizationsGetPartner(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -229,6 +240,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetPartnerStatusRequest](../../models/operations/getpartnerstatusrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

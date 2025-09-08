@@ -14,6 +14,10 @@ export type UpdateSalesInvoiceRequest = {
    * Provide the ID of the item you want to perform this operation on.
    */
   id: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   updateValuesSalesInvoice?: models.UpdateValuesSalesInvoice | undefined;
 };
 
@@ -24,10 +28,12 @@ export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
+  "idempotency-key": z.string().optional(),
   "update-values-sales-invoice": models.UpdateValuesSalesInvoice$inboundSchema
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "update-values-sales-invoice": "updateValuesSalesInvoice",
   });
 });
@@ -35,6 +41,7 @@ export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type UpdateSalesInvoiceRequest$Outbound = {
   id: string;
+  "idempotency-key"?: string | undefined;
   "update-values-sales-invoice"?:
     | models.UpdateValuesSalesInvoice$Outbound
     | undefined;
@@ -47,10 +54,12 @@ export const UpdateSalesInvoiceRequest$outboundSchema: z.ZodType<
   UpdateSalesInvoiceRequest
 > = z.object({
   id: z.string(),
+  idempotencyKey: z.string().optional(),
   updateValuesSalesInvoice: models.UpdateValuesSalesInvoice$outboundSchema
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     updateValuesSalesInvoice: "update-values-sales-invoice",
   });
 });

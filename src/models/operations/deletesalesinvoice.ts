@@ -14,6 +14,10 @@ export type DeleteSalesInvoiceRequest = {
    * Provide the ID of the item you want to perform this operation on.
    */
   id: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   deleteValuesSalesInvoice?: models.DeleteValuesSalesInvoice | undefined;
 };
 
@@ -24,10 +28,12 @@ export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
+  "idempotency-key": z.string().optional(),
   "delete-values-sales-invoice": models.DeleteValuesSalesInvoice$inboundSchema
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "delete-values-sales-invoice": "deleteValuesSalesInvoice",
   });
 });
@@ -35,6 +41,7 @@ export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type DeleteSalesInvoiceRequest$Outbound = {
   id: string;
+  "idempotency-key"?: string | undefined;
   "delete-values-sales-invoice"?:
     | models.DeleteValuesSalesInvoice$Outbound
     | undefined;
@@ -47,10 +54,12 @@ export const DeleteSalesInvoiceRequest$outboundSchema: z.ZodType<
   DeleteSalesInvoiceRequest
 > = z.object({
   id: z.string(),
+  idempotencyKey: z.string().optional(),
   deleteValuesSalesInvoice: models.DeleteValuesSalesInvoice$outboundSchema
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     deleteValuesSalesInvoice: "delete-values-sales-invoice",
   });
 });

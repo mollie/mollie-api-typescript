@@ -34,6 +34,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -65,6 +66,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -119,6 +121,7 @@ async function run() {
     chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -149,6 +152,7 @@ async function run() {
     chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -207,6 +211,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -239,6 +244,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

@@ -42,6 +42,10 @@ export type ListSettlementChargebacksRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 export type ListSettlementChargebacksEmbedded = {
@@ -83,6 +87,11 @@ export const ListSettlementChargebacksRequest$inboundSchema: z.ZodType<
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
@@ -92,6 +101,7 @@ export type ListSettlementChargebacksRequest$Outbound = {
   limit?: number | null | undefined;
   embed?: string | null | undefined;
   testmode?: boolean | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -105,6 +115,11 @@ export const ListSettlementChargebacksRequest$outboundSchema: z.ZodType<
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

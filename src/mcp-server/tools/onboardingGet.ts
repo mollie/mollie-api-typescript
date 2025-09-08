@@ -3,16 +3,23 @@
  */
 
 import { onboardingGet } from "../../funcs/onboardingGet.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$onboardingGet: ToolDefinition = {
+const args = {
+  request: operations.GetOnboardingStatusRequest$inboundSchema.optional(),
+};
+
+export const tool$onboardingGet: ToolDefinition<typeof args> = {
   name: "onboarding-get",
   description: `Get onboarding status
 
 Retrieve the onboarding status of the currently authenticated organization.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await onboardingGet(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

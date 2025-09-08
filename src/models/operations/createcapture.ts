@@ -14,6 +14,10 @@ export type CreateCaptureRequest = {
    * Provide the ID of the related payment.
    */
   paymentId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   entityCapture?: models.EntityCapture | undefined;
 };
 
@@ -24,9 +28,11 @@ export const CreateCaptureRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentId: z.string(),
+  "idempotency-key": z.string().optional(),
   "entity-capture": models.EntityCapture$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "entity-capture": "entityCapture",
   });
 });
@@ -34,6 +40,7 @@ export const CreateCaptureRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type CreateCaptureRequest$Outbound = {
   paymentId: string;
+  "idempotency-key"?: string | undefined;
   "entity-capture"?: models.EntityCapture$Outbound | undefined;
 };
 
@@ -44,9 +51,11 @@ export const CreateCaptureRequest$outboundSchema: z.ZodType<
   CreateCaptureRequest
 > = z.object({
   paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
   entityCapture: models.EntityCapture$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     entityCapture: "entity-capture",
   });
 });

@@ -33,67 +33,70 @@ const client = new Client({
 
 async function run() {
   const result = await client.salesInvoices.create({
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    testmode: false,
-    profileId: "pfl_QkEhN94Ba",
-    status: "draft",
-    vatScheme: "standard",
-    vatMode: "exclusive",
-    memo: "This is a memo!",
-    paymentTerm: "30 days",
-    paymentDetails: {
-      source: "payment-link",
-      sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-    },
-    emailDetails: {
-      subject: "Your invoice is available",
-      body: "Please find your invoice enclosed.",
-    },
-    customerId: "cst_8wmqcHMN4U",
-    mandateId: "mdt_pWUnw6pkBN",
-    recipientIdentifier: "customer-xyz-0123",
-    recipient: {
-      type: "consumer",
-      title: "Mrs.",
-      givenName: "Jane",
-      familyName: "Doe",
-      organizationName: "Organization Corp.",
-      organizationNumber: "12345678",
-      vatNumber: "NL123456789B01",
-      email: "example@email.com",
-      phone: "+0123456789",
-      streetAndNumber: "Keizersgracht 126",
-      streetAdditional: "4th floor",
-      postalCode: "5678AB",
-      city: "Amsterdam",
-      region: "Noord-Holland",
-      country: "NL",
-      locale: "nl_NL",
-    },
-    lines: [],
-    discount: {
-      type: "amount",
-      value: "10.00",
-    },
-    amountDue: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    subtotalAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    totalAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    totalVatAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    discountedSubtotalAmount: {
-      currency: "EUR",
-      value: "10.00",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entitySalesInvoice: {
+      id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+      testmode: false,
+      profileId: "pfl_QkEhN94Ba",
+      status: "draft",
+      vatScheme: "standard",
+      vatMode: "exclusive",
+      memo: "This is a memo!",
+      paymentTerm: "30 days",
+      paymentDetails: {
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+      },
+      emailDetails: {
+        subject: "Your invoice is available",
+        body: "Please find your invoice enclosed.",
+      },
+      customerId: "cst_8wmqcHMN4U",
+      mandateId: "mdt_pWUnw6pkBN",
+      recipientIdentifier: "customer-xyz-0123",
+      recipient: {
+        type: "consumer",
+        title: "Mrs.",
+        givenName: "Jane",
+        familyName: "Doe",
+        organizationName: "Organization Corp.",
+        organizationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+        email: "example@email.com",
+        phone: "+0123456789",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "4th floor",
+        postalCode: "5678AB",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+        locale: "nl_NL",
+      },
+      lines: [],
+      discount: {
+        type: "amount",
+        value: "10.00",
+      },
+      amountDue: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      subtotalAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      totalAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      totalVatAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      discountedSubtotalAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
     },
   });
 
@@ -121,67 +124,70 @@ const client = new ClientCore({
 
 async function run() {
   const res = await salesInvoicesCreate(client, {
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    testmode: false,
-    profileId: "pfl_QkEhN94Ba",
-    status: "draft",
-    vatScheme: "standard",
-    vatMode: "exclusive",
-    memo: "This is a memo!",
-    paymentTerm: "30 days",
-    paymentDetails: {
-      source: "payment-link",
-      sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-    },
-    emailDetails: {
-      subject: "Your invoice is available",
-      body: "Please find your invoice enclosed.",
-    },
-    customerId: "cst_8wmqcHMN4U",
-    mandateId: "mdt_pWUnw6pkBN",
-    recipientIdentifier: "customer-xyz-0123",
-    recipient: {
-      type: "consumer",
-      title: "Mrs.",
-      givenName: "Jane",
-      familyName: "Doe",
-      organizationName: "Organization Corp.",
-      organizationNumber: "12345678",
-      vatNumber: "NL123456789B01",
-      email: "example@email.com",
-      phone: "+0123456789",
-      streetAndNumber: "Keizersgracht 126",
-      streetAdditional: "4th floor",
-      postalCode: "5678AB",
-      city: "Amsterdam",
-      region: "Noord-Holland",
-      country: "NL",
-      locale: "nl_NL",
-    },
-    lines: [],
-    discount: {
-      type: "amount",
-      value: "10.00",
-    },
-    amountDue: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    subtotalAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    totalAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    totalVatAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    discountedSubtotalAmount: {
-      currency: "EUR",
-      value: "10.00",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entitySalesInvoice: {
+      id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+      testmode: false,
+      profileId: "pfl_QkEhN94Ba",
+      status: "draft",
+      vatScheme: "standard",
+      vatMode: "exclusive",
+      memo: "This is a memo!",
+      paymentTerm: "30 days",
+      paymentDetails: {
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+      },
+      emailDetails: {
+        subject: "Your invoice is available",
+        body: "Please find your invoice enclosed.",
+      },
+      customerId: "cst_8wmqcHMN4U",
+      mandateId: "mdt_pWUnw6pkBN",
+      recipientIdentifier: "customer-xyz-0123",
+      recipient: {
+        type: "consumer",
+        title: "Mrs.",
+        givenName: "Jane",
+        familyName: "Doe",
+        organizationName: "Organization Corp.",
+        organizationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+        email: "example@email.com",
+        phone: "+0123456789",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "4th floor",
+        postalCode: "5678AB",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+        locale: "nl_NL",
+      },
+      lines: [],
+      discount: {
+        type: "amount",
+        value: "10.00",
+      },
+      amountDue: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      subtotalAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      totalAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      totalVatAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      discountedSubtotalAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
     },
   });
   if (res.ok) {
@@ -199,7 +205,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.EntitySalesInvoice](../../models/entitysalesinvoice.md)                                                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateSalesInvoiceRequest](../../models/operations/createsalesinvoicerequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -242,6 +248,7 @@ async function run() {
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -271,6 +278,7 @@ async function run() {
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -327,6 +335,7 @@ async function run() {
   const result = await client.salesInvoices.get({
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -355,6 +364,7 @@ async function run() {
   const res = await salesInvoicesGet(client, {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -412,6 +422,7 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.update({
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     updateValuesSalesInvoice: {
       testmode: false,
       status: "draft",
@@ -491,6 +502,7 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesUpdate(client, {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     updateValuesSalesInvoice: {
       testmode: false,
       status: "draft",
@@ -599,6 +611,7 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.delete({
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     deleteValuesSalesInvoice: {
       testmode: false,
     },
@@ -629,6 +642,7 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesDelete(client, {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     deleteValuesSalesInvoice: {
       testmode: false,
     },

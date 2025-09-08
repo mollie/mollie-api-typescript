@@ -10,6 +10,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type GetPartnerStatusRequest = {
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
+};
+
 /**
  * Indicates the type of partner. Will be `null` if the currently authenticated organization is not
  *
@@ -117,6 +124,68 @@ export type GetPartnerStatusResponse = {
    */
   links?: GetPartnerStatusLinks | undefined;
 };
+
+/** @internal */
+export const GetPartnerStatusRequest$inboundSchema: z.ZodType<
+  GetPartnerStatusRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
+});
+
+/** @internal */
+export type GetPartnerStatusRequest$Outbound = {
+  "idempotency-key"?: string | undefined;
+};
+
+/** @internal */
+export const GetPartnerStatusRequest$outboundSchema: z.ZodType<
+  GetPartnerStatusRequest$Outbound,
+  z.ZodTypeDef,
+  GetPartnerStatusRequest
+> = z.object({
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetPartnerStatusRequest$ {
+  /** @deprecated use `GetPartnerStatusRequest$inboundSchema` instead. */
+  export const inboundSchema = GetPartnerStatusRequest$inboundSchema;
+  /** @deprecated use `GetPartnerStatusRequest$outboundSchema` instead. */
+  export const outboundSchema = GetPartnerStatusRequest$outboundSchema;
+  /** @deprecated use `GetPartnerStatusRequest$Outbound` instead. */
+  export type Outbound = GetPartnerStatusRequest$Outbound;
+}
+
+export function getPartnerStatusRequestToJSON(
+  getPartnerStatusRequest: GetPartnerStatusRequest,
+): string {
+  return JSON.stringify(
+    GetPartnerStatusRequest$outboundSchema.parse(getPartnerStatusRequest),
+  );
+}
+
+export function getPartnerStatusRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPartnerStatusRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPartnerStatusRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPartnerStatusRequest' from JSON`,
+  );
+}
 
 /** @internal */
 export const PartnerType$inboundSchema: z.ZodNativeEnum<typeof PartnerType> = z

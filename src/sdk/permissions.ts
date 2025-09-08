@@ -19,10 +19,12 @@ export class Permissions extends ClientSDK {
    * The results are **not** paginated.
    */
   async list(
+    request?: operations.ListPermissionsRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.ListPermissionsResponse> {
     return unwrapAsync(permissionsList(
       this,
+      request,
       options,
     ));
   }

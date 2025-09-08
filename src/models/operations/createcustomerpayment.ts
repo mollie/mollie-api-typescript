@@ -14,6 +14,10 @@ export type CreateCustomerPaymentRequest = {
    * Provide the ID of the related customer.
    */
   customerId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   paymentRequest?: models.PaymentRequest | undefined;
 };
 
@@ -24,9 +28,11 @@ export const CreateCustomerPaymentRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   customerId: z.string(),
+  "idempotency-key": z.string().optional(),
   "payment-request": models.PaymentRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "payment-request": "paymentRequest",
   });
 });
@@ -34,6 +40,7 @@ export const CreateCustomerPaymentRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type CreateCustomerPaymentRequest$Outbound = {
   customerId: string;
+  "idempotency-key"?: string | undefined;
   "payment-request"?: models.PaymentRequest$Outbound | undefined;
 };
 
@@ -44,9 +51,11 @@ export const CreateCustomerPaymentRequest$outboundSchema: z.ZodType<
   CreateCustomerPaymentRequest
 > = z.object({
   customerId: z.string(),
+  idempotencyKey: z.string().optional(),
   paymentRequest: models.PaymentRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     paymentRequest: "payment-request",
   });
 });

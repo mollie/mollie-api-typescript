@@ -14,6 +14,10 @@ export type UpdateCustomerRequest = {
    * Provide the ID of the related customer.
    */
   customerId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   entityCustomer?: models.EntityCustomer | undefined;
 };
 
@@ -24,9 +28,11 @@ export const UpdateCustomerRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   customerId: z.string(),
+  "idempotency-key": z.string().optional(),
   "entity-customer": models.EntityCustomer$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "entity-customer": "entityCustomer",
   });
 });
@@ -34,6 +40,7 @@ export const UpdateCustomerRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type UpdateCustomerRequest$Outbound = {
   customerId: string;
+  "idempotency-key"?: string | undefined;
   "entity-customer"?: models.EntityCustomer$Outbound | undefined;
 };
 
@@ -44,9 +51,11 @@ export const UpdateCustomerRequest$outboundSchema: z.ZodType<
   UpdateCustomerRequest
 > = z.object({
   customerId: z.string(),
+  idempotencyKey: z.string().optional(),
   entityCustomer: models.EntityCustomer$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     entityCustomer: "entity-customer",
   });
 });

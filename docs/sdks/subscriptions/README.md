@@ -50,6 +50,7 @@ const client = new Client({
 async function run() {
   const result = await client.subscriptions.create({
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     subscriptionRequest: {
       id: "sub_5B8cwPMGnU",
       status: "active",
@@ -101,6 +102,7 @@ const client = new ClientCore({
 async function run() {
   const res = await subscriptionsCreate(client, {
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     subscriptionRequest: {
       id: "sub_5B8cwPMGnU",
       status: "active",
@@ -182,6 +184,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -213,6 +216,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -266,6 +270,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -295,6 +300,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -351,6 +357,7 @@ async function run() {
   const result = await client.subscriptions.update({
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       amount: {
         currency: "EUR",
@@ -392,6 +399,7 @@ async function run() {
   const res = await subscriptionsUpdate(client, {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       amount: {
         currency: "EUR",
@@ -457,6 +465,7 @@ async function run() {
   const result = await client.subscriptions.cancel({
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -488,6 +497,7 @@ async function run() {
   const res = await subscriptionsCancel(client, {
     customerId: "cst_5B8cwPMGnU",
     subscriptionId: "sub_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -547,6 +557,7 @@ async function run() {
     limit: 50,
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -577,6 +588,7 @@ async function run() {
     limit: 50,
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -636,6 +648,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -669,6 +682,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

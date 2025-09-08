@@ -24,6 +24,10 @@ export type PaymentListRoutesRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 export type PaymentListRoutesEmbedded = {
@@ -76,12 +80,18 @@ export const PaymentListRoutesRequest$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   testmode: z.nullable(z.boolean()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
 export type PaymentListRoutesRequest$Outbound = {
   paymentId: string;
   testmode?: boolean | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -92,6 +102,11 @@ export const PaymentListRoutesRequest$outboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   testmode: z.nullable(z.boolean()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

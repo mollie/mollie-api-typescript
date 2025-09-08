@@ -3,11 +3,12 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type RequestApplePayPaymentSessionRequest = {
+export type RequestApplePayPaymentSessionRequestBody = {
   /**
    * The validationUrl you got from the
    *
@@ -39,9 +40,17 @@ export type RequestApplePayPaymentSessionRequest = {
   profileId?: string | undefined;
 };
 
+export type RequestApplePayPaymentSessionRequest = {
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
+  requestBody?: RequestApplePayPaymentSessionRequestBody | undefined;
+};
+
 /** @internal */
-export const RequestApplePayPaymentSessionRequest$inboundSchema: z.ZodType<
-  RequestApplePayPaymentSessionRequest,
+export const RequestApplePayPaymentSessionRequestBody$inboundSchema: z.ZodType<
+  RequestApplePayPaymentSessionRequestBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -51,10 +60,86 @@ export const RequestApplePayPaymentSessionRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type RequestApplePayPaymentSessionRequest$Outbound = {
+export type RequestApplePayPaymentSessionRequestBody$Outbound = {
   validationUrl: string;
   domain: string;
   profileId?: string | undefined;
+};
+
+/** @internal */
+export const RequestApplePayPaymentSessionRequestBody$outboundSchema: z.ZodType<
+  RequestApplePayPaymentSessionRequestBody$Outbound,
+  z.ZodTypeDef,
+  RequestApplePayPaymentSessionRequestBody
+> = z.object({
+  validationUrl: z.string(),
+  domain: z.string(),
+  profileId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RequestApplePayPaymentSessionRequestBody$ {
+  /** @deprecated use `RequestApplePayPaymentSessionRequestBody$inboundSchema` instead. */
+  export const inboundSchema =
+    RequestApplePayPaymentSessionRequestBody$inboundSchema;
+  /** @deprecated use `RequestApplePayPaymentSessionRequestBody$outboundSchema` instead. */
+  export const outboundSchema =
+    RequestApplePayPaymentSessionRequestBody$outboundSchema;
+  /** @deprecated use `RequestApplePayPaymentSessionRequestBody$Outbound` instead. */
+  export type Outbound = RequestApplePayPaymentSessionRequestBody$Outbound;
+}
+
+export function requestApplePayPaymentSessionRequestBodyToJSON(
+  requestApplePayPaymentSessionRequestBody:
+    RequestApplePayPaymentSessionRequestBody,
+): string {
+  return JSON.stringify(
+    RequestApplePayPaymentSessionRequestBody$outboundSchema.parse(
+      requestApplePayPaymentSessionRequestBody,
+    ),
+  );
+}
+
+export function requestApplePayPaymentSessionRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RequestApplePayPaymentSessionRequestBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RequestApplePayPaymentSessionRequestBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RequestApplePayPaymentSessionRequestBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const RequestApplePayPaymentSessionRequest$inboundSchema: z.ZodType<
+  RequestApplePayPaymentSessionRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  "idempotency-key": z.string().optional(),
+  RequestBody: z.lazy(() =>
+    RequestApplePayPaymentSessionRequestBody$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+    "RequestBody": "requestBody",
+  });
+});
+
+/** @internal */
+export type RequestApplePayPaymentSessionRequest$Outbound = {
+  "idempotency-key"?: string | undefined;
+  RequestBody?: RequestApplePayPaymentSessionRequestBody$Outbound | undefined;
 };
 
 /** @internal */
@@ -63,9 +148,15 @@ export const RequestApplePayPaymentSessionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RequestApplePayPaymentSessionRequest
 > = z.object({
-  validationUrl: z.string(),
-  domain: z.string(),
-  profileId: z.string().optional(),
+  idempotencyKey: z.string().optional(),
+  requestBody: z.lazy(() =>
+    RequestApplePayPaymentSessionRequestBody$outboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    requestBody: "RequestBody",
+  });
 });
 
 /**

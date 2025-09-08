@@ -14,6 +14,10 @@ export type CreatePaymentRequest = {
    * This endpoint allows you to include additional information via the `include` query string parameter.
    */
   include?: string | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   paymentRequest?: models.PaymentRequest | undefined;
 };
 
@@ -24,9 +28,11 @@ export const CreatePaymentRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   include: z.nullable(z.string()).optional(),
+  "idempotency-key": z.string().optional(),
   "payment-request": models.PaymentRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "payment-request": "paymentRequest",
   });
 });
@@ -34,6 +40,7 @@ export const CreatePaymentRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type CreatePaymentRequest$Outbound = {
   include?: string | null | undefined;
+  "idempotency-key"?: string | undefined;
   "payment-request"?: models.PaymentRequest$Outbound | undefined;
 };
 
@@ -44,9 +51,11 @@ export const CreatePaymentRequest$outboundSchema: z.ZodType<
   CreatePaymentRequest
 > = z.object({
   include: z.nullable(z.string()).optional(),
+  idempotencyKey: z.string().optional(),
   paymentRequest: models.PaymentRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     paymentRequest: "payment-request",
   });
 });

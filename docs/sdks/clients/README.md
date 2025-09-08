@@ -31,6 +31,7 @@ async function run() {
     embed: "organization",
     from: "org_12345678",
     limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -60,6 +61,7 @@ async function run() {
     embed: "organization",
     from: "org_12345678",
     limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -112,6 +114,7 @@ async function run() {
   const result = await client.clients.get({
     id: "org_12345678",
     embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -140,6 +143,7 @@ async function run() {
   const res = await clientsGet(client, {
     id: "org_12345678",
     embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

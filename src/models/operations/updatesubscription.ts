@@ -83,6 +83,10 @@ export type UpdateSubscriptionRequest = {
    * Provide the ID of the related subscription.
    */
   subscriptionId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: UpdateSubscriptionRequestBody | undefined;
 };
 
@@ -174,10 +178,12 @@ export const UpdateSubscriptionRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   subscriptionId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => UpdateSubscriptionRequestBody$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -186,6 +192,7 @@ export const UpdateSubscriptionRequest$inboundSchema: z.ZodType<
 export type UpdateSubscriptionRequest$Outbound = {
   customerId: string;
   subscriptionId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: UpdateSubscriptionRequestBody$Outbound | undefined;
 };
 
@@ -197,10 +204,12 @@ export const UpdateSubscriptionRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   subscriptionId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => UpdateSubscriptionRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

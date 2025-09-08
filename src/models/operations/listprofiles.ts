@@ -21,6 +21,10 @@ export type ListProfilesRequest = {
    * The maximum number of items to return. Defaults to 50 items.
    */
   limit?: number | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 export type ListProfilesEmbedded = {
@@ -59,12 +63,18 @@ export const ListProfilesRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
 export type ListProfilesRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -75,6 +85,11 @@ export const ListProfilesRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

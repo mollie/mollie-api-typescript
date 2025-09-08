@@ -14,6 +14,10 @@ export type CreateSubscriptionRequest = {
    * Provide the ID of the related customer.
    */
   customerId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   subscriptionRequest?: models.SubscriptionRequest | undefined;
 };
 
@@ -24,9 +28,11 @@ export const CreateSubscriptionRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   customerId: z.string(),
+  "idempotency-key": z.string().optional(),
   "subscription-request": models.SubscriptionRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "subscription-request": "subscriptionRequest",
   });
 });
@@ -34,6 +40,7 @@ export const CreateSubscriptionRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type CreateSubscriptionRequest$Outbound = {
   customerId: string;
+  "idempotency-key"?: string | undefined;
   "subscription-request"?: models.SubscriptionRequest$Outbound | undefined;
 };
 
@@ -44,9 +51,11 @@ export const CreateSubscriptionRequest$outboundSchema: z.ZodType<
   CreateSubscriptionRequest
 > = z.object({
   customerId: z.string(),
+  idempotencyKey: z.string().optional(),
   subscriptionRequest: models.SubscriptionRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     subscriptionRequest: "subscription-request",
   });
 });

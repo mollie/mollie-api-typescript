@@ -3,17 +3,24 @@
  */
 
 import { organizationsGetPartner } from "../../funcs/organizationsGetPartner.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$organizationsGetPartner: ToolDefinition = {
+const args = {
+  request: operations.GetPartnerStatusRequest$inboundSchema.optional(),
+};
+
+export const tool$organizationsGetPartner: ToolDefinition<typeof args> = {
   name: "organizations-get-partner",
   description: `Get partner status
 
 Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner
 accounts*.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await organizationsGetPartner(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

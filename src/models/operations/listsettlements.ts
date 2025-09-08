@@ -40,6 +40,10 @@ export type ListSettlementsRequest = {
    * Provides the currencies to retrieve the settlements. It accepts multiple currencies in a comma-separated format.
    */
   currencies?: models.Currencies | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 export type ListSettlementsEmbedded = {
@@ -88,6 +92,11 @@ export const ListSettlementsRequest$inboundSchema: z.ZodType<
   year: z.nullable(z.string()).optional(),
   month: z.nullable(z.string()).optional(),
   currencies: models.Currencies$inboundSchema.optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
@@ -98,6 +107,7 @@ export type ListSettlementsRequest$Outbound = {
   year?: string | null | undefined;
   month?: string | null | undefined;
   currencies?: string | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -112,6 +122,11 @@ export const ListSettlementsRequest$outboundSchema: z.ZodType<
   year: z.nullable(z.string()).optional(),
   month: z.nullable(z.string()).optional(),
   currencies: models.Currencies$outboundSchema.optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

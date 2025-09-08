@@ -25,6 +25,10 @@ export type DeleteWebhookRequest = {
    * Provide the ID of the item you want to perform this operation on.
    */
   id: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: DeleteWebhookRequestBody | undefined;
 };
 
@@ -89,9 +93,11 @@ export const DeleteWebhookRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => DeleteWebhookRequestBody$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -99,6 +105,7 @@ export const DeleteWebhookRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type DeleteWebhookRequest$Outbound = {
   id: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: DeleteWebhookRequestBody$Outbound | undefined;
 };
 
@@ -109,9 +116,11 @@ export const DeleteWebhookRequest$outboundSchema: z.ZodType<
   DeleteWebhookRequest
 > = z.object({
   id: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => DeleteWebhookRequestBody$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

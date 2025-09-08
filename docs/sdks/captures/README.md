@@ -35,6 +35,7 @@ const client = new Client({
 async function run() {
   const result = await client.captures.create({
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCapture: {
       id: "cpt_vytxeTZskVKR7C7WgdSP3d",
       description: "Capture for cart #12345",
@@ -78,6 +79,7 @@ const client = new ClientCore({
 async function run() {
   const res = await capturesCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCapture: {
       id: "cpt_vytxeTZskVKR7C7WgdSP3d",
       description: "Capture for cart #12345",
@@ -151,6 +153,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -182,6 +185,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -237,6 +241,7 @@ async function run() {
     captureId: "cpt_gVMhHKqSSRYJyPsuoPNFH",
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -267,6 +272,7 @@ async function run() {
     captureId: "cpt_gVMhHKqSSRYJyPsuoPNFH",
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

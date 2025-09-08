@@ -33,6 +33,7 @@ const client = new Client({
 async function run() {
   const result = await client.mandates.create({
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityMandate: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
@@ -75,6 +76,7 @@ const client = new ClientCore({
 async function run() {
   const res = await mandatesCreate(client, {
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityMandate: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
@@ -147,6 +149,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -178,6 +181,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -232,6 +236,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -261,6 +266,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -314,6 +320,7 @@ async function run() {
   const result = await client.mandates.revoke({
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -345,6 +352,7 @@ async function run() {
   const res = await mandatesRevoke(client, {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },

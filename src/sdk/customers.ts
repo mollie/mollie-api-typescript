@@ -25,7 +25,7 @@ export class Customers extends ClientSDK {
    * Once registered, customers will also appear in your Mollie dashboard.
    */
   async create(
-    request?: models.EntityCustomer | undefined,
+    request?: operations.CreateCustomerRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.CustomerResponse> {
     return unwrapAsync(customersCreate(

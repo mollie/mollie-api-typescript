@@ -24,7 +24,7 @@ export class SalesInvoices extends ClientSDK {
    * With the Sales Invoice API you can generate sales invoices to send to your customers.
    */
   async create(
-    request?: models.EntitySalesInvoice | undefined,
+    request?: operations.CreateSalesInvoiceRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntitySalesInvoiceResponse> {
     return unwrapAsync(salesInvoicesCreate(

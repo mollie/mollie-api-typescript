@@ -25,7 +25,9 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.onboarding.get();
+  const result = await client.onboarding.get({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
 
   console.log(result);
 }
@@ -50,7 +52,9 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await onboardingGet(client);
+  const res = await onboardingGet(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -66,6 +70,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetOnboardingStatusRequest](../../models/operations/getonboardingstatusrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -103,19 +108,22 @@ const client = new Client({
 
 async function run() {
   const result = await client.onboarding.submit({
-    organization: {
-      name: "Mollie B.V.",
-      registrationNumber: "30204462",
-      vatNumber: "NL815839091B01",
-      vatRegulation: "dutch",
-    },
-    profile: {
-      name: "Mollie",
-      url: "https://www.mollie.com",
-      email: "info@mollie.com",
-      phone: "+31208202070",
-      description: "Payment service provider",
-      businessCategory: "MONEY_SERVICES",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      organization: {
+        name: "Mollie B.V.",
+        registrationNumber: "30204462",
+        vatNumber: "NL815839091B01",
+        vatRegulation: "dutch",
+      },
+      profile: {
+        name: "Mollie",
+        url: "https://www.mollie.com",
+        email: "info@mollie.com",
+        phone: "+31208202070",
+        description: "Payment service provider",
+        businessCategory: "MONEY_SERVICES",
+      },
     },
   });
 
@@ -143,19 +151,22 @@ const client = new ClientCore({
 
 async function run() {
   const res = await onboardingSubmit(client, {
-    organization: {
-      name: "Mollie B.V.",
-      registrationNumber: "30204462",
-      vatNumber: "NL815839091B01",
-      vatRegulation: "dutch",
-    },
-    profile: {
-      name: "Mollie",
-      url: "https://www.mollie.com",
-      email: "info@mollie.com",
-      phone: "+31208202070",
-      description: "Payment service provider",
-      businessCategory: "MONEY_SERVICES",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      organization: {
+        name: "Mollie B.V.",
+        registrationNumber: "30204462",
+        vatNumber: "NL815839091B01",
+        vatRegulation: "dutch",
+      },
+      profile: {
+        name: "Mollie",
+        url: "https://www.mollie.com",
+        email: "info@mollie.com",
+        phone: "+31208202070",
+        description: "Payment service provider",
+        businessCategory: "MONEY_SERVICES",
+      },
     },
   });
   if (res.ok) {

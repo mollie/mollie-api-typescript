@@ -27,10 +27,12 @@ export class Capabilities extends ClientSDK {
    * the payments capability is enabled, communicating that the organization can indeed receive payments.
    */
   async list(
+    request?: operations.ListCapabilitiesRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.ListCapabilitiesResponse> {
     return unwrapAsync(capabilitiesList(
       this,
+      request,
       options,
     ));
   }

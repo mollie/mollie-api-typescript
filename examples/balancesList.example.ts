@@ -20,11 +20,12 @@ const client = new Client({
 });
 
 async function main() {
-  const result = await client.list({
+  const result = await client.balances.list({
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);

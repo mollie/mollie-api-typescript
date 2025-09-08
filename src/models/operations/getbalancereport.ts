@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
@@ -76,6 +77,10 @@ export type GetBalanceReportRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 /** @internal */
@@ -108,6 +113,11 @@ export const GetBalanceReportRequest$inboundSchema: z.ZodType<
   until: z.string(),
   grouping: z.nullable(Grouping$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
@@ -117,6 +127,7 @@ export type GetBalanceReportRequest$Outbound = {
   until: string;
   grouping?: string | null | undefined;
   testmode?: boolean | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -130,6 +141,11 @@ export const GetBalanceReportRequest$outboundSchema: z.ZodType<
   until: z.string(),
   grouping: z.nullable(Grouping$outboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

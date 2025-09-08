@@ -74,10 +74,12 @@ export class Balances extends ClientSDK {
    * endpoint.
    */
   async getPrimary(
+    request?: operations.GetPrimaryBalanceRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntityBalance> {
     return unwrapAsync(balancesGetPrimary(
       this,
+      request,
       options,
     ));
   }

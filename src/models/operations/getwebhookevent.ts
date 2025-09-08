@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -22,6 +23,10 @@ export type GetWebhookEventRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 /** @internal */
@@ -32,12 +37,18 @@ export const GetWebhookEventRequest$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   testmode: z.nullable(z.boolean()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
 export type GetWebhookEventRequest$Outbound = {
   id: string;
   testmode?: boolean | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -48,6 +59,11 @@ export const GetWebhookEventRequest$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   testmode: z.nullable(z.boolean()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

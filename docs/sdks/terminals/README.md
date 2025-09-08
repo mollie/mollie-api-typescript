@@ -32,6 +32,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -62,6 +63,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -114,6 +116,7 @@ async function run() {
   const result = await client.terminals.get({
     terminalId: "term_vytxeTZskVKR7C7WgdSP3d",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -142,6 +145,7 @@ async function run() {
   const res = await terminalsGet(client, {
     terminalId: "term_vytxeTZskVKR7C7WgdSP3d",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

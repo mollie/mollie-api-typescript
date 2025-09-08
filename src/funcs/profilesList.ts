@@ -3,7 +3,7 @@
  */
 
 import { ClientCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -100,6 +100,11 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",
+    "idempotency-key": encodeSimple(
+      "idempotency-key",
+      payload?.["idempotency-key"],
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const securityInput = await extractSecurity(client._options.security);

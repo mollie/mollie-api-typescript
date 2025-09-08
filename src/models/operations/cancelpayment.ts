@@ -26,6 +26,10 @@ export type CancelPaymentRequest = {
    * Provide the ID of the related payment.
    */
   paymentId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: CancelPaymentRequestBody | undefined;
 };
 
@@ -90,9 +94,11 @@ export const CancelPaymentRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => CancelPaymentRequestBody$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -100,6 +106,7 @@ export const CancelPaymentRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type CancelPaymentRequest$Outbound = {
   paymentId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: CancelPaymentRequestBody$Outbound | undefined;
 };
 
@@ -110,9 +117,11 @@ export const CancelPaymentRequest$outboundSchema: z.ZodType<
   CancelPaymentRequest
 > = z.object({
   paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => CancelPaymentRequestBody$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

@@ -44,10 +44,12 @@ export class Organizations extends ClientSDK {
    * documentation.
    */
   async getCurrent(
+    request?: operations.GetCurrentOrganizationRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntityOrganization> {
     return unwrapAsync(organizationsGetCurrent(
       this,
+      request,
       options,
     ));
   }
@@ -60,10 +62,12 @@ export class Organizations extends ClientSDK {
    * accounts*.
    */
   async getPartner(
+    request?: operations.GetPartnerStatusRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetPartnerStatusResponse> {
     return unwrapAsync(organizationsGetPartner(
       this,
+      request,
       options,
     ));
   }

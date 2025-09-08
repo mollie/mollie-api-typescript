@@ -3,18 +3,25 @@
  */
 
 import { permissionsList } from "../../funcs/permissionsList.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$permissionsList: ToolDefinition = {
+const args = {
+  request: operations.ListPermissionsRequest$inboundSchema.optional(),
+};
+
+export const tool$permissionsList: ToolDefinition<typeof args> = {
   name: "permissions-list",
   description: `List permissions
 
 Retrieve a list of all permissions available to the current access token.
 
 The results are **not** paginated.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await permissionsList(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

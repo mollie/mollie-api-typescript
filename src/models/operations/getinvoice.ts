@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,10 @@ export type GetInvoiceRequest = {
    * Provide the ID of the item you want to perform this operation on.
    */
   id: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 /** @internal */
@@ -21,11 +26,17 @@ export const GetInvoiceRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
 export type GetInvoiceRequest$Outbound = {
   id: string;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -35,6 +46,11 @@ export const GetInvoiceRequest$outboundSchema: z.ZodType<
   GetInvoiceRequest
 > = z.object({
   id: z.string(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

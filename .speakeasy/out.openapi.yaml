@@ -91,6 +91,7 @@ paths:
             example: bal_gVMhHKqSSRYJyPsuoPNFH
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -302,6 +303,7 @@ paths:
         funds are available on your balance. These funds will be shown under the *pending amount* in the meanwhile.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The balance object.
@@ -497,6 +499,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: balances
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /balances/{balanceId}/report:
     parameters:
       - $ref: '#/components/parameters/parent-balance-id'
@@ -556,6 +560,7 @@ paths:
               - transaction-categories
             example: status-balances
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The balance report object.
@@ -1357,6 +1362,7 @@ paths:
             example: baltr_QM24QwzUWR4ev4Xfgyt29A
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of balance transaction objects.
@@ -2153,6 +2159,7 @@ paths:
             examples:
               - EUR
               - EUR,GBP
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -2452,6 +2459,8 @@ paths:
 
               settlement = Mollie::settlement.get('stl_jDk30akdN')
       x-speakeasy-group: settlements
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /settlements/open:
     get:
       summary: Get open settlement
@@ -2619,6 +2628,8 @@ paths:
 
               settlement = Mollie::Settlement.open
       x-speakeasy-group: settlements
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /settlements/next:
     get:
       summary: Get next settlement
@@ -2785,6 +2796,8 @@ paths:
 
               settlement = Mollie::Settlement.next
       x-speakeasy-group: settlements
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /settlements/{settlementId}/payments:
     parameters:
       - $ref: '#/components/parameters/parent-settlement-id'
@@ -2817,6 +2830,7 @@ paths:
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/profile-id'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of payment objects.
@@ -5007,6 +5021,7 @@ paths:
               payment: Embed the payments that the captures were created for.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of capture objects.
@@ -5200,6 +5215,7 @@ paths:
               payment: Embed the payment related to this refund.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -5353,6 +5369,7 @@ paths:
               payment: Include the payment these chargebacks were issued for.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of chargeback objects.
@@ -5602,6 +5619,7 @@ paths:
             example: inv_xBEbP9rvAq
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -6676,6 +6694,8 @@ paths:
 
               invoice = Mollie::invoice.get('inv_xBEbP9rvAq')
       x-speakeasy-group: invoices
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /permissions:
     get:
       summary: List permissions
@@ -6996,6 +7016,8 @@ paths:
 
               permissions = Mollie::Permission.all
       x-speakeasy-group: permissions
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /permissions/{permissionId}:
     parameters:
       - $ref: '#/components/parameters/parent-permission-id'
@@ -7010,6 +7032,7 @@ paths:
       description: Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The permission object.
@@ -7109,6 +7132,7 @@ paths:
         If you have a *partner account*', you can retrieve organization details of connected organizations.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The organization object.
@@ -7291,6 +7315,8 @@ paths:
           code: 200
           response: mol-public-api/v2/organizations-api/examples.yaml#/components/responses/oauth-get-current-organization
       x-speakeasy-group: organizations
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /organizations/me/partner:
     get:
       summary: Get partner status
@@ -7437,6 +7463,8 @@ paths:
 
               organization = Mollie::Partner.current
       x-speakeasy-group: organizations
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /profiles:
     post:
       summary: Create profile
@@ -7603,6 +7631,8 @@ paths:
                 mode: 'live'
               )
       x-speakeasy-group: profiles
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List profiles
       x-speakeasy-name-override: list
@@ -7622,6 +7652,7 @@ paths:
             type: string
             example: pfl_QkEhN94Ba
         - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of profile objects.
@@ -7739,6 +7770,7 @@ paths:
       description: Retrieve a single profile by its ID.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The profile object.
@@ -8058,6 +8090,8 @@ paths:
                 website: 'https://updated.example.org'
               )
       x-speakeasy-group: profiles
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Delete profile
       x-speakeasy-name-override: delete
@@ -8132,6 +8166,8 @@ paths:
 
               Mollie::Profile.delete('pfl_QkEhN94Ba')
       x-speakeasy-group: profiles
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /profiles/me:
     get:
       summary: Get current profile
@@ -8234,6 +8270,8 @@ paths:
 
               profile = Mollie::Profile.current
       x-speakeasy-group: profiles
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /onboarding/me:
     get:
       summary: Get onboarding status
@@ -8310,6 +8348,8 @@ paths:
 
               onboarding = Mollie::Onboarding.me
       x-speakeasy-group: onboarding
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     post:
       summary: Submit onboarding data
       x-speakeasy-name-override: submit
@@ -8519,6 +8559,8 @@ paths:
                 }
               )
       x-speakeasy-group: onboarding
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /capabilities:
     get:
       summary: List capabilities
@@ -8630,6 +8672,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: capabilities
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /clients:
     get:
       summary: List clients
@@ -8666,6 +8710,7 @@ paths:
             type: string
             example: org_12345678
         - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -8805,6 +8850,7 @@ paths:
               - string
               - 'null'
             example: organization
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The client object.
@@ -9169,6 +9215,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: client-links
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /webhooks:
     post:
       summary: Create a webhook
@@ -9278,6 +9326,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: webhooks
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List all webhooks
       x-speakeasy-name-override: list
@@ -9301,6 +9351,7 @@ paths:
           schema:
             $ref: '#/components/schemas/webhook-event-types'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -9515,6 +9566,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: webhooks
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: Get a webhook
       x-speakeasy-name-override: get
@@ -9527,6 +9580,7 @@ paths:
       description: Retrieve a single webhook object by its ID.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The webhook object.
@@ -9673,6 +9727,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: webhooks
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /webhooks/{id}/ping:
     parameters:
       - $ref: '#/components/parameters/id'
@@ -9743,6 +9799,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: webhooks
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /events/{id}:
     parameters:
       - $ref: '#/components/parameters/id'
@@ -9761,6 +9819,7 @@ paths:
       description: Retrieve a single webhook event object by its event ID.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The webhook event object.
@@ -9878,6 +9937,7 @@ paths:
             x-enumDescriptions:
               details.qrCode: Include a QR code object. Only available for iDEAL, Bancontact and bank transfer payments.
             example: details.qrCode
+        - $ref: '#/components/parameters/idempotency-key'
       requestBody:
         content:
           application/json:
@@ -10498,6 +10558,7 @@ paths:
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/profile-id'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of payment objects.
@@ -12702,6 +12763,7 @@ paths:
               chargebacks: Embed all chargebacks created for this payment.
             example: captures
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The payment object.
@@ -13125,6 +13187,8 @@ paths:
                 }
               )
       x-speakeasy-group: payments
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Cancel payment
       x-speakeasy-name-override: cancel
@@ -13219,6 +13283,8 @@ paths:
 
               canceled_payment = Mollie::Payment.cancel('tr_WDqYK6vllg')
       x-speakeasy-group: payments
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /payments/{paymentId}/release-authorization:
     parameters:
       - $ref: '#/components/parameters/parent-payment-id'
@@ -13302,6 +13368,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: payments
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /methods:
     get:
       summary: List payment methods
@@ -13415,6 +13483,7 @@ paths:
               issuers: Include issuer details such as which iDEAL or gift card issuers are available.
             example: issuers
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -13980,6 +14049,7 @@ paths:
             $ref: '#/components/schemas/sequence-type'
         - $ref: '#/components/parameters/profile-id'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -15240,6 +15310,7 @@ paths:
           schema:
             $ref: '#/components/schemas/sequence-type'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The payment method object.
@@ -15471,6 +15542,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: methods
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Disable payment method
       x-speakeasy-name-override: disable
@@ -15545,6 +15618,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: methods
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /profiles/{profileId}/methods/{methodId}/issuers/{id}:
     parameters:
       - $ref: '#/components/parameters/parent-profile-id'
@@ -15663,6 +15738,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: methods
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Disable payment method issuer
       x-speakeasy-name-override: disable-issuer
@@ -15733,6 +15810,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: methods
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /payments/{paymentId}/refunds:
     parameters:
       - $ref: '#/components/parameters/parent-payment-id'
@@ -15905,6 +15984,8 @@ paths:
                 }
               )
       x-speakeasy-group: refunds
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List payment refunds
       x-speakeasy-name-override: list
@@ -15940,6 +16021,7 @@ paths:
               payment: Embed the payment related to this refund.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -16085,6 +16167,7 @@ paths:
               payment: Embed the payment related to this refund.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The payment object.
@@ -16166,6 +16249,7 @@ paths:
         [Get refund endpoint](get-refund) for more information.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '204':
           description: An empty response if the refund was successfully canceled.
@@ -16263,6 +16347,7 @@ paths:
             example: payment
         - $ref: '#/components/parameters/profile-id'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of refund objects
@@ -16410,6 +16495,7 @@ paths:
               payment: Include the payment these chargebacks were issued for.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of chargeback objects.
@@ -16635,6 +16721,7 @@ paths:
               payment: Include the payment this chargeback was issued for.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The chargeback object.
@@ -16798,6 +16885,7 @@ paths:
               - 'null'
             $ref: '#/components/schemas/profileToken'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of chargeback objects.
@@ -17224,6 +17312,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: captures
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List captures
       x-speakeasy-name-override: list
@@ -17259,6 +17349,7 @@ paths:
               payment: Embed the payments that the captures were created for.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of capture objects.
@@ -17443,6 +17534,7 @@ paths:
               payment: Embed the payment this capture was created for.
             example: payment
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The capture object.
@@ -17667,6 +17759,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: wallets
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /payment-links:
     post:
       summary: Create payment link
@@ -18094,6 +18188,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: payment-links
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List payment links
       x-speakeasy-name-override: list
@@ -18118,6 +18214,7 @@ paths:
             $ref: '#/components/schemas/paymentLinkToken'
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of payment link objects.
@@ -18335,6 +18432,7 @@ paths:
       description: Retrieve a single payment link by its ID.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The payment link object.
@@ -18541,6 +18639,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: payment-links
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Delete payment link
       x-speakeasy-name-override: delete
@@ -18613,6 +18713,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: payment-links
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /payment-links/{paymentLinkId}/payments:
     parameters:
       - $ref: '#/components/parameters/parent-payment-link-id'
@@ -18641,6 +18743,7 @@ paths:
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of payment objects.
@@ -18755,6 +18858,7 @@ paths:
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of terminal objects.
@@ -18933,6 +19037,7 @@ paths:
       description: Retrieve a single terminal by its ID.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The terminal object.
@@ -19080,6 +19185,8 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: delayed-routing
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       operationId: payment-list-routes
       summary: List payment routes
@@ -19093,6 +19200,7 @@ paths:
       description: Retrieve a list of all routes created for a specific payment.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of route objects.
@@ -19302,6 +19410,8 @@ paths:
                 email: 'customer@example.org'
               )
       x-speakeasy-group: customers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List customers
       x-speakeasy-name-override: list
@@ -19327,6 +19437,7 @@ paths:
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of customer objects.
@@ -19458,6 +19569,7 @@ paths:
               events: Include the events that the customer is associated with.
             example: events
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The customer object.
@@ -19647,6 +19759,8 @@ paths:
                 email: 'jane@example.org'
               )
       x-speakeasy-group: customers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Delete customer
       x-speakeasy-name-override: delete
@@ -19715,6 +19829,8 @@ paths:
 
               customer = Mollie::Customer.delete('cst_8wmqcHMN4U')
       x-speakeasy-group: customers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /customers/{customerId}/payments:
     parameters:
       - $ref: '#/components/parameters/parent-customer-id'
@@ -20332,6 +20448,8 @@ paths:
                 }
               )
       x-speakeasy-group: customers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List customer payments
       x-speakeasy-name-override: list-payments
@@ -20355,6 +20473,7 @@ paths:
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/profile-id'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of payment objects.
@@ -22647,6 +22766,8 @@ paths:
                 mandate_reference: 'EXAMPLE-CORP-MD13804'
               )
       x-speakeasy-group: mandates
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List mandates
       x-speakeasy-name-override: list
@@ -22672,6 +22793,7 @@ paths:
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of mandate objects.
@@ -22803,6 +22925,7 @@ paths:
         account details, card details, or PayPal account details.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The mandate object.
@@ -22937,6 +23060,8 @@ paths:
 
               Mollie::Customer::Mandate.delete('mdt_h3gAaD5zP', customer_id: 'cst_4qqhO89gsT')
       x-speakeasy-group: mandates
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /customers/{customerId}/subscriptions:
     parameters:
       - $ref: '#/components/parameters/parent-customer-id'
@@ -23078,6 +23203,8 @@ paths:
                 webhook_url: 'https://webshop.example.org/subscriptions/webhook/'
               )
       x-speakeasy-group: subscriptions
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List customer subscriptions
       x-speakeasy-name-override: list
@@ -23103,6 +23230,7 @@ paths:
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of subscription objects.
@@ -23243,6 +23371,7 @@ paths:
       description: Retrieve a single subscription by its ID and the ID of its parent customer.
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: The subscription object.
@@ -23542,6 +23671,8 @@ paths:
                 times: 10
               )
       x-speakeasy-group: subscriptions
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Cancel subscription
       x-speakeasy-name-override: cancel
@@ -23658,6 +23789,8 @@ paths:
                 customer_id: 'cst_stTC2WHAuS'
               )
       x-speakeasy-group: subscriptions
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /subscriptions:
     get:
       summary: List all subscriptions
@@ -23694,6 +23827,7 @@ paths:
               - 'null'
             example: pfl_QkEhN94Ba
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of subscription objects.
@@ -23844,6 +23978,7 @@ paths:
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/profile-id'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: A list of payment objects.
@@ -26208,6 +26343,8 @@ paths:
               # share suggestions on our Discord:
               # https://discord.gg/VaTVkXB4aQ
       x-speakeasy-group: sales-invoices
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List sales invoices
       x-speakeasy-name-override: list
@@ -26233,6 +26370,7 @@ paths:
             example: invoice_4Y0eZitmBnQ6IDoMqZQKh
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
           description: |-
@@ -26487,6 +26625,7 @@ paths:
               # https://discord.gg/VaTVkXB4aQ
       parameters:
         - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
       x-speakeasy-group: sales-invoices
     patch:
       summary: Update sales invoice
@@ -26650,6 +26789,8 @@ paths:
               # share suggestions on our Discord:
               # https://discord.gg/VaTVkXB4aQ
       x-speakeasy-group: sales-invoices
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     delete:
       summary: Delete sales invoice
       x-speakeasy-name-override: delete
@@ -26746,6 +26887,8 @@ paths:
               # share suggestions on our Discord:
               # https://discord.gg/VaTVkXB4aQ
       x-speakeasy-group: sales-invoices
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
 components:
   securitySchemes:
     apiKey:
@@ -26982,6 +27125,14 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/subscriptionToken'
+    idempotency-key:
+      name: idempotency-key
+      in: header
+      description: A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+      required: false
+      schema:
+        type: string
+        example: 123e4567-e89b-12d3-a456-426
   schemas:
     list-count:
       type: integer

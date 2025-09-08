@@ -17,10 +17,12 @@ export class Onboarding extends ClientSDK {
    * Retrieve the onboarding status of the currently authenticated organization.
    */
   async get(
+    request?: operations.GetOnboardingStatusRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntityOnboardingStatus> {
     return unwrapAsync(onboardingGet(
       this,
+      request,
       options,
     ));
   }

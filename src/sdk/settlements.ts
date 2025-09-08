@@ -77,10 +77,12 @@ export class Settlements extends ClientSDK {
    * [balance transactions](list-balance-transactions) endpoint.
    */
   async getOpen(
+    request?: operations.GetOpenSettlementRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntitySettlement> {
     return unwrapAsync(settlementsGetOpen(
       this,
+      request,
       options,
     ));
   }
@@ -98,10 +100,12 @@ export class Settlements extends ClientSDK {
    * [balance transactions](list-balance-transactions) endpoint.
    */
   async getNext(
+    request?: operations.GetNextSettlementRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntitySettlement> {
     return unwrapAsync(settlementsGetNext(
       this,
+      request,
       options,
     ));
   }

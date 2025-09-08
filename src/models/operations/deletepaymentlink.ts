@@ -25,6 +25,10 @@ export type DeletePaymentLinkRequest = {
    * Provide the ID of the related payment link.
    */
   paymentLinkId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: DeletePaymentLinkRequestBody | undefined;
 };
 
@@ -91,10 +95,12 @@ export const DeletePaymentLinkRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentLinkId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => DeletePaymentLinkRequestBody$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -102,6 +108,7 @@ export const DeletePaymentLinkRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type DeletePaymentLinkRequest$Outbound = {
   paymentLinkId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: DeletePaymentLinkRequestBody$Outbound | undefined;
 };
 
@@ -112,10 +119,12 @@ export const DeletePaymentLinkRequest$outboundSchema: z.ZodType<
   DeletePaymentLinkRequest
 > = z.object({
   paymentLinkId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => DeletePaymentLinkRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

@@ -27,6 +27,7 @@ async function run() {
   const result = await client.webhookEvents.get({
     id: "event_jd9v34P5YqN9pT8n3HJyH",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -55,6 +56,7 @@ async function run() {
   const res = await webhookEventsGet(client, {
     id: "event_jd9v34P5YqN9pT8n3HJyH",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

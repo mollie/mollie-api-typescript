@@ -21,6 +21,10 @@ export type GetClientRequest = {
    * parameter.
    */
   embed?: string | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 /**
@@ -99,12 +103,18 @@ export const GetClientRequest$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   embed: z.nullable(z.string()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
 export type GetClientRequest$Outbound = {
   id: string;
   embed?: string | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -115,6 +125,11 @@ export const GetClientRequest$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   embed: z.nullable(z.string()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

@@ -14,6 +14,10 @@ export type PaymentCreateRouteRequest = {
    * Provide the ID of the related payment.
    */
   paymentId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   routeCreateRequest?: models.RouteCreateRequest | undefined;
 };
 
@@ -24,9 +28,11 @@ export const PaymentCreateRouteRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentId: z.string(),
+  "idempotency-key": z.string().optional(),
   "route-create-request": models.RouteCreateRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "route-create-request": "routeCreateRequest",
   });
 });
@@ -34,6 +40,7 @@ export const PaymentCreateRouteRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type PaymentCreateRouteRequest$Outbound = {
   paymentId: string;
+  "idempotency-key"?: string | undefined;
   "route-create-request"?: models.RouteCreateRequest$Outbound | undefined;
 };
 
@@ -44,9 +51,11 @@ export const PaymentCreateRouteRequest$outboundSchema: z.ZodType<
   PaymentCreateRouteRequest
 > = z.object({
   paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
   routeCreateRequest: models.RouteCreateRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     routeCreateRequest: "route-create-request",
   });
 });

@@ -3,9 +3,14 @@
  */
 
 import { capabilitiesList } from "../../funcs/capabilitiesList.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$capabilitiesList: ToolDefinition = {
+const args = {
+  request: operations.ListCapabilitiesRequest$inboundSchema.optional(),
+};
+
+export const tool$capabilitiesList: ToolDefinition<typeof args> = {
   name: "capabilities-list",
   description: `List capabilities
 
@@ -22,9 +27,11 @@ Capabilities are at the organization level, indicating if the organization can p
 For payments, regardless them being at the profile level, the capability is listed at the organization level.
 This means that if at least one of the clients's profiles can receive payments,
 the payments capability is enabled, communicating that the organization can indeed receive payments.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await capabilitiesList(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

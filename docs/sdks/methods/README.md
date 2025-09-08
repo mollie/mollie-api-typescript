@@ -55,6 +55,7 @@ async function run() {
     profileId: "pfl_5B8cwPMGnU",
     include: "issuers",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -94,6 +95,7 @@ async function run() {
     profileId: "pfl_5B8cwPMGnU",
     include: "issuers",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -156,6 +158,7 @@ async function run() {
     sequenceType: "oneoff",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -191,6 +194,7 @@ async function run() {
     sequenceType: "oneoff",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -259,6 +263,7 @@ async function run() {
     include: "issuers",
     sequenceType: "oneoff",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -292,6 +297,7 @@ async function run() {
     include: "issuers",
     sequenceType: "oneoff",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

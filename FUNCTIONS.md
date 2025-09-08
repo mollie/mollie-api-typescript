@@ -36,6 +36,7 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

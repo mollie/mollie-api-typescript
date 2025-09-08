@@ -31,6 +31,7 @@ const client = new Client({
 async function run() {
   const result = await client.refunds.create({
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityRefund: {
       id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
@@ -94,6 +95,7 @@ const client = new ClientCore({
 async function run() {
   const res = await refundsCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityRefund: {
       id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
@@ -187,6 +189,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -218,6 +221,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -272,6 +276,7 @@ async function run() {
     refundId: "re_5B8cwPMGnU",
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -302,6 +307,7 @@ async function run() {
     refundId: "re_5B8cwPMGnU",
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -359,6 +365,7 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -388,6 +395,7 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -446,6 +454,7 @@ async function run() {
     embed: "payment",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -478,6 +487,7 @@ async function run() {
     embed: "payment",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

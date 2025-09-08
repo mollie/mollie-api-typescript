@@ -30,10 +30,13 @@ const client = new Client({
 
 async function run() {
   const result = await client.webhooks.create({
-    name: "Webhook #1",
-    url: "https://mollie.com/",
-    webhookEventTypes: "payment-link.paid",
-    testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      name: "Webhook #1",
+      url: "https://mollie.com/",
+      webhookEventTypes: "payment-link.paid",
+      testmode: false,
+    },
   });
 
   console.log(result);
@@ -60,10 +63,13 @@ const client = new ClientCore({
 
 async function run() {
   const res = await webhooksCreate(client, {
-    name: "Webhook #1",
-    url: "https://mollie.com/",
-    webhookEventTypes: "payment-link.paid",
-    testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      name: "Webhook #1",
+      url: "https://mollie.com/",
+      webhookEventTypes: "payment-link.paid",
+      testmode: false,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -119,6 +125,7 @@ async function run() {
     sort: "desc",
     eventTypes: "payment-link.paid",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -150,6 +157,7 @@ async function run() {
     sort: "desc",
     eventTypes: "payment-link.paid",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -201,6 +209,7 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.update({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -234,6 +243,7 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksUpdate(client, {
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -292,6 +302,7 @@ async function run() {
   const result = await client.webhooks.get({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -320,6 +331,7 @@ async function run() {
   const res = await webhooksGet(client, {
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -371,6 +383,7 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.delete({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -401,6 +414,7 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksDelete(client, {
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -455,6 +469,7 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.test({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -485,6 +500,7 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksTest(client, {
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },

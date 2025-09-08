@@ -3,9 +3,14 @@
  */
 
 import { settlementsGetOpen } from "../../funcs/settlementsGetOpen.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$settlementsGetOpen: ToolDefinition = {
+const args = {
+  request: operations.GetOpenSettlementRequest$inboundSchema.optional(),
+};
+
+export const tool$settlementsGetOpen: ToolDefinition<typeof args> = {
   name: "settlements-get-open",
   description: `Get open settlement
 
@@ -17,9 +22,11 @@ documentation.
 
 For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
 [balance transactions](list-balance-transactions) endpoint.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await settlementsGetOpen(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

@@ -3,9 +3,14 @@
  */
 
 import { organizationsGetCurrent } from "../../funcs/organizationsGetCurrent.js";
+import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$organizationsGetCurrent: ToolDefinition = {
+const args = {
+  request: operations.GetCurrentOrganizationRequest$inboundSchema.optional(),
+};
+
+export const tool$organizationsGetCurrent: ToolDefinition<typeof args> = {
   name: "organizations-get-current",
   description: `Get current organization
 
@@ -14,9 +19,11 @@ endpoint.
 
 For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint
 documentation.`,
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result, apiCall] = await organizationsGetCurrent(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

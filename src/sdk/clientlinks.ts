@@ -5,6 +5,7 @@
 import { clientLinksCreate } from "../funcs/clientLinksCreate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class ClientLinks extends ClientSDK {
@@ -67,7 +68,7 @@ export class ClientLinks extends ClientSDK {
    * > A client link must be used within 30 days of creation. After that period, it will expire and you will need to create a new client link.
    */
   async create(
-    request?: models.EntityClientLink | undefined,
+    request?: operations.CreateClientLinkRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntityClientLinkResponse> {
     return unwrapAsync(clientLinksCreate(

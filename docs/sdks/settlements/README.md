@@ -40,6 +40,7 @@ async function run() {
     year: "2025",
     month: "1",
     currencies: "EUR",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -72,6 +73,7 @@ async function run() {
     year: "2025",
     month: "1",
     currencies: "EUR",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -134,6 +136,7 @@ const client = new Client({
 async function run() {
   const result = await client.settlements.get({
     id: "stl_jDk30akdN",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -161,6 +164,7 @@ const client = new ClientCore({
 async function run() {
   const res = await settlementsGet(client, {
     id: "stl_jDk30akdN",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -217,7 +221,9 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.settlements.getOpen();
+  const result = await client.settlements.getOpen({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
 
   console.log(result);
 }
@@ -242,7 +248,9 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await settlementsGetOpen(client);
+  const res = await settlementsGetOpen(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -258,6 +266,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetOpenSettlementRequest](../../models/operations/getopensettlementrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -295,7 +304,9 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.settlements.getNext();
+  const result = await client.settlements.getNext({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
 
   console.log(result);
 }
@@ -320,7 +331,9 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await settlementsGetNext(client);
+  const res = await settlementsGetNext(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -336,6 +349,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetNextSettlementRequest](../../models/operations/getnextsettlementrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -379,6 +393,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -411,6 +426,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -468,6 +484,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -499,6 +516,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -556,6 +574,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -587,6 +606,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -644,6 +664,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -675,6 +696,7 @@ async function run() {
     limit: 50,
     embed: "payment",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

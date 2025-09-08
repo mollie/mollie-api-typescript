@@ -32,92 +32,95 @@ const client = new Client({
 
 async function run() {
   const result = await client.paymentLinks.create({
-    id: "pl_d9fQur83kFdhH8hIhaZfq",
-    description: "Chess Board",
-    amount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    minimumAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    redirectUrl: "https://webshop.example.org/payment-links/redirect/",
-    webhookUrl: "https://webshop.example.org/payment-links/webhook/",
-    lines: [
-      {
-        type: "physical",
-        description: "LEGO 4440 Forest Police Station",
-        quantity: 1,
-        quantityUnit: "pcs",
-        unitPrice: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        discountAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        totalAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        vatRate: "21.00",
-        vatAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        sku: "9780241661628",
-        categories: [
-          "meal",
-          "eco",
-        ],
-        imageUrl: "https://...",
-        productUrl: "https://...",
-      },
-    ],
-    billingAddress: {
-      title: "Mr.",
-      givenName: "Piet",
-      familyName: "Mondriaan",
-      organizationName: "Mollie B.V.",
-      streetAndNumber: "Keizersgracht 126",
-      streetAdditional: "Apt. 1",
-      postalCode: "1234AB",
-      email: "piet@example.org",
-      phone: "31208202070",
-      city: "Amsterdam",
-      region: "Noord-Holland",
-      country: "NL",
-    },
-    shippingAddress: {
-      title: "Mr.",
-      givenName: "Piet",
-      familyName: "Mondriaan",
-      organizationName: "Mollie B.V.",
-      streetAndNumber: "Keizersgracht 126",
-      streetAdditional: "Apt. 1",
-      postalCode: "1234AB",
-      email: "piet@example.org",
-      phone: "31208202070",
-      city: "Amsterdam",
-      region: "Noord-Holland",
-      country: "NL",
-    },
-    profileId: "pfl_QkEhN94Ba",
-    reusable: false,
-    expiresAt: "2025-12-24T11:00:16+00:00",
-    allowedMethods: null,
-    applicationFee: {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      id: "pl_d9fQur83kFdhH8hIhaZfq",
+      description: "Chess Board",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
-      description: "Platform fee",
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
     },
-    sequenceType: "oneoff",
-    customerId: "cst_XimFHuaEzd",
-    testmode: false,
   });
 
   console.log(result);
@@ -144,92 +147,95 @@ const client = new ClientCore({
 
 async function run() {
   const res = await paymentLinksCreate(client, {
-    id: "pl_d9fQur83kFdhH8hIhaZfq",
-    description: "Chess Board",
-    amount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    minimumAmount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    redirectUrl: "https://webshop.example.org/payment-links/redirect/",
-    webhookUrl: "https://webshop.example.org/payment-links/webhook/",
-    lines: [
-      {
-        type: "physical",
-        description: "LEGO 4440 Forest Police Station",
-        quantity: 1,
-        quantityUnit: "pcs",
-        unitPrice: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        discountAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        totalAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        vatRate: "21.00",
-        vatAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        sku: "9780241661628",
-        categories: [
-          "meal",
-          "eco",
-        ],
-        imageUrl: "https://...",
-        productUrl: "https://...",
-      },
-    ],
-    billingAddress: {
-      title: "Mr.",
-      givenName: "Piet",
-      familyName: "Mondriaan",
-      organizationName: "Mollie B.V.",
-      streetAndNumber: "Keizersgracht 126",
-      streetAdditional: "Apt. 1",
-      postalCode: "1234AB",
-      email: "piet@example.org",
-      phone: "31208202070",
-      city: "Amsterdam",
-      region: "Noord-Holland",
-      country: "NL",
-    },
-    shippingAddress: {
-      title: "Mr.",
-      givenName: "Piet",
-      familyName: "Mondriaan",
-      organizationName: "Mollie B.V.",
-      streetAndNumber: "Keizersgracht 126",
-      streetAdditional: "Apt. 1",
-      postalCode: "1234AB",
-      email: "piet@example.org",
-      phone: "31208202070",
-      city: "Amsterdam",
-      region: "Noord-Holland",
-      country: "NL",
-    },
-    profileId: "pfl_QkEhN94Ba",
-    reusable: false,
-    expiresAt: "2025-12-24T11:00:16+00:00",
-    allowedMethods: null,
-    applicationFee: {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      id: "pl_d9fQur83kFdhH8hIhaZfq",
+      description: "Chess Board",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
-      description: "Platform fee",
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
     },
-    sequenceType: "oneoff",
-    customerId: "cst_XimFHuaEzd",
-    testmode: false,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -285,6 +291,7 @@ async function run() {
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -314,6 +321,7 @@ async function run() {
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -366,6 +374,7 @@ async function run() {
   const result = await client.paymentLinks.get({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -394,6 +403,7 @@ async function run() {
   const res = await paymentLinksGet(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -445,6 +455,7 @@ const client = new Client({
 async function run() {
   const result = await client.paymentLinks.update({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       description: "Chess Board",
       minimumAmount: {
@@ -513,6 +524,7 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentLinksUpdate(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       description: "Chess Board",
       minimumAmount: {
@@ -611,6 +623,7 @@ const client = new Client({
 async function run() {
   const result = await client.paymentLinks.delete({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -641,6 +654,7 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentLinksDelete(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -701,6 +715,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -732,6 +747,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

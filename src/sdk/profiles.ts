@@ -24,7 +24,7 @@ export class Profiles extends ClientSDK {
    * can use this endpoint to automate profile creation.
    */
   async create(
-    request: models.EntityProfile,
+    request: operations.CreateProfileRequest,
     options?: RequestOptions,
   ): Promise<models.EntityProfileResponse> {
     return unwrapAsync(profilesCreate(
@@ -118,10 +118,12 @@ export class Profiles extends ClientSDK {
    * documentation.
    */
   async getCurrent(
+    request?: operations.GetCurrentProfileRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.EntityProfileResponse> {
     return unwrapAsync(profilesGetCurrent(
       this,
+      request,
       options,
     ));
   }

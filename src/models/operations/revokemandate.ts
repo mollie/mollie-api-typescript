@@ -29,6 +29,10 @@ export type RevokeMandateRequest = {
    * Provide the ID of the related mandate.
    */
   mandateId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: RevokeMandateRequestBody | undefined;
 };
 
@@ -94,9 +98,11 @@ export const RevokeMandateRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   mandateId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => RevokeMandateRequestBody$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -105,6 +111,7 @@ export const RevokeMandateRequest$inboundSchema: z.ZodType<
 export type RevokeMandateRequest$Outbound = {
   customerId: string;
   mandateId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: RevokeMandateRequestBody$Outbound | undefined;
 };
 
@@ -116,9 +123,11 @@ export const RevokeMandateRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   mandateId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => RevokeMandateRequestBody$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

@@ -31,6 +31,10 @@ export type ListSalesInvoicesRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 export type ListSalesInvoicesEmbedded = {
@@ -76,6 +80,11 @@ export const ListSalesInvoicesRequest$inboundSchema: z.ZodType<
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
@@ -83,6 +92,7 @@ export type ListSalesInvoicesRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
   testmode?: boolean | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -94,6 +104,11 @@ export const ListSalesInvoicesRequest$outboundSchema: z.ZodType<
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

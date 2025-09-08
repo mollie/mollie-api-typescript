@@ -52,7 +52,10 @@ let value: EntitySalesInvoice = {
         currency: "EUR",
         value: "10.00",
       },
-      discount: null,
+      discount: {
+        type: "amount",
+        value: "10.00",
+      },
     },
   ],
   discount: {

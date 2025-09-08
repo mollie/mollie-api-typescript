@@ -56,6 +56,10 @@ export type ListAllMethodsRequest = {
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
   testmode?: boolean | null | undefined;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
 };
 
 export type ListAllMethodsEmbedded = {
@@ -107,6 +111,11 @@ export const ListAllMethodsRequest$inboundSchema: z.ZodType<
   sequenceType: models.SequenceType$inboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  "idempotency-key": z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+  });
 });
 
 /** @internal */
@@ -117,6 +126,7 @@ export type ListAllMethodsRequest$Outbound = {
   sequenceType?: string | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
+  "idempotency-key"?: string | undefined;
 };
 
 /** @internal */
@@ -131,6 +141,11 @@ export const ListAllMethodsRequest$outboundSchema: z.ZodType<
   sequenceType: models.SequenceType$outboundSchema.optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
+  idempotencyKey: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+  });
 });
 
 /**

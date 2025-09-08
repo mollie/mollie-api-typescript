@@ -34,11 +34,14 @@ const client = new Client({
 
 async function run() {
   const result = await client.customers.create({
-    id: "cst_5B8cwPMGnU",
-    name: "John Doe",
-    email: "example@email.com",
-    locale: "en_US",
-    testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityCustomer: {
+      id: "cst_5B8cwPMGnU",
+      name: "John Doe",
+      email: "example@email.com",
+      locale: "en_US",
+      testmode: false,
+    },
   });
 
   console.log(result);
@@ -65,11 +68,14 @@ const client = new ClientCore({
 
 async function run() {
   const res = await customersCreate(client, {
-    id: "cst_5B8cwPMGnU",
-    name: "John Doe",
-    email: "example@email.com",
-    locale: "en_US",
-    testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityCustomer: {
+      id: "cst_5B8cwPMGnU",
+      name: "John Doe",
+      email: "example@email.com",
+      locale: "en_US",
+      testmode: false,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -86,7 +92,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.EntityCustomer](../../models/entitycustomer.md)                                                                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateCustomerRequest](../../models/operations/createcustomerrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -126,6 +132,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -156,6 +163,7 @@ async function run() {
     limit: 50,
     sort: "desc",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -209,6 +217,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     include: "events",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -238,6 +247,7 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     include: "events",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -291,6 +301,7 @@ const client = new Client({
 async function run() {
   const result = await client.customers.update({
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCustomer: {
       id: "cst_5B8cwPMGnU",
       name: "John Doe",
@@ -325,6 +336,7 @@ const client = new ClientCore({
 async function run() {
   const res = await customersUpdate(client, {
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCustomer: {
       id: "cst_5B8cwPMGnU",
       name: "John Doe",
@@ -383,6 +395,7 @@ const client = new Client({
 async function run() {
   const result = await client.customers.delete({
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -413,6 +426,7 @@ const client = new ClientCore({
 async function run() {
   const res = await customersDelete(client, {
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -478,6 +492,7 @@ const client = new Client({
 async function run() {
   const result = await client.customers.createPayment({
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     paymentRequest: {
       id: "tr_5B8cwPMGnU",
       description: "Chess Board",
@@ -665,6 +680,7 @@ const client = new ClientCore({
 async function run() {
   const res = await customersCreatePayment(client, {
     customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     paymentRequest: {
       id: "tr_5B8cwPMGnU",
       description: "Chess Board",
@@ -881,6 +897,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -913,6 +930,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;

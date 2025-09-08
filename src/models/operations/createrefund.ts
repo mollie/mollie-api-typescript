@@ -14,6 +14,10 @@ export type CreateRefundRequest = {
    * Provide the ID of the related payment.
    */
   paymentId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   entityRefund?: models.EntityRefund | undefined;
 };
 
@@ -24,9 +28,11 @@ export const CreateRefundRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentId: z.string(),
+  "idempotency-key": z.string().optional(),
   "entity-refund": models.EntityRefund$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "entity-refund": "entityRefund",
   });
 });
@@ -34,6 +40,7 @@ export const CreateRefundRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type CreateRefundRequest$Outbound = {
   paymentId: string;
+  "idempotency-key"?: string | undefined;
   "entity-refund"?: models.EntityRefund$Outbound | undefined;
 };
 
@@ -44,9 +51,11 @@ export const CreateRefundRequest$outboundSchema: z.ZodType<
   CreateRefundRequest
 > = z.object({
   paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
   entityRefund: models.EntityRefund$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     entityRefund: "entity-refund",
   });
 });

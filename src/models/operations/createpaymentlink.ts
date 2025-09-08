@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -32,7 +33,7 @@ export type ApplicationFee = {
   description: string;
 };
 
-export type CreatePaymentLinkRequest = {
+export type CreatePaymentLinkRequestBody = {
   id?: string | undefined;
   /**
    * A short description of the payment link. The description is visible in the Dashboard and will be shown on the
@@ -153,6 +154,14 @@ export type CreatePaymentLinkRequest = {
   testmode?: boolean | null | undefined;
 };
 
+export type CreatePaymentLinkRequest = {
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
+  requestBody?: CreatePaymentLinkRequestBody | undefined;
+};
+
 /** @internal */
 export const ApplicationFee$inboundSchema: z.ZodType<
   ApplicationFee,
@@ -207,8 +216,8 @@ export function applicationFeeFromJSON(
 }
 
 /** @internal */
-export const CreatePaymentLinkRequest$inboundSchema: z.ZodType<
-  CreatePaymentLinkRequest,
+export const CreatePaymentLinkRequestBody$inboundSchema: z.ZodType<
+  CreatePaymentLinkRequestBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -232,7 +241,7 @@ export const CreatePaymentLinkRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type CreatePaymentLinkRequest$Outbound = {
+export type CreatePaymentLinkRequestBody$Outbound = {
   id?: string | undefined;
   description: string;
   amount?: models.AmountNullable$Outbound | null | undefined;
@@ -253,10 +262,10 @@ export type CreatePaymentLinkRequest$Outbound = {
 };
 
 /** @internal */
-export const CreatePaymentLinkRequest$outboundSchema: z.ZodType<
-  CreatePaymentLinkRequest$Outbound,
+export const CreatePaymentLinkRequestBody$outboundSchema: z.ZodType<
+  CreatePaymentLinkRequestBody$Outbound,
   z.ZodTypeDef,
-  CreatePaymentLinkRequest
+  CreatePaymentLinkRequestBody
 > = z.object({
   id: z.string().optional(),
   description: z.string(),
@@ -275,6 +284,77 @@ export const CreatePaymentLinkRequest$outboundSchema: z.ZodType<
   sequenceType: models.PaymentLinkSequenceType$outboundSchema.optional(),
   customerId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreatePaymentLinkRequestBody$ {
+  /** @deprecated use `CreatePaymentLinkRequestBody$inboundSchema` instead. */
+  export const inboundSchema = CreatePaymentLinkRequestBody$inboundSchema;
+  /** @deprecated use `CreatePaymentLinkRequestBody$outboundSchema` instead. */
+  export const outboundSchema = CreatePaymentLinkRequestBody$outboundSchema;
+  /** @deprecated use `CreatePaymentLinkRequestBody$Outbound` instead. */
+  export type Outbound = CreatePaymentLinkRequestBody$Outbound;
+}
+
+export function createPaymentLinkRequestBodyToJSON(
+  createPaymentLinkRequestBody: CreatePaymentLinkRequestBody,
+): string {
+  return JSON.stringify(
+    CreatePaymentLinkRequestBody$outboundSchema.parse(
+      createPaymentLinkRequestBody,
+    ),
+  );
+}
+
+export function createPaymentLinkRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<CreatePaymentLinkRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreatePaymentLinkRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreatePaymentLinkRequestBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreatePaymentLinkRequest$inboundSchema: z.ZodType<
+  CreatePaymentLinkRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  "idempotency-key": z.string().optional(),
+  RequestBody: z.lazy(() => CreatePaymentLinkRequestBody$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "idempotency-key": "idempotencyKey",
+    "RequestBody": "requestBody",
+  });
+});
+
+/** @internal */
+export type CreatePaymentLinkRequest$Outbound = {
+  "idempotency-key"?: string | undefined;
+  RequestBody?: CreatePaymentLinkRequestBody$Outbound | undefined;
+};
+
+/** @internal */
+export const CreatePaymentLinkRequest$outboundSchema: z.ZodType<
+  CreatePaymentLinkRequest$Outbound,
+  z.ZodTypeDef,
+  CreatePaymentLinkRequest
+> = z.object({
+  idempotencyKey: z.string().optional(),
+  requestBody: z.lazy(() => CreatePaymentLinkRequestBody$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    requestBody: "RequestBody",
+  });
 });
 
 /**

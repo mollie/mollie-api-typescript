@@ -70,6 +70,10 @@ export type UpdatePaymentLinkRequest = {
    * Provide the ID of the related payment link.
    */
   paymentLinkId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: UpdatePaymentLinkRequestBody | undefined;
 };
 
@@ -157,10 +161,12 @@ export const UpdatePaymentLinkRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentLinkId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => UpdatePaymentLinkRequestBody$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -168,6 +174,7 @@ export const UpdatePaymentLinkRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type UpdatePaymentLinkRequest$Outbound = {
   paymentLinkId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: UpdatePaymentLinkRequestBody$Outbound | undefined;
 };
 
@@ -178,10 +185,12 @@ export const UpdatePaymentLinkRequest$outboundSchema: z.ZodType<
   UpdatePaymentLinkRequest
 > = z.object({
   paymentLinkId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => UpdatePaymentLinkRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

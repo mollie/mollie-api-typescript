@@ -3,7 +3,7 @@
  */
 
 import { ClientCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -22,6 +22,7 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -85,7 +86,7 @@ import { Result } from "../types/fp.js";
  */
 export function clientLinksCreate(
   client: ClientCore,
-  request?: models.EntityClientLink | undefined,
+  request?: operations.CreateClientLinkRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -110,7 +111,7 @@ export function clientLinksCreate(
 
 async function $do(
   client: ClientCore,
-  request?: models.EntityClientLink | undefined,
+  request?: operations.CreateClientLinkRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -131,22 +132,28 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.EntityClientLink$outboundSchema.optional().parse(value),
+    (value) =>
+      operations.CreateClientLinkRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = payload === undefined
-    ? null
-    : encodeJSON("body", payload, { explode: true });
+  const body = encodeJSON("body", payload?.["entity-client-link"], {
+    explode: true,
+  });
 
   const path = pathToFunc("/client-links")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/hal+json",
+    "idempotency-key": encodeSimple(
+      "idempotency-key",
+      payload?.["idempotency-key"],
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const securityInput = await extractSecurity(client._options.security);

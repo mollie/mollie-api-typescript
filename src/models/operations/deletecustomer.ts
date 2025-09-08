@@ -25,6 +25,10 @@ export type DeleteCustomerRequest = {
    * Provide the ID of the related customer.
    */
   customerId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: DeleteCustomerRequestBody | undefined;
 };
 
@@ -89,9 +93,11 @@ export const DeleteCustomerRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   customerId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => DeleteCustomerRequestBody$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -99,6 +105,7 @@ export const DeleteCustomerRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type DeleteCustomerRequest$Outbound = {
   customerId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: DeleteCustomerRequestBody$Outbound | undefined;
 };
 
@@ -109,10 +116,12 @@ export const DeleteCustomerRequest$outboundSchema: z.ZodType<
   DeleteCustomerRequest
 > = z.object({
   customerId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => DeleteCustomerRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

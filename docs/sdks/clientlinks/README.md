@@ -77,21 +77,24 @@ const client = new Client({
 
 async function run() {
   const result = await client.clientLinks.create({
-    owner: {
-      email: "john@example.org",
-      givenName: "John",
-      familyName: "Doe",
-      locale: "en_US",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityClientLink: {
+      owner: {
+        email: "john@example.org",
+        givenName: "John",
+        familyName: "Doe",
+        locale: "en_US",
+      },
+      name: "Acme Corporation",
+      address: {
+        streetAndNumber: "Main Street 123",
+        postalCode: "1234AB",
+        city: "Amsterdam",
+        country: "NL",
+      },
+      registrationNumber: "12345678",
+      vatNumber: "123456789B01",
     },
-    name: "Acme Corporation",
-    address: {
-      streetAndNumber: "Main Street 123",
-      postalCode: "1234AB",
-      city: "Amsterdam",
-      country: "NL",
-    },
-    registrationNumber: "12345678",
-    vatNumber: "123456789B01",
   });
 
   console.log(result);
@@ -118,21 +121,24 @@ const client = new ClientCore({
 
 async function run() {
   const res = await clientLinksCreate(client, {
-    owner: {
-      email: "john@example.org",
-      givenName: "John",
-      familyName: "Doe",
-      locale: "en_US",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityClientLink: {
+      owner: {
+        email: "john@example.org",
+        givenName: "John",
+        familyName: "Doe",
+        locale: "en_US",
+      },
+      name: "Acme Corporation",
+      address: {
+        streetAndNumber: "Main Street 123",
+        postalCode: "1234AB",
+        city: "Amsterdam",
+        country: "NL",
+      },
+      registrationNumber: "12345678",
+      vatNumber: "123456789B01",
     },
-    name: "Acme Corporation",
-    address: {
-      streetAndNumber: "Main Street 123",
-      postalCode: "1234AB",
-      city: "Amsterdam",
-      country: "NL",
-    },
-    registrationNumber: "12345678",
-    vatNumber: "123456789B01",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -149,7 +155,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.EntityClientLink](../../models/entityclientlink.md)                                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateClientLinkRequest](../../models/operations/createclientlinkrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

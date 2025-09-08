@@ -29,6 +29,10 @@ export type CancelSubscriptionRequest = {
    * Provide the ID of the related subscription.
    */
   subscriptionId: string;
+  /**
+   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+   */
+  idempotencyKey?: string | undefined;
   requestBody?: CancelSubscriptionRequestBody | undefined;
 };
 
@@ -96,10 +100,12 @@ export const CancelSubscriptionRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   subscriptionId: z.string(),
+  "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => CancelSubscriptionRequestBody$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    "idempotency-key": "idempotencyKey",
     "RequestBody": "requestBody",
   });
 });
@@ -108,6 +114,7 @@ export const CancelSubscriptionRequest$inboundSchema: z.ZodType<
 export type CancelSubscriptionRequest$Outbound = {
   customerId: string;
   subscriptionId: string;
+  "idempotency-key"?: string | undefined;
   RequestBody?: CancelSubscriptionRequestBody$Outbound | undefined;
 };
 
@@ -119,10 +126,12 @@ export const CancelSubscriptionRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   subscriptionId: z.string(),
+  idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => CancelSubscriptionRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    idempotencyKey: "idempotency-key",
     requestBody: "RequestBody",
   });
 });

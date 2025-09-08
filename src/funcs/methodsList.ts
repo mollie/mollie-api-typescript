@@ -6,6 +6,7 @@ import { ClientCore } from "../core.js";
 import {
   encodeDeepObjectQuery,
   encodeFormQuery,
+  encodeSimple,
   queryJoin,
 } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
@@ -129,6 +130,11 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",
+    "idempotency-key": encodeSimple(
+      "idempotency-key",
+      payload?.["idempotency-key"],
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const securityInput = await extractSecurity(client._options.security);

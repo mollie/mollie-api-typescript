@@ -43,6 +43,7 @@ const client = new Client({
 async function run() {
   const result = await client.payments.create({
     include: "details.qrCode",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     paymentRequest: {
       id: "tr_5B8cwPMGnU",
       description: "Chess Board",
@@ -230,6 +231,7 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentsCreate(client, {
     include: "details.qrCode",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     paymentRequest: {
       id: "tr_5B8cwPMGnU",
       description: "Chess Board",
@@ -447,6 +449,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -478,6 +481,7 @@ async function run() {
     sort: "desc",
     profileId: "pfl_5B8cwPMGnU",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -532,6 +536,7 @@ async function run() {
     include: "details.qrCode",
     embed: "captures",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -562,6 +567,7 @@ async function run() {
     include: "details.qrCode",
     embed: "captures",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -615,6 +621,7 @@ const client = new Client({
 async function run() {
   const result = await client.payments.update({
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       description: "Chess Board",
       redirectUrl: "https://example.org/redirect",
@@ -683,6 +690,7 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentsUpdate(client, {
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       description: "Chess Board",
       redirectUrl: "https://example.org/redirect",
@@ -780,6 +788,7 @@ const client = new Client({
 async function run() {
   const result = await client.payments.cancel({
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -810,6 +819,7 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentsCancel(client, {
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
     },
@@ -871,6 +881,7 @@ const client = new Client({
 async function run() {
   const result = await client.payments.releaseAuthorization({
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       profileId: "pfl_5B8cwPMGnU",
       testmode: false,
@@ -902,6 +913,7 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentsReleaseAuthorization(client, {
     paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       profileId: "pfl_5B8cwPMGnU",
       testmode: false,

@@ -33,17 +33,20 @@ const client = new Client({
 
 async function run() {
   const result = await client.profiles.create({
-    name: "My website name",
-    website: "https://example.com",
-    email: "test@mollie.com",
-    phone: "+31208202070",
-    description: "My website description",
-    countriesOfActivity: [
-      "NL",
-      "GB",
-    ],
-    businessCategory: "OTHER_MERCHANDISE",
-    status: "unverified",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityProfile: {
+      name: "My website name",
+      website: "https://example.com",
+      email: "test@mollie.com",
+      phone: "+31208202070",
+      description: "My website description",
+      countriesOfActivity: [
+        "NL",
+        "GB",
+      ],
+      businessCategory: "OTHER_MERCHANDISE",
+      status: "unverified",
+    },
   });
 
   console.log(result);
@@ -70,17 +73,20 @@ const client = new ClientCore({
 
 async function run() {
   const res = await profilesCreate(client, {
-    name: "My website name",
-    website: "https://example.com",
-    email: "test@mollie.com",
-    phone: "+31208202070",
-    description: "My website description",
-    countriesOfActivity: [
-      "NL",
-      "GB",
-    ],
-    businessCategory: "OTHER_MERCHANDISE",
-    status: "unverified",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityProfile: {
+      name: "My website name",
+      website: "https://example.com",
+      email: "test@mollie.com",
+      phone: "+31208202070",
+      description: "My website description",
+      countriesOfActivity: [
+        "NL",
+        "GB",
+      ],
+      businessCategory: "OTHER_MERCHANDISE",
+      status: "unverified",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -97,7 +103,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.EntityProfile](../../models/entityprofile.md)                                                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateProfileRequest](../../models/operations/createprofilerequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -135,6 +141,7 @@ async function run() {
   const result = await client.profiles.list({
     from: "pfl_QkEhN94Ba",
     limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -163,6 +170,7 @@ async function run() {
   const res = await profilesList(client, {
     from: "pfl_QkEhN94Ba",
     limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -215,6 +223,7 @@ async function run() {
   const result = await client.profiles.get({
     id: "pfl_QkEhN94Ba",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -243,6 +252,7 @@ async function run() {
   const res = await profilesGet(client, {
     id: "pfl_QkEhN94Ba",
     testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -297,6 +307,7 @@ const client = new Client({
 async function run() {
   const result = await client.profiles.update({
     id: "pfl_QkEhN94Ba",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "My new website name",
       website: "https://example.com",
@@ -337,6 +348,7 @@ const client = new ClientCore({
 async function run() {
   const res = await profilesUpdate(client, {
     id: "pfl_QkEhN94Ba",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "My new website name",
       website: "https://example.com",
@@ -401,6 +413,7 @@ const client = new Client({
 async function run() {
   const result = await client.profiles.delete({
     id: "pfl_QkEhN94Ba",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
   console.log(result);
@@ -428,6 +441,7 @@ const client = new ClientCore({
 async function run() {
   const res = await profilesDelete(client, {
     id: "pfl_QkEhN94Ba",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -481,7 +495,9 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.profiles.getCurrent();
+  const result = await client.profiles.getCurrent({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
 
   console.log(result);
 }
@@ -506,7 +522,9 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await profilesGetCurrent(client);
+  const res = await profilesGetCurrent(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -522,6 +540,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetCurrentProfileRequest](../../models/operations/getcurrentprofilerequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
