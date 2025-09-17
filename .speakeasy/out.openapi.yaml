@@ -26206,6 +26206,7 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
+                isEInvoice: false
                 createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -26261,7 +26262,8 @@ paths:
                   -d "lines[0][quantity]=1" \
                   -d "lines[0][vatRate]=21.00" \
                   -d "lines[0][unitPrice][currency]=EUR" \
-                  -d "lines[0][unitPrice][value]=12.50"
+                  -d "lines[0][unitPrice][value]=12.50" \
+                  -d "isEInvoice=false"
           - language: php
             install: composer require mollie/mollie-api-php
             code: |-
@@ -26311,7 +26313,8 @@ paths:
                   recipientIdentifier: 'customer-12354123',
                   recipient: $recipient,
                   lines: $invoiceLines,
-                  profileId: 'pfl_QkEhN94Ba'
+                  profileId: 'pfl_QkEhN94Ba',
+                  isEInvoice: false
               );
 
               $salesInvoice = $mollie->send($request);
@@ -26395,6 +26398,8 @@ paths:
                           $ref: '#/components/schemas/entity-sales-invoice-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
+                    writeOnly: false
+                    readOnly: true
               example:
                 count: 1
                 _embedded:
@@ -26430,6 +26435,7 @@ paths:
                       discountedSubtotalAmount:
                         value: '89.00'
                         currency: EUR
+                      isEInvoice: false
                       createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -26441,6 +26447,7 @@ paths:
                   documentation:
                     href: ...
                     type: text/html
+                  previous: null
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
       x-readme:
@@ -26561,6 +26568,7 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
+                isEInvoice: false
                 createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -26699,6 +26707,7 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
+                isEInvoice: false
                 createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -26753,7 +26762,8 @@ paths:
                   id: 'invoice_4Y0eZitmBnQ6IDoMqZQKh',
                   status: SalesInvoiceStatus::DRAFT,
                   recipientIdentifier: 'customer-12354123',
-                  paymentTerm: PaymentTerm::DAYS_14
+                  paymentTerm: PaymentTerm::DAYS_14,
+                  isEInvoice: false
               );
 
               $salesInvoice = $mollie->send($request);
@@ -33692,6 +33702,7 @@ components:
             Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
             endpoint.
           readOnly: true
+          writeOnly: false
           example: sales-invoice
         id:
           $ref: '#/components/schemas/salesInvoiceToken'
@@ -33787,6 +33798,14 @@ components:
         discount:
           $ref: '#/components/schemas/sales-invoice-discount'
           description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
+        isEInvoice:
+          type: boolean
+          description: |-
+            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+            after the invoice has been issued.
+
+            When `emailDetails` is provided, an additional email is sent to the recipient.
+          example: false
         amountDue:
           $ref: '#/components/schemas/amount'
           description: The amount that is left to be paid.
@@ -33856,7 +33875,18 @@ components:
               description: The URL the invoice is available at, if generated.
             documentation:
               $ref: '#/components/schemas/url'
+            next:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+            previous:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
           readOnly: true
+          writeOnly: false
     delete-values-sales-invoice:
       type: object
       properties:
@@ -33917,6 +33947,14 @@ components:
         discount:
           $ref: '#/components/schemas/sales-invoice-discount'
           description: The discount to be applied to the entire invoice, possibly on top of the line item discounts.
+        isEInvoice:
+          type: boolean
+          description: |-
+            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+            after the invoice has been issued.
+
+            When `emailDetails` is provided, an additional email is sent to the recipient.
+          example: false
     entity-payment-response:
       type: object
       properties:
@@ -36061,6 +36099,7 @@ components:
             Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
             endpoint.
           readOnly: true
+          writeOnly: false
           example: sales-invoice
         id:
           $ref: '#/components/schemas/salesInvoiceToken'
@@ -36156,6 +36195,14 @@ components:
         discount:
           $ref: '#/components/schemas/sales-invoice-discount-response'
           description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
+        isEInvoice:
+          type: boolean
+          description: |-
+            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+            after the invoice has been issued.
+
+            When `emailDetails` is provided, an additional email is sent to the recipient.
+          example: false
         amountDue:
           $ref: '#/components/schemas/amount'
           description: The amount that is left to be paid.
@@ -36225,7 +36272,18 @@ components:
               description: The URL the invoice is available at, if generated.
             documentation:
               $ref: '#/components/schemas/url'
+            next:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+            previous:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
           readOnly: true
+          writeOnly: false
       x-speakeasy-unknown-values: allow
     sales-invoice-status-response:
       type: string

@@ -19,13 +19,14 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
+    hoistGlobalSecurity: true
   sdkHooksConfigAccess: true
   tests:
     generateTests: false
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.2.3
+  version: 0.2.4
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -60,6 +61,7 @@ typescript:
   outputModelSuffix: output
   packageName: mollie-api-typescript
   responseFormat: flat
+  sseFlatResponse: false
   templateVersion: v2
   usageSDKInitImports: []
   useIndexModules: true

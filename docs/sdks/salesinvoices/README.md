@@ -77,6 +77,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
       amountDue: {
         currency: "EUR",
         value: "10.00",
@@ -168,6 +169,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
       amountDue: {
         currency: "EUR",
         value: "10.00",
@@ -474,6 +476,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
     },
   });
 
@@ -554,6 +557,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
     },
   });
   if (res.ok) {

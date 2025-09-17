@@ -63,6 +63,7 @@ let value: ListSalesInvoicesResponse = {
           type: "amount",
           value: "10.00",
         },
+        isEInvoice: false,
         amountDue: {
           currency: "EUR",
           value: "10.00",
@@ -101,6 +102,14 @@ let value: ListSalesInvoicesResponse = {
             type: "application/hal+json",
           },
           documentation: {
+            href: "https://...",
+            type: "application/hal+json",
+          },
+          next: {
+            href: "https://...",
+            type: "application/hal+json",
+          },
+          previous: {
             href: "https://...",
             type: "application/hal+json",
           },

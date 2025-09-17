@@ -98,6 +98,14 @@ export type EntitySalesInvoiceResponseLinks = {
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
   documentation?: Url | undefined;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  next?: Url | undefined;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  previous?: Url | undefined;
 };
 
 export type EntitySalesInvoiceResponse = {
@@ -192,6 +200,15 @@ export type EntitySalesInvoiceResponse = {
    */
   lines?: Array<SalesInvoiceLineItemResponse> | null | undefined;
   discount?: SalesInvoiceDiscountResponse | null | undefined;
+  /**
+   * This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+   *
+   * @remarks
+   * after the invoice has been issued.
+   *
+   * When `emailDetails` is provided, an additional email is sent to the recipient.
+   */
+  isEInvoice?: boolean | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -305,6 +322,8 @@ export const EntitySalesInvoiceResponseLinks$inboundSchema: z.ZodType<
   invoicePayment: Url$inboundSchema.optional(),
   pdfLink: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
+  next: Url$inboundSchema.optional(),
+  previous: Url$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -313,6 +332,8 @@ export type EntitySalesInvoiceResponseLinks$Outbound = {
   invoicePayment?: Url$Outbound | undefined;
   pdfLink?: Url$Outbound | undefined;
   documentation?: Url$Outbound | undefined;
+  next?: Url$Outbound | undefined;
+  previous?: Url$Outbound | undefined;
 };
 
 /** @internal */
@@ -325,6 +346,8 @@ export const EntitySalesInvoiceResponseLinks$outboundSchema: z.ZodType<
   invoicePayment: Url$outboundSchema.optional(),
   pdfLink: Url$outboundSchema.optional(),
   documentation: Url$outboundSchema.optional(),
+  next: Url$outboundSchema.optional(),
+  previous: Url$outboundSchema.optional(),
 });
 
 /**
@@ -388,6 +411,7 @@ export const EntitySalesInvoiceResponse$inboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$inboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
   amountDue: Amount$inboundSchema.optional(),
   subtotalAmount: Amount$inboundSchema.optional(),
   totalAmount: Amount$inboundSchema.optional(),
@@ -427,6 +451,7 @@ export type EntitySalesInvoiceResponse$Outbound = {
   recipient?: SalesInvoiceRecipientResponse$Outbound | null | undefined;
   lines?: Array<SalesInvoiceLineItemResponse$Outbound> | null | undefined;
   discount?: SalesInvoiceDiscountResponse$Outbound | null | undefined;
+  isEInvoice?: boolean | undefined;
   amountDue?: Amount$Outbound | undefined;
   subtotalAmount?: Amount$Outbound | undefined;
   totalAmount?: Amount$Outbound | undefined;
@@ -468,6 +493,7 @@ export const EntitySalesInvoiceResponse$outboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$outboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$outboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
   amountDue: Amount$outboundSchema.optional(),
   subtotalAmount: Amount$outboundSchema.optional(),
   totalAmount: Amount$outboundSchema.optional(),
