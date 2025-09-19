@@ -1,0 +1,47 @@
+# Cost
+
+## Example Usage
+
+```typescript
+import { Cost } from "mollie-api-typescript/models";
+
+let value: Cost = {
+  description: "Credit card - Visa debit consumer domestic",
+  method: "creditcard",
+  count: 10,
+  rate: {
+    fixed: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    percentage: {
+      currency: "EUR",
+      value: "10.00",
+    },
+  },
+  amountNet: {
+    currency: "EUR",
+    value: "10.00",
+  },
+  amountVat: {
+    currency: "EUR",
+    value: "10.00",
+  },
+  amountGross: {
+    currency: "EUR",
+    value: "10.00",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       | Example                                                                                           |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `description`                                                                                     | *string*                                                                                          | :heavy_minus_sign:                                                                                | A description of the cost subtotal                                                                | Credit card - Visa debit consumer domestic                                                        |
+| `method`                                                                                          | [models.PaymentMethod](../models/paymentmethod.md)                                                | :heavy_minus_sign:                                                                                | The payment method, if applicable                                                                 | creditcard                                                                                        |
+| `count`                                                                                           | *number*                                                                                          | :heavy_minus_sign:                                                                                | The number of fees                                                                                | 10                                                                                                |
+| `rate`                                                                                            | [models.Rate](../models/rate.md)                                                                  | :heavy_minus_sign:                                                                                | The service rates, further divided into `fixed` and `percentage` costs.                           |                                                                                                   |
+| `amountNet`                                                                                       | [models.Amount](../models/amount.md)                                                              | :heavy_minus_sign:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |                                                                                                   |
+| `amountVat`                                                                                       | [models.Amount](../models/amount.md)                                                              | :heavy_minus_sign:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |                                                                                                   |
+| `amountGross`                                                                                     | [models.Amount](../models/amount.md)                                                              | :heavy_minus_sign:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |                                                                                                   |

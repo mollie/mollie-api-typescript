@@ -28636,8 +28636,81 @@ components:
 
             The example response should give a good idea of what this looks like in practise.
           readOnly: true
-          properties: {}
-          additionalProperties: true
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                costs:
+                  type: array
+                  description: An array of cost objects, describing the fees withheld for each payment method during this period.
+                  items:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: A description of the cost subtotal
+                        example: Credit card - Visa debit consumer domestic
+                      method:
+                        $ref: '#/components/schemas/payment-method'
+                      count:
+                        type: integer
+                        description: The number of fees
+                        example: 10
+                      rate:
+                        type: object
+                        description: The service rates, further divided into `fixed` and `percentage` costs.
+                        properties:
+                          fixed:
+                            $ref: '#/components/schemas/amount'
+                          percentage:
+                            $ref: '#/components/schemas/amount'
+                      amountNet:
+                        $ref: '#/components/schemas/amount'
+                        description: The net total cost, i.e. excluding VAT
+                      amountVat:
+                        $ref: '#/components/schemas/amount'
+                        description: The applicable VAT
+                      amountGross:
+                        $ref: '#/components/schemas/amount'
+                        description: The gross total cost, i.e. including VAT
+                revenue:
+                  type: array
+                  description: An array of revenue objects containing the total revenue for each payment method during this period.
+                  items:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: A description of the revenue subtotal
+                        example: Credit card
+                      method:
+                        $ref: '#/components/schemas/payment-method'
+                      count:
+                        type: integer
+                        description: The number of payments
+                        example: 10
+                      amountNet:
+                        $ref: '#/components/schemas/amount'
+                        description: The net total of received funds, i.e. excluding VAT
+                      amountVat:
+                        $ref: '#/components/schemas/amount'
+                        description: The applicable VAT
+                      amountGross:
+                        $ref: '#/components/schemas/amount'
+                        description: The gross total of received funds, i.e. including VAT
+                invoiceId:
+                  $ref: '#/components/schemas/invoiceToken'
+                  type:
+                    - string
+                    - 'null'
+                  description: The ID of the invoice created for this period, if the invoice has been created already.
+                invoiceReference:
+                  type:
+                    - string
+                    - 'null'
+                  description: The invoice reference, if the invoice has been created already.
+                  example: MOLR2021.0001399669
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.

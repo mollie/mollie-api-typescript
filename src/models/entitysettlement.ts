@@ -14,6 +14,11 @@ import {
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  PaymentMethod,
+  PaymentMethod$inboundSchema,
+  PaymentMethod$outboundSchema,
+} from "./paymentmethod.js";
+import {
   SettlementStatus,
   SettlementStatus$inboundSchema,
   SettlementStatus$outboundSchema,
@@ -30,6 +35,94 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
+
+/**
+ * The service rates, further divided into `fixed` and `percentage` costs.
+ */
+export type Rate = {
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  fixed?: Amount | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  percentage?: Amount | undefined;
+};
+
+export type Cost = {
+  /**
+   * A description of the cost subtotal
+   */
+  description?: string | undefined;
+  /**
+   * The payment method, if applicable
+   */
+  method?: PaymentMethod | null | undefined;
+  /**
+   * The number of fees
+   */
+  count?: number | undefined;
+  /**
+   * The service rates, further divided into `fixed` and `percentage` costs.
+   */
+  rate?: Rate | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountNet?: Amount | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountVat?: Amount | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountGross?: Amount | undefined;
+};
+
+export type Revenue = {
+  /**
+   * A description of the revenue subtotal
+   */
+  description?: string | undefined;
+  /**
+   * The payment method, if applicable
+   */
+  method?: PaymentMethod | null | undefined;
+  /**
+   * The number of payments
+   */
+  count?: number | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountNet?: Amount | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountVat?: Amount | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountGross?: Amount | undefined;
+};
+
+export type Periods = {
+  /**
+   * An array of cost objects, describing the fees withheld for each payment method during this period.
+   */
+  costs?: Array<Cost> | undefined;
+  /**
+   * An array of revenue objects containing the total revenue for each payment method during this period.
+   */
+  revenue?: Array<Revenue> | undefined;
+  invoiceId?: string | undefined;
+  /**
+   * The invoice reference, if the invoice has been created already.
+   */
+  invoiceReference?: string | null | undefined;
+};
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -115,12 +208,239 @@ export type EntitySettlement = {
    *
    * The example response should give a good idea of what this looks like in practise.
    */
-  periods?: { [k: string]: any } | undefined;
+  periods?: { [k: string]: { [k: string]: Periods } } | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links?: EntitySettlementLinks | undefined;
 };
+
+/** @internal */
+export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> = z
+  .object({
+    fixed: Amount$inboundSchema.optional(),
+    percentage: Amount$inboundSchema.optional(),
+  });
+
+/** @internal */
+export type Rate$Outbound = {
+  fixed?: Amount$Outbound | undefined;
+  percentage?: Amount$Outbound | undefined;
+};
+
+/** @internal */
+export const Rate$outboundSchema: z.ZodType<Rate$Outbound, z.ZodTypeDef, Rate> =
+  z.object({
+    fixed: Amount$outboundSchema.optional(),
+    percentage: Amount$outboundSchema.optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Rate$ {
+  /** @deprecated use `Rate$inboundSchema` instead. */
+  export const inboundSchema = Rate$inboundSchema;
+  /** @deprecated use `Rate$outboundSchema` instead. */
+  export const outboundSchema = Rate$outboundSchema;
+  /** @deprecated use `Rate$Outbound` instead. */
+  export type Outbound = Rate$Outbound;
+}
+
+export function rateToJSON(rate: Rate): string {
+  return JSON.stringify(Rate$outboundSchema.parse(rate));
+}
+
+export function rateFromJSON(
+  jsonString: string,
+): SafeParseResult<Rate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Rate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Rate' from JSON`,
+  );
+}
+
+/** @internal */
+export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> = z
+  .object({
+    description: z.string().optional(),
+    method: z.nullable(PaymentMethod$inboundSchema).optional(),
+    count: z.number().int().optional(),
+    rate: z.lazy(() => Rate$inboundSchema).optional(),
+    amountNet: Amount$inboundSchema.optional(),
+    amountVat: Amount$inboundSchema.optional(),
+    amountGross: Amount$inboundSchema.optional(),
+  });
+
+/** @internal */
+export type Cost$Outbound = {
+  description?: string | undefined;
+  method?: string | null | undefined;
+  count?: number | undefined;
+  rate?: Rate$Outbound | undefined;
+  amountNet?: Amount$Outbound | undefined;
+  amountVat?: Amount$Outbound | undefined;
+  amountGross?: Amount$Outbound | undefined;
+};
+
+/** @internal */
+export const Cost$outboundSchema: z.ZodType<Cost$Outbound, z.ZodTypeDef, Cost> =
+  z.object({
+    description: z.string().optional(),
+    method: z.nullable(PaymentMethod$outboundSchema).optional(),
+    count: z.number().int().optional(),
+    rate: z.lazy(() => Rate$outboundSchema).optional(),
+    amountNet: Amount$outboundSchema.optional(),
+    amountVat: Amount$outboundSchema.optional(),
+    amountGross: Amount$outboundSchema.optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Cost$ {
+  /** @deprecated use `Cost$inboundSchema` instead. */
+  export const inboundSchema = Cost$inboundSchema;
+  /** @deprecated use `Cost$outboundSchema` instead. */
+  export const outboundSchema = Cost$outboundSchema;
+  /** @deprecated use `Cost$Outbound` instead. */
+  export type Outbound = Cost$Outbound;
+}
+
+export function costToJSON(cost: Cost): string {
+  return JSON.stringify(Cost$outboundSchema.parse(cost));
+}
+
+export function costFromJSON(
+  jsonString: string,
+): SafeParseResult<Cost, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Cost$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Cost' from JSON`,
+  );
+}
+
+/** @internal */
+export const Revenue$inboundSchema: z.ZodType<Revenue, z.ZodTypeDef, unknown> =
+  z.object({
+    description: z.string().optional(),
+    method: z.nullable(PaymentMethod$inboundSchema).optional(),
+    count: z.number().int().optional(),
+    amountNet: Amount$inboundSchema.optional(),
+    amountVat: Amount$inboundSchema.optional(),
+    amountGross: Amount$inboundSchema.optional(),
+  });
+
+/** @internal */
+export type Revenue$Outbound = {
+  description?: string | undefined;
+  method?: string | null | undefined;
+  count?: number | undefined;
+  amountNet?: Amount$Outbound | undefined;
+  amountVat?: Amount$Outbound | undefined;
+  amountGross?: Amount$Outbound | undefined;
+};
+
+/** @internal */
+export const Revenue$outboundSchema: z.ZodType<
+  Revenue$Outbound,
+  z.ZodTypeDef,
+  Revenue
+> = z.object({
+  description: z.string().optional(),
+  method: z.nullable(PaymentMethod$outboundSchema).optional(),
+  count: z.number().int().optional(),
+  amountNet: Amount$outboundSchema.optional(),
+  amountVat: Amount$outboundSchema.optional(),
+  amountGross: Amount$outboundSchema.optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Revenue$ {
+  /** @deprecated use `Revenue$inboundSchema` instead. */
+  export const inboundSchema = Revenue$inboundSchema;
+  /** @deprecated use `Revenue$outboundSchema` instead. */
+  export const outboundSchema = Revenue$outboundSchema;
+  /** @deprecated use `Revenue$Outbound` instead. */
+  export type Outbound = Revenue$Outbound;
+}
+
+export function revenueToJSON(revenue: Revenue): string {
+  return JSON.stringify(Revenue$outboundSchema.parse(revenue));
+}
+
+export function revenueFromJSON(
+  jsonString: string,
+): SafeParseResult<Revenue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Revenue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Revenue' from JSON`,
+  );
+}
+
+/** @internal */
+export const Periods$inboundSchema: z.ZodType<Periods, z.ZodTypeDef, unknown> =
+  z.object({
+    costs: z.array(z.lazy(() => Cost$inboundSchema)).optional(),
+    revenue: z.array(z.lazy(() => Revenue$inboundSchema)).optional(),
+    invoiceId: z.string().optional(),
+    invoiceReference: z.nullable(z.string()).optional(),
+  });
+
+/** @internal */
+export type Periods$Outbound = {
+  costs?: Array<Cost$Outbound> | undefined;
+  revenue?: Array<Revenue$Outbound> | undefined;
+  invoiceId?: string | undefined;
+  invoiceReference?: string | null | undefined;
+};
+
+/** @internal */
+export const Periods$outboundSchema: z.ZodType<
+  Periods$Outbound,
+  z.ZodTypeDef,
+  Periods
+> = z.object({
+  costs: z.array(z.lazy(() => Cost$outboundSchema)).optional(),
+  revenue: z.array(z.lazy(() => Revenue$outboundSchema)).optional(),
+  invoiceId: z.string().optional(),
+  invoiceReference: z.nullable(z.string()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Periods$ {
+  /** @deprecated use `Periods$inboundSchema` instead. */
+  export const inboundSchema = Periods$inboundSchema;
+  /** @deprecated use `Periods$outboundSchema` instead. */
+  export const outboundSchema = Periods$outboundSchema;
+  /** @deprecated use `Periods$Outbound` instead. */
+  export type Outbound = Periods$Outbound;
+}
+
+export function periodsToJSON(periods: Periods): string {
+  return JSON.stringify(Periods$outboundSchema.parse(periods));
+}
+
+export function periodsFromJSON(
+  jsonString: string,
+): SafeParseResult<Periods, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Periods$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Periods' from JSON`,
+  );
+}
 
 /** @internal */
 export const EntitySettlementLinks$inboundSchema: z.ZodType<
@@ -209,7 +529,7 @@ export const EntitySettlement$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema.optional(),
   balanceId: z.string().optional(),
   invoiceId: z.string().optional(),
-  periods: z.record(z.any()).optional(),
+  periods: z.record(z.record(z.lazy(() => Periods$inboundSchema))).optional(),
   _links: z.lazy(() => EntitySettlementLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -228,7 +548,7 @@ export type EntitySettlement$Outbound = {
   amount?: Amount$Outbound | undefined;
   balanceId?: string | undefined;
   invoiceId?: string | undefined;
-  periods?: { [k: string]: any } | undefined;
+  periods?: { [k: string]: { [k: string]: Periods$Outbound } } | undefined;
   _links?: EntitySettlementLinks$Outbound | undefined;
 };
 
@@ -247,7 +567,7 @@ export const EntitySettlement$outboundSchema: z.ZodType<
   amount: Amount$outboundSchema.optional(),
   balanceId: z.string().optional(),
   invoiceId: z.string().optional(),
-  periods: z.record(z.any()).optional(),
+  periods: z.record(z.record(z.lazy(() => Periods$outboundSchema))).optional(),
   links: z.lazy(() => EntitySettlementLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
