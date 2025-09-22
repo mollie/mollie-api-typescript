@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 5f770e879f4e0cd204315098145b861b
+  docChecksum: 843a5fcda17e62c6c7e2027ada861883
   docVersion: 1.0.0
   speakeasyVersion: 1.622.1
   generationVersion: 2.709.0
-  releaseVersion: 0.2.6
-  configChecksum: 744b1fbc4605956370bfc70e70570c73
+  releaseVersion: 0.2.7
+  configChecksum: c20bbd25f715b801d308827b09336ed0
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -4543,7 +4543,7 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `client.settlements.list()`:  `response` **Changed** **Breaking** :warning:
-  * `client.settlements.get()`:  `response` **Changed** **Breaking** :warning:
-  * `client.settlements.getOpen()`:  `response` **Changed** **Breaking** :warning:
-  * `client.settlements.getNext()`:  `response` **Changed** **Breaking** :warning:
+  * `client.settlements.list()`:  `response._embedded.settlements.[].periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:
+  * `client.settlements.get()`:  `response.periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:
+  * `client.settlements.getOpen()`:  `response.periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:
+  * `client.settlements.getNext()`:  `response.periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:

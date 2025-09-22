@@ -39,10 +39,7 @@ let value: ListSettlementsEmbedded = {
                   currency: "EUR",
                   value: "10.00",
                 },
-                amountVat: {
-                  currency: "EUR",
-                  value: "10.00",
-                },
+                amountVat: null,
                 amountGross: {
                   currency: "EUR",
                   value: "10.00",
@@ -58,35 +55,6 @@ let value: ListSettlementsEmbedded = {
                   currency: "EUR",
                   value: "10.00",
                 },
-                amountVat: null,
-                amountGross: {
-                  currency: "EUR",
-                  value: "10.00",
-                },
-              },
-            ],
-            invoiceId: "inv_aHbjjdrUdm",
-            invoiceReference: "MOLR2021.0001399669",
-          },
-        },
-        "key1": {
-          "key": {
-            costs: [
-              {
-                description: "Credit card - Visa debit consumer domestic",
-                method: "creditcard",
-                count: 10,
-                rate: {
-                  fixed: {
-                    currency: "EUR",
-                    value: "10.00",
-                  },
-                  percentage: "2.5",
-                },
-                amountNet: {
-                  currency: "EUR",
-                  value: "10.00",
-                },
                 amountVat: {
                   currency: "EUR",
                   value: "10.00",
@@ -97,26 +65,11 @@ let value: ListSettlementsEmbedded = {
                 },
               },
             ],
-            revenue: [
-              {
-                description: "Credit card",
-                method: "creditcard",
-                count: 10,
-                amountNet: {
-                  currency: "EUR",
-                  value: "10.00",
-                },
-                amountVat: null,
-                amountGross: {
-                  currency: "EUR",
-                  value: "10.00",
-                },
-              },
-            ],
             invoiceId: "inv_aHbjjdrUdm",
             invoiceReference: "MOLR2021.0001399669",
           },
         },
+        "key1": {},
       },
       links: {
         self: {

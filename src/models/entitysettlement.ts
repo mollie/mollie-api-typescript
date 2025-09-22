@@ -77,7 +77,7 @@ export type Cost = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amountVat: Amount;
+  amountVat: AmountNullable | null;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -273,7 +273,7 @@ export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> = z
     count: z.number().int(),
     rate: z.lazy(() => Rate$inboundSchema),
     amountNet: Amount$inboundSchema,
-    amountVat: Amount$inboundSchema,
+    amountVat: z.nullable(AmountNullable$inboundSchema),
     amountGross: Amount$inboundSchema,
   });
 
@@ -284,7 +284,7 @@ export type Cost$Outbound = {
   count: number;
   rate: Rate$Outbound;
   amountNet: Amount$Outbound;
-  amountVat: Amount$Outbound;
+  amountVat: AmountNullable$Outbound | null;
   amountGross: Amount$Outbound;
 };
 
@@ -296,7 +296,7 @@ export const Cost$outboundSchema: z.ZodType<Cost$Outbound, z.ZodTypeDef, Cost> =
     count: z.number().int(),
     rate: z.lazy(() => Rate$outboundSchema),
     amountNet: Amount$outboundSchema,
-    amountVat: Amount$outboundSchema,
+    amountVat: z.nullable(AmountNullable$outboundSchema),
     amountGross: Amount$outboundSchema,
   });
 

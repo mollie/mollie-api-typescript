@@ -28687,7 +28687,7 @@ components:
                         $ref: '#/components/schemas/amount'
                         description: The net total cost, i.e. excluding VAT
                       amountVat:
-                        $ref: '#/components/schemas/amount'
+                        $ref: '#/components/schemas/amount-nullable'
                         description: The applicable VAT
                       amountGross:
                         $ref: '#/components/schemas/amount'
