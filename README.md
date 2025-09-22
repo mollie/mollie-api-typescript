@@ -812,7 +812,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new Client({ httpClient });
+const sdk = new Client({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 

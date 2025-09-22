@@ -21,8 +21,7 @@ let value: ListSettlementsEmbedded = {
       balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
       invoiceId: "inv_aHbjjdrUdm",
       periods: {
-        "key": {},
-        "key1": {
+        "key": {
           "key": {
             costs: [
               {
@@ -34,10 +33,7 @@ let value: ListSettlementsEmbedded = {
                     currency: "EUR",
                     value: "10.00",
                   },
-                  percentage: {
-                    currency: "EUR",
-                    value: "10.00",
-                  },
+                  percentage: "2.5",
                 },
                 amountNet: {
                   currency: "EUR",
@@ -62,10 +58,7 @@ let value: ListSettlementsEmbedded = {
                   currency: "EUR",
                   value: "10.00",
                 },
-                amountVat: {
-                  currency: "EUR",
-                  value: "10.00",
-                },
+                amountVat: null,
                 amountGross: {
                   currency: "EUR",
                   value: "10.00",
@@ -76,7 +69,54 @@ let value: ListSettlementsEmbedded = {
             invoiceReference: "MOLR2021.0001399669",
           },
         },
-        "key2": {},
+        "key1": {
+          "key": {
+            costs: [
+              {
+                description: "Credit card - Visa debit consumer domestic",
+                method: "creditcard",
+                count: 10,
+                rate: {
+                  fixed: {
+                    currency: "EUR",
+                    value: "10.00",
+                  },
+                  percentage: "2.5",
+                },
+                amountNet: {
+                  currency: "EUR",
+                  value: "10.00",
+                },
+                amountVat: {
+                  currency: "EUR",
+                  value: "10.00",
+                },
+                amountGross: {
+                  currency: "EUR",
+                  value: "10.00",
+                },
+              },
+            ],
+            revenue: [
+              {
+                description: "Credit card",
+                method: "creditcard",
+                count: 10,
+                amountNet: {
+                  currency: "EUR",
+                  value: "10.00",
+                },
+                amountVat: null,
+                amountGross: {
+                  currency: "EUR",
+                  value: "10.00",
+                },
+              },
+            ],
+            invoiceId: "inv_aHbjjdrUdm",
+            invoiceReference: "MOLR2021.0001399669",
+          },
+        },
       },
       links: {
         self: {
@@ -99,10 +139,7 @@ let value: ListSettlementsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        invoice: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
+        invoice: null,
         documentation: {
           href: "https://...",
           type: "application/hal+json",
@@ -117,4 +154,4 @@ let value: ListSettlementsEmbedded = {
 
 | Field                                                                                                                                                    | Type                                                                                                                                                     | Required                                                                                                                                                 | Description                                                                                                                                              |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `settlements`                                                                                                                                            | [models.EntitySettlement](../../models/entitysettlement.md)[]                                                                                            | :heavy_minus_sign:                                                                                                                                       | An array of settlement objects. For a complete reference<br/>of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation. |
+| `settlements`                                                                                                                                            | [models.EntitySettlement](../../models/entitysettlement.md)[]                                                                                            | :heavy_check_mark:                                                                                                                                       | An array of settlement objects. For a complete reference<br/>of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation. |

@@ -12,6 +12,12 @@ import {
   Amount$Outbound,
   Amount$outboundSchema,
 } from "./amount.js";
+import {
+  AmountNullable,
+  AmountNullable$inboundSchema,
+  AmountNullable$Outbound,
+  AmountNullable$outboundSchema,
+} from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentMethod,
@@ -44,68 +50,65 @@ export type Rate = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   fixed?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  percentage?: Amount | undefined;
+  percentage?: string | undefined;
 };
 
 export type Cost = {
   /**
    * A description of the cost subtotal
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method, if applicable
    */
-  method?: PaymentMethod | null | undefined;
+  method: PaymentMethod | null;
   /**
    * The number of fees
    */
-  count?: number | undefined;
+  count: number;
   /**
    * The service rates, further divided into `fixed` and `percentage` costs.
    */
-  rate?: Rate | undefined;
+  rate: Rate;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amountNet?: Amount | undefined;
+  amountNet: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amountVat?: Amount | undefined;
+  amountVat: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amountGross?: Amount | undefined;
+  amountGross: Amount;
 };
 
 export type Revenue = {
   /**
    * A description of the revenue subtotal
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method, if applicable
    */
-  method?: PaymentMethod | null | undefined;
+  method: PaymentMethod | null;
   /**
    * The number of payments
    */
-  count?: number | undefined;
+  count: number;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amountNet?: Amount | undefined;
+  amountNet: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amountVat?: Amount | undefined;
+  amountVat: AmountNullable | null;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amountGross?: Amount | undefined;
+  amountGross: Amount;
 };
 
 export type Periods = {
@@ -131,7 +134,7 @@ export type EntitySettlementLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: Url | undefined;
+  self: Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -165,8 +168,8 @@ export type EntitySettlement = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -187,12 +190,12 @@ export type EntitySettlement = {
   /**
    * The status of the settlement.
    */
-  status?: SettlementStatus | undefined;
+  status: SettlementStatus;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
-  balanceId?: string | undefined;
+  amount: Amount;
+  balanceId: string;
   invoiceId?: string | undefined;
   /**
    * For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These
@@ -212,27 +215,27 @@ export type EntitySettlement = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntitySettlementLinks | undefined;
+  links: EntitySettlementLinks;
 };
 
 /** @internal */
 export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> = z
   .object({
     fixed: Amount$inboundSchema.optional(),
-    percentage: Amount$inboundSchema.optional(),
+    percentage: z.string().optional(),
   });
 
 /** @internal */
 export type Rate$Outbound = {
   fixed?: Amount$Outbound | undefined;
-  percentage?: Amount$Outbound | undefined;
+  percentage?: string | undefined;
 };
 
 /** @internal */
 export const Rate$outboundSchema: z.ZodType<Rate$Outbound, z.ZodTypeDef, Rate> =
   z.object({
     fixed: Amount$outboundSchema.optional(),
-    percentage: Amount$outboundSchema.optional(),
+    percentage: z.string().optional(),
   });
 
 /**
@@ -265,36 +268,36 @@ export function rateFromJSON(
 /** @internal */
 export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> = z
   .object({
-    description: z.string().optional(),
-    method: z.nullable(PaymentMethod$inboundSchema).optional(),
-    count: z.number().int().optional(),
-    rate: z.lazy(() => Rate$inboundSchema).optional(),
-    amountNet: Amount$inboundSchema.optional(),
-    amountVat: Amount$inboundSchema.optional(),
-    amountGross: Amount$inboundSchema.optional(),
+    description: z.string(),
+    method: z.nullable(PaymentMethod$inboundSchema),
+    count: z.number().int(),
+    rate: z.lazy(() => Rate$inboundSchema),
+    amountNet: Amount$inboundSchema,
+    amountVat: Amount$inboundSchema,
+    amountGross: Amount$inboundSchema,
   });
 
 /** @internal */
 export type Cost$Outbound = {
-  description?: string | undefined;
-  method?: string | null | undefined;
-  count?: number | undefined;
-  rate?: Rate$Outbound | undefined;
-  amountNet?: Amount$Outbound | undefined;
-  amountVat?: Amount$Outbound | undefined;
-  amountGross?: Amount$Outbound | undefined;
+  description: string;
+  method: string | null;
+  count: number;
+  rate: Rate$Outbound;
+  amountNet: Amount$Outbound;
+  amountVat: Amount$Outbound;
+  amountGross: Amount$Outbound;
 };
 
 /** @internal */
 export const Cost$outboundSchema: z.ZodType<Cost$Outbound, z.ZodTypeDef, Cost> =
   z.object({
-    description: z.string().optional(),
-    method: z.nullable(PaymentMethod$outboundSchema).optional(),
-    count: z.number().int().optional(),
-    rate: z.lazy(() => Rate$outboundSchema).optional(),
-    amountNet: Amount$outboundSchema.optional(),
-    amountVat: Amount$outboundSchema.optional(),
-    amountGross: Amount$outboundSchema.optional(),
+    description: z.string(),
+    method: z.nullable(PaymentMethod$outboundSchema),
+    count: z.number().int(),
+    rate: z.lazy(() => Rate$outboundSchema),
+    amountNet: Amount$outboundSchema,
+    amountVat: Amount$outboundSchema,
+    amountGross: Amount$outboundSchema,
   });
 
 /**
@@ -327,22 +330,22 @@ export function costFromJSON(
 /** @internal */
 export const Revenue$inboundSchema: z.ZodType<Revenue, z.ZodTypeDef, unknown> =
   z.object({
-    description: z.string().optional(),
-    method: z.nullable(PaymentMethod$inboundSchema).optional(),
-    count: z.number().int().optional(),
-    amountNet: Amount$inboundSchema.optional(),
-    amountVat: Amount$inboundSchema.optional(),
-    amountGross: Amount$inboundSchema.optional(),
+    description: z.string(),
+    method: z.nullable(PaymentMethod$inboundSchema),
+    count: z.number().int(),
+    amountNet: Amount$inboundSchema,
+    amountVat: z.nullable(AmountNullable$inboundSchema),
+    amountGross: Amount$inboundSchema,
   });
 
 /** @internal */
 export type Revenue$Outbound = {
-  description?: string | undefined;
-  method?: string | null | undefined;
-  count?: number | undefined;
-  amountNet?: Amount$Outbound | undefined;
-  amountVat?: Amount$Outbound | undefined;
-  amountGross?: Amount$Outbound | undefined;
+  description: string;
+  method: string | null;
+  count: number;
+  amountNet: Amount$Outbound;
+  amountVat: AmountNullable$Outbound | null;
+  amountGross: Amount$Outbound;
 };
 
 /** @internal */
@@ -351,12 +354,12 @@ export const Revenue$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Revenue
 > = z.object({
-  description: z.string().optional(),
-  method: z.nullable(PaymentMethod$outboundSchema).optional(),
-  count: z.number().int().optional(),
-  amountNet: Amount$outboundSchema.optional(),
-  amountVat: Amount$outboundSchema.optional(),
-  amountGross: Amount$outboundSchema.optional(),
+  description: z.string(),
+  method: z.nullable(PaymentMethod$outboundSchema),
+  count: z.number().int(),
+  amountNet: Amount$outboundSchema,
+  amountVat: z.nullable(AmountNullable$outboundSchema),
+  amountGross: Amount$outboundSchema,
 });
 
 /**
@@ -448,7 +451,7 @@ export const EntitySettlementLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: Url$inboundSchema.optional(),
+  self: Url$inboundSchema,
   payments: Url$inboundSchema.optional(),
   captures: Url$inboundSchema.optional(),
   refunds: Url$inboundSchema.optional(),
@@ -459,7 +462,7 @@ export const EntitySettlementLinks$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntitySettlementLinks$Outbound = {
-  self?: Url$Outbound | undefined;
+  self: Url$Outbound;
   payments?: Url$Outbound | undefined;
   captures?: Url$Outbound | undefined;
   refunds?: Url$Outbound | undefined;
@@ -474,7 +477,7 @@ export const EntitySettlementLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntitySettlementLinks
 > = z.object({
-  self: Url$outboundSchema.optional(),
+  self: Url$outboundSchema,
   payments: Url$outboundSchema.optional(),
   captures: Url$outboundSchema.optional(),
   refunds: Url$outboundSchema.optional(),
@@ -520,17 +523,17 @@ export const EntitySettlement$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: SettlementStatus$inboundSchema.optional(),
-  amount: Amount$inboundSchema.optional(),
-  balanceId: z.string().optional(),
+  status: SettlementStatus$inboundSchema,
+  amount: Amount$inboundSchema,
+  balanceId: z.string(),
   invoiceId: z.string().optional(),
   periods: z.record(z.record(z.lazy(() => Periods$inboundSchema))).optional(),
-  _links: z.lazy(() => EntitySettlementLinks$inboundSchema).optional(),
+  _links: z.lazy(() => EntitySettlementLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -539,17 +542,17 @@ export const EntitySettlement$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntitySettlement$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   createdAt?: string | undefined;
   reference?: string | null | undefined;
   settledAt?: string | null | undefined;
-  status?: string | undefined;
-  amount?: Amount$Outbound | undefined;
-  balanceId?: string | undefined;
+  status: string;
+  amount: Amount$Outbound;
+  balanceId: string;
   invoiceId?: string | undefined;
   periods?: { [k: string]: { [k: string]: Periods$Outbound } } | undefined;
-  _links?: EntitySettlementLinks$Outbound | undefined;
+  _links: EntitySettlementLinks$Outbound;
 };
 
 /** @internal */
@@ -558,17 +561,17 @@ export const EntitySettlement$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntitySettlement
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: SettlementStatus$outboundSchema.optional(),
-  amount: Amount$outboundSchema.optional(),
-  balanceId: z.string().optional(),
+  status: SettlementStatus$outboundSchema,
+  amount: Amount$outboundSchema,
+  balanceId: z.string(),
   invoiceId: z.string().optional(),
   periods: z.record(z.record(z.lazy(() => Periods$outboundSchema))).optional(),
-  links: z.lazy(() => EntitySettlementLinks$outboundSchema).optional(),
+  links: z.lazy(() => EntitySettlementLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

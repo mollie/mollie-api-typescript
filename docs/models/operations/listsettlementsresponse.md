@@ -26,8 +26,7 @@ let value: ListSettlementsResponse = {
         balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
         invoiceId: "inv_aHbjjdrUdm",
         periods: {
-          "key": {},
-          "key1": {
+          "key": {
             "key": {
               costs: [
                 {
@@ -39,10 +38,7 @@ let value: ListSettlementsResponse = {
                       currency: "EUR",
                       value: "10.00",
                     },
-                    percentage: {
-                      currency: "EUR",
-                      value: "10.00",
-                    },
+                    percentage: "2.5",
                   },
                   amountNet: {
                     currency: "EUR",
@@ -67,10 +63,7 @@ let value: ListSettlementsResponse = {
                     currency: "EUR",
                     value: "10.00",
                   },
-                  amountVat: {
-                    currency: "EUR",
-                    value: "10.00",
-                  },
+                  amountVat: null,
                   amountGross: {
                     currency: "EUR",
                     value: "10.00",
@@ -81,7 +74,54 @@ let value: ListSettlementsResponse = {
               invoiceReference: "MOLR2021.0001399669",
             },
           },
-          "key2": {},
+          "key1": {
+            "key": {
+              costs: [
+                {
+                  description: "Credit card - Visa debit consumer domestic",
+                  method: "creditcard",
+                  count: 10,
+                  rate: {
+                    fixed: {
+                      currency: "EUR",
+                      value: "10.00",
+                    },
+                    percentage: "2.5",
+                  },
+                  amountNet: {
+                    currency: "EUR",
+                    value: "10.00",
+                  },
+                  amountVat: {
+                    currency: "EUR",
+                    value: "10.00",
+                  },
+                  amountGross: {
+                    currency: "EUR",
+                    value: "10.00",
+                  },
+                },
+              ],
+              revenue: [
+                {
+                  description: "Credit card",
+                  method: "creditcard",
+                  count: 10,
+                  amountNet: {
+                    currency: "EUR",
+                    value: "10.00",
+                  },
+                  amountVat: null,
+                  amountGross: {
+                    currency: "EUR",
+                    value: "10.00",
+                  },
+                },
+              ],
+              invoiceId: "inv_aHbjjdrUdm",
+              invoiceReference: "MOLR2021.0001399669",
+            },
+          },
         },
         links: {
           self: {
@@ -104,10 +144,7 @@ let value: ListSettlementsResponse = {
             href: "https://...",
             type: "application/hal+json",
           },
-          invoice: {
-            href: "https://...",
-            type: "application/hal+json",
-          },
+          invoice: null,
           documentation: {
             href: "https://...",
             type: "application/hal+json",
@@ -141,6 +178,6 @@ let value: ListSettlementsResponse = {
 
 | Field                                                                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                               | Example                                                                                                                                                                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
-| `embedded`                                                                                                                                                                                                                                                                | [operations.ListSettlementsEmbedded](../../models/operations/listsettlementsembedded.md)                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
-| `links`                                                                                                                                                                                                                                                                   | [models.ListLinks](../../models/listlinks.md)                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |
+| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
+| `embedded`                                                                                                                                                                                                                                                                | [operations.ListSettlementsEmbedded](../../models/operations/listsettlementsembedded.md)                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
+| `links`                                                                                                                                                                                                                                                                   | [models.ListLinks](../../models/listlinks.md)                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |

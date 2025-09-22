@@ -53,7 +53,7 @@ export type ListSettlementsEmbedded = {
    * @remarks
    * of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation.
    */
-  settlements?: Array<models.EntitySettlement> | undefined;
+  settlements: Array<models.EntitySettlement>;
 };
 
 /**
@@ -72,12 +72,12 @@ export type ListSettlementsResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListSettlementsEmbedded | undefined;
+  count: number;
+  embedded: ListSettlementsEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: models.ListLinks | undefined;
+  links: models.ListLinks;
 };
 
 /** @internal */
@@ -166,12 +166,12 @@ export const ListSettlementsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  settlements: z.array(models.EntitySettlement$inboundSchema).optional(),
+  settlements: z.array(models.EntitySettlement$inboundSchema),
 });
 
 /** @internal */
 export type ListSettlementsEmbedded$Outbound = {
-  settlements?: Array<models.EntitySettlement$Outbound> | undefined;
+  settlements: Array<models.EntitySettlement$Outbound>;
 };
 
 /** @internal */
@@ -180,7 +180,7 @@ export const ListSettlementsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementsEmbedded
 > = z.object({
-  settlements: z.array(models.EntitySettlement$outboundSchema).optional(),
+  settlements: z.array(models.EntitySettlement$outboundSchema),
 });
 
 /**
@@ -220,9 +220,9 @@ export const ListSettlementsResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListSettlementsEmbedded$inboundSchema).optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListSettlementsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -232,9 +232,9 @@ export const ListSettlementsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListSettlementsResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListSettlementsEmbedded$Outbound | undefined;
-  _links?: models.ListLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListSettlementsEmbedded$Outbound;
+  _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
@@ -243,9 +243,9 @@ export const ListSettlementsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementsResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListSettlementsEmbedded$outboundSchema).optional(),
-  links: models.ListLinks$outboundSchema.optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListSettlementsEmbedded$outboundSchema),
+  links: models.ListLinks$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

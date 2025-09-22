@@ -2169,11 +2169,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - settlements
                     properties:
                       settlements:
                         description: |-
@@ -2188,7 +2194,7 @@ paths:
                 list-settlements-200-1:
                   summary: A list of settlement objects
                   value:
-                    count: 5
+                    count: 1
                     _embedded:
                       settlements:
                         - resource: settlement
@@ -2222,10 +2228,6 @@ paths:
                             invoice:
                               href: https://api.mollie.com/v2/invoices/inv_UQgMnkkTFz
                               type: application/hal+json
-                        - {}
-                        - {}
-                        - {}
-                        - {}
                     _links:
                       self:
                         href: ...
@@ -28572,6 +28574,13 @@ components:
       x-speakeasy-unknown-values: allow
     entity-settlement:
       type: object
+      required:
+        - resource
+        - id
+        - status
+        - amount
+        - balanceId
+        - _links
       properties:
         resource:
           type: string
@@ -28646,6 +28655,14 @@ components:
                   description: An array of cost objects, describing the fees withheld for each payment method during this period.
                   items:
                     type: object
+                    required:
+                      - description
+                      - method
+                      - count
+                      - rate
+                      - amountNet
+                      - amountVat
+                      - amountGross
                     properties:
                       description:
                         type: string
@@ -28664,7 +28681,8 @@ components:
                           fixed:
                             $ref: '#/components/schemas/amount'
                           percentage:
-                            $ref: '#/components/schemas/amount'
+                            type: string
+                            example: '2.5'
                       amountNet:
                         $ref: '#/components/schemas/amount'
                         description: The net total cost, i.e. excluding VAT
@@ -28679,6 +28697,13 @@ components:
                   description: An array of revenue objects containing the total revenue for each payment method during this period.
                   items:
                     type: object
+                    required:
+                      - description
+                      - method
+                      - count
+                      - amountNet
+                      - amountVat
+                      - amountGross
                     properties:
                       description:
                         type: string
@@ -28694,7 +28719,7 @@ components:
                         $ref: '#/components/schemas/amount'
                         description: The net total of received funds, i.e. excluding VAT
                       amountVat:
-                        $ref: '#/components/schemas/amount'
+                        $ref: '#/components/schemas/amount-nullable'
                         description: The applicable VAT
                       amountGross:
                         $ref: '#/components/schemas/amount'
@@ -28714,6 +28739,8 @@ components:
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
           properties:
             self:
               $ref: '#/components/schemas/url'

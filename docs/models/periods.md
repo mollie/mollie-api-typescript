@@ -16,10 +16,7 @@ let value: Periods = {
           currency: "EUR",
           value: "10.00",
         },
-        percentage: {
-          currency: "EUR",
-          value: "10.00",
-        },
+        percentage: "2.5",
       },
       amountNet: {
         currency: "EUR",
@@ -44,10 +41,7 @@ let value: Periods = {
         currency: "EUR",
         value: "10.00",
       },
-      amountVat: {
-        currency: "EUR",
-        value: "10.00",
-      },
+      amountVat: null,
       amountGross: {
         currency: "EUR",
         value: "10.00",
