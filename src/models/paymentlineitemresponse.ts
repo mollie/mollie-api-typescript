@@ -4,7 +4,6 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -14,20 +13,15 @@ import {
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  LineCategoriesResponse,
+  LineCategoriesResponse$inboundSchema,
+  LineCategoriesResponse$outboundSchema,
+} from "./linecategoriesresponse.js";
+import {
   PaymentLineTypeResponse,
   PaymentLineTypeResponse$inboundSchema,
   PaymentLineTypeResponse$outboundSchema,
 } from "./paymentlinetyperesponse.js";
-
-export const PaymentLineItemResponseCategory = {
-  Meal: "meal",
-  Eco: "eco",
-  Gift: "gift",
-  SportCulture: "sport_culture",
-} as const;
-export type PaymentLineItemResponseCategory = ClosedEnum<
-  typeof PaymentLineItemResponseCategory
->;
 
 export type PaymentLineItemResponse = {
   /**
@@ -83,7 +77,7 @@ export type PaymentLineItemResponse = {
    * @remarks
    * [Integrating Vouchers](https://docs.mollie.com/docs/integrating-vouchers/) guide for more information.
    */
-  categories?: Array<PaymentLineItemResponseCategory> | undefined;
+  categories?: Array<LineCategoriesResponse> | undefined;
   /**
    * A link pointing to an image of the product sold.
    */
@@ -93,27 +87,6 @@ export type PaymentLineItemResponse = {
    */
   productUrl?: string | undefined;
 };
-
-/** @internal */
-export const PaymentLineItemResponseCategory$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentLineItemResponseCategory
-> = z.nativeEnum(PaymentLineItemResponseCategory);
-
-/** @internal */
-export const PaymentLineItemResponseCategory$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentLineItemResponseCategory
-> = PaymentLineItemResponseCategory$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLineItemResponseCategory$ {
-  /** @deprecated use `PaymentLineItemResponseCategory$inboundSchema` instead. */
-  export const inboundSchema = PaymentLineItemResponseCategory$inboundSchema;
-  /** @deprecated use `PaymentLineItemResponseCategory$outboundSchema` instead. */
-  export const outboundSchema = PaymentLineItemResponseCategory$outboundSchema;
-}
 
 /** @internal */
 export const PaymentLineItemResponse$inboundSchema: z.ZodType<
@@ -131,7 +104,7 @@ export const PaymentLineItemResponse$inboundSchema: z.ZodType<
   vatRate: z.string().optional(),
   vatAmount: Amount$inboundSchema.optional(),
   sku: z.string().optional(),
-  categories: z.array(PaymentLineItemResponseCategory$inboundSchema).optional(),
+  categories: z.array(LineCategoriesResponse$inboundSchema).optional(),
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
 });
@@ -169,8 +142,7 @@ export const PaymentLineItemResponse$outboundSchema: z.ZodType<
   vatRate: z.string().optional(),
   vatAmount: Amount$outboundSchema.optional(),
   sku: z.string().optional(),
-  categories: z.array(PaymentLineItemResponseCategory$outboundSchema)
-    .optional(),
+  categories: z.array(LineCategoriesResponse$outboundSchema).optional(),
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
 });

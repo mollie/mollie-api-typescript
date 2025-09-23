@@ -115,7 +115,7 @@ export type ListMethodsRequest = {
    *
    * Example: `/v2/methods?orderLineCategories=eco,meal`
    */
-  orderLineCategories?: models.OrderLineCategories | undefined;
+  orderLineCategories?: models.LineCategories | undefined;
   /**
    * The identifier referring to the [profile](get-profile) you wish to
    *
@@ -239,7 +239,7 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
   resource: Resource$inboundSchema.optional(),
   billingCountry: z.string().optional(),
   includeWallets: IncludeWallets$inboundSchema.optional(),
-  orderLineCategories: models.OrderLineCategories$inboundSchema.optional(),
+  orderLineCategories: models.LineCategories$inboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -277,7 +277,7 @@ export const ListMethodsRequest$outboundSchema: z.ZodType<
   resource: Resource$outboundSchema.optional(),
   billingCountry: z.string().optional(),
   includeWallets: IncludeWallets$outboundSchema.optional(),
-  orderLineCategories: models.OrderLineCategories$outboundSchema.optional(),
+  orderLineCategories: models.LineCategories$outboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),

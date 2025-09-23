@@ -13469,7 +13469,7 @@ paths:
             Example: `/v2/methods?orderLineCategories=eco,meal`
           in: query
           schema:
-            $ref: '#/components/schemas/order-line-categories'
+            $ref: '#/components/schemas/line-categories'
         - $ref: '#/components/parameters/profile-id'
         - $ref: '#/components/parameters/include'
           description: |-
@@ -28788,6 +28788,16 @@ components:
         - surcharge
         - tip
       example: physical
+    line-categories:
+      type: string
+      enum:
+        - eco
+        - gift
+        - meal
+        - sport_culture
+        - additional
+        - consume
+      example: eco
     payment-line-item:
       type: object
       required:
@@ -28861,13 +28871,7 @@ components:
             An array with the voucher categories, in case of a line eligible for a voucher. See the
             [Integrating Vouchers](https://docs.mollie.com/docs/integrating-vouchers/) guide for more information.
           items:
-            type: string
-            enum:
-              - meal
-              - eco
-              - gift
-              - sport_culture
-            example: meal
+            $ref: '#/components/schemas/line-categories'
           example:
             - meal
             - eco
@@ -32173,16 +32177,6 @@ components:
         A valid issuer for iDEAL is for example `ideal_INGBNL2A` (for ING Bank).
       example: ideal_INGBNL2A
       writeOnly: true
-    order-line-categories:
-      type: string
-      enum:
-        - eco
-        - gift
-        - meal
-        - sport_culture
-        - additional
-        - consume
-      example: eco
     method-status:
       type: string
       description: The payment method's activation status for this profile.
@@ -35024,13 +35018,7 @@ components:
             An array with the voucher categories, in case of a line eligible for a voucher. See the
             [Integrating Vouchers](https://docs.mollie.com/docs/integrating-vouchers/) guide for more information.
           items:
-            type: string
-            enum:
-              - meal
-              - eco
-              - gift
-              - sport_culture
-            example: meal
+            $ref: '#/components/schemas/line-categories-response'
           example:
             - meal
             - eco
@@ -35059,6 +35047,17 @@ components:
         - surcharge
         - tip
       example: physical
+      x-speakeasy-unknown-values: allow
+    line-categories-response:
+      type: string
+      enum:
+        - eco
+        - gift
+        - meal
+        - sport_culture
+        - additional
+        - consume
+      example: eco
       x-speakeasy-unknown-values: allow
     locale-response:
       type:

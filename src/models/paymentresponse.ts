@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { RFCDate } from "../types/rfcdate.js";
 import {
@@ -32,6 +31,11 @@ import {
   EntityPaymentRouteResponse$outboundSchema,
 } from "./entitypaymentrouteresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  LineCategoriesResponse,
+  LineCategoriesResponse$inboundSchema,
+  LineCategoriesResponse$outboundSchema,
+} from "./linecategoriesresponse.js";
 import {
   LocaleResponse,
   LocaleResponse$inboundSchema,
@@ -139,16 +143,6 @@ import {
   Url$outboundSchema,
 } from "./url.js";
 
-export const PaymentResponseCategory = {
-  Meal: "meal",
-  Eco: "eco",
-  Gift: "gift",
-  SportCulture: "sport_culture",
-} as const;
-export type PaymentResponseCategory = ClosedEnum<
-  typeof PaymentResponseCategory
->;
-
 export type PaymentResponseLine = {
   /**
    * The type of product purchased. For example, a physical or a digital product.
@@ -203,7 +197,7 @@ export type PaymentResponseLine = {
    * @remarks
    * [Integrating Vouchers](https://docs.mollie.com/docs/integrating-vouchers/) guide for more information.
    */
-  categories?: Array<PaymentResponseCategory> | undefined;
+  categories?: Array<LineCategoriesResponse> | undefined;
   /**
    * A link pointing to an image of the product sold.
    */
@@ -933,27 +927,6 @@ export type PaymentResponse = {
 };
 
 /** @internal */
-export const PaymentResponseCategory$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseCategory
-> = z.nativeEnum(PaymentResponseCategory);
-
-/** @internal */
-export const PaymentResponseCategory$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentResponseCategory
-> = PaymentResponseCategory$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseCategory$ {
-  /** @deprecated use `PaymentResponseCategory$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseCategory$inboundSchema;
-  /** @deprecated use `PaymentResponseCategory$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseCategory$outboundSchema;
-}
-
-/** @internal */
 export const PaymentResponseLine$inboundSchema: z.ZodType<
   PaymentResponseLine,
   z.ZodTypeDef,
@@ -969,7 +942,7 @@ export const PaymentResponseLine$inboundSchema: z.ZodType<
   vatRate: z.string().optional(),
   vatAmount: Amount$inboundSchema.optional(),
   sku: z.string().optional(),
-  categories: z.array(PaymentResponseCategory$inboundSchema).optional(),
+  categories: z.array(LineCategoriesResponse$inboundSchema).optional(),
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
   recurring: RecurringLineItem$inboundSchema.optional(),
@@ -1009,7 +982,7 @@ export const PaymentResponseLine$outboundSchema: z.ZodType<
   vatRate: z.string().optional(),
   vatAmount: Amount$outboundSchema.optional(),
   sku: z.string().optional(),
-  categories: z.array(PaymentResponseCategory$outboundSchema).optional(),
+  categories: z.array(LineCategoriesResponse$outboundSchema).optional(),
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
   recurring: RecurringLineItem$outboundSchema.optional(),

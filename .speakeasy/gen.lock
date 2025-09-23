@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 843a5fcda17e62c6c7e2027ada861883
+  docChecksum: 16b0726675943aa6a17c5fe9184c33cb
   docVersion: 1.0.0
   speakeasyVersion: 1.622.1
   generationVersion: 2.709.0
-  releaseVersion: 0.2.7
-  configChecksum: c20bbd25f715b801d308827b09336ed0
+  releaseVersion: 0.2.8
+  configChecksum: 13b3c1e57f7be1a7e9959bf96c36e698
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -169,6 +169,8 @@ generatedFiles:
   - docs/models/feeprepayments.md
   - docs/models/invoicecompensation.md
   - docs/models/invoicestatus.md
+  - docs/models/linecategories.md
+  - docs/models/linecategoriesresponse.md
   - docs/models/listlinks.md
   - docs/models/listsort.md
   - docs/models/locale.md
@@ -392,7 +394,6 @@ generatedFiles:
   - docs/models/operations/updatewebhookrequestbody.md
   - docs/models/operations/useragenttoken.md
   - docs/models/operations/vatregulation.md
-  - docs/models/orderlinecategories.md
   - docs/models/organizationvatregulation.md
   - docs/models/outgoingtransfer.md
   - docs/models/owner.md
@@ -411,9 +412,7 @@ generatedFiles:
   - docs/models/paymentdetailswalletresponse.md
   - docs/models/paymentfee.md
   - docs/models/paymentlineitem.md
-  - docs/models/paymentlineitemcategory.md
   - docs/models/paymentlineitemresponse.md
-  - docs/models/paymentlineitemresponsecategory.md
   - docs/models/paymentlinetype.md
   - docs/models/paymentlinetyperesponse.md
   - docs/models/paymentlinkresponse.md
@@ -424,11 +423,9 @@ generatedFiles:
   - docs/models/paymentmethod.md
   - docs/models/paymentrequest.md
   - docs/models/paymentrequestapplicationfee.md
-  - docs/models/paymentrequestcategory.md
   - docs/models/paymentrequestline.md
   - docs/models/paymentresponse.md
   - docs/models/paymentresponseapplicationfee.md
-  - docs/models/paymentresponsecategory.md
   - docs/models/paymentresponsedetails.md
   - docs/models/paymentresponseline.md
   - docs/models/paymentresponselinks.md
@@ -848,6 +845,8 @@ generatedFiles:
   - src/models/errors/sdkvalidationerror.ts
   - src/models/index.ts
   - src/models/invoicestatus.ts
+  - src/models/linecategories.ts
+  - src/models/linecategoriesresponse.ts
   - src/models/listlinks.ts
   - src/models/listsort.ts
   - src/models/locale.ts
@@ -958,7 +957,6 @@ generatedFiles:
   - src/models/operations/updatesalesinvoice.ts
   - src/models/operations/updatesubscription.ts
   - src/models/operations/updatewebhook.ts
-  - src/models/orderlinecategories.ts
   - src/models/organizationvatregulation.ts
   - src/models/paymentaddress.ts
   - src/models/paymentdetailscardauditionresponse.ts
@@ -4541,9 +4539,3 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `client.settlements.list()`:  `response._embedded.settlements.[].periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:
-  * `client.settlements.get()`:  `response.periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:
-  * `client.settlements.getOpen()`:  `response.periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:
-  * `client.settlements.getNext()`:  `response.periods.{}.{}.costs.[].amountVat` **Changed** **Breaking** :warning:

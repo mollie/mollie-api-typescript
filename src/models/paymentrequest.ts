@@ -4,7 +4,6 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { RFCDate } from "../types/rfcdate.js";
 import {
@@ -25,6 +24,11 @@ import {
   EntityPaymentRoute$outboundSchema,
 } from "./entitypaymentroute.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  LineCategories,
+  LineCategories$inboundSchema,
+  LineCategories$outboundSchema,
+} from "./linecategories.js";
 import {
   Locale,
   Locale$inboundSchema,
@@ -63,14 +67,6 @@ import {
   SequenceType$inboundSchema,
   SequenceType$outboundSchema,
 } from "./sequencetype.js";
-
-export const PaymentRequestCategory = {
-  Meal: "meal",
-  Eco: "eco",
-  Gift: "gift",
-  SportCulture: "sport_culture",
-} as const;
-export type PaymentRequestCategory = ClosedEnum<typeof PaymentRequestCategory>;
 
 export type PaymentRequestLine = {
   /**
@@ -126,7 +122,7 @@ export type PaymentRequestLine = {
    * @remarks
    * [Integrating Vouchers](https://docs.mollie.com/docs/integrating-vouchers/) guide for more information.
    */
-  categories?: Array<PaymentRequestCategory> | undefined;
+  categories?: Array<LineCategories> | undefined;
   /**
    * A link pointing to an image of the product sold.
    */
@@ -504,27 +500,6 @@ export type PaymentRequest = {
 };
 
 /** @internal */
-export const PaymentRequestCategory$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentRequestCategory
-> = z.nativeEnum(PaymentRequestCategory);
-
-/** @internal */
-export const PaymentRequestCategory$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentRequestCategory
-> = PaymentRequestCategory$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentRequestCategory$ {
-  /** @deprecated use `PaymentRequestCategory$inboundSchema` instead. */
-  export const inboundSchema = PaymentRequestCategory$inboundSchema;
-  /** @deprecated use `PaymentRequestCategory$outboundSchema` instead. */
-  export const outboundSchema = PaymentRequestCategory$outboundSchema;
-}
-
-/** @internal */
 export const PaymentRequestLine$inboundSchema: z.ZodType<
   PaymentRequestLine,
   z.ZodTypeDef,
@@ -540,7 +515,7 @@ export const PaymentRequestLine$inboundSchema: z.ZodType<
   vatRate: z.string().optional(),
   vatAmount: Amount$inboundSchema.optional(),
   sku: z.string().optional(),
-  categories: z.array(PaymentRequestCategory$inboundSchema).optional(),
+  categories: z.array(LineCategories$inboundSchema).optional(),
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
   recurring: RecurringLineItem$inboundSchema.optional(),
@@ -580,7 +555,7 @@ export const PaymentRequestLine$outboundSchema: z.ZodType<
   vatRate: z.string().optional(),
   vatAmount: Amount$outboundSchema.optional(),
   sku: z.string().optional(),
-  categories: z.array(PaymentRequestCategory$outboundSchema).optional(),
+  categories: z.array(LineCategories$outboundSchema).optional(),
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
   recurring: RecurringLineItem$outboundSchema.optional(),

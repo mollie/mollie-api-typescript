@@ -1,11 +1,11 @@
-# OrderLineCategories
+# LineCategories
 
 ## Example Usage
 
 ```typescript
-import { OrderLineCategories } from "mollie-api-typescript/models";
+import { LineCategories } from "mollie-api-typescript/models";
 
-let value: OrderLineCategories = "eco";
+let value: LineCategories = "eco";
 ```
 
 ## Values
