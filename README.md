@@ -63,10 +63,7 @@ bun add mollie-api-typescript
 ### Yarn
 
 ```bash
-yarn add mollie-api-typescript zod
-
-# Note that Yarn does not install peer dependencies automatically. You will need
-# to install zod as shown above.
+yarn add mollie-api-typescript
 ```
 
 > [!NOTE]

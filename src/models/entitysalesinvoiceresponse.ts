@@ -204,9 +204,11 @@ export type EntitySalesInvoiceResponse = {
    * This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
    *
    * @remarks
-   * after the invoice has been issued.
+   * after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
+   * recipient.
    *
-   * When `emailDetails` is provided, an additional email is sent to the recipient.
+   * E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
+   * the recipient is also located in one of these countries.
    */
   isEInvoice?: boolean | undefined;
   /**
