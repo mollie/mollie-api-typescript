@@ -21,6 +21,10 @@ let value: ListWebhooksEmbedded = {
       status: "enabled",
       mode: "live",
       links: {
+        self: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
         documentation: {
           href: "https://...",
           type: "application/hal+json",

@@ -32,6 +32,10 @@ export type EntityWebhookLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
+  self: Url;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
   documentation: Url;
 };
 
@@ -87,11 +91,13 @@ export const EntityWebhookLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  self: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
 
 /** @internal */
 export type EntityWebhookLinks$Outbound = {
+  self: Url$Outbound;
   documentation: Url$Outbound;
 };
 
@@ -101,6 +107,7 @@ export const EntityWebhookLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityWebhookLinks
 > = z.object({
+  self: Url$outboundSchema,
   documentation: Url$outboundSchema,
 });
 

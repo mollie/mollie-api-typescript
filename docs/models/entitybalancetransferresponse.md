@@ -1,0 +1,53 @@
+# EntityBalanceTransferResponse
+
+## Example Usage
+
+```typescript
+import { EntityBalanceTransferResponse } from "mollie-api-typescript/models";
+
+let value: EntityBalanceTransferResponse = {
+  resource: "connect-balance-transfer",
+  id: "cbtr_j8NvRAM2WNZtsykpLEX8J",
+  amount: {
+    currency: "EUR",
+    value: "10.00",
+  },
+  source: {
+    type: "organization",
+    id: "org_1234567",
+    description: "Invoice fee",
+  },
+  destination: {
+    type: "organization",
+    id: "org_1234567",
+    description: "Invoice fee",
+  },
+  description: "Invoice fee",
+  status: "created",
+  statusReason: {
+    code: "insufficient_funds",
+    message: "Insufficient funds in the source balance.",
+  },
+  category: "invoice_collection",
+  createdAt: "2024-03-20T09:13:37.0Z",
+  executedAt: "2024-03-20T09:28:37.0Z",
+  mode: "live",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                   | Type                                                                                                                                    | Required                                                                                                                                | Description                                                                                                                             | Example                                                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `resource`                                                                                                                              | *string*                                                                                                                                | :heavy_check_mark:                                                                                                                      | Indicates the response contains a balance transfer object. Will always contain the string `connect-balance-transfer` for this endpoint. | connect-balance-transfer                                                                                                                |
+| `id`                                                                                                                                    | *string*                                                                                                                                | :heavy_check_mark:                                                                                                                      | N/A                                                                                                                                     | cbtr_j8NvRAM2WNZtsykpLEX8J                                                                                                              |
+| `amount`                                                                                                                                | [models.Amount](../models/amount.md)                                                                                                    | :heavy_check_mark:                                                                                                                      | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.                                       |                                                                                                                                         |
+| `source`                                                                                                                                | [models.EntityBalanceTransferPartyResponse](../models/entitybalancetransferpartyresponse.md)                                            | :heavy_check_mark:                                                                                                                      | A party involved in the balance transfer, either the sender or the receiver.                                                            |                                                                                                                                         |
+| `destination`                                                                                                                           | [models.EntityBalanceTransferPartyResponse](../models/entitybalancetransferpartyresponse.md)                                            | :heavy_check_mark:                                                                                                                      | A party involved in the balance transfer, either the sender or the receiver.                                                            |                                                                                                                                         |
+| `description`                                                                                                                           | *string*                                                                                                                                | :heavy_check_mark:                                                                                                                      | The transfer description for initiating party.                                                                                          | Invoice fee                                                                                                                             |
+| `status`                                                                                                                                | [models.BalanceTransferStatus](../models/balancetransferstatus.md)                                                                      | :heavy_check_mark:                                                                                                                      | The status of the transfer.                                                                                                             | created                                                                                                                                 |
+| `statusReason`                                                                                                                          | [models.EntityBalanceTransferResponseStatusReason](../models/entitybalancetransferresponsestatusreason.md)                              | :heavy_check_mark:                                                                                                                      | The reason for the current status of the transfer, if applicable.                                                                       |                                                                                                                                         |
+| `category`                                                                                                                              | [models.BalanceTransferCategoryResponse](../models/balancetransfercategoryresponse.md)                                                  | :heavy_minus_sign:                                                                                                                      | The type of the transfer. Different fees may apply to different types of transfers.                                                     | invoice_collection                                                                                                                      |
+| `createdAt`                                                                                                                             | *string*                                                                                                                                | :heavy_check_mark:                                                                                                                      | The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.                                   | 2024-03-20T09:13:37.0Z                                                                                                                  |
+| `executedAt`                                                                                                                            | *string*                                                                                                                                | :heavy_minus_sign:                                                                                                                      | The date and time when the transfer was completed, in ISO 8601 format. This parameter is omitted if the transfer is<br/>not executed (yet). | 2024-03-20T09:28:37.0Z                                                                                                                  |
+| `mode`                                                                                                                                  | [models.Mode](../models/mode.md)                                                                                                        | :heavy_check_mark:                                                                                                                      | Whether this entity was created in live mode or in test mode.                                                                           | live                                                                                                                                    |

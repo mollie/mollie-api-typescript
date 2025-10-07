@@ -291,6 +291,12 @@ console.log(payment1.id === payment2.id ? "Payments are the same" : "Payments ar
 * [getReport](docs/sdks/balances/README.md#getreport) - Get balance report
 * [listTransactions](docs/sdks/balances/README.md#listtransactions) - List balance transactions
 
+### [balanceTransfers](docs/sdks/balancetransfers/README.md)
+
+* [create](docs/sdks/balancetransfers/README.md#create) - Create a Connect balance transfer
+* [list](docs/sdks/balancetransfers/README.md#list) - List all Connect balance transfers
+* [get](docs/sdks/balancetransfers/README.md#get) - Get a Connect balance transfer
+
 ### [capabilities](docs/sdks/capabilities/README.md)
 
 * [list](docs/sdks/capabilities/README.md#list) - List capabilities
@@ -475,6 +481,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`balancesGetReport`](docs/sdks/balances/README.md#getreport) - Get balance report
 - [`balancesList`](docs/sdks/balances/README.md#list) - List balances
 - [`balancesListTransactions`](docs/sdks/balances/README.md#listtransactions) - List balance transactions
+- [`balanceTransfersCreate`](docs/sdks/balancetransfers/README.md#create) - Create a Connect balance transfer
+- [`balanceTransfersGet`](docs/sdks/balancetransfers/README.md#get) - Get a Connect balance transfer
+- [`balanceTransfersList`](docs/sdks/balancetransfers/README.md#list) - List all Connect balance transfers
 - [`capabilitiesList`](docs/sdks/capabilities/README.md#list) - List capabilities
 - [`capturesCreate`](docs/sdks/captures/README.md#create) - Create capture
 - [`capturesGet`](docs/sdks/captures/README.md#get) - Get capture

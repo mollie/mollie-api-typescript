@@ -19,6 +19,10 @@ let value: CreateWebhook = {
   mode: "live",
   webhookSecret: "secret",
   links: {
+    self: {
+      href: "https://...",
+      type: "application/hal+json",
+    },
     documentation: {
       href: "https://...",
       type: "application/hal+json",

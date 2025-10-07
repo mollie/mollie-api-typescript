@@ -4,6 +4,7 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Balances } from "./balances.js";
+import { BalanceTransfers } from "./balancetransfers.js";
 import { Capabilities } from "./capabilities.js";
 import { Captures } from "./captures.js";
 import { Chargebacks } from "./chargebacks.js";
@@ -88,6 +89,11 @@ export class Client extends ClientSDK {
   private _webhookEvents?: WebhookEvents;
   get webhookEvents(): WebhookEvents {
     return (this._webhookEvents ??= new WebhookEvents(this._options));
+  }
+
+  private _balanceTransfers?: BalanceTransfers;
+  get balanceTransfers(): BalanceTransfers {
+    return (this._balanceTransfers ??= new BalanceTransfers(this._options));
   }
 
   private _payments?: Payments;

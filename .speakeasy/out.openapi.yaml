@@ -11,6 +11,8 @@ security:
   - apiKey: []
   - oAuth: []
 tags:
+  - name: Balance Transfers API
+    description: Operations related to the Balance Transfers API
   - name: Balances API
     description: Operations related to the Balances API
   - name: Capabilities API
@@ -9279,6 +9281,9 @@ paths:
                     eventTypes:
                       - payment-link.paid
                     _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
                       documentation:
                         href: https://docs.mollie.com/reference/create-webhook
                         type: text/html
@@ -9400,6 +9405,9 @@ paths:
                           status: enabled
                           mode: live
                           _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
                             documentation:
                               href: https://docs.mollie.com/reference/get-webhook
                               type: text/html
@@ -9414,6 +9422,9 @@ paths:
                           status: blocked
                           mode: live
                           _links:
+                            self:
+                              href: ...
+                              type: application/hal+json
                             documentation:
                               href: https://docs.mollie.com/reference/get-webhook
                               type: text/html
@@ -9517,6 +9528,9 @@ paths:
                     eventTypes:
                       - payment-link.paid
                     _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
                       documentation:
                         href: https://docs.mollie.com/reference/create-webhook
                         type: text/html
@@ -9606,6 +9620,9 @@ paths:
                       - payment-link.paid
                       - sales-invoice.paid
                     _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
                       documentation:
                         href: https://docs.mollie.com/reference/get-webhook
                         type: text/html
@@ -9623,6 +9640,9 @@ paths:
                     eventTypes:
                       - payment-link.paid
                     _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
                       documentation:
                         href: https://docs.mollie.com/reference/get-webhook
                         type: text/html
@@ -9903,6 +9923,292 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: webhook-events
+  /connect/balance-transfers:
+    post:
+      summary: Create a Connect balance transfer
+      x-speakeasy-name-override: create
+      tags:
+        - Balance Transfers API
+      operationId: create-connect-balance-transfer
+      security:
+        - oAuth:
+            - balance-transfers.write
+      description: |-
+        This API endpoint allows you to create a balance transfer from your organization's balance to a connected organization's balance, or vice versa.
+        You can also create a balance transfer between two connected organizations.
+        To create a balance transfer, you must be authenticated as the source organization, and the destination organization must be a connected organization
+        that has authorized the `balance-transfers.write` scope for your organization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity-balance-transfer'
+      responses:
+        '201':
+          description: The balance transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-balance-transfer-response'
+              examples:
+                create-balance-transfer-200-1:
+                  summary: Create a Connect balance transfer
+                  value:
+                    resource: connect-balance-transfer
+                    id: cbtr_nBprRarXeqXi98AXSqCBJ
+                    amount:
+                      value: '12.34'
+                      currency: EUR
+                    source:
+                      type: organization
+                      id: org_1
+                      description: description for source
+                    destination:
+                      type: organization
+                      id: org_2
+                      description: description for destination
+                    description: description for initiating party
+                    status: created
+                    statusReason:
+                      code: request_created
+                      message: Balance transfer request created.
+                    category: invoice_collection
+                    createdAt: '2025-05-01T10:00:00Z'
+                    mode: live
+        '422':
+          description: The request contains issues. For example, if the amount is missing.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              examples:
+                create-balance-transfer-422-1:
+                  summary: Create a Connect balance transfer with invalid request body
+                  value:
+                    status: 422
+                    title: Unprocessable Entity
+                    detail: The amount contains an invalid value
+                    field: amount.value
+                    _links:
+                      documentation:
+                        href: https://docs.mollie.com/reference/create-balance-transfer
+                        type: text/html
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/connect/balance-transfers \
+                -H "Authorization: Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM" \
+                -H "Content-Type: application/json" \
+                -d "amount[currency]=EUR" \
+                -d "amount[value]=10.00" \
+                -d "description=Invoice #12345" \
+                -d "source[type]=organization" \
+                -d "source[id]=org_123" \
+                -d "source[description]=Invoice fee #12345" \
+                -d "destination[type]=organization" \
+                -d "destination[id]=org_456" \
+                -d "destination[description]=Invoice fee retrieval #12345"
+          - language: php
+            code: ''
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: balance-transfers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+    get:
+      summary: List all Connect balance transfers
+      x-speakeasy-name-override: list
+      tags:
+        - Balance Transfers API
+      operationId: list-connect-balance-transfers
+      security:
+        - oAuth:
+            - balance-transfers.read
+      description: Returns a paginated list of balance transfers associated with your organization. These may be a balance transfer that was received or sent from your balance, or a balance transfer that you initiated on behalf of your clients. If no balance transfers are available, the resulting array will be empty. This request should never throw an error.
+      parameters:
+        - $ref: '#/components/parameters/list-from'
+          schema:
+            type: string
+            example: cbtr_j8NvRAM2WNZtsykpLEX8J
+        - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/list-sort'
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: |-
+            A list of Connect balance transfers. For a complete reference of the Connect balance transfer
+            object, refer to the [Get balance transfer endpoint](get-balance-transfer) documentation.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
+                properties:
+                  count:
+                    $ref: '#/components/schemas/list-count'
+                  _embedded:
+                    type: object
+                    required:
+                      - connect_balance_transfers
+                    properties:
+                      connect_balance_transfers:
+                        description: A list of Connect balance transfers.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/entity-balance-transfer-response'
+                  _links:
+                    $ref: '#/components/schemas/list-links'
+              examples:
+                list-balance-transfer-200-1:
+                  summary: List Connect balance transfers
+                  value:
+                    _embedded:
+                      connect_balance_transfers:
+                        - resource: connect-balance-transfer
+                          id: cbtr_bSAG5zQUrqbJGSv3ZSU9J
+                          amount:
+                            value: '200.00'
+                            currency: EUR
+                          source:
+                            type: organization
+                            id: org_1
+                            description: description for source
+                          destination:
+                            type: organization
+                            id: org_42
+                            description: description for destination
+                          description: description for initiating party
+                          status: created
+                          statusReason:
+                            code: request_created
+                            message: Balance transfer request created.
+                          createdAt: '2025-05-01T07:00:00Z'
+                          mode: live
+                        - resource: connect-balance-transfer
+                          id: cbtr_aGa49xYozWV8nhUzTSU9J
+                          amount:
+                            value: '100.00'
+                            currency: EUR
+                          source:
+                            type: organization
+                            id: org_42
+                            description: description for source
+                          destination:
+                            type: organization
+                            id: org_2
+                            description: description for destination
+                          description: description for initiating party
+                          status: created
+                          statusReason:
+                            code: request_created
+                            message: Balance transfer request created.
+                          createdAt: '2025-05-01T06:00:00Z'
+                          mode: live
+                    count: 2
+                    _links:
+                      self:
+                        href: https://api.mollie.com/v2/connect/balance-transfers?limit=50
+                        type: application/hal+json
+                      previous: null
+                      next: null
+                      documentation:
+                        href: https://docs.mollie.com/reference/list-balance-transfers
+                        type: text/html
+        '400':
+          $ref: '#/components/responses/400-invalid-list-request'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/connect/balance-transfers?limit=5 \
+                -H "Authorization: Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: ''
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: balance-transfers
+  /connect/balance-transfers/{id}:
+    parameters:
+      - $ref: '#/components/parameters/id'
+        schema:
+          type: string
+          example: cbtr_j8NvRAM2WNZtsykpLEX8J
+    get:
+      summary: Get a Connect balance transfer
+      x-speakeasy-name-override: get
+      tags:
+        - Balance Transfers API
+      operationId: get-connect-balance-transfer
+      security:
+        - oAuth:
+            - balance-transfers.read
+      description: Retrieve a single Connect balance transfer object by its ID.
+      parameters:
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The Connect balance transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-balance-transfer-response'
+              examples:
+                get-balance-transfer-200-1:
+                  summary: Get a successful Connect balance transfer
+                  value:
+                    resource: connect-balance-transfer
+                    id: cbtr_nBprRarXeqXi98AXSqCBJ
+                    amount:
+                      value: '100.00'
+                      currency: EUR
+                    source:
+                      type: organization
+                      id: org_1
+                      description: description for source
+                    destination:
+                      type: organization
+                      id: org_2
+                      description: description for destination
+                    description: description for initiating party
+                    status: succeeded
+                    statusReason:
+                      code: success
+                      message: Balance transfer completed successfully.
+                    createdAt: '2025-05-01T10:00:00Z'
+                    executedAt: '2025-05-01T10:05:00Z'
+                    mode: live
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/connect/balance-transfers/cbtr_j8NvRAM2WNZtsykpLEX8J \
+                  -H "Authorization: Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            install: composer require mollie/oauth2-mollie-php
+            code: ''
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: balance-transfers
   /payments:
     post:
       summary: Create payment
@@ -31585,8 +31891,11 @@ components:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
           required:
+            - self
             - documentation
           properties:
+            self:
+              $ref: '#/components/schemas/url'
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
@@ -31653,8 +31962,11 @@ components:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
           required:
+            - self
             - documentation
           properties:
+            self:
+              $ref: '#/components/schemas/url'
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
@@ -31969,6 +32281,150 @@ components:
               description: The API resource URL of the entity that this event belongs to.
           readOnly: true
       x-speakeasy-unknown-values: allow
+    connectBalanceTransferToken:
+      type: string
+      example: cbtr_j8NvRAM2WNZtsykpLEX8J
+    balance-transfer-party-type:
+      type: string
+      description: Defines the type of the party. At the moment, only `organization` is supported.
+      enum:
+        - organization
+      example: organization
+    entity-balance-transfer-party:
+      type: object
+      description: A party involved in the balance transfer, either the sender or the receiver.
+      properties:
+        type:
+          $ref: '#/components/schemas/balance-transfer-party-type'
+        id:
+          $ref: '#/components/schemas/organizationToken'
+          description: Identifier of the party. For example, this contains the organization token if the type is `organization`.
+        description:
+          type: string
+          description: The transfer description for the transfer party. This is the description that will appear in the financial reports of the party.
+          maxLength: 255
+          example: Invoice fee
+      required:
+        - type
+        - id
+        - description
+    balance-transfer-status:
+      type: string
+      readOnly: true
+      description: The status of the transfer.
+      enum:
+        - created
+        - failed
+        - succeeded
+      example: created
+      x-speakeasy-unknown-values: allow
+    balance-transfer-status-reason:
+      type: string
+      description: A machine-readable code that indicates the reason for the transfer's status.
+      example: insufficient_funds
+      enum:
+        - request_created
+        - success
+        - source_not_allowed
+        - destination_not_allowed
+        - insufficient_funds
+        - invalid_source_balance
+        - invalid_destination_balance
+        - transfer_request_expired
+        - transfer_limit_reached
+      x-enumDescriptions:
+        request_created: Balance transfer request was created.
+        success: Balance transfer completed successfully.
+        source_not_allowed: Balance transfers from the source organization are not allowed.
+        destination_not_allowed: Balance transfers to the destination organization are not allowed.
+        insufficient_funds: Source does not have enough balance.
+        invalid_source_balance: Invalid balance for source organization.
+        invalid_destination_balance: Invalid balance for destination organization.
+        transfer_request_expired: Request for balance transfer has expired.
+        transfer_limit_reached: Transfer limit has been exceeded.
+    balance-transfer-category:
+      type: string
+      description: The type of the transfer. Different fees may apply to different types of transfers.
+      enum:
+        - invoice_collection
+        - purchase
+        - chargeback
+        - refund
+        - service_penalty
+        - discount_compensation
+        - manual_correction
+        - fee
+      example: invoice_collection
+    entity-balance-transfer:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a balance transfer object. Will always contain the string `connect-balance-transfer` for this endpoint.
+          readOnly: true
+          example: connect-balance-transfer
+        id:
+          $ref: '#/components/schemas/connectBalanceTransferToken'
+          description: |-
+            The identifier uniquely referring to this balance transfer. Mollie assigns this identifier at balance transfer creation time. Mollie
+            will always refer to the balance transfer by this ID. Example: `cbtr_j8NvRAM2WNZtsykpLEX8J`.
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: The amount to be transferred, e.g. `{"currency":"EUR", "value":"1000.00"}` if you would like to transfer €1000.00.
+        source:
+          $ref: '#/components/schemas/entity-balance-transfer-party'
+        destination:
+          $ref: '#/components/schemas/entity-balance-transfer-party'
+        description:
+          type: string
+          description: The transfer description for initiating party.
+          maxLength: 255
+          example: Invoice fee
+        status:
+          $ref: '#/components/schemas/balance-transfer-status'
+        statusReason:
+          type: object
+          readOnly: true
+          description: The reason for the current status of the transfer, if applicable.
+          properties:
+            code:
+              $ref: '#/components/schemas/balance-transfer-status-reason'
+            message:
+              type: string
+              description: A description of the status reason, localized according to the transfer.
+              example: Insufficient funds in the source balance.
+          required:
+            - code
+            - message
+        category:
+          $ref: '#/components/schemas/balance-transfer-category'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        executedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time when the transfer was completed, in ISO 8601 format. This parameter is omitted if the transfer is
+            not executed (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37.0Z'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        mode:
+          $ref: '#/components/schemas/mode'
+      required:
+        - resource
+        - id
+        - amount
+        - source
+        - destination
+        - description
+        - status
+        - statusReason
+        - createdAt
+        - mode
     extra-parameter-parameters:
       type: object
       properties:
@@ -35923,6 +36379,142 @@ components:
         - oneoff
         - first
       example: oneoff
+      x-speakeasy-unknown-values: allow
+    entity-balance-transfer-response:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a balance transfer object. Will always contain the string `connect-balance-transfer` for this endpoint.
+          readOnly: true
+          example: connect-balance-transfer
+        id:
+          $ref: '#/components/schemas/connectBalanceTransferToken'
+          description: |-
+            The identifier uniquely referring to this balance transfer. Mollie assigns this identifier at balance transfer creation time. Mollie
+            will always refer to the balance transfer by this ID. Example: `cbtr_j8NvRAM2WNZtsykpLEX8J`.
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: The amount to be transferred, e.g. `{"currency":"EUR", "value":"1000.00"}` if you would like to transfer €1000.00.
+        source:
+          $ref: '#/components/schemas/entity-balance-transfer-party-response'
+        destination:
+          $ref: '#/components/schemas/entity-balance-transfer-party-response'
+        description:
+          type: string
+          description: The transfer description for initiating party.
+          maxLength: 255
+          example: Invoice fee
+        status:
+          $ref: '#/components/schemas/balance-transfer-status'
+        statusReason:
+          type: object
+          readOnly: true
+          description: The reason for the current status of the transfer, if applicable.
+          properties:
+            code:
+              $ref: '#/components/schemas/balance-transfer-status-reason-response'
+            message:
+              type: string
+              description: A description of the status reason, localized according to the transfer.
+              example: Insufficient funds in the source balance.
+          required:
+            - code
+            - message
+        category:
+          $ref: '#/components/schemas/balance-transfer-category-response'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        executedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time when the transfer was completed, in ISO 8601 format. This parameter is omitted if the transfer is
+            not executed (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37.0Z'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        mode:
+          $ref: '#/components/schemas/mode'
+      required:
+        - resource
+        - id
+        - amount
+        - source
+        - destination
+        - description
+        - status
+        - statusReason
+        - createdAt
+        - mode
+      x-speakeasy-unknown-values: allow
+    entity-balance-transfer-party-response:
+      type: object
+      description: A party involved in the balance transfer, either the sender or the receiver.
+      properties:
+        type:
+          $ref: '#/components/schemas/balance-transfer-party-type-response'
+        id:
+          $ref: '#/components/schemas/organizationToken'
+          description: Identifier of the party. For example, this contains the organization token if the type is `organization`.
+        description:
+          type: string
+          description: The transfer description for the transfer party. This is the description that will appear in the financial reports of the party.
+          maxLength: 255
+          example: Invoice fee
+      required:
+        - type
+        - id
+        - description
+      x-speakeasy-unknown-values: allow
+    balance-transfer-party-type-response:
+      type: string
+      description: Defines the type of the party. At the moment, only `organization` is supported.
+      enum:
+        - organization
+      example: organization
+      x-speakeasy-unknown-values: allow
+    balance-transfer-status-reason-response:
+      type: string
+      description: A machine-readable code that indicates the reason for the transfer's status.
+      example: insufficient_funds
+      enum:
+        - request_created
+        - success
+        - source_not_allowed
+        - destination_not_allowed
+        - insufficient_funds
+        - invalid_source_balance
+        - invalid_destination_balance
+        - transfer_request_expired
+        - transfer_limit_reached
+      x-enumDescriptions:
+        request_created: Balance transfer request was created.
+        success: Balance transfer completed successfully.
+        source_not_allowed: Balance transfers from the source organization are not allowed.
+        destination_not_allowed: Balance transfers to the destination organization are not allowed.
+        insufficient_funds: Source does not have enough balance.
+        invalid_source_balance: Invalid balance for source organization.
+        invalid_destination_balance: Invalid balance for destination organization.
+        transfer_request_expired: Request for balance transfer has expired.
+        transfer_limit_reached: Transfer limit has been exceeded.
+      x-speakeasy-unknown-values: allow
+    balance-transfer-category-response:
+      type: string
+      description: The type of the transfer. Different fees may apply to different types of transfers.
+      enum:
+        - invoice_collection
+        - purchase
+        - chargeback
+        - refund
+        - service_penalty
+        - discount_compensation
+        - manual_correction
+        - fee
+      example: invoice_collection
       x-speakeasy-unknown-values: allow
     entity-customer-response:
       type: object

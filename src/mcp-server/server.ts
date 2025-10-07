@@ -18,6 +18,9 @@ import { tool$balancesGetPrimary } from "./tools/balancesGetPrimary.js";
 import { tool$balancesGetReport } from "./tools/balancesGetReport.js";
 import { tool$balancesList } from "./tools/balancesList.js";
 import { tool$balancesListTransactions } from "./tools/balancesListTransactions.js";
+import { tool$balanceTransfersCreate } from "./tools/balanceTransfersCreate.js";
+import { tool$balanceTransfersGet } from "./tools/balanceTransfersGet.js";
+import { tool$balanceTransfersList } from "./tools/balanceTransfersList.js";
 import { tool$capabilitiesList } from "./tools/capabilitiesList.js";
 import { tool$capturesCreate } from "./tools/capturesCreate.js";
 import { tool$capturesGet } from "./tools/capturesGet.js";
@@ -117,7 +120,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "0.2.9",
+    version: "0.3.0",
   });
 
   const client = new ClientCore({
@@ -186,6 +189,9 @@ export function createMCPServer(deps: {
   tool(tool$webhooksDelete);
   tool(tool$webhooksTest);
   tool(tool$webhookEventsGet);
+  tool(tool$balanceTransfersCreate);
+  tool(tool$balanceTransfersList);
+  tool(tool$balanceTransfersGet);
   tool(tool$paymentsCreate);
   tool(tool$paymentsList);
   tool(tool$paymentsGet);
