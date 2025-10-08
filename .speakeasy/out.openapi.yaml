@@ -32353,7 +32353,7 @@ components:
         - service_penalty
         - discount_compensation
         - manual_correction
-        - fee
+        - other_fee
       example: invoice_collection
     entity-balance-transfer:
       type: object
@@ -36513,7 +36513,7 @@ components:
         - service_penalty
         - discount_compensation
         - manual_correction
-        - fee
+        - other_fee
       example: invoice_collection
       x-speakeasy-unknown-values: allow
     entity-customer-response:

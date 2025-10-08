@@ -20,7 +20,7 @@ export const BalanceTransferCategoryResponse = {
   ServicePenalty: "service_penalty",
   DiscountCompensation: "discount_compensation",
   ManualCorrection: "manual_correction",
-  Fee: "fee",
+  OtherFee: "other_fee",
 } as const;
 /**
  * The type of the transfer. Different fees may apply to different types of transfers.

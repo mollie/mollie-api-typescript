@@ -15,5 +15,5 @@ let value: BalanceTransferCategoryResponse = "invoice_collection";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"invoice_collection" | "purchase" | "chargeback" | "refund" | "service_penalty" | "discount_compensation" | "manual_correction" | "fee" | Unrecognized<string>
+"invoice_collection" | "purchase" | "chargeback" | "refund" | "service_penalty" | "discount_compensation" | "manual_correction" | "other_fee" | Unrecognized<string>
 ```

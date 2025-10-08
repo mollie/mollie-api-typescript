@@ -313,7 +313,6 @@ console.log(payment1.id === payment2.id ? "Payments are the same" : "Payments ar
 * [get](docs/sdks/chargebacks/README.md#get) - Get payment chargeback
 * [all](docs/sdks/chargebacks/README.md#all) - List all chargebacks
 
-
 ### [clientLinks](docs/sdks/clientlinks/README.md)
 
 * [create](docs/sdks/clientlinks/README.md#create) - Create client link

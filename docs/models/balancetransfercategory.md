@@ -13,5 +13,5 @@ let value: BalanceTransferCategory = "invoice_collection";
 ## Values
 
 ```typescript
-"invoice_collection" | "purchase" | "chargeback" | "refund" | "service_penalty" | "discount_compensation" | "manual_correction" | "fee"
+"invoice_collection" | "purchase" | "chargeback" | "refund" | "service_penalty" | "discount_compensation" | "manual_correction" | "other_fee"
 ```
