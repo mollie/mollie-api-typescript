@@ -31930,7 +31930,9 @@ components:
           description: The subscription's events destination.
           example: https://example.com/webhook-endpoint
         profileId:
-          type: string
+          type:
+            - string
+            - 'null'
           description: The identifier uniquely referring to the profile that created the subscription.
           readOnly: true
           example: pfl_YyoaNFjtHc

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: d4c86af0b942215e7a70f30230ce4fd7
+  docChecksum: 248ec6075df6729e0719102b6630ab61
   docVersion: 1.0.0
   speakeasyVersion: 1.636.0
   generationVersion: 2.723.2
-  releaseVersion: 0.3.1
-  configChecksum: 7e105ced45745672f7e1d1da3ac50c62
+  releaseVersion: 0.3.2
+  configChecksum: 0d6d9a8b5763937f66b2067593b62c77
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -4644,3 +4644,6 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `client.webhooks.create()`:  `response.profileid` **Changed** **Breaking** :warning:

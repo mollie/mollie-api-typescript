@@ -55,7 +55,7 @@ export type CreateWebhook = {
   /**
    * The identifier uniquely referring to the profile that created the subscription.
    */
-  profileId: string;
+  profileId: string | null;
   /**
    * The subscription's date time of creation.
    */
@@ -152,7 +152,7 @@ export const CreateWebhook$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   url: z.string(),
-  profileId: z.string(),
+  profileId: z.nullable(z.string()),
   createdAt: z.string(),
   name: z.string(),
   eventTypes: z.array(WebhookEventTypes$inboundSchema),
@@ -171,7 +171,7 @@ export type CreateWebhook$Outbound = {
   resource: string;
   id: string;
   url: string;
-  profileId: string;
+  profileId: string | null;
   createdAt: string;
   name: string;
   eventTypes: Array<string>;
@@ -190,7 +190,7 @@ export const CreateWebhook$outboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   url: z.string(),
-  profileId: z.string(),
+  profileId: z.nullable(z.string()),
   createdAt: z.string(),
   name: z.string(),
   eventTypes: z.array(WebhookEventTypes$outboundSchema),
