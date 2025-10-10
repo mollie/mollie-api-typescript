@@ -129,7 +129,18 @@ export type UpdatePaymentRequestBody = {
    * A valid issuer for iDEAL is for example `ideal_INGBNL2A` (for ING Bank).
    */
   issuer?: string | null | undefined;
-  billingAddress?: models.PaymentAddress | undefined;
+  /**
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
+   *
+   * @remarks
+   * conversion.
+   *
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
+   *
+   * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
+   */
+  billingAddress?: models.BillingAddress | undefined;
   shippingAddress?: models.PaymentAddress | undefined;
   billingEmail?: string | undefined;
 };
@@ -163,7 +174,7 @@ export const UpdatePaymentRequestBody$inboundSchema: z.ZodType<
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
   issuer: z.nullable(z.string()).optional(),
-  billingAddress: models.PaymentAddress$inboundSchema.optional(),
+  billingAddress: models.BillingAddress$inboundSchema.optional(),
   shippingAddress: models.PaymentAddress$inboundSchema.optional(),
   billingEmail: z.string().optional(),
 });
@@ -181,7 +192,7 @@ export type UpdatePaymentRequestBody$Outbound = {
   restrictPaymentMethodsToCountry?: string | null | undefined;
   testmode?: boolean | null | undefined;
   issuer?: string | null | undefined;
-  billingAddress?: models.PaymentAddress$Outbound | undefined;
+  billingAddress?: models.BillingAddress$Outbound | undefined;
   shippingAddress?: models.PaymentAddress$Outbound | undefined;
   billingEmail?: string | undefined;
 };
@@ -203,7 +214,7 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
   issuer: z.nullable(z.string()).optional(),
-  billingAddress: models.PaymentAddress$outboundSchema.optional(),
+  billingAddress: models.BillingAddress$outboundSchema.optional(),
   shippingAddress: models.PaymentAddress$outboundSchema.optional(),
   billingEmail: z.string().optional(),
 });

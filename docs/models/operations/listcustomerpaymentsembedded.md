@@ -86,7 +86,6 @@ let value: ListCustomerPaymentsEmbedded = {
         title: "Mr.",
         givenName: "Piet",
         familyName: "Mondriaan",
-        organizationName: "Mollie B.V.",
         streetAndNumber: "Keizersgracht 126",
         streetAdditional: "Apt. 1",
         postalCode: "1234AB",

@@ -13271,7 +13271,7 @@ paths:
                 issuer:
                   $ref: '#/components/schemas/issuer'
                 billingAddress:
-                  $ref: '#/components/schemas/payment-address'
+                  $ref: '#/components/schemas/billingAddress'
                 shippingAddress:
                   $ref: '#/components/schemas/payment-address'
                 billingEmail:
@@ -27792,6 +27792,7 @@ components:
         - klarnasliceit
         - klarna
         - mbway
+        - mobilepay
         - multibanco
         - mybank
         - paybybank
@@ -27807,6 +27808,7 @@ components:
         - swish
         - trustly
         - twint
+        - vipps
         - voucher
       example: creditcard
       x-speakeasy-unknown-values: allow
@@ -29362,6 +29364,7 @@ components:
         - klarnapaynow
         - klarnasliceit
         - mbway
+        - mobilepay
         - multibanco
         - mybank
         - paybybank
@@ -29375,6 +29378,7 @@ components:
         - swish
         - trustly
         - twint
+        - vipps
         - voucher
     metadata:
       oneOf:
@@ -29946,7 +29950,15 @@ components:
                       The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
                       to inform the shopper of the details for recurring products in the payments.
         billingAddress:
-          $ref: '#/components/schemas/payment-address'
+          allOf:
+            - $ref: '#/components/schemas/payment-address'
+            - type: object
+              properties:
+                organizationName:
+                  description: |-
+                    The name of the organization, in case the addressee is an organization.
+
+                    Required for payment method `billie`.
           description: |-
             The customer's billing address details. We advise to provide these details to improve fraud protection and
             conversion.
@@ -32635,6 +32647,24 @@ components:
         A valid issuer for iDEAL is for example `ideal_INGBNL2A` (for ING Bank).
       example: ideal_INGBNL2A
       writeOnly: true
+    billingAddress:
+      allOf:
+        - $ref: '#/components/schemas/payment-address'
+        - type: object
+          properties:
+            organizationName:
+              description: |-
+                The name of the organization, in case the addressee is an organization.
+
+                Required for payment method `billie`.
+      description: |-
+        The customer's billing address details. We advise to provide these details to improve fraud protection and
+        conversion.
+
+        Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+        `country`.
+
+        Required for payment method `in3`, `klarna`, `billie` and `riverty`.
     method-status:
       type: string
       description: The payment method's activation status for this profile.
@@ -34642,7 +34672,15 @@ components:
                       The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
                       to inform the shopper of the details for recurring products in the payments.
         billingAddress:
-          $ref: '#/components/schemas/payment-address'
+          allOf:
+            - $ref: '#/components/schemas/payment-address'
+            - type: object
+              properties:
+                organizationName:
+                  description: |-
+                    The name of the organization, in case the addressee is an organization.
+
+                    Required for payment method `billie`.
           description: |-
             The customer's billing address details. We advise to provide these details to improve fraud protection and
             conversion.
@@ -35586,6 +35624,7 @@ components:
         - klarnapaynow
         - klarnasliceit
         - mbway
+        - mobilepay
         - multibanco
         - mybank
         - paybybank
@@ -35599,6 +35638,7 @@ components:
         - swish
         - trustly
         - twint
+        - vipps
         - voucher
       x-speakeasy-unknown-values: allow
     capture-mode-response:

@@ -39,6 +39,7 @@ export const Method = {
   Klarnapaynow: "klarnapaynow",
   Klarnasliceit: "klarnasliceit",
   Mbway: "mbway",
+  Mobilepay: "mobilepay",
   Multibanco: "multibanco",
   Mybank: "mybank",
   Paybybank: "paybybank",
@@ -52,6 +53,7 @@ export const Method = {
   Swish: "swish",
   Trustly: "trustly",
   Twint: "twint",
+  Vipps: "vipps",
   Voucher: "voucher",
 } as const;
 /**

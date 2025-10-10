@@ -16,6 +16,7 @@ export * from "./balancetransferpartytype.js";
 export * from "./balancetransferpartytyperesponse.js";
 export * from "./balancetransferstatus.js";
 export * from "./balancetransferstatusreasonresponse.js";
+export * from "./billingaddress.js";
 export * from "./capabilityrequirementstatus.js";
 export * from "./capabilitystatus.js";
 export * from "./capabilitystatusreason.js";

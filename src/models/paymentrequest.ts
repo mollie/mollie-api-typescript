@@ -135,6 +135,105 @@ export type PaymentRequestLine = {
 };
 
 /**
+ * The customer's billing address details. We advise to provide these details to improve fraud protection and
+ *
+ * @remarks
+ * conversion.
+ *
+ * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+ * `country`.
+ *
+ * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
+ */
+export type PaymentRequestBillingAddress = {
+  /**
+   * The title of the person, for example *Mr.* or *Mrs.*.
+   */
+  title?: string | undefined;
+  /**
+   * The given name (first name) of the person should be at least two characters and cannot contain only
+   *
+   * @remarks
+   * numbers.
+   *
+   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   */
+  givenName?: string | undefined;
+  /**
+   * The given family name (surname) of the person should be at least two characters and cannot contain only
+   *
+   * @remarks
+   * numbers.
+   *
+   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   */
+  familyName?: string | undefined;
+  /**
+   * The name of the organization, in case the addressee is an organization.
+   *
+   * @remarks
+   *
+   * Required for payment method `billie`.
+   */
+  organizationName?: any | undefined;
+  /**
+   * A street and street number.
+   *
+   * @remarks
+   *
+   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   */
+  streetAndNumber?: string | undefined;
+  /**
+   * Any additional addressing details, for example an apartment number.
+   */
+  streetAdditional?: string | undefined;
+  /**
+   * A postal code. This field may be required if the provided country has a postal code system.
+   *
+   * @remarks
+   *
+   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   */
+  postalCode?: string | undefined;
+  /**
+   * A valid e-mail address.
+   *
+   * @remarks
+   *
+   * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
+   * email upon payment creation. The language of the email will follow the locale parameter of the payment.
+   *
+   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   */
+  email?: string | undefined;
+  /**
+   * If provided, it must be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example: +31208202070.
+   */
+  phone?: string | undefined;
+  /**
+   * A city name.
+   *
+   * @remarks
+   *
+   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   */
+  city?: string | undefined;
+  /**
+   * The top-level administrative subdivision of the country. For example: Noord-Holland.
+   */
+  region?: string | undefined;
+  /**
+   * A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   *
+   * @remarks
+   *
+   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   */
+  country?: string | undefined;
+};
+
+/**
  * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
  *
  * @remarks
@@ -269,7 +368,18 @@ export type PaymentRequest = {
    * Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
    */
   lines?: Array<PaymentRequestLine> | null | undefined;
-  billingAddress?: PaymentAddress | undefined;
+  /**
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and
+   *
+   * @remarks
+   * conversion.
+   *
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+   * `country`.
+   *
+   * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
+   */
+  billingAddress?: PaymentRequestBillingAddress | undefined;
   shippingAddress?: PaymentAddress | undefined;
   /**
    * Allows you to preset the language to be used.
@@ -593,6 +703,95 @@ export function paymentRequestLineFromJSON(
 }
 
 /** @internal */
+export const PaymentRequestBillingAddress$inboundSchema: z.ZodType<
+  PaymentRequestBillingAddress,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  title: z.string().optional(),
+  givenName: z.string().optional(),
+  familyName: z.string().optional(),
+  organizationName: z.any().optional(),
+  streetAndNumber: z.string().optional(),
+  streetAdditional: z.string().optional(),
+  postalCode: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+});
+
+/** @internal */
+export type PaymentRequestBillingAddress$Outbound = {
+  title?: string | undefined;
+  givenName?: string | undefined;
+  familyName?: string | undefined;
+  organizationName?: any | undefined;
+  streetAndNumber?: string | undefined;
+  streetAdditional?: string | undefined;
+  postalCode?: string | undefined;
+  email?: string | undefined;
+  phone?: string | undefined;
+  city?: string | undefined;
+  region?: string | undefined;
+  country?: string | undefined;
+};
+
+/** @internal */
+export const PaymentRequestBillingAddress$outboundSchema: z.ZodType<
+  PaymentRequestBillingAddress$Outbound,
+  z.ZodTypeDef,
+  PaymentRequestBillingAddress
+> = z.object({
+  title: z.string().optional(),
+  givenName: z.string().optional(),
+  familyName: z.string().optional(),
+  organizationName: z.any().optional(),
+  streetAndNumber: z.string().optional(),
+  streetAdditional: z.string().optional(),
+  postalCode: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PaymentRequestBillingAddress$ {
+  /** @deprecated use `PaymentRequestBillingAddress$inboundSchema` instead. */
+  export const inboundSchema = PaymentRequestBillingAddress$inboundSchema;
+  /** @deprecated use `PaymentRequestBillingAddress$outboundSchema` instead. */
+  export const outboundSchema = PaymentRequestBillingAddress$outboundSchema;
+  /** @deprecated use `PaymentRequestBillingAddress$Outbound` instead. */
+  export type Outbound = PaymentRequestBillingAddress$Outbound;
+}
+
+export function paymentRequestBillingAddressToJSON(
+  paymentRequestBillingAddress: PaymentRequestBillingAddress,
+): string {
+  return JSON.stringify(
+    PaymentRequestBillingAddress$outboundSchema.parse(
+      paymentRequestBillingAddress,
+    ),
+  );
+}
+
+export function paymentRequestBillingAddressFromJSON(
+  jsonString: string,
+): SafeParseResult<PaymentRequestBillingAddress, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PaymentRequestBillingAddress$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PaymentRequestBillingAddress' from JSON`,
+  );
+}
+
+/** @internal */
 export const PaymentRequestApplicationFee$inboundSchema: z.ZodType<
   PaymentRequestApplicationFee,
   z.ZodTypeDef,
@@ -723,7 +922,8 @@ export const PaymentRequest$inboundSchema: z.ZodType<
   webhookUrl: z.nullable(z.string()).optional(),
   lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$inboundSchema)))
     .optional(),
-  billingAddress: PaymentAddress$inboundSchema.optional(),
+  billingAddress: z.lazy(() => PaymentRequestBillingAddress$inboundSchema)
+    .optional(),
   shippingAddress: PaymentAddress$inboundSchema.optional(),
   locale: z.nullable(Locale$inboundSchema).optional(),
   method: z.nullable(Method$inboundSchema).optional(),
@@ -772,7 +972,7 @@ export type PaymentRequest$Outbound = {
   cancelUrl?: string | null | undefined;
   webhookUrl?: string | null | undefined;
   lines?: Array<PaymentRequestLine$Outbound> | null | undefined;
-  billingAddress?: PaymentAddress$Outbound | undefined;
+  billingAddress?: PaymentRequestBillingAddress$Outbound | undefined;
   shippingAddress?: PaymentAddress$Outbound | undefined;
   locale?: string | null | undefined;
   method?: string | null | undefined;
@@ -824,7 +1024,8 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   webhookUrl: z.nullable(z.string()).optional(),
   lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$outboundSchema)))
     .optional(),
-  billingAddress: PaymentAddress$outboundSchema.optional(),
+  billingAddress: z.lazy(() => PaymentRequestBillingAddress$outboundSchema)
+    .optional(),
   shippingAddress: PaymentAddress$outboundSchema.optional(),
   locale: z.nullable(Locale$outboundSchema).optional(),
   method: z.nullable(Method$outboundSchema).optional(),
