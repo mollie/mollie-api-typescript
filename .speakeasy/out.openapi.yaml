@@ -8626,7 +8626,7 @@ paths:
                     _embedded:
                       capabilities:
                         - resource: capability
-                          id: payments
+                          name: payments
                           status: pending
                           statusReason: onboarding-information-needed
                           requirements:
