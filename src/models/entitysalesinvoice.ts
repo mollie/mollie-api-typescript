@@ -173,17 +173,6 @@ export type EntitySalesInvoice = {
   lines?: Array<SalesInvoiceLineItem> | null | undefined;
   discount?: SalesInvoiceDiscount | null | undefined;
   /**
-   * This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
-   *
-   * @remarks
-   * after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
-   * recipient.
-   *
-   * E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
-   * the recipient is also located in one of these countries.
-   */
-  isEInvoice?: boolean | undefined;
-  /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amountDue?: Amount | undefined;
@@ -278,7 +267,6 @@ export const EntitySalesInvoice$inboundSchema: z.ZodType<
   recipient: z.nullable(SalesInvoiceRecipient$inboundSchema).optional(),
   lines: z.nullable(z.array(SalesInvoiceLineItem$inboundSchema)).optional(),
   discount: z.nullable(SalesInvoiceDiscount$inboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
   amountDue: Amount$inboundSchema.optional(),
   subtotalAmount: Amount$inboundSchema.optional(),
   totalAmount: Amount$inboundSchema.optional(),
@@ -305,7 +293,6 @@ export type EntitySalesInvoice$Outbound = {
   recipient?: SalesInvoiceRecipient$Outbound | null | undefined;
   lines?: Array<SalesInvoiceLineItem$Outbound> | null | undefined;
   discount?: SalesInvoiceDiscount$Outbound | null | undefined;
-  isEInvoice?: boolean | undefined;
   amountDue?: Amount$Outbound | undefined;
   subtotalAmount?: Amount$Outbound | undefined;
   totalAmount?: Amount$Outbound | undefined;
@@ -338,7 +325,6 @@ export const EntitySalesInvoice$outboundSchema: z.ZodType<
   recipient: z.nullable(SalesInvoiceRecipient$outboundSchema).optional(),
   lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)).optional(),
   discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
   amountDue: Amount$outboundSchema.optional(),
   subtotalAmount: Amount$outboundSchema.optional(),
   totalAmount: Amount$outboundSchema.optional(),

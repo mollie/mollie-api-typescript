@@ -26514,7 +26514,6 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
-                isEInvoice: false
                 createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -26570,8 +26569,7 @@ paths:
                   -d "lines[0][quantity]=1" \
                   -d "lines[0][vatRate]=21.00" \
                   -d "lines[0][unitPrice][currency]=EUR" \
-                  -d "lines[0][unitPrice][value]=12.50" \
-                  -d "isEInvoice=false"
+                  -d "lines[0][unitPrice][value]=12.50"
           - language: php
             install: composer require mollie/mollie-api-php
             code: |-
@@ -26622,7 +26620,6 @@ paths:
                   recipient: $recipient,
                   lines: $invoiceLines,
                   profileId: 'pfl_QkEhN94Ba',
-                  isEInvoice: false
               );
 
               $salesInvoice = $mollie->send($request);
@@ -26743,7 +26740,6 @@ paths:
                       discountedSubtotalAmount:
                         value: '89.00'
                         currency: EUR
-                      isEInvoice: false
                       createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -26876,7 +26872,6 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
-                isEInvoice: false
                 createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -27015,7 +27010,6 @@ paths:
                 discountedSubtotalAmount:
                   value: '89.00'
                   currency: EUR
-                isEInvoice: false
                 createdAt: '2024-10-03T10:47:38+00:00'
                 _links:
                   self:
@@ -27071,7 +27065,6 @@ paths:
                   status: SalesInvoiceStatus::DRAFT,
                   recipientIdentifier: 'customer-12354123',
                   paymentTerm: PaymentTerm::DAYS_14,
-                  isEInvoice: false
               );
 
               $salesInvoice = $mollie->send($request);
@@ -34380,16 +34373,6 @@ components:
         discount:
           $ref: '#/components/schemas/sales-invoice-discount'
           description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
-        isEInvoice:
-          type: boolean
-          description: |-
-            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
-            after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
-            recipient.
-
-            E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
-            the recipient is also located in one of these countries.
-          example: false
         amountDue:
           $ref: '#/components/schemas/amount'
           description: The amount that is left to be paid.
@@ -34531,14 +34514,6 @@ components:
         discount:
           $ref: '#/components/schemas/sales-invoice-discount'
           description: The discount to be applied to the entire invoice, possibly on top of the line item discounts.
-        isEInvoice:
-          type: boolean
-          description: |-
-            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
-            after the invoice has been issued.
-
-            When `emailDetails` is provided, an additional email is sent to the recipient.
-          example: false
     entity-payment-response:
       type: object
       properties:
@@ -36930,16 +36905,6 @@ components:
         discount:
           $ref: '#/components/schemas/sales-invoice-discount-response'
           description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
-        isEInvoice:
-          type: boolean
-          description: |-
-            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
-            after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
-            recipient.
-
-            E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
-            the recipient is also located in one of these countries.
-          example: false
         amountDue:
           $ref: '#/components/schemas/amount'
           description: The amount that is left to be paid.

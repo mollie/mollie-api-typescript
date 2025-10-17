@@ -58,7 +58,6 @@ let value: ListSalesInvoicesEmbedded = {
         type: "amount",
         value: "10.00",
       },
-      isEInvoice: false,
       amountDue: {
         currency: "EUR",
         value: "10.00",

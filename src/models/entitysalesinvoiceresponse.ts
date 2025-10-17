@@ -201,17 +201,6 @@ export type EntitySalesInvoiceResponse = {
   lines?: Array<SalesInvoiceLineItemResponse> | null | undefined;
   discount?: SalesInvoiceDiscountResponse | null | undefined;
   /**
-   * This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
-   *
-   * @remarks
-   * after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
-   * recipient.
-   *
-   * E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
-   * the recipient is also located in one of these countries.
-   */
-  isEInvoice?: boolean | undefined;
-  /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amountDue?: Amount | undefined;
@@ -413,7 +402,6 @@ export const EntitySalesInvoiceResponse$inboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$inboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
   amountDue: Amount$inboundSchema.optional(),
   subtotalAmount: Amount$inboundSchema.optional(),
   totalAmount: Amount$inboundSchema.optional(),
@@ -453,7 +441,6 @@ export type EntitySalesInvoiceResponse$Outbound = {
   recipient?: SalesInvoiceRecipientResponse$Outbound | null | undefined;
   lines?: Array<SalesInvoiceLineItemResponse$Outbound> | null | undefined;
   discount?: SalesInvoiceDiscountResponse$Outbound | null | undefined;
-  isEInvoice?: boolean | undefined;
   amountDue?: Amount$Outbound | undefined;
   subtotalAmount?: Amount$Outbound | undefined;
   totalAmount?: Amount$Outbound | undefined;
@@ -495,7 +482,6 @@ export const EntitySalesInvoiceResponse$outboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$outboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$outboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
   amountDue: Amount$outboundSchema.optional(),
   subtotalAmount: Amount$outboundSchema.optional(),
   totalAmount: Amount$outboundSchema.optional(),
