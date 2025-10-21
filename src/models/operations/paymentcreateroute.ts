@@ -18,7 +18,7 @@ export type PaymentCreateRouteRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  routeCreateRequest?: models.RouteCreateRequest | undefined;
+  entityRoute?: models.EntityRoute | undefined;
 };
 
 /** @internal */
@@ -29,11 +29,11 @@ export const PaymentCreateRouteRequest$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   "idempotency-key": z.string().optional(),
-  "route-create-request": models.RouteCreateRequest$inboundSchema.optional(),
+  "entity-route": models.EntityRoute$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "route-create-request": "routeCreateRequest",
+    "entity-route": "entityRoute",
   });
 });
 
@@ -41,7 +41,7 @@ export const PaymentCreateRouteRequest$inboundSchema: z.ZodType<
 export type PaymentCreateRouteRequest$Outbound = {
   paymentId: string;
   "idempotency-key"?: string | undefined;
-  "route-create-request"?: models.RouteCreateRequest$Outbound | undefined;
+  "entity-route"?: models.EntityRoute$Outbound | undefined;
 };
 
 /** @internal */
@@ -52,11 +52,11 @@ export const PaymentCreateRouteRequest$outboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   idempotencyKey: z.string().optional(),
-  routeCreateRequest: models.RouteCreateRequest$outboundSchema.optional(),
+  entityRoute: models.EntityRoute$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    routeCreateRequest: "route-create-request",
+    entityRoute: "entity-route",
   });
 });
 

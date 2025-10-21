@@ -1,13 +1,13 @@
-# EntityClientLinkResponseLinks
+# ClientLinkResponseLinks
 
 An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
 
 ## Example Usage
 
 ```typescript
-import { EntityClientLinkResponseLinks } from "mollie-api-typescript/models";
+import { ClientLinkResponseLinks } from "mollie-api-typescript/models";
 
-let value: EntityClientLinkResponseLinks = {
+let value: ClientLinkResponseLinks = {
   self: {
     href: "https://...",
     type: "application/hal+json",

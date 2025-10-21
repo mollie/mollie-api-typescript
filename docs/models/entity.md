@@ -78,10 +78,10 @@ const value: models.PaymentLinkResponse = {
 };
 ```
 
-### `models.EntityProfileResponse`
+### `models.ProfileResponse`
 
 ```typescript
-const value: models.EntityProfileResponse = {
+const value: models.ProfileResponse = {
   resource: "profile",
   id: "pfl_QkEhN94Ba",
   mode: "live",

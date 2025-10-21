@@ -90,7 +90,7 @@ export function clientLinksCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.EntityClientLinkResponse,
+    models.ClientLinkResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -116,7 +116,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.EntityClientLinkResponse,
+      models.ClientLinkResponse,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -215,7 +215,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.EntityClientLinkResponse,
+    models.ClientLinkResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -226,7 +226,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.EntityClientLinkResponse$inboundSchema, {
+    M.json(201, models.ClientLinkResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {

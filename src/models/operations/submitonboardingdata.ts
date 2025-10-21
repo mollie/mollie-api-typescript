@@ -5,33 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
- *
- * @remarks
- * The United Kingdom, and shifted VAT for merchants in the European Union.
- *
- * The field can be omitted for merchants residing in other countries.
- */
-export const VatRegulation = {
-  Dutch: "dutch",
-  British: "british",
-  Shifted: "shifted",
-} as const;
-/**
- * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
- *
- * @remarks
- * The United Kingdom, and shifted VAT for merchants in the European Union.
- *
- * The field can be omitted for merchants residing in other countries.
- */
-export type VatRegulation = ClosedEnum<typeof VatRegulation>;
 
 export type Organization = {
   /**
@@ -60,7 +36,7 @@ export type Organization = {
    *
    * The field can be omitted for merchants residing in other countries.
    */
-  vatRegulation?: VatRegulation | null | undefined;
+  vatRegulation?: models.OnboardingVatRegulation | null | undefined;
 };
 
 export type Profile = {
@@ -113,27 +89,6 @@ export type SubmitOnboardingDataRequest = {
 };
 
 /** @internal */
-export const VatRegulation$inboundSchema: z.ZodNativeEnum<
-  typeof VatRegulation
-> = z.nativeEnum(VatRegulation);
-
-/** @internal */
-export const VatRegulation$outboundSchema: z.ZodNativeEnum<
-  typeof VatRegulation
-> = VatRegulation$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace VatRegulation$ {
-  /** @deprecated use `VatRegulation$inboundSchema` instead. */
-  export const inboundSchema = VatRegulation$inboundSchema;
-  /** @deprecated use `VatRegulation$outboundSchema` instead. */
-  export const outboundSchema = VatRegulation$outboundSchema;
-}
-
-/** @internal */
 export const Organization$inboundSchema: z.ZodType<
   Organization,
   z.ZodTypeDef,
@@ -143,7 +98,8 @@ export const Organization$inboundSchema: z.ZodType<
   address: models.Address$inboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(VatRegulation$inboundSchema).optional(),
+  vatRegulation: z.nullable(models.OnboardingVatRegulation$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -165,7 +121,8 @@ export const Organization$outboundSchema: z.ZodType<
   address: models.Address$outboundSchema.optional(),
   registrationNumber: z.string().optional(),
   vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(VatRegulation$outboundSchema).optional(),
+  vatRegulation: z.nullable(models.OnboardingVatRegulation$outboundSchema)
+    .optional(),
 });
 
 /**

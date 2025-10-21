@@ -27,14 +27,14 @@ export type EntityCapability = {
   /**
    * Always the word `capability` for this resource type.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * A unique name for this capability like `payments` / `settlements`.
    */
-  name?: string | undefined;
-  status?: CapabilityStatus | undefined;
-  statusReason?: CapabilityStatusReason | undefined;
-  requirements?: Array<EntityCapabilityRequirement> | undefined;
+  name: string;
+  status: CapabilityStatus;
+  statusReason: CapabilityStatusReason | null;
+  requirements: Array<EntityCapabilityRequirement>;
 };
 
 /** @internal */
@@ -43,20 +43,20 @@ export const EntityCapability$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  name: z.string().optional(),
-  status: CapabilityStatus$inboundSchema.optional(),
-  statusReason: CapabilityStatusReason$inboundSchema.optional(),
-  requirements: z.array(EntityCapabilityRequirement$inboundSchema).optional(),
+  resource: z.string(),
+  name: z.string(),
+  status: CapabilityStatus$inboundSchema,
+  statusReason: z.nullable(CapabilityStatusReason$inboundSchema),
+  requirements: z.array(EntityCapabilityRequirement$inboundSchema),
 });
 
 /** @internal */
 export type EntityCapability$Outbound = {
-  resource?: string | undefined;
-  name?: string | undefined;
-  status?: string | undefined;
-  statusReason?: string | undefined;
-  requirements?: Array<EntityCapabilityRequirement$Outbound> | undefined;
+  resource: string;
+  name: string;
+  status: string;
+  statusReason: string | null;
+  requirements: Array<EntityCapabilityRequirement$Outbound>;
 };
 
 /** @internal */
@@ -65,11 +65,11 @@ export const EntityCapability$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityCapability
 > = z.object({
-  resource: z.string().optional(),
-  name: z.string().optional(),
-  status: CapabilityStatus$outboundSchema.optional(),
-  statusReason: CapabilityStatusReason$outboundSchema.optional(),
-  requirements: z.array(EntityCapabilityRequirement$outboundSchema).optional(),
+  resource: z.string(),
+  name: z.string(),
+  status: CapabilityStatus$outboundSchema,
+  statusReason: z.nullable(CapabilityStatusReason$outboundSchema),
+  requirements: z.array(EntityCapabilityRequirement$outboundSchema),
 });
 
 /**

@@ -110,7 +110,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
+**Promise\<[models.ProfileResponse](../../models/profileresponse.md)\>**
 
 ### Errors
 
@@ -276,7 +276,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
+**Promise\<[models.ProfileResponse](../../models/profileresponse.md)\>**
 
 ### Errors
 
@@ -319,7 +319,6 @@ async function run() {
         "GB",
       ],
       businessCategory: "OTHER_MERCHANDISE",
-      mode: "live",
     },
   });
 
@@ -360,7 +359,6 @@ async function run() {
         "GB",
       ],
       businessCategory: "OTHER_MERCHANDISE",
-      mode: "live",
     },
   });
   if (res.ok) {
@@ -385,7 +383,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
+**Promise\<[models.ProfileResponse](../../models/profileresponse.md)\>**
 
 ### Errors
 
@@ -547,7 +545,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntityProfileResponse](../../models/entityprofileresponse.md)\>**
+**Promise\<[models.ProfileResponse](../../models/profileresponse.md)\>**
 
 ### Errors
 

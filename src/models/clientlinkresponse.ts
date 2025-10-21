@@ -17,7 +17,7 @@ import {
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
-export type EntityClientLinkResponseLinks = {
+export type ClientLinkResponseLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -32,7 +32,7 @@ export type EntityClientLinkResponseLinks = {
   documentation?: Url | undefined;
 };
 
-export type EntityClientLinkResponse = {
+export type ClientLinkResponse = {
   /**
    * Indicates the response contains a client link object. Will always contain the string `client-link` for this
    *
@@ -47,12 +47,12 @@ export type EntityClientLinkResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityClientLinkResponseLinks | undefined;
+  links?: ClientLinkResponseLinks | undefined;
 };
 
 /** @internal */
-export const EntityClientLinkResponseLinks$inboundSchema: z.ZodType<
-  EntityClientLinkResponseLinks,
+export const ClientLinkResponseLinks$inboundSchema: z.ZodType<
+  ClientLinkResponseLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -62,17 +62,17 @@ export const EntityClientLinkResponseLinks$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type EntityClientLinkResponseLinks$Outbound = {
+export type ClientLinkResponseLinks$Outbound = {
   self?: Url$Outbound | undefined;
   clientLink?: Url$Outbound | undefined;
   documentation?: Url$Outbound | undefined;
 };
 
 /** @internal */
-export const EntityClientLinkResponseLinks$outboundSchema: z.ZodType<
-  EntityClientLinkResponseLinks$Outbound,
+export const ClientLinkResponseLinks$outboundSchema: z.ZodType<
+  ClientLinkResponseLinks$Outbound,
   z.ZodTypeDef,
-  EntityClientLinkResponseLinks
+  ClientLinkResponseLinks
 > = z.object({
   self: Url$outboundSchema.optional(),
   clientLink: Url$outboundSchema.optional(),
@@ -83,44 +83,42 @@ export const EntityClientLinkResponseLinks$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EntityClientLinkResponseLinks$ {
-  /** @deprecated use `EntityClientLinkResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityClientLinkResponseLinks$inboundSchema;
-  /** @deprecated use `EntityClientLinkResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityClientLinkResponseLinks$outboundSchema;
-  /** @deprecated use `EntityClientLinkResponseLinks$Outbound` instead. */
-  export type Outbound = EntityClientLinkResponseLinks$Outbound;
+export namespace ClientLinkResponseLinks$ {
+  /** @deprecated use `ClientLinkResponseLinks$inboundSchema` instead. */
+  export const inboundSchema = ClientLinkResponseLinks$inboundSchema;
+  /** @deprecated use `ClientLinkResponseLinks$outboundSchema` instead. */
+  export const outboundSchema = ClientLinkResponseLinks$outboundSchema;
+  /** @deprecated use `ClientLinkResponseLinks$Outbound` instead. */
+  export type Outbound = ClientLinkResponseLinks$Outbound;
 }
 
-export function entityClientLinkResponseLinksToJSON(
-  entityClientLinkResponseLinks: EntityClientLinkResponseLinks,
+export function clientLinkResponseLinksToJSON(
+  clientLinkResponseLinks: ClientLinkResponseLinks,
 ): string {
   return JSON.stringify(
-    EntityClientLinkResponseLinks$outboundSchema.parse(
-      entityClientLinkResponseLinks,
-    ),
+    ClientLinkResponseLinks$outboundSchema.parse(clientLinkResponseLinks),
   );
 }
 
-export function entityClientLinkResponseLinksFromJSON(
+export function clientLinkResponseLinksFromJSON(
   jsonString: string,
-): SafeParseResult<EntityClientLinkResponseLinks, SDKValidationError> {
+): SafeParseResult<ClientLinkResponseLinks, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityClientLinkResponseLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityClientLinkResponseLinks' from JSON`,
+    (x) => ClientLinkResponseLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientLinkResponseLinks' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityClientLinkResponse$inboundSchema: z.ZodType<
-  EntityClientLinkResponse,
+export const ClientLinkResponse$inboundSchema: z.ZodType<
+  ClientLinkResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   resource: z.string().optional(),
   id: z.string().optional(),
-  _links: z.lazy(() => EntityClientLinkResponseLinks$inboundSchema).optional(),
+  _links: z.lazy(() => ClientLinkResponseLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -128,21 +126,21 @@ export const EntityClientLinkResponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type EntityClientLinkResponse$Outbound = {
+export type ClientLinkResponse$Outbound = {
   resource?: string | undefined;
   id?: string | undefined;
-  _links?: EntityClientLinkResponseLinks$Outbound | undefined;
+  _links?: ClientLinkResponseLinks$Outbound | undefined;
 };
 
 /** @internal */
-export const EntityClientLinkResponse$outboundSchema: z.ZodType<
-  EntityClientLinkResponse$Outbound,
+export const ClientLinkResponse$outboundSchema: z.ZodType<
+  ClientLinkResponse$Outbound,
   z.ZodTypeDef,
-  EntityClientLinkResponse
+  ClientLinkResponse
 > = z.object({
   resource: z.string().optional(),
   id: z.string().optional(),
-  links: z.lazy(() => EntityClientLinkResponseLinks$outboundSchema).optional(),
+  links: z.lazy(() => ClientLinkResponseLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
@@ -153,29 +151,29 @@ export const EntityClientLinkResponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EntityClientLinkResponse$ {
-  /** @deprecated use `EntityClientLinkResponse$inboundSchema` instead. */
-  export const inboundSchema = EntityClientLinkResponse$inboundSchema;
-  /** @deprecated use `EntityClientLinkResponse$outboundSchema` instead. */
-  export const outboundSchema = EntityClientLinkResponse$outboundSchema;
-  /** @deprecated use `EntityClientLinkResponse$Outbound` instead. */
-  export type Outbound = EntityClientLinkResponse$Outbound;
+export namespace ClientLinkResponse$ {
+  /** @deprecated use `ClientLinkResponse$inboundSchema` instead. */
+  export const inboundSchema = ClientLinkResponse$inboundSchema;
+  /** @deprecated use `ClientLinkResponse$outboundSchema` instead. */
+  export const outboundSchema = ClientLinkResponse$outboundSchema;
+  /** @deprecated use `ClientLinkResponse$Outbound` instead. */
+  export type Outbound = ClientLinkResponse$Outbound;
 }
 
-export function entityClientLinkResponseToJSON(
-  entityClientLinkResponse: EntityClientLinkResponse,
+export function clientLinkResponseToJSON(
+  clientLinkResponse: ClientLinkResponse,
 ): string {
   return JSON.stringify(
-    EntityClientLinkResponse$outboundSchema.parse(entityClientLinkResponse),
+    ClientLinkResponse$outboundSchema.parse(clientLinkResponse),
   );
 }
 
-export function entityClientLinkResponseFromJSON(
+export function clientLinkResponseFromJSON(
   jsonString: string,
-): SafeParseResult<EntityClientLinkResponse, SDKValidationError> {
+): SafeParseResult<ClientLinkResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityClientLinkResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityClientLinkResponse' from JSON`,
+    (x) => ClientLinkResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientLinkResponse' from JSON`,
   );
 }

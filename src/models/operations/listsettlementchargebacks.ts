@@ -52,7 +52,7 @@ export type ListSettlementChargebacksEmbedded = {
   /**
    * A list of chargeback objects.
    */
-  chargebacks?: Array<models.EntityChargeback> | undefined;
+  chargebacks: Array<models.EntityChargeback>;
 };
 
 /**
@@ -68,12 +68,12 @@ export type ListSettlementChargebacksResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListSettlementChargebacksEmbedded | undefined;
+  count: number;
+  embedded: ListSettlementChargebacksEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: models.ListLinks | undefined;
+  links: models.ListLinks;
 };
 
 /** @internal */
@@ -161,12 +161,12 @@ export const ListSettlementChargebacksEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  chargebacks: z.array(models.EntityChargeback$inboundSchema).optional(),
+  chargebacks: z.array(models.EntityChargeback$inboundSchema),
 });
 
 /** @internal */
 export type ListSettlementChargebacksEmbedded$Outbound = {
-  chargebacks?: Array<models.EntityChargeback$Outbound> | undefined;
+  chargebacks: Array<models.EntityChargeback$Outbound>;
 };
 
 /** @internal */
@@ -175,7 +175,7 @@ export const ListSettlementChargebacksEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementChargebacksEmbedded
 > = z.object({
-  chargebacks: z.array(models.EntityChargeback$outboundSchema).optional(),
+  chargebacks: z.array(models.EntityChargeback$outboundSchema),
 });
 
 /**
@@ -218,10 +218,9 @@ export const ListSettlementChargebacksResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListSettlementChargebacksEmbedded$inboundSchema)
-    .optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListSettlementChargebacksEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -231,9 +230,9 @@ export const ListSettlementChargebacksResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListSettlementChargebacksResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListSettlementChargebacksEmbedded$Outbound | undefined;
-  _links?: models.ListLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListSettlementChargebacksEmbedded$Outbound;
+  _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
@@ -242,10 +241,9 @@ export const ListSettlementChargebacksResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementChargebacksResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListSettlementChargebacksEmbedded$outboundSchema)
-    .optional(),
-  links: models.ListLinks$outboundSchema.optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListSettlementChargebacksEmbedded$outboundSchema),
+  links: models.ListLinks$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

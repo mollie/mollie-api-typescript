@@ -20,7 +20,7 @@ export type ListPermissionsEmbedded = {
   /**
    * An array of permission objects.
    */
-  permissions?: Array<models.EntityPermission> | undefined;
+  permissions: Array<models.EntityPermission>;
 };
 
 /**
@@ -50,12 +50,12 @@ export type ListPermissionsResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListPermissionsEmbedded | undefined;
+  count: number;
+  embedded: ListPermissionsEmbedded;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ListPermissionsLinks | undefined;
+  links: ListPermissionsLinks;
 };
 
 /** @internal */
@@ -126,12 +126,12 @@ export const ListPermissionsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  permissions: z.array(models.EntityPermission$inboundSchema).optional(),
+  permissions: z.array(models.EntityPermission$inboundSchema),
 });
 
 /** @internal */
 export type ListPermissionsEmbedded$Outbound = {
-  permissions?: Array<models.EntityPermission$Outbound> | undefined;
+  permissions: Array<models.EntityPermission$Outbound>;
 };
 
 /** @internal */
@@ -140,7 +140,7 @@ export const ListPermissionsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPermissionsEmbedded
 > = z.object({
-  permissions: z.array(models.EntityPermission$outboundSchema).optional(),
+  permissions: z.array(models.EntityPermission$outboundSchema),
 });
 
 /**
@@ -237,9 +237,9 @@ export const ListPermissionsResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListPermissionsEmbedded$inboundSchema).optional(),
-  _links: z.lazy(() => ListPermissionsLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListPermissionsEmbedded$inboundSchema),
+  _links: z.lazy(() => ListPermissionsLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -249,9 +249,9 @@ export const ListPermissionsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListPermissionsResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListPermissionsEmbedded$Outbound | undefined;
-  _links?: ListPermissionsLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListPermissionsEmbedded$Outbound;
+  _links: ListPermissionsLinks$Outbound;
 };
 
 /** @internal */
@@ -260,9 +260,9 @@ export const ListPermissionsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPermissionsResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListPermissionsEmbedded$outboundSchema).optional(),
-  links: z.lazy(() => ListPermissionsLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListPermissionsEmbedded$outboundSchema),
+  links: z.lazy(() => ListPermissionsLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

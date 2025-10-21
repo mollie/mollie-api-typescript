@@ -52,7 +52,7 @@ export type ListChargebacksEmbedded = {
   /**
    * A list of chargeback objects.
    */
-  chargebacks?: Array<models.EntityChargeback> | undefined;
+  chargebacks: Array<models.EntityChargeback>;
 };
 
 /**
@@ -68,12 +68,12 @@ export type ListChargebacksResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListChargebacksEmbedded | undefined;
+  count: number;
+  embedded: ListChargebacksEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: models.ListLinks | undefined;
+  links: models.ListLinks;
 };
 
 /** @internal */
@@ -159,12 +159,12 @@ export const ListChargebacksEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  chargebacks: z.array(models.EntityChargeback$inboundSchema).optional(),
+  chargebacks: z.array(models.EntityChargeback$inboundSchema),
 });
 
 /** @internal */
 export type ListChargebacksEmbedded$Outbound = {
-  chargebacks?: Array<models.EntityChargeback$Outbound> | undefined;
+  chargebacks: Array<models.EntityChargeback$Outbound>;
 };
 
 /** @internal */
@@ -173,7 +173,7 @@ export const ListChargebacksEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListChargebacksEmbedded
 > = z.object({
-  chargebacks: z.array(models.EntityChargeback$outboundSchema).optional(),
+  chargebacks: z.array(models.EntityChargeback$outboundSchema),
 });
 
 /**
@@ -213,9 +213,9 @@ export const ListChargebacksResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListChargebacksEmbedded$inboundSchema).optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListChargebacksEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -225,9 +225,9 @@ export const ListChargebacksResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListChargebacksResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListChargebacksEmbedded$Outbound | undefined;
-  _links?: models.ListLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListChargebacksEmbedded$Outbound;
+  _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
@@ -236,9 +236,9 @@ export const ListChargebacksResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListChargebacksResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListChargebacksEmbedded$outboundSchema).optional(),
-  links: models.ListLinks$outboundSchema.optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListChargebacksEmbedded$outboundSchema),
+  links: models.ListLinks$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

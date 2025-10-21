@@ -69,6 +69,6 @@ let value: ListProfilesEmbedded = {
 
 ## Fields
 
-| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `profiles`                                                              | [models.EntityProfileResponse](../../models/entityprofileresponse.md)[] | :heavy_minus_sign:                                                      | An array of profile objects.                                            |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `profiles`                                                  | [models.ProfileResponse](../../models/profileresponse.md)[] | :heavy_check_mark:                                          | An array of profile objects.                                |

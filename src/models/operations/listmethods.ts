@@ -5,55 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * **⚠️ We no longer recommend using the Orders API. Please refer to the [Payments API](payments-api) instead.**
- *
- * @remarks
- *
- * Indicate if you will use the result for the [Create order](create-order)
- * or the [Create payment](create-payment) endpoint.
- *
- * When passing the value `orders`, the result will include payment methods
- * that are only available for payments created via the Orders API.
- */
-export const Resource = {
-  Payments: "payments",
-  Orders: "orders",
-} as const;
-/**
- * **⚠️ We no longer recommend using the Orders API. Please refer to the [Payments API](payments-api) instead.**
- *
- * @remarks
- *
- * Indicate if you will use the result for the [Create order](create-order)
- * or the [Create payment](create-payment) endpoint.
- *
- * When passing the value `orders`, the result will include payment methods
- * that are only available for payments created via the Orders API.
- */
-export type Resource = ClosedEnum<typeof Resource>;
-
-/**
- * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code
- *
- * @remarks
- * to check if they are available on the shoppers device, hence the need to indicate your support.
- */
-export const IncludeWallets = {
-  Applepay: "applepay",
-} as const;
-/**
- * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code
- *
- * @remarks
- * to check if they are available on the shoppers device, hence the need to indicate your support.
- */
-export type IncludeWallets = ClosedEnum<typeof IncludeWallets>;
 
 export type ListMethodsRequest = {
   /**
@@ -91,7 +45,7 @@ export type ListMethodsRequest = {
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
-  resource?: Resource | undefined;
+  resource?: models.MethodResourceParameter | undefined;
   /**
    * The country taken from your customer's billing address in ISO 3166-1 alpha-2 format. This parameter can be used
    *
@@ -107,7 +61,7 @@ export type ListMethodsRequest = {
    * @remarks
    * to check if they are available on the shoppers device, hence the need to indicate your support.
    */
-  includeWallets?: IncludeWallets | undefined;
+  includeWallets?: models.MethodIncludeWalletsParameter | undefined;
   /**
    * A comma-separated list of the line categories you support in your checkout.
    *
@@ -188,46 +142,6 @@ export type ListMethodsResponse = {
 };
 
 /** @internal */
-export const Resource$inboundSchema: z.ZodNativeEnum<typeof Resource> = z
-  .nativeEnum(Resource);
-
-/** @internal */
-export const Resource$outboundSchema: z.ZodNativeEnum<typeof Resource> =
-  Resource$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Resource$ {
-  /** @deprecated use `Resource$inboundSchema` instead. */
-  export const inboundSchema = Resource$inboundSchema;
-  /** @deprecated use `Resource$outboundSchema` instead. */
-  export const outboundSchema = Resource$outboundSchema;
-}
-
-/** @internal */
-export const IncludeWallets$inboundSchema: z.ZodNativeEnum<
-  typeof IncludeWallets
-> = z.nativeEnum(IncludeWallets);
-
-/** @internal */
-export const IncludeWallets$outboundSchema: z.ZodNativeEnum<
-  typeof IncludeWallets
-> = IncludeWallets$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IncludeWallets$ {
-  /** @deprecated use `IncludeWallets$inboundSchema` instead. */
-  export const inboundSchema = IncludeWallets$inboundSchema;
-  /** @deprecated use `IncludeWallets$outboundSchema` instead. */
-  export const outboundSchema = IncludeWallets$outboundSchema;
-}
-
-/** @internal */
 export const ListMethodsRequest$inboundSchema: z.ZodType<
   ListMethodsRequest,
   z.ZodTypeDef,
@@ -236,9 +150,9 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
   sequenceType: models.SequenceType$inboundSchema.optional(),
   locale: models.LocaleParameter$inboundSchema.optional(),
   amount: models.Amount$inboundSchema.optional(),
-  resource: Resource$inboundSchema.optional(),
+  resource: models.MethodResourceParameter$inboundSchema.optional(),
   billingCountry: z.string().optional(),
-  includeWallets: IncludeWallets$inboundSchema.optional(),
+  includeWallets: models.MethodIncludeWalletsParameter$inboundSchema.optional(),
   orderLineCategories: models.LineCategories$inboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(z.string()).optional(),
@@ -274,9 +188,10 @@ export const ListMethodsRequest$outboundSchema: z.ZodType<
   sequenceType: models.SequenceType$outboundSchema.optional(),
   locale: models.LocaleParameter$outboundSchema.optional(),
   amount: models.Amount$outboundSchema.optional(),
-  resource: Resource$outboundSchema.optional(),
+  resource: models.MethodResourceParameter$outboundSchema.optional(),
   billingCountry: z.string().optional(),
-  includeWallets: IncludeWallets$outboundSchema.optional(),
+  includeWallets: models.MethodIncludeWalletsParameter$outboundSchema
+    .optional(),
   orderLineCategories: models.LineCategories$outboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(z.string()).optional(),

@@ -53,4 +53,4 @@ let value: ListAllChargebacksEmbedded = {
 
 | Field                                                         | Type                                                          | Required                                                      | Description                                                   |
 | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `chargebacks`                                                 | [models.EntityChargeback](../../models/entitychargeback.md)[] | :heavy_minus_sign:                                            | A list of chargeback objects.                                 |
+| `chargebacks`                                                 | [models.EntityChargeback](../../models/entitychargeback.md)[] | :heavy_check_mark:                                            | A list of chargeback objects.                                 |

@@ -55,28 +55,25 @@ export type EntityOrganization = {
    * @remarks
    * resource type.
    */
-  resource?: string | undefined;
-  /**
-   * The identifier uniquely referring to this organization. Example: `org_12345678`.
-   */
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * The name of the organization.
    */
-  name?: string | undefined;
+  name: string;
   /**
    * The email address associated with the organization.
    */
-  email?: string | undefined;
+  email: string;
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: LocaleResponse | null | undefined;
-  address?: Address | undefined;
+  locale: LocaleResponse | null;
+  address: Address;
   /**
    * The registration number of the organization at their local chamber of commerce.
    */
-  registrationNumber?: string | undefined;
+  registrationNumber: string;
   /**
    * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are
    *
@@ -98,7 +95,7 @@ export type EntityOrganization = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityOrganizationLinks | undefined;
+  links: EntityOrganizationLinks;
 };
 
 /** @internal */
@@ -167,16 +164,16 @@ export const EntityOrganization$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  name: z.string().optional(),
-  email: z.string().optional(),
-  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
-  address: Address$inboundSchema.optional(),
-  registrationNumber: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  locale: z.nullable(LocaleResponse$inboundSchema),
+  address: Address$inboundSchema,
+  registrationNumber: z.string(),
   vatNumber: z.nullable(z.string()).optional(),
   vatRegulation: z.nullable(OrganizationVatRegulation$inboundSchema).optional(),
-  _links: z.lazy(() => EntityOrganizationLinks$inboundSchema).optional(),
+  _links: z.lazy(() => EntityOrganizationLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -185,16 +182,16 @@ export const EntityOrganization$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntityOrganization$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  name?: string | undefined;
-  email?: string | undefined;
-  locale?: string | null | undefined;
-  address?: Address$Outbound | undefined;
-  registrationNumber?: string | undefined;
+  resource: string;
+  id: string;
+  name: string;
+  email: string;
+  locale: string | null;
+  address: Address$Outbound;
+  registrationNumber: string;
   vatNumber?: string | null | undefined;
   vatRegulation?: string | null | undefined;
-  _links?: EntityOrganizationLinks$Outbound | undefined;
+  _links: EntityOrganizationLinks$Outbound;
 };
 
 /** @internal */
@@ -203,17 +200,17 @@ export const EntityOrganization$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityOrganization
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  name: z.string().optional(),
-  email: z.string().optional(),
-  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
-  address: Address$outboundSchema.optional(),
-  registrationNumber: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  locale: z.nullable(LocaleResponse$outboundSchema),
+  address: Address$outboundSchema,
+  registrationNumber: z.string(),
   vatNumber: z.nullable(z.string()).optional(),
   vatRegulation: z.nullable(OrganizationVatRegulation$outboundSchema)
     .optional(),
-  links: z.lazy(() => EntityOrganizationLinks$outboundSchema).optional(),
+  links: z.lazy(() => EntityOrganizationLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

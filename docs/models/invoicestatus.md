@@ -7,7 +7,7 @@ Status of the invoice.
 ```typescript
 import { InvoiceStatus } from "mollie-api-typescript/models";
 
-let value: InvoiceStatus = "paid";
+let value: InvoiceStatus = "open";
 ```
 
 ## Values

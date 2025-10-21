@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: c433f659f9b30470e6d202ad2aa9fb27
+  docChecksum: a5dccf14f1e5388d77df2bf0465de0c1
   docVersion: 1.0.0
-  speakeasyVersion: 1.637.0
-  generationVersion: 2.727.4
-  releaseVersion: 0.4.0
-  configChecksum: 86aa941fc473f75c780cde937804e0d3
+  speakeasyVersion: 1.637.3
+  generationVersion: 2.727.9
+  releaseVersion: 0.4.1
+  configChecksum: 4ecdccc19cd7f6a1d79582831dbd722d
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -76,6 +76,8 @@ generatedFiles:
   - docs/models/chargebackcompensation.md
   - docs/models/chargebackreversal.md
   - docs/models/chargebacks.md
+  - docs/models/clientlinkresponse.md
+  - docs/models/clientlinkresponselinks.md
   - docs/models/close.md
   - docs/models/code.md
   - docs/models/company.md
@@ -94,7 +96,6 @@ generatedFiles:
   - docs/models/currencies.md
   - docs/models/customerresponse.md
   - docs/models/customerresponselinks.md
-  - docs/models/dashboard.md
   - docs/models/deletevaluessalesinvoice.md
   - docs/models/documentation.md
   - docs/models/embedded.md
@@ -118,8 +119,6 @@ generatedFiles:
   - docs/models/entitychargebacklinks.md
   - docs/models/entityclientlink.md
   - docs/models/entityclientlinkaddress.md
-  - docs/models/entityclientlinkresponse.md
-  - docs/models/entityclientlinkresponselinks.md
   - docs/models/entitycustomer.md
   - docs/models/entityevent.md
   - docs/models/entityeventlinks.md
@@ -150,8 +149,6 @@ generatedFiles:
   - docs/models/entitypermission.md
   - docs/models/entitypermissionlinks.md
   - docs/models/entityprofile.md
-  - docs/models/entityprofileresponse.md
-  - docs/models/entityprofileresponselinks.md
   - docs/models/entityrefund.md
   - docs/models/entityrefundexternalreference.md
   - docs/models/entityrefundresponse.md
@@ -161,6 +158,8 @@ generatedFiles:
   - docs/models/entityrefundresponsesource.md
   - docs/models/entityrefundroutingreversal.md
   - docs/models/entityrefundsource.md
+  - docs/models/entityroute.md
+  - docs/models/entityroutedestination.md
   - docs/models/entitysalesinvoice.md
   - docs/models/entitysalesinvoicemetadata.md
   - docs/models/entitysalesinvoiceresponse.md
@@ -198,10 +197,13 @@ generatedFiles:
   - docs/models/mandatestatus.md
   - docs/models/metadata.md
   - docs/models/method.md
+  - docs/models/methodincludewalletsparameter.md
+  - docs/models/methodresourceparameter.md
   - docs/models/methodresponse.md
   - docs/models/methodstatus.md
   - docs/models/mode.md
   - docs/models/onboardingstatus.md
+  - docs/models/onboardingvatregulation.md
   - docs/models/open.md
   - docs/models/operations/applicationfee.md
   - docs/models/operations/cancelpaymentrequest.md
@@ -234,7 +236,6 @@ generatedFiles:
   - docs/models/operations/deletesalesinvoicerequest.md
   - docs/models/operations/deletewebhookrequest.md
   - docs/models/operations/deletewebhookrequestbody.md
-  - docs/models/operations/documentation.md
   - docs/models/operations/getbalancereportrequest.md
   - docs/models/operations/getbalancerequest.md
   - docs/models/operations/getcapturerequest.md
@@ -275,8 +276,6 @@ generatedFiles:
   - docs/models/operations/getterminalrequest.md
   - docs/models/operations/getwebhookeventrequest.md
   - docs/models/operations/getwebhookrequest.md
-  - docs/models/operations/grouping.md
-  - docs/models/operations/includewallets.md
   - docs/models/operations/invoice.md
   - docs/models/operations/listallchargebacksembedded.md
   - docs/models/operations/listallchargebacksrequest.md
@@ -377,7 +376,6 @@ generatedFiles:
   - docs/models/operations/listwebhooksembedded.md
   - docs/models/operations/listwebhooksrequest.md
   - docs/models/operations/listwebhooksresponse.md
-  - docs/models/operations/mode.md
   - docs/models/operations/organization.md
   - docs/models/operations/partnertype.md
   - docs/models/operations/paymentcreaterouterequest.md
@@ -390,7 +388,6 @@ generatedFiles:
   - docs/models/operations/releaseauthorizationrequestbody.md
   - docs/models/operations/requestapplepaypaymentsessionrequest.md
   - docs/models/operations/requestapplepaypaymentsessionrequestbody.md
-  - docs/models/operations/resource.md
   - docs/models/operations/revokemandaterequest.md
   - docs/models/operations/revokemandaterequestbody.md
   - docs/models/operations/submitonboardingdatarequest.md
@@ -410,7 +407,6 @@ generatedFiles:
   - docs/models/operations/updatewebhookrequest.md
   - docs/models/operations/updatewebhookrequestbody.md
   - docs/models/operations/useragenttoken.md
-  - docs/models/operations/vatregulation.md
   - docs/models/organizationvatregulation.md
   - docs/models/outgoingtransfer.md
   - docs/models/owner.md
@@ -456,6 +452,8 @@ generatedFiles:
   - docs/models/platformpaymentrefund.md
   - docs/models/postpaymentsplitpayment.md
   - docs/models/pricing.md
+  - docs/models/profileresponse.md
+  - docs/models/profileresponselinks.md
   - docs/models/profilereviewstatusresponse.md
   - docs/models/profilestatus.md
   - docs/models/qrcode.md
@@ -480,8 +478,6 @@ generatedFiles:
   - docs/models/reversedchargebackcompensation.md
   - docs/models/reversedplatformpaymentchargeback.md
   - docs/models/review.md
-  - docs/models/routecreaterequest.md
-  - docs/models/routecreaterequestdestination.md
   - docs/models/routecreateresponse.md
   - docs/models/routecreateresponsedestination.md
   - docs/models/routecreateresponselinks.md
@@ -832,6 +828,7 @@ generatedFiles:
   - src/models/capturemoderesponse.ts
   - src/models/captureresponse.ts
   - src/models/capturestatus.ts
+  - src/models/clientlinkresponse.ts
   - src/models/componentssubtotals.ts
   - src/models/createwebhook.ts
   - src/models/currencies.ts
@@ -849,7 +846,6 @@ generatedFiles:
   - src/models/entitycapture.ts
   - src/models/entitychargeback.ts
   - src/models/entityclientlink.ts
-  - src/models/entityclientlinkresponse.ts
   - src/models/entitycustomer.ts
   - src/models/entityevent.ts
   - src/models/entityinvoice.ts
@@ -862,9 +858,9 @@ generatedFiles:
   - src/models/entitypaymentrouteresponse.ts
   - src/models/entitypermission.ts
   - src/models/entityprofile.ts
-  - src/models/entityprofileresponse.ts
   - src/models/entityrefund.ts
   - src/models/entityrefundresponse.ts
+  - src/models/entityroute.ts
   - src/models/entitysalesinvoice.ts
   - src/models/entitysalesinvoiceresponse.ts
   - src/models/entitysettlement.ts
@@ -895,10 +891,13 @@ generatedFiles:
   - src/models/mandatestatus.ts
   - src/models/metadata.ts
   - src/models/method.ts
+  - src/models/methodincludewalletsparameter.ts
+  - src/models/methodresourceparameter.ts
   - src/models/methodresponse.ts
   - src/models/methodstatus.ts
   - src/models/mode.ts
   - src/models/onboardingstatus.ts
+  - src/models/onboardingvatregulation.ts
   - src/models/operations/cancelpayment.ts
   - src/models/operations/cancelrefund.ts
   - src/models/operations/cancelsubscription.ts
@@ -1019,6 +1018,7 @@ generatedFiles:
   - src/models/paymentrequest.ts
   - src/models/paymentresponse.ts
   - src/models/paymentstatus.ts
+  - src/models/profileresponse.ts
   - src/models/profilereviewstatusresponse.ts
   - src/models/profilestatus.ts
   - src/models/recurringlineitem.ts
@@ -1026,7 +1026,6 @@ generatedFiles:
   - src/models/refundexternalreferencetyperesponse.ts
   - src/models/refundroutingreversalssourcetype.ts
   - src/models/refundstatus.ts
-  - src/models/routecreaterequest.ts
   - src/models/routecreateresponse.ts
   - src/models/routedestinationtype.ts
   - src/models/routedestinationtyperesponse.ts
@@ -3200,7 +3199,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 8, "_embedded": {"permissions": [{"resource": "permission", "id": "payments.read", "description": "View your payments", "granted": true, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "permission", "id": "payments.write", "description": "Create new payments", "granted": false, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {}, {}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 2, "_embedded": {"permissions": [{"resource": "permission", "id": "payments.read", "description": "View your payments", "granted": true, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "permission", "id": "payments.write", "description": "Create new payments", "granted": false, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     list-permissions-200-2:
       parameters:
         header:
@@ -3264,7 +3263,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "organization", "id": "org_12345678", "name": "Mollie B.V.", "email": "info@mollie.com", "address": {"streetAndNumber": "Keizersgracht 126", "postalCode": "1015 CW", "city": "Amsterdam", "country": "NL"}, "registrationNumber": "30204462", "vatNumber": "NL815839091B01", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://mollie.com/dashboard/org_12345678", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"resource": "organization", "id": "org_12345678", "name": "Mollie B.V.", "email": "info@mollie.com", "locale": "en_US", "address": {"streetAndNumber": "Keizersgracht 126", "postalCode": "1015 CW", "city": "Amsterdam", "country": "NL"}, "registrationNumber": "30204462", "vatNumber": "NL815839091B01", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://mollie.com/dashboard/org_12345678", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-get-organization:
       parameters:
         path:
@@ -3275,7 +3274,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "organization", "locale": "en_US", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "<value>", "postalCode": "18293", "city": "South Kaelyn", "country": "Tajikistan"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   get-current-organization:
@@ -3334,7 +3333,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"profiles": [{"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My website name", "website": "https://shop.example.org", "email": "info@example.org", "phone": "+31208202070", "businessCategory": "OTHER_MERCHANDISE", "status": "verified", "review": {"status": "pending"}, "createdAt": "2023-03-20T09:28:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/profiles?from=pfl_v9hTwCvYqw&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 1, "_embedded": {"profiles": [{"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My website name", "website": "https://shop.example.org", "email": "info@example.org", "phone": "+31208202070", "businessCategory": "OTHER_MERCHANDISE", "status": "verified", "review": {"status": "pending"}, "createdAt": "2023-03-20T09:28:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/profiles?from=pfl_v9hTwCvYqw&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-list-profiles:
       parameters:
         query:
@@ -3382,7 +3381,7 @@ examples:
         header:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       requestBody:
-        application/json: {"name": "My new website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202071", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "mode": "live"}
+        application/json: {"name": "My new website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202071", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE"}
       responses:
         "200":
           application/hal+json: {"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My updated website name", "website": "https://updated.example.org", "email": "info@example.org", "phone": "+31208202070", "businessCategory": "OTHER_MERCHANDISE", "status": "verified", "review": {"status": "pending"}, "createdAt": "2023-03-20T09:28:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_123456789/settings/profiles/pfl_QkEhN94Ba", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -3393,7 +3392,7 @@ examples:
         header:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       requestBody:
-        application/json: {"name": "My new website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202071", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "mode": "live"}
+        application/json: {"name": "My new website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202071", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE"}
       responses:
         "200":
           application/hal+json: {"resource": "profile", "id": "pfl_2q3RyuMGry", "mode": "live", "name": "My new website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202071", "businessCategory": "OTHER_MERCHANDISE", "status": "unverified", "review": {"status": "pending"}, "createdAt": "2022-01-19T12:30:22+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/settings/profiles/pfl_2q3RyuMGry", "type": "text/html"}, "chargebacks": {"href": "https://api.mollie.com/v2/chargebacks?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "methods": {"href": "https://api.mollie.com/v2/methods?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "payments": {"href": "https://api.mollie.com/v2/payments?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "refunds": {"href": "https://api.mollie.com/v2/refunds?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "checkoutPreviewUrl": {"href": "https://www.mollie.com/checkout/preview/pfl_2q3RyuMGry", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -3404,7 +3403,7 @@ examples:
         header:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       requestBody:
-        application/json: {"name": "My new website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202071", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "mode": "live"}
+        application/json: {"name": "My new website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202071", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE"}
       responses:
         "200":
           application/hal+json: {"resource": "profile", "id": "pfl_QkEhN94Ba", "mode": "live", "name": "My website name", "website": "https://example.com", "email": "test@mollie.com", "phone": "+31208202070", "description": "My website description", "countriesOfActivity": ["NL", "GB"], "businessCategory": "OTHER_MERCHANDISE", "status": "unverified", "review": {"status": "pending"}, "createdAt": "2024-03-20T09:13:37.0Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://www.mollie.com/dashboard/org_7049691/settings/profiles/pfl_2q3RyuMGry", "type": "text/html"}, "chargebacks": {"href": "https://api.mollie.com/v2/chargebacks?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "methods": {"href": "https://api.mollie.com/v2/methods?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "payments": {"href": "https://api.mollie.com/v2/payments?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "refunds": {"href": "https://api.mollie.com/v2/refunds?profileId=pfl_2q3RyuMGry", "type": "application/hal+json"}, "checkoutPreviewUrl": {"href": "https://www.mollie.com/checkout/preview/pfl_2q3RyuMGry", "type": "text/html"}, "documentation": {"href": "https://...", "type": "text/html"}}}
@@ -3484,7 +3483,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"clients": [{"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "locale": "en_US", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"count": 5, "_embedded": {"clients": [{"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "<value>", "postalCode": "42979", "city": "Sammyfort", "country": "United Arab Emirates"}, "registrationNumber": "12345678", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "400":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "404":
@@ -3544,7 +3543,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "locale": "en_US", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}
+          application/hal+json: {"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "<value>", "postalCode": "72737", "city": "Fort Reece", "country": "Svalbard & Jan Mayen Islands"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   create-client-link:
@@ -3774,7 +3773,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"balances": [{"resource": "balance", "id": "bal_gVMhHKqSSRYJyPsuoPNFH", "mode": "live", "createdAt": "2022-07-12T09:50:21+00:00", "currency": "EUR", "description": "Primary balance", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": "RF12-3456-7890-1234", "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "905.25"}, "pendingAmount": {"currency": "EUR", "value": "0.00"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances?from=bal_gVMhHKqSSRYJyPsuoPABC&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 1, "_embedded": {"balances": [{"resource": "balance", "id": "bal_gVMhHKqSSRYJyPsuoPNFH", "mode": "live", "createdAt": "2022-07-12T09:50:21+00:00", "currency": "EUR", "description": "Primary balance", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": "RF12-3456-7890-1234", "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "905.25"}, "pendingAmount": {"currency": "EUR", "value": "0.00"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances?from=bal_gVMhHKqSSRYJyPsuoPABC&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     list-balances-200-2:
       parameters:
         query:
@@ -3786,7 +3785,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 2, "_embedded": {"balances": [{"resource": "balance", "id": "bal_xRc8rYKTwJeENdvKouVJH", "mode": "live", "createdAt": "2022-07-12T09:50:21+00:00", "currency": "CHF", "status": "active", "transferFrequency": "monthly", "transferThreshold": {"currency": "CHF", "value": "50.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "CHF", "value": "0.00"}, "pendingAmount": {"currency": "CHF", "value": "0.00"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "balance", "id": "bal_CKjKwQdjCwCSArXFAJNFH", "mode": "live", "createdAt": "2019-12-06T10:09:32+00:00", "currency": "EUR", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "***", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "3.82"}, "pendingAmount": {"currency": "EUR", "value": "5.41"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": null, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 2, "_embedded": {"balances": [{"resource": "balance", "id": "bal_xRc8rYKTwJeENdvKouVJH", "mode": "live", "createdAt": "2022-07-12T09:50:21+00:00", "currency": "CHF", "description": "Balance 1", "status": "active", "transferFrequency": "monthly", "transferThreshold": {"currency": "CHF", "value": "50.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "CHF", "value": "0.00"}, "pendingAmount": {"currency": "CHF", "value": "0.00"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}, {"resource": "balance", "id": "bal_CKjKwQdjCwCSArXFAJNFH", "mode": "live", "createdAt": "2019-12-06T10:09:32+00:00", "currency": "EUR", "description": "Balance 2", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "***", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "3.82"}, "pendingAmount": {"currency": "EUR", "value": "5.41"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": null, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-list-balances:
       parameters:
         query:
@@ -3825,7 +3824,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "balance", "id": "bal_CKjKwQdjCwCSArXFAJNFH", "mode": "live", "createdAt": "2019-12-06T10:09:32+00:00", "currency": "EUR", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "3.82"}, "pendingAmount": {"currency": "EUR", "value": "5.41"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"resource": "balance", "id": "bal_CKjKwQdjCwCSArXFAJNFH", "mode": "live", "createdAt": "2019-12-06T10:09:32+00:00", "currency": "EUR", "description": "Primary balance", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "3.82"}, "pendingAmount": {"currency": "EUR", "value": "5.41"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-get-balance:
       parameters:
         path:
@@ -3846,7 +3845,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "balance", "id": "bal_CKjKwQdjCwCSArXFAJNFH", "mode": "live", "createdAt": "2019-12-06T10:09:32+00:00", "currency": "EUR", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "3.82"}, "pendingAmount": {"currency": "EUR", "value": "5.41"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"resource": "balance", "id": "bal_CKjKwQdjCwCSArXFAJNFH", "mode": "live", "createdAt": "2019-12-06T10:09:32+00:00", "currency": "EUR", "description": "Primary balance", "status": "active", "transferFrequency": "daily", "transferThreshold": {"currency": "EUR", "value": "5.00"}, "transferReference": null, "transferDestination": {"type": "bank-account", "bankAccount": "NL55INGB0000000000", "beneficiaryName": "John Doe"}, "availableAmount": {"currency": "EUR", "value": "3.82"}, "pendingAmount": {"currency": "EUR", "value": "5.41"}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
   get-balance-report:
     get-balance-report-200-1:
       parameters:
@@ -3921,7 +3920,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29A", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-10.25"}, "initialAmount": {"currency": "EUR", "value": "-10.00"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_WhmDwNYR87FPDbiwBhUXCh", "type": "payment", "resultAmount": {"currency": "EUR", "value": "9.71"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "-0.29"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {}, {}, {}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_gVMhHKqSSRYJyPsuoPNFH/transactions?from=baltr_rXeW2yPqqDUyfAqq8fS5Bg&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 2, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29A", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-10.25"}, "initialAmount": {"currency": "EUR", "value": "-10.00"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_WhmDwNYR87FPDbiwBhUXCh", "type": "payment", "resultAmount": {"currency": "EUR", "value": "9.71"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "-0.29"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_gVMhHKqSSRYJyPsuoPNFH/transactions?from=baltr_rXeW2yPqqDUyfAqq8fS5Bg&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     list-balance-transactions-200-2:
       parameters:
         path:
@@ -4272,7 +4271,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"count": 5, "_embedded": {"invoices": [{}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "400":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "404":
@@ -4295,7 +4294,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "invoice", "netAmount": {"currency": "EUR", "value": "10.00"}, "vatAmount": {"currency": "EUR", "value": "10.00"}, "grossAmount": {"currency": "EUR", "value": "10.00"}, "lines": [{"amount": {"currency": "EUR", "value": "10.00"}}], "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "pdf": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "invoice", "id": "inv_aHbjjdrUdm", "reference": "2024.10000", "vatNumber": "NL123456789B01", "status": "open", "netAmount": {"currency": "EUR", "value": "10.00"}, "vatAmount": {"currency": "EUR", "value": "10.00"}, "grossAmount": {"currency": "EUR", "value": "10.00"}, "lines": [{"period": "2024-01", "description": "Product #1", "count": 3, "vatPercentage": 21, "amount": {"currency": "EUR", "value": "10.00"}}], "issuedAt": "2024-01-15", "paidAt": "2024-01-20", "dueAt": "2024-01-30", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "pdf": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   create-sales-invoice:
@@ -4648,4 +4647,4 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes Detected:\n* `client.salesInvoices.create()`: \n  *  `request.entity-sales-invoice.isEInvoice` **Removed** **Breaking** :warning:\n  *  `response.iseinvoice` **Removed** **Breaking** :warning:\n* `client.salesInvoices.list()`:  `response._embedded.salesInvoices.[].isEInvoice` **Removed** **Breaking** :warning:\n* `client.salesInvoices.get()`:  `response.iseinvoice` **Removed** **Breaking** :warning:\n* `client.salesInvoices.update()`: \n  *  `request.update-values-sales-invoice.isEInvoice` **Removed** **Breaking** :warning:\n  *  `response.iseinvoice` **Removed** **Breaking** :warning:\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `client.profiles.update()`: \n  *  `request.requestBody.mode` **Removed** **Breaking** :warning:\n* `client.delayedRouting.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed**\n* `client.clients.get()`:  `response._embedded` **Changed** **Breaking** :warning:\n* `client.balances.getReport()`: \n  *  `request.grouping` **Changed** **Breaking** :warning:\n  *  `response` **Changed**\n* `client.clients.list()`:  `response._embedded.clients.[].Embedded` **Changed** **Breaking** :warning:\n* `client.capabilities.list()`:  `response` **Changed** **Breaking** :warning:\n* `client.onboarding.submit()`: \n  *  `request.requestBody.organization.address` **Changed** **Breaking** :warning:\n* `client.invoices.list()`:  `response` **Changed**\n* `client.settlements.listChargebacks()`:  `response` **Changed**\n* `client.permissions.get()`:  `response` **Changed**\n* `client.organizations.get()`:  `response` **Changed**\n* `client.organizations.getCurrent()`:  `response` **Changed**\n* `client.profiles.list()`:  `response` **Changed**\n* `client.invoices.get()`:  `response` **Changed**\n* `client.onboarding.get()`:  `response` **Changed**\n* `client.balances.list()`:  `response` **Changed**\n* `client.permissions.list()`:  `response` **Changed**\n* `client.balances.listTransactions()`:  `response` **Changed**\n* `client.balances.getPrimary()`:  `response` **Changed**\n* `client.webhookEvents.get()`:  `response._embedded.entity` **Changed**\n* `client.methods.list()`:  `request` **Changed**\n* `client.chargebacks.list()`:  `response` **Changed**\n* `client.chargebacks.all()`:  `response` **Changed**\n* `client.balances.get()`:  `response` **Changed**\n* `client.delayedRouting.list()`:  `response` **Changed**\n"

@@ -45,7 +45,7 @@ export type ListBalanceTransactionsEmbedded = {
   /**
    * An array of balance transaction objects.
    */
-  balanceTransactions?: Array<models.EntityBalanceTransaction> | undefined;
+  balanceTransactions: Array<models.EntityBalanceTransaction>;
 };
 
 /**
@@ -61,12 +61,12 @@ export type ListBalanceTransactionsResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListBalanceTransactionsEmbedded | undefined;
+  count: number;
+  embedded: ListBalanceTransactionsEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: models.ListLinks | undefined;
+  links: models.ListLinks;
 };
 
 /** @internal */
@@ -151,8 +151,7 @@ export const ListBalanceTransactionsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  balance_transactions: z.array(models.EntityBalanceTransaction$inboundSchema)
-    .optional(),
+  balance_transactions: z.array(models.EntityBalanceTransaction$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "balance_transactions": "balanceTransactions",
@@ -161,9 +160,7 @@ export const ListBalanceTransactionsEmbedded$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListBalanceTransactionsEmbedded$Outbound = {
-  balance_transactions?:
-    | Array<models.EntityBalanceTransaction$Outbound>
-    | undefined;
+  balance_transactions: Array<models.EntityBalanceTransaction$Outbound>;
 };
 
 /** @internal */
@@ -172,8 +169,7 @@ export const ListBalanceTransactionsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListBalanceTransactionsEmbedded
 > = z.object({
-  balanceTransactions: z.array(models.EntityBalanceTransaction$outboundSchema)
-    .optional(),
+  balanceTransactions: z.array(models.EntityBalanceTransaction$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     balanceTransactions: "balance_transactions",
@@ -219,10 +215,9 @@ export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListBalanceTransactionsEmbedded$inboundSchema)
-    .optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListBalanceTransactionsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -232,9 +227,9 @@ export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListBalanceTransactionsResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListBalanceTransactionsEmbedded$Outbound | undefined;
-  _links?: models.ListLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListBalanceTransactionsEmbedded$Outbound;
+  _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
@@ -243,10 +238,9 @@ export const ListBalanceTransactionsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListBalanceTransactionsResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListBalanceTransactionsEmbedded$outboundSchema)
-    .optional(),
-  links: models.ListLinks$outboundSchema.optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListBalanceTransactionsEmbedded$outboundSchema),
+  links: models.ListLinks$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

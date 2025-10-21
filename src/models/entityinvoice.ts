@@ -29,23 +29,23 @@ export type EntityInvoiceLine = {
   /**
    * The administrative period in `YYYY-MM` on which the line should be booked.
    */
-  period?: string | undefined;
+  period: string;
   /**
    * Description of the product.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * Number of products invoiced. For example, the number of payments.
    */
-  count?: number | undefined;
+  count: number;
   /**
    * VAT percentage rate that applies to this product.
    */
-  vatPercentage?: number | undefined;
+  vatPercentage: number;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
+  amount: Amount;
 };
 
 /**
@@ -73,43 +73,40 @@ export type EntityInvoice = {
    * @remarks
    * Will always contain the string `invoice` for this endpoint.
    */
-  resource?: string | undefined;
-  /**
-   * The identifier uniquely referring to this invoice. Example: `inv_FrvewDA3Pr`.
-   */
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * The reference number of the invoice. An example value would be: `2024.10000`.
    */
-  reference?: string | undefined;
+  reference: string;
   /**
    * The VAT number to which the invoice was issued to, if applicable.
    */
-  vatNumber?: string | null | undefined;
+  vatNumber: string | null;
   /**
    * Status of the invoice.
    */
-  status?: InvoiceStatus | undefined;
+  status: InvoiceStatus;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  netAmount?: Amount | undefined;
+  netAmount: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  vatAmount?: Amount | undefined;
+  vatAmount: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  grossAmount?: Amount | undefined;
+  grossAmount: Amount;
   /**
    * The collection of products which make up the invoice.
    */
-  lines?: Array<EntityInvoiceLine> | undefined;
+  lines: Array<EntityInvoiceLine>;
   /**
    * The invoice date in `YYYY-MM-DD` format.
    */
-  issuedAt?: string | undefined;
+  issuedAt: string;
   /**
    * The date on which the invoice was paid, if applicable, in `YYYY-MM-DD` format.
    */
@@ -121,7 +118,7 @@ export type EntityInvoice = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityInvoiceLinks | undefined;
+  links: EntityInvoiceLinks;
 };
 
 /** @internal */
@@ -130,20 +127,20 @@ export const EntityInvoiceLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  period: z.string().optional(),
-  description: z.string().optional(),
-  count: z.number().int().optional(),
-  vatPercentage: z.number().int().optional(),
-  amount: Amount$inboundSchema.optional(),
+  period: z.string(),
+  description: z.string(),
+  count: z.number().int(),
+  vatPercentage: z.number().int(),
+  amount: Amount$inboundSchema,
 });
 
 /** @internal */
 export type EntityInvoiceLine$Outbound = {
-  period?: string | undefined;
-  description?: string | undefined;
-  count?: number | undefined;
-  vatPercentage?: number | undefined;
-  amount?: Amount$Outbound | undefined;
+  period: string;
+  description: string;
+  count: number;
+  vatPercentage: number;
+  amount: Amount$Outbound;
 };
 
 /** @internal */
@@ -152,11 +149,11 @@ export const EntityInvoiceLine$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityInvoiceLine
 > = z.object({
-  period: z.string().optional(),
-  description: z.string().optional(),
-  count: z.number().int().optional(),
-  vatPercentage: z.number().int().optional(),
-  amount: Amount$outboundSchema.optional(),
+  period: z.string(),
+  description: z.string(),
+  count: z.number().int(),
+  vatPercentage: z.number().int(),
+  amount: Amount$outboundSchema,
 });
 
 /**
@@ -256,19 +253,19 @@ export const EntityInvoice$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  reference: z.string().optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  status: InvoiceStatus$inboundSchema.optional(),
-  netAmount: Amount$inboundSchema.optional(),
-  vatAmount: Amount$inboundSchema.optional(),
-  grossAmount: Amount$inboundSchema.optional(),
-  lines: z.array(z.lazy(() => EntityInvoiceLine$inboundSchema)).optional(),
-  issuedAt: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  reference: z.string(),
+  vatNumber: z.nullable(z.string()),
+  status: InvoiceStatus$inboundSchema,
+  netAmount: Amount$inboundSchema,
+  vatAmount: Amount$inboundSchema,
+  grossAmount: Amount$inboundSchema,
+  lines: z.array(z.lazy(() => EntityInvoiceLine$inboundSchema)),
+  issuedAt: z.string(),
   paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => EntityInvoiceLinks$inboundSchema).optional(),
+  _links: z.lazy(() => EntityInvoiceLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -277,19 +274,19 @@ export const EntityInvoice$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntityInvoice$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  reference?: string | undefined;
-  vatNumber?: string | null | undefined;
-  status?: string | undefined;
-  netAmount?: Amount$Outbound | undefined;
-  vatAmount?: Amount$Outbound | undefined;
-  grossAmount?: Amount$Outbound | undefined;
-  lines?: Array<EntityInvoiceLine$Outbound> | undefined;
-  issuedAt?: string | undefined;
+  resource: string;
+  id: string;
+  reference: string;
+  vatNumber: string | null;
+  status: string;
+  netAmount: Amount$Outbound;
+  vatAmount: Amount$Outbound;
+  grossAmount: Amount$Outbound;
+  lines: Array<EntityInvoiceLine$Outbound>;
+  issuedAt: string;
   paidAt?: string | null | undefined;
   dueAt?: string | null | undefined;
-  _links?: EntityInvoiceLinks$Outbound | undefined;
+  _links: EntityInvoiceLinks$Outbound;
 };
 
 /** @internal */
@@ -298,19 +295,19 @@ export const EntityInvoice$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityInvoice
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  reference: z.string().optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  status: InvoiceStatus$outboundSchema.optional(),
-  netAmount: Amount$outboundSchema.optional(),
-  vatAmount: Amount$outboundSchema.optional(),
-  grossAmount: Amount$outboundSchema.optional(),
-  lines: z.array(z.lazy(() => EntityInvoiceLine$outboundSchema)).optional(),
-  issuedAt: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  reference: z.string(),
+  vatNumber: z.nullable(z.string()),
+  status: InvoiceStatus$outboundSchema,
+  netAmount: Amount$outboundSchema,
+  vatAmount: Amount$outboundSchema,
+  grossAmount: Amount$outboundSchema,
+  lines: z.array(z.lazy(() => EntityInvoiceLine$outboundSchema)),
+  issuedAt: z.string(),
   paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => EntityInvoiceLinks$outboundSchema).optional(),
+  links: z.lazy(() => EntityInvoiceLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

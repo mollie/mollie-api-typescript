@@ -5,27 +5,8 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * Updating a profile from `test` mode to `live` mode will trigger a verification process, where we review
- *
- * @remarks
- * the profile before it can start accepting payments.
- */
-export const Mode = {
-  Live: "live",
-  Test: "test",
-} as const;
-/**
- * Updating a profile from `test` mode to `live` mode will trigger a verification process, where we review
- *
- * @remarks
- * the profile before it can start accepting payments.
- */
-export type Mode = ClosedEnum<typeof Mode>;
 
 export type UpdateProfileRequestBody = {
   /**
@@ -68,13 +49,6 @@ export type UpdateProfileRequestBody = {
    * [business category list](common-data-types) for all possible options.
    */
   businessCategory?: string | null | undefined;
-  /**
-   * Updating a profile from `test` mode to `live` mode will trigger a verification process, where we review
-   *
-   * @remarks
-   * the profile before it can start accepting payments.
-   */
-  mode?: Mode | null | undefined;
 };
 
 export type UpdateProfileRequest = {
@@ -90,26 +64,6 @@ export type UpdateProfileRequest = {
 };
 
 /** @internal */
-export const Mode$inboundSchema: z.ZodNativeEnum<typeof Mode> = z.nativeEnum(
-  Mode,
-);
-
-/** @internal */
-export const Mode$outboundSchema: z.ZodNativeEnum<typeof Mode> =
-  Mode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Mode$ {
-  /** @deprecated use `Mode$inboundSchema` instead. */
-  export const inboundSchema = Mode$inboundSchema;
-  /** @deprecated use `Mode$outboundSchema` instead. */
-  export const outboundSchema = Mode$outboundSchema;
-}
-
-/** @internal */
 export const UpdateProfileRequestBody$inboundSchema: z.ZodType<
   UpdateProfileRequestBody,
   z.ZodTypeDef,
@@ -122,7 +76,6 @@ export const UpdateProfileRequestBody$inboundSchema: z.ZodType<
   description: z.nullable(z.string()).optional(),
   countriesOfActivity: z.nullable(z.array(z.string())).optional(),
   businessCategory: z.nullable(z.string()).optional(),
-  mode: z.nullable(Mode$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -134,7 +87,6 @@ export type UpdateProfileRequestBody$Outbound = {
   description?: string | null | undefined;
   countriesOfActivity?: Array<string> | null | undefined;
   businessCategory?: string | null | undefined;
-  mode?: string | null | undefined;
 };
 
 /** @internal */
@@ -150,7 +102,6 @@ export const UpdateProfileRequestBody$outboundSchema: z.ZodType<
   description: z.nullable(z.string()).optional(),
   countriesOfActivity: z.nullable(z.array(z.string())).optional(),
   businessCategory: z.nullable(z.string()).optional(),
-  mode: z.nullable(Mode$outboundSchema).optional(),
 });
 
 /**

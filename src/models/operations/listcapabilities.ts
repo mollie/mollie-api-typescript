@@ -17,16 +17,14 @@ export type ListCapabilitiesRequest = {
 };
 
 export type ListCapabilitiesEmbedded = {
-  capabilities?: Array<models.EntityCapability> | undefined;
-};
-
-export type Documentation = {
-  href?: string | undefined;
-  type?: string | undefined;
+  capabilities: Array<models.EntityCapability>;
 };
 
 export type ListCapabilitiesLinks = {
-  documentation?: Documentation | undefined;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  documentation?: models.Url | undefined;
 };
 
 /**
@@ -36,9 +34,9 @@ export type ListCapabilitiesResponse = {
   /**
    * The number of items in this result set.
    */
-  count?: number | undefined;
-  embedded?: ListCapabilitiesEmbedded | undefined;
-  links?: ListCapabilitiesLinks | undefined;
+  count: number;
+  embedded: ListCapabilitiesEmbedded;
+  links: ListCapabilitiesLinks;
 };
 
 /** @internal */
@@ -109,12 +107,12 @@ export const ListCapabilitiesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  capabilities: z.array(models.EntityCapability$inboundSchema).optional(),
+  capabilities: z.array(models.EntityCapability$inboundSchema),
 });
 
 /** @internal */
 export type ListCapabilitiesEmbedded$Outbound = {
-  capabilities?: Array<models.EntityCapability$Outbound> | undefined;
+  capabilities: Array<models.EntityCapability$Outbound>;
 };
 
 /** @internal */
@@ -123,7 +121,7 @@ export const ListCapabilitiesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCapabilitiesEmbedded
 > = z.object({
-  capabilities: z.array(models.EntityCapability$outboundSchema).optional(),
+  capabilities: z.array(models.EntityCapability$outboundSchema),
 });
 
 /**
@@ -158,70 +156,17 @@ export function listCapabilitiesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const Documentation$inboundSchema: z.ZodType<
-  Documentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type Documentation$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const Documentation$outboundSchema: z.ZodType<
-  Documentation$Outbound,
-  z.ZodTypeDef,
-  Documentation
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Documentation$ {
-  /** @deprecated use `Documentation$inboundSchema` instead. */
-  export const inboundSchema = Documentation$inboundSchema;
-  /** @deprecated use `Documentation$outboundSchema` instead. */
-  export const outboundSchema = Documentation$outboundSchema;
-  /** @deprecated use `Documentation$Outbound` instead. */
-  export type Outbound = Documentation$Outbound;
-}
-
-export function documentationToJSON(documentation: Documentation): string {
-  return JSON.stringify(Documentation$outboundSchema.parse(documentation));
-}
-
-export function documentationFromJSON(
-  jsonString: string,
-): SafeParseResult<Documentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Documentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Documentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListCapabilitiesLinks$inboundSchema: z.ZodType<
   ListCapabilitiesLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  documentation: z.lazy(() => Documentation$inboundSchema).optional(),
+  documentation: models.Url$inboundSchema.optional(),
 });
 
 /** @internal */
 export type ListCapabilitiesLinks$Outbound = {
-  documentation?: Documentation$Outbound | undefined;
+  documentation?: models.Url$Outbound | undefined;
 };
 
 /** @internal */
@@ -230,7 +175,7 @@ export const ListCapabilitiesLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCapabilitiesLinks
 > = z.object({
-  documentation: z.lazy(() => Documentation$outboundSchema).optional(),
+  documentation: models.Url$outboundSchema.optional(),
 });
 
 /**
@@ -270,9 +215,9 @@ export const ListCapabilitiesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListCapabilitiesEmbedded$inboundSchema).optional(),
-  _links: z.lazy(() => ListCapabilitiesLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListCapabilitiesEmbedded$inboundSchema),
+  _links: z.lazy(() => ListCapabilitiesLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -282,9 +227,9 @@ export const ListCapabilitiesResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListCapabilitiesResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListCapabilitiesEmbedded$Outbound | undefined;
-  _links?: ListCapabilitiesLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListCapabilitiesEmbedded$Outbound;
+  _links: ListCapabilitiesLinks$Outbound;
 };
 
 /** @internal */
@@ -293,9 +238,9 @@ export const ListCapabilitiesResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCapabilitiesResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListCapabilitiesEmbedded$outboundSchema).optional(),
-  links: z.lazy(() => ListCapabilitiesLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListCapabilitiesEmbedded$outboundSchema),
+  links: z.lazy(() => ListCapabilitiesLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

@@ -29,7 +29,7 @@ async function run() {
   const result = await client.delayedRouting.create({
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    routeCreateRequest: {
+    entityRoute: {
       id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
       paymentId: "tr_5B8cwPMGnU",
       amount: {
@@ -71,7 +71,7 @@ async function run() {
   const res = await delayedRoutingCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    routeCreateRequest: {
+    entityRoute: {
       id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
       paymentId: "tr_5B8cwPMGnU",
       amount: {

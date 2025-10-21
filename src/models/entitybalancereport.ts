@@ -229,12 +229,12 @@ export type EntityBalanceReport = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
-  balanceId?: string | undefined;
+  resource: string;
+  balanceId: string;
   /**
    * The time zone used for the from and until parameters. Currently only time zone `Europe/Amsterdam` is supported.
    */
-  timeZone?: string | undefined;
+  timeZone: string;
   /**
    * The start date of the report, in `YYYY-MM-DD` format. The from date is 'inclusive', and in Central European Time.
    *
@@ -242,15 +242,15 @@ export type EntityBalanceReport = {
    * This means a report with for example `from=2024-01-01` will include movements of 2024-01-01 00:00:00 CET and
    * onwards.
    */
-  from?: string | undefined;
+  from: string;
   /**
    * The end date of the report, in `YYYY-MM-DD` format. The until date is 'exclusive', and in Central European Time.
    *
    * @remarks
    * This means a report with for example `until=2024-02-01` will include movements up until 2024-01-31 23:59:59 CET.
    */
-  until?: string | undefined;
-  grouping?: BalanceReportGrouping | undefined;
+  until: string;
+  grouping: BalanceReportGrouping;
   /**
    * Totals are grouped according to the chosen grouping rule. The example response should give a good idea of what a
    *
@@ -275,11 +275,11 @@ export type EntityBalanceReport = {
    * * A `count` integer if relevant (for example, counting the number of refunds)
    * * A `subtotals` array containing more sub-group objects if applicable
    */
-  totals?: Totals | undefined;
+  totals: Totals;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityBalanceReportLinks | undefined;
+  links: EntityBalanceReportLinks;
 };
 
 /** @internal */
@@ -1095,14 +1095,14 @@ export const EntityBalanceReport$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  balanceId: z.string().optional(),
-  timeZone: z.string().optional(),
-  from: z.string().optional(),
-  until: z.string().optional(),
-  grouping: BalanceReportGrouping$inboundSchema.optional(),
-  totals: z.lazy(() => Totals$inboundSchema).optional(),
-  _links: z.lazy(() => EntityBalanceReportLinks$inboundSchema).optional(),
+  resource: z.string(),
+  balanceId: z.string(),
+  timeZone: z.string(),
+  from: z.string(),
+  until: z.string(),
+  grouping: BalanceReportGrouping$inboundSchema,
+  totals: z.lazy(() => Totals$inboundSchema),
+  _links: z.lazy(() => EntityBalanceReportLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1111,14 +1111,14 @@ export const EntityBalanceReport$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntityBalanceReport$Outbound = {
-  resource?: string | undefined;
-  balanceId?: string | undefined;
-  timeZone?: string | undefined;
-  from?: string | undefined;
-  until?: string | undefined;
-  grouping?: string | undefined;
-  totals?: Totals$Outbound | undefined;
-  _links?: EntityBalanceReportLinks$Outbound | undefined;
+  resource: string;
+  balanceId: string;
+  timeZone: string;
+  from: string;
+  until: string;
+  grouping: string;
+  totals: Totals$Outbound;
+  _links: EntityBalanceReportLinks$Outbound;
 };
 
 /** @internal */
@@ -1127,14 +1127,14 @@ export const EntityBalanceReport$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityBalanceReport
 > = z.object({
-  resource: z.string().optional(),
-  balanceId: z.string().optional(),
-  timeZone: z.string().optional(),
-  from: z.string().optional(),
-  until: z.string().optional(),
-  grouping: BalanceReportGrouping$outboundSchema.optional(),
-  totals: z.lazy(() => Totals$outboundSchema).optional(),
-  links: z.lazy(() => EntityBalanceReportLinks$outboundSchema).optional(),
+  resource: z.string(),
+  balanceId: z.string(),
+  timeZone: z.string(),
+  from: z.string(),
+  until: z.string(),
+  grouping: BalanceReportGrouping$outboundSchema,
+  totals: z.lazy(() => Totals$outboundSchema),
+  links: z.lazy(() => EntityBalanceReportLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

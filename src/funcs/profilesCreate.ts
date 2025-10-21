@@ -41,7 +41,7 @@ export function profilesCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.EntityProfileResponse,
+    models.ProfileResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -67,7 +67,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.EntityProfileResponse,
+      models.ProfileResponse,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -163,7 +163,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.EntityProfileResponse,
+    models.ProfileResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -174,7 +174,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.EntityProfileResponse$inboundSchema, {
+    M.json(201, models.ProfileResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr(422, errors.ErrorResponse$inboundSchema, {

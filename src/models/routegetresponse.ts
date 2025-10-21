@@ -54,25 +54,25 @@ export type RouteGetResponse = {
   /**
    * Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
    */
-  resource: string;
-  id: string;
-  paymentId: string;
+  resource?: string | undefined;
+  id?: string | undefined;
+  paymentId?: string | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount: Amount;
+  amount?: Amount | undefined;
   /**
    * The description of the route. This description is shown in the reports.
    */
-  description: string;
+  description?: string | undefined;
   /**
    * The destination of the route.
    */
-  destination: RouteGetResponseDestination;
+  destination?: RouteGetResponseDestination | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links: RouteGetResponseLinks;
+  links?: RouteGetResponseLinks | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -201,13 +201,14 @@ export const RouteGetResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string(),
-  id: z.string(),
-  paymentId: z.string(),
-  amount: Amount$inboundSchema,
-  description: z.string(),
-  destination: z.lazy(() => RouteGetResponseDestination$inboundSchema),
-  _links: z.lazy(() => RouteGetResponseLinks$inboundSchema),
+  resource: z.string().optional(),
+  id: z.string().optional(),
+  paymentId: z.string().optional(),
+  amount: Amount$inboundSchema.optional(),
+  description: z.string().optional(),
+  destination: z.lazy(() => RouteGetResponseDestination$inboundSchema)
+    .optional(),
+  _links: z.lazy(() => RouteGetResponseLinks$inboundSchema).optional(),
   createdAt: z.string(),
 }).transform((v) => {
   return remap$(v, {
@@ -217,13 +218,13 @@ export const RouteGetResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type RouteGetResponse$Outbound = {
-  resource: string;
-  id: string;
-  paymentId: string;
-  amount: Amount$Outbound;
-  description: string;
-  destination: RouteGetResponseDestination$Outbound;
-  _links: RouteGetResponseLinks$Outbound;
+  resource?: string | undefined;
+  id?: string | undefined;
+  paymentId?: string | undefined;
+  amount?: Amount$Outbound | undefined;
+  description?: string | undefined;
+  destination?: RouteGetResponseDestination$Outbound | undefined;
+  _links?: RouteGetResponseLinks$Outbound | undefined;
   createdAt: string;
 };
 
@@ -233,13 +234,14 @@ export const RouteGetResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RouteGetResponse
 > = z.object({
-  resource: z.string(),
-  id: z.string(),
-  paymentId: z.string(),
-  amount: Amount$outboundSchema,
-  description: z.string(),
-  destination: z.lazy(() => RouteGetResponseDestination$outboundSchema),
-  links: z.lazy(() => RouteGetResponseLinks$outboundSchema),
+  resource: z.string().optional(),
+  id: z.string().optional(),
+  paymentId: z.string().optional(),
+  amount: Amount$outboundSchema.optional(),
+  description: z.string().optional(),
+  destination: z.lazy(() => RouteGetResponseDestination$outboundSchema)
+    .optional(),
+  links: z.lazy(() => RouteGetResponseLinks$outboundSchema).optional(),
   createdAt: z.string(),
 }).transform((v) => {
   return remap$(v, {

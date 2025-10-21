@@ -7,7 +7,7 @@ The current status of the organization's onboarding process.
 ```typescript
 import { OnboardingStatus } from "mollie-api-typescript/models";
 
-let value: OnboardingStatus = "needs-data";
+let value: OnboardingStatus = "completed";
 ```
 
 ## Values

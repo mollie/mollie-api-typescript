@@ -12,19 +12,7 @@ let value: ListCapabilitiesEmbedded = {
       name: "payments",
       status: "pending",
       statusReason: "requirement-past-due",
-      requirements: [
-        {
-          id: "legal-representatives",
-          status: "past-due",
-          dueDate: "2024-01-01T12:00:00+00:00",
-          links: {
-            dashboard: {
-              href: "https://my.mollie.com/dashboard/...",
-              type: "text/html",
-            },
-          },
-        },
-      ],
+      requirements: [],
     },
   ],
 };
@@ -34,4 +22,4 @@ let value: ListCapabilitiesEmbedded = {
 
 | Field                                                         | Type                                                          | Required                                                      | Description                                                   |
 | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `capabilities`                                                | [models.EntityCapability](../../models/entitycapability.md)[] | :heavy_minus_sign:                                            | N/A                                                           |
+| `capabilities`                                                | [models.EntityCapability](../../models/entitycapability.md)[] | :heavy_check_mark:                                            | N/A                                                           |

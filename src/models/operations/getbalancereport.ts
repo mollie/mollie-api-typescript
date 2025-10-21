@@ -5,35 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * You can retrieve reports in two different formats. With the `status-balances` format, transactions are grouped
- *
- * @remarks
- * by status (e.g. `pending`, `available`), then by transaction type, and then by other sub-groupings where
- * available (e.g. payment method).
- *
- * With the `transaction-categories` format, transactions are grouped by
- * transaction type, then by status, and then again by other sub-groupings where available.
- */
-export const Grouping = {
-  StatusBalances: "status-balances",
-  TransactionCategories: "transaction-categories",
-} as const;
-/**
- * You can retrieve reports in two different formats. With the `status-balances` format, transactions are grouped
- *
- * @remarks
- * by status (e.g. `pending`, `available`), then by transaction type, and then by other sub-groupings where
- * available (e.g. payment method).
- *
- * With the `transaction-categories` format, transactions are grouped by
- * transaction type, then by status, and then again by other sub-groupings where available.
- */
-export type Grouping = ClosedEnum<typeof Grouping>;
+import * as models from "../index.js";
 
 export type GetBalanceReportRequest = {
   /**
@@ -66,7 +40,7 @@ export type GetBalanceReportRequest = {
    * With the `transaction-categories` format, transactions are grouped by
    * transaction type, then by status, and then again by other sub-groupings where available.
    */
-  grouping?: Grouping | null | undefined;
+  grouping?: models.BalanceReportGrouping | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -84,25 +58,6 @@ export type GetBalanceReportRequest = {
 };
 
 /** @internal */
-export const Grouping$inboundSchema: z.ZodNativeEnum<typeof Grouping> = z
-  .nativeEnum(Grouping);
-
-/** @internal */
-export const Grouping$outboundSchema: z.ZodNativeEnum<typeof Grouping> =
-  Grouping$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Grouping$ {
-  /** @deprecated use `Grouping$inboundSchema` instead. */
-  export const inboundSchema = Grouping$inboundSchema;
-  /** @deprecated use `Grouping$outboundSchema` instead. */
-  export const outboundSchema = Grouping$outboundSchema;
-}
-
-/** @internal */
 export const GetBalanceReportRequest$inboundSchema: z.ZodType<
   GetBalanceReportRequest,
   z.ZodTypeDef,
@@ -111,7 +66,7 @@ export const GetBalanceReportRequest$inboundSchema: z.ZodType<
   balanceId: z.string(),
   from: z.string(),
   until: z.string(),
-  grouping: z.nullable(Grouping$inboundSchema).optional(),
+  grouping: models.BalanceReportGrouping$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -125,7 +80,7 @@ export type GetBalanceReportRequest$Outbound = {
   balanceId: string;
   from: string;
   until: string;
-  grouping?: string | null | undefined;
+  grouping?: string | undefined;
   testmode?: boolean | null | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -139,7 +94,7 @@ export const GetBalanceReportRequest$outboundSchema: z.ZodType<
   balanceId: z.string(),
   from: z.string(),
   until: z.string(),
-  grouping: z.nullable(Grouping$outboundSchema).optional(),
+  grouping: models.BalanceReportGrouping$outboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

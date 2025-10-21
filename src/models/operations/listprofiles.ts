@@ -31,7 +31,7 @@ export type ListProfilesEmbedded = {
   /**
    * An array of profile objects.
    */
-  profiles?: Array<models.EntityProfileResponse> | undefined;
+  profiles: Array<models.ProfileResponse>;
 };
 
 /**
@@ -47,12 +47,12 @@ export type ListProfilesResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListProfilesEmbedded | undefined;
+  count: number;
+  embedded: ListProfilesEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: models.ListLinks | undefined;
+  links: models.ListLinks;
 };
 
 /** @internal */
@@ -129,12 +129,12 @@ export const ListProfilesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  profiles: z.array(models.EntityProfileResponse$inboundSchema).optional(),
+  profiles: z.array(models.ProfileResponse$inboundSchema),
 });
 
 /** @internal */
 export type ListProfilesEmbedded$Outbound = {
-  profiles?: Array<models.EntityProfileResponse$Outbound> | undefined;
+  profiles: Array<models.ProfileResponse$Outbound>;
 };
 
 /** @internal */
@@ -143,7 +143,7 @@ export const ListProfilesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListProfilesEmbedded
 > = z.object({
-  profiles: z.array(models.EntityProfileResponse$outboundSchema).optional(),
+  profiles: z.array(models.ProfileResponse$outboundSchema),
 });
 
 /**
@@ -183,9 +183,9 @@ export const ListProfilesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListProfilesEmbedded$inboundSchema).optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListProfilesEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -195,9 +195,9 @@ export const ListProfilesResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListProfilesResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListProfilesEmbedded$Outbound | undefined;
-  _links?: models.ListLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListProfilesEmbedded$Outbound;
+  _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
@@ -206,9 +206,9 @@ export const ListProfilesResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListProfilesResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListProfilesEmbedded$outboundSchema).optional(),
-  links: models.ListLinks$outboundSchema.optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListProfilesEmbedded$outboundSchema),
+  links: models.ListLinks$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

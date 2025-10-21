@@ -12,32 +12,18 @@ import {
   CapabilityRequirementStatus$outboundSchema,
 } from "./capabilityrequirementstatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
- *
- * @remarks
- * For example, where necessary documents are to be uploaded.
- */
-export type Dashboard = {
-  /**
-   * The actual URL string.
-   */
-  href?: string | undefined;
-  /**
-   * The content type of the page or endpoint the URL points to.
-   */
-  type?: string | undefined;
-};
+import {
+  Url,
+  Url$inboundSchema,
+  Url$Outbound,
+  Url$outboundSchema,
+} from "./url.js";
 
 export type EntityCapabilityRequirementLinks = {
   /**
-   * If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
-   *
-   * @remarks
-   * For example, where necessary documents are to be uploaded.
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  dashboard?: Dashboard | undefined;
+  dashboard?: Url | undefined;
 };
 
 export type EntityCapabilityRequirement = {
@@ -48,73 +34,20 @@ export type EntityCapabilityRequirement = {
    * to enable or re-enable the capability. The name is unique among other requirements
    * of the same capability.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * The status of the requirement depends on its due date.
    *
    * @remarks
    * If no due date is given, the status will be `requested`.
    */
-  status?: CapabilityRequirementStatus | undefined;
+  status: CapabilityRequirementStatus;
   /**
    * Due date until the requirement must be fulfilled, if any. The date is shown in ISO-8601 format.
    */
-  dueDate?: string | null | undefined;
-  links?: EntityCapabilityRequirementLinks | undefined;
+  dueDate: string | null;
+  links: EntityCapabilityRequirementLinks;
 };
-
-/** @internal */
-export const Dashboard$inboundSchema: z.ZodType<
-  Dashboard,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/** @internal */
-export type Dashboard$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/** @internal */
-export const Dashboard$outboundSchema: z.ZodType<
-  Dashboard$Outbound,
-  z.ZodTypeDef,
-  Dashboard
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Dashboard$ {
-  /** @deprecated use `Dashboard$inboundSchema` instead. */
-  export const inboundSchema = Dashboard$inboundSchema;
-  /** @deprecated use `Dashboard$outboundSchema` instead. */
-  export const outboundSchema = Dashboard$outboundSchema;
-  /** @deprecated use `Dashboard$Outbound` instead. */
-  export type Outbound = Dashboard$Outbound;
-}
-
-export function dashboardToJSON(dashboard: Dashboard): string {
-  return JSON.stringify(Dashboard$outboundSchema.parse(dashboard));
-}
-
-export function dashboardFromJSON(
-  jsonString: string,
-): SafeParseResult<Dashboard, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Dashboard$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Dashboard' from JSON`,
-  );
-}
 
 /** @internal */
 export const EntityCapabilityRequirementLinks$inboundSchema: z.ZodType<
@@ -122,12 +55,12 @@ export const EntityCapabilityRequirementLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dashboard: z.lazy(() => Dashboard$inboundSchema).optional(),
+  dashboard: Url$inboundSchema.optional(),
 });
 
 /** @internal */
 export type EntityCapabilityRequirementLinks$Outbound = {
-  dashboard?: Dashboard$Outbound | undefined;
+  dashboard?: Url$Outbound | undefined;
 };
 
 /** @internal */
@@ -136,7 +69,7 @@ export const EntityCapabilityRequirementLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityCapabilityRequirementLinks
 > = z.object({
-  dashboard: z.lazy(() => Dashboard$outboundSchema).optional(),
+  dashboard: Url$outboundSchema.optional(),
 });
 
 /**
@@ -178,11 +111,10 @@ export const EntityCapabilityRequirement$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  status: CapabilityRequirementStatus$inboundSchema.optional(),
-  dueDate: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => EntityCapabilityRequirementLinks$inboundSchema)
-    .optional(),
+  id: z.string(),
+  status: CapabilityRequirementStatus$inboundSchema,
+  dueDate: z.nullable(z.string()),
+  _links: z.lazy(() => EntityCapabilityRequirementLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -191,10 +123,10 @@ export const EntityCapabilityRequirement$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntityCapabilityRequirement$Outbound = {
-  id?: string | undefined;
-  status?: string | undefined;
-  dueDate?: string | null | undefined;
-  _links?: EntityCapabilityRequirementLinks$Outbound | undefined;
+  id: string;
+  status: string;
+  dueDate: string | null;
+  _links: EntityCapabilityRequirementLinks$Outbound;
 };
 
 /** @internal */
@@ -203,11 +135,10 @@ export const EntityCapabilityRequirement$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityCapabilityRequirement
 > = z.object({
-  id: z.string().optional(),
-  status: CapabilityRequirementStatus$outboundSchema.optional(),
-  dueDate: z.nullable(z.string()).optional(),
-  links: z.lazy(() => EntityCapabilityRequirementLinks$outboundSchema)
-    .optional(),
+  id: z.string(),
+  status: CapabilityRequirementStatus$outboundSchema,
+  dueDate: z.nullable(z.string()),
+  links: z.lazy(() => EntityCapabilityRequirementLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

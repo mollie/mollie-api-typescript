@@ -162,7 +162,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntityClientLinkResponse](../../models/entityclientlinkresponse.md)\>**
+**Promise\<[models.ClientLinkResponse](../../models/clientlinkresponse.md)\>**
 
 ### Errors
 

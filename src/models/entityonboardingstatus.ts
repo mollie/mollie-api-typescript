@@ -48,31 +48,31 @@ export type EntityOnboardingStatus = {
    * @remarks
    * resource type.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The name of the organization.
    */
-  name?: string | undefined;
+  name: string;
   /**
    * The current status of the organization's onboarding process.
    */
-  status?: OnboardingStatus | undefined;
+  status: OnboardingStatus;
   /**
    * Whether the organization can receive payments.
    */
-  canReceivePayments?: boolean | undefined;
+  canReceivePayments: boolean;
   /**
    * Whether the organization can receive settlements to their external bank account.
    */
-  canReceiveSettlements?: boolean | undefined;
+  canReceiveSettlements: boolean;
   /**
    * The sign up date time of the organization in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  signedUpAt?: string | undefined;
+  signedUpAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityOnboardingStatusLinks | undefined;
+  links: EntityOnboardingStatusLinks;
 };
 
 /** @internal */
@@ -146,13 +146,13 @@ export const EntityOnboardingStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  name: z.string().optional(),
-  status: OnboardingStatus$inboundSchema.optional(),
-  canReceivePayments: z.boolean().optional(),
-  canReceiveSettlements: z.boolean().optional(),
-  signedUpAt: z.string().optional(),
-  _links: z.lazy(() => EntityOnboardingStatusLinks$inboundSchema).optional(),
+  resource: z.string(),
+  name: z.string(),
+  status: OnboardingStatus$inboundSchema,
+  canReceivePayments: z.boolean(),
+  canReceiveSettlements: z.boolean(),
+  signedUpAt: z.string(),
+  _links: z.lazy(() => EntityOnboardingStatusLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -161,13 +161,13 @@ export const EntityOnboardingStatus$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntityOnboardingStatus$Outbound = {
-  resource?: string | undefined;
-  name?: string | undefined;
-  status?: string | undefined;
-  canReceivePayments?: boolean | undefined;
-  canReceiveSettlements?: boolean | undefined;
-  signedUpAt?: string | undefined;
-  _links?: EntityOnboardingStatusLinks$Outbound | undefined;
+  resource: string;
+  name: string;
+  status: string;
+  canReceivePayments: boolean;
+  canReceiveSettlements: boolean;
+  signedUpAt: string;
+  _links: EntityOnboardingStatusLinks$Outbound;
 };
 
 /** @internal */
@@ -176,13 +176,13 @@ export const EntityOnboardingStatus$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityOnboardingStatus
 > = z.object({
-  resource: z.string().optional(),
-  name: z.string().optional(),
-  status: OnboardingStatus$outboundSchema.optional(),
-  canReceivePayments: z.boolean().optional(),
-  canReceiveSettlements: z.boolean().optional(),
-  signedUpAt: z.string().optional(),
-  links: z.lazy(() => EntityOnboardingStatusLinks$outboundSchema).optional(),
+  resource: z.string(),
+  name: z.string(),
+  status: OnboardingStatus$outboundSchema,
+  canReceivePayments: z.boolean(),
+  canReceiveSettlements: z.boolean(),
+  signedUpAt: z.string(),
+  links: z.lazy(() => EntityOnboardingStatusLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

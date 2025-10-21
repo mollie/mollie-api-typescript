@@ -34,7 +34,7 @@ export type PaymentListRoutesEmbedded = {
   /**
    * An array of route objects.
    */
-  routes?: Array<models.RouteGetResponse> | undefined;
+  routes: Array<models.RouteGetResponse>;
 };
 
 /**
@@ -64,12 +64,12 @@ export type PaymentListRoutesResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: PaymentListRoutesEmbedded | undefined;
+  count: number;
+  embedded: PaymentListRoutesEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: PaymentListRoutesLinks | undefined;
+  links: PaymentListRoutesLinks;
 };
 
 /** @internal */
@@ -146,12 +146,12 @@ export const PaymentListRoutesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  routes: z.array(models.RouteGetResponse$inboundSchema).optional(),
+  routes: z.array(models.RouteGetResponse$inboundSchema),
 });
 
 /** @internal */
 export type PaymentListRoutesEmbedded$Outbound = {
-  routes?: Array<models.RouteGetResponse$Outbound> | undefined;
+  routes: Array<models.RouteGetResponse$Outbound>;
 };
 
 /** @internal */
@@ -160,7 +160,7 @@ export const PaymentListRoutesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentListRoutesEmbedded
 > = z.object({
-  routes: z.array(models.RouteGetResponse$outboundSchema).optional(),
+  routes: z.array(models.RouteGetResponse$outboundSchema),
 });
 
 /**
@@ -257,9 +257,9 @@ export const PaymentListRoutesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => PaymentListRoutesEmbedded$inboundSchema).optional(),
-  _links: z.lazy(() => PaymentListRoutesLinks$inboundSchema).optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => PaymentListRoutesEmbedded$inboundSchema),
+  _links: z.lazy(() => PaymentListRoutesLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -269,9 +269,9 @@ export const PaymentListRoutesResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type PaymentListRoutesResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: PaymentListRoutesEmbedded$Outbound | undefined;
-  _links?: PaymentListRoutesLinks$Outbound | undefined;
+  count: number;
+  _embedded: PaymentListRoutesEmbedded$Outbound;
+  _links: PaymentListRoutesLinks$Outbound;
 };
 
 /** @internal */
@@ -280,9 +280,9 @@ export const PaymentListRoutesResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentListRoutesResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => PaymentListRoutesEmbedded$outboundSchema).optional(),
-  links: z.lazy(() => PaymentListRoutesLinks$outboundSchema).optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => PaymentListRoutesEmbedded$outboundSchema),
+  links: z.lazy(() => PaymentListRoutesLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

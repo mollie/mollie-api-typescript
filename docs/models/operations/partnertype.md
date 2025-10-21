@@ -8,7 +8,7 @@ enrolled as a partner.
 ```typescript
 import { PartnerType } from "mollie-api-typescript/models/operations";
 
-let value: PartnerType = "useragent";
+let value: PartnerType = "oauth";
 ```
 
 ## Values

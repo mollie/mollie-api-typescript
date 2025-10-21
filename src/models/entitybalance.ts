@@ -84,25 +84,25 @@ export type EntityBalance = {
   /**
    * Indicates the response contains a balance object. Will always contain the string `balance` for this endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: Mode | undefined;
+  mode: Mode;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
-  currency?: Currencies | undefined;
+  createdAt: string;
+  currency: Currencies;
   /**
    * The description or name of the balance. Can be used to denote the purpose of the balance.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The status of the balance.
    */
-  status?: BalanceStatus | undefined;
+  status: BalanceStatus;
   /**
    * The frequency with which the available amount on the balance will be settled to the configured transfer
    *
@@ -130,15 +130,15 @@ export type EntityBalance = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  availableAmount?: Amount | undefined;
+  availableAmount: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  pendingAmount?: Amount | undefined;
+  pendingAmount: Amount;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityBalanceLinks | undefined;
+  links: EntityBalanceLinks;
 };
 
 /** @internal */
@@ -264,22 +264,22 @@ export const EntityBalance$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$inboundSchema.optional(),
-  createdAt: z.string().optional(),
-  currency: Currencies$inboundSchema.optional(),
-  description: z.string().optional(),
-  status: BalanceStatus$inboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  createdAt: z.string(),
+  currency: Currencies$inboundSchema,
+  description: z.string(),
+  status: BalanceStatus$inboundSchema,
   transferFrequency: BalanceTransferFrequency$inboundSchema.optional(),
   transferThreshold: Amount$inboundSchema.optional(),
   transferReference: z.nullable(z.string()).optional(),
   transferDestination: z.nullable(
     z.lazy(() => TransferDestination$inboundSchema),
   ).optional(),
-  availableAmount: Amount$inboundSchema.optional(),
-  pendingAmount: Amount$inboundSchema.optional(),
-  _links: z.lazy(() => EntityBalanceLinks$inboundSchema).optional(),
+  availableAmount: Amount$inboundSchema,
+  pendingAmount: Amount$inboundSchema,
+  _links: z.lazy(() => EntityBalanceLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -288,20 +288,20 @@ export const EntityBalance$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntityBalance$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  mode?: string | undefined;
-  createdAt?: string | undefined;
-  currency?: string | undefined;
-  description?: string | undefined;
-  status?: string | undefined;
+  resource: string;
+  id: string;
+  mode: string;
+  createdAt: string;
+  currency: string;
+  description: string;
+  status: string;
   transferFrequency?: string | undefined;
   transferThreshold?: Amount$Outbound | undefined;
   transferReference?: string | null | undefined;
   transferDestination?: TransferDestination$Outbound | null | undefined;
-  availableAmount?: Amount$Outbound | undefined;
-  pendingAmount?: Amount$Outbound | undefined;
-  _links?: EntityBalanceLinks$Outbound | undefined;
+  availableAmount: Amount$Outbound;
+  pendingAmount: Amount$Outbound;
+  _links: EntityBalanceLinks$Outbound;
 };
 
 /** @internal */
@@ -310,22 +310,22 @@ export const EntityBalance$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityBalance
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$outboundSchema.optional(),
-  createdAt: z.string().optional(),
-  currency: Currencies$outboundSchema.optional(),
-  description: z.string().optional(),
-  status: BalanceStatus$outboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$outboundSchema,
+  createdAt: z.string(),
+  currency: Currencies$outboundSchema,
+  description: z.string(),
+  status: BalanceStatus$outboundSchema,
   transferFrequency: BalanceTransferFrequency$outboundSchema.optional(),
   transferThreshold: Amount$outboundSchema.optional(),
   transferReference: z.nullable(z.string()).optional(),
   transferDestination: z.nullable(
     z.lazy(() => TransferDestination$outboundSchema),
   ).optional(),
-  availableAmount: Amount$outboundSchema.optional(),
-  pendingAmount: Amount$outboundSchema.optional(),
-  links: z.lazy(() => EntityBalanceLinks$outboundSchema).optional(),
+  availableAmount: Amount$outboundSchema,
+  pendingAmount: Amount$outboundSchema,
+  links: z.lazy(() => EntityBalanceLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

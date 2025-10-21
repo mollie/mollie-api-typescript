@@ -6,12 +6,6 @@ import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  EntityProfileResponse,
-  EntityProfileResponse$inboundSchema,
-  EntityProfileResponse$Outbound,
-  EntityProfileResponse$outboundSchema,
-} from "./entityprofileresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentLinkResponse,
@@ -19,6 +13,12 @@ import {
   PaymentLinkResponse$Outbound,
   PaymentLinkResponse$outboundSchema,
 } from "./paymentlinkresponse.js";
+import {
+  ProfileResponse,
+  ProfileResponse$inboundSchema,
+  ProfileResponse$Outbound,
+  ProfileResponse$outboundSchema,
+} from "./profileresponse.js";
 import {
   Url,
   Url$inboundSchema,
@@ -31,13 +31,13 @@ import {
   WebhookEventTypes$outboundSchema,
 } from "./webhookeventtypes.js";
 
-export type Entity = PaymentLinkResponse | EntityProfileResponse;
+export type Entity = PaymentLinkResponse | ProfileResponse;
 
 /**
  * Full payload of the event.
  */
 export type Embedded = {
-  entity?: PaymentLinkResponse | EntityProfileResponse | undefined;
+  entity?: PaymentLinkResponse | ProfileResponse | undefined;
 };
 
 /**
@@ -91,15 +91,12 @@ export type EntityWebhookEvent = {
 
 /** @internal */
 export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
-  .union([
-    PaymentLinkResponse$inboundSchema,
-    EntityProfileResponse$inboundSchema,
-  ]);
+  .union([PaymentLinkResponse$inboundSchema, ProfileResponse$inboundSchema]);
 
 /** @internal */
 export type Entity$Outbound =
   | PaymentLinkResponse$Outbound
-  | EntityProfileResponse$Outbound;
+  | ProfileResponse$Outbound;
 
 /** @internal */
 export const Entity$outboundSchema: z.ZodType<
@@ -108,7 +105,7 @@ export const Entity$outboundSchema: z.ZodType<
   Entity
 > = z.union([
   PaymentLinkResponse$outboundSchema,
-  EntityProfileResponse$outboundSchema,
+  ProfileResponse$outboundSchema,
 ]);
 
 /**
@@ -146,16 +143,13 @@ export const Embedded$inboundSchema: z.ZodType<
 > = z.object({
   entity: z.union([
     PaymentLinkResponse$inboundSchema,
-    EntityProfileResponse$inboundSchema,
+    ProfileResponse$inboundSchema,
   ]).optional(),
 });
 
 /** @internal */
 export type Embedded$Outbound = {
-  entity?:
-    | PaymentLinkResponse$Outbound
-    | EntityProfileResponse$Outbound
-    | undefined;
+  entity?: PaymentLinkResponse$Outbound | ProfileResponse$Outbound | undefined;
 };
 
 /** @internal */
@@ -166,7 +160,7 @@ export const Embedded$outboundSchema: z.ZodType<
 > = z.object({
   entity: z.union([
     PaymentLinkResponse$outboundSchema,
-    EntityProfileResponse$outboundSchema,
+    ProfileResponse$outboundSchema,
   ]).optional(),
 });
 

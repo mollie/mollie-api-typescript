@@ -44,12 +44,7 @@ let value: ListBalanceTransactionsResponse = {
             captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
             captureDescription: "Capture Description",
           },
-          captureRollingReserveRelease: {
-            paymentId: "tr_5B8cwPMGnU",
-            paymentDescription: "Payment Description",
-            captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
-            captureDescription: "Capture Description",
-          },
+          captureRollingReserveRelease: null,
           unauthorizedDirectDebit: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -70,7 +65,12 @@ let value: ListBalanceTransactionsResponse = {
             refundId: "re_5B8cwPMGnU",
             refundDescription: "Refund Description",
           },
-          returnedRefund: null,
+          returnedRefund: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+            refundId: "re_5B8cwPMGnU",
+            refundDescription: "Refund Description",
+          },
           returnedRefundCompensation: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -95,7 +95,12 @@ let value: ListBalanceTransactionsResponse = {
             chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
             chargebackDescription: "Chargeback Description",
           },
-          reversedChargebackCompensation: null,
+          reversedChargebackCompensation: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+            chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
+            chargebackDescription: "Chargeback Description",
+          },
           outgoingTransfer: {
             transferId: "trf_nyjwa2",
             settlementId: "stl_5B8cwPMGnU",
@@ -121,24 +126,9 @@ let value: ListBalanceTransactionsResponse = {
             paymentDescription: "Payment Description",
             paymentOnwer: "org_1234567",
           },
-          platformPaymentRefund: {
-            paymentId: "tr_5B8cwPMGnU",
-            paymentDescription: "Payment Description",
-            refundId: "re_5B8cwPMGnU",
-            refundDescription: "Refund Description",
-          },
-          returnedPlatformPaymentRefund: {
-            paymentId: "tr_5B8cwPMGnU",
-            paymentDescription: "Payment Description",
-            refundId: "re_5B8cwPMGnU",
-            refundDescription: "Refund Description",
-          },
-          platformPaymentChargeback: {
-            paymentId: "tr_5B8cwPMGnU",
-            paymentDescription: "Payment Description",
-            chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-            chargebackDescription: "Chargeback Description",
-          },
+          platformPaymentRefund: null,
+          returnedPlatformPaymentRefund: null,
+          platformPaymentChargeback: null,
           reversedPlatformPaymentChargeback: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -170,9 +160,7 @@ let value: ListBalanceTransactionsResponse = {
             feeType: "feeType",
             feeId: "feeId",
           },
-          postPaymentSplitPayment: {
-            paymentId: "tr_5B8cwPMGnU",
-          },
+          postPaymentSplitPayment: null,
         },
         createdAt: "2024-03-20T09:13:37.0Z",
       },
@@ -203,6 +191,6 @@ let value: ListBalanceTransactionsResponse = {
 
 | Field                                                                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                               | Example                                                                                                                                                                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
-| `embedded`                                                                                                                                                                                                                                                                | [operations.ListBalanceTransactionsEmbedded](../../models/operations/listbalancetransactionsembedded.md)                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
-| `links`                                                                                                                                                                                                                                                                   | [models.ListLinks](../../models/listlinks.md)                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |
+| `count`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                        | The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result<br/>as well.<br/><br/>The maximum number of items per result set is controlled by the `limit` property provided in the request. The default<br/>limit is 50 items. | 5                                                                                                                                                                                                                                                                         |
+| `embedded`                                                                                                                                                                                                                                                                | [operations.ListBalanceTransactionsEmbedded](../../models/operations/listbalancetransactionsembedded.md)                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                           |
+| `links`                                                                                                                                                                                                                                                                   | [models.ListLinks](../../models/listlinks.md)                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                        | Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.                                                                                                                                                            |                                                                                                                                                                                                                                                                           |

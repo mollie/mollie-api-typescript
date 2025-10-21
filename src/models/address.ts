@@ -11,33 +11,33 @@ export type Address = {
   /**
    * A street and street number.
    */
-  streetAndNumber?: string | undefined;
+  streetAndNumber: string;
   /**
    * A postal code. This field may be required if the provided country has a postal code system.
    */
-  postalCode?: string | undefined;
-  city?: string | undefined;
+  postalCode: string;
+  city: string;
   /**
    * A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
-  country?: string | undefined;
+  country: string;
 };
 
 /** @internal */
 export const Address$inboundSchema: z.ZodType<Address, z.ZodTypeDef, unknown> =
   z.object({
-    streetAndNumber: z.string().optional(),
-    postalCode: z.string().optional(),
-    city: z.string().optional(),
-    country: z.string().optional(),
+    streetAndNumber: z.string(),
+    postalCode: z.string(),
+    city: z.string(),
+    country: z.string(),
   });
 
 /** @internal */
 export type Address$Outbound = {
-  streetAndNumber?: string | undefined;
-  postalCode?: string | undefined;
-  city?: string | undefined;
-  country?: string | undefined;
+  streetAndNumber: string;
+  postalCode: string;
+  city: string;
+  country: string;
 };
 
 /** @internal */
@@ -46,10 +46,10 @@ export const Address$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Address
 > = z.object({
-  streetAndNumber: z.string().optional(),
-  postalCode: z.string().optional(),
-  city: z.string().optional(),
-  country: z.string().optional(),
+  streetAndNumber: z.string(),
+  postalCode: z.string(),
+  city: z.string(),
+  country: z.string(),
 });
 
 /**

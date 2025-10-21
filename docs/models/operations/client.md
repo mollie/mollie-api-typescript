@@ -28,7 +28,18 @@ let value: Client = {
   embedded: {
     organization: {
       resource: "organization",
+      id: "org_1234567",
+      name: "My Online Store",
+      email: "example@mail.com",
       locale: "en_US",
+      address: {
+        streetAndNumber: "<value>",
+        postalCode: "03511-2414",
+        city: "Port Kaileyville",
+        country: "Malta",
+      },
+      registrationNumber: "12345678",
+      vatNumber: "NL123456789B01",
       vatRegulation: "dutch",
       links: {
         self: {
@@ -47,6 +58,11 @@ let value: Client = {
     },
     onboarding: {
       resource: "onboarding",
+      name: "My webshop",
+      status: "completed",
+      canReceivePayments: true,
+      canReceiveSettlements: true,
+      signedUpAt: "2023-01-15T13:45:30Z",
       links: {
         self: {
           href: "https://...",
@@ -71,19 +87,7 @@ let value: Client = {
       name: "payments",
       status: "pending",
       statusReason: "requirement-past-due",
-      requirements: [
-        {
-          id: "legal-representatives",
-          status: "past-due",
-          dueDate: "2024-01-01T12:00:00+00:00",
-          links: {
-            dashboard: {
-              href: "https://my.mollie.com/dashboard/...",
-              type: "text/html",
-            },
-          },
-        },
-      ],
+      requirements: [],
     },
   },
 };

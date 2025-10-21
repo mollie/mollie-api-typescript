@@ -103,11 +103,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - balances
                     properties:
                       balances:
                         description: |-
@@ -122,7 +128,7 @@ paths:
                 list-balances-200-1:
                   summary: A list of balance objects
                   value:
-                    count: 5
+                    count: 1
                     _embedded:
                       balances:
                         - resource: balance
@@ -151,10 +157,6 @@ paths:
                             self:
                               href: ...
                               type: application/hal+json
-                        - {}
-                        - {}
-                        - {}
-                        - {}
                     _links:
                       self:
                         href: ...
@@ -175,6 +177,7 @@ paths:
                           id: bal_xRc8rYKTwJeENdvKouVJH
                           mode: live
                           createdAt: '2022-07-12T09:50:21+00:00'
+                          description: Balance 1
                           currency: CHF
                           availableAmount:
                             value: '0.00'
@@ -200,6 +203,7 @@ paths:
                           id: bal_CKjKwQdjCwCSArXFAJNFH
                           mode: live
                           createdAt: '2019-12-06T10:09:32+00:00'
+                          description: Balance 2
                           currency: EUR
                           availableAmount:
                             value: '3.82'
@@ -353,6 +357,7 @@ paths:
                     id: bal_CKjKwQdjCwCSArXFAJNFH
                     mode: live
                     createdAt: '2019-12-06T10:09:32+00:00'
+                    description: Primary balance
                     currency: EUR
                     availableAmount:
                       value: '3.82'
@@ -447,6 +452,7 @@ paths:
                     id: bal_CKjKwQdjCwCSArXFAJNFH
                     mode: live
                     createdAt: '2019-12-06T10:09:32+00:00'
+                    description: Primary balance
                     currency: EUR
                     availableAmount:
                       value: '3.82'
@@ -554,13 +560,7 @@ paths:
             transaction type, then by status, and then again by other sub-groupings where available.
           in: query
           schema:
-            type:
-              - string
-              - 'null'
-            enum:
-              - status-balances
-              - transaction-categories
-            example: status-balances
+            $ref: '#/components/schemas/balance-report-grouping'
         - $ref: '#/components/parameters/testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
@@ -1372,11 +1372,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - balance_transactions
                     properties:
                       balance_transactions:
                         description: An array of balance transaction objects.
@@ -1389,7 +1395,7 @@ paths:
                 list-balance-transactions-200-1:
                   summary: A list of balance transaction objects
                   value:
-                    count: 5
+                    count: 2
                     _embedded:
                       balance_transactions:
                         - resource: balance-transaction
@@ -1423,9 +1429,6 @@ paths:
                           createdAt: '2022-12-16T11:23:25+00:00'
                           context:
                             paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-                        - {}
-                        - {}
-                        - {}
                     _links:
                       self:
                         href: ...
@@ -5381,11 +5384,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - chargebacks
                     properties:
                       chargebacks:
                         description: A list of chargeback objects.
@@ -5633,11 +5642,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - invoices
                     properties:
                       invoices:
                         description: |-
@@ -6720,11 +6735,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - permissions
                     properties:
                       permissions:
                         description: An array of permission objects.
@@ -6744,7 +6765,7 @@ paths:
                 list-permissions-200-1:
                   summary: A list of permission objects
                   value:
-                    count: 8
+                    count: 2
                     _embedded:
                       permissions:
                         - resource: permission
@@ -6763,12 +6784,6 @@ paths:
                             self:
                               href: ...
                               type: application/hal+json
-                        - {}
-                        - {}
-                        - {}
-                        - {}
-                        - {}
-                        - {}
                     _links:
                       self:
                         href: ...
@@ -7152,6 +7167,7 @@ paths:
                     id: org_12345678
                     name: Mollie B.V.
                     email: info@mollie.com
+                    locale: en_US
                     address:
                       streetAndNumber: Keizersgracht 126
                       postalCode: 1015 CW
@@ -7341,6 +7357,9 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - resource
+                  - partnerType
                 properties:
                   resource:
                     type: string
@@ -7360,10 +7379,12 @@ paths:
                       - oauth
                       - signuplink
                       - useragent
+                    example: oauth
                     readOnly: true
                   isCommissionPartner:
                     type: boolean
                     description: Whether the current organization is receiving commissions.
+                    example: true
                     readOnly: true
                   userAgentTokens:
                     type: array
@@ -7376,9 +7397,11 @@ paths:
                         token:
                           type: string
                           description: The unique User-Agent token.
+                          example: ...
                         startsAt:
                           type: string
                           description: The date from which the token is active, in ISO 8601 format.
+                          example: '2024-01-01T00:00:00Z'
                         endsAt:
                           type:
                             - string
@@ -7386,6 +7409,7 @@ paths:
                           description: |-
                             The date until when the token will be active, in ISO 8601 format. Will be `null` if the token
                             does not have an end date (yet).
+                          example: '2024-12-31T23:59:59Z'
                     readOnly: true
                   partnerContractSignedAt:
                     type:
@@ -7394,16 +7418,19 @@ paths:
                     description: |-
                       The date the partner contract was signed, in ISO 8601 format. Omitted if no contract has been signed
                       (yet).
+                    example: '2024-01-15T10:00:00Z'
                     readOnly: true
                   partnerContractUpdateAvailable:
                     type: boolean
                     description: Whether an update to the partner contract is available and requiring the organization's agreement.
+                    example: false
                     readOnly: true
                   partnerContractExpiresAt:
                     type: string
                     description: |-
                       The expiration date of the signed partner contract, in ISO 8601 format. Omitted if contract has no
                       expiration date (yet).
+                    example: '2025-01-15T10:00:00Z'
                     readOnly: true
                   _links:
                     type: object
@@ -7418,9 +7445,6 @@ paths:
                           partner. Will be omitted if the partner is not of type `signuplink`.
                       documentation:
                         $ref: '#/components/schemas/url'
-                required:
-                  - resource
-                  - partnerType
               examples:
                 get-partner-status-200-1:
                   summary: The partner status object
@@ -7489,19 +7513,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/entity-profile'
-              required:
-                - name
-                - website
-                - email
-                - phone
+              $ref: '#/components/schemas/profile-request'
       responses:
         '201':
           description: The newly created profile object.
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/entity-profile-response'
+                $ref: '#/components/schemas/profile-response'
               examples:
                 create-profile-201-1:
                   $ref: '#/components/examples/get-profile'
@@ -7664,24 +7683,30 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - profiles
                     properties:
                       profiles:
                         description: An array of profile objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-profile-response'
+                          $ref: '#/components/schemas/profile-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
                 list-profiles-200-1:
                   summary: A list of profile objects
                   value:
-                    count: 5
+                    count: 1
                     _embedded:
                       profiles:
                         - resource: profile
@@ -7700,10 +7725,6 @@ paths:
                             self:
                               href: ...
                               type: application/hal+json
-                        - {}
-                        - {}
-                        - {}
-                        - {}
                     _links:
                       self:
                         href: ...
@@ -7781,7 +7802,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/entity-profile-response'
+                $ref: '#/components/schemas/profile-response'
               examples:
                 get-profile-200-1:
                   $ref: '#/components/examples/get-profile'
@@ -7919,23 +7940,17 @@ paths:
                     [business category list](common-data-types) for all possible options.
                   example: OTHER_MERCHANDISE
                 mode:
-                  type:
-                    - string
-                    - 'null'
+                  $ref: '#/components/schemas/mode'
                   description: |-
                     Updating a profile from `test` mode to `live` mode will trigger a verification process, where we review
                     the profile before it can start accepting payments.
-                  enum:
-                    - live
-                    - test
-                  example: live
       responses:
         '200':
           description: The updated profile object.
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/entity-profile-response'
+                $ref: '#/components/schemas/profile-response'
               examples:
                 update-profile-200-1:
                   summary: The updated profile object
@@ -8195,7 +8210,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/entity-profile-response'
+                $ref: '#/components/schemas/profile-response'
               examples:
                 get-current-profile-200-1:
                   summary: The current profile object
@@ -8401,19 +8416,7 @@ paths:
                         The field can be omitted for merchants residing in other countries.
                       example: NL815839091B01
                     vatRegulation:
-                      type:
-                        - string
-                        - 'null'
-                      description: |-
-                        Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
-                        The United Kingdom, and shifted VAT for merchants in the European Union.
-
-                        The field can be omitted for merchants residing in other countries.
-                      enum:
-                        - dutch
-                        - british
-                        - shifted
-                      example: dutch
+                      $ref: '#/components/schemas/onboarding-vat-regulation'
                 profile:
                   type: object
                   properties:
@@ -8596,6 +8599,10 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     type: integer
@@ -8603,6 +8610,8 @@ paths:
                     example: 2
                   _embedded:
                     type: object
+                    required:
+                      - capabilities
                     properties:
                       capabilities:
                         type: array
@@ -8612,12 +8621,7 @@ paths:
                     type: object
                     properties:
                       documentation:
-                        type: object
-                        properties:
-                          href:
-                            type: string
-                          type:
-                            type: string
+                        $ref: '#/components/schemas/url'
               examples:
                 successful-response-200-1:
                   summary: Description of a capability.
@@ -9100,18 +9104,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/entity-client-link'
-              required:
-                - owner
-                - name
-                - address
+              $ref: '#/components/schemas/client-link-request'
       responses:
         '201':
           description: The newly created client link object.
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/entity-client-link-response'
+                $ref: '#/components/schemas/client-link-response'
               examples:
                 create-client-link-201-1:
                   summary: The newly created client link object
@@ -9861,23 +9861,24 @@ paths:
                     _embedded:
                       entity:
                         resource: payment-link
-                        id: pl_qng5gbbv8NAZ5gpM5ZYgx
-                        profileId: pfl_D96wnsu869
+                        id: pl_4Y0eZitmBnQ6IDoMqZQKh
                         mode: live
                         description: Bicycle tires
                         amount:
                           currency: EUR
                           value: '24.95'
-                        minimumAmount: null
                         archived: false
                         redirectUrl: https://webshop.example.org/thanks
-                        webhookUrl: null
-                        reusable: true
+                        webhookUrl: https://webshop.example.org/payment-links/webhook
+                        profileId: pfl_QkEhN94Ba
                         createdAt: '2021-03-20T09:29:56.0Z'
-                        paidAt: null
+                        paidAt: '2022-03-20T09:29:56.0Z'
                         expiresAt: '2023-06-06T11:00:00.0Z'
-                        allowedMethods: null
-                        applicationFee: null
+                        reusable: false
+                        allowedMethods:
+                          - ideal
+                        sequenceType: oneoff
+                        customerId: null
                         _links:
                           self:
                             href: https://api.mollie.com/v2/payment-links/pl_qng5gbbv8NAZ5gpM5ZYgx
@@ -13743,11 +13744,7 @@ paths:
             that are only available for payments created via the Orders API.
           in: query
           schema:
-            type: string
-            enum:
-              - payments
-              - orders
-            example: payments
+            $ref: '#/components/schemas/method-resource-parameter'
         - name: billingCountry
           description: |-
             The country taken from your customer's billing address in ISO 3166-1 alpha-2 format. This parameter can be used
@@ -13764,10 +13761,7 @@ paths:
             to check if they are available on the shoppers device, hence the need to indicate your support.
           in: query
           schema:
-            type: string
-            enum:
-              - applepay
-            example: applepay
+            $ref: '#/components/schemas/method-include-wallets-parameter'
         - name: orderLineCategories
           description: |-
             A comma-separated list of the line categories you support in your checkout.
@@ -16811,11 +16805,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - chargebacks
                     properties:
                       chargebacks:
                         description: A list of chargeback objects.
@@ -17201,11 +17201,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - chargebacks
                     properties:
                       chargebacks:
                         description: A list of chargeback objects.
@@ -19426,7 +19432,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/route-create-request'
+              $ref: '#/components/schemas/entity-route'
       responses:
         '201':
           description: The route object.
@@ -19516,11 +19522,17 @@ paths:
             application/hal+json:
               schema:
                 type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
                 properties:
                   count:
                     $ref: '#/components/schemas/list-count'
                   _embedded:
                     type: object
+                    required:
+                      - routes
                     properties:
                       routes:
                         description: An array of route objects.
@@ -27583,6 +27595,17 @@ components:
           example: application/hal+json
     entity-balance:
       type: object
+      required:
+        - resource
+        - id
+        - mode
+        - createdAt
+        - currency
+        - description
+        - availableAmount
+        - pendingAmount
+        - status
+        - _links
       properties:
         resource:
           type: string
@@ -28093,6 +28116,15 @@ components:
       x-speakeasy-unknown-values: allow
     entity-balance-report:
       type: object
+      required:
+        - resource
+        - balanceId
+        - timeZone
+        - from
+        - until
+        - grouping
+        - totals
+        - _links
       properties:
         resource:
           type: string
@@ -28378,6 +28410,13 @@ components:
       example: org_1234567
     entity-balance-transaction:
       type: object
+      required:
+        - resource
+        - id
+        - type
+        - resultAmount
+        - initialAmount
+        - createdAt
       properties:
         resource:
           type: string
@@ -31138,9 +31177,22 @@ components:
         open: The invoice is not paid yet.
         paid: The invoice is paid.
         overdue: Payment of the invoice is overdue.
+      example: open
       x-speakeasy-unknown-values: allow
     entity-invoice:
       type: object
+      required:
+        - resource
+        - id
+        - reference
+        - vatNumber
+        - status
+        - issuedAt
+        - netAmount
+        - vatAmount
+        - grossAmount
+        - lines
+        - _links
       properties:
         resource:
           type: string
@@ -31150,19 +31202,20 @@ components:
           readOnly: true
           example: invoice
         id:
-          type: string
-          description: 'The identifier uniquely referring to this invoice. Example: `inv_FrvewDA3Pr`.'
+          $ref: '#/components/schemas/invoiceToken'
           readOnly: true
         reference:
           type: string
           description: 'The reference number of the invoice. An example value would be: `2024.10000`.'
           readOnly: true
+          example: '2024.10000'
         vatNumber:
           type:
             - string
             - 'null'
           description: The VAT number to which the invoice was issued to, if applicable.
           readOnly: true
+          example: NL123456789B01
         status:
           $ref: '#/components/schemas/invoice-status'
           readOnly: true
@@ -31186,19 +31239,29 @@ components:
           description: The collection of products which make up the invoice.
           items:
             type: object
+            required:
+              - period
+              - description
+              - count
+              - vatPercentage
+              - amount
             properties:
               period:
                 type: string
                 description: The administrative period in `YYYY-MM` on which the line should be booked.
+                example: 2024-01
               description:
                 type: string
                 description: Description of the product.
+                example: 'Product #1'
               count:
                 type: integer
                 description: Number of products invoiced. For example, the number of payments.
+                example: 3
               vatPercentage:
                 type: integer
                 description: VAT percentage rate that applies to this product.
+                example: 21
               amount:
                 $ref: '#/components/schemas/amount'
                 description: Line item amount excluding VAT.
@@ -31207,18 +31270,21 @@ components:
           type: string
           description: The invoice date in `YYYY-MM-DD` format.
           readOnly: true
+          example: '2024-01-15'
         paidAt:
           type:
             - string
             - 'null'
           description: The date on which the invoice was paid, if applicable, in `YYYY-MM-DD` format.
           readOnly: true
+          example: '2024-01-20'
         dueAt:
           type:
             - string
             - 'null'
           description: The date on which the invoice is due, if applicable, in `YYYY-MM-DD` format.
           readOnly: true
+          example: '2024-01-30'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -31239,6 +31305,12 @@ components:
       example: payments.read
     entity-permission:
       type: object
+      required:
+        - resource
+        - id
+        - description
+        - granted
+        - _links
       properties:
         resource:
           type: string
@@ -31272,6 +31344,11 @@ components:
           readOnly: true
     address:
       type: object
+      required:
+        - streetAndNumber
+        - postalCode
+        - city
+        - country
       properties:
         streetAndNumber:
           type: string
@@ -31301,6 +31378,15 @@ components:
       x-speakeasy-unknown-values: allow
     entity-organization:
       type: object
+      required:
+        - resource
+        - id
+        - name
+        - email
+        - locale
+        - address
+        - registrationNumber
+        - _links
       properties:
         resource:
           type: string
@@ -31310,16 +31396,17 @@ components:
           readOnly: true
           example: organization
         id:
-          type: string
-          description: 'The identifier uniquely referring to this organization. Example: `org_12345678`.'
+          $ref: '#/components/schemas/organizationToken'
           readOnly: true
         name:
           type: string
           description: The name of the organization.
+          example: My Online Store
           readOnly: true
         email:
           type: string
           description: The email address associated with the organization.
+          example: example@mail.com
           readOnly: true
         locale:
           type: string
@@ -31332,6 +31419,7 @@ components:
         registrationNumber:
           type: string
           description: The registration number of the organization at their local chamber of commerce.
+          example: '12345678'
         vatNumber:
           type:
             - string
@@ -31341,6 +31429,7 @@ components:
             verified against the international registry *VIES*.
 
             The field is not present for merchants residing in other countries.
+          example: NL123456789B01
         vatRegulation:
           $ref: '#/components/schemas/organization-vat-regulation'
         _links:
@@ -31504,6 +31593,30 @@ components:
             documentation:
               href: ...
               type: text/html
+    profile-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-profile-response'
+          required:
+            - resource
+            - id
+            - mode
+            - name
+            - website
+            - email
+            - phone
+            - businessCategory
+            - status
+            - createdAt
+            - _links
+      x-speakeasy-unknown-values: allow
+    profile-request:
+      allOf:
+        - $ref: '#/components/schemas/entity-profile'
+          required:
+            - name
+            - website
+            - email
+            - phone
     onboarding-status:
       type: string
       description: The current status of the organization's onboarding process.
@@ -31515,9 +31628,18 @@ components:
         needs-data: The merchant needs to provide additional information
         in-review: The merchant provided all information, awaiting review from Mollie
         completed: The onboarding is completed
+      example: completed
       x-speakeasy-unknown-values: allow
     entity-onboarding-status:
       type: object
+      required:
+        - resource
+        - name
+        - signedUpAt
+        - status
+        - canReceivePayments
+        - canReceiveSettlements
+        - _links
       properties:
         resource:
           type: string
@@ -31529,6 +31651,7 @@ components:
         name:
           type: string
           description: The name of the organization.
+          example: My webshop
           readOnly: true
         status:
           $ref: '#/components/schemas/onboarding-status'
@@ -31536,14 +31659,17 @@ components:
         canReceivePayments:
           type: boolean
           description: Whether the organization can receive payments.
+          example: true
           readOnly: true
         canReceiveSettlements:
           type: boolean
           description: Whether the organization can receive settlements to their external bank account.
+          example: true
           readOnly: true
         signedUpAt:
           type: string
           description: The sign up date time of the organization in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+          example: '2023-01-15T13:45:30Z'
           readOnly: true
         _links:
           type: object
@@ -31563,6 +31689,20 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    onboarding-vat-regulation:
+      type:
+        - string
+        - 'null'
+      description: |-
+        Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in
+        The United Kingdom, and shifted VAT for merchants in the European Union.
+
+        The field can be omitted for merchants residing in other countries.
+      enum:
+        - dutch
+        - british
+        - shifted
+      example: dutch
     capability-status:
       type: string
       enum:
@@ -31573,7 +31713,9 @@ components:
       example: pending
       x-speakeasy-unknown-values: allow
     capability-status-reason:
-      type: string
+      type:
+        - string
+        - 'null'
       enum:
         - requirement-past-due
         - onboarding-information-needed
@@ -31592,6 +31734,11 @@ components:
       x-speakeasy-unknown-values: allow
     entity-capability-requirement:
       type: object
+      required:
+        - id
+        - dueDate
+        - status
+        - _links
       properties:
         id:
           type: string
@@ -31603,32 +31750,29 @@ components:
         status:
           $ref: '#/components/schemas/capability-requirement-status'
         dueDate:
-          type: string
+          type:
+            - string
+            - 'null'
           description: Due date until the requirement must be fulfilled, if any. The date is shown in ISO-8601 format.
           example: '2024-01-01T12:00:00+00:00'
-          nullable: true
         _links:
           type: object
           required: []
           properties:
             dashboard:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: The actual URL string.
-                type:
-                  type: string
-                  description: The content type of the page or endpoint the URL points to.
+              $ref: '#/components/schemas/url'
               description: |-
                 If known, a deep link to the Mollie dashboard of the client, where the requirement can be fulfilled.
                 For example, where necessary documents are to be uploaded.
-              example:
-                href: https://my.mollie.com/dashboard/...
-                type: text/html
       x-speakeasy-unknown-values: allow
     entity-capability:
       type: object
+      required:
+        - resource
+        - name
+        - status
+        - statusReason
+        - requirements
       properties:
         resource:
           type: string
@@ -31642,7 +31786,6 @@ components:
           $ref: '#/components/schemas/capability-status'
         statusReason:
           $ref: '#/components/schemas/capability-status-reason'
-          nullable: true
         requirements:
           type: array
           items:
@@ -31803,6 +31946,21 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
+    client-link-request:
+      allOf:
+        - $ref: '#/components/schemas/entity-client-link'
+          required:
+            - owner
+            - name
+            - address
+    client-link-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-client-link-response'
+          required:
+            - resource
+            - id
+            - _links
+      x-speakeasy-unknown-values: allow
     webhook-event-types:
       type: string
       description: The event's type
@@ -32271,7 +32429,7 @@ components:
                 - title: payment-link
                   $ref: '#/components/schemas/payment-link-response'
                 - title: profile
-                  $ref: '#/components/schemas/entity-profile-response'
+                  $ref: '#/components/schemas/profile-response'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -32658,6 +32816,17 @@ components:
         `country`.
 
         Required for payment method `in3`, `klarna`, `billie` and `riverty`.
+    method-resource-parameter:
+      type: string
+      enum:
+        - payments
+        - orders
+      example: payments
+    method-include-wallets-parameter:
+      type: string
+      enum:
+        - applepay
+      example: applepay
     method-status:
       type: string
       description: The payment method's activation status for this profile.
@@ -33164,149 +33333,35 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
-      x-speakeasy-unknown-values: allow
     route-get-response:
-      type: object
-      required:
-        - resource
-        - id
-        - paymentId
-        - amount
-        - description
-        - destination
-        - createdAt
-        - _links
       allOf:
-        - $ref: '#/components/schemas/entity-route'
+        - $ref: '#/components/schemas/entity-route-response'
+          required:
+            - resource
+            - id
+            - paymentId
+            - amount
+            - description
+            - destination
+            - _links
         - type: object
+          required:
+            - createdAt
           properties:
             createdAt:
               $ref: '#/components/schemas/created-at'
       x-speakeasy-unknown-values: allow
-    route-create-request:
-      type: object
-      properties:
-        resource:
-          type: string
-          description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
-          readOnly: true
-          example: route
-        id:
-          $ref: '#/components/schemas/connectRouteToken'
-          description: |-
-            The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
-            will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
-          readOnly: true
-        paymentId:
-          $ref: '#/components/schemas/paymentToken'
-          description: |-
-            The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
-            The full payment object can be retrieved via the payment URL in the `_links` object.
-          readOnly: true
-        amount:
-          $ref: '#/components/schemas/amount'
-          description: |-
-            The amount of the route.
-            That amount that will be routed to the specified destination.
-        description:
-          type: string
-          description: The description of the route. This description is shown in the reports.
-          maxLength: 255
-          example: 'Payment for Order #12345'
-        destination:
-          type: object
-          description: The destination of the route.
-          required:
-            - type
-            - organizationId
-          properties:
-            type:
-              $ref: '#/components/schemas/route-destination-type'
-            organizationId:
-              $ref: '#/components/schemas/organizationToken'
-              description: |-
-                Required for destination type `organization`. The ID of the connected organization the funds should be
-                routed to.
-        testmode:
-          $ref: '#/components/schemas/testmode-create'
-        _links:
-          type: object
-          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-          required:
-            - self
-            - documentation
-          properties:
-            self:
-              $ref: '#/components/schemas/url'
-            documentation:
-              $ref: '#/components/schemas/url'
-          readOnly: true
     route-create-response:
-      type: object
-      required:
-        - resource
-        - id
-        - paymentId
-        - amount
-        - description
-        - destination
-        - _links
-      properties:
-        resource:
-          type: string
-          description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
-          readOnly: true
-          example: route
-        id:
-          $ref: '#/components/schemas/connectRouteToken'
-          description: |-
-            The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
-            will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
-          readOnly: true
-        paymentId:
-          $ref: '#/components/schemas/paymentToken'
-          description: |-
-            The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
-            The full payment object can be retrieved via the payment URL in the `_links` object.
-          readOnly: true
-        amount:
-          $ref: '#/components/schemas/amount'
-          description: |-
-            The amount of the route.
-            That amount that will be routed to the specified destination.
-        description:
-          type: string
-          description: The description of the route. This description is shown in the reports.
-          maxLength: 255
-          example: 'Payment for Order #12345'
-        destination:
-          type: object
-          description: The destination of the route.
+      allOf:
+        - $ref: '#/components/schemas/entity-route-response'
           required:
-            - type
-            - organizationId
-          properties:
-            type:
-              $ref: '#/components/schemas/route-destination-type-response'
-            organizationId:
-              $ref: '#/components/schemas/organizationToken'
-              description: |-
-                Required for destination type `organization`. The ID of the connected organization the funds should be
-                routed to.
-        testmode:
-          $ref: '#/components/schemas/testmode-create'
-        _links:
-          type: object
-          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-          required:
-            - self
-            - documentation
-          properties:
-            self:
-              $ref: '#/components/schemas/url'
-            documentation:
-              $ref: '#/components/schemas/url'
-          readOnly: true
+            - resource
+            - id
+            - paymentId
+            - amount
+            - description
+            - destination
+            - _links
       x-speakeasy-unknown-values: allow
     entity-customer:
       type: object
@@ -36532,6 +36587,65 @@ components:
         - manual_correction
         - other_fee
       example: invoice_collection
+      x-speakeasy-unknown-values: allow
+    entity-route-response:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
+          readOnly: true
+          example: route
+        id:
+          $ref: '#/components/schemas/connectRouteToken'
+          description: |-
+            The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
+            will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
+          readOnly: true
+        paymentId:
+          $ref: '#/components/schemas/paymentToken'
+          description: |-
+            The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+            The full payment object can be retrieved via the payment URL in the `_links` object.
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the route.
+            That amount that will be routed to the specified destination.
+        description:
+          type: string
+          description: The description of the route. This description is shown in the reports.
+          maxLength: 255
+          example: 'Payment for Order #12345'
+        destination:
+          type: object
+          description: The destination of the route.
+          required:
+            - type
+            - organizationId
+          properties:
+            type:
+              $ref: '#/components/schemas/route-destination-type-response'
+            organizationId:
+              $ref: '#/components/schemas/organizationToken'
+              description: |-
+                Required for destination type `organization`. The ID of the connected organization the funds should be
+                routed to.
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - documentation
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            documentation:
+              $ref: '#/components/schemas/url'
+          readOnly: true
       x-speakeasy-unknown-values: allow
     entity-customer-response:
       type: object

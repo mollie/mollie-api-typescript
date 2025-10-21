@@ -1,13 +1,13 @@
-# EntityProfileResponseLinks
+# ProfileResponseLinks
 
 An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
 
 ## Example Usage
 
 ```typescript
-import { EntityProfileResponseLinks } from "mollie-api-typescript/models";
+import { ProfileResponseLinks } from "mollie-api-typescript/models";
 
-let value: EntityProfileResponseLinks = {
+let value: ProfileResponseLinks = {
   self: {
     href: "https://...",
     type: "application/hal+json",

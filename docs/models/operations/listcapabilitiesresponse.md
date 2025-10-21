@@ -10,27 +10,13 @@ import { ListCapabilitiesResponse } from "mollie-api-typescript/models/operation
 let value: ListCapabilitiesResponse = {
   count: 2,
   embedded: {
-    capabilities: [
-      {
-        resource: "capability",
-        name: "payments",
-        status: "pending",
-        statusReason: "requirement-past-due",
-        requirements: [
-          {
-            id: "legal-representatives",
-            status: "past-due",
-            dueDate: "2024-01-01T12:00:00+00:00",
-            links: {
-              dashboard: {
-                href: "https://my.mollie.com/dashboard/...",
-                type: "text/html",
-              },
-            },
-          },
-        ],
-      },
-    ],
+    capabilities: [],
+  },
+  links: {
+    documentation: {
+      href: "https://...",
+      type: "application/hal+json",
+    },
   },
 };
 ```
@@ -39,6 +25,6 @@ let value: ListCapabilitiesResponse = {
 
 | Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                | Example                                                                                    |
 | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `count`                                                                                    | *number*                                                                                   | :heavy_minus_sign:                                                                         | The number of items in this result set.                                                    | 2                                                                                          |
-| `embedded`                                                                                 | [operations.ListCapabilitiesEmbedded](../../models/operations/listcapabilitiesembedded.md) | :heavy_minus_sign:                                                                         | N/A                                                                                        |                                                                                            |
-| `links`                                                                                    | [operations.ListCapabilitiesLinks](../../models/operations/listcapabilitieslinks.md)       | :heavy_minus_sign:                                                                         | N/A                                                                                        |                                                                                            |
+| `count`                                                                                    | *number*                                                                                   | :heavy_check_mark:                                                                         | The number of items in this result set.                                                    | 2                                                                                          |
+| `embedded`                                                                                 | [operations.ListCapabilitiesEmbedded](../../models/operations/listcapabilitiesembedded.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |                                                                                            |
+| `links`                                                                                    | [operations.ListCapabilitiesLinks](../../models/operations/listcapabilitieslinks.md)       | :heavy_check_mark:                                                                         | N/A                                                                                        |                                                                                            |

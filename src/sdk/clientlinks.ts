@@ -70,7 +70,7 @@ export class ClientLinks extends ClientSDK {
   async create(
     request?: operations.CreateClientLinkRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.EntityClientLinkResponse> {
+  ): Promise<models.ClientLinkResponse> {
     return unwrapAsync(clientLinksCreate(
       this,
       request,

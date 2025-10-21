@@ -35,20 +35,20 @@ export type EntityPermission = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * A short description of what kind of access the permission enables.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * Whether this permission is granted to the app by the organization.
    */
-  granted?: boolean | undefined;
+  granted: boolean;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityPermissionLinks | undefined;
+  links: EntityPermissionLinks;
 };
 
 /** @internal */
@@ -114,11 +114,11 @@ export const EntityPermission$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  description: z.string().optional(),
-  granted: z.boolean().optional(),
-  _links: z.lazy(() => EntityPermissionLinks$inboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  description: z.string(),
+  granted: z.boolean(),
+  _links: z.lazy(() => EntityPermissionLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -127,11 +127,11 @@ export const EntityPermission$inboundSchema: z.ZodType<
 
 /** @internal */
 export type EntityPermission$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  description?: string | undefined;
-  granted?: boolean | undefined;
-  _links?: EntityPermissionLinks$Outbound | undefined;
+  resource: string;
+  id: string;
+  description: string;
+  granted: boolean;
+  _links: EntityPermissionLinks$Outbound;
 };
 
 /** @internal */
@@ -140,11 +140,11 @@ export const EntityPermission$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityPermission
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  description: z.string().optional(),
-  granted: z.boolean().optional(),
-  links: z.lazy(() => EntityPermissionLinks$outboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  description: z.string(),
+  granted: z.boolean(),
+  links: z.lazy(() => EntityPermissionLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

@@ -42,7 +42,7 @@ export type Review = {
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
-export type EntityProfileResponseLinks = {
+export type ProfileResponseLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -77,7 +77,7 @@ export type EntityProfileResponseLinks = {
   documentation?: Url | undefined;
 };
 
-export type EntityProfileResponse = {
+export type ProfileResponse = {
   /**
    * Indicates the response contains a profile object. Will always contain the string `profile` for this endpoint.
    */
@@ -155,7 +155,7 @@ export type EntityProfileResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntityProfileResponseLinks | undefined;
+  links?: ProfileResponseLinks | undefined;
 };
 
 /** @internal */
@@ -206,8 +206,8 @@ export function reviewFromJSON(
 }
 
 /** @internal */
-export const EntityProfileResponseLinks$inboundSchema: z.ZodType<
-  EntityProfileResponseLinks,
+export const ProfileResponseLinks$inboundSchema: z.ZodType<
+  ProfileResponseLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -222,7 +222,7 @@ export const EntityProfileResponseLinks$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type EntityProfileResponseLinks$Outbound = {
+export type ProfileResponseLinks$Outbound = {
   self?: Url$Outbound | undefined;
   dashboard?: Url$Outbound | undefined;
   chargebacks?: Url$Outbound | undefined;
@@ -234,10 +234,10 @@ export type EntityProfileResponseLinks$Outbound = {
 };
 
 /** @internal */
-export const EntityProfileResponseLinks$outboundSchema: z.ZodType<
-  EntityProfileResponseLinks$Outbound,
+export const ProfileResponseLinks$outboundSchema: z.ZodType<
+  ProfileResponseLinks$Outbound,
   z.ZodTypeDef,
-  EntityProfileResponseLinks
+  ProfileResponseLinks
 > = z.object({
   self: Url$outboundSchema.optional(),
   dashboard: Url$outboundSchema.optional(),
@@ -253,36 +253,36 @@ export const EntityProfileResponseLinks$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EntityProfileResponseLinks$ {
-  /** @deprecated use `EntityProfileResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityProfileResponseLinks$inboundSchema;
-  /** @deprecated use `EntityProfileResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityProfileResponseLinks$outboundSchema;
-  /** @deprecated use `EntityProfileResponseLinks$Outbound` instead. */
-  export type Outbound = EntityProfileResponseLinks$Outbound;
+export namespace ProfileResponseLinks$ {
+  /** @deprecated use `ProfileResponseLinks$inboundSchema` instead. */
+  export const inboundSchema = ProfileResponseLinks$inboundSchema;
+  /** @deprecated use `ProfileResponseLinks$outboundSchema` instead. */
+  export const outboundSchema = ProfileResponseLinks$outboundSchema;
+  /** @deprecated use `ProfileResponseLinks$Outbound` instead. */
+  export type Outbound = ProfileResponseLinks$Outbound;
 }
 
-export function entityProfileResponseLinksToJSON(
-  entityProfileResponseLinks: EntityProfileResponseLinks,
+export function profileResponseLinksToJSON(
+  profileResponseLinks: ProfileResponseLinks,
 ): string {
   return JSON.stringify(
-    EntityProfileResponseLinks$outboundSchema.parse(entityProfileResponseLinks),
+    ProfileResponseLinks$outboundSchema.parse(profileResponseLinks),
   );
 }
 
-export function entityProfileResponseLinksFromJSON(
+export function profileResponseLinksFromJSON(
   jsonString: string,
-): SafeParseResult<EntityProfileResponseLinks, SDKValidationError> {
+): SafeParseResult<ProfileResponseLinks, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityProfileResponseLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityProfileResponseLinks' from JSON`,
+    (x) => ProfileResponseLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProfileResponseLinks' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityProfileResponse$inboundSchema: z.ZodType<
-  EntityProfileResponse,
+export const ProfileResponse$inboundSchema: z.ZodType<
+  ProfileResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -299,7 +299,7 @@ export const EntityProfileResponse$inboundSchema: z.ZodType<
   status: ProfileStatus$inboundSchema.optional(),
   review: z.lazy(() => Review$inboundSchema).optional(),
   createdAt: z.string().optional(),
-  _links: z.lazy(() => EntityProfileResponseLinks$inboundSchema).optional(),
+  _links: z.lazy(() => ProfileResponseLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -307,7 +307,7 @@ export const EntityProfileResponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type EntityProfileResponse$Outbound = {
+export type ProfileResponse$Outbound = {
   resource?: string | undefined;
   id?: string | undefined;
   mode?: string | undefined;
@@ -321,14 +321,14 @@ export type EntityProfileResponse$Outbound = {
   status?: string | undefined;
   review?: Review$Outbound | undefined;
   createdAt?: string | undefined;
-  _links?: EntityProfileResponseLinks$Outbound | undefined;
+  _links?: ProfileResponseLinks$Outbound | undefined;
 };
 
 /** @internal */
-export const EntityProfileResponse$outboundSchema: z.ZodType<
-  EntityProfileResponse$Outbound,
+export const ProfileResponse$outboundSchema: z.ZodType<
+  ProfileResponse$Outbound,
   z.ZodTypeDef,
-  EntityProfileResponse
+  ProfileResponse
 > = z.object({
   resource: z.string().optional(),
   id: z.string().optional(),
@@ -343,7 +343,7 @@ export const EntityProfileResponse$outboundSchema: z.ZodType<
   status: ProfileStatus$outboundSchema.optional(),
   review: z.lazy(() => Review$outboundSchema).optional(),
   createdAt: z.string().optional(),
-  links: z.lazy(() => EntityProfileResponseLinks$outboundSchema).optional(),
+  links: z.lazy(() => ProfileResponseLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
@@ -354,29 +354,27 @@ export const EntityProfileResponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EntityProfileResponse$ {
-  /** @deprecated use `EntityProfileResponse$inboundSchema` instead. */
-  export const inboundSchema = EntityProfileResponse$inboundSchema;
-  /** @deprecated use `EntityProfileResponse$outboundSchema` instead. */
-  export const outboundSchema = EntityProfileResponse$outboundSchema;
-  /** @deprecated use `EntityProfileResponse$Outbound` instead. */
-  export type Outbound = EntityProfileResponse$Outbound;
+export namespace ProfileResponse$ {
+  /** @deprecated use `ProfileResponse$inboundSchema` instead. */
+  export const inboundSchema = ProfileResponse$inboundSchema;
+  /** @deprecated use `ProfileResponse$outboundSchema` instead. */
+  export const outboundSchema = ProfileResponse$outboundSchema;
+  /** @deprecated use `ProfileResponse$Outbound` instead. */
+  export type Outbound = ProfileResponse$Outbound;
 }
 
-export function entityProfileResponseToJSON(
-  entityProfileResponse: EntityProfileResponse,
+export function profileResponseToJSON(
+  profileResponse: ProfileResponse,
 ): string {
-  return JSON.stringify(
-    EntityProfileResponse$outboundSchema.parse(entityProfileResponse),
-  );
+  return JSON.stringify(ProfileResponse$outboundSchema.parse(profileResponse));
 }
 
-export function entityProfileResponseFromJSON(
+export function profileResponseFromJSON(
   jsonString: string,
-): SafeParseResult<EntityProfileResponse, SDKValidationError> {
+): SafeParseResult<ProfileResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityProfileResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityProfileResponse' from JSON`,
+    (x) => ProfileResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProfileResponse' from JSON`,
   );
 }

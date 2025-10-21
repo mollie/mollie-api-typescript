@@ -26,7 +26,7 @@ export class Profiles extends ClientSDK {
   async create(
     request: operations.CreateProfileRequest,
     options?: RequestOptions,
-  ): Promise<models.EntityProfileResponse> {
+  ): Promise<models.ProfileResponse> {
     return unwrapAsync(profilesCreate(
       this,
       request,
@@ -62,7 +62,7 @@ export class Profiles extends ClientSDK {
   async get(
     request: operations.GetProfileRequest,
     options?: RequestOptions,
-  ): Promise<models.EntityProfileResponse> {
+  ): Promise<models.ProfileResponse> {
     return unwrapAsync(profilesGet(
       this,
       request,
@@ -82,7 +82,7 @@ export class Profiles extends ClientSDK {
   async update(
     request: operations.UpdateProfileRequest,
     options?: RequestOptions,
-  ): Promise<models.EntityProfileResponse> {
+  ): Promise<models.ProfileResponse> {
     return unwrapAsync(profilesUpdate(
       this,
       request,
@@ -120,7 +120,7 @@ export class Profiles extends ClientSDK {
   async getCurrent(
     request?: operations.GetCurrentProfileRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.EntityProfileResponse> {
+  ): Promise<models.ProfileResponse> {
     return unwrapAsync(profilesGetCurrent(
       this,
       request,

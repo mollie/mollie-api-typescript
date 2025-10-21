@@ -58,7 +58,7 @@ export type ListInvoicesEmbedded = {
    * @remarks
    * the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
    */
-  invoices?: Array<Invoice> | undefined;
+  invoices: Array<Invoice>;
 };
 
 /**
@@ -77,12 +77,12 @@ export type ListInvoicesResponse = {
    * The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
    * limit is 50 items.
    */
-  count?: number | undefined;
-  embedded?: ListInvoicesEmbedded | undefined;
+  count: number;
+  embedded: ListInvoicesEmbedded;
   /**
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
-  links?: models.ListLinks | undefined;
+  links: models.ListLinks;
 };
 
 /** @internal */
@@ -212,12 +212,12 @@ export const ListInvoicesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  invoices: z.array(z.lazy(() => Invoice$inboundSchema)).optional(),
+  invoices: z.array(z.lazy(() => Invoice$inboundSchema)),
 });
 
 /** @internal */
 export type ListInvoicesEmbedded$Outbound = {
-  invoices?: Array<Invoice$Outbound> | undefined;
+  invoices: Array<Invoice$Outbound>;
 };
 
 /** @internal */
@@ -226,7 +226,7 @@ export const ListInvoicesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListInvoicesEmbedded
 > = z.object({
-  invoices: z.array(z.lazy(() => Invoice$outboundSchema)).optional(),
+  invoices: z.array(z.lazy(() => Invoice$outboundSchema)),
 });
 
 /**
@@ -266,9 +266,9 @@ export const ListInvoicesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListInvoicesEmbedded$inboundSchema).optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListInvoicesEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "_embedded": "embedded",
@@ -278,9 +278,9 @@ export const ListInvoicesResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListInvoicesResponse$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListInvoicesEmbedded$Outbound | undefined;
-  _links?: models.ListLinks$Outbound | undefined;
+  count: number;
+  _embedded: ListInvoicesEmbedded$Outbound;
+  _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
@@ -289,9 +289,9 @@ export const ListInvoicesResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListInvoicesResponse
 > = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListInvoicesEmbedded$outboundSchema).optional(),
-  links: models.ListLinks$outboundSchema.optional(),
+  count: z.number().int(),
+  embedded: z.lazy(() => ListInvoicesEmbedded$outboundSchema),
+  links: models.ListLinks$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     embedded: "_embedded",

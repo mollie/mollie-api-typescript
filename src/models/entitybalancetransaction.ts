@@ -314,17 +314,17 @@ export type EntityBalanceTransaction = {
    * @remarks
    * for this endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
-  type?: BalanceTransactionType | undefined;
+  resource: string;
+  id: string;
+  type: BalanceTransactionType;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  resultAmount?: Amount | undefined;
+  resultAmount: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  initialAmount?: Amount | undefined;
+  initialAmount: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -383,7 +383,7 @@ export type EntityBalanceTransaction = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
 };
 
 /** @internal */
@@ -2543,26 +2543,26 @@ export const EntityBalanceTransaction$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  type: BalanceTransactionType$inboundSchema.optional(),
-  resultAmount: Amount$inboundSchema.optional(),
-  initialAmount: Amount$inboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  type: BalanceTransactionType$inboundSchema,
+  resultAmount: Amount$inboundSchema,
+  initialAmount: Amount$inboundSchema,
   deductions: z.nullable(AmountNullable$inboundSchema).optional(),
   context: z.lazy(() => Context$inboundSchema).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
 });
 
 /** @internal */
 export type EntityBalanceTransaction$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  type?: string | undefined;
-  resultAmount?: Amount$Outbound | undefined;
-  initialAmount?: Amount$Outbound | undefined;
+  resource: string;
+  id: string;
+  type: string;
+  resultAmount: Amount$Outbound;
+  initialAmount: Amount$Outbound;
   deductions?: AmountNullable$Outbound | null | undefined;
   context?: Context$Outbound | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
 };
 
 /** @internal */
@@ -2571,14 +2571,14 @@ export const EntityBalanceTransaction$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityBalanceTransaction
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  type: BalanceTransactionType$outboundSchema.optional(),
-  resultAmount: Amount$outboundSchema.optional(),
-  initialAmount: Amount$outboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  type: BalanceTransactionType$outboundSchema,
+  resultAmount: Amount$outboundSchema,
+  initialAmount: Amount$outboundSchema,
   deductions: z.nullable(AmountNullable$outboundSchema).optional(),
   context: z.lazy(() => Context$outboundSchema).optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
 });
 
 /**

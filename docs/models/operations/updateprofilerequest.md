@@ -19,7 +19,6 @@ let value: UpdateProfileRequest = {
       "GB",
     ],
     businessCategory: "OTHER_MERCHANDISE",
-    mode: "live",
   },
 };
 ```
