@@ -112,6 +112,12 @@ async function run() {
     requestBody: {
       organization: {
         name: "Mollie B.V.",
+        address: {
+          streetAndNumber: "Keizersgracht 126",
+          postalCode: "1015 CW",
+          city: "Amsterdam",
+          country: "NL",
+        },
         registrationNumber: "30204462",
         vatNumber: "NL815839091B01",
         vatRegulation: "dutch",
@@ -155,6 +161,12 @@ async function run() {
     requestBody: {
       organization: {
         name: "Mollie B.V.",
+        address: {
+          streetAndNumber: "Keizersgracht 126",
+          postalCode: "1015 CW",
+          city: "Amsterdam",
+          country: "NL",
+        },
         registrationNumber: "30204462",
         vatNumber: "NL815839091B01",
         vatRegulation: "dutch",

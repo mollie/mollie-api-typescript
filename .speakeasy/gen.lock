@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: a5dccf14f1e5388d77df2bf0465de0c1
+  docChecksum: 3326eaca21c1637f3b75a6c4f0058439
   docVersion: 1.0.0
-  speakeasyVersion: 1.637.3
-  generationVersion: 2.727.9
-  releaseVersion: 0.4.1
-  configChecksum: 4ecdccc19cd7f6a1d79582831dbd722d
+  speakeasyVersion: 1.638.0
+  generationVersion: 2.728.0
+  releaseVersion: 0.5.0
+  configChecksum: 097be369299aea500b9bfd9e8e4e3b77
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.22.0
+    core: 3.23.0
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -183,9 +183,7 @@ generatedFiles:
   - docs/models/linecategories.md
   - docs/models/linecategoriesresponse.md
   - docs/models/listlinks.md
-  - docs/models/listsort.md
   - docs/models/locale.md
-  - docs/models/localeparameter.md
   - docs/models/localeresponse.md
   - docs/models/managedfee.md
   - docs/models/mandatedetailscardlabelresponse.md
@@ -515,6 +513,7 @@ generatedFiles:
   - docs/models/sequencetype.md
   - docs/models/sequencetyperesponse.md
   - docs/models/settlementstatus.md
+  - docs/models/sorting.md
   - docs/models/splitpayment.md
   - docs/models/statusreason.md
   - docs/models/subgroup.md
@@ -880,9 +879,7 @@ generatedFiles:
   - src/models/linecategories.ts
   - src/models/linecategoriesresponse.ts
   - src/models/listlinks.ts
-  - src/models/listsort.ts
   - src/models/locale.ts
-  - src/models/localeparameter.ts
   - src/models/localeresponse.ts
   - src/models/mandatedetailscardlabelresponse.ts
   - src/models/mandatemethod.ts
@@ -1059,6 +1056,7 @@ generatedFiles:
   - src/models/sequencetype.ts
   - src/models/sequencetyperesponse.ts
   - src/models/settlementstatus.ts
+  - src/models/sorting.ts
   - src/models/statusreason.ts
   - src/models/subgroup.ts
   - src/models/subscriptionmethod.ts
@@ -3274,7 +3272,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "<value>", "postalCode": "18293", "city": "South Kaelyn", "country": "Tajikistan"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "Keizersgracht 126", "postalCode": "1015 CW", "city": "Amsterdam", "country": "NL"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   get-current-organization:
@@ -3449,7 +3447,7 @@ examples:
         header:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       requestBody:
-        application/json: {"organization": {"name": "Mollie B.V.", "registrationNumber": "30204462", "vatNumber": "NL815839091B01", "vatRegulation": "dutch"}, "profile": {"name": "Mollie", "url": "https://www.mollie.com", "email": "info@mollie.com", "phone": "+31208202070", "description": "Payment service provider", "businessCategory": "MONEY_SERVICES"}}
+        application/json: {"organization": {"name": "Mollie B.V.", "address": {"streetAndNumber": "Keizersgracht 126", "postalCode": "1015 CW", "city": "Amsterdam", "country": "NL"}, "registrationNumber": "30204462", "vatNumber": "NL815839091B01", "vatRegulation": "dutch"}, "profile": {"name": "Mollie", "url": "https://www.mollie.com", "email": "info@mollie.com", "phone": "+31208202070", "description": "Payment service provider", "businessCategory": "MONEY_SERVICES"}}
       responses:
         "204":
           application/hal+json: "<value>"
@@ -3543,7 +3541,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "<value>", "postalCode": "72737", "city": "Fort Reece", "country": "Svalbard & Jan Mayen Islands"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}
+          application/hal+json: {"resource": "client", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "Keizersgracht 126", "postalCode": "1015 CW", "city": "Amsterdam", "country": "NL"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   create-client-link:
@@ -4647,4 +4645,4 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes Detected:\n* `client.profiles.update()`: \n  *  `request.requestBody.mode` **Removed** **Breaking** :warning:\n* `client.delayedRouting.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed**\n* `client.clients.get()`:  `response._embedded` **Changed** **Breaking** :warning:\n* `client.balances.getReport()`: \n  *  `request.grouping` **Changed** **Breaking** :warning:\n  *  `response` **Changed**\n* `client.clients.list()`:  `response._embedded.clients.[].Embedded` **Changed** **Breaking** :warning:\n* `client.capabilities.list()`:  `response` **Changed** **Breaking** :warning:\n* `client.onboarding.submit()`: \n  *  `request.requestBody.organization.address` **Changed** **Breaking** :warning:\n* `client.invoices.list()`:  `response` **Changed**\n* `client.settlements.listChargebacks()`:  `response` **Changed**\n* `client.permissions.get()`:  `response` **Changed**\n* `client.organizations.get()`:  `response` **Changed**\n* `client.organizations.getCurrent()`:  `response` **Changed**\n* `client.profiles.list()`:  `response` **Changed**\n* `client.invoices.get()`:  `response` **Changed**\n* `client.onboarding.get()`:  `response` **Changed**\n* `client.balances.list()`:  `response` **Changed**\n* `client.permissions.list()`:  `response` **Changed**\n* `client.balances.listTransactions()`:  `response` **Changed**\n* `client.balances.getPrimary()`:  `response` **Changed**\n* `client.webhookEvents.get()`:  `response._embedded.entity` **Changed**\n* `client.methods.list()`:  `request` **Changed**\n* `client.chargebacks.list()`:  `response` **Changed**\n* `client.chargebacks.all()`:  `response` **Changed**\n* `client.balances.get()`:  `response` **Changed**\n* `client.delayedRouting.list()`:  `response` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `client.refunds.all()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.customers.listPayments()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.webhooks.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.balanceTransfers.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.payments.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.subscriptions.listPayments()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.subscriptions.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.mandates.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.invoices.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.chargebacks.all()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.settlements.listPayments()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.terminals.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.customers.list()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.paymentLinks.listPayments()`: \n  *  `request.sort` **Changed** **Breaking** :warning:\n* `client.methods.get()`: \n  *  `request.locale` **Changed**\n* `client.methods.all()`: \n  *  `request.locale` **Changed**\n* `client.methods.list()`: \n  *  `request.locale` **Changed**\n"

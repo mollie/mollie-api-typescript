@@ -7,6 +7,12 @@ import { Organization } from "mollie-api-typescript/models/operations";
 
 let value: Organization = {
   name: "Mollie B.V.",
+  address: {
+    streetAndNumber: "Keizersgracht 126",
+    postalCode: "1015 CW",
+    city: "Amsterdam",
+    country: "NL",
+  },
   registrationNumber: "30204462",
   vatNumber: "NL815839091B01",
   vatRegulation: "dutch",

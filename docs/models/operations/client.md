@@ -33,10 +33,10 @@ let value: Client = {
       email: "example@mail.com",
       locale: "en_US",
       address: {
-        streetAndNumber: "<value>",
-        postalCode: "03511-2414",
-        city: "Port Kaileyville",
-        country: "Malta",
+        streetAndNumber: "Keizersgracht 126",
+        postalCode: "1015 CW",
+        city: "Amsterdam",
+        country: "NL",
       },
       registrationNumber: "12345678",
       vatNumber: "NL123456789B01",
@@ -87,7 +87,19 @@ let value: Client = {
       name: "payments",
       status: "pending",
       statusReason: "requirement-past-due",
-      requirements: [],
+      requirements: [
+        {
+          id: "legal-representatives",
+          status: "past-due",
+          dueDate: "2024-01-01T12:00:00+00:00",
+          links: {
+            dashboard: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+          },
+        },
+      ],
     },
   },
 };

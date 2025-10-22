@@ -27291,13 +27291,7 @@ components:
         newest to oldest.
       in: query
       schema:
-        type:
-          - string
-          - 'null'
-        enum:
-          - asc
-          - desc
-        example: desc
+        $ref: '#/components/schemas/sorting'
     profile-id:
       name: profileId
       description: |-
@@ -27347,30 +27341,7 @@ components:
       in: query
       schema:
         type: string
-        enum:
-          - en_US
-          - en_GB
-          - nl_NL
-          - nl_BE
-          - de_DE
-          - de_AT
-          - de_CH
-          - fr_FR
-          - fr_BE
-          - es_ES
-          - ca_ES
-          - pt_PT
-          - it_IT
-          - nb_NO
-          - sv_SE
-          - fi_FI
-          - da_DK
-          - is_IS
-          - hu_HU
-          - pl_PL
-          - lv_LV
-          - lt_LT
-        example: en_US
+        $ref: '#/components/schemas/locale'
     parent-profile-id:
       name: profileId
       description: Provide the ID of the related profile.
@@ -27379,10 +27350,7 @@ components:
       schema:
         oneOf:
           - $ref: '#/components/schemas/profileToken'
-          - type: string
-            enum:
-              - me
-            example: me
+          - $ref: '#/components/schemas/profile-path-id'
     parent-method-id:
       name: methodId
       description: Provide the ID of the related payment method.
@@ -29103,6 +29071,12 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    sorting:
+      type: string
+      enum:
+        - asc
+        - desc
+      example: desc
     profileToken:
       type: string
       example: pfl_5B8cwPMGnU
@@ -29358,7 +29332,7 @@ components:
         - pl_PL
         - lv_LV
         - lt_LT
-        - null
+        - 'null'
       example: en_US
     method:
       type:
@@ -31353,14 +31327,18 @@ components:
         streetAndNumber:
           type: string
           description: A street and street number.
+          example: Keizersgracht 126
         postalCode:
           type: string
           description: A postal code. This field may be required if the provided country has a postal code system.
+          example: 1015 CW
         city:
           type: string
+          example: Amsterdam
         country:
           type: string
           description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+          example: NL
     organization-vat-regulation:
       type:
         - string
@@ -33013,6 +32991,11 @@ components:
                     example: other
               readOnly: true
       x-speakeasy-unknown-values: allow
+    profile-path-id:
+      type: string
+      enum:
+        - me
+      example: me
     method-issuer-status:
       type: string
       description: |-
@@ -35615,7 +35598,7 @@ components:
         - pl_PL
         - lv_LV
         - lt_LT
-        - null
+        - 'null'
       example: en_US
       x-speakeasy-unknown-values: allow
     method-response:
