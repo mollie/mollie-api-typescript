@@ -114,12 +114,8 @@ export type CreatePaymentLinkRequestBody = {
    *
    * @remarks
    * not provided or is an empty array, all enabled payment methods will be available.
-   *
-   * Enum: 'applepay', 'bacs', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'billie', 'blik', 'creditcard', 'eps',
-   * 'giftcard', 'ideal', 'in3', 'kbc', 'klarna', 'mbway', 'multibanco', 'mybank', 'paybybank', 'paypal', 'paysafecard',
-   * 'pointofsale', 'przelewy24', 'riverty', 'satispay', 'swish', 'trustly', 'twint', 'voucher'.
    */
-  allowedMethods?: Array<string> | null | undefined;
+  allowedMethods?: Array<models.PaymentLinkMethod> | null | undefined;
   /**
    * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
    *
@@ -233,7 +229,8 @@ export const CreatePaymentLinkRequestBody$inboundSchema: z.ZodType<
   profileId: z.nullable(z.string()).optional(),
   reusable: z.nullable(z.boolean()).optional(),
   expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$inboundSchema))
+    .optional(),
   applicationFee: z.lazy(() => ApplicationFee$inboundSchema).optional(),
   sequenceType: models.PaymentLinkSequenceType$inboundSchema.optional(),
   customerId: z.nullable(z.string()).optional(),
@@ -279,7 +276,8 @@ export const CreatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   profileId: z.nullable(z.string()).optional(),
   reusable: z.nullable(z.boolean()).optional(),
   expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$outboundSchema))
+    .optional(),
   applicationFee: z.lazy(() => ApplicationFee$outboundSchema).optional(),
   sequenceType: models.PaymentLinkSequenceType$outboundSchema.optional(),
   customerId: z.nullable(z.string()).optional(),

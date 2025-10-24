@@ -100,6 +100,8 @@ export * from "./paymentlineitem.js";
 export * from "./paymentlineitemresponse.js";
 export * from "./paymentlinetype.js";
 export * from "./paymentlinetyperesponse.js";
+export * from "./paymentlinkmethod.js";
+export * from "./paymentlinkmethodresponse.js";
 export * from "./paymentlinkresponse.js";
 export * from "./paymentlinksequencetype.js";
 export * from "./paymentlinksequencetyperesponse.js";

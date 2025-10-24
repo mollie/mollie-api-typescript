@@ -33,6 +33,11 @@ import {
   PaymentLineItemResponse$outboundSchema,
 } from "./paymentlineitemresponse.js";
 import {
+  PaymentLinkMethodResponse,
+  PaymentLinkMethodResponse$inboundSchema,
+  PaymentLinkMethodResponse$outboundSchema,
+} from "./paymentlinkmethodresponse.js";
+import {
   PaymentLinkSequenceTypeResponse,
   PaymentLinkSequenceTypeResponse$inboundSchema,
   PaymentLinkSequenceTypeResponse$outboundSchema,
@@ -186,12 +191,8 @@ export type PaymentLinkResponse = {
    *
    * @remarks
    * not provided or is an empty array, all enabled payment methods will be available.
-   *
-   * Enum: 'applepay', 'bacs', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'billie', 'blik', 'creditcard', 'eps',
-   * 'giftcard', 'ideal', 'in3', 'kbc', 'klarna', 'mbway', 'multibanco', 'mybank', 'paybybank', 'paypal', 'paysafecard',
-   * 'pointofsale', 'przelewy24', 'riverty', 'satispay', 'swish', 'trustly', 'twint', 'voucher'.
    */
-  allowedMethods?: Array<string> | null | undefined;
+  allowedMethods?: Array<PaymentLinkMethodResponse> | null | undefined;
   /**
    * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
    *
@@ -360,7 +361,8 @@ export const PaymentLinkResponse$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   paidAt: z.nullable(z.string()).optional(),
   expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  allowedMethods: z.nullable(z.array(PaymentLinkMethodResponse$inboundSchema))
+    .optional(),
   applicationFee: z.lazy(() => PaymentLinkResponseApplicationFee$inboundSchema)
     .optional(),
   sequenceType: PaymentLinkSequenceTypeResponse$inboundSchema.optional(),
@@ -421,7 +423,8 @@ export const PaymentLinkResponse$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   paidAt: z.nullable(z.string()).optional(),
   expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  allowedMethods: z.nullable(z.array(PaymentLinkMethodResponse$outboundSchema))
+    .optional(),
   applicationFee: z.lazy(() => PaymentLinkResponseApplicationFee$outboundSchema)
     .optional(),
   sequenceType: PaymentLinkSequenceTypeResponse$outboundSchema.optional(),

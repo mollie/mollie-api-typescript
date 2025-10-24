@@ -32128,6 +32128,39 @@ components:
     paymentLinkToken:
       type: string
       example: pl_d9fQur83kFdhH8hIhaZfq
+    payment-link-method:
+      type: string
+      enum:
+        - applepay
+        - bacs
+        - bancomatpay
+        - bancontact
+        - banktransfer
+        - belfius
+        - billie
+        - blik
+        - creditcard
+        - eps
+        - giftcard
+        - ideal
+        - in3
+        - kbc
+        - klarna
+        - mbway
+        - multibanco
+        - mybank
+        - paybybank
+        - paypal
+        - paysafecard
+        - pointofsale
+        - przelewy24
+        - riverty
+        - satispay
+        - swish
+        - trustly
+        - twint
+        - voucher
+      example: ideal
     payment-link-methods:
       type:
         - array
@@ -32135,13 +32168,8 @@ components:
       description: |-
         An array of payment methods that are allowed to be used for this payment link. When this parameter is
         not provided or is an empty array, all enabled payment methods will be available.
-
-        Enum: 'applepay', 'bacs', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'billie', 'blik', 'creditcard', 'eps',
-        'giftcard', 'ideal', 'in3', 'kbc', 'klarna', 'mbway', 'multibanco', 'mybank', 'paybybank', 'paypal', 'paysafecard',
-        'pointofsale', 'przelewy24', 'riverty', 'satispay', 'swish', 'trustly', 'twint', 'voucher'.
       items:
-        type: string
-        example: ideal
+        $ref: '#/components/schemas/payment-link-method'
     payment-link-sequence-type:
       type: string
       enum:
@@ -32278,7 +32306,7 @@ components:
             the payment link will not expire automatically.
           example: '2025-12-24T11:00:16+00:00'
         allowedMethods:
-          $ref: '#/components/schemas/payment-link-methods'
+          $ref: '#/components/schemas/payment-link-methods-response'
         applicationFee:
           type: object
           description: |-
@@ -36427,6 +36455,50 @@ components:
         sales-invoice.paid: Occurs when a sales invoice has been paid.
         '*': All event types.
       example: payment-link.paid
+      x-speakeasy-unknown-values: allow
+    payment-link-methods-response:
+      type:
+        - array
+        - 'null'
+      description: |-
+        An array of payment methods that are allowed to be used for this payment link. When this parameter is
+        not provided or is an empty array, all enabled payment methods will be available.
+      items:
+        $ref: '#/components/schemas/payment-link-method-response'
+      x-speakeasy-unknown-values: allow
+    payment-link-method-response:
+      type: string
+      enum:
+        - applepay
+        - bacs
+        - bancomatpay
+        - bancontact
+        - banktransfer
+        - belfius
+        - billie
+        - blik
+        - creditcard
+        - eps
+        - giftcard
+        - ideal
+        - in3
+        - kbc
+        - klarna
+        - mbway
+        - multibanco
+        - mybank
+        - paybybank
+        - paypal
+        - paysafecard
+        - pointofsale
+        - przelewy24
+        - riverty
+        - satispay
+        - swish
+        - trustly
+        - twint
+        - voucher
+      example: ideal
       x-speakeasy-unknown-values: allow
     payment-link-sequence-type-response:
       type: string

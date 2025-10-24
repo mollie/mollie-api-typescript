@@ -35,12 +35,8 @@ export type UpdatePaymentLinkRequestBody = {
    *
    * @remarks
    * not provided or is an empty array, all enabled payment methods will be available.
-   *
-   * Enum: 'applepay', 'bacs', 'bancomatpay', 'bancontact', 'banktransfer', 'belfius', 'billie', 'blik', 'creditcard', 'eps',
-   * 'giftcard', 'ideal', 'in3', 'kbc', 'klarna', 'mbway', 'multibanco', 'mybank', 'paybybank', 'paypal', 'paysafecard',
-   * 'pointofsale', 'przelewy24', 'riverty', 'satispay', 'swish', 'trustly', 'twint', 'voucher'.
    */
-  allowedMethods?: Array<string> | null | undefined;
+  allowedMethods?: Array<models.PaymentLinkMethod> | null | undefined;
   /**
    * Optionally provide the order lines for the payment. Each line contains details such as a description of the item
    *
@@ -86,7 +82,8 @@ export const UpdatePaymentLinkRequestBody$inboundSchema: z.ZodType<
   description: z.string().optional(),
   minimumAmount: models.Amount$inboundSchema.optional(),
   archived: z.boolean().optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$inboundSchema))
+    .optional(),
   lines: z.nullable(z.array(models.PaymentLineItem$inboundSchema)).optional(),
   billingAddress: models.PaymentAddress$inboundSchema.optional(),
   shippingAddress: models.PaymentAddress$inboundSchema.optional(),
@@ -114,7 +111,8 @@ export const UpdatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   description: z.string().optional(),
   minimumAmount: models.Amount$outboundSchema.optional(),
   archived: z.boolean().optional(),
-  allowedMethods: z.nullable(z.array(z.string())).optional(),
+  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$outboundSchema))
+    .optional(),
   lines: z.nullable(z.array(models.PaymentLineItem$outboundSchema)).optional(),
   billingAddress: models.PaymentAddress$outboundSchema.optional(),
   shippingAddress: models.PaymentAddress$outboundSchema.optional(),

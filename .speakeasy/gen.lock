@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 2dec71b80177f9595e3514414246ba59
+  docChecksum: 0598dfa4879965fe4af6bb050f7b9d65
   docVersion: 1.0.0
-  speakeasyVersion: 1.638.1
-  generationVersion: 2.729.2
-  releaseVersion: 0.5.1
-  configChecksum: 574378fae6536cd42a4433b8198a1338
+  speakeasyVersion: 1.639.1
+  generationVersion: 2.730.0
+  releaseVersion: 0.6.0
+  configChecksum: 5ac2974519da38b8167ee0cbd96c3500
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.23.0
+    core: 3.24.0
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -426,6 +426,8 @@ generatedFiles:
   - docs/models/paymentlineitemresponse.md
   - docs/models/paymentlinetype.md
   - docs/models/paymentlinetyperesponse.md
+  - docs/models/paymentlinkmethod.md
+  - docs/models/paymentlinkmethodresponse.md
   - docs/models/paymentlinkresponse.md
   - docs/models/paymentlinkresponseapplicationfee.md
   - docs/models/paymentlinkresponselinks.md
@@ -1008,6 +1010,8 @@ generatedFiles:
   - src/models/paymentlineitemresponse.ts
   - src/models/paymentlinetype.ts
   - src/models/paymentlinetyperesponse.ts
+  - src/models/paymentlinkmethod.ts
+  - src/models/paymentlinkmethodresponse.ts
   - src/models/paymentlinkresponse.ts
   - src/models/paymentlinksequencetype.ts
   - src/models/paymentlinksequencetyperesponse.ts
@@ -4645,3 +4649,4 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
+releaseNotes: "## Typescript SDK Changes Detected:\n* `client.webhookEvents.get()`:  `response._embedded.entity.[payment-link-response].allowedMethods.[]` **Changed** **Breaking** :warning:\n* `client.paymentLinks.create()`: \n  *  `request.requestBody.allowedMethods.[]` **Changed** **Breaking** :warning:\n  *  `response.allowedmethods.[]` **Changed** **Breaking** :warning:\n* `client.paymentLinks.list()`:  `response._embedded.paymentLinks.[].allowedMethods.[]` **Changed** **Breaking** :warning:\n* `client.paymentLinks.get()`:  `response.allowedmethods.[]` **Changed** **Breaking** :warning:\n* `client.paymentLinks.update()`: \n  *  `request.requestBody.allowedMethods.[]` **Changed** **Breaking** :warning:\n  *  `response.allowedmethods.[]` **Changed** **Breaking** :warning:\n"
