@@ -29366,9 +29366,6 @@ components:
         - in3
         - kbc
         - klarna
-        - klarnapaylater
-        - klarnapaynow
-        - klarnasliceit
         - mbway
         - mobilepay
         - multibanco
@@ -35661,9 +35658,6 @@ components:
         - in3
         - kbc
         - klarna
-        - klarnapaylater
-        - klarnapaynow
-        - klarnasliceit
         - mbway
         - mobilepay
         - multibanco
