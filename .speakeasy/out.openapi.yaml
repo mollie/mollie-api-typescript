@@ -35675,6 +35675,13 @@ components:
         - twint
         - vipps
         - voucher
+        - klarnapaylater
+        - klarnapaynow
+        - klarnasliceit
+      x-speakeasy-enum-descriptions:
+        klarnapaylater: Deprecated, use 'klarna' instead
+        klarnapaynow: Deprecated, use 'klarna' instead
+        klarnasliceit: Deprecated, use 'klarna' instead
       x-speakeasy-unknown-values: allow
     capture-mode-response:
       type:

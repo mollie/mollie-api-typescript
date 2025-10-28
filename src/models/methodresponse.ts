@@ -56,6 +56,18 @@ export const MethodResponse = {
   Twint: "twint",
   Vipps: "vipps",
   Voucher: "voucher",
+  /**
+   * Deprecated, use 'klarna' instead
+   */
+  Klarnapaylater: "klarnapaylater",
+  /**
+   * Deprecated, use 'klarna' instead
+   */
+  Klarnapaynow: "klarnapaynow",
+  /**
+   * Deprecated, use 'klarna' instead
+   */
+  Klarnasliceit: "klarnasliceit",
 } as const;
 /**
  * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
