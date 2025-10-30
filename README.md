@@ -25,6 +25,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
   * [Authentication](#authentication)
   * [Idempotency Key](#idempotency-key)
   * [Add Custom User-Agent Header](#add-custom-user-agent-header)
+  * [Add Profile ID and Testmode to Client](#add-profile-id-and-testmode-to-client)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
   * [Retries](#retries)
@@ -295,6 +296,25 @@ let client = new Client({
 ```
 
 <!-- End Add Custom User-Agent Header -->
+
+<!-- Start Add Profile ID and Testmode to Client -->
+
+## Add Profile ID and Testmode to Client
+The SDK allows you to define the `profileId` and `testmode` in the client. This way, you don't need to add this
+information to the payload every time when using OAuth. This will not override the details provided in the individual
+requests.
+
+```ts
+let client = new Client({
+  security: {
+    oAuth: process.env["CLIENT_OAUTH_KEY"] ?? "",
+  },
+  testmode: false,
+  profileId: "pfl_..."
+})
+```
+
+<!-- End Add Profile ID and Testmode to Client -->
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
