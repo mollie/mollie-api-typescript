@@ -87,23 +87,8 @@ export class MollieHooks implements BeforeCreateRequestHook {
         const method = input.options?.method || "GET";
 
         if (method === "GET") {
-            // Update the query parameters. If testmode or profileId are not present, add them.
-            const url = new URL(input.url);
-            
-            // Add profileId if not already present
-            if (clientProfileId !== undefined && !url.searchParams.has('profileId')) {
-                url.searchParams.set('profileId', clientProfileId);
-            }
-            
-            // Add testmode if not already present
-            if (clientTestmode !== undefined && !url.searchParams.has('testmode')) {
-                url.searchParams.set('testmode', String(clientTestmode));
-            }
-            
-            return {
-                ...input,
-                url,
-            };
+            // SDK already handles Query Parameters automatically
+            return input;
         }
 
         // It's POST, DELETE, PATCH
