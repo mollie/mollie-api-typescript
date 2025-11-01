@@ -137,6 +137,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -148,7 +149,6 @@ async function run() {
     from: "mdt_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -169,6 +169,7 @@ import { mandatesList } from "mollie-api-typescript/funcs/mandatesList.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -180,7 +181,6 @@ async function run() {
     from: "mdt_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -226,6 +226,7 @@ account details, card details, or PayPal account details.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -235,7 +236,6 @@ async function run() {
   const result = await client.mandates.get({
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -256,6 +256,7 @@ import { mandatesGet } from "mollie-api-typescript/funcs/mandatesGet.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -265,7 +266,6 @@ async function run() {
   const res = await mandatesGet(client, {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

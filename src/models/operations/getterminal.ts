@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetTerminalGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetTerminalRequest = {
   /**
    * Provide the ID of the related terminal.
@@ -22,12 +35,66 @@ export type GetTerminalRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetTerminalGlobals$inboundSchema: z.ZodType<
+  GetTerminalGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetTerminalGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetTerminalGlobals$outboundSchema: z.ZodType<
+  GetTerminalGlobals$Outbound,
+  z.ZodTypeDef,
+  GetTerminalGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetTerminalGlobals$ {
+  /** @deprecated use `GetTerminalGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetTerminalGlobals$inboundSchema;
+  /** @deprecated use `GetTerminalGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetTerminalGlobals$outboundSchema;
+  /** @deprecated use `GetTerminalGlobals$Outbound` instead. */
+  export type Outbound = GetTerminalGlobals$Outbound;
+}
+
+export function getTerminalGlobalsToJSON(
+  getTerminalGlobals: GetTerminalGlobals,
+): string {
+  return JSON.stringify(
+    GetTerminalGlobals$outboundSchema.parse(getTerminalGlobals),
+  );
+}
+
+export function getTerminalGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetTerminalGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetTerminalGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetTerminalGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetTerminalRequest$inboundSchema: z.ZodType<
@@ -36,7 +103,7 @@ export const GetTerminalRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   terminalId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +114,7 @@ export const GetTerminalRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetTerminalRequest$Outbound = {
   terminalId: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -58,7 +125,7 @@ export const GetTerminalRequest$outboundSchema: z.ZodType<
   GetTerminalRequest
 > = z.object({
   terminalId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

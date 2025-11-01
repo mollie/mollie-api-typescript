@@ -106,9 +106,9 @@ async function $do(
     encodeFormQuery({
       "include": payload?.include,
       "locale": payload?.locale,
-      "profileId": payload?.profileId,
+      "profileId": payload?.profileId ?? client._options.profileId,
       "sequenceType": payload?.sequenceType,
-      "testmode": payload?.testmode,
+      "testmode": payload?.testmode ?? client._options.testmode,
     }),
   );
 

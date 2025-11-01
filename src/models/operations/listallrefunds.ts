@@ -9,6 +9,29 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListAllRefundsGlobals = {
+  /**
+   * The identifier referring to the [profile](get-profile) you wish to
+   *
+   * @remarks
+   * retrieve the resources for.
+   *
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   */
+  profileId?: string | undefined;
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListAllRefundsRequest = {
   /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
@@ -54,7 +77,7 @@ export type ListAllRefundsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -90,6 +113,63 @@ export type ListAllRefundsResponse = {
 };
 
 /** @internal */
+export const ListAllRefundsGlobals$inboundSchema: z.ZodType<
+  ListAllRefundsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListAllRefundsGlobals$Outbound = {
+  profileId?: string | undefined;
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListAllRefundsGlobals$outboundSchema: z.ZodType<
+  ListAllRefundsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListAllRefundsGlobals
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllRefundsGlobals$ {
+  /** @deprecated use `ListAllRefundsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListAllRefundsGlobals$inboundSchema;
+  /** @deprecated use `ListAllRefundsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListAllRefundsGlobals$outboundSchema;
+  /** @deprecated use `ListAllRefundsGlobals$Outbound` instead. */
+  export type Outbound = ListAllRefundsGlobals$Outbound;
+}
+
+export function listAllRefundsGlobalsToJSON(
+  listAllRefundsGlobals: ListAllRefundsGlobals,
+): string {
+  return JSON.stringify(
+    ListAllRefundsGlobals$outboundSchema.parse(listAllRefundsGlobals),
+  );
+}
+
+export function listAllRefundsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllRefundsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAllRefundsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllRefundsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListAllRefundsRequest$inboundSchema: z.ZodType<
   ListAllRefundsRequest,
   z.ZodTypeDef,
@@ -100,7 +180,7 @@ export const ListAllRefundsRequest$inboundSchema: z.ZodType<
   sort: models.Sorting$inboundSchema.optional(),
   embed: z.nullable(z.string()).optional(),
   profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -115,7 +195,7 @@ export type ListAllRefundsRequest$Outbound = {
   sort?: string | undefined;
   embed?: string | null | undefined;
   profileId?: string | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -130,7 +210,7 @@ export const ListAllRefundsRequest$outboundSchema: z.ZodType<
   sort: models.Sorting$outboundSchema.optional(),
   embed: z.nullable(z.string()).optional(),
   profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

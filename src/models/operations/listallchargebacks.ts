@@ -9,6 +9,29 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListAllChargebacksGlobals = {
+  /**
+   * The identifier referring to the [profile](get-profile) you wish to
+   *
+   * @remarks
+   * retrieve the resources for.
+   *
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   */
+  profileId?: string | undefined;
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListAllChargebacksRequest = {
   /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
@@ -57,7 +80,7 @@ export type ListAllChargebacksRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -93,6 +116,63 @@ export type ListAllChargebacksResponse = {
 };
 
 /** @internal */
+export const ListAllChargebacksGlobals$inboundSchema: z.ZodType<
+  ListAllChargebacksGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListAllChargebacksGlobals$Outbound = {
+  profileId?: string | undefined;
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListAllChargebacksGlobals$outboundSchema: z.ZodType<
+  ListAllChargebacksGlobals$Outbound,
+  z.ZodTypeDef,
+  ListAllChargebacksGlobals
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllChargebacksGlobals$ {
+  /** @deprecated use `ListAllChargebacksGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListAllChargebacksGlobals$inboundSchema;
+  /** @deprecated use `ListAllChargebacksGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListAllChargebacksGlobals$outboundSchema;
+  /** @deprecated use `ListAllChargebacksGlobals$Outbound` instead. */
+  export type Outbound = ListAllChargebacksGlobals$Outbound;
+}
+
+export function listAllChargebacksGlobalsToJSON(
+  listAllChargebacksGlobals: ListAllChargebacksGlobals,
+): string {
+  return JSON.stringify(
+    ListAllChargebacksGlobals$outboundSchema.parse(listAllChargebacksGlobals),
+  );
+}
+
+export function listAllChargebacksGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllChargebacksGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAllChargebacksGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllChargebacksGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListAllChargebacksRequest$inboundSchema: z.ZodType<
   ListAllChargebacksRequest,
   z.ZodTypeDef,
@@ -103,7 +183,7 @@ export const ListAllChargebacksRequest$inboundSchema: z.ZodType<
   embed: z.nullable(z.string()).optional(),
   sort: models.Sorting$inboundSchema.optional(),
   profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -118,7 +198,7 @@ export type ListAllChargebacksRequest$Outbound = {
   embed?: string | null | undefined;
   sort?: string | undefined;
   profileId?: string | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -133,7 +213,7 @@ export const ListAllChargebacksRequest$outboundSchema: z.ZodType<
   embed: z.nullable(z.string()).optional(),
   sort: models.Sorting$outboundSchema.optional(),
   profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

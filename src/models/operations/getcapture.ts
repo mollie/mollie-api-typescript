@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetCaptureGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetCaptureRequest = {
   /**
    * Provide the ID of the related payment.
@@ -33,12 +46,66 @@ export type GetCaptureRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetCaptureGlobals$inboundSchema: z.ZodType<
+  GetCaptureGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetCaptureGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetCaptureGlobals$outboundSchema: z.ZodType<
+  GetCaptureGlobals$Outbound,
+  z.ZodTypeDef,
+  GetCaptureGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetCaptureGlobals$ {
+  /** @deprecated use `GetCaptureGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetCaptureGlobals$inboundSchema;
+  /** @deprecated use `GetCaptureGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetCaptureGlobals$outboundSchema;
+  /** @deprecated use `GetCaptureGlobals$Outbound` instead. */
+  export type Outbound = GetCaptureGlobals$Outbound;
+}
+
+export function getCaptureGlobalsToJSON(
+  getCaptureGlobals: GetCaptureGlobals,
+): string {
+  return JSON.stringify(
+    GetCaptureGlobals$outboundSchema.parse(getCaptureGlobals),
+  );
+}
+
+export function getCaptureGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCaptureGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetCaptureGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCaptureGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetCaptureRequest$inboundSchema: z.ZodType<
@@ -49,7 +116,7 @@ export const GetCaptureRequest$inboundSchema: z.ZodType<
   paymentId: z.string(),
   captureId: z.string(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -62,7 +129,7 @@ export type GetCaptureRequest$Outbound = {
   paymentId: string;
   captureId: string;
   embed?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -75,7 +142,7 @@ export const GetCaptureRequest$outboundSchema: z.ZodType<
   paymentId: z.string(),
   captureId: z.string(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

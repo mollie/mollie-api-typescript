@@ -116,15 +116,21 @@ export function createMCPServer(deps: {
   scopes?: MCPScope[] | undefined;
   serverURL?: string | undefined;
   security?: SDKOptions["security"] | undefined;
+  profileId?: SDKOptions["profileId"] | undefined;
+  testmode?: SDKOptions["testmode"] | undefined;
+  customUserAgent?: SDKOptions["customUserAgent"] | undefined;
   serverIdx?: SDKOptions["serverIdx"] | undefined;
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "0.6.2",
+    version: "0.7.0",
   });
 
   const client = new ClientCore({
     security: deps.security,
+    profileId: deps.profileId,
+    testmode: deps.testmode,
+    customUserAgent: deps.customUserAgent,
     serverURL: deps.serverURL,
     serverIdx: deps.serverIdx,
   });

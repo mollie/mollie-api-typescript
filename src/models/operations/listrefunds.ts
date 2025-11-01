@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListRefundsGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListRefundsRequest = {
   /**
    * Provide the ID of the related payment.
@@ -41,7 +54,7 @@ export type ListRefundsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -80,6 +93,60 @@ export type ListRefundsResponse = {
 };
 
 /** @internal */
+export const ListRefundsGlobals$inboundSchema: z.ZodType<
+  ListRefundsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListRefundsGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListRefundsGlobals$outboundSchema: z.ZodType<
+  ListRefundsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListRefundsGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListRefundsGlobals$ {
+  /** @deprecated use `ListRefundsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListRefundsGlobals$inboundSchema;
+  /** @deprecated use `ListRefundsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListRefundsGlobals$outboundSchema;
+  /** @deprecated use `ListRefundsGlobals$Outbound` instead. */
+  export type Outbound = ListRefundsGlobals$Outbound;
+}
+
+export function listRefundsGlobalsToJSON(
+  listRefundsGlobals: ListRefundsGlobals,
+): string {
+  return JSON.stringify(
+    ListRefundsGlobals$outboundSchema.parse(listRefundsGlobals),
+  );
+}
+
+export function listRefundsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListRefundsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListRefundsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListRefundsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListRefundsRequest$inboundSchema: z.ZodType<
   ListRefundsRequest,
   z.ZodTypeDef,
@@ -89,7 +156,7 @@ export const ListRefundsRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -103,7 +170,7 @@ export type ListRefundsRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   embed?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -117,7 +184,7 @@ export const ListRefundsRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

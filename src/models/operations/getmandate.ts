@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetMandateGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetMandateRequest = {
   /**
    * Provide the ID of the related customer.
@@ -26,12 +39,66 @@ export type GetMandateRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetMandateGlobals$inboundSchema: z.ZodType<
+  GetMandateGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetMandateGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetMandateGlobals$outboundSchema: z.ZodType<
+  GetMandateGlobals$Outbound,
+  z.ZodTypeDef,
+  GetMandateGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMandateGlobals$ {
+  /** @deprecated use `GetMandateGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetMandateGlobals$inboundSchema;
+  /** @deprecated use `GetMandateGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetMandateGlobals$outboundSchema;
+  /** @deprecated use `GetMandateGlobals$Outbound` instead. */
+  export type Outbound = GetMandateGlobals$Outbound;
+}
+
+export function getMandateGlobalsToJSON(
+  getMandateGlobals: GetMandateGlobals,
+): string {
+  return JSON.stringify(
+    GetMandateGlobals$outboundSchema.parse(getMandateGlobals),
+  );
+}
+
+export function getMandateGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMandateGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMandateGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMandateGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetMandateRequest$inboundSchema: z.ZodType<
@@ -41,7 +108,7 @@ export const GetMandateRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   mandateId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -53,7 +120,7 @@ export const GetMandateRequest$inboundSchema: z.ZodType<
 export type GetMandateRequest$Outbound = {
   customerId: string;
   mandateId: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -65,7 +132,7 @@ export const GetMandateRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   mandateId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

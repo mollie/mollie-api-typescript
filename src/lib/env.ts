@@ -3,11 +3,27 @@
  */
 
 import * as z from "zod/v3";
+import { SDKOptions } from "./config.js";
 import { dlv } from "./dlv.js";
 
 export interface Env {
   CLIENT_API_KEY?: string | undefined;
   CLIENT_O_AUTH?: string | undefined;
+
+  /**
+   * Sets the profileId parameter for all supported operations
+   */
+  CLIENT_PROFILE_ID?: string | undefined;
+
+  /**
+   * Sets the testmode parameter for all supported operations
+   */
+  CLIENT_TESTMODE?: boolean | undefined;
+
+  /**
+   * Sets the customUserAgent parameter for all supported operations
+   */
+  CLIENT_CUSTOM_USER_AGENT?: string | undefined;
 
   CLIENT_DEBUG?: boolean | undefined;
 }
@@ -15,6 +31,11 @@ export interface Env {
 export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
   CLIENT_API_KEY: z.string().optional(),
   CLIENT_O_AUTH: z.string().optional(),
+
+  CLIENT_PROFILE_ID: z.string().optional(),
+  CLIENT_TESTMODE: z.enum(["true", "false"]).transform(v => v === "true")
+    .optional(),
+  CLIENT_CUSTOM_USER_AGENT: z.string().optional(),
 
   CLIENT_DEBUG: z.coerce.boolean().optional(),
 });
@@ -56,4 +77,25 @@ export function env(): Env {
  */
 export function resetEnv() {
   envMemo = undefined;
+}
+
+/**
+ * Populates global parameters with environment variables.
+ */
+export function fillGlobals(options: SDKOptions): SDKOptions {
+  const clone = { ...options };
+
+  const envVars = env();
+
+  if (typeof envVars.CLIENT_PROFILE_ID !== "undefined") {
+    clone.profileId ??= envVars.CLIENT_PROFILE_ID;
+  }
+  if (typeof envVars.CLIENT_TESTMODE !== "undefined") {
+    clone.testmode ??= envVars.CLIENT_TESTMODE;
+  }
+  if (typeof envVars.CLIENT_CUSTOM_USER_AGENT !== "undefined") {
+    clone.customUserAgent ??= envVars.CLIENT_CUSTOM_USER_AGENT;
+  }
+
+  return clone;
 }

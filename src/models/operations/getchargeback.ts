@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetChargebackGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetChargebackRequest = {
   /**
    * Provide the ID of the related payment.
@@ -33,12 +46,66 @@ export type GetChargebackRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetChargebackGlobals$inboundSchema: z.ZodType<
+  GetChargebackGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetChargebackGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetChargebackGlobals$outboundSchema: z.ZodType<
+  GetChargebackGlobals$Outbound,
+  z.ZodTypeDef,
+  GetChargebackGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetChargebackGlobals$ {
+  /** @deprecated use `GetChargebackGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetChargebackGlobals$inboundSchema;
+  /** @deprecated use `GetChargebackGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetChargebackGlobals$outboundSchema;
+  /** @deprecated use `GetChargebackGlobals$Outbound` instead. */
+  export type Outbound = GetChargebackGlobals$Outbound;
+}
+
+export function getChargebackGlobalsToJSON(
+  getChargebackGlobals: GetChargebackGlobals,
+): string {
+  return JSON.stringify(
+    GetChargebackGlobals$outboundSchema.parse(getChargebackGlobals),
+  );
+}
+
+export function getChargebackGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetChargebackGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetChargebackGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetChargebackGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetChargebackRequest$inboundSchema: z.ZodType<
@@ -49,7 +116,7 @@ export const GetChargebackRequest$inboundSchema: z.ZodType<
   paymentId: z.string(),
   chargebackId: z.string(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -62,7 +129,7 @@ export type GetChargebackRequest$Outbound = {
   paymentId: string;
   chargebackId: string;
   embed?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -75,7 +142,7 @@ export const GetChargebackRequest$outboundSchema: z.ZodType<
   paymentId: z.string(),
   chargebackId: z.string(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

@@ -19,6 +19,9 @@ interface StartCommandFlags {
   readonly tool?: string[];
   readonly "api-key"?: string | undefined;
   readonly "o-auth"?: string | undefined;
+  readonly "profile-id"?: SDKOptions["profileId"] | undefined;
+  readonly testmode?: SDKOptions["testmode"] | undefined;
+  readonly "custom-user-agent"?: SDKOptions["customUserAgent"] | undefined;
   readonly "server-url"?: string;
   readonly "server-index"?: SDKOptions["serverIdx"];
   readonly "log-level": ConsoleLoggerLevel;
@@ -49,6 +52,9 @@ async function startStdio(flags: StartCommandFlags) {
     logger,
     allowedTools: flags.tool,
     security: { apiKey: flags["api-key"] ?? "", oAuth: flags["o-auth"] ?? "" },
+    profileId: flags["profile-id"],
+    testmode: flags.testmode,
+    customUserAgent: flags["custom-user-agent"],
     serverURL: flags["server-url"],
     serverIdx: flags["server-index"],
   });
@@ -69,6 +75,9 @@ async function startSSE(flags: StartCommandFlags) {
     logger,
     allowedTools: flags.tool,
     security: { apiKey: flags["api-key"] ?? "", oAuth: flags["o-auth"] ?? "" },
+    profileId: flags["profile-id"],
+    testmode: flags.testmode,
+    customUserAgent: flags["custom-user-agent"],
     serverURL: flags["server-url"],
     serverIdx: flags["server-index"],
   });

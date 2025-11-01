@@ -128,6 +128,7 @@ Retrieve a list of all routes created for a specific payment.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -136,7 +137,6 @@ const client = new Client({
 async function run() {
   const result = await client.delayedRouting.list({
     paymentId: "tr_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -157,6 +157,7 @@ import { delayedRoutingList } from "mollie-api-typescript/funcs/delayedRoutingLi
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -165,7 +166,6 @@ const client = new ClientCore({
 async function run() {
   const res = await delayedRoutingList(client, {
     paymentId: "tr_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

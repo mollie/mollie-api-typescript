@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetProfileGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetProfileRequest = {
   /**
    * Provide the ID of the item you want to perform this operation on.
@@ -22,12 +35,66 @@ export type GetProfileRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetProfileGlobals$inboundSchema: z.ZodType<
+  GetProfileGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetProfileGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetProfileGlobals$outboundSchema: z.ZodType<
+  GetProfileGlobals$Outbound,
+  z.ZodTypeDef,
+  GetProfileGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProfileGlobals$ {
+  /** @deprecated use `GetProfileGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetProfileGlobals$inboundSchema;
+  /** @deprecated use `GetProfileGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetProfileGlobals$outboundSchema;
+  /** @deprecated use `GetProfileGlobals$Outbound` instead. */
+  export type Outbound = GetProfileGlobals$Outbound;
+}
+
+export function getProfileGlobalsToJSON(
+  getProfileGlobals: GetProfileGlobals,
+): string {
+  return JSON.stringify(
+    GetProfileGlobals$outboundSchema.parse(getProfileGlobals),
+  );
+}
+
+export function getProfileGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProfileGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetProfileGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProfileGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetProfileRequest$inboundSchema: z.ZodType<
@@ -36,7 +103,7 @@ export const GetProfileRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +114,7 @@ export const GetProfileRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetProfileRequest$Outbound = {
   id: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -58,7 +125,7 @@ export const GetProfileRequest$outboundSchema: z.ZodType<
   GetProfileRequest
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

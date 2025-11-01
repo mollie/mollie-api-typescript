@@ -113,6 +113,7 @@ Returns a paginated list of your webhooks. If no webhook endpoints are available
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -124,7 +125,6 @@ async function run() {
     limit: 50,
     sort: "desc",
     eventTypes: "payment-link.paid",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -145,6 +145,7 @@ import { webhooksList } from "mollie-api-typescript/funcs/webhooksList.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -156,7 +157,6 @@ async function run() {
     limit: 50,
     sort: "desc",
     eventTypes: "payment-link.paid",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -293,6 +293,7 @@ Retrieve a single webhook object by its ID.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -301,7 +302,6 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.get({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -322,6 +322,7 @@ import { webhooksGet } from "mollie-api-typescript/funcs/webhooksGet.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -330,7 +331,6 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksGet(client, {
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

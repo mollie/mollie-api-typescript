@@ -238,6 +238,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -247,7 +248,6 @@ async function run() {
   const result = await client.salesInvoices.list({
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -268,6 +268,7 @@ import { salesInvoicesList } from "mollie-api-typescript/funcs/salesInvoicesList
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -277,7 +278,6 @@ async function run() {
   const res = await salesInvoicesList(client, {
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -326,6 +326,7 @@ Retrieve a single sales invoice by its ID.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -334,7 +335,6 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.get({
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -355,6 +355,7 @@ import { salesInvoicesGet } from "mollie-api-typescript/funcs/salesInvoicesGet.j
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -363,7 +364,6 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesGet(client, {
     id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

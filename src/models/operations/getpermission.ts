@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetPermissionGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetPermissionRequest = {
   /**
    * Provide the ID of the related permission.
@@ -22,12 +35,66 @@ export type GetPermissionRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetPermissionGlobals$inboundSchema: z.ZodType<
+  GetPermissionGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetPermissionGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetPermissionGlobals$outboundSchema: z.ZodType<
+  GetPermissionGlobals$Outbound,
+  z.ZodTypeDef,
+  GetPermissionGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetPermissionGlobals$ {
+  /** @deprecated use `GetPermissionGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetPermissionGlobals$inboundSchema;
+  /** @deprecated use `GetPermissionGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetPermissionGlobals$outboundSchema;
+  /** @deprecated use `GetPermissionGlobals$Outbound` instead. */
+  export type Outbound = GetPermissionGlobals$Outbound;
+}
+
+export function getPermissionGlobalsToJSON(
+  getPermissionGlobals: GetPermissionGlobals,
+): string {
+  return JSON.stringify(
+    GetPermissionGlobals$outboundSchema.parse(getPermissionGlobals),
+  );
+}
+
+export function getPermissionGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPermissionGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPermissionGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPermissionGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetPermissionRequest$inboundSchema: z.ZodType<
@@ -36,7 +103,7 @@ export const GetPermissionRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   permissionId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +114,7 @@ export const GetPermissionRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetPermissionRequest$Outbound = {
   permissionId: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -58,7 +125,7 @@ export const GetPermissionRequest$outboundSchema: z.ZodType<
   GetPermissionRequest
 > = z.object({
   permissionId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

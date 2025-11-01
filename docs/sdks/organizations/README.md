@@ -25,6 +25,7 @@ If you have a *partner account*', you can retrieve organization details of conne
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -33,7 +34,6 @@ const client = new Client({
 async function run() {
   const result = await client.organizations.get({
     id: "org_12345678",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -54,6 +54,7 @@ import { organizationsGet } from "mollie-api-typescript/funcs/organizationsGet.j
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -62,7 +63,6 @@ const client = new ClientCore({
 async function run() {
   const res = await organizationsGet(client, {
     id: "org_12345678",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

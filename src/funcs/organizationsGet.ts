@@ -104,7 +104,7 @@ async function $do(
   const path = pathToFunc("/organizations/{id}")(pathParams);
 
   const query = encodeFormQuery({
-    "testmode": payload.testmode,
+    "testmode": payload.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

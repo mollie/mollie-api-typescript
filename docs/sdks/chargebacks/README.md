@@ -22,6 +22,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -33,7 +34,6 @@ async function run() {
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -54,6 +54,7 @@ import { chargebacksList } from "mollie-api-typescript/funcs/chargebacksList.js"
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -65,7 +66,6 @@ async function run() {
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -110,6 +110,7 @@ Retrieve a single payment chargeback by its ID and the ID of its parent payment.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -120,7 +121,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -141,6 +141,7 @@ import { chargebacksGet } from "mollie-api-typescript/funcs/chargebacksGet.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -151,7 +152,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -198,6 +198,8 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -209,8 +211,6 @@ async function run() {
     limit: 50,
     embed: "payment",
     sort: "desc",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -231,6 +231,8 @@ import { chargebacksAll } from "mollie-api-typescript/funcs/chargebacksAll.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -242,8 +244,6 @@ async function run() {
     limit: 50,
     embed: "payment",
     sort: "desc",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

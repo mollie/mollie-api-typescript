@@ -102,7 +102,7 @@ async function $do(
   const query = encodeFormQuery({
     "from": payload?.from,
     "limit": payload?.limit,
-    "testmode": payload?.testmode,
+    "testmode": payload?.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

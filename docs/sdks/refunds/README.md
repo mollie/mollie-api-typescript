@@ -177,6 +177,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -188,7 +189,6 @@ async function run() {
     from: "re_5B8cwPMGnU",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -209,6 +209,7 @@ import { refundsList } from "mollie-api-typescript/funcs/refundsList.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -220,7 +221,6 @@ async function run() {
     from: "re_5B8cwPMGnU",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -265,6 +265,7 @@ Retrieve a single payment refund by its ID and the ID of its parent payment.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -275,7 +276,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -296,6 +296,7 @@ import { refundsGet } from "mollie-api-typescript/funcs/refundsGet.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -306,7 +307,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -355,6 +355,7 @@ A refund can only be canceled while its `status` field is either `queued` or `pe
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -364,7 +365,6 @@ async function run() {
   const result = await client.refunds.cancel({
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -385,6 +385,7 @@ import { refundsCancel } from "mollie-api-typescript/funcs/refundsCancel.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -394,7 +395,6 @@ async function run() {
   const res = await refundsCancel(client, {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -441,6 +441,8 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -452,8 +454,6 @@ async function run() {
     limit: 50,
     sort: "desc",
     embed: "payment",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -474,6 +474,8 @@ import { refundsAll } from "mollie-api-typescript/funcs/refundsAll.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -485,8 +487,6 @@ async function run() {
     limit: 50,
     sort: "desc",
     embed: "payment",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

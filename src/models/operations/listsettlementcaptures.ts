@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListSettlementCapturesGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListSettlementCapturesRequest = {
   /**
    * Provide the ID of the related settlement.
@@ -41,7 +54,7 @@ export type ListSettlementCapturesRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -77,6 +90,62 @@ export type ListSettlementCapturesResponse = {
 };
 
 /** @internal */
+export const ListSettlementCapturesGlobals$inboundSchema: z.ZodType<
+  ListSettlementCapturesGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListSettlementCapturesGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListSettlementCapturesGlobals$outboundSchema: z.ZodType<
+  ListSettlementCapturesGlobals$Outbound,
+  z.ZodTypeDef,
+  ListSettlementCapturesGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSettlementCapturesGlobals$ {
+  /** @deprecated use `ListSettlementCapturesGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListSettlementCapturesGlobals$inboundSchema;
+  /** @deprecated use `ListSettlementCapturesGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListSettlementCapturesGlobals$outboundSchema;
+  /** @deprecated use `ListSettlementCapturesGlobals$Outbound` instead. */
+  export type Outbound = ListSettlementCapturesGlobals$Outbound;
+}
+
+export function listSettlementCapturesGlobalsToJSON(
+  listSettlementCapturesGlobals: ListSettlementCapturesGlobals,
+): string {
+  return JSON.stringify(
+    ListSettlementCapturesGlobals$outboundSchema.parse(
+      listSettlementCapturesGlobals,
+    ),
+  );
+}
+
+export function listSettlementCapturesGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSettlementCapturesGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSettlementCapturesGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSettlementCapturesGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSettlementCapturesRequest$inboundSchema: z.ZodType<
   ListSettlementCapturesRequest,
   z.ZodTypeDef,
@@ -86,7 +155,7 @@ export const ListSettlementCapturesRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -100,7 +169,7 @@ export type ListSettlementCapturesRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   embed?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -114,7 +183,7 @@ export const ListSettlementCapturesRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

@@ -9,6 +9,29 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListAllSubscriptionsGlobals = {
+  /**
+   * The identifier referring to the [profile](get-profile) you wish to
+   *
+   * @remarks
+   * retrieve the resources for.
+   *
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   */
+  profileId?: string | undefined;
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListAllSubscriptionsRequest = {
   /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
@@ -41,7 +64,7 @@ export type ListAllSubscriptionsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -77,6 +100,65 @@ export type ListAllSubscriptionsResponse = {
 };
 
 /** @internal */
+export const ListAllSubscriptionsGlobals$inboundSchema: z.ZodType<
+  ListAllSubscriptionsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListAllSubscriptionsGlobals$Outbound = {
+  profileId?: string | undefined;
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListAllSubscriptionsGlobals$outboundSchema: z.ZodType<
+  ListAllSubscriptionsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsGlobals
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAllSubscriptionsGlobals$ {
+  /** @deprecated use `ListAllSubscriptionsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListAllSubscriptionsGlobals$inboundSchema;
+  /** @deprecated use `ListAllSubscriptionsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListAllSubscriptionsGlobals$outboundSchema;
+  /** @deprecated use `ListAllSubscriptionsGlobals$Outbound` instead. */
+  export type Outbound = ListAllSubscriptionsGlobals$Outbound;
+}
+
+export function listAllSubscriptionsGlobalsToJSON(
+  listAllSubscriptionsGlobals: ListAllSubscriptionsGlobals,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsGlobals$outboundSchema.parse(
+      listAllSubscriptionsGlobals,
+    ),
+  );
+}
+
+export function listAllSubscriptionsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllSubscriptionsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAllSubscriptionsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
   ListAllSubscriptionsRequest,
   z.ZodTypeDef,
@@ -85,7 +167,7 @@ export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
   profileId: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -98,7 +180,7 @@ export type ListAllSubscriptionsRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
   profileId?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -111,7 +193,7 @@ export const ListAllSubscriptionsRequest$outboundSchema: z.ZodType<
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
   profileId: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

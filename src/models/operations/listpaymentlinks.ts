@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListPaymentLinksGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListPaymentLinksRequest = {
   /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
@@ -30,7 +43,7 @@ export type ListPaymentLinksRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -66,6 +79,60 @@ export type ListPaymentLinksResponse = {
 };
 
 /** @internal */
+export const ListPaymentLinksGlobals$inboundSchema: z.ZodType<
+  ListPaymentLinksGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListPaymentLinksGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListPaymentLinksGlobals$outboundSchema: z.ZodType<
+  ListPaymentLinksGlobals$Outbound,
+  z.ZodTypeDef,
+  ListPaymentLinksGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListPaymentLinksGlobals$ {
+  /** @deprecated use `ListPaymentLinksGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListPaymentLinksGlobals$inboundSchema;
+  /** @deprecated use `ListPaymentLinksGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListPaymentLinksGlobals$outboundSchema;
+  /** @deprecated use `ListPaymentLinksGlobals$Outbound` instead. */
+  export type Outbound = ListPaymentLinksGlobals$Outbound;
+}
+
+export function listPaymentLinksGlobalsToJSON(
+  listPaymentLinksGlobals: ListPaymentLinksGlobals,
+): string {
+  return JSON.stringify(
+    ListPaymentLinksGlobals$outboundSchema.parse(listPaymentLinksGlobals),
+  );
+}
+
+export function listPaymentLinksGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListPaymentLinksGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListPaymentLinksGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListPaymentLinksGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListPaymentLinksRequest$inboundSchema: z.ZodType<
   ListPaymentLinksRequest,
   z.ZodTypeDef,
@@ -73,7 +140,7 @@ export const ListPaymentLinksRequest$inboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -85,7 +152,7 @@ export const ListPaymentLinksRequest$inboundSchema: z.ZodType<
 export type ListPaymentLinksRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -97,7 +164,7 @@ export const ListPaymentLinksRequest$outboundSchema: z.ZodType<
 > = z.object({
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

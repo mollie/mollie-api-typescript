@@ -281,6 +281,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -290,7 +291,6 @@ async function run() {
   const result = await client.paymentLinks.list({
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -311,6 +311,7 @@ import { paymentLinksList } from "mollie-api-typescript/funcs/paymentLinksList.j
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -320,7 +321,6 @@ async function run() {
   const res = await paymentLinksList(client, {
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -365,6 +365,7 @@ Retrieve a single payment link by its ID.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -373,7 +374,6 @@ const client = new Client({
 async function run() {
   const result = await client.paymentLinks.get({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -394,6 +394,7 @@ import { paymentLinksGet } from "mollie-api-typescript/funcs/paymentLinksGet.js"
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -402,7 +403,6 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentLinksGet(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -703,6 +703,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -714,7 +715,6 @@ async function run() {
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -735,6 +735,7 @@ import { paymentLinksListPayments } from "mollie-api-typescript/funcs/paymentLin
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -746,7 +747,6 @@ async function run() {
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

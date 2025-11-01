@@ -106,7 +106,7 @@ async function $do(
   );
 
   const query = encodeFormQuery({
-    "testmode": payload.testmode,
+    "testmode": payload.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

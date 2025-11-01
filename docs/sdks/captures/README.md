@@ -141,6 +141,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -152,7 +153,6 @@ async function run() {
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -173,6 +173,7 @@ import { capturesList } from "mollie-api-typescript/funcs/capturesList.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -184,7 +185,6 @@ async function run() {
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -230,6 +230,7 @@ payment.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -240,7 +241,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     captureId: "cpt_gVMhHKqSSRYJyPsuoPNFH",
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -261,6 +261,7 @@ import { capturesGet } from "mollie-api-typescript/funcs/capturesGet.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -271,7 +272,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     captureId: "cpt_gVMhHKqSSRYJyPsuoPNFH",
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

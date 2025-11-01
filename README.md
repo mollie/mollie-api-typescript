@@ -28,6 +28,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
   * [Add Profile ID and Testmode to Client](#add-profile-id-and-testmode-to-client)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [Global Parameters](#global-parameters)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -94,7 +95,10 @@ Add the following server definition to your `claude_desktop_config.json` file:
         "--",
         "mcp", "start",
         "--api-key", "...",
-        "--o-auth", "..."
+        "--o-auth", "...",
+        "--profile-id", "...",
+        "--testmode", "...",
+        "--custom-user-agent", "..."
       ]
     }
   }
@@ -118,7 +122,10 @@ Create a `.cursor/mcp.json` file in your project root with the following content
         "--",
         "mcp", "start",
         "--api-key", "...",
-        "--o-auth", "..."
+        "--o-auth", "...",
+        "--profile-id", "...",
+        "--testmode", "...",
+        "--custom-user-agent", "..."
       ]
     }
   }
@@ -173,6 +180,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -183,7 +191,6 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -215,6 +222,7 @@ const client = new Client({
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
+  testmode: false,
 });
 
 async function run() {
@@ -222,7 +230,6 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -614,16 +621,34 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
 
-<!-- Start Retries [retries] -->
-## Retries
+<!-- Start Global Parameters [global-parameters] -->
+## Global Parameters
 
-Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+Certain parameters are configured globally. These parameters may be set on the SDK client instance itself during initialization. When configured as an option during SDK initialization, These global values will be used as defaults on the operations that use them. When such operations are called, there is a place in each to override the global value, if needed.
 
-To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
+For example, you can set `profileId` to `` at SDK initialization and then you do not have to pass the same value on calls to operations like `list`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
+
+
+### Available Globals
+
+The following global parameters are available.
+Global parameters can also be set via environment variable.
+
+| Name            | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                            | Environment              |
+| --------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
+| profileId       | string  | The identifier referring to the [profile](get-profile) you wish to<br/>retrieve the resources for.<br/><br/>Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For<br/>organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.                                                                     | CLIENT_PROFILE_ID        |
+| testmode        | boolean | Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query<br/>parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by<br/>setting the `testmode` query parameter to `true`.<br/><br/>Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa. | CLIENT_TESTMODE          |
+| customUserAgent | string  | Custom user agent string to be appended to the default Mollie SDK user agent.                                                                                                                                                                                                                                                                                                                          | CLIENT_CUSTOM_USER_AGENT |
+
+### Example
+
 ```typescript
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
+  profileId: "<id>",
+  customUserAgent: "<value>",
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -634,7 +659,38 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End Global Parameters [global-parameters] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   }, {
     retries: {
@@ -671,6 +727,7 @@ const client = new Client({
     },
     retryConnectionErrors: false,
   },
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -681,7 +738,6 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -713,6 +769,7 @@ import { Client } from "mollie-api-typescript";
 import * as errors from "mollie-api-typescript/models/errors";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -724,7 +781,6 @@ async function run() {
       currency: "EUR",
       from: "bal_gVMhHKqSSRYJyPsuoPNFH",
       limit: 50,
-      testmode: false,
       idempotencyKey: "123e4567-e89b-12d3-a456-426",
     });
 
@@ -789,6 +845,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   serverURL: "https://api.mollie.com/v2",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -799,7 +856,6 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 

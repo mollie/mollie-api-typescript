@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetSalesInvoiceGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetSalesInvoiceRequest = {
   /**
    * Provide the ID of the item you want to perform this operation on.
@@ -22,12 +35,66 @@ export type GetSalesInvoiceRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetSalesInvoiceGlobals$inboundSchema: z.ZodType<
+  GetSalesInvoiceGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetSalesInvoiceGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetSalesInvoiceGlobals$outboundSchema: z.ZodType<
+  GetSalesInvoiceGlobals$Outbound,
+  z.ZodTypeDef,
+  GetSalesInvoiceGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSalesInvoiceGlobals$ {
+  /** @deprecated use `GetSalesInvoiceGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetSalesInvoiceGlobals$inboundSchema;
+  /** @deprecated use `GetSalesInvoiceGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetSalesInvoiceGlobals$outboundSchema;
+  /** @deprecated use `GetSalesInvoiceGlobals$Outbound` instead. */
+  export type Outbound = GetSalesInvoiceGlobals$Outbound;
+}
+
+export function getSalesInvoiceGlobalsToJSON(
+  getSalesInvoiceGlobals: GetSalesInvoiceGlobals,
+): string {
+  return JSON.stringify(
+    GetSalesInvoiceGlobals$outboundSchema.parse(getSalesInvoiceGlobals),
+  );
+}
+
+export function getSalesInvoiceGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSalesInvoiceGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSalesInvoiceGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSalesInvoiceGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetSalesInvoiceRequest$inboundSchema: z.ZodType<
@@ -36,7 +103,7 @@ export const GetSalesInvoiceRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +114,7 @@ export const GetSalesInvoiceRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetSalesInvoiceRequest$Outbound = {
   id: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -58,7 +125,7 @@ export const GetSalesInvoiceRequest$outboundSchema: z.ZodType<
   GetSalesInvoiceRequest
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

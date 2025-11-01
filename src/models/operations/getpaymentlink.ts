@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetPaymentLinkGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetPaymentLinkRequest = {
   /**
    * Provide the ID of the related payment link.
@@ -22,12 +35,66 @@ export type GetPaymentLinkRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetPaymentLinkGlobals$inboundSchema: z.ZodType<
+  GetPaymentLinkGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetPaymentLinkGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetPaymentLinkGlobals$outboundSchema: z.ZodType<
+  GetPaymentLinkGlobals$Outbound,
+  z.ZodTypeDef,
+  GetPaymentLinkGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetPaymentLinkGlobals$ {
+  /** @deprecated use `GetPaymentLinkGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetPaymentLinkGlobals$inboundSchema;
+  /** @deprecated use `GetPaymentLinkGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetPaymentLinkGlobals$outboundSchema;
+  /** @deprecated use `GetPaymentLinkGlobals$Outbound` instead. */
+  export type Outbound = GetPaymentLinkGlobals$Outbound;
+}
+
+export function getPaymentLinkGlobalsToJSON(
+  getPaymentLinkGlobals: GetPaymentLinkGlobals,
+): string {
+  return JSON.stringify(
+    GetPaymentLinkGlobals$outboundSchema.parse(getPaymentLinkGlobals),
+  );
+}
+
+export function getPaymentLinkGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPaymentLinkGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPaymentLinkGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPaymentLinkGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetPaymentLinkRequest$inboundSchema: z.ZodType<
@@ -36,7 +103,7 @@ export const GetPaymentLinkRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   paymentLinkId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +114,7 @@ export const GetPaymentLinkRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetPaymentLinkRequest$Outbound = {
   paymentLinkId: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -58,7 +125,7 @@ export const GetPaymentLinkRequest$outboundSchema: z.ZodType<
   GetPaymentLinkRequest
 > = z.object({
   paymentLinkId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

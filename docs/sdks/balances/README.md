@@ -24,6 +24,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -34,7 +35,6 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -55,6 +55,7 @@ import { balancesList } from "mollie-api-typescript/funcs/balancesList.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -65,7 +66,6 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -124,6 +124,7 @@ funds are available on your balance. These funds will be shown under the *pendin
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -132,7 +133,6 @@ const client = new Client({
 async function run() {
   const result = await client.balances.get({
     id: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -153,6 +153,7 @@ import { balancesGet } from "mollie-api-typescript/funcs/balancesGet.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -161,7 +162,6 @@ const client = new ClientCore({
 async function run() {
   const res = await balancesGet(client, {
     id: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -293,6 +293,7 @@ organization's primary balance.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -304,7 +305,6 @@ async function run() {
     from: "2024-01-01",
     until: "2024-02-01",
     grouping: "status-balances",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -325,6 +325,7 @@ import { balancesGetReport } from "mollie-api-typescript/funcs/balancesGetReport
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -336,7 +337,6 @@ async function run() {
     from: "2024-01-01",
     until: "2024-02-01",
     grouping: "status-balances",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -390,6 +390,7 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -400,7 +401,6 @@ async function run() {
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -421,6 +421,7 @@ import { balancesListTransactions } from "mollie-api-typescript/funcs/balancesLi
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -431,7 +432,6 @@ async function run() {
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

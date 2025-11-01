@@ -51,6 +51,35 @@ export const startCommand = buildCommand({
           return z.string().parse(value);
         },
       },
+      "profile-id": {
+        kind: "parsed",
+        brief:
+          "Allows setting the profileId parameter for all supported operations",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
+      testmode: {
+        kind: "parsed",
+        brief:
+          "Allows setting the testmode parameter for all supported operations",
+        optional: true,
+        parse: (value) => {
+          return z.enum(["true", "false"]).transform(v => v === "true").parse(
+            value,
+          );
+        },
+      },
+      "custom-user-agent": {
+        kind: "parsed",
+        brief:
+          "Allows setting the customUserAgent parameter for all supported operations",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
       "server-url": {
         kind: "parsed",
         brief: "Overrides the default server URL used by the SDK",

@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListSettlementChargebacksGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListSettlementChargebacksRequest = {
   /**
    * Provide the ID of the related settlement.
@@ -41,7 +54,7 @@ export type ListSettlementChargebacksRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -77,6 +90,62 @@ export type ListSettlementChargebacksResponse = {
 };
 
 /** @internal */
+export const ListSettlementChargebacksGlobals$inboundSchema: z.ZodType<
+  ListSettlementChargebacksGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListSettlementChargebacksGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListSettlementChargebacksGlobals$outboundSchema: z.ZodType<
+  ListSettlementChargebacksGlobals$Outbound,
+  z.ZodTypeDef,
+  ListSettlementChargebacksGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSettlementChargebacksGlobals$ {
+  /** @deprecated use `ListSettlementChargebacksGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListSettlementChargebacksGlobals$inboundSchema;
+  /** @deprecated use `ListSettlementChargebacksGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListSettlementChargebacksGlobals$outboundSchema;
+  /** @deprecated use `ListSettlementChargebacksGlobals$Outbound` instead. */
+  export type Outbound = ListSettlementChargebacksGlobals$Outbound;
+}
+
+export function listSettlementChargebacksGlobalsToJSON(
+  listSettlementChargebacksGlobals: ListSettlementChargebacksGlobals,
+): string {
+  return JSON.stringify(
+    ListSettlementChargebacksGlobals$outboundSchema.parse(
+      listSettlementChargebacksGlobals,
+    ),
+  );
+}
+
+export function listSettlementChargebacksGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSettlementChargebacksGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSettlementChargebacksGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSettlementChargebacksGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSettlementChargebacksRequest$inboundSchema: z.ZodType<
   ListSettlementChargebacksRequest,
   z.ZodTypeDef,
@@ -86,7 +155,7 @@ export const ListSettlementChargebacksRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -100,7 +169,7 @@ export type ListSettlementChargebacksRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   embed?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -114,7 +183,7 @@ export const ListSettlementChargebacksRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

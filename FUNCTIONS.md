@@ -25,6 +25,7 @@ import { balancesList } from "mollie-api-typescript/funcs/balancesList.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -35,7 +36,6 @@ async function run() {
     currency: "EUR",
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

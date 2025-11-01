@@ -21,6 +21,21 @@ export type SDKOptions = {
    */
   security?: models.Security | (() => Promise<models.Security>) | undefined;
 
+  /**
+   * Allows setting the profileId parameter for all supported operations
+   */
+  profileId?: string | undefined;
+
+  /**
+   * Allows setting the testmode parameter for all supported operations
+   */
+  testmode?: boolean | undefined;
+
+  /**
+   * Allows setting the customUserAgent parameter for all supported operations
+   */
+  customUserAgent?: string | undefined;
+
   httpClient?: HTTPClient;
   /**
    * Allows overriding the default server used by the SDK
@@ -62,8 +77,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0.0",
-  sdkVersion: "0.6.2",
-  genVersion: "2.730.5",
+  sdkVersion: "0.7.0",
+  genVersion: "2.735.1",
   userAgent:
-    "speakeasy-sdk/typescript 0.6.2 2.730.5 1.0.0 mollie-api-typescript",
+    "speakeasy-sdk/typescript 0.7.0 2.735.1 1.0.0 mollie-api-typescript",
 } as const;

@@ -380,6 +380,8 @@ For capture-based payment methods such as Klarna, the payments are not listed he
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -391,8 +393,6 @@ async function run() {
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -413,6 +413,8 @@ import { settlementsListPayments } from "mollie-api-typescript/funcs/settlements
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -424,8 +426,6 @@ async function run() {
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -472,6 +472,7 @@ The response is in the same format as the response of the [List captures endpoin
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -483,7 +484,6 @@ async function run() {
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -504,6 +504,7 @@ import { settlementsListCaptures } from "mollie-api-typescript/funcs/settlements
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -515,7 +516,6 @@ async function run() {
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -562,6 +562,7 @@ The response is in the same format as the response of the [List refunds endpoint
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -573,7 +574,6 @@ async function run() {
     from: "re_5B8cwPMGnU",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -594,6 +594,7 @@ import { settlementsListRefunds } from "mollie-api-typescript/funcs/settlementsL
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -605,7 +606,6 @@ async function run() {
     from: "re_5B8cwPMGnU",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -652,6 +652,7 @@ The response is in the same format as the response of the [List chargebacks endp
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -663,7 +664,6 @@ async function run() {
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -684,6 +684,7 @@ import { settlementsListChargebacks } from "mollie-api-typescript/funcs/settleme
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -695,7 +696,6 @@ async function run() {
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     limit: 50,
     embed: "payment",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

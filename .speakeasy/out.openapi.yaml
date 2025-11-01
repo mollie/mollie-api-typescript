@@ -27257,9 +27257,7 @@ components:
         Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
       in: query
       schema:
-        type:
-          - boolean
-          - 'null'
+        type: boolean
         example: false
     id:
       name: id
@@ -37800,6 +37798,34 @@ x-readme:
     - node
     - python
     - ruby
+x-speakeasy-globals:
+  parameters:
+    - name: profileId
+      description: |-
+        The identifier referring to the [profile](get-profile) you wish to
+        retrieve the resources for.
+
+        Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+        organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+      in: query
+      schema:
+        type: string
+    - name: testmode
+      description: |-
+        Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+        parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+        setting the `testmode` query parameter to `true`.
+
+        Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+      in: query
+      schema:
+        type: boolean
+    - name: customUserAgent
+      in: header
+      description: Custom user agent string to be appended to the default Mollie SDK user agent.
+      schema:
+        type: string
+      x-speakeasy-globals-hidden: true
 x-speakeasy-retries:
   strategy: backoff
   backoff:

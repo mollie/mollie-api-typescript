@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListTerminalsGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListTerminalsRequest = {
   /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
@@ -37,7 +50,7 @@ export type ListTerminalsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -73,6 +86,60 @@ export type ListTerminalsResponse = {
 };
 
 /** @internal */
+export const ListTerminalsGlobals$inboundSchema: z.ZodType<
+  ListTerminalsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListTerminalsGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListTerminalsGlobals$outboundSchema: z.ZodType<
+  ListTerminalsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListTerminalsGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListTerminalsGlobals$ {
+  /** @deprecated use `ListTerminalsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListTerminalsGlobals$inboundSchema;
+  /** @deprecated use `ListTerminalsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListTerminalsGlobals$outboundSchema;
+  /** @deprecated use `ListTerminalsGlobals$Outbound` instead. */
+  export type Outbound = ListTerminalsGlobals$Outbound;
+}
+
+export function listTerminalsGlobalsToJSON(
+  listTerminalsGlobals: ListTerminalsGlobals,
+): string {
+  return JSON.stringify(
+    ListTerminalsGlobals$outboundSchema.parse(listTerminalsGlobals),
+  );
+}
+
+export function listTerminalsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListTerminalsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListTerminalsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListTerminalsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListTerminalsRequest$inboundSchema: z.ZodType<
   ListTerminalsRequest,
   z.ZodTypeDef,
@@ -81,7 +148,7 @@ export const ListTerminalsRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -94,7 +161,7 @@ export type ListTerminalsRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   sort?: string | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -107,7 +174,7 @@ export const ListTerminalsRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

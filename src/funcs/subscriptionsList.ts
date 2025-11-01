@@ -103,7 +103,7 @@ async function $do(
     "from": payload.from,
     "limit": payload.limit,
     "sort": payload.sort,
-    "testmode": payload.testmode,
+    "testmode": payload.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

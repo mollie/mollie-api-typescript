@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListSettlementRefundsGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListSettlementRefundsRequest = {
   /**
    * Provide the ID of the related settlement.
@@ -41,7 +54,7 @@ export type ListSettlementRefundsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -80,6 +93,62 @@ export type ListSettlementRefundsResponse = {
 };
 
 /** @internal */
+export const ListSettlementRefundsGlobals$inboundSchema: z.ZodType<
+  ListSettlementRefundsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListSettlementRefundsGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListSettlementRefundsGlobals$outboundSchema: z.ZodType<
+  ListSettlementRefundsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListSettlementRefundsGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSettlementRefundsGlobals$ {
+  /** @deprecated use `ListSettlementRefundsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListSettlementRefundsGlobals$inboundSchema;
+  /** @deprecated use `ListSettlementRefundsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListSettlementRefundsGlobals$outboundSchema;
+  /** @deprecated use `ListSettlementRefundsGlobals$Outbound` instead. */
+  export type Outbound = ListSettlementRefundsGlobals$Outbound;
+}
+
+export function listSettlementRefundsGlobalsToJSON(
+  listSettlementRefundsGlobals: ListSettlementRefundsGlobals,
+): string {
+  return JSON.stringify(
+    ListSettlementRefundsGlobals$outboundSchema.parse(
+      listSettlementRefundsGlobals,
+    ),
+  );
+}
+
+export function listSettlementRefundsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSettlementRefundsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSettlementRefundsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSettlementRefundsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSettlementRefundsRequest$inboundSchema: z.ZodType<
   ListSettlementRefundsRequest,
   z.ZodTypeDef,
@@ -89,7 +158,7 @@ export const ListSettlementRefundsRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -103,7 +172,7 @@ export type ListSettlementRefundsRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   embed?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -117,7 +186,7 @@ export const ListSettlementRefundsRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

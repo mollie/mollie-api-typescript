@@ -101,9 +101,9 @@ async function $do(
   const query = encodeFormQuery({
     "from": payload.from,
     "limit": payload.limit,
-    "profileId": payload.profileId,
+    "profileId": payload.profileId ?? client._options.profileId,
     "sort": payload.sort,
-    "testmode": payload.testmode,
+    "testmode": payload.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

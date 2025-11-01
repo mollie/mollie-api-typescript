@@ -98,8 +98,8 @@ async function $do(
   const query = encodeFormQuery({
     "from": payload?.from,
     "limit": payload?.limit,
-    "profileId": payload?.profileId,
-    "testmode": payload?.testmode,
+    "profileId": payload?.profileId ?? client._options.profileId,
+    "testmode": payload?.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

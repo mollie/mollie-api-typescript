@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: f7935b5b5d341c91ffbc2f74abfa5f97
+  docChecksum: 04af8e2301bc33abd357c925d77cd2d6
   docVersion: 1.0.0
-  speakeasyVersion: 1.640.0
-  generationVersion: 2.730.5
-  releaseVersion: 0.6.2
-  configChecksum: 318d1a61f794f7357a394dc2c7e514c4
+  speakeasyVersion: 1.645.1
+  generationVersion: 2.735.1
+  releaseVersion: 0.7.0
+  configChecksum: 09eba511258af17310a2c60c58b3fc6b
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.24.1
+    core: 3.24.2
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -21,7 +21,8 @@ features:
     envVarSecurityUsage: 0.1.2
     globalSecurity: 2.82.14
     globalSecurityCallbacks: 0.1.0
-    globalServerURLs: 2.82.5
+    globalServerURLs: 2.83.0
+    globals: 2.82.2
     groups: 2.81.3
     inputOutputModels: 2.82.0
     mcpServer: 0.9.3
@@ -206,6 +207,7 @@ generatedFiles:
   - docs/models/operations/applicationfee.md
   - docs/models/operations/cancelpaymentrequest.md
   - docs/models/operations/cancelpaymentrequestbody.md
+  - docs/models/operations/cancelrefundglobals.md
   - docs/models/operations/cancelrefundrequest.md
   - docs/models/operations/cancelsubscriptionrequest.md
   - docs/models/operations/cancelsubscriptionrequestbody.md
@@ -234,64 +236,90 @@ generatedFiles:
   - docs/models/operations/deletesalesinvoicerequest.md
   - docs/models/operations/deletewebhookrequest.md
   - docs/models/operations/deletewebhookrequestbody.md
+  - docs/models/operations/getbalanceglobals.md
+  - docs/models/operations/getbalancereportglobals.md
   - docs/models/operations/getbalancereportrequest.md
   - docs/models/operations/getbalancerequest.md
+  - docs/models/operations/getcaptureglobals.md
   - docs/models/operations/getcapturerequest.md
+  - docs/models/operations/getchargebackglobals.md
   - docs/models/operations/getchargebackrequest.md
   - docs/models/operations/getclientcommission.md
   - docs/models/operations/getclientembedded.md
   - docs/models/operations/getclientlinks.md
   - docs/models/operations/getclientrequest.md
   - docs/models/operations/getclientresponse.md
+  - docs/models/operations/getconnectbalancetransferglobals.md
   - docs/models/operations/getconnectbalancetransferrequest.md
   - docs/models/operations/getcurrentorganizationrequest.md
   - docs/models/operations/getcurrentprofilerequest.md
+  - docs/models/operations/getcustomerglobals.md
   - docs/models/operations/getcustomerlinks.md
   - docs/models/operations/getcustomerrequest.md
   - docs/models/operations/getcustomerresponse.md
   - docs/models/operations/getinvoicerequest.md
+  - docs/models/operations/getmandateglobals.md
   - docs/models/operations/getmandaterequest.md
+  - docs/models/operations/getmethodglobals.md
   - docs/models/operations/getmethodrequest.md
   - docs/models/operations/getnextsettlementrequest.md
   - docs/models/operations/getonboardingstatusrequest.md
   - docs/models/operations/getopensettlementrequest.md
+  - docs/models/operations/getorganizationglobals.md
   - docs/models/operations/getorganizationrequest.md
   - docs/models/operations/getpartnerstatuslinks.md
   - docs/models/operations/getpartnerstatusrequest.md
   - docs/models/operations/getpartnerstatusresponse.md
+  - docs/models/operations/getpaymentglobals.md
+  - docs/models/operations/getpaymentlinkglobals.md
   - docs/models/operations/getpaymentlinkpaymentsembedded.md
+  - docs/models/operations/getpaymentlinkpaymentsglobals.md
   - docs/models/operations/getpaymentlinkpaymentsrequest.md
   - docs/models/operations/getpaymentlinkpaymentsresponse.md
   - docs/models/operations/getpaymentlinkrequest.md
   - docs/models/operations/getpaymentrequest.md
+  - docs/models/operations/getpermissionglobals.md
   - docs/models/operations/getpermissionrequest.md
   - docs/models/operations/getprimarybalancerequest.md
+  - docs/models/operations/getprofileglobals.md
   - docs/models/operations/getprofilerequest.md
+  - docs/models/operations/getrefundglobals.md
   - docs/models/operations/getrefundrequest.md
+  - docs/models/operations/getsalesinvoiceglobals.md
   - docs/models/operations/getsalesinvoicerequest.md
   - docs/models/operations/getsettlementrequest.md
+  - docs/models/operations/getsubscriptionglobals.md
   - docs/models/operations/getsubscriptionrequest.md
+  - docs/models/operations/getterminalglobals.md
   - docs/models/operations/getterminalrequest.md
+  - docs/models/operations/getwebhookeventglobals.md
   - docs/models/operations/getwebhookeventrequest.md
+  - docs/models/operations/getwebhookglobals.md
   - docs/models/operations/getwebhookrequest.md
   - docs/models/operations/invoice.md
   - docs/models/operations/listallchargebacksembedded.md
+  - docs/models/operations/listallchargebacksglobals.md
   - docs/models/operations/listallchargebacksrequest.md
   - docs/models/operations/listallchargebacksresponse.md
   - docs/models/operations/listallmethodsembedded.md
+  - docs/models/operations/listallmethodsglobals.md
   - docs/models/operations/listallmethodslinks.md
   - docs/models/operations/listallmethodsrequest.md
   - docs/models/operations/listallmethodsresponse.md
   - docs/models/operations/listallrefundsembedded.md
+  - docs/models/operations/listallrefundsglobals.md
   - docs/models/operations/listallrefundsrequest.md
   - docs/models/operations/listallrefundsresponse.md
   - docs/models/operations/listallsubscriptionsembedded.md
+  - docs/models/operations/listallsubscriptionsglobals.md
   - docs/models/operations/listallsubscriptionsrequest.md
   - docs/models/operations/listallsubscriptionsresponse.md
   - docs/models/operations/listbalancesembedded.md
+  - docs/models/operations/listbalancesglobals.md
   - docs/models/operations/listbalancesrequest.md
   - docs/models/operations/listbalancesresponse.md
   - docs/models/operations/listbalancetransactionsembedded.md
+  - docs/models/operations/listbalancetransactionsglobals.md
   - docs/models/operations/listbalancetransactionsrequest.md
   - docs/models/operations/listbalancetransactionsresponse.md
   - docs/models/operations/listcapabilitiesembedded.md
@@ -299,9 +327,11 @@ generatedFiles:
   - docs/models/operations/listcapabilitiesrequest.md
   - docs/models/operations/listcapabilitiesresponse.md
   - docs/models/operations/listcapturesembedded.md
+  - docs/models/operations/listcapturesglobals.md
   - docs/models/operations/listcapturesrequest.md
   - docs/models/operations/listcapturesresponse.md
   - docs/models/operations/listchargebacksembedded.md
+  - docs/models/operations/listchargebacksglobals.md
   - docs/models/operations/listchargebacksrequest.md
   - docs/models/operations/listchargebacksresponse.md
   - docs/models/operations/listclientscommission.md
@@ -310,28 +340,35 @@ generatedFiles:
   - docs/models/operations/listclientsrequest.md
   - docs/models/operations/listclientsresponse.md
   - docs/models/operations/listconnectbalancetransfersembedded.md
+  - docs/models/operations/listconnectbalancetransfersglobals.md
   - docs/models/operations/listconnectbalancetransfersrequest.md
   - docs/models/operations/listconnectbalancetransfersresponse.md
   - docs/models/operations/listcustomerpaymentsembedded.md
+  - docs/models/operations/listcustomerpaymentsglobals.md
   - docs/models/operations/listcustomerpaymentsrequest.md
   - docs/models/operations/listcustomerpaymentsresponse.md
   - docs/models/operations/listcustomersembedded.md
+  - docs/models/operations/listcustomersglobals.md
   - docs/models/operations/listcustomersrequest.md
   - docs/models/operations/listcustomersresponse.md
   - docs/models/operations/listinvoicesembedded.md
   - docs/models/operations/listinvoicesrequest.md
   - docs/models/operations/listinvoicesresponse.md
   - docs/models/operations/listmandatesembedded.md
+  - docs/models/operations/listmandatesglobals.md
   - docs/models/operations/listmandatesrequest.md
   - docs/models/operations/listmandatesresponse.md
   - docs/models/operations/listmethodsembedded.md
+  - docs/models/operations/listmethodsglobals.md
   - docs/models/operations/listmethodslinks.md
   - docs/models/operations/listmethodsrequest.md
   - docs/models/operations/listmethodsresponse.md
   - docs/models/operations/listpaymentlinksembedded.md
+  - docs/models/operations/listpaymentlinksglobals.md
   - docs/models/operations/listpaymentlinksrequest.md
   - docs/models/operations/listpaymentlinksresponse.md
   - docs/models/operations/listpaymentsembedded.md
+  - docs/models/operations/listpaymentsglobals.md
   - docs/models/operations/listpaymentsrequest.md
   - docs/models/operations/listpaymentsresponse.md
   - docs/models/operations/listpermissionsembedded.md
@@ -342,42 +379,53 @@ generatedFiles:
   - docs/models/operations/listprofilesrequest.md
   - docs/models/operations/listprofilesresponse.md
   - docs/models/operations/listrefundsembedded.md
+  - docs/models/operations/listrefundsglobals.md
   - docs/models/operations/listrefundsrequest.md
   - docs/models/operations/listrefundsresponse.md
   - docs/models/operations/listsalesinvoicesembedded.md
+  - docs/models/operations/listsalesinvoicesglobals.md
   - docs/models/operations/listsalesinvoicesrequest.md
   - docs/models/operations/listsalesinvoicesresponse.md
   - docs/models/operations/listsettlementcapturesembedded.md
+  - docs/models/operations/listsettlementcapturesglobals.md
   - docs/models/operations/listsettlementcapturesrequest.md
   - docs/models/operations/listsettlementcapturesresponse.md
   - docs/models/operations/listsettlementchargebacksembedded.md
+  - docs/models/operations/listsettlementchargebacksglobals.md
   - docs/models/operations/listsettlementchargebacksrequest.md
   - docs/models/operations/listsettlementchargebacksresponse.md
   - docs/models/operations/listsettlementpaymentsembedded.md
+  - docs/models/operations/listsettlementpaymentsglobals.md
   - docs/models/operations/listsettlementpaymentsrequest.md
   - docs/models/operations/listsettlementpaymentsresponse.md
   - docs/models/operations/listsettlementrefundsembedded.md
+  - docs/models/operations/listsettlementrefundsglobals.md
   - docs/models/operations/listsettlementrefundsrequest.md
   - docs/models/operations/listsettlementrefundsresponse.md
   - docs/models/operations/listsettlementsembedded.md
   - docs/models/operations/listsettlementsrequest.md
   - docs/models/operations/listsettlementsresponse.md
   - docs/models/operations/listsubscriptionpaymentsembedded.md
+  - docs/models/operations/listsubscriptionpaymentsglobals.md
   - docs/models/operations/listsubscriptionpaymentsrequest.md
   - docs/models/operations/listsubscriptionpaymentsresponse.md
   - docs/models/operations/listsubscriptionsembedded.md
+  - docs/models/operations/listsubscriptionsglobals.md
   - docs/models/operations/listsubscriptionsrequest.md
   - docs/models/operations/listsubscriptionsresponse.md
   - docs/models/operations/listterminalsembedded.md
+  - docs/models/operations/listterminalsglobals.md
   - docs/models/operations/listterminalsrequest.md
   - docs/models/operations/listterminalsresponse.md
   - docs/models/operations/listwebhooksembedded.md
+  - docs/models/operations/listwebhooksglobals.md
   - docs/models/operations/listwebhooksrequest.md
   - docs/models/operations/listwebhooksresponse.md
   - docs/models/operations/organization.md
   - docs/models/operations/partnertype.md
   - docs/models/operations/paymentcreaterouterequest.md
   - docs/models/operations/paymentlistroutesembedded.md
+  - docs/models/operations/paymentlistroutesglobals.md
   - docs/models/operations/paymentlistrouteslinks.md
   - docs/models/operations/paymentlistroutesrequest.md
   - docs/models/operations/paymentlistroutesresponse.md
@@ -4649,3 +4697,4 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
+releaseNotes: "## Typescript SDK Changes Detected:\n* `client.balances.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.balances.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.balances.getReport()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.balances.listTransactions()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.settlements.listPayments()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.settlements.listCaptures()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.settlements.listRefunds()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.settlements.listChargebacks()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.permissions.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.organizations.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.profiles.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.webhooks.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.webhooks.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.webhookEvents.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.balanceTransfers.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.balanceTransfers.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.payments.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.payments.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.methods.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.methods.all()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.methods.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.refunds.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.refunds.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.refunds.cancel()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.refunds.all()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.chargebacks.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.chargebacks.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.chargebacks.all()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.captures.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.captures.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.paymentLinks.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.paymentLinks.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.paymentLinks.listPayments()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.terminals.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.terminals.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.delayedRouting.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.customers.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.customers.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.customers.listPayments()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.mandates.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.mandates.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.subscriptions.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.subscriptions.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.subscriptions.all()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.subscriptions.listPayments()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.salesInvoices.list()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n* `client.salesInvoices.get()`: \n  *  `request.testmode` **Changed** **Breaking** :warning:\n"

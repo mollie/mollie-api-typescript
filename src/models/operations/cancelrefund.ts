@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type CancelRefundGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type CancelRefundRequest = {
   /**
    * Provide the ID of the related payment.
@@ -26,12 +39,66 @@ export type CancelRefundRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const CancelRefundGlobals$inboundSchema: z.ZodType<
+  CancelRefundGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type CancelRefundGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const CancelRefundGlobals$outboundSchema: z.ZodType<
+  CancelRefundGlobals$Outbound,
+  z.ZodTypeDef,
+  CancelRefundGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CancelRefundGlobals$ {
+  /** @deprecated use `CancelRefundGlobals$inboundSchema` instead. */
+  export const inboundSchema = CancelRefundGlobals$inboundSchema;
+  /** @deprecated use `CancelRefundGlobals$outboundSchema` instead. */
+  export const outboundSchema = CancelRefundGlobals$outboundSchema;
+  /** @deprecated use `CancelRefundGlobals$Outbound` instead. */
+  export type Outbound = CancelRefundGlobals$Outbound;
+}
+
+export function cancelRefundGlobalsToJSON(
+  cancelRefundGlobals: CancelRefundGlobals,
+): string {
+  return JSON.stringify(
+    CancelRefundGlobals$outboundSchema.parse(cancelRefundGlobals),
+  );
+}
+
+export function cancelRefundGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<CancelRefundGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CancelRefundGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CancelRefundGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const CancelRefundRequest$inboundSchema: z.ZodType<
@@ -41,7 +108,7 @@ export const CancelRefundRequest$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   refundId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -53,7 +120,7 @@ export const CancelRefundRequest$inboundSchema: z.ZodType<
 export type CancelRefundRequest$Outbound = {
   paymentId: string;
   refundId: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -65,7 +132,7 @@ export const CancelRefundRequest$outboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string(),
   refundId: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

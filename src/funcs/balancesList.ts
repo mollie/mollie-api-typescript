@@ -97,7 +97,7 @@ async function $do(
     "currency": payload?.currency,
     "from": payload?.from,
     "limit": payload?.limit,
-    "testmode": payload?.testmode,
+    "testmode": payload?.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

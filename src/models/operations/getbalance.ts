@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetBalanceGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetBalanceRequest = {
   /**
    * Provide the ID of the item you want to perform this operation on.
@@ -22,12 +35,66 @@ export type GetBalanceRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetBalanceGlobals$inboundSchema: z.ZodType<
+  GetBalanceGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetBalanceGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetBalanceGlobals$outboundSchema: z.ZodType<
+  GetBalanceGlobals$Outbound,
+  z.ZodTypeDef,
+  GetBalanceGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetBalanceGlobals$ {
+  /** @deprecated use `GetBalanceGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetBalanceGlobals$inboundSchema;
+  /** @deprecated use `GetBalanceGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetBalanceGlobals$outboundSchema;
+  /** @deprecated use `GetBalanceGlobals$Outbound` instead. */
+  export type Outbound = GetBalanceGlobals$Outbound;
+}
+
+export function getBalanceGlobalsToJSON(
+  getBalanceGlobals: GetBalanceGlobals,
+): string {
+  return JSON.stringify(
+    GetBalanceGlobals$outboundSchema.parse(getBalanceGlobals),
+  );
+}
+
+export function getBalanceGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetBalanceGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetBalanceGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetBalanceGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetBalanceRequest$inboundSchema: z.ZodType<
@@ -36,7 +103,7 @@ export const GetBalanceRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +114,7 @@ export const GetBalanceRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetBalanceRequest$Outbound = {
   id: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -58,7 +125,7 @@ export const GetBalanceRequest$outboundSchema: z.ZodType<
   GetBalanceRequest
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

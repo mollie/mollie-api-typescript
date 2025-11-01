@@ -9,6 +9,29 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListMethodsGlobals = {
+  /**
+   * The identifier referring to the [profile](get-profile) you wish to
+   *
+   * @remarks
+   * retrieve the resources for.
+   *
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   */
+  profileId?: string | undefined;
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListMethodsRequest = {
   /**
    * Set this parameter to `first` to only return the enabled methods that
@@ -93,7 +116,7 @@ export type ListMethodsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -142,6 +165,63 @@ export type ListMethodsResponse = {
 };
 
 /** @internal */
+export const ListMethodsGlobals$inboundSchema: z.ZodType<
+  ListMethodsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListMethodsGlobals$Outbound = {
+  profileId?: string | undefined;
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListMethodsGlobals$outboundSchema: z.ZodType<
+  ListMethodsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListMethodsGlobals
+> = z.object({
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListMethodsGlobals$ {
+  /** @deprecated use `ListMethodsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListMethodsGlobals$inboundSchema;
+  /** @deprecated use `ListMethodsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListMethodsGlobals$outboundSchema;
+  /** @deprecated use `ListMethodsGlobals$Outbound` instead. */
+  export type Outbound = ListMethodsGlobals$Outbound;
+}
+
+export function listMethodsGlobalsToJSON(
+  listMethodsGlobals: ListMethodsGlobals,
+): string {
+  return JSON.stringify(
+    ListMethodsGlobals$outboundSchema.parse(listMethodsGlobals),
+  );
+}
+
+export function listMethodsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListMethodsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListMethodsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListMethodsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListMethodsRequest$inboundSchema: z.ZodType<
   ListMethodsRequest,
   z.ZodTypeDef,
@@ -156,7 +236,7 @@ export const ListMethodsRequest$inboundSchema: z.ZodType<
   orderLineCategories: models.LineCategories$inboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -175,7 +255,7 @@ export type ListMethodsRequest$Outbound = {
   orderLineCategories?: string | undefined;
   profileId?: string | undefined;
   include?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -195,7 +275,7 @@ export const ListMethodsRequest$outboundSchema: z.ZodType<
   orderLineCategories: models.LineCategories$outboundSchema.optional(),
   profileId: z.string().optional(),
   include: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

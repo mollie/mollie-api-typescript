@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListBalanceTransactionsGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListBalanceTransactionsRequest = {
   /**
    * Provide the ID of the related balance.
@@ -34,7 +47,7 @@ export type ListBalanceTransactionsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -70,6 +83,62 @@ export type ListBalanceTransactionsResponse = {
 };
 
 /** @internal */
+export const ListBalanceTransactionsGlobals$inboundSchema: z.ZodType<
+  ListBalanceTransactionsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListBalanceTransactionsGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListBalanceTransactionsGlobals$outboundSchema: z.ZodType<
+  ListBalanceTransactionsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListBalanceTransactionsGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListBalanceTransactionsGlobals$ {
+  /** @deprecated use `ListBalanceTransactionsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListBalanceTransactionsGlobals$inboundSchema;
+  /** @deprecated use `ListBalanceTransactionsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListBalanceTransactionsGlobals$outboundSchema;
+  /** @deprecated use `ListBalanceTransactionsGlobals$Outbound` instead. */
+  export type Outbound = ListBalanceTransactionsGlobals$Outbound;
+}
+
+export function listBalanceTransactionsGlobalsToJSON(
+  listBalanceTransactionsGlobals: ListBalanceTransactionsGlobals,
+): string {
+  return JSON.stringify(
+    ListBalanceTransactionsGlobals$outboundSchema.parse(
+      listBalanceTransactionsGlobals,
+    ),
+  );
+}
+
+export function listBalanceTransactionsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListBalanceTransactionsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListBalanceTransactionsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListBalanceTransactionsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListBalanceTransactionsRequest$inboundSchema: z.ZodType<
   ListBalanceTransactionsRequest,
   z.ZodTypeDef,
@@ -78,7 +147,7 @@ export const ListBalanceTransactionsRequest$inboundSchema: z.ZodType<
   balanceId: z.string(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -91,7 +160,7 @@ export type ListBalanceTransactionsRequest$Outbound = {
   balanceId: string;
   from?: string | null | undefined;
   limit?: number | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -104,7 +173,7 @@ export const ListBalanceTransactionsRequest$outboundSchema: z.ZodType<
   balanceId: z.string(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListCapturesGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListCapturesRequest = {
   /**
    * Provide the ID of the related payment.
@@ -41,7 +54,7 @@ export type ListCapturesRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -77,6 +90,60 @@ export type ListCapturesResponse = {
 };
 
 /** @internal */
+export const ListCapturesGlobals$inboundSchema: z.ZodType<
+  ListCapturesGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListCapturesGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListCapturesGlobals$outboundSchema: z.ZodType<
+  ListCapturesGlobals$Outbound,
+  z.ZodTypeDef,
+  ListCapturesGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListCapturesGlobals$ {
+  /** @deprecated use `ListCapturesGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListCapturesGlobals$inboundSchema;
+  /** @deprecated use `ListCapturesGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListCapturesGlobals$outboundSchema;
+  /** @deprecated use `ListCapturesGlobals$Outbound` instead. */
+  export type Outbound = ListCapturesGlobals$Outbound;
+}
+
+export function listCapturesGlobalsToJSON(
+  listCapturesGlobals: ListCapturesGlobals,
+): string {
+  return JSON.stringify(
+    ListCapturesGlobals$outboundSchema.parse(listCapturesGlobals),
+  );
+}
+
+export function listCapturesGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListCapturesGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListCapturesGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListCapturesGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListCapturesRequest$inboundSchema: z.ZodType<
   ListCapturesRequest,
   z.ZodTypeDef,
@@ -86,7 +153,7 @@ export const ListCapturesRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -100,7 +167,7 @@ export type ListCapturesRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   embed?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -114,7 +181,7 @@ export const ListCapturesRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

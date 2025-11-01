@@ -8,6 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type GetOrganizationGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type GetOrganizationRequest = {
   /**
    * Provide the ID of the item you want to perform this operation on.
@@ -22,12 +35,66 @@ export type GetOrganizationRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
 };
+
+/** @internal */
+export const GetOrganizationGlobals$inboundSchema: z.ZodType<
+  GetOrganizationGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetOrganizationGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const GetOrganizationGlobals$outboundSchema: z.ZodType<
+  GetOrganizationGlobals$Outbound,
+  z.ZodTypeDef,
+  GetOrganizationGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetOrganizationGlobals$ {
+  /** @deprecated use `GetOrganizationGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetOrganizationGlobals$inboundSchema;
+  /** @deprecated use `GetOrganizationGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetOrganizationGlobals$outboundSchema;
+  /** @deprecated use `GetOrganizationGlobals$Outbound` instead. */
+  export type Outbound = GetOrganizationGlobals$Outbound;
+}
+
+export function getOrganizationGlobalsToJSON(
+  getOrganizationGlobals: GetOrganizationGlobals,
+): string {
+  return JSON.stringify(
+    GetOrganizationGlobals$outboundSchema.parse(getOrganizationGlobals),
+  );
+}
+
+export function getOrganizationGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOrganizationGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOrganizationGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOrganizationGlobals' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetOrganizationRequest$inboundSchema: z.ZodType<
@@ -36,7 +103,7 @@ export const GetOrganizationRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +114,7 @@ export const GetOrganizationRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetOrganizationRequest$Outbound = {
   id: string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -58,7 +125,7 @@ export const GetOrganizationRequest$outboundSchema: z.ZodType<
   GetOrganizationRequest
 > = z.object({
   id: z.string(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

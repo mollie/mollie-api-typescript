@@ -121,10 +121,10 @@ async function $do(
       "includeWallets": payload?.includeWallets,
       "locale": payload?.locale,
       "orderLineCategories": payload?.orderLineCategories,
-      "profileId": payload?.profileId,
+      "profileId": payload?.profileId ?? client._options.profileId,
       "resource": payload?.resource,
       "sequenceType": payload?.sequenceType,
-      "testmode": payload?.testmode,
+      "testmode": payload?.testmode ?? client._options.testmode,
     }),
   );
 

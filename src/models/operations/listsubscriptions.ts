@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListSubscriptionsGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListSubscriptionsRequest = {
   /**
    * Provide the ID of the related customer.
@@ -41,7 +54,7 @@ export type ListSubscriptionsRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -77,6 +90,60 @@ export type ListSubscriptionsResponse = {
 };
 
 /** @internal */
+export const ListSubscriptionsGlobals$inboundSchema: z.ZodType<
+  ListSubscriptionsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListSubscriptionsGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListSubscriptionsGlobals$outboundSchema: z.ZodType<
+  ListSubscriptionsGlobals$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionsGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListSubscriptionsGlobals$ {
+  /** @deprecated use `ListSubscriptionsGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListSubscriptionsGlobals$inboundSchema;
+  /** @deprecated use `ListSubscriptionsGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListSubscriptionsGlobals$outboundSchema;
+  /** @deprecated use `ListSubscriptionsGlobals$Outbound` instead. */
+  export type Outbound = ListSubscriptionsGlobals$Outbound;
+}
+
+export function listSubscriptionsGlobalsToJSON(
+  listSubscriptionsGlobals: ListSubscriptionsGlobals,
+): string {
+  return JSON.stringify(
+    ListSubscriptionsGlobals$outboundSchema.parse(listSubscriptionsGlobals),
+  );
+}
+
+export function listSubscriptionsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSubscriptionsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSubscriptionsRequest$inboundSchema: z.ZodType<
   ListSubscriptionsRequest,
   z.ZodTypeDef,
@@ -86,7 +153,7 @@ export const ListSubscriptionsRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -100,7 +167,7 @@ export type ListSubscriptionsRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   sort?: string | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -114,7 +181,7 @@ export const ListSubscriptionsRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

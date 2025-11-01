@@ -435,6 +435,8 @@ The results are paginated.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -445,8 +447,6 @@ async function run() {
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -467,6 +467,8 @@ import { paymentsList } from "mollie-api-typescript/funcs/paymentsList.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -477,8 +479,6 @@ async function run() {
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
-    profileId: "pfl_5B8cwPMGnU",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -523,6 +523,7 @@ Retrieve a single payment object by its payment ID.
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -533,7 +534,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     include: "details.qrCode",
     embed: "captures",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -554,6 +554,7 @@ import { paymentsGet } from "mollie-api-typescript/funcs/paymentsGet.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
+  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -564,7 +565,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     include: "details.qrCode",
     embed: "captures",
-    testmode: false,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

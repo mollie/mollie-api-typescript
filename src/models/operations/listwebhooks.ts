@@ -9,6 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ListWebhooksGlobals = {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+   *
+   * @remarks
+   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * setting the `testmode` query parameter to `true`.
+   *
+   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type ListWebhooksRequest = {
   /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
@@ -41,7 +54,7 @@ export type ListWebhooksRequest = {
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -80,6 +93,60 @@ export type ListWebhooksResponse = {
 };
 
 /** @internal */
+export const ListWebhooksGlobals$inboundSchema: z.ZodType<
+  ListWebhooksGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/** @internal */
+export type ListWebhooksGlobals$Outbound = {
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const ListWebhooksGlobals$outboundSchema: z.ZodType<
+  ListWebhooksGlobals$Outbound,
+  z.ZodTypeDef,
+  ListWebhooksGlobals
+> = z.object({
+  testmode: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListWebhooksGlobals$ {
+  /** @deprecated use `ListWebhooksGlobals$inboundSchema` instead. */
+  export const inboundSchema = ListWebhooksGlobals$inboundSchema;
+  /** @deprecated use `ListWebhooksGlobals$outboundSchema` instead. */
+  export const outboundSchema = ListWebhooksGlobals$outboundSchema;
+  /** @deprecated use `ListWebhooksGlobals$Outbound` instead. */
+  export type Outbound = ListWebhooksGlobals$Outbound;
+}
+
+export function listWebhooksGlobalsToJSON(
+  listWebhooksGlobals: ListWebhooksGlobals,
+): string {
+  return JSON.stringify(
+    ListWebhooksGlobals$outboundSchema.parse(listWebhooksGlobals),
+  );
+}
+
+export function listWebhooksGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<ListWebhooksGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListWebhooksGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListWebhooksGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListWebhooksRequest$inboundSchema: z.ZodType<
   ListWebhooksRequest,
   z.ZodTypeDef,
@@ -89,7 +156,7 @@ export const ListWebhooksRequest$inboundSchema: z.ZodType<
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$inboundSchema.optional(),
   eventTypes: models.WebhookEventTypes$inboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -103,7 +170,7 @@ export type ListWebhooksRequest$Outbound = {
   limit?: number | null | undefined;
   sort?: string | undefined;
   eventTypes?: string | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -117,7 +184,7 @@ export const ListWebhooksRequest$outboundSchema: z.ZodType<
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),
   eventTypes: models.WebhookEventTypes$outboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

@@ -113,7 +113,7 @@ async function $do(
   const path = pathToFunc("/balances/{id}")(pathParams);
 
   const query = encodeFormQuery({
-    "testmode": payload.testmode,
+    "testmode": payload.testmode ?? client._options.testmode,
   });
 
   const headers = new Headers(compactMap({

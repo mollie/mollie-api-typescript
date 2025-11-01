@@ -107,7 +107,7 @@ async function $do(
   const query = encodeFormQuery({
     "from": payload.from,
     "grouping": payload.grouping,
-    "testmode": payload.testmode,
+    "testmode": payload.testmode ?? client._options.testmode,
     "until": payload.until,
   });
 
