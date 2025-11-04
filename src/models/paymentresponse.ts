@@ -643,6 +643,14 @@ export type PaymentResponseDetails = {
    * Optional include. The full payment method details of the remainder payment.
    */
   remainderDetails?: { [k: string]: any } | undefined;
+  /**
+   * Multibanco payment reference of the transaction
+   */
+  multibancoReference?: string | null | undefined;
+  /**
+   * Multibanco entity reference of the transaction
+   */
+  multibancoEntity?: string | null | undefined;
 };
 
 /**
@@ -1459,6 +1467,8 @@ export const PaymentResponseDetails$inboundSchema: z.ZodType<
   remainderAmount: Amount$inboundSchema.optional(),
   remainderMethod: z.string().optional(),
   remainderDetails: z.record(z.any()).optional(),
+  multibancoReference: z.nullable(z.string()).optional(),
+  multibancoEntity: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
@@ -1513,6 +1523,8 @@ export type PaymentResponseDetails$Outbound = {
   remainderAmount?: Amount$Outbound | undefined;
   remainderMethod?: string | undefined;
   remainderDetails?: { [k: string]: any } | undefined;
+  multibancoReference?: string | null | undefined;
+  multibancoEntity?: string | null | undefined;
 };
 
 /** @internal */
@@ -1581,6 +1593,8 @@ export const PaymentResponseDetails$outboundSchema: z.ZodType<
   remainderAmount: Amount$outboundSchema.optional(),
   remainderMethod: z.string().optional(),
   remainderDetails: z.record(z.any()).optional(),
+  multibancoReference: z.nullable(z.string()).optional(),
+  multibancoEntity: z.nullable(z.string()).optional(),
 });
 
 /**

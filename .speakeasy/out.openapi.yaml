@@ -30578,6 +30578,20 @@ components:
               properties: {}
               additionalProperties: true
               x-methodSpecific: true
+            multibancoReference:
+              type:
+                - string
+                - 'null'
+              description: Multibanco payment reference of the transaction
+              example: 123456789
+              x-methodSpecific: true
+            multibancoEntity:
+              type:
+                - string
+                - 'null'
+              description: Multibanco entity reference of the transaction
+              example: 98765
+              x-methodSpecific: true
         createdAt:
           $ref: '#/components/schemas/created-at'
         authorizedAt:
@@ -35334,6 +35348,20 @@ components:
               description: Optional include. The full payment method details of the remainder payment.
               properties: {}
               additionalProperties: true
+              x-methodSpecific: true
+            multibancoReference:
+              type:
+                - string
+                - 'null'
+              description: Multibanco payment reference of the transaction
+              example: 123456789
+              x-methodSpecific: true
+            multibancoEntity:
+              type:
+                - string
+                - 'null'
+              description: Multibanco entity reference of the transaction
+              example: 98765
               x-methodSpecific: true
         createdAt:
           $ref: '#/components/schemas/created-at'
