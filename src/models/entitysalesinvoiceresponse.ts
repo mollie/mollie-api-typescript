@@ -257,7 +257,6 @@ export const EntitySalesInvoiceResponseMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type EntitySalesInvoiceResponseMetadata$Outbound = {};
 
@@ -268,20 +267,6 @@ export const EntitySalesInvoiceResponseMetadata$outboundSchema: z.ZodType<
   EntitySalesInvoiceResponseMetadata
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceResponseMetadata$ {
-  /** @deprecated use `EntitySalesInvoiceResponseMetadata$inboundSchema` instead. */
-  export const inboundSchema = EntitySalesInvoiceResponseMetadata$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponseMetadata$outboundSchema` instead. */
-  export const outboundSchema =
-    EntitySalesInvoiceResponseMetadata$outboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponseMetadata$Outbound` instead. */
-  export type Outbound = EntitySalesInvoiceResponseMetadata$Outbound;
-}
-
 export function entitySalesInvoiceResponseMetadataToJSON(
   entitySalesInvoiceResponseMetadata: EntitySalesInvoiceResponseMetadata,
 ): string {
@@ -291,7 +276,6 @@ export function entitySalesInvoiceResponseMetadataToJSON(
     ),
   );
 }
-
 export function entitySalesInvoiceResponseMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySalesInvoiceResponseMetadata, SDKValidationError> {
@@ -316,7 +300,6 @@ export const EntitySalesInvoiceResponseLinks$inboundSchema: z.ZodType<
   next: Url$inboundSchema.optional(),
   previous: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntitySalesInvoiceResponseLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -341,19 +324,6 @@ export const EntitySalesInvoiceResponseLinks$outboundSchema: z.ZodType<
   previous: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceResponseLinks$ {
-  /** @deprecated use `EntitySalesInvoiceResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = EntitySalesInvoiceResponseLinks$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = EntitySalesInvoiceResponseLinks$outboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponseLinks$Outbound` instead. */
-  export type Outbound = EntitySalesInvoiceResponseLinks$Outbound;
-}
-
 export function entitySalesInvoiceResponseLinksToJSON(
   entitySalesInvoiceResponseLinks: EntitySalesInvoiceResponseLinks,
 ): string {
@@ -363,7 +333,6 @@ export function entitySalesInvoiceResponseLinksToJSON(
     ),
   );
 }
-
 export function entitySalesInvoiceResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySalesInvoiceResponseLinks, SDKValidationError> {
@@ -418,7 +387,6 @@ export const EntitySalesInvoiceResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntitySalesInvoiceResponse$Outbound = {
   resource?: string | undefined;
@@ -499,19 +467,6 @@ export const EntitySalesInvoiceResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceResponse$ {
-  /** @deprecated use `EntitySalesInvoiceResponse$inboundSchema` instead. */
-  export const inboundSchema = EntitySalesInvoiceResponse$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponse$outboundSchema` instead. */
-  export const outboundSchema = EntitySalesInvoiceResponse$outboundSchema;
-  /** @deprecated use `EntitySalesInvoiceResponse$Outbound` instead. */
-  export type Outbound = EntitySalesInvoiceResponse$Outbound;
-}
-
 export function entitySalesInvoiceResponseToJSON(
   entitySalesInvoiceResponse: EntitySalesInvoiceResponse,
 ): string {
@@ -519,7 +474,6 @@ export function entitySalesInvoiceResponseToJSON(
     EntitySalesInvoiceResponse$outboundSchema.parse(entitySalesInvoiceResponse),
   );
 }
-
 export function entitySalesInvoiceResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySalesInvoiceResponse, SDKValidationError> {

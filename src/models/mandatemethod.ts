@@ -30,19 +30,7 @@ export type MandateMethod = ClosedEnum<typeof MandateMethod>;
 export const MandateMethod$inboundSchema: z.ZodNativeEnum<
   typeof MandateMethod
 > = z.nativeEnum(MandateMethod);
-
 /** @internal */
 export const MandateMethod$outboundSchema: z.ZodNativeEnum<
   typeof MandateMethod
 > = MandateMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateMethod$ {
-  /** @deprecated use `MandateMethod$inboundSchema` instead. */
-  export const inboundSchema = MandateMethod$inboundSchema;
-  /** @deprecated use `MandateMethod$outboundSchema` instead. */
-  export const outboundSchema = MandateMethod$outboundSchema;
-}

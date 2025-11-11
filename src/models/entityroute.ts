@@ -65,7 +65,6 @@ export const EntityRouteDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-
 /** @internal */
 export type EntityRouteDestination$Outbound = {
   type: string;
@@ -82,19 +81,6 @@ export const EntityRouteDestination$outboundSchema: z.ZodType<
   organizationId: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRouteDestination$ {
-  /** @deprecated use `EntityRouteDestination$inboundSchema` instead. */
-  export const inboundSchema = EntityRouteDestination$inboundSchema;
-  /** @deprecated use `EntityRouteDestination$outboundSchema` instead. */
-  export const outboundSchema = EntityRouteDestination$outboundSchema;
-  /** @deprecated use `EntityRouteDestination$Outbound` instead. */
-  export type Outbound = EntityRouteDestination$Outbound;
-}
-
 export function entityRouteDestinationToJSON(
   entityRouteDestination: EntityRouteDestination,
 ): string {
@@ -102,7 +88,6 @@ export function entityRouteDestinationToJSON(
     EntityRouteDestination$outboundSchema.parse(entityRouteDestination),
   );
 }
-
 export function entityRouteDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRouteDestination, SDKValidationError> {
@@ -126,7 +111,6 @@ export const EntityRoute$inboundSchema: z.ZodType<
   destination: z.lazy(() => EntityRouteDestination$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type EntityRoute$Outbound = {
   id?: string | undefined;
@@ -151,23 +135,9 @@ export const EntityRoute$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRoute$ {
-  /** @deprecated use `EntityRoute$inboundSchema` instead. */
-  export const inboundSchema = EntityRoute$inboundSchema;
-  /** @deprecated use `EntityRoute$outboundSchema` instead. */
-  export const outboundSchema = EntityRoute$outboundSchema;
-  /** @deprecated use `EntityRoute$Outbound` instead. */
-  export type Outbound = EntityRoute$Outbound;
-}
-
 export function entityRouteToJSON(entityRoute: EntityRoute): string {
   return JSON.stringify(EntityRoute$outboundSchema.parse(entityRoute));
 }
-
 export function entityRouteFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRoute, SDKValidationError> {

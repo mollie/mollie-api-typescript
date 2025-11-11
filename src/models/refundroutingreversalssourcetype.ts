@@ -22,19 +22,7 @@ export type RefundRoutingReversalsSourceType = ClosedEnum<
 export const RefundRoutingReversalsSourceType$inboundSchema: z.ZodNativeEnum<
   typeof RefundRoutingReversalsSourceType
 > = z.nativeEnum(RefundRoutingReversalsSourceType);
-
 /** @internal */
 export const RefundRoutingReversalsSourceType$outboundSchema: z.ZodNativeEnum<
   typeof RefundRoutingReversalsSourceType
 > = RefundRoutingReversalsSourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RefundRoutingReversalsSourceType$ {
-  /** @deprecated use `RefundRoutingReversalsSourceType$inboundSchema` instead. */
-  export const inboundSchema = RefundRoutingReversalsSourceType$inboundSchema;
-  /** @deprecated use `RefundRoutingReversalsSourceType$outboundSchema` instead. */
-  export const outboundSchema = RefundRoutingReversalsSourceType$outboundSchema;
-}

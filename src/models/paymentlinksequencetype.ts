@@ -17,19 +17,7 @@ export type PaymentLinkSequenceType = ClosedEnum<
 export const PaymentLinkSequenceType$inboundSchema: z.ZodNativeEnum<
   typeof PaymentLinkSequenceType
 > = z.nativeEnum(PaymentLinkSequenceType);
-
 /** @internal */
 export const PaymentLinkSequenceType$outboundSchema: z.ZodNativeEnum<
   typeof PaymentLinkSequenceType
 > = PaymentLinkSequenceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLinkSequenceType$ {
-  /** @deprecated use `PaymentLinkSequenceType$inboundSchema` instead. */
-  export const inboundSchema = PaymentLinkSequenceType$inboundSchema;
-  /** @deprecated use `PaymentLinkSequenceType$outboundSchema` instead. */
-  export const outboundSchema = PaymentLinkSequenceType$outboundSchema;
-}

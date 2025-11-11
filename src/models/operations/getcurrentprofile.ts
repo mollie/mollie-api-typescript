@@ -27,7 +27,6 @@ export const GetCurrentProfileRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetCurrentProfileRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -46,19 +45,6 @@ export const GetCurrentProfileRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCurrentProfileRequest$ {
-  /** @deprecated use `GetCurrentProfileRequest$inboundSchema` instead. */
-  export const inboundSchema = GetCurrentProfileRequest$inboundSchema;
-  /** @deprecated use `GetCurrentProfileRequest$outboundSchema` instead. */
-  export const outboundSchema = GetCurrentProfileRequest$outboundSchema;
-  /** @deprecated use `GetCurrentProfileRequest$Outbound` instead. */
-  export type Outbound = GetCurrentProfileRequest$Outbound;
-}
-
 export function getCurrentProfileRequestToJSON(
   getCurrentProfileRequest: GetCurrentProfileRequest,
 ): string {
@@ -66,7 +52,6 @@ export function getCurrentProfileRequestToJSON(
     GetCurrentProfileRequest$outboundSchema.parse(getCurrentProfileRequest),
   );
 }
-
 export function getCurrentProfileRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCurrentProfileRequest, SDKValidationError> {

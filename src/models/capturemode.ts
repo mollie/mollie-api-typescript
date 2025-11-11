@@ -30,18 +30,6 @@ export type CaptureMode = ClosedEnum<typeof CaptureMode>;
 /** @internal */
 export const CaptureMode$inboundSchema: z.ZodNativeEnum<typeof CaptureMode> = z
   .nativeEnum(CaptureMode);
-
 /** @internal */
 export const CaptureMode$outboundSchema: z.ZodNativeEnum<typeof CaptureMode> =
   CaptureMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureMode$ {
-  /** @deprecated use `CaptureMode$inboundSchema` instead. */
-  export const inboundSchema = CaptureMode$inboundSchema;
-  /** @deprecated use `CaptureMode$outboundSchema` instead. */
-  export const outboundSchema = CaptureMode$outboundSchema;
-}

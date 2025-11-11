@@ -14,18 +14,6 @@ export type Sorting = ClosedEnum<typeof Sorting>;
 /** @internal */
 export const Sorting$inboundSchema: z.ZodNativeEnum<typeof Sorting> = z
   .nativeEnum(Sorting);
-
 /** @internal */
 export const Sorting$outboundSchema: z.ZodNativeEnum<typeof Sorting> =
   Sorting$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Sorting$ {
-  /** @deprecated use `Sorting$inboundSchema` instead. */
-  export const inboundSchema = Sorting$inboundSchema;
-  /** @deprecated use `Sorting$outboundSchema` instead. */
-  export const outboundSchema = Sorting$outboundSchema;
-}

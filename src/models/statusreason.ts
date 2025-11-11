@@ -163,21 +163,9 @@ export type StatusReason = {
 export const Code$inboundSchema: z.ZodNativeEnum<typeof Code> = z.nativeEnum(
   Code,
 );
-
 /** @internal */
 export const Code$outboundSchema: z.ZodNativeEnum<typeof Code> =
   Code$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Code$ {
-  /** @deprecated use `Code$inboundSchema` instead. */
-  export const inboundSchema = Code$inboundSchema;
-  /** @deprecated use `Code$outboundSchema` instead. */
-  export const outboundSchema = Code$outboundSchema;
-}
 
 /** @internal */
 export const StatusReason$inboundSchema: z.ZodType<
@@ -188,7 +176,6 @@ export const StatusReason$inboundSchema: z.ZodType<
   code: Code$inboundSchema,
   message: z.string(),
 });
-
 /** @internal */
 export type StatusReason$Outbound = {
   code: string;
@@ -205,23 +192,9 @@ export const StatusReason$outboundSchema: z.ZodType<
   message: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace StatusReason$ {
-  /** @deprecated use `StatusReason$inboundSchema` instead. */
-  export const inboundSchema = StatusReason$inboundSchema;
-  /** @deprecated use `StatusReason$outboundSchema` instead. */
-  export const outboundSchema = StatusReason$outboundSchema;
-  /** @deprecated use `StatusReason$Outbound` instead. */
-  export type Outbound = StatusReason$Outbound;
-}
-
 export function statusReasonToJSON(statusReason: StatusReason): string {
   return JSON.stringify(StatusReason$outboundSchema.parse(statusReason));
 }
-
 export function statusReasonFromJSON(
   jsonString: string,
 ): SafeParseResult<StatusReason, SDKValidationError> {

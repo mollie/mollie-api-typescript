@@ -92,7 +92,6 @@ export const ListSalesInvoicesGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListSalesInvoicesGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -107,19 +106,6 @@ export const ListSalesInvoicesGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSalesInvoicesGlobals$ {
-  /** @deprecated use `ListSalesInvoicesGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListSalesInvoicesGlobals$inboundSchema;
-  /** @deprecated use `ListSalesInvoicesGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListSalesInvoicesGlobals$outboundSchema;
-  /** @deprecated use `ListSalesInvoicesGlobals$Outbound` instead. */
-  export type Outbound = ListSalesInvoicesGlobals$Outbound;
-}
-
 export function listSalesInvoicesGlobalsToJSON(
   listSalesInvoicesGlobals: ListSalesInvoicesGlobals,
 ): string {
@@ -127,7 +113,6 @@ export function listSalesInvoicesGlobalsToJSON(
     ListSalesInvoicesGlobals$outboundSchema.parse(listSalesInvoicesGlobals),
   );
 }
-
 export function listSalesInvoicesGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoicesGlobals, SDKValidationError> {
@@ -153,7 +138,6 @@ export const ListSalesInvoicesRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListSalesInvoicesRequest$Outbound = {
   from?: string | null | undefined;
@@ -178,19 +162,6 @@ export const ListSalesInvoicesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSalesInvoicesRequest$ {
-  /** @deprecated use `ListSalesInvoicesRequest$inboundSchema` instead. */
-  export const inboundSchema = ListSalesInvoicesRequest$inboundSchema;
-  /** @deprecated use `ListSalesInvoicesRequest$outboundSchema` instead. */
-  export const outboundSchema = ListSalesInvoicesRequest$outboundSchema;
-  /** @deprecated use `ListSalesInvoicesRequest$Outbound` instead. */
-  export type Outbound = ListSalesInvoicesRequest$Outbound;
-}
-
 export function listSalesInvoicesRequestToJSON(
   listSalesInvoicesRequest: ListSalesInvoicesRequest,
 ): string {
@@ -198,7 +169,6 @@ export function listSalesInvoicesRequestToJSON(
     ListSalesInvoicesRequest$outboundSchema.parse(listSalesInvoicesRequest),
   );
 }
-
 export function listSalesInvoicesRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoicesRequest, SDKValidationError> {
@@ -222,7 +192,6 @@ export const ListSalesInvoicesEmbedded$inboundSchema: z.ZodType<
     "sales_invoices": "salesInvoices",
   });
 });
-
 /** @internal */
 export type ListSalesInvoicesEmbedded$Outbound = {
   sales_invoices?:
@@ -244,19 +213,6 @@ export const ListSalesInvoicesEmbedded$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSalesInvoicesEmbedded$ {
-  /** @deprecated use `ListSalesInvoicesEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListSalesInvoicesEmbedded$inboundSchema;
-  /** @deprecated use `ListSalesInvoicesEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListSalesInvoicesEmbedded$outboundSchema;
-  /** @deprecated use `ListSalesInvoicesEmbedded$Outbound` instead. */
-  export type Outbound = ListSalesInvoicesEmbedded$Outbound;
-}
-
 export function listSalesInvoicesEmbeddedToJSON(
   listSalesInvoicesEmbedded: ListSalesInvoicesEmbedded,
 ): string {
@@ -264,7 +220,6 @@ export function listSalesInvoicesEmbeddedToJSON(
     ListSalesInvoicesEmbedded$outboundSchema.parse(listSalesInvoicesEmbedded),
   );
 }
-
 export function listSalesInvoicesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoicesEmbedded, SDKValidationError> {
@@ -290,7 +245,6 @@ export const ListSalesInvoicesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListSalesInvoicesResponse$Outbound = {
   count?: number | undefined;
@@ -314,19 +268,6 @@ export const ListSalesInvoicesResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSalesInvoicesResponse$ {
-  /** @deprecated use `ListSalesInvoicesResponse$inboundSchema` instead. */
-  export const inboundSchema = ListSalesInvoicesResponse$inboundSchema;
-  /** @deprecated use `ListSalesInvoicesResponse$outboundSchema` instead. */
-  export const outboundSchema = ListSalesInvoicesResponse$outboundSchema;
-  /** @deprecated use `ListSalesInvoicesResponse$Outbound` instead. */
-  export type Outbound = ListSalesInvoicesResponse$Outbound;
-}
-
 export function listSalesInvoicesResponseToJSON(
   listSalesInvoicesResponse: ListSalesInvoicesResponse,
 ): string {
@@ -334,7 +275,6 @@ export function listSalesInvoicesResponseToJSON(
     ListSalesInvoicesResponse$outboundSchema.parse(listSalesInvoicesResponse),
   );
 }
-
 export function listSalesInvoicesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoicesResponse, SDKValidationError> {

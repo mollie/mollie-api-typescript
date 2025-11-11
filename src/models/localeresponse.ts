@@ -52,7 +52,6 @@ export const LocaleResponse$inboundSchema: z.ZodType<
     z.nativeEnum(LocaleResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const LocaleResponse$outboundSchema: z.ZodType<
   LocaleResponse,
@@ -62,14 +61,3 @@ export const LocaleResponse$outboundSchema: z.ZodType<
   z.nativeEnum(LocaleResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LocaleResponse$ {
-  /** @deprecated use `LocaleResponse$inboundSchema` instead. */
-  export const inboundSchema = LocaleResponse$inboundSchema;
-  /** @deprecated use `LocaleResponse$outboundSchema` instead. */
-  export const outboundSchema = LocaleResponse$outboundSchema;
-}

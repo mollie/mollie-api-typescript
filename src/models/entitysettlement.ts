@@ -224,7 +224,6 @@ export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> = z
     fixed: Amount$inboundSchema.optional(),
     percentage: z.string().optional(),
   });
-
 /** @internal */
 export type Rate$Outbound = {
   fixed?: Amount$Outbound | undefined;
@@ -238,23 +237,9 @@ export const Rate$outboundSchema: z.ZodType<Rate$Outbound, z.ZodTypeDef, Rate> =
     percentage: z.string().optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Rate$ {
-  /** @deprecated use `Rate$inboundSchema` instead. */
-  export const inboundSchema = Rate$inboundSchema;
-  /** @deprecated use `Rate$outboundSchema` instead. */
-  export const outboundSchema = Rate$outboundSchema;
-  /** @deprecated use `Rate$Outbound` instead. */
-  export type Outbound = Rate$Outbound;
-}
-
 export function rateToJSON(rate: Rate): string {
   return JSON.stringify(Rate$outboundSchema.parse(rate));
 }
-
 export function rateFromJSON(
   jsonString: string,
 ): SafeParseResult<Rate, SDKValidationError> {
@@ -276,7 +261,6 @@ export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> = z
     amountVat: z.nullable(AmountNullable$inboundSchema),
     amountGross: Amount$inboundSchema,
   });
-
 /** @internal */
 export type Cost$Outbound = {
   description: string;
@@ -300,23 +284,9 @@ export const Cost$outboundSchema: z.ZodType<Cost$Outbound, z.ZodTypeDef, Cost> =
     amountGross: Amount$outboundSchema,
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Cost$ {
-  /** @deprecated use `Cost$inboundSchema` instead. */
-  export const inboundSchema = Cost$inboundSchema;
-  /** @deprecated use `Cost$outboundSchema` instead. */
-  export const outboundSchema = Cost$outboundSchema;
-  /** @deprecated use `Cost$Outbound` instead. */
-  export type Outbound = Cost$Outbound;
-}
-
 export function costToJSON(cost: Cost): string {
   return JSON.stringify(Cost$outboundSchema.parse(cost));
 }
-
 export function costFromJSON(
   jsonString: string,
 ): SafeParseResult<Cost, SDKValidationError> {
@@ -337,7 +307,6 @@ export const Revenue$inboundSchema: z.ZodType<Revenue, z.ZodTypeDef, unknown> =
     amountVat: z.nullable(AmountNullable$inboundSchema),
     amountGross: Amount$inboundSchema,
   });
-
 /** @internal */
 export type Revenue$Outbound = {
   description: string;
@@ -362,23 +331,9 @@ export const Revenue$outboundSchema: z.ZodType<
   amountGross: Amount$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Revenue$ {
-  /** @deprecated use `Revenue$inboundSchema` instead. */
-  export const inboundSchema = Revenue$inboundSchema;
-  /** @deprecated use `Revenue$outboundSchema` instead. */
-  export const outboundSchema = Revenue$outboundSchema;
-  /** @deprecated use `Revenue$Outbound` instead. */
-  export type Outbound = Revenue$Outbound;
-}
-
 export function revenueToJSON(revenue: Revenue): string {
   return JSON.stringify(Revenue$outboundSchema.parse(revenue));
 }
-
 export function revenueFromJSON(
   jsonString: string,
 ): SafeParseResult<Revenue, SDKValidationError> {
@@ -397,7 +352,6 @@ export const Periods$inboundSchema: z.ZodType<Periods, z.ZodTypeDef, unknown> =
     invoiceId: z.string().optional(),
     invoiceReference: z.nullable(z.string()).optional(),
   });
-
 /** @internal */
 export type Periods$Outbound = {
   costs?: Array<Cost$Outbound> | undefined;
@@ -418,23 +372,9 @@ export const Periods$outboundSchema: z.ZodType<
   invoiceReference: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Periods$ {
-  /** @deprecated use `Periods$inboundSchema` instead. */
-  export const inboundSchema = Periods$inboundSchema;
-  /** @deprecated use `Periods$outboundSchema` instead. */
-  export const outboundSchema = Periods$outboundSchema;
-  /** @deprecated use `Periods$Outbound` instead. */
-  export type Outbound = Periods$Outbound;
-}
-
 export function periodsToJSON(periods: Periods): string {
   return JSON.stringify(Periods$outboundSchema.parse(periods));
 }
-
 export function periodsFromJSON(
   jsonString: string,
 ): SafeParseResult<Periods, SDKValidationError> {
@@ -459,7 +399,6 @@ export const EntitySettlementLinks$inboundSchema: z.ZodType<
   invoice: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntitySettlementLinks$Outbound = {
   self: Url$Outbound;
@@ -486,19 +425,6 @@ export const EntitySettlementLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySettlementLinks$ {
-  /** @deprecated use `EntitySettlementLinks$inboundSchema` instead. */
-  export const inboundSchema = EntitySettlementLinks$inboundSchema;
-  /** @deprecated use `EntitySettlementLinks$outboundSchema` instead. */
-  export const outboundSchema = EntitySettlementLinks$outboundSchema;
-  /** @deprecated use `EntitySettlementLinks$Outbound` instead. */
-  export type Outbound = EntitySettlementLinks$Outbound;
-}
-
 export function entitySettlementLinksToJSON(
   entitySettlementLinks: EntitySettlementLinks,
 ): string {
@@ -506,7 +432,6 @@ export function entitySettlementLinksToJSON(
     EntitySettlementLinks$outboundSchema.parse(entitySettlementLinks),
   );
 }
-
 export function entitySettlementLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlementLinks, SDKValidationError> {
@@ -539,7 +464,6 @@ export const EntitySettlement$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntitySettlement$Outbound = {
   resource: string;
@@ -578,19 +502,6 @@ export const EntitySettlement$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySettlement$ {
-  /** @deprecated use `EntitySettlement$inboundSchema` instead. */
-  export const inboundSchema = EntitySettlement$inboundSchema;
-  /** @deprecated use `EntitySettlement$outboundSchema` instead. */
-  export const outboundSchema = EntitySettlement$outboundSchema;
-  /** @deprecated use `EntitySettlement$Outbound` instead. */
-  export type Outbound = EntitySettlement$Outbound;
-}
-
 export function entitySettlementToJSON(
   entitySettlement: EntitySettlement,
 ): string {
@@ -598,7 +509,6 @@ export function entitySettlementToJSON(
     EntitySettlement$outboundSchema.parse(entitySettlement),
   );
 }
-
 export function entitySettlementFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlement, SDKValidationError> {

@@ -29,19 +29,7 @@ export type SalesInvoiceRecipientType = ClosedEnum<
 export const SalesInvoiceRecipientType$inboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceRecipientType
 > = z.nativeEnum(SalesInvoiceRecipientType);
-
 /** @internal */
 export const SalesInvoiceRecipientType$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceRecipientType
 > = SalesInvoiceRecipientType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceRecipientType$ {
-  /** @deprecated use `SalesInvoiceRecipientType$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceRecipientType$inboundSchema;
-  /** @deprecated use `SalesInvoiceRecipientType$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceRecipientType$outboundSchema;
-}

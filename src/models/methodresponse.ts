@@ -92,7 +92,6 @@ export const MethodResponse$inboundSchema: z.ZodType<
     z.nativeEnum(MethodResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const MethodResponse$outboundSchema: z.ZodType<
   MethodResponse,
@@ -102,14 +101,3 @@ export const MethodResponse$outboundSchema: z.ZodType<
   z.nativeEnum(MethodResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MethodResponse$ {
-  /** @deprecated use `MethodResponse$inboundSchema` instead. */
-  export const inboundSchema = MethodResponse$inboundSchema;
-  /** @deprecated use `MethodResponse$outboundSchema` instead. */
-  export const outboundSchema = MethodResponse$outboundSchema;
-}

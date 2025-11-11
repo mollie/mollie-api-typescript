@@ -39,7 +39,6 @@ export const SalesInvoiceVatModeResponse$inboundSchema: z.ZodType<
     z.nativeEnum(SalesInvoiceVatModeResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const SalesInvoiceVatModeResponse$outboundSchema: z.ZodType<
   SalesInvoiceVatModeResponse,
@@ -49,14 +48,3 @@ export const SalesInvoiceVatModeResponse$outboundSchema: z.ZodType<
   z.nativeEnum(SalesInvoiceVatModeResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceVatModeResponse$ {
-  /** @deprecated use `SalesInvoiceVatModeResponse$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceVatModeResponse$inboundSchema;
-  /** @deprecated use `SalesInvoiceVatModeResponse$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceVatModeResponse$outboundSchema;
-}

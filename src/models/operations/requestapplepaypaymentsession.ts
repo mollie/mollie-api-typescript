@@ -58,7 +58,6 @@ export const RequestApplePayPaymentSessionRequestBody$inboundSchema: z.ZodType<
   domain: z.string(),
   profileId: z.string().optional(),
 });
-
 /** @internal */
 export type RequestApplePayPaymentSessionRequestBody$Outbound = {
   validationUrl: string;
@@ -77,21 +76,6 @@ export const RequestApplePayPaymentSessionRequestBody$outboundSchema: z.ZodType<
   profileId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RequestApplePayPaymentSessionRequestBody$ {
-  /** @deprecated use `RequestApplePayPaymentSessionRequestBody$inboundSchema` instead. */
-  export const inboundSchema =
-    RequestApplePayPaymentSessionRequestBody$inboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionRequestBody$outboundSchema` instead. */
-  export const outboundSchema =
-    RequestApplePayPaymentSessionRequestBody$outboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionRequestBody$Outbound` instead. */
-  export type Outbound = RequestApplePayPaymentSessionRequestBody$Outbound;
-}
-
 export function requestApplePayPaymentSessionRequestBodyToJSON(
   requestApplePayPaymentSessionRequestBody:
     RequestApplePayPaymentSessionRequestBody,
@@ -102,7 +86,6 @@ export function requestApplePayPaymentSessionRequestBodyToJSON(
     ),
   );
 }
-
 export function requestApplePayPaymentSessionRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -135,7 +118,6 @@ export const RequestApplePayPaymentSessionRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type RequestApplePayPaymentSessionRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -159,21 +141,6 @@ export const RequestApplePayPaymentSessionRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RequestApplePayPaymentSessionRequest$ {
-  /** @deprecated use `RequestApplePayPaymentSessionRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    RequestApplePayPaymentSessionRequest$inboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    RequestApplePayPaymentSessionRequest$outboundSchema;
-  /** @deprecated use `RequestApplePayPaymentSessionRequest$Outbound` instead. */
-  export type Outbound = RequestApplePayPaymentSessionRequest$Outbound;
-}
-
 export function requestApplePayPaymentSessionRequestToJSON(
   requestApplePayPaymentSessionRequest: RequestApplePayPaymentSessionRequest,
 ): string {
@@ -183,7 +150,6 @@ export function requestApplePayPaymentSessionRequestToJSON(
     ),
   );
 }
-
 export function requestApplePayPaymentSessionRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<RequestApplePayPaymentSessionRequest, SDKValidationError> {

@@ -216,7 +216,6 @@ export const EntityMethodAllImage$inboundSchema: z.ZodType<
   size2x: z.string(),
   svg: z.string(),
 });
-
 /** @internal */
 export type EntityMethodAllImage$Outbound = {
   size1x: string;
@@ -235,19 +234,6 @@ export const EntityMethodAllImage$outboundSchema: z.ZodType<
   svg: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodAllImage$ {
-  /** @deprecated use `EntityMethodAllImage$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodAllImage$inboundSchema;
-  /** @deprecated use `EntityMethodAllImage$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodAllImage$outboundSchema;
-  /** @deprecated use `EntityMethodAllImage$Outbound` instead. */
-  export type Outbound = EntityMethodAllImage$Outbound;
-}
-
 export function entityMethodAllImageToJSON(
   entityMethodAllImage: EntityMethodAllImage,
 ): string {
@@ -255,7 +241,6 @@ export function entityMethodAllImageToJSON(
     EntityMethodAllImage$outboundSchema.parse(entityMethodAllImage),
   );
 }
-
 export function entityMethodAllImageFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodAllImage, SDKValidationError> {
@@ -276,7 +261,6 @@ export const EntityMethodAllIssuerImage$inboundSchema: z.ZodType<
   size2x: z.string().optional(),
   svg: z.string().optional(),
 });
-
 /** @internal */
 export type EntityMethodAllIssuerImage$Outbound = {
   size1x?: string | undefined;
@@ -295,19 +279,6 @@ export const EntityMethodAllIssuerImage$outboundSchema: z.ZodType<
   svg: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodAllIssuerImage$ {
-  /** @deprecated use `EntityMethodAllIssuerImage$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodAllIssuerImage$inboundSchema;
-  /** @deprecated use `EntityMethodAllIssuerImage$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodAllIssuerImage$outboundSchema;
-  /** @deprecated use `EntityMethodAllIssuerImage$Outbound` instead. */
-  export type Outbound = EntityMethodAllIssuerImage$Outbound;
-}
-
 export function entityMethodAllIssuerImageToJSON(
   entityMethodAllIssuerImage: EntityMethodAllIssuerImage,
 ): string {
@@ -315,7 +286,6 @@ export function entityMethodAllIssuerImageToJSON(
     EntityMethodAllIssuerImage$outboundSchema.parse(entityMethodAllIssuerImage),
   );
 }
-
 export function entityMethodAllIssuerImageFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodAllIssuerImage, SDKValidationError> {
@@ -337,7 +307,6 @@ export const EntityMethodAllIssuer$inboundSchema: z.ZodType<
   name: z.string(),
   image: z.lazy(() => EntityMethodAllIssuerImage$inboundSchema),
 });
-
 /** @internal */
 export type EntityMethodAllIssuer$Outbound = {
   resource: string;
@@ -358,19 +327,6 @@ export const EntityMethodAllIssuer$outboundSchema: z.ZodType<
   image: z.lazy(() => EntityMethodAllIssuerImage$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodAllIssuer$ {
-  /** @deprecated use `EntityMethodAllIssuer$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodAllIssuer$inboundSchema;
-  /** @deprecated use `EntityMethodAllIssuer$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodAllIssuer$outboundSchema;
-  /** @deprecated use `EntityMethodAllIssuer$Outbound` instead. */
-  export type Outbound = EntityMethodAllIssuer$Outbound;
-}
-
 export function entityMethodAllIssuerToJSON(
   entityMethodAllIssuer: EntityMethodAllIssuer,
 ): string {
@@ -378,7 +334,6 @@ export function entityMethodAllIssuerToJSON(
     EntityMethodAllIssuer$outboundSchema.parse(entityMethodAllIssuer),
   );
 }
-
 export function entityMethodAllIssuerFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodAllIssuer, SDKValidationError> {
@@ -398,7 +353,6 @@ export const EntityMethodAllLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityMethodAllLinks$Outbound = {
   self: Url$Outbound;
@@ -415,19 +369,6 @@ export const EntityMethodAllLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodAllLinks$ {
-  /** @deprecated use `EntityMethodAllLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodAllLinks$inboundSchema;
-  /** @deprecated use `EntityMethodAllLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodAllLinks$outboundSchema;
-  /** @deprecated use `EntityMethodAllLinks$Outbound` instead. */
-  export type Outbound = EntityMethodAllLinks$Outbound;
-}
-
 export function entityMethodAllLinksToJSON(
   entityMethodAllLinks: EntityMethodAllLinks,
 ): string {
@@ -435,7 +376,6 @@ export function entityMethodAllLinksToJSON(
     EntityMethodAllLinks$outboundSchema.parse(entityMethodAllLinks),
   );
 }
-
 export function entityMethodAllLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodAllLinks, SDKValidationError> {
@@ -454,7 +394,6 @@ export const Pricing$inboundSchema: z.ZodType<Pricing, z.ZodTypeDef, unknown> =
     variable: z.string(),
     feeRegion: z.nullable(z.string()).optional(),
   });
-
 /** @internal */
 export type Pricing$Outbound = {
   description: string;
@@ -475,23 +414,9 @@ export const Pricing$outboundSchema: z.ZodType<
   feeRegion: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Pricing$ {
-  /** @deprecated use `Pricing$inboundSchema` instead. */
-  export const inboundSchema = Pricing$inboundSchema;
-  /** @deprecated use `Pricing$outboundSchema` instead. */
-  export const outboundSchema = Pricing$outboundSchema;
-  /** @deprecated use `Pricing$Outbound` instead. */
-  export type Outbound = Pricing$Outbound;
-}
-
 export function pricingToJSON(pricing: Pricing): string {
   return JSON.stringify(Pricing$outboundSchema.parse(pricing));
 }
-
 export function pricingFromJSON(
   jsonString: string,
 ): SafeParseResult<Pricing, SDKValidationError> {
@@ -524,7 +449,6 @@ export const EntityMethodAll$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityMethodAll$Outbound = {
   resource: string;
@@ -562,25 +486,11 @@ export const EntityMethodAll$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodAll$ {
-  /** @deprecated use `EntityMethodAll$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodAll$inboundSchema;
-  /** @deprecated use `EntityMethodAll$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodAll$outboundSchema;
-  /** @deprecated use `EntityMethodAll$Outbound` instead. */
-  export type Outbound = EntityMethodAll$Outbound;
-}
-
 export function entityMethodAllToJSON(
   entityMethodAll: EntityMethodAll,
 ): string {
   return JSON.stringify(EntityMethodAll$outboundSchema.parse(entityMethodAll));
 }
-
 export function entityMethodAllFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodAll, SDKValidationError> {

@@ -44,7 +44,6 @@ export const CancelSubscriptionRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type CancelSubscriptionRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
@@ -59,19 +58,6 @@ export const CancelSubscriptionRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelSubscriptionRequestBody$ {
-  /** @deprecated use `CancelSubscriptionRequestBody$inboundSchema` instead. */
-  export const inboundSchema = CancelSubscriptionRequestBody$inboundSchema;
-  /** @deprecated use `CancelSubscriptionRequestBody$outboundSchema` instead. */
-  export const outboundSchema = CancelSubscriptionRequestBody$outboundSchema;
-  /** @deprecated use `CancelSubscriptionRequestBody$Outbound` instead. */
-  export type Outbound = CancelSubscriptionRequestBody$Outbound;
-}
-
 export function cancelSubscriptionRequestBodyToJSON(
   cancelSubscriptionRequestBody: CancelSubscriptionRequestBody,
 ): string {
@@ -81,7 +67,6 @@ export function cancelSubscriptionRequestBodyToJSON(
     ),
   );
 }
-
 export function cancelSubscriptionRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<CancelSubscriptionRequestBody, SDKValidationError> {
@@ -109,7 +94,6 @@ export const CancelSubscriptionRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type CancelSubscriptionRequest$Outbound = {
   customerId: string;
@@ -136,19 +120,6 @@ export const CancelSubscriptionRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelSubscriptionRequest$ {
-  /** @deprecated use `CancelSubscriptionRequest$inboundSchema` instead. */
-  export const inboundSchema = CancelSubscriptionRequest$inboundSchema;
-  /** @deprecated use `CancelSubscriptionRequest$outboundSchema` instead. */
-  export const outboundSchema = CancelSubscriptionRequest$outboundSchema;
-  /** @deprecated use `CancelSubscriptionRequest$Outbound` instead. */
-  export type Outbound = CancelSubscriptionRequest$Outbound;
-}
-
 export function cancelSubscriptionRequestToJSON(
   cancelSubscriptionRequest: CancelSubscriptionRequest,
 ): string {
@@ -156,7 +127,6 @@ export function cancelSubscriptionRequestToJSON(
     CancelSubscriptionRequest$outboundSchema.parse(cancelSubscriptionRequest),
   );
 }
-
 export function cancelSubscriptionRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CancelSubscriptionRequest, SDKValidationError> {

@@ -96,7 +96,6 @@ export const ListConnectBalanceTransfersGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListConnectBalanceTransfersGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -111,20 +110,6 @@ export const ListConnectBalanceTransfersGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListConnectBalanceTransfersGlobals$ {
-  /** @deprecated use `ListConnectBalanceTransfersGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListConnectBalanceTransfersGlobals$inboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersGlobals$outboundSchema` instead. */
-  export const outboundSchema =
-    ListConnectBalanceTransfersGlobals$outboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersGlobals$Outbound` instead. */
-  export type Outbound = ListConnectBalanceTransfersGlobals$Outbound;
-}
-
 export function listConnectBalanceTransfersGlobalsToJSON(
   listConnectBalanceTransfersGlobals: ListConnectBalanceTransfersGlobals,
 ): string {
@@ -134,7 +119,6 @@ export function listConnectBalanceTransfersGlobalsToJSON(
     ),
   );
 }
-
 export function listConnectBalanceTransfersGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListConnectBalanceTransfersGlobals, SDKValidationError> {
@@ -162,7 +146,6 @@ export const ListConnectBalanceTransfersRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListConnectBalanceTransfersRequest$Outbound = {
   from?: string | null | undefined;
@@ -189,20 +172,6 @@ export const ListConnectBalanceTransfersRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListConnectBalanceTransfersRequest$ {
-  /** @deprecated use `ListConnectBalanceTransfersRequest$inboundSchema` instead. */
-  export const inboundSchema = ListConnectBalanceTransfersRequest$inboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    ListConnectBalanceTransfersRequest$outboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersRequest$Outbound` instead. */
-  export type Outbound = ListConnectBalanceTransfersRequest$Outbound;
-}
-
 export function listConnectBalanceTransfersRequestToJSON(
   listConnectBalanceTransfersRequest: ListConnectBalanceTransfersRequest,
 ): string {
@@ -212,7 +181,6 @@ export function listConnectBalanceTransfersRequestToJSON(
     ),
   );
 }
-
 export function listConnectBalanceTransfersRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListConnectBalanceTransfersRequest, SDKValidationError> {
@@ -238,7 +206,6 @@ export const ListConnectBalanceTransfersEmbedded$inboundSchema: z.ZodType<
     "connect_balance_transfers": "connectBalanceTransfers",
   });
 });
-
 /** @internal */
 export type ListConnectBalanceTransfersEmbedded$Outbound = {
   connect_balance_transfers: Array<
@@ -261,21 +228,6 @@ export const ListConnectBalanceTransfersEmbedded$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListConnectBalanceTransfersEmbedded$ {
-  /** @deprecated use `ListConnectBalanceTransfersEmbedded$inboundSchema` instead. */
-  export const inboundSchema =
-    ListConnectBalanceTransfersEmbedded$inboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersEmbedded$outboundSchema` instead. */
-  export const outboundSchema =
-    ListConnectBalanceTransfersEmbedded$outboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersEmbedded$Outbound` instead. */
-  export type Outbound = ListConnectBalanceTransfersEmbedded$Outbound;
-}
-
 export function listConnectBalanceTransfersEmbeddedToJSON(
   listConnectBalanceTransfersEmbedded: ListConnectBalanceTransfersEmbedded,
 ): string {
@@ -285,7 +237,6 @@ export function listConnectBalanceTransfersEmbeddedToJSON(
     ),
   );
 }
-
 export function listConnectBalanceTransfersEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListConnectBalanceTransfersEmbedded, SDKValidationError> {
@@ -312,7 +263,6 @@ export const ListConnectBalanceTransfersResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListConnectBalanceTransfersResponse$Outbound = {
   count: number;
@@ -336,21 +286,6 @@ export const ListConnectBalanceTransfersResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListConnectBalanceTransfersResponse$ {
-  /** @deprecated use `ListConnectBalanceTransfersResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    ListConnectBalanceTransfersResponse$inboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    ListConnectBalanceTransfersResponse$outboundSchema;
-  /** @deprecated use `ListConnectBalanceTransfersResponse$Outbound` instead. */
-  export type Outbound = ListConnectBalanceTransfersResponse$Outbound;
-}
-
 export function listConnectBalanceTransfersResponseToJSON(
   listConnectBalanceTransfersResponse: ListConnectBalanceTransfersResponse,
 ): string {
@@ -360,7 +295,6 @@ export function listConnectBalanceTransfersResponseToJSON(
     ),
   );
 }
-
 export function listConnectBalanceTransfersResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListConnectBalanceTransfersResponse, SDKValidationError> {

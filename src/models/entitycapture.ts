@@ -70,7 +70,6 @@ export const EntityCapture$inboundSchema: z.ZodType<
   shipmentId: z.string().optional(),
   settlementId: z.string().optional(),
 });
-
 /** @internal */
 export type EntityCapture$Outbound = {
   id?: string | undefined;
@@ -101,23 +100,9 @@ export const EntityCapture$outboundSchema: z.ZodType<
   settlementId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityCapture$ {
-  /** @deprecated use `EntityCapture$inboundSchema` instead. */
-  export const inboundSchema = EntityCapture$inboundSchema;
-  /** @deprecated use `EntityCapture$outboundSchema` instead. */
-  export const outboundSchema = EntityCapture$outboundSchema;
-  /** @deprecated use `EntityCapture$Outbound` instead. */
-  export type Outbound = EntityCapture$Outbound;
-}
-
 export function entityCaptureToJSON(entityCapture: EntityCapture): string {
   return JSON.stringify(EntityCapture$outboundSchema.parse(entityCapture));
 }
-
 export function entityCaptureFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCapture, SDKValidationError> {

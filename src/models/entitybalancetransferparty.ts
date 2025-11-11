@@ -37,7 +37,6 @@ export const EntityBalanceTransferParty$inboundSchema: z.ZodType<
   id: z.string(),
   description: z.string(),
 });
-
 /** @internal */
 export type EntityBalanceTransferParty$Outbound = {
   type: string;
@@ -56,19 +55,6 @@ export const EntityBalanceTransferParty$outboundSchema: z.ZodType<
   description: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceTransferParty$ {
-  /** @deprecated use `EntityBalanceTransferParty$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceTransferParty$inboundSchema;
-  /** @deprecated use `EntityBalanceTransferParty$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceTransferParty$outboundSchema;
-  /** @deprecated use `EntityBalanceTransferParty$Outbound` instead. */
-  export type Outbound = EntityBalanceTransferParty$Outbound;
-}
-
 export function entityBalanceTransferPartyToJSON(
   entityBalanceTransferParty: EntityBalanceTransferParty,
 ): string {
@@ -76,7 +62,6 @@ export function entityBalanceTransferPartyToJSON(
     EntityBalanceTransferParty$outboundSchema.parse(entityBalanceTransferParty),
   );
 }
-
 export function entityBalanceTransferPartyFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransferParty, SDKValidationError> {

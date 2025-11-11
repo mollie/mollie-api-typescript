@@ -17,19 +17,7 @@ export type MethodResourceParameter = ClosedEnum<
 export const MethodResourceParameter$inboundSchema: z.ZodNativeEnum<
   typeof MethodResourceParameter
 > = z.nativeEnum(MethodResourceParameter);
-
 /** @internal */
 export const MethodResourceParameter$outboundSchema: z.ZodNativeEnum<
   typeof MethodResourceParameter
 > = MethodResourceParameter$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MethodResourceParameter$ {
-  /** @deprecated use `MethodResourceParameter$inboundSchema` instead. */
-  export const inboundSchema = MethodResourceParameter$inboundSchema;
-  /** @deprecated use `MethodResourceParameter$outboundSchema` instead. */
-  export const outboundSchema = MethodResourceParameter$outboundSchema;
-}

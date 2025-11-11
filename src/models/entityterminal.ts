@@ -118,7 +118,6 @@ export const EntityTerminalLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type EntityTerminalLinks$Outbound = {
   self: Url$Outbound;
@@ -135,19 +134,6 @@ export const EntityTerminalLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityTerminalLinks$ {
-  /** @deprecated use `EntityTerminalLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityTerminalLinks$inboundSchema;
-  /** @deprecated use `EntityTerminalLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityTerminalLinks$outboundSchema;
-  /** @deprecated use `EntityTerminalLinks$Outbound` instead. */
-  export type Outbound = EntityTerminalLinks$Outbound;
-}
-
 export function entityTerminalLinksToJSON(
   entityTerminalLinks: EntityTerminalLinks,
 ): string {
@@ -155,7 +141,6 @@ export function entityTerminalLinksToJSON(
     EntityTerminalLinks$outboundSchema.parse(entityTerminalLinks),
   );
 }
-
 export function entityTerminalLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityTerminalLinks, SDKValidationError> {
@@ -190,7 +175,6 @@ export const EntityTerminal$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityTerminal$Outbound = {
   resource: string;
@@ -233,23 +217,9 @@ export const EntityTerminal$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityTerminal$ {
-  /** @deprecated use `EntityTerminal$inboundSchema` instead. */
-  export const inboundSchema = EntityTerminal$inboundSchema;
-  /** @deprecated use `EntityTerminal$outboundSchema` instead. */
-  export const outboundSchema = EntityTerminal$outboundSchema;
-  /** @deprecated use `EntityTerminal$Outbound` instead. */
-  export type Outbound = EntityTerminal$Outbound;
-}
-
 export function entityTerminalToJSON(entityTerminal: EntityTerminal): string {
   return JSON.stringify(EntityTerminal$outboundSchema.parse(entityTerminal));
 }
-
 export function entityTerminalFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityTerminal, SDKValidationError> {

@@ -89,7 +89,6 @@ export const UpdatePaymentLinkRequestBody$inboundSchema: z.ZodType<
   shippingAddress: models.PaymentAddress$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type UpdatePaymentLinkRequestBody$Outbound = {
   description?: string | undefined;
@@ -119,19 +118,6 @@ export const UpdatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePaymentLinkRequestBody$ {
-  /** @deprecated use `UpdatePaymentLinkRequestBody$inboundSchema` instead. */
-  export const inboundSchema = UpdatePaymentLinkRequestBody$inboundSchema;
-  /** @deprecated use `UpdatePaymentLinkRequestBody$outboundSchema` instead. */
-  export const outboundSchema = UpdatePaymentLinkRequestBody$outboundSchema;
-  /** @deprecated use `UpdatePaymentLinkRequestBody$Outbound` instead. */
-  export type Outbound = UpdatePaymentLinkRequestBody$Outbound;
-}
-
 export function updatePaymentLinkRequestBodyToJSON(
   updatePaymentLinkRequestBody: UpdatePaymentLinkRequestBody,
 ): string {
@@ -141,7 +127,6 @@ export function updatePaymentLinkRequestBodyToJSON(
     ),
   );
 }
-
 export function updatePaymentLinkRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdatePaymentLinkRequestBody, SDKValidationError> {
@@ -168,7 +153,6 @@ export const UpdatePaymentLinkRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type UpdatePaymentLinkRequest$Outbound = {
   paymentLinkId: string;
@@ -193,19 +177,6 @@ export const UpdatePaymentLinkRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePaymentLinkRequest$ {
-  /** @deprecated use `UpdatePaymentLinkRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdatePaymentLinkRequest$inboundSchema;
-  /** @deprecated use `UpdatePaymentLinkRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdatePaymentLinkRequest$outboundSchema;
-  /** @deprecated use `UpdatePaymentLinkRequest$Outbound` instead. */
-  export type Outbound = UpdatePaymentLinkRequest$Outbound;
-}
-
 export function updatePaymentLinkRequestToJSON(
   updatePaymentLinkRequest: UpdatePaymentLinkRequest,
 ): string {
@@ -213,7 +184,6 @@ export function updatePaymentLinkRequestToJSON(
     UpdatePaymentLinkRequest$outboundSchema.parse(updatePaymentLinkRequest),
   );
 }
-
 export function updatePaymentLinkRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdatePaymentLinkRequest, SDKValidationError> {

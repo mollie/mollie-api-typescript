@@ -293,7 +293,6 @@ export const PendingBalance$inboundSchema: z.ZodType<
   pending: SubGroup$inboundSchema.optional(),
   movedToAvailable: SubGroup$inboundSchema.optional(),
 });
-
 /** @internal */
 export type PendingBalance$Outbound = {
   open?: SubGroup$Outbound | undefined;
@@ -314,23 +313,9 @@ export const PendingBalance$outboundSchema: z.ZodType<
   movedToAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PendingBalance$ {
-  /** @deprecated use `PendingBalance$inboundSchema` instead. */
-  export const inboundSchema = PendingBalance$inboundSchema;
-  /** @deprecated use `PendingBalance$outboundSchema` instead. */
-  export const outboundSchema = PendingBalance$outboundSchema;
-  /** @deprecated use `PendingBalance$Outbound` instead. */
-  export type Outbound = PendingBalance$Outbound;
-}
-
 export function pendingBalanceToJSON(pendingBalance: PendingBalance): string {
   return JSON.stringify(PendingBalance$outboundSchema.parse(pendingBalance));
 }
-
 export function pendingBalanceFromJSON(
   jsonString: string,
 ): SafeParseResult<PendingBalance, SDKValidationError> {
@@ -352,7 +337,6 @@ export const AvailableBalance$inboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
   close: SubGroup$inboundSchema.optional(),
 });
-
 /** @internal */
 export type AvailableBalance$Outbound = {
   open?: SubGroup$Outbound | undefined;
@@ -373,19 +357,6 @@ export const AvailableBalance$outboundSchema: z.ZodType<
   close: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AvailableBalance$ {
-  /** @deprecated use `AvailableBalance$inboundSchema` instead. */
-  export const inboundSchema = AvailableBalance$inboundSchema;
-  /** @deprecated use `AvailableBalance$outboundSchema` instead. */
-  export const outboundSchema = AvailableBalance$outboundSchema;
-  /** @deprecated use `AvailableBalance$Outbound` instead. */
-  export type Outbound = AvailableBalance$Outbound;
-}
-
 export function availableBalanceToJSON(
   availableBalance: AvailableBalance,
 ): string {
@@ -393,7 +364,6 @@ export function availableBalanceToJSON(
     AvailableBalance$outboundSchema.parse(availableBalance),
   );
 }
-
 export function availableBalanceFromJSON(
   jsonString: string,
 ): SafeParseResult<AvailableBalance, SDKValidationError> {
@@ -410,7 +380,6 @@ export const Open$inboundSchema: z.ZodType<Open, z.ZodTypeDef, unknown> = z
     pending: SubGroup$inboundSchema.optional(),
     available: SubGroup$inboundSchema.optional(),
   });
-
 /** @internal */
 export type Open$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -424,23 +393,9 @@ export const Open$outboundSchema: z.ZodType<Open$Outbound, z.ZodTypeDef, Open> =
     available: SubGroup$outboundSchema.optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Open$ {
-  /** @deprecated use `Open$inboundSchema` instead. */
-  export const inboundSchema = Open$inboundSchema;
-  /** @deprecated use `Open$outboundSchema` instead. */
-  export const outboundSchema = Open$outboundSchema;
-  /** @deprecated use `Open$Outbound` instead. */
-  export type Outbound = Open$Outbound;
-}
-
 export function openToJSON(open: Open): string {
   return JSON.stringify(Open$outboundSchema.parse(open));
 }
-
 export function openFromJSON(
   jsonString: string,
 ): SafeParseResult<Open, SDKValidationError> {
@@ -457,7 +412,6 @@ export const Close$inboundSchema: z.ZodType<Close, z.ZodTypeDef, unknown> = z
     pending: SubGroup$inboundSchema.optional(),
     available: SubGroup$inboundSchema.optional(),
   });
-
 /** @internal */
 export type Close$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -474,23 +428,9 @@ export const Close$outboundSchema: z.ZodType<
   available: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Close$ {
-  /** @deprecated use `Close$inboundSchema` instead. */
-  export const inboundSchema = Close$inboundSchema;
-  /** @deprecated use `Close$outboundSchema` instead. */
-  export const outboundSchema = Close$outboundSchema;
-  /** @deprecated use `Close$Outbound` instead. */
-  export type Outbound = Close$Outbound;
-}
-
 export function closeToJSON(close: Close): string {
   return JSON.stringify(Close$outboundSchema.parse(close));
 }
-
 export function closeFromJSON(
   jsonString: string,
 ): SafeParseResult<Close, SDKValidationError> {
@@ -511,7 +451,6 @@ export const Payments$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-
 /** @internal */
 export type Payments$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -530,23 +469,9 @@ export const Payments$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Payments$ {
-  /** @deprecated use `Payments$inboundSchema` instead. */
-  export const inboundSchema = Payments$inboundSchema;
-  /** @deprecated use `Payments$outboundSchema` instead. */
-  export const outboundSchema = Payments$outboundSchema;
-  /** @deprecated use `Payments$Outbound` instead. */
-  export type Outbound = Payments$Outbound;
-}
-
 export function paymentsToJSON(payments: Payments): string {
   return JSON.stringify(Payments$outboundSchema.parse(payments));
 }
-
 export function paymentsFromJSON(
   jsonString: string,
 ): SafeParseResult<Payments, SDKValidationError> {
@@ -564,7 +489,6 @@ export const Refunds$inboundSchema: z.ZodType<Refunds, z.ZodTypeDef, unknown> =
     movedToAvailable: SubGroup$inboundSchema.optional(),
     immediatelyAvailable: SubGroup$inboundSchema.optional(),
   });
-
 /** @internal */
 export type Refunds$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -583,23 +507,9 @@ export const Refunds$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Refunds$ {
-  /** @deprecated use `Refunds$inboundSchema` instead. */
-  export const inboundSchema = Refunds$inboundSchema;
-  /** @deprecated use `Refunds$outboundSchema` instead. */
-  export const outboundSchema = Refunds$outboundSchema;
-  /** @deprecated use `Refunds$Outbound` instead. */
-  export type Outbound = Refunds$Outbound;
-}
-
 export function refundsToJSON(refunds: Refunds): string {
   return JSON.stringify(Refunds$outboundSchema.parse(refunds));
 }
-
 export function refundsFromJSON(
   jsonString: string,
 ): SafeParseResult<Refunds, SDKValidationError> {
@@ -620,7 +530,6 @@ export const Chargebacks$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-
 /** @internal */
 export type Chargebacks$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -639,23 +548,9 @@ export const Chargebacks$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Chargebacks$ {
-  /** @deprecated use `Chargebacks$inboundSchema` instead. */
-  export const inboundSchema = Chargebacks$inboundSchema;
-  /** @deprecated use `Chargebacks$outboundSchema` instead. */
-  export const outboundSchema = Chargebacks$outboundSchema;
-  /** @deprecated use `Chargebacks$Outbound` instead. */
-  export type Outbound = Chargebacks$Outbound;
-}
-
 export function chargebacksToJSON(chargebacks: Chargebacks): string {
   return JSON.stringify(Chargebacks$outboundSchema.parse(chargebacks));
 }
-
 export function chargebacksFromJSON(
   jsonString: string,
 ): SafeParseResult<Chargebacks, SDKValidationError> {
@@ -673,7 +568,6 @@ export const Capital$inboundSchema: z.ZodType<Capital, z.ZodTypeDef, unknown> =
     movedToAvailable: SubGroup$inboundSchema.optional(),
     immediatelyAvailable: SubGroup$inboundSchema.optional(),
   });
-
 /** @internal */
 export type Capital$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -692,23 +586,9 @@ export const Capital$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Capital$ {
-  /** @deprecated use `Capital$inboundSchema` instead. */
-  export const inboundSchema = Capital$inboundSchema;
-  /** @deprecated use `Capital$outboundSchema` instead. */
-  export const outboundSchema = Capital$outboundSchema;
-  /** @deprecated use `Capital$Outbound` instead. */
-  export type Outbound = Capital$Outbound;
-}
-
 export function capitalToJSON(capital: Capital): string {
   return JSON.stringify(Capital$outboundSchema.parse(capital));
 }
-
 export function capitalFromJSON(
   jsonString: string,
 ): SafeParseResult<Capital, SDKValidationError> {
@@ -729,7 +609,6 @@ export const Transfers$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-
 /** @internal */
 export type Transfers$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -748,23 +627,9 @@ export const Transfers$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Transfers$ {
-  /** @deprecated use `Transfers$inboundSchema` instead. */
-  export const inboundSchema = Transfers$inboundSchema;
-  /** @deprecated use `Transfers$outboundSchema` instead. */
-  export const outboundSchema = Transfers$outboundSchema;
-  /** @deprecated use `Transfers$Outbound` instead. */
-  export type Outbound = Transfers$Outbound;
-}
-
 export function transfersToJSON(transfers: Transfers): string {
   return JSON.stringify(Transfers$outboundSchema.parse(transfers));
 }
-
 export function transfersFromJSON(
   jsonString: string,
 ): SafeParseResult<Transfers, SDKValidationError> {
@@ -785,7 +650,6 @@ export const FeePrepayments$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-
 /** @internal */
 export type FeePrepayments$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -804,23 +668,9 @@ export const FeePrepayments$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FeePrepayments$ {
-  /** @deprecated use `FeePrepayments$inboundSchema` instead. */
-  export const inboundSchema = FeePrepayments$inboundSchema;
-  /** @deprecated use `FeePrepayments$outboundSchema` instead. */
-  export const outboundSchema = FeePrepayments$outboundSchema;
-  /** @deprecated use `FeePrepayments$Outbound` instead. */
-  export type Outbound = FeePrepayments$Outbound;
-}
-
 export function feePrepaymentsToJSON(feePrepayments: FeePrepayments): string {
   return JSON.stringify(FeePrepayments$outboundSchema.parse(feePrepayments));
 }
-
 export function feePrepaymentsFromJSON(
   jsonString: string,
 ): SafeParseResult<FeePrepayments, SDKValidationError> {
@@ -841,7 +691,6 @@ export const Corrections$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-
 /** @internal */
 export type Corrections$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -860,23 +709,9 @@ export const Corrections$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Corrections$ {
-  /** @deprecated use `Corrections$inboundSchema` instead. */
-  export const inboundSchema = Corrections$inboundSchema;
-  /** @deprecated use `Corrections$outboundSchema` instead. */
-  export const outboundSchema = Corrections$outboundSchema;
-  /** @deprecated use `Corrections$Outbound` instead. */
-  export type Outbound = Corrections$Outbound;
-}
-
 export function correctionsToJSON(corrections: Corrections): string {
   return JSON.stringify(Corrections$outboundSchema.parse(corrections));
 }
-
 export function correctionsFromJSON(
   jsonString: string,
 ): SafeParseResult<Corrections, SDKValidationError> {
@@ -894,7 +729,6 @@ export const Topups$inboundSchema: z.ZodType<Topups, z.ZodTypeDef, unknown> = z
     movedToAvailable: SubGroup$inboundSchema.optional(),
     immediatelyAvailable: SubGroup$inboundSchema.optional(),
   });
-
 /** @internal */
 export type Topups$Outbound = {
   pending?: SubGroup$Outbound | undefined;
@@ -913,23 +747,9 @@ export const Topups$outboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Topups$ {
-  /** @deprecated use `Topups$inboundSchema` instead. */
-  export const inboundSchema = Topups$inboundSchema;
-  /** @deprecated use `Topups$outboundSchema` instead. */
-  export const outboundSchema = Topups$outboundSchema;
-  /** @deprecated use `Topups$Outbound` instead. */
-  export type Outbound = Topups$Outbound;
-}
-
 export function topupsToJSON(topups: Topups): string {
   return JSON.stringify(Topups$outboundSchema.parse(topups));
 }
-
 export function topupsFromJSON(
   jsonString: string,
 ): SafeParseResult<Topups, SDKValidationError> {
@@ -962,7 +782,6 @@ export const Totals$inboundSchema: z.ZodType<Totals, z.ZodTypeDef, unknown> = z
       "fee-prepayments": "feePrepayments",
     });
   });
-
 /** @internal */
 export type Totals$Outbound = {
   pendingBalance?: PendingBalance$Outbound | null | undefined;
@@ -1005,23 +824,9 @@ export const Totals$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Totals$ {
-  /** @deprecated use `Totals$inboundSchema` instead. */
-  export const inboundSchema = Totals$inboundSchema;
-  /** @deprecated use `Totals$outboundSchema` instead. */
-  export const outboundSchema = Totals$outboundSchema;
-  /** @deprecated use `Totals$Outbound` instead. */
-  export type Outbound = Totals$Outbound;
-}
-
 export function totalsToJSON(totals: Totals): string {
   return JSON.stringify(Totals$outboundSchema.parse(totals));
 }
-
 export function totalsFromJSON(
   jsonString: string,
 ): SafeParseResult<Totals, SDKValidationError> {
@@ -1041,7 +846,6 @@ export const EntityBalanceReportLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityBalanceReportLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -1058,19 +862,6 @@ export const EntityBalanceReportLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceReportLinks$ {
-  /** @deprecated use `EntityBalanceReportLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceReportLinks$inboundSchema;
-  /** @deprecated use `EntityBalanceReportLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceReportLinks$outboundSchema;
-  /** @deprecated use `EntityBalanceReportLinks$Outbound` instead. */
-  export type Outbound = EntityBalanceReportLinks$Outbound;
-}
-
 export function entityBalanceReportLinksToJSON(
   entityBalanceReportLinks: EntityBalanceReportLinks,
 ): string {
@@ -1078,7 +869,6 @@ export function entityBalanceReportLinksToJSON(
     EntityBalanceReportLinks$outboundSchema.parse(entityBalanceReportLinks),
   );
 }
-
 export function entityBalanceReportLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceReportLinks, SDKValidationError> {
@@ -1108,7 +898,6 @@ export const EntityBalanceReport$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityBalanceReport$Outbound = {
   resource: string;
@@ -1141,19 +930,6 @@ export const EntityBalanceReport$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceReport$ {
-  /** @deprecated use `EntityBalanceReport$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceReport$inboundSchema;
-  /** @deprecated use `EntityBalanceReport$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceReport$outboundSchema;
-  /** @deprecated use `EntityBalanceReport$Outbound` instead. */
-  export type Outbound = EntityBalanceReport$Outbound;
-}
-
 export function entityBalanceReportToJSON(
   entityBalanceReport: EntityBalanceReport,
 ): string {
@@ -1161,7 +937,6 @@ export function entityBalanceReportToJSON(
     EntityBalanceReport$outboundSchema.parse(entityBalanceReport),
   );
 }
-
 export function entityBalanceReportFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceReport, SDKValidationError> {

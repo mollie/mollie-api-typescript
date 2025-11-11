@@ -16,19 +16,7 @@ export type MethodIncludeWalletsParameter = ClosedEnum<
 export const MethodIncludeWalletsParameter$inboundSchema: z.ZodNativeEnum<
   typeof MethodIncludeWalletsParameter
 > = z.nativeEnum(MethodIncludeWalletsParameter);
-
 /** @internal */
 export const MethodIncludeWalletsParameter$outboundSchema: z.ZodNativeEnum<
   typeof MethodIncludeWalletsParameter
 > = MethodIncludeWalletsParameter$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MethodIncludeWalletsParameter$ {
-  /** @deprecated use `MethodIncludeWalletsParameter$inboundSchema` instead. */
-  export const inboundSchema = MethodIncludeWalletsParameter$inboundSchema;
-  /** @deprecated use `MethodIncludeWalletsParameter$outboundSchema` instead. */
-  export const outboundSchema = MethodIncludeWalletsParameter$outboundSchema;
-}

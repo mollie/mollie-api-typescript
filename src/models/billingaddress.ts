@@ -125,7 +125,6 @@ export const BillingAddress$inboundSchema: z.ZodType<
   region: z.string().optional(),
   country: z.string().optional(),
 });
-
 /** @internal */
 export type BillingAddress$Outbound = {
   title?: string | undefined;
@@ -162,23 +161,9 @@ export const BillingAddress$outboundSchema: z.ZodType<
   country: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BillingAddress$ {
-  /** @deprecated use `BillingAddress$inboundSchema` instead. */
-  export const inboundSchema = BillingAddress$inboundSchema;
-  /** @deprecated use `BillingAddress$outboundSchema` instead. */
-  export const outboundSchema = BillingAddress$outboundSchema;
-  /** @deprecated use `BillingAddress$Outbound` instead. */
-  export type Outbound = BillingAddress$Outbound;
-}
-
 export function billingAddressToJSON(billingAddress: BillingAddress): string {
   return JSON.stringify(BillingAddress$outboundSchema.parse(billingAddress));
 }
-
 export function billingAddressFromJSON(
   jsonString: string,
 ): SafeParseResult<BillingAddress, SDKValidationError> {

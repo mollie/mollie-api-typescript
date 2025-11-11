@@ -392,7 +392,6 @@ export const Payment$inboundSchema: z.ZodType<Payment, z.ZodTypeDef, unknown> =
     paymentId: z.string().optional(),
     paymentDescription: z.string().optional(),
   });
-
 /** @internal */
 export type Payment$Outbound = {
   paymentId?: string | undefined;
@@ -409,23 +408,9 @@ export const Payment$outboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Payment$ {
-  /** @deprecated use `Payment$inboundSchema` instead. */
-  export const inboundSchema = Payment$inboundSchema;
-  /** @deprecated use `Payment$outboundSchema` instead. */
-  export const outboundSchema = Payment$outboundSchema;
-  /** @deprecated use `Payment$Outbound` instead. */
-  export type Outbound = Payment$Outbound;
-}
-
 export function paymentToJSON(payment: Payment): string {
   return JSON.stringify(Payment$outboundSchema.parse(payment));
 }
-
 export function paymentFromJSON(
   jsonString: string,
 ): SafeParseResult<Payment, SDKValidationError> {
@@ -444,7 +429,6 @@ export const Capture$inboundSchema: z.ZodType<Capture, z.ZodTypeDef, unknown> =
     captureId: z.string().optional(),
     captureDescription: z.string().optional(),
   });
-
 /** @internal */
 export type Capture$Outbound = {
   paymentId?: string | undefined;
@@ -465,23 +449,9 @@ export const Capture$outboundSchema: z.ZodType<
   captureDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Capture$ {
-  /** @deprecated use `Capture$inboundSchema` instead. */
-  export const inboundSchema = Capture$inboundSchema;
-  /** @deprecated use `Capture$outboundSchema` instead. */
-  export const outboundSchema = Capture$outboundSchema;
-  /** @deprecated use `Capture$Outbound` instead. */
-  export type Outbound = Capture$Outbound;
-}
-
 export function captureToJSON(capture: Capture): string {
   return JSON.stringify(Capture$outboundSchema.parse(capture));
 }
-
 export function captureFromJSON(
   jsonString: string,
 ): SafeParseResult<Capture, SDKValidationError> {
@@ -503,7 +473,6 @@ export const CaptureCommision$inboundSchema: z.ZodType<
   captureId: z.string().optional(),
   captureDescription: z.string().optional(),
 });
-
 /** @internal */
 export type CaptureCommision$Outbound = {
   paymentId?: string | undefined;
@@ -524,19 +493,6 @@ export const CaptureCommision$outboundSchema: z.ZodType<
   captureDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureCommision$ {
-  /** @deprecated use `CaptureCommision$inboundSchema` instead. */
-  export const inboundSchema = CaptureCommision$inboundSchema;
-  /** @deprecated use `CaptureCommision$outboundSchema` instead. */
-  export const outboundSchema = CaptureCommision$outboundSchema;
-  /** @deprecated use `CaptureCommision$Outbound` instead. */
-  export type Outbound = CaptureCommision$Outbound;
-}
-
 export function captureCommisionToJSON(
   captureCommision: CaptureCommision,
 ): string {
@@ -544,7 +500,6 @@ export function captureCommisionToJSON(
     CaptureCommision$outboundSchema.parse(captureCommision),
   );
 }
-
 export function captureCommisionFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureCommision, SDKValidationError> {
@@ -566,7 +521,6 @@ export const CaptureRollingReserveRelease$inboundSchema: z.ZodType<
   captureId: z.string().optional(),
   captureDescription: z.string().optional(),
 });
-
 /** @internal */
 export type CaptureRollingReserveRelease$Outbound = {
   paymentId?: string | undefined;
@@ -587,19 +541,6 @@ export const CaptureRollingReserveRelease$outboundSchema: z.ZodType<
   captureDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureRollingReserveRelease$ {
-  /** @deprecated use `CaptureRollingReserveRelease$inboundSchema` instead. */
-  export const inboundSchema = CaptureRollingReserveRelease$inboundSchema;
-  /** @deprecated use `CaptureRollingReserveRelease$outboundSchema` instead. */
-  export const outboundSchema = CaptureRollingReserveRelease$outboundSchema;
-  /** @deprecated use `CaptureRollingReserveRelease$Outbound` instead. */
-  export type Outbound = CaptureRollingReserveRelease$Outbound;
-}
-
 export function captureRollingReserveReleaseToJSON(
   captureRollingReserveRelease: CaptureRollingReserveRelease,
 ): string {
@@ -609,7 +550,6 @@ export function captureRollingReserveReleaseToJSON(
     ),
   );
 }
-
 export function captureRollingReserveReleaseFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureRollingReserveRelease, SDKValidationError> {
@@ -629,7 +569,6 @@ export const UnauthorizedDirectDebit$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-
 /** @internal */
 export type UnauthorizedDirectDebit$Outbound = {
   paymentId?: string | undefined;
@@ -646,19 +585,6 @@ export const UnauthorizedDirectDebit$outboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UnauthorizedDirectDebit$ {
-  /** @deprecated use `UnauthorizedDirectDebit$inboundSchema` instead. */
-  export const inboundSchema = UnauthorizedDirectDebit$inboundSchema;
-  /** @deprecated use `UnauthorizedDirectDebit$outboundSchema` instead. */
-  export const outboundSchema = UnauthorizedDirectDebit$outboundSchema;
-  /** @deprecated use `UnauthorizedDirectDebit$Outbound` instead. */
-  export type Outbound = UnauthorizedDirectDebit$Outbound;
-}
-
 export function unauthorizedDirectDebitToJSON(
   unauthorizedDirectDebit: UnauthorizedDirectDebit,
 ): string {
@@ -666,7 +592,6 @@ export function unauthorizedDirectDebitToJSON(
     UnauthorizedDirectDebit$outboundSchema.parse(unauthorizedDirectDebit),
   );
 }
-
 export function unauthorizedDirectDebitFromJSON(
   jsonString: string,
 ): SafeParseResult<UnauthorizedDirectDebit, SDKValidationError> {
@@ -686,7 +611,6 @@ export const FailedPayment$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-
 /** @internal */
 export type FailedPayment$Outbound = {
   paymentId?: string | undefined;
@@ -703,23 +627,9 @@ export const FailedPayment$outboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FailedPayment$ {
-  /** @deprecated use `FailedPayment$inboundSchema` instead. */
-  export const inboundSchema = FailedPayment$inboundSchema;
-  /** @deprecated use `FailedPayment$outboundSchema` instead. */
-  export const outboundSchema = FailedPayment$outboundSchema;
-  /** @deprecated use `FailedPayment$Outbound` instead. */
-  export type Outbound = FailedPayment$Outbound;
-}
-
 export function failedPaymentToJSON(failedPayment: FailedPayment): string {
   return JSON.stringify(FailedPayment$outboundSchema.parse(failedPayment));
 }
-
 export function failedPaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<FailedPayment, SDKValidationError> {
@@ -738,7 +648,6 @@ export const Refund$inboundSchema: z.ZodType<Refund, z.ZodTypeDef, unknown> = z
     refundId: z.string().optional(),
     refundDescription: z.string().optional(),
   });
-
 /** @internal */
 export type Refund$Outbound = {
   paymentId?: string | undefined;
@@ -759,23 +668,9 @@ export const Refund$outboundSchema: z.ZodType<
   refundDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Refund$ {
-  /** @deprecated use `Refund$inboundSchema` instead. */
-  export const inboundSchema = Refund$inboundSchema;
-  /** @deprecated use `Refund$outboundSchema` instead. */
-  export const outboundSchema = Refund$outboundSchema;
-  /** @deprecated use `Refund$Outbound` instead. */
-  export type Outbound = Refund$Outbound;
-}
-
 export function refundToJSON(refund: Refund): string {
   return JSON.stringify(Refund$outboundSchema.parse(refund));
 }
-
 export function refundFromJSON(
   jsonString: string,
 ): SafeParseResult<Refund, SDKValidationError> {
@@ -797,7 +692,6 @@ export const RefundCompensation$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-
 /** @internal */
 export type RefundCompensation$Outbound = {
   paymentId?: string | undefined;
@@ -818,19 +712,6 @@ export const RefundCompensation$outboundSchema: z.ZodType<
   refundDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RefundCompensation$ {
-  /** @deprecated use `RefundCompensation$inboundSchema` instead. */
-  export const inboundSchema = RefundCompensation$inboundSchema;
-  /** @deprecated use `RefundCompensation$outboundSchema` instead. */
-  export const outboundSchema = RefundCompensation$outboundSchema;
-  /** @deprecated use `RefundCompensation$Outbound` instead. */
-  export type Outbound = RefundCompensation$Outbound;
-}
-
 export function refundCompensationToJSON(
   refundCompensation: RefundCompensation,
 ): string {
@@ -838,7 +719,6 @@ export function refundCompensationToJSON(
     RefundCompensation$outboundSchema.parse(refundCompensation),
   );
 }
-
 export function refundCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<RefundCompensation, SDKValidationError> {
@@ -860,7 +740,6 @@ export const ReturnedRefund$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ReturnedRefund$Outbound = {
   paymentId?: string | undefined;
@@ -881,23 +760,9 @@ export const ReturnedRefund$outboundSchema: z.ZodType<
   refundDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReturnedRefund$ {
-  /** @deprecated use `ReturnedRefund$inboundSchema` instead. */
-  export const inboundSchema = ReturnedRefund$inboundSchema;
-  /** @deprecated use `ReturnedRefund$outboundSchema` instead. */
-  export const outboundSchema = ReturnedRefund$outboundSchema;
-  /** @deprecated use `ReturnedRefund$Outbound` instead. */
-  export type Outbound = ReturnedRefund$Outbound;
-}
-
 export function returnedRefundToJSON(returnedRefund: ReturnedRefund): string {
   return JSON.stringify(ReturnedRefund$outboundSchema.parse(returnedRefund));
 }
-
 export function returnedRefundFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedRefund, SDKValidationError> {
@@ -919,7 +784,6 @@ export const ReturnedRefundCompensation$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ReturnedRefundCompensation$Outbound = {
   paymentId?: string | undefined;
@@ -940,19 +804,6 @@ export const ReturnedRefundCompensation$outboundSchema: z.ZodType<
   refundDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReturnedRefundCompensation$ {
-  /** @deprecated use `ReturnedRefundCompensation$inboundSchema` instead. */
-  export const inboundSchema = ReturnedRefundCompensation$inboundSchema;
-  /** @deprecated use `ReturnedRefundCompensation$outboundSchema` instead. */
-  export const outboundSchema = ReturnedRefundCompensation$outboundSchema;
-  /** @deprecated use `ReturnedRefundCompensation$Outbound` instead. */
-  export type Outbound = ReturnedRefundCompensation$Outbound;
-}
-
 export function returnedRefundCompensationToJSON(
   returnedRefundCompensation: ReturnedRefundCompensation,
 ): string {
@@ -960,7 +811,6 @@ export function returnedRefundCompensationToJSON(
     ReturnedRefundCompensation$outboundSchema.parse(returnedRefundCompensation),
   );
 }
-
 export function returnedRefundCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedRefundCompensation, SDKValidationError> {
@@ -982,7 +832,6 @@ export const Chargeback$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-
 /** @internal */
 export type Chargeback$Outbound = {
   paymentId?: string | undefined;
@@ -1003,23 +852,9 @@ export const Chargeback$outboundSchema: z.ZodType<
   chargebackDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Chargeback$ {
-  /** @deprecated use `Chargeback$inboundSchema` instead. */
-  export const inboundSchema = Chargeback$inboundSchema;
-  /** @deprecated use `Chargeback$outboundSchema` instead. */
-  export const outboundSchema = Chargeback$outboundSchema;
-  /** @deprecated use `Chargeback$Outbound` instead. */
-  export type Outbound = Chargeback$Outbound;
-}
-
 export function chargebackToJSON(chargeback: Chargeback): string {
   return JSON.stringify(Chargeback$outboundSchema.parse(chargeback));
 }
-
 export function chargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<Chargeback, SDKValidationError> {
@@ -1041,7 +876,6 @@ export const ChargebackReversal$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ChargebackReversal$Outbound = {
   paymentId?: string | undefined;
@@ -1062,19 +896,6 @@ export const ChargebackReversal$outboundSchema: z.ZodType<
   chargebackDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ChargebackReversal$ {
-  /** @deprecated use `ChargebackReversal$inboundSchema` instead. */
-  export const inboundSchema = ChargebackReversal$inboundSchema;
-  /** @deprecated use `ChargebackReversal$outboundSchema` instead. */
-  export const outboundSchema = ChargebackReversal$outboundSchema;
-  /** @deprecated use `ChargebackReversal$Outbound` instead. */
-  export type Outbound = ChargebackReversal$Outbound;
-}
-
 export function chargebackReversalToJSON(
   chargebackReversal: ChargebackReversal,
 ): string {
@@ -1082,7 +903,6 @@ export function chargebackReversalToJSON(
     ChargebackReversal$outboundSchema.parse(chargebackReversal),
   );
 }
-
 export function chargebackReversalFromJSON(
   jsonString: string,
 ): SafeParseResult<ChargebackReversal, SDKValidationError> {
@@ -1104,7 +924,6 @@ export const ChargebackCompensation$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ChargebackCompensation$Outbound = {
   paymentId?: string | undefined;
@@ -1125,19 +944,6 @@ export const ChargebackCompensation$outboundSchema: z.ZodType<
   chargebackDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ChargebackCompensation$ {
-  /** @deprecated use `ChargebackCompensation$inboundSchema` instead. */
-  export const inboundSchema = ChargebackCompensation$inboundSchema;
-  /** @deprecated use `ChargebackCompensation$outboundSchema` instead. */
-  export const outboundSchema = ChargebackCompensation$outboundSchema;
-  /** @deprecated use `ChargebackCompensation$Outbound` instead. */
-  export type Outbound = ChargebackCompensation$Outbound;
-}
-
 export function chargebackCompensationToJSON(
   chargebackCompensation: ChargebackCompensation,
 ): string {
@@ -1145,7 +951,6 @@ export function chargebackCompensationToJSON(
     ChargebackCompensation$outboundSchema.parse(chargebackCompensation),
   );
 }
-
 export function chargebackCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<ChargebackCompensation, SDKValidationError> {
@@ -1167,7 +972,6 @@ export const ReversedChargebackCompensation$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ReversedChargebackCompensation$Outbound = {
   paymentId?: string | undefined;
@@ -1188,19 +992,6 @@ export const ReversedChargebackCompensation$outboundSchema: z.ZodType<
   chargebackDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReversedChargebackCompensation$ {
-  /** @deprecated use `ReversedChargebackCompensation$inboundSchema` instead. */
-  export const inboundSchema = ReversedChargebackCompensation$inboundSchema;
-  /** @deprecated use `ReversedChargebackCompensation$outboundSchema` instead. */
-  export const outboundSchema = ReversedChargebackCompensation$outboundSchema;
-  /** @deprecated use `ReversedChargebackCompensation$Outbound` instead. */
-  export type Outbound = ReversedChargebackCompensation$Outbound;
-}
-
 export function reversedChargebackCompensationToJSON(
   reversedChargebackCompensation: ReversedChargebackCompensation,
 ): string {
@@ -1210,7 +1001,6 @@ export function reversedChargebackCompensationToJSON(
     ),
   );
 }
-
 export function reversedChargebackCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<ReversedChargebackCompensation, SDKValidationError> {
@@ -1230,7 +1020,6 @@ export const OutgoingTransfer$inboundSchema: z.ZodType<
   transferId: z.string().optional(),
   settlementId: z.string().optional(),
 });
-
 /** @internal */
 export type OutgoingTransfer$Outbound = {
   transferId?: string | undefined;
@@ -1247,19 +1036,6 @@ export const OutgoingTransfer$outboundSchema: z.ZodType<
   settlementId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutgoingTransfer$ {
-  /** @deprecated use `OutgoingTransfer$inboundSchema` instead. */
-  export const inboundSchema = OutgoingTransfer$inboundSchema;
-  /** @deprecated use `OutgoingTransfer$outboundSchema` instead. */
-  export const outboundSchema = OutgoingTransfer$outboundSchema;
-  /** @deprecated use `OutgoingTransfer$Outbound` instead. */
-  export type Outbound = OutgoingTransfer$Outbound;
-}
-
 export function outgoingTransferToJSON(
   outgoingTransfer: OutgoingTransfer,
 ): string {
@@ -1267,7 +1043,6 @@ export function outgoingTransferToJSON(
     OutgoingTransfer$outboundSchema.parse(outgoingTransfer),
   );
 }
-
 export function outgoingTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<OutgoingTransfer, SDKValidationError> {
@@ -1287,7 +1062,6 @@ export const CanceledOutgoingTransfer$inboundSchema: z.ZodType<
   transferId: z.string().optional(),
   settlementId: z.string().optional(),
 });
-
 /** @internal */
 export type CanceledOutgoingTransfer$Outbound = {
   transferId?: string | undefined;
@@ -1304,19 +1078,6 @@ export const CanceledOutgoingTransfer$outboundSchema: z.ZodType<
   settlementId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CanceledOutgoingTransfer$ {
-  /** @deprecated use `CanceledOutgoingTransfer$inboundSchema` instead. */
-  export const inboundSchema = CanceledOutgoingTransfer$inboundSchema;
-  /** @deprecated use `CanceledOutgoingTransfer$outboundSchema` instead. */
-  export const outboundSchema = CanceledOutgoingTransfer$outboundSchema;
-  /** @deprecated use `CanceledOutgoingTransfer$Outbound` instead. */
-  export type Outbound = CanceledOutgoingTransfer$Outbound;
-}
-
 export function canceledOutgoingTransferToJSON(
   canceledOutgoingTransfer: CanceledOutgoingTransfer,
 ): string {
@@ -1324,7 +1085,6 @@ export function canceledOutgoingTransferToJSON(
     CanceledOutgoingTransfer$outboundSchema.parse(canceledOutgoingTransfer),
   );
 }
-
 export function canceledOutgoingTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<CanceledOutgoingTransfer, SDKValidationError> {
@@ -1344,7 +1104,6 @@ export const ReturnedTransfer$inboundSchema: z.ZodType<
   transferId: z.string().optional(),
   settlementId: z.string().optional(),
 });
-
 /** @internal */
 export type ReturnedTransfer$Outbound = {
   transferId?: string | undefined;
@@ -1361,19 +1120,6 @@ export const ReturnedTransfer$outboundSchema: z.ZodType<
   settlementId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReturnedTransfer$ {
-  /** @deprecated use `ReturnedTransfer$inboundSchema` instead. */
-  export const inboundSchema = ReturnedTransfer$inboundSchema;
-  /** @deprecated use `ReturnedTransfer$outboundSchema` instead. */
-  export const outboundSchema = ReturnedTransfer$outboundSchema;
-  /** @deprecated use `ReturnedTransfer$Outbound` instead. */
-  export type Outbound = ReturnedTransfer$Outbound;
-}
-
 export function returnedTransferToJSON(
   returnedTransfer: ReturnedTransfer,
 ): string {
@@ -1381,7 +1127,6 @@ export function returnedTransferToJSON(
     ReturnedTransfer$outboundSchema.parse(returnedTransfer),
   );
 }
-
 export function returnedTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedTransfer, SDKValidationError> {
@@ -1400,7 +1145,6 @@ export const InvoiceCompensation$inboundSchema: z.ZodType<
 > = z.object({
   invoiceId: z.string().optional(),
 });
-
 /** @internal */
 export type InvoiceCompensation$Outbound = {
   invoiceId?: string | undefined;
@@ -1415,19 +1159,6 @@ export const InvoiceCompensation$outboundSchema: z.ZodType<
   invoiceId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InvoiceCompensation$ {
-  /** @deprecated use `InvoiceCompensation$inboundSchema` instead. */
-  export const inboundSchema = InvoiceCompensation$inboundSchema;
-  /** @deprecated use `InvoiceCompensation$outboundSchema` instead. */
-  export const outboundSchema = InvoiceCompensation$outboundSchema;
-  /** @deprecated use `InvoiceCompensation$Outbound` instead. */
-  export type Outbound = InvoiceCompensation$Outbound;
-}
-
 export function invoiceCompensationToJSON(
   invoiceCompensation: InvoiceCompensation,
 ): string {
@@ -1435,7 +1166,6 @@ export function invoiceCompensationToJSON(
     InvoiceCompensation$outboundSchema.parse(invoiceCompensation),
   );
 }
-
 export function invoiceCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<InvoiceCompensation, SDKValidationError> {
@@ -1456,7 +1186,6 @@ export const EntityBalanceTransactionApplicationFee$inboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
   payingOwner: z.string().optional(),
 });
-
 /** @internal */
 export type EntityBalanceTransactionApplicationFee$Outbound = {
   paymentId?: string | undefined;
@@ -1475,21 +1204,6 @@ export const EntityBalanceTransactionApplicationFee$outboundSchema: z.ZodType<
   payingOwner: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceTransactionApplicationFee$ {
-  /** @deprecated use `EntityBalanceTransactionApplicationFee$inboundSchema` instead. */
-  export const inboundSchema =
-    EntityBalanceTransactionApplicationFee$inboundSchema;
-  /** @deprecated use `EntityBalanceTransactionApplicationFee$outboundSchema` instead. */
-  export const outboundSchema =
-    EntityBalanceTransactionApplicationFee$outboundSchema;
-  /** @deprecated use `EntityBalanceTransactionApplicationFee$Outbound` instead. */
-  export type Outbound = EntityBalanceTransactionApplicationFee$Outbound;
-}
-
 export function entityBalanceTransactionApplicationFeeToJSON(
   entityBalanceTransactionApplicationFee:
     EntityBalanceTransactionApplicationFee,
@@ -1500,7 +1214,6 @@ export function entityBalanceTransactionApplicationFeeToJSON(
     ),
   );
 }
-
 export function entityBalanceTransactionApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransactionApplicationFee, SDKValidationError> {
@@ -1522,7 +1235,6 @@ export const SplitPayment$inboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
   paymentOnwer: z.string().optional(),
 });
-
 /** @internal */
 export type SplitPayment$Outbound = {
   paymentId?: string | undefined;
@@ -1541,23 +1253,9 @@ export const SplitPayment$outboundSchema: z.ZodType<
   paymentOnwer: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SplitPayment$ {
-  /** @deprecated use `SplitPayment$inboundSchema` instead. */
-  export const inboundSchema = SplitPayment$inboundSchema;
-  /** @deprecated use `SplitPayment$outboundSchema` instead. */
-  export const outboundSchema = SplitPayment$outboundSchema;
-  /** @deprecated use `SplitPayment$Outbound` instead. */
-  export type Outbound = SplitPayment$Outbound;
-}
-
 export function splitPaymentToJSON(splitPayment: SplitPayment): string {
   return JSON.stringify(SplitPayment$outboundSchema.parse(splitPayment));
 }
-
 export function splitPaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<SplitPayment, SDKValidationError> {
@@ -1579,7 +1277,6 @@ export const PlatformPaymentRefund$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-
 /** @internal */
 export type PlatformPaymentRefund$Outbound = {
   paymentId?: string | undefined;
@@ -1600,19 +1297,6 @@ export const PlatformPaymentRefund$outboundSchema: z.ZodType<
   refundDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PlatformPaymentRefund$ {
-  /** @deprecated use `PlatformPaymentRefund$inboundSchema` instead. */
-  export const inboundSchema = PlatformPaymentRefund$inboundSchema;
-  /** @deprecated use `PlatformPaymentRefund$outboundSchema` instead. */
-  export const outboundSchema = PlatformPaymentRefund$outboundSchema;
-  /** @deprecated use `PlatformPaymentRefund$Outbound` instead. */
-  export type Outbound = PlatformPaymentRefund$Outbound;
-}
-
 export function platformPaymentRefundToJSON(
   platformPaymentRefund: PlatformPaymentRefund,
 ): string {
@@ -1620,7 +1304,6 @@ export function platformPaymentRefundToJSON(
     PlatformPaymentRefund$outboundSchema.parse(platformPaymentRefund),
   );
 }
-
 export function platformPaymentRefundFromJSON(
   jsonString: string,
 ): SafeParseResult<PlatformPaymentRefund, SDKValidationError> {
@@ -1642,7 +1325,6 @@ export const ReturnedPlatformPaymentRefund$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ReturnedPlatformPaymentRefund$Outbound = {
   paymentId?: string | undefined;
@@ -1663,19 +1345,6 @@ export const ReturnedPlatformPaymentRefund$outboundSchema: z.ZodType<
   refundDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReturnedPlatformPaymentRefund$ {
-  /** @deprecated use `ReturnedPlatformPaymentRefund$inboundSchema` instead. */
-  export const inboundSchema = ReturnedPlatformPaymentRefund$inboundSchema;
-  /** @deprecated use `ReturnedPlatformPaymentRefund$outboundSchema` instead. */
-  export const outboundSchema = ReturnedPlatformPaymentRefund$outboundSchema;
-  /** @deprecated use `ReturnedPlatformPaymentRefund$Outbound` instead. */
-  export type Outbound = ReturnedPlatformPaymentRefund$Outbound;
-}
-
 export function returnedPlatformPaymentRefundToJSON(
   returnedPlatformPaymentRefund: ReturnedPlatformPaymentRefund,
 ): string {
@@ -1685,7 +1354,6 @@ export function returnedPlatformPaymentRefundToJSON(
     ),
   );
 }
-
 export function returnedPlatformPaymentRefundFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedPlatformPaymentRefund, SDKValidationError> {
@@ -1707,7 +1375,6 @@ export const PlatformPaymentChargeback$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-
 /** @internal */
 export type PlatformPaymentChargeback$Outbound = {
   paymentId?: string | undefined;
@@ -1728,19 +1395,6 @@ export const PlatformPaymentChargeback$outboundSchema: z.ZodType<
   chargebackDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PlatformPaymentChargeback$ {
-  /** @deprecated use `PlatformPaymentChargeback$inboundSchema` instead. */
-  export const inboundSchema = PlatformPaymentChargeback$inboundSchema;
-  /** @deprecated use `PlatformPaymentChargeback$outboundSchema` instead. */
-  export const outboundSchema = PlatformPaymentChargeback$outboundSchema;
-  /** @deprecated use `PlatformPaymentChargeback$Outbound` instead. */
-  export type Outbound = PlatformPaymentChargeback$Outbound;
-}
-
 export function platformPaymentChargebackToJSON(
   platformPaymentChargeback: PlatformPaymentChargeback,
 ): string {
@@ -1748,7 +1402,6 @@ export function platformPaymentChargebackToJSON(
     PlatformPaymentChargeback$outboundSchema.parse(platformPaymentChargeback),
   );
 }
-
 export function platformPaymentChargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<PlatformPaymentChargeback, SDKValidationError> {
@@ -1770,7 +1423,6 @@ export const ReversedPlatformPaymentChargeback$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ReversedPlatformPaymentChargeback$Outbound = {
   paymentId?: string | undefined;
@@ -1791,20 +1443,6 @@ export const ReversedPlatformPaymentChargeback$outboundSchema: z.ZodType<
   chargebackDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReversedPlatformPaymentChargeback$ {
-  /** @deprecated use `ReversedPlatformPaymentChargeback$inboundSchema` instead. */
-  export const inboundSchema = ReversedPlatformPaymentChargeback$inboundSchema;
-  /** @deprecated use `ReversedPlatformPaymentChargeback$outboundSchema` instead. */
-  export const outboundSchema =
-    ReversedPlatformPaymentChargeback$outboundSchema;
-  /** @deprecated use `ReversedPlatformPaymentChargeback$Outbound` instead. */
-  export type Outbound = ReversedPlatformPaymentChargeback$Outbound;
-}
-
 export function reversedPlatformPaymentChargebackToJSON(
   reversedPlatformPaymentChargeback: ReversedPlatformPaymentChargeback,
 ): string {
@@ -1814,7 +1452,6 @@ export function reversedPlatformPaymentChargebackToJSON(
     ),
   );
 }
-
 export function reversedPlatformPaymentChargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<ReversedPlatformPaymentChargeback, SDKValidationError> {
@@ -1835,7 +1472,6 @@ export const PaymentCommission$inboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
   organizationId: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentCommission$Outbound = {
   paymentId?: string | undefined;
@@ -1854,19 +1490,6 @@ export const PaymentCommission$outboundSchema: z.ZodType<
   organizationId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentCommission$ {
-  /** @deprecated use `PaymentCommission$inboundSchema` instead. */
-  export const inboundSchema = PaymentCommission$inboundSchema;
-  /** @deprecated use `PaymentCommission$outboundSchema` instead. */
-  export const outboundSchema = PaymentCommission$outboundSchema;
-  /** @deprecated use `PaymentCommission$Outbound` instead. */
-  export type Outbound = PaymentCommission$Outbound;
-}
-
 export function paymentCommissionToJSON(
   paymentCommission: PaymentCommission,
 ): string {
@@ -1874,7 +1497,6 @@ export function paymentCommissionToJSON(
     PaymentCommission$outboundSchema.parse(paymentCommission),
   );
 }
-
 export function paymentCommissionFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentCommission, SDKValidationError> {
@@ -1894,7 +1516,6 @@ export const ReimbursementFee$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-
 /** @internal */
 export type ReimbursementFee$Outbound = {
   paymentId?: string | undefined;
@@ -1911,19 +1532,6 @@ export const ReimbursementFee$outboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReimbursementFee$ {
-  /** @deprecated use `ReimbursementFee$inboundSchema` instead. */
-  export const inboundSchema = ReimbursementFee$inboundSchema;
-  /** @deprecated use `ReimbursementFee$outboundSchema` instead. */
-  export const outboundSchema = ReimbursementFee$outboundSchema;
-  /** @deprecated use `ReimbursementFee$Outbound` instead. */
-  export type Outbound = ReimbursementFee$Outbound;
-}
-
 export function reimbursementFeeToJSON(
   reimbursementFee: ReimbursementFee,
 ): string {
@@ -1931,7 +1539,6 @@ export function reimbursementFeeToJSON(
     ReimbursementFee$outboundSchema.parse(reimbursementFee),
   );
 }
-
 export function reimbursementFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ReimbursementFee, SDKValidationError> {
@@ -1951,7 +1558,6 @@ export const FailedPaymentFee$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-
 /** @internal */
 export type FailedPaymentFee$Outbound = {
   paymentId?: string | undefined;
@@ -1968,19 +1574,6 @@ export const FailedPaymentFee$outboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FailedPaymentFee$ {
-  /** @deprecated use `FailedPaymentFee$inboundSchema` instead. */
-  export const inboundSchema = FailedPaymentFee$inboundSchema;
-  /** @deprecated use `FailedPaymentFee$outboundSchema` instead. */
-  export const outboundSchema = FailedPaymentFee$outboundSchema;
-  /** @deprecated use `FailedPaymentFee$Outbound` instead. */
-  export type Outbound = FailedPaymentFee$Outbound;
-}
-
 export function failedPaymentFeeToJSON(
   failedPaymentFee: FailedPaymentFee,
 ): string {
@@ -1988,7 +1581,6 @@ export function failedPaymentFeeToJSON(
     FailedPaymentFee$outboundSchema.parse(failedPaymentFee),
   );
 }
-
 export function failedPaymentFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<FailedPaymentFee, SDKValidationError> {
@@ -2008,7 +1600,6 @@ export const PaymentFee$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentFee$Outbound = {
   paymentId?: string | undefined;
@@ -2025,23 +1616,9 @@ export const PaymentFee$outboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentFee$ {
-  /** @deprecated use `PaymentFee$inboundSchema` instead. */
-  export const inboundSchema = PaymentFee$inboundSchema;
-  /** @deprecated use `PaymentFee$outboundSchema` instead. */
-  export const outboundSchema = PaymentFee$outboundSchema;
-  /** @deprecated use `PaymentFee$Outbound` instead. */
-  export type Outbound = PaymentFee$Outbound;
-}
-
 export function paymentFeeToJSON(paymentFee: PaymentFee): string {
   return JSON.stringify(PaymentFee$outboundSchema.parse(paymentFee));
 }
-
 export function paymentFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentFee, SDKValidationError> {
@@ -2061,7 +1638,6 @@ export const ManagedFee$inboundSchema: z.ZodType<
   feeType: z.string().optional(),
   feeId: z.string().optional(),
 });
-
 /** @internal */
 export type ManagedFee$Outbound = {
   feeType?: string | undefined;
@@ -2078,23 +1654,9 @@ export const ManagedFee$outboundSchema: z.ZodType<
   feeId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ManagedFee$ {
-  /** @deprecated use `ManagedFee$inboundSchema` instead. */
-  export const inboundSchema = ManagedFee$inboundSchema;
-  /** @deprecated use `ManagedFee$outboundSchema` instead. */
-  export const outboundSchema = ManagedFee$outboundSchema;
-  /** @deprecated use `ManagedFee$Outbound` instead. */
-  export type Outbound = ManagedFee$Outbound;
-}
-
 export function managedFeeToJSON(managedFee: ManagedFee): string {
   return JSON.stringify(ManagedFee$outboundSchema.parse(managedFee));
 }
-
 export function managedFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ManagedFee, SDKValidationError> {
@@ -2114,7 +1676,6 @@ export const ReturnedManagedFee$inboundSchema: z.ZodType<
   feeType: z.string().optional(),
   feeId: z.string().optional(),
 });
-
 /** @internal */
 export type ReturnedManagedFee$Outbound = {
   feeType?: string | undefined;
@@ -2131,19 +1692,6 @@ export const ReturnedManagedFee$outboundSchema: z.ZodType<
   feeId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReturnedManagedFee$ {
-  /** @deprecated use `ReturnedManagedFee$inboundSchema` instead. */
-  export const inboundSchema = ReturnedManagedFee$inboundSchema;
-  /** @deprecated use `ReturnedManagedFee$outboundSchema` instead. */
-  export const outboundSchema = ReturnedManagedFee$outboundSchema;
-  /** @deprecated use `ReturnedManagedFee$Outbound` instead. */
-  export type Outbound = ReturnedManagedFee$Outbound;
-}
-
 export function returnedManagedFeeToJSON(
   returnedManagedFee: ReturnedManagedFee,
 ): string {
@@ -2151,7 +1699,6 @@ export function returnedManagedFeeToJSON(
     ReturnedManagedFee$outboundSchema.parse(returnedManagedFee),
   );
 }
-
 export function returnedManagedFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedManagedFee, SDKValidationError> {
@@ -2170,7 +1717,6 @@ export const PostPaymentSplitPayment$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string().optional(),
 });
-
 /** @internal */
 export type PostPaymentSplitPayment$Outbound = {
   paymentId?: string | undefined;
@@ -2185,19 +1731,6 @@ export const PostPaymentSplitPayment$outboundSchema: z.ZodType<
   paymentId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostPaymentSplitPayment$ {
-  /** @deprecated use `PostPaymentSplitPayment$inboundSchema` instead. */
-  export const inboundSchema = PostPaymentSplitPayment$inboundSchema;
-  /** @deprecated use `PostPaymentSplitPayment$outboundSchema` instead. */
-  export const outboundSchema = PostPaymentSplitPayment$outboundSchema;
-  /** @deprecated use `PostPaymentSplitPayment$Outbound` instead. */
-  export type Outbound = PostPaymentSplitPayment$Outbound;
-}
-
 export function postPaymentSplitPaymentToJSON(
   postPaymentSplitPayment: PostPaymentSplitPayment,
 ): string {
@@ -2205,7 +1738,6 @@ export function postPaymentSplitPaymentToJSON(
     PostPaymentSplitPayment$outboundSchema.parse(postPaymentSplitPayment),
   );
 }
-
 export function postPaymentSplitPaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<PostPaymentSplitPayment, SDKValidationError> {
@@ -2331,7 +1863,6 @@ export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
       "post-payment-split-payment": "postPaymentSplitPayment",
     });
   });
-
 /** @internal */
 export type Context$Outbound = {
   payment?: Payment$Outbound | null | undefined;
@@ -2510,23 +2041,9 @@ export const Context$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Context$ {
-  /** @deprecated use `Context$inboundSchema` instead. */
-  export const inboundSchema = Context$inboundSchema;
-  /** @deprecated use `Context$outboundSchema` instead. */
-  export const outboundSchema = Context$outboundSchema;
-  /** @deprecated use `Context$Outbound` instead. */
-  export type Outbound = Context$Outbound;
-}
-
 export function contextToJSON(context: Context): string {
   return JSON.stringify(Context$outboundSchema.parse(context));
 }
-
 export function contextFromJSON(
   jsonString: string,
 ): SafeParseResult<Context, SDKValidationError> {
@@ -2552,7 +2069,6 @@ export const EntityBalanceTransaction$inboundSchema: z.ZodType<
   context: z.lazy(() => Context$inboundSchema).optional(),
   createdAt: z.string(),
 });
-
 /** @internal */
 export type EntityBalanceTransaction$Outbound = {
   resource: string;
@@ -2581,19 +2097,6 @@ export const EntityBalanceTransaction$outboundSchema: z.ZodType<
   createdAt: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceTransaction$ {
-  /** @deprecated use `EntityBalanceTransaction$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceTransaction$inboundSchema;
-  /** @deprecated use `EntityBalanceTransaction$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceTransaction$outboundSchema;
-  /** @deprecated use `EntityBalanceTransaction$Outbound` instead. */
-  export type Outbound = EntityBalanceTransaction$Outbound;
-}
-
 export function entityBalanceTransactionToJSON(
   entityBalanceTransaction: EntityBalanceTransaction,
 ): string {
@@ -2601,7 +2104,6 @@ export function entityBalanceTransactionToJSON(
     EntityBalanceTransaction$outboundSchema.parse(entityBalanceTransaction),
   );
 }
-
 export function entityBalanceTransactionFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransaction, SDKValidationError> {

@@ -44,7 +44,6 @@ export const OrganizationVatRegulation$inboundSchema: z.ZodType<
     z.nativeEnum(OrganizationVatRegulation),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OrganizationVatRegulation$outboundSchema: z.ZodType<
   OrganizationVatRegulation,
@@ -54,14 +53,3 @@ export const OrganizationVatRegulation$outboundSchema: z.ZodType<
   z.nativeEnum(OrganizationVatRegulation),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationVatRegulation$ {
-  /** @deprecated use `OrganizationVatRegulation$inboundSchema` instead. */
-  export const inboundSchema = OrganizationVatRegulation$inboundSchema;
-  /** @deprecated use `OrganizationVatRegulation$outboundSchema` instead. */
-  export const outboundSchema = OrganizationVatRegulation$outboundSchema;
-}

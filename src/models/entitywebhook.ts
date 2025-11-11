@@ -94,7 +94,6 @@ export const EntityWebhookLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type EntityWebhookLinks$Outbound = {
   self: Url$Outbound;
@@ -111,19 +110,6 @@ export const EntityWebhookLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityWebhookLinks$ {
-  /** @deprecated use `EntityWebhookLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityWebhookLinks$inboundSchema;
-  /** @deprecated use `EntityWebhookLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityWebhookLinks$outboundSchema;
-  /** @deprecated use `EntityWebhookLinks$Outbound` instead. */
-  export type Outbound = EntityWebhookLinks$Outbound;
-}
-
 export function entityWebhookLinksToJSON(
   entityWebhookLinks: EntityWebhookLinks,
 ): string {
@@ -131,7 +117,6 @@ export function entityWebhookLinksToJSON(
     EntityWebhookLinks$outboundSchema.parse(entityWebhookLinks),
   );
 }
-
 export function entityWebhookLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityWebhookLinks, SDKValidationError> {
@@ -163,7 +148,6 @@ export const EntityWebhook$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityWebhook$Outbound = {
   resource: string;
@@ -200,23 +184,9 @@ export const EntityWebhook$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityWebhook$ {
-  /** @deprecated use `EntityWebhook$inboundSchema` instead. */
-  export const inboundSchema = EntityWebhook$inboundSchema;
-  /** @deprecated use `EntityWebhook$outboundSchema` instead. */
-  export const outboundSchema = EntityWebhook$outboundSchema;
-  /** @deprecated use `EntityWebhook$Outbound` instead. */
-  export type Outbound = EntityWebhook$Outbound;
-}
-
 export function entityWebhookToJSON(entityWebhook: EntityWebhook): string {
   return JSON.stringify(EntityWebhook$outboundSchema.parse(entityWebhook));
 }
-
 export function entityWebhookFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityWebhook, SDKValidationError> {

@@ -64,7 +64,6 @@ export const EntityCustomer$inboundSchema: z.ZodType<
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type EntityCustomer$Outbound = {
   id?: string | undefined;
@@ -89,23 +88,9 @@ export const EntityCustomer$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityCustomer$ {
-  /** @deprecated use `EntityCustomer$inboundSchema` instead. */
-  export const inboundSchema = EntityCustomer$inboundSchema;
-  /** @deprecated use `EntityCustomer$outboundSchema` instead. */
-  export const outboundSchema = EntityCustomer$outboundSchema;
-  /** @deprecated use `EntityCustomer$Outbound` instead. */
-  export type Outbound = EntityCustomer$Outbound;
-}
-
 export function entityCustomerToJSON(entityCustomer: EntityCustomer): string {
   return JSON.stringify(EntityCustomer$outboundSchema.parse(entityCustomer));
 }
-
 export function entityCustomerFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCustomer, SDKValidationError> {

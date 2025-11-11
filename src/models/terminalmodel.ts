@@ -35,7 +35,6 @@ export const TerminalModel$inboundSchema: z.ZodType<
     z.nativeEnum(TerminalModel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const TerminalModel$outboundSchema: z.ZodType<
   TerminalModel,
@@ -45,14 +44,3 @@ export const TerminalModel$outboundSchema: z.ZodType<
   z.nativeEnum(TerminalModel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TerminalModel$ {
-  /** @deprecated use `TerminalModel$inboundSchema` instead. */
-  export const inboundSchema = TerminalModel$inboundSchema;
-  /** @deprecated use `TerminalModel$outboundSchema` instead. */
-  export const outboundSchema = TerminalModel$outboundSchema;
-}

@@ -100,7 +100,6 @@ export const ListWebhooksGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListWebhooksGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -115,19 +114,6 @@ export const ListWebhooksGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksGlobals$ {
-  /** @deprecated use `ListWebhooksGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksGlobals$inboundSchema;
-  /** @deprecated use `ListWebhooksGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksGlobals$outboundSchema;
-  /** @deprecated use `ListWebhooksGlobals$Outbound` instead. */
-  export type Outbound = ListWebhooksGlobals$Outbound;
-}
-
 export function listWebhooksGlobalsToJSON(
   listWebhooksGlobals: ListWebhooksGlobals,
 ): string {
@@ -135,7 +121,6 @@ export function listWebhooksGlobalsToJSON(
     ListWebhooksGlobals$outboundSchema.parse(listWebhooksGlobals),
   );
 }
-
 export function listWebhooksGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListWebhooksGlobals, SDKValidationError> {
@@ -163,7 +148,6 @@ export const ListWebhooksRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListWebhooksRequest$Outbound = {
   from?: string | null | undefined;
@@ -192,19 +176,6 @@ export const ListWebhooksRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksRequest$ {
-  /** @deprecated use `ListWebhooksRequest$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksRequest$inboundSchema;
-  /** @deprecated use `ListWebhooksRequest$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksRequest$outboundSchema;
-  /** @deprecated use `ListWebhooksRequest$Outbound` instead. */
-  export type Outbound = ListWebhooksRequest$Outbound;
-}
-
 export function listWebhooksRequestToJSON(
   listWebhooksRequest: ListWebhooksRequest,
 ): string {
@@ -212,7 +183,6 @@ export function listWebhooksRequestToJSON(
     ListWebhooksRequest$outboundSchema.parse(listWebhooksRequest),
   );
 }
-
 export function listWebhooksRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListWebhooksRequest, SDKValidationError> {
@@ -231,7 +201,6 @@ export const ListWebhooksEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   webhooks: z.array(models.EntityWebhook$inboundSchema),
 });
-
 /** @internal */
 export type ListWebhooksEmbedded$Outbound = {
   webhooks: Array<models.EntityWebhook$Outbound>;
@@ -246,19 +215,6 @@ export const ListWebhooksEmbedded$outboundSchema: z.ZodType<
   webhooks: z.array(models.EntityWebhook$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksEmbedded$ {
-  /** @deprecated use `ListWebhooksEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksEmbedded$inboundSchema;
-  /** @deprecated use `ListWebhooksEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksEmbedded$outboundSchema;
-  /** @deprecated use `ListWebhooksEmbedded$Outbound` instead. */
-  export type Outbound = ListWebhooksEmbedded$Outbound;
-}
-
 export function listWebhooksEmbeddedToJSON(
   listWebhooksEmbedded: ListWebhooksEmbedded,
 ): string {
@@ -266,7 +222,6 @@ export function listWebhooksEmbeddedToJSON(
     ListWebhooksEmbedded$outboundSchema.parse(listWebhooksEmbedded),
   );
 }
-
 export function listWebhooksEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListWebhooksEmbedded, SDKValidationError> {
@@ -292,7 +247,6 @@ export const ListWebhooksResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListWebhooksResponse$Outbound = {
   count: number;
@@ -316,19 +270,6 @@ export const ListWebhooksResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListWebhooksResponse$ {
-  /** @deprecated use `ListWebhooksResponse$inboundSchema` instead. */
-  export const inboundSchema = ListWebhooksResponse$inboundSchema;
-  /** @deprecated use `ListWebhooksResponse$outboundSchema` instead. */
-  export const outboundSchema = ListWebhooksResponse$outboundSchema;
-  /** @deprecated use `ListWebhooksResponse$Outbound` instead. */
-  export type Outbound = ListWebhooksResponse$Outbound;
-}
-
 export function listWebhooksResponseToJSON(
   listWebhooksResponse: ListWebhooksResponse,
 ): string {
@@ -336,7 +277,6 @@ export function listWebhooksResponseToJSON(
     ListWebhooksResponse$outboundSchema.parse(listWebhooksResponse),
   );
 }
-
 export function listWebhooksResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListWebhooksResponse, SDKValidationError> {

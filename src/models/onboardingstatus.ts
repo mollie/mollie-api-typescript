@@ -32,7 +32,6 @@ export const OnboardingStatus$inboundSchema: z.ZodType<
     z.nativeEnum(OnboardingStatus),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OnboardingStatus$outboundSchema: z.ZodType<
   OnboardingStatus,
@@ -42,14 +41,3 @@ export const OnboardingStatus$outboundSchema: z.ZodType<
   z.nativeEnum(OnboardingStatus),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OnboardingStatus$ {
-  /** @deprecated use `OnboardingStatus$inboundSchema` instead. */
-  export const inboundSchema = OnboardingStatus$inboundSchema;
-  /** @deprecated use `OnboardingStatus$outboundSchema` instead. */
-  export const outboundSchema = OnboardingStatus$outboundSchema;
-}

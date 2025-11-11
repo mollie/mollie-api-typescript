@@ -97,7 +97,6 @@ export const EntityPaymentRouteResponseDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-
 /** @internal */
 export type EntityPaymentRouteResponseDestination$Outbound = {
   type: string;
@@ -114,21 +113,6 @@ export const EntityPaymentRouteResponseDestination$outboundSchema: z.ZodType<
   organizationId: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRouteResponseDestination$ {
-  /** @deprecated use `EntityPaymentRouteResponseDestination$inboundSchema` instead. */
-  export const inboundSchema =
-    EntityPaymentRouteResponseDestination$inboundSchema;
-  /** @deprecated use `EntityPaymentRouteResponseDestination$outboundSchema` instead. */
-  export const outboundSchema =
-    EntityPaymentRouteResponseDestination$outboundSchema;
-  /** @deprecated use `EntityPaymentRouteResponseDestination$Outbound` instead. */
-  export type Outbound = EntityPaymentRouteResponseDestination$Outbound;
-}
-
 export function entityPaymentRouteResponseDestinationToJSON(
   entityPaymentRouteResponseDestination: EntityPaymentRouteResponseDestination,
 ): string {
@@ -138,7 +122,6 @@ export function entityPaymentRouteResponseDestinationToJSON(
     ),
   );
 }
-
 export function entityPaymentRouteResponseDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteResponseDestination, SDKValidationError> {
@@ -159,7 +142,6 @@ export const EntityPaymentRouteResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   payment: Url$inboundSchema,
 });
-
 /** @internal */
 export type EntityPaymentRouteResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -176,19 +158,6 @@ export const EntityPaymentRouteResponseLinks$outboundSchema: z.ZodType<
   payment: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRouteResponseLinks$ {
-  /** @deprecated use `EntityPaymentRouteResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityPaymentRouteResponseLinks$inboundSchema;
-  /** @deprecated use `EntityPaymentRouteResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityPaymentRouteResponseLinks$outboundSchema;
-  /** @deprecated use `EntityPaymentRouteResponseLinks$Outbound` instead. */
-  export type Outbound = EntityPaymentRouteResponseLinks$Outbound;
-}
-
 export function entityPaymentRouteResponseLinksToJSON(
   entityPaymentRouteResponseLinks: EntityPaymentRouteResponseLinks,
 ): string {
@@ -198,7 +167,6 @@ export function entityPaymentRouteResponseLinksToJSON(
     ),
   );
 }
-
 export function entityPaymentRouteResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteResponseLinks, SDKValidationError> {
@@ -230,7 +198,6 @@ export const EntityPaymentRouteResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityPaymentRouteResponse$Outbound = {
   resource: string;
@@ -265,19 +232,6 @@ export const EntityPaymentRouteResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRouteResponse$ {
-  /** @deprecated use `EntityPaymentRouteResponse$inboundSchema` instead. */
-  export const inboundSchema = EntityPaymentRouteResponse$inboundSchema;
-  /** @deprecated use `EntityPaymentRouteResponse$outboundSchema` instead. */
-  export const outboundSchema = EntityPaymentRouteResponse$outboundSchema;
-  /** @deprecated use `EntityPaymentRouteResponse$Outbound` instead. */
-  export type Outbound = EntityPaymentRouteResponse$Outbound;
-}
-
 export function entityPaymentRouteResponseToJSON(
   entityPaymentRouteResponse: EntityPaymentRouteResponse,
 ): string {
@@ -285,7 +239,6 @@ export function entityPaymentRouteResponseToJSON(
     EntityPaymentRouteResponse$outboundSchema.parse(entityPaymentRouteResponse),
   );
 }
-
 export function entityPaymentRouteResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteResponse, SDKValidationError> {

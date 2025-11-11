@@ -148,7 +148,6 @@ export const SubscriptionRequestApplicationFee$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema,
   description: z.string(),
 });
-
 /** @internal */
 export type SubscriptionRequestApplicationFee$Outbound = {
   amount: Amount$Outbound;
@@ -165,20 +164,6 @@ export const SubscriptionRequestApplicationFee$outboundSchema: z.ZodType<
   description: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionRequestApplicationFee$ {
-  /** @deprecated use `SubscriptionRequestApplicationFee$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionRequestApplicationFee$inboundSchema;
-  /** @deprecated use `SubscriptionRequestApplicationFee$outboundSchema` instead. */
-  export const outboundSchema =
-    SubscriptionRequestApplicationFee$outboundSchema;
-  /** @deprecated use `SubscriptionRequestApplicationFee$Outbound` instead. */
-  export type Outbound = SubscriptionRequestApplicationFee$Outbound;
-}
-
 export function subscriptionRequestApplicationFeeToJSON(
   subscriptionRequestApplicationFee: SubscriptionRequestApplicationFee,
 ): string {
@@ -188,7 +173,6 @@ export function subscriptionRequestApplicationFeeToJSON(
     ),
   );
 }
-
 export function subscriptionRequestApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<SubscriptionRequestApplicationFee, SDKValidationError> {
@@ -221,7 +205,6 @@ export const SubscriptionRequest$inboundSchema: z.ZodType<
   mandateId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type SubscriptionRequest$Outbound = {
   id?: string | undefined;
@@ -263,19 +246,6 @@ export const SubscriptionRequest$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionRequest$ {
-  /** @deprecated use `SubscriptionRequest$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionRequest$inboundSchema;
-  /** @deprecated use `SubscriptionRequest$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionRequest$outboundSchema;
-  /** @deprecated use `SubscriptionRequest$Outbound` instead. */
-  export type Outbound = SubscriptionRequest$Outbound;
-}
-
 export function subscriptionRequestToJSON(
   subscriptionRequest: SubscriptionRequest,
 ): string {
@@ -283,7 +253,6 @@ export function subscriptionRequestToJSON(
     SubscriptionRequest$outboundSchema.parse(subscriptionRequest),
   );
 }
-
 export function subscriptionRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<SubscriptionRequest, SDKValidationError> {

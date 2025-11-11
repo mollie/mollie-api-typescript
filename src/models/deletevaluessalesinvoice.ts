@@ -27,7 +27,6 @@ export const DeleteValuesSalesInvoice$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type DeleteValuesSalesInvoice$Outbound = {
   testmode?: boolean | null | undefined;
@@ -42,19 +41,6 @@ export const DeleteValuesSalesInvoice$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteValuesSalesInvoice$ {
-  /** @deprecated use `DeleteValuesSalesInvoice$inboundSchema` instead. */
-  export const inboundSchema = DeleteValuesSalesInvoice$inboundSchema;
-  /** @deprecated use `DeleteValuesSalesInvoice$outboundSchema` instead. */
-  export const outboundSchema = DeleteValuesSalesInvoice$outboundSchema;
-  /** @deprecated use `DeleteValuesSalesInvoice$Outbound` instead. */
-  export type Outbound = DeleteValuesSalesInvoice$Outbound;
-}
-
 export function deleteValuesSalesInvoiceToJSON(
   deleteValuesSalesInvoice: DeleteValuesSalesInvoice,
 ): string {
@@ -62,7 +48,6 @@ export function deleteValuesSalesInvoiceToJSON(
     DeleteValuesSalesInvoice$outboundSchema.parse(deleteValuesSalesInvoice),
   );
 }
-
 export function deleteValuesSalesInvoiceFromJSON(
   jsonString: string,
 ): SafeParseResult<DeleteValuesSalesInvoice, SDKValidationError> {

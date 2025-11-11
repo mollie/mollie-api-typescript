@@ -36,7 +36,6 @@ export const PaymentCreateRouteRequest$inboundSchema: z.ZodType<
     "entity-route": "entityRoute",
   });
 });
-
 /** @internal */
 export type PaymentCreateRouteRequest$Outbound = {
   paymentId: string;
@@ -60,19 +59,6 @@ export const PaymentCreateRouteRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentCreateRouteRequest$ {
-  /** @deprecated use `PaymentCreateRouteRequest$inboundSchema` instead. */
-  export const inboundSchema = PaymentCreateRouteRequest$inboundSchema;
-  /** @deprecated use `PaymentCreateRouteRequest$outboundSchema` instead. */
-  export const outboundSchema = PaymentCreateRouteRequest$outboundSchema;
-  /** @deprecated use `PaymentCreateRouteRequest$Outbound` instead. */
-  export type Outbound = PaymentCreateRouteRequest$Outbound;
-}
-
 export function paymentCreateRouteRequestToJSON(
   paymentCreateRouteRequest: PaymentCreateRouteRequest,
 ): string {
@@ -80,7 +66,6 @@ export function paymentCreateRouteRequestToJSON(
     PaymentCreateRouteRequest$outboundSchema.parse(paymentCreateRouteRequest),
   );
 }
-
 export function paymentCreateRouteRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentCreateRouteRequest, SDKValidationError> {

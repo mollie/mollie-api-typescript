@@ -40,7 +40,6 @@ export const DeleteCustomerRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type DeleteCustomerRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
@@ -55,19 +54,6 @@ export const DeleteCustomerRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteCustomerRequestBody$ {
-  /** @deprecated use `DeleteCustomerRequestBody$inboundSchema` instead. */
-  export const inboundSchema = DeleteCustomerRequestBody$inboundSchema;
-  /** @deprecated use `DeleteCustomerRequestBody$outboundSchema` instead. */
-  export const outboundSchema = DeleteCustomerRequestBody$outboundSchema;
-  /** @deprecated use `DeleteCustomerRequestBody$Outbound` instead. */
-  export type Outbound = DeleteCustomerRequestBody$Outbound;
-}
-
 export function deleteCustomerRequestBodyToJSON(
   deleteCustomerRequestBody: DeleteCustomerRequestBody,
 ): string {
@@ -75,7 +61,6 @@ export function deleteCustomerRequestBodyToJSON(
     DeleteCustomerRequestBody$outboundSchema.parse(deleteCustomerRequestBody),
   );
 }
-
 export function deleteCustomerRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<DeleteCustomerRequestBody, SDKValidationError> {
@@ -101,7 +86,6 @@ export const DeleteCustomerRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type DeleteCustomerRequest$Outbound = {
   customerId: string;
@@ -126,19 +110,6 @@ export const DeleteCustomerRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteCustomerRequest$ {
-  /** @deprecated use `DeleteCustomerRequest$inboundSchema` instead. */
-  export const inboundSchema = DeleteCustomerRequest$inboundSchema;
-  /** @deprecated use `DeleteCustomerRequest$outboundSchema` instead. */
-  export const outboundSchema = DeleteCustomerRequest$outboundSchema;
-  /** @deprecated use `DeleteCustomerRequest$Outbound` instead. */
-  export type Outbound = DeleteCustomerRequest$Outbound;
-}
-
 export function deleteCustomerRequestToJSON(
   deleteCustomerRequest: DeleteCustomerRequest,
 ): string {
@@ -146,7 +117,6 @@ export function deleteCustomerRequestToJSON(
     DeleteCustomerRequest$outboundSchema.parse(deleteCustomerRequest),
   );
 }
-
 export function deleteCustomerRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<DeleteCustomerRequest, SDKValidationError> {

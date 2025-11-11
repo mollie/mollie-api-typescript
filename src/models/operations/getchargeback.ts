@@ -61,7 +61,6 @@ export const GetChargebackGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetChargebackGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -76,19 +75,6 @@ export const GetChargebackGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetChargebackGlobals$ {
-  /** @deprecated use `GetChargebackGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetChargebackGlobals$inboundSchema;
-  /** @deprecated use `GetChargebackGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetChargebackGlobals$outboundSchema;
-  /** @deprecated use `GetChargebackGlobals$Outbound` instead. */
-  export type Outbound = GetChargebackGlobals$Outbound;
-}
-
 export function getChargebackGlobalsToJSON(
   getChargebackGlobals: GetChargebackGlobals,
 ): string {
@@ -96,7 +82,6 @@ export function getChargebackGlobalsToJSON(
     GetChargebackGlobals$outboundSchema.parse(getChargebackGlobals),
   );
 }
-
 export function getChargebackGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetChargebackGlobals, SDKValidationError> {
@@ -123,7 +108,6 @@ export const GetChargebackRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetChargebackRequest$Outbound = {
   paymentId: string;
@@ -150,19 +134,6 @@ export const GetChargebackRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetChargebackRequest$ {
-  /** @deprecated use `GetChargebackRequest$inboundSchema` instead. */
-  export const inboundSchema = GetChargebackRequest$inboundSchema;
-  /** @deprecated use `GetChargebackRequest$outboundSchema` instead. */
-  export const outboundSchema = GetChargebackRequest$outboundSchema;
-  /** @deprecated use `GetChargebackRequest$Outbound` instead. */
-  export type Outbound = GetChargebackRequest$Outbound;
-}
-
 export function getChargebackRequestToJSON(
   getChargebackRequest: GetChargebackRequest,
 ): string {
@@ -170,7 +141,6 @@ export function getChargebackRequestToJSON(
     GetChargebackRequest$outboundSchema.parse(getChargebackRequest),
   );
 }
-
 export function getChargebackRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetChargebackRequest, SDKValidationError> {

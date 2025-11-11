@@ -88,7 +88,6 @@ export const RouteGetResponseDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-
 /** @internal */
 export type RouteGetResponseDestination$Outbound = {
   type: string;
@@ -105,19 +104,6 @@ export const RouteGetResponseDestination$outboundSchema: z.ZodType<
   organizationId: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteGetResponseDestination$ {
-  /** @deprecated use `RouteGetResponseDestination$inboundSchema` instead. */
-  export const inboundSchema = RouteGetResponseDestination$inboundSchema;
-  /** @deprecated use `RouteGetResponseDestination$outboundSchema` instead. */
-  export const outboundSchema = RouteGetResponseDestination$outboundSchema;
-  /** @deprecated use `RouteGetResponseDestination$Outbound` instead. */
-  export type Outbound = RouteGetResponseDestination$Outbound;
-}
-
 export function routeGetResponseDestinationToJSON(
   routeGetResponseDestination: RouteGetResponseDestination,
 ): string {
@@ -127,7 +113,6 @@ export function routeGetResponseDestinationToJSON(
     ),
   );
 }
-
 export function routeGetResponseDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteGetResponseDestination, SDKValidationError> {
@@ -147,7 +132,6 @@ export const RouteGetResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type RouteGetResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -164,19 +148,6 @@ export const RouteGetResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteGetResponseLinks$ {
-  /** @deprecated use `RouteGetResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = RouteGetResponseLinks$inboundSchema;
-  /** @deprecated use `RouteGetResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = RouteGetResponseLinks$outboundSchema;
-  /** @deprecated use `RouteGetResponseLinks$Outbound` instead. */
-  export type Outbound = RouteGetResponseLinks$Outbound;
-}
-
 export function routeGetResponseLinksToJSON(
   routeGetResponseLinks: RouteGetResponseLinks,
 ): string {
@@ -184,7 +155,6 @@ export function routeGetResponseLinksToJSON(
     RouteGetResponseLinks$outboundSchema.parse(routeGetResponseLinks),
   );
 }
-
 export function routeGetResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteGetResponseLinks, SDKValidationError> {
@@ -215,7 +185,6 @@ export const RouteGetResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type RouteGetResponse$Outbound = {
   resource?: string | undefined;
@@ -249,19 +218,6 @@ export const RouteGetResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteGetResponse$ {
-  /** @deprecated use `RouteGetResponse$inboundSchema` instead. */
-  export const inboundSchema = RouteGetResponse$inboundSchema;
-  /** @deprecated use `RouteGetResponse$outboundSchema` instead. */
-  export const outboundSchema = RouteGetResponse$outboundSchema;
-  /** @deprecated use `RouteGetResponse$Outbound` instead. */
-  export type Outbound = RouteGetResponse$Outbound;
-}
-
 export function routeGetResponseToJSON(
   routeGetResponse: RouteGetResponse,
 ): string {
@@ -269,7 +225,6 @@ export function routeGetResponseToJSON(
     RouteGetResponse$outboundSchema.parse(routeGetResponse),
   );
 }
-
 export function routeGetResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteGetResponse, SDKValidationError> {

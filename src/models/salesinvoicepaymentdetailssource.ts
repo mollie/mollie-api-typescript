@@ -24,19 +24,7 @@ export type SalesInvoicePaymentDetailsSource = ClosedEnum<
 export const SalesInvoicePaymentDetailsSource$inboundSchema: z.ZodNativeEnum<
   typeof SalesInvoicePaymentDetailsSource
 > = z.nativeEnum(SalesInvoicePaymentDetailsSource);
-
 /** @internal */
 export const SalesInvoicePaymentDetailsSource$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoicePaymentDetailsSource
 > = SalesInvoicePaymentDetailsSource$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoicePaymentDetailsSource$ {
-  /** @deprecated use `SalesInvoicePaymentDetailsSource$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoicePaymentDetailsSource$inboundSchema;
-  /** @deprecated use `SalesInvoicePaymentDetailsSource$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoicePaymentDetailsSource$outboundSchema;
-}

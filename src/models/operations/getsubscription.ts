@@ -54,7 +54,6 @@ export const GetSubscriptionGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetSubscriptionGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -69,19 +68,6 @@ export const GetSubscriptionGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetSubscriptionGlobals$ {
-  /** @deprecated use `GetSubscriptionGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetSubscriptionGlobals$inboundSchema;
-  /** @deprecated use `GetSubscriptionGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetSubscriptionGlobals$outboundSchema;
-  /** @deprecated use `GetSubscriptionGlobals$Outbound` instead. */
-  export type Outbound = GetSubscriptionGlobals$Outbound;
-}
-
 export function getSubscriptionGlobalsToJSON(
   getSubscriptionGlobals: GetSubscriptionGlobals,
 ): string {
@@ -89,7 +75,6 @@ export function getSubscriptionGlobalsToJSON(
     GetSubscriptionGlobals$outboundSchema.parse(getSubscriptionGlobals),
   );
 }
-
 export function getSubscriptionGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetSubscriptionGlobals, SDKValidationError> {
@@ -115,7 +100,6 @@ export const GetSubscriptionRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetSubscriptionRequest$Outbound = {
   customerId: string;
@@ -140,19 +124,6 @@ export const GetSubscriptionRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetSubscriptionRequest$ {
-  /** @deprecated use `GetSubscriptionRequest$inboundSchema` instead. */
-  export const inboundSchema = GetSubscriptionRequest$inboundSchema;
-  /** @deprecated use `GetSubscriptionRequest$outboundSchema` instead. */
-  export const outboundSchema = GetSubscriptionRequest$outboundSchema;
-  /** @deprecated use `GetSubscriptionRequest$Outbound` instead. */
-  export type Outbound = GetSubscriptionRequest$Outbound;
-}
-
 export function getSubscriptionRequestToJSON(
   getSubscriptionRequest: GetSubscriptionRequest,
 ): string {
@@ -160,7 +131,6 @@ export function getSubscriptionRequestToJSON(
     GetSubscriptionRequest$outboundSchema.parse(getSubscriptionRequest),
   );
 }
-
 export function getSubscriptionRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetSubscriptionRequest, SDKValidationError> {

@@ -131,7 +131,6 @@ export const ListAllMethodsGlobals$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListAllMethodsGlobals$Outbound = {
   profileId?: string | undefined;
@@ -148,19 +147,6 @@ export const ListAllMethodsGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllMethodsGlobals$ {
-  /** @deprecated use `ListAllMethodsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListAllMethodsGlobals$inboundSchema;
-  /** @deprecated use `ListAllMethodsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListAllMethodsGlobals$outboundSchema;
-  /** @deprecated use `ListAllMethodsGlobals$Outbound` instead. */
-  export type Outbound = ListAllMethodsGlobals$Outbound;
-}
-
 export function listAllMethodsGlobalsToJSON(
   listAllMethodsGlobals: ListAllMethodsGlobals,
 ): string {
@@ -168,7 +154,6 @@ export function listAllMethodsGlobalsToJSON(
     ListAllMethodsGlobals$outboundSchema.parse(listAllMethodsGlobals),
   );
 }
-
 export function listAllMethodsGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllMethodsGlobals, SDKValidationError> {
@@ -197,7 +182,6 @@ export const ListAllMethodsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListAllMethodsRequest$Outbound = {
   locale?: string | null | undefined;
@@ -228,19 +212,6 @@ export const ListAllMethodsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllMethodsRequest$ {
-  /** @deprecated use `ListAllMethodsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListAllMethodsRequest$inboundSchema;
-  /** @deprecated use `ListAllMethodsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListAllMethodsRequest$outboundSchema;
-  /** @deprecated use `ListAllMethodsRequest$Outbound` instead. */
-  export type Outbound = ListAllMethodsRequest$Outbound;
-}
-
 export function listAllMethodsRequestToJSON(
   listAllMethodsRequest: ListAllMethodsRequest,
 ): string {
@@ -248,7 +219,6 @@ export function listAllMethodsRequestToJSON(
     ListAllMethodsRequest$outboundSchema.parse(listAllMethodsRequest),
   );
 }
-
 export function listAllMethodsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllMethodsRequest, SDKValidationError> {
@@ -267,7 +237,6 @@ export const ListAllMethodsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   methods: z.array(models.EntityMethodAll$inboundSchema),
 });
-
 /** @internal */
 export type ListAllMethodsEmbedded$Outbound = {
   methods: Array<models.EntityMethodAll$Outbound>;
@@ -282,19 +251,6 @@ export const ListAllMethodsEmbedded$outboundSchema: z.ZodType<
   methods: z.array(models.EntityMethodAll$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllMethodsEmbedded$ {
-  /** @deprecated use `ListAllMethodsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListAllMethodsEmbedded$inboundSchema;
-  /** @deprecated use `ListAllMethodsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListAllMethodsEmbedded$outboundSchema;
-  /** @deprecated use `ListAllMethodsEmbedded$Outbound` instead. */
-  export type Outbound = ListAllMethodsEmbedded$Outbound;
-}
-
 export function listAllMethodsEmbeddedToJSON(
   listAllMethodsEmbedded: ListAllMethodsEmbedded,
 ): string {
@@ -302,7 +258,6 @@ export function listAllMethodsEmbeddedToJSON(
     ListAllMethodsEmbedded$outboundSchema.parse(listAllMethodsEmbedded),
   );
 }
-
 export function listAllMethodsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllMethodsEmbedded, SDKValidationError> {
@@ -322,7 +277,6 @@ export const ListAllMethodsLinks$inboundSchema: z.ZodType<
   self: models.Url$inboundSchema,
   documentation: models.Url$inboundSchema,
 });
-
 /** @internal */
 export type ListAllMethodsLinks$Outbound = {
   self: models.Url$Outbound;
@@ -339,19 +293,6 @@ export const ListAllMethodsLinks$outboundSchema: z.ZodType<
   documentation: models.Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllMethodsLinks$ {
-  /** @deprecated use `ListAllMethodsLinks$inboundSchema` instead. */
-  export const inboundSchema = ListAllMethodsLinks$inboundSchema;
-  /** @deprecated use `ListAllMethodsLinks$outboundSchema` instead. */
-  export const outboundSchema = ListAllMethodsLinks$outboundSchema;
-  /** @deprecated use `ListAllMethodsLinks$Outbound` instead. */
-  export type Outbound = ListAllMethodsLinks$Outbound;
-}
-
 export function listAllMethodsLinksToJSON(
   listAllMethodsLinks: ListAllMethodsLinks,
 ): string {
@@ -359,7 +300,6 @@ export function listAllMethodsLinksToJSON(
     ListAllMethodsLinks$outboundSchema.parse(listAllMethodsLinks),
   );
 }
-
 export function listAllMethodsLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllMethodsLinks, SDKValidationError> {
@@ -385,7 +325,6 @@ export const ListAllMethodsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListAllMethodsResponse$Outbound = {
   count: number;
@@ -409,19 +348,6 @@ export const ListAllMethodsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllMethodsResponse$ {
-  /** @deprecated use `ListAllMethodsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListAllMethodsResponse$inboundSchema;
-  /** @deprecated use `ListAllMethodsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListAllMethodsResponse$outboundSchema;
-  /** @deprecated use `ListAllMethodsResponse$Outbound` instead. */
-  export type Outbound = ListAllMethodsResponse$Outbound;
-}
-
 export function listAllMethodsResponseToJSON(
   listAllMethodsResponse: ListAllMethodsResponse,
 ): string {
@@ -429,7 +355,6 @@ export function listAllMethodsResponseToJSON(
     ListAllMethodsResponse$outboundSchema.parse(listAllMethodsResponse),
   );
 }
-
 export function listAllMethodsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllMethodsResponse, SDKValidationError> {

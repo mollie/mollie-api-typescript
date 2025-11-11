@@ -92,7 +92,6 @@ export type EntityWebhookEvent = {
 /** @internal */
 export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
   .union([PaymentLinkResponse$inboundSchema, ProfileResponse$inboundSchema]);
-
 /** @internal */
 export type Entity$Outbound =
   | PaymentLinkResponse$Outbound
@@ -108,23 +107,9 @@ export const Entity$outboundSchema: z.ZodType<
   ProfileResponse$outboundSchema,
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Entity$ {
-  /** @deprecated use `Entity$inboundSchema` instead. */
-  export const inboundSchema = Entity$inboundSchema;
-  /** @deprecated use `Entity$outboundSchema` instead. */
-  export const outboundSchema = Entity$outboundSchema;
-  /** @deprecated use `Entity$Outbound` instead. */
-  export type Outbound = Entity$Outbound;
-}
-
 export function entityToJSON(entity: Entity): string {
   return JSON.stringify(Entity$outboundSchema.parse(entity));
 }
-
 export function entityFromJSON(
   jsonString: string,
 ): SafeParseResult<Entity, SDKValidationError> {
@@ -146,7 +131,6 @@ export const Embedded$inboundSchema: z.ZodType<
     ProfileResponse$inboundSchema,
   ]).optional(),
 });
-
 /** @internal */
 export type Embedded$Outbound = {
   entity?: PaymentLinkResponse$Outbound | ProfileResponse$Outbound | undefined;
@@ -164,23 +148,9 @@ export const Embedded$outboundSchema: z.ZodType<
   ]).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Embedded$ {
-  /** @deprecated use `Embedded$inboundSchema` instead. */
-  export const inboundSchema = Embedded$inboundSchema;
-  /** @deprecated use `Embedded$outboundSchema` instead. */
-  export const outboundSchema = Embedded$outboundSchema;
-  /** @deprecated use `Embedded$Outbound` instead. */
-  export type Outbound = Embedded$Outbound;
-}
-
 export function embeddedToJSON(embedded: Embedded): string {
   return JSON.stringify(Embedded$outboundSchema.parse(embedded));
 }
-
 export function embeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<Embedded, SDKValidationError> {
@@ -201,7 +171,6 @@ export const EntityWebhookEventLinks$inboundSchema: z.ZodType<
   documentation: Url$inboundSchema,
   entity: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityWebhookEventLinks$Outbound = {
   self: Url$Outbound;
@@ -220,19 +189,6 @@ export const EntityWebhookEventLinks$outboundSchema: z.ZodType<
   entity: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityWebhookEventLinks$ {
-  /** @deprecated use `EntityWebhookEventLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityWebhookEventLinks$inboundSchema;
-  /** @deprecated use `EntityWebhookEventLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityWebhookEventLinks$outboundSchema;
-  /** @deprecated use `EntityWebhookEventLinks$Outbound` instead. */
-  export type Outbound = EntityWebhookEventLinks$Outbound;
-}
-
 export function entityWebhookEventLinksToJSON(
   entityWebhookEventLinks: EntityWebhookEventLinks,
 ): string {
@@ -240,7 +196,6 @@ export function entityWebhookEventLinksToJSON(
     EntityWebhookEventLinks$outboundSchema.parse(entityWebhookEventLinks),
   );
 }
-
 export function entityWebhookEventLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityWebhookEventLinks, SDKValidationError> {
@@ -271,7 +226,6 @@ export const EntityWebhookEvent$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityWebhookEvent$Outbound = {
   resource: string;
@@ -304,19 +258,6 @@ export const EntityWebhookEvent$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityWebhookEvent$ {
-  /** @deprecated use `EntityWebhookEvent$inboundSchema` instead. */
-  export const inboundSchema = EntityWebhookEvent$inboundSchema;
-  /** @deprecated use `EntityWebhookEvent$outboundSchema` instead. */
-  export const outboundSchema = EntityWebhookEvent$outboundSchema;
-  /** @deprecated use `EntityWebhookEvent$Outbound` instead. */
-  export type Outbound = EntityWebhookEvent$Outbound;
-}
-
 export function entityWebhookEventToJSON(
   entityWebhookEvent: EntityWebhookEvent,
 ): string {
@@ -324,7 +265,6 @@ export function entityWebhookEventToJSON(
     EntityWebhookEvent$outboundSchema.parse(entityWebhookEvent),
   );
 }
-
 export function entityWebhookEventFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityWebhookEvent, SDKValidationError> {

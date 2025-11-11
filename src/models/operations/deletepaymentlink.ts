@@ -40,7 +40,6 @@ export const DeletePaymentLinkRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type DeletePaymentLinkRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
@@ -55,19 +54,6 @@ export const DeletePaymentLinkRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeletePaymentLinkRequestBody$ {
-  /** @deprecated use `DeletePaymentLinkRequestBody$inboundSchema` instead. */
-  export const inboundSchema = DeletePaymentLinkRequestBody$inboundSchema;
-  /** @deprecated use `DeletePaymentLinkRequestBody$outboundSchema` instead. */
-  export const outboundSchema = DeletePaymentLinkRequestBody$outboundSchema;
-  /** @deprecated use `DeletePaymentLinkRequestBody$Outbound` instead. */
-  export type Outbound = DeletePaymentLinkRequestBody$Outbound;
-}
-
 export function deletePaymentLinkRequestBodyToJSON(
   deletePaymentLinkRequestBody: DeletePaymentLinkRequestBody,
 ): string {
@@ -77,7 +63,6 @@ export function deletePaymentLinkRequestBodyToJSON(
     ),
   );
 }
-
 export function deletePaymentLinkRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<DeletePaymentLinkRequestBody, SDKValidationError> {
@@ -104,7 +89,6 @@ export const DeletePaymentLinkRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type DeletePaymentLinkRequest$Outbound = {
   paymentLinkId: string;
@@ -129,19 +113,6 @@ export const DeletePaymentLinkRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeletePaymentLinkRequest$ {
-  /** @deprecated use `DeletePaymentLinkRequest$inboundSchema` instead. */
-  export const inboundSchema = DeletePaymentLinkRequest$inboundSchema;
-  /** @deprecated use `DeletePaymentLinkRequest$outboundSchema` instead. */
-  export const outboundSchema = DeletePaymentLinkRequest$outboundSchema;
-  /** @deprecated use `DeletePaymentLinkRequest$Outbound` instead. */
-  export type Outbound = DeletePaymentLinkRequest$Outbound;
-}
-
 export function deletePaymentLinkRequestToJSON(
   deletePaymentLinkRequest: DeletePaymentLinkRequest,
 ): string {
@@ -149,7 +120,6 @@ export function deletePaymentLinkRequestToJSON(
     DeletePaymentLinkRequest$outboundSchema.parse(deletePaymentLinkRequest),
   );
 }
-
 export function deletePaymentLinkRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<DeletePaymentLinkRequest, SDKValidationError> {

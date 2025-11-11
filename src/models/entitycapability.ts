@@ -49,7 +49,6 @@ export const EntityCapability$inboundSchema: z.ZodType<
   statusReason: z.nullable(CapabilityStatusReason$inboundSchema),
   requirements: z.array(EntityCapabilityRequirement$inboundSchema),
 });
-
 /** @internal */
 export type EntityCapability$Outbound = {
   resource: string;
@@ -72,19 +71,6 @@ export const EntityCapability$outboundSchema: z.ZodType<
   requirements: z.array(EntityCapabilityRequirement$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityCapability$ {
-  /** @deprecated use `EntityCapability$inboundSchema` instead. */
-  export const inboundSchema = EntityCapability$inboundSchema;
-  /** @deprecated use `EntityCapability$outboundSchema` instead. */
-  export const outboundSchema = EntityCapability$outboundSchema;
-  /** @deprecated use `EntityCapability$Outbound` instead. */
-  export type Outbound = EntityCapability$Outbound;
-}
-
 export function entityCapabilityToJSON(
   entityCapability: EntityCapability,
 ): string {
@@ -92,7 +78,6 @@ export function entityCapabilityToJSON(
     EntityCapability$outboundSchema.parse(entityCapability),
   );
 }
-
 export function entityCapabilityFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCapability, SDKValidationError> {

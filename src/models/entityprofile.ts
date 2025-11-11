@@ -80,7 +80,6 @@ export const EntityProfile$inboundSchema: z.ZodType<
   businessCategory: z.string().optional(),
   status: ProfileStatus$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityProfile$Outbound = {
   name?: string | undefined;
@@ -109,23 +108,9 @@ export const EntityProfile$outboundSchema: z.ZodType<
   status: ProfileStatus$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityProfile$ {
-  /** @deprecated use `EntityProfile$inboundSchema` instead. */
-  export const inboundSchema = EntityProfile$inboundSchema;
-  /** @deprecated use `EntityProfile$outboundSchema` instead. */
-  export const outboundSchema = EntityProfile$outboundSchema;
-  /** @deprecated use `EntityProfile$Outbound` instead. */
-  export type Outbound = EntityProfile$Outbound;
-}
-
 export function entityProfileToJSON(entityProfile: EntityProfile): string {
   return JSON.stringify(EntityProfile$outboundSchema.parse(entityProfile));
 }
-
 export function entityProfileFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityProfile, SDKValidationError> {

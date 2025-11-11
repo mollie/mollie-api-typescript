@@ -50,7 +50,6 @@ export const GetWebhookGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetWebhookGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetWebhookGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetWebhookGlobals$ {
-  /** @deprecated use `GetWebhookGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetWebhookGlobals$inboundSchema;
-  /** @deprecated use `GetWebhookGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetWebhookGlobals$outboundSchema;
-  /** @deprecated use `GetWebhookGlobals$Outbound` instead. */
-  export type Outbound = GetWebhookGlobals$Outbound;
-}
-
 export function getWebhookGlobalsToJSON(
   getWebhookGlobals: GetWebhookGlobals,
 ): string {
@@ -85,7 +71,6 @@ export function getWebhookGlobalsToJSON(
     GetWebhookGlobals$outboundSchema.parse(getWebhookGlobals),
   );
 }
-
 export function getWebhookGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetWebhookGlobals, SDKValidationError> {
@@ -110,7 +95,6 @@ export const GetWebhookRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetWebhookRequest$Outbound = {
   id: string;
@@ -133,19 +117,6 @@ export const GetWebhookRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetWebhookRequest$ {
-  /** @deprecated use `GetWebhookRequest$inboundSchema` instead. */
-  export const inboundSchema = GetWebhookRequest$inboundSchema;
-  /** @deprecated use `GetWebhookRequest$outboundSchema` instead. */
-  export const outboundSchema = GetWebhookRequest$outboundSchema;
-  /** @deprecated use `GetWebhookRequest$Outbound` instead. */
-  export type Outbound = GetWebhookRequest$Outbound;
-}
-
 export function getWebhookRequestToJSON(
   getWebhookRequest: GetWebhookRequest,
 ): string {
@@ -153,7 +124,6 @@ export function getWebhookRequestToJSON(
     GetWebhookRequest$outboundSchema.parse(getWebhookRequest),
   );
 }
-
 export function getWebhookRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetWebhookRequest, SDKValidationError> {

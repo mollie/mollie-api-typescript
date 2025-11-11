@@ -44,7 +44,6 @@ export const RevokeMandateRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type RevokeMandateRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
@@ -59,19 +58,6 @@ export const RevokeMandateRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RevokeMandateRequestBody$ {
-  /** @deprecated use `RevokeMandateRequestBody$inboundSchema` instead. */
-  export const inboundSchema = RevokeMandateRequestBody$inboundSchema;
-  /** @deprecated use `RevokeMandateRequestBody$outboundSchema` instead. */
-  export const outboundSchema = RevokeMandateRequestBody$outboundSchema;
-  /** @deprecated use `RevokeMandateRequestBody$Outbound` instead. */
-  export type Outbound = RevokeMandateRequestBody$Outbound;
-}
-
 export function revokeMandateRequestBodyToJSON(
   revokeMandateRequestBody: RevokeMandateRequestBody,
 ): string {
@@ -79,7 +65,6 @@ export function revokeMandateRequestBodyToJSON(
     RevokeMandateRequestBody$outboundSchema.parse(revokeMandateRequestBody),
   );
 }
-
 export function revokeMandateRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<RevokeMandateRequestBody, SDKValidationError> {
@@ -106,7 +91,6 @@ export const RevokeMandateRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type RevokeMandateRequest$Outbound = {
   customerId: string;
@@ -132,19 +116,6 @@ export const RevokeMandateRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RevokeMandateRequest$ {
-  /** @deprecated use `RevokeMandateRequest$inboundSchema` instead. */
-  export const inboundSchema = RevokeMandateRequest$inboundSchema;
-  /** @deprecated use `RevokeMandateRequest$outboundSchema` instead. */
-  export const outboundSchema = RevokeMandateRequest$outboundSchema;
-  /** @deprecated use `RevokeMandateRequest$Outbound` instead. */
-  export type Outbound = RevokeMandateRequest$Outbound;
-}
-
 export function revokeMandateRequestToJSON(
   revokeMandateRequest: RevokeMandateRequest,
 ): string {
@@ -152,7 +123,6 @@ export function revokeMandateRequestToJSON(
     RevokeMandateRequest$outboundSchema.parse(revokeMandateRequest),
   );
 }
-
 export function revokeMandateRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<RevokeMandateRequest, SDKValidationError> {

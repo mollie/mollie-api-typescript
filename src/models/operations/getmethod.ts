@@ -96,7 +96,6 @@ export const GetMethodGlobals$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetMethodGlobals$Outbound = {
   profileId?: string | undefined;
@@ -113,19 +112,6 @@ export const GetMethodGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetMethodGlobals$ {
-  /** @deprecated use `GetMethodGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetMethodGlobals$inboundSchema;
-  /** @deprecated use `GetMethodGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetMethodGlobals$outboundSchema;
-  /** @deprecated use `GetMethodGlobals$Outbound` instead. */
-  export type Outbound = GetMethodGlobals$Outbound;
-}
-
 export function getMethodGlobalsToJSON(
   getMethodGlobals: GetMethodGlobals,
 ): string {
@@ -133,7 +119,6 @@ export function getMethodGlobalsToJSON(
     GetMethodGlobals$outboundSchema.parse(getMethodGlobals),
   );
 }
-
 export function getMethodGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetMethodGlobals, SDKValidationError> {
@@ -163,7 +148,6 @@ export const GetMethodRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetMethodRequest$Outbound = {
   id: string;
@@ -196,19 +180,6 @@ export const GetMethodRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetMethodRequest$ {
-  /** @deprecated use `GetMethodRequest$inboundSchema` instead. */
-  export const inboundSchema = GetMethodRequest$inboundSchema;
-  /** @deprecated use `GetMethodRequest$outboundSchema` instead. */
-  export const outboundSchema = GetMethodRequest$outboundSchema;
-  /** @deprecated use `GetMethodRequest$Outbound` instead. */
-  export type Outbound = GetMethodRequest$Outbound;
-}
-
 export function getMethodRequestToJSON(
   getMethodRequest: GetMethodRequest,
 ): string {
@@ -216,7 +187,6 @@ export function getMethodRequestToJSON(
     GetMethodRequest$outboundSchema.parse(getMethodRequest),
   );
 }
-
 export function getMethodRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetMethodRequest, SDKValidationError> {

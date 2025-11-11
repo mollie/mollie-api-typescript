@@ -201,127 +201,55 @@ export type SubTotals = {
 export const SubTotalsCardIssuer$inboundSchema: z.ZodNativeEnum<
   typeof SubTotalsCardIssuer
 > = z.nativeEnum(SubTotalsCardIssuer);
-
 /** @internal */
 export const SubTotalsCardIssuer$outboundSchema: z.ZodNativeEnum<
   typeof SubTotalsCardIssuer
 > = SubTotalsCardIssuer$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubTotalsCardIssuer$ {
-  /** @deprecated use `SubTotalsCardIssuer$inboundSchema` instead. */
-  export const inboundSchema = SubTotalsCardIssuer$inboundSchema;
-  /** @deprecated use `SubTotalsCardIssuer$outboundSchema` instead. */
-  export const outboundSchema = SubTotalsCardIssuer$outboundSchema;
-}
-
 /** @internal */
 export const SubTotalsCardAudience$inboundSchema: z.ZodNativeEnum<
   typeof SubTotalsCardAudience
 > = z.nativeEnum(SubTotalsCardAudience);
-
 /** @internal */
 export const SubTotalsCardAudience$outboundSchema: z.ZodNativeEnum<
   typeof SubTotalsCardAudience
 > = SubTotalsCardAudience$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubTotalsCardAudience$ {
-  /** @deprecated use `SubTotalsCardAudience$inboundSchema` instead. */
-  export const inboundSchema = SubTotalsCardAudience$inboundSchema;
-  /** @deprecated use `SubTotalsCardAudience$outboundSchema` instead. */
-  export const outboundSchema = SubTotalsCardAudience$outboundSchema;
-}
-
 /** @internal */
 export const SubTotalsCardRegion$inboundSchema: z.ZodNativeEnum<
   typeof SubTotalsCardRegion
 > = z.nativeEnum(SubTotalsCardRegion);
-
 /** @internal */
 export const SubTotalsCardRegion$outboundSchema: z.ZodNativeEnum<
   typeof SubTotalsCardRegion
 > = SubTotalsCardRegion$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubTotalsCardRegion$ {
-  /** @deprecated use `SubTotalsCardRegion$inboundSchema` instead. */
-  export const inboundSchema = SubTotalsCardRegion$inboundSchema;
-  /** @deprecated use `SubTotalsCardRegion$outboundSchema` instead. */
-  export const outboundSchema = SubTotalsCardRegion$outboundSchema;
-}
-
 /** @internal */
 export const SubTotalsFeeType$inboundSchema: z.ZodNativeEnum<
   typeof SubTotalsFeeType
 > = z.nativeEnum(SubTotalsFeeType);
-
 /** @internal */
 export const SubTotalsFeeType$outboundSchema: z.ZodNativeEnum<
   typeof SubTotalsFeeType
 > = SubTotalsFeeType$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubTotalsFeeType$ {
-  /** @deprecated use `SubTotalsFeeType$inboundSchema` instead. */
-  export const inboundSchema = SubTotalsFeeType$inboundSchema;
-  /** @deprecated use `SubTotalsFeeType$outboundSchema` instead. */
-  export const outboundSchema = SubTotalsFeeType$outboundSchema;
-}
-
 /** @internal */
 export const SubTotalsPrepaymentPartType$inboundSchema: z.ZodNativeEnum<
   typeof SubTotalsPrepaymentPartType
 > = z.nativeEnum(SubTotalsPrepaymentPartType);
-
 /** @internal */
 export const SubTotalsPrepaymentPartType$outboundSchema: z.ZodNativeEnum<
   typeof SubTotalsPrepaymentPartType
 > = SubTotalsPrepaymentPartType$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubTotalsPrepaymentPartType$ {
-  /** @deprecated use `SubTotalsPrepaymentPartType$inboundSchema` instead. */
-  export const inboundSchema = SubTotalsPrepaymentPartType$inboundSchema;
-  /** @deprecated use `SubTotalsPrepaymentPartType$outboundSchema` instead. */
-  export const outboundSchema = SubTotalsPrepaymentPartType$outboundSchema;
-}
-
 /** @internal */
 export const SubTotalsTransactionType$inboundSchema: z.ZodNativeEnum<
   typeof SubTotalsTransactionType
 > = z.nativeEnum(SubTotalsTransactionType);
-
 /** @internal */
 export const SubTotalsTransactionType$outboundSchema: z.ZodNativeEnum<
   typeof SubTotalsTransactionType
 > = SubTotalsTransactionType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubTotalsTransactionType$ {
-  /** @deprecated use `SubTotalsTransactionType$inboundSchema` instead. */
-  export const inboundSchema = SubTotalsTransactionType$inboundSchema;
-  /** @deprecated use `SubTotalsTransactionType$outboundSchema` instead. */
-  export const outboundSchema = SubTotalsTransactionType$outboundSchema;
-}
 
 /** @internal */
 export const SubTotals$inboundSchema: z.ZodType<
@@ -340,7 +268,6 @@ export const SubTotals$inboundSchema: z.ZodType<
   transactionType: z.nullable(SubTotalsTransactionType$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type SubTotals$Outbound = {
   count?: number | undefined;
@@ -371,23 +298,9 @@ export const SubTotals$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubTotals$ {
-  /** @deprecated use `SubTotals$inboundSchema` instead. */
-  export const inboundSchema = SubTotals$inboundSchema;
-  /** @deprecated use `SubTotals$outboundSchema` instead. */
-  export const outboundSchema = SubTotals$outboundSchema;
-  /** @deprecated use `SubTotals$Outbound` instead. */
-  export type Outbound = SubTotals$Outbound;
-}
-
 export function subTotalsToJSON(subTotals: SubTotals): string {
   return JSON.stringify(SubTotals$outboundSchema.parse(subTotals));
 }
-
 export function subTotalsFromJSON(
   jsonString: string,
 ): SafeParseResult<SubTotals, SDKValidationError> {

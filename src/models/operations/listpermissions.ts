@@ -70,7 +70,6 @@ export const ListPermissionsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListPermissionsRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -89,19 +88,6 @@ export const ListPermissionsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsRequest$ {
-  /** @deprecated use `ListPermissionsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListPermissionsRequest$inboundSchema;
-  /** @deprecated use `ListPermissionsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListPermissionsRequest$outboundSchema;
-  /** @deprecated use `ListPermissionsRequest$Outbound` instead. */
-  export type Outbound = ListPermissionsRequest$Outbound;
-}
-
 export function listPermissionsRequestToJSON(
   listPermissionsRequest: ListPermissionsRequest,
 ): string {
@@ -109,7 +95,6 @@ export function listPermissionsRequestToJSON(
     ListPermissionsRequest$outboundSchema.parse(listPermissionsRequest),
   );
 }
-
 export function listPermissionsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPermissionsRequest, SDKValidationError> {
@@ -128,7 +113,6 @@ export const ListPermissionsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   permissions: z.array(models.EntityPermission$inboundSchema),
 });
-
 /** @internal */
 export type ListPermissionsEmbedded$Outbound = {
   permissions: Array<models.EntityPermission$Outbound>;
@@ -143,19 +127,6 @@ export const ListPermissionsEmbedded$outboundSchema: z.ZodType<
   permissions: z.array(models.EntityPermission$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsEmbedded$ {
-  /** @deprecated use `ListPermissionsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListPermissionsEmbedded$inboundSchema;
-  /** @deprecated use `ListPermissionsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListPermissionsEmbedded$outboundSchema;
-  /** @deprecated use `ListPermissionsEmbedded$Outbound` instead. */
-  export type Outbound = ListPermissionsEmbedded$Outbound;
-}
-
 export function listPermissionsEmbeddedToJSON(
   listPermissionsEmbedded: ListPermissionsEmbedded,
 ): string {
@@ -163,7 +134,6 @@ export function listPermissionsEmbeddedToJSON(
     ListPermissionsEmbedded$outboundSchema.parse(listPermissionsEmbedded),
   );
 }
-
 export function listPermissionsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPermissionsEmbedded, SDKValidationError> {
@@ -183,7 +153,6 @@ export const ListPermissionsLinks$inboundSchema: z.ZodType<
   self: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type ListPermissionsLinks$Outbound = {
   self?: models.Url$Outbound | undefined;
@@ -200,19 +169,6 @@ export const ListPermissionsLinks$outboundSchema: z.ZodType<
   documentation: models.Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsLinks$ {
-  /** @deprecated use `ListPermissionsLinks$inboundSchema` instead. */
-  export const inboundSchema = ListPermissionsLinks$inboundSchema;
-  /** @deprecated use `ListPermissionsLinks$outboundSchema` instead. */
-  export const outboundSchema = ListPermissionsLinks$outboundSchema;
-  /** @deprecated use `ListPermissionsLinks$Outbound` instead. */
-  export type Outbound = ListPermissionsLinks$Outbound;
-}
-
 export function listPermissionsLinksToJSON(
   listPermissionsLinks: ListPermissionsLinks,
 ): string {
@@ -220,7 +176,6 @@ export function listPermissionsLinksToJSON(
     ListPermissionsLinks$outboundSchema.parse(listPermissionsLinks),
   );
 }
-
 export function listPermissionsLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPermissionsLinks, SDKValidationError> {
@@ -246,7 +201,6 @@ export const ListPermissionsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListPermissionsResponse$Outbound = {
   count: number;
@@ -270,19 +224,6 @@ export const ListPermissionsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPermissionsResponse$ {
-  /** @deprecated use `ListPermissionsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListPermissionsResponse$inboundSchema;
-  /** @deprecated use `ListPermissionsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListPermissionsResponse$outboundSchema;
-  /** @deprecated use `ListPermissionsResponse$Outbound` instead. */
-  export type Outbound = ListPermissionsResponse$Outbound;
-}
-
 export function listPermissionsResponseToJSON(
   listPermissionsResponse: ListPermissionsResponse,
 ): string {
@@ -290,7 +231,6 @@ export function listPermissionsResponseToJSON(
     ListPermissionsResponse$outboundSchema.parse(listPermissionsResponse),
   );
 }
-
 export function listPermissionsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPermissionsResponse, SDKValidationError> {

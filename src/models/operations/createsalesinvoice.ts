@@ -31,7 +31,6 @@ export const CreateSalesInvoiceRequest$inboundSchema: z.ZodType<
     "entity-sales-invoice": "entitySalesInvoice",
   });
 });
-
 /** @internal */
 export type CreateSalesInvoiceRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -53,19 +52,6 @@ export const CreateSalesInvoiceRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateSalesInvoiceRequest$ {
-  /** @deprecated use `CreateSalesInvoiceRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateSalesInvoiceRequest$inboundSchema;
-  /** @deprecated use `CreateSalesInvoiceRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateSalesInvoiceRequest$outboundSchema;
-  /** @deprecated use `CreateSalesInvoiceRequest$Outbound` instead. */
-  export type Outbound = CreateSalesInvoiceRequest$Outbound;
-}
-
 export function createSalesInvoiceRequestToJSON(
   createSalesInvoiceRequest: CreateSalesInvoiceRequest,
 ): string {
@@ -73,7 +59,6 @@ export function createSalesInvoiceRequestToJSON(
     CreateSalesInvoiceRequest$outboundSchema.parse(createSalesInvoiceRequest),
   );
 }
-
 export function createSalesInvoiceRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateSalesInvoiceRequest, SDKValidationError> {

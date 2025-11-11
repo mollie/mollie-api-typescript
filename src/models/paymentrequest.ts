@@ -630,7 +630,6 @@ export const PaymentRequestLine$inboundSchema: z.ZodType<
   productUrl: z.string().optional(),
   recurring: RecurringLineItem$inboundSchema.optional(),
 });
-
 /** @internal */
 export type PaymentRequestLine$Outbound = {
   type?: string | undefined;
@@ -671,19 +670,6 @@ export const PaymentRequestLine$outboundSchema: z.ZodType<
   recurring: RecurringLineItem$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentRequestLine$ {
-  /** @deprecated use `PaymentRequestLine$inboundSchema` instead. */
-  export const inboundSchema = PaymentRequestLine$inboundSchema;
-  /** @deprecated use `PaymentRequestLine$outboundSchema` instead. */
-  export const outboundSchema = PaymentRequestLine$outboundSchema;
-  /** @deprecated use `PaymentRequestLine$Outbound` instead. */
-  export type Outbound = PaymentRequestLine$Outbound;
-}
-
 export function paymentRequestLineToJSON(
   paymentRequestLine: PaymentRequestLine,
 ): string {
@@ -691,7 +677,6 @@ export function paymentRequestLineToJSON(
     PaymentRequestLine$outboundSchema.parse(paymentRequestLine),
   );
 }
-
 export function paymentRequestLineFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentRequestLine, SDKValidationError> {
@@ -721,7 +706,6 @@ export const PaymentRequestBillingAddress$inboundSchema: z.ZodType<
   region: z.string().optional(),
   country: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentRequestBillingAddress$Outbound = {
   title?: string | undefined;
@@ -758,19 +742,6 @@ export const PaymentRequestBillingAddress$outboundSchema: z.ZodType<
   country: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentRequestBillingAddress$ {
-  /** @deprecated use `PaymentRequestBillingAddress$inboundSchema` instead. */
-  export const inboundSchema = PaymentRequestBillingAddress$inboundSchema;
-  /** @deprecated use `PaymentRequestBillingAddress$outboundSchema` instead. */
-  export const outboundSchema = PaymentRequestBillingAddress$outboundSchema;
-  /** @deprecated use `PaymentRequestBillingAddress$Outbound` instead. */
-  export type Outbound = PaymentRequestBillingAddress$Outbound;
-}
-
 export function paymentRequestBillingAddressToJSON(
   paymentRequestBillingAddress: PaymentRequestBillingAddress,
 ): string {
@@ -780,7 +751,6 @@ export function paymentRequestBillingAddressToJSON(
     ),
   );
 }
-
 export function paymentRequestBillingAddressFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentRequestBillingAddress, SDKValidationError> {
@@ -800,7 +770,6 @@ export const PaymentRequestApplicationFee$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema.optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentRequestApplicationFee$Outbound = {
   amount?: Amount$Outbound | undefined;
@@ -817,19 +786,6 @@ export const PaymentRequestApplicationFee$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentRequestApplicationFee$ {
-  /** @deprecated use `PaymentRequestApplicationFee$inboundSchema` instead. */
-  export const inboundSchema = PaymentRequestApplicationFee$inboundSchema;
-  /** @deprecated use `PaymentRequestApplicationFee$outboundSchema` instead. */
-  export const outboundSchema = PaymentRequestApplicationFee$outboundSchema;
-  /** @deprecated use `PaymentRequestApplicationFee$Outbound` instead. */
-  export type Outbound = PaymentRequestApplicationFee$Outbound;
-}
-
 export function paymentRequestApplicationFeeToJSON(
   paymentRequestApplicationFee: PaymentRequestApplicationFee,
 ): string {
@@ -839,7 +795,6 @@ export function paymentRequestApplicationFeeToJSON(
     ),
   );
 }
-
 export function paymentRequestApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentRequestApplicationFee, SDKValidationError> {
@@ -857,7 +812,6 @@ export const Company$inboundSchema: z.ZodType<Company, z.ZodTypeDef, unknown> =
     vatNumber: z.string().optional(),
     entityType: z.string().optional(),
   });
-
 /** @internal */
 export type Company$Outbound = {
   registrationNumber?: string | undefined;
@@ -876,23 +830,9 @@ export const Company$outboundSchema: z.ZodType<
   entityType: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Company$ {
-  /** @deprecated use `Company$inboundSchema` instead. */
-  export const inboundSchema = Company$inboundSchema;
-  /** @deprecated use `Company$outboundSchema` instead. */
-  export const outboundSchema = Company$outboundSchema;
-  /** @deprecated use `Company$Outbound` instead. */
-  export type Outbound = Company$Outbound;
-}
-
 export function companyToJSON(company: Company): string {
   return JSON.stringify(Company$outboundSchema.parse(company));
 }
-
 export function companyFromJSON(
   jsonString: string,
 ): SafeParseResult<Company, SDKValidationError> {
@@ -957,7 +897,6 @@ export const PaymentRequest$inboundSchema: z.ZodType<
   customerReference: z.string().optional(),
   terminalId: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentRequest$Outbound = {
   id?: string | undefined;
@@ -1061,23 +1000,9 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   terminalId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentRequest$ {
-  /** @deprecated use `PaymentRequest$inboundSchema` instead. */
-  export const inboundSchema = PaymentRequest$inboundSchema;
-  /** @deprecated use `PaymentRequest$outboundSchema` instead. */
-  export const outboundSchema = PaymentRequest$outboundSchema;
-  /** @deprecated use `PaymentRequest$Outbound` instead. */
-  export type Outbound = PaymentRequest$Outbound;
-}
-
 export function paymentRequestToJSON(paymentRequest: PaymentRequest): string {
   return JSON.stringify(PaymentRequest$outboundSchema.parse(paymentRequest));
 }
-
 export function paymentRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentRequest, SDKValidationError> {

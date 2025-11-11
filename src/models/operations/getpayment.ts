@@ -61,7 +61,6 @@ export const GetPaymentGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetPaymentGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -76,19 +75,6 @@ export const GetPaymentGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentGlobals$ {
-  /** @deprecated use `GetPaymentGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetPaymentGlobals$inboundSchema;
-  /** @deprecated use `GetPaymentGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetPaymentGlobals$outboundSchema;
-  /** @deprecated use `GetPaymentGlobals$Outbound` instead. */
-  export type Outbound = GetPaymentGlobals$Outbound;
-}
-
 export function getPaymentGlobalsToJSON(
   getPaymentGlobals: GetPaymentGlobals,
 ): string {
@@ -96,7 +82,6 @@ export function getPaymentGlobalsToJSON(
     GetPaymentGlobals$outboundSchema.parse(getPaymentGlobals),
   );
 }
-
 export function getPaymentGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentGlobals, SDKValidationError> {
@@ -123,7 +108,6 @@ export const GetPaymentRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetPaymentRequest$Outbound = {
   paymentId: string;
@@ -150,19 +134,6 @@ export const GetPaymentRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentRequest$ {
-  /** @deprecated use `GetPaymentRequest$inboundSchema` instead. */
-  export const inboundSchema = GetPaymentRequest$inboundSchema;
-  /** @deprecated use `GetPaymentRequest$outboundSchema` instead. */
-  export const outboundSchema = GetPaymentRequest$outboundSchema;
-  /** @deprecated use `GetPaymentRequest$Outbound` instead. */
-  export type Outbound = GetPaymentRequest$Outbound;
-}
-
 export function getPaymentRequestToJSON(
   getPaymentRequest: GetPaymentRequest,
 ): string {
@@ -170,7 +141,6 @@ export function getPaymentRequestToJSON(
     GetPaymentRequest$outboundSchema.parse(getPaymentRequest),
   );
 }
-
 export function getPaymentRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentRequest, SDKValidationError> {

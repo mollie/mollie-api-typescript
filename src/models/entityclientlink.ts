@@ -96,7 +96,6 @@ export const Owner$inboundSchema: z.ZodType<Owner, z.ZodTypeDef, unknown> = z
     familyName: z.string(),
     locale: z.nullable(LocaleResponse$inboundSchema).optional(),
   });
-
 /** @internal */
 export type Owner$Outbound = {
   email: string;
@@ -117,23 +116,9 @@ export const Owner$outboundSchema: z.ZodType<
   locale: z.nullable(LocaleResponse$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Owner$ {
-  /** @deprecated use `Owner$inboundSchema` instead. */
-  export const inboundSchema = Owner$inboundSchema;
-  /** @deprecated use `Owner$outboundSchema` instead. */
-  export const outboundSchema = Owner$outboundSchema;
-  /** @deprecated use `Owner$Outbound` instead. */
-  export type Outbound = Owner$Outbound;
-}
-
 export function ownerToJSON(owner: Owner): string {
   return JSON.stringify(Owner$outboundSchema.parse(owner));
 }
-
 export function ownerFromJSON(
   jsonString: string,
 ): SafeParseResult<Owner, SDKValidationError> {
@@ -155,7 +140,6 @@ export const EntityClientLinkAddress$inboundSchema: z.ZodType<
   city: z.nullable(z.string()).optional(),
   country: z.string(),
 });
-
 /** @internal */
 export type EntityClientLinkAddress$Outbound = {
   streetAndNumber?: string | null | undefined;
@@ -176,19 +160,6 @@ export const EntityClientLinkAddress$outboundSchema: z.ZodType<
   country: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityClientLinkAddress$ {
-  /** @deprecated use `EntityClientLinkAddress$inboundSchema` instead. */
-  export const inboundSchema = EntityClientLinkAddress$inboundSchema;
-  /** @deprecated use `EntityClientLinkAddress$outboundSchema` instead. */
-  export const outboundSchema = EntityClientLinkAddress$outboundSchema;
-  /** @deprecated use `EntityClientLinkAddress$Outbound` instead. */
-  export type Outbound = EntityClientLinkAddress$Outbound;
-}
-
 export function entityClientLinkAddressToJSON(
   entityClientLinkAddress: EntityClientLinkAddress,
 ): string {
@@ -196,7 +167,6 @@ export function entityClientLinkAddressToJSON(
     EntityClientLinkAddress$outboundSchema.parse(entityClientLinkAddress),
   );
 }
-
 export function entityClientLinkAddressFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityClientLinkAddress, SDKValidationError> {
@@ -219,7 +189,6 @@ export const EntityClientLink$inboundSchema: z.ZodType<
   registrationNumber: z.nullable(z.string()).optional(),
   vatNumber: z.nullable(z.string()).optional(),
 });
-
 /** @internal */
 export type EntityClientLink$Outbound = {
   owner?: Owner$Outbound | undefined;
@@ -242,19 +211,6 @@ export const EntityClientLink$outboundSchema: z.ZodType<
   vatNumber: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityClientLink$ {
-  /** @deprecated use `EntityClientLink$inboundSchema` instead. */
-  export const inboundSchema = EntityClientLink$inboundSchema;
-  /** @deprecated use `EntityClientLink$outboundSchema` instead. */
-  export const outboundSchema = EntityClientLink$outboundSchema;
-  /** @deprecated use `EntityClientLink$Outbound` instead. */
-  export type Outbound = EntityClientLink$Outbound;
-}
-
 export function entityClientLinkToJSON(
   entityClientLink: EntityClientLink,
 ): string {
@@ -262,7 +218,6 @@ export function entityClientLinkToJSON(
     EntityClientLink$outboundSchema.parse(entityClientLink),
   );
 }
-
 export function entityClientLinkFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityClientLink, SDKValidationError> {

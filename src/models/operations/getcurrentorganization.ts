@@ -27,7 +27,6 @@ export const GetCurrentOrganizationRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetCurrentOrganizationRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -46,19 +45,6 @@ export const GetCurrentOrganizationRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCurrentOrganizationRequest$ {
-  /** @deprecated use `GetCurrentOrganizationRequest$inboundSchema` instead. */
-  export const inboundSchema = GetCurrentOrganizationRequest$inboundSchema;
-  /** @deprecated use `GetCurrentOrganizationRequest$outboundSchema` instead. */
-  export const outboundSchema = GetCurrentOrganizationRequest$outboundSchema;
-  /** @deprecated use `GetCurrentOrganizationRequest$Outbound` instead. */
-  export type Outbound = GetCurrentOrganizationRequest$Outbound;
-}
-
 export function getCurrentOrganizationRequestToJSON(
   getCurrentOrganizationRequest: GetCurrentOrganizationRequest,
 ): string {
@@ -68,7 +54,6 @@ export function getCurrentOrganizationRequestToJSON(
     ),
   );
 }
-
 export function getCurrentOrganizationRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCurrentOrganizationRequest, SDKValidationError> {

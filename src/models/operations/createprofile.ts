@@ -31,7 +31,6 @@ export const CreateProfileRequest$inboundSchema: z.ZodType<
     "entity-profile": "entityProfile",
   });
 });
-
 /** @internal */
 export type CreateProfileRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -53,19 +52,6 @@ export const CreateProfileRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateProfileRequest$ {
-  /** @deprecated use `CreateProfileRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateProfileRequest$inboundSchema;
-  /** @deprecated use `CreateProfileRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateProfileRequest$outboundSchema;
-  /** @deprecated use `CreateProfileRequest$Outbound` instead. */
-  export type Outbound = CreateProfileRequest$Outbound;
-}
-
 export function createProfileRequestToJSON(
   createProfileRequest: CreateProfileRequest,
 ): string {
@@ -73,7 +59,6 @@ export function createProfileRequestToJSON(
     CreateProfileRequest$outboundSchema.parse(createProfileRequest),
   );
 }
-
 export function createProfileRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateProfileRequest, SDKValidationError> {

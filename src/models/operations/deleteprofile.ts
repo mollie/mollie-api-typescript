@@ -32,7 +32,6 @@ export const DeleteProfileRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type DeleteProfileRequest$Outbound = {
   id: string;
@@ -53,19 +52,6 @@ export const DeleteProfileRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteProfileRequest$ {
-  /** @deprecated use `DeleteProfileRequest$inboundSchema` instead. */
-  export const inboundSchema = DeleteProfileRequest$inboundSchema;
-  /** @deprecated use `DeleteProfileRequest$outboundSchema` instead. */
-  export const outboundSchema = DeleteProfileRequest$outboundSchema;
-  /** @deprecated use `DeleteProfileRequest$Outbound` instead. */
-  export type Outbound = DeleteProfileRequest$Outbound;
-}
-
 export function deleteProfileRequestToJSON(
   deleteProfileRequest: DeleteProfileRequest,
 ): string {
@@ -73,7 +59,6 @@ export function deleteProfileRequestToJSON(
     DeleteProfileRequest$outboundSchema.parse(deleteProfileRequest),
   );
 }
-
 export function deleteProfileRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<DeleteProfileRequest, SDKValidationError> {

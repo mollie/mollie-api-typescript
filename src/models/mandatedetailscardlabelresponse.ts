@@ -43,7 +43,6 @@ export const MandateDetailsCardLabelResponse$inboundSchema: z.ZodType<
     z.nativeEnum(MandateDetailsCardLabelResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const MandateDetailsCardLabelResponse$outboundSchema: z.ZodType<
   MandateDetailsCardLabelResponse,
@@ -53,14 +52,3 @@ export const MandateDetailsCardLabelResponse$outboundSchema: z.ZodType<
   z.nativeEnum(MandateDetailsCardLabelResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateDetailsCardLabelResponse$ {
-  /** @deprecated use `MandateDetailsCardLabelResponse$inboundSchema` instead. */
-  export const inboundSchema = MandateDetailsCardLabelResponse$inboundSchema;
-  /** @deprecated use `MandateDetailsCardLabelResponse$outboundSchema` instead. */
-  export const outboundSchema = MandateDetailsCardLabelResponse$outboundSchema;
-}

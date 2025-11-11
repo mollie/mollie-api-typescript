@@ -60,7 +60,6 @@ export const ClientLinkResponseLinks$inboundSchema: z.ZodType<
   clientLink: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type ClientLinkResponseLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -79,19 +78,6 @@ export const ClientLinkResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ClientLinkResponseLinks$ {
-  /** @deprecated use `ClientLinkResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = ClientLinkResponseLinks$inboundSchema;
-  /** @deprecated use `ClientLinkResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = ClientLinkResponseLinks$outboundSchema;
-  /** @deprecated use `ClientLinkResponseLinks$Outbound` instead. */
-  export type Outbound = ClientLinkResponseLinks$Outbound;
-}
-
 export function clientLinkResponseLinksToJSON(
   clientLinkResponseLinks: ClientLinkResponseLinks,
 ): string {
@@ -99,7 +85,6 @@ export function clientLinkResponseLinksToJSON(
     ClientLinkResponseLinks$outboundSchema.parse(clientLinkResponseLinks),
   );
 }
-
 export function clientLinkResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ClientLinkResponseLinks, SDKValidationError> {
@@ -124,7 +109,6 @@ export const ClientLinkResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ClientLinkResponse$Outbound = {
   resource?: string | undefined;
@@ -147,19 +131,6 @@ export const ClientLinkResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ClientLinkResponse$ {
-  /** @deprecated use `ClientLinkResponse$inboundSchema` instead. */
-  export const inboundSchema = ClientLinkResponse$inboundSchema;
-  /** @deprecated use `ClientLinkResponse$outboundSchema` instead. */
-  export const outboundSchema = ClientLinkResponse$outboundSchema;
-  /** @deprecated use `ClientLinkResponse$Outbound` instead. */
-  export type Outbound = ClientLinkResponse$Outbound;
-}
-
 export function clientLinkResponseToJSON(
   clientLinkResponse: ClientLinkResponse,
 ): string {
@@ -167,7 +138,6 @@ export function clientLinkResponseToJSON(
     ClientLinkResponse$outboundSchema.parse(clientLinkResponse),
   );
 }
-
 export function clientLinkResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ClientLinkResponse, SDKValidationError> {

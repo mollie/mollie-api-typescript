@@ -108,7 +108,6 @@ export const EntityOrganizationLinks$inboundSchema: z.ZodType<
   dashboard: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityOrganizationLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -127,19 +126,6 @@ export const EntityOrganizationLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityOrganizationLinks$ {
-  /** @deprecated use `EntityOrganizationLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityOrganizationLinks$inboundSchema;
-  /** @deprecated use `EntityOrganizationLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityOrganizationLinks$outboundSchema;
-  /** @deprecated use `EntityOrganizationLinks$Outbound` instead. */
-  export type Outbound = EntityOrganizationLinks$Outbound;
-}
-
 export function entityOrganizationLinksToJSON(
   entityOrganizationLinks: EntityOrganizationLinks,
 ): string {
@@ -147,7 +133,6 @@ export function entityOrganizationLinksToJSON(
     EntityOrganizationLinks$outboundSchema.parse(entityOrganizationLinks),
   );
 }
-
 export function entityOrganizationLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOrganizationLinks, SDKValidationError> {
@@ -179,7 +164,6 @@ export const EntityOrganization$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityOrganization$Outbound = {
   resource: string;
@@ -217,19 +201,6 @@ export const EntityOrganization$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityOrganization$ {
-  /** @deprecated use `EntityOrganization$inboundSchema` instead. */
-  export const inboundSchema = EntityOrganization$inboundSchema;
-  /** @deprecated use `EntityOrganization$outboundSchema` instead. */
-  export const outboundSchema = EntityOrganization$outboundSchema;
-  /** @deprecated use `EntityOrganization$Outbound` instead. */
-  export type Outbound = EntityOrganization$Outbound;
-}
-
 export function entityOrganizationToJSON(
   entityOrganization: EntityOrganization,
 ): string {
@@ -237,7 +208,6 @@ export function entityOrganizationToJSON(
     EntityOrganization$outboundSchema.parse(entityOrganization),
   );
 }
-
 export function entityOrganizationFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOrganization, SDKValidationError> {

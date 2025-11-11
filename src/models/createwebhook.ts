@@ -95,7 +95,6 @@ export const CreateWebhookLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type CreateWebhookLinks$Outbound = {
   self: Url$Outbound;
@@ -112,19 +111,6 @@ export const CreateWebhookLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateWebhookLinks$ {
-  /** @deprecated use `CreateWebhookLinks$inboundSchema` instead. */
-  export const inboundSchema = CreateWebhookLinks$inboundSchema;
-  /** @deprecated use `CreateWebhookLinks$outboundSchema` instead. */
-  export const outboundSchema = CreateWebhookLinks$outboundSchema;
-  /** @deprecated use `CreateWebhookLinks$Outbound` instead. */
-  export type Outbound = CreateWebhookLinks$Outbound;
-}
-
 export function createWebhookLinksToJSON(
   createWebhookLinks: CreateWebhookLinks,
 ): string {
@@ -132,7 +118,6 @@ export function createWebhookLinksToJSON(
     CreateWebhookLinks$outboundSchema.parse(createWebhookLinks),
   );
 }
-
 export function createWebhookLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateWebhookLinks, SDKValidationError> {
@@ -165,7 +150,6 @@ export const CreateWebhook$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type CreateWebhook$Outbound = {
   resource: string;
@@ -204,23 +188,9 @@ export const CreateWebhook$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateWebhook$ {
-  /** @deprecated use `CreateWebhook$inboundSchema` instead. */
-  export const inboundSchema = CreateWebhook$inboundSchema;
-  /** @deprecated use `CreateWebhook$outboundSchema` instead. */
-  export const outboundSchema = CreateWebhook$outboundSchema;
-  /** @deprecated use `CreateWebhook$Outbound` instead. */
-  export type Outbound = CreateWebhook$Outbound;
-}
-
 export function createWebhookToJSON(createWebhook: CreateWebhook): string {
   return JSON.stringify(CreateWebhook$outboundSchema.parse(createWebhook));
 }
-
 export function createWebhookFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateWebhook, SDKValidationError> {

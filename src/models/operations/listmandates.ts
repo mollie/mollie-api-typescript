@@ -97,7 +97,6 @@ export const ListMandatesGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListMandatesGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -112,19 +111,6 @@ export const ListMandatesGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMandatesGlobals$ {
-  /** @deprecated use `ListMandatesGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListMandatesGlobals$inboundSchema;
-  /** @deprecated use `ListMandatesGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListMandatesGlobals$outboundSchema;
-  /** @deprecated use `ListMandatesGlobals$Outbound` instead. */
-  export type Outbound = ListMandatesGlobals$Outbound;
-}
-
 export function listMandatesGlobalsToJSON(
   listMandatesGlobals: ListMandatesGlobals,
 ): string {
@@ -132,7 +118,6 @@ export function listMandatesGlobalsToJSON(
     ListMandatesGlobals$outboundSchema.parse(listMandatesGlobals),
   );
 }
-
 export function listMandatesGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandatesGlobals, SDKValidationError> {
@@ -160,7 +145,6 @@ export const ListMandatesRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListMandatesRequest$Outbound = {
   customerId: string;
@@ -189,19 +173,6 @@ export const ListMandatesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMandatesRequest$ {
-  /** @deprecated use `ListMandatesRequest$inboundSchema` instead. */
-  export const inboundSchema = ListMandatesRequest$inboundSchema;
-  /** @deprecated use `ListMandatesRequest$outboundSchema` instead. */
-  export const outboundSchema = ListMandatesRequest$outboundSchema;
-  /** @deprecated use `ListMandatesRequest$Outbound` instead. */
-  export type Outbound = ListMandatesRequest$Outbound;
-}
-
 export function listMandatesRequestToJSON(
   listMandatesRequest: ListMandatesRequest,
 ): string {
@@ -209,7 +180,6 @@ export function listMandatesRequestToJSON(
     ListMandatesRequest$outboundSchema.parse(listMandatesRequest),
   );
 }
-
 export function listMandatesRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandatesRequest, SDKValidationError> {
@@ -228,7 +198,6 @@ export const ListMandatesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   mandates: z.array(models.MandateResponse$inboundSchema),
 });
-
 /** @internal */
 export type ListMandatesEmbedded$Outbound = {
   mandates: Array<models.MandateResponse$Outbound>;
@@ -243,19 +212,6 @@ export const ListMandatesEmbedded$outboundSchema: z.ZodType<
   mandates: z.array(models.MandateResponse$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMandatesEmbedded$ {
-  /** @deprecated use `ListMandatesEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListMandatesEmbedded$inboundSchema;
-  /** @deprecated use `ListMandatesEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListMandatesEmbedded$outboundSchema;
-  /** @deprecated use `ListMandatesEmbedded$Outbound` instead. */
-  export type Outbound = ListMandatesEmbedded$Outbound;
-}
-
 export function listMandatesEmbeddedToJSON(
   listMandatesEmbedded: ListMandatesEmbedded,
 ): string {
@@ -263,7 +219,6 @@ export function listMandatesEmbeddedToJSON(
     ListMandatesEmbedded$outboundSchema.parse(listMandatesEmbedded),
   );
 }
-
 export function listMandatesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandatesEmbedded, SDKValidationError> {
@@ -289,7 +244,6 @@ export const ListMandatesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListMandatesResponse$Outbound = {
   count: number;
@@ -313,19 +267,6 @@ export const ListMandatesResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMandatesResponse$ {
-  /** @deprecated use `ListMandatesResponse$inboundSchema` instead. */
-  export const inboundSchema = ListMandatesResponse$inboundSchema;
-  /** @deprecated use `ListMandatesResponse$outboundSchema` instead. */
-  export const outboundSchema = ListMandatesResponse$outboundSchema;
-  /** @deprecated use `ListMandatesResponse$Outbound` instead. */
-  export type Outbound = ListMandatesResponse$Outbound;
-}
-
 export function listMandatesResponseToJSON(
   listMandatesResponse: ListMandatesResponse,
 ): string {
@@ -333,7 +274,6 @@ export function listMandatesResponseToJSON(
     ListMandatesResponse$outboundSchema.parse(listMandatesResponse),
   );
 }
-
 export function listMandatesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandatesResponse, SDKValidationError> {

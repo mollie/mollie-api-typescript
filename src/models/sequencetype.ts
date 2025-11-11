@@ -15,18 +15,6 @@ export type SequenceType = ClosedEnum<typeof SequenceType>;
 /** @internal */
 export const SequenceType$inboundSchema: z.ZodNativeEnum<typeof SequenceType> =
   z.nativeEnum(SequenceType);
-
 /** @internal */
 export const SequenceType$outboundSchema: z.ZodNativeEnum<typeof SequenceType> =
   SequenceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SequenceType$ {
-  /** @deprecated use `SequenceType$inboundSchema` instead. */
-  export const inboundSchema = SequenceType$inboundSchema;
-  /** @deprecated use `SequenceType$outboundSchema` instead. */
-  export const outboundSchema = SequenceType$outboundSchema;
-}

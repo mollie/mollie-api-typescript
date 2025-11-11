@@ -84,7 +84,6 @@ export const EntityPaymentRouteDestination$inboundSchema: z.ZodType<
   type: RouteDestinationType$inboundSchema,
   organizationId: z.string(),
 });
-
 /** @internal */
 export type EntityPaymentRouteDestination$Outbound = {
   type: string;
@@ -101,19 +100,6 @@ export const EntityPaymentRouteDestination$outboundSchema: z.ZodType<
   organizationId: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRouteDestination$ {
-  /** @deprecated use `EntityPaymentRouteDestination$inboundSchema` instead. */
-  export const inboundSchema = EntityPaymentRouteDestination$inboundSchema;
-  /** @deprecated use `EntityPaymentRouteDestination$outboundSchema` instead. */
-  export const outboundSchema = EntityPaymentRouteDestination$outboundSchema;
-  /** @deprecated use `EntityPaymentRouteDestination$Outbound` instead. */
-  export type Outbound = EntityPaymentRouteDestination$Outbound;
-}
-
 export function entityPaymentRouteDestinationToJSON(
   entityPaymentRouteDestination: EntityPaymentRouteDestination,
 ): string {
@@ -123,7 +109,6 @@ export function entityPaymentRouteDestinationToJSON(
     ),
   );
 }
-
 export function entityPaymentRouteDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteDestination, SDKValidationError> {
@@ -143,7 +128,6 @@ export const EntityPaymentRouteLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   payment: Url$inboundSchema,
 });
-
 /** @internal */
 export type EntityPaymentRouteLinks$Outbound = {
   self: Url$Outbound;
@@ -160,19 +144,6 @@ export const EntityPaymentRouteLinks$outboundSchema: z.ZodType<
   payment: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRouteLinks$ {
-  /** @deprecated use `EntityPaymentRouteLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityPaymentRouteLinks$inboundSchema;
-  /** @deprecated use `EntityPaymentRouteLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityPaymentRouteLinks$outboundSchema;
-  /** @deprecated use `EntityPaymentRouteLinks$Outbound` instead. */
-  export type Outbound = EntityPaymentRouteLinks$Outbound;
-}
-
 export function entityPaymentRouteLinksToJSON(
   entityPaymentRouteLinks: EntityPaymentRouteLinks,
 ): string {
@@ -180,7 +151,6 @@ export function entityPaymentRouteLinksToJSON(
     EntityPaymentRouteLinks$outboundSchema.parse(entityPaymentRouteLinks),
   );
 }
-
 export function entityPaymentRouteLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteLinks, SDKValidationError> {
@@ -207,7 +177,6 @@ export const EntityPaymentRoute$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityPaymentRoute$Outbound = {
   id: string;
@@ -234,19 +203,6 @@ export const EntityPaymentRoute$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPaymentRoute$ {
-  /** @deprecated use `EntityPaymentRoute$inboundSchema` instead. */
-  export const inboundSchema = EntityPaymentRoute$inboundSchema;
-  /** @deprecated use `EntityPaymentRoute$outboundSchema` instead. */
-  export const outboundSchema = EntityPaymentRoute$outboundSchema;
-  /** @deprecated use `EntityPaymentRoute$Outbound` instead. */
-  export type Outbound = EntityPaymentRoute$Outbound;
-}
-
 export function entityPaymentRouteToJSON(
   entityPaymentRoute: EntityPaymentRoute,
 ): string {
@@ -254,7 +210,6 @@ export function entityPaymentRouteToJSON(
     EntityPaymentRoute$outboundSchema.parse(entityPaymentRoute),
   );
 }
-
 export function entityPaymentRouteFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRoute, SDKValidationError> {

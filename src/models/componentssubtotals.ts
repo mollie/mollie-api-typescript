@@ -217,131 +217,56 @@ export type ComponentsSubTotals = {
 export const ComponentsSubTotalsCardIssuer$inboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsCardIssuer
 > = z.nativeEnum(ComponentsSubTotalsCardIssuer);
-
 /** @internal */
 export const ComponentsSubTotalsCardIssuer$outboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsCardIssuer
 > = ComponentsSubTotalsCardIssuer$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComponentsSubTotalsCardIssuer$ {
-  /** @deprecated use `ComponentsSubTotalsCardIssuer$inboundSchema` instead. */
-  export const inboundSchema = ComponentsSubTotalsCardIssuer$inboundSchema;
-  /** @deprecated use `ComponentsSubTotalsCardIssuer$outboundSchema` instead. */
-  export const outboundSchema = ComponentsSubTotalsCardIssuer$outboundSchema;
-}
-
 /** @internal */
 export const ComponentsSubTotalsCardAudience$inboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsCardAudience
 > = z.nativeEnum(ComponentsSubTotalsCardAudience);
-
 /** @internal */
 export const ComponentsSubTotalsCardAudience$outboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsCardAudience
 > = ComponentsSubTotalsCardAudience$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComponentsSubTotalsCardAudience$ {
-  /** @deprecated use `ComponentsSubTotalsCardAudience$inboundSchema` instead. */
-  export const inboundSchema = ComponentsSubTotalsCardAudience$inboundSchema;
-  /** @deprecated use `ComponentsSubTotalsCardAudience$outboundSchema` instead. */
-  export const outboundSchema = ComponentsSubTotalsCardAudience$outboundSchema;
-}
-
 /** @internal */
 export const ComponentsSubTotalsCardRegion$inboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsCardRegion
 > = z.nativeEnum(ComponentsSubTotalsCardRegion);
-
 /** @internal */
 export const ComponentsSubTotalsCardRegion$outboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsCardRegion
 > = ComponentsSubTotalsCardRegion$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComponentsSubTotalsCardRegion$ {
-  /** @deprecated use `ComponentsSubTotalsCardRegion$inboundSchema` instead. */
-  export const inboundSchema = ComponentsSubTotalsCardRegion$inboundSchema;
-  /** @deprecated use `ComponentsSubTotalsCardRegion$outboundSchema` instead. */
-  export const outboundSchema = ComponentsSubTotalsCardRegion$outboundSchema;
-}
-
 /** @internal */
 export const ComponentsSubTotalsFeeType$inboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsFeeType
 > = z.nativeEnum(ComponentsSubTotalsFeeType);
-
 /** @internal */
 export const ComponentsSubTotalsFeeType$outboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsFeeType
 > = ComponentsSubTotalsFeeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComponentsSubTotalsFeeType$ {
-  /** @deprecated use `ComponentsSubTotalsFeeType$inboundSchema` instead. */
-  export const inboundSchema = ComponentsSubTotalsFeeType$inboundSchema;
-  /** @deprecated use `ComponentsSubTotalsFeeType$outboundSchema` instead. */
-  export const outboundSchema = ComponentsSubTotalsFeeType$outboundSchema;
-}
 
 /** @internal */
 export const ComponentsSubTotalsPrepaymentPartType$inboundSchema:
   z.ZodNativeEnum<typeof ComponentsSubTotalsPrepaymentPartType> = z.nativeEnum(
     ComponentsSubTotalsPrepaymentPartType,
   );
-
 /** @internal */
 export const ComponentsSubTotalsPrepaymentPartType$outboundSchema:
   z.ZodNativeEnum<typeof ComponentsSubTotalsPrepaymentPartType> =
     ComponentsSubTotalsPrepaymentPartType$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComponentsSubTotalsPrepaymentPartType$ {
-  /** @deprecated use `ComponentsSubTotalsPrepaymentPartType$inboundSchema` instead. */
-  export const inboundSchema =
-    ComponentsSubTotalsPrepaymentPartType$inboundSchema;
-  /** @deprecated use `ComponentsSubTotalsPrepaymentPartType$outboundSchema` instead. */
-  export const outboundSchema =
-    ComponentsSubTotalsPrepaymentPartType$outboundSchema;
-}
-
 /** @internal */
 export const ComponentsSubTotalsTransactionType$inboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsTransactionType
 > = z.nativeEnum(ComponentsSubTotalsTransactionType);
-
 /** @internal */
 export const ComponentsSubTotalsTransactionType$outboundSchema: z.ZodNativeEnum<
   typeof ComponentsSubTotalsTransactionType
 > = ComponentsSubTotalsTransactionType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComponentsSubTotalsTransactionType$ {
-  /** @deprecated use `ComponentsSubTotalsTransactionType$inboundSchema` instead. */
-  export const inboundSchema = ComponentsSubTotalsTransactionType$inboundSchema;
-  /** @deprecated use `ComponentsSubTotalsTransactionType$outboundSchema` instead. */
-  export const outboundSchema =
-    ComponentsSubTotalsTransactionType$outboundSchema;
-}
 
 /** @internal */
 export const ComponentsSubTotals$inboundSchema: z.ZodType<
@@ -369,7 +294,6 @@ export const ComponentsSubTotals$inboundSchema: z.ZodType<
     "sub-totals": "subTotals",
   });
 });
-
 /** @internal */
 export type ComponentsSubTotals$Outbound = {
   "sub-totals"?: Array<SubTotals$Outbound> | null | undefined;
@@ -410,19 +334,6 @@ export const ComponentsSubTotals$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComponentsSubTotals$ {
-  /** @deprecated use `ComponentsSubTotals$inboundSchema` instead. */
-  export const inboundSchema = ComponentsSubTotals$inboundSchema;
-  /** @deprecated use `ComponentsSubTotals$outboundSchema` instead. */
-  export const outboundSchema = ComponentsSubTotals$outboundSchema;
-  /** @deprecated use `ComponentsSubTotals$Outbound` instead. */
-  export type Outbound = ComponentsSubTotals$Outbound;
-}
-
 export function componentsSubTotalsToJSON(
   componentsSubTotals: ComponentsSubTotals,
 ): string {
@@ -430,7 +341,6 @@ export function componentsSubTotalsToJSON(
     ComponentsSubTotals$outboundSchema.parse(componentsSubTotals),
   );
 }
-
 export function componentsSubTotalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ComponentsSubTotals, SDKValidationError> {

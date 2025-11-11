@@ -106,7 +106,6 @@ export const UpdateSubscriptionRequestBody$inboundSchema: z.ZodType<
   mandateId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type UpdateSubscriptionRequestBody$Outbound = {
   amount?: models.Amount$Outbound | undefined;
@@ -137,19 +136,6 @@ export const UpdateSubscriptionRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateSubscriptionRequestBody$ {
-  /** @deprecated use `UpdateSubscriptionRequestBody$inboundSchema` instead. */
-  export const inboundSchema = UpdateSubscriptionRequestBody$inboundSchema;
-  /** @deprecated use `UpdateSubscriptionRequestBody$outboundSchema` instead. */
-  export const outboundSchema = UpdateSubscriptionRequestBody$outboundSchema;
-  /** @deprecated use `UpdateSubscriptionRequestBody$Outbound` instead. */
-  export type Outbound = UpdateSubscriptionRequestBody$Outbound;
-}
-
 export function updateSubscriptionRequestBodyToJSON(
   updateSubscriptionRequestBody: UpdateSubscriptionRequestBody,
 ): string {
@@ -159,7 +145,6 @@ export function updateSubscriptionRequestBodyToJSON(
     ),
   );
 }
-
 export function updateSubscriptionRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateSubscriptionRequestBody, SDKValidationError> {
@@ -187,7 +172,6 @@ export const UpdateSubscriptionRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type UpdateSubscriptionRequest$Outbound = {
   customerId: string;
@@ -214,19 +198,6 @@ export const UpdateSubscriptionRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateSubscriptionRequest$ {
-  /** @deprecated use `UpdateSubscriptionRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateSubscriptionRequest$inboundSchema;
-  /** @deprecated use `UpdateSubscriptionRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateSubscriptionRequest$outboundSchema;
-  /** @deprecated use `UpdateSubscriptionRequest$Outbound` instead. */
-  export type Outbound = UpdateSubscriptionRequest$Outbound;
-}
-
 export function updateSubscriptionRequestToJSON(
   updateSubscriptionRequest: UpdateSubscriptionRequest,
 ): string {
@@ -234,7 +205,6 @@ export function updateSubscriptionRequestToJSON(
     UpdateSubscriptionRequest$outboundSchema.parse(updateSubscriptionRequest),
   );
 }
-
 export function updateSubscriptionRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateSubscriptionRequest, SDKValidationError> {

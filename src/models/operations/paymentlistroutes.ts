@@ -93,7 +93,6 @@ export const PaymentListRoutesGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type PaymentListRoutesGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -108,19 +107,6 @@ export const PaymentListRoutesGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesGlobals$ {
-  /** @deprecated use `PaymentListRoutesGlobals$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesGlobals$inboundSchema;
-  /** @deprecated use `PaymentListRoutesGlobals$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesGlobals$outboundSchema;
-  /** @deprecated use `PaymentListRoutesGlobals$Outbound` instead. */
-  export type Outbound = PaymentListRoutesGlobals$Outbound;
-}
-
 export function paymentListRoutesGlobalsToJSON(
   paymentListRoutesGlobals: PaymentListRoutesGlobals,
 ): string {
@@ -128,7 +114,6 @@ export function paymentListRoutesGlobalsToJSON(
     PaymentListRoutesGlobals$outboundSchema.parse(paymentListRoutesGlobals),
   );
 }
-
 export function paymentListRoutesGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesGlobals, SDKValidationError> {
@@ -153,7 +138,6 @@ export const PaymentListRoutesRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type PaymentListRoutesRequest$Outbound = {
   paymentId: string;
@@ -176,19 +160,6 @@ export const PaymentListRoutesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesRequest$ {
-  /** @deprecated use `PaymentListRoutesRequest$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesRequest$inboundSchema;
-  /** @deprecated use `PaymentListRoutesRequest$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesRequest$outboundSchema;
-  /** @deprecated use `PaymentListRoutesRequest$Outbound` instead. */
-  export type Outbound = PaymentListRoutesRequest$Outbound;
-}
-
 export function paymentListRoutesRequestToJSON(
   paymentListRoutesRequest: PaymentListRoutesRequest,
 ): string {
@@ -196,7 +167,6 @@ export function paymentListRoutesRequestToJSON(
     PaymentListRoutesRequest$outboundSchema.parse(paymentListRoutesRequest),
   );
 }
-
 export function paymentListRoutesRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesRequest, SDKValidationError> {
@@ -215,7 +185,6 @@ export const PaymentListRoutesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   routes: z.array(models.RouteGetResponse$inboundSchema),
 });
-
 /** @internal */
 export type PaymentListRoutesEmbedded$Outbound = {
   routes: Array<models.RouteGetResponse$Outbound>;
@@ -230,19 +199,6 @@ export const PaymentListRoutesEmbedded$outboundSchema: z.ZodType<
   routes: z.array(models.RouteGetResponse$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesEmbedded$ {
-  /** @deprecated use `PaymentListRoutesEmbedded$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesEmbedded$inboundSchema;
-  /** @deprecated use `PaymentListRoutesEmbedded$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesEmbedded$outboundSchema;
-  /** @deprecated use `PaymentListRoutesEmbedded$Outbound` instead. */
-  export type Outbound = PaymentListRoutesEmbedded$Outbound;
-}
-
 export function paymentListRoutesEmbeddedToJSON(
   paymentListRoutesEmbedded: PaymentListRoutesEmbedded,
 ): string {
@@ -250,7 +206,6 @@ export function paymentListRoutesEmbeddedToJSON(
     PaymentListRoutesEmbedded$outboundSchema.parse(paymentListRoutesEmbedded),
   );
 }
-
 export function paymentListRoutesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesEmbedded, SDKValidationError> {
@@ -270,7 +225,6 @@ export const PaymentListRoutesLinks$inboundSchema: z.ZodType<
   self: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type PaymentListRoutesLinks$Outbound = {
   self?: models.Url$Outbound | undefined;
@@ -287,19 +241,6 @@ export const PaymentListRoutesLinks$outboundSchema: z.ZodType<
   documentation: models.Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesLinks$ {
-  /** @deprecated use `PaymentListRoutesLinks$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesLinks$inboundSchema;
-  /** @deprecated use `PaymentListRoutesLinks$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesLinks$outboundSchema;
-  /** @deprecated use `PaymentListRoutesLinks$Outbound` instead. */
-  export type Outbound = PaymentListRoutesLinks$Outbound;
-}
-
 export function paymentListRoutesLinksToJSON(
   paymentListRoutesLinks: PaymentListRoutesLinks,
 ): string {
@@ -307,7 +248,6 @@ export function paymentListRoutesLinksToJSON(
     PaymentListRoutesLinks$outboundSchema.parse(paymentListRoutesLinks),
   );
 }
-
 export function paymentListRoutesLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesLinks, SDKValidationError> {
@@ -333,7 +273,6 @@ export const PaymentListRoutesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type PaymentListRoutesResponse$Outbound = {
   count: number;
@@ -357,19 +296,6 @@ export const PaymentListRoutesResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentListRoutesResponse$ {
-  /** @deprecated use `PaymentListRoutesResponse$inboundSchema` instead. */
-  export const inboundSchema = PaymentListRoutesResponse$inboundSchema;
-  /** @deprecated use `PaymentListRoutesResponse$outboundSchema` instead. */
-  export const outboundSchema = PaymentListRoutesResponse$outboundSchema;
-  /** @deprecated use `PaymentListRoutesResponse$Outbound` instead. */
-  export type Outbound = PaymentListRoutesResponse$Outbound;
-}
-
 export function paymentListRoutesResponseToJSON(
   paymentListRoutesResponse: PaymentListRoutesResponse,
 ): string {
@@ -377,7 +303,6 @@ export function paymentListRoutesResponseToJSON(
     PaymentListRoutesResponse$outboundSchema.parse(paymentListRoutesResponse),
   );
 }
-
 export function paymentListRoutesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesResponse, SDKValidationError> {

@@ -39,7 +39,6 @@ export const BalanceTransferCategoryResponse$inboundSchema: z.ZodType<
     z.nativeEnum(BalanceTransferCategoryResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const BalanceTransferCategoryResponse$outboundSchema: z.ZodType<
   BalanceTransferCategoryResponse,
@@ -49,14 +48,3 @@ export const BalanceTransferCategoryResponse$outboundSchema: z.ZodType<
   z.nativeEnum(BalanceTransferCategoryResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BalanceTransferCategoryResponse$ {
-  /** @deprecated use `BalanceTransferCategoryResponse$inboundSchema` instead. */
-  export const inboundSchema = BalanceTransferCategoryResponse$inboundSchema;
-  /** @deprecated use `BalanceTransferCategoryResponse$outboundSchema` instead. */
-  export const outboundSchema = BalanceTransferCategoryResponse$outboundSchema;
-}

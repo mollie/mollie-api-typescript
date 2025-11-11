@@ -108,7 +108,6 @@ export const EntityMandate$inboundSchema: z.ZodType<
   customerId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type EntityMandate$Outbound = {
   id?: string | undefined;
@@ -147,23 +146,9 @@ export const EntityMandate$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMandate$ {
-  /** @deprecated use `EntityMandate$inboundSchema` instead. */
-  export const inboundSchema = EntityMandate$inboundSchema;
-  /** @deprecated use `EntityMandate$outboundSchema` instead. */
-  export const outboundSchema = EntityMandate$outboundSchema;
-  /** @deprecated use `EntityMandate$Outbound` instead. */
-  export type Outbound = EntityMandate$Outbound;
-}
-
 export function entityMandateToJSON(entityMandate: EntityMandate): string {
   return JSON.stringify(EntityMandate$outboundSchema.parse(entityMandate));
 }
-
 export function entityMandateFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMandate, SDKValidationError> {

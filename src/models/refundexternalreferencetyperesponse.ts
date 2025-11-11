@@ -32,7 +32,6 @@ export const RefundExternalReferenceTypeResponse$inboundSchema: z.ZodType<
     z.nativeEnum(RefundExternalReferenceTypeResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const RefundExternalReferenceTypeResponse$outboundSchema: z.ZodType<
   RefundExternalReferenceTypeResponse,
@@ -42,16 +41,3 @@ export const RefundExternalReferenceTypeResponse$outboundSchema: z.ZodType<
   z.nativeEnum(RefundExternalReferenceTypeResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RefundExternalReferenceTypeResponse$ {
-  /** @deprecated use `RefundExternalReferenceTypeResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    RefundExternalReferenceTypeResponse$inboundSchema;
-  /** @deprecated use `RefundExternalReferenceTypeResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    RefundExternalReferenceTypeResponse$outboundSchema;
-}

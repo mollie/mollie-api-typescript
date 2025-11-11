@@ -31,7 +31,6 @@ export const CreateClientLinkRequest$inboundSchema: z.ZodType<
     "entity-client-link": "entityClientLink",
   });
 });
-
 /** @internal */
 export type CreateClientLinkRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -53,19 +52,6 @@ export const CreateClientLinkRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateClientLinkRequest$ {
-  /** @deprecated use `CreateClientLinkRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateClientLinkRequest$inboundSchema;
-  /** @deprecated use `CreateClientLinkRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateClientLinkRequest$outboundSchema;
-  /** @deprecated use `CreateClientLinkRequest$Outbound` instead. */
-  export type Outbound = CreateClientLinkRequest$Outbound;
-}
-
 export function createClientLinkRequestToJSON(
   createClientLinkRequest: CreateClientLinkRequest,
 ): string {
@@ -73,7 +59,6 @@ export function createClientLinkRequestToJSON(
     CreateClientLinkRequest$outboundSchema.parse(createClientLinkRequest),
   );
 }
-
 export function createClientLinkRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateClientLinkRequest, SDKValidationError> {

@@ -54,7 +54,6 @@ export const GetMandateGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetMandateGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -69,19 +68,6 @@ export const GetMandateGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetMandateGlobals$ {
-  /** @deprecated use `GetMandateGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetMandateGlobals$inboundSchema;
-  /** @deprecated use `GetMandateGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetMandateGlobals$outboundSchema;
-  /** @deprecated use `GetMandateGlobals$Outbound` instead. */
-  export type Outbound = GetMandateGlobals$Outbound;
-}
-
 export function getMandateGlobalsToJSON(
   getMandateGlobals: GetMandateGlobals,
 ): string {
@@ -89,7 +75,6 @@ export function getMandateGlobalsToJSON(
     GetMandateGlobals$outboundSchema.parse(getMandateGlobals),
   );
 }
-
 export function getMandateGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetMandateGlobals, SDKValidationError> {
@@ -115,7 +100,6 @@ export const GetMandateRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetMandateRequest$Outbound = {
   customerId: string;
@@ -140,19 +124,6 @@ export const GetMandateRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetMandateRequest$ {
-  /** @deprecated use `GetMandateRequest$inboundSchema` instead. */
-  export const inboundSchema = GetMandateRequest$inboundSchema;
-  /** @deprecated use `GetMandateRequest$outboundSchema` instead. */
-  export const outboundSchema = GetMandateRequest$outboundSchema;
-  /** @deprecated use `GetMandateRequest$Outbound` instead. */
-  export type Outbound = GetMandateRequest$Outbound;
-}
-
 export function getMandateRequestToJSON(
   getMandateRequest: GetMandateRequest,
 ): string {
@@ -160,7 +131,6 @@ export function getMandateRequestToJSON(
     GetMandateRequest$outboundSchema.parse(getMandateRequest),
   );
 }
-
 export function getMandateRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetMandateRequest, SDKValidationError> {

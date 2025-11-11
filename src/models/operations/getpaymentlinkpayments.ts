@@ -97,7 +97,6 @@ export const GetPaymentLinkPaymentsGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetPaymentLinkPaymentsGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -112,19 +111,6 @@ export const GetPaymentLinkPaymentsGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentLinkPaymentsGlobals$ {
-  /** @deprecated use `GetPaymentLinkPaymentsGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetPaymentLinkPaymentsGlobals$inboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetPaymentLinkPaymentsGlobals$outboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsGlobals$Outbound` instead. */
-  export type Outbound = GetPaymentLinkPaymentsGlobals$Outbound;
-}
-
 export function getPaymentLinkPaymentsGlobalsToJSON(
   getPaymentLinkPaymentsGlobals: GetPaymentLinkPaymentsGlobals,
 ): string {
@@ -134,7 +120,6 @@ export function getPaymentLinkPaymentsGlobalsToJSON(
     ),
   );
 }
-
 export function getPaymentLinkPaymentsGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentLinkPaymentsGlobals, SDKValidationError> {
@@ -162,7 +147,6 @@ export const GetPaymentLinkPaymentsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetPaymentLinkPaymentsRequest$Outbound = {
   paymentLinkId: string;
@@ -191,19 +175,6 @@ export const GetPaymentLinkPaymentsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentLinkPaymentsRequest$ {
-  /** @deprecated use `GetPaymentLinkPaymentsRequest$inboundSchema` instead. */
-  export const inboundSchema = GetPaymentLinkPaymentsRequest$inboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsRequest$outboundSchema` instead. */
-  export const outboundSchema = GetPaymentLinkPaymentsRequest$outboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsRequest$Outbound` instead. */
-  export type Outbound = GetPaymentLinkPaymentsRequest$Outbound;
-}
-
 export function getPaymentLinkPaymentsRequestToJSON(
   getPaymentLinkPaymentsRequest: GetPaymentLinkPaymentsRequest,
 ): string {
@@ -213,7 +184,6 @@ export function getPaymentLinkPaymentsRequestToJSON(
     ),
   );
 }
-
 export function getPaymentLinkPaymentsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentLinkPaymentsRequest, SDKValidationError> {
@@ -232,7 +202,6 @@ export const GetPaymentLinkPaymentsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   payments: z.array(models.PaymentResponse$inboundSchema).optional(),
 });
-
 /** @internal */
 export type GetPaymentLinkPaymentsEmbedded$Outbound = {
   payments?: Array<models.PaymentResponse$Outbound> | undefined;
@@ -247,19 +216,6 @@ export const GetPaymentLinkPaymentsEmbedded$outboundSchema: z.ZodType<
   payments: z.array(models.PaymentResponse$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentLinkPaymentsEmbedded$ {
-  /** @deprecated use `GetPaymentLinkPaymentsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = GetPaymentLinkPaymentsEmbedded$inboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = GetPaymentLinkPaymentsEmbedded$outboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsEmbedded$Outbound` instead. */
-  export type Outbound = GetPaymentLinkPaymentsEmbedded$Outbound;
-}
-
 export function getPaymentLinkPaymentsEmbeddedToJSON(
   getPaymentLinkPaymentsEmbedded: GetPaymentLinkPaymentsEmbedded,
 ): string {
@@ -269,7 +225,6 @@ export function getPaymentLinkPaymentsEmbeddedToJSON(
     ),
   );
 }
-
 export function getPaymentLinkPaymentsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentLinkPaymentsEmbedded, SDKValidationError> {
@@ -295,7 +250,6 @@ export const GetPaymentLinkPaymentsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type GetPaymentLinkPaymentsResponse$Outbound = {
   count: number;
@@ -319,19 +273,6 @@ export const GetPaymentLinkPaymentsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPaymentLinkPaymentsResponse$ {
-  /** @deprecated use `GetPaymentLinkPaymentsResponse$inboundSchema` instead. */
-  export const inboundSchema = GetPaymentLinkPaymentsResponse$inboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsResponse$outboundSchema` instead. */
-  export const outboundSchema = GetPaymentLinkPaymentsResponse$outboundSchema;
-  /** @deprecated use `GetPaymentLinkPaymentsResponse$Outbound` instead. */
-  export type Outbound = GetPaymentLinkPaymentsResponse$Outbound;
-}
-
 export function getPaymentLinkPaymentsResponseToJSON(
   getPaymentLinkPaymentsResponse: GetPaymentLinkPaymentsResponse,
 ): string {
@@ -341,7 +282,6 @@ export function getPaymentLinkPaymentsResponseToJSON(
     ),
   );
 }
-
 export function getPaymentLinkPaymentsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentLinkPaymentsResponse, SDKValidationError> {

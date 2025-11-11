@@ -54,7 +54,6 @@ export const CancelRefundGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type CancelRefundGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -69,19 +68,6 @@ export const CancelRefundGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelRefundGlobals$ {
-  /** @deprecated use `CancelRefundGlobals$inboundSchema` instead. */
-  export const inboundSchema = CancelRefundGlobals$inboundSchema;
-  /** @deprecated use `CancelRefundGlobals$outboundSchema` instead. */
-  export const outboundSchema = CancelRefundGlobals$outboundSchema;
-  /** @deprecated use `CancelRefundGlobals$Outbound` instead. */
-  export type Outbound = CancelRefundGlobals$Outbound;
-}
-
 export function cancelRefundGlobalsToJSON(
   cancelRefundGlobals: CancelRefundGlobals,
 ): string {
@@ -89,7 +75,6 @@ export function cancelRefundGlobalsToJSON(
     CancelRefundGlobals$outboundSchema.parse(cancelRefundGlobals),
   );
 }
-
 export function cancelRefundGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<CancelRefundGlobals, SDKValidationError> {
@@ -115,7 +100,6 @@ export const CancelRefundRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type CancelRefundRequest$Outbound = {
   paymentId: string;
@@ -140,19 +124,6 @@ export const CancelRefundRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelRefundRequest$ {
-  /** @deprecated use `CancelRefundRequest$inboundSchema` instead. */
-  export const inboundSchema = CancelRefundRequest$inboundSchema;
-  /** @deprecated use `CancelRefundRequest$outboundSchema` instead. */
-  export const outboundSchema = CancelRefundRequest$outboundSchema;
-  /** @deprecated use `CancelRefundRequest$Outbound` instead. */
-  export type Outbound = CancelRefundRequest$Outbound;
-}
-
 export function cancelRefundRequestToJSON(
   cancelRefundRequest: CancelRefundRequest,
 ): string {
@@ -160,7 +131,6 @@ export function cancelRefundRequestToJSON(
     CancelRefundRequest$outboundSchema.parse(cancelRefundRequest),
   );
 }
-
 export function cancelRefundRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CancelRefundRequest, SDKValidationError> {

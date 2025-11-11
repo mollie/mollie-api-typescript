@@ -32,7 +32,6 @@ export const GetInvoiceRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetInvoiceRequest$Outbound = {
   id: string;
@@ -53,19 +52,6 @@ export const GetInvoiceRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetInvoiceRequest$ {
-  /** @deprecated use `GetInvoiceRequest$inboundSchema` instead. */
-  export const inboundSchema = GetInvoiceRequest$inboundSchema;
-  /** @deprecated use `GetInvoiceRequest$outboundSchema` instead. */
-  export const outboundSchema = GetInvoiceRequest$outboundSchema;
-  /** @deprecated use `GetInvoiceRequest$Outbound` instead. */
-  export type Outbound = GetInvoiceRequest$Outbound;
-}
-
 export function getInvoiceRequestToJSON(
   getInvoiceRequest: GetInvoiceRequest,
 ): string {
@@ -73,7 +59,6 @@ export function getInvoiceRequestToJSON(
     GetInvoiceRequest$outboundSchema.parse(getInvoiceRequest),
   );
 }
-
 export function getInvoiceRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetInvoiceRequest, SDKValidationError> {

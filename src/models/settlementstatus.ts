@@ -33,7 +33,6 @@ export const SettlementStatus$inboundSchema: z.ZodType<
     z.nativeEnum(SettlementStatus),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const SettlementStatus$outboundSchema: z.ZodType<
   SettlementStatus,
@@ -43,14 +42,3 @@ export const SettlementStatus$outboundSchema: z.ZodType<
   z.nativeEnum(SettlementStatus),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettlementStatus$ {
-  /** @deprecated use `SettlementStatus$inboundSchema` instead. */
-  export const inboundSchema = SettlementStatus$inboundSchema;
-  /** @deprecated use `SettlementStatus$outboundSchema` instead. */
-  export const outboundSchema = SettlementStatus$outboundSchema;
-}

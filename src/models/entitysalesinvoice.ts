@@ -200,7 +200,6 @@ export const EntitySalesInvoiceMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type EntitySalesInvoiceMetadata$Outbound = {};
 
@@ -211,19 +210,6 @@ export const EntitySalesInvoiceMetadata$outboundSchema: z.ZodType<
   EntitySalesInvoiceMetadata
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoiceMetadata$ {
-  /** @deprecated use `EntitySalesInvoiceMetadata$inboundSchema` instead. */
-  export const inboundSchema = EntitySalesInvoiceMetadata$inboundSchema;
-  /** @deprecated use `EntitySalesInvoiceMetadata$outboundSchema` instead. */
-  export const outboundSchema = EntitySalesInvoiceMetadata$outboundSchema;
-  /** @deprecated use `EntitySalesInvoiceMetadata$Outbound` instead. */
-  export type Outbound = EntitySalesInvoiceMetadata$Outbound;
-}
-
 export function entitySalesInvoiceMetadataToJSON(
   entitySalesInvoiceMetadata: EntitySalesInvoiceMetadata,
 ): string {
@@ -231,7 +217,6 @@ export function entitySalesInvoiceMetadataToJSON(
     EntitySalesInvoiceMetadata$outboundSchema.parse(entitySalesInvoiceMetadata),
   );
 }
-
 export function entitySalesInvoiceMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySalesInvoiceMetadata, SDKValidationError> {
@@ -273,7 +258,6 @@ export const EntitySalesInvoice$inboundSchema: z.ZodType<
   totalVatAmount: Amount$inboundSchema.optional(),
   discountedSubtotalAmount: Amount$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntitySalesInvoice$Outbound = {
   id?: string | undefined;
@@ -332,19 +316,6 @@ export const EntitySalesInvoice$outboundSchema: z.ZodType<
   discountedSubtotalAmount: Amount$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntitySalesInvoice$ {
-  /** @deprecated use `EntitySalesInvoice$inboundSchema` instead. */
-  export const inboundSchema = EntitySalesInvoice$inboundSchema;
-  /** @deprecated use `EntitySalesInvoice$outboundSchema` instead. */
-  export const outboundSchema = EntitySalesInvoice$outboundSchema;
-  /** @deprecated use `EntitySalesInvoice$Outbound` instead. */
-  export type Outbound = EntitySalesInvoice$Outbound;
-}
-
 export function entitySalesInvoiceToJSON(
   entitySalesInvoice: EntitySalesInvoice,
 ): string {
@@ -352,7 +323,6 @@ export function entitySalesInvoiceToJSON(
     EntitySalesInvoice$outboundSchema.parse(entitySalesInvoice),
   );
 }
-
 export function entitySalesInvoiceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySalesInvoice, SDKValidationError> {

@@ -34,7 +34,6 @@ export const SubscriptionMethodResponse$inboundSchema: z.ZodType<
     z.nativeEnum(SubscriptionMethodResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const SubscriptionMethodResponse$outboundSchema: z.ZodType<
   SubscriptionMethodResponse,
@@ -44,14 +43,3 @@ export const SubscriptionMethodResponse$outboundSchema: z.ZodType<
   z.nativeEnum(SubscriptionMethodResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionMethodResponse$ {
-  /** @deprecated use `SubscriptionMethodResponse$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionMethodResponse$inboundSchema;
-  /** @deprecated use `SubscriptionMethodResponse$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionMethodResponse$outboundSchema;
-}

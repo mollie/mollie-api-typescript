@@ -50,7 +50,6 @@ export const GetPermissionGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetPermissionGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetPermissionGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPermissionGlobals$ {
-  /** @deprecated use `GetPermissionGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetPermissionGlobals$inboundSchema;
-  /** @deprecated use `GetPermissionGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetPermissionGlobals$outboundSchema;
-  /** @deprecated use `GetPermissionGlobals$Outbound` instead. */
-  export type Outbound = GetPermissionGlobals$Outbound;
-}
-
 export function getPermissionGlobalsToJSON(
   getPermissionGlobals: GetPermissionGlobals,
 ): string {
@@ -85,7 +71,6 @@ export function getPermissionGlobalsToJSON(
     GetPermissionGlobals$outboundSchema.parse(getPermissionGlobals),
   );
 }
-
 export function getPermissionGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPermissionGlobals, SDKValidationError> {
@@ -110,7 +95,6 @@ export const GetPermissionRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetPermissionRequest$Outbound = {
   permissionId: string;
@@ -133,19 +117,6 @@ export const GetPermissionRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPermissionRequest$ {
-  /** @deprecated use `GetPermissionRequest$inboundSchema` instead. */
-  export const inboundSchema = GetPermissionRequest$inboundSchema;
-  /** @deprecated use `GetPermissionRequest$outboundSchema` instead. */
-  export const outboundSchema = GetPermissionRequest$outboundSchema;
-  /** @deprecated use `GetPermissionRequest$Outbound` instead. */
-  export type Outbound = GetPermissionRequest$Outbound;
-}
-
 export function getPermissionRequestToJSON(
   getPermissionRequest: GetPermissionRequest,
 ): string {
@@ -153,7 +124,6 @@ export function getPermissionRequestToJSON(
     GetPermissionRequest$outboundSchema.parse(getPermissionRequest),
   );
 }
-
 export function getPermissionRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPermissionRequest, SDKValidationError> {

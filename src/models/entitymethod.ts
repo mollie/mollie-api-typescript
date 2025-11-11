@@ -184,7 +184,6 @@ export const EntityMethodImage$inboundSchema: z.ZodType<
   size2x: z.string(),
   svg: z.string(),
 });
-
 /** @internal */
 export type EntityMethodImage$Outbound = {
   size1x: string;
@@ -203,19 +202,6 @@ export const EntityMethodImage$outboundSchema: z.ZodType<
   svg: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodImage$ {
-  /** @deprecated use `EntityMethodImage$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodImage$inboundSchema;
-  /** @deprecated use `EntityMethodImage$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodImage$outboundSchema;
-  /** @deprecated use `EntityMethodImage$Outbound` instead. */
-  export type Outbound = EntityMethodImage$Outbound;
-}
-
 export function entityMethodImageToJSON(
   entityMethodImage: EntityMethodImage,
 ): string {
@@ -223,7 +209,6 @@ export function entityMethodImageToJSON(
     EntityMethodImage$outboundSchema.parse(entityMethodImage),
   );
 }
-
 export function entityMethodImageFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodImage, SDKValidationError> {
@@ -244,7 +229,6 @@ export const EntityMethodIssuerImage$inboundSchema: z.ZodType<
   size2x: z.string().optional(),
   svg: z.string().optional(),
 });
-
 /** @internal */
 export type EntityMethodIssuerImage$Outbound = {
   size1x?: string | undefined;
@@ -263,19 +247,6 @@ export const EntityMethodIssuerImage$outboundSchema: z.ZodType<
   svg: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodIssuerImage$ {
-  /** @deprecated use `EntityMethodIssuerImage$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodIssuerImage$inboundSchema;
-  /** @deprecated use `EntityMethodIssuerImage$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodIssuerImage$outboundSchema;
-  /** @deprecated use `EntityMethodIssuerImage$Outbound` instead. */
-  export type Outbound = EntityMethodIssuerImage$Outbound;
-}
-
 export function entityMethodIssuerImageToJSON(
   entityMethodIssuerImage: EntityMethodIssuerImage,
 ): string {
@@ -283,7 +254,6 @@ export function entityMethodIssuerImageToJSON(
     EntityMethodIssuerImage$outboundSchema.parse(entityMethodIssuerImage),
   );
 }
-
 export function entityMethodIssuerImageFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodIssuerImage, SDKValidationError> {
@@ -305,7 +275,6 @@ export const EntityMethodIssuer$inboundSchema: z.ZodType<
   name: z.string(),
   image: z.lazy(() => EntityMethodIssuerImage$inboundSchema),
 });
-
 /** @internal */
 export type EntityMethodIssuer$Outbound = {
   resource: string;
@@ -326,19 +295,6 @@ export const EntityMethodIssuer$outboundSchema: z.ZodType<
   image: z.lazy(() => EntityMethodIssuerImage$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodIssuer$ {
-  /** @deprecated use `EntityMethodIssuer$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodIssuer$inboundSchema;
-  /** @deprecated use `EntityMethodIssuer$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodIssuer$outboundSchema;
-  /** @deprecated use `EntityMethodIssuer$Outbound` instead. */
-  export type Outbound = EntityMethodIssuer$Outbound;
-}
-
 export function entityMethodIssuerToJSON(
   entityMethodIssuer: EntityMethodIssuer,
 ): string {
@@ -346,7 +302,6 @@ export function entityMethodIssuerToJSON(
     EntityMethodIssuer$outboundSchema.parse(entityMethodIssuer),
   );
 }
-
 export function entityMethodIssuerFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodIssuer, SDKValidationError> {
@@ -366,7 +321,6 @@ export const EntityMethodLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityMethodLinks$Outbound = {
   self: Url$Outbound;
@@ -383,19 +337,6 @@ export const EntityMethodLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethodLinks$ {
-  /** @deprecated use `EntityMethodLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityMethodLinks$inboundSchema;
-  /** @deprecated use `EntityMethodLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityMethodLinks$outboundSchema;
-  /** @deprecated use `EntityMethodLinks$Outbound` instead. */
-  export type Outbound = EntityMethodLinks$Outbound;
-}
-
 export function entityMethodLinksToJSON(
   entityMethodLinks: EntityMethodLinks,
 ): string {
@@ -403,7 +344,6 @@ export function entityMethodLinksToJSON(
     EntityMethodLinks$outboundSchema.parse(entityMethodLinks),
   );
 }
-
 export function entityMethodLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethodLinks, SDKValidationError> {
@@ -434,7 +374,6 @@ export const EntityMethod$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityMethod$Outbound = {
   resource: string;
@@ -469,23 +408,9 @@ export const EntityMethod$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityMethod$ {
-  /** @deprecated use `EntityMethod$inboundSchema` instead. */
-  export const inboundSchema = EntityMethod$inboundSchema;
-  /** @deprecated use `EntityMethod$outboundSchema` instead. */
-  export const outboundSchema = EntityMethod$outboundSchema;
-  /** @deprecated use `EntityMethod$Outbound` instead. */
-  export type Outbound = EntityMethod$Outbound;
-}
-
 export function entityMethodToJSON(entityMethod: EntityMethod): string {
   return JSON.stringify(EntityMethod$outboundSchema.parse(entityMethod));
 }
-
 export function entityMethodFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityMethod, SDKValidationError> {

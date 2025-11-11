@@ -98,7 +98,6 @@ export const ListSettlementsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListSettlementsRequest$Outbound = {
   from?: string | null | undefined;
@@ -129,19 +128,6 @@ export const ListSettlementsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSettlementsRequest$ {
-  /** @deprecated use `ListSettlementsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListSettlementsRequest$inboundSchema;
-  /** @deprecated use `ListSettlementsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListSettlementsRequest$outboundSchema;
-  /** @deprecated use `ListSettlementsRequest$Outbound` instead. */
-  export type Outbound = ListSettlementsRequest$Outbound;
-}
-
 export function listSettlementsRequestToJSON(
   listSettlementsRequest: ListSettlementsRequest,
 ): string {
@@ -149,7 +135,6 @@ export function listSettlementsRequestToJSON(
     ListSettlementsRequest$outboundSchema.parse(listSettlementsRequest),
   );
 }
-
 export function listSettlementsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementsRequest, SDKValidationError> {
@@ -168,7 +153,6 @@ export const ListSettlementsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   settlements: z.array(models.EntitySettlement$inboundSchema),
 });
-
 /** @internal */
 export type ListSettlementsEmbedded$Outbound = {
   settlements: Array<models.EntitySettlement$Outbound>;
@@ -183,19 +167,6 @@ export const ListSettlementsEmbedded$outboundSchema: z.ZodType<
   settlements: z.array(models.EntitySettlement$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSettlementsEmbedded$ {
-  /** @deprecated use `ListSettlementsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListSettlementsEmbedded$inboundSchema;
-  /** @deprecated use `ListSettlementsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListSettlementsEmbedded$outboundSchema;
-  /** @deprecated use `ListSettlementsEmbedded$Outbound` instead. */
-  export type Outbound = ListSettlementsEmbedded$Outbound;
-}
-
 export function listSettlementsEmbeddedToJSON(
   listSettlementsEmbedded: ListSettlementsEmbedded,
 ): string {
@@ -203,7 +174,6 @@ export function listSettlementsEmbeddedToJSON(
     ListSettlementsEmbedded$outboundSchema.parse(listSettlementsEmbedded),
   );
 }
-
 export function listSettlementsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementsEmbedded, SDKValidationError> {
@@ -229,7 +199,6 @@ export const ListSettlementsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListSettlementsResponse$Outbound = {
   count: number;
@@ -253,19 +222,6 @@ export const ListSettlementsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListSettlementsResponse$ {
-  /** @deprecated use `ListSettlementsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListSettlementsResponse$inboundSchema;
-  /** @deprecated use `ListSettlementsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListSettlementsResponse$outboundSchema;
-  /** @deprecated use `ListSettlementsResponse$Outbound` instead. */
-  export type Outbound = ListSettlementsResponse$Outbound;
-}
-
 export function listSettlementsResponseToJSON(
   listSettlementsResponse: ListSettlementsResponse,
 ): string {
@@ -273,7 +229,6 @@ export function listSettlementsResponseToJSON(
     ListSettlementsResponse$outboundSchema.parse(listSettlementsResponse),
   );
 }
-
 export function listSettlementsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementsResponse, SDKValidationError> {

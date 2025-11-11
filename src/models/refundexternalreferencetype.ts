@@ -22,19 +22,7 @@ export type RefundExternalReferenceType = ClosedEnum<
 export const RefundExternalReferenceType$inboundSchema: z.ZodNativeEnum<
   typeof RefundExternalReferenceType
 > = z.nativeEnum(RefundExternalReferenceType);
-
 /** @internal */
 export const RefundExternalReferenceType$outboundSchema: z.ZodNativeEnum<
   typeof RefundExternalReferenceType
 > = RefundExternalReferenceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RefundExternalReferenceType$ {
-  /** @deprecated use `RefundExternalReferenceType$inboundSchema` instead. */
-  export const inboundSchema = RefundExternalReferenceType$inboundSchema;
-  /** @deprecated use `RefundExternalReferenceType$outboundSchema` instead. */
-  export const outboundSchema = RefundExternalReferenceType$outboundSchema;
-}

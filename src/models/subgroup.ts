@@ -36,7 +36,6 @@ export const SubGroup$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema.optional(),
   subtotals: z.nullable(z.array(ComponentsSubTotals$inboundSchema)).optional(),
 });
-
 /** @internal */
 export type SubGroup$Outbound = {
   amount?: Amount$Outbound | undefined;
@@ -53,23 +52,9 @@ export const SubGroup$outboundSchema: z.ZodType<
   subtotals: z.nullable(z.array(ComponentsSubTotals$outboundSchema)).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubGroup$ {
-  /** @deprecated use `SubGroup$inboundSchema` instead. */
-  export const inboundSchema = SubGroup$inboundSchema;
-  /** @deprecated use `SubGroup$outboundSchema` instead. */
-  export const outboundSchema = SubGroup$outboundSchema;
-  /** @deprecated use `SubGroup$Outbound` instead. */
-  export type Outbound = SubGroup$Outbound;
-}
-
 export function subGroupToJSON(subGroup: SubGroup): string {
   return JSON.stringify(SubGroup$outboundSchema.parse(subGroup));
 }
-
 export function subGroupFromJSON(
   jsonString: string,
 ): SafeParseResult<SubGroup, SDKValidationError> {

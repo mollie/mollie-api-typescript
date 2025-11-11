@@ -114,7 +114,6 @@ export const Reason$inboundSchema: z.ZodType<Reason, z.ZodTypeDef, unknown> = z
     code: z.string(),
     description: z.string(),
   });
-
 /** @internal */
 export type Reason$Outbound = {
   code: string;
@@ -131,23 +130,9 @@ export const Reason$outboundSchema: z.ZodType<
   description: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Reason$ {
-  /** @deprecated use `Reason$inboundSchema` instead. */
-  export const inboundSchema = Reason$inboundSchema;
-  /** @deprecated use `Reason$outboundSchema` instead. */
-  export const outboundSchema = Reason$outboundSchema;
-  /** @deprecated use `Reason$Outbound` instead. */
-  export type Outbound = Reason$Outbound;
-}
-
 export function reasonToJSON(reason: Reason): string {
   return JSON.stringify(Reason$outboundSchema.parse(reason));
 }
-
 export function reasonFromJSON(
   jsonString: string,
 ): SafeParseResult<Reason, SDKValidationError> {
@@ -169,7 +154,6 @@ export const EntityChargebackLinks$inboundSchema: z.ZodType<
   settlement: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type EntityChargebackLinks$Outbound = {
   self: Url$Outbound;
@@ -190,19 +174,6 @@ export const EntityChargebackLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityChargebackLinks$ {
-  /** @deprecated use `EntityChargebackLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityChargebackLinks$inboundSchema;
-  /** @deprecated use `EntityChargebackLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityChargebackLinks$outboundSchema;
-  /** @deprecated use `EntityChargebackLinks$Outbound` instead. */
-  export type Outbound = EntityChargebackLinks$Outbound;
-}
-
 export function entityChargebackLinksToJSON(
   entityChargebackLinks: EntityChargebackLinks,
 ): string {
@@ -210,7 +181,6 @@ export function entityChargebackLinksToJSON(
     EntityChargebackLinks$outboundSchema.parse(entityChargebackLinks),
   );
 }
-
 export function entityChargebackLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityChargebackLinks, SDKValidationError> {
@@ -242,7 +212,6 @@ export const EntityChargeback$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityChargeback$Outbound = {
   resource: string;
@@ -279,19 +248,6 @@ export const EntityChargeback$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityChargeback$ {
-  /** @deprecated use `EntityChargeback$inboundSchema` instead. */
-  export const inboundSchema = EntityChargeback$inboundSchema;
-  /** @deprecated use `EntityChargeback$outboundSchema` instead. */
-  export const outboundSchema = EntityChargeback$outboundSchema;
-  /** @deprecated use `EntityChargeback$Outbound` instead. */
-  export type Outbound = EntityChargeback$Outbound;
-}
-
 export function entityChargebackToJSON(
   entityChargeback: EntityChargeback,
 ): string {
@@ -299,7 +255,6 @@ export function entityChargebackToJSON(
     EntityChargeback$outboundSchema.parse(entityChargeback),
   );
 }
-
 export function entityChargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityChargeback, SDKValidationError> {

@@ -57,7 +57,6 @@ export const CreateWebhookRequestBody$inboundSchema: z.ZodType<
     "eventTypes": "webhookEventTypes",
   });
 });
-
 /** @internal */
 export type CreateWebhookRequestBody$Outbound = {
   name: string;
@@ -82,19 +81,6 @@ export const CreateWebhookRequestBody$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateWebhookRequestBody$ {
-  /** @deprecated use `CreateWebhookRequestBody$inboundSchema` instead. */
-  export const inboundSchema = CreateWebhookRequestBody$inboundSchema;
-  /** @deprecated use `CreateWebhookRequestBody$outboundSchema` instead. */
-  export const outboundSchema = CreateWebhookRequestBody$outboundSchema;
-  /** @deprecated use `CreateWebhookRequestBody$Outbound` instead. */
-  export type Outbound = CreateWebhookRequestBody$Outbound;
-}
-
 export function createWebhookRequestBodyToJSON(
   createWebhookRequestBody: CreateWebhookRequestBody,
 ): string {
@@ -102,7 +88,6 @@ export function createWebhookRequestBodyToJSON(
     CreateWebhookRequestBody$outboundSchema.parse(createWebhookRequestBody),
   );
 }
-
 export function createWebhookRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateWebhookRequestBody, SDKValidationError> {
@@ -127,7 +112,6 @@ export const CreateWebhookRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type CreateWebhookRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -149,19 +133,6 @@ export const CreateWebhookRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateWebhookRequest$ {
-  /** @deprecated use `CreateWebhookRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateWebhookRequest$inboundSchema;
-  /** @deprecated use `CreateWebhookRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateWebhookRequest$outboundSchema;
-  /** @deprecated use `CreateWebhookRequest$Outbound` instead. */
-  export type Outbound = CreateWebhookRequest$Outbound;
-}
-
 export function createWebhookRequestToJSON(
   createWebhookRequest: CreateWebhookRequest,
 ): string {
@@ -169,7 +140,6 @@ export function createWebhookRequestToJSON(
     CreateWebhookRequest$outboundSchema.parse(createWebhookRequest),
   );
 }
-
 export function createWebhookRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateWebhookRequest, SDKValidationError> {

@@ -19,19 +19,7 @@ export type LineCategories = ClosedEnum<typeof LineCategories>;
 export const LineCategories$inboundSchema: z.ZodNativeEnum<
   typeof LineCategories
 > = z.nativeEnum(LineCategories);
-
 /** @internal */
 export const LineCategories$outboundSchema: z.ZodNativeEnum<
   typeof LineCategories
 > = LineCategories$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LineCategories$ {
-  /** @deprecated use `LineCategories$inboundSchema` instead. */
-  export const inboundSchema = LineCategories$inboundSchema;
-  /** @deprecated use `LineCategories$outboundSchema` instead. */
-  export const outboundSchema = LineCategories$outboundSchema;
-}

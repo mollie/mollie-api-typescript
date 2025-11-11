@@ -22,19 +22,7 @@ export type SubscriptionMethod = ClosedEnum<typeof SubscriptionMethod>;
 export const SubscriptionMethod$inboundSchema: z.ZodNativeEnum<
   typeof SubscriptionMethod
 > = z.nativeEnum(SubscriptionMethod);
-
 /** @internal */
 export const SubscriptionMethod$outboundSchema: z.ZodNativeEnum<
   typeof SubscriptionMethod
 > = SubscriptionMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionMethod$ {
-  /** @deprecated use `SubscriptionMethod$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionMethod$inboundSchema;
-  /** @deprecated use `SubscriptionMethod$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionMethod$outboundSchema;
-}

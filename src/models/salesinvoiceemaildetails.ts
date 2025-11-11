@@ -27,7 +27,6 @@ export const SalesInvoiceEmailDetails$inboundSchema: z.ZodType<
   subject: z.string(),
   body: z.string(),
 });
-
 /** @internal */
 export type SalesInvoiceEmailDetails$Outbound = {
   subject: string;
@@ -44,19 +43,6 @@ export const SalesInvoiceEmailDetails$outboundSchema: z.ZodType<
   body: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceEmailDetails$ {
-  /** @deprecated use `SalesInvoiceEmailDetails$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceEmailDetails$inboundSchema;
-  /** @deprecated use `SalesInvoiceEmailDetails$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceEmailDetails$outboundSchema;
-  /** @deprecated use `SalesInvoiceEmailDetails$Outbound` instead. */
-  export type Outbound = SalesInvoiceEmailDetails$Outbound;
-}
-
 export function salesInvoiceEmailDetailsToJSON(
   salesInvoiceEmailDetails: SalesInvoiceEmailDetails,
 ): string {
@@ -64,7 +50,6 @@ export function salesInvoiceEmailDetailsToJSON(
     SalesInvoiceEmailDetails$outboundSchema.parse(salesInvoiceEmailDetails),
   );
 }
-
 export function salesInvoiceEmailDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoiceEmailDetails, SDKValidationError> {

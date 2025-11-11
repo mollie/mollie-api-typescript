@@ -27,7 +27,6 @@ export const GetNextSettlementRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetNextSettlementRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -46,19 +45,6 @@ export const GetNextSettlementRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetNextSettlementRequest$ {
-  /** @deprecated use `GetNextSettlementRequest$inboundSchema` instead. */
-  export const inboundSchema = GetNextSettlementRequest$inboundSchema;
-  /** @deprecated use `GetNextSettlementRequest$outboundSchema` instead. */
-  export const outboundSchema = GetNextSettlementRequest$outboundSchema;
-  /** @deprecated use `GetNextSettlementRequest$Outbound` instead. */
-  export type Outbound = GetNextSettlementRequest$Outbound;
-}
-
 export function getNextSettlementRequestToJSON(
   getNextSettlementRequest: GetNextSettlementRequest,
 ): string {
@@ -66,7 +52,6 @@ export function getNextSettlementRequestToJSON(
     GetNextSettlementRequest$outboundSchema.parse(getNextSettlementRequest),
   );
 }
-
 export function getNextSettlementRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetNextSettlementRequest, SDKValidationError> {

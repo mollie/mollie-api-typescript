@@ -50,7 +50,6 @@ export const GetWebhookEventGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetWebhookEventGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetWebhookEventGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetWebhookEventGlobals$ {
-  /** @deprecated use `GetWebhookEventGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetWebhookEventGlobals$inboundSchema;
-  /** @deprecated use `GetWebhookEventGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetWebhookEventGlobals$outboundSchema;
-  /** @deprecated use `GetWebhookEventGlobals$Outbound` instead. */
-  export type Outbound = GetWebhookEventGlobals$Outbound;
-}
-
 export function getWebhookEventGlobalsToJSON(
   getWebhookEventGlobals: GetWebhookEventGlobals,
 ): string {
@@ -85,7 +71,6 @@ export function getWebhookEventGlobalsToJSON(
     GetWebhookEventGlobals$outboundSchema.parse(getWebhookEventGlobals),
   );
 }
-
 export function getWebhookEventGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetWebhookEventGlobals, SDKValidationError> {
@@ -110,7 +95,6 @@ export const GetWebhookEventRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetWebhookEventRequest$Outbound = {
   id: string;
@@ -133,19 +117,6 @@ export const GetWebhookEventRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetWebhookEventRequest$ {
-  /** @deprecated use `GetWebhookEventRequest$inboundSchema` instead. */
-  export const inboundSchema = GetWebhookEventRequest$inboundSchema;
-  /** @deprecated use `GetWebhookEventRequest$outboundSchema` instead. */
-  export const outboundSchema = GetWebhookEventRequest$outboundSchema;
-  /** @deprecated use `GetWebhookEventRequest$Outbound` instead. */
-  export type Outbound = GetWebhookEventRequest$Outbound;
-}
-
 export function getWebhookEventRequestToJSON(
   getWebhookEventRequest: GetWebhookEventRequest,
 ): string {
@@ -153,7 +124,6 @@ export function getWebhookEventRequestToJSON(
     GetWebhookEventRequest$outboundSchema.parse(getWebhookEventRequest),
   );
 }
-
 export function getWebhookEventRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetWebhookEventRequest, SDKValidationError> {

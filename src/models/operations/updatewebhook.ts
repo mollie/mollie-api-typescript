@@ -60,7 +60,6 @@ export const UpdateWebhookRequestBody$inboundSchema: z.ZodType<
     "eventTypes": "webhookEventTypes",
   });
 });
-
 /** @internal */
 export type UpdateWebhookRequestBody$Outbound = {
   name?: string | undefined;
@@ -85,19 +84,6 @@ export const UpdateWebhookRequestBody$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateWebhookRequestBody$ {
-  /** @deprecated use `UpdateWebhookRequestBody$inboundSchema` instead. */
-  export const inboundSchema = UpdateWebhookRequestBody$inboundSchema;
-  /** @deprecated use `UpdateWebhookRequestBody$outboundSchema` instead. */
-  export const outboundSchema = UpdateWebhookRequestBody$outboundSchema;
-  /** @deprecated use `UpdateWebhookRequestBody$Outbound` instead. */
-  export type Outbound = UpdateWebhookRequestBody$Outbound;
-}
-
 export function updateWebhookRequestBodyToJSON(
   updateWebhookRequestBody: UpdateWebhookRequestBody,
 ): string {
@@ -105,7 +91,6 @@ export function updateWebhookRequestBodyToJSON(
     UpdateWebhookRequestBody$outboundSchema.parse(updateWebhookRequestBody),
   );
 }
-
 export function updateWebhookRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateWebhookRequestBody, SDKValidationError> {
@@ -131,7 +116,6 @@ export const UpdateWebhookRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type UpdateWebhookRequest$Outbound = {
   id: string;
@@ -155,19 +139,6 @@ export const UpdateWebhookRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateWebhookRequest$ {
-  /** @deprecated use `UpdateWebhookRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateWebhookRequest$inboundSchema;
-  /** @deprecated use `UpdateWebhookRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateWebhookRequest$outboundSchema;
-  /** @deprecated use `UpdateWebhookRequest$Outbound` instead. */
-  export type Outbound = UpdateWebhookRequest$Outbound;
-}
-
 export function updateWebhookRequestToJSON(
   updateWebhookRequest: UpdateWebhookRequest,
 ): string {
@@ -175,7 +146,6 @@ export function updateWebhookRequestToJSON(
     UpdateWebhookRequest$outboundSchema.parse(updateWebhookRequest),
   );
 }
-
 export function updateWebhookRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateWebhookRequest, SDKValidationError> {

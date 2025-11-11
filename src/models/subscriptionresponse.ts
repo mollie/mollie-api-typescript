@@ -219,7 +219,6 @@ export const SubscriptionResponseApplicationFee$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema,
   description: z.string(),
 });
-
 /** @internal */
 export type SubscriptionResponseApplicationFee$Outbound = {
   amount: Amount$Outbound;
@@ -236,20 +235,6 @@ export const SubscriptionResponseApplicationFee$outboundSchema: z.ZodType<
   description: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionResponseApplicationFee$ {
-  /** @deprecated use `SubscriptionResponseApplicationFee$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionResponseApplicationFee$inboundSchema;
-  /** @deprecated use `SubscriptionResponseApplicationFee$outboundSchema` instead. */
-  export const outboundSchema =
-    SubscriptionResponseApplicationFee$outboundSchema;
-  /** @deprecated use `SubscriptionResponseApplicationFee$Outbound` instead. */
-  export type Outbound = SubscriptionResponseApplicationFee$Outbound;
-}
-
 export function subscriptionResponseApplicationFeeToJSON(
   subscriptionResponseApplicationFee: SubscriptionResponseApplicationFee,
 ): string {
@@ -259,7 +244,6 @@ export function subscriptionResponseApplicationFeeToJSON(
     ),
   );
 }
-
 export function subscriptionResponseApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<SubscriptionResponseApplicationFee, SDKValidationError> {
@@ -284,7 +268,6 @@ export const SubscriptionResponseLinks$inboundSchema: z.ZodType<
   payments: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type SubscriptionResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -309,19 +292,6 @@ export const SubscriptionResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionResponseLinks$ {
-  /** @deprecated use `SubscriptionResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionResponseLinks$inboundSchema;
-  /** @deprecated use `SubscriptionResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionResponseLinks$outboundSchema;
-  /** @deprecated use `SubscriptionResponseLinks$Outbound` instead. */
-  export type Outbound = SubscriptionResponseLinks$Outbound;
-}
-
 export function subscriptionResponseLinksToJSON(
   subscriptionResponseLinks: SubscriptionResponseLinks,
 ): string {
@@ -329,7 +299,6 @@ export function subscriptionResponseLinksToJSON(
     SubscriptionResponseLinks$outboundSchema.parse(subscriptionResponseLinks),
   );
 }
-
 export function subscriptionResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<SubscriptionResponseLinks, SDKValidationError> {
@@ -372,7 +341,6 @@ export const SubscriptionResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type SubscriptionResponse$Outbound = {
   resource?: string | undefined;
@@ -431,19 +399,6 @@ export const SubscriptionResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionResponse$ {
-  /** @deprecated use `SubscriptionResponse$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionResponse$inboundSchema;
-  /** @deprecated use `SubscriptionResponse$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionResponse$outboundSchema;
-  /** @deprecated use `SubscriptionResponse$Outbound` instead. */
-  export type Outbound = SubscriptionResponse$Outbound;
-}
-
 export function subscriptionResponseToJSON(
   subscriptionResponse: SubscriptionResponse,
 ): string {
@@ -451,7 +406,6 @@ export function subscriptionResponseToJSON(
     SubscriptionResponse$outboundSchema.parse(subscriptionResponse),
   );
 }
-
 export function subscriptionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SubscriptionResponse, SDKValidationError> {

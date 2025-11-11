@@ -46,7 +46,6 @@ export const EntityEventLinks$inboundSchema: z.ZodType<
 > = z.object({
   url: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityEventLinks$Outbound = {
   url?: Url$Outbound | undefined;
@@ -61,19 +60,6 @@ export const EntityEventLinks$outboundSchema: z.ZodType<
   url: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityEventLinks$ {
-  /** @deprecated use `EntityEventLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityEventLinks$inboundSchema;
-  /** @deprecated use `EntityEventLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityEventLinks$outboundSchema;
-  /** @deprecated use `EntityEventLinks$Outbound` instead. */
-  export type Outbound = EntityEventLinks$Outbound;
-}
-
 export function entityEventLinksToJSON(
   entityEventLinks: EntityEventLinks,
 ): string {
@@ -81,7 +67,6 @@ export function entityEventLinksToJSON(
     EntityEventLinks$outboundSchema.parse(entityEventLinks),
   );
 }
-
 export function entityEventLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityEventLinks, SDKValidationError> {
@@ -108,7 +93,6 @@ export const EntityEvent$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityEvent$Outbound = {
   resource: string;
@@ -135,23 +119,9 @@ export const EntityEvent$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityEvent$ {
-  /** @deprecated use `EntityEvent$inboundSchema` instead. */
-  export const inboundSchema = EntityEvent$inboundSchema;
-  /** @deprecated use `EntityEvent$outboundSchema` instead. */
-  export const outboundSchema = EntityEvent$outboundSchema;
-  /** @deprecated use `EntityEvent$Outbound` instead. */
-  export type Outbound = EntityEvent$Outbound;
-}
-
 export function entityEventToJSON(entityEvent: EntityEvent): string {
   return JSON.stringify(EntityEvent$outboundSchema.parse(entityEvent));
 }
-
 export function entityEventFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityEvent, SDKValidationError> {

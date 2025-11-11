@@ -22,19 +22,7 @@ export type BalanceTransferPartyType = ClosedEnum<
 export const BalanceTransferPartyType$inboundSchema: z.ZodNativeEnum<
   typeof BalanceTransferPartyType
 > = z.nativeEnum(BalanceTransferPartyType);
-
 /** @internal */
 export const BalanceTransferPartyType$outboundSchema: z.ZodNativeEnum<
   typeof BalanceTransferPartyType
 > = BalanceTransferPartyType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BalanceTransferPartyType$ {
-  /** @deprecated use `BalanceTransferPartyType$inboundSchema` instead. */
-  export const inboundSchema = BalanceTransferPartyType$inboundSchema;
-  /** @deprecated use `BalanceTransferPartyType$outboundSchema` instead. */
-  export const outboundSchema = BalanceTransferPartyType$outboundSchema;
-}

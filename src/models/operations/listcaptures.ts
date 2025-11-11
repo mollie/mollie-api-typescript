@@ -97,7 +97,6 @@ export const ListCapturesGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListCapturesGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -112,19 +111,6 @@ export const ListCapturesGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapturesGlobals$ {
-  /** @deprecated use `ListCapturesGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListCapturesGlobals$inboundSchema;
-  /** @deprecated use `ListCapturesGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListCapturesGlobals$outboundSchema;
-  /** @deprecated use `ListCapturesGlobals$Outbound` instead. */
-  export type Outbound = ListCapturesGlobals$Outbound;
-}
-
 export function listCapturesGlobalsToJSON(
   listCapturesGlobals: ListCapturesGlobals,
 ): string {
@@ -132,7 +118,6 @@ export function listCapturesGlobalsToJSON(
     ListCapturesGlobals$outboundSchema.parse(listCapturesGlobals),
   );
 }
-
 export function listCapturesGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapturesGlobals, SDKValidationError> {
@@ -160,7 +145,6 @@ export const ListCapturesRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListCapturesRequest$Outbound = {
   paymentId: string;
@@ -189,19 +173,6 @@ export const ListCapturesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapturesRequest$ {
-  /** @deprecated use `ListCapturesRequest$inboundSchema` instead. */
-  export const inboundSchema = ListCapturesRequest$inboundSchema;
-  /** @deprecated use `ListCapturesRequest$outboundSchema` instead. */
-  export const outboundSchema = ListCapturesRequest$outboundSchema;
-  /** @deprecated use `ListCapturesRequest$Outbound` instead. */
-  export type Outbound = ListCapturesRequest$Outbound;
-}
-
 export function listCapturesRequestToJSON(
   listCapturesRequest: ListCapturesRequest,
 ): string {
@@ -209,7 +180,6 @@ export function listCapturesRequestToJSON(
     ListCapturesRequest$outboundSchema.parse(listCapturesRequest),
   );
 }
-
 export function listCapturesRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapturesRequest, SDKValidationError> {
@@ -228,7 +198,6 @@ export const ListCapturesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   captures: z.array(models.CaptureResponse$inboundSchema),
 });
-
 /** @internal */
 export type ListCapturesEmbedded$Outbound = {
   captures: Array<models.CaptureResponse$Outbound>;
@@ -243,19 +212,6 @@ export const ListCapturesEmbedded$outboundSchema: z.ZodType<
   captures: z.array(models.CaptureResponse$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapturesEmbedded$ {
-  /** @deprecated use `ListCapturesEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListCapturesEmbedded$inboundSchema;
-  /** @deprecated use `ListCapturesEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListCapturesEmbedded$outboundSchema;
-  /** @deprecated use `ListCapturesEmbedded$Outbound` instead. */
-  export type Outbound = ListCapturesEmbedded$Outbound;
-}
-
 export function listCapturesEmbeddedToJSON(
   listCapturesEmbedded: ListCapturesEmbedded,
 ): string {
@@ -263,7 +219,6 @@ export function listCapturesEmbeddedToJSON(
     ListCapturesEmbedded$outboundSchema.parse(listCapturesEmbedded),
   );
 }
-
 export function listCapturesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapturesEmbedded, SDKValidationError> {
@@ -289,7 +244,6 @@ export const ListCapturesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListCapturesResponse$Outbound = {
   count: number;
@@ -313,19 +267,6 @@ export const ListCapturesResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapturesResponse$ {
-  /** @deprecated use `ListCapturesResponse$inboundSchema` instead. */
-  export const inboundSchema = ListCapturesResponse$inboundSchema;
-  /** @deprecated use `ListCapturesResponse$outboundSchema` instead. */
-  export const outboundSchema = ListCapturesResponse$outboundSchema;
-  /** @deprecated use `ListCapturesResponse$Outbound` instead. */
-  export type Outbound = ListCapturesResponse$Outbound;
-}
-
 export function listCapturesResponseToJSON(
   listCapturesResponse: ListCapturesResponse,
 ): string {
@@ -333,7 +274,6 @@ export function listCapturesResponseToJSON(
     ListCapturesResponse$outboundSchema.parse(listCapturesResponse),
   );
 }
-
 export function listCapturesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapturesResponse, SDKValidationError> {

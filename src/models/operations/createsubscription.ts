@@ -36,7 +36,6 @@ export const CreateSubscriptionRequest$inboundSchema: z.ZodType<
     "subscription-request": "subscriptionRequest",
   });
 });
-
 /** @internal */
 export type CreateSubscriptionRequest$Outbound = {
   customerId: string;
@@ -60,19 +59,6 @@ export const CreateSubscriptionRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateSubscriptionRequest$ {
-  /** @deprecated use `CreateSubscriptionRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateSubscriptionRequest$inboundSchema;
-  /** @deprecated use `CreateSubscriptionRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateSubscriptionRequest$outboundSchema;
-  /** @deprecated use `CreateSubscriptionRequest$Outbound` instead. */
-  export type Outbound = CreateSubscriptionRequest$Outbound;
-}
-
 export function createSubscriptionRequestToJSON(
   createSubscriptionRequest: CreateSubscriptionRequest,
 ): string {
@@ -80,7 +66,6 @@ export function createSubscriptionRequestToJSON(
     CreateSubscriptionRequest$outboundSchema.parse(createSubscriptionRequest),
   );
 }
-
 export function createSubscriptionRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateSubscriptionRequest, SDKValidationError> {

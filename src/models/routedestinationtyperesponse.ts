@@ -32,7 +32,6 @@ export const RouteDestinationTypeResponse$inboundSchema: z.ZodType<
     z.nativeEnum(RouteDestinationTypeResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const RouteDestinationTypeResponse$outboundSchema: z.ZodType<
   RouteDestinationTypeResponse,
@@ -42,14 +41,3 @@ export const RouteDestinationTypeResponse$outboundSchema: z.ZodType<
   z.nativeEnum(RouteDestinationTypeResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteDestinationTypeResponse$ {
-  /** @deprecated use `RouteDestinationTypeResponse$inboundSchema` instead. */
-  export const inboundSchema = RouteDestinationTypeResponse$inboundSchema;
-  /** @deprecated use `RouteDestinationTypeResponse$outboundSchema` instead. */
-  export const outboundSchema = RouteDestinationTypeResponse$outboundSchema;
-}

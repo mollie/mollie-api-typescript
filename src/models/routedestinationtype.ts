@@ -20,19 +20,7 @@ export type RouteDestinationType = ClosedEnum<typeof RouteDestinationType>;
 export const RouteDestinationType$inboundSchema: z.ZodNativeEnum<
   typeof RouteDestinationType
 > = z.nativeEnum(RouteDestinationType);
-
 /** @internal */
 export const RouteDestinationType$outboundSchema: z.ZodNativeEnum<
   typeof RouteDestinationType
 > = RouteDestinationType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteDestinationType$ {
-  /** @deprecated use `RouteDestinationType$inboundSchema` instead. */
-  export const inboundSchema = RouteDestinationType$inboundSchema;
-  /** @deprecated use `RouteDestinationType$outboundSchema` instead. */
-  export const outboundSchema = RouteDestinationType$outboundSchema;
-}

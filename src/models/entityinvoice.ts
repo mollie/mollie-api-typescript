@@ -133,7 +133,6 @@ export const EntityInvoiceLine$inboundSchema: z.ZodType<
   vatPercentage: z.number().int(),
   amount: Amount$inboundSchema,
 });
-
 /** @internal */
 export type EntityInvoiceLine$Outbound = {
   period: string;
@@ -156,19 +155,6 @@ export const EntityInvoiceLine$outboundSchema: z.ZodType<
   amount: Amount$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityInvoiceLine$ {
-  /** @deprecated use `EntityInvoiceLine$inboundSchema` instead. */
-  export const inboundSchema = EntityInvoiceLine$inboundSchema;
-  /** @deprecated use `EntityInvoiceLine$outboundSchema` instead. */
-  export const outboundSchema = EntityInvoiceLine$outboundSchema;
-  /** @deprecated use `EntityInvoiceLine$Outbound` instead. */
-  export type Outbound = EntityInvoiceLine$Outbound;
-}
-
 export function entityInvoiceLineToJSON(
   entityInvoiceLine: EntityInvoiceLine,
 ): string {
@@ -176,7 +162,6 @@ export function entityInvoiceLineToJSON(
     EntityInvoiceLine$outboundSchema.parse(entityInvoiceLine),
   );
 }
-
 export function entityInvoiceLineFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityInvoiceLine, SDKValidationError> {
@@ -197,7 +182,6 @@ export const EntityInvoiceLinks$inboundSchema: z.ZodType<
   pdf: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityInvoiceLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -216,19 +200,6 @@ export const EntityInvoiceLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityInvoiceLinks$ {
-  /** @deprecated use `EntityInvoiceLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityInvoiceLinks$inboundSchema;
-  /** @deprecated use `EntityInvoiceLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityInvoiceLinks$outboundSchema;
-  /** @deprecated use `EntityInvoiceLinks$Outbound` instead. */
-  export type Outbound = EntityInvoiceLinks$Outbound;
-}
-
 export function entityInvoiceLinksToJSON(
   entityInvoiceLinks: EntityInvoiceLinks,
 ): string {
@@ -236,7 +207,6 @@ export function entityInvoiceLinksToJSON(
     EntityInvoiceLinks$outboundSchema.parse(entityInvoiceLinks),
   );
 }
-
 export function entityInvoiceLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityInvoiceLinks, SDKValidationError> {
@@ -271,7 +241,6 @@ export const EntityInvoice$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityInvoice$Outbound = {
   resource: string;
@@ -314,23 +283,9 @@ export const EntityInvoice$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityInvoice$ {
-  /** @deprecated use `EntityInvoice$inboundSchema` instead. */
-  export const inboundSchema = EntityInvoice$inboundSchema;
-  /** @deprecated use `EntityInvoice$outboundSchema` instead. */
-  export const outboundSchema = EntityInvoice$outboundSchema;
-  /** @deprecated use `EntityInvoice$Outbound` instead. */
-  export type Outbound = EntityInvoice$Outbound;
-}
-
 export function entityInvoiceToJSON(entityInvoice: EntityInvoice): string {
   return JSON.stringify(EntityInvoice$outboundSchema.parse(entityInvoice));
 }
-
 export function entityInvoiceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityInvoice, SDKValidationError> {

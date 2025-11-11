@@ -41,18 +41,6 @@ export type Locale = ClosedEnum<typeof Locale>;
 /** @internal */
 export const Locale$inboundSchema: z.ZodNativeEnum<typeof Locale> = z
   .nativeEnum(Locale);
-
 /** @internal */
 export const Locale$outboundSchema: z.ZodNativeEnum<typeof Locale> =
   Locale$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Locale$ {
-  /** @deprecated use `Locale$inboundSchema` instead. */
-  export const inboundSchema = Locale$inboundSchema;
-  /** @deprecated use `Locale$outboundSchema` instead. */
-  export const outboundSchema = Locale$outboundSchema;
-}

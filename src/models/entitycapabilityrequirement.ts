@@ -57,7 +57,6 @@ export const EntityCapabilityRequirementLinks$inboundSchema: z.ZodType<
 > = z.object({
   dashboard: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityCapabilityRequirementLinks$Outbound = {
   dashboard?: Url$Outbound | undefined;
@@ -72,19 +71,6 @@ export const EntityCapabilityRequirementLinks$outboundSchema: z.ZodType<
   dashboard: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityCapabilityRequirementLinks$ {
-  /** @deprecated use `EntityCapabilityRequirementLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityCapabilityRequirementLinks$inboundSchema;
-  /** @deprecated use `EntityCapabilityRequirementLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityCapabilityRequirementLinks$outboundSchema;
-  /** @deprecated use `EntityCapabilityRequirementLinks$Outbound` instead. */
-  export type Outbound = EntityCapabilityRequirementLinks$Outbound;
-}
-
 export function entityCapabilityRequirementLinksToJSON(
   entityCapabilityRequirementLinks: EntityCapabilityRequirementLinks,
 ): string {
@@ -94,7 +80,6 @@ export function entityCapabilityRequirementLinksToJSON(
     ),
   );
 }
-
 export function entityCapabilityRequirementLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCapabilityRequirementLinks, SDKValidationError> {
@@ -120,7 +105,6 @@ export const EntityCapabilityRequirement$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityCapabilityRequirement$Outbound = {
   id: string;
@@ -145,19 +129,6 @@ export const EntityCapabilityRequirement$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityCapabilityRequirement$ {
-  /** @deprecated use `EntityCapabilityRequirement$inboundSchema` instead. */
-  export const inboundSchema = EntityCapabilityRequirement$inboundSchema;
-  /** @deprecated use `EntityCapabilityRequirement$outboundSchema` instead. */
-  export const outboundSchema = EntityCapabilityRequirement$outboundSchema;
-  /** @deprecated use `EntityCapabilityRequirement$Outbound` instead. */
-  export type Outbound = EntityCapabilityRequirement$Outbound;
-}
-
 export function entityCapabilityRequirementToJSON(
   entityCapabilityRequirement: EntityCapabilityRequirement,
 ): string {
@@ -167,7 +138,6 @@ export function entityCapabilityRequirementToJSON(
     ),
   );
 }
-
 export function entityCapabilityRequirementFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCapabilityRequirement, SDKValidationError> {

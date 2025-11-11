@@ -136,16 +136,3 @@ export const ErrorResponse$outboundSchema: z.ZodType<
       });
     }),
   );
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorResponse$ {
-  /** @deprecated use `ErrorResponse$inboundSchema` instead. */
-  export const inboundSchema = ErrorResponse$inboundSchema;
-  /** @deprecated use `ErrorResponse$outboundSchema` instead. */
-  export const outboundSchema = ErrorResponse$outboundSchema;
-  /** @deprecated use `ErrorResponse$Outbound` instead. */
-  export type Outbound = ErrorResponse$Outbound;
-}

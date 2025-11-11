@@ -33,7 +33,6 @@ export const ProfileReviewStatusResponse$inboundSchema: z.ZodType<
     z.nativeEnum(ProfileReviewStatusResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ProfileReviewStatusResponse$outboundSchema: z.ZodType<
   ProfileReviewStatusResponse,
@@ -43,14 +42,3 @@ export const ProfileReviewStatusResponse$outboundSchema: z.ZodType<
   z.nativeEnum(ProfileReviewStatusResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProfileReviewStatusResponse$ {
-  /** @deprecated use `ProfileReviewStatusResponse$inboundSchema` instead. */
-  export const inboundSchema = ProfileReviewStatusResponse$inboundSchema;
-  /** @deprecated use `ProfileReviewStatusResponse$outboundSchema` instead. */
-  export const outboundSchema = ProfileReviewStatusResponse$outboundSchema;
-}

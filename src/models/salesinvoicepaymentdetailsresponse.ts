@@ -35,7 +35,6 @@ export const SalesInvoicePaymentDetailsResponse$inboundSchema: z.ZodType<
   source: SalesInvoicePaymentDetailsSourceResponse$inboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
-
 /** @internal */
 export type SalesInvoicePaymentDetailsResponse$Outbound = {
   source: string;
@@ -52,20 +51,6 @@ export const SalesInvoicePaymentDetailsResponse$outboundSchema: z.ZodType<
   sourceReference: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoicePaymentDetailsResponse$ {
-  /** @deprecated use `SalesInvoicePaymentDetailsResponse$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoicePaymentDetailsResponse$inboundSchema;
-  /** @deprecated use `SalesInvoicePaymentDetailsResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    SalesInvoicePaymentDetailsResponse$outboundSchema;
-  /** @deprecated use `SalesInvoicePaymentDetailsResponse$Outbound` instead. */
-  export type Outbound = SalesInvoicePaymentDetailsResponse$Outbound;
-}
-
 export function salesInvoicePaymentDetailsResponseToJSON(
   salesInvoicePaymentDetailsResponse: SalesInvoicePaymentDetailsResponse,
 ): string {
@@ -75,7 +60,6 @@ export function salesInvoicePaymentDetailsResponseToJSON(
     ),
   );
 }
-
 export function salesInvoicePaymentDetailsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoicePaymentDetailsResponse, SDKValidationError> {

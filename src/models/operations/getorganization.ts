@@ -50,7 +50,6 @@ export const GetOrganizationGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetOrganizationGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetOrganizationGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetOrganizationGlobals$ {
-  /** @deprecated use `GetOrganizationGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetOrganizationGlobals$inboundSchema;
-  /** @deprecated use `GetOrganizationGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetOrganizationGlobals$outboundSchema;
-  /** @deprecated use `GetOrganizationGlobals$Outbound` instead. */
-  export type Outbound = GetOrganizationGlobals$Outbound;
-}
-
 export function getOrganizationGlobalsToJSON(
   getOrganizationGlobals: GetOrganizationGlobals,
 ): string {
@@ -85,7 +71,6 @@ export function getOrganizationGlobalsToJSON(
     GetOrganizationGlobals$outboundSchema.parse(getOrganizationGlobals),
   );
 }
-
 export function getOrganizationGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetOrganizationGlobals, SDKValidationError> {
@@ -110,7 +95,6 @@ export const GetOrganizationRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetOrganizationRequest$Outbound = {
   id: string;
@@ -133,19 +117,6 @@ export const GetOrganizationRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetOrganizationRequest$ {
-  /** @deprecated use `GetOrganizationRequest$inboundSchema` instead. */
-  export const inboundSchema = GetOrganizationRequest$inboundSchema;
-  /** @deprecated use `GetOrganizationRequest$outboundSchema` instead. */
-  export const outboundSchema = GetOrganizationRequest$outboundSchema;
-  /** @deprecated use `GetOrganizationRequest$Outbound` instead. */
-  export type Outbound = GetOrganizationRequest$Outbound;
-}
-
 export function getOrganizationRequestToJSON(
   getOrganizationRequest: GetOrganizationRequest,
 ): string {
@@ -153,7 +124,6 @@ export function getOrganizationRequestToJSON(
     GetOrganizationRequest$outboundSchema.parse(getOrganizationRequest),
   );
 }
-
 export function getOrganizationRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetOrganizationRequest, SDKValidationError> {

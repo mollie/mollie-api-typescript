@@ -90,7 +90,6 @@ export const ListBalanceTransactionsGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListBalanceTransactionsGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -105,19 +104,6 @@ export const ListBalanceTransactionsGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListBalanceTransactionsGlobals$ {
-  /** @deprecated use `ListBalanceTransactionsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListBalanceTransactionsGlobals$inboundSchema;
-  /** @deprecated use `ListBalanceTransactionsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListBalanceTransactionsGlobals$outboundSchema;
-  /** @deprecated use `ListBalanceTransactionsGlobals$Outbound` instead. */
-  export type Outbound = ListBalanceTransactionsGlobals$Outbound;
-}
-
 export function listBalanceTransactionsGlobalsToJSON(
   listBalanceTransactionsGlobals: ListBalanceTransactionsGlobals,
 ): string {
@@ -127,7 +113,6 @@ export function listBalanceTransactionsGlobalsToJSON(
     ),
   );
 }
-
 export function listBalanceTransactionsGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBalanceTransactionsGlobals, SDKValidationError> {
@@ -154,7 +139,6 @@ export const ListBalanceTransactionsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListBalanceTransactionsRequest$Outbound = {
   balanceId: string;
@@ -181,19 +165,6 @@ export const ListBalanceTransactionsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListBalanceTransactionsRequest$ {
-  /** @deprecated use `ListBalanceTransactionsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListBalanceTransactionsRequest$inboundSchema;
-  /** @deprecated use `ListBalanceTransactionsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListBalanceTransactionsRequest$outboundSchema;
-  /** @deprecated use `ListBalanceTransactionsRequest$Outbound` instead. */
-  export type Outbound = ListBalanceTransactionsRequest$Outbound;
-}
-
 export function listBalanceTransactionsRequestToJSON(
   listBalanceTransactionsRequest: ListBalanceTransactionsRequest,
 ): string {
@@ -203,7 +174,6 @@ export function listBalanceTransactionsRequestToJSON(
     ),
   );
 }
-
 export function listBalanceTransactionsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBalanceTransactionsRequest, SDKValidationError> {
@@ -226,7 +196,6 @@ export const ListBalanceTransactionsEmbedded$inboundSchema: z.ZodType<
     "balance_transactions": "balanceTransactions",
   });
 });
-
 /** @internal */
 export type ListBalanceTransactionsEmbedded$Outbound = {
   balance_transactions: Array<models.EntityBalanceTransaction$Outbound>;
@@ -245,19 +214,6 @@ export const ListBalanceTransactionsEmbedded$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListBalanceTransactionsEmbedded$ {
-  /** @deprecated use `ListBalanceTransactionsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListBalanceTransactionsEmbedded$inboundSchema;
-  /** @deprecated use `ListBalanceTransactionsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListBalanceTransactionsEmbedded$outboundSchema;
-  /** @deprecated use `ListBalanceTransactionsEmbedded$Outbound` instead. */
-  export type Outbound = ListBalanceTransactionsEmbedded$Outbound;
-}
-
 export function listBalanceTransactionsEmbeddedToJSON(
   listBalanceTransactionsEmbedded: ListBalanceTransactionsEmbedded,
 ): string {
@@ -267,7 +223,6 @@ export function listBalanceTransactionsEmbeddedToJSON(
     ),
   );
 }
-
 export function listBalanceTransactionsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBalanceTransactionsEmbedded, SDKValidationError> {
@@ -293,7 +248,6 @@ export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListBalanceTransactionsResponse$Outbound = {
   count: number;
@@ -317,19 +271,6 @@ export const ListBalanceTransactionsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListBalanceTransactionsResponse$ {
-  /** @deprecated use `ListBalanceTransactionsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListBalanceTransactionsResponse$inboundSchema;
-  /** @deprecated use `ListBalanceTransactionsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListBalanceTransactionsResponse$outboundSchema;
-  /** @deprecated use `ListBalanceTransactionsResponse$Outbound` instead. */
-  export type Outbound = ListBalanceTransactionsResponse$Outbound;
-}
-
 export function listBalanceTransactionsResponseToJSON(
   listBalanceTransactionsResponse: ListBalanceTransactionsResponse,
 ): string {
@@ -339,7 +280,6 @@ export function listBalanceTransactionsResponseToJSON(
     ),
   );
 }
-
 export function listBalanceTransactionsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBalanceTransactionsResponse, SDKValidationError> {

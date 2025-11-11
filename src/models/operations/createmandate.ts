@@ -36,7 +36,6 @@ export const CreateMandateRequest$inboundSchema: z.ZodType<
     "entity-mandate": "entityMandate",
   });
 });
-
 /** @internal */
 export type CreateMandateRequest$Outbound = {
   customerId: string;
@@ -60,19 +59,6 @@ export const CreateMandateRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateMandateRequest$ {
-  /** @deprecated use `CreateMandateRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateMandateRequest$inboundSchema;
-  /** @deprecated use `CreateMandateRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateMandateRequest$outboundSchema;
-  /** @deprecated use `CreateMandateRequest$Outbound` instead. */
-  export type Outbound = CreateMandateRequest$Outbound;
-}
-
 export function createMandateRequestToJSON(
   createMandateRequest: CreateMandateRequest,
 ): string {
@@ -80,7 +66,6 @@ export function createMandateRequestToJSON(
     CreateMandateRequest$outboundSchema.parse(createMandateRequest),
   );
 }
-
 export function createMandateRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateMandateRequest, SDKValidationError> {

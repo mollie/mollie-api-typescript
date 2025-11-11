@@ -61,7 +61,6 @@ export const GetRefundGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetRefundGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -76,19 +75,6 @@ export const GetRefundGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetRefundGlobals$ {
-  /** @deprecated use `GetRefundGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetRefundGlobals$inboundSchema;
-  /** @deprecated use `GetRefundGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetRefundGlobals$outboundSchema;
-  /** @deprecated use `GetRefundGlobals$Outbound` instead. */
-  export type Outbound = GetRefundGlobals$Outbound;
-}
-
 export function getRefundGlobalsToJSON(
   getRefundGlobals: GetRefundGlobals,
 ): string {
@@ -96,7 +82,6 @@ export function getRefundGlobalsToJSON(
     GetRefundGlobals$outboundSchema.parse(getRefundGlobals),
   );
 }
-
 export function getRefundGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetRefundGlobals, SDKValidationError> {
@@ -123,7 +108,6 @@ export const GetRefundRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetRefundRequest$Outbound = {
   paymentId: string;
@@ -150,19 +134,6 @@ export const GetRefundRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetRefundRequest$ {
-  /** @deprecated use `GetRefundRequest$inboundSchema` instead. */
-  export const inboundSchema = GetRefundRequest$inboundSchema;
-  /** @deprecated use `GetRefundRequest$outboundSchema` instead. */
-  export const outboundSchema = GetRefundRequest$outboundSchema;
-  /** @deprecated use `GetRefundRequest$Outbound` instead. */
-  export type Outbound = GetRefundRequest$Outbound;
-}
-
 export function getRefundRequestToJSON(
   getRefundRequest: GetRefundRequest,
 ): string {
@@ -170,7 +141,6 @@ export function getRefundRequestToJSON(
     GetRefundRequest$outboundSchema.parse(getRefundRequest),
   );
 }
-
 export function getRefundRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetRefundRequest, SDKValidationError> {

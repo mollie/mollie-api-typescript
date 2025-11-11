@@ -26,7 +26,6 @@ export const SequenceTypeResponse$inboundSchema: z.ZodType<
     z.nativeEnum(SequenceTypeResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const SequenceTypeResponse$outboundSchema: z.ZodType<
   SequenceTypeResponse,
@@ -36,14 +35,3 @@ export const SequenceTypeResponse$outboundSchema: z.ZodType<
   z.nativeEnum(SequenceTypeResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SequenceTypeResponse$ {
-  /** @deprecated use `SequenceTypeResponse$inboundSchema` instead. */
-  export const inboundSchema = SequenceTypeResponse$inboundSchema;
-  /** @deprecated use `SequenceTypeResponse$outboundSchema` instead. */
-  export const outboundSchema = SequenceTypeResponse$outboundSchema;
-}

@@ -122,7 +122,6 @@ export const SalesInvoiceRecipient$inboundSchema: z.ZodType<
   country: z.string(),
   locale: SalesInvoiceRecipientLocale$inboundSchema,
 });
-
 /** @internal */
 export type SalesInvoiceRecipient$Outbound = {
   type: string;
@@ -167,19 +166,6 @@ export const SalesInvoiceRecipient$outboundSchema: z.ZodType<
   locale: SalesInvoiceRecipientLocale$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceRecipient$ {
-  /** @deprecated use `SalesInvoiceRecipient$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceRecipient$inboundSchema;
-  /** @deprecated use `SalesInvoiceRecipient$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceRecipient$outboundSchema;
-  /** @deprecated use `SalesInvoiceRecipient$Outbound` instead. */
-  export type Outbound = SalesInvoiceRecipient$Outbound;
-}
-
 export function salesInvoiceRecipientToJSON(
   salesInvoiceRecipient: SalesInvoiceRecipient,
 ): string {
@@ -187,7 +173,6 @@ export function salesInvoiceRecipientToJSON(
     SalesInvoiceRecipient$outboundSchema.parse(salesInvoiceRecipient),
   );
 }
-
 export function salesInvoiceRecipientFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoiceRecipient, SDKValidationError> {

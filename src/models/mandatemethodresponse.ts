@@ -40,7 +40,6 @@ export const MandateMethodResponse$inboundSchema: z.ZodType<
     z.nativeEnum(MandateMethodResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const MandateMethodResponse$outboundSchema: z.ZodType<
   MandateMethodResponse,
@@ -50,14 +49,3 @@ export const MandateMethodResponse$outboundSchema: z.ZodType<
   z.nativeEnum(MandateMethodResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateMethodResponse$ {
-  /** @deprecated use `MandateMethodResponse$inboundSchema` instead. */
-  export const inboundSchema = MandateMethodResponse$inboundSchema;
-  /** @deprecated use `MandateMethodResponse$outboundSchema` instead. */
-  export const outboundSchema = MandateMethodResponse$outboundSchema;
-}

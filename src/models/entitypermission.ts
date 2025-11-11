@@ -60,7 +60,6 @@ export const EntityPermissionLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityPermissionLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -77,19 +76,6 @@ export const EntityPermissionLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPermissionLinks$ {
-  /** @deprecated use `EntityPermissionLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityPermissionLinks$inboundSchema;
-  /** @deprecated use `EntityPermissionLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityPermissionLinks$outboundSchema;
-  /** @deprecated use `EntityPermissionLinks$Outbound` instead. */
-  export type Outbound = EntityPermissionLinks$Outbound;
-}
-
 export function entityPermissionLinksToJSON(
   entityPermissionLinks: EntityPermissionLinks,
 ): string {
@@ -97,7 +83,6 @@ export function entityPermissionLinksToJSON(
     EntityPermissionLinks$outboundSchema.parse(entityPermissionLinks),
   );
 }
-
 export function entityPermissionLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPermissionLinks, SDKValidationError> {
@@ -124,7 +109,6 @@ export const EntityPermission$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityPermission$Outbound = {
   resource: string;
@@ -151,19 +135,6 @@ export const EntityPermission$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityPermission$ {
-  /** @deprecated use `EntityPermission$inboundSchema` instead. */
-  export const inboundSchema = EntityPermission$inboundSchema;
-  /** @deprecated use `EntityPermission$outboundSchema` instead. */
-  export const outboundSchema = EntityPermission$outboundSchema;
-  /** @deprecated use `EntityPermission$Outbound` instead. */
-  export type Outbound = EntityPermission$Outbound;
-}
-
 export function entityPermissionToJSON(
   entityPermission: EntityPermission,
 ): string {
@@ -171,7 +142,6 @@ export function entityPermissionToJSON(
     EntityPermission$outboundSchema.parse(entityPermission),
   );
 }
-
 export function entityPermissionFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPermission, SDKValidationError> {

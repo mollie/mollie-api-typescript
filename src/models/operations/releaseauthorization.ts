@@ -52,7 +52,6 @@ export const ReleaseAuthorizationRequestBody$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type ReleaseAuthorizationRequestBody$Outbound = {
   profileId?: string | undefined;
@@ -69,19 +68,6 @@ export const ReleaseAuthorizationRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReleaseAuthorizationRequestBody$ {
-  /** @deprecated use `ReleaseAuthorizationRequestBody$inboundSchema` instead. */
-  export const inboundSchema = ReleaseAuthorizationRequestBody$inboundSchema;
-  /** @deprecated use `ReleaseAuthorizationRequestBody$outboundSchema` instead. */
-  export const outboundSchema = ReleaseAuthorizationRequestBody$outboundSchema;
-  /** @deprecated use `ReleaseAuthorizationRequestBody$Outbound` instead. */
-  export type Outbound = ReleaseAuthorizationRequestBody$Outbound;
-}
-
 export function releaseAuthorizationRequestBodyToJSON(
   releaseAuthorizationRequestBody: ReleaseAuthorizationRequestBody,
 ): string {
@@ -91,7 +77,6 @@ export function releaseAuthorizationRequestBodyToJSON(
     ),
   );
 }
-
 export function releaseAuthorizationRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ReleaseAuthorizationRequestBody, SDKValidationError> {
@@ -118,7 +103,6 @@ export const ReleaseAuthorizationRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type ReleaseAuthorizationRequest$Outbound = {
   paymentId: string;
@@ -143,19 +127,6 @@ export const ReleaseAuthorizationRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReleaseAuthorizationRequest$ {
-  /** @deprecated use `ReleaseAuthorizationRequest$inboundSchema` instead. */
-  export const inboundSchema = ReleaseAuthorizationRequest$inboundSchema;
-  /** @deprecated use `ReleaseAuthorizationRequest$outboundSchema` instead. */
-  export const outboundSchema = ReleaseAuthorizationRequest$outboundSchema;
-  /** @deprecated use `ReleaseAuthorizationRequest$Outbound` instead. */
-  export type Outbound = ReleaseAuthorizationRequest$Outbound;
-}
-
 export function releaseAuthorizationRequestToJSON(
   releaseAuthorizationRequest: ReleaseAuthorizationRequest,
 ): string {
@@ -165,7 +136,6 @@ export function releaseAuthorizationRequestToJSON(
     ),
   );
 }
-
 export function releaseAuthorizationRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ReleaseAuthorizationRequest, SDKValidationError> {

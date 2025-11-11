@@ -30,7 +30,6 @@ export const UrlNullable$inboundSchema: z.ZodType<
   href: z.string().optional(),
   type: z.string().optional(),
 });
-
 /** @internal */
 export type UrlNullable$Outbound = {
   href?: string | undefined;
@@ -47,23 +46,9 @@ export const UrlNullable$outboundSchema: z.ZodType<
   type: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UrlNullable$ {
-  /** @deprecated use `UrlNullable$inboundSchema` instead. */
-  export const inboundSchema = UrlNullable$inboundSchema;
-  /** @deprecated use `UrlNullable$outboundSchema` instead. */
-  export const outboundSchema = UrlNullable$outboundSchema;
-  /** @deprecated use `UrlNullable$Outbound` instead. */
-  export type Outbound = UrlNullable$Outbound;
-}
-
 export function urlNullableToJSON(urlNullable: UrlNullable): string {
   return JSON.stringify(UrlNullable$outboundSchema.parse(urlNullable));
 }
-
 export function urlNullableFromJSON(
   jsonString: string,
 ): SafeParseResult<UrlNullable, SDKValidationError> {

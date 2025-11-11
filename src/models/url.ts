@@ -27,7 +27,6 @@ export const Url$inboundSchema: z.ZodType<Url, z.ZodTypeDef, unknown> = z
     href: z.string(),
     type: z.string(),
   });
-
 /** @internal */
 export type Url$Outbound = {
   href: string;
@@ -41,23 +40,9 @@ export const Url$outboundSchema: z.ZodType<Url$Outbound, z.ZodTypeDef, Url> = z
     type: z.string(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Url$ {
-  /** @deprecated use `Url$inboundSchema` instead. */
-  export const inboundSchema = Url$inboundSchema;
-  /** @deprecated use `Url$outboundSchema` instead. */
-  export const outboundSchema = Url$outboundSchema;
-  /** @deprecated use `Url$Outbound` instead. */
-  export type Outbound = Url$Outbound;
-}
-
 export function urlToJSON(url: Url): string {
   return JSON.stringify(Url$outboundSchema.parse(url));
 }
-
 export function urlFromJSON(
   jsonString: string,
 ): SafeParseResult<Url, SDKValidationError> {

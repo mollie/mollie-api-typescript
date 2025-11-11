@@ -41,7 +41,6 @@ export const CaptureModeResponse$inboundSchema: z.ZodType<
     z.nativeEnum(CaptureModeResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const CaptureModeResponse$outboundSchema: z.ZodType<
   CaptureModeResponse,
@@ -51,14 +50,3 @@ export const CaptureModeResponse$outboundSchema: z.ZodType<
   z.nativeEnum(CaptureModeResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureModeResponse$ {
-  /** @deprecated use `CaptureModeResponse$inboundSchema` instead. */
-  export const inboundSchema = CaptureModeResponse$inboundSchema;
-  /** @deprecated use `CaptureModeResponse$outboundSchema` instead. */
-  export const outboundSchema = CaptureModeResponse$outboundSchema;
-}

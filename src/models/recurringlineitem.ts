@@ -52,7 +52,6 @@ export const RecurringLineItem$inboundSchema: z.ZodType<
   times: z.number().int().optional(),
   startDate: z.nullable(z.string()).optional(),
 });
-
 /** @internal */
 export type RecurringLineItem$Outbound = {
   description?: string | undefined;
@@ -75,19 +74,6 @@ export const RecurringLineItem$outboundSchema: z.ZodType<
   startDate: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RecurringLineItem$ {
-  /** @deprecated use `RecurringLineItem$inboundSchema` instead. */
-  export const inboundSchema = RecurringLineItem$inboundSchema;
-  /** @deprecated use `RecurringLineItem$outboundSchema` instead. */
-  export const outboundSchema = RecurringLineItem$outboundSchema;
-  /** @deprecated use `RecurringLineItem$Outbound` instead. */
-  export type Outbound = RecurringLineItem$Outbound;
-}
-
 export function recurringLineItemToJSON(
   recurringLineItem: RecurringLineItem,
 ): string {
@@ -95,7 +81,6 @@ export function recurringLineItemToJSON(
     RecurringLineItem$outboundSchema.parse(recurringLineItem),
   );
 }
-
 export function recurringLineItemFromJSON(
   jsonString: string,
 ): SafeParseResult<RecurringLineItem, SDKValidationError> {

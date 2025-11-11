@@ -25,7 +25,6 @@ export const CapabilityStatusReason$inboundSchema: z.ZodType<
     z.nativeEnum(CapabilityStatusReason),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const CapabilityStatusReason$outboundSchema: z.ZodType<
   CapabilityStatusReason,
@@ -35,14 +34,3 @@ export const CapabilityStatusReason$outboundSchema: z.ZodType<
   z.nativeEnum(CapabilityStatusReason),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CapabilityStatusReason$ {
-  /** @deprecated use `CapabilityStatusReason$inboundSchema` instead. */
-  export const inboundSchema = CapabilityStatusReason$inboundSchema;
-  /** @deprecated use `CapabilityStatusReason$outboundSchema` instead. */
-  export const outboundSchema = CapabilityStatusReason$outboundSchema;
-}

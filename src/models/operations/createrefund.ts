@@ -36,7 +36,6 @@ export const CreateRefundRequest$inboundSchema: z.ZodType<
     "entity-refund": "entityRefund",
   });
 });
-
 /** @internal */
 export type CreateRefundRequest$Outbound = {
   paymentId: string;
@@ -60,19 +59,6 @@ export const CreateRefundRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateRefundRequest$ {
-  /** @deprecated use `CreateRefundRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateRefundRequest$inboundSchema;
-  /** @deprecated use `CreateRefundRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateRefundRequest$outboundSchema;
-  /** @deprecated use `CreateRefundRequest$Outbound` instead. */
-  export type Outbound = CreateRefundRequest$Outbound;
-}
-
 export function createRefundRequestToJSON(
   createRefundRequest: CreateRefundRequest,
 ): string {
@@ -80,7 +66,6 @@ export function createRefundRequestToJSON(
     CreateRefundRequest$outboundSchema.parse(createRefundRequest),
   );
 }
-
 export function createRefundRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateRefundRequest, SDKValidationError> {

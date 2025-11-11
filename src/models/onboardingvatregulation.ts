@@ -34,19 +34,7 @@ export type OnboardingVatRegulation = ClosedEnum<
 export const OnboardingVatRegulation$inboundSchema: z.ZodNativeEnum<
   typeof OnboardingVatRegulation
 > = z.nativeEnum(OnboardingVatRegulation);
-
 /** @internal */
 export const OnboardingVatRegulation$outboundSchema: z.ZodNativeEnum<
   typeof OnboardingVatRegulation
 > = OnboardingVatRegulation$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OnboardingVatRegulation$ {
-  /** @deprecated use `OnboardingVatRegulation$inboundSchema` instead. */
-  export const inboundSchema = OnboardingVatRegulation$inboundSchema;
-  /** @deprecated use `OnboardingVatRegulation$outboundSchema` instead. */
-  export const outboundSchema = OnboardingVatRegulation$outboundSchema;
-}

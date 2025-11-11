@@ -23,12 +23,13 @@ generation:
   sdkHooksConfigAccess: true
   schemas:
     allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
   tests:
     generateTests: false
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.8.0
+  version: 0.8.1
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -36,6 +37,7 @@ typescript:
     peerDependencies: {}
   additionalPackageJSON: {}
   additionalScripts: {}
+  alwaysIncludeInboundAndOutbound: false
   author: Speakeasy
   baseErrorName: ClientError
   clientServerStatusCodesAsErrors: true
@@ -46,6 +48,7 @@ typescript:
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: CLIENT
+  exportZodModelNamespace: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   generateExamples: true

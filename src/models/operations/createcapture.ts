@@ -36,7 +36,6 @@ export const CreateCaptureRequest$inboundSchema: z.ZodType<
     "entity-capture": "entityCapture",
   });
 });
-
 /** @internal */
 export type CreateCaptureRequest$Outbound = {
   paymentId: string;
@@ -60,19 +59,6 @@ export const CreateCaptureRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCaptureRequest$ {
-  /** @deprecated use `CreateCaptureRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateCaptureRequest$inboundSchema;
-  /** @deprecated use `CreateCaptureRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateCaptureRequest$outboundSchema;
-  /** @deprecated use `CreateCaptureRequest$Outbound` instead. */
-  export type Outbound = CreateCaptureRequest$Outbound;
-}
-
 export function createCaptureRequestToJSON(
   createCaptureRequest: CreateCaptureRequest,
 ): string {
@@ -80,7 +66,6 @@ export function createCaptureRequestToJSON(
     CreateCaptureRequest$outboundSchema.parse(createCaptureRequest),
   );
 }
-
 export function createCaptureRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateCaptureRequest, SDKValidationError> {

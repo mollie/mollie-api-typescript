@@ -40,7 +40,6 @@ export const BalanceTransferDestinationType$inboundSchema: z.ZodType<
     z.nativeEnum(BalanceTransferDestinationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const BalanceTransferDestinationType$outboundSchema: z.ZodType<
   BalanceTransferDestinationType,
@@ -50,14 +49,3 @@ export const BalanceTransferDestinationType$outboundSchema: z.ZodType<
   z.nativeEnum(BalanceTransferDestinationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BalanceTransferDestinationType$ {
-  /** @deprecated use `BalanceTransferDestinationType$inboundSchema` instead. */
-  export const inboundSchema = BalanceTransferDestinationType$inboundSchema;
-  /** @deprecated use `BalanceTransferDestinationType$outboundSchema` instead. */
-  export const outboundSchema = BalanceTransferDestinationType$outboundSchema;
-}

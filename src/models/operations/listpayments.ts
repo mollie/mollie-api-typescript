@@ -114,7 +114,6 @@ export const ListPaymentsGlobals$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListPaymentsGlobals$Outbound = {
   profileId?: string | undefined;
@@ -131,19 +130,6 @@ export const ListPaymentsGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPaymentsGlobals$ {
-  /** @deprecated use `ListPaymentsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListPaymentsGlobals$inboundSchema;
-  /** @deprecated use `ListPaymentsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListPaymentsGlobals$outboundSchema;
-  /** @deprecated use `ListPaymentsGlobals$Outbound` instead. */
-  export type Outbound = ListPaymentsGlobals$Outbound;
-}
-
 export function listPaymentsGlobalsToJSON(
   listPaymentsGlobals: ListPaymentsGlobals,
 ): string {
@@ -151,7 +137,6 @@ export function listPaymentsGlobalsToJSON(
     ListPaymentsGlobals$outboundSchema.parse(listPaymentsGlobals),
   );
 }
-
 export function listPaymentsGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPaymentsGlobals, SDKValidationError> {
@@ -179,7 +164,6 @@ export const ListPaymentsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListPaymentsRequest$Outbound = {
   from?: string | undefined;
@@ -208,19 +192,6 @@ export const ListPaymentsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPaymentsRequest$ {
-  /** @deprecated use `ListPaymentsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListPaymentsRequest$inboundSchema;
-  /** @deprecated use `ListPaymentsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListPaymentsRequest$outboundSchema;
-  /** @deprecated use `ListPaymentsRequest$Outbound` instead. */
-  export type Outbound = ListPaymentsRequest$Outbound;
-}
-
 export function listPaymentsRequestToJSON(
   listPaymentsRequest: ListPaymentsRequest,
 ): string {
@@ -228,7 +199,6 @@ export function listPaymentsRequestToJSON(
     ListPaymentsRequest$outboundSchema.parse(listPaymentsRequest),
   );
 }
-
 export function listPaymentsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPaymentsRequest, SDKValidationError> {
@@ -247,7 +217,6 @@ export const ListPaymentsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   payments: z.array(models.PaymentResponse$inboundSchema).optional(),
 });
-
 /** @internal */
 export type ListPaymentsEmbedded$Outbound = {
   payments?: Array<models.PaymentResponse$Outbound> | undefined;
@@ -262,19 +231,6 @@ export const ListPaymentsEmbedded$outboundSchema: z.ZodType<
   payments: z.array(models.PaymentResponse$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPaymentsEmbedded$ {
-  /** @deprecated use `ListPaymentsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListPaymentsEmbedded$inboundSchema;
-  /** @deprecated use `ListPaymentsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListPaymentsEmbedded$outboundSchema;
-  /** @deprecated use `ListPaymentsEmbedded$Outbound` instead. */
-  export type Outbound = ListPaymentsEmbedded$Outbound;
-}
-
 export function listPaymentsEmbeddedToJSON(
   listPaymentsEmbedded: ListPaymentsEmbedded,
 ): string {
@@ -282,7 +238,6 @@ export function listPaymentsEmbeddedToJSON(
     ListPaymentsEmbedded$outboundSchema.parse(listPaymentsEmbedded),
   );
 }
-
 export function listPaymentsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPaymentsEmbedded, SDKValidationError> {
@@ -308,7 +263,6 @@ export const ListPaymentsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListPaymentsResponse$Outbound = {
   count: number;
@@ -332,19 +286,6 @@ export const ListPaymentsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPaymentsResponse$ {
-  /** @deprecated use `ListPaymentsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListPaymentsResponse$inboundSchema;
-  /** @deprecated use `ListPaymentsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListPaymentsResponse$outboundSchema;
-  /** @deprecated use `ListPaymentsResponse$Outbound` instead. */
-  export type Outbound = ListPaymentsResponse$Outbound;
-}
-
 export function listPaymentsResponseToJSON(
   listPaymentsResponse: ListPaymentsResponse,
 ): string {
@@ -352,7 +293,6 @@ export function listPaymentsResponseToJSON(
     ListPaymentsResponse$outboundSchema.parse(listPaymentsResponse),
   );
 }
-
 export function listPaymentsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPaymentsResponse, SDKValidationError> {

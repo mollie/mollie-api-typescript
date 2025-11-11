@@ -61,7 +61,6 @@ export const GetCaptureGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetCaptureGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -76,19 +75,6 @@ export const GetCaptureGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCaptureGlobals$ {
-  /** @deprecated use `GetCaptureGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetCaptureGlobals$inboundSchema;
-  /** @deprecated use `GetCaptureGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetCaptureGlobals$outboundSchema;
-  /** @deprecated use `GetCaptureGlobals$Outbound` instead. */
-  export type Outbound = GetCaptureGlobals$Outbound;
-}
-
 export function getCaptureGlobalsToJSON(
   getCaptureGlobals: GetCaptureGlobals,
 ): string {
@@ -96,7 +82,6 @@ export function getCaptureGlobalsToJSON(
     GetCaptureGlobals$outboundSchema.parse(getCaptureGlobals),
   );
 }
-
 export function getCaptureGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCaptureGlobals, SDKValidationError> {
@@ -123,7 +108,6 @@ export const GetCaptureRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetCaptureRequest$Outbound = {
   paymentId: string;
@@ -150,19 +134,6 @@ export const GetCaptureRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCaptureRequest$ {
-  /** @deprecated use `GetCaptureRequest$inboundSchema` instead. */
-  export const inboundSchema = GetCaptureRequest$inboundSchema;
-  /** @deprecated use `GetCaptureRequest$outboundSchema` instead. */
-  export const outboundSchema = GetCaptureRequest$outboundSchema;
-  /** @deprecated use `GetCaptureRequest$Outbound` instead. */
-  export type Outbound = GetCaptureRequest$Outbound;
-}
-
 export function getCaptureRequestToJSON(
   getCaptureRequest: GetCaptureRequest,
 ): string {
@@ -170,7 +141,6 @@ export function getCaptureRequestToJSON(
     GetCaptureRequest$outboundSchema.parse(getCaptureRequest),
   );
 }
-
 export function getCaptureRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCaptureRequest, SDKValidationError> {

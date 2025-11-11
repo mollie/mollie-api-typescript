@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 3aa14a6670ca743ca161fe3bee4d0251
+  docChecksum: 3101d53cbe06acbc04397305ff448453
   docVersion: 1.0.0
-  speakeasyVersion: 1.648.0
-  generationVersion: 2.737.0
-  releaseVersion: 0.8.0
-  configChecksum: 176b6c1b9fc39c241115f4e59eca7b11
+  speakeasyVersion: 1.653.0
+  generationVersion: 2.748.0
+  releaseVersion: 0.8.1
+  configChecksum: 5397347c2878a8f37d38cba6565c5311
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.26.0
+    core: 3.26.4
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -4697,15 +4697,3 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `client.settlements.listPayments()`:  `response._embedded.payments.[].details` **Changed**
-  * `client.payments.create()`:  `response.details` **Changed**
-  * `client.payments.list()`:  `response._embedded.payments.[].details` **Changed**
-  * `client.payments.get()`:  `response.details` **Changed**
-  * `client.payments.update()`:  `response.details` **Changed**
-  * `client.payments.cancel()`:  `response.details` **Changed**
-  * `client.paymentLinks.listPayments()`:  `response._embedded.payments.[].details` **Changed**
-  * `client.customers.createPayment()`:  `response.details` **Changed**
-  * `client.customers.listPayments()`:  `response._embedded.payments.[].details` **Changed**
-  * `client.subscriptions.listPayments()`:  `response._embedded.payments.[].details` **Changed**

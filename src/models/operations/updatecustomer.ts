@@ -36,7 +36,6 @@ export const UpdateCustomerRequest$inboundSchema: z.ZodType<
     "entity-customer": "entityCustomer",
   });
 });
-
 /** @internal */
 export type UpdateCustomerRequest$Outbound = {
   customerId: string;
@@ -60,19 +59,6 @@ export const UpdateCustomerRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateCustomerRequest$ {
-  /** @deprecated use `UpdateCustomerRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateCustomerRequest$inboundSchema;
-  /** @deprecated use `UpdateCustomerRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateCustomerRequest$outboundSchema;
-  /** @deprecated use `UpdateCustomerRequest$Outbound` instead. */
-  export type Outbound = UpdateCustomerRequest$Outbound;
-}
-
 export function updateCustomerRequestToJSON(
   updateCustomerRequest: UpdateCustomerRequest,
 ): string {
@@ -80,7 +66,6 @@ export function updateCustomerRequestToJSON(
     UpdateCustomerRequest$outboundSchema.parse(updateCustomerRequest),
   );
 }
-
 export function updateCustomerRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateCustomerRequest, SDKValidationError> {

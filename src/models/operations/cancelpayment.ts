@@ -41,7 +41,6 @@ export const CancelPaymentRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type CancelPaymentRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
@@ -56,19 +55,6 @@ export const CancelPaymentRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelPaymentRequestBody$ {
-  /** @deprecated use `CancelPaymentRequestBody$inboundSchema` instead. */
-  export const inboundSchema = CancelPaymentRequestBody$inboundSchema;
-  /** @deprecated use `CancelPaymentRequestBody$outboundSchema` instead. */
-  export const outboundSchema = CancelPaymentRequestBody$outboundSchema;
-  /** @deprecated use `CancelPaymentRequestBody$Outbound` instead. */
-  export type Outbound = CancelPaymentRequestBody$Outbound;
-}
-
 export function cancelPaymentRequestBodyToJSON(
   cancelPaymentRequestBody: CancelPaymentRequestBody,
 ): string {
@@ -76,7 +62,6 @@ export function cancelPaymentRequestBodyToJSON(
     CancelPaymentRequestBody$outboundSchema.parse(cancelPaymentRequestBody),
   );
 }
-
 export function cancelPaymentRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<CancelPaymentRequestBody, SDKValidationError> {
@@ -102,7 +87,6 @@ export const CancelPaymentRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type CancelPaymentRequest$Outbound = {
   paymentId: string;
@@ -126,19 +110,6 @@ export const CancelPaymentRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CancelPaymentRequest$ {
-  /** @deprecated use `CancelPaymentRequest$inboundSchema` instead. */
-  export const inboundSchema = CancelPaymentRequest$inboundSchema;
-  /** @deprecated use `CancelPaymentRequest$outboundSchema` instead. */
-  export const outboundSchema = CancelPaymentRequest$outboundSchema;
-  /** @deprecated use `CancelPaymentRequest$Outbound` instead. */
-  export type Outbound = CancelPaymentRequest$Outbound;
-}
-
 export function cancelPaymentRequestToJSON(
   cancelPaymentRequest: CancelPaymentRequest,
 ): string {
@@ -146,7 +117,6 @@ export function cancelPaymentRequestToJSON(
     CancelPaymentRequest$outboundSchema.parse(cancelPaymentRequest),
   );
 }
-
 export function cancelPaymentRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CancelPaymentRequest, SDKValidationError> {

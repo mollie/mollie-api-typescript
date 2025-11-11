@@ -230,7 +230,6 @@ export const PaymentLinkResponseApplicationFee$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema,
   description: z.string(),
 });
-
 /** @internal */
 export type PaymentLinkResponseApplicationFee$Outbound = {
   amount: Amount$Outbound;
@@ -247,20 +246,6 @@ export const PaymentLinkResponseApplicationFee$outboundSchema: z.ZodType<
   description: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLinkResponseApplicationFee$ {
-  /** @deprecated use `PaymentLinkResponseApplicationFee$inboundSchema` instead. */
-  export const inboundSchema = PaymentLinkResponseApplicationFee$inboundSchema;
-  /** @deprecated use `PaymentLinkResponseApplicationFee$outboundSchema` instead. */
-  export const outboundSchema =
-    PaymentLinkResponseApplicationFee$outboundSchema;
-  /** @deprecated use `PaymentLinkResponseApplicationFee$Outbound` instead. */
-  export type Outbound = PaymentLinkResponseApplicationFee$Outbound;
-}
-
 export function paymentLinkResponseApplicationFeeToJSON(
   paymentLinkResponseApplicationFee: PaymentLinkResponseApplicationFee,
 ): string {
@@ -270,7 +255,6 @@ export function paymentLinkResponseApplicationFeeToJSON(
     ),
   );
 }
-
 export function paymentLinkResponseApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLinkResponseApplicationFee, SDKValidationError> {
@@ -290,7 +274,6 @@ export const PaymentLinkResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   paymentLink: Url$inboundSchema,
 });
-
 /** @internal */
 export type PaymentLinkResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -307,19 +290,6 @@ export const PaymentLinkResponseLinks$outboundSchema: z.ZodType<
   paymentLink: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLinkResponseLinks$ {
-  /** @deprecated use `PaymentLinkResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = PaymentLinkResponseLinks$inboundSchema;
-  /** @deprecated use `PaymentLinkResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = PaymentLinkResponseLinks$outboundSchema;
-  /** @deprecated use `PaymentLinkResponseLinks$Outbound` instead. */
-  export type Outbound = PaymentLinkResponseLinks$Outbound;
-}
-
 export function paymentLinkResponseLinksToJSON(
   paymentLinkResponseLinks: PaymentLinkResponseLinks,
 ): string {
@@ -327,7 +297,6 @@ export function paymentLinkResponseLinksToJSON(
     PaymentLinkResponseLinks$outboundSchema.parse(paymentLinkResponseLinks),
   );
 }
-
 export function paymentLinkResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLinkResponseLinks, SDKValidationError> {
@@ -373,7 +342,6 @@ export const PaymentLinkResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type PaymentLinkResponse$Outbound = {
   resource?: string | undefined;
@@ -436,19 +404,6 @@ export const PaymentLinkResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLinkResponse$ {
-  /** @deprecated use `PaymentLinkResponse$inboundSchema` instead. */
-  export const inboundSchema = PaymentLinkResponse$inboundSchema;
-  /** @deprecated use `PaymentLinkResponse$outboundSchema` instead. */
-  export const outboundSchema = PaymentLinkResponse$outboundSchema;
-  /** @deprecated use `PaymentLinkResponse$Outbound` instead. */
-  export type Outbound = PaymentLinkResponse$Outbound;
-}
-
 export function paymentLinkResponseToJSON(
   paymentLinkResponse: PaymentLinkResponse,
 ): string {
@@ -456,7 +411,6 @@ export function paymentLinkResponseToJSON(
     PaymentLinkResponse$outboundSchema.parse(paymentLinkResponse),
   );
 }
-
 export function paymentLinkResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLinkResponse, SDKValidationError> {

@@ -20779,6 +20779,7 @@ paths:
       security:
         - apiKey: []
         - oAuth:
+            - customers.read
             - payments.read
       description: Retrieve all payments linked to the customer.
       parameters:
@@ -26828,7 +26829,7 @@ paths:
       security:
         - apiKey: []
         - oAuth:
-            - sales-invoice.read
+            - sales-invoices.read
       description: |-
         > 🚧 Beta feature
         >

@@ -30,19 +30,7 @@ export type SalesInvoiceRecipientLocale = ClosedEnum<
 export const SalesInvoiceRecipientLocale$inboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceRecipientLocale
 > = z.nativeEnum(SalesInvoiceRecipientLocale);
-
 /** @internal */
 export const SalesInvoiceRecipientLocale$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceRecipientLocale
 > = SalesInvoiceRecipientLocale$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceRecipientLocale$ {
-  /** @deprecated use `SalesInvoiceRecipientLocale$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceRecipientLocale$inboundSchema;
-  /** @deprecated use `SalesInvoiceRecipientLocale$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceRecipientLocale$outboundSchema;
-}

@@ -167,7 +167,6 @@ export const ApplicationFee$inboundSchema: z.ZodType<
   amount: models.Amount$inboundSchema,
   description: z.string(),
 });
-
 /** @internal */
 export type ApplicationFee$Outbound = {
   amount: models.Amount$Outbound;
@@ -184,23 +183,9 @@ export const ApplicationFee$outboundSchema: z.ZodType<
   description: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationFee$ {
-  /** @deprecated use `ApplicationFee$inboundSchema` instead. */
-  export const inboundSchema = ApplicationFee$inboundSchema;
-  /** @deprecated use `ApplicationFee$outboundSchema` instead. */
-  export const outboundSchema = ApplicationFee$outboundSchema;
-  /** @deprecated use `ApplicationFee$Outbound` instead. */
-  export type Outbound = ApplicationFee$Outbound;
-}
-
 export function applicationFeeToJSON(applicationFee: ApplicationFee): string {
   return JSON.stringify(ApplicationFee$outboundSchema.parse(applicationFee));
 }
-
 export function applicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ApplicationFee, SDKValidationError> {
@@ -236,7 +221,6 @@ export const CreatePaymentLinkRequestBody$inboundSchema: z.ZodType<
   customerId: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type CreatePaymentLinkRequestBody$Outbound = {
   id?: string | undefined;
@@ -284,19 +268,6 @@ export const CreatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreatePaymentLinkRequestBody$ {
-  /** @deprecated use `CreatePaymentLinkRequestBody$inboundSchema` instead. */
-  export const inboundSchema = CreatePaymentLinkRequestBody$inboundSchema;
-  /** @deprecated use `CreatePaymentLinkRequestBody$outboundSchema` instead. */
-  export const outboundSchema = CreatePaymentLinkRequestBody$outboundSchema;
-  /** @deprecated use `CreatePaymentLinkRequestBody$Outbound` instead. */
-  export type Outbound = CreatePaymentLinkRequestBody$Outbound;
-}
-
 export function createPaymentLinkRequestBodyToJSON(
   createPaymentLinkRequestBody: CreatePaymentLinkRequestBody,
 ): string {
@@ -306,7 +277,6 @@ export function createPaymentLinkRequestBodyToJSON(
     ),
   );
 }
-
 export function createPaymentLinkRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<CreatePaymentLinkRequestBody, SDKValidationError> {
@@ -332,7 +302,6 @@ export const CreatePaymentLinkRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type CreatePaymentLinkRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -355,19 +324,6 @@ export const CreatePaymentLinkRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreatePaymentLinkRequest$ {
-  /** @deprecated use `CreatePaymentLinkRequest$inboundSchema` instead. */
-  export const inboundSchema = CreatePaymentLinkRequest$inboundSchema;
-  /** @deprecated use `CreatePaymentLinkRequest$outboundSchema` instead. */
-  export const outboundSchema = CreatePaymentLinkRequest$outboundSchema;
-  /** @deprecated use `CreatePaymentLinkRequest$Outbound` instead. */
-  export type Outbound = CreatePaymentLinkRequest$Outbound;
-}
-
 export function createPaymentLinkRequestToJSON(
   createPaymentLinkRequest: CreatePaymentLinkRequest,
 ): string {
@@ -375,7 +331,6 @@ export function createPaymentLinkRequestToJSON(
     CreatePaymentLinkRequest$outboundSchema.parse(createPaymentLinkRequest),
   );
 }
-
 export function createPaymentLinkRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreatePaymentLinkRequest, SDKValidationError> {

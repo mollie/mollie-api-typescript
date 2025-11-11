@@ -50,7 +50,6 @@ export const GetConnectBalanceTransferGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetConnectBalanceTransferGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetConnectBalanceTransferGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConnectBalanceTransferGlobals$ {
-  /** @deprecated use `GetConnectBalanceTransferGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetConnectBalanceTransferGlobals$inboundSchema;
-  /** @deprecated use `GetConnectBalanceTransferGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetConnectBalanceTransferGlobals$outboundSchema;
-  /** @deprecated use `GetConnectBalanceTransferGlobals$Outbound` instead. */
-  export type Outbound = GetConnectBalanceTransferGlobals$Outbound;
-}
-
 export function getConnectBalanceTransferGlobalsToJSON(
   getConnectBalanceTransferGlobals: GetConnectBalanceTransferGlobals,
 ): string {
@@ -87,7 +73,6 @@ export function getConnectBalanceTransferGlobalsToJSON(
     ),
   );
 }
-
 export function getConnectBalanceTransferGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetConnectBalanceTransferGlobals, SDKValidationError> {
@@ -112,7 +97,6 @@ export const GetConnectBalanceTransferRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetConnectBalanceTransferRequest$Outbound = {
   id: string;
@@ -135,19 +119,6 @@ export const GetConnectBalanceTransferRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConnectBalanceTransferRequest$ {
-  /** @deprecated use `GetConnectBalanceTransferRequest$inboundSchema` instead. */
-  export const inboundSchema = GetConnectBalanceTransferRequest$inboundSchema;
-  /** @deprecated use `GetConnectBalanceTransferRequest$outboundSchema` instead. */
-  export const outboundSchema = GetConnectBalanceTransferRequest$outboundSchema;
-  /** @deprecated use `GetConnectBalanceTransferRequest$Outbound` instead. */
-  export type Outbound = GetConnectBalanceTransferRequest$Outbound;
-}
-
 export function getConnectBalanceTransferRequestToJSON(
   getConnectBalanceTransferRequest: GetConnectBalanceTransferRequest,
 ): string {
@@ -157,7 +128,6 @@ export function getConnectBalanceTransferRequestToJSON(
     ),
   );
 }
-
 export function getConnectBalanceTransferRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetConnectBalanceTransferRequest, SDKValidationError> {

@@ -30,7 +30,6 @@ export const AmountNullable$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type AmountNullable$Outbound = {
   currency: string;
@@ -47,23 +46,9 @@ export const AmountNullable$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AmountNullable$ {
-  /** @deprecated use `AmountNullable$inboundSchema` instead. */
-  export const inboundSchema = AmountNullable$inboundSchema;
-  /** @deprecated use `AmountNullable$outboundSchema` instead. */
-  export const outboundSchema = AmountNullable$outboundSchema;
-  /** @deprecated use `AmountNullable$Outbound` instead. */
-  export type Outbound = AmountNullable$Outbound;
-}
-
 export function amountNullableToJSON(amountNullable: AmountNullable): string {
   return JSON.stringify(AmountNullable$outboundSchema.parse(amountNullable));
 }
-
 export function amountNullableFromJSON(
   jsonString: string,
 ): SafeParseResult<AmountNullable, SDKValidationError> {

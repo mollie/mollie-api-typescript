@@ -27,7 +27,6 @@ export const PaymentLinkSequenceTypeResponse$inboundSchema: z.ZodType<
     z.nativeEnum(PaymentLinkSequenceTypeResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const PaymentLinkSequenceTypeResponse$outboundSchema: z.ZodType<
   PaymentLinkSequenceTypeResponse,
@@ -37,14 +36,3 @@ export const PaymentLinkSequenceTypeResponse$outboundSchema: z.ZodType<
   z.nativeEnum(PaymentLinkSequenceTypeResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLinkSequenceTypeResponse$ {
-  /** @deprecated use `PaymentLinkSequenceTypeResponse$inboundSchema` instead. */
-  export const inboundSchema = PaymentLinkSequenceTypeResponse$inboundSchema;
-  /** @deprecated use `PaymentLinkSequenceTypeResponse$outboundSchema` instead. */
-  export const outboundSchema = PaymentLinkSequenceTypeResponse$outboundSchema;
-}

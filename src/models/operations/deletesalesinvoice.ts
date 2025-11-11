@@ -37,7 +37,6 @@ export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
     "delete-values-sales-invoice": "deleteValuesSalesInvoice",
   });
 });
-
 /** @internal */
 export type DeleteSalesInvoiceRequest$Outbound = {
   id: string;
@@ -64,19 +63,6 @@ export const DeleteSalesInvoiceRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteSalesInvoiceRequest$ {
-  /** @deprecated use `DeleteSalesInvoiceRequest$inboundSchema` instead. */
-  export const inboundSchema = DeleteSalesInvoiceRequest$inboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceRequest$outboundSchema` instead. */
-  export const outboundSchema = DeleteSalesInvoiceRequest$outboundSchema;
-  /** @deprecated use `DeleteSalesInvoiceRequest$Outbound` instead. */
-  export type Outbound = DeleteSalesInvoiceRequest$Outbound;
-}
-
 export function deleteSalesInvoiceRequestToJSON(
   deleteSalesInvoiceRequest: DeleteSalesInvoiceRequest,
 ): string {
@@ -84,7 +70,6 @@ export function deleteSalesInvoiceRequestToJSON(
     DeleteSalesInvoiceRequest$outboundSchema.parse(deleteSalesInvoiceRequest),
   );
 }
-
 export function deleteSalesInvoiceRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<DeleteSalesInvoiceRequest, SDKValidationError> {

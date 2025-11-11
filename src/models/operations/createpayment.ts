@@ -36,7 +36,6 @@ export const CreatePaymentRequest$inboundSchema: z.ZodType<
     "payment-request": "paymentRequest",
   });
 });
-
 /** @internal */
 export type CreatePaymentRequest$Outbound = {
   include?: string | null | undefined;
@@ -60,19 +59,6 @@ export const CreatePaymentRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreatePaymentRequest$ {
-  /** @deprecated use `CreatePaymentRequest$inboundSchema` instead. */
-  export const inboundSchema = CreatePaymentRequest$inboundSchema;
-  /** @deprecated use `CreatePaymentRequest$outboundSchema` instead. */
-  export const outboundSchema = CreatePaymentRequest$outboundSchema;
-  /** @deprecated use `CreatePaymentRequest$Outbound` instead. */
-  export type Outbound = CreatePaymentRequest$Outbound;
-}
-
 export function createPaymentRequestToJSON(
   createPaymentRequest: CreatePaymentRequest,
 ): string {
@@ -80,7 +66,6 @@ export function createPaymentRequestToJSON(
     CreatePaymentRequest$outboundSchema.parse(createPaymentRequest),
   );
 }
-
 export function createPaymentRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreatePaymentRequest, SDKValidationError> {

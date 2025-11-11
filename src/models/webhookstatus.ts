@@ -33,7 +33,6 @@ export const WebhookStatus$inboundSchema: z.ZodType<
     z.nativeEnum(WebhookStatus),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const WebhookStatus$outboundSchema: z.ZodType<
   WebhookStatus,
@@ -43,14 +42,3 @@ export const WebhookStatus$outboundSchema: z.ZodType<
   z.nativeEnum(WebhookStatus),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WebhookStatus$ {
-  /** @deprecated use `WebhookStatus$inboundSchema` instead. */
-  export const inboundSchema = WebhookStatus$inboundSchema;
-  /** @deprecated use `WebhookStatus$outboundSchema` instead. */
-  export const outboundSchema = WebhookStatus$outboundSchema;
-}

@@ -84,7 +84,6 @@ export const RouteCreateResponseDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-
 /** @internal */
 export type RouteCreateResponseDestination$Outbound = {
   type: string;
@@ -101,19 +100,6 @@ export const RouteCreateResponseDestination$outboundSchema: z.ZodType<
   organizationId: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteCreateResponseDestination$ {
-  /** @deprecated use `RouteCreateResponseDestination$inboundSchema` instead. */
-  export const inboundSchema = RouteCreateResponseDestination$inboundSchema;
-  /** @deprecated use `RouteCreateResponseDestination$outboundSchema` instead. */
-  export const outboundSchema = RouteCreateResponseDestination$outboundSchema;
-  /** @deprecated use `RouteCreateResponseDestination$Outbound` instead. */
-  export type Outbound = RouteCreateResponseDestination$Outbound;
-}
-
 export function routeCreateResponseDestinationToJSON(
   routeCreateResponseDestination: RouteCreateResponseDestination,
 ): string {
@@ -123,7 +109,6 @@ export function routeCreateResponseDestinationToJSON(
     ),
   );
 }
-
 export function routeCreateResponseDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteCreateResponseDestination, SDKValidationError> {
@@ -143,7 +128,6 @@ export const RouteCreateResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type RouteCreateResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -160,19 +144,6 @@ export const RouteCreateResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteCreateResponseLinks$ {
-  /** @deprecated use `RouteCreateResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = RouteCreateResponseLinks$inboundSchema;
-  /** @deprecated use `RouteCreateResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = RouteCreateResponseLinks$outboundSchema;
-  /** @deprecated use `RouteCreateResponseLinks$Outbound` instead. */
-  export type Outbound = RouteCreateResponseLinks$Outbound;
-}
-
 export function routeCreateResponseLinksToJSON(
   routeCreateResponseLinks: RouteCreateResponseLinks,
 ): string {
@@ -180,7 +151,6 @@ export function routeCreateResponseLinksToJSON(
     RouteCreateResponseLinks$outboundSchema.parse(routeCreateResponseLinks),
   );
 }
-
 export function routeCreateResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteCreateResponseLinks, SDKValidationError> {
@@ -210,7 +180,6 @@ export const RouteCreateResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type RouteCreateResponse$Outbound = {
   resource?: string | undefined;
@@ -242,19 +211,6 @@ export const RouteCreateResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteCreateResponse$ {
-  /** @deprecated use `RouteCreateResponse$inboundSchema` instead. */
-  export const inboundSchema = RouteCreateResponse$inboundSchema;
-  /** @deprecated use `RouteCreateResponse$outboundSchema` instead. */
-  export const outboundSchema = RouteCreateResponse$outboundSchema;
-  /** @deprecated use `RouteCreateResponse$Outbound` instead. */
-  export type Outbound = RouteCreateResponse$Outbound;
-}
-
 export function routeCreateResponseToJSON(
   routeCreateResponse: RouteCreateResponse,
 ): string {
@@ -262,7 +218,6 @@ export function routeCreateResponseToJSON(
     RouteCreateResponse$outboundSchema.parse(routeCreateResponse),
   );
 }
-
 export function routeCreateResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteCreateResponse, SDKValidationError> {

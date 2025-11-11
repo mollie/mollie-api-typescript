@@ -109,7 +109,6 @@ export const EntityBalanceTransferResponseStatusReason$inboundSchema: z.ZodType<
   code: BalanceTransferStatusReasonResponse$inboundSchema,
   message: z.string(),
 });
-
 /** @internal */
 export type EntityBalanceTransferResponseStatusReason$Outbound = {
   code: string;
@@ -127,21 +126,6 @@ export const EntityBalanceTransferResponseStatusReason$outboundSchema:
     message: z.string(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceTransferResponseStatusReason$ {
-  /** @deprecated use `EntityBalanceTransferResponseStatusReason$inboundSchema` instead. */
-  export const inboundSchema =
-    EntityBalanceTransferResponseStatusReason$inboundSchema;
-  /** @deprecated use `EntityBalanceTransferResponseStatusReason$outboundSchema` instead. */
-  export const outboundSchema =
-    EntityBalanceTransferResponseStatusReason$outboundSchema;
-  /** @deprecated use `EntityBalanceTransferResponseStatusReason$Outbound` instead. */
-  export type Outbound = EntityBalanceTransferResponseStatusReason$Outbound;
-}
-
 export function entityBalanceTransferResponseStatusReasonToJSON(
   entityBalanceTransferResponseStatusReason:
     EntityBalanceTransferResponseStatusReason,
@@ -152,7 +136,6 @@ export function entityBalanceTransferResponseStatusReasonToJSON(
     ),
   );
 }
-
 export function entityBalanceTransferResponseStatusReasonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -190,7 +173,6 @@ export const EntityBalanceTransferResponse$inboundSchema: z.ZodType<
   executedAt: z.nullable(z.string()).optional(),
   mode: Mode$inboundSchema,
 });
-
 /** @internal */
 export type EntityBalanceTransferResponse$Outbound = {
   resource: string;
@@ -229,19 +211,6 @@ export const EntityBalanceTransferResponse$outboundSchema: z.ZodType<
   mode: Mode$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceTransferResponse$ {
-  /** @deprecated use `EntityBalanceTransferResponse$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceTransferResponse$inboundSchema;
-  /** @deprecated use `EntityBalanceTransferResponse$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceTransferResponse$outboundSchema;
-  /** @deprecated use `EntityBalanceTransferResponse$Outbound` instead. */
-  export type Outbound = EntityBalanceTransferResponse$Outbound;
-}
-
 export function entityBalanceTransferResponseToJSON(
   entityBalanceTransferResponse: EntityBalanceTransferResponse,
 ): string {
@@ -251,7 +220,6 @@ export function entityBalanceTransferResponseToJSON(
     ),
   );
 }
-
 export function entityBalanceTransferResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransferResponse, SDKValidationError> {

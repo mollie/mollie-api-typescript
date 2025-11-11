@@ -101,7 +101,6 @@ export const Organization$inboundSchema: z.ZodType<
   vatRegulation: z.nullable(models.OnboardingVatRegulation$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type Organization$Outbound = {
   name?: string | undefined;
@@ -125,23 +124,9 @@ export const Organization$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Organization$ {
-  /** @deprecated use `Organization$inboundSchema` instead. */
-  export const inboundSchema = Organization$inboundSchema;
-  /** @deprecated use `Organization$outboundSchema` instead. */
-  export const outboundSchema = Organization$outboundSchema;
-  /** @deprecated use `Organization$Outbound` instead. */
-  export type Outbound = Organization$Outbound;
-}
-
 export function organizationToJSON(organization: Organization): string {
   return JSON.stringify(Organization$outboundSchema.parse(organization));
 }
-
 export function organizationFromJSON(
   jsonString: string,
 ): SafeParseResult<Organization, SDKValidationError> {
@@ -162,7 +147,6 @@ export const Profile$inboundSchema: z.ZodType<Profile, z.ZodTypeDef, unknown> =
     description: z.nullable(z.string()).optional(),
     businessCategory: z.string().optional(),
   });
-
 /** @internal */
 export type Profile$Outbound = {
   name?: string | undefined;
@@ -187,23 +171,9 @@ export const Profile$outboundSchema: z.ZodType<
   businessCategory: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Profile$ {
-  /** @deprecated use `Profile$inboundSchema` instead. */
-  export const inboundSchema = Profile$inboundSchema;
-  /** @deprecated use `Profile$outboundSchema` instead. */
-  export const outboundSchema = Profile$outboundSchema;
-  /** @deprecated use `Profile$Outbound` instead. */
-  export type Outbound = Profile$Outbound;
-}
-
 export function profileToJSON(profile: Profile): string {
   return JSON.stringify(Profile$outboundSchema.parse(profile));
 }
-
 export function profileFromJSON(
   jsonString: string,
 ): SafeParseResult<Profile, SDKValidationError> {
@@ -223,7 +193,6 @@ export const SubmitOnboardingDataRequestBody$inboundSchema: z.ZodType<
   organization: z.lazy(() => Organization$inboundSchema).optional(),
   profile: z.lazy(() => Profile$inboundSchema).optional(),
 });
-
 /** @internal */
 export type SubmitOnboardingDataRequestBody$Outbound = {
   organization?: Organization$Outbound | undefined;
@@ -240,19 +209,6 @@ export const SubmitOnboardingDataRequestBody$outboundSchema: z.ZodType<
   profile: z.lazy(() => Profile$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubmitOnboardingDataRequestBody$ {
-  /** @deprecated use `SubmitOnboardingDataRequestBody$inboundSchema` instead. */
-  export const inboundSchema = SubmitOnboardingDataRequestBody$inboundSchema;
-  /** @deprecated use `SubmitOnboardingDataRequestBody$outboundSchema` instead. */
-  export const outboundSchema = SubmitOnboardingDataRequestBody$outboundSchema;
-  /** @deprecated use `SubmitOnboardingDataRequestBody$Outbound` instead. */
-  export type Outbound = SubmitOnboardingDataRequestBody$Outbound;
-}
-
 export function submitOnboardingDataRequestBodyToJSON(
   submitOnboardingDataRequestBody: SubmitOnboardingDataRequestBody,
 ): string {
@@ -262,7 +218,6 @@ export function submitOnboardingDataRequestBodyToJSON(
     ),
   );
 }
-
 export function submitOnboardingDataRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<SubmitOnboardingDataRequestBody, SDKValidationError> {
@@ -288,7 +243,6 @@ export const SubmitOnboardingDataRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type SubmitOnboardingDataRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -311,19 +265,6 @@ export const SubmitOnboardingDataRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubmitOnboardingDataRequest$ {
-  /** @deprecated use `SubmitOnboardingDataRequest$inboundSchema` instead. */
-  export const inboundSchema = SubmitOnboardingDataRequest$inboundSchema;
-  /** @deprecated use `SubmitOnboardingDataRequest$outboundSchema` instead. */
-  export const outboundSchema = SubmitOnboardingDataRequest$outboundSchema;
-  /** @deprecated use `SubmitOnboardingDataRequest$Outbound` instead. */
-  export type Outbound = SubmitOnboardingDataRequest$Outbound;
-}
-
 export function submitOnboardingDataRequestToJSON(
   submitOnboardingDataRequest: SubmitOnboardingDataRequest,
 ): string {
@@ -333,7 +274,6 @@ export function submitOnboardingDataRequestToJSON(
     ),
   );
 }
-
 export function submitOnboardingDataRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<SubmitOnboardingDataRequest, SDKValidationError> {

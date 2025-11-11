@@ -35,19 +35,7 @@ export type PaymentLineType = ClosedEnum<typeof PaymentLineType>;
 export const PaymentLineType$inboundSchema: z.ZodNativeEnum<
   typeof PaymentLineType
 > = z.nativeEnum(PaymentLineType);
-
 /** @internal */
 export const PaymentLineType$outboundSchema: z.ZodNativeEnum<
   typeof PaymentLineType
 > = PaymentLineType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLineType$ {
-  /** @deprecated use `PaymentLineType$inboundSchema` instead. */
-  export const inboundSchema = PaymentLineType$inboundSchema;
-  /** @deprecated use `PaymentLineType$outboundSchema` instead. */
-  export const outboundSchema = PaymentLineType$outboundSchema;
-}

@@ -77,7 +77,6 @@ export const UpdateProfileRequestBody$inboundSchema: z.ZodType<
   countriesOfActivity: z.nullable(z.array(z.string())).optional(),
   businessCategory: z.nullable(z.string()).optional(),
 });
-
 /** @internal */
 export type UpdateProfileRequestBody$Outbound = {
   name?: string | null | undefined;
@@ -104,19 +103,6 @@ export const UpdateProfileRequestBody$outboundSchema: z.ZodType<
   businessCategory: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateProfileRequestBody$ {
-  /** @deprecated use `UpdateProfileRequestBody$inboundSchema` instead. */
-  export const inboundSchema = UpdateProfileRequestBody$inboundSchema;
-  /** @deprecated use `UpdateProfileRequestBody$outboundSchema` instead. */
-  export const outboundSchema = UpdateProfileRequestBody$outboundSchema;
-  /** @deprecated use `UpdateProfileRequestBody$Outbound` instead. */
-  export type Outbound = UpdateProfileRequestBody$Outbound;
-}
-
 export function updateProfileRequestBodyToJSON(
   updateProfileRequestBody: UpdateProfileRequestBody,
 ): string {
@@ -124,7 +110,6 @@ export function updateProfileRequestBodyToJSON(
     UpdateProfileRequestBody$outboundSchema.parse(updateProfileRequestBody),
   );
 }
-
 export function updateProfileRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateProfileRequestBody, SDKValidationError> {
@@ -150,7 +135,6 @@ export const UpdateProfileRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type UpdateProfileRequest$Outbound = {
   id: string;
@@ -174,19 +158,6 @@ export const UpdateProfileRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateProfileRequest$ {
-  /** @deprecated use `UpdateProfileRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateProfileRequest$inboundSchema;
-  /** @deprecated use `UpdateProfileRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateProfileRequest$outboundSchema;
-  /** @deprecated use `UpdateProfileRequest$Outbound` instead. */
-  export type Outbound = UpdateProfileRequest$Outbound;
-}
-
 export function updateProfileRequestToJSON(
   updateProfileRequest: UpdateProfileRequest,
 ): string {
@@ -194,7 +165,6 @@ export function updateProfileRequestToJSON(
     UpdateProfileRequest$outboundSchema.parse(updateProfileRequest),
   );
 }
-
 export function updateProfileRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateProfileRequest, SDKValidationError> {

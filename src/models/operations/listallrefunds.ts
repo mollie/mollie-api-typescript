@@ -121,7 +121,6 @@ export const ListAllRefundsGlobals$inboundSchema: z.ZodType<
   profileId: z.string().optional(),
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListAllRefundsGlobals$Outbound = {
   profileId?: string | undefined;
@@ -138,19 +137,6 @@ export const ListAllRefundsGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllRefundsGlobals$ {
-  /** @deprecated use `ListAllRefundsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListAllRefundsGlobals$inboundSchema;
-  /** @deprecated use `ListAllRefundsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListAllRefundsGlobals$outboundSchema;
-  /** @deprecated use `ListAllRefundsGlobals$Outbound` instead. */
-  export type Outbound = ListAllRefundsGlobals$Outbound;
-}
-
 export function listAllRefundsGlobalsToJSON(
   listAllRefundsGlobals: ListAllRefundsGlobals,
 ): string {
@@ -158,7 +144,6 @@ export function listAllRefundsGlobalsToJSON(
     ListAllRefundsGlobals$outboundSchema.parse(listAllRefundsGlobals),
   );
 }
-
 export function listAllRefundsGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllRefundsGlobals, SDKValidationError> {
@@ -187,7 +172,6 @@ export const ListAllRefundsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListAllRefundsRequest$Outbound = {
   from?: string | undefined;
@@ -218,19 +202,6 @@ export const ListAllRefundsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllRefundsRequest$ {
-  /** @deprecated use `ListAllRefundsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListAllRefundsRequest$inboundSchema;
-  /** @deprecated use `ListAllRefundsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListAllRefundsRequest$outboundSchema;
-  /** @deprecated use `ListAllRefundsRequest$Outbound` instead. */
-  export type Outbound = ListAllRefundsRequest$Outbound;
-}
-
 export function listAllRefundsRequestToJSON(
   listAllRefundsRequest: ListAllRefundsRequest,
 ): string {
@@ -238,7 +209,6 @@ export function listAllRefundsRequestToJSON(
     ListAllRefundsRequest$outboundSchema.parse(listAllRefundsRequest),
   );
 }
-
 export function listAllRefundsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllRefundsRequest, SDKValidationError> {
@@ -257,7 +227,6 @@ export const ListAllRefundsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   refunds: z.array(models.EntityRefundResponse$inboundSchema),
 });
-
 /** @internal */
 export type ListAllRefundsEmbedded$Outbound = {
   refunds: Array<models.EntityRefundResponse$Outbound>;
@@ -272,19 +241,6 @@ export const ListAllRefundsEmbedded$outboundSchema: z.ZodType<
   refunds: z.array(models.EntityRefundResponse$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllRefundsEmbedded$ {
-  /** @deprecated use `ListAllRefundsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListAllRefundsEmbedded$inboundSchema;
-  /** @deprecated use `ListAllRefundsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListAllRefundsEmbedded$outboundSchema;
-  /** @deprecated use `ListAllRefundsEmbedded$Outbound` instead. */
-  export type Outbound = ListAllRefundsEmbedded$Outbound;
-}
-
 export function listAllRefundsEmbeddedToJSON(
   listAllRefundsEmbedded: ListAllRefundsEmbedded,
 ): string {
@@ -292,7 +248,6 @@ export function listAllRefundsEmbeddedToJSON(
     ListAllRefundsEmbedded$outboundSchema.parse(listAllRefundsEmbedded),
   );
 }
-
 export function listAllRefundsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllRefundsEmbedded, SDKValidationError> {
@@ -318,7 +273,6 @@ export const ListAllRefundsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListAllRefundsResponse$Outbound = {
   count: number;
@@ -342,19 +296,6 @@ export const ListAllRefundsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAllRefundsResponse$ {
-  /** @deprecated use `ListAllRefundsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListAllRefundsResponse$inboundSchema;
-  /** @deprecated use `ListAllRefundsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListAllRefundsResponse$outboundSchema;
-  /** @deprecated use `ListAllRefundsResponse$Outbound` instead. */
-  export type Outbound = ListAllRefundsResponse$Outbound;
-}
-
 export function listAllRefundsResponseToJSON(
   listAllRefundsResponse: ListAllRefundsResponse,
 ): string {
@@ -362,7 +303,6 @@ export function listAllRefundsResponseToJSON(
     ListAllRefundsResponse$outboundSchema.parse(listAllRefundsResponse),
   );
 }
-
 export function listAllRefundsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllRefundsResponse, SDKValidationError> {

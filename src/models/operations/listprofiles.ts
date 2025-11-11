@@ -69,7 +69,6 @@ export const ListProfilesRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListProfilesRequest$Outbound = {
   from?: string | null | undefined;
@@ -92,19 +91,6 @@ export const ListProfilesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListProfilesRequest$ {
-  /** @deprecated use `ListProfilesRequest$inboundSchema` instead. */
-  export const inboundSchema = ListProfilesRequest$inboundSchema;
-  /** @deprecated use `ListProfilesRequest$outboundSchema` instead. */
-  export const outboundSchema = ListProfilesRequest$outboundSchema;
-  /** @deprecated use `ListProfilesRequest$Outbound` instead. */
-  export type Outbound = ListProfilesRequest$Outbound;
-}
-
 export function listProfilesRequestToJSON(
   listProfilesRequest: ListProfilesRequest,
 ): string {
@@ -112,7 +98,6 @@ export function listProfilesRequestToJSON(
     ListProfilesRequest$outboundSchema.parse(listProfilesRequest),
   );
 }
-
 export function listProfilesRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListProfilesRequest, SDKValidationError> {
@@ -131,7 +116,6 @@ export const ListProfilesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   profiles: z.array(models.ProfileResponse$inboundSchema),
 });
-
 /** @internal */
 export type ListProfilesEmbedded$Outbound = {
   profiles: Array<models.ProfileResponse$Outbound>;
@@ -146,19 +130,6 @@ export const ListProfilesEmbedded$outboundSchema: z.ZodType<
   profiles: z.array(models.ProfileResponse$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListProfilesEmbedded$ {
-  /** @deprecated use `ListProfilesEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListProfilesEmbedded$inboundSchema;
-  /** @deprecated use `ListProfilesEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListProfilesEmbedded$outboundSchema;
-  /** @deprecated use `ListProfilesEmbedded$Outbound` instead. */
-  export type Outbound = ListProfilesEmbedded$Outbound;
-}
-
 export function listProfilesEmbeddedToJSON(
   listProfilesEmbedded: ListProfilesEmbedded,
 ): string {
@@ -166,7 +137,6 @@ export function listProfilesEmbeddedToJSON(
     ListProfilesEmbedded$outboundSchema.parse(listProfilesEmbedded),
   );
 }
-
 export function listProfilesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListProfilesEmbedded, SDKValidationError> {
@@ -192,7 +162,6 @@ export const ListProfilesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListProfilesResponse$Outbound = {
   count: number;
@@ -216,19 +185,6 @@ export const ListProfilesResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListProfilesResponse$ {
-  /** @deprecated use `ListProfilesResponse$inboundSchema` instead. */
-  export const inboundSchema = ListProfilesResponse$inboundSchema;
-  /** @deprecated use `ListProfilesResponse$outboundSchema` instead. */
-  export const outboundSchema = ListProfilesResponse$outboundSchema;
-  /** @deprecated use `ListProfilesResponse$Outbound` instead. */
-  export type Outbound = ListProfilesResponse$Outbound;
-}
-
 export function listProfilesResponseToJSON(
   listProfilesResponse: ListProfilesResponse,
 ): string {
@@ -236,7 +192,6 @@ export function listProfilesResponseToJSON(
     ListProfilesResponse$outboundSchema.parse(listProfilesResponse),
   );
 }
-
 export function listProfilesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListProfilesResponse, SDKValidationError> {

@@ -27,7 +27,6 @@ export const GetOnboardingStatusRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetOnboardingStatusRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -46,19 +45,6 @@ export const GetOnboardingStatusRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetOnboardingStatusRequest$ {
-  /** @deprecated use `GetOnboardingStatusRequest$inboundSchema` instead. */
-  export const inboundSchema = GetOnboardingStatusRequest$inboundSchema;
-  /** @deprecated use `GetOnboardingStatusRequest$outboundSchema` instead. */
-  export const outboundSchema = GetOnboardingStatusRequest$outboundSchema;
-  /** @deprecated use `GetOnboardingStatusRequest$Outbound` instead. */
-  export type Outbound = GetOnboardingStatusRequest$Outbound;
-}
-
 export function getOnboardingStatusRequestToJSON(
   getOnboardingStatusRequest: GetOnboardingStatusRequest,
 ): string {
@@ -66,7 +52,6 @@ export function getOnboardingStatusRequestToJSON(
     GetOnboardingStatusRequest$outboundSchema.parse(getOnboardingStatusRequest),
   );
 }
-
 export function getOnboardingStatusRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetOnboardingStatusRequest, SDKValidationError> {

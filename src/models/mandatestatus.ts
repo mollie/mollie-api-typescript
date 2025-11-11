@@ -38,7 +38,6 @@ export const MandateStatus$inboundSchema: z.ZodType<
     z.nativeEnum(MandateStatus),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const MandateStatus$outboundSchema: z.ZodType<
   MandateStatus,
@@ -48,14 +47,3 @@ export const MandateStatus$outboundSchema: z.ZodType<
   z.nativeEnum(MandateStatus),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateStatus$ {
-  /** @deprecated use `MandateStatus$inboundSchema` instead. */
-  export const inboundSchema = MandateStatus$inboundSchema;
-  /** @deprecated use `MandateStatus$outboundSchema` instead. */
-  export const outboundSchema = MandateStatus$outboundSchema;
-}

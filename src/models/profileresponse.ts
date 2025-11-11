@@ -163,7 +163,6 @@ export const Review$inboundSchema: z.ZodType<Review, z.ZodTypeDef, unknown> = z
   .object({
     status: ProfileReviewStatusResponse$inboundSchema.optional(),
   });
-
 /** @internal */
 export type Review$Outbound = {
   status?: string | undefined;
@@ -178,23 +177,9 @@ export const Review$outboundSchema: z.ZodType<
   status: ProfileReviewStatusResponse$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Review$ {
-  /** @deprecated use `Review$inboundSchema` instead. */
-  export const inboundSchema = Review$inboundSchema;
-  /** @deprecated use `Review$outboundSchema` instead. */
-  export const outboundSchema = Review$outboundSchema;
-  /** @deprecated use `Review$Outbound` instead. */
-  export type Outbound = Review$Outbound;
-}
-
 export function reviewToJSON(review: Review): string {
   return JSON.stringify(Review$outboundSchema.parse(review));
 }
-
 export function reviewFromJSON(
   jsonString: string,
 ): SafeParseResult<Review, SDKValidationError> {
@@ -220,7 +205,6 @@ export const ProfileResponseLinks$inboundSchema: z.ZodType<
   checkoutPreviewUrl: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type ProfileResponseLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -249,19 +233,6 @@ export const ProfileResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProfileResponseLinks$ {
-  /** @deprecated use `ProfileResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = ProfileResponseLinks$inboundSchema;
-  /** @deprecated use `ProfileResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = ProfileResponseLinks$outboundSchema;
-  /** @deprecated use `ProfileResponseLinks$Outbound` instead. */
-  export type Outbound = ProfileResponseLinks$Outbound;
-}
-
 export function profileResponseLinksToJSON(
   profileResponseLinks: ProfileResponseLinks,
 ): string {
@@ -269,7 +240,6 @@ export function profileResponseLinksToJSON(
     ProfileResponseLinks$outboundSchema.parse(profileResponseLinks),
   );
 }
-
 export function profileResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ProfileResponseLinks, SDKValidationError> {
@@ -305,7 +275,6 @@ export const ProfileResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ProfileResponse$Outbound = {
   resource?: string | undefined;
@@ -350,25 +319,11 @@ export const ProfileResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProfileResponse$ {
-  /** @deprecated use `ProfileResponse$inboundSchema` instead. */
-  export const inboundSchema = ProfileResponse$inboundSchema;
-  /** @deprecated use `ProfileResponse$outboundSchema` instead. */
-  export const outboundSchema = ProfileResponse$outboundSchema;
-  /** @deprecated use `ProfileResponse$Outbound` instead. */
-  export type Outbound = ProfileResponse$Outbound;
-}
-
 export function profileResponseToJSON(
   profileResponse: ProfileResponse,
 ): string {
   return JSON.stringify(ProfileResponse$outboundSchema.parse(profileResponse));
 }
-
 export function profileResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ProfileResponse, SDKValidationError> {

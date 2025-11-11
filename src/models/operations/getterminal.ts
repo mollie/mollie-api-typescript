@@ -50,7 +50,6 @@ export const GetTerminalGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetTerminalGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetTerminalGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetTerminalGlobals$ {
-  /** @deprecated use `GetTerminalGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetTerminalGlobals$inboundSchema;
-  /** @deprecated use `GetTerminalGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetTerminalGlobals$outboundSchema;
-  /** @deprecated use `GetTerminalGlobals$Outbound` instead. */
-  export type Outbound = GetTerminalGlobals$Outbound;
-}
-
 export function getTerminalGlobalsToJSON(
   getTerminalGlobals: GetTerminalGlobals,
 ): string {
@@ -85,7 +71,6 @@ export function getTerminalGlobalsToJSON(
     GetTerminalGlobals$outboundSchema.parse(getTerminalGlobals),
   );
 }
-
 export function getTerminalGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetTerminalGlobals, SDKValidationError> {
@@ -110,7 +95,6 @@ export const GetTerminalRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetTerminalRequest$Outbound = {
   terminalId: string;
@@ -133,19 +117,6 @@ export const GetTerminalRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetTerminalRequest$ {
-  /** @deprecated use `GetTerminalRequest$inboundSchema` instead. */
-  export const inboundSchema = GetTerminalRequest$inboundSchema;
-  /** @deprecated use `GetTerminalRequest$outboundSchema` instead. */
-  export const outboundSchema = GetTerminalRequest$outboundSchema;
-  /** @deprecated use `GetTerminalRequest$Outbound` instead. */
-  export type Outbound = GetTerminalRequest$Outbound;
-}
-
 export function getTerminalRequestToJSON(
   getTerminalRequest: GetTerminalRequest,
 ): string {
@@ -153,7 +124,6 @@ export function getTerminalRequestToJSON(
     GetTerminalRequest$outboundSchema.parse(getTerminalRequest),
   );
 }
-
 export function getTerminalRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetTerminalRequest, SDKValidationError> {

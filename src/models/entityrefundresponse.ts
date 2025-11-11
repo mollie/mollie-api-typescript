@@ -177,7 +177,6 @@ export const EntityRefundResponseExternalReference$inboundSchema: z.ZodType<
   type: RefundExternalReferenceTypeResponse$inboundSchema.optional(),
   id: z.string().optional(),
 });
-
 /** @internal */
 export type EntityRefundResponseExternalReference$Outbound = {
   type?: string | undefined;
@@ -194,21 +193,6 @@ export const EntityRefundResponseExternalReference$outboundSchema: z.ZodType<
   id: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRefundResponseExternalReference$ {
-  /** @deprecated use `EntityRefundResponseExternalReference$inboundSchema` instead. */
-  export const inboundSchema =
-    EntityRefundResponseExternalReference$inboundSchema;
-  /** @deprecated use `EntityRefundResponseExternalReference$outboundSchema` instead. */
-  export const outboundSchema =
-    EntityRefundResponseExternalReference$outboundSchema;
-  /** @deprecated use `EntityRefundResponseExternalReference$Outbound` instead. */
-  export type Outbound = EntityRefundResponseExternalReference$Outbound;
-}
-
 export function entityRefundResponseExternalReferenceToJSON(
   entityRefundResponseExternalReference: EntityRefundResponseExternalReference,
 ): string {
@@ -218,7 +202,6 @@ export function entityRefundResponseExternalReferenceToJSON(
     ),
   );
 }
-
 export function entityRefundResponseExternalReferenceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseExternalReference, SDKValidationError> {
@@ -239,7 +222,6 @@ export const EntityRefundResponseSource$inboundSchema: z.ZodType<
   type: RefundRoutingReversalsSourceType$inboundSchema.optional(),
   organizationId: z.string().optional(),
 });
-
 /** @internal */
 export type EntityRefundResponseSource$Outbound = {
   type?: string | undefined;
@@ -256,19 +238,6 @@ export const EntityRefundResponseSource$outboundSchema: z.ZodType<
   organizationId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRefundResponseSource$ {
-  /** @deprecated use `EntityRefundResponseSource$inboundSchema` instead. */
-  export const inboundSchema = EntityRefundResponseSource$inboundSchema;
-  /** @deprecated use `EntityRefundResponseSource$outboundSchema` instead. */
-  export const outboundSchema = EntityRefundResponseSource$outboundSchema;
-  /** @deprecated use `EntityRefundResponseSource$Outbound` instead. */
-  export type Outbound = EntityRefundResponseSource$Outbound;
-}
-
 export function entityRefundResponseSourceToJSON(
   entityRefundResponseSource: EntityRefundResponseSource,
 ): string {
@@ -276,7 +245,6 @@ export function entityRefundResponseSourceToJSON(
     EntityRefundResponseSource$outboundSchema.parse(entityRefundResponseSource),
   );
 }
-
 export function entityRefundResponseSourceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseSource, SDKValidationError> {
@@ -296,7 +264,6 @@ export const EntityRefundResponseRoutingReversal$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema.optional(),
   source: z.lazy(() => EntityRefundResponseSource$inboundSchema).optional(),
 });
-
 /** @internal */
 export type EntityRefundResponseRoutingReversal$Outbound = {
   amount?: Amount$Outbound | undefined;
@@ -313,21 +280,6 @@ export const EntityRefundResponseRoutingReversal$outboundSchema: z.ZodType<
   source: z.lazy(() => EntityRefundResponseSource$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRefundResponseRoutingReversal$ {
-  /** @deprecated use `EntityRefundResponseRoutingReversal$inboundSchema` instead. */
-  export const inboundSchema =
-    EntityRefundResponseRoutingReversal$inboundSchema;
-  /** @deprecated use `EntityRefundResponseRoutingReversal$outboundSchema` instead. */
-  export const outboundSchema =
-    EntityRefundResponseRoutingReversal$outboundSchema;
-  /** @deprecated use `EntityRefundResponseRoutingReversal$Outbound` instead. */
-  export type Outbound = EntityRefundResponseRoutingReversal$Outbound;
-}
-
 export function entityRefundResponseRoutingReversalToJSON(
   entityRefundResponseRoutingReversal: EntityRefundResponseRoutingReversal,
 ): string {
@@ -337,7 +289,6 @@ export function entityRefundResponseRoutingReversalToJSON(
     ),
   );
 }
-
 export function entityRefundResponseRoutingReversalFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseRoutingReversal, SDKValidationError> {
@@ -360,7 +311,6 @@ export const EntityRefundResponseLinks$inboundSchema: z.ZodType<
   settlement: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type EntityRefundResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -381,19 +331,6 @@ export const EntityRefundResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRefundResponseLinks$ {
-  /** @deprecated use `EntityRefundResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityRefundResponseLinks$inboundSchema;
-  /** @deprecated use `EntityRefundResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityRefundResponseLinks$outboundSchema;
-  /** @deprecated use `EntityRefundResponseLinks$Outbound` instead. */
-  export type Outbound = EntityRefundResponseLinks$Outbound;
-}
-
 export function entityRefundResponseLinksToJSON(
   entityRefundResponseLinks: EntityRefundResponseLinks,
 ): string {
@@ -401,7 +338,6 @@ export function entityRefundResponseLinksToJSON(
     EntityRefundResponseLinks$outboundSchema.parse(entityRefundResponseLinks),
   );
 }
-
 export function entityRefundResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseLinks, SDKValidationError> {
@@ -441,7 +377,6 @@ export const EntityRefundResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityRefundResponse$Outbound = {
   resource: string;
@@ -495,19 +430,6 @@ export const EntityRefundResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityRefundResponse$ {
-  /** @deprecated use `EntityRefundResponse$inboundSchema` instead. */
-  export const inboundSchema = EntityRefundResponse$inboundSchema;
-  /** @deprecated use `EntityRefundResponse$outboundSchema` instead. */
-  export const outboundSchema = EntityRefundResponse$outboundSchema;
-  /** @deprecated use `EntityRefundResponse$Outbound` instead. */
-  export type Outbound = EntityRefundResponse$Outbound;
-}
-
 export function entityRefundResponseToJSON(
   entityRefundResponse: EntityRefundResponse,
 ): string {
@@ -515,7 +437,6 @@ export function entityRefundResponseToJSON(
     EntityRefundResponse$outboundSchema.parse(entityRefundResponse),
   );
 }
-
 export function entityRefundResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponse, SDKValidationError> {

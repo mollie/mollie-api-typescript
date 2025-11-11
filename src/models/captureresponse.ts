@@ -122,7 +122,6 @@ export const CaptureResponseLinks$inboundSchema: z.ZodType<
   shipment: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type CaptureResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -145,19 +144,6 @@ export const CaptureResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureResponseLinks$ {
-  /** @deprecated use `CaptureResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = CaptureResponseLinks$inboundSchema;
-  /** @deprecated use `CaptureResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = CaptureResponseLinks$outboundSchema;
-  /** @deprecated use `CaptureResponseLinks$Outbound` instead. */
-  export type Outbound = CaptureResponseLinks$Outbound;
-}
-
 export function captureResponseLinksToJSON(
   captureResponseLinks: CaptureResponseLinks,
 ): string {
@@ -165,7 +151,6 @@ export function captureResponseLinksToJSON(
     CaptureResponseLinks$outboundSchema.parse(captureResponseLinks),
   );
 }
-
 export function captureResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureResponseLinks, SDKValidationError> {
@@ -200,7 +185,6 @@ export const CaptureResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type CaptureResponse$Outbound = {
   resource?: string | undefined;
@@ -243,25 +227,11 @@ export const CaptureResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureResponse$ {
-  /** @deprecated use `CaptureResponse$inboundSchema` instead. */
-  export const inboundSchema = CaptureResponse$inboundSchema;
-  /** @deprecated use `CaptureResponse$outboundSchema` instead. */
-  export const outboundSchema = CaptureResponse$outboundSchema;
-  /** @deprecated use `CaptureResponse$Outbound` instead. */
-  export type Outbound = CaptureResponse$Outbound;
-}
-
 export function captureResponseToJSON(
   captureResponse: CaptureResponse,
 ): string {
   return JSON.stringify(CaptureResponse$outboundSchema.parse(captureResponse));
 }
-
 export function captureResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureResponse, SDKValidationError> {

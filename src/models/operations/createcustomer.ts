@@ -31,7 +31,6 @@ export const CreateCustomerRequest$inboundSchema: z.ZodType<
     "entity-customer": "entityCustomer",
   });
 });
-
 /** @internal */
 export type CreateCustomerRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -53,19 +52,6 @@ export const CreateCustomerRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCustomerRequest$ {
-  /** @deprecated use `CreateCustomerRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateCustomerRequest$inboundSchema;
-  /** @deprecated use `CreateCustomerRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateCustomerRequest$outboundSchema;
-  /** @deprecated use `CreateCustomerRequest$Outbound` instead. */
-  export type Outbound = CreateCustomerRequest$Outbound;
-}
-
 export function createCustomerRequestToJSON(
   createCustomerRequest: CreateCustomerRequest,
 ): string {
@@ -73,7 +59,6 @@ export function createCustomerRequestToJSON(
     CreateCustomerRequest$outboundSchema.parse(createCustomerRequest),
   );
 }
-
 export function createCustomerRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateCustomerRequest, SDKValidationError> {

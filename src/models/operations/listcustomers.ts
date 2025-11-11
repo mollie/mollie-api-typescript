@@ -93,7 +93,6 @@ export const ListCustomersGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListCustomersGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -108,19 +107,6 @@ export const ListCustomersGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCustomersGlobals$ {
-  /** @deprecated use `ListCustomersGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListCustomersGlobals$inboundSchema;
-  /** @deprecated use `ListCustomersGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListCustomersGlobals$outboundSchema;
-  /** @deprecated use `ListCustomersGlobals$Outbound` instead. */
-  export type Outbound = ListCustomersGlobals$Outbound;
-}
-
 export function listCustomersGlobalsToJSON(
   listCustomersGlobals: ListCustomersGlobals,
 ): string {
@@ -128,7 +114,6 @@ export function listCustomersGlobalsToJSON(
     ListCustomersGlobals$outboundSchema.parse(listCustomersGlobals),
   );
 }
-
 export function listCustomersGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCustomersGlobals, SDKValidationError> {
@@ -155,7 +140,6 @@ export const ListCustomersRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListCustomersRequest$Outbound = {
   from?: string | undefined;
@@ -182,19 +166,6 @@ export const ListCustomersRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCustomersRequest$ {
-  /** @deprecated use `ListCustomersRequest$inboundSchema` instead. */
-  export const inboundSchema = ListCustomersRequest$inboundSchema;
-  /** @deprecated use `ListCustomersRequest$outboundSchema` instead. */
-  export const outboundSchema = ListCustomersRequest$outboundSchema;
-  /** @deprecated use `ListCustomersRequest$Outbound` instead. */
-  export type Outbound = ListCustomersRequest$Outbound;
-}
-
 export function listCustomersRequestToJSON(
   listCustomersRequest: ListCustomersRequest,
 ): string {
@@ -202,7 +173,6 @@ export function listCustomersRequestToJSON(
     ListCustomersRequest$outboundSchema.parse(listCustomersRequest),
   );
 }
-
 export function listCustomersRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCustomersRequest, SDKValidationError> {
@@ -221,7 +191,6 @@ export const ListCustomersEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   customers: z.array(models.CustomerResponse$inboundSchema),
 });
-
 /** @internal */
 export type ListCustomersEmbedded$Outbound = {
   customers: Array<models.CustomerResponse$Outbound>;
@@ -236,19 +205,6 @@ export const ListCustomersEmbedded$outboundSchema: z.ZodType<
   customers: z.array(models.CustomerResponse$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCustomersEmbedded$ {
-  /** @deprecated use `ListCustomersEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListCustomersEmbedded$inboundSchema;
-  /** @deprecated use `ListCustomersEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListCustomersEmbedded$outboundSchema;
-  /** @deprecated use `ListCustomersEmbedded$Outbound` instead. */
-  export type Outbound = ListCustomersEmbedded$Outbound;
-}
-
 export function listCustomersEmbeddedToJSON(
   listCustomersEmbedded: ListCustomersEmbedded,
 ): string {
@@ -256,7 +212,6 @@ export function listCustomersEmbeddedToJSON(
     ListCustomersEmbedded$outboundSchema.parse(listCustomersEmbedded),
   );
 }
-
 export function listCustomersEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCustomersEmbedded, SDKValidationError> {
@@ -282,7 +237,6 @@ export const ListCustomersResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListCustomersResponse$Outbound = {
   count: number;
@@ -306,19 +260,6 @@ export const ListCustomersResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCustomersResponse$ {
-  /** @deprecated use `ListCustomersResponse$inboundSchema` instead. */
-  export const inboundSchema = ListCustomersResponse$inboundSchema;
-  /** @deprecated use `ListCustomersResponse$outboundSchema` instead. */
-  export const outboundSchema = ListCustomersResponse$outboundSchema;
-  /** @deprecated use `ListCustomersResponse$Outbound` instead. */
-  export type Outbound = ListCustomersResponse$Outbound;
-}
-
 export function listCustomersResponseToJSON(
   listCustomersResponse: ListCustomersResponse,
 ): string {
@@ -326,7 +267,6 @@ export function listCustomersResponseToJSON(
     ListCustomersResponse$outboundSchema.parse(listCustomersResponse),
   );
 }
-
 export function listCustomersResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCustomersResponse, SDKValidationError> {

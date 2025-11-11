@@ -35,7 +35,6 @@ export const Currencies$inboundSchema: z.ZodType<
     z.nativeEnum(Currencies),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const Currencies$outboundSchema: z.ZodType<
   Currencies,
@@ -45,14 +44,3 @@ export const Currencies$outboundSchema: z.ZodType<
   z.nativeEnum(Currencies),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Currencies$ {
-  /** @deprecated use `Currencies$inboundSchema` instead. */
-  export const inboundSchema = Currencies$inboundSchema;
-  /** @deprecated use `Currencies$outboundSchema` instead. */
-  export const outboundSchema = Currencies$outboundSchema;
-}

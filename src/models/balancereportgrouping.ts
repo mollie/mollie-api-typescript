@@ -25,7 +25,6 @@ export const BalanceReportGrouping$inboundSchema: z.ZodType<
     z.nativeEnum(BalanceReportGrouping),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const BalanceReportGrouping$outboundSchema: z.ZodType<
   BalanceReportGrouping,
@@ -35,14 +34,3 @@ export const BalanceReportGrouping$outboundSchema: z.ZodType<
   z.nativeEnum(BalanceReportGrouping),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BalanceReportGrouping$ {
-  /** @deprecated use `BalanceReportGrouping$inboundSchema` instead. */
-  export const inboundSchema = BalanceReportGrouping$inboundSchema;
-  /** @deprecated use `BalanceReportGrouping$outboundSchema` instead. */
-  export const outboundSchema = BalanceReportGrouping$outboundSchema;
-}

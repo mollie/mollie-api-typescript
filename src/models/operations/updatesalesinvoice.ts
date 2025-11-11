@@ -37,7 +37,6 @@ export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
     "update-values-sales-invoice": "updateValuesSalesInvoice",
   });
 });
-
 /** @internal */
 export type UpdateSalesInvoiceRequest$Outbound = {
   id: string;
@@ -64,19 +63,6 @@ export const UpdateSalesInvoiceRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateSalesInvoiceRequest$ {
-  /** @deprecated use `UpdateSalesInvoiceRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateSalesInvoiceRequest$inboundSchema;
-  /** @deprecated use `UpdateSalesInvoiceRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateSalesInvoiceRequest$outboundSchema;
-  /** @deprecated use `UpdateSalesInvoiceRequest$Outbound` instead. */
-  export type Outbound = UpdateSalesInvoiceRequest$Outbound;
-}
-
 export function updateSalesInvoiceRequestToJSON(
   updateSalesInvoiceRequest: UpdateSalesInvoiceRequest,
 ): string {
@@ -84,7 +70,6 @@ export function updateSalesInvoiceRequestToJSON(
     UpdateSalesInvoiceRequest$outboundSchema.parse(updateSalesInvoiceRequest),
   );
 }
-
 export function updateSalesInvoiceRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateSalesInvoiceRequest, SDKValidationError> {

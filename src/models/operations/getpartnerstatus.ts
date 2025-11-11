@@ -137,7 +137,6 @@ export const GetPartnerStatusRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetPartnerStatusRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -156,19 +155,6 @@ export const GetPartnerStatusRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPartnerStatusRequest$ {
-  /** @deprecated use `GetPartnerStatusRequest$inboundSchema` instead. */
-  export const inboundSchema = GetPartnerStatusRequest$inboundSchema;
-  /** @deprecated use `GetPartnerStatusRequest$outboundSchema` instead. */
-  export const outboundSchema = GetPartnerStatusRequest$outboundSchema;
-  /** @deprecated use `GetPartnerStatusRequest$Outbound` instead. */
-  export type Outbound = GetPartnerStatusRequest$Outbound;
-}
-
 export function getPartnerStatusRequestToJSON(
   getPartnerStatusRequest: GetPartnerStatusRequest,
 ): string {
@@ -176,7 +162,6 @@ export function getPartnerStatusRequestToJSON(
     GetPartnerStatusRequest$outboundSchema.parse(getPartnerStatusRequest),
   );
 }
-
 export function getPartnerStatusRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPartnerStatusRequest, SDKValidationError> {
@@ -190,21 +175,9 @@ export function getPartnerStatusRequestFromJSON(
 /** @internal */
 export const PartnerType$inboundSchema: z.ZodNativeEnum<typeof PartnerType> = z
   .nativeEnum(PartnerType);
-
 /** @internal */
 export const PartnerType$outboundSchema: z.ZodNativeEnum<typeof PartnerType> =
   PartnerType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PartnerType$ {
-  /** @deprecated use `PartnerType$inboundSchema` instead. */
-  export const inboundSchema = PartnerType$inboundSchema;
-  /** @deprecated use `PartnerType$outboundSchema` instead. */
-  export const outboundSchema = PartnerType$outboundSchema;
-}
 
 /** @internal */
 export const UserAgentToken$inboundSchema: z.ZodType<
@@ -216,7 +189,6 @@ export const UserAgentToken$inboundSchema: z.ZodType<
   startsAt: z.string().optional(),
   endsAt: z.nullable(z.string()).optional(),
 });
-
 /** @internal */
 export type UserAgentToken$Outbound = {
   token?: string | undefined;
@@ -235,23 +207,9 @@ export const UserAgentToken$outboundSchema: z.ZodType<
   endsAt: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserAgentToken$ {
-  /** @deprecated use `UserAgentToken$inboundSchema` instead. */
-  export const inboundSchema = UserAgentToken$inboundSchema;
-  /** @deprecated use `UserAgentToken$outboundSchema` instead. */
-  export const outboundSchema = UserAgentToken$outboundSchema;
-  /** @deprecated use `UserAgentToken$Outbound` instead. */
-  export type Outbound = UserAgentToken$Outbound;
-}
-
 export function userAgentTokenToJSON(userAgentToken: UserAgentToken): string {
   return JSON.stringify(UserAgentToken$outboundSchema.parse(userAgentToken));
 }
-
 export function userAgentTokenFromJSON(
   jsonString: string,
 ): SafeParseResult<UserAgentToken, SDKValidationError> {
@@ -272,7 +230,6 @@ export const GetPartnerStatusLinks$inboundSchema: z.ZodType<
   signuplink: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type GetPartnerStatusLinks$Outbound = {
   self?: models.Url$Outbound | undefined;
@@ -291,19 +248,6 @@ export const GetPartnerStatusLinks$outboundSchema: z.ZodType<
   documentation: models.Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPartnerStatusLinks$ {
-  /** @deprecated use `GetPartnerStatusLinks$inboundSchema` instead. */
-  export const inboundSchema = GetPartnerStatusLinks$inboundSchema;
-  /** @deprecated use `GetPartnerStatusLinks$outboundSchema` instead. */
-  export const outboundSchema = GetPartnerStatusLinks$outboundSchema;
-  /** @deprecated use `GetPartnerStatusLinks$Outbound` instead. */
-  export type Outbound = GetPartnerStatusLinks$Outbound;
-}
-
 export function getPartnerStatusLinksToJSON(
   getPartnerStatusLinks: GetPartnerStatusLinks,
 ): string {
@@ -311,7 +255,6 @@ export function getPartnerStatusLinksToJSON(
     GetPartnerStatusLinks$outboundSchema.parse(getPartnerStatusLinks),
   );
 }
-
 export function getPartnerStatusLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPartnerStatusLinks, SDKValidationError> {
@@ -342,7 +285,6 @@ export const GetPartnerStatusResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type GetPartnerStatusResponse$Outbound = {
   resource: string;
@@ -376,19 +318,6 @@ export const GetPartnerStatusResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPartnerStatusResponse$ {
-  /** @deprecated use `GetPartnerStatusResponse$inboundSchema` instead. */
-  export const inboundSchema = GetPartnerStatusResponse$inboundSchema;
-  /** @deprecated use `GetPartnerStatusResponse$outboundSchema` instead. */
-  export const outboundSchema = GetPartnerStatusResponse$outboundSchema;
-  /** @deprecated use `GetPartnerStatusResponse$Outbound` instead. */
-  export type Outbound = GetPartnerStatusResponse$Outbound;
-}
-
 export function getPartnerStatusResponseToJSON(
   getPartnerStatusResponse: GetPartnerStatusResponse,
 ): string {
@@ -396,7 +325,6 @@ export function getPartnerStatusResponseToJSON(
     GetPartnerStatusResponse$outboundSchema.parse(getPartnerStatusResponse),
   );
 }
-
 export function getPartnerStatusResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPartnerStatusResponse, SDKValidationError> {

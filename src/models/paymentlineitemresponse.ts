@@ -108,7 +108,6 @@ export const PaymentLineItemResponse$inboundSchema: z.ZodType<
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentLineItemResponse$Outbound = {
   type?: string | undefined;
@@ -147,19 +146,6 @@ export const PaymentLineItemResponse$outboundSchema: z.ZodType<
   productUrl: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentLineItemResponse$ {
-  /** @deprecated use `PaymentLineItemResponse$inboundSchema` instead. */
-  export const inboundSchema = PaymentLineItemResponse$inboundSchema;
-  /** @deprecated use `PaymentLineItemResponse$outboundSchema` instead. */
-  export const outboundSchema = PaymentLineItemResponse$outboundSchema;
-  /** @deprecated use `PaymentLineItemResponse$Outbound` instead. */
-  export type Outbound = PaymentLineItemResponse$Outbound;
-}
-
 export function paymentLineItemResponseToJSON(
   paymentLineItemResponse: PaymentLineItemResponse,
 ): string {
@@ -167,7 +153,6 @@ export function paymentLineItemResponseToJSON(
     PaymentLineItemResponse$outboundSchema.parse(paymentLineItemResponse),
   );
 }
-
 export function paymentLineItemResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLineItemResponse, SDKValidationError> {

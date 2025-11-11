@@ -86,7 +86,6 @@ export const EntityOnboardingStatusLinks$inboundSchema: z.ZodType<
   organization: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityOnboardingStatusLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -107,19 +106,6 @@ export const EntityOnboardingStatusLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityOnboardingStatusLinks$ {
-  /** @deprecated use `EntityOnboardingStatusLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityOnboardingStatusLinks$inboundSchema;
-  /** @deprecated use `EntityOnboardingStatusLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityOnboardingStatusLinks$outboundSchema;
-  /** @deprecated use `EntityOnboardingStatusLinks$Outbound` instead. */
-  export type Outbound = EntityOnboardingStatusLinks$Outbound;
-}
-
 export function entityOnboardingStatusLinksToJSON(
   entityOnboardingStatusLinks: EntityOnboardingStatusLinks,
 ): string {
@@ -129,7 +115,6 @@ export function entityOnboardingStatusLinksToJSON(
     ),
   );
 }
-
 export function entityOnboardingStatusLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOnboardingStatusLinks, SDKValidationError> {
@@ -158,7 +143,6 @@ export const EntityOnboardingStatus$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityOnboardingStatus$Outbound = {
   resource: string;
@@ -189,19 +173,6 @@ export const EntityOnboardingStatus$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityOnboardingStatus$ {
-  /** @deprecated use `EntityOnboardingStatus$inboundSchema` instead. */
-  export const inboundSchema = EntityOnboardingStatus$inboundSchema;
-  /** @deprecated use `EntityOnboardingStatus$outboundSchema` instead. */
-  export const outboundSchema = EntityOnboardingStatus$outboundSchema;
-  /** @deprecated use `EntityOnboardingStatus$Outbound` instead. */
-  export type Outbound = EntityOnboardingStatus$Outbound;
-}
-
 export function entityOnboardingStatusToJSON(
   entityOnboardingStatus: EntityOnboardingStatus,
 ): string {
@@ -209,7 +180,6 @@ export function entityOnboardingStatusToJSON(
     EntityOnboardingStatus$outboundSchema.parse(entityOnboardingStatus),
   );
 }
-
 export function entityOnboardingStatusFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOnboardingStatus, SDKValidationError> {

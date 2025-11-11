@@ -40,7 +40,6 @@ export const TestWebhookRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type TestWebhookRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
@@ -55,19 +54,6 @@ export const TestWebhookRequestBody$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TestWebhookRequestBody$ {
-  /** @deprecated use `TestWebhookRequestBody$inboundSchema` instead. */
-  export const inboundSchema = TestWebhookRequestBody$inboundSchema;
-  /** @deprecated use `TestWebhookRequestBody$outboundSchema` instead. */
-  export const outboundSchema = TestWebhookRequestBody$outboundSchema;
-  /** @deprecated use `TestWebhookRequestBody$Outbound` instead. */
-  export type Outbound = TestWebhookRequestBody$Outbound;
-}
-
 export function testWebhookRequestBodyToJSON(
   testWebhookRequestBody: TestWebhookRequestBody,
 ): string {
@@ -75,7 +61,6 @@ export function testWebhookRequestBodyToJSON(
     TestWebhookRequestBody$outboundSchema.parse(testWebhookRequestBody),
   );
 }
-
 export function testWebhookRequestBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<TestWebhookRequestBody, SDKValidationError> {
@@ -101,7 +86,6 @@ export const TestWebhookRequest$inboundSchema: z.ZodType<
     "RequestBody": "requestBody",
   });
 });
-
 /** @internal */
 export type TestWebhookRequest$Outbound = {
   id: string;
@@ -125,19 +109,6 @@ export const TestWebhookRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TestWebhookRequest$ {
-  /** @deprecated use `TestWebhookRequest$inboundSchema` instead. */
-  export const inboundSchema = TestWebhookRequest$inboundSchema;
-  /** @deprecated use `TestWebhookRequest$outboundSchema` instead. */
-  export const outboundSchema = TestWebhookRequest$outboundSchema;
-  /** @deprecated use `TestWebhookRequest$Outbound` instead. */
-  export type Outbound = TestWebhookRequest$Outbound;
-}
-
 export function testWebhookRequestToJSON(
   testWebhookRequest: TestWebhookRequest,
 ): string {
@@ -145,7 +116,6 @@ export function testWebhookRequestToJSON(
     TestWebhookRequest$outboundSchema.parse(testWebhookRequest),
   );
 }
-
 export function testWebhookRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<TestWebhookRequest, SDKValidationError> {

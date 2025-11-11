@@ -52,7 +52,6 @@ export const ListLinks$inboundSchema: z.ZodType<
   next: z.nullable(UrlNullable$inboundSchema),
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type ListLinks$Outbound = {
   self: Url$Outbound;
@@ -73,23 +72,9 @@ export const ListLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListLinks$ {
-  /** @deprecated use `ListLinks$inboundSchema` instead. */
-  export const inboundSchema = ListLinks$inboundSchema;
-  /** @deprecated use `ListLinks$outboundSchema` instead. */
-  export const outboundSchema = ListLinks$outboundSchema;
-  /** @deprecated use `ListLinks$Outbound` instead. */
-  export type Outbound = ListLinks$Outbound;
-}
-
 export function listLinksToJSON(listLinks: ListLinks): string {
   return JSON.stringify(ListLinks$outboundSchema.parse(listLinks));
 }
-
 export function listLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListLinks, SDKValidationError> {

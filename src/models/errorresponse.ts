@@ -31,7 +31,6 @@ export const Documentation$inboundSchema: z.ZodType<
   href: z.string(),
   type: z.string(),
 });
-
 /** @internal */
 export type Documentation$Outbound = {
   href: string;
@@ -48,23 +47,9 @@ export const Documentation$outboundSchema: z.ZodType<
   type: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Documentation$ {
-  /** @deprecated use `Documentation$inboundSchema` instead. */
-  export const inboundSchema = Documentation$inboundSchema;
-  /** @deprecated use `Documentation$outboundSchema` instead. */
-  export const outboundSchema = Documentation$outboundSchema;
-  /** @deprecated use `Documentation$Outbound` instead. */
-  export type Outbound = Documentation$Outbound;
-}
-
 export function documentationToJSON(documentation: Documentation): string {
   return JSON.stringify(Documentation$outboundSchema.parse(documentation));
 }
-
 export function documentationFromJSON(
   jsonString: string,
 ): SafeParseResult<Documentation, SDKValidationError> {
@@ -83,7 +68,6 @@ export const ErrorResponseLinks$inboundSchema: z.ZodType<
 > = z.object({
   documentation: z.lazy(() => Documentation$inboundSchema),
 });
-
 /** @internal */
 export type ErrorResponseLinks$Outbound = {
   documentation: Documentation$Outbound;
@@ -98,19 +82,6 @@ export const ErrorResponseLinks$outboundSchema: z.ZodType<
   documentation: z.lazy(() => Documentation$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorResponseLinks$ {
-  /** @deprecated use `ErrorResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorResponseLinks$inboundSchema;
-  /** @deprecated use `ErrorResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorResponseLinks$outboundSchema;
-  /** @deprecated use `ErrorResponseLinks$Outbound` instead. */
-  export type Outbound = ErrorResponseLinks$Outbound;
-}
-
 export function errorResponseLinksToJSON(
   errorResponseLinks: ErrorResponseLinks,
 ): string {
@@ -118,7 +89,6 @@ export function errorResponseLinksToJSON(
     ErrorResponseLinks$outboundSchema.parse(errorResponseLinks),
   );
 }
-
 export function errorResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorResponseLinks, SDKValidationError> {

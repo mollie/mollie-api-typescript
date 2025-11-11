@@ -72,7 +72,6 @@ export const EntityBalanceTransfer$inboundSchema: z.ZodType<
   category: BalanceTransferCategory$inboundSchema.optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
-
 /** @internal */
 export type EntityBalanceTransfer$Outbound = {
   id: string;
@@ -99,19 +98,6 @@ export const EntityBalanceTransfer$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceTransfer$ {
-  /** @deprecated use `EntityBalanceTransfer$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceTransfer$inboundSchema;
-  /** @deprecated use `EntityBalanceTransfer$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceTransfer$outboundSchema;
-  /** @deprecated use `EntityBalanceTransfer$Outbound` instead. */
-  export type Outbound = EntityBalanceTransfer$Outbound;
-}
-
 export function entityBalanceTransferToJSON(
   entityBalanceTransfer: EntityBalanceTransfer,
 ): string {
@@ -119,7 +105,6 @@ export function entityBalanceTransferToJSON(
     EntityBalanceTransfer$outboundSchema.parse(entityBalanceTransfer),
   );
 }
-
 export function entityBalanceTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransfer, SDKValidationError> {

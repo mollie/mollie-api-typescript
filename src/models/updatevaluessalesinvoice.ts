@@ -124,7 +124,6 @@ export const UpdateValuesSalesInvoice$inboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItem$inboundSchema)).optional(),
   discount: z.nullable(SalesInvoiceDiscount$inboundSchema).optional(),
 });
-
 /** @internal */
 export type UpdateValuesSalesInvoice$Outbound = {
   testmode?: boolean | null | undefined;
@@ -158,19 +157,6 @@ export const UpdateValuesSalesInvoice$outboundSchema: z.ZodType<
   discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateValuesSalesInvoice$ {
-  /** @deprecated use `UpdateValuesSalesInvoice$inboundSchema` instead. */
-  export const inboundSchema = UpdateValuesSalesInvoice$inboundSchema;
-  /** @deprecated use `UpdateValuesSalesInvoice$outboundSchema` instead. */
-  export const outboundSchema = UpdateValuesSalesInvoice$outboundSchema;
-  /** @deprecated use `UpdateValuesSalesInvoice$Outbound` instead. */
-  export type Outbound = UpdateValuesSalesInvoice$Outbound;
-}
-
 export function updateValuesSalesInvoiceToJSON(
   updateValuesSalesInvoice: UpdateValuesSalesInvoice,
 ): string {
@@ -178,7 +164,6 @@ export function updateValuesSalesInvoiceToJSON(
     UpdateValuesSalesInvoice$outboundSchema.parse(updateValuesSalesInvoice),
   );
 }
-
 export function updateValuesSalesInvoiceFromJSON(
   jsonString: string,
 ): SafeParseResult<UpdateValuesSalesInvoice, SDKValidationError> {

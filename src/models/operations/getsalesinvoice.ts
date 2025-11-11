@@ -50,7 +50,6 @@ export const GetSalesInvoiceGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetSalesInvoiceGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetSalesInvoiceGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetSalesInvoiceGlobals$ {
-  /** @deprecated use `GetSalesInvoiceGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetSalesInvoiceGlobals$inboundSchema;
-  /** @deprecated use `GetSalesInvoiceGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetSalesInvoiceGlobals$outboundSchema;
-  /** @deprecated use `GetSalesInvoiceGlobals$Outbound` instead. */
-  export type Outbound = GetSalesInvoiceGlobals$Outbound;
-}
-
 export function getSalesInvoiceGlobalsToJSON(
   getSalesInvoiceGlobals: GetSalesInvoiceGlobals,
 ): string {
@@ -85,7 +71,6 @@ export function getSalesInvoiceGlobalsToJSON(
     GetSalesInvoiceGlobals$outboundSchema.parse(getSalesInvoiceGlobals),
   );
 }
-
 export function getSalesInvoiceGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetSalesInvoiceGlobals, SDKValidationError> {
@@ -110,7 +95,6 @@ export const GetSalesInvoiceRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetSalesInvoiceRequest$Outbound = {
   id: string;
@@ -133,19 +117,6 @@ export const GetSalesInvoiceRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetSalesInvoiceRequest$ {
-  /** @deprecated use `GetSalesInvoiceRequest$inboundSchema` instead. */
-  export const inboundSchema = GetSalesInvoiceRequest$inboundSchema;
-  /** @deprecated use `GetSalesInvoiceRequest$outboundSchema` instead. */
-  export const outboundSchema = GetSalesInvoiceRequest$outboundSchema;
-  /** @deprecated use `GetSalesInvoiceRequest$Outbound` instead. */
-  export type Outbound = GetSalesInvoiceRequest$Outbound;
-}
-
 export function getSalesInvoiceRequestToJSON(
   getSalesInvoiceRequest: GetSalesInvoiceRequest,
 ): string {
@@ -153,7 +124,6 @@ export function getSalesInvoiceRequestToJSON(
     GetSalesInvoiceRequest$outboundSchema.parse(getSalesInvoiceRequest),
   );
 }
-
 export function getSalesInvoiceRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetSalesInvoiceRequest, SDKValidationError> {

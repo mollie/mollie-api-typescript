@@ -93,7 +93,6 @@ export const ListTerminalsGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListTerminalsGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -108,19 +107,6 @@ export const ListTerminalsGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListTerminalsGlobals$ {
-  /** @deprecated use `ListTerminalsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListTerminalsGlobals$inboundSchema;
-  /** @deprecated use `ListTerminalsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListTerminalsGlobals$outboundSchema;
-  /** @deprecated use `ListTerminalsGlobals$Outbound` instead. */
-  export type Outbound = ListTerminalsGlobals$Outbound;
-}
-
 export function listTerminalsGlobalsToJSON(
   listTerminalsGlobals: ListTerminalsGlobals,
 ): string {
@@ -128,7 +114,6 @@ export function listTerminalsGlobalsToJSON(
     ListTerminalsGlobals$outboundSchema.parse(listTerminalsGlobals),
   );
 }
-
 export function listTerminalsGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListTerminalsGlobals, SDKValidationError> {
@@ -155,7 +140,6 @@ export const ListTerminalsRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListTerminalsRequest$Outbound = {
   from?: string | undefined;
@@ -182,19 +166,6 @@ export const ListTerminalsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListTerminalsRequest$ {
-  /** @deprecated use `ListTerminalsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListTerminalsRequest$inboundSchema;
-  /** @deprecated use `ListTerminalsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListTerminalsRequest$outboundSchema;
-  /** @deprecated use `ListTerminalsRequest$Outbound` instead. */
-  export type Outbound = ListTerminalsRequest$Outbound;
-}
-
 export function listTerminalsRequestToJSON(
   listTerminalsRequest: ListTerminalsRequest,
 ): string {
@@ -202,7 +173,6 @@ export function listTerminalsRequestToJSON(
     ListTerminalsRequest$outboundSchema.parse(listTerminalsRequest),
   );
 }
-
 export function listTerminalsRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListTerminalsRequest, SDKValidationError> {
@@ -221,7 +191,6 @@ export const ListTerminalsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   terminals: z.array(models.EntityTerminal$inboundSchema).optional(),
 });
-
 /** @internal */
 export type ListTerminalsEmbedded$Outbound = {
   terminals?: Array<models.EntityTerminal$Outbound> | undefined;
@@ -236,19 +205,6 @@ export const ListTerminalsEmbedded$outboundSchema: z.ZodType<
   terminals: z.array(models.EntityTerminal$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListTerminalsEmbedded$ {
-  /** @deprecated use `ListTerminalsEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListTerminalsEmbedded$inboundSchema;
-  /** @deprecated use `ListTerminalsEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListTerminalsEmbedded$outboundSchema;
-  /** @deprecated use `ListTerminalsEmbedded$Outbound` instead. */
-  export type Outbound = ListTerminalsEmbedded$Outbound;
-}
-
 export function listTerminalsEmbeddedToJSON(
   listTerminalsEmbedded: ListTerminalsEmbedded,
 ): string {
@@ -256,7 +212,6 @@ export function listTerminalsEmbeddedToJSON(
     ListTerminalsEmbedded$outboundSchema.parse(listTerminalsEmbedded),
   );
 }
-
 export function listTerminalsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListTerminalsEmbedded, SDKValidationError> {
@@ -282,7 +237,6 @@ export const ListTerminalsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListTerminalsResponse$Outbound = {
   count: number;
@@ -306,19 +260,6 @@ export const ListTerminalsResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListTerminalsResponse$ {
-  /** @deprecated use `ListTerminalsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListTerminalsResponse$inboundSchema;
-  /** @deprecated use `ListTerminalsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListTerminalsResponse$outboundSchema;
-  /** @deprecated use `ListTerminalsResponse$Outbound` instead. */
-  export type Outbound = ListTerminalsResponse$Outbound;
-}
-
 export function listTerminalsResponseToJSON(
   listTerminalsResponse: ListTerminalsResponse,
 ): string {
@@ -326,7 +267,6 @@ export function listTerminalsResponseToJSON(
     ListTerminalsResponse$outboundSchema.parse(listTerminalsResponse),
   );
 }
-
 export function listTerminalsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListTerminalsResponse, SDKValidationError> {

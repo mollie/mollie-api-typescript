@@ -29,7 +29,6 @@ export const LineCategoriesResponse$inboundSchema: z.ZodType<
     z.nativeEnum(LineCategoriesResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const LineCategoriesResponse$outboundSchema: z.ZodType<
   LineCategoriesResponse,
@@ -39,14 +38,3 @@ export const LineCategoriesResponse$outboundSchema: z.ZodType<
   z.nativeEnum(LineCategoriesResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LineCategoriesResponse$ {
-  /** @deprecated use `LineCategoriesResponse$inboundSchema` instead. */
-  export const inboundSchema = LineCategoriesResponse$inboundSchema;
-  /** @deprecated use `LineCategoriesResponse$outboundSchema` instead. */
-  export const outboundSchema = LineCategoriesResponse$outboundSchema;
-}

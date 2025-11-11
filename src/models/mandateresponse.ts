@@ -150,7 +150,6 @@ export const MandateResponseDetails$inboundSchema: z.ZodType<
     .optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
-
 /** @internal */
 export type MandateResponseDetails$Outbound = {
   consumerName?: string | null | undefined;
@@ -180,19 +179,6 @@ export const MandateResponseDetails$outboundSchema: z.ZodType<
   cardFingerprint: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateResponseDetails$ {
-  /** @deprecated use `MandateResponseDetails$inboundSchema` instead. */
-  export const inboundSchema = MandateResponseDetails$inboundSchema;
-  /** @deprecated use `MandateResponseDetails$outboundSchema` instead. */
-  export const outboundSchema = MandateResponseDetails$outboundSchema;
-  /** @deprecated use `MandateResponseDetails$Outbound` instead. */
-  export type Outbound = MandateResponseDetails$Outbound;
-}
-
 export function mandateResponseDetailsToJSON(
   mandateResponseDetails: MandateResponseDetails,
 ): string {
@@ -200,7 +186,6 @@ export function mandateResponseDetailsToJSON(
     MandateResponseDetails$outboundSchema.parse(mandateResponseDetails),
   );
 }
-
 export function mandateResponseDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<MandateResponseDetails, SDKValidationError> {
@@ -221,7 +206,6 @@ export const MandateResponseLinks$inboundSchema: z.ZodType<
   customer: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
-
 /** @internal */
 export type MandateResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -240,19 +224,6 @@ export const MandateResponseLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateResponseLinks$ {
-  /** @deprecated use `MandateResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = MandateResponseLinks$inboundSchema;
-  /** @deprecated use `MandateResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = MandateResponseLinks$outboundSchema;
-  /** @deprecated use `MandateResponseLinks$Outbound` instead. */
-  export type Outbound = MandateResponseLinks$Outbound;
-}
-
 export function mandateResponseLinksToJSON(
   mandateResponseLinks: MandateResponseLinks,
 ): string {
@@ -260,7 +231,6 @@ export function mandateResponseLinksToJSON(
     MandateResponseLinks$outboundSchema.parse(mandateResponseLinks),
   );
 }
-
 export function mandateResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<MandateResponseLinks, SDKValidationError> {
@@ -293,7 +263,6 @@ export const MandateResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type MandateResponse$Outbound = {
   resource?: string | undefined;
@@ -332,25 +301,11 @@ export const MandateResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MandateResponse$ {
-  /** @deprecated use `MandateResponse$inboundSchema` instead. */
-  export const inboundSchema = MandateResponse$inboundSchema;
-  /** @deprecated use `MandateResponse$outboundSchema` instead. */
-  export const outboundSchema = MandateResponse$outboundSchema;
-  /** @deprecated use `MandateResponse$Outbound` instead. */
-  export type Outbound = MandateResponse$Outbound;
-}
-
 export function mandateResponseToJSON(
   mandateResponse: MandateResponse,
 ): string {
   return JSON.stringify(MandateResponse$outboundSchema.parse(mandateResponse));
 }
-
 export function mandateResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<MandateResponse, SDKValidationError> {

@@ -78,7 +78,6 @@ export const GetBalanceReportGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetBalanceReportGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -93,19 +92,6 @@ export const GetBalanceReportGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetBalanceReportGlobals$ {
-  /** @deprecated use `GetBalanceReportGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetBalanceReportGlobals$inboundSchema;
-  /** @deprecated use `GetBalanceReportGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetBalanceReportGlobals$outboundSchema;
-  /** @deprecated use `GetBalanceReportGlobals$Outbound` instead. */
-  export type Outbound = GetBalanceReportGlobals$Outbound;
-}
-
 export function getBalanceReportGlobalsToJSON(
   getBalanceReportGlobals: GetBalanceReportGlobals,
 ): string {
@@ -113,7 +99,6 @@ export function getBalanceReportGlobalsToJSON(
     GetBalanceReportGlobals$outboundSchema.parse(getBalanceReportGlobals),
   );
 }
-
 export function getBalanceReportGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetBalanceReportGlobals, SDKValidationError> {
@@ -141,7 +126,6 @@ export const GetBalanceReportRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetBalanceReportRequest$Outbound = {
   balanceId: string;
@@ -170,19 +154,6 @@ export const GetBalanceReportRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetBalanceReportRequest$ {
-  /** @deprecated use `GetBalanceReportRequest$inboundSchema` instead. */
-  export const inboundSchema = GetBalanceReportRequest$inboundSchema;
-  /** @deprecated use `GetBalanceReportRequest$outboundSchema` instead. */
-  export const outboundSchema = GetBalanceReportRequest$outboundSchema;
-  /** @deprecated use `GetBalanceReportRequest$Outbound` instead. */
-  export type Outbound = GetBalanceReportRequest$Outbound;
-}
-
 export function getBalanceReportRequestToJSON(
   getBalanceReportRequest: GetBalanceReportRequest,
 ): string {
@@ -190,7 +161,6 @@ export function getBalanceReportRequestToJSON(
     GetBalanceReportRequest$outboundSchema.parse(getBalanceReportRequest),
   );
 }
-
 export function getBalanceReportRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetBalanceReportRequest, SDKValidationError> {

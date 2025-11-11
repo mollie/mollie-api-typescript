@@ -110,7 +110,6 @@ export const PaymentAddress$inboundSchema: z.ZodType<
   region: z.string().optional(),
   country: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentAddress$Outbound = {
   title?: string | undefined;
@@ -147,23 +146,9 @@ export const PaymentAddress$outboundSchema: z.ZodType<
   country: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentAddress$ {
-  /** @deprecated use `PaymentAddress$inboundSchema` instead. */
-  export const inboundSchema = PaymentAddress$inboundSchema;
-  /** @deprecated use `PaymentAddress$outboundSchema` instead. */
-  export const outboundSchema = PaymentAddress$outboundSchema;
-  /** @deprecated use `PaymentAddress$Outbound` instead. */
-  export type Outbound = PaymentAddress$Outbound;
-}
-
 export function paymentAddressToJSON(paymentAddress: PaymentAddress): string {
   return JSON.stringify(PaymentAddress$outboundSchema.parse(paymentAddress));
 }
-
 export function paymentAddressFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentAddress, SDKValidationError> {

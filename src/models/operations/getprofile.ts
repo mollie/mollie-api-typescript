@@ -50,7 +50,6 @@ export const GetProfileGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetProfileGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -65,19 +64,6 @@ export const GetProfileGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetProfileGlobals$ {
-  /** @deprecated use `GetProfileGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetProfileGlobals$inboundSchema;
-  /** @deprecated use `GetProfileGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetProfileGlobals$outboundSchema;
-  /** @deprecated use `GetProfileGlobals$Outbound` instead. */
-  export type Outbound = GetProfileGlobals$Outbound;
-}
-
 export function getProfileGlobalsToJSON(
   getProfileGlobals: GetProfileGlobals,
 ): string {
@@ -85,7 +71,6 @@ export function getProfileGlobalsToJSON(
     GetProfileGlobals$outboundSchema.parse(getProfileGlobals),
   );
 }
-
 export function getProfileGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetProfileGlobals, SDKValidationError> {
@@ -110,7 +95,6 @@ export const GetProfileRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetProfileRequest$Outbound = {
   id: string;
@@ -133,19 +117,6 @@ export const GetProfileRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetProfileRequest$ {
-  /** @deprecated use `GetProfileRequest$inboundSchema` instead. */
-  export const inboundSchema = GetProfileRequest$inboundSchema;
-  /** @deprecated use `GetProfileRequest$outboundSchema` instead. */
-  export const outboundSchema = GetProfileRequest$outboundSchema;
-  /** @deprecated use `GetProfileRequest$Outbound` instead. */
-  export type Outbound = GetProfileRequest$Outbound;
-}
-
 export function getProfileRequestToJSON(
   getProfileRequest: GetProfileRequest,
 ): string {
@@ -153,7 +124,6 @@ export function getProfileRequestToJSON(
     GetProfileRequest$outboundSchema.parse(getProfileRequest),
   );
 }
-
 export function getProfileRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetProfileRequest, SDKValidationError> {

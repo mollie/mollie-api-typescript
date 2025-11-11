@@ -29,19 +29,7 @@ export type BalanceTransferCategory = ClosedEnum<
 export const BalanceTransferCategory$inboundSchema: z.ZodNativeEnum<
   typeof BalanceTransferCategory
 > = z.nativeEnum(BalanceTransferCategory);
-
 /** @internal */
 export const BalanceTransferCategory$outboundSchema: z.ZodNativeEnum<
   typeof BalanceTransferCategory
 > = BalanceTransferCategory$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BalanceTransferCategory$ {
-  /** @deprecated use `BalanceTransferCategory$inboundSchema` instead. */
-  export const inboundSchema = BalanceTransferCategory$inboundSchema;
-  /** @deprecated use `BalanceTransferCategory$outboundSchema` instead. */
-  export const outboundSchema = BalanceTransferCategory$outboundSchema;
-}

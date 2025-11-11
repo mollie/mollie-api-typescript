@@ -97,7 +97,6 @@ export const ListChargebacksGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type ListChargebacksGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -112,19 +111,6 @@ export const ListChargebacksGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListChargebacksGlobals$ {
-  /** @deprecated use `ListChargebacksGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListChargebacksGlobals$inboundSchema;
-  /** @deprecated use `ListChargebacksGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListChargebacksGlobals$outboundSchema;
-  /** @deprecated use `ListChargebacksGlobals$Outbound` instead. */
-  export type Outbound = ListChargebacksGlobals$Outbound;
-}
-
 export function listChargebacksGlobalsToJSON(
   listChargebacksGlobals: ListChargebacksGlobals,
 ): string {
@@ -132,7 +118,6 @@ export function listChargebacksGlobalsToJSON(
     ListChargebacksGlobals$outboundSchema.parse(listChargebacksGlobals),
   );
 }
-
 export function listChargebacksGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListChargebacksGlobals, SDKValidationError> {
@@ -160,7 +145,6 @@ export const ListChargebacksRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListChargebacksRequest$Outbound = {
   paymentId: string;
@@ -189,19 +173,6 @@ export const ListChargebacksRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListChargebacksRequest$ {
-  /** @deprecated use `ListChargebacksRequest$inboundSchema` instead. */
-  export const inboundSchema = ListChargebacksRequest$inboundSchema;
-  /** @deprecated use `ListChargebacksRequest$outboundSchema` instead. */
-  export const outboundSchema = ListChargebacksRequest$outboundSchema;
-  /** @deprecated use `ListChargebacksRequest$Outbound` instead. */
-  export type Outbound = ListChargebacksRequest$Outbound;
-}
-
 export function listChargebacksRequestToJSON(
   listChargebacksRequest: ListChargebacksRequest,
 ): string {
@@ -209,7 +180,6 @@ export function listChargebacksRequestToJSON(
     ListChargebacksRequest$outboundSchema.parse(listChargebacksRequest),
   );
 }
-
 export function listChargebacksRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListChargebacksRequest, SDKValidationError> {
@@ -228,7 +198,6 @@ export const ListChargebacksEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   chargebacks: z.array(models.EntityChargeback$inboundSchema),
 });
-
 /** @internal */
 export type ListChargebacksEmbedded$Outbound = {
   chargebacks: Array<models.EntityChargeback$Outbound>;
@@ -243,19 +212,6 @@ export const ListChargebacksEmbedded$outboundSchema: z.ZodType<
   chargebacks: z.array(models.EntityChargeback$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListChargebacksEmbedded$ {
-  /** @deprecated use `ListChargebacksEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListChargebacksEmbedded$inboundSchema;
-  /** @deprecated use `ListChargebacksEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListChargebacksEmbedded$outboundSchema;
-  /** @deprecated use `ListChargebacksEmbedded$Outbound` instead. */
-  export type Outbound = ListChargebacksEmbedded$Outbound;
-}
-
 export function listChargebacksEmbeddedToJSON(
   listChargebacksEmbedded: ListChargebacksEmbedded,
 ): string {
@@ -263,7 +219,6 @@ export function listChargebacksEmbeddedToJSON(
     ListChargebacksEmbedded$outboundSchema.parse(listChargebacksEmbedded),
   );
 }
-
 export function listChargebacksEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListChargebacksEmbedded, SDKValidationError> {
@@ -289,7 +244,6 @@ export const ListChargebacksResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListChargebacksResponse$Outbound = {
   count: number;
@@ -313,19 +267,6 @@ export const ListChargebacksResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListChargebacksResponse$ {
-  /** @deprecated use `ListChargebacksResponse$inboundSchema` instead. */
-  export const inboundSchema = ListChargebacksResponse$inboundSchema;
-  /** @deprecated use `ListChargebacksResponse$outboundSchema` instead. */
-  export const outboundSchema = ListChargebacksResponse$outboundSchema;
-  /** @deprecated use `ListChargebacksResponse$Outbound` instead. */
-  export type Outbound = ListChargebacksResponse$Outbound;
-}
-
 export function listChargebacksResponseToJSON(
   listChargebacksResponse: ListChargebacksResponse,
 ): string {
@@ -333,7 +274,6 @@ export function listChargebacksResponseToJSON(
     ListChargebacksResponse$outboundSchema.parse(listChargebacksResponse),
   );
 }
-
 export function listChargebacksResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListChargebacksResponse, SDKValidationError> {

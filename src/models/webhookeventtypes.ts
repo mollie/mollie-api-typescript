@@ -26,19 +26,7 @@ export type WebhookEventTypes = ClosedEnum<typeof WebhookEventTypes>;
 export const WebhookEventTypes$inboundSchema: z.ZodNativeEnum<
   typeof WebhookEventTypes
 > = z.nativeEnum(WebhookEventTypes);
-
 /** @internal */
 export const WebhookEventTypes$outboundSchema: z.ZodNativeEnum<
   typeof WebhookEventTypes
 > = WebhookEventTypes$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WebhookEventTypes$ {
-  /** @deprecated use `WebhookEventTypes$inboundSchema` instead. */
-  export const inboundSchema = WebhookEventTypes$inboundSchema;
-  /** @deprecated use `WebhookEventTypes$outboundSchema` instead. */
-  export const outboundSchema = WebhookEventTypes$outboundSchema;
-}

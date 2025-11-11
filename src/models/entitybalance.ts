@@ -151,7 +151,6 @@ export const TransferDestination$inboundSchema: z.ZodType<
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
-
 /** @internal */
 export type TransferDestination$Outbound = {
   type?: string | undefined;
@@ -170,19 +169,6 @@ export const TransferDestination$outboundSchema: z.ZodType<
   beneficiaryName: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferDestination$ {
-  /** @deprecated use `TransferDestination$inboundSchema` instead. */
-  export const inboundSchema = TransferDestination$inboundSchema;
-  /** @deprecated use `TransferDestination$outboundSchema` instead. */
-  export const outboundSchema = TransferDestination$outboundSchema;
-  /** @deprecated use `TransferDestination$Outbound` instead. */
-  export type Outbound = TransferDestination$Outbound;
-}
-
 export function transferDestinationToJSON(
   transferDestination: TransferDestination,
 ): string {
@@ -190,7 +176,6 @@ export function transferDestinationToJSON(
     TransferDestination$outboundSchema.parse(transferDestination),
   );
 }
-
 export function transferDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<TransferDestination, SDKValidationError> {
@@ -210,7 +195,6 @@ export const EntityBalanceLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type EntityBalanceLinks$Outbound = {
   self?: Url$Outbound | undefined;
@@ -227,19 +211,6 @@ export const EntityBalanceLinks$outboundSchema: z.ZodType<
   documentation: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalanceLinks$ {
-  /** @deprecated use `EntityBalanceLinks$inboundSchema` instead. */
-  export const inboundSchema = EntityBalanceLinks$inboundSchema;
-  /** @deprecated use `EntityBalanceLinks$outboundSchema` instead. */
-  export const outboundSchema = EntityBalanceLinks$outboundSchema;
-  /** @deprecated use `EntityBalanceLinks$Outbound` instead. */
-  export type Outbound = EntityBalanceLinks$Outbound;
-}
-
 export function entityBalanceLinksToJSON(
   entityBalanceLinks: EntityBalanceLinks,
 ): string {
@@ -247,7 +218,6 @@ export function entityBalanceLinksToJSON(
     EntityBalanceLinks$outboundSchema.parse(entityBalanceLinks),
   );
 }
-
 export function entityBalanceLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceLinks, SDKValidationError> {
@@ -285,7 +255,6 @@ export const EntityBalance$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type EntityBalance$Outbound = {
   resource: string;
@@ -332,23 +301,9 @@ export const EntityBalance$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EntityBalance$ {
-  /** @deprecated use `EntityBalance$inboundSchema` instead. */
-  export const inboundSchema = EntityBalance$inboundSchema;
-  /** @deprecated use `EntityBalance$outboundSchema` instead. */
-  export const outboundSchema = EntityBalance$outboundSchema;
-  /** @deprecated use `EntityBalance$Outbound` instead. */
-  export type Outbound = EntityBalance$Outbound;
-}
-
 export function entityBalanceToJSON(entityBalance: EntityBalance): string {
   return JSON.stringify(EntityBalance$outboundSchema.parse(entityBalance));
 }
-
 export function entityBalanceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalance, SDKValidationError> {

@@ -1065,7 +1065,6 @@ export const PaymentResponseLine$inboundSchema: z.ZodType<
   productUrl: z.string().optional(),
   recurring: RecurringLineItem$inboundSchema.optional(),
 });
-
 /** @internal */
 export type PaymentResponseLine$Outbound = {
   type?: string | undefined;
@@ -1106,19 +1105,6 @@ export const PaymentResponseLine$outboundSchema: z.ZodType<
   recurring: RecurringLineItem$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseLine$ {
-  /** @deprecated use `PaymentResponseLine$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseLine$inboundSchema;
-  /** @deprecated use `PaymentResponseLine$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseLine$outboundSchema;
-  /** @deprecated use `PaymentResponseLine$Outbound` instead. */
-  export type Outbound = PaymentResponseLine$Outbound;
-}
-
 export function paymentResponseLineToJSON(
   paymentResponseLine: PaymentResponseLine,
 ): string {
@@ -1126,7 +1112,6 @@ export function paymentResponseLineToJSON(
     PaymentResponseLine$outboundSchema.parse(paymentResponseLine),
   );
 }
-
 export function paymentResponseLineFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentResponseLine, SDKValidationError> {
@@ -1156,7 +1141,6 @@ export const PaymentResponseBillingAddress$inboundSchema: z.ZodType<
   region: z.string().optional(),
   country: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentResponseBillingAddress$Outbound = {
   title?: string | undefined;
@@ -1193,19 +1177,6 @@ export const PaymentResponseBillingAddress$outboundSchema: z.ZodType<
   country: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseBillingAddress$ {
-  /** @deprecated use `PaymentResponseBillingAddress$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseBillingAddress$inboundSchema;
-  /** @deprecated use `PaymentResponseBillingAddress$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseBillingAddress$outboundSchema;
-  /** @deprecated use `PaymentResponseBillingAddress$Outbound` instead. */
-  export type Outbound = PaymentResponseBillingAddress$Outbound;
-}
-
 export function paymentResponseBillingAddressToJSON(
   paymentResponseBillingAddress: PaymentResponseBillingAddress,
 ): string {
@@ -1215,7 +1186,6 @@ export function paymentResponseBillingAddressToJSON(
     ),
   );
 }
-
 export function paymentResponseBillingAddressFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentResponseBillingAddress, SDKValidationError> {
@@ -1235,7 +1205,6 @@ export const PaymentResponseApplicationFee$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema.optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type PaymentResponseApplicationFee$Outbound = {
   amount?: Amount$Outbound | undefined;
@@ -1252,19 +1221,6 @@ export const PaymentResponseApplicationFee$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseApplicationFee$ {
-  /** @deprecated use `PaymentResponseApplicationFee$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseApplicationFee$inboundSchema;
-  /** @deprecated use `PaymentResponseApplicationFee$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseApplicationFee$outboundSchema;
-  /** @deprecated use `PaymentResponseApplicationFee$Outbound` instead. */
-  export type Outbound = PaymentResponseApplicationFee$Outbound;
-}
-
 export function paymentResponseApplicationFeeToJSON(
   paymentResponseApplicationFee: PaymentResponseApplicationFee,
 ): string {
@@ -1274,7 +1230,6 @@ export function paymentResponseApplicationFeeToJSON(
     ),
   );
 }
-
 export function paymentResponseApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentResponseApplicationFee, SDKValidationError> {
@@ -1297,7 +1252,6 @@ export const Receipt$inboundSchema: z.ZodType<Receipt, z.ZodTypeDef, unknown> =
       PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
     ).optional(),
   });
-
 /** @internal */
 export type Receipt$Outbound = {
   authorizationCode?: string | null | undefined;
@@ -1322,23 +1276,9 @@ export const Receipt$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Receipt$ {
-  /** @deprecated use `Receipt$inboundSchema` instead. */
-  export const inboundSchema = Receipt$inboundSchema;
-  /** @deprecated use `Receipt$outboundSchema` instead. */
-  export const outboundSchema = Receipt$outboundSchema;
-  /** @deprecated use `Receipt$Outbound` instead. */
-  export type Outbound = Receipt$Outbound;
-}
-
 export function receiptToJSON(receipt: Receipt): string {
   return JSON.stringify(Receipt$outboundSchema.parse(receipt));
 }
-
 export function receiptFromJSON(
   jsonString: string,
 ): SafeParseResult<Receipt, SDKValidationError> {
@@ -1356,7 +1296,6 @@ export const QrCode$inboundSchema: z.ZodType<QrCode, z.ZodTypeDef, unknown> = z
     width: z.number().int().optional(),
     src: z.string().optional(),
   });
-
 /** @internal */
 export type QrCode$Outbound = {
   height?: number | undefined;
@@ -1375,23 +1314,9 @@ export const QrCode$outboundSchema: z.ZodType<
   src: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace QrCode$ {
-  /** @deprecated use `QrCode$inboundSchema` instead. */
-  export const inboundSchema = QrCode$inboundSchema;
-  /** @deprecated use `QrCode$outboundSchema` instead. */
-  export const outboundSchema = QrCode$outboundSchema;
-  /** @deprecated use `QrCode$Outbound` instead. */
-  export type Outbound = QrCode$Outbound;
-}
-
 export function qrCodeToJSON(qrCode: QrCode): string {
   return JSON.stringify(QrCode$outboundSchema.parse(qrCode));
 }
-
 export function qrCodeFromJSON(
   jsonString: string,
 ): SafeParseResult<QrCode, SDKValidationError> {
@@ -1470,7 +1395,6 @@ export const PaymentResponseDetails$inboundSchema: z.ZodType<
   multibancoReference: z.nullable(z.string()).optional(),
   multibancoEntity: z.nullable(z.string()).optional(),
 });
-
 /** @internal */
 export type PaymentResponseDetails$Outbound = {
   consumerName?: string | null | undefined;
@@ -1597,19 +1521,6 @@ export const PaymentResponseDetails$outboundSchema: z.ZodType<
   multibancoEntity: z.nullable(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseDetails$ {
-  /** @deprecated use `PaymentResponseDetails$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseDetails$inboundSchema;
-  /** @deprecated use `PaymentResponseDetails$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseDetails$outboundSchema;
-  /** @deprecated use `PaymentResponseDetails$Outbound` instead. */
-  export type Outbound = PaymentResponseDetails$Outbound;
-}
-
 export function paymentResponseDetailsToJSON(
   paymentResponseDetails: PaymentResponseDetails,
 ): string {
@@ -1617,7 +1528,6 @@ export function paymentResponseDetailsToJSON(
     PaymentResponseDetails$outboundSchema.parse(paymentResponseDetails),
   );
 }
-
 export function paymentResponseDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentResponseDetails, SDKValidationError> {
@@ -1652,7 +1562,6 @@ export const PaymentResponseLinks$inboundSchema: z.ZodType<
   status: Url$inboundSchema.optional(),
   payOnline: Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type PaymentResponseLinks$Outbound = {
   self: Url$Outbound;
@@ -1699,19 +1608,6 @@ export const PaymentResponseLinks$outboundSchema: z.ZodType<
   payOnline: Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponseLinks$ {
-  /** @deprecated use `PaymentResponseLinks$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponseLinks$inboundSchema;
-  /** @deprecated use `PaymentResponseLinks$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponseLinks$outboundSchema;
-  /** @deprecated use `PaymentResponseLinks$Outbound` instead. */
-  export type Outbound = PaymentResponseLinks$Outbound;
-}
-
 export function paymentResponseLinksToJSON(
   paymentResponseLinks: PaymentResponseLinks,
 ): string {
@@ -1719,7 +1615,6 @@ export function paymentResponseLinksToJSON(
     PaymentResponseLinks$outboundSchema.parse(paymentResponseLinks),
   );
 }
-
 export function paymentResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentResponseLinks, SDKValidationError> {
@@ -1792,7 +1687,6 @@ export const PaymentResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type PaymentResponse$Outbound = {
   resource?: string | undefined;
@@ -1905,25 +1799,11 @@ export const PaymentResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentResponse$ {
-  /** @deprecated use `PaymentResponse$inboundSchema` instead. */
-  export const inboundSchema = PaymentResponse$inboundSchema;
-  /** @deprecated use `PaymentResponse$outboundSchema` instead. */
-  export const outboundSchema = PaymentResponse$outboundSchema;
-  /** @deprecated use `PaymentResponse$Outbound` instead. */
-  export type Outbound = PaymentResponse$Outbound;
-}
-
 export function paymentResponseToJSON(
   paymentResponse: PaymentResponse,
 ): string {
   return JSON.stringify(PaymentResponse$outboundSchema.parse(paymentResponse));
 }
-
 export function paymentResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentResponse, SDKValidationError> {

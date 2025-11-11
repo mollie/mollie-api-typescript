@@ -27,7 +27,6 @@ export const Mode$inboundSchema: z.ZodType<Mode, z.ZodTypeDef, unknown> = z
     z.nativeEnum(Mode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const Mode$outboundSchema: z.ZodType<Mode, z.ZodTypeDef, Mode> = z.union(
   [
@@ -35,14 +34,3 @@ export const Mode$outboundSchema: z.ZodType<Mode, z.ZodTypeDef, Mode> = z.union(
     z.string().and(z.custom<Unrecognized<string>>()),
   ],
 );
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Mode$ {
-  /** @deprecated use `Mode$inboundSchema` instead. */
-  export const inboundSchema = Mode$inboundSchema;
-  /** @deprecated use `Mode$outboundSchema` instead. */
-  export const outboundSchema = Mode$outboundSchema;
-}

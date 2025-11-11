@@ -109,7 +109,6 @@ export const GetClientRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetClientRequest$Outbound = {
   id: string;
@@ -132,19 +131,6 @@ export const GetClientRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetClientRequest$ {
-  /** @deprecated use `GetClientRequest$inboundSchema` instead. */
-  export const inboundSchema = GetClientRequest$inboundSchema;
-  /** @deprecated use `GetClientRequest$outboundSchema` instead. */
-  export const outboundSchema = GetClientRequest$outboundSchema;
-  /** @deprecated use `GetClientRequest$Outbound` instead. */
-  export type Outbound = GetClientRequest$Outbound;
-}
-
 export function getClientRequestToJSON(
   getClientRequest: GetClientRequest,
 ): string {
@@ -152,7 +138,6 @@ export function getClientRequestToJSON(
     GetClientRequest$outboundSchema.parse(getClientRequest),
   );
 }
-
 export function getClientRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientRequest, SDKValidationError> {
@@ -171,7 +156,6 @@ export const GetClientCommission$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int().optional(),
 });
-
 /** @internal */
 export type GetClientCommission$Outbound = {
   count?: number | undefined;
@@ -186,19 +170,6 @@ export const GetClientCommission$outboundSchema: z.ZodType<
   count: z.number().int().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetClientCommission$ {
-  /** @deprecated use `GetClientCommission$inboundSchema` instead. */
-  export const inboundSchema = GetClientCommission$inboundSchema;
-  /** @deprecated use `GetClientCommission$outboundSchema` instead. */
-  export const outboundSchema = GetClientCommission$outboundSchema;
-  /** @deprecated use `GetClientCommission$Outbound` instead. */
-  export type Outbound = GetClientCommission$Outbound;
-}
-
 export function getClientCommissionToJSON(
   getClientCommission: GetClientCommission,
 ): string {
@@ -206,7 +177,6 @@ export function getClientCommissionToJSON(
     GetClientCommission$outboundSchema.parse(getClientCommission),
   );
 }
-
 export function getClientCommissionFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientCommission, SDKValidationError> {
@@ -228,7 +198,6 @@ export const GetClientLinks$inboundSchema: z.ZodType<
   onboarding: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type GetClientLinks$Outbound = {
   self?: models.Url$Outbound | undefined;
@@ -249,23 +218,9 @@ export const GetClientLinks$outboundSchema: z.ZodType<
   documentation: models.Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetClientLinks$ {
-  /** @deprecated use `GetClientLinks$inboundSchema` instead. */
-  export const inboundSchema = GetClientLinks$inboundSchema;
-  /** @deprecated use `GetClientLinks$outboundSchema` instead. */
-  export const outboundSchema = GetClientLinks$outboundSchema;
-  /** @deprecated use `GetClientLinks$Outbound` instead. */
-  export type Outbound = GetClientLinks$Outbound;
-}
-
 export function getClientLinksToJSON(getClientLinks: GetClientLinks): string {
   return JSON.stringify(GetClientLinks$outboundSchema.parse(getClientLinks));
 }
-
 export function getClientLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientLinks, SDKValidationError> {
@@ -286,7 +241,6 @@ export const GetClientEmbedded$inboundSchema: z.ZodType<
   onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
   capabilities: models.EntityCapability$inboundSchema.optional(),
 });
-
 /** @internal */
 export type GetClientEmbedded$Outbound = {
   organization?: models.EntityOrganization$Outbound | undefined;
@@ -305,19 +259,6 @@ export const GetClientEmbedded$outboundSchema: z.ZodType<
   capabilities: models.EntityCapability$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetClientEmbedded$ {
-  /** @deprecated use `GetClientEmbedded$inboundSchema` instead. */
-  export const inboundSchema = GetClientEmbedded$inboundSchema;
-  /** @deprecated use `GetClientEmbedded$outboundSchema` instead. */
-  export const outboundSchema = GetClientEmbedded$outboundSchema;
-  /** @deprecated use `GetClientEmbedded$Outbound` instead. */
-  export type Outbound = GetClientEmbedded$Outbound;
-}
-
 export function getClientEmbeddedToJSON(
   getClientEmbedded: GetClientEmbedded,
 ): string {
@@ -325,7 +266,6 @@ export function getClientEmbeddedToJSON(
     GetClientEmbedded$outboundSchema.parse(getClientEmbedded),
   );
 }
-
 export function getClientEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientEmbedded, SDKValidationError> {
@@ -355,7 +295,6 @@ export const GetClientResponse$inboundSchema: z.ZodType<
     "_embedded": "embedded",
   });
 });
-
 /** @internal */
 export type GetClientResponse$Outbound = {
   resource?: string | undefined;
@@ -386,19 +325,6 @@ export const GetClientResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetClientResponse$ {
-  /** @deprecated use `GetClientResponse$inboundSchema` instead. */
-  export const inboundSchema = GetClientResponse$inboundSchema;
-  /** @deprecated use `GetClientResponse$outboundSchema` instead. */
-  export const outboundSchema = GetClientResponse$outboundSchema;
-  /** @deprecated use `GetClientResponse$Outbound` instead. */
-  export type Outbound = GetClientResponse$Outbound;
-}
-
 export function getClientResponseToJSON(
   getClientResponse: GetClientResponse,
 ): string {
@@ -406,7 +332,6 @@ export function getClientResponseToJSON(
     GetClientResponse$outboundSchema.parse(getClientResponse),
   );
 }
-
 export function getClientResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientResponse, SDKValidationError> {

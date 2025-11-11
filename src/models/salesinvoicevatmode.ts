@@ -27,19 +27,7 @@ export type SalesInvoiceVatMode = ClosedEnum<typeof SalesInvoiceVatMode>;
 export const SalesInvoiceVatMode$inboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceVatMode
 > = z.nativeEnum(SalesInvoiceVatMode);
-
 /** @internal */
 export const SalesInvoiceVatMode$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceVatMode
 > = SalesInvoiceVatMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceVatMode$ {
-  /** @deprecated use `SalesInvoiceVatMode$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceVatMode$inboundSchema;
-  /** @deprecated use `SalesInvoiceVatMode$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceVatMode$outboundSchema;
-}

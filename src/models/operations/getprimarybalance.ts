@@ -27,7 +27,6 @@ export const GetPrimaryBalanceRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetPrimaryBalanceRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -46,19 +45,6 @@ export const GetPrimaryBalanceRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPrimaryBalanceRequest$ {
-  /** @deprecated use `GetPrimaryBalanceRequest$inboundSchema` instead. */
-  export const inboundSchema = GetPrimaryBalanceRequest$inboundSchema;
-  /** @deprecated use `GetPrimaryBalanceRequest$outboundSchema` instead. */
-  export const outboundSchema = GetPrimaryBalanceRequest$outboundSchema;
-  /** @deprecated use `GetPrimaryBalanceRequest$Outbound` instead. */
-  export type Outbound = GetPrimaryBalanceRequest$Outbound;
-}
-
 export function getPrimaryBalanceRequestToJSON(
   getPrimaryBalanceRequest: GetPrimaryBalanceRequest,
 ): string {
@@ -66,7 +52,6 @@ export function getPrimaryBalanceRequestToJSON(
     GetPrimaryBalanceRequest$outboundSchema.parse(getPrimaryBalanceRequest),
   );
 }
-
 export function getPrimaryBalanceRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPrimaryBalanceRequest, SDKValidationError> {

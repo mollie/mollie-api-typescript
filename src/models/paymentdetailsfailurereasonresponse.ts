@@ -46,7 +46,6 @@ export const PaymentDetailsFailureReasonResponse$inboundSchema: z.ZodType<
     z.nativeEnum(PaymentDetailsFailureReasonResponse),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const PaymentDetailsFailureReasonResponse$outboundSchema: z.ZodType<
   PaymentDetailsFailureReasonResponse,
@@ -56,16 +55,3 @@ export const PaymentDetailsFailureReasonResponse$outboundSchema: z.ZodType<
   z.nativeEnum(PaymentDetailsFailureReasonResponse),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaymentDetailsFailureReasonResponse$ {
-  /** @deprecated use `PaymentDetailsFailureReasonResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    PaymentDetailsFailureReasonResponse$inboundSchema;
-  /** @deprecated use `PaymentDetailsFailureReasonResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    PaymentDetailsFailureReasonResponse$outboundSchema;
-}

@@ -128,7 +128,6 @@ export const GetCustomerGlobals$inboundSchema: z.ZodType<
 > = z.object({
   testmode: z.boolean().optional(),
 });
-
 /** @internal */
 export type GetCustomerGlobals$Outbound = {
   testmode?: boolean | undefined;
@@ -143,19 +142,6 @@ export const GetCustomerGlobals$outboundSchema: z.ZodType<
   testmode: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerGlobals$ {
-  /** @deprecated use `GetCustomerGlobals$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerGlobals$inboundSchema;
-  /** @deprecated use `GetCustomerGlobals$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerGlobals$outboundSchema;
-  /** @deprecated use `GetCustomerGlobals$Outbound` instead. */
-  export type Outbound = GetCustomerGlobals$Outbound;
-}
-
 export function getCustomerGlobalsToJSON(
   getCustomerGlobals: GetCustomerGlobals,
 ): string {
@@ -163,7 +149,6 @@ export function getCustomerGlobalsToJSON(
     GetCustomerGlobals$outboundSchema.parse(getCustomerGlobals),
   );
 }
-
 export function getCustomerGlobalsFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCustomerGlobals, SDKValidationError> {
@@ -189,7 +174,6 @@ export const GetCustomerRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type GetCustomerRequest$Outbound = {
   customerId: string;
@@ -214,19 +198,6 @@ export const GetCustomerRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerRequest$ {
-  /** @deprecated use `GetCustomerRequest$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerRequest$inboundSchema;
-  /** @deprecated use `GetCustomerRequest$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerRequest$outboundSchema;
-  /** @deprecated use `GetCustomerRequest$Outbound` instead. */
-  export type Outbound = GetCustomerRequest$Outbound;
-}
-
 export function getCustomerRequestToJSON(
   getCustomerRequest: GetCustomerRequest,
 ): string {
@@ -234,7 +205,6 @@ export function getCustomerRequestToJSON(
     GetCustomerRequest$outboundSchema.parse(getCustomerRequest),
   );
 }
-
 export function getCustomerRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCustomerRequest, SDKValidationError> {
@@ -258,7 +228,6 @@ export const GetCustomerLinks$inboundSchema: z.ZodType<
   subscriptions: z.nullable(models.UrlNullable$inboundSchema).optional(),
   documentation: models.Url$inboundSchema,
 });
-
 /** @internal */
 export type GetCustomerLinks$Outbound = {
   self: models.Url$Outbound;
@@ -283,19 +252,6 @@ export const GetCustomerLinks$outboundSchema: z.ZodType<
   documentation: models.Url$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerLinks$ {
-  /** @deprecated use `GetCustomerLinks$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerLinks$inboundSchema;
-  /** @deprecated use `GetCustomerLinks$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerLinks$outboundSchema;
-  /** @deprecated use `GetCustomerLinks$Outbound` instead. */
-  export type Outbound = GetCustomerLinks$Outbound;
-}
-
 export function getCustomerLinksToJSON(
   getCustomerLinks: GetCustomerLinks,
 ): string {
@@ -303,7 +259,6 @@ export function getCustomerLinksToJSON(
     GetCustomerLinks$outboundSchema.parse(getCustomerLinks),
   );
 }
-
 export function getCustomerLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCustomerLinks, SDKValidationError> {
@@ -335,7 +290,6 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type GetCustomerResponse$Outbound = {
   resource?: string | undefined;
@@ -372,19 +326,6 @@ export const GetCustomerResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetCustomerResponse$ {
-  /** @deprecated use `GetCustomerResponse$inboundSchema` instead. */
-  export const inboundSchema = GetCustomerResponse$inboundSchema;
-  /** @deprecated use `GetCustomerResponse$outboundSchema` instead. */
-  export const outboundSchema = GetCustomerResponse$outboundSchema;
-  /** @deprecated use `GetCustomerResponse$Outbound` instead. */
-  export type Outbound = GetCustomerResponse$Outbound;
-}
-
 export function getCustomerResponseToJSON(
   getCustomerResponse: GetCustomerResponse,
 ): string {
@@ -392,7 +333,6 @@ export function getCustomerResponseToJSON(
     GetCustomerResponse$outboundSchema.parse(getCustomerResponse),
   );
 }
-
 export function getCustomerResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCustomerResponse, SDKValidationError> {

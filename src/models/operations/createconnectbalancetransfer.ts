@@ -32,7 +32,6 @@ export const CreateConnectBalanceTransferRequest$inboundSchema: z.ZodType<
     "entity-balance-transfer": "entityBalanceTransfer",
   });
 });
-
 /** @internal */
 export type CreateConnectBalanceTransferRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -54,21 +53,6 @@ export const CreateConnectBalanceTransferRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateConnectBalanceTransferRequest$ {
-  /** @deprecated use `CreateConnectBalanceTransferRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateConnectBalanceTransferRequest$inboundSchema;
-  /** @deprecated use `CreateConnectBalanceTransferRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateConnectBalanceTransferRequest$outboundSchema;
-  /** @deprecated use `CreateConnectBalanceTransferRequest$Outbound` instead. */
-  export type Outbound = CreateConnectBalanceTransferRequest$Outbound;
-}
-
 export function createConnectBalanceTransferRequestToJSON(
   createConnectBalanceTransferRequest: CreateConnectBalanceTransferRequest,
 ): string {
@@ -78,7 +62,6 @@ export function createConnectBalanceTransferRequestToJSON(
     ),
   );
 }
-
 export function createConnectBalanceTransferRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateConnectBalanceTransferRequest, SDKValidationError> {

@@ -32,7 +32,6 @@ export const SalesInvoiceDiscount$inboundSchema: z.ZodType<
   type: SalesInvoiceDiscountType$inboundSchema,
   value: z.string(),
 });
-
 /** @internal */
 export type SalesInvoiceDiscount$Outbound = {
   type: string;
@@ -49,19 +48,6 @@ export const SalesInvoiceDiscount$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SalesInvoiceDiscount$ {
-  /** @deprecated use `SalesInvoiceDiscount$inboundSchema` instead. */
-  export const inboundSchema = SalesInvoiceDiscount$inboundSchema;
-  /** @deprecated use `SalesInvoiceDiscount$outboundSchema` instead. */
-  export const outboundSchema = SalesInvoiceDiscount$outboundSchema;
-  /** @deprecated use `SalesInvoiceDiscount$Outbound` instead. */
-  export type Outbound = SalesInvoiceDiscount$Outbound;
-}
-
 export function salesInvoiceDiscountToJSON(
   salesInvoiceDiscount: SalesInvoiceDiscount,
 ): string {
@@ -69,7 +55,6 @@ export function salesInvoiceDiscountToJSON(
     SalesInvoiceDiscount$outboundSchema.parse(salesInvoiceDiscount),
   );
 }
-
 export function salesInvoiceDiscountFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoiceDiscount, SDKValidationError> {

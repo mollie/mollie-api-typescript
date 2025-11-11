@@ -51,7 +51,6 @@ export const ListCapabilitiesRequest$inboundSchema: z.ZodType<
     "idempotency-key": "idempotencyKey",
   });
 });
-
 /** @internal */
 export type ListCapabilitiesRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -70,19 +69,6 @@ export const ListCapabilitiesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapabilitiesRequest$ {
-  /** @deprecated use `ListCapabilitiesRequest$inboundSchema` instead. */
-  export const inboundSchema = ListCapabilitiesRequest$inboundSchema;
-  /** @deprecated use `ListCapabilitiesRequest$outboundSchema` instead. */
-  export const outboundSchema = ListCapabilitiesRequest$outboundSchema;
-  /** @deprecated use `ListCapabilitiesRequest$Outbound` instead. */
-  export type Outbound = ListCapabilitiesRequest$Outbound;
-}
-
 export function listCapabilitiesRequestToJSON(
   listCapabilitiesRequest: ListCapabilitiesRequest,
 ): string {
@@ -90,7 +76,6 @@ export function listCapabilitiesRequestToJSON(
     ListCapabilitiesRequest$outboundSchema.parse(listCapabilitiesRequest),
   );
 }
-
 export function listCapabilitiesRequestFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapabilitiesRequest, SDKValidationError> {
@@ -109,7 +94,6 @@ export const ListCapabilitiesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   capabilities: z.array(models.EntityCapability$inboundSchema),
 });
-
 /** @internal */
 export type ListCapabilitiesEmbedded$Outbound = {
   capabilities: Array<models.EntityCapability$Outbound>;
@@ -124,19 +108,6 @@ export const ListCapabilitiesEmbedded$outboundSchema: z.ZodType<
   capabilities: z.array(models.EntityCapability$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapabilitiesEmbedded$ {
-  /** @deprecated use `ListCapabilitiesEmbedded$inboundSchema` instead. */
-  export const inboundSchema = ListCapabilitiesEmbedded$inboundSchema;
-  /** @deprecated use `ListCapabilitiesEmbedded$outboundSchema` instead. */
-  export const outboundSchema = ListCapabilitiesEmbedded$outboundSchema;
-  /** @deprecated use `ListCapabilitiesEmbedded$Outbound` instead. */
-  export type Outbound = ListCapabilitiesEmbedded$Outbound;
-}
-
 export function listCapabilitiesEmbeddedToJSON(
   listCapabilitiesEmbedded: ListCapabilitiesEmbedded,
 ): string {
@@ -144,7 +115,6 @@ export function listCapabilitiesEmbeddedToJSON(
     ListCapabilitiesEmbedded$outboundSchema.parse(listCapabilitiesEmbedded),
   );
 }
-
 export function listCapabilitiesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapabilitiesEmbedded, SDKValidationError> {
@@ -163,7 +133,6 @@ export const ListCapabilitiesLinks$inboundSchema: z.ZodType<
 > = z.object({
   documentation: models.Url$inboundSchema.optional(),
 });
-
 /** @internal */
 export type ListCapabilitiesLinks$Outbound = {
   documentation?: models.Url$Outbound | undefined;
@@ -178,19 +147,6 @@ export const ListCapabilitiesLinks$outboundSchema: z.ZodType<
   documentation: models.Url$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapabilitiesLinks$ {
-  /** @deprecated use `ListCapabilitiesLinks$inboundSchema` instead. */
-  export const inboundSchema = ListCapabilitiesLinks$inboundSchema;
-  /** @deprecated use `ListCapabilitiesLinks$outboundSchema` instead. */
-  export const outboundSchema = ListCapabilitiesLinks$outboundSchema;
-  /** @deprecated use `ListCapabilitiesLinks$Outbound` instead. */
-  export type Outbound = ListCapabilitiesLinks$Outbound;
-}
-
 export function listCapabilitiesLinksToJSON(
   listCapabilitiesLinks: ListCapabilitiesLinks,
 ): string {
@@ -198,7 +154,6 @@ export function listCapabilitiesLinksToJSON(
     ListCapabilitiesLinks$outboundSchema.parse(listCapabilitiesLinks),
   );
 }
-
 export function listCapabilitiesLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapabilitiesLinks, SDKValidationError> {
@@ -224,7 +179,6 @@ export const ListCapabilitiesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-
 /** @internal */
 export type ListCapabilitiesResponse$Outbound = {
   count: number;
@@ -248,19 +202,6 @@ export const ListCapabilitiesResponse$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCapabilitiesResponse$ {
-  /** @deprecated use `ListCapabilitiesResponse$inboundSchema` instead. */
-  export const inboundSchema = ListCapabilitiesResponse$inboundSchema;
-  /** @deprecated use `ListCapabilitiesResponse$outboundSchema` instead. */
-  export const outboundSchema = ListCapabilitiesResponse$outboundSchema;
-  /** @deprecated use `ListCapabilitiesResponse$Outbound` instead. */
-  export type Outbound = ListCapabilitiesResponse$Outbound;
-}
-
 export function listCapabilitiesResponseToJSON(
   listCapabilitiesResponse: ListCapabilitiesResponse,
 ): string {
@@ -268,7 +209,6 @@ export function listCapabilitiesResponseToJSON(
     ListCapabilitiesResponse$outboundSchema.parse(listCapabilitiesResponse),
   );
 }
-
 export function listCapabilitiesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapabilitiesResponse, SDKValidationError> {
