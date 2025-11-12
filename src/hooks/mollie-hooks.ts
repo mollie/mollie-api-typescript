@@ -74,8 +74,6 @@ export class MollieHooks implements BeforeCreateRequestHook {
             mollieUserAgent = `${mollieUserAgent} ${customUserAgent}`;
         }
 
-        console.log("Setting User-Agent to:", mollieUserAgent);
-
         headers.set(userAgentKey, mollieUserAgent);
         return headers;
     }
