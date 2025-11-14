@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The subscription's current status is directly related to the status of the underlying customer or mandate that is
@@ -35,17 +32,10 @@ export const SubscriptionStatus$inboundSchema: z.ZodType<
   SubscriptionStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SubscriptionStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SubscriptionStatus);
 /** @internal */
 export const SubscriptionStatus$outboundSchema: z.ZodType<
-  SubscriptionStatus,
+  string,
   z.ZodTypeDef,
   SubscriptionStatus
-> = z.union([
-  z.nativeEnum(SubscriptionStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SubscriptionStatus);

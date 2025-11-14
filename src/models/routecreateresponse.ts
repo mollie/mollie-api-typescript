@@ -54,25 +54,25 @@ export type RouteCreateResponse = {
   /**
    * Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
-  paymentId?: string | undefined;
+  resource: string;
+  id: string;
+  paymentId: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
+  amount: Amount;
   /**
    * The description of the route. This description is shown in the reports.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The destination of the route.
    */
-  destination?: RouteCreateResponseDestination | undefined;
+  destination: RouteCreateResponseDestination;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: RouteCreateResponseLinks | undefined;
+  links: RouteCreateResponseLinks;
 };
 
 /** @internal */
@@ -167,14 +167,13 @@ export const RouteCreateResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  paymentId: z.string().optional(),
-  amount: Amount$inboundSchema.optional(),
-  description: z.string().optional(),
-  destination: z.lazy(() => RouteCreateResponseDestination$inboundSchema)
-    .optional(),
-  _links: z.lazy(() => RouteCreateResponseLinks$inboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  paymentId: z.string(),
+  amount: Amount$inboundSchema,
+  description: z.string(),
+  destination: z.lazy(() => RouteCreateResponseDestination$inboundSchema),
+  _links: z.lazy(() => RouteCreateResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -182,13 +181,13 @@ export const RouteCreateResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type RouteCreateResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  paymentId?: string | undefined;
-  amount?: Amount$Outbound | undefined;
-  description?: string | undefined;
-  destination?: RouteCreateResponseDestination$Outbound | undefined;
-  _links?: RouteCreateResponseLinks$Outbound | undefined;
+  resource: string;
+  id: string;
+  paymentId: string;
+  amount: Amount$Outbound;
+  description: string;
+  destination: RouteCreateResponseDestination$Outbound;
+  _links: RouteCreateResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -197,14 +196,13 @@ export const RouteCreateResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RouteCreateResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  paymentId: z.string().optional(),
-  amount: Amount$outboundSchema.optional(),
-  description: z.string().optional(),
-  destination: z.lazy(() => RouteCreateResponseDestination$outboundSchema)
-    .optional(),
-  links: z.lazy(() => RouteCreateResponseLinks$outboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  paymentId: z.string(),
+  amount: Amount$outboundSchema,
+  description: z.string(),
+  destination: z.lazy(() => RouteCreateResponseDestination$outboundSchema),
+  links: z.lazy(() => RouteCreateResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

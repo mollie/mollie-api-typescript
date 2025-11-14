@@ -140,7 +140,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload?.["entity-client-link"], {
+  const body = encodeJSON("body", payload?.["client-link-request"], {
     explode: true,
   });
 

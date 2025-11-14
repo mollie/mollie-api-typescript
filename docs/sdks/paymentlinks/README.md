@@ -621,7 +621,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.paymentLinks.delete({
+  await client.paymentLinks.delete({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
@@ -629,7 +629,7 @@ async function run() {
     },
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -661,7 +661,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("paymentLinksDelete failed:", res.error);
   }
@@ -681,7 +681,7 @@ run();
 
 ### Response
 
-**Promise\<[any](../../models/.md)\>**
+**Promise\<void\>**
 
 ### Errors
 

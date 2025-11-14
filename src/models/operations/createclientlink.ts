@@ -14,7 +14,7 @@ export type CreateClientLinkRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  entityClientLink?: models.EntityClientLink | undefined;
+  clientLinkRequest?: models.ClientLinkRequest | undefined;
 };
 
 /** @internal */
@@ -24,17 +24,17 @@ export const CreateClientLinkRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   "idempotency-key": z.string().optional(),
-  "entity-client-link": models.EntityClientLink$inboundSchema.optional(),
+  "client-link-request": models.ClientLinkRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "entity-client-link": "entityClientLink",
+    "client-link-request": "clientLinkRequest",
   });
 });
 /** @internal */
 export type CreateClientLinkRequest$Outbound = {
   "idempotency-key"?: string | undefined;
-  "entity-client-link"?: models.EntityClientLink$Outbound | undefined;
+  "client-link-request"?: models.ClientLinkRequest$Outbound | undefined;
 };
 
 /** @internal */
@@ -44,11 +44,11 @@ export const CreateClientLinkRequest$outboundSchema: z.ZodType<
   CreateClientLinkRequest
 > = z.object({
   idempotencyKey: z.string().optional(),
-  entityClientLink: models.EntityClientLink$outboundSchema.optional(),
+  clientLinkRequest: models.ClientLinkRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    entityClientLink: "entity-client-link",
+    clientLinkRequest: "client-link-request",
   });
 });
 

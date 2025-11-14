@@ -35,8 +35,6 @@ Sales invoices which are in status \`draft\` can be deleted. For all other statu
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

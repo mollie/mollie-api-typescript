@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
@@ -40,17 +37,10 @@ export const PaymentDetailsSellerProtectionResponse$inboundSchema: z.ZodType<
   PaymentDetailsSellerProtectionResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PaymentDetailsSellerProtectionResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PaymentDetailsSellerProtectionResponse);
 /** @internal */
 export const PaymentDetailsSellerProtectionResponse$outboundSchema: z.ZodType<
-  PaymentDetailsSellerProtectionResponse,
+  string,
   z.ZodTypeDef,
   PaymentDetailsSellerProtectionResponse
-> = z.union([
-  z.nativeEnum(PaymentDetailsSellerProtectionResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PaymentDetailsSellerProtectionResponse);

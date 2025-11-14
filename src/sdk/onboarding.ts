@@ -41,7 +41,7 @@ export class Onboarding extends ClientSDK {
   async submit(
     request?: operations.SubmitOnboardingDataRequest | undefined,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(onboardingSubmit(
       this,
       request,

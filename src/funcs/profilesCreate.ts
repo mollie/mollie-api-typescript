@@ -90,7 +90,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload["entity-profile"], { explode: true });
+  const body = encodeJSON("body", payload["profile-request"], {
+    explode: true,
+  });
 
   const path = pathToFunc("/profiles")();
 

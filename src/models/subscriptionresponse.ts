@@ -99,23 +99,23 @@ export type SubscriptionResponse = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: Mode | undefined;
+  mode: Mode;
   /**
    * The subscription's current status is directly related to the status of the underlying customer or mandate that is
    *
    * @remarks
    * enabling the subscription.
    */
-  status?: SubscriptionStatus | undefined;
+  status: SubscriptionStatus;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
+  amount: Amount;
   /**
    * Total number of payments for the subscription. Once this number of payments is reached, the subscription is
    *
@@ -124,11 +124,11 @@ export type SubscriptionResponse = {
    *
    * Test mode subscriptions will get canceled automatically after 10 payments.
    */
-  times?: number | null | undefined;
+  times: number | null;
   /**
    * Number of payments left for the subscription.
    */
-  timesRemaining?: number | null | undefined;
+  timesRemaining: number | null;
   /**
    * Interval to wait between payments, for example `1 month` or `14 days`.
    *
@@ -138,11 +138,11 @@ export type SubscriptionResponse = {
    *
    * Possible values: `... days`, `... weeks`, `... months`.
    */
-  interval?: string | undefined;
+  interval: string;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    */
-  startDate?: string | undefined;
+  startDate: string;
   /**
    * The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
    *
@@ -158,11 +158,11 @@ export type SubscriptionResponse = {
    *
    * **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
    */
-  method?: SubscriptionMethodResponse | null | undefined;
+  method: SubscriptionMethodResponse | null;
   /**
    * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
    *
@@ -181,7 +181,7 @@ export type SubscriptionResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: Metadata | null | undefined;
+  metadata: Metadata | null;
   /**
    * We will call this URL for any payment status changes of payments resulting from this subscription.
    *
@@ -190,13 +190,13 @@ export type SubscriptionResponse = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl?: string | undefined;
-  customerId?: string | undefined;
+  webhookUrl: string;
+  customerId: string;
   mandateId?: string | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
    *
@@ -207,7 +207,7 @@ export type SubscriptionResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: SubscriptionResponseLinks | undefined;
+  links: SubscriptionResponseLinks;
 };
 
 /** @internal */
@@ -315,27 +315,27 @@ export const SubscriptionResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$inboundSchema.optional(),
-  status: SubscriptionStatus$inboundSchema.optional(),
-  amount: Amount$inboundSchema.optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.nullable(z.number().int()).optional(),
-  interval: z.string().optional(),
-  startDate: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  status: SubscriptionStatus$inboundSchema,
+  amount: Amount$inboundSchema,
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(SubscriptionMethodResponse$inboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(SubscriptionMethodResponse$inboundSchema),
   applicationFee: z.lazy(() => SubscriptionResponseApplicationFee$inboundSchema)
     .optional(),
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  metadata: z.nullable(Metadata$inboundSchema),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.string().optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => SubscriptionResponseLinks$inboundSchema).optional(),
+  _links: z.lazy(() => SubscriptionResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -343,26 +343,26 @@ export const SubscriptionResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SubscriptionResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  mode?: string | undefined;
-  status?: string | undefined;
-  amount?: Amount$Outbound | undefined;
-  times?: number | null | undefined;
-  timesRemaining?: number | null | undefined;
-  interval?: string | undefined;
-  startDate?: string | undefined;
+  resource: string;
+  id: string;
+  mode: string;
+  status: string;
+  amount: Amount$Outbound;
+  times: number | null;
+  timesRemaining: number | null;
+  interval: string;
+  startDate: string;
   nextPaymentDate?: string | null | undefined;
-  description?: string | undefined;
-  method?: string | null | undefined;
+  description: string;
+  method: string | null;
   applicationFee?: SubscriptionResponseApplicationFee$Outbound | undefined;
-  metadata?: Metadata$Outbound | null | undefined;
-  webhookUrl?: string | undefined;
-  customerId?: string | undefined;
+  metadata: Metadata$Outbound | null;
+  webhookUrl: string;
+  customerId: string;
   mandateId?: string | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
   canceledAt?: string | null | undefined;
-  _links?: SubscriptionResponseLinks$Outbound | undefined;
+  _links: SubscriptionResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -371,28 +371,28 @@ export const SubscriptionResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SubscriptionResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$outboundSchema.optional(),
-  status: SubscriptionStatus$outboundSchema.optional(),
-  amount: Amount$outboundSchema.optional(),
-  times: z.nullable(z.number().int()).optional(),
-  timesRemaining: z.nullable(z.number().int()).optional(),
-  interval: z.string().optional(),
-  startDate: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$outboundSchema,
+  status: SubscriptionStatus$outboundSchema,
+  amount: Amount$outboundSchema,
+  times: z.nullable(z.number().int()),
+  timesRemaining: z.nullable(z.number().int()),
+  interval: z.string(),
+  startDate: z.string(),
   nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string().optional(),
-  method: z.nullable(SubscriptionMethodResponse$outboundSchema).optional(),
+  description: z.string(),
+  method: z.nullable(SubscriptionMethodResponse$outboundSchema),
   applicationFee: z.lazy(() =>
     SubscriptionResponseApplicationFee$outboundSchema
   ).optional(),
-  metadata: z.nullable(Metadata$outboundSchema).optional(),
-  webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
+  metadata: z.nullable(Metadata$outboundSchema),
+  webhookUrl: z.string(),
+  customerId: z.string(),
   mandateId: z.string().optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   canceledAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => SubscriptionResponseLinks$outboundSchema).optional(),
+  links: z.lazy(() => SubscriptionResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

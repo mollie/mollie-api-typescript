@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The wallet used when creating the payment.
@@ -27,17 +24,10 @@ export const PaymentDetailsWalletResponse$inboundSchema: z.ZodType<
   PaymentDetailsWalletResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PaymentDetailsWalletResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PaymentDetailsWalletResponse);
 /** @internal */
 export const PaymentDetailsWalletResponse$outboundSchema: z.ZodType<
-  PaymentDetailsWalletResponse,
+  string,
   z.ZodTypeDef,
   PaymentDetailsWalletResponse
-> = z.union([
-  z.nativeEnum(PaymentDetailsWalletResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PaymentDetailsWalletResponse);

@@ -99,7 +99,7 @@ export class Customers extends ClientSDK {
   async delete(
     request: operations.DeleteCustomerRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(customersDelete(
       this,
       request,

@@ -32,7 +32,7 @@ async function run() {
   const result = await client.refunds.create({
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityRefund: {
+    refundRequest: {
       id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
       amount: {
@@ -96,7 +96,7 @@ async function run() {
   const res = await refundsCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityRefund: {
+    refundRequest: {
       id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
       amount: {
@@ -362,13 +362,13 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.refunds.cancel({
+  await client.refunds.cancel({
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -399,7 +399,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("refundsCancel failed:", res.error);
   }
@@ -419,7 +419,7 @@ run();
 
 ### Response
 
-**Promise\<[any](../../models/.md)\>**
+**Promise\<void\>**
 
 ### Errors
 

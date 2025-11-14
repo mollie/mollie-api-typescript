@@ -37,7 +37,7 @@ export type Owner = {
 /**
  * Address of the organization.
  */
-export type EntityClientLinkAddress = {
+export type ClientLinkRequestAddress = {
   /**
    * The street name and house number of the organization.
    */
@@ -62,19 +62,19 @@ export type EntityClientLinkAddress = {
   country: string;
 };
 
-export type EntityClientLink = {
+export type ClientLinkRequest = {
   /**
    * Personal data of your customer.
    */
-  owner?: Owner | undefined;
+  owner: Owner;
   /**
    * Name of the organization.
    */
-  name?: string | undefined;
+  name: string;
   /**
    * Address of the organization.
    */
-  address?: EntityClientLinkAddress | undefined;
+  address: ClientLinkRequestAddress;
   /**
    * The registration number of the organization at their local chamber of commerce.
    */
@@ -130,8 +130,8 @@ export function ownerFromJSON(
 }
 
 /** @internal */
-export const EntityClientLinkAddress$inboundSchema: z.ZodType<
-  EntityClientLinkAddress,
+export const ClientLinkRequestAddress$inboundSchema: z.ZodType<
+  ClientLinkRequestAddress,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -141,7 +141,7 @@ export const EntityClientLinkAddress$inboundSchema: z.ZodType<
   country: z.string(),
 });
 /** @internal */
-export type EntityClientLinkAddress$Outbound = {
+export type ClientLinkRequestAddress$Outbound = {
   streetAndNumber?: string | null | undefined;
   postalCode?: string | null | undefined;
   city?: string | null | undefined;
@@ -149,10 +149,10 @@ export type EntityClientLinkAddress$Outbound = {
 };
 
 /** @internal */
-export const EntityClientLinkAddress$outboundSchema: z.ZodType<
-  EntityClientLinkAddress$Outbound,
+export const ClientLinkRequestAddress$outboundSchema: z.ZodType<
+  ClientLinkRequestAddress$Outbound,
   z.ZodTypeDef,
-  EntityClientLinkAddress
+  ClientLinkRequestAddress
 > = z.object({
   streetAndNumber: z.nullable(z.string()).optional(),
   postalCode: z.nullable(z.string()).optional(),
@@ -160,70 +160,70 @@ export const EntityClientLinkAddress$outboundSchema: z.ZodType<
   country: z.string(),
 });
 
-export function entityClientLinkAddressToJSON(
-  entityClientLinkAddress: EntityClientLinkAddress,
+export function clientLinkRequestAddressToJSON(
+  clientLinkRequestAddress: ClientLinkRequestAddress,
 ): string {
   return JSON.stringify(
-    EntityClientLinkAddress$outboundSchema.parse(entityClientLinkAddress),
+    ClientLinkRequestAddress$outboundSchema.parse(clientLinkRequestAddress),
   );
 }
-export function entityClientLinkAddressFromJSON(
+export function clientLinkRequestAddressFromJSON(
   jsonString: string,
-): SafeParseResult<EntityClientLinkAddress, SDKValidationError> {
+): SafeParseResult<ClientLinkRequestAddress, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityClientLinkAddress$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityClientLinkAddress' from JSON`,
+    (x) => ClientLinkRequestAddress$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientLinkRequestAddress' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityClientLink$inboundSchema: z.ZodType<
-  EntityClientLink,
+export const ClientLinkRequest$inboundSchema: z.ZodType<
+  ClientLinkRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  owner: z.lazy(() => Owner$inboundSchema).optional(),
-  name: z.string().optional(),
-  address: z.lazy(() => EntityClientLinkAddress$inboundSchema).optional(),
+  owner: z.lazy(() => Owner$inboundSchema),
+  name: z.string(),
+  address: z.lazy(() => ClientLinkRequestAddress$inboundSchema),
   registrationNumber: z.nullable(z.string()).optional(),
   vatNumber: z.nullable(z.string()).optional(),
 });
 /** @internal */
-export type EntityClientLink$Outbound = {
-  owner?: Owner$Outbound | undefined;
-  name?: string | undefined;
-  address?: EntityClientLinkAddress$Outbound | undefined;
+export type ClientLinkRequest$Outbound = {
+  owner: Owner$Outbound;
+  name: string;
+  address: ClientLinkRequestAddress$Outbound;
   registrationNumber?: string | null | undefined;
   vatNumber?: string | null | undefined;
 };
 
 /** @internal */
-export const EntityClientLink$outboundSchema: z.ZodType<
-  EntityClientLink$Outbound,
+export const ClientLinkRequest$outboundSchema: z.ZodType<
+  ClientLinkRequest$Outbound,
   z.ZodTypeDef,
-  EntityClientLink
+  ClientLinkRequest
 > = z.object({
-  owner: z.lazy(() => Owner$outboundSchema).optional(),
-  name: z.string().optional(),
-  address: z.lazy(() => EntityClientLinkAddress$outboundSchema).optional(),
+  owner: z.lazy(() => Owner$outboundSchema),
+  name: z.string(),
+  address: z.lazy(() => ClientLinkRequestAddress$outboundSchema),
   registrationNumber: z.nullable(z.string()).optional(),
   vatNumber: z.nullable(z.string()).optional(),
 });
 
-export function entityClientLinkToJSON(
-  entityClientLink: EntityClientLink,
+export function clientLinkRequestToJSON(
+  clientLinkRequest: ClientLinkRequest,
 ): string {
   return JSON.stringify(
-    EntityClientLink$outboundSchema.parse(entityClientLink),
+    ClientLinkRequest$outboundSchema.parse(clientLinkRequest),
   );
 }
-export function entityClientLinkFromJSON(
+export function clientLinkRequestFromJSON(
   jsonString: string,
-): SafeParseResult<EntityClientLink, SDKValidationError> {
+): SafeParseResult<ClientLinkRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityClientLink$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityClientLink' from JSON`,
+    (x) => ClientLinkRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientLinkRequest' from JSON`,
   );
 }

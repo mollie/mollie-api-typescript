@@ -731,12 +731,12 @@ export type PaymentResponse = {
   /**
    * Indicates the response contains a payment object. Will always contain the string `payment` for this endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: Mode | undefined;
+  mode: Mode;
   /**
    * The description of the payment. This will be shown to your customer on their card or bank statement when possible.
    *
@@ -750,11 +750,11 @@ export type PaymentResponse = {
    * The maximum length of the description field differs per payment method, with the absolute maximum being 255
    * characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
+  amount: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -947,7 +947,7 @@ export type PaymentResponse = {
    * parameter.
    */
   routing?: Array<EntityPaymentRouteResponse> | null | undefined;
-  sequenceType?: SequenceTypeResponse | undefined;
+  sequenceType: SequenceTypeResponse;
   subscriptionId?: string | undefined;
   mandateId?: string | undefined;
   customerId?: string | undefined;
@@ -960,7 +960,7 @@ export type PaymentResponse = {
    * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
    * required.
    */
-  profileId?: string | undefined;
+  profileId: string;
   settlementId?: string | undefined;
   orderId?: string | undefined;
   /**
@@ -969,7 +969,7 @@ export type PaymentResponse = {
    * @remarks
    * statuses occur at what point.
    */
-  status?: PaymentStatus | undefined;
+  status: PaymentStatus;
   /**
    * This object offers details about the status of a payment. Currently it is only available for point-of-sale
    *
@@ -995,7 +995,7 @@ export type PaymentResponse = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
    *
@@ -1041,7 +1041,7 @@ export type PaymentResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: PaymentResponseLinks | undefined;
+  links: PaymentResponseLinks;
 };
 
 /** @internal */
@@ -1631,11 +1631,11 @@ export const PaymentResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$inboundSchema.optional(),
-  description: z.string().optional(),
-  amount: Amount$inboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  description: z.string(),
+  amount: Amount$inboundSchema,
   amountRefunded: Amount$inboundSchema.optional(),
   amountRemaining: Amount$inboundSchema.optional(),
   amountCaptured: Amount$inboundSchema.optional(),
@@ -1662,26 +1662,26 @@ export const PaymentResponse$inboundSchema: z.ZodType<
   ).optional(),
   routing: z.nullable(z.array(EntityPaymentRouteResponse$inboundSchema))
     .optional(),
-  sequenceType: SequenceTypeResponse$inboundSchema.optional(),
+  sequenceType: SequenceTypeResponse$inboundSchema,
   subscriptionId: z.string().optional(),
   mandateId: z.string().optional(),
   customerId: z.string().optional(),
-  profileId: z.string().optional(),
+  profileId: z.string(),
   settlementId: z.string().optional(),
   orderId: z.string().optional(),
-  status: PaymentStatus$inboundSchema.optional(),
+  status: PaymentStatus$inboundSchema,
   statusReason: z.nullable(StatusReason$inboundSchema).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
   details: z.nullable(z.lazy(() => PaymentResponseDetails$inboundSchema))
     .optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   authorizedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
   canceledAt: z.nullable(z.string()).optional(),
   expiresAt: z.nullable(z.string()).optional(),
   expiredAt: z.nullable(z.string()).optional(),
   failedAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => PaymentResponseLinks$inboundSchema).optional(),
+  _links: z.lazy(() => PaymentResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -1689,11 +1689,11 @@ export const PaymentResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PaymentResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  mode?: string | undefined;
-  description?: string | undefined;
-  amount?: Amount$Outbound | undefined;
+  resource: string;
+  id: string;
+  mode: string;
+  description: string;
+  amount: Amount$Outbound;
   amountRefunded?: Amount$Outbound | undefined;
   amountRemaining?: Amount$Outbound | undefined;
   amountCaptured?: Amount$Outbound | undefined;
@@ -1715,25 +1715,25 @@ export type PaymentResponse$Outbound = {
   captureBefore?: string | null | undefined;
   applicationFee?: PaymentResponseApplicationFee$Outbound | null | undefined;
   routing?: Array<EntityPaymentRouteResponse$Outbound> | null | undefined;
-  sequenceType?: string | undefined;
+  sequenceType: string;
   subscriptionId?: string | undefined;
   mandateId?: string | undefined;
   customerId?: string | undefined;
-  profileId?: string | undefined;
+  profileId: string;
   settlementId?: string | undefined;
   orderId?: string | undefined;
-  status?: string | undefined;
+  status: string;
   statusReason?: StatusReason$Outbound | null | undefined;
   isCancelable?: boolean | null | undefined;
   details?: PaymentResponseDetails$Outbound | null | undefined;
-  createdAt?: string | undefined;
+  createdAt: string;
   authorizedAt?: string | null | undefined;
   paidAt?: string | null | undefined;
   canceledAt?: string | null | undefined;
   expiresAt?: string | null | undefined;
   expiredAt?: string | null | undefined;
   failedAt?: string | null | undefined;
-  _links?: PaymentResponseLinks$Outbound | undefined;
+  _links: PaymentResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -1742,11 +1742,11 @@ export const PaymentResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$outboundSchema.optional(),
-  description: z.string().optional(),
-  amount: Amount$outboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$outboundSchema,
+  description: z.string(),
+  amount: Amount$outboundSchema,
   amountRefunded: Amount$outboundSchema.optional(),
   amountRemaining: Amount$outboundSchema.optional(),
   amountCaptured: Amount$outboundSchema.optional(),
@@ -1773,26 +1773,26 @@ export const PaymentResponse$outboundSchema: z.ZodType<
   ).optional(),
   routing: z.nullable(z.array(EntityPaymentRouteResponse$outboundSchema))
     .optional(),
-  sequenceType: SequenceTypeResponse$outboundSchema.optional(),
+  sequenceType: SequenceTypeResponse$outboundSchema,
   subscriptionId: z.string().optional(),
   mandateId: z.string().optional(),
   customerId: z.string().optional(),
-  profileId: z.string().optional(),
+  profileId: z.string(),
   settlementId: z.string().optional(),
   orderId: z.string().optional(),
-  status: PaymentStatus$outboundSchema.optional(),
+  status: PaymentStatus$outboundSchema,
   statusReason: z.nullable(StatusReason$outboundSchema).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
   details: z.nullable(z.lazy(() => PaymentResponseDetails$outboundSchema))
     .optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.string(),
   authorizedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
   canceledAt: z.nullable(z.string()).optional(),
   expiresAt: z.nullable(z.string()).optional(),
   expiredAt: z.nullable(z.string()).optional(),
   failedAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => PaymentResponseLinks$outboundSchema).optional(),
+  links: z.lazy(() => PaymentResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

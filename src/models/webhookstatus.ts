@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The subscription's current status.
@@ -28,17 +25,10 @@ export const WebhookStatus$inboundSchema: z.ZodType<
   WebhookStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(WebhookStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(WebhookStatus);
 /** @internal */
 export const WebhookStatus$outboundSchema: z.ZodType<
-  WebhookStatus,
+  string,
   z.ZodTypeDef,
   WebhookStatus
-> = z.union([
-  z.nativeEnum(WebhookStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(WebhookStatus);

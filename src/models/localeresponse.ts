@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Allows you to preset the language to be used.
@@ -47,17 +44,10 @@ export const LocaleResponse$inboundSchema: z.ZodType<
   LocaleResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(LocaleResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(LocaleResponse);
 /** @internal */
 export const LocaleResponse$outboundSchema: z.ZodType<
-  LocaleResponse,
+  string,
   z.ZodTypeDef,
   LocaleResponse
-> = z.union([
-  z.nativeEnum(LocaleResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(LocaleResponse);

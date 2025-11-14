@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const Currencies = {
   Eur: "EUR",
@@ -30,17 +27,10 @@ export const Currencies$inboundSchema: z.ZodType<
   Currencies,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(Currencies),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(Currencies);
 /** @internal */
 export const Currencies$outboundSchema: z.ZodType<
-  Currencies,
+  string,
   z.ZodTypeDef,
   Currencies
-> = z.union([
-  z.nativeEnum(Currencies),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(Currencies);

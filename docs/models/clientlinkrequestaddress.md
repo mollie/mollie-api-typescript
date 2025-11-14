@@ -1,13 +1,13 @@
-# EntityClientLinkAddress
+# ClientLinkRequestAddress
 
 Address of the organization.
 
 ## Example Usage
 
 ```typescript
-import { EntityClientLinkAddress } from "mollie-api-typescript/models";
+import { ClientLinkRequestAddress } from "mollie-api-typescript/models";
 
-let value: EntityClientLinkAddress = {
+let value: ClientLinkRequestAddress = {
   streetAndNumber: "Main Street 123",
   postalCode: "1234AB",
   city: "Amsterdam",

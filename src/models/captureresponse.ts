@@ -68,12 +68,12 @@ export type CaptureResponse = {
   /**
    * Indicates the response contains a capture object. Will always contain the string `capture` for this endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: Mode | undefined;
+  mode: Mode;
   /**
    * The description of the capture.
    */
@@ -81,7 +81,7 @@ export type CaptureResponse = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: AmountNullable | null | undefined;
+  amount: AmountNullable | null;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -89,7 +89,7 @@ export type CaptureResponse = {
   /**
    * The capture's status.
    */
-  status?: CaptureStatus | undefined;
+  status: CaptureStatus;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
@@ -97,17 +97,17 @@ export type CaptureResponse = {
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: Metadata | null | undefined;
-  paymentId?: string | undefined;
+  paymentId: string;
   shipmentId?: string | undefined;
   settlementId?: string | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CaptureResponseLinks | undefined;
+  links: CaptureResponseLinks;
 };
 
 /** @internal */
@@ -167,19 +167,19 @@ export const CaptureResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$inboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
   description: z.string().optional(),
-  amount: z.nullable(AmountNullable$inboundSchema).optional(),
+  amount: z.nullable(AmountNullable$inboundSchema),
   settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
-  status: CaptureStatus$inboundSchema.optional(),
+  status: CaptureStatus$inboundSchema,
   metadata: z.nullable(Metadata$inboundSchema).optional(),
-  paymentId: z.string().optional(),
+  paymentId: z.string(),
   shipmentId: z.string().optional(),
   settlementId: z.string().optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => CaptureResponseLinks$inboundSchema).optional(),
+  createdAt: z.string(),
+  _links: z.lazy(() => CaptureResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -187,19 +187,19 @@ export const CaptureResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type CaptureResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  mode?: string | undefined;
+  resource: string;
+  id: string;
+  mode: string;
   description?: string | undefined;
-  amount?: AmountNullable$Outbound | null | undefined;
+  amount: AmountNullable$Outbound | null;
   settlementAmount?: AmountNullable$Outbound | null | undefined;
-  status?: string | undefined;
+  status: string;
   metadata?: Metadata$Outbound | null | undefined;
-  paymentId?: string | undefined;
+  paymentId: string;
   shipmentId?: string | undefined;
   settlementId?: string | undefined;
-  createdAt?: string | undefined;
-  _links?: CaptureResponseLinks$Outbound | undefined;
+  createdAt: string;
+  _links: CaptureResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -208,19 +208,19 @@ export const CaptureResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CaptureResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$outboundSchema.optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$outboundSchema,
   description: z.string().optional(),
-  amount: z.nullable(AmountNullable$outboundSchema).optional(),
+  amount: z.nullable(AmountNullable$outboundSchema),
   settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
-  status: CaptureStatus$outboundSchema.optional(),
+  status: CaptureStatus$outboundSchema,
   metadata: z.nullable(Metadata$outboundSchema).optional(),
-  paymentId: z.string().optional(),
+  paymentId: z.string(),
   shipmentId: z.string().optional(),
   settlementId: z.string().optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => CaptureResponseLinks$outboundSchema).optional(),
+  createdAt: z.string(),
+  links: z.lazy(() => CaptureResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

@@ -1,13 +1,13 @@
-# EntityRefundSource
+# RefundRequestSource
 
 Where the funds will be pulled back from.
 
 ## Example Usage
 
 ```typescript
-import { EntityRefundSource } from "mollie-api-typescript/models";
+import { RefundRequestSource } from "mollie-api-typescript/models";
 
-let value: EntityRefundSource = {
+let value: RefundRequestSource = {
   type: "organization",
   organizationId: "org_1234567",
 };

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The frequency with which the available amount on the balance will be settled to the configured transfer
@@ -44,17 +41,10 @@ export const BalanceTransferFrequency$inboundSchema: z.ZodType<
   BalanceTransferFrequency,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(BalanceTransferFrequency),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(BalanceTransferFrequency);
 /** @internal */
 export const BalanceTransferFrequency$outboundSchema: z.ZodType<
-  BalanceTransferFrequency,
+  string,
   z.ZodTypeDef,
   BalanceTransferFrequency
-> = z.union([
-  z.nativeEnum(BalanceTransferFrequency),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(BalanceTransferFrequency);

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The type of destination. Currently only the destination type `organization` is supported.
@@ -27,17 +24,10 @@ export const RouteDestinationTypeResponse$inboundSchema: z.ZodType<
   RouteDestinationTypeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RouteDestinationTypeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RouteDestinationTypeResponse);
 /** @internal */
 export const RouteDestinationTypeResponse$outboundSchema: z.ZodType<
-  RouteDestinationTypeResponse,
+  string,
   z.ZodTypeDef,
   RouteDestinationTypeResponse
-> = z.union([
-  z.nativeEnum(RouteDestinationTypeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(RouteDestinationTypeResponse);

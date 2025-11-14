@@ -78,7 +78,7 @@ const client = new Client({
 async function run() {
   const result = await client.clientLinks.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityClientLink: {
+    clientLinkRequest: {
       owner: {
         email: "john@example.org",
         givenName: "John",
@@ -122,7 +122,7 @@ const client = new ClientCore({
 async function run() {
   const res = await clientLinksCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityClientLink: {
+    clientLinkRequest: {
       owner: {
         email: "john@example.org",
         givenName: "John",

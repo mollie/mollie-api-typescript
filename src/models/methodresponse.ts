@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
@@ -87,17 +84,10 @@ export const MethodResponse$inboundSchema: z.ZodType<
   MethodResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(MethodResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(MethodResponse);
 /** @internal */
 export const MethodResponse$outboundSchema: z.ZodType<
-  MethodResponse,
+  string,
   z.ZodTypeDef,
   MethodResponse
-> = z.union([
-  z.nativeEnum(MethodResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(MethodResponse);

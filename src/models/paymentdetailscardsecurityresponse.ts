@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The level of security applied during card processing.
@@ -28,17 +25,10 @@ export const PaymentDetailsCardSecurityResponse$inboundSchema: z.ZodType<
   PaymentDetailsCardSecurityResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PaymentDetailsCardSecurityResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PaymentDetailsCardSecurityResponse);
 /** @internal */
 export const PaymentDetailsCardSecurityResponse$outboundSchema: z.ZodType<
-  PaymentDetailsCardSecurityResponse,
+  string,
   z.ZodTypeDef,
   PaymentDetailsCardSecurityResponse
-> = z.union([
-  z.nativeEnum(PaymentDetailsCardSecurityResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PaymentDetailsCardSecurityResponse);

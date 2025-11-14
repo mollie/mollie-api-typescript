@@ -66,39 +66,39 @@ export type CustomerResponse = {
   /**
    * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: Mode | undefined;
+  mode: Mode;
   /**
    * The full name of the customer.
    */
-  name?: string | null | undefined;
+  name: string | null;
   /**
    * The email address of the customer.
    */
-  email?: string | null | undefined;
+  email: string | null;
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: LocaleResponse | null | undefined;
+  locale: LocaleResponse | null;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: Metadata | null | undefined;
+  metadata: Metadata | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: CustomerResponseLinks | undefined;
+  links: CustomerResponseLinks;
 };
 
 /** @internal */
@@ -161,15 +161,15 @@ export const CustomerResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$inboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => CustomerResponseLinks$inboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(LocaleResponse$inboundSchema),
+  metadata: z.nullable(Metadata$inboundSchema),
+  createdAt: z.string(),
+  _links: z.lazy(() => CustomerResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -177,15 +177,15 @@ export const CustomerResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type CustomerResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  mode?: string | undefined;
-  name?: string | null | undefined;
-  email?: string | null | undefined;
-  locale?: string | null | undefined;
-  metadata?: Metadata$Outbound | null | undefined;
-  createdAt?: string | undefined;
-  _links?: CustomerResponseLinks$Outbound | undefined;
+  resource: string;
+  id: string;
+  mode: string;
+  name: string | null;
+  email: string | null;
+  locale: string | null;
+  metadata: Metadata$Outbound | null;
+  createdAt: string;
+  _links: CustomerResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -194,15 +194,15 @@ export const CustomerResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CustomerResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$outboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
-  metadata: z.nullable(Metadata$outboundSchema).optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => CustomerResponseLinks$outboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$outboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(LocaleResponse$outboundSchema),
+  metadata: z.nullable(Metadata$outboundSchema),
+  createdAt: z.string(),
+  links: z.lazy(() => CustomerResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

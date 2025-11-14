@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The default destination of automatic scheduled transfers. Currently only `bank-account` is supported.
@@ -35,17 +32,10 @@ export const BalanceTransferDestinationType$inboundSchema: z.ZodType<
   BalanceTransferDestinationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(BalanceTransferDestinationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(BalanceTransferDestinationType);
 /** @internal */
 export const BalanceTransferDestinationType$outboundSchema: z.ZodType<
-  BalanceTransferDestinationType,
+  string,
   z.ZodTypeDef,
   BalanceTransferDestinationType
-> = z.union([
-  z.nativeEnum(BalanceTransferDestinationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(BalanceTransferDestinationType);

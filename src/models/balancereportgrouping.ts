@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const BalanceReportGrouping = {
   StatusBalances: "status-balances",
@@ -20,17 +17,10 @@ export const BalanceReportGrouping$inboundSchema: z.ZodType<
   BalanceReportGrouping,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(BalanceReportGrouping),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(BalanceReportGrouping);
 /** @internal */
 export const BalanceReportGrouping$outboundSchema: z.ZodType<
-  BalanceReportGrouping,
+  string,
   z.ZodTypeDef,
   BalanceReportGrouping
-> = z.union([
-  z.nativeEnum(BalanceReportGrouping),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(BalanceReportGrouping);

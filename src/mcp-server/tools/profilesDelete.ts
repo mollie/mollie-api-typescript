@@ -30,8 +30,6 @@ Delete a profile. A deleted profile and its related credentials can no longer be
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

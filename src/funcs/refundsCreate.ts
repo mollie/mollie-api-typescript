@@ -88,7 +88,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload["entity-refund"], { explode: true });
+  const body = encodeJSON("body", payload["refund-request"], { explode: true });
 
   const pathParams = {
     paymentId: encodeSimple("paymentId", payload.paymentId, {

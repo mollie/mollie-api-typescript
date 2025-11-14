@@ -42,7 +42,7 @@ export function onboardingSubmit(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    any,
+    void,
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -67,7 +67,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      any,
+      void,
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -98,7 +98,7 @@ async function $do(
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
-    Accept: "application/hal+json",
+    Accept: "*/*",
     "idempotency-key": encodeSimple(
       "idempotency-key",
       payload?.["idempotency-key"],
@@ -161,7 +161,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    any,
+    void,
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -171,7 +171,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(204, z.any(), { ctype: "application/hal+json" }),
+    M.nil(204, z.void()),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

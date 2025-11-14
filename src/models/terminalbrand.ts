@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The brand of the terminal.
@@ -26,17 +23,10 @@ export const TerminalBrand$inboundSchema: z.ZodType<
   TerminalBrand,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(TerminalBrand),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(TerminalBrand);
 /** @internal */
 export const TerminalBrand$outboundSchema: z.ZodType<
-  TerminalBrand,
+  string,
   z.ZodTypeDef,
   TerminalBrand
-> = z.union([
-  z.nativeEnum(TerminalBrand),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(TerminalBrand);

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Defines the type of the party. At the moment, only `organization` is supported.
@@ -27,17 +24,10 @@ export const BalanceTransferPartyTypeResponse$inboundSchema: z.ZodType<
   BalanceTransferPartyTypeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(BalanceTransferPartyTypeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(BalanceTransferPartyTypeResponse);
 /** @internal */
 export const BalanceTransferPartyTypeResponse$outboundSchema: z.ZodType<
-  BalanceTransferPartyTypeResponse,
+  string,
   z.ZodTypeDef,
   BalanceTransferPartyTypeResponse
-> = z.union([
-  z.nativeEnum(BalanceTransferPartyTypeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(BalanceTransferPartyTypeResponse);

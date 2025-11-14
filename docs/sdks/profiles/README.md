@@ -34,7 +34,7 @@ const client = new Client({
 async function run() {
   const result = await client.profiles.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityProfile: {
+    profileRequest: {
       name: "My website name",
       website: "https://example.com",
       email: "test@mollie.com",
@@ -74,7 +74,7 @@ const client = new ClientCore({
 async function run() {
   const res = await profilesCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityProfile: {
+    profileRequest: {
       name: "My website name",
       website: "https://example.com",
       email: "test@mollie.com",
@@ -409,12 +409,12 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.profiles.delete({
+  await client.profiles.delete({
     id: "pfl_QkEhN94Ba",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -443,7 +443,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("profilesDelete failed:", res.error);
   }
@@ -463,7 +463,7 @@ run();
 
 ### Response
 
-**Promise\<[any](../../models/.md)\>**
+**Promise\<void\>**
 
 ### Errors
 

@@ -17,7 +17,7 @@ import {
   MandateStatus$outboundSchema,
 } from "./mandatestatus.js";
 
-export type EntityMandate = {
+export type MandateRequest = {
   id?: string | undefined;
   /**
    * Payment method of the mandate.
@@ -26,11 +26,11 @@ export type EntityMandate = {
    *
    * SEPA Direct Debit and PayPal mandates can be created directly.
    */
-  method?: MandateMethod | undefined;
+  method: MandateMethod;
   /**
    * The customer's name.
    */
-  consumerName?: string | undefined;
+  consumerName: string;
   /**
    * The customer's IBAN. Required for SEPA Direct Debit mandates.
    */
@@ -89,14 +89,14 @@ export type EntityMandate = {
 };
 
 /** @internal */
-export const EntityMandate$inboundSchema: z.ZodType<
-  EntityMandate,
+export const MandateRequest$inboundSchema: z.ZodType<
+  MandateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  method: MandateMethod$inboundSchema.optional(),
-  consumerName: z.string().optional(),
+  method: MandateMethod$inboundSchema,
+  consumerName: z.string(),
   consumerAccount: z.nullable(z.string()).optional(),
   consumerBic: z.nullable(z.string()).optional(),
   consumerEmail: z.nullable(z.string()).optional(),
@@ -109,10 +109,10 @@ export const EntityMandate$inboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 /** @internal */
-export type EntityMandate$Outbound = {
+export type MandateRequest$Outbound = {
   id?: string | undefined;
-  method?: string | undefined;
-  consumerName?: string | undefined;
+  method: string;
+  consumerName: string;
   consumerAccount?: string | null | undefined;
   consumerBic?: string | null | undefined;
   consumerEmail?: string | null | undefined;
@@ -126,14 +126,14 @@ export type EntityMandate$Outbound = {
 };
 
 /** @internal */
-export const EntityMandate$outboundSchema: z.ZodType<
-  EntityMandate$Outbound,
+export const MandateRequest$outboundSchema: z.ZodType<
+  MandateRequest$Outbound,
   z.ZodTypeDef,
-  EntityMandate
+  MandateRequest
 > = z.object({
   id: z.string().optional(),
-  method: MandateMethod$outboundSchema.optional(),
-  consumerName: z.string().optional(),
+  method: MandateMethod$outboundSchema,
+  consumerName: z.string(),
   consumerAccount: z.nullable(z.string()).optional(),
   consumerBic: z.nullable(z.string()).optional(),
   consumerEmail: z.nullable(z.string()).optional(),
@@ -146,15 +146,15 @@ export const EntityMandate$outboundSchema: z.ZodType<
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-export function entityMandateToJSON(entityMandate: EntityMandate): string {
-  return JSON.stringify(EntityMandate$outboundSchema.parse(entityMandate));
+export function mandateRequestToJSON(mandateRequest: MandateRequest): string {
+  return JSON.stringify(MandateRequest$outboundSchema.parse(mandateRequest));
 }
-export function entityMandateFromJSON(
+export function mandateRequestFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMandate, SDKValidationError> {
+): SafeParseResult<MandateRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMandate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMandate' from JSON`,
+    (x) => MandateRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MandateRequest' from JSON`,
   );
 }

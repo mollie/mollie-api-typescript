@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The status for the invoice to end up in.
@@ -57,17 +54,10 @@ export const SalesInvoiceStatusResponse$inboundSchema: z.ZodType<
   SalesInvoiceStatusResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SalesInvoiceStatusResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SalesInvoiceStatusResponse);
 /** @internal */
 export const SalesInvoiceStatusResponse$outboundSchema: z.ZodType<
-  SalesInvoiceStatusResponse,
+  string,
   z.ZodTypeDef,
   SalesInvoiceStatusResponse
-> = z.union([
-  z.nativeEnum(SalesInvoiceStatusResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SalesInvoiceStatusResponse);

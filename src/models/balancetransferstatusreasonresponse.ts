@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * A machine-readable code that indicates the reason for the transfer's status.
@@ -35,17 +32,10 @@ export const BalanceTransferStatusReasonResponse$inboundSchema: z.ZodType<
   BalanceTransferStatusReasonResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(BalanceTransferStatusReasonResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(BalanceTransferStatusReasonResponse);
 /** @internal */
 export const BalanceTransferStatusReasonResponse$outboundSchema: z.ZodType<
-  BalanceTransferStatusReasonResponse,
+  string,
   z.ZodTypeDef,
   BalanceTransferStatusReasonResponse
-> = z.union([
-  z.nativeEnum(BalanceTransferStatusReasonResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(BalanceTransferStatusReasonResponse);

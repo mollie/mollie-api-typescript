@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The status of the settlement.
@@ -28,17 +25,10 @@ export const SettlementStatus$inboundSchema: z.ZodType<
   SettlementStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SettlementStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SettlementStatus);
 /** @internal */
 export const SettlementStatus$outboundSchema: z.ZodType<
-  SettlementStatus,
+  string,
   z.ZodTypeDef,
   SettlementStatus
-> = z.union([
-  z.nativeEnum(SettlementStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SettlementStatus);

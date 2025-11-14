@@ -34,8 +34,6 @@ A refund can only be canceled while its \`status\` field is either \`queued\` or
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

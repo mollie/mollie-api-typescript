@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const BalanceTransactionType = {
   ApplicationFee: "application-fee",
@@ -64,17 +61,10 @@ export const BalanceTransactionType$inboundSchema: z.ZodType<
   BalanceTransactionType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(BalanceTransactionType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(BalanceTransactionType);
 /** @internal */
 export const BalanceTransactionType$outboundSchema: z.ZodType<
-  BalanceTransactionType,
+  string,
   z.ZodTypeDef,
   BalanceTransactionType
-> = z.union([
-  z.nativeEnum(BalanceTransactionType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(BalanceTransactionType);

@@ -81,37 +81,37 @@ export type ProfileResponse = {
   /**
    * Indicates the response contains a profile object. Will always contain the string `profile` for this endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this profile. Example: `pfl_v9hTwCvYqw`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: Mode | undefined;
+  mode: Mode;
   /**
    * The profile's name, this will usually reflect the trade name or brand name of the profile's website or
    *
    * @remarks
    * application.
    */
-  name?: string | undefined;
+  name: string;
   /**
    * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are
    *
    * @remarks
    * allowed.
    */
-  website?: string | undefined;
+  website: string;
   /**
    * The email address associated with the profile's trade name or brand.
    */
-  email?: string | undefined;
+  email: string;
   /**
    * The phone number associated with the profile's trade name or brand.
    */
-  phone?: string | undefined;
+  phone: string;
   /**
    * The products or services offered by the profile's website or application.
    */
@@ -129,7 +129,7 @@ export type ProfileResponse = {
    * @remarks
    * [business category list](common-data-types#business-category) for all possible options.
    */
-  businessCategory?: string | undefined;
+  businessCategory: string;
   /**
    * The profile status determines whether the profile is able to receive live payments.
    *
@@ -139,7 +139,7 @@ export type ProfileResponse = {
    * * `verified`: The profile has been verified and can be used to create live payments and test payments.
    * * `blocked`: The profile is blocked and can no longer be used or changed.
    */
-  status?: ProfileStatus | undefined;
+  status: ProfileStatus;
   /**
    * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
    *
@@ -151,11 +151,11 @@ export type ProfileResponse = {
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ProfileResponseLinks | undefined;
+  links: ProfileResponseLinks;
 };
 
 /** @internal */
@@ -256,20 +256,20 @@ export const ProfileResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$inboundSchema.optional(),
-  name: z.string().optional(),
-  website: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  name: z.string(),
+  website: z.string(),
+  email: z.string(),
+  phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string().optional(),
-  status: ProfileStatus$inboundSchema.optional(),
+  businessCategory: z.string(),
+  status: ProfileStatus$inboundSchema,
   review: z.lazy(() => Review$inboundSchema).optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => ProfileResponseLinks$inboundSchema).optional(),
+  createdAt: z.string(),
+  _links: z.lazy(() => ProfileResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -277,20 +277,20 @@ export const ProfileResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type ProfileResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  mode?: string | undefined;
-  name?: string | undefined;
-  website?: string | undefined;
-  email?: string | undefined;
-  phone?: string | undefined;
+  resource: string;
+  id: string;
+  mode: string;
+  name: string;
+  website: string;
+  email: string;
+  phone: string;
   description?: string | undefined;
   countriesOfActivity?: Array<string> | undefined;
-  businessCategory?: string | undefined;
-  status?: string | undefined;
+  businessCategory: string;
+  status: string;
   review?: Review$Outbound | undefined;
-  createdAt?: string | undefined;
-  _links?: ProfileResponseLinks$Outbound | undefined;
+  createdAt: string;
+  _links: ProfileResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -299,20 +299,20 @@ export const ProfileResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProfileResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: Mode$outboundSchema.optional(),
-  name: z.string().optional(),
-  website: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$outboundSchema,
+  name: z.string(),
+  website: z.string(),
+  email: z.string(),
+  phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string().optional(),
-  status: ProfileStatus$outboundSchema.optional(),
+  businessCategory: z.string(),
+  status: ProfileStatus$outboundSchema,
   review: z.lazy(() => Review$outboundSchema).optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => ProfileResponseLinks$outboundSchema).optional(),
+  createdAt: z.string(),
+  links: z.lazy(() => ProfileResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

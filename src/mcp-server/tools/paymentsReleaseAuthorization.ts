@@ -37,8 +37,6 @@ If there is a successful capture, the payment will transition to \`paid\`.`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

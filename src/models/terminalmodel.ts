@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
@@ -30,17 +27,10 @@ export const TerminalModel$inboundSchema: z.ZodType<
   TerminalModel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(TerminalModel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(TerminalModel);
 /** @internal */
 export const TerminalModel$outboundSchema: z.ZodType<
-  TerminalModel,
+  string,
   z.ZodTypeDef,
   TerminalModel
-> = z.union([
-  z.nativeEnum(TerminalModel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(TerminalModel);

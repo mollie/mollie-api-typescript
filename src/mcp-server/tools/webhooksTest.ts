@@ -30,8 +30,6 @@ Sends a test event to the webhook to verify the endpoint is working as expected.
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

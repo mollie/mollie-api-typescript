@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Whether this entity was created in live mode or in test mode.
@@ -22,15 +19,8 @@ export const Mode = {
 export type Mode = OpenEnum<typeof Mode>;
 
 /** @internal */
-export const Mode$inboundSchema: z.ZodType<Mode, z.ZodTypeDef, unknown> = z
-  .union([
-    z.nativeEnum(Mode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const Mode$inboundSchema: z.ZodType<Mode, z.ZodTypeDef, unknown> =
+  openEnums.inboundSchema(Mode);
 /** @internal */
-export const Mode$outboundSchema: z.ZodType<Mode, z.ZodTypeDef, Mode> = z.union(
-  [
-    z.nativeEnum(Mode),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ],
-);
+export const Mode$outboundSchema: z.ZodType<string, z.ZodTypeDef, Mode> =
+  openEnums.outboundSchema(Mode);

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The profile status determines whether the profile is able to receive live payments.
@@ -39,17 +36,10 @@ export const ProfileStatus$inboundSchema: z.ZodType<
   ProfileStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ProfileStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ProfileStatus);
 /** @internal */
 export const ProfileStatus$outboundSchema: z.ZodType<
-  ProfileStatus,
+  string,
   z.ZodTypeDef,
   ProfileStatus
-> = z.union([
-  z.nativeEnum(ProfileStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ProfileStatus);

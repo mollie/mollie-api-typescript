@@ -80,7 +80,7 @@ export class Refunds extends ClientSDK {
   async cancel(
     request: operations.CancelRefundRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(refundsCancel(
       this,
       request,

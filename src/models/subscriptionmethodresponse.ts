@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The payment method used for this subscription. If omitted, any of the customer's valid mandates may be used.
@@ -29,17 +26,10 @@ export const SubscriptionMethodResponse$inboundSchema: z.ZodType<
   SubscriptionMethodResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SubscriptionMethodResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SubscriptionMethodResponse);
 /** @internal */
 export const SubscriptionMethodResponse$outboundSchema: z.ZodType<
-  SubscriptionMethodResponse,
+  string,
   z.ZodTypeDef,
   SubscriptionMethodResponse
-> = z.union([
-  z.nativeEnum(SubscriptionMethodResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SubscriptionMethodResponse);

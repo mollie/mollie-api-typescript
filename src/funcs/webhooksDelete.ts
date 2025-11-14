@@ -38,7 +38,7 @@ export function webhooksDelete(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    any,
+    void,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -64,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      any,
+      void,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -167,7 +167,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    any,
+    void,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -178,7 +178,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(204, z.any(), { ctype: "application/hal+json" }),
+    M.nil(204, z.void()),
     M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),

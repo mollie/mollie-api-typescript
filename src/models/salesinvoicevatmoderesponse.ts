@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
@@ -34,17 +31,10 @@ export const SalesInvoiceVatModeResponse$inboundSchema: z.ZodType<
   SalesInvoiceVatModeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SalesInvoiceVatModeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SalesInvoiceVatModeResponse);
 /** @internal */
 export const SalesInvoiceVatModeResponse$outboundSchema: z.ZodType<
-  SalesInvoiceVatModeResponse,
+  string,
   z.ZodTypeDef,
   SalesInvoiceVatModeResponse
-> = z.union([
-  z.nativeEnum(SalesInvoiceVatModeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SalesInvoiceVatModeResponse);

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The type of product purchased. For example, a physical or a digital product.
@@ -40,17 +37,10 @@ export const PaymentLineTypeResponse$inboundSchema: z.ZodType<
   PaymentLineTypeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PaymentLineTypeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PaymentLineTypeResponse);
 /** @internal */
 export const PaymentLineTypeResponse$outboundSchema: z.ZodType<
-  PaymentLineTypeResponse,
+  string,
   z.ZodTypeDef,
   PaymentLineTypeResponse
-> = z.union([
-  z.nativeEnum(PaymentLineTypeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PaymentLineTypeResponse);

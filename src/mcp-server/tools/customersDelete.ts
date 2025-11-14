@@ -30,8 +30,6 @@ Delete a customer. All mandates and subscriptions created for this customer will
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

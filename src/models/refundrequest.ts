@@ -40,7 +40,7 @@ import {
   RefundStatus$outboundSchema,
 } from "./refundstatus.js";
 
-export type EntityRefundExternalReference = {
+export type RefundRequestExternalReference = {
   /**
    * Specifies the reference type
    */
@@ -54,7 +54,7 @@ export type EntityRefundExternalReference = {
 /**
  * Where the funds will be pulled back from.
  */
-export type EntityRefundSource = {
+export type RefundRequestSource = {
   /**
    * The type of source. Currently only the source type `organization` is supported.
    */
@@ -62,7 +62,7 @@ export type EntityRefundSource = {
   organizationId?: string | undefined;
 };
 
-export type EntityRefundRoutingReversal = {
+export type RefundRequestRoutingReversal = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -70,10 +70,10 @@ export type EntityRefundRoutingReversal = {
   /**
    * Where the funds will be pulled back from.
    */
-  source?: EntityRefundSource | undefined;
+  source?: RefundRequestSource | undefined;
 };
 
-export type EntityRefund = {
+export type RefundRequest = {
   id: string;
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
@@ -97,7 +97,7 @@ export type EntityRefund = {
   paymentId?: string | undefined;
   settlementId?: string | undefined;
   status: RefundStatus;
-  externalReference?: EntityRefundExternalReference | undefined;
+  externalReference?: RefundRequestExternalReference | undefined;
   /**
    * *This feature is only available to marketplace operators.*
    *
@@ -126,7 +126,7 @@ export type EntityRefund = {
    *
    * If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
    */
-  routingReversals?: Array<EntityRefundRoutingReversal> | null | undefined;
+  routingReversals?: Array<RefundRequestRoutingReversal> | null | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -140,8 +140,8 @@ export type EntityRefund = {
 };
 
 /** @internal */
-export const EntityRefundExternalReference$inboundSchema: z.ZodType<
-  EntityRefundExternalReference,
+export const RefundRequestExternalReference$inboundSchema: z.ZodType<
+  RefundRequestExternalReference,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -149,43 +149,43 @@ export const EntityRefundExternalReference$inboundSchema: z.ZodType<
   id: z.string().optional(),
 });
 /** @internal */
-export type EntityRefundExternalReference$Outbound = {
+export type RefundRequestExternalReference$Outbound = {
   type?: string | undefined;
   id?: string | undefined;
 };
 
 /** @internal */
-export const EntityRefundExternalReference$outboundSchema: z.ZodType<
-  EntityRefundExternalReference$Outbound,
+export const RefundRequestExternalReference$outboundSchema: z.ZodType<
+  RefundRequestExternalReference$Outbound,
   z.ZodTypeDef,
-  EntityRefundExternalReference
+  RefundRequestExternalReference
 > = z.object({
   type: RefundExternalReferenceType$outboundSchema.optional(),
   id: z.string().optional(),
 });
 
-export function entityRefundExternalReferenceToJSON(
-  entityRefundExternalReference: EntityRefundExternalReference,
+export function refundRequestExternalReferenceToJSON(
+  refundRequestExternalReference: RefundRequestExternalReference,
 ): string {
   return JSON.stringify(
-    EntityRefundExternalReference$outboundSchema.parse(
-      entityRefundExternalReference,
+    RefundRequestExternalReference$outboundSchema.parse(
+      refundRequestExternalReference,
     ),
   );
 }
-export function entityRefundExternalReferenceFromJSON(
+export function refundRequestExternalReferenceFromJSON(
   jsonString: string,
-): SafeParseResult<EntityRefundExternalReference, SDKValidationError> {
+): SafeParseResult<RefundRequestExternalReference, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityRefundExternalReference$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityRefundExternalReference' from JSON`,
+    (x) => RefundRequestExternalReference$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RefundRequestExternalReference' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityRefundSource$inboundSchema: z.ZodType<
-  EntityRefundSource,
+export const RefundRequestSource$inboundSchema: z.ZodType<
+  RefundRequestSource,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -193,85 +193,85 @@ export const EntityRefundSource$inboundSchema: z.ZodType<
   organizationId: z.string().optional(),
 });
 /** @internal */
-export type EntityRefundSource$Outbound = {
+export type RefundRequestSource$Outbound = {
   type?: string | undefined;
   organizationId?: string | undefined;
 };
 
 /** @internal */
-export const EntityRefundSource$outboundSchema: z.ZodType<
-  EntityRefundSource$Outbound,
+export const RefundRequestSource$outboundSchema: z.ZodType<
+  RefundRequestSource$Outbound,
   z.ZodTypeDef,
-  EntityRefundSource
+  RefundRequestSource
 > = z.object({
   type: RefundRoutingReversalsSourceType$outboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 
-export function entityRefundSourceToJSON(
-  entityRefundSource: EntityRefundSource,
+export function refundRequestSourceToJSON(
+  refundRequestSource: RefundRequestSource,
 ): string {
   return JSON.stringify(
-    EntityRefundSource$outboundSchema.parse(entityRefundSource),
+    RefundRequestSource$outboundSchema.parse(refundRequestSource),
   );
 }
-export function entityRefundSourceFromJSON(
+export function refundRequestSourceFromJSON(
   jsonString: string,
-): SafeParseResult<EntityRefundSource, SDKValidationError> {
+): SafeParseResult<RefundRequestSource, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityRefundSource$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityRefundSource' from JSON`,
+    (x) => RefundRequestSource$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RefundRequestSource' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityRefundRoutingReversal$inboundSchema: z.ZodType<
-  EntityRefundRoutingReversal,
+export const RefundRequestRoutingReversal$inboundSchema: z.ZodType<
+  RefundRequestRoutingReversal,
   z.ZodTypeDef,
   unknown
 > = z.object({
   amount: Amount$inboundSchema.optional(),
-  source: z.lazy(() => EntityRefundSource$inboundSchema).optional(),
+  source: z.lazy(() => RefundRequestSource$inboundSchema).optional(),
 });
 /** @internal */
-export type EntityRefundRoutingReversal$Outbound = {
+export type RefundRequestRoutingReversal$Outbound = {
   amount?: Amount$Outbound | undefined;
-  source?: EntityRefundSource$Outbound | undefined;
+  source?: RefundRequestSource$Outbound | undefined;
 };
 
 /** @internal */
-export const EntityRefundRoutingReversal$outboundSchema: z.ZodType<
-  EntityRefundRoutingReversal$Outbound,
+export const RefundRequestRoutingReversal$outboundSchema: z.ZodType<
+  RefundRequestRoutingReversal$Outbound,
   z.ZodTypeDef,
-  EntityRefundRoutingReversal
+  RefundRequestRoutingReversal
 > = z.object({
   amount: Amount$outboundSchema.optional(),
-  source: z.lazy(() => EntityRefundSource$outboundSchema).optional(),
+  source: z.lazy(() => RefundRequestSource$outboundSchema).optional(),
 });
 
-export function entityRefundRoutingReversalToJSON(
-  entityRefundRoutingReversal: EntityRefundRoutingReversal,
+export function refundRequestRoutingReversalToJSON(
+  refundRequestRoutingReversal: RefundRequestRoutingReversal,
 ): string {
   return JSON.stringify(
-    EntityRefundRoutingReversal$outboundSchema.parse(
-      entityRefundRoutingReversal,
+    RefundRequestRoutingReversal$outboundSchema.parse(
+      refundRequestRoutingReversal,
     ),
   );
 }
-export function entityRefundRoutingReversalFromJSON(
+export function refundRequestRoutingReversalFromJSON(
   jsonString: string,
-): SafeParseResult<EntityRefundRoutingReversal, SDKValidationError> {
+): SafeParseResult<RefundRequestRoutingReversal, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityRefundRoutingReversal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityRefundRoutingReversal' from JSON`,
+    (x) => RefundRequestRoutingReversal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RefundRequestRoutingReversal' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityRefund$inboundSchema: z.ZodType<
-  EntityRefund,
+export const RefundRequest$inboundSchema: z.ZodType<
+  RefundRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -283,16 +283,16 @@ export const EntityRefund$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   settlementId: z.string().optional(),
   status: RefundStatus$inboundSchema,
-  externalReference: z.lazy(() => EntityRefundExternalReference$inboundSchema)
+  externalReference: z.lazy(() => RefundRequestExternalReference$inboundSchema)
     .optional(),
   reverseRouting: z.nullable(z.boolean()).optional(),
   routingReversals: z.nullable(
-    z.array(z.lazy(() => EntityRefundRoutingReversal$inboundSchema)),
+    z.array(z.lazy(() => RefundRequestRoutingReversal$inboundSchema)),
   ).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 /** @internal */
-export type EntityRefund$Outbound = {
+export type RefundRequest$Outbound = {
   id: string;
   description: string;
   amount: Amount$Outbound;
@@ -301,20 +301,20 @@ export type EntityRefund$Outbound = {
   paymentId?: string | undefined;
   settlementId?: string | undefined;
   status: string;
-  externalReference?: EntityRefundExternalReference$Outbound | undefined;
+  externalReference?: RefundRequestExternalReference$Outbound | undefined;
   reverseRouting?: boolean | null | undefined;
   routingReversals?:
-    | Array<EntityRefundRoutingReversal$Outbound>
+    | Array<RefundRequestRoutingReversal$Outbound>
     | null
     | undefined;
   testmode?: boolean | null | undefined;
 };
 
 /** @internal */
-export const EntityRefund$outboundSchema: z.ZodType<
-  EntityRefund$Outbound,
+export const RefundRequest$outboundSchema: z.ZodType<
+  RefundRequest$Outbound,
   z.ZodTypeDef,
-  EntityRefund
+  RefundRequest
 > = z.object({
   id: z.string(),
   description: z.string(),
@@ -324,24 +324,24 @@ export const EntityRefund$outboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   settlementId: z.string().optional(),
   status: RefundStatus$outboundSchema,
-  externalReference: z.lazy(() => EntityRefundExternalReference$outboundSchema)
+  externalReference: z.lazy(() => RefundRequestExternalReference$outboundSchema)
     .optional(),
   reverseRouting: z.nullable(z.boolean()).optional(),
   routingReversals: z.nullable(
-    z.array(z.lazy(() => EntityRefundRoutingReversal$outboundSchema)),
+    z.array(z.lazy(() => RefundRequestRoutingReversal$outboundSchema)),
   ).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 
-export function entityRefundToJSON(entityRefund: EntityRefund): string {
-  return JSON.stringify(EntityRefund$outboundSchema.parse(entityRefund));
+export function refundRequestToJSON(refundRequest: RefundRequest): string {
+  return JSON.stringify(RefundRequest$outboundSchema.parse(refundRequest));
 }
-export function entityRefundFromJSON(
+export function refundRequestFromJSON(
   jsonString: string,
-): SafeParseResult<EntityRefund, SDKValidationError> {
+): SafeParseResult<RefundRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityRefund$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityRefund' from JSON`,
+    (x) => RefundRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RefundRequest' from JSON`,
   );
 }

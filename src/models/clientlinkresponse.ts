@@ -39,15 +39,15 @@ export type ClientLinkResponse = {
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this client link. Example: `cl_vZCnNQsV2UtfXxYifWKWH`.
    */
-  id?: string | undefined;
+  id: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: ClientLinkResponseLinks | undefined;
+  links: ClientLinkResponseLinks;
 };
 
 /** @internal */
@@ -101,9 +101,9 @@ export const ClientLinkResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  _links: z.lazy(() => ClientLinkResponseLinks$inboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  _links: z.lazy(() => ClientLinkResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -111,9 +111,9 @@ export const ClientLinkResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type ClientLinkResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  _links?: ClientLinkResponseLinks$Outbound | undefined;
+  resource: string;
+  id: string;
+  _links: ClientLinkResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -122,9 +122,9 @@ export const ClientLinkResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientLinkResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  links: z.lazy(() => ClientLinkResponseLinks$outboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  links: z.lazy(() => ClientLinkResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",

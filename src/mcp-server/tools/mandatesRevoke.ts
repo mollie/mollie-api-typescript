@@ -31,8 +31,6 @@ mandate, and all connected subscriptions will be canceled.`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

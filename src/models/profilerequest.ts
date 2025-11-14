@@ -12,29 +12,29 @@ import {
   ProfileStatus$outboundSchema,
 } from "./profilestatus.js";
 
-export type EntityProfile = {
+export type ProfileRequest = {
   /**
    * The profile's name, this will usually reflect the trade name or brand name of the profile's website or
    *
    * @remarks
    * application.
    */
-  name?: string | undefined;
+  name: string;
   /**
    * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are
    *
    * @remarks
    * allowed.
    */
-  website?: string | undefined;
+  website: string;
   /**
    * The email address associated with the profile's trade name or brand.
    */
-  email?: string | undefined;
+  email: string;
   /**
    * The phone number associated with the profile's trade name or brand.
    */
-  phone?: string | undefined;
+  phone: string;
   /**
    * The products or services offered by the profile's website or application.
    */
@@ -66,26 +66,26 @@ export type EntityProfile = {
 };
 
 /** @internal */
-export const EntityProfile$inboundSchema: z.ZodType<
-  EntityProfile,
+export const ProfileRequest$inboundSchema: z.ZodType<
+  ProfileRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
-  website: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
+  name: z.string(),
+  website: z.string(),
+  email: z.string(),
+  phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
   status: ProfileStatus$inboundSchema.optional(),
 });
 /** @internal */
-export type EntityProfile$Outbound = {
-  name?: string | undefined;
-  website?: string | undefined;
-  email?: string | undefined;
-  phone?: string | undefined;
+export type ProfileRequest$Outbound = {
+  name: string;
+  website: string;
+  email: string;
+  phone: string;
   description?: string | undefined;
   countriesOfActivity?: Array<string> | undefined;
   businessCategory?: string | undefined;
@@ -93,30 +93,30 @@ export type EntityProfile$Outbound = {
 };
 
 /** @internal */
-export const EntityProfile$outboundSchema: z.ZodType<
-  EntityProfile$Outbound,
+export const ProfileRequest$outboundSchema: z.ZodType<
+  ProfileRequest$Outbound,
   z.ZodTypeDef,
-  EntityProfile
+  ProfileRequest
 > = z.object({
-  name: z.string().optional(),
-  website: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
+  name: z.string(),
+  website: z.string(),
+  email: z.string(),
+  phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string().optional(),
   status: ProfileStatus$outboundSchema.optional(),
 });
 
-export function entityProfileToJSON(entityProfile: EntityProfile): string {
-  return JSON.stringify(EntityProfile$outboundSchema.parse(entityProfile));
+export function profileRequestToJSON(profileRequest: ProfileRequest): string {
+  return JSON.stringify(ProfileRequest$outboundSchema.parse(profileRequest));
 }
-export function entityProfileFromJSON(
+export function profileRequestFromJSON(
   jsonString: string,
-): SafeParseResult<EntityProfile, SDKValidationError> {
+): SafeParseResult<ProfileRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityProfile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityProfile' from JSON`,
+    (x) => ProfileRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProfileRequest' from JSON`,
   );
 }

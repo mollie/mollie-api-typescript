@@ -135,7 +135,7 @@ export class Payments extends ClientSDK {
   async releaseAuthorization(
     request: operations.ReleaseAuthorizationRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(paymentsReleaseAuthorization(
       this,
       request,

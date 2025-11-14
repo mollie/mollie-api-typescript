@@ -80,7 +80,7 @@ export class Mandates extends ClientSDK {
   async revoke(
     request: operations.RevokeMandateRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(mandatesRevoke(
       this,
       request,

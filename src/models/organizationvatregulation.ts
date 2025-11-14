@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Mollie applies Dutch VAT for merchants based in The Netherlands, British VAT for merchants based in The United
@@ -39,17 +36,10 @@ export const OrganizationVatRegulation$inboundSchema: z.ZodType<
   OrganizationVatRegulation,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OrganizationVatRegulation),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OrganizationVatRegulation);
 /** @internal */
 export const OrganizationVatRegulation$outboundSchema: z.ZodType<
-  OrganizationVatRegulation,
+  string,
   z.ZodTypeDef,
   OrganizationVatRegulation
-> = z.union([
-  z.nativeEnum(OrganizationVatRegulation),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OrganizationVatRegulation);

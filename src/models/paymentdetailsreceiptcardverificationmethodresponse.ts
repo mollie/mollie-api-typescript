@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The method used to verify the cardholder's identity.
@@ -36,18 +33,15 @@ export const PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema:
     PaymentDetailsReceiptCardVerificationMethodResponse,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(PaymentDetailsReceiptCardVerificationMethodResponse),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    PaymentDetailsReceiptCardVerificationMethodResponse,
+  );
 /** @internal */
 export const PaymentDetailsReceiptCardVerificationMethodResponse$outboundSchema:
   z.ZodType<
-    PaymentDetailsReceiptCardVerificationMethodResponse,
+    string,
     z.ZodTypeDef,
     PaymentDetailsReceiptCardVerificationMethodResponse
-  > = z.union([
-    z.nativeEnum(PaymentDetailsReceiptCardVerificationMethodResponse),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    PaymentDetailsReceiptCardVerificationMethodResponse,
+  );

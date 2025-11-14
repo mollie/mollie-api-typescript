@@ -34,6 +34,7 @@ let value: ListAllSubscriptionsResponse = {
           },
           description: "Platform fee",
         },
+        metadata: "<value>",
         webhookUrl: "https://example.com/webhook",
         customerId: "cst_5B8cwPMGnU",
         mandateId: "mdt_5B8cwPMGnU",

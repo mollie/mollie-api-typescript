@@ -101,7 +101,7 @@ export class PaymentLinks extends ClientSDK {
   async delete(
     request: operations.DeletePaymentLinkRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(paymentLinksDelete(
       this,
       request,

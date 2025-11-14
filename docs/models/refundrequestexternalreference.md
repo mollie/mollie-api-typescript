@@ -1,11 +1,11 @@
-# EntityRefundExternalReference
+# RefundRequestExternalReference
 
 ## Example Usage
 
 ```typescript
-import { EntityRefundExternalReference } from "mollie-api-typescript/models";
+import { RefundRequestExternalReference } from "mollie-api-typescript/models";
 
-let value: EntityRefundExternalReference = {
+let value: RefundRequestExternalReference = {
   type: "acquirer-reference",
   id: "123456789012345",
 };

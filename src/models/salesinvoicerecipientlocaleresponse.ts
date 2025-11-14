@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The locale for the recipient, to be used for translations in PDF generation and payment pages.
@@ -35,17 +32,10 @@ export const SalesInvoiceRecipientLocaleResponse$inboundSchema: z.ZodType<
   SalesInvoiceRecipientLocaleResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SalesInvoiceRecipientLocaleResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SalesInvoiceRecipientLocaleResponse);
 /** @internal */
 export const SalesInvoiceRecipientLocaleResponse$outboundSchema: z.ZodType<
-  SalesInvoiceRecipientLocaleResponse,
+  string,
   z.ZodTypeDef,
   SalesInvoiceRecipientLocaleResponse
-> = z.union([
-  z.nativeEnum(SalesInvoiceRecipientLocaleResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SalesInvoiceRecipientLocaleResponse);

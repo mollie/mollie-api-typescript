@@ -297,11 +297,11 @@ export type PaymentRequest = {
    * The maximum length of the description field differs per payment method, with the absolute maximum being 255
    * characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
    */
-  description?: string | undefined;
+  description: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
+  amount: Amount;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -333,7 +333,7 @@ export type PaymentRequest = {
    * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
    * Apple Pay payments with an `applePayPaymentToken`.
    */
-  redirectUrl?: string | null | undefined;
+  redirectUrl: string | null;
   /**
    * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
    *
@@ -850,14 +850,14 @@ export const PaymentRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  description: z.string().optional(),
-  amount: Amount$inboundSchema.optional(),
+  description: z.string(),
+  amount: Amount$inboundSchema,
   amountRefunded: Amount$inboundSchema.optional(),
   amountRemaining: Amount$inboundSchema.optional(),
   amountCaptured: Amount$inboundSchema.optional(),
   amountChargedBack: Amount$inboundSchema.optional(),
   settlementAmount: Amount$inboundSchema.optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
+  redirectUrl: z.nullable(z.string()),
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
   lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$inboundSchema)))
@@ -900,14 +900,14 @@ export const PaymentRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type PaymentRequest$Outbound = {
   id?: string | undefined;
-  description?: string | undefined;
-  amount?: Amount$Outbound | undefined;
+  description: string;
+  amount: Amount$Outbound;
   amountRefunded?: Amount$Outbound | undefined;
   amountRemaining?: Amount$Outbound | undefined;
   amountCaptured?: Amount$Outbound | undefined;
   amountChargedBack?: Amount$Outbound | undefined;
   settlementAmount?: Amount$Outbound | undefined;
-  redirectUrl?: string | null | undefined;
+  redirectUrl: string | null;
   cancelUrl?: string | null | undefined;
   webhookUrl?: string | null | undefined;
   lines?: Array<PaymentRequestLine$Outbound> | null | undefined;
@@ -951,14 +951,14 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   PaymentRequest
 > = z.object({
   id: z.string().optional(),
-  description: z.string().optional(),
-  amount: Amount$outboundSchema.optional(),
+  description: z.string(),
+  amount: Amount$outboundSchema,
   amountRefunded: Amount$outboundSchema.optional(),
   amountRemaining: Amount$outboundSchema.optional(),
   amountCaptured: Amount$outboundSchema.optional(),
   amountChargedBack: Amount$outboundSchema.optional(),
   settlementAmount: Amount$outboundSchema.optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
+  redirectUrl: z.nullable(z.string()),
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
   lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$outboundSchema)))

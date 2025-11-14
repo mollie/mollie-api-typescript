@@ -91,7 +91,7 @@ export class Webhooks extends ClientSDK {
   async delete(
     request: operations.DeleteWebhookRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(webhooksDelete(
       this,
       request,
@@ -108,7 +108,7 @@ export class Webhooks extends ClientSDK {
   async test(
     request: operations.TestWebhookRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(webhooksTest(
       this,
       request,

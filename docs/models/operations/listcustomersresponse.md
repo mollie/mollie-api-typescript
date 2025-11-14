@@ -18,6 +18,11 @@ let value: ListCustomersResponse = {
         name: "John Doe",
         email: "example@email.com",
         locale: "en_US",
+        metadata: {
+          "key": "<value>",
+          "key1": "<value>",
+          "key2": "<value>",
+        },
         createdAt: "2024-03-20T09:13:37.0Z",
         links: {
           self: {

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The status of the requirement depends on its due date.
@@ -35,17 +32,10 @@ export const CapabilityRequirementStatus$inboundSchema: z.ZodType<
   CapabilityRequirementStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(CapabilityRequirementStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(CapabilityRequirementStatus);
 /** @internal */
 export const CapabilityRequirementStatus$outboundSchema: z.ZodType<
-  CapabilityRequirementStatus,
+  string,
   z.ZodTypeDef,
   CapabilityRequirementStatus
-> = z.union([
-  z.nativeEnum(CapabilityRequirementStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(CapabilityRequirementStatus);

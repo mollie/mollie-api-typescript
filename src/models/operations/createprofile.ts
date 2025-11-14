@@ -14,7 +14,7 @@ export type CreateProfileRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  entityProfile: models.EntityProfile;
+  profileRequest: models.ProfileRequest;
 };
 
 /** @internal */
@@ -24,17 +24,17 @@ export const CreateProfileRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   "idempotency-key": z.string().optional(),
-  "entity-profile": models.EntityProfile$inboundSchema,
+  "profile-request": models.ProfileRequest$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "entity-profile": "entityProfile",
+    "profile-request": "profileRequest",
   });
 });
 /** @internal */
 export type CreateProfileRequest$Outbound = {
   "idempotency-key"?: string | undefined;
-  "entity-profile": models.EntityProfile$Outbound;
+  "profile-request": models.ProfileRequest$Outbound;
 };
 
 /** @internal */
@@ -44,11 +44,11 @@ export const CreateProfileRequest$outboundSchema: z.ZodType<
   CreateProfileRequest
 > = z.object({
   idempotencyKey: z.string().optional(),
-  entityProfile: models.EntityProfile$outboundSchema,
+  profileRequest: models.ProfileRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    entityProfile: "entity-profile",
+    profileRequest: "profile-request",
   });
 });
 

@@ -35,8 +35,6 @@ Information that the merchant has entered in their dashboard will not be overwri
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

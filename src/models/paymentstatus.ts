@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
@@ -37,17 +34,10 @@ export const PaymentStatus$inboundSchema: z.ZodType<
   PaymentStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PaymentStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PaymentStatus);
 /** @internal */
 export const PaymentStatus$outboundSchema: z.ZodType<
-  PaymentStatus,
+  string,
   z.ZodTypeDef,
   PaymentStatus
-> = z.union([
-  z.nativeEnum(PaymentStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PaymentStatus);

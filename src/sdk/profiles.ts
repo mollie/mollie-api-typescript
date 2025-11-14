@@ -99,7 +99,7 @@ export class Profiles extends ClientSDK {
   async delete(
     request: operations.DeleteProfileRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(profilesDelete(
       this,
       request,

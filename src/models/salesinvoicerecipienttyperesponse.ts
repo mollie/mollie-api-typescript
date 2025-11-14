@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The type of recipient, either `consumer` or `business`. This will determine what further fields are
@@ -34,17 +31,10 @@ export const SalesInvoiceRecipientTypeResponse$inboundSchema: z.ZodType<
   SalesInvoiceRecipientTypeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SalesInvoiceRecipientTypeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SalesInvoiceRecipientTypeResponse);
 /** @internal */
 export const SalesInvoiceRecipientTypeResponse$outboundSchema: z.ZodType<
-  SalesInvoiceRecipientTypeResponse,
+  string,
   z.ZodTypeDef,
   SalesInvoiceRecipientTypeResponse
-> = z.union([
-  z.nativeEnum(SalesInvoiceRecipientTypeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SalesInvoiceRecipientTypeResponse);

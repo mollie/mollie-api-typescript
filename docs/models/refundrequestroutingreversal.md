@@ -1,11 +1,11 @@
-# EntityRefundRoutingReversal
+# RefundRequestRoutingReversal
 
 ## Example Usage
 
 ```typescript
-import { EntityRefundRoutingReversal } from "mollie-api-typescript/models";
+import { RefundRequestRoutingReversal } from "mollie-api-typescript/models";
 
-let value: EntityRefundRoutingReversal = {
+let value: RefundRequestRoutingReversal = {
   amount: {
     currency: "EUR",
     value: "10.00",
@@ -22,4 +22,4 @@ let value: EntityRefundRoutingReversal = {
 | Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | `amount`                                                                                          | [models.Amount](../models/amount.md)                                                              | :heavy_minus_sign:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |
-| `source`                                                                                          | [models.EntityRefundSource](../models/entityrefundsource.md)                                      | :heavy_minus_sign:                                                                                | Where the funds will be pulled back from.                                                         |
+| `source`                                                                                          | [models.RefundRequestSource](../models/refundrequestsource.md)                                    | :heavy_minus_sign:                                                                                | Where the funds will be pulled back from.                                                         |

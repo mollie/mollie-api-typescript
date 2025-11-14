@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The applicable card fee region.
@@ -36,17 +33,10 @@ export const PaymentDetailsFeeRegionResponse$inboundSchema: z.ZodType<
   PaymentDetailsFeeRegionResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PaymentDetailsFeeRegionResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PaymentDetailsFeeRegionResponse);
 /** @internal */
 export const PaymentDetailsFeeRegionResponse$outboundSchema: z.ZodType<
-  PaymentDetailsFeeRegionResponse,
+  string,
   z.ZodTypeDef,
   PaymentDetailsFeeRegionResponse
-> = z.union([
-  z.nativeEnum(PaymentDetailsFeeRegionResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PaymentDetailsFeeRegionResponse);

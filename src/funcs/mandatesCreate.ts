@@ -91,7 +91,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload["entity-mandate"], { explode: true });
+  const body = encodeJSON("body", payload["mandate-request"], {
+    explode: true,
+  });
 
   const pathParams = {
     customerId: encodeSimple("customerId", payload.customerId, {

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Specifies the reference type
@@ -27,17 +24,10 @@ export const RefundExternalReferenceTypeResponse$inboundSchema: z.ZodType<
   RefundExternalReferenceTypeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RefundExternalReferenceTypeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RefundExternalReferenceTypeResponse);
 /** @internal */
 export const RefundExternalReferenceTypeResponse$outboundSchema: z.ZodType<
-  RefundExternalReferenceTypeResponse,
+  string,
   z.ZodTypeDef,
   RefundExternalReferenceTypeResponse
-> = z.union([
-  z.nativeEnum(RefundExternalReferenceTypeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(RefundExternalReferenceTypeResponse);

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const CapabilityStatusReason = {
   RequirementPastDue: "requirement-past-due",
@@ -20,17 +17,10 @@ export const CapabilityStatusReason$inboundSchema: z.ZodType<
   CapabilityStatusReason,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(CapabilityStatusReason),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(CapabilityStatusReason);
 /** @internal */
 export const CapabilityStatusReason$outboundSchema: z.ZodType<
-  CapabilityStatusReason,
+  string,
   z.ZodTypeDef,
   CapabilityStatusReason
-> = z.union([
-  z.nativeEnum(CapabilityStatusReason),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(CapabilityStatusReason);

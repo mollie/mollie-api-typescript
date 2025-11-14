@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The method by which the card was read by the terminal.
@@ -32,18 +29,8 @@ export const PaymentDetailsReceiptCardReadMethodResponse$inboundSchema:
     PaymentDetailsReceiptCardReadMethodResponse,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(PaymentDetailsReceiptCardReadMethodResponse),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(PaymentDetailsReceiptCardReadMethodResponse);
 /** @internal */
 export const PaymentDetailsReceiptCardReadMethodResponse$outboundSchema:
-  z.ZodType<
-    PaymentDetailsReceiptCardReadMethodResponse,
-    z.ZodTypeDef,
-    PaymentDetailsReceiptCardReadMethodResponse
-  > = z.union([
-    z.nativeEnum(PaymentDetailsReceiptCardReadMethodResponse),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, PaymentDetailsReceiptCardReadMethodResponse> =
+    openEnums.outboundSchema(PaymentDetailsReceiptCardReadMethodResponse);

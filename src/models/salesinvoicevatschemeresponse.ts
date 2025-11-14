@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
@@ -28,17 +25,10 @@ export const SalesInvoiceVatSchemeResponse$inboundSchema: z.ZodType<
   SalesInvoiceVatSchemeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SalesInvoiceVatSchemeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SalesInvoiceVatSchemeResponse);
 /** @internal */
 export const SalesInvoiceVatSchemeResponse$outboundSchema: z.ZodType<
-  SalesInvoiceVatSchemeResponse,
+  string,
   z.ZodTypeDef,
   SalesInvoiceVatSchemeResponse
-> = z.union([
-  z.nativeEnum(SalesInvoiceVatSchemeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SalesInvoiceVatSchemeResponse);

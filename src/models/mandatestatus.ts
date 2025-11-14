@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
@@ -33,17 +30,10 @@ export const MandateStatus$inboundSchema: z.ZodType<
   MandateStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(MandateStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(MandateStatus);
 /** @internal */
 export const MandateStatus$outboundSchema: z.ZodType<
-  MandateStatus,
+  string,
   z.ZodTypeDef,
   MandateStatus
-> = z.union([
-  z.nativeEnum(MandateStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(MandateStatus);

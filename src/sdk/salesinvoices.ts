@@ -115,7 +115,7 @@ export class SalesInvoices extends ClientSDK {
   async delete(
     request: operations.DeleteSalesInvoiceRequest,
     options?: RequestOptions,
-  ): Promise<any> {
+  ): Promise<void> {
     return unwrapAsync(salesInvoicesDelete(
       this,
       request,

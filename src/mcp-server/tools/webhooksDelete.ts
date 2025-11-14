@@ -30,8 +30,6 @@ Delete a single webhook object by its webhook ID.`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

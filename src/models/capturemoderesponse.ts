@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Indicate if the funds should be captured immediately or if you want to [place a hold](https://docs.mollie.com/docs/place-a-hold-for-a-payment#/)
@@ -36,17 +33,10 @@ export const CaptureModeResponse$inboundSchema: z.ZodType<
   CaptureModeResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(CaptureModeResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(CaptureModeResponse);
 /** @internal */
 export const CaptureModeResponse$outboundSchema: z.ZodType<
-  CaptureModeResponse,
+  string,
   z.ZodTypeDef,
   CaptureModeResponse
-> = z.union([
-  z.nativeEnum(CaptureModeResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(CaptureModeResponse);

@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * Payment method of the mandate.
@@ -35,17 +32,10 @@ export const MandateMethodResponse$inboundSchema: z.ZodType<
   MandateMethodResponse,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(MandateMethodResponse),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(MandateMethodResponse);
 /** @internal */
 export const MandateMethodResponse$outboundSchema: z.ZodType<
-  MandateMethodResponse,
+  string,
   z.ZodTypeDef,
   MandateMethodResponse
-> = z.union([
-  z.nativeEnum(MandateMethodResponse),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(MandateMethodResponse);

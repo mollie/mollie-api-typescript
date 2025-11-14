@@ -84,39 +84,39 @@ export type GetCustomerResponse = {
   /**
    * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
    */
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
-  mode?: models.Mode | undefined;
+  mode: models.Mode;
   /**
    * The full name of the customer.
    */
-  name?: string | null | undefined;
+  name: string | null;
   /**
    * The email address of the customer.
    */
-  email?: string | null | undefined;
+  email: string | null;
   /**
    * Allows you to preset the language to be used.
    */
-  locale?: models.LocaleResponse | null | undefined;
+  locale: models.LocaleResponse | null;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: models.Metadata | null | undefined;
+  metadata: models.Metadata | null;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  createdAt?: string | undefined;
+  createdAt: string;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: GetCustomerLinks | undefined;
+  links: GetCustomerLinks;
   events?: Array<models.EntityEvent> | undefined;
 };
 
@@ -275,15 +275,15 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: models.Mode$inboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(models.LocaleResponse$inboundSchema).optional(),
-  metadata: z.nullable(models.Metadata$inboundSchema).optional(),
-  createdAt: z.string().optional(),
-  _links: z.lazy(() => GetCustomerLinks$inboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: models.Mode$inboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(models.LocaleResponse$inboundSchema),
+  metadata: z.nullable(models.Metadata$inboundSchema),
+  createdAt: z.string(),
+  _links: z.lazy(() => GetCustomerLinks$inboundSchema),
   events: z.array(models.EntityEvent$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -292,15 +292,15 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetCustomerResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
-  mode?: string | undefined;
-  name?: string | null | undefined;
-  email?: string | null | undefined;
-  locale?: string | null | undefined;
-  metadata?: models.Metadata$Outbound | null | undefined;
-  createdAt?: string | undefined;
-  _links?: GetCustomerLinks$Outbound | undefined;
+  resource: string;
+  id: string;
+  mode: string;
+  name: string | null;
+  email: string | null;
+  locale: string | null;
+  metadata: models.Metadata$Outbound | null;
+  createdAt: string;
+  _links: GetCustomerLinks$Outbound;
   events?: Array<models.EntityEvent$Outbound> | undefined;
 };
 
@@ -310,15 +310,15 @@ export const GetCustomerResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetCustomerResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
-  mode: models.Mode$outboundSchema.optional(),
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(models.LocaleResponse$outboundSchema).optional(),
-  metadata: z.nullable(models.Metadata$outboundSchema).optional(),
-  createdAt: z.string().optional(),
-  links: z.lazy(() => GetCustomerLinks$outboundSchema).optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: models.Mode$outboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(models.LocaleResponse$outboundSchema),
+  metadata: z.nullable(models.Metadata$outboundSchema),
+  createdAt: z.string(),
+  links: z.lazy(() => GetCustomerLinks$outboundSchema),
   events: z.array(models.EntityEvent$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {

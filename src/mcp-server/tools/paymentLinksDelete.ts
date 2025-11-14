@@ -36,8 +36,6 @@ To simply disable a payment link without fully deleting it, you can use the \`ar
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(void 0, apiCall);
   },
 };

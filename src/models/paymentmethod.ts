@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
  * The payment method, if applicable
@@ -68,17 +65,10 @@ export const PaymentMethod$inboundSchema: z.ZodType<
   PaymentMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PaymentMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PaymentMethod);
 /** @internal */
 export const PaymentMethod$outboundSchema: z.ZodType<
-  PaymentMethod,
+  string,
   z.ZodTypeDef,
   PaymentMethod
-> = z.union([
-  z.nativeEnum(PaymentMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PaymentMethod);

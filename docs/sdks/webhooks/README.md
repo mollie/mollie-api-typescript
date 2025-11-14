@@ -381,7 +381,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.webhooks.delete({
+  await client.webhooks.delete({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
@@ -389,7 +389,7 @@ async function run() {
     },
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -421,7 +421,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("webhooksDelete failed:", res.error);
   }
@@ -441,7 +441,7 @@ run();
 
 ### Response
 
-**Promise\<[any](../../models/.md)\>**
+**Promise\<void\>**
 
 ### Errors
 
@@ -467,7 +467,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.webhooks.test({
+  await client.webhooks.test({
     id: "hook_B2EyhTH5N4KWUnoYPcgiH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
@@ -475,7 +475,7 @@ async function run() {
     },
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -507,7 +507,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("webhooksTest failed:", res.error);
   }
@@ -527,7 +527,7 @@ run();
 
 ### Response
 
-**Promise\<[any](../../models/.md)\>**
+**Promise\<void\>**
 
 ### Errors
 

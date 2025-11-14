@@ -18,7 +18,7 @@ export type CreateMandateRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  entityMandate?: models.EntityMandate | undefined;
+  mandateRequest?: models.MandateRequest | undefined;
 };
 
 /** @internal */
@@ -29,18 +29,18 @@ export const CreateMandateRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   "idempotency-key": z.string().optional(),
-  "entity-mandate": models.EntityMandate$inboundSchema.optional(),
+  "mandate-request": models.MandateRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "entity-mandate": "entityMandate",
+    "mandate-request": "mandateRequest",
   });
 });
 /** @internal */
 export type CreateMandateRequest$Outbound = {
   customerId: string;
   "idempotency-key"?: string | undefined;
-  "entity-mandate"?: models.EntityMandate$Outbound | undefined;
+  "mandate-request"?: models.MandateRequest$Outbound | undefined;
 };
 
 /** @internal */
@@ -51,11 +51,11 @@ export const CreateMandateRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   idempotencyKey: z.string().optional(),
-  entityMandate: models.EntityMandate$outboundSchema.optional(),
+  mandateRequest: models.MandateRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    entityMandate: "entity-mandate",
+    mandateRequest: "mandate-request",
   });
 });
 

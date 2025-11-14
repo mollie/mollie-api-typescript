@@ -34,7 +34,7 @@ async function run() {
   const result = await client.mandates.create({
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityMandate: {
+    mandateRequest: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
       consumerName: "John Doe",
@@ -77,7 +77,7 @@ async function run() {
   const res = await mandatesCreate(client, {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityMandate: {
+    mandateRequest: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
       consumerName: "John Doe",
@@ -317,7 +317,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.mandates.revoke({
+  await client.mandates.revoke({
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
@@ -326,7 +326,7 @@ async function run() {
     },
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -359,7 +359,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("mandatesRevoke failed:", res.error);
   }
@@ -379,7 +379,7 @@ run();
 
 ### Response
 
-**Promise\<[any](../../models/.md)\>**
+**Promise\<void\>**
 
 ### Errors
 
