@@ -61,12 +61,13 @@ export class MollieHooks implements BeforeCreateRequestHook {
 
     private customizeUserAgent(headers: Headers, hookContext: HookContext): Headers {
         const userAgentKey = "User-Agent";
+        const process = (globalThis as any)?.process;
 
         const customUserAgent = hookContext.options.customUserAgent;
 
         const genVersion = SDK_METADATA.genVersion;
         const sdkVersion = SDK_METADATA.sdkVersion;
-        const nodeVersion = typeof process !== "undefined" && process.version ? process.version : "unknown";
+        const nodeVersion = process?.version ? process?.version : "unknown";
         const packageName = SDK_METADATA.userAgent.split(" ").at(-1);
 
         let mollieUserAgent = `Speakeasy/${genVersion} TypeScript/${nodeVersion} ${packageName}/${sdkVersion}`;
