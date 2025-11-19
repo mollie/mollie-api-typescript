@@ -22,8 +22,8 @@ let value: ListTerminalsResponse = {
         serialNumber: "1234567890",
         currency: "EUR",
         profileId: "pfl_5B8cwPMGnU",
-        createdAt: "2024-03-20T09:13:37.0Z",
-        updatedAt: "2025-03-20T09:13:37.0Z",
+        createdAt: "2024-03-20T09:13:37+00:00",
+        updatedAt: "2025-03-20T09:13:37+00:00",
         links: {
           self: {
             href: "https://...",

@@ -10,7 +10,7 @@ let value: EntityWebhookEvent = {
   id: "event_GvJ8WHrp5isUdRub9CJyH",
   webhookEventTypes: "payment-link.paid",
   entityId: "pl_qng5gbbv8NAZ5gpM5ZYgx",
-  createdAt: "2024-06-10T14:23:45Z",
+  createdAt: "2024-06-10T14:23:45+00:00",
   embedded: {
     entity: {
       resource: "profile",
@@ -30,7 +30,7 @@ let value: EntityWebhookEvent = {
       review: {
         status: "pending",
       },
-      createdAt: "2024-03-20T09:13:37.0Z",
+      createdAt: "2024-03-20T09:13:37+00:00",
       links: {
         self: {
           href: "https://...",
@@ -94,6 +94,6 @@ let value: EntityWebhookEvent = {
 | `id`                                                                                                              | *string*                                                                                                          | :heavy_check_mark:                                                                                                | The identifier uniquely referring to this event.                                                                  | event_GvJ8WHrp5isUdRub9CJyH                                                                                       |
 | `webhookEventTypes`                                                                                               | [models.WebhookEventTypes](../models/webhookeventtypes.md)                                                        | :heavy_check_mark:                                                                                                | The event's type                                                                                                  | payment-link.paid                                                                                                 |
 | `entityId`                                                                                                        | *string*                                                                                                          | :heavy_check_mark:                                                                                                | The entity token that triggered the event                                                                         | pl_qng5gbbv8NAZ5gpM5ZYgx                                                                                          |
-| `createdAt`                                                                                                       | *string*                                                                                                          | :heavy_check_mark:                                                                                                | The event's date time of creation.                                                                                | 2024-06-10T14:23:45Z                                                                                              |
+| `createdAt`                                                                                                       | *string*                                                                                                          | :heavy_check_mark:                                                                                                | The event's date time of creation.                                                                                | 2024-06-10T14:23:45+00:00                                                                                         |
 | `embedded`                                                                                                        | [models.Embedded](../models/embedded.md)                                                                          | :heavy_minus_sign:                                                                                                | Full payload of the event.                                                                                        |                                                                                                                   |
 | `links`                                                                                                           | [models.EntityWebhookEventLinks](../models/entitywebhookeventlinks.md)                                            | :heavy_check_mark:                                                                                                | An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.                 |                                                                                                                   |

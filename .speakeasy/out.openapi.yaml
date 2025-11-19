@@ -2212,7 +2212,7 @@ paths:
                             value: '39.75'
                           balanceId: bal_3kUf4yU2nT
                           periods: {}
-                          settledAt: '2024-04-06T09:41:44.0Z'
+                          settledAt: '2024-04-06T09:41:44+00:00'
                           invoiceId: inv_FrvewDA3Pr
                           _links:
                             self:
@@ -2399,7 +2399,7 @@ paths:
                                 currency: EUR
                                 value: '0.6050'
                           invoiceId: inv_FrvewDA3Pr
-                    settledAt: '2024-04-06T09:41:44.0Z'
+                    settledAt: '2024-04-06T09:41:44+00:00'
                     _links:
                       self:
                         href: '...'
@@ -2570,7 +2570,7 @@ paths:
                                 currency: EUR
                                 value: '0.6050'
                           invoiceId: inv_FrvewDA3Pr
-                    settledAt: '2024-04-06T09:41:44.0Z'
+                    settledAt: '2024-04-06T09:41:44+00:00'
                     _links:
                       self:
                         href: '...'
@@ -2738,7 +2738,7 @@ paths:
                                 currency: EUR
                                 value: '0.6050'
                           invoiceId: inv_FrvewDA3Pr
-                    settledAt: '2024-04-06T09:41:44.0Z'
+                    settledAt: '2024-04-06T09:41:44+00:00'
                     _links:
                       self:
                         href: '...'
@@ -2884,8 +2884,8 @@ paths:
                           details: null
                           profileId: pfl_QkEhN94Ba
                           redirectUrl: https://webshop.example.org/order/12345/
-                          createdAt: '2024-02-12T11:58:35.0Z'
-                          expiresAt: '2024-02-12T12:13:35.0Z'
+                          createdAt: '2024-02-12T11:58:35+00:00'
+                          expiresAt: '2024-02-12T12:13:35+00:00'
                           _links:
                             self:
                               href: '...'
@@ -5072,7 +5072,7 @@ paths:
                           metadata: '{"bookkeeping_id":12345}'
                           status: pending
                           paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-                          createdAt: '2023-08-02T09:29:56.0Z'
+                          createdAt: '2023-08-02T09:29:56+00:00'
                           _links:
                             self:
                               href: '...'
@@ -5269,7 +5269,7 @@ paths:
                           metadata:
                             bookkeeping_id: 12345
                           paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-                          createdAt: '2023-03-14T17:09:02.0Z'
+                          createdAt: '2023-03-14T17:09:02+00:00'
                           _links:
                             self:
                               href: '...'
@@ -7401,7 +7401,7 @@ paths:
                         startsAt:
                           type: string
                           description: The date from which the token is active, in ISO 8601 format.
-                          example: '2024-01-01T00:00:00Z'
+                          example: '2024-01-01T00:00:00+00:00'
                         endsAt:
                           type:
                             - string
@@ -7409,7 +7409,7 @@ paths:
                           description: |-
                             The date until when the token will be active, in ISO 8601 format. Will be `null` if the token
                             does not have an end date (yet).
-                          example: '2024-12-31T23:59:59Z'
+                          example: '2024-12-31T23:59:59+00:00'
                     readOnly: true
                   partnerContractSignedAt:
                     type:
@@ -7418,7 +7418,7 @@ paths:
                     description: |-
                       The date the partner contract was signed, in ISO 8601 format. Omitted if no contract has been signed
                       (yet).
-                    example: '2024-01-15T10:00:00Z'
+                    example: '2024-01-15T10:00:00+00:00'
                     readOnly: true
                   partnerContractUpdateAvailable:
                     type: boolean
@@ -7430,7 +7430,7 @@ paths:
                     description: |-
                       The expiration date of the signed partner contract, in ISO 8601 format. Omitted if contract has no
                       expiration date (yet).
-                    example: '2025-01-15T10:00:00Z'
+                    example: '2025-01-15T10:00:00+00:00'
                     readOnly: true
                   _links:
                     type: object
@@ -7451,8 +7451,8 @@ paths:
                   value:
                     resource: partner
                     partnerType: signuplink
-                    partnerContractSignedAt: '2024-03-20T13:59:02.0Z'
-                    partnerContractExpiresAt: '2024-04-19T23:59:59.0Z'
+                    partnerContractSignedAt: '2024-03-20T13:59:02+00:00'
+                    partnerContractExpiresAt: '2024-04-19T23:59:59+00:00'
                     _links:
                       self:
                         href: '...'
@@ -7720,7 +7720,7 @@ paths:
                           status: verified
                           review:
                             status: pending
-                          createdAt: '2023-03-20T09:28:37.0Z'
+                          createdAt: '2023-03-20T09:28:37+00:00'
                           _links:
                             self:
                               href: '...'
@@ -7966,7 +7966,7 @@ paths:
                     status: verified
                     review:
                       status: pending
-                    createdAt: '2023-03-20T09:28:37.0Z'
+                    createdAt: '2023-03-20T09:28:37+00:00'
                     _links:
                       self:
                         href: '...'
@@ -8314,7 +8314,7 @@ paths:
                     status: completed
                     canReceivePayments: true
                     canReceiveSettlements: true
-                    signedUpAt: '2023-12-20T10:49:08.0Z'
+                    signedUpAt: '2023-12-20T10:49:08+00:00'
                     _links:
                       self:
                         href: '...'
@@ -8615,7 +8615,7 @@ paths:
                                   href: https://my.mollie.com/dashboard/...
                                   type: text/html
                             - id: bank-account
-                              dueDate: '2024-05-14T01:29:09.283Z'
+                              dueDate: '2024-05-14T01:29:09+00:00'
                               status: past-due
                               _links:
                                 dashboard:
@@ -9769,7 +9769,7 @@ paths:
                     id: event_GvJ8WHrp5isUdRub9CJyH
                     type: payment-link.paid
                     entityId: pl_qng5gbbv8NAZ5gpM5ZYgx
-                    createdAt: '2024-12-16T15:57:04.0Z'
+                    createdAt: '2024-12-16T15:57:04+00:00'
                     _embedded:
                       entity:
                         resource: payment-link
@@ -9783,9 +9783,9 @@ paths:
                         redirectUrl: https://webshop.example.org/thanks
                         webhookUrl: https://webshop.example.org/payment-links/webhook
                         profileId: pfl_QkEhN94Ba
-                        createdAt: '2021-03-20T09:29:56.0Z'
-                        paidAt: '2022-03-20T09:29:56.0Z'
-                        expiresAt: '2023-06-06T11:00:00.0Z'
+                        createdAt: '2021-03-20T09:29:56+00:00'
+                        paidAt: '2022-03-20T09:29:56+00:00'
+                        expiresAt: '2023-06-06T11:00:00+00:00'
                         reusable: false
                         allowedMethods:
                           - ideal
@@ -9886,7 +9886,7 @@ paths:
                       code: request_created
                       message: Balance transfer request created.
                     category: invoice_collection
-                    createdAt: '2025-05-01T10:00:00Z'
+                    createdAt: '2025-05-01T10:00:00+00:00'
                     mode: live
         '422':
           description: The request contains issues. For example, if the amount is missing.
@@ -10004,7 +10004,7 @@ paths:
                           statusReason:
                             code: request_created
                             message: Balance transfer request created.
-                          createdAt: '2025-05-01T07:00:00Z'
+                          createdAt: '2025-05-01T07:00:00+00:00'
                           mode: live
                         - resource: connect-balance-transfer
                           id: cbtr_aGa49xYozWV8nhUzTSU9J
@@ -10024,7 +10024,7 @@ paths:
                           statusReason:
                             code: request_created
                             message: Balance transfer request created.
-                          createdAt: '2025-05-01T06:00:00Z'
+                          createdAt: '2025-05-01T06:00:00+00:00'
                           mode: live
                     count: 2
                     _links:
@@ -10101,8 +10101,8 @@ paths:
                     statusReason:
                       code: success
                       message: Balance transfer completed successfully.
-                    createdAt: '2025-05-01T10:00:00Z'
-                    executedAt: '2025-05-01T10:05:00Z'
+                    createdAt: '2025-05-01T10:00:00+00:00'
+                    executedAt: '2025-05-01T10:05:00+00:00'
                     mode: live
         '404':
           $ref: '#/components/responses/404-invalid-id'
@@ -10826,8 +10826,8 @@ paths:
                           details: null
                           profileId: pfl_QkEhN94Ba
                           redirectUrl: https://webshop.example.org/order/12345/
-                          createdAt: '2024-02-12T11:58:35.0Z'
-                          expiresAt: '2024-02-12T12:13:35.0Z'
+                          createdAt: '2024-02-12T11:58:35+00:00'
+                          expiresAt: '2024-02-12T12:13:35+00:00'
                           _links:
                             self:
                               href: '...'
@@ -13216,8 +13216,8 @@ paths:
                     profileId: pfl_QkEhN94Ba
                     status: open
                     isCancelable: false
-                    createdAt: '2024-03-20T09:13:37.0Z'
-                    expiresAt: '2024-03-20T09:28:37.0Z'
+                    createdAt: '2024-03-20T09:13:37+00:00'
+                    expiresAt: '2024-03-20T09:28:37+00:00'
                     _links:
                       self:
                         href: '...'
@@ -16126,7 +16126,7 @@ paths:
                           metadata:
                             bookkeeping_id: 12345
                           paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-                          createdAt: '2023-03-14T17:09:02.0Z'
+                          createdAt: '2023-03-14T17:09:02+00:00'
                           _links:
                             self:
                               href: '...'
@@ -16446,7 +16446,7 @@ paths:
                           metadata:
                             bookkeeping_id: 12345
                           paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-                          createdAt: '2023-03-14T17:09:02.0Z'
+                          createdAt: '2023-03-14T17:09:02+00:00'
                           _links:
                             self:
                               href: '...'
@@ -16805,7 +16805,7 @@ paths:
                       code: AC01
                       description: Account identifier incorrect (i.e. invalid IBAN)
                     paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-                    createdAt: '2023-03-14T17:09:02.0Z'
+                    createdAt: '2023-03-14T17:09:02+00:00'
                     reversedAt: null
                     _links:
                       self:
@@ -17459,7 +17459,7 @@ paths:
                           metadata: '{"bookkeeping_id":12345}'
                           status: pending
                           paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-                          createdAt: '2023-08-02T09:29:56.0Z'
+                          createdAt: '2023-08-02T09:29:56+00:00'
                           _links:
                             self:
                               href: '...'
@@ -18323,9 +18323,9 @@ paths:
                           redirectUrl: https://webshop.example.org/thanks
                           webhookUrl: https://webshop.example.org/payment-links/webhook
                           profileId: pfl_QkEhN94Ba
-                          createdAt: '2021-03-20T09:29:56.0Z'
-                          paidAt: '2022-03-20T09:29:56.0Z'
-                          expiresAt: '2023-06-06T11:00:00.0Z'
+                          createdAt: '2021-03-20T09:29:56+00:00'
+                          paidAt: '2022-03-20T09:29:56+00:00'
+                          expiresAt: '2023-06-06T11:00:00+00:00'
                           reusable: false
                           allowedMethods:
                             - ideal
@@ -18638,9 +18638,9 @@ paths:
                     redirectUrl: https://webshop.example.org/thanks
                     webhookUrl: https://webshop.example.org/payment-links/webhook
                     profileId: pfl_QkEhN94Ba
-                    createdAt: '2021-03-20T09:29:56.0Z'
-                    paidAt: '2022-03-20T09:29:56.0Z'
-                    expiresAt: '2023-06-06T11:00:00.0Z'
+                    createdAt: '2021-03-20T09:29:56+00:00'
+                    paidAt: '2022-03-20T09:29:56+00:00'
+                    expiresAt: '2023-06-06T11:00:00+00:00'
                     reusable: false
                     allowedMethods:
                       - creditcard
@@ -18852,9 +18852,9 @@ paths:
                           details: null
                           profileId: pfl_QkEhN94Ba
                           redirectUrl: https://webshop.example.org/order/12345/
-                          createdAt: '2024-02-12T11:58:35.0Z'
-                          paidAt: '2024-02-12T12:00:00.0Z'
-                          expiresAt: '2024-02-12T12:13:35.0Z'
+                          createdAt: '2024-02-12T11:58:35+00:00'
+                          paidAt: '2024-02-12T12:00:00+00:00'
+                          expiresAt: '2024-02-12T12:13:35+00:00'
                           reusable: false
                           _links:
                             self:
@@ -18962,8 +18962,8 @@ paths:
                           currency: EUR
                           description: 'Terminal #12345'
                           profileId: pfl_QkEhN94Ba
-                          createdAt: '2022-02-12T11:58:35.0Z'
-                          updatedAt: '2022-02-12T11:58:35.0Z'
+                          createdAt: '2022-02-12T11:58:35+00:00'
+                          updatedAt: '2022-02-12T11:58:35+00:00'
                           _links:
                             self:
                               href: '...'
@@ -19121,8 +19121,8 @@ paths:
                     currency: EUR
                     description: 'Terminal #12345'
                     profileId: pfl_QkEhN94Ba
-                    createdAt: '2022-02-12T11:58:35.0Z'
-                    updatedAt: '2022-02-12T11:58:35.0Z'
+                    createdAt: '2022-02-12T11:58:35+00:00'
+                    updatedAt: '2022-02-12T11:58:35+00:00'
                     _links:
                       self:
                         href: '...'
@@ -19546,7 +19546,7 @@ paths:
                           email: customer@example.org
                           locale: nl_NL
                           metadata: null
-                          createdAt: '2023-04-06T13:10:19.0Z'
+                          createdAt: '2023-04-06T13:10:19+00:00'
                           _links:
                             self:
                               href: '...'
@@ -19734,7 +19734,7 @@ paths:
                     email: jane@example.org
                     locale: nl_NL
                     metadata: null
-                    createdAt: '2023-04-06T13:10:19.0Z'
+                    createdAt: '2023-04-06T13:10:19+00:00'
                     _links:
                       self:
                         href: '...'
@@ -20585,8 +20585,8 @@ paths:
                           details: null
                           profileId: pfl_QkEhN94Ba
                           redirectUrl: https://webshop.example.org/order/12345/
-                          createdAt: '2024-02-12T11:58:35.0Z'
-                          expiresAt: '2024-02-12T12:13:35.0Z'
+                          createdAt: '2024-02-12T11:58:35+00:00'
+                          expiresAt: '2024-02-12T12:13:35+00:00'
                           _links:
                             self:
                               href: '...'
@@ -22901,7 +22901,7 @@ paths:
                           mandateReference: EXAMPLE-CORP-MD13804
                           signatureDate: '2023-05-07'
                           customerId: cst_4qqhO89gsT
-                          createdAt: '2023-05-07T10:49:08.0Z'
+                          createdAt: '2023-05-07T10:49:08+00:00'
                           _links:
                             self:
                               href: '...'
@@ -23341,7 +23341,7 @@ paths:
                           webhookUrl: https://webshop.example.org/payments/webhook
                           customerId: cst_stTC2WHAuS
                           mandateId: mdt_38HS4fsS
-                          createdAt: '2023-04-06T13:10:19.0Z'
+                          createdAt: '2023-04-06T13:10:19+00:00'
                           _links:
                             self:
                               href: '...'
@@ -23600,7 +23600,7 @@ paths:
                     webhookUrl: https://webshop.example.org/payments/webhook
                     customerId: cst_stTC2WHAuS
                     mandateId: mdt_38HS4fsS
-                    createdAt: '2023-04-06T13:10:19.0Z'
+                    createdAt: '2023-04-06T13:10:19+00:00'
                     _links:
                       self:
                         href: '...'
@@ -23784,7 +23784,7 @@ paths:
                     webhookUrl: https://webshop.example.org/payments/webhook
                     customerId: cst_stTC2WHAuS
                     mandateId: mdt_38HS4fsS
-                    createdAt: '2023-04-06T13:10:19.0Z'
+                    createdAt: '2023-04-06T13:10:19+00:00'
                     _links:
                       self:
                         href: '...'
@@ -23938,7 +23938,7 @@ paths:
                           webhookUrl: https://webshop.example.org/payments/webhook
                           customerId: cst_stTC2WHAuS
                           mandateId: mdt_38HS4fsS
-                          createdAt: '2023-04-06T13:10:19.0Z'
+                          createdAt: '2023-04-06T13:10:19+00:00'
                           _links:
                             self:
                               href: '...'
@@ -24086,8 +24086,8 @@ paths:
                           details: null
                           profileId: pfl_QkEhN94Ba
                           redirectUrl: https://webshop.example.org/order/12345/
-                          createdAt: '2024-02-12T11:58:35.0Z'
-                          expiresAt: '2024-02-12T12:13:35.0Z'
+                          createdAt: '2024-02-12T11:58:35+00:00'
+                          expiresAt: '2024-02-12T12:13:35+00:00'
                           _links:
                             self:
                               href: '...'
@@ -27157,7 +27157,7 @@ components:
       type: string
       description: The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
       readOnly: true
-      example: '2024-03-20T09:13:37.0Z'
+      example: '2024-03-20T09:13:37+00:00'
     currencies:
       type: string
       enum:
@@ -28625,7 +28625,7 @@ components:
             For an [open settlement](get-open-settlement) or for the [next settlement](get-next-settlement), no settlement
             date is available.
           readOnly: true
-          example: '2025-03-31T12:54:39Z'
+          example: '2025-03-31T12:54:39+00:00'
         status:
           $ref: '#/components/schemas/settlement-status'
           readOnly: true
@@ -29164,7 +29164,7 @@ components:
           type: string
           description: The date and time when the route was created. The date is given in ISO 8601 format.
           readOnly: true
-          example: '2024-12-12T10:00:00Z'
+          example: '2024-12-12T10:00:00+00:00'
         releaseDate:
           type:
             - string
@@ -29775,7 +29775,7 @@ components:
             Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
             can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         applicationFee:
           type:
             - object
@@ -30305,7 +30305,7 @@ components:
             The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
             not authorized (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         paidAt:
           type:
             - string
@@ -30314,7 +30314,7 @@ components:
             The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not
             completed (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         canceledAt:
           type:
             - string
@@ -30323,7 +30323,7 @@ components:
             The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not
             canceled (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         expiresAt:
           type:
             - string
@@ -30332,7 +30332,7 @@ components:
             The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no
             longer expire.
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         expiredAt:
           type:
             - string
@@ -30341,7 +30341,7 @@ components:
             The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not
             expire (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         failedAt:
           type:
             - string
@@ -30350,7 +30350,7 @@ components:
             The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail
             (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         dueDate:
           type: string
           description: The date by which the payment should be completed in `YYYY-MM-DD` format
@@ -30831,7 +30831,7 @@ components:
           description: |-
             The date and time the chargeback was reversed if applicable, in
             [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-          example: '2024-03-21T09:13:37.0Z'
+          example: '2024-03-21T09:13:37+00:00'
           readOnly: true
         _links:
           type: object
@@ -31363,7 +31363,7 @@ components:
         signedUpAt:
           type: string
           description: The sign up date time of the organization in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-          example: '2023-01-15T13:45:30Z'
+          example: '2023-01-15T13:45:30+00:00'
           readOnly: true
         _links:
           type: object
@@ -31729,7 +31729,7 @@ components:
           type: string
           description: The subscription's date time of creation.
           readOnly: true
-          example: '2023-03-15T10:00:00Z'
+          example: '2023-03-15T10:00:00+00:00'
         name:
           type: string
           description: The subscription's name.
@@ -31799,7 +31799,7 @@ components:
           type: string
           description: The subscription's date time of creation.
           readOnly: true
-          example: '2023-01-01T12:00:00Z'
+          example: '2023-01-01T12:00:00+00:00'
         name:
           type: string
           description: The subscription's name.
@@ -32141,7 +32141,7 @@ components:
           type: string
           description: The event's date time of creation.
           readOnly: true
-          example: '2024-06-10T14:23:45Z'
+          example: '2024-06-10T14:23:45+00:00'
         _embedded:
           type:
             - object
@@ -32299,7 +32299,7 @@ components:
             The date and time when the transfer was completed, in ISO 8601 format. This parameter is omitted if the transfer is
             not executed (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         testmode:
           $ref: '#/components/schemas/testmode-create'
         mode:
@@ -32990,7 +32990,7 @@ components:
         updatedAt:
           type: string
           description: The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-          example: '2025-03-20T09:13:37.0Z'
+          example: '2025-03-20T09:13:37+00:00'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -33575,7 +33575,7 @@ components:
           description: |-
             The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
             subscription is not canceled (yet).
-          example: '2025-01-01T13:10:19.0Z'
+          example: '2025-01-01T13:10:19+00:00'
           readOnly: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
@@ -33758,7 +33758,7 @@ components:
           description: |-
             The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
             subscription is not canceled (yet).
-          example: '2025-01-01T13:10:19.0Z'
+          example: '2025-01-01T13:10:19+00:00'
           readOnly: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
@@ -34561,7 +34561,7 @@ components:
             Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
             can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         applicationFee:
           type:
             - object
@@ -35091,7 +35091,7 @@ components:
             The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
             not authorized (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         paidAt:
           type:
             - string
@@ -35100,7 +35100,7 @@ components:
             The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not
             completed (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         canceledAt:
           type:
             - string
@@ -35109,7 +35109,7 @@ components:
             The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not
             canceled (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         expiresAt:
           type:
             - string
@@ -35118,7 +35118,7 @@ components:
             The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no
             longer expire.
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         expiredAt:
           type:
             - string
@@ -35127,7 +35127,7 @@ components:
             The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not
             expire (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         failedAt:
           type:
             - string
@@ -35136,7 +35136,7 @@ components:
             The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail
             (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         dueDate:
           type: string
           description: The date by which the payment should be completed in `YYYY-MM-DD` format
@@ -35482,7 +35482,7 @@ components:
           type: string
           description: The date and time when the route was created. The date is given in ISO 8601 format.
           readOnly: true
-          example: '2024-12-12T10:00:00Z'
+          example: '2024-12-12T10:00:00+00:00'
         releaseDate:
           type:
             - string
@@ -36302,7 +36302,7 @@ components:
             The date and time when the transfer was completed, in ISO 8601 format. This parameter is omitted if the transfer is
             not executed (yet).
           readOnly: true
-          example: '2024-03-20T09:28:37.0Z'
+          example: '2024-03-20T09:28:37+00:00'
         testmode:
           $ref: '#/components/schemas/testmode-create'
         mode:
@@ -37225,7 +37225,7 @@ components:
                 code: AC01
                 description: Account identifier incorrect (i.e. invalid IBAN)
               paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-              createdAt: '2023-03-14T17:09:02.0Z'
+              createdAt: '2023-03-14T17:09:02+00:00'
               reversedAt: null
               _links:
                 self:
@@ -37262,7 +37262,7 @@ components:
         status: verified
         review:
           status: pending
-        createdAt: '2023-03-20T09:28:37.0Z'
+        createdAt: '2023-03-20T09:28:37+00:00'
         _links:
           self:
             href: '...'
@@ -37290,8 +37290,8 @@ components:
         profileId: pfl_QkEhN94Ba
         status: open
         isCancelable: false
-        createdAt: '2024-03-20T09:13:37.0Z'
-        expiresAt: '2024-03-20T09:28:37.0Z'
+        createdAt: '2024-03-20T09:13:37+00:00'
+        expiresAt: '2024-03-20T09:28:37+00:00'
         _links:
           self:
             href: '...'
@@ -37326,8 +37326,8 @@ components:
         metadata: null
         profileId: pfl_QkEhN94Ba
         status: canceled
-        createdAt: '2024-03-20T09:13:37.0Z'
-        canceledAt: '2024-03-20T10:19:15.0Z'
+        createdAt: '2024-03-20T09:13:37+00:00'
+        canceledAt: '2024-03-20T10:19:15+00:00'
         _links:
           self:
             href: '...'
@@ -37375,7 +37375,7 @@ components:
         status: pending
         metadata: '{"bookkeeping_id":12345}'
         paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-        createdAt: '2023-03-14T17:09:02.0Z'
+        createdAt: '2023-03-14T17:09:02+00:00'
         _links:
           self:
             href: '...'
@@ -37399,7 +37399,7 @@ components:
         metadata: '{"bookkeeping_id":12345}'
         status: pending
         paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
-        createdAt: '2023-08-02T09:29:56.0Z'
+        createdAt: '2023-08-02T09:29:56+00:00'
         _links:
           self:
             href: '...'
@@ -37424,9 +37424,9 @@ components:
         redirectUrl: https://webshop.example.org/thanks
         webhookUrl: https://webshop.example.org/payment-links/webhook
         profileId: pfl_QkEhN94Ba
-        createdAt: '2021-03-20T09:29:56.0Z'
-        paidAt: '2022-03-20T09:29:56.0Z'
-        expiresAt: '2023-06-06T11:00:00.0Z'
+        createdAt: '2021-03-20T09:29:56+00:00'
+        paidAt: '2022-03-20T09:29:56+00:00'
+        expiresAt: '2023-06-06T11:00:00+00:00'
         reusable: false
         allowedMethods:
           - ideal
@@ -37480,7 +37480,7 @@ components:
         mandateReference: EXAMPLE-CORP-MD13804
         signatureDate: '2023-05-07'
         customerId: cst_4qqhO89gsT
-        createdAt: '2023-05-07T10:49:08.0Z'
+        createdAt: '2023-05-07T10:49:08+00:00'
         _links:
           self:
             href: '...'
@@ -37512,7 +37512,7 @@ components:
         webhookUrl: https://webshop.example.org/payments/webhook
         customerId: cst_stTC2WHAuS
         mandateId: mdt_38HS4fsS
-        createdAt: '2023-04-06T13:10:19.0Z'
+        createdAt: '2023-04-06T13:10:19+00:00'
         _links:
           self:
             href: '...'

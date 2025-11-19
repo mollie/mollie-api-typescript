@@ -38,8 +38,8 @@ let value: ListSubscriptionsResponse = {
         webhookUrl: "https://example.com/webhook",
         customerId: "cst_5B8cwPMGnU",
         mandateId: "mdt_5B8cwPMGnU",
-        createdAt: "2024-03-20T09:13:37.0Z",
-        canceledAt: "2025-01-01T13:10:19.0Z",
+        createdAt: "2024-03-20T09:13:37+00:00",
+        canceledAt: "2025-01-01T13:10:19+00:00",
         links: {
           self: {
             href: "https://...",

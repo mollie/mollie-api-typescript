@@ -119,7 +119,7 @@ let value: ListPaymentsResponse = {
         restrictPaymentMethodsToCountry: "NL",
         captureMode: "manual",
         captureDelay: "8 hours",
-        captureBefore: "2024-03-20T09:28:37.0Z",
+        captureBefore: "2024-03-20T09:28:37+00:00",
         applicationFee: {
           amount: {
             currency: "EUR",
@@ -140,7 +140,7 @@ let value: ListPaymentsResponse = {
               type: "organization",
               organizationId: "org_1234567",
             },
-            createdAt: "2024-12-12T10:00:00Z",
+            createdAt: "2024-12-12T10:00:00+00:00",
             releaseDate: "2024-12-12",
             links: {
               self: {
@@ -213,13 +213,13 @@ let value: ListPaymentsResponse = {
           multibancoReference: "123456789",
           multibancoEntity: "98765",
         },
-        createdAt: "2024-03-20T09:13:37.0Z",
-        authorizedAt: "2024-03-20T09:28:37.0Z",
-        paidAt: "2024-03-20T09:28:37.0Z",
-        canceledAt: "2024-03-20T09:28:37.0Z",
-        expiresAt: "2024-03-20T09:28:37.0Z",
-        expiredAt: "2024-03-20T09:28:37.0Z",
-        failedAt: "2024-03-20T09:28:37.0Z",
+        createdAt: "2024-03-20T09:13:37+00:00",
+        authorizedAt: "2024-03-20T09:28:37+00:00",
+        paidAt: "2024-03-20T09:28:37+00:00",
+        canceledAt: "2024-03-20T09:28:37+00:00",
+        expiresAt: "2024-03-20T09:28:37+00:00",
+        expiredAt: "2024-03-20T09:28:37+00:00",
+        failedAt: "2024-03-20T09:28:37+00:00",
         links: {
           self: {
             href: "https://...",

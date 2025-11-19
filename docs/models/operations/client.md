@@ -62,7 +62,7 @@ let value: Client = {
       status: "completed",
       canReceivePayments: true,
       canReceiveSettlements: true,
-      signedUpAt: "2023-01-15T13:45:30Z",
+      signedUpAt: "2023-01-15T13:45:30+00:00",
       links: {
         self: {
           href: "https://...",

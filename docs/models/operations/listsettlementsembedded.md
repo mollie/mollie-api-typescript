@@ -10,9 +10,9 @@ let value: ListSettlementsEmbedded = {
     {
       resource: "settlement",
       id: "stl_5B8cwPMGnU",
-      createdAt: "2024-03-20T09:13:37.0Z",
+      createdAt: "2024-03-20T09:13:37+00:00",
       reference: "07049691.2406.01",
-      settledAt: "2025-03-31T12:54:39Z",
+      settledAt: "2025-03-31T12:54:39+00:00",
       status: "paidout",
       amount: {
         currency: "EUR",

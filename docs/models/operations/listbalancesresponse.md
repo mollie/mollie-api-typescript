@@ -16,7 +16,7 @@ let value: ListBalancesResponse = {
         resource: "balance",
         id: "bal_gVMhHKqSSRYJyPsuoPNFH",
         mode: "live",
-        createdAt: "2024-03-20T09:13:37.0Z",
+        createdAt: "2024-03-20T09:13:37+00:00",
         currency: "EUR",
         description: "Balance description",
         status: "active",

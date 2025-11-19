@@ -28,7 +28,7 @@ let value: RouteGetResponse = {
       type: "application/hal+json",
     },
   },
-  createdAt: "2024-03-20T09:13:37.0Z",
+  createdAt: "2024-03-20T09:13:37+00:00",
 };
 ```
 
@@ -43,4 +43,4 @@ let value: RouteGetResponse = {
 | `description`                                                                                             | *string*                                                                                                  | :heavy_check_mark:                                                                                        | The description of the route. This description is shown in the reports.                                   | Payment for Order #12345                                                                                  |
 | `destination`                                                                                             | [models.RouteGetResponseDestination](../models/routegetresponsedestination.md)                            | :heavy_check_mark:                                                                                        | The destination of the route.                                                                             |                                                                                                           |
 | `links`                                                                                                   | [models.RouteGetResponseLinks](../models/routegetresponselinks.md)                                        | :heavy_check_mark:                                                                                        | An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.         |                                                                                                           |
-| `createdAt`                                                                                               | *string*                                                                                                  | :heavy_check_mark:                                                                                        | The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.     | 2024-03-20T09:13:37.0Z                                                                                    |
+| `createdAt`                                                                                               | *string*                                                                                                  | :heavy_check_mark:                                                                                        | The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.     | 2024-03-20T09:13:37+00:00                                                                                 |

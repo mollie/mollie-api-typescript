@@ -12,7 +12,7 @@ let value: ListWebhooksEmbedded = {
       id: "hook_tNP6fpF9fLJpFWziRcgiH",
       url: "https://example.com/webhook-endpoint",
       profileId: "pfl_YyoaNFjtHc",
-      createdAt: "2023-03-15T10:00:00Z",
+      createdAt: "2023-03-15T10:00:00+00:00",
       name: "Profile Updates Webhook",
       eventTypes: [
         "*",

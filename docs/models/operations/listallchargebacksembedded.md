@@ -24,8 +24,8 @@ let value: ListAllChargebacksEmbedded = {
       },
       paymentId: "tr_5B8cwPMGnU",
       settlementId: "stl_5B8cwPMGnU",
-      createdAt: "2024-03-20T09:13:37.0Z",
-      reversedAt: "2024-03-21T09:13:37.0Z",
+      createdAt: "2024-03-20T09:13:37+00:00",
+      reversedAt: "2024-03-21T09:13:37+00:00",
       links: {
         self: {
           href: "https://...",
