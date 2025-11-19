@@ -44,7 +44,7 @@ export type GetClientLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: models.Url | undefined;
+  self: models.Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -72,11 +72,8 @@ export type GetClientResponse = {
   /**
    * Indicates the response contains a client object. Will always contain the string `client` for this resource type.
    */
-  resource?: string | undefined;
-  /**
-   * The identifier uniquely referring to this client. Example: `org_12345678`.
-   */
-  id?: string | undefined;
+  resource: string;
+  id: string;
   /**
    * The commission object.
    */
@@ -91,7 +88,7 @@ export type GetClientResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: GetClientLinks | undefined;
+  links: GetClientLinks;
   embedded?: GetClientEmbedded | undefined;
 };
 
@@ -193,14 +190,14 @@ export const GetClientLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: models.Url$inboundSchema.optional(),
+  self: models.Url$inboundSchema,
   organization: models.Url$inboundSchema.optional(),
   onboarding: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
 /** @internal */
 export type GetClientLinks$Outbound = {
-  self?: models.Url$Outbound | undefined;
+  self: models.Url$Outbound;
   organization?: models.Url$Outbound | undefined;
   onboarding?: models.Url$Outbound | undefined;
   documentation?: models.Url$Outbound | undefined;
@@ -212,7 +209,7 @@ export const GetClientLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetClientLinks
 > = z.object({
-  self: models.Url$outboundSchema.optional(),
+  self: models.Url$outboundSchema,
   organization: models.Url$outboundSchema.optional(),
   onboarding: models.Url$outboundSchema.optional(),
   documentation: models.Url$outboundSchema.optional(),
@@ -282,12 +279,12 @@ export const GetClientResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
   commission: z.nullable(z.lazy(() => GetClientCommission$inboundSchema))
     .optional(),
   organizationCreatedAt: z.string().optional(),
-  _links: z.lazy(() => GetClientLinks$inboundSchema).optional(),
+  _links: z.lazy(() => GetClientLinks$inboundSchema),
   _embedded: z.lazy(() => GetClientEmbedded$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -297,11 +294,11 @@ export const GetClientResponse$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetClientResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
+  resource: string;
+  id: string;
   commission?: GetClientCommission$Outbound | null | undefined;
   organizationCreatedAt?: string | undefined;
-  _links?: GetClientLinks$Outbound | undefined;
+  _links: GetClientLinks$Outbound;
   _embedded?: GetClientEmbedded$Outbound | undefined;
 };
 
@@ -311,12 +308,12 @@ export const GetClientResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetClientResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
   commission: z.nullable(z.lazy(() => GetClientCommission$outboundSchema))
     .optional(),
   organizationCreatedAt: z.string().optional(),
-  links: z.lazy(() => GetClientLinks$outboundSchema).optional(),
+  links: z.lazy(() => GetClientLinks$outboundSchema),
   embedded: z.lazy(() => GetClientEmbedded$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {

@@ -14,6 +14,11 @@ let value: ListClientsResponse = {
     clients: [
       {
         resource: "client",
+        id: "org_1234567",
+        commission: {
+          count: 10,
+        },
+        organizationCreatedAt: "2023-01-15T13:45:30+00:00",
         links: {
           self: {
             href: "https://...",

@@ -8732,7 +8732,7 @@ paths:
                 list-clients-200-1:
                   summary: A list of client objects
                   value:
-                    count: 5
+                    count: 1
                     _embedded:
                       clients:
                         - resource: client
@@ -8744,10 +8744,6 @@ paths:
                             self:
                               href: '...'
                               type: application/hal+json
-                        - {}
-                        - {}
-                        - {}
-                        - {}
                     _links:
                       self:
                         href: '...'
@@ -31487,6 +31483,10 @@ components:
       x-speakeasy-unknown-values: allow
     entity-client:
       type: object
+      required:
+        - resource
+        - id
+        - _links
       properties:
         resource:
           type: string
@@ -31494,26 +31494,31 @@ components:
           readOnly: true
           example: client
         id:
-          type: string
+          $ref: '#/components/schemas/organizationToken'
           description: 'The identifier uniquely referring to this client. Example: `org_12345678`.'
           readOnly: true
         commission:
-          type: object
+          type:
+            - object
+            - 'null'
           description: The commission object.
-          nullable: true
           properties:
             count:
               type: integer
               description: The commission count.
+              example: 10
         organizationCreatedAt:
           type: string
           description: |-
             The date and time the client organization was created, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
             format.
           readOnly: true
+          example: '2023-01-15T13:45:30+00:00'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
           properties:
             self:
               $ref: '#/components/schemas/url'
