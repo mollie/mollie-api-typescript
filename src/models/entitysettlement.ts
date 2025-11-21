@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -25,11 +27,6 @@ import {
   PaymentMethod$outboundSchema,
 } from "./paymentmethod.js";
 import {
-  SettlementStatus,
-  SettlementStatus$inboundSchema,
-  SettlementStatus$outboundSchema,
-} from "./settlementstatus.js";
-import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
@@ -41,6 +38,34 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
+
+/**
+ * The status of the settlement.
+ */
+export const EntitySettlementStatus = {
+  Open: "open",
+  Pending: "pending",
+  Paidout: "paidout",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the settlement.
+ */
+export type EntitySettlementStatus = OpenEnum<typeof EntitySettlementStatus>;
+
+/**
+ * The total amount of the settlement.
+ */
+export type EntitySettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
 
 /**
  * The service rates, further divided into `fixed` and `percentage` costs.
@@ -169,6 +194,9 @@ export type EntitySettlement = {
    * endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this settlement.
+   */
   id: string;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -187,16 +215,19 @@ export type EntitySettlement = {
    * date is available.
    */
   settledAt?: string | null | undefined;
+  status: EntitySettlementStatus;
   /**
-   * The status of the settlement.
+   * The total amount of the settlement.
    */
-  status: SettlementStatus;
+  amount: EntitySettlementAmount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * The balance token that the settlement was settled to.
    */
-  amount: Amount;
   balanceId: string;
-  invoiceId?: string | undefined;
+  /**
+   * The ID of the oldest invoice created for all the periods, if the invoice has been created yet.
+   */
+  invoiceId?: string | null | undefined;
   /**
    * For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These
    *
@@ -217,6 +248,61 @@ export type EntitySettlement = {
    */
   links: EntitySettlementLinks;
 };
+
+/** @internal */
+export const EntitySettlementStatus$inboundSchema: z.ZodType<
+  EntitySettlementStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntitySettlementStatus);
+/** @internal */
+export const EntitySettlementStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntitySettlementStatus
+> = openEnums.outboundSchema(EntitySettlementStatus);
+
+/** @internal */
+export const EntitySettlementAmount$inboundSchema: z.ZodType<
+  EntitySettlementAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type EntitySettlementAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const EntitySettlementAmount$outboundSchema: z.ZodType<
+  EntitySettlementAmount$Outbound,
+  z.ZodTypeDef,
+  EntitySettlementAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function entitySettlementAmountToJSON(
+  entitySettlementAmount: EntitySettlementAmount,
+): string {
+  return JSON.stringify(
+    EntitySettlementAmount$outboundSchema.parse(entitySettlementAmount),
+  );
+}
+export function entitySettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<EntitySettlementAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EntitySettlementAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntitySettlementAmount' from JSON`,
+  );
+}
 
 /** @internal */
 export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> = z
@@ -453,10 +539,10 @@ export const EntitySettlement$inboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: SettlementStatus$inboundSchema,
-  amount: Amount$inboundSchema,
+  status: EntitySettlementStatus$inboundSchema,
+  amount: z.lazy(() => EntitySettlementAmount$inboundSchema),
   balanceId: z.string(),
-  invoiceId: z.string().optional(),
+  invoiceId: z.nullable(z.string()).optional(),
   periods: z.record(z.record(z.lazy(() => Periods$inboundSchema))).optional(),
   _links: z.lazy(() => EntitySettlementLinks$inboundSchema),
 }).transform((v) => {
@@ -472,9 +558,9 @@ export type EntitySettlement$Outbound = {
   reference?: string | null | undefined;
   settledAt?: string | null | undefined;
   status: string;
-  amount: Amount$Outbound;
+  amount: EntitySettlementAmount$Outbound;
   balanceId: string;
-  invoiceId?: string | undefined;
+  invoiceId?: string | null | undefined;
   periods?: { [k: string]: { [k: string]: Periods$Outbound } } | undefined;
   _links: EntitySettlementLinks$Outbound;
 };
@@ -490,10 +576,10 @@ export const EntitySettlement$outboundSchema: z.ZodType<
   createdAt: z.string().optional(),
   reference: z.nullable(z.string()).optional(),
   settledAt: z.nullable(z.string()).optional(),
-  status: SettlementStatus$outboundSchema,
-  amount: Amount$outboundSchema,
+  status: EntitySettlementStatus$outboundSchema,
+  amount: z.lazy(() => EntitySettlementAmount$outboundSchema),
   balanceId: z.string(),
-  invoiceId: z.string().optional(),
+  invoiceId: z.nullable(z.string()).optional(),
   periods: z.record(z.record(z.lazy(() => Periods$outboundSchema))).optional(),
   links: z.lazy(() => EntitySettlementLinks$outboundSchema),
 }).transform((v) => {

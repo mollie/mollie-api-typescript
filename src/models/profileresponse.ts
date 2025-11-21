@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
@@ -14,16 +16,36 @@ import {
   ProfileReviewStatusResponse$outboundSchema,
 } from "./profilereviewstatusresponse.js";
 import {
-  ProfileStatus,
-  ProfileStatus$inboundSchema,
-  ProfileStatus$outboundSchema,
-} from "./profilestatus.js";
-import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export const ProfileResponseStatus = {
+  Unverified: "unverified",
+  Verified: "verified",
+  Blocked: "blocked",
+} as const;
+/**
+ * The profile status determines whether the profile is able to receive live payments.
+ *
+ * @remarks
+ *
+ * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+ * * `verified`: The profile has been verified and can be used to create live payments and test payments.
+ * * `blocked`: The profile is blocked and can no longer be used or changed.
+ */
+export type ProfileResponseStatus = OpenEnum<typeof ProfileResponseStatus>;
 
 /**
  * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
@@ -130,16 +152,7 @@ export type ProfileResponse = {
    * [business category list](common-data-types#business-category) for all possible options.
    */
   businessCategory: string;
-  /**
-   * The profile status determines whether the profile is able to receive live payments.
-   *
-   * @remarks
-   *
-   * * `unverified`: The profile has not been verified yet and can only be used to create test payments.
-   * * `verified`: The profile has been verified and can be used to create live payments and test payments.
-   * * `blocked`: The profile is blocked and can no longer be used or changed.
-   */
-  status: ProfileStatus;
+  status: ProfileResponseStatus;
   /**
    * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
    *
@@ -157,6 +170,19 @@ export type ProfileResponse = {
    */
   links: ProfileResponseLinks;
 };
+
+/** @internal */
+export const ProfileResponseStatus$inboundSchema: z.ZodType<
+  ProfileResponseStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(ProfileResponseStatus);
+/** @internal */
+export const ProfileResponseStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ProfileResponseStatus
+> = openEnums.outboundSchema(ProfileResponseStatus);
 
 /** @internal */
 export const Review$inboundSchema: z.ZodType<Review, z.ZodTypeDef, unknown> = z
@@ -266,7 +292,7 @@ export const ProfileResponse$inboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string(),
-  status: ProfileStatus$inboundSchema,
+  status: ProfileResponseStatus$inboundSchema,
   review: z.lazy(() => Review$inboundSchema).optional(),
   createdAt: z.string(),
   _links: z.lazy(() => ProfileResponseLinks$inboundSchema),
@@ -309,7 +335,7 @@ export const ProfileResponse$outboundSchema: z.ZodType<
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string(),
-  status: ProfileStatus$outboundSchema,
+  status: ProfileResponseStatus$outboundSchema,
   review: z.lazy(() => Review$outboundSchema).optional(),
   createdAt: z.string(),
   links: z.lazy(() => ProfileResponseLinks$outboundSchema),

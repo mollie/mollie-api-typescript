@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { RFCDate } from "../types/rfcdate.js";
 import {
@@ -115,11 +117,6 @@ import {
   PaymentLineTypeResponse$outboundSchema,
 } from "./paymentlinetyperesponse.js";
 import {
-  PaymentStatus,
-  PaymentStatus$inboundSchema,
-  PaymentStatus$outboundSchema,
-} from "./paymentstatus.js";
-import {
   RecurringLineItem,
   RecurringLineItem$inboundSchema,
   RecurringLineItem$Outbound,
@@ -142,6 +139,92 @@ import {
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+
+/**
+ * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+ *
+ * @remarks
+ * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+ * costs for a return shipment to the customer.
+ */
+export type AmountRefunded = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * The remaining amount that can be refunded. Only available when refunds are available for this payment.
+ */
+export type AmountRemaining = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * The total amount that is already captured for this payment. Only available when this payment supports captures.
+ */
+export type AmountCaptured = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+ *
+ * @remarks
+ * zero.
+ */
+export type AmountChargedBack = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * This optional field will contain the approximate amount that will be settled to your account, converted to the
+ *
+ * @remarks
+ * currency your account is settled in.
+ *
+ * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+ * settled by Mollie the `settlementAmount` is omitted from the response.
+ *
+ * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+ * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+ */
+export type PaymentResponseSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
 
 export type PaymentResponseLine = {
   /**
@@ -334,6 +417,29 @@ export type PaymentResponseApplicationFee = {
    */
   description?: string | undefined;
 };
+
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export const PaymentResponseStatus = {
+  Open: "open",
+  Pending: "pending",
+  Authorized: "authorized",
+  Paid: "paid",
+  Canceled: "canceled",
+  Expired: "expired",
+  Failed: "failed",
+} as const;
+/**
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ *
+ * @remarks
+ * statuses occur at what point.
+ */
+export type PaymentResponseStatus = OpenEnum<typeof PaymentResponseStatus>;
 
 /**
  * The Point of sale receipt object.
@@ -732,6 +838,12 @@ export type PaymentResponse = {
    * Indicates the response contains a payment object. Will always contain the string `payment` for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
@@ -756,25 +868,41 @@ export type PaymentResponse = {
    */
   amount: Amount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * The total amount that is already refunded. Only available when refunds are available for this payment. For some
+   *
+   * @remarks
+   * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+   * costs for a return shipment to the customer.
    */
-  amountRefunded?: Amount | undefined;
+  amountRefunded?: AmountRefunded | undefined;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * The remaining amount that can be refunded. Only available when refunds are available for this payment.
    */
-  amountRemaining?: Amount | undefined;
+  amountRemaining?: AmountRemaining | undefined;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * The total amount that is already captured for this payment. Only available when this payment supports captures.
    */
-  amountCaptured?: Amount | undefined;
+  amountCaptured?: AmountCaptured | undefined;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * The total amount that was charged back for this payment. Only available when the total charged back amount is not
+   *
+   * @remarks
+   * zero.
    */
-  amountChargedBack?: Amount | undefined;
+  amountChargedBack?: AmountChargedBack | undefined;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the
+   *
+   * @remarks
+   * currency your account is settled in.
+   *
+   * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+   * settled by Mollie the `settlementAmount` is omitted from the response.
+   *
+   * Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+   * using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
    */
-  settlementAmount?: Amount | undefined;
+  settlementAmount?: PaymentResponseSettlementAmount | undefined;
   /**
    * The URL your customer will be redirected to after the payment process.
    *
@@ -948,8 +1076,22 @@ export type PaymentResponse = {
    */
   routing?: Array<EntityPaymentRouteResponse> | null | undefined;
   sequenceType: SequenceTypeResponse;
-  subscriptionId?: string | undefined;
-  mandateId?: string | undefined;
+  /**
+   * If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
+   *
+   * @remarks
+   * be added to the response.
+   */
+  subscriptionId?: string | null | undefined;
+  /**
+   * **Only relevant for recurring payments.**
+   *
+   * @remarks
+   *
+   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be credited.
+   */
+  mandateId?: string | null | undefined;
   customerId?: string | undefined;
   /**
    * The identifier referring to the [profile](get-profile) this entity belongs to.
@@ -961,15 +1103,15 @@ export type PaymentResponse = {
    * required.
    */
   profileId: string;
-  settlementId?: string | undefined;
-  orderId?: string | undefined;
   /**
-   * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
-   *
-   * @remarks
-   * statuses occur at what point.
+   * The identifier referring to the [settlement](get-settlement) this payment was settled with.
    */
-  status: PaymentStatus;
+  settlementId?: string | null | undefined;
+  /**
+   * If the payment was created for an [order](get-order), the ID of that order will be part of the response.
+   */
+  orderId?: string | null | undefined;
+  status: PaymentResponseStatus;
   /**
    * This object offers details about the status of a payment. Currently it is only available for point-of-sale
    *
@@ -1043,6 +1185,208 @@ export type PaymentResponse = {
    */
   links: PaymentResponseLinks;
 };
+
+/** @internal */
+export const AmountRefunded$inboundSchema: z.ZodType<
+  AmountRefunded,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type AmountRefunded$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const AmountRefunded$outboundSchema: z.ZodType<
+  AmountRefunded$Outbound,
+  z.ZodTypeDef,
+  AmountRefunded
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function amountRefundedToJSON(amountRefunded: AmountRefunded): string {
+  return JSON.stringify(AmountRefunded$outboundSchema.parse(amountRefunded));
+}
+export function amountRefundedFromJSON(
+  jsonString: string,
+): SafeParseResult<AmountRefunded, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AmountRefunded$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountRefunded' from JSON`,
+  );
+}
+
+/** @internal */
+export const AmountRemaining$inboundSchema: z.ZodType<
+  AmountRemaining,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type AmountRemaining$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const AmountRemaining$outboundSchema: z.ZodType<
+  AmountRemaining$Outbound,
+  z.ZodTypeDef,
+  AmountRemaining
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function amountRemainingToJSON(
+  amountRemaining: AmountRemaining,
+): string {
+  return JSON.stringify(AmountRemaining$outboundSchema.parse(amountRemaining));
+}
+export function amountRemainingFromJSON(
+  jsonString: string,
+): SafeParseResult<AmountRemaining, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AmountRemaining$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountRemaining' from JSON`,
+  );
+}
+
+/** @internal */
+export const AmountCaptured$inboundSchema: z.ZodType<
+  AmountCaptured,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type AmountCaptured$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const AmountCaptured$outboundSchema: z.ZodType<
+  AmountCaptured$Outbound,
+  z.ZodTypeDef,
+  AmountCaptured
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function amountCapturedToJSON(amountCaptured: AmountCaptured): string {
+  return JSON.stringify(AmountCaptured$outboundSchema.parse(amountCaptured));
+}
+export function amountCapturedFromJSON(
+  jsonString: string,
+): SafeParseResult<AmountCaptured, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AmountCaptured$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountCaptured' from JSON`,
+  );
+}
+
+/** @internal */
+export const AmountChargedBack$inboundSchema: z.ZodType<
+  AmountChargedBack,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type AmountChargedBack$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const AmountChargedBack$outboundSchema: z.ZodType<
+  AmountChargedBack$Outbound,
+  z.ZodTypeDef,
+  AmountChargedBack
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function amountChargedBackToJSON(
+  amountChargedBack: AmountChargedBack,
+): string {
+  return JSON.stringify(
+    AmountChargedBack$outboundSchema.parse(amountChargedBack),
+  );
+}
+export function amountChargedBackFromJSON(
+  jsonString: string,
+): SafeParseResult<AmountChargedBack, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AmountChargedBack$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountChargedBack' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaymentResponseSettlementAmount$inboundSchema: z.ZodType<
+  PaymentResponseSettlementAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type PaymentResponseSettlementAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const PaymentResponseSettlementAmount$outboundSchema: z.ZodType<
+  PaymentResponseSettlementAmount$Outbound,
+  z.ZodTypeDef,
+  PaymentResponseSettlementAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function paymentResponseSettlementAmountToJSON(
+  paymentResponseSettlementAmount: PaymentResponseSettlementAmount,
+): string {
+  return JSON.stringify(
+    PaymentResponseSettlementAmount$outboundSchema.parse(
+      paymentResponseSettlementAmount,
+    ),
+  );
+}
+export function paymentResponseSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<PaymentResponseSettlementAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PaymentResponseSettlementAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PaymentResponseSettlementAmount' from JSON`,
+  );
+}
 
 /** @internal */
 export const PaymentResponseLine$inboundSchema: z.ZodType<
@@ -1239,6 +1583,19 @@ export function paymentResponseApplicationFeeFromJSON(
     `Failed to parse 'PaymentResponseApplicationFee' from JSON`,
   );
 }
+
+/** @internal */
+export const PaymentResponseStatus$inboundSchema: z.ZodType<
+  PaymentResponseStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaymentResponseStatus);
+/** @internal */
+export const PaymentResponseStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaymentResponseStatus
+> = openEnums.outboundSchema(PaymentResponseStatus);
 
 /** @internal */
 export const Receipt$inboundSchema: z.ZodType<Receipt, z.ZodTypeDef, unknown> =
@@ -1636,11 +1993,12 @@ export const PaymentResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   description: z.string(),
   amount: Amount$inboundSchema,
-  amountRefunded: Amount$inboundSchema.optional(),
-  amountRemaining: Amount$inboundSchema.optional(),
-  amountCaptured: Amount$inboundSchema.optional(),
-  amountChargedBack: Amount$inboundSchema.optional(),
-  settlementAmount: Amount$inboundSchema.optional(),
+  amountRefunded: z.lazy(() => AmountRefunded$inboundSchema).optional(),
+  amountRemaining: z.lazy(() => AmountRemaining$inboundSchema).optional(),
+  amountCaptured: z.lazy(() => AmountCaptured$inboundSchema).optional(),
+  amountChargedBack: z.lazy(() => AmountChargedBack$inboundSchema).optional(),
+  settlementAmount: z.lazy(() => PaymentResponseSettlementAmount$inboundSchema)
+    .optional(),
   redirectUrl: z.nullable(z.string()).optional(),
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
@@ -1663,13 +2021,13 @@ export const PaymentResponse$inboundSchema: z.ZodType<
   routing: z.nullable(z.array(EntityPaymentRouteResponse$inboundSchema))
     .optional(),
   sequenceType: SequenceTypeResponse$inboundSchema,
-  subscriptionId: z.string().optional(),
-  mandateId: z.string().optional(),
+  subscriptionId: z.nullable(z.string()).optional(),
+  mandateId: z.nullable(z.string()).optional(),
   customerId: z.string().optional(),
   profileId: z.string(),
-  settlementId: z.string().optional(),
-  orderId: z.string().optional(),
-  status: PaymentStatus$inboundSchema,
+  settlementId: z.nullable(z.string()).optional(),
+  orderId: z.nullable(z.string()).optional(),
+  status: PaymentResponseStatus$inboundSchema,
   statusReason: z.nullable(StatusReason$inboundSchema).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
   details: z.nullable(z.lazy(() => PaymentResponseDetails$inboundSchema))
@@ -1694,11 +2052,11 @@ export type PaymentResponse$Outbound = {
   mode: string;
   description: string;
   amount: Amount$Outbound;
-  amountRefunded?: Amount$Outbound | undefined;
-  amountRemaining?: Amount$Outbound | undefined;
-  amountCaptured?: Amount$Outbound | undefined;
-  amountChargedBack?: Amount$Outbound | undefined;
-  settlementAmount?: Amount$Outbound | undefined;
+  amountRefunded?: AmountRefunded$Outbound | undefined;
+  amountRemaining?: AmountRemaining$Outbound | undefined;
+  amountCaptured?: AmountCaptured$Outbound | undefined;
+  amountChargedBack?: AmountChargedBack$Outbound | undefined;
+  settlementAmount?: PaymentResponseSettlementAmount$Outbound | undefined;
   redirectUrl?: string | null | undefined;
   cancelUrl?: string | null | undefined;
   webhookUrl?: string | null | undefined;
@@ -1716,12 +2074,12 @@ export type PaymentResponse$Outbound = {
   applicationFee?: PaymentResponseApplicationFee$Outbound | null | undefined;
   routing?: Array<EntityPaymentRouteResponse$Outbound> | null | undefined;
   sequenceType: string;
-  subscriptionId?: string | undefined;
-  mandateId?: string | undefined;
+  subscriptionId?: string | null | undefined;
+  mandateId?: string | null | undefined;
   customerId?: string | undefined;
   profileId: string;
-  settlementId?: string | undefined;
-  orderId?: string | undefined;
+  settlementId?: string | null | undefined;
+  orderId?: string | null | undefined;
   status: string;
   statusReason?: StatusReason$Outbound | null | undefined;
   isCancelable?: boolean | null | undefined;
@@ -1747,11 +2105,12 @@ export const PaymentResponse$outboundSchema: z.ZodType<
   mode: Mode$outboundSchema,
   description: z.string(),
   amount: Amount$outboundSchema,
-  amountRefunded: Amount$outboundSchema.optional(),
-  amountRemaining: Amount$outboundSchema.optional(),
-  amountCaptured: Amount$outboundSchema.optional(),
-  amountChargedBack: Amount$outboundSchema.optional(),
-  settlementAmount: Amount$outboundSchema.optional(),
+  amountRefunded: z.lazy(() => AmountRefunded$outboundSchema).optional(),
+  amountRemaining: z.lazy(() => AmountRemaining$outboundSchema).optional(),
+  amountCaptured: z.lazy(() => AmountCaptured$outboundSchema).optional(),
+  amountChargedBack: z.lazy(() => AmountChargedBack$outboundSchema).optional(),
+  settlementAmount: z.lazy(() => PaymentResponseSettlementAmount$outboundSchema)
+    .optional(),
   redirectUrl: z.nullable(z.string()).optional(),
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
@@ -1774,13 +2133,13 @@ export const PaymentResponse$outboundSchema: z.ZodType<
   routing: z.nullable(z.array(EntityPaymentRouteResponse$outboundSchema))
     .optional(),
   sequenceType: SequenceTypeResponse$outboundSchema,
-  subscriptionId: z.string().optional(),
-  mandateId: z.string().optional(),
+  subscriptionId: z.nullable(z.string()).optional(),
+  mandateId: z.nullable(z.string()).optional(),
   customerId: z.string().optional(),
   profileId: z.string(),
-  settlementId: z.string().optional(),
-  orderId: z.string().optional(),
-  status: PaymentStatus$outboundSchema,
+  settlementId: z.nullable(z.string()).optional(),
+  orderId: z.nullable(z.string()).optional(),
+  status: PaymentResponseStatus$outboundSchema,
   statusReason: z.nullable(StatusReason$outboundSchema).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
   details: z.nullable(z.lazy(() => PaymentResponseDetails$outboundSchema))

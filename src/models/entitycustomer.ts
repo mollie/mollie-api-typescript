@@ -19,7 +19,6 @@ import {
 } from "./metadata.js";
 
 export type EntityCustomer = {
-  id?: string | undefined;
   /**
    * The full name of the customer.
    */
@@ -57,7 +56,6 @@ export const EntityCustomer$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
   locale: z.nullable(LocaleResponse$inboundSchema).optional(),
@@ -66,7 +64,6 @@ export const EntityCustomer$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type EntityCustomer$Outbound = {
-  id?: string | undefined;
   name?: string | null | undefined;
   email?: string | null | undefined;
   locale?: string | null | undefined;
@@ -80,7 +77,6 @@ export const EntityCustomer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityCustomer
 > = z.object({
-  id: z.string().optional(),
   name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
   locale: z.nullable(LocaleResponse$outboundSchema).optional(),

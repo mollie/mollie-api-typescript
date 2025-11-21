@@ -37,20 +37,11 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCapture: {
-      id: "cpt_vytxeTZskVKR7C7WgdSP3d",
       description: "Capture for cart #12345",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
-      settlementAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      status: "succeeded",
-      paymentId: "tr_5B8cwPMGnU",
-      shipmentId: "shp_5x4xQJDWGNcY3tKGL7X5J",
-      settlementId: "stl_5B8cwPMGnU",
     },
   });
 
@@ -81,20 +72,11 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCapture: {
-      id: "cpt_vytxeTZskVKR7C7WgdSP3d",
       description: "Capture for cart #12345",
       amount: {
         currency: "EUR",
         value: "10.00",
       },
-      settlementAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      status: "succeeded",
-      paymentId: "tr_5B8cwPMGnU",
-      shipmentId: "shp_5x4xQJDWGNcY3tKGL7X5J",
-      settlementId: "stl_5B8cwPMGnU",
     },
   });
   if (res.ok) {

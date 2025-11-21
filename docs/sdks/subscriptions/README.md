@@ -52,8 +52,6 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     subscriptionRequest: {
-      id: "sub_5B8cwPMGnU",
-      status: "active",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -71,7 +69,6 @@ async function run() {
         description: "Platform fee",
       },
       webhookUrl: "https://example.com/webhook",
-      customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       testmode: false,
     },
@@ -104,8 +101,6 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     subscriptionRequest: {
-      id: "sub_5B8cwPMGnU",
-      status: "active",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -123,7 +118,6 @@ async function run() {
         description: "Platform fee",
       },
       webhookUrl: "https://example.com/webhook",
-      customerId: "cst_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       testmode: false,
     },

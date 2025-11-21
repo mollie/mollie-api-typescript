@@ -35,7 +35,6 @@ async function run() {
   const result = await client.salesInvoices.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entitySalesInvoice: {
-      id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
       testmode: false,
       profileId: "pfl_QkEhN94Ba",
       status: "draft",
@@ -75,26 +74,6 @@ async function run() {
       lines: [],
       discount: {
         type: "amount",
-        value: "10.00",
-      },
-      amountDue: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      subtotalAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      totalAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      totalVatAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      discountedSubtotalAmount: {
-        currency: "EUR",
         value: "10.00",
       },
     },
@@ -126,7 +105,6 @@ async function run() {
   const res = await salesInvoicesCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entitySalesInvoice: {
-      id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
       testmode: false,
       profileId: "pfl_QkEhN94Ba",
       status: "draft",
@@ -166,26 +144,6 @@ async function run() {
       lines: [],
       discount: {
         type: "amount",
-        value: "10.00",
-      },
-      amountDue: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      subtotalAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      totalAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      totalVatAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      discountedSubtotalAmount: {
-        currency: "EUR",
         value: "10.00",
       },
     },

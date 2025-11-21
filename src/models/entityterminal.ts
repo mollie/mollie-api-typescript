@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
@@ -19,16 +21,24 @@ import {
   TerminalModel$outboundSchema,
 } from "./terminalmodel.js";
 import {
-  TerminalStatus,
-  TerminalStatus$inboundSchema,
-  TerminalStatus$outboundSchema,
-} from "./terminalstatus.js";
-import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+
+/**
+ * The status of the terminal.
+ */
+export const EntityTerminalStatus = {
+  Pending: "pending",
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+/**
+ * The status of the terminal.
+ */
+export type EntityTerminalStatus = OpenEnum<typeof EntityTerminalStatus>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -49,6 +59,9 @@ export type EntityTerminal = {
    * Indicates the response contains a terminal object. Will always contain the string `terminal` for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this terminal. Example: `term_7MgL4wea46qkRcoTZjWEH`.
+   */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
@@ -62,10 +75,7 @@ export type EntityTerminal = {
    * may be visible on the device itself depending on the device.
    */
   description: string;
-  /**
-   * The status of the terminal.
-   */
-  status: TerminalStatus;
+  status: EntityTerminalStatus;
   /**
    * The brand of the terminal.
    */
@@ -108,6 +118,19 @@ export type EntityTerminal = {
    */
   links: EntityTerminalLinks;
 };
+
+/** @internal */
+export const EntityTerminalStatus$inboundSchema: z.ZodType<
+  EntityTerminalStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntityTerminalStatus);
+/** @internal */
+export const EntityTerminalStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntityTerminalStatus
+> = openEnums.outboundSchema(EntityTerminalStatus);
 
 /** @internal */
 export const EntityTerminalLinks$inboundSchema: z.ZodType<
@@ -161,7 +184,7 @@ export const EntityTerminal$inboundSchema: z.ZodType<
   id: z.string(),
   mode: Mode$inboundSchema,
   description: z.string(),
-  status: TerminalStatus$inboundSchema,
+  status: EntityTerminalStatus$inboundSchema,
   brand: z.nullable(TerminalBrand$inboundSchema),
   model: z.nullable(TerminalModel$inboundSchema),
   serialNumber: z.nullable(z.string()),
@@ -202,7 +225,7 @@ export const EntityTerminal$outboundSchema: z.ZodType<
   id: z.string(),
   mode: Mode$outboundSchema,
   description: z.string(),
-  status: TerminalStatus$outboundSchema,
+  status: EntityTerminalStatus$outboundSchema,
   brand: z.nullable(TerminalBrand$outboundSchema),
   model: z.nullable(TerminalModel$outboundSchema),
   serialNumber: z.nullable(z.string()),

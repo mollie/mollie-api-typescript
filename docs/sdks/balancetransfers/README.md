@@ -32,7 +32,6 @@ async function run() {
   const result = await client.balanceTransfers.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityBalanceTransfer: {
-      id: "cbtr_j8NvRAM2WNZtsykpLEX8J",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -79,7 +78,6 @@ async function run() {
   const res = await balanceTransfersCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityBalanceTransfer: {
-      id: "cbtr_j8NvRAM2WNZtsykpLEX8J",
       amount: {
         currency: "EUR",
         value: "10.00",

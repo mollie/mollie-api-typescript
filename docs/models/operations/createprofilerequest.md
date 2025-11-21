@@ -18,7 +18,6 @@ let value: CreateProfileRequest = {
       "GB",
     ],
     businessCategory: "OTHER_MERCHANDISE",
-    status: "unverified",
   },
 };
 ```

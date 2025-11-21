@@ -45,8 +45,6 @@ async function run() {
       mandateReference: "ID-1023892",
       paypalBillingAgreementId: "B-12A34567B8901234CD",
       payPalVaultId: "8kk8451t",
-      status: "valid",
-      customerId: "cst_5B8cwPMGnU",
       testmode: false,
     },
   });
@@ -88,8 +86,6 @@ async function run() {
       mandateReference: "ID-1023892",
       paypalBillingAgreementId: "B-12A34567B8901234CD",
       payPalVaultId: "8kk8451t",
-      status: "valid",
-      customerId: "cst_5B8cwPMGnU",
       testmode: false,
     },
   });

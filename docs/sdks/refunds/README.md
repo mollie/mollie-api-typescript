@@ -33,22 +33,14 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     refundRequest: {
-      id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
       amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      settlementAmount: {
         currency: "EUR",
         value: "10.00",
       },
       metadata: {
 
       },
-      paymentId: "tr_5B8cwPMGnU",
-      settlementId: "stl_5B8cwPMGnU",
-      status: "queued",
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",
@@ -97,22 +89,14 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     refundRequest: {
-      id: "re_5B8cwPMGnU",
       description: "Refunding a Chess Board",
       amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      settlementAmount: {
         currency: "EUR",
         value: "10.00",
       },
       metadata: {
   
       },
-      paymentId: "tr_5B8cwPMGnU",
-      settlementId: "stl_5B8cwPMGnU",
-      status: "queued",
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",

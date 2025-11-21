@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -14,16 +16,70 @@ import {
 } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  InvoiceStatus,
-  InvoiceStatus$inboundSchema,
-  InvoiceStatus$outboundSchema,
-} from "./invoicestatus.js";
-import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+
+/**
+ * Status of the invoice.
+ */
+export const EntityInvoiceStatus = {
+  Open: "open",
+  Paid: "paid",
+  Overdue: "overdue",
+} as const;
+/**
+ * Status of the invoice.
+ */
+export type EntityInvoiceStatus = OpenEnum<typeof EntityInvoiceStatus>;
+
+/**
+ * Total amount of the invoice, excluding VAT.
+ */
+export type NetAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
+ *
+ * @remarks
+ * be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
+ * the EU, no VAT will be charged.
+ */
+export type VatAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * Total amount of the invoice, including VAT.
+ */
+export type GrossAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
 
 export type EntityInvoiceLine = {
   /**
@@ -83,22 +139,23 @@ export type EntityInvoice = {
    * The VAT number to which the invoice was issued to, if applicable.
    */
   vatNumber: string | null;
+  status: EntityInvoiceStatus;
   /**
-   * Status of the invoice.
+   * Total amount of the invoice, excluding VAT.
    */
-  status: InvoiceStatus;
+  netAmount: NetAmount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
+   *
+   * @remarks
+   * be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
+   * the EU, no VAT will be charged.
    */
-  netAmount: Amount;
+  vatAmount: VatAmount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * Total amount of the invoice, including VAT.
    */
-  vatAmount: Amount;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  grossAmount: Amount;
+  grossAmount: GrossAmount;
   /**
    * The collection of products which make up the invoice.
    */
@@ -120,6 +177,133 @@ export type EntityInvoice = {
    */
   links: EntityInvoiceLinks;
 };
+
+/** @internal */
+export const EntityInvoiceStatus$inboundSchema: z.ZodType<
+  EntityInvoiceStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntityInvoiceStatus);
+/** @internal */
+export const EntityInvoiceStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntityInvoiceStatus
+> = openEnums.outboundSchema(EntityInvoiceStatus);
+
+/** @internal */
+export const NetAmount$inboundSchema: z.ZodType<
+  NetAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type NetAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const NetAmount$outboundSchema: z.ZodType<
+  NetAmount$Outbound,
+  z.ZodTypeDef,
+  NetAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function netAmountToJSON(netAmount: NetAmount): string {
+  return JSON.stringify(NetAmount$outboundSchema.parse(netAmount));
+}
+export function netAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<NetAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NetAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NetAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const VatAmount$inboundSchema: z.ZodType<
+  VatAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type VatAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const VatAmount$outboundSchema: z.ZodType<
+  VatAmount$Outbound,
+  z.ZodTypeDef,
+  VatAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function vatAmountToJSON(vatAmount: VatAmount): string {
+  return JSON.stringify(VatAmount$outboundSchema.parse(vatAmount));
+}
+export function vatAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<VatAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VatAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VatAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const GrossAmount$inboundSchema: z.ZodType<
+  GrossAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type GrossAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const GrossAmount$outboundSchema: z.ZodType<
+  GrossAmount$Outbound,
+  z.ZodTypeDef,
+  GrossAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function grossAmountToJSON(grossAmount: GrossAmount): string {
+  return JSON.stringify(GrossAmount$outboundSchema.parse(grossAmount));
+}
+export function grossAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<GrossAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GrossAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GrossAmount' from JSON`,
+  );
+}
 
 /** @internal */
 export const EntityInvoiceLine$inboundSchema: z.ZodType<
@@ -227,10 +411,10 @@ export const EntityInvoice$inboundSchema: z.ZodType<
   id: z.string(),
   reference: z.string(),
   vatNumber: z.nullable(z.string()),
-  status: InvoiceStatus$inboundSchema,
-  netAmount: Amount$inboundSchema,
-  vatAmount: Amount$inboundSchema,
-  grossAmount: Amount$inboundSchema,
+  status: EntityInvoiceStatus$inboundSchema,
+  netAmount: z.lazy(() => NetAmount$inboundSchema),
+  vatAmount: z.lazy(() => VatAmount$inboundSchema),
+  grossAmount: z.lazy(() => GrossAmount$inboundSchema),
   lines: z.array(z.lazy(() => EntityInvoiceLine$inboundSchema)),
   issuedAt: z.string(),
   paidAt: z.nullable(z.string()).optional(),
@@ -248,9 +432,9 @@ export type EntityInvoice$Outbound = {
   reference: string;
   vatNumber: string | null;
   status: string;
-  netAmount: Amount$Outbound;
-  vatAmount: Amount$Outbound;
-  grossAmount: Amount$Outbound;
+  netAmount: NetAmount$Outbound;
+  vatAmount: VatAmount$Outbound;
+  grossAmount: GrossAmount$Outbound;
   lines: Array<EntityInvoiceLine$Outbound>;
   issuedAt: string;
   paidAt?: string | null | undefined;
@@ -268,10 +452,10 @@ export const EntityInvoice$outboundSchema: z.ZodType<
   id: z.string(),
   reference: z.string(),
   vatNumber: z.nullable(z.string()),
-  status: InvoiceStatus$outboundSchema,
-  netAmount: Amount$outboundSchema,
-  vatAmount: Amount$outboundSchema,
-  grossAmount: Amount$outboundSchema,
+  status: EntityInvoiceStatus$outboundSchema,
+  netAmount: z.lazy(() => NetAmount$outboundSchema),
+  vatAmount: z.lazy(() => VatAmount$outboundSchema),
+  grossAmount: z.lazy(() => GrossAmount$outboundSchema),
   lines: z.array(z.lazy(() => EntityInvoiceLine$outboundSchema)),
   issuedAt: z.string(),
   paidAt: z.nullable(z.string()).optional(),

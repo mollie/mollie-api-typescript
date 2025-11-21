@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Address,
@@ -13,11 +15,6 @@ import {
   Address$outboundSchema,
 } from "./address.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  LocaleResponse,
-  LocaleResponse$inboundSchema,
-  LocaleResponse$outboundSchema,
-} from "./localeresponse.js";
 import {
   OrganizationVatRegulation,
   OrganizationVatRegulation$inboundSchema,
@@ -29,6 +26,41 @@ import {
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+
+/**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export const EntityOrganizationLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+  ESES: "es_ES",
+  CaES: "ca_ES",
+  PTPT: "pt_PT",
+  ITIT: "it_IT",
+  NbNO: "nb_NO",
+  SvSE: "sv_SE",
+  FIFI: "fi_FI",
+  DaDK: "da_DK",
+  ISIS: "is_IS",
+  HUHU: "hu_HU",
+  PLPL: "pl_PL",
+  LVLV: "lv_LV",
+  LTLT: "lt_LT",
+  Null: "null",
+} as const;
+/**
+ * The preferred locale of the merchant, as set in their Mollie dashboard.
+ */
+export type EntityOrganizationLocale = OpenEnum<
+  typeof EntityOrganizationLocale
+>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -66,9 +98,9 @@ export type EntityOrganization = {
    */
   email: string;
   /**
-   * Allows you to preset the language to be used.
+   * The preferred locale of the merchant, as set in their Mollie dashboard.
    */
-  locale: LocaleResponse | null;
+  locale: EntityOrganizationLocale | null;
   address: Address;
   /**
    * The registration number of the organization at their local chamber of commerce.
@@ -97,6 +129,19 @@ export type EntityOrganization = {
    */
   links: EntityOrganizationLinks;
 };
+
+/** @internal */
+export const EntityOrganizationLocale$inboundSchema: z.ZodType<
+  EntityOrganizationLocale,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntityOrganizationLocale);
+/** @internal */
+export const EntityOrganizationLocale$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntityOrganizationLocale
+> = openEnums.outboundSchema(EntityOrganizationLocale);
 
 /** @internal */
 export const EntityOrganizationLinks$inboundSchema: z.ZodType<
@@ -153,7 +198,7 @@ export const EntityOrganization$inboundSchema: z.ZodType<
   id: z.string(),
   name: z.string(),
   email: z.string(),
-  locale: z.nullable(LocaleResponse$inboundSchema),
+  locale: z.nullable(EntityOrganizationLocale$inboundSchema),
   address: Address$inboundSchema,
   registrationNumber: z.string(),
   vatNumber: z.nullable(z.string()).optional(),
@@ -188,7 +233,7 @@ export const EntityOrganization$outboundSchema: z.ZodType<
   id: z.string(),
   name: z.string(),
   email: z.string(),
-  locale: z.nullable(LocaleResponse$outboundSchema),
+  locale: z.nullable(EntityOrganizationLocale$outboundSchema),
   address: Address$outboundSchema,
   registrationNumber: z.string(),
   vatNumber: z.nullable(z.string()).optional(),

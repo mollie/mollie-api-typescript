@@ -11,7 +11,6 @@ let value: EntityRefundResponseRoutingReversal = {
     value: "10.00",
   },
   source: {
-    type: "organization",
     organizationId: "org_1234567",
   },
 };

@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -17,11 +19,6 @@ import {
   MandateMethodResponse$inboundSchema,
   MandateMethodResponse$outboundSchema,
 } from "./mandatemethodresponse.js";
-import {
-  MandateStatus,
-  MandateStatus$inboundSchema,
-  MandateStatus$outboundSchema,
-} from "./mandatestatus.js";
 import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
 import {
   Url,
@@ -69,6 +66,25 @@ export type MandateResponseDetails = {
 };
 
 /**
+ * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+ *
+ * @remarks
+ * when we did not received the IBAN yet from the first payment.
+ */
+export const MandateResponseStatus = {
+  Valid: "valid",
+  Pending: "pending",
+  Invalid: "invalid",
+} as const;
+/**
+ * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+ *
+ * @remarks
+ * when we did not received the IBAN yet from the first payment.
+ */
+export type MandateResponseStatus = OpenEnum<typeof MandateResponseStatus>;
+
+/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type MandateResponseLinks = {
@@ -91,6 +107,9 @@ export type MandateResponse = {
    * Indicates the response contains a mandate object. Will always contain the string `mandate` for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.
+   */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
@@ -116,13 +135,10 @@ export type MandateResponse = {
    * decline Direct Debit payments if the mandate reference is not unique.
    */
   mandateReference: string | null;
+  status: MandateResponseStatus;
   /**
-   * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
-   *
-   * @remarks
-   * when we did not received the IBAN yet from the first payment.
+   * The identifier referring to the [customer](get-customer) this mandate was linked to.
    */
-  status: MandateStatus;
   customerId: string;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -197,6 +213,19 @@ export function mandateResponseDetailsFromJSON(
 }
 
 /** @internal */
+export const MandateResponseStatus$inboundSchema: z.ZodType<
+  MandateResponseStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(MandateResponseStatus);
+/** @internal */
+export const MandateResponseStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MandateResponseStatus
+> = openEnums.outboundSchema(MandateResponseStatus);
+
+/** @internal */
 export const MandateResponseLinks$inboundSchema: z.ZodType<
   MandateResponseLinks,
   z.ZodTypeDef,
@@ -254,7 +283,7 @@ export const MandateResponse$inboundSchema: z.ZodType<
   details: z.lazy(() => MandateResponseDetails$inboundSchema),
   signatureDate: z.nullable(z.string()),
   mandateReference: z.nullable(z.string()),
-  status: MandateStatus$inboundSchema,
+  status: MandateResponseStatus$inboundSchema,
   customerId: z.string(),
   createdAt: z.string(),
   _links: z.lazy(() => MandateResponseLinks$inboundSchema),
@@ -291,7 +320,7 @@ export const MandateResponse$outboundSchema: z.ZodType<
   details: z.lazy(() => MandateResponseDetails$outboundSchema),
   signatureDate: z.nullable(z.string()),
   mandateReference: z.nullable(z.string()),
-  status: MandateStatus$outboundSchema,
+  status: MandateResponseStatus$outboundSchema,
   customerId: z.string(),
   createdAt: z.string(),
   links: z.lazy(() => MandateResponseLinks$outboundSchema),

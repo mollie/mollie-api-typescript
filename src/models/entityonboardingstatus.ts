@@ -5,19 +5,31 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  OnboardingStatus,
-  OnboardingStatus$inboundSchema,
-  OnboardingStatus$outboundSchema,
-} from "./onboardingstatus.js";
 import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+
+/**
+ * The current status of the organization's onboarding process.
+ */
+export const EntityOnboardingStatusStatus = {
+  NeedsData: "needs-data",
+  InReview: "in-review",
+  Completed: "completed",
+} as const;
+/**
+ * The current status of the organization's onboarding process.
+ */
+export type EntityOnboardingStatusStatus = OpenEnum<
+  typeof EntityOnboardingStatusStatus
+>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -53,10 +65,7 @@ export type EntityOnboardingStatus = {
    * The name of the organization.
    */
   name: string;
-  /**
-   * The current status of the organization's onboarding process.
-   */
-  status: OnboardingStatus;
+  status: EntityOnboardingStatusStatus;
   /**
    * Whether the organization can receive payments.
    */
@@ -74,6 +83,19 @@ export type EntityOnboardingStatus = {
    */
   links: EntityOnboardingStatusLinks;
 };
+
+/** @internal */
+export const EntityOnboardingStatusStatus$inboundSchema: z.ZodType<
+  EntityOnboardingStatusStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntityOnboardingStatusStatus);
+/** @internal */
+export const EntityOnboardingStatusStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntityOnboardingStatusStatus
+> = openEnums.outboundSchema(EntityOnboardingStatusStatus);
 
 /** @internal */
 export const EntityOnboardingStatusLinks$inboundSchema: z.ZodType<
@@ -133,7 +155,7 @@ export const EntityOnboardingStatus$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   name: z.string(),
-  status: OnboardingStatus$inboundSchema,
+  status: EntityOnboardingStatusStatus$inboundSchema,
   canReceivePayments: z.boolean(),
   canReceiveSettlements: z.boolean(),
   signedUpAt: z.string(),
@@ -162,7 +184,7 @@ export const EntityOnboardingStatus$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   name: z.string(),
-  status: OnboardingStatus$outboundSchema,
+  status: EntityOnboardingStatusStatus$outboundSchema,
   canReceivePayments: z.boolean(),
   canReceiveSettlements: z.boolean(),
   signedUpAt: z.string(),

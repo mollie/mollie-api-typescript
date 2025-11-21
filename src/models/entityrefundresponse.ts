@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -12,12 +14,6 @@ import {
   Amount$Outbound,
   Amount$outboundSchema,
 } from "./amount.js";
-import {
-  AmountNullable,
-  AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
-} from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Metadata,
@@ -32,16 +28,6 @@ import {
   RefundExternalReferenceTypeResponse$outboundSchema,
 } from "./refundexternalreferencetyperesponse.js";
 import {
-  RefundRoutingReversalsSourceType,
-  RefundRoutingReversalsSourceType$inboundSchema,
-  RefundRoutingReversalsSourceType$outboundSchema,
-} from "./refundroutingreversalssourcetype.js";
-import {
-  RefundStatus,
-  RefundStatus$inboundSchema,
-  RefundStatus$outboundSchema,
-} from "./refundstatus.js";
-import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
@@ -53,6 +39,46 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
+
+/**
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
+ *
+ * @remarks
+ * to the currency your account is settled in.
+ *
+ * The amount is a **negative** amount.
+ *
+ * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+ * zero.
+ *
+ * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+ * the refund is queued the settlement amount is likely not yet available.
+ *
+ * To retrieve accurate settlement amounts we recommend using the
+ * [List balance transactions endpoint](list-balance-transactions) instead.
+ */
+export type EntityRefundResponseSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+export const EntityRefundResponseStatus = {
+  Queued: "queued",
+  Pending: "pending",
+  Processing: "processing",
+  Refunded: "refunded",
+  Failed: "failed",
+  Canceled: "canceled",
+} as const;
+export type EntityRefundResponseStatus = OpenEnum<
+  typeof EntityRefundResponseStatus
+>;
 
 export type EntityRefundResponseExternalReference = {
   /**
@@ -69,10 +95,6 @@ export type EntityRefundResponseExternalReference = {
  * Where the funds will be pulled back from.
  */
 export type EntityRefundResponseSource = {
-  /**
-   * The type of source. Currently only the source type `organization` is supported.
-   */
-  type?: RefundRoutingReversalsSourceType | undefined;
   organizationId?: string | undefined;
 };
 
@@ -114,6 +136,12 @@ export type EntityRefundResponse = {
    * Indicates the response contains a refund object. Will always contain the string `refund` for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
+   */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
@@ -128,9 +156,23 @@ export type EntityRefundResponse = {
    */
   amount: Amount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
+   *
+   * @remarks
+   * to the currency your account is settled in.
+   *
+   * The amount is a **negative** amount.
+   *
+   * If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+   * zero.
+   *
+   * Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+   * the refund is queued the settlement amount is likely not yet available.
+   *
+   * To retrieve accurate settlement amounts we recommend using the
+   * [List balance transactions endpoint](list-balance-transactions) instead.
    */
-  settlementAmount?: AmountNullable | null | undefined;
+  settlementAmount?: EntityRefundResponseSettlementAmount | null | undefined;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
@@ -138,9 +180,18 @@ export type EntityRefundResponse = {
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata: Metadata | null;
+  /**
+   * The unique identifier of the payment this refund was created for.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
+   */
   paymentId?: string | undefined;
-  settlementId?: string | undefined;
-  status: RefundStatus;
+  /**
+   * The identifier referring to the settlement this refund was settled with. This field is omitted if the refund is not settled (yet).
+   */
+  settlementId?: string | null | undefined;
+  status: EntityRefundResponseStatus;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -167,6 +218,64 @@ export type EntityRefundResponse = {
    */
   links: EntityRefundResponseLinks;
 };
+
+/** @internal */
+export const EntityRefundResponseSettlementAmount$inboundSchema: z.ZodType<
+  EntityRefundResponseSettlementAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type EntityRefundResponseSettlementAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const EntityRefundResponseSettlementAmount$outboundSchema: z.ZodType<
+  EntityRefundResponseSettlementAmount$Outbound,
+  z.ZodTypeDef,
+  EntityRefundResponseSettlementAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function entityRefundResponseSettlementAmountToJSON(
+  entityRefundResponseSettlementAmount: EntityRefundResponseSettlementAmount,
+): string {
+  return JSON.stringify(
+    EntityRefundResponseSettlementAmount$outboundSchema.parse(
+      entityRefundResponseSettlementAmount,
+    ),
+  );
+}
+export function entityRefundResponseSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<EntityRefundResponseSettlementAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EntityRefundResponseSettlementAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityRefundResponseSettlementAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const EntityRefundResponseStatus$inboundSchema: z.ZodType<
+  EntityRefundResponseStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntityRefundResponseStatus);
+/** @internal */
+export const EntityRefundResponseStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntityRefundResponseStatus
+> = openEnums.outboundSchema(EntityRefundResponseStatus);
 
 /** @internal */
 export const EntityRefundResponseExternalReference$inboundSchema: z.ZodType<
@@ -219,12 +328,10 @@ export const EntityRefundResponseSource$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RefundRoutingReversalsSourceType$inboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 /** @internal */
 export type EntityRefundResponseSource$Outbound = {
-  type?: string | undefined;
   organizationId?: string | undefined;
 };
 
@@ -234,7 +341,6 @@ export const EntityRefundResponseSource$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityRefundResponseSource
 > = z.object({
-  type: RefundRoutingReversalsSourceType$outboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 
@@ -359,11 +465,13 @@ export const EntityRefundResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   description: z.string(),
   amount: Amount$inboundSchema,
-  settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
+  settlementAmount: z.nullable(
+    z.lazy(() => EntityRefundResponseSettlementAmount$inboundSchema),
+  ).optional(),
   metadata: z.nullable(Metadata$inboundSchema),
   paymentId: z.string().optional(),
-  settlementId: z.string().optional(),
-  status: RefundStatus$inboundSchema,
+  settlementId: z.nullable(z.string()).optional(),
+  status: EntityRefundResponseStatus$inboundSchema,
   createdAt: z.string(),
   externalReference: z.lazy(() =>
     EntityRefundResponseExternalReference$inboundSchema
@@ -384,10 +492,13 @@ export type EntityRefundResponse$Outbound = {
   mode: string;
   description: string;
   amount: Amount$Outbound;
-  settlementAmount?: AmountNullable$Outbound | null | undefined;
+  settlementAmount?:
+    | EntityRefundResponseSettlementAmount$Outbound
+    | null
+    | undefined;
   metadata: Metadata$Outbound | null;
   paymentId?: string | undefined;
-  settlementId?: string | undefined;
+  settlementId?: string | null | undefined;
   status: string;
   createdAt: string;
   externalReference?:
@@ -411,11 +522,13 @@ export const EntityRefundResponse$outboundSchema: z.ZodType<
   mode: Mode$outboundSchema,
   description: z.string(),
   amount: Amount$outboundSchema,
-  settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
+  settlementAmount: z.nullable(
+    z.lazy(() => EntityRefundResponseSettlementAmount$outboundSchema),
+  ).optional(),
   metadata: z.nullable(Metadata$outboundSchema),
   paymentId: z.string().optional(),
-  settlementId: z.string().optional(),
-  status: RefundStatus$outboundSchema,
+  settlementId: z.nullable(z.string()).optional(),
+  status: EntityRefundResponseStatus$outboundSchema,
   createdAt: z.string(),
   externalReference: z.lazy(() =>
     EntityRefundResponseExternalReference$outboundSchema

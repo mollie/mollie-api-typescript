@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -25,11 +27,25 @@ import {
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
-import {
-  WebhookEventTypes,
-  WebhookEventTypes$inboundSchema,
-  WebhookEventTypes$outboundSchema,
-} from "./webhookeventtypes.js";
+
+/**
+ * The event's type
+ */
+export const EntityWebhookEventWebhookEventTypes = {
+  PaymentLinkPaid: "payment-link.paid",
+  BalanceTransactionCreated: "balance-transaction.created",
+  SalesInvoiceCreated: "sales-invoice.created",
+  SalesInvoiceIssued: "sales-invoice.issued",
+  SalesInvoiceCanceled: "sales-invoice.canceled",
+  SalesInvoicePaid: "sales-invoice.paid",
+  Wildcard: "*",
+} as const;
+/**
+ * The event's type
+ */
+export type EntityWebhookEventWebhookEventTypes = OpenEnum<
+  typeof EntityWebhookEventWebhookEventTypes
+>;
 
 export type Entity = PaymentLinkResponse | ProfileResponse;
 
@@ -67,10 +83,7 @@ export type EntityWebhookEvent = {
    * The identifier uniquely referring to this event.
    */
   id: string;
-  /**
-   * The event's type
-   */
-  webhookEventTypes: WebhookEventTypes;
+  webhookEventTypes: EntityWebhookEventWebhookEventTypes;
   /**
    * The entity token that triggered the event
    */
@@ -88,6 +101,19 @@ export type EntityWebhookEvent = {
    */
   links: EntityWebhookEventLinks;
 };
+
+/** @internal */
+export const EntityWebhookEventWebhookEventTypes$inboundSchema: z.ZodType<
+  EntityWebhookEventWebhookEventTypes,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntityWebhookEventWebhookEventTypes);
+/** @internal */
+export const EntityWebhookEventWebhookEventTypes$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntityWebhookEventWebhookEventTypes
+> = openEnums.outboundSchema(EntityWebhookEventWebhookEventTypes);
 
 /** @internal */
 export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
@@ -214,7 +240,7 @@ export const EntityWebhookEvent$inboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  type: WebhookEventTypes$inboundSchema,
+  type: EntityWebhookEventWebhookEventTypes$inboundSchema,
   entityId: z.string(),
   createdAt: z.string(),
   _embedded: z.nullable(z.lazy(() => Embedded$inboundSchema)).optional(),
@@ -245,7 +271,7 @@ export const EntityWebhookEvent$outboundSchema: z.ZodType<
 > = z.object({
   resource: z.string(),
   id: z.string(),
-  webhookEventTypes: WebhookEventTypes$outboundSchema,
+  webhookEventTypes: EntityWebhookEventWebhookEventTypes$outboundSchema,
   entityId: z.string(),
   createdAt: z.string(),
   embedded: z.nullable(z.lazy(() => Embedded$outboundSchema)).optional(),

@@ -283,7 +283,6 @@ export type Company = {
 };
 
 export type PaymentRequest = {
-  id?: string | undefined;
   /**
    * The description of the payment. This will be shown to your customer on their card or bank statement when possible.
    *
@@ -302,26 +301,6 @@ export type PaymentRequest = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: Amount;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  amountRefunded?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  amountRemaining?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  amountCaptured?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  amountChargedBack?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  settlementAmount?: Amount | undefined;
   /**
    * The URL your customer will be redirected to after the payment process.
    *
@@ -501,8 +480,15 @@ export type PaymentRequest = {
    */
   routing?: Array<EntityPaymentRoute> | null | undefined;
   sequenceType?: SequenceType | undefined;
-  subscriptionId?: string | undefined;
-  mandateId?: string | undefined;
+  /**
+   * **Only relevant for recurring payments.**
+   *
+   * @remarks
+   *
+   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be credited.
+   */
+  mandateId?: string | null | undefined;
   customerId?: string | undefined;
   /**
    * The identifier referring to the [profile](get-profile) this entity belongs to.
@@ -514,8 +500,6 @@ export type PaymentRequest = {
    * required.
    */
   profileId?: string | undefined;
-  settlementId?: string | undefined;
-  orderId?: string | undefined;
   /**
    * The date by which the payment should be completed in `YYYY-MM-DD` format
    */
@@ -849,14 +833,8 @@ export const PaymentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
   description: z.string(),
   amount: Amount$inboundSchema,
-  amountRefunded: Amount$inboundSchema.optional(),
-  amountRemaining: Amount$inboundSchema.optional(),
-  amountCaptured: Amount$inboundSchema.optional(),
-  amountChargedBack: Amount$inboundSchema.optional(),
-  settlementAmount: Amount$inboundSchema.optional(),
   redirectUrl: z.nullable(z.string()),
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
@@ -877,12 +855,9 @@ export const PaymentRequest$inboundSchema: z.ZodType<
   ).optional(),
   routing: z.nullable(z.array(EntityPaymentRoute$inboundSchema)).optional(),
   sequenceType: SequenceType$inboundSchema.optional(),
-  subscriptionId: z.string().optional(),
-  mandateId: z.string().optional(),
+  mandateId: z.nullable(z.string()).optional(),
   customerId: z.string().optional(),
   profileId: z.string().optional(),
-  settlementId: z.string().optional(),
-  orderId: z.string().optional(),
   dueDate: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
   applePayPaymentToken: z.string().optional(),
@@ -899,14 +874,8 @@ export const PaymentRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PaymentRequest$Outbound = {
-  id?: string | undefined;
   description: string;
   amount: Amount$Outbound;
-  amountRefunded?: Amount$Outbound | undefined;
-  amountRemaining?: Amount$Outbound | undefined;
-  amountCaptured?: Amount$Outbound | undefined;
-  amountChargedBack?: Amount$Outbound | undefined;
-  settlementAmount?: Amount$Outbound | undefined;
   redirectUrl: string | null;
   cancelUrl?: string | null | undefined;
   webhookUrl?: string | null | undefined;
@@ -923,12 +892,9 @@ export type PaymentRequest$Outbound = {
   applicationFee?: PaymentRequestApplicationFee$Outbound | null | undefined;
   routing?: Array<EntityPaymentRoute$Outbound> | null | undefined;
   sequenceType?: string | undefined;
-  subscriptionId?: string | undefined;
-  mandateId?: string | undefined;
+  mandateId?: string | null | undefined;
   customerId?: string | undefined;
   profileId?: string | undefined;
-  settlementId?: string | undefined;
-  orderId?: string | undefined;
   dueDate?: string | undefined;
   testmode?: boolean | null | undefined;
   applePayPaymentToken?: string | undefined;
@@ -950,14 +916,8 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentRequest
 > = z.object({
-  id: z.string().optional(),
   description: z.string(),
   amount: Amount$outboundSchema,
-  amountRefunded: Amount$outboundSchema.optional(),
-  amountRemaining: Amount$outboundSchema.optional(),
-  amountCaptured: Amount$outboundSchema.optional(),
-  amountChargedBack: Amount$outboundSchema.optional(),
-  settlementAmount: Amount$outboundSchema.optional(),
   redirectUrl: z.nullable(z.string()),
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
@@ -978,12 +938,9 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   ).optional(),
   routing: z.nullable(z.array(EntityPaymentRoute$outboundSchema)).optional(),
   sequenceType: SequenceType$outboundSchema.optional(),
-  subscriptionId: z.string().optional(),
-  mandateId: z.string().optional(),
+  mandateId: z.nullable(z.string()).optional(),
   customerId: z.string().optional(),
   profileId: z.string().optional(),
-  settlementId: z.string().optional(),
-  orderId: z.string().optional(),
   dueDate: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
   applePayPaymentToken: z.string().optional(),

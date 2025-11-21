@@ -15682,12 +15682,6 @@ paths:
     parameters:
       - $ref: '#/components/parameters/parent-profile-id'
       - $ref: '#/components/parameters/parent-method-id'
-        schema:
-          type: string
-          enum:
-            - voucher
-            - giftcard
-          example: voucher
       - $ref: '#/components/parameters/id'
         schema:
           type: string
@@ -17851,7 +17845,8 @@ paths:
                   readOnly: true
                   example: payment-link
                 id:
-                  $ref: '#/components/schemas/paymentLinkToken'
+                  allOf:
+                    - $ref: '#/components/schemas/paymentLinkToken'
                   description: 'The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.'
                   readOnly: true
                 mode:
@@ -27058,8 +27053,7 @@ components:
       in: path
       required: true
       schema:
-        type: string
-        example: voucher
+        $ref: '#/components/schemas/method-id-with-issuer'
     parent-refund-id:
       name: refundId
       description: Provide the ID of the related refund.
@@ -27282,7 +27276,8 @@ components:
           readOnly: true
           example: balance
         id:
-          $ref: '#/components/schemas/balanceToken'
+          allOf:
+            - $ref: '#/components/schemas/balanceToken'
           description: The identifier uniquely referring to this balance.
           readOnly: true
         mode:
@@ -27290,7 +27285,8 @@ components:
         createdAt:
           $ref: '#/components/schemas/created-at'
         currency:
-          $ref: '#/components/schemas/currencies'
+          allOf:
+            - $ref: '#/components/schemas/currencies'
           description: The balance's ISO 4217 currency code.
           readOnly: true
         description:
@@ -27299,13 +27295,16 @@ components:
           readOnly: true
           example: Balance description
         status:
-          $ref: '#/components/schemas/balance-status'
+          allOf:
+            - $ref: '#/components/schemas/balance-status'
           readOnly: true
         transferFrequency:
-          $ref: '#/components/schemas/balance-transfer-frequency'
+          allOf:
+            - $ref: '#/components/schemas/balance-transfer-frequency'
           readOnly: true
         transferThreshold:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
             this threshold, the complete balance will be paid out to the transfer destination according to the configured
@@ -27338,11 +27337,13 @@ components:
               example: John Doe
           readOnly: true
         availableAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The amount directly available on the balance, e.g. `{"currency":"EUR", "value":"100.00"}`.
           readOnly: true
         pendingAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
             few days to clear.
@@ -27497,6 +27498,117 @@ components:
         - voucher
       example: creditcard
       x-speakeasy-unknown-values: allow
+    balance-card-issuer:
+      type: string
+      enum:
+        - amex
+        - maestro
+        - carte-bancaire
+        - other
+      example: amex
+      x-speakeasy-unknown-values: allow
+    balance-card-audience:
+      type: string
+      enum:
+        - corporate
+        - other
+      example: other
+      x-speakeasy-unknown-values: allow
+    balance-card-region:
+      type: string
+      enum:
+        - intra-eea
+        - intra-eu
+        - domestic
+        - other
+      example: domestic
+      x-speakeasy-unknown-values: allow
+    balance-fee-type:
+      type: string
+      enum:
+        - payment-fee
+        - direct-debit-failure-fee
+        - unauthorized-direct-debit-fee
+        - bank-charged-direct-debit-failure-fee
+        - partner-commission
+        - application-fee
+        - capture-fee
+        - refund-fee
+        - chargeback-fee
+        - payment-notification-fee
+        - transfer-notification-fee
+        - payout-fee
+        - fee-discount
+        - fee-reimbursement
+        - platform-volume-fee
+        - platform-connected-organizations-fee
+        - balance-charge-fee
+        - 3ds-authentication-attempt-fee
+        - terminal-monthly-fee
+        - acceptance-risk-fee
+        - top-up-fee
+        - payment-gateway-fee
+        - mastercard-specialty-merchant-program-processing-fee
+        - mastercard-specialty-merchant-program-registration-fee
+        - visa-integrity-risk-program-processing-fee
+        - visa-integrity-risk-program-registration-fee
+        - minimum-invoice-amount-fee
+      example: payment-fee
+      x-speakeasy-unknown-values: allow
+    balance-prepayment-part-type:
+      type: string
+      enum:
+        - fee
+        - fee-reimbursement
+        - fee-discount
+        - fee-vat
+        - fee-rounding-compensation
+      example: fee
+      x-speakeasy-unknown-values: allow
+    balance-transaction-type:
+      type: string
+      enum:
+        - payment
+        - split-payment
+        - failed-payment
+        - failed-platform-split-payment
+        - failed-split-payment-compensation
+        - capture
+        - split-transaction
+        - refund
+        - platform-payment-refund
+        - returned-platform-payment-refund
+        - refund-compensation
+        - returned-refund-compensation
+        - returned-refund
+        - chargeback
+        - chargeback-reversal
+        - chargeback-compensation
+        - reversed-chargeback-compensation
+        - platform-payment-chargeback
+        - reversed-platform-payment-chargeback
+        - fee-prepayment
+        - outgoing-transfer
+        - incoming-transfer
+        - canceled-transfer
+        - returned-transfer
+        - balance-reserve
+        - balance-reserve-return
+        - invoice-rounding-compensation
+        - rolling-reserve-hold
+        - rolling-reserve-release
+        - balance-correction
+        - repayment
+        - loan
+        - balance-topup
+        - cash-collateral-issuance';
+        - cash-collateral-release
+        - pending-rolling-reserve
+        - to-be-released-rolling-reserve
+        - held-rolling-reserve
+        - released-rolling-reserve
+      example: payment
+      x-speakeasy-unknown-values: allow
     sub-totals:
       type: object
       properties:
@@ -27511,125 +27623,38 @@ components:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-card-issuer'
           description: In case of payments transactions with card, the card issuer will be available
-          enum:
-            - amex
-            - maestro
-            - carte-bancaire
-            - other
-          example: amex
         cardAudience:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-card-audience'
           description: In case of payments trnsactions with card, the card audience will be available.
-          enum:
-            - corporate
-            - other
-          example: other
         cardRegion:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-card-region'
           description: In case of payments transactions with card, the card region will be available.
-          enum:
-            - intra-eea
-            - intra-eu
-            - domestic
-            - other
-          example: domestic
         feeType:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-fee-type'
           description: Present when the transaction represents a fee.
-          enum:
-            - payment-fee
-            - direct-debit-failure-fee
-            - unauthorized-direct-debit-fee
-            - bank-charged-direct-debit-failure-fee
-            - partner-commission
-            - application-fee
-            - capture-fee
-            - refund-fee
-            - chargeback-fee
-            - payment-notification-fee
-            - transfer-notification-fee
-            - payout-fee
-            - fee-discount
-            - fee-reimbursement
-            - platform-volume-fee
-            - platform-connected-organizations-fee
-            - balance-charge-fee
-            - 3ds-authentication-attempt-fee
-            - terminal-monthly-fee
-            - acceptance-risk-fee
-            - top-up-fee
-            - payment-gateway-fee
-            - mastercard-specialty-merchant-program-processing-fee
-            - mastercard-specialty-merchant-program-registration-fee
-            - visa-integrity-risk-program-processing-fee
-            - visa-integrity-risk-program-registration-fee
-            - minimum-invoice-amount-fee
-          example: payment-fee
         prepaymentPartType:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-prepayment-part-type'
           description: 'Prepayment part: fee itself, reimbursement, discount, VAT or rounding compensation.'
-          enum:
-            - fee
-            - fee-reimbursement
-            - fee-discount
-            - fee-vat
-            - fee-rounding-compensation
-          example: fee
         transactionType:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-transaction-type'
           description: Represents the transaction type
-          enum:
-            - payment
-            - split-payment
-            - failed-payment
-            - failed-platform-split-payment
-            - failed-split-payment-compensation
-            - capture
-            - split-transaction
-            - refund
-            - platform-payment-refund
-            - returned-platform-payment-refund
-            - refund-compensation
-            - returned-refund-compensation
-            - returned-refund
-            - chargeback
-            - chargeback-reversal
-            - chargeback-compensation
-            - reversed-chargeback-compensation
-            - platform-payment-chargeback
-            - reversed-platform-payment-chargeback
-            - fee-prepayment
-            - outgoing-transfer
-            - incoming-transfer
-            - canceled-transfer
-            - returned-transfer
-            - balance-reserve
-            - balance-reserve-return
-            - invoice-rounding-compensation
-            - rolling-reserve-hold
-            - rolling-reserve-release
-            - balance-correction
-            - repayment
-            - loan
-            - balance-topup
-            - cash-collateral-issuance';
-            - cash-collateral-release
-            - pending-rolling-reserve
-            - to-be-released-rolling-reserve
-            - held-rolling-reserve
-            - released-rolling-reserve
-          example: payment
       x-speakeasy-unknown-values: allow
     components-sub-totals:
       type: object
@@ -27651,125 +27676,38 @@ components:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-card-issuer'
           description: In case of payments transactions with card, the card issuer will be available
-          enum:
-            - amex
-            - maestro
-            - carte-bancaire
-            - other
-          example: amex
         cardAudience:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-card-audience'
           description: In case of payments trnsactions with card, the card audience will be available.
-          enum:
-            - corporate
-            - other
-          example: other
         cardRegion:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-card-region'
           description: In case of payments transactions with card, the card region will be available.
-          enum:
-            - intra-eea
-            - intra-eu
-            - domestic
-            - other
-          example: domestic
         feeType:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-fee-type'
           description: Present when the transaction represents a fee.
-          enum:
-            - payment-fee
-            - direct-debit-failure-fee
-            - unauthorized-direct-debit-fee
-            - bank-charged-direct-debit-failure-fee
-            - partner-commission
-            - application-fee
-            - capture-fee
-            - refund-fee
-            - chargeback-fee
-            - payment-notification-fee
-            - transfer-notification-fee
-            - payout-fee
-            - fee-discount
-            - fee-reimbursement
-            - platform-volume-fee
-            - platform-connected-organizations-fee
-            - balance-charge-fee
-            - 3ds-authentication-attempt-fee
-            - terminal-monthly-fee
-            - acceptance-risk-fee
-            - top-up-fee
-            - payment-gateway-fee
-            - mastercard-specialty-merchant-program-processing-fee
-            - mastercard-specialty-merchant-program-registration-fee
-            - visa-integrity-risk-program-processing-fee
-            - visa-integrity-risk-program-registration-fee
-            - minimum-invoice-amount-fee
-          example: payment-fee
         prepaymentPartType:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-prepayment-part-type'
           description: 'Prepayment part: fee itself, reimbursement, discount, VAT or rounding compensation.'
-          enum:
-            - fee
-            - fee-reimbursement
-            - fee-discount
-            - fee-vat
-            - fee-rounding-compensation
-          example: fee
         transactionType:
           type:
             - string
             - 'null'
+          $ref: '#/components/schemas/balance-transaction-type'
           description: Represents the transaction type
-          enum:
-            - payment
-            - split-payment
-            - failed-payment
-            - failed-platform-split-payment
-            - failed-split-payment-compensation
-            - capture
-            - split-transaction
-            - refund
-            - platform-payment-refund
-            - returned-platform-payment-refund
-            - refund-compensation
-            - returned-refund-compensation
-            - returned-refund
-            - chargeback
-            - chargeback-reversal
-            - chargeback-compensation
-            - reversed-chargeback-compensation
-            - platform-payment-chargeback
-            - reversed-platform-payment-chargeback
-            - fee-prepayment
-            - outgoing-transfer
-            - incoming-transfer
-            - canceled-transfer
-            - returned-transfer
-            - balance-reserve
-            - balance-reserve-return
-            - invoice-rounding-compensation
-            - rolling-reserve-hold
-            - rolling-reserve-release
-            - balance-correction
-            - repayment
-            - loan
-            - balance-topup
-            - cash-collateral-issuance';
-            - cash-collateral-release
-            - pending-rolling-reserve
-            - to-be-released-rolling-reserve
-            - held-rolling-reserve
-            - released-rolling-reserve
-          example: payment
       x-speakeasy-unknown-values: allow
     sub-group:
       type: object
@@ -27985,57 +27923,6 @@ components:
     balanceTransactionToken:
       type: string
       example: baltr_QM24QwzUWR4ev4Xfgyt29d
-    balance-transaction-type:
-      type: string
-      enum:
-        - application-fee
-        - capture
-        - chargeback
-        - chargeback-reversal
-        - failed-payment-fee
-        - failed-payment
-        - invoice-compensation
-        - payment
-        - payment-fee
-        - payment-commission
-        - refund
-        - returned-refund
-        - returned-transfer
-        - split-payment
-        - outgoing-transfer
-        - capture-commission
-        - canceled-outgoing-transfer
-        - incoming-transfer
-        - api-payment-rolling-reserve-release
-        - capture-rolling-reserve-release
-        - reimbursement-fee
-        - balance-correction
-        - unauthorized-direct-debit
-        - bank-charged-failure-fee
-        - platform-payment-refund
-        - refund-compensation
-        - returned-refund-compensation
-        - returned-platform-payment-refund
-        - platform-payment-chargeback
-        - chargeback-compensation
-        - reversed-platform-payment-chargeback
-        - reversed-chargeback-compensation
-        - failed-split-payment-platform
-        - failed-split-payment-compensation
-        - cash-advance-loan
-        - platform-connected-organizations-fee
-        - split-transaction
-        - managed-fee
-        - returned-managed-fee
-        - topup
-        - balance-reserve
-        - balance-reserve-return
-        - movement
-        - post-payment-split-payment
-        - cash-collateral-issuance
-        - cash-collateral-release
-      example: payment
-      x-speakeasy-unknown-values: allow
     amount-nullable:
       type:
         - object
@@ -28095,7 +27982,8 @@ components:
           readOnly: true
           example: balance-transaction
         id:
-          $ref: '#/components/schemas/balanceTransactionToken'
+          allOf:
+            - $ref: '#/components/schemas/balanceTransactionToken'
           description: The identifier uniquely referring to this balance transaction.
           readOnly: true
         type:
@@ -28599,7 +28487,8 @@ components:
           readOnly: true
           example: settlement
         id:
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: The identifier uniquely referring to this settlement.
           readOnly: true
         createdAt:
@@ -28623,18 +28512,22 @@ components:
           readOnly: true
           example: '2025-03-31T12:54:39+00:00'
         status:
-          $ref: '#/components/schemas/settlement-status'
+          allOf:
+            - $ref: '#/components/schemas/settlement-status'
           readOnly: true
         amount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount of the settlement.
           readOnly: true
         balanceId:
-          $ref: '#/components/schemas/balanceToken'
+          allOf:
+            - $ref: '#/components/schemas/balanceToken'
           description: The balance token that the settlement was settled to.
           readOnly: true
         invoiceId:
-          $ref: '#/components/schemas/invoiceToken'
+          allOf:
+            - $ref: '#/components/schemas/invoiceToken'
           type:
             - string
             - 'null'
@@ -29132,7 +29025,8 @@ components:
           readOnly: true
           example: route
         id:
-          $ref: '#/components/schemas/routeToken'
+          allOf:
+            - $ref: '#/components/schemas/routeToken'
           description: |-
             The identifier uniquely referring to this route. Mollie will always refer to the route by this ID.
             Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
@@ -29526,7 +29420,8 @@ components:
           readOnly: true
           example: payment
         id:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
             will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
@@ -29558,28 +29453,33 @@ components:
             If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
             tip amount.
         amountRefunded:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             The total amount that is already refunded. Only available when refunds are available for this payment. For some
             payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
             costs for a return shipment to the customer.
           readOnly: true
         amountRemaining:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
           readOnly: true
         amountCaptured:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount that is already captured for this payment. Only available when this payment supports captures.
           readOnly: true
         amountChargedBack:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             The total amount that was charged back for this payment. Only available when the total charged back amount is not
             zero.
           readOnly: true
         settlementAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             This optional field will contain the approximate amount that will be settled to your account, converted to the
             currency your account is settled in.
@@ -29846,7 +29746,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/subscriptionToken'
+          allOf:
+            - $ref: '#/components/schemas/subscriptionToken'
           description: |-
             If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
             be added to the response.
@@ -29855,7 +29756,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/mandateToken'
+          allOf:
+            - $ref: '#/components/schemas/mandateToken'
           description: |-
             **Only relevant for recurring payments.**
 
@@ -29885,18 +29787,21 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: The identifier referring to the [settlement](get-settlement) this payment was settled with.
           readOnly: true
         orderId:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/orderToken'
+          allOf:
+            - $ref: '#/components/schemas/orderToken'
           description: If the payment was created for an [order](get-order), the ID of that order will be part of the response.
           readOnly: true
         status:
-          $ref: '#/components/schemas/payment-status'
+          allOf:
+            - $ref: '#/components/schemas/payment-status'
           readOnly: true
         statusReason:
           $ref: '#/components/schemas/status-reason'
@@ -30465,7 +30370,6 @@ components:
         - succeeded
         - failed
       example: succeeded
-      x-speakeasy-unknown-values: allow
     shipmentToken:
       type: string
       example: shp_5x4xQJDWGNcY3tKGL7X5J
@@ -30478,7 +30382,8 @@ components:
           readOnly: true
           example: capture
         id:
-          $ref: '#/components/schemas/captureToken'
+          allOf:
+            - $ref: '#/components/schemas/captureToken'
           description: 'The identifier uniquely referring to this capture. Example: `cpt_mNepDkEtco6ah3QNPUGYH`.'
           readOnly: true
         mode:
@@ -30492,7 +30397,8 @@ components:
           $ref: '#/components/schemas/amount-nullable'
           description: The amount captured. If no amount is provided, the full authorized amount is captured.
         settlementAmount:
-          $ref: '#/components/schemas/amount-nullable'
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
           description: |-
             This optional field will contain the approximate amount that will be settled to your account, converted to the
             currency your account is settled in.
@@ -30502,12 +30408,14 @@ components:
             instead.
           readOnly: true
         status:
-          $ref: '#/components/schemas/capture-status'
+          allOf:
+            - $ref: '#/components/schemas/capture-status'
           readOnly: true
         metadata:
           $ref: '#/components/schemas/metadata'
         paymentId:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
             The full payment object can be retrieved via the payment URL in the `_links` object.
@@ -30516,7 +30424,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/shipmentToken'
+          allOf:
+            - $ref: '#/components/schemas/shipmentToken'
           description: |-
             The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example:
             `shp_gNapNy9qQTUFZYnCrCF7J`.
@@ -30525,7 +30434,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: |-
             The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field
             is omitted if the capture is not settled (yet).
@@ -30582,7 +30492,6 @@ components:
         - failed
         - canceled
       example: queued
-      x-speakeasy-unknown-values: allow
     refund-external-reference-type:
       type: string
       description: Specifies the reference type
@@ -30614,7 +30523,8 @@ components:
           readOnly: true
           example: refund
         id:
-          $ref: '#/components/schemas/refundToken'
+          allOf:
+            - $ref: '#/components/schemas/refundToken'
           description: |-
             The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
             will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
@@ -30632,7 +30542,8 @@ components:
             The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
             amount.
         settlementAmount:
-          $ref: '#/components/schemas/amount-nullable'
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
           description: |-
             This optional field will contain the approximate amount that will be deducted from your account balance, converted
             to the currency your account is settled in.
@@ -30651,7 +30562,8 @@ components:
         metadata:
           $ref: '#/components/schemas/metadata'
         paymentId:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The unique identifier of the payment this refund was created for.
             The full payment object can be retrieved via the payment URL in the `_links` object.
@@ -30660,11 +30572,13 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: The identifier referring to the settlement this refund was settled with. This field is omitted if the refund is not settled (yet).
           readOnly: true
         status:
-          $ref: '#/components/schemas/refund-status'
+          allOf:
+            - $ref: '#/components/schemas/refund-status'
           readOnly: true
         createdAt:
           $ref: '#/components/schemas/created-at'
@@ -30719,7 +30633,8 @@ components:
                 description: Where the funds will be pulled back from.
                 properties:
                   type:
-                    $ref: '#/components/schemas/refund-routing-reversals-source-type'
+                    allOf:
+                      - $ref: '#/components/schemas/refund-routing-reversals-source-type'
                     writeOnly: true
                   organizationId:
                     $ref: '#/components/schemas/organizationToken'
@@ -30767,14 +30682,16 @@ components:
           readOnly: true
           example: chargeback
         id:
-          $ref: '#/components/schemas/chargebackToken'
+          allOf:
+            - $ref: '#/components/schemas/chargebackToken'
           description: 'The identifier uniquely referring to this chargeback. Example: `chb_n9z0tp`.'
           readOnly: true
         amount:
           $ref: '#/components/schemas/amount'
           description: The amount charged back by the customer.
         settlementAmount:
-          $ref: '#/components/schemas/amount-nullable'
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
           description: |-
             This optional field will contain the approximate amount that will be deducted from your account balance, converted
             to the currency your account is settled in.
@@ -30804,7 +30721,8 @@ components:
               example: Account identifier incorrect (i.e. invalid IBAN)
           readOnly: true
         paymentId:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
             The full payment object can be retrieved via the payment URL in the `_links` object.
@@ -30813,7 +30731,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: |-
             The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field
             is omitted if the refund is not settled (yet).
@@ -30886,7 +30805,8 @@ components:
           readOnly: true
           example: invoice
         id:
-          $ref: '#/components/schemas/invoiceToken'
+          allOf:
+            - $ref: '#/components/schemas/invoiceToken'
           readOnly: true
         reference:
           type: string
@@ -30901,21 +30821,25 @@ components:
           readOnly: true
           example: NL123456789B01
         status:
-          $ref: '#/components/schemas/invoice-status'
+          allOf:
+            - $ref: '#/components/schemas/invoice-status'
           readOnly: true
         netAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: Total amount of the invoice, excluding VAT.
           readOnly: true
         vatAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
             be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
             the EU, no VAT will be charged.
           readOnly: true
         grossAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: Total amount of the invoice, including VAT.
           readOnly: true
         lines:
@@ -31004,7 +30928,8 @@ components:
           readOnly: true
           example: permission
         id:
-          $ref: '#/components/schemas/permissionToken'
+          allOf:
+            - $ref: '#/components/schemas/permissionToken'
           description: 'The identifier uniquely referring to this permission. Example: `payments.read`.'
           readOnly: true
         description:
@@ -31084,7 +31009,8 @@ components:
           readOnly: true
           example: organization
         id:
-          $ref: '#/components/schemas/organizationToken'
+          allOf:
+            - $ref: '#/components/schemas/organizationToken'
           readOnly: true
         name:
           type: string
@@ -31098,7 +31024,8 @@ components:
           readOnly: true
         locale:
           type: string
-          $ref: '#/components/schemas/locale-response'
+          allOf:
+            - $ref: '#/components/schemas/locale-response'
           description: The preferred locale of the merchant, as set in their Mollie dashboard.
           readOnly: true
         address:
@@ -31146,7 +31073,6 @@ components:
         - verified
         - blocked
       example: unverified
-      x-speakeasy-unknown-values: allow
     profile-review-status:
       type: string
       description: The status of the requested changes.
@@ -31212,7 +31138,8 @@ components:
             [business category list](common-data-types#business-category) for all possible options.
           example: OTHER_MERCHANDISE
         status:
-          $ref: '#/components/schemas/profile-status'
+          allOf:
+            - $ref: '#/components/schemas/profile-status'
           readOnly: true
         review:
           type: object
@@ -31344,7 +31271,8 @@ components:
           example: My webshop
           readOnly: true
         status:
-          $ref: '#/components/schemas/onboarding-status'
+          allOf:
+            - $ref: '#/components/schemas/onboarding-status'
           readOnly: true
         canReceivePayments:
           type: boolean
@@ -31494,7 +31422,8 @@ components:
           readOnly: true
           example: client
         id:
-          $ref: '#/components/schemas/organizationToken'
+          allOf:
+            - $ref: '#/components/schemas/organizationToken'
           description: 'The identifier uniquely referring to this client. Example: `org_12345678`.'
           readOnly: true
         commission:
@@ -31910,7 +31839,8 @@ components:
           readOnly: true
           example: payment-link
         id:
-          $ref: '#/components/schemas/paymentLinkToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentLinkToken'
           description: 'The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.'
           readOnly: true
         mode:
@@ -32135,7 +32065,8 @@ components:
           readOnly: true
           example: event_GvJ8WHrp5isUdRub9CJyH
         type:
-          $ref: '#/components/schemas/webhook-event-types-response'
+          allOf:
+            - $ref: '#/components/schemas/webhook-event-types-response'
           readOnly: true
         entityId:
           type: string
@@ -32259,7 +32190,8 @@ components:
           readOnly: true
           example: connect-balance-transfer
         id:
-          $ref: '#/components/schemas/connectBalanceTransferToken'
+          allOf:
+            - $ref: '#/components/schemas/connectBalanceTransferToken'
           description: |-
             The identifier uniquely referring to this balance transfer. Mollie assigns this identifier at balance transfer creation time. Mollie
             will always refer to the balance transfer by this ID. Example: `cbtr_j8NvRAM2WNZtsykpLEX8J`.
@@ -32595,7 +32527,8 @@ components:
           readOnly: true
           example: method
         id:
-          $ref: '#/components/schemas/method-response'
+          allOf:
+            - $ref: '#/components/schemas/method-response'
           type: string
           description: |-
             The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
@@ -32611,11 +32544,13 @@ components:
           example: iDeal
           readOnly: true
         minimumAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The minimum payment amount required to use this payment method.
           readOnly: true
         maximumAmount:
-          $ref: '#/components/schemas/amount-nullable'
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
           description: |-
             The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
             is returned instead.
@@ -32749,6 +32684,12 @@ components:
       enum:
         - me
       example: me
+    method-id-with-issuer:
+      type: string
+      enum:
+        - voucher
+        - giftcard
+      example: voucher
     method-issuer-status:
       type: string
       description: |-
@@ -32786,7 +32727,8 @@ components:
           readOnly: true
           example: FestivalCadeau Giftcard
         status:
-          $ref: '#/components/schemas/method-issuer-status'
+          allOf:
+            - $ref: '#/components/schemas/method-issuer-status'
           readOnly: true
         _links:
           type: object
@@ -32846,7 +32788,8 @@ components:
               example: https://...
           readOnly: true
         status:
-          $ref: '#/components/schemas/method-issuer-status'
+          allOf:
+            - $ref: '#/components/schemas/method-issuer-status'
           readOnly: true
         contractor:
           type: object
@@ -32949,7 +32892,8 @@ components:
           readOnly: true
           example: terminal
         id:
-          $ref: '#/components/schemas/terminalToken'
+          allOf:
+            - $ref: '#/components/schemas/terminalToken'
           description: 'The identifier uniquely referring to this terminal. Example: `term_7MgL4wea46qkRcoTZjWEH`.'
           readOnly: true
         mode:
@@ -32963,7 +32907,8 @@ components:
           maxLength: 255
           example: Main Terminal
         status:
-          $ref: '#/components/schemas/terminal-status'
+          allOf:
+            - $ref: '#/components/schemas/terminal-status'
           readOnly: true
         brand:
           $ref: '#/components/schemas/terminal-brand'
@@ -33021,13 +32966,15 @@ components:
           readOnly: true
           example: route
         id:
-          $ref: '#/components/schemas/connectRouteToken'
+          allOf:
+            - $ref: '#/components/schemas/connectRouteToken'
           description: |-
             The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
             will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
           readOnly: true
         paymentId:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
             The full payment object can be retrieved via the payment URL in the `_links` object.
@@ -33111,7 +33058,8 @@ components:
           readOnly: true
           example: customer
         id:
-          $ref: '#/components/schemas/customerToken'
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
           description: 'The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.'
           readOnly: true
         mode:
@@ -33252,7 +33200,6 @@ components:
         - pending
         - invalid
       example: valid
-      x-speakeasy-unknown-values: allow
     entity-mandate:
       type: object
       properties:
@@ -33262,7 +33209,8 @@ components:
           readOnly: true
           example: mandate
         id:
-          $ref: '#/components/schemas/mandateToken'
+          allOf:
+            - $ref: '#/components/schemas/mandateToken'
           description: 'The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.'
         mode:
           $ref: '#/components/schemas/mode'
@@ -33377,11 +33325,12 @@ components:
           example: 8kk8451t
           writeOnly: true
         status:
-          $ref: '#/components/schemas/mandate-status'
+          allOf:
+            - $ref: '#/components/schemas/mandate-status'
           readOnly: true
         customerId:
-          type: string
-          $ref: '#/components/schemas/customerToken'
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
           description: The identifier referring to the [customer](get-customer) this mandate was linked to.
           readOnly: true
         createdAt:
@@ -33440,7 +33389,6 @@ components:
         - suspended
         - completed
       example: active
-      x-speakeasy-unknown-values: allow
     subscription-method:
       type:
         - string
@@ -33463,13 +33411,15 @@ components:
           readOnly: true
           example: subscription
         id:
-          $ref: '#/components/schemas/subscriptionToken'
+          allOf:
+            - $ref: '#/components/schemas/subscriptionToken'
           description: 'The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.'
           readOnly: true
         mode:
           $ref: '#/components/schemas/mode'
         status:
-          $ref: '#/components/schemas/subscription-status'
+          allOf:
+            - $ref: '#/components/schemas/subscription-status-response'
           readOnly: true
         amount:
           $ref: '#/components/schemas/amount'
@@ -33562,7 +33512,8 @@ components:
             well. Be sure to verify the payment's subscription ID and its status.
           example: https://example.com/webhook
         customerId:
-          $ref: '#/components/schemas/customerToken'
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
           description: The customer this subscription belongs to.
           readOnly: true
         mandateId:
@@ -33646,13 +33597,15 @@ components:
           readOnly: true
           example: subscription
         id:
-          $ref: '#/components/schemas/subscriptionToken'
+          allOf:
+            - $ref: '#/components/schemas/subscriptionToken'
           description: 'The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.'
           readOnly: true
         mode:
           $ref: '#/components/schemas/mode'
         status:
-          $ref: '#/components/schemas/subscription-status'
+          allOf:
+            - $ref: '#/components/schemas/subscription-status'
           readOnly: true
         amount:
           $ref: '#/components/schemas/amount'
@@ -33745,7 +33698,8 @@ components:
             well. Be sure to verify the payment's subscription ID and its status.
           example: https://example.com/webhook
         customerId:
-          $ref: '#/components/schemas/customerToken'
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
           description: The customer this subscription belongs to.
           readOnly: true
         mandateId:
@@ -34078,7 +34032,8 @@ components:
           writeOnly: false
           example: sales-invoice
         id:
-          $ref: '#/components/schemas/salesInvoiceToken'
+          allOf:
+            - $ref: '#/components/schemas/salesInvoiceToken'
           type: string
           description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
           readOnly: true
@@ -34172,23 +34127,28 @@ components:
           $ref: '#/components/schemas/sales-invoice-discount'
           description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
         amountDue:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The amount that is left to be paid.
           readOnly: true
         subtotalAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount without VAT before discounts.
           readOnly: true
         totalAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount with VAT.
           readOnly: true
         totalVatAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total VAT amount.
           readOnly: true
         discountedSubtotalAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount without VAT after discounts.
           readOnly: true
         createdAt:
@@ -34321,7 +34281,8 @@ components:
           readOnly: true
           example: payment
         id:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
             will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
@@ -34353,28 +34314,33 @@ components:
             If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
             tip amount.
         amountRefunded:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             The total amount that is already refunded. Only available when refunds are available for this payment. For some
             payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
             costs for a return shipment to the customer.
           readOnly: true
         amountRemaining:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
           readOnly: true
         amountCaptured:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount that is already captured for this payment. Only available when this payment supports captures.
           readOnly: true
         amountChargedBack:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             The total amount that was charged back for this payment. Only available when the total charged back amount is not
             zero.
           readOnly: true
         settlementAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: |-
             This optional field will contain the approximate amount that will be settled to your account, converted to the
             currency your account is settled in.
@@ -34641,7 +34607,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/subscriptionToken'
+          allOf:
+            - $ref: '#/components/schemas/subscriptionToken'
           description: |-
             If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
             be added to the response.
@@ -34650,7 +34617,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/mandateToken'
+          allOf:
+            - $ref: '#/components/schemas/mandateToken'
           description: |-
             **Only relevant for recurring payments.**
 
@@ -34680,18 +34648,21 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: The identifier referring to the [settlement](get-settlement) this payment was settled with.
           readOnly: true
         orderId:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/orderToken'
+          allOf:
+            - $ref: '#/components/schemas/orderToken'
           description: If the payment was created for an [order](get-order), the ID of that order will be part of the response.
           readOnly: true
         status:
-          $ref: '#/components/schemas/payment-status'
+          allOf:
+            - $ref: '#/components/schemas/payment-status'
           readOnly: true
         statusReason:
           $ref: '#/components/schemas/status-reason'
@@ -35459,7 +35430,8 @@ components:
           readOnly: true
           example: route
         id:
-          $ref: '#/components/schemas/routeToken'
+          allOf:
+            - $ref: '#/components/schemas/routeToken'
           description: |-
             The identifier uniquely referring to this route. Mollie will always refer to the route by this ID.
             Example: `rt_5B8cwPMGnU6qLbRvo7qEZo`.
@@ -35686,7 +35658,8 @@ components:
           readOnly: true
           example: capture
         id:
-          $ref: '#/components/schemas/captureToken'
+          allOf:
+            - $ref: '#/components/schemas/captureToken'
           description: 'The identifier uniquely referring to this capture. Example: `cpt_mNepDkEtco6ah3QNPUGYH`.'
           readOnly: true
         mode:
@@ -35700,7 +35673,8 @@ components:
           $ref: '#/components/schemas/amount-nullable'
           description: The amount captured. If no amount is provided, the full authorized amount is captured.
         settlementAmount:
-          $ref: '#/components/schemas/amount-nullable'
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
           description: |-
             This optional field will contain the approximate amount that will be settled to your account, converted to the
             currency your account is settled in.
@@ -35710,12 +35684,14 @@ components:
             instead.
           readOnly: true
         status:
-          $ref: '#/components/schemas/capture-status'
+          allOf:
+            - $ref: '#/components/schemas/capture-status-response'
           readOnly: true
         metadata:
           $ref: '#/components/schemas/metadata'
         paymentId:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
             The full payment object can be retrieved via the payment URL in the `_links` object.
@@ -35724,7 +35700,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/shipmentToken'
+          allOf:
+            - $ref: '#/components/schemas/shipmentToken'
           description: |-
             The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example:
             `shp_gNapNy9qQTUFZYnCrCF7J`.
@@ -35733,7 +35710,8 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: |-
             The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field
             is omitted if the capture is not settled (yet).
@@ -35767,6 +35745,15 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    capture-status-response:
+      type: string
+      description: The capture's status.
+      enum:
+        - pending
+        - succeeded
+        - failed
+      example: succeeded
+      x-speakeasy-unknown-values: allow
     entity-refund-response:
       type: object
       required:
@@ -35786,7 +35773,8 @@ components:
           readOnly: true
           example: refund
         id:
-          $ref: '#/components/schemas/refundToken'
+          allOf:
+            - $ref: '#/components/schemas/refundToken'
           description: |-
             The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
             will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
@@ -35804,7 +35792,8 @@ components:
             The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
             amount.
         settlementAmount:
-          $ref: '#/components/schemas/amount-nullable'
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
           description: |-
             This optional field will contain the approximate amount that will be deducted from your account balance, converted
             to the currency your account is settled in.
@@ -35823,7 +35812,8 @@ components:
         metadata:
           $ref: '#/components/schemas/metadata'
         paymentId:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The unique identifier of the payment this refund was created for.
             The full payment object can be retrieved via the payment URL in the `_links` object.
@@ -35832,11 +35822,13 @@ components:
           type:
             - string
             - 'null'
-          $ref: '#/components/schemas/settlementToken'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
           description: The identifier referring to the settlement this refund was settled with. This field is omitted if the refund is not settled (yet).
           readOnly: true
         status:
-          $ref: '#/components/schemas/refund-status'
+          allOf:
+            - $ref: '#/components/schemas/refund-status-response'
           readOnly: true
         createdAt:
           $ref: '#/components/schemas/created-at'
@@ -35891,7 +35883,8 @@ components:
                 description: Where the funds will be pulled back from.
                 properties:
                   type:
-                    $ref: '#/components/schemas/refund-routing-reversals-source-type'
+                    allOf:
+                      - $ref: '#/components/schemas/refund-routing-reversals-source-type-response'
                     writeOnly: true
                   organizationId:
                     $ref: '#/components/schemas/organizationToken'
@@ -35922,12 +35915,30 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    refund-status-response:
+      type: string
+      enum:
+        - queued
+        - pending
+        - processing
+        - refunded
+        - failed
+        - canceled
+      example: queued
+      x-speakeasy-unknown-values: allow
     refund-external-reference-type-response:
       type: string
       description: Specifies the reference type
       enum:
         - acquirer-reference
       example: acquirer-reference
+      x-speakeasy-unknown-values: allow
+    refund-routing-reversals-source-type-response:
+      type: string
+      description: The type of source. Currently only the source type `organization` is supported.
+      enum:
+        - organization
+      example: organization
       x-speakeasy-unknown-values: allow
     entity-profile-response:
       type: object
@@ -35987,7 +35998,8 @@ components:
             [business category list](common-data-types#business-category) for all possible options.
           example: OTHER_MERCHANDISE
         status:
-          $ref: '#/components/schemas/profile-status'
+          allOf:
+            - $ref: '#/components/schemas/profile-status-response'
           readOnly: true
         review:
           type: object
@@ -36056,6 +36068,20 @@ components:
             documentation:
               href: '...'
               type: text/html
+      x-speakeasy-unknown-values: allow
+    profile-status-response:
+      type: string
+      description: |-
+        The profile status determines whether the profile is able to receive live payments.
+
+        * `unverified`: The profile has not been verified yet and can only be used to create test payments.
+        * `verified`: The profile has been verified and can be used to create live payments and test payments.
+        * `blocked`: The profile is blocked and can no longer be used or changed.
+      enum:
+        - unverified
+        - verified
+        - blocked
+      example: unverified
       x-speakeasy-unknown-values: allow
     profile-review-status-response:
       type: string
@@ -36262,7 +36288,8 @@ components:
           readOnly: true
           example: connect-balance-transfer
         id:
-          $ref: '#/components/schemas/connectBalanceTransferToken'
+          allOf:
+            - $ref: '#/components/schemas/connectBalanceTransferToken'
           description: |-
             The identifier uniquely referring to this balance transfer. Mollie assigns this identifier at balance transfer creation time. Mollie
             will always refer to the balance transfer by this ID. Example: `cbtr_j8NvRAM2WNZtsykpLEX8J`.
@@ -36398,13 +36425,15 @@ components:
           readOnly: true
           example: route
         id:
-          $ref: '#/components/schemas/connectRouteToken'
+          allOf:
+            - $ref: '#/components/schemas/connectRouteToken'
           description: |-
             The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
             will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
           readOnly: true
         paymentId:
-          $ref: '#/components/schemas/paymentToken'
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
           description: |-
             The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
             The full payment object can be retrieved via the payment URL in the `_links` object.
@@ -36457,7 +36486,8 @@ components:
           readOnly: true
           example: customer
         id:
-          $ref: '#/components/schemas/customerToken'
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
           description: 'The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.'
           readOnly: true
         mode:
@@ -36528,7 +36558,8 @@ components:
           readOnly: true
           example: mandate
         id:
-          $ref: '#/components/schemas/mandateToken'
+          allOf:
+            - $ref: '#/components/schemas/mandateToken'
           description: 'The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.'
         mode:
           $ref: '#/components/schemas/mode'
@@ -36643,11 +36674,12 @@ components:
           example: 8kk8451t
           writeOnly: true
         status:
-          $ref: '#/components/schemas/mandate-status'
+          allOf:
+            - $ref: '#/components/schemas/mandate-status-response'
           readOnly: true
         customerId:
-          type: string
-          $ref: '#/components/schemas/customerToken'
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
           description: The identifier referring to the [customer](get-customer) this mandate was linked to.
           readOnly: true
         createdAt:
@@ -36703,6 +36735,30 @@ components:
         - Visa
       example: Visa
       x-speakeasy-unknown-values: allow
+    mandate-status-response:
+      type: string
+      description: |-
+        The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
+        when we did not received the IBAN yet from the first payment.
+      enum:
+        - valid
+        - pending
+        - invalid
+      example: valid
+      x-speakeasy-unknown-values: allow
+    subscription-status-response:
+      type: string
+      description: |-
+        The subscription's current status is directly related to the status of the underlying customer or mandate that is
+        enabling the subscription.
+      enum:
+        - pending
+        - active
+        - canceled
+        - suspended
+        - completed
+      example: active
+      x-speakeasy-unknown-values: allow
     subscription-method-response:
       type:
         - string
@@ -36727,7 +36783,8 @@ components:
           writeOnly: false
           example: sales-invoice
         id:
-          $ref: '#/components/schemas/salesInvoiceToken'
+          allOf:
+            - $ref: '#/components/schemas/salesInvoiceToken'
           type: string
           description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
           readOnly: true
@@ -36821,23 +36878,28 @@ components:
           $ref: '#/components/schemas/sales-invoice-discount-response'
           description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
         amountDue:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The amount that is left to be paid.
           readOnly: true
         subtotalAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount without VAT before discounts.
           readOnly: true
         totalAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount with VAT.
           readOnly: true
         totalVatAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total VAT amount.
           readOnly: true
         discountedSubtotalAmount:
-          $ref: '#/components/schemas/amount'
+          allOf:
+            - $ref: '#/components/schemas/amount'
           description: The total amount without VAT after discounts.
           readOnly: true
         createdAt:

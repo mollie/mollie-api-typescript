@@ -45,7 +45,6 @@ async function run() {
         "GB",
       ],
       businessCategory: "OTHER_MERCHANDISE",
-      status: "unverified",
     },
   });
 
@@ -85,7 +84,6 @@ async function run() {
         "GB",
       ],
       businessCategory: "OTHER_MERCHANDISE",
-      status: "unverified",
     },
   });
   if (res.ok) {

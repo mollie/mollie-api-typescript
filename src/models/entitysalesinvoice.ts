@@ -5,12 +5,6 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoiceDiscount,
@@ -72,7 +66,6 @@ import {
 export type EntitySalesInvoiceMetadata = {};
 
 export type EntitySalesInvoice = {
-  id?: string | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -172,26 +165,6 @@ export type EntitySalesInvoice = {
    */
   lines?: Array<SalesInvoiceLineItem> | null | undefined;
   discount?: SalesInvoiceDiscount | null | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  amountDue?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  subtotalAmount?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  totalAmount?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  totalVatAmount?: Amount | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  discountedSubtotalAmount?: Amount | undefined;
 };
 
 /** @internal */
@@ -233,7 +206,6 @@ export const EntitySalesInvoice$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
   status: SalesInvoiceStatus$inboundSchema.optional(),
@@ -252,15 +224,9 @@ export const EntitySalesInvoice$inboundSchema: z.ZodType<
   recipient: z.nullable(SalesInvoiceRecipient$inboundSchema).optional(),
   lines: z.nullable(z.array(SalesInvoiceLineItem$inboundSchema)).optional(),
   discount: z.nullable(SalesInvoiceDiscount$inboundSchema).optional(),
-  amountDue: Amount$inboundSchema.optional(),
-  subtotalAmount: Amount$inboundSchema.optional(),
-  totalAmount: Amount$inboundSchema.optional(),
-  totalVatAmount: Amount$inboundSchema.optional(),
-  discountedSubtotalAmount: Amount$inboundSchema.optional(),
 });
 /** @internal */
 export type EntitySalesInvoice$Outbound = {
-  id?: string | undefined;
   testmode?: boolean | null | undefined;
   profileId?: string | null | undefined;
   status?: string | undefined;
@@ -277,11 +243,6 @@ export type EntitySalesInvoice$Outbound = {
   recipient?: SalesInvoiceRecipient$Outbound | null | undefined;
   lines?: Array<SalesInvoiceLineItem$Outbound> | null | undefined;
   discount?: SalesInvoiceDiscount$Outbound | null | undefined;
-  amountDue?: Amount$Outbound | undefined;
-  subtotalAmount?: Amount$Outbound | undefined;
-  totalAmount?: Amount$Outbound | undefined;
-  totalVatAmount?: Amount$Outbound | undefined;
-  discountedSubtotalAmount?: Amount$Outbound | undefined;
 };
 
 /** @internal */
@@ -290,7 +251,6 @@ export const EntitySalesInvoice$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntitySalesInvoice
 > = z.object({
-  id: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
   status: SalesInvoiceStatus$outboundSchema.optional(),
@@ -309,11 +269,6 @@ export const EntitySalesInvoice$outboundSchema: z.ZodType<
   recipient: z.nullable(SalesInvoiceRecipient$outboundSchema).optional(),
   lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)).optional(),
   discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
-  amountDue: Amount$outboundSchema.optional(),
-  subtotalAmount: Amount$outboundSchema.optional(),
-  totalAmount: Amount$outboundSchema.optional(),
-  totalVatAmount: Amount$outboundSchema.optional(),
-  discountedSubtotalAmount: Amount$outboundSchema.optional(),
 });
 
 export function entitySalesInvoiceToJSON(

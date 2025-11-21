@@ -12,12 +12,6 @@ import {
   Amount$Outbound,
   Amount$outboundSchema,
 } from "./amount.js";
-import {
-  AmountNullable,
-  AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
-} from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Url,
@@ -31,6 +25,29 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
+
+/**
+ * This optional field will contain the approximate amount that will be deducted from your account balance, converted
+ *
+ * @remarks
+ * to the currency your account is settled in.
+ *
+ * The amount is a **negative** amount.
+ *
+ * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve
+ * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+ * instead.
+ */
+export type EntityChargebackSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
 
 /**
  * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
@@ -76,21 +93,45 @@ export type EntityChargeback = {
    * endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this chargeback. Example: `chb_n9z0tp`.
+   */
   id: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: Amount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * This optional field will contain the approximate amount that will be deducted from your account balance, converted
+   *
+   * @remarks
+   * to the currency your account is settled in.
+   *
+   * The amount is a **negative** amount.
+   *
+   * Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve
+   * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+   * instead.
    */
-  settlementAmount?: AmountNullable | null | undefined;
+  settlementAmount?: EntityChargebackSettlementAmount | null | undefined;
   /**
    * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
    */
   reason?: Reason | null | undefined;
+  /**
+   * The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
+   */
   paymentId: string;
-  settlementId?: string | undefined;
+  /**
+   * The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field
+   *
+   * @remarks
+   * is omitted if the refund is not settled (yet).
+   */
+  settlementId?: string | null | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -107,6 +148,50 @@ export type EntityChargeback = {
    */
   links: EntityChargebackLinks;
 };
+
+/** @internal */
+export const EntityChargebackSettlementAmount$inboundSchema: z.ZodType<
+  EntityChargebackSettlementAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type EntityChargebackSettlementAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const EntityChargebackSettlementAmount$outboundSchema: z.ZodType<
+  EntityChargebackSettlementAmount$Outbound,
+  z.ZodTypeDef,
+  EntityChargebackSettlementAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function entityChargebackSettlementAmountToJSON(
+  entityChargebackSettlementAmount: EntityChargebackSettlementAmount,
+): string {
+  return JSON.stringify(
+    EntityChargebackSettlementAmount$outboundSchema.parse(
+      entityChargebackSettlementAmount,
+    ),
+  );
+}
+export function entityChargebackSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<EntityChargebackSettlementAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EntityChargebackSettlementAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityChargebackSettlementAmount' from JSON`,
+  );
+}
 
 /** @internal */
 export const Reason$inboundSchema: z.ZodType<Reason, z.ZodTypeDef, unknown> = z
@@ -200,10 +285,12 @@ export const EntityChargeback$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   amount: Amount$inboundSchema,
-  settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
+  settlementAmount: z.nullable(
+    z.lazy(() => EntityChargebackSettlementAmount$inboundSchema),
+  ).optional(),
   reason: z.nullable(z.lazy(() => Reason$inboundSchema)).optional(),
   paymentId: z.string(),
-  settlementId: z.string().optional(),
+  settlementId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   reversedAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => EntityChargebackLinks$inboundSchema),
@@ -217,10 +304,13 @@ export type EntityChargeback$Outbound = {
   resource: string;
   id: string;
   amount: Amount$Outbound;
-  settlementAmount?: AmountNullable$Outbound | null | undefined;
+  settlementAmount?:
+    | EntityChargebackSettlementAmount$Outbound
+    | null
+    | undefined;
   reason?: Reason$Outbound | null | undefined;
   paymentId: string;
-  settlementId?: string | undefined;
+  settlementId?: string | null | undefined;
   createdAt: string;
   reversedAt?: string | null | undefined;
   _links: EntityChargebackLinks$Outbound;
@@ -235,10 +325,12 @@ export const EntityChargeback$outboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   amount: Amount$outboundSchema,
-  settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
+  settlementAmount: z.nullable(
+    z.lazy(() => EntityChargebackSettlementAmount$outboundSchema),
+  ).optional(),
   reason: z.nullable(z.lazy(() => Reason$outboundSchema)).optional(),
   paymentId: z.string(),
-  settlementId: z.string().optional(),
+  settlementId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   reversedAt: z.nullable(z.string()).optional(),
   links: z.lazy(() => EntityChargebackLinks$outboundSchema),

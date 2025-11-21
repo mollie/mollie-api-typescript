@@ -30,8 +30,6 @@ export type EntityRouteDestination = {
 };
 
 export type EntityRoute = {
-  id?: string | undefined;
-  paymentId?: string | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -104,8 +102,6 @@ export const EntityRoute$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  paymentId: z.string().optional(),
   amount: Amount$inboundSchema.optional(),
   description: z.string().optional(),
   destination: z.lazy(() => EntityRouteDestination$inboundSchema).optional(),
@@ -113,8 +109,6 @@ export const EntityRoute$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type EntityRoute$Outbound = {
-  id?: string | undefined;
-  paymentId?: string | undefined;
   amount?: Amount$Outbound | undefined;
   description?: string | undefined;
   destination?: EntityRouteDestination$Outbound | undefined;
@@ -127,8 +121,6 @@ export const EntityRoute$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityRoute
 > = z.object({
-  id: z.string().optional(),
-  paymentId: z.string().optional(),
   amount: Amount$outboundSchema.optional(),
   description: z.string().optional(),
   destination: z.lazy(() => EntityRouteDestination$outboundSchema).optional(),

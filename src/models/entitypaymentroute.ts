@@ -51,7 +51,6 @@ export type EntityPaymentRouteLinks = {
 };
 
 export type EntityPaymentRoute = {
-  id: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -167,7 +166,6 @@ export const EntityPaymentRoute$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
   amount: Amount$inboundSchema,
   destination: z.lazy(() => EntityPaymentRouteDestination$inboundSchema),
   releaseDate: z.nullable(z.string()).optional(),
@@ -179,7 +177,6 @@ export const EntityPaymentRoute$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type EntityPaymentRoute$Outbound = {
-  id: string;
   amount: Amount$Outbound;
   destination: EntityPaymentRouteDestination$Outbound;
   releaseDate?: string | null | undefined;
@@ -192,7 +189,6 @@ export const EntityPaymentRoute$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityPaymentRoute
 > = z.object({
-  id: z.string(),
   amount: Amount$outboundSchema,
   destination: z.lazy(() => EntityPaymentRouteDestination$outboundSchema),
   releaseDate: z.nullable(z.string()).optional(),

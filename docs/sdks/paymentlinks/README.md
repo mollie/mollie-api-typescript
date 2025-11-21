@@ -34,7 +34,6 @@ async function run() {
   const result = await client.paymentLinks.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
-      id: "pl_d9fQur83kFdhH8hIhaZfq",
       description: "Chess Board",
       amount: {
         currency: "EUR",
@@ -149,7 +148,6 @@ async function run() {
   const res = await paymentLinksCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
-      id: "pl_d9fQur83kFdhH8hIhaZfq",
       description: "Chess Board",
       amount: {
         currency: "EUR",

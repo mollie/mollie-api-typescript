@@ -315,6 +315,9 @@ export type EntityBalanceTransaction = {
    * for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this balance transaction.
+   */
   id: string;
   type: BalanceTransactionType;
   /**

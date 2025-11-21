@@ -23,11 +23,6 @@ import {
   SubscriptionMethod$inboundSchema,
   SubscriptionMethod$outboundSchema,
 } from "./subscriptionmethod.js";
-import {
-  SubscriptionStatus,
-  SubscriptionStatus$inboundSchema,
-  SubscriptionStatus$outboundSchema,
-} from "./subscriptionstatus.js";
 
 /**
  * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
@@ -49,14 +44,6 @@ export type SubscriptionRequestApplicationFee = {
 };
 
 export type SubscriptionRequest = {
-  id?: string | undefined;
-  /**
-   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
-   *
-   * @remarks
-   * enabling the subscription.
-   */
-  status?: SubscriptionStatus | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -125,7 +112,6 @@ export type SubscriptionRequest = {
    * well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl?: string | undefined;
-  customerId?: string | undefined;
   mandateId?: string | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
@@ -189,8 +175,6 @@ export const SubscriptionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  status: SubscriptionStatus$inboundSchema.optional(),
   amount: Amount$inboundSchema.optional(),
   times: z.nullable(z.number().int()).optional(),
   interval: z.string().optional(),
@@ -201,14 +185,11 @@ export const SubscriptionRequest$inboundSchema: z.ZodType<
     .optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
   mandateId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 /** @internal */
 export type SubscriptionRequest$Outbound = {
-  id?: string | undefined;
-  status?: string | undefined;
   amount?: Amount$Outbound | undefined;
   times?: number | null | undefined;
   interval?: string | undefined;
@@ -218,7 +199,6 @@ export type SubscriptionRequest$Outbound = {
   applicationFee?: SubscriptionRequestApplicationFee$Outbound | undefined;
   metadata?: Metadata$Outbound | null | undefined;
   webhookUrl?: string | undefined;
-  customerId?: string | undefined;
   mandateId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -229,8 +209,6 @@ export const SubscriptionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SubscriptionRequest
 > = z.object({
-  id: z.string().optional(),
-  status: SubscriptionStatus$outboundSchema.optional(),
   amount: Amount$outboundSchema.optional(),
   times: z.nullable(z.number().int()).optional(),
   interval: z.string().optional(),
@@ -241,7 +219,6 @@ export const SubscriptionRequest$outboundSchema: z.ZodType<
     .optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   webhookUrl: z.string().optional(),
-  customerId: z.string().optional(),
   mandateId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

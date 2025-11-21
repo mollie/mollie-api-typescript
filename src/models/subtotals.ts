@@ -4,163 +4,43 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BalanceCardAudience,
+  BalanceCardAudience$inboundSchema,
+  BalanceCardAudience$outboundSchema,
+} from "./balancecardaudience.js";
+import {
+  BalanceCardIssuer,
+  BalanceCardIssuer$inboundSchema,
+  BalanceCardIssuer$outboundSchema,
+} from "./balancecardissuer.js";
+import {
+  BalanceCardRegion,
+  BalanceCardRegion$inboundSchema,
+  BalanceCardRegion$outboundSchema,
+} from "./balancecardregion.js";
+import {
+  BalanceFeeType,
+  BalanceFeeType$inboundSchema,
+  BalanceFeeType$outboundSchema,
+} from "./balancefeetype.js";
+import {
+  BalancePrepaymentPartType,
+  BalancePrepaymentPartType$inboundSchema,
+  BalancePrepaymentPartType$outboundSchema,
+} from "./balanceprepaymentparttype.js";
+import {
+  BalanceTransactionType,
+  BalanceTransactionType$inboundSchema,
+  BalanceTransactionType$outboundSchema,
+} from "./balancetransactiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentMethod,
   PaymentMethod$inboundSchema,
   PaymentMethod$outboundSchema,
 } from "./paymentmethod.js";
-
-/**
- * In case of payments transactions with card, the card issuer will be available
- */
-export const SubTotalsCardIssuer = {
-  Amex: "amex",
-  Maestro: "maestro",
-  CarteBancaire: "carte-bancaire",
-  Other: "other",
-} as const;
-/**
- * In case of payments transactions with card, the card issuer will be available
- */
-export type SubTotalsCardIssuer = ClosedEnum<typeof SubTotalsCardIssuer>;
-
-/**
- * In case of payments trnsactions with card, the card audience will be available.
- */
-export const SubTotalsCardAudience = {
-  Corporate: "corporate",
-  Other: "other",
-} as const;
-/**
- * In case of payments trnsactions with card, the card audience will be available.
- */
-export type SubTotalsCardAudience = ClosedEnum<typeof SubTotalsCardAudience>;
-
-/**
- * In case of payments transactions with card, the card region will be available.
- */
-export const SubTotalsCardRegion = {
-  IntraEea: "intra-eea",
-  IntraEu: "intra-eu",
-  Domestic: "domestic",
-  Other: "other",
-} as const;
-/**
- * In case of payments transactions with card, the card region will be available.
- */
-export type SubTotalsCardRegion = ClosedEnum<typeof SubTotalsCardRegion>;
-
-/**
- * Present when the transaction represents a fee.
- */
-export const SubTotalsFeeType = {
-  PaymentFee: "payment-fee",
-  DirectDebitFailureFee: "direct-debit-failure-fee",
-  UnauthorizedDirectDebitFee: "unauthorized-direct-debit-fee",
-  BankChargedDirectDebitFailureFee: "bank-charged-direct-debit-failure-fee",
-  PartnerCommission: "partner-commission",
-  ApplicationFee: "application-fee",
-  CaptureFee: "capture-fee",
-  RefundFee: "refund-fee",
-  ChargebackFee: "chargeback-fee",
-  PaymentNotificationFee: "payment-notification-fee",
-  TransferNotificationFee: "transfer-notification-fee",
-  PayoutFee: "payout-fee",
-  FeeDiscount: "fee-discount",
-  FeeReimbursement: "fee-reimbursement",
-  PlatformVolumeFee: "platform-volume-fee",
-  PlatformConnectedOrganizationsFee: "platform-connected-organizations-fee",
-  BalanceChargeFee: "balance-charge-fee",
-  ThreedsAuthenticationAttemptFee: "3ds-authentication-attempt-fee",
-  TerminalMonthlyFee: "terminal-monthly-fee",
-  AcceptanceRiskFee: "acceptance-risk-fee",
-  TopUpFee: "top-up-fee",
-  PaymentGatewayFee: "payment-gateway-fee",
-  MastercardSpecialtyMerchantProgramProcessingFee:
-    "mastercard-specialty-merchant-program-processing-fee",
-  MastercardSpecialtyMerchantProgramRegistrationFee:
-    "mastercard-specialty-merchant-program-registration-fee",
-  VisaIntegrityRiskProgramProcessingFee:
-    "visa-integrity-risk-program-processing-fee",
-  VisaIntegrityRiskProgramRegistrationFee:
-    "visa-integrity-risk-program-registration-fee",
-  MinimumInvoiceAmountFee: "minimum-invoice-amount-fee",
-} as const;
-/**
- * Present when the transaction represents a fee.
- */
-export type SubTotalsFeeType = ClosedEnum<typeof SubTotalsFeeType>;
-
-/**
- * Prepayment part: fee itself, reimbursement, discount, VAT or rounding compensation.
- */
-export const SubTotalsPrepaymentPartType = {
-  Fee: "fee",
-  FeeReimbursement: "fee-reimbursement",
-  FeeDiscount: "fee-discount",
-  FeeVat: "fee-vat",
-  FeeRoundingCompensation: "fee-rounding-compensation",
-} as const;
-/**
- * Prepayment part: fee itself, reimbursement, discount, VAT or rounding compensation.
- */
-export type SubTotalsPrepaymentPartType = ClosedEnum<
-  typeof SubTotalsPrepaymentPartType
->;
-
-/**
- * Represents the transaction type
- */
-export const SubTotalsTransactionType = {
-  Payment: "payment",
-  SplitPayment: "split-payment",
-  FailedPayment: "failed-payment",
-  FailedPlatformSplitPayment: "failed-platform-split-payment",
-  FailedSplitPaymentCompensation: "failed-split-payment-compensation",
-  Capture: "capture",
-  SplitTransaction: "split-transaction",
-  Refund: "refund",
-  PlatformPaymentRefund: "platform-payment-refund",
-  ReturnedPlatformPaymentRefund: "returned-platform-payment-refund",
-  RefundCompensation: "refund-compensation",
-  ReturnedRefundCompensation: "returned-refund-compensation",
-  ReturnedRefund: "returned-refund",
-  Chargeback: "chargeback",
-  ChargebackReversal: "chargeback-reversal",
-  ChargebackCompensation: "chargeback-compensation",
-  ReversedChargebackCompensation: "reversed-chargeback-compensation",
-  PlatformPaymentChargeback: "platform-payment-chargeback",
-  ReversedPlatformPaymentChargeback: "reversed-platform-payment-chargeback",
-  FeePrepayment: "fee-prepayment",
-  OutgoingTransfer: "outgoing-transfer",
-  IncomingTransfer: "incoming-transfer",
-  CanceledTransfer: "canceled-transfer",
-  ReturnedTransfer: "returned-transfer",
-  BalanceReserve: "balance-reserve",
-  BalanceReserveReturn: "balance-reserve-return",
-  InvoiceRoundingCompensation: "invoice-rounding-compensation",
-  RollingReserveHold: "rolling-reserve-hold",
-  RollingReserveRelease: "rolling-reserve-release",
-  BalanceCorrection: "balance-correction",
-  Repayment: "repayment",
-  Loan: "loan",
-  BalanceTopup: "balance-topup",
-  CashCollateralIssuance: "cash-collateral-issuance';",
-  CashCollateralRelease: "cash-collateral-release",
-  PendingRollingReserve: "pending-rolling-reserve",
-  ToBeReleasedRollingReserve: "to-be-released-rolling-reserve",
-  HeldRollingReserve: "held-rolling-reserve",
-  ReleasedRollingReserve: "released-rolling-reserve",
-} as const;
-/**
- * Represents the transaction type
- */
-export type SubTotalsTransactionType = ClosedEnum<
-  typeof SubTotalsTransactionType
->;
 
 export type SubTotals = {
   /**
@@ -171,85 +51,13 @@ export type SubTotals = {
    * The payment method, if applicable
    */
   method?: PaymentMethod | null | undefined;
-  /**
-   * In case of payments transactions with card, the card issuer will be available
-   */
-  cardIssuer?: SubTotalsCardIssuer | null | undefined;
-  /**
-   * In case of payments trnsactions with card, the card audience will be available.
-   */
-  cardAudience?: SubTotalsCardAudience | null | undefined;
-  /**
-   * In case of payments transactions with card, the card region will be available.
-   */
-  cardRegion?: SubTotalsCardRegion | null | undefined;
-  /**
-   * Present when the transaction represents a fee.
-   */
-  feeType?: SubTotalsFeeType | null | undefined;
-  /**
-   * Prepayment part: fee itself, reimbursement, discount, VAT or rounding compensation.
-   */
-  prepaymentPartType?: SubTotalsPrepaymentPartType | null | undefined;
-  /**
-   * Represents the transaction type
-   */
-  transactionType?: SubTotalsTransactionType | null | undefined;
+  cardIssuer?: BalanceCardIssuer | undefined;
+  cardAudience?: BalanceCardAudience | undefined;
+  cardRegion?: BalanceCardRegion | undefined;
+  feeType?: BalanceFeeType | undefined;
+  prepaymentPartType?: BalancePrepaymentPartType | undefined;
+  transactionType?: BalanceTransactionType | undefined;
 };
-
-/** @internal */
-export const SubTotalsCardIssuer$inboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsCardIssuer
-> = z.nativeEnum(SubTotalsCardIssuer);
-/** @internal */
-export const SubTotalsCardIssuer$outboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsCardIssuer
-> = SubTotalsCardIssuer$inboundSchema;
-
-/** @internal */
-export const SubTotalsCardAudience$inboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsCardAudience
-> = z.nativeEnum(SubTotalsCardAudience);
-/** @internal */
-export const SubTotalsCardAudience$outboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsCardAudience
-> = SubTotalsCardAudience$inboundSchema;
-
-/** @internal */
-export const SubTotalsCardRegion$inboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsCardRegion
-> = z.nativeEnum(SubTotalsCardRegion);
-/** @internal */
-export const SubTotalsCardRegion$outboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsCardRegion
-> = SubTotalsCardRegion$inboundSchema;
-
-/** @internal */
-export const SubTotalsFeeType$inboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsFeeType
-> = z.nativeEnum(SubTotalsFeeType);
-/** @internal */
-export const SubTotalsFeeType$outboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsFeeType
-> = SubTotalsFeeType$inboundSchema;
-
-/** @internal */
-export const SubTotalsPrepaymentPartType$inboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsPrepaymentPartType
-> = z.nativeEnum(SubTotalsPrepaymentPartType);
-/** @internal */
-export const SubTotalsPrepaymentPartType$outboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsPrepaymentPartType
-> = SubTotalsPrepaymentPartType$inboundSchema;
-
-/** @internal */
-export const SubTotalsTransactionType$inboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsTransactionType
-> = z.nativeEnum(SubTotalsTransactionType);
-/** @internal */
-export const SubTotalsTransactionType$outboundSchema: z.ZodNativeEnum<
-  typeof SubTotalsTransactionType
-> = SubTotalsTransactionType$inboundSchema;
 
 /** @internal */
 export const SubTotals$inboundSchema: z.ZodType<
@@ -259,25 +67,23 @@ export const SubTotals$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int().optional(),
   method: z.nullable(PaymentMethod$inboundSchema).optional(),
-  cardIssuer: z.nullable(SubTotalsCardIssuer$inboundSchema).optional(),
-  cardAudience: z.nullable(SubTotalsCardAudience$inboundSchema).optional(),
-  cardRegion: z.nullable(SubTotalsCardRegion$inboundSchema).optional(),
-  feeType: z.nullable(SubTotalsFeeType$inboundSchema).optional(),
-  prepaymentPartType: z.nullable(SubTotalsPrepaymentPartType$inboundSchema)
-    .optional(),
-  transactionType: z.nullable(SubTotalsTransactionType$inboundSchema)
-    .optional(),
+  cardIssuer: BalanceCardIssuer$inboundSchema.optional(),
+  cardAudience: BalanceCardAudience$inboundSchema.optional(),
+  cardRegion: BalanceCardRegion$inboundSchema.optional(),
+  feeType: BalanceFeeType$inboundSchema.optional(),
+  prepaymentPartType: BalancePrepaymentPartType$inboundSchema.optional(),
+  transactionType: BalanceTransactionType$inboundSchema.optional(),
 });
 /** @internal */
 export type SubTotals$Outbound = {
   count?: number | undefined;
   method?: string | null | undefined;
-  cardIssuer?: string | null | undefined;
-  cardAudience?: string | null | undefined;
-  cardRegion?: string | null | undefined;
-  feeType?: string | null | undefined;
-  prepaymentPartType?: string | null | undefined;
-  transactionType?: string | null | undefined;
+  cardIssuer?: string | undefined;
+  cardAudience?: string | undefined;
+  cardRegion?: string | undefined;
+  feeType?: string | undefined;
+  prepaymentPartType?: string | undefined;
+  transactionType?: string | undefined;
 };
 
 /** @internal */
@@ -288,14 +94,12 @@ export const SubTotals$outboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int().optional(),
   method: z.nullable(PaymentMethod$outboundSchema).optional(),
-  cardIssuer: z.nullable(SubTotalsCardIssuer$outboundSchema).optional(),
-  cardAudience: z.nullable(SubTotalsCardAudience$outboundSchema).optional(),
-  cardRegion: z.nullable(SubTotalsCardRegion$outboundSchema).optional(),
-  feeType: z.nullable(SubTotalsFeeType$outboundSchema).optional(),
-  prepaymentPartType: z.nullable(SubTotalsPrepaymentPartType$outboundSchema)
-    .optional(),
-  transactionType: z.nullable(SubTotalsTransactionType$outboundSchema)
-    .optional(),
+  cardIssuer: BalanceCardIssuer$outboundSchema.optional(),
+  cardAudience: BalanceCardAudience$outboundSchema.optional(),
+  cardRegion: BalanceCardRegion$outboundSchema.optional(),
+  feeType: BalanceFeeType$outboundSchema.optional(),
+  prepaymentPartType: BalancePrepaymentPartType$outboundSchema.optional(),
+  transactionType: BalanceTransactionType$outboundSchema.optional(),
 });
 
 export function subTotalsToJSON(subTotals: SubTotals): string {

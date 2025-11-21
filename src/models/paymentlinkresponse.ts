@@ -95,6 +95,9 @@ export type PaymentLinkResponse = {
    * endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this payment link. Example: `pl_4Y0eZitmBnQ6IDoMqZQKh`.
+   */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.

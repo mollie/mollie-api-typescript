@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -11,12 +12,6 @@ import {
   Amount$Outbound,
   Amount$outboundSchema,
 } from "./amount.js";
-import {
-  AmountNullable,
-  AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
-} from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Metadata,
@@ -29,16 +24,6 @@ import {
   RefundExternalReferenceType$inboundSchema,
   RefundExternalReferenceType$outboundSchema,
 } from "./refundexternalreferencetype.js";
-import {
-  RefundRoutingReversalsSourceType,
-  RefundRoutingReversalsSourceType$inboundSchema,
-  RefundRoutingReversalsSourceType$outboundSchema,
-} from "./refundroutingreversalssourcetype.js";
-import {
-  RefundStatus,
-  RefundStatus$inboundSchema,
-  RefundStatus$outboundSchema,
-} from "./refundstatus.js";
 
 export type RefundRequestExternalReference = {
   /**
@@ -52,13 +37,21 @@ export type RefundRequestExternalReference = {
 };
 
 /**
+ * The type of source. Currently only the source type `organization` is supported.
+ */
+export const Type = {
+  Organization: "organization",
+} as const;
+/**
+ * The type of source. Currently only the source type `organization` is supported.
+ */
+export type Type = ClosedEnum<typeof Type>;
+
+/**
  * Where the funds will be pulled back from.
  */
 export type RefundRequestSource = {
-  /**
-   * The type of source. Currently only the source type `organization` is supported.
-   */
-  type?: RefundRoutingReversalsSourceType | undefined;
+  type?: Type | undefined;
   organizationId?: string | undefined;
 };
 
@@ -74,7 +67,6 @@ export type RefundRequestRoutingReversal = {
 };
 
 export type RefundRequest = {
-  id: string;
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    */
@@ -84,19 +76,12 @@ export type RefundRequest = {
    */
   amount: Amount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  settlementAmount?: AmountNullable | null | undefined;
-  /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata: Metadata | null;
-  paymentId?: string | undefined;
-  settlementId?: string | undefined;
-  status: RefundStatus;
   externalReference?: RefundRequestExternalReference | undefined;
   /**
    * *This feature is only available to marketplace operators.*
@@ -184,12 +169,20 @@ export function refundRequestExternalReferenceFromJSON(
 }
 
 /** @internal */
+export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
+  Type,
+);
+/** @internal */
+export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
+  Type$inboundSchema;
+
+/** @internal */
 export const RefundRequestSource$inboundSchema: z.ZodType<
   RefundRequestSource,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RefundRoutingReversalsSourceType$inboundSchema.optional(),
+  type: Type$inboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 /** @internal */
@@ -204,7 +197,7 @@ export const RefundRequestSource$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RefundRequestSource
 > = z.object({
-  type: RefundRoutingReversalsSourceType$outboundSchema.optional(),
+  type: Type$outboundSchema.optional(),
   organizationId: z.string().optional(),
 });
 
@@ -275,14 +268,9 @@ export const RefundRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
   description: z.string(),
   amount: Amount$inboundSchema,
-  settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
   metadata: z.nullable(Metadata$inboundSchema),
-  paymentId: z.string().optional(),
-  settlementId: z.string().optional(),
-  status: RefundStatus$inboundSchema,
   externalReference: z.lazy(() => RefundRequestExternalReference$inboundSchema)
     .optional(),
   reverseRouting: z.nullable(z.boolean()).optional(),
@@ -293,14 +281,9 @@ export const RefundRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type RefundRequest$Outbound = {
-  id: string;
   description: string;
   amount: Amount$Outbound;
-  settlementAmount?: AmountNullable$Outbound | null | undefined;
   metadata: Metadata$Outbound | null;
-  paymentId?: string | undefined;
-  settlementId?: string | undefined;
-  status: string;
   externalReference?: RefundRequestExternalReference$Outbound | undefined;
   reverseRouting?: boolean | null | undefined;
   routingReversals?:
@@ -316,14 +299,9 @@ export const RefundRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RefundRequest
 > = z.object({
-  id: z.string(),
   description: z.string(),
   amount: Amount$outboundSchema,
-  settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
   metadata: z.nullable(Metadata$outboundSchema),
-  paymentId: z.string().optional(),
-  settlementId: z.string().optional(),
-  status: RefundStatus$outboundSchema,
   externalReference: z.lazy(() => RefundRequestExternalReference$outboundSchema)
     .optional(),
   reverseRouting: z.nullable(z.boolean()).optional(),

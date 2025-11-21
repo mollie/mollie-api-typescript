@@ -36,6 +36,9 @@ export type EntityPermission = {
    * endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this permission. Example: `payments.read`.
+   */
   id: string;
   /**
    * A short description of what kind of access the permission enables.

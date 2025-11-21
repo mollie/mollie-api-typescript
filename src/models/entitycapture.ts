@@ -11,11 +11,6 @@ import {
   AmountNullable$Outbound,
   AmountNullable$outboundSchema,
 } from "./amountnullable.js";
-import {
-  CaptureStatus,
-  CaptureStatus$inboundSchema,
-  CaptureStatus$outboundSchema,
-} from "./capturestatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Metadata,
@@ -25,7 +20,6 @@ import {
 } from "./metadata.js";
 
 export type EntityCapture = {
-  id?: string | undefined;
   /**
    * The description of the capture.
    */
@@ -35,23 +29,12 @@ export type EntityCapture = {
    */
   amount?: AmountNullable | null | undefined;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  settlementAmount?: AmountNullable | null | undefined;
-  /**
-   * The capture's status.
-   */
-  status?: CaptureStatus | undefined;
-  /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: Metadata | null | undefined;
-  paymentId?: string | undefined;
-  shipmentId?: string | undefined;
-  settlementId?: string | undefined;
 };
 
 /** @internal */
@@ -60,27 +43,15 @@ export const EntityCapture$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$inboundSchema).optional(),
-  settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
-  status: CaptureStatus$inboundSchema.optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
-  paymentId: z.string().optional(),
-  shipmentId: z.string().optional(),
-  settlementId: z.string().optional(),
 });
 /** @internal */
 export type EntityCapture$Outbound = {
-  id?: string | undefined;
   description?: string | undefined;
   amount?: AmountNullable$Outbound | null | undefined;
-  settlementAmount?: AmountNullable$Outbound | null | undefined;
-  status?: string | undefined;
   metadata?: Metadata$Outbound | null | undefined;
-  paymentId?: string | undefined;
-  shipmentId?: string | undefined;
-  settlementId?: string | undefined;
 };
 
 /** @internal */
@@ -89,15 +60,9 @@ export const EntityCapture$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityCapture
 > = z.object({
-  id: z.string().optional(),
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$outboundSchema).optional(),
-  settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
-  status: CaptureStatus$outboundSchema.optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
-  paymentId: z.string().optional(),
-  shipmentId: z.string().optional(),
-  settlementId: z.string().optional(),
 });
 
 export function entityCaptureToJSON(entityCapture: EntityCapture): string {

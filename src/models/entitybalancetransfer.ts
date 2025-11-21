@@ -25,7 +25,6 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type EntityBalanceTransfer = {
-  id: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -64,7 +63,6 @@ export const EntityBalanceTransfer$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
   amount: Amount$inboundSchema,
   source: EntityBalanceTransferParty$inboundSchema,
   destination: EntityBalanceTransferParty$inboundSchema,
@@ -74,7 +72,6 @@ export const EntityBalanceTransfer$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type EntityBalanceTransfer$Outbound = {
-  id: string;
   amount: Amount$Outbound;
   source: EntityBalanceTransferParty$Outbound;
   destination: EntityBalanceTransferParty$Outbound;
@@ -89,7 +86,6 @@ export const EntityBalanceTransfer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EntityBalanceTransfer
 > = z.object({
-  id: z.string(),
   amount: Amount$outboundSchema,
   source: EntityBalanceTransferParty$outboundSchema,
   destination: EntityBalanceTransferParty$outboundSchema,

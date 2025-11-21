@@ -5,25 +5,10 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import {
-  AmountNullable,
-  AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
-} from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  MethodResponse,
-  MethodResponse$inboundSchema,
-  MethodResponse$outboundSchema,
-} from "./methodresponse.js";
 import {
   MethodStatus,
   MethodStatus$inboundSchema,
@@ -35,6 +20,100 @@ import {
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+
+/**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export const EntityMethodId = {
+  Alma: "alma",
+  Applepay: "applepay",
+  Bacs: "bacs",
+  Bancomatpay: "bancomatpay",
+  Bancontact: "bancontact",
+  Banktransfer: "banktransfer",
+  Belfius: "belfius",
+  Billie: "billie",
+  Bizum: "bizum",
+  Blik: "blik",
+  Creditcard: "creditcard",
+  Directdebit: "directdebit",
+  Eps: "eps",
+  Giftcard: "giftcard",
+  Ideal: "ideal",
+  In3: "in3",
+  Kbc: "kbc",
+  Klarna: "klarna",
+  Mbway: "mbway",
+  Mobilepay: "mobilepay",
+  Multibanco: "multibanco",
+  Mybank: "mybank",
+  Paybybank: "paybybank",
+  Payconiq: "payconiq",
+  Paypal: "paypal",
+  Paysafecard: "paysafecard",
+  Pointofsale: "pointofsale",
+  Przelewy24: "przelewy24",
+  Riverty: "riverty",
+  Satispay: "satispay",
+  Swish: "swish",
+  Trustly: "trustly",
+  Twint: "twint",
+  Vipps: "vipps",
+  Voucher: "voucher",
+  /**
+   * Deprecated, use 'klarna' instead
+   */
+  Klarnapaylater: "klarnapaylater",
+  /**
+   * Deprecated, use 'klarna' instead
+   */
+  Klarnapaynow: "klarnapaynow",
+  /**
+   * Deprecated, use 'klarna' instead
+   */
+  Klarnasliceit: "klarnasliceit",
+} as const;
+/**
+ * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+ *
+ * @remarks
+ * method selection screen will be skipped.
+ */
+export type EntityMethodId = OpenEnum<typeof EntityMethodId>;
+
+/**
+ * The minimum payment amount required to use this payment method.
+ */
+export type EntityMethodMinimumAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+ *
+ * @remarks
+ * is returned instead.
+ */
+export type EntityMethodMaximumAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
 
 /**
  * URLs of images representing the payment method.
@@ -126,17 +205,12 @@ export type EntityMethod = {
    */
   resource: string;
   /**
-   * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
+   * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
    *
    * @remarks
-   * method and your customer will skip the selection screen and is sent directly to the chosen payment method. The
-   * parameter enables you to fully integrate the payment method selection into your website.
-   *
-   * You can also specify the methods in an array. By doing so we will still show the payment method selection screen
-   * but will only show the methods specified in the array. For example, you can use this functionality to only show
-   * payment methods from a specific country to your customer `['bancontact', 'belfius']`.
+   * method selection screen will be skipped.
    */
-  id: MethodResponse | null;
+  id: EntityMethodId | null;
   /**
    * The full name of the payment method.
    *
@@ -146,13 +220,16 @@ export type EntityMethod = {
    */
   description: string;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * The minimum payment amount required to use this payment method.
    */
-  minimumAmount: Amount;
+  minimumAmount: EntityMethodMinimumAmount;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+   *
+   * @remarks
+   * is returned instead.
    */
-  maximumAmount: AmountNullable | null;
+  maximumAmount: EntityMethodMaximumAmount | null;
   /**
    * URLs of images representing the payment method.
    */
@@ -173,6 +250,103 @@ export type EntityMethod = {
    */
   links: EntityMethodLinks;
 };
+
+/** @internal */
+export const EntityMethodId$inboundSchema: z.ZodType<
+  EntityMethodId,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(EntityMethodId);
+/** @internal */
+export const EntityMethodId$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EntityMethodId
+> = openEnums.outboundSchema(EntityMethodId);
+
+/** @internal */
+export const EntityMethodMinimumAmount$inboundSchema: z.ZodType<
+  EntityMethodMinimumAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type EntityMethodMinimumAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const EntityMethodMinimumAmount$outboundSchema: z.ZodType<
+  EntityMethodMinimumAmount$Outbound,
+  z.ZodTypeDef,
+  EntityMethodMinimumAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function entityMethodMinimumAmountToJSON(
+  entityMethodMinimumAmount: EntityMethodMinimumAmount,
+): string {
+  return JSON.stringify(
+    EntityMethodMinimumAmount$outboundSchema.parse(entityMethodMinimumAmount),
+  );
+}
+export function entityMethodMinimumAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<EntityMethodMinimumAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EntityMethodMinimumAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodMinimumAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const EntityMethodMaximumAmount$inboundSchema: z.ZodType<
+  EntityMethodMaximumAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type EntityMethodMaximumAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const EntityMethodMaximumAmount$outboundSchema: z.ZodType<
+  EntityMethodMaximumAmount$Outbound,
+  z.ZodTypeDef,
+  EntityMethodMaximumAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function entityMethodMaximumAmountToJSON(
+  entityMethodMaximumAmount: EntityMethodMaximumAmount,
+): string {
+  return JSON.stringify(
+    EntityMethodMaximumAmount$outboundSchema.parse(entityMethodMaximumAmount),
+  );
+}
+export function entityMethodMaximumAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<EntityMethodMaximumAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EntityMethodMaximumAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodMaximumAmount' from JSON`,
+  );
+}
 
 /** @internal */
 export const EntityMethodImage$inboundSchema: z.ZodType<
@@ -361,10 +535,12 @@ export const EntityMethod$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string(),
-  id: z.nullable(MethodResponse$inboundSchema),
+  id: z.nullable(EntityMethodId$inboundSchema),
   description: z.string(),
-  minimumAmount: Amount$inboundSchema,
-  maximumAmount: z.nullable(AmountNullable$inboundSchema),
+  minimumAmount: z.lazy(() => EntityMethodMinimumAmount$inboundSchema),
+  maximumAmount: z.nullable(
+    z.lazy(() => EntityMethodMaximumAmount$inboundSchema),
+  ),
   image: z.lazy(() => EntityMethodImage$inboundSchema),
   status: MethodStatus$inboundSchema,
   issuers: z.array(z.lazy(() => EntityMethodIssuer$inboundSchema)).optional(),
@@ -379,8 +555,8 @@ export type EntityMethod$Outbound = {
   resource: string;
   id: string | null;
   description: string;
-  minimumAmount: Amount$Outbound;
-  maximumAmount: AmountNullable$Outbound | null;
+  minimumAmount: EntityMethodMinimumAmount$Outbound;
+  maximumAmount: EntityMethodMaximumAmount$Outbound | null;
   image: EntityMethodImage$Outbound;
   status: string;
   issuers?: Array<EntityMethodIssuer$Outbound> | undefined;
@@ -394,10 +570,12 @@ export const EntityMethod$outboundSchema: z.ZodType<
   EntityMethod
 > = z.object({
   resource: z.string(),
-  id: z.nullable(MethodResponse$outboundSchema),
+  id: z.nullable(EntityMethodId$outboundSchema),
   description: z.string(),
-  minimumAmount: Amount$outboundSchema,
-  maximumAmount: z.nullable(AmountNullable$outboundSchema),
+  minimumAmount: z.lazy(() => EntityMethodMinimumAmount$outboundSchema),
+  maximumAmount: z.nullable(
+    z.lazy(() => EntityMethodMaximumAmount$outboundSchema),
+  ),
   image: z.lazy(() => EntityMethodImage$outboundSchema),
   status: MethodStatus$outboundSchema,
   issuers: z.array(z.lazy(() => EntityMethodIssuer$outboundSchema)).optional(),

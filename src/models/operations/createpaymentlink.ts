@@ -34,7 +34,6 @@ export type ApplicationFee = {
 };
 
 export type CreatePaymentLinkRequestBody = {
-  id?: string | undefined;
   /**
    * A short description of the payment link. The description is visible in the Dashboard and will be shown on the
    *
@@ -202,7 +201,6 @@ export const CreatePaymentLinkRequestBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
   description: z.string(),
   amount: z.nullable(models.AmountNullable$inboundSchema).optional(),
   minimumAmount: z.nullable(models.AmountNullable$inboundSchema).optional(),
@@ -223,7 +221,6 @@ export const CreatePaymentLinkRequestBody$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type CreatePaymentLinkRequestBody$Outbound = {
-  id?: string | undefined;
   description: string;
   amount?: models.AmountNullable$Outbound | null | undefined;
   minimumAmount?: models.AmountNullable$Outbound | null | undefined;
@@ -248,7 +245,6 @@ export const CreatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreatePaymentLinkRequestBody
 > = z.object({
-  id: z.string().optional(),
   description: z.string(),
   amount: z.nullable(models.AmountNullable$outboundSchema).optional(),
   minimumAmount: z.nullable(models.AmountNullable$outboundSchema).optional(),

@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
@@ -12,11 +14,6 @@ import {
   AmountNullable$Outbound,
   AmountNullable$outboundSchema,
 } from "./amountnullable.js";
-import {
-  CaptureStatus,
-  CaptureStatus$inboundSchema,
-  CaptureStatus$outboundSchema,
-} from "./capturestatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Metadata,
@@ -37,6 +34,40 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
+
+/**
+ * This optional field will contain the approximate amount that will be settled to your account, converted to the
+ *
+ * @remarks
+ * currency your account is settled in.
+ *
+ * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve
+ * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+ * instead.
+ */
+export type CaptureResponseSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * The capture's status.
+ */
+export const CaptureResponseStatus = {
+  Pending: "pending",
+  Succeeded: "succeeded",
+  Failed: "failed",
+} as const;
+/**
+ * The capture's status.
+ */
+export type CaptureResponseStatus = OpenEnum<typeof CaptureResponseStatus>;
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -69,6 +100,9 @@ export type CaptureResponse = {
    * Indicates the response contains a capture object. Will always contain the string `capture` for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this capture. Example: `cpt_mNepDkEtco6ah3QNPUGYH`.
+   */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
@@ -83,13 +117,17 @@ export type CaptureResponse = {
    */
   amount: AmountNullable | null;
   /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the
+   *
+   * @remarks
+   * currency your account is settled in.
+   *
+   * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve
+   * accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+   * instead.
    */
-  settlementAmount?: AmountNullable | null | undefined;
-  /**
-   * The capture's status.
-   */
-  status: CaptureStatus;
+  settlementAmount?: CaptureResponseSettlementAmount | null | undefined;
+  status: CaptureResponseStatus;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
@@ -97,9 +135,27 @@ export type CaptureResponse = {
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: Metadata | null | undefined;
+  /**
+   * The unique identifier of the payment this capture was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
+   */
   paymentId: string;
-  shipmentId?: string | undefined;
-  settlementId?: string | undefined;
+  /**
+   * The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example:
+   *
+   * @remarks
+   * `shp_gNapNy9qQTUFZYnCrCF7J`.
+   */
+  shipmentId?: string | null | undefined;
+  /**
+   * The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field
+   *
+   * @remarks
+   * is omitted if the capture is not settled (yet).
+   */
+  settlementId?: string | null | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -109,6 +165,63 @@ export type CaptureResponse = {
    */
   links: CaptureResponseLinks;
 };
+
+/** @internal */
+export const CaptureResponseSettlementAmount$inboundSchema: z.ZodType<
+  CaptureResponseSettlementAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CaptureResponseSettlementAmount$Outbound = {
+  currency: string;
+  value: string;
+};
+
+/** @internal */
+export const CaptureResponseSettlementAmount$outboundSchema: z.ZodType<
+  CaptureResponseSettlementAmount$Outbound,
+  z.ZodTypeDef,
+  CaptureResponseSettlementAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function captureResponseSettlementAmountToJSON(
+  captureResponseSettlementAmount: CaptureResponseSettlementAmount,
+): string {
+  return JSON.stringify(
+    CaptureResponseSettlementAmount$outboundSchema.parse(
+      captureResponseSettlementAmount,
+    ),
+  );
+}
+export function captureResponseSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<CaptureResponseSettlementAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CaptureResponseSettlementAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CaptureResponseSettlementAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const CaptureResponseStatus$inboundSchema: z.ZodType<
+  CaptureResponseStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CaptureResponseStatus);
+/** @internal */
+export const CaptureResponseStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CaptureResponseStatus
+> = openEnums.outboundSchema(CaptureResponseStatus);
 
 /** @internal */
 export const CaptureResponseLinks$inboundSchema: z.ZodType<
@@ -172,12 +285,14 @@ export const CaptureResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$inboundSchema),
-  settlementAmount: z.nullable(AmountNullable$inboundSchema).optional(),
-  status: CaptureStatus$inboundSchema,
+  settlementAmount: z.nullable(
+    z.lazy(() => CaptureResponseSettlementAmount$inboundSchema),
+  ).optional(),
+  status: CaptureResponseStatus$inboundSchema,
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   paymentId: z.string(),
-  shipmentId: z.string().optional(),
-  settlementId: z.string().optional(),
+  shipmentId: z.nullable(z.string()).optional(),
+  settlementId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   _links: z.lazy(() => CaptureResponseLinks$inboundSchema),
 }).transform((v) => {
@@ -192,12 +307,15 @@ export type CaptureResponse$Outbound = {
   mode: string;
   description?: string | undefined;
   amount: AmountNullable$Outbound | null;
-  settlementAmount?: AmountNullable$Outbound | null | undefined;
+  settlementAmount?:
+    | CaptureResponseSettlementAmount$Outbound
+    | null
+    | undefined;
   status: string;
   metadata?: Metadata$Outbound | null | undefined;
   paymentId: string;
-  shipmentId?: string | undefined;
-  settlementId?: string | undefined;
+  shipmentId?: string | null | undefined;
+  settlementId?: string | null | undefined;
   createdAt: string;
   _links: CaptureResponseLinks$Outbound;
 };
@@ -213,12 +331,14 @@ export const CaptureResponse$outboundSchema: z.ZodType<
   mode: Mode$outboundSchema,
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$outboundSchema),
-  settlementAmount: z.nullable(AmountNullable$outboundSchema).optional(),
-  status: CaptureStatus$outboundSchema,
+  settlementAmount: z.nullable(
+    z.lazy(() => CaptureResponseSettlementAmount$outboundSchema),
+  ).optional(),
+  status: CaptureResponseStatus$outboundSchema,
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   paymentId: z.string(),
-  shipmentId: z.string().optional(),
-  settlementId: z.string().optional(),
+  shipmentId: z.nullable(z.string()).optional(),
+  settlementId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   links: z.lazy(() => CaptureResponseLinks$outboundSchema),
 }).transform((v) => {

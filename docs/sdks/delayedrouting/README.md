@@ -30,8 +30,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityRoute: {
-      id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
-      paymentId: "tr_5B8cwPMGnU",
       amount: {
         currency: "EUR",
         value: "10.00",
@@ -72,8 +70,6 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityRoute: {
-      id: "crt_dyARQ3JzCgtPDhU2Pbq3J",
-      paymentId: "tr_5B8cwPMGnU",
       amount: {
         currency: "EUR",
         value: "10.00",

@@ -55,7 +55,19 @@ export type RouteCreateResponse = {
    * Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
+   */
   id: string;
+  /**
+   * The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+   *
+   * @remarks
+   * The full payment object can be retrieved via the payment URL in the `_links` object.
+   */
   paymentId: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.

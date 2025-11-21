@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -26,11 +28,6 @@ import {
   SubscriptionMethodResponse$outboundSchema,
 } from "./subscriptionmethodresponse.js";
 import {
-  SubscriptionStatus,
-  SubscriptionStatus$inboundSchema,
-  SubscriptionStatus$outboundSchema,
-} from "./subscriptionstatus.js";
-import {
   Url,
   Url$inboundSchema,
   Url$Outbound,
@@ -42,6 +39,29 @@ import {
   UrlNullable$Outbound,
   UrlNullable$outboundSchema,
 } from "./urlnullable.js";
+
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export const SubscriptionResponseStatus = {
+  Pending: "pending",
+  Active: "active",
+  Canceled: "canceled",
+  Suspended: "suspended",
+  Completed: "completed",
+} as const;
+/**
+ * The subscription's current status is directly related to the status of the underlying customer or mandate that is
+ *
+ * @remarks
+ * enabling the subscription.
+ */
+export type SubscriptionResponseStatus = OpenEnum<
+  typeof SubscriptionResponseStatus
+>;
 
 /**
  * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
@@ -100,18 +120,15 @@ export type SubscriptionResponse = {
    * endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.
+   */
   id: string;
   /**
    * Whether this entity was created in live mode or in test mode.
    */
   mode: Mode;
-  /**
-   * The subscription's current status is directly related to the status of the underlying customer or mandate that is
-   *
-   * @remarks
-   * enabling the subscription.
-   */
-  status: SubscriptionStatus;
+  status: SubscriptionResponseStatus;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -191,6 +208,9 @@ export type SubscriptionResponse = {
    * well. Be sure to verify the payment's subscription ID and its status.
    */
   webhookUrl: string;
+  /**
+   * The customer this subscription belongs to.
+   */
   customerId: string;
   mandateId?: string | undefined;
   /**
@@ -209,6 +229,19 @@ export type SubscriptionResponse = {
    */
   links: SubscriptionResponseLinks;
 };
+
+/** @internal */
+export const SubscriptionResponseStatus$inboundSchema: z.ZodType<
+  SubscriptionResponseStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SubscriptionResponseStatus);
+/** @internal */
+export const SubscriptionResponseStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SubscriptionResponseStatus
+> = openEnums.outboundSchema(SubscriptionResponseStatus);
 
 /** @internal */
 export const SubscriptionResponseApplicationFee$inboundSchema: z.ZodType<
@@ -318,7 +351,7 @@ export const SubscriptionResponse$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   mode: Mode$inboundSchema,
-  status: SubscriptionStatus$inboundSchema,
+  status: SubscriptionResponseStatus$inboundSchema,
   amount: Amount$inboundSchema,
   times: z.nullable(z.number().int()),
   timesRemaining: z.nullable(z.number().int()),
@@ -374,7 +407,7 @@ export const SubscriptionResponse$outboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   mode: Mode$outboundSchema,
-  status: SubscriptionStatus$outboundSchema,
+  status: SubscriptionResponseStatus$outboundSchema,
   amount: Amount$outboundSchema,
   times: z.nullable(z.number().int()),
   timesRemaining: z.nullable(z.number().int()),

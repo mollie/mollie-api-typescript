@@ -36,7 +36,6 @@ async function run() {
   const result = await client.customers.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCustomer: {
-      id: "cst_5B8cwPMGnU",
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
@@ -70,7 +69,6 @@ async function run() {
   const res = await customersCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCustomer: {
-      id: "cst_5B8cwPMGnU",
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
@@ -303,7 +301,6 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCustomer: {
-      id: "cst_5B8cwPMGnU",
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
@@ -338,7 +335,6 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     entityCustomer: {
-      id: "cst_5B8cwPMGnU",
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
@@ -494,29 +490,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     paymentRequest: {
-      id: "tr_5B8cwPMGnU",
       description: "Chess Board",
       amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountRefunded: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountRemaining: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountCaptured: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountChargedBack: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      settlementAmount: {
         currency: "EUR",
         value: "10.00",
       },
@@ -607,7 +582,6 @@ async function run() {
       },
       routing: [
         {
-          id: "rt_5B8cwPMGnU",
           amount: {
             currency: "EUR",
             value: "10.00",
@@ -630,12 +604,9 @@ async function run() {
         },
       ],
       sequenceType: "oneoff",
-      subscriptionId: "sub_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
-      settlementId: "stl_5B8cwPMGnU",
-      orderId: "ord_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
@@ -681,29 +652,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     paymentRequest: {
-      id: "tr_5B8cwPMGnU",
       description: "Chess Board",
       amount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountRefunded: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountRemaining: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountCaptured: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      amountChargedBack: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      settlementAmount: {
         currency: "EUR",
         value: "10.00",
       },
@@ -794,7 +744,6 @@ async function run() {
       },
       routing: [
         {
-          id: "rt_5B8cwPMGnU",
           amount: {
             currency: "EUR",
             value: "10.00",
@@ -817,12 +766,9 @@ async function run() {
         },
       ],
       sequenceType: "oneoff",
-      subscriptionId: "sub_5B8cwPMGnU",
       mandateId: "mdt_5B8cwPMGnU",
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
-      settlementId: "stl_5B8cwPMGnU",
-      orderId: "ord_5B8cwPMGnU",
       dueDate: "2025-01-01",
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",

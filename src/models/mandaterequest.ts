@@ -11,13 +11,11 @@ import {
   MandateMethod$inboundSchema,
   MandateMethod$outboundSchema,
 } from "./mandatemethod.js";
-import {
-  MandateStatus,
-  MandateStatus$inboundSchema,
-  MandateStatus$outboundSchema,
-} from "./mandatestatus.js";
 
 export type MandateRequest = {
+  /**
+   * The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.
+   */
   id?: string | undefined;
   /**
    * Payment method of the mandate.
@@ -69,14 +67,6 @@ export type MandateRequest = {
    */
   payPalVaultId?: string | null | undefined;
   /**
-   * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
-   *
-   * @remarks
-   * when we did not received the IBAN yet from the first payment.
-   */
-  status?: MandateStatus | undefined;
-  customerId?: string | undefined;
-  /**
    * Whether to create the entity in test mode or live mode.
    *
    * @remarks
@@ -104,8 +94,6 @@ export const MandateRequest$inboundSchema: z.ZodType<
   mandateReference: z.nullable(z.string()).optional(),
   paypalBillingAgreementId: z.nullable(z.string()).optional(),
   payPalVaultId: z.nullable(z.string()).optional(),
-  status: MandateStatus$inboundSchema.optional(),
-  customerId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 /** @internal */
@@ -120,8 +108,6 @@ export type MandateRequest$Outbound = {
   mandateReference?: string | null | undefined;
   paypalBillingAgreementId?: string | null | undefined;
   payPalVaultId?: string | null | undefined;
-  status?: string | undefined;
-  customerId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -141,8 +127,6 @@ export const MandateRequest$outboundSchema: z.ZodType<
   mandateReference: z.nullable(z.string()).optional(),
   paypalBillingAgreementId: z.nullable(z.string()).optional(),
   payPalVaultId: z.nullable(z.string()).optional(),
-  status: MandateStatus$outboundSchema.optional(),
-  customerId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 

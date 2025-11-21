@@ -54,6 +54,12 @@ export type EntityBalanceTransferResponse = {
    * Indicates the response contains a balance transfer object. Will always contain the string `connect-balance-transfer` for this endpoint.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this balance transfer. Mollie assigns this identifier at balance transfer creation time. Mollie
+   *
+   * @remarks
+   * will always refer to the balance transfer by this ID. Example: `cbtr_j8NvRAM2WNZtsykpLEX8J`.
+   */
   id: string;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.

@@ -73,6 +73,9 @@ export type GetClientResponse = {
    * Indicates the response contains a client object. Will always contain the string `client` for this resource type.
    */
   resource: string;
+  /**
+   * The identifier uniquely referring to this client. Example: `org_12345678`.
+   */
   id: string;
   /**
    * The commission object.
