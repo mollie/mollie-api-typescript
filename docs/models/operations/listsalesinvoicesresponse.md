@@ -15,17 +15,18 @@ let value: ListSalesInvoicesResponse = {
       {
         resource: "sales-invoice",
         id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+        mode: "live",
         invoiceNumber: "INV-0000001",
         status: "draft",
         vatScheme: "standard",
         vatMode: "exclusive",
         memo: "This is a memo!",
         paymentTerm: "30 days",
-        paymentDetails: null,
-        emailDetails: {
-          subject: "Your invoice is available",
-          body: "Please find your invoice enclosed.",
+        paymentDetails: {
+          source: "payment-link",
+          sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
         },
+        emailDetails: null,
         customerId: "cst_8wmqcHMN4U",
         mandateId: "mdt_pWUnw6pkBN",
         recipientIdentifier: "customer-xyz-0123",
@@ -56,13 +57,13 @@ let value: ListSalesInvoicesResponse = {
               currency: "EUR",
               value: "10.00",
             },
-            discount: null,
+            discount: {
+              type: "amount",
+              value: "10.00",
+            },
           },
         ],
-        discount: {
-          type: "amount",
-          value: "10.00",
-        },
+        discount: null,
         amountDue: {
           currency: "EUR",
           value: "10.00",

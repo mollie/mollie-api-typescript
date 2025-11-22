@@ -7,6 +7,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
 import {
   SalesInvoiceDiscountResponse,
   SalesInvoiceDiscountResponse$inboundSchema,
@@ -70,7 +71,7 @@ import {
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type EntitySalesInvoiceResponseMetadata = {};
+export type SalesInvoiceResponseMetadata = {};
 
 /**
  * The amount that is left to be paid.
@@ -145,7 +146,7 @@ export type DiscountedSubtotalAmount = {
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
-export type EntitySalesInvoiceResponseLinks = {
+export type SalesInvoiceResponseLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -172,18 +173,22 @@ export type EntitySalesInvoiceResponseLinks = {
   previous?: Url | undefined;
 };
 
-export type EntitySalesInvoiceResponse = {
+export type SalesInvoiceResponse = {
   /**
    * Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
    *
    * @remarks
    * endpoint.
    */
-  resource?: string | undefined;
+  resource: string;
   /**
    * The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.
    */
-  id?: string | undefined;
+  id: string;
+  /**
+   * Whether this entity was created in live mode or in test mode.
+   */
+  mode: Mode;
   /**
    * When issued, an invoice number will be set for the sales invoice.
    */
@@ -227,12 +232,12 @@ export type EntitySalesInvoiceResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: EntitySalesInvoiceResponseMetadata | null | undefined;
+  metadata?: SalesInvoiceResponseMetadata | null | undefined;
   /**
    * The payment term to be set on the invoice.
    */
   paymentTerm?: SalesInvoicePaymentTermResponse | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetailsResponse | null | undefined;
+  paymentDetails?: SalesInvoicePaymentDetailsResponse | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
    * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
@@ -315,42 +320,41 @@ export type EntitySalesInvoiceResponse = {
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links?: EntitySalesInvoiceResponseLinks | undefined;
+  links?: SalesInvoiceResponseLinks | undefined;
 };
 
 /** @internal */
-export const EntitySalesInvoiceResponseMetadata$inboundSchema: z.ZodType<
-  EntitySalesInvoiceResponseMetadata,
+export const SalesInvoiceResponseMetadata$inboundSchema: z.ZodType<
+  SalesInvoiceResponseMetadata,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 /** @internal */
-export type EntitySalesInvoiceResponseMetadata$Outbound = {};
+export type SalesInvoiceResponseMetadata$Outbound = {};
 
 /** @internal */
-export const EntitySalesInvoiceResponseMetadata$outboundSchema: z.ZodType<
-  EntitySalesInvoiceResponseMetadata$Outbound,
+export const SalesInvoiceResponseMetadata$outboundSchema: z.ZodType<
+  SalesInvoiceResponseMetadata$Outbound,
   z.ZodTypeDef,
-  EntitySalesInvoiceResponseMetadata
+  SalesInvoiceResponseMetadata
 > = z.object({});
 
-export function entitySalesInvoiceResponseMetadataToJSON(
-  entitySalesInvoiceResponseMetadata: EntitySalesInvoiceResponseMetadata,
+export function salesInvoiceResponseMetadataToJSON(
+  salesInvoiceResponseMetadata: SalesInvoiceResponseMetadata,
 ): string {
   return JSON.stringify(
-    EntitySalesInvoiceResponseMetadata$outboundSchema.parse(
-      entitySalesInvoiceResponseMetadata,
+    SalesInvoiceResponseMetadata$outboundSchema.parse(
+      salesInvoiceResponseMetadata,
     ),
   );
 }
-export function entitySalesInvoiceResponseMetadataFromJSON(
+export function salesInvoiceResponseMetadataFromJSON(
   jsonString: string,
-): SafeParseResult<EntitySalesInvoiceResponseMetadata, SDKValidationError> {
+): SafeParseResult<SalesInvoiceResponseMetadata, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      EntitySalesInvoiceResponseMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntitySalesInvoiceResponseMetadata' from JSON`,
+    (x) => SalesInvoiceResponseMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SalesInvoiceResponseMetadata' from JSON`,
   );
 }
 
@@ -549,8 +553,8 @@ export function discountedSubtotalAmountFromJSON(
 }
 
 /** @internal */
-export const EntitySalesInvoiceResponseLinks$inboundSchema: z.ZodType<
-  EntitySalesInvoiceResponseLinks,
+export const SalesInvoiceResponseLinks$inboundSchema: z.ZodType<
+  SalesInvoiceResponseLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -562,7 +566,7 @@ export const EntitySalesInvoiceResponseLinks$inboundSchema: z.ZodType<
   previous: Url$inboundSchema.optional(),
 });
 /** @internal */
-export type EntitySalesInvoiceResponseLinks$Outbound = {
+export type SalesInvoiceResponseLinks$Outbound = {
   self?: Url$Outbound | undefined;
   invoicePayment?: Url$Outbound | undefined;
   pdfLink?: Url$Outbound | undefined;
@@ -572,10 +576,10 @@ export type EntitySalesInvoiceResponseLinks$Outbound = {
 };
 
 /** @internal */
-export const EntitySalesInvoiceResponseLinks$outboundSchema: z.ZodType<
-  EntitySalesInvoiceResponseLinks$Outbound,
+export const SalesInvoiceResponseLinks$outboundSchema: z.ZodType<
+  SalesInvoiceResponseLinks$Outbound,
   z.ZodTypeDef,
-  EntitySalesInvoiceResponseLinks
+  SalesInvoiceResponseLinks
 > = z.object({
   self: Url$outboundSchema.optional(),
   invoicePayment: Url$outboundSchema.optional(),
@@ -585,45 +589,42 @@ export const EntitySalesInvoiceResponseLinks$outboundSchema: z.ZodType<
   previous: Url$outboundSchema.optional(),
 });
 
-export function entitySalesInvoiceResponseLinksToJSON(
-  entitySalesInvoiceResponseLinks: EntitySalesInvoiceResponseLinks,
+export function salesInvoiceResponseLinksToJSON(
+  salesInvoiceResponseLinks: SalesInvoiceResponseLinks,
 ): string {
   return JSON.stringify(
-    EntitySalesInvoiceResponseLinks$outboundSchema.parse(
-      entitySalesInvoiceResponseLinks,
-    ),
+    SalesInvoiceResponseLinks$outboundSchema.parse(salesInvoiceResponseLinks),
   );
 }
-export function entitySalesInvoiceResponseLinksFromJSON(
+export function salesInvoiceResponseLinksFromJSON(
   jsonString: string,
-): SafeParseResult<EntitySalesInvoiceResponseLinks, SDKValidationError> {
+): SafeParseResult<SalesInvoiceResponseLinks, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntitySalesInvoiceResponseLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntitySalesInvoiceResponseLinks' from JSON`,
+    (x) => SalesInvoiceResponseLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SalesInvoiceResponseLinks' from JSON`,
   );
 }
 
 /** @internal */
-export const EntitySalesInvoiceResponse$inboundSchema: z.ZodType<
-  EntitySalesInvoiceResponse,
+export const SalesInvoiceResponse$inboundSchema: z.ZodType<
+  SalesInvoiceResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
   invoiceNumber: z.nullable(z.string()).optional(),
   status: SalesInvoiceStatusResponse$inboundSchema.optional(),
   vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
   vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(
-    z.lazy(() => EntitySalesInvoiceResponseMetadata$inboundSchema),
-  ).optional(),
+  metadata: z.nullable(z.lazy(() => SalesInvoiceResponseMetadata$inboundSchema))
+    .optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
     .optional(),
-  paymentDetails: z.nullable(SalesInvoicePaymentDetailsResponse$inboundSchema)
-    .optional(),
+  paymentDetails: SalesInvoicePaymentDetailsResponse$inboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
   customerId: z.string().optional(),
   mandateId: z.string().optional(),
@@ -642,28 +643,25 @@ export const EntitySalesInvoiceResponse$inboundSchema: z.ZodType<
   issuedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => EntitySalesInvoiceResponseLinks$inboundSchema)
-    .optional(),
+  _links: z.lazy(() => SalesInvoiceResponseLinks$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
   });
 });
 /** @internal */
-export type EntitySalesInvoiceResponse$Outbound = {
-  resource?: string | undefined;
-  id?: string | undefined;
+export type SalesInvoiceResponse$Outbound = {
+  resource: string;
+  id: string;
+  mode: string;
   invoiceNumber?: string | null | undefined;
   status?: string | undefined;
   vatScheme?: string | undefined;
   vatMode?: string | undefined;
   memo?: string | null | undefined;
-  metadata?: EntitySalesInvoiceResponseMetadata$Outbound | null | undefined;
+  metadata?: SalesInvoiceResponseMetadata$Outbound | null | undefined;
   paymentTerm?: string | null | undefined;
-  paymentDetails?:
-    | SalesInvoicePaymentDetailsResponse$Outbound
-    | null
-    | undefined;
+  paymentDetails?: SalesInvoicePaymentDetailsResponse$Outbound | undefined;
   emailDetails?: SalesInvoiceEmailDetails$Outbound | null | undefined;
   customerId?: string | undefined;
   mandateId?: string | undefined;
@@ -680,29 +678,29 @@ export type EntitySalesInvoiceResponse$Outbound = {
   issuedAt?: string | null | undefined;
   paidAt?: string | null | undefined;
   dueAt?: string | null | undefined;
-  _links?: EntitySalesInvoiceResponseLinks$Outbound | undefined;
+  _links?: SalesInvoiceResponseLinks$Outbound | undefined;
 };
 
 /** @internal */
-export const EntitySalesInvoiceResponse$outboundSchema: z.ZodType<
-  EntitySalesInvoiceResponse$Outbound,
+export const SalesInvoiceResponse$outboundSchema: z.ZodType<
+  SalesInvoiceResponse$Outbound,
   z.ZodTypeDef,
-  EntitySalesInvoiceResponse
+  SalesInvoiceResponse
 > = z.object({
-  resource: z.string().optional(),
-  id: z.string().optional(),
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$outboundSchema,
   invoiceNumber: z.nullable(z.string()).optional(),
   status: SalesInvoiceStatusResponse$outboundSchema.optional(),
   vatScheme: SalesInvoiceVatSchemeResponse$outboundSchema.optional(),
   vatMode: SalesInvoiceVatModeResponse$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(
-    z.lazy(() => EntitySalesInvoiceResponseMetadata$outboundSchema),
+    z.lazy(() => SalesInvoiceResponseMetadata$outboundSchema),
   ).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$outboundSchema)
     .optional(),
-  paymentDetails: z.nullable(SalesInvoicePaymentDetailsResponse$outboundSchema)
-    .optional(),
+  paymentDetails: SalesInvoicePaymentDetailsResponse$outboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),
   customerId: z.string().optional(),
   mandateId: z.string().optional(),
@@ -723,27 +721,26 @@ export const EntitySalesInvoiceResponse$outboundSchema: z.ZodType<
   issuedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => EntitySalesInvoiceResponseLinks$outboundSchema)
-    .optional(),
+  links: z.lazy(() => SalesInvoiceResponseLinks$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
   });
 });
 
-export function entitySalesInvoiceResponseToJSON(
-  entitySalesInvoiceResponse: EntitySalesInvoiceResponse,
+export function salesInvoiceResponseToJSON(
+  salesInvoiceResponse: SalesInvoiceResponse,
 ): string {
   return JSON.stringify(
-    EntitySalesInvoiceResponse$outboundSchema.parse(entitySalesInvoiceResponse),
+    SalesInvoiceResponse$outboundSchema.parse(salesInvoiceResponse),
   );
 }
-export function entitySalesInvoiceResponseFromJSON(
+export function salesInvoiceResponseFromJSON(
   jsonString: string,
-): SafeParseResult<EntitySalesInvoiceResponse, SDKValidationError> {
+): SafeParseResult<SalesInvoiceResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntitySalesInvoiceResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntitySalesInvoiceResponse' from JSON`,
+    (x) => SalesInvoiceResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SalesInvoiceResponse' from JSON`,
   );
 }

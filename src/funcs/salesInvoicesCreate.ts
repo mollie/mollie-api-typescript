@@ -42,7 +42,7 @@ export function salesInvoicesCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.EntitySalesInvoiceResponse,
+    models.SalesInvoiceResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -68,7 +68,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.EntitySalesInvoiceResponse,
+      models.SalesInvoiceResponse,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -94,7 +94,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload?.["entity-sales-invoice"], {
+  const body = encodeJSON("body", payload?.["sales-invoice-request"], {
     explode: true,
   });
 
@@ -169,7 +169,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.EntitySalesInvoiceResponse,
+    models.SalesInvoiceResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -180,7 +180,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.EntitySalesInvoiceResponse$inboundSchema, {
+    M.json(201, models.SalesInvoiceResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {

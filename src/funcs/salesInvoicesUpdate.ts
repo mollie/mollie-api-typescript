@@ -44,7 +44,7 @@ export function salesInvoicesUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.EntitySalesInvoiceResponse,
+    models.SalesInvoiceResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -70,7 +70,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.EntitySalesInvoiceResponse,
+      models.SalesInvoiceResponse,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -175,7 +175,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.EntitySalesInvoiceResponse,
+    models.SalesInvoiceResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -186,7 +186,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.EntitySalesInvoiceResponse$inboundSchema, {
+    M.json(200, models.SalesInvoiceResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {

@@ -14,7 +14,7 @@ export type CreateSalesInvoiceRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  entitySalesInvoice?: models.EntitySalesInvoice | undefined;
+  salesInvoiceRequest?: models.SalesInvoiceRequest | undefined;
 };
 
 /** @internal */
@@ -24,17 +24,17 @@ export const CreateSalesInvoiceRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   "idempotency-key": z.string().optional(),
-  "entity-sales-invoice": models.EntitySalesInvoice$inboundSchema.optional(),
+  "sales-invoice-request": models.SalesInvoiceRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "entity-sales-invoice": "entitySalesInvoice",
+    "sales-invoice-request": "salesInvoiceRequest",
   });
 });
 /** @internal */
 export type CreateSalesInvoiceRequest$Outbound = {
   "idempotency-key"?: string | undefined;
-  "entity-sales-invoice"?: models.EntitySalesInvoice$Outbound | undefined;
+  "sales-invoice-request"?: models.SalesInvoiceRequest$Outbound | undefined;
 };
 
 /** @internal */
@@ -44,11 +44,11 @@ export const CreateSalesInvoiceRequest$outboundSchema: z.ZodType<
   CreateSalesInvoiceRequest
 > = z.object({
   idempotencyKey: z.string().optional(),
-  entitySalesInvoice: models.EntitySalesInvoice$outboundSchema.optional(),
+  salesInvoiceRequest: models.SalesInvoiceRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    entitySalesInvoice: "entity-sales-invoice",
+    salesInvoiceRequest: "sales-invoice-request",
   });
 });
 

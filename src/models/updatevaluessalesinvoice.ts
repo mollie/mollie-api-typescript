@@ -83,7 +83,7 @@ export type UpdateValuesSalesInvoice = {
    * The payment term to be set on the invoice.
    */
   paymentTerm?: SalesInvoicePaymentTerm | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetails | null | undefined;
+  paymentDetails?: SalesInvoicePaymentDetails | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
    * An identifier tied to the recipient data. This should be a unique value based on data your system contains,
@@ -116,8 +116,7 @@ export const UpdateValuesSalesInvoice$inboundSchema: z.ZodType<
   status: SalesInvoiceStatus$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTerm$inboundSchema).optional(),
-  paymentDetails: z.nullable(SalesInvoicePaymentDetails$inboundSchema)
-    .optional(),
+  paymentDetails: SalesInvoicePaymentDetails$inboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
   recipientIdentifier: z.string().optional(),
   recipient: z.nullable(SalesInvoiceRecipient$inboundSchema).optional(),
@@ -130,7 +129,7 @@ export type UpdateValuesSalesInvoice$Outbound = {
   status?: string | undefined;
   memo?: string | null | undefined;
   paymentTerm?: string | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetails$Outbound | null | undefined;
+  paymentDetails?: SalesInvoicePaymentDetails$Outbound | undefined;
   emailDetails?: SalesInvoiceEmailDetails$Outbound | null | undefined;
   recipientIdentifier?: string | undefined;
   recipient?: SalesInvoiceRecipient$Outbound | null | undefined;
@@ -148,8 +147,7 @@ export const UpdateValuesSalesInvoice$outboundSchema: z.ZodType<
   status: SalesInvoiceStatus$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTerm$outboundSchema).optional(),
-  paymentDetails: z.nullable(SalesInvoicePaymentDetails$outboundSchema)
-    .optional(),
+  paymentDetails: SalesInvoicePaymentDetails$outboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),
   recipientIdentifier: z.string().optional(),
   recipient: z.nullable(SalesInvoiceRecipient$outboundSchema).optional(),

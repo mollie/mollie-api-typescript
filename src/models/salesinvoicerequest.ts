@@ -63,9 +63,9 @@ import {
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type EntitySalesInvoiceMetadata = {};
+export type SalesInvoiceRequestMetadata = {};
 
-export type EntitySalesInvoice = {
+export type SalesInvoiceRequest = {
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -103,7 +103,7 @@ export type EntitySalesInvoice = {
    *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
    *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
    */
-  status?: SalesInvoiceStatus | undefined;
+  status: SalesInvoiceStatus;
   /**
    * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
    */
@@ -125,12 +125,12 @@ export type EntitySalesInvoice = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: EntitySalesInvoiceMetadata | null | undefined;
+  metadata?: SalesInvoiceRequestMetadata | null | undefined;
   /**
    * The payment term to be set on the invoice.
    */
   paymentTerm?: SalesInvoicePaymentTerm | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetails | null | undefined;
+  paymentDetails?: SalesInvoicePaymentDetails | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
    * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
@@ -153,8 +153,8 @@ export type EntitySalesInvoice = {
    * so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
    * is not required to send a first invoice to a recipient.
    */
-  recipientIdentifier?: string | undefined;
-  recipient?: SalesInvoiceRecipient | null | undefined;
+  recipientIdentifier: string;
+  recipient: SalesInvoiceRecipient | null;
   /**
    * Provide the line items for the invoice. Each line contains details such as a description of the item
    *
@@ -163,127 +163,127 @@ export type EntitySalesInvoice = {
    *
    * All lines must have the same currency as the invoice.
    */
-  lines?: Array<SalesInvoiceLineItem> | null | undefined;
+  lines: Array<SalesInvoiceLineItem> | null;
   discount?: SalesInvoiceDiscount | null | undefined;
 };
 
 /** @internal */
-export const EntitySalesInvoiceMetadata$inboundSchema: z.ZodType<
-  EntitySalesInvoiceMetadata,
+export const SalesInvoiceRequestMetadata$inboundSchema: z.ZodType<
+  SalesInvoiceRequestMetadata,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 /** @internal */
-export type EntitySalesInvoiceMetadata$Outbound = {};
+export type SalesInvoiceRequestMetadata$Outbound = {};
 
 /** @internal */
-export const EntitySalesInvoiceMetadata$outboundSchema: z.ZodType<
-  EntitySalesInvoiceMetadata$Outbound,
+export const SalesInvoiceRequestMetadata$outboundSchema: z.ZodType<
+  SalesInvoiceRequestMetadata$Outbound,
   z.ZodTypeDef,
-  EntitySalesInvoiceMetadata
+  SalesInvoiceRequestMetadata
 > = z.object({});
 
-export function entitySalesInvoiceMetadataToJSON(
-  entitySalesInvoiceMetadata: EntitySalesInvoiceMetadata,
+export function salesInvoiceRequestMetadataToJSON(
+  salesInvoiceRequestMetadata: SalesInvoiceRequestMetadata,
 ): string {
   return JSON.stringify(
-    EntitySalesInvoiceMetadata$outboundSchema.parse(entitySalesInvoiceMetadata),
+    SalesInvoiceRequestMetadata$outboundSchema.parse(
+      salesInvoiceRequestMetadata,
+    ),
   );
 }
-export function entitySalesInvoiceMetadataFromJSON(
+export function salesInvoiceRequestMetadataFromJSON(
   jsonString: string,
-): SafeParseResult<EntitySalesInvoiceMetadata, SDKValidationError> {
+): SafeParseResult<SalesInvoiceRequestMetadata, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntitySalesInvoiceMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntitySalesInvoiceMetadata' from JSON`,
+    (x) => SalesInvoiceRequestMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SalesInvoiceRequestMetadata' from JSON`,
   );
 }
 
 /** @internal */
-export const EntitySalesInvoice$inboundSchema: z.ZodType<
-  EntitySalesInvoice,
+export const SalesInvoiceRequest$inboundSchema: z.ZodType<
+  SalesInvoiceRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
-  status: SalesInvoiceStatus$inboundSchema.optional(),
+  status: SalesInvoiceStatus$inboundSchema,
   vatScheme: SalesInvoiceVatScheme$inboundSchema.optional(),
   vatMode: SalesInvoiceVatMode$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(z.lazy(() => EntitySalesInvoiceMetadata$inboundSchema))
+  metadata: z.nullable(z.lazy(() => SalesInvoiceRequestMetadata$inboundSchema))
     .optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTerm$inboundSchema).optional(),
-  paymentDetails: z.nullable(SalesInvoicePaymentDetails$inboundSchema)
-    .optional(),
+  paymentDetails: SalesInvoicePaymentDetails$inboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
   customerId: z.string().optional(),
   mandateId: z.string().optional(),
-  recipientIdentifier: z.string().optional(),
-  recipient: z.nullable(SalesInvoiceRecipient$inboundSchema).optional(),
-  lines: z.nullable(z.array(SalesInvoiceLineItem$inboundSchema)).optional(),
+  recipientIdentifier: z.string(),
+  recipient: z.nullable(SalesInvoiceRecipient$inboundSchema),
+  lines: z.nullable(z.array(SalesInvoiceLineItem$inboundSchema)),
   discount: z.nullable(SalesInvoiceDiscount$inboundSchema).optional(),
 });
 /** @internal */
-export type EntitySalesInvoice$Outbound = {
+export type SalesInvoiceRequest$Outbound = {
   testmode?: boolean | null | undefined;
   profileId?: string | null | undefined;
-  status?: string | undefined;
+  status: string;
   vatScheme?: string | undefined;
   vatMode?: string | undefined;
   memo?: string | null | undefined;
-  metadata?: EntitySalesInvoiceMetadata$Outbound | null | undefined;
+  metadata?: SalesInvoiceRequestMetadata$Outbound | null | undefined;
   paymentTerm?: string | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetails$Outbound | null | undefined;
+  paymentDetails?: SalesInvoicePaymentDetails$Outbound | undefined;
   emailDetails?: SalesInvoiceEmailDetails$Outbound | null | undefined;
   customerId?: string | undefined;
   mandateId?: string | undefined;
-  recipientIdentifier?: string | undefined;
-  recipient?: SalesInvoiceRecipient$Outbound | null | undefined;
-  lines?: Array<SalesInvoiceLineItem$Outbound> | null | undefined;
+  recipientIdentifier: string;
+  recipient: SalesInvoiceRecipient$Outbound | null;
+  lines: Array<SalesInvoiceLineItem$Outbound> | null;
   discount?: SalesInvoiceDiscount$Outbound | null | undefined;
 };
 
 /** @internal */
-export const EntitySalesInvoice$outboundSchema: z.ZodType<
-  EntitySalesInvoice$Outbound,
+export const SalesInvoiceRequest$outboundSchema: z.ZodType<
+  SalesInvoiceRequest$Outbound,
   z.ZodTypeDef,
-  EntitySalesInvoice
+  SalesInvoiceRequest
 > = z.object({
   testmode: z.nullable(z.boolean()).optional(),
   profileId: z.nullable(z.string()).optional(),
-  status: SalesInvoiceStatus$outboundSchema.optional(),
+  status: SalesInvoiceStatus$outboundSchema,
   vatScheme: SalesInvoiceVatScheme$outboundSchema.optional(),
   vatMode: SalesInvoiceVatMode$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(z.lazy(() => EntitySalesInvoiceMetadata$outboundSchema))
+  metadata: z.nullable(z.lazy(() => SalesInvoiceRequestMetadata$outboundSchema))
     .optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTerm$outboundSchema).optional(),
-  paymentDetails: z.nullable(SalesInvoicePaymentDetails$outboundSchema)
-    .optional(),
+  paymentDetails: SalesInvoicePaymentDetails$outboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),
   customerId: z.string().optional(),
   mandateId: z.string().optional(),
-  recipientIdentifier: z.string().optional(),
-  recipient: z.nullable(SalesInvoiceRecipient$outboundSchema).optional(),
-  lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)).optional(),
+  recipientIdentifier: z.string(),
+  recipient: z.nullable(SalesInvoiceRecipient$outboundSchema),
+  lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)),
   discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
 });
 
-export function entitySalesInvoiceToJSON(
-  entitySalesInvoice: EntitySalesInvoice,
+export function salesInvoiceRequestToJSON(
+  salesInvoiceRequest: SalesInvoiceRequest,
 ): string {
   return JSON.stringify(
-    EntitySalesInvoice$outboundSchema.parse(entitySalesInvoice),
+    SalesInvoiceRequest$outboundSchema.parse(salesInvoiceRequest),
   );
 }
-export function entitySalesInvoiceFromJSON(
+export function salesInvoiceRequestFromJSON(
   jsonString: string,
-): SafeParseResult<EntitySalesInvoice, SDKValidationError> {
+): SafeParseResult<SalesInvoiceRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntitySalesInvoice$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntitySalesInvoice' from JSON`,
+    (x) => SalesInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SalesInvoiceRequest' from JSON`,
   );
 }

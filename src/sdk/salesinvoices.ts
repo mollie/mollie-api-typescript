@@ -26,7 +26,7 @@ export class SalesInvoices extends ClientSDK {
   async create(
     request?: operations.CreateSalesInvoiceRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.EntitySalesInvoiceResponse> {
+  ): Promise<models.SalesInvoiceResponse> {
     return unwrapAsync(salesInvoicesCreate(
       this,
       request,
@@ -70,7 +70,7 @@ export class SalesInvoices extends ClientSDK {
   async get(
     request: operations.GetSalesInvoiceRequest,
     options?: RequestOptions,
-  ): Promise<models.EntitySalesInvoiceResponse> {
+  ): Promise<models.SalesInvoiceResponse> {
     return unwrapAsync(salesInvoicesGet(
       this,
       request,
@@ -93,7 +93,7 @@ export class SalesInvoices extends ClientSDK {
   async update(
     request: operations.UpdateSalesInvoiceRequest,
     options?: RequestOptions,
-  ): Promise<models.EntitySalesInvoiceResponse> {
+  ): Promise<models.SalesInvoiceResponse> {
     return unwrapAsync(salesInvoicesUpdate(
       this,
       request,

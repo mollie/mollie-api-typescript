@@ -34,7 +34,7 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entitySalesInvoice: {
+    salesInvoiceRequest: {
       testmode: false,
       profileId: "pfl_QkEhN94Ba",
       status: "draft",
@@ -104,7 +104,7 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entitySalesInvoice: {
+    salesInvoiceRequest: {
       testmode: false,
       profileId: "pfl_QkEhN94Ba",
       status: "draft",
@@ -170,7 +170,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)\>**
+**Promise\<[models.SalesInvoiceResponse](../../models/salesinvoiceresponse.md)\>**
 
 ### Errors
 
@@ -346,7 +346,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)\>**
+**Promise\<[models.SalesInvoiceResponse](../../models/salesinvoiceresponse.md)\>**
 
 ### Errors
 
@@ -536,7 +536,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)\>**
+**Promise\<[models.SalesInvoiceResponse](../../models/salesinvoiceresponse.md)\>**
 
 ### Errors
 

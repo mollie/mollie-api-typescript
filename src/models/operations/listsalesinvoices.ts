@@ -57,7 +57,7 @@ export type ListSalesInvoicesEmbedded = {
    * @remarks
    * the [Get sales invoice endpoint](get-sales-invoice) documentation.
    */
-  salesInvoices?: Array<models.EntitySalesInvoiceResponse> | undefined;
+  salesInvoices?: Array<models.SalesInvoiceResponse> | undefined;
 };
 
 /**
@@ -185,8 +185,7 @@ export const ListSalesInvoicesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sales_invoices: z.array(models.EntitySalesInvoiceResponse$inboundSchema)
-    .optional(),
+  sales_invoices: z.array(models.SalesInvoiceResponse$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "sales_invoices": "salesInvoices",
@@ -194,9 +193,7 @@ export const ListSalesInvoicesEmbedded$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type ListSalesInvoicesEmbedded$Outbound = {
-  sales_invoices?:
-    | Array<models.EntitySalesInvoiceResponse$Outbound>
-    | undefined;
+  sales_invoices?: Array<models.SalesInvoiceResponse$Outbound> | undefined;
 };
 
 /** @internal */
@@ -205,8 +202,7 @@ export const ListSalesInvoicesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSalesInvoicesEmbedded
 > = z.object({
-  salesInvoices: z.array(models.EntitySalesInvoiceResponse$outboundSchema)
-    .optional(),
+  salesInvoices: z.array(models.SalesInvoiceResponse$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     salesInvoices: "sales_invoices",

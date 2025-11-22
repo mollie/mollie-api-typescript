@@ -1,13 +1,13 @@
-# EntitySalesInvoiceResponseLinks
+# SalesInvoiceResponseLinks
 
 An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
 
 ## Example Usage
 
 ```typescript
-import { EntitySalesInvoiceResponseLinks } from "mollie-api-typescript/models";
+import { SalesInvoiceResponseLinks } from "mollie-api-typescript/models";
 
-let value: EntitySalesInvoiceResponseLinks = {
+let value: SalesInvoiceResponseLinks = {
   self: {
     href: "https://...",
     type: "application/hal+json",

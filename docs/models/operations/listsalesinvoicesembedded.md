@@ -10,17 +10,18 @@ let value: ListSalesInvoicesEmbedded = {
     {
       resource: "sales-invoice",
       id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+      mode: "live",
       invoiceNumber: "INV-0000001",
       status: "draft",
       vatScheme: "standard",
       vatMode: "exclusive",
       memo: "This is a memo!",
       paymentTerm: "30 days",
-      paymentDetails: null,
-      emailDetails: {
-        subject: "Your invoice is available",
-        body: "Please find your invoice enclosed.",
+      paymentDetails: {
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
       },
+      emailDetails: null,
       customerId: "cst_8wmqcHMN4U",
       mandateId: "mdt_pWUnw6pkBN",
       recipientIdentifier: "customer-xyz-0123",
@@ -51,13 +52,13 @@ let value: ListSalesInvoicesEmbedded = {
             currency: "EUR",
             value: "10.00",
           },
-          discount: null,
+          discount: {
+            type: "amount",
+            value: "10.00",
+          },
         },
       ],
-      discount: {
-        type: "amount",
-        value: "10.00",
-      },
+      discount: null,
       amountDue: {
         currency: "EUR",
         value: "10.00",
@@ -117,4 +118,4 @@ let value: ListSalesInvoicesEmbedded = {
 
 | Field                                                                                                                                                                | Type                                                                                                                                                                 | Required                                                                                                                                                             | Description                                                                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `salesInvoices`                                                                                                                                                      | [models.EntitySalesInvoiceResponse](../../models/entitysalesinvoiceresponse.md)[]                                                                                    | :heavy_minus_sign:                                                                                                                                                   | An array of sales invoice objects. For a complete reference of the sales invoice object, refer to<br/>the [Get sales invoice endpoint](get-sales-invoice) documentation. |
+| `salesInvoices`                                                                                                                                                      | [models.SalesInvoiceResponse](../../models/salesinvoiceresponse.md)[]                                                                                                | :heavy_minus_sign:                                                                                                                                                   | An array of sales invoice objects. For a complete reference of the sales invoice object, refer to<br/>the [Get sales invoice endpoint](get-sales-invoice) documentation. |
