@@ -9183,7 +9183,7 @@ paths:
                 $ref: '#/components/schemas/create-webhook'
               examples:
                 create-webhook-200:
-                  summary: The webhook subscription object
+                  summary: The webhook subscription object.
                   value:
                     resource: webhook
                     id: hook_B2EyhTH5N4KWUnoYPcgiH
@@ -9305,7 +9305,7 @@ paths:
                     $ref: '#/components/schemas/list-links'
               examples:
                 list-webhook-200:
-                  summary: Get a list of webhooks
+                  summary: Get a list of webhooks.
                   value:
                     _embedded:
                       webhooks:
@@ -9430,7 +9430,7 @@ paths:
                 $ref: '#/components/schemas/entity-webhook'
               examples:
                 create-webhook-200:
-                  summary: The webhook subscription object
+                  summary: The webhook subscription object.
                   value:
                     resource: webhook
                     id: hook_B2EyhTH5N4KWUnoYPcgiH
@@ -9543,7 +9543,7 @@ paths:
                         href: https://docs.mollie.com/reference/get-webhook
                         type: text/html
                 get-webhook-200-1:
-                  summary: A deleted hook subscription object
+                  summary: A deleted hook subscription object.
                   value:
                     resource: webhook
                     id: hook_B2EyhTH5N4KWUnoYPcgiH

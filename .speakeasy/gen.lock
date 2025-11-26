@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: fa1f0bfe5102df558a145f4fc3dcb13f
+  docChecksum: abf5679d9e5ca6fc4d6dcb98d239a410
   docVersion: 1.0.0
-  speakeasyVersion: 1.660.0
-  generationVersion: 2.760.2
-  releaseVersion: 0.8.6
-  configChecksum: d9bed438f87576787e883d055cf07380
+  speakeasyVersion: 1.661.2
+  generationVersion: 2.763.3
+  releaseVersion: 0.8.7
+  configChecksum: 451d7b81d193e4d5efe53cd513f154f8
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.26.9
+    core: 3.26.10
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -4712,4 +4712,3 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes Detected:\n* `client.salesInvoices.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `client.salesInvoices.list()`:  `response._embedded.salesInvoices.[]` **Changed** **Breaking** :warning:\n* `client.salesInvoices.get()`:  `response` **Changed** **Breaking** :warning:\n* `client.salesInvoices.update()`: \n  *  `request.update-values-sales-invoice.paymentDetails` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n"
