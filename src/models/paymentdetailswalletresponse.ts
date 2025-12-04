@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * The wallet used when creating the payment.
+ */
 export const PaymentDetailsWalletResponse = {
   Applepay: "applepay",
 } as const;

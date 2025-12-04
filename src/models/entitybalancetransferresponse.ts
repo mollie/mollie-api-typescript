@@ -90,6 +90,13 @@ export type EntityBalanceTransferResponse = {
    */
   category?: BalanceTransferCategoryResponse | undefined;
   /**
+   * A JSON object that you can attach to a balance transfer.
+   *
+   * @remarks
+   * This can be useful for storing additional information about the transfer in a structured format. Maximum size is approximately 1KB.
+   */
+  metadata?: { [k: string]: any } | undefined;
+  /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   createdAt: string;
@@ -175,6 +182,7 @@ export const EntityBalanceTransferResponse$inboundSchema: z.ZodType<
     EntityBalanceTransferResponseStatusReason$inboundSchema
   ),
   category: BalanceTransferCategoryResponse$inboundSchema.optional(),
+  metadata: z.record(z.any()).optional(),
   createdAt: z.string(),
   executedAt: z.nullable(z.string()).optional(),
   mode: Mode$inboundSchema,
@@ -190,6 +198,7 @@ export type EntityBalanceTransferResponse$Outbound = {
   status: string;
   statusReason: EntityBalanceTransferResponseStatusReason$Outbound;
   category?: string | undefined;
+  metadata?: { [k: string]: any } | undefined;
   createdAt: string;
   executedAt?: string | null | undefined;
   mode: string;
@@ -212,6 +221,7 @@ export const EntityBalanceTransferResponse$outboundSchema: z.ZodType<
     EntityBalanceTransferResponseStatusReason$outboundSchema
   ),
   category: BalanceTransferCategoryResponse$outboundSchema.optional(),
+  metadata: z.record(z.any()).optional(),
   createdAt: z.string(),
   executedAt: z.nullable(z.string()).optional(),
   mode: Mode$outboundSchema,

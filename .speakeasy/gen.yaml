@@ -29,7 +29,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.8.7
+  version: 0.9.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -53,6 +53,7 @@ typescript:
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string
   forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: "false"
   generateExamples: true
   imports:
     option: openapi
@@ -70,8 +71,10 @@ typescript:
   methodArguments: infer-optional-args
   modelPropertyCasing: camel
   moduleFormat: dual
+  multipartArrayFormat: legacy
   outputModelSuffix: output
   packageName: mollie-api-typescript
+  preApplyUnionDiscriminators: true
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2

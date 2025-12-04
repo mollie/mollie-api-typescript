@@ -49,8 +49,6 @@ export type ListInvoicesRequest = {
   idempotencyKey?: string | undefined;
 };
 
-export type Invoice = {};
-
 export type ListInvoicesEmbedded = {
   /**
    * An array of invoice objects. For a complete reference of
@@ -58,7 +56,7 @@ export type ListInvoicesEmbedded = {
    * @remarks
    * the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
    */
-  invoices: Array<Invoice>;
+  invoices: Array<models.ListEntityInvoice>;
 };
 
 /**
@@ -151,42 +149,16 @@ export function listInvoicesRequestFromJSON(
 }
 
 /** @internal */
-export const Invoice$inboundSchema: z.ZodType<Invoice, z.ZodTypeDef, unknown> =
-  z.object({});
-/** @internal */
-export type Invoice$Outbound = {};
-
-/** @internal */
-export const Invoice$outboundSchema: z.ZodType<
-  Invoice$Outbound,
-  z.ZodTypeDef,
-  Invoice
-> = z.object({});
-
-export function invoiceToJSON(invoice: Invoice): string {
-  return JSON.stringify(Invoice$outboundSchema.parse(invoice));
-}
-export function invoiceFromJSON(
-  jsonString: string,
-): SafeParseResult<Invoice, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Invoice$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Invoice' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListInvoicesEmbedded$inboundSchema: z.ZodType<
   ListInvoicesEmbedded,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  invoices: z.array(z.lazy(() => Invoice$inboundSchema)),
+  invoices: z.array(models.ListEntityInvoice$inboundSchema),
 });
 /** @internal */
 export type ListInvoicesEmbedded$Outbound = {
-  invoices: Array<Invoice$Outbound>;
+  invoices: Array<models.ListEntityInvoice$Outbound>;
 };
 
 /** @internal */
@@ -195,7 +167,7 @@ export const ListInvoicesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListInvoicesEmbedded
 > = z.object({
-  invoices: z.array(z.lazy(() => Invoice$outboundSchema)),
+  invoices: z.array(models.ListEntityInvoice$outboundSchema),
 });
 
 export function listInvoicesEmbeddedToJSON(

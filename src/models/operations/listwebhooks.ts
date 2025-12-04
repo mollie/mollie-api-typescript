@@ -65,7 +65,7 @@ export type ListWebhooksEmbedded = {
   /**
    * A list of webhooks.
    */
-  webhooks: Array<models.EntityWebhook>;
+  webhooks: Array<models.ListEntityWebhook>;
 };
 
 /**
@@ -199,11 +199,11 @@ export const ListWebhooksEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  webhooks: z.array(models.EntityWebhook$inboundSchema),
+  webhooks: z.array(models.ListEntityWebhook$inboundSchema),
 });
 /** @internal */
 export type ListWebhooksEmbedded$Outbound = {
-  webhooks: Array<models.EntityWebhook$Outbound>;
+  webhooks: Array<models.ListEntityWebhook$Outbound>;
 };
 
 /** @internal */
@@ -212,7 +212,7 @@ export const ListWebhooksEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListWebhooksEmbedded
 > = z.object({
-  webhooks: z.array(models.EntityWebhook$outboundSchema),
+  webhooks: z.array(models.ListEntityWebhook$outboundSchema),
 });
 
 export function listWebhooksEmbeddedToJSON(

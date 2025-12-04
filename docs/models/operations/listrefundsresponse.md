@@ -25,7 +25,11 @@ let value: ListRefundsResponse = {
           currency: "EUR",
           value: "10.00",
         },
-        metadata: "<value>",
+        metadata: {
+          "0": "<value 1>",
+          "1": "<value 2>",
+          "2": "<value 3>",
+        },
         paymentId: "tr_5B8cwPMGnU",
         settlementId: "stl_5B8cwPMGnU",
         status: "queued",
@@ -34,7 +38,17 @@ let value: ListRefundsResponse = {
           type: "acquirer-reference",
           id: "123456789012345",
         },
-        routingReversals: null,
+        routingReversals: [
+          {
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+            source: {
+              organizationId: "org_1234567",
+            },
+          },
+        ],
         links: {
           self: {
             href: "https://...",

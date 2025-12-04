@@ -93,7 +93,7 @@ export type ListAllMethodsEmbedded = {
    * reference of the payment method object, refer to the [Get payment method endpoint](get-method)
    * documentation.
    */
-  methods: Array<models.EntityMethodAll>;
+  methods: Array<models.ListEntityMethodAll>;
 };
 
 export type ListAllMethodsLinks = {
@@ -235,11 +235,11 @@ export const ListAllMethodsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  methods: z.array(models.EntityMethodAll$inboundSchema),
+  methods: z.array(models.ListEntityMethodAll$inboundSchema),
 });
 /** @internal */
 export type ListAllMethodsEmbedded$Outbound = {
-  methods: Array<models.EntityMethodAll$Outbound>;
+  methods: Array<models.ListEntityMethodAll$Outbound>;
 };
 
 /** @internal */
@@ -248,7 +248,7 @@ export const ListAllMethodsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListAllMethodsEmbedded
 > = z.object({
-  methods: z.array(models.EntityMethodAll$outboundSchema),
+  methods: z.array(models.ListEntityMethodAll$outboundSchema),
 });
 
 export function listAllMethodsEmbeddedToJSON(

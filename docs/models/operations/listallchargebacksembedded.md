@@ -35,10 +35,7 @@ let value: ListAllChargebacksEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        settlement: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
+        settlement: null,
         documentation: {
           href: "https://...",
           type: "application/hal+json",

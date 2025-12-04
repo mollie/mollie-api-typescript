@@ -70,7 +70,7 @@ export type EntitySettlementAmount = {
 /**
  * The service rates, further divided into `fixed` and `percentage` costs.
  */
-export type Rate = {
+export type EntitySettlementRate = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -78,7 +78,7 @@ export type Rate = {
   percentage?: string | undefined;
 };
 
-export type Cost = {
+export type EntitySettlementCost = {
   /**
    * A description of the cost subtotal
    */
@@ -94,7 +94,7 @@ export type Cost = {
   /**
    * The service rates, further divided into `fixed` and `percentage` costs.
    */
-  rate: Rate;
+  rate: EntitySettlementRate;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -109,7 +109,7 @@ export type Cost = {
   amountGross: Amount;
 };
 
-export type Revenue = {
+export type EntitySettlementRevenue = {
   /**
    * A description of the revenue subtotal
    */
@@ -136,15 +136,15 @@ export type Revenue = {
   amountGross: Amount;
 };
 
-export type Periods = {
+export type EntitySettlementPeriods = {
   /**
    * An array of cost objects, describing the fees withheld for each payment method during this period.
    */
-  costs?: Array<Cost> | undefined;
+  costs?: Array<EntitySettlementCost> | undefined;
   /**
    * An array of revenue objects containing the total revenue for each payment method during this period.
    */
-  revenue?: Array<Revenue> | undefined;
+  revenue?: Array<EntitySettlementRevenue> | undefined;
   invoiceId?: string | undefined;
   /**
    * The invoice reference, if the invoice has been created already.
@@ -242,7 +242,9 @@ export type EntitySettlement = {
    *
    * The example response should give a good idea of what this looks like in practise.
    */
-  periods?: { [k: string]: { [k: string]: Periods } } | undefined;
+  periods?:
+    | { [k: string]: { [k: string]: EntitySettlementPeriods } }
+    | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
@@ -305,109 +307,132 @@ export function entitySettlementAmountFromJSON(
 }
 
 /** @internal */
-export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> = z
-  .object({
-    fixed: Amount$inboundSchema.optional(),
-    percentage: z.string().optional(),
-  });
+export const EntitySettlementRate$inboundSchema: z.ZodType<
+  EntitySettlementRate,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  fixed: Amount$inboundSchema.optional(),
+  percentage: z.string().optional(),
+});
 /** @internal */
-export type Rate$Outbound = {
+export type EntitySettlementRate$Outbound = {
   fixed?: Amount$Outbound | undefined;
   percentage?: string | undefined;
 };
 
 /** @internal */
-export const Rate$outboundSchema: z.ZodType<Rate$Outbound, z.ZodTypeDef, Rate> =
-  z.object({
-    fixed: Amount$outboundSchema.optional(),
-    percentage: z.string().optional(),
-  });
-
-export function rateToJSON(rate: Rate): string {
-  return JSON.stringify(Rate$outboundSchema.parse(rate));
-}
-export function rateFromJSON(
-  jsonString: string,
-): SafeParseResult<Rate, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Rate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Rate' from JSON`,
-  );
-}
-
-/** @internal */
-export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> = z
-  .object({
-    description: z.string(),
-    method: z.nullable(PaymentMethod$inboundSchema),
-    count: z.number().int(),
-    rate: z.lazy(() => Rate$inboundSchema),
-    amountNet: Amount$inboundSchema,
-    amountVat: z.nullable(AmountNullable$inboundSchema),
-    amountGross: Amount$inboundSchema,
-  });
-/** @internal */
-export type Cost$Outbound = {
-  description: string;
-  method: string | null;
-  count: number;
-  rate: Rate$Outbound;
-  amountNet: Amount$Outbound;
-  amountVat: AmountNullable$Outbound | null;
-  amountGross: Amount$Outbound;
-};
-
-/** @internal */
-export const Cost$outboundSchema: z.ZodType<Cost$Outbound, z.ZodTypeDef, Cost> =
-  z.object({
-    description: z.string(),
-    method: z.nullable(PaymentMethod$outboundSchema),
-    count: z.number().int(),
-    rate: z.lazy(() => Rate$outboundSchema),
-    amountNet: Amount$outboundSchema,
-    amountVat: z.nullable(AmountNullable$outboundSchema),
-    amountGross: Amount$outboundSchema,
-  });
-
-export function costToJSON(cost: Cost): string {
-  return JSON.stringify(Cost$outboundSchema.parse(cost));
-}
-export function costFromJSON(
-  jsonString: string,
-): SafeParseResult<Cost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Cost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Cost' from JSON`,
-  );
-}
-
-/** @internal */
-export const Revenue$inboundSchema: z.ZodType<Revenue, z.ZodTypeDef, unknown> =
-  z.object({
-    description: z.string(),
-    method: z.nullable(PaymentMethod$inboundSchema),
-    count: z.number().int(),
-    amountNet: Amount$inboundSchema,
-    amountVat: z.nullable(AmountNullable$inboundSchema),
-    amountGross: Amount$inboundSchema,
-  });
-/** @internal */
-export type Revenue$Outbound = {
-  description: string;
-  method: string | null;
-  count: number;
-  amountNet: Amount$Outbound;
-  amountVat: AmountNullable$Outbound | null;
-  amountGross: Amount$Outbound;
-};
-
-/** @internal */
-export const Revenue$outboundSchema: z.ZodType<
-  Revenue$Outbound,
+export const EntitySettlementRate$outboundSchema: z.ZodType<
+  EntitySettlementRate$Outbound,
   z.ZodTypeDef,
-  Revenue
+  EntitySettlementRate
+> = z.object({
+  fixed: Amount$outboundSchema.optional(),
+  percentage: z.string().optional(),
+});
+
+export function entitySettlementRateToJSON(
+  entitySettlementRate: EntitySettlementRate,
+): string {
+  return JSON.stringify(
+    EntitySettlementRate$outboundSchema.parse(entitySettlementRate),
+  );
+}
+export function entitySettlementRateFromJSON(
+  jsonString: string,
+): SafeParseResult<EntitySettlementRate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EntitySettlementRate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntitySettlementRate' from JSON`,
+  );
+}
+
+/** @internal */
+export const EntitySettlementCost$inboundSchema: z.ZodType<
+  EntitySettlementCost,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  description: z.string(),
+  method: z.nullable(PaymentMethod$inboundSchema),
+  count: z.number().int(),
+  rate: z.lazy(() => EntitySettlementRate$inboundSchema),
+  amountNet: Amount$inboundSchema,
+  amountVat: z.nullable(AmountNullable$inboundSchema),
+  amountGross: Amount$inboundSchema,
+});
+/** @internal */
+export type EntitySettlementCost$Outbound = {
+  description: string;
+  method: string | null;
+  count: number;
+  rate: EntitySettlementRate$Outbound;
+  amountNet: Amount$Outbound;
+  amountVat: AmountNullable$Outbound | null;
+  amountGross: Amount$Outbound;
+};
+
+/** @internal */
+export const EntitySettlementCost$outboundSchema: z.ZodType<
+  EntitySettlementCost$Outbound,
+  z.ZodTypeDef,
+  EntitySettlementCost
+> = z.object({
+  description: z.string(),
+  method: z.nullable(PaymentMethod$outboundSchema),
+  count: z.number().int(),
+  rate: z.lazy(() => EntitySettlementRate$outboundSchema),
+  amountNet: Amount$outboundSchema,
+  amountVat: z.nullable(AmountNullable$outboundSchema),
+  amountGross: Amount$outboundSchema,
+});
+
+export function entitySettlementCostToJSON(
+  entitySettlementCost: EntitySettlementCost,
+): string {
+  return JSON.stringify(
+    EntitySettlementCost$outboundSchema.parse(entitySettlementCost),
+  );
+}
+export function entitySettlementCostFromJSON(
+  jsonString: string,
+): SafeParseResult<EntitySettlementCost, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EntitySettlementCost$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntitySettlementCost' from JSON`,
+  );
+}
+
+/** @internal */
+export const EntitySettlementRevenue$inboundSchema: z.ZodType<
+  EntitySettlementRevenue,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  description: z.string(),
+  method: z.nullable(PaymentMethod$inboundSchema),
+  count: z.number().int(),
+  amountNet: Amount$inboundSchema,
+  amountVat: z.nullable(AmountNullable$inboundSchema),
+  amountGross: Amount$inboundSchema,
+});
+/** @internal */
+export type EntitySettlementRevenue$Outbound = {
+  description: string;
+  method: string | null;
+  count: number;
+  amountNet: Amount$Outbound;
+  amountVat: AmountNullable$Outbound | null;
+  amountGross: Amount$Outbound;
+};
+
+/** @internal */
+export const EntitySettlementRevenue$outboundSchema: z.ZodType<
+  EntitySettlementRevenue$Outbound,
+  z.ZodTypeDef,
+  EntitySettlementRevenue
 > = z.object({
   description: z.string(),
   method: z.nullable(PaymentMethod$outboundSchema),
@@ -417,57 +442,70 @@ export const Revenue$outboundSchema: z.ZodType<
   amountGross: Amount$outboundSchema,
 });
 
-export function revenueToJSON(revenue: Revenue): string {
-  return JSON.stringify(Revenue$outboundSchema.parse(revenue));
+export function entitySettlementRevenueToJSON(
+  entitySettlementRevenue: EntitySettlementRevenue,
+): string {
+  return JSON.stringify(
+    EntitySettlementRevenue$outboundSchema.parse(entitySettlementRevenue),
+  );
 }
-export function revenueFromJSON(
+export function entitySettlementRevenueFromJSON(
   jsonString: string,
-): SafeParseResult<Revenue, SDKValidationError> {
+): SafeParseResult<EntitySettlementRevenue, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Revenue$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Revenue' from JSON`,
+    (x) => EntitySettlementRevenue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntitySettlementRevenue' from JSON`,
   );
 }
 
 /** @internal */
-export const Periods$inboundSchema: z.ZodType<Periods, z.ZodTypeDef, unknown> =
-  z.object({
-    costs: z.array(z.lazy(() => Cost$inboundSchema)).optional(),
-    revenue: z.array(z.lazy(() => Revenue$inboundSchema)).optional(),
-    invoiceId: z.string().optional(),
-    invoiceReference: z.nullable(z.string()).optional(),
-  });
+export const EntitySettlementPeriods$inboundSchema: z.ZodType<
+  EntitySettlementPeriods,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  costs: z.array(z.lazy(() => EntitySettlementCost$inboundSchema)).optional(),
+  revenue: z.array(z.lazy(() => EntitySettlementRevenue$inboundSchema))
+    .optional(),
+  invoiceId: z.string().optional(),
+  invoiceReference: z.nullable(z.string()).optional(),
+});
 /** @internal */
-export type Periods$Outbound = {
-  costs?: Array<Cost$Outbound> | undefined;
-  revenue?: Array<Revenue$Outbound> | undefined;
+export type EntitySettlementPeriods$Outbound = {
+  costs?: Array<EntitySettlementCost$Outbound> | undefined;
+  revenue?: Array<EntitySettlementRevenue$Outbound> | undefined;
   invoiceId?: string | undefined;
   invoiceReference?: string | null | undefined;
 };
 
 /** @internal */
-export const Periods$outboundSchema: z.ZodType<
-  Periods$Outbound,
+export const EntitySettlementPeriods$outboundSchema: z.ZodType<
+  EntitySettlementPeriods$Outbound,
   z.ZodTypeDef,
-  Periods
+  EntitySettlementPeriods
 > = z.object({
-  costs: z.array(z.lazy(() => Cost$outboundSchema)).optional(),
-  revenue: z.array(z.lazy(() => Revenue$outboundSchema)).optional(),
+  costs: z.array(z.lazy(() => EntitySettlementCost$outboundSchema)).optional(),
+  revenue: z.array(z.lazy(() => EntitySettlementRevenue$outboundSchema))
+    .optional(),
   invoiceId: z.string().optional(),
   invoiceReference: z.nullable(z.string()).optional(),
 });
 
-export function periodsToJSON(periods: Periods): string {
-  return JSON.stringify(Periods$outboundSchema.parse(periods));
+export function entitySettlementPeriodsToJSON(
+  entitySettlementPeriods: EntitySettlementPeriods,
+): string {
+  return JSON.stringify(
+    EntitySettlementPeriods$outboundSchema.parse(entitySettlementPeriods),
+  );
 }
-export function periodsFromJSON(
+export function entitySettlementPeriodsFromJSON(
   jsonString: string,
-): SafeParseResult<Periods, SDKValidationError> {
+): SafeParseResult<EntitySettlementPeriods, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Periods$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Periods' from JSON`,
+    (x) => EntitySettlementPeriods$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntitySettlementPeriods' from JSON`,
   );
 }
 
@@ -543,7 +581,9 @@ export const EntitySettlement$inboundSchema: z.ZodType<
   amount: z.lazy(() => EntitySettlementAmount$inboundSchema),
   balanceId: z.string(),
   invoiceId: z.nullable(z.string()).optional(),
-  periods: z.record(z.record(z.lazy(() => Periods$inboundSchema))).optional(),
+  periods: z.record(
+    z.record(z.lazy(() => EntitySettlementPeriods$inboundSchema)),
+  ).optional(),
   _links: z.lazy(() => EntitySettlementLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
@@ -561,7 +601,9 @@ export type EntitySettlement$Outbound = {
   amount: EntitySettlementAmount$Outbound;
   balanceId: string;
   invoiceId?: string | null | undefined;
-  periods?: { [k: string]: { [k: string]: Periods$Outbound } } | undefined;
+  periods?:
+    | { [k: string]: { [k: string]: EntitySettlementPeriods$Outbound } }
+    | undefined;
   _links: EntitySettlementLinks$Outbound;
 };
 
@@ -580,7 +622,9 @@ export const EntitySettlement$outboundSchema: z.ZodType<
   amount: z.lazy(() => EntitySettlementAmount$outboundSchema),
   balanceId: z.string(),
   invoiceId: z.nullable(z.string()).optional(),
-  periods: z.record(z.record(z.lazy(() => Periods$outboundSchema))).optional(),
+  periods: z.record(
+    z.record(z.lazy(() => EntitySettlementPeriods$outboundSchema)),
+  ).optional(),
   links: z.lazy(() => EntitySettlementLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {

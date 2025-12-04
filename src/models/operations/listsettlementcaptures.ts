@@ -65,7 +65,7 @@ export type ListSettlementCapturesEmbedded = {
   /**
    * An array of capture objects.
    */
-  captures: Array<models.CaptureResponse>;
+  captures: Array<models.ListCaptureResponse>;
 };
 
 /**
@@ -200,11 +200,11 @@ export const ListSettlementCapturesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  captures: z.array(models.CaptureResponse$inboundSchema),
+  captures: z.array(models.ListCaptureResponse$inboundSchema),
 });
 /** @internal */
 export type ListSettlementCapturesEmbedded$Outbound = {
-  captures: Array<models.CaptureResponse$Outbound>;
+  captures: Array<models.ListCaptureResponse$Outbound>;
 };
 
 /** @internal */
@@ -213,7 +213,7 @@ export const ListSettlementCapturesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementCapturesEmbedded
 > = z.object({
-  captures: z.array(models.CaptureResponse$outboundSchema),
+  captures: z.array(models.ListCaptureResponse$outboundSchema),
 });
 
 export function listSettlementCapturesEmbeddedToJSON(

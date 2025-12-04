@@ -48,6 +48,10 @@ async function run() {
       },
       description: "Invoice fee",
       category: "invoice_collection",
+      metadata: {
+        "order_id": 12345,
+        "customer_id": 9876,
+      },
       testmode: false,
     },
   });
@@ -94,6 +98,10 @@ async function run() {
       },
       description: "Invoice fee",
       category: "invoice_collection",
+      metadata: {
+        "order_id": 12345,
+        "customer_id": 9876,
+      },
       testmode: false,
     },
   });

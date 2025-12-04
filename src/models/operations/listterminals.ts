@@ -61,7 +61,7 @@ export type ListTerminalsEmbedded = {
   /**
    * An array of terminal objects.
    */
-  terminals?: Array<models.EntityTerminal> | undefined;
+  terminals?: Array<models.ListEntityTerminal> | undefined;
 };
 
 /**
@@ -189,11 +189,11 @@ export const ListTerminalsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  terminals: z.array(models.EntityTerminal$inboundSchema).optional(),
+  terminals: z.array(models.ListEntityTerminal$inboundSchema).optional(),
 });
 /** @internal */
 export type ListTerminalsEmbedded$Outbound = {
-  terminals?: Array<models.EntityTerminal$Outbound> | undefined;
+  terminals?: Array<models.ListEntityTerminal$Outbound> | undefined;
 };
 
 /** @internal */
@@ -202,7 +202,7 @@ export const ListTerminalsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListTerminalsEmbedded
 > = z.object({
-  terminals: z.array(models.EntityTerminal$outboundSchema).optional(),
+  terminals: z.array(models.ListEntityTerminal$outboundSchema).optional(),
 });
 
 export function listTerminalsEmbeddedToJSON(

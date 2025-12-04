@@ -65,7 +65,7 @@ export type ListSubscriptionsEmbedded = {
   /**
    * An array of subscription objects.
    */
-  subscriptions?: Array<models.SubscriptionResponse> | undefined;
+  subscriptions?: Array<models.ListSubscriptionResponse> | undefined;
 };
 
 /**
@@ -196,11 +196,12 @@ export const ListSubscriptionsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  subscriptions: z.array(models.SubscriptionResponse$inboundSchema).optional(),
+  subscriptions: z.array(models.ListSubscriptionResponse$inboundSchema)
+    .optional(),
 });
 /** @internal */
 export type ListSubscriptionsEmbedded$Outbound = {
-  subscriptions?: Array<models.SubscriptionResponse$Outbound> | undefined;
+  subscriptions?: Array<models.ListSubscriptionResponse$Outbound> | undefined;
 };
 
 /** @internal */
@@ -209,7 +210,8 @@ export const ListSubscriptionsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSubscriptionsEmbedded
 > = z.object({
-  subscriptions: z.array(models.SubscriptionResponse$outboundSchema).optional(),
+  subscriptions: z.array(models.ListSubscriptionResponse$outboundSchema)
+    .optional(),
 });
 
 export function listSubscriptionsEmbeddedToJSON(

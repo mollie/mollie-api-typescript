@@ -36,6 +36,10 @@ let value: ListConnectBalanceTransfersResponse = {
           message: "Insufficient funds in the source balance.",
         },
         category: "invoice_collection",
+        metadata: {
+          "order_id": 12345,
+          "customer_id": 9876,
+        },
         createdAt: "2024-03-20T09:13:37+00:00",
         executedAt: "2024-03-20T09:28:37+00:00",
         mode: "live",
