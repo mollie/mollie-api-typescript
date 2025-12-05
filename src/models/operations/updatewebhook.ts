@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type UpdateWebhookEventTypes =
+  | Array<models.WebhookEventTypes>
+  | models.WebhookEventTypes;
+
 export type UpdateWebhookRequestBody = {
   /**
    * A name that identifies the webhook.
@@ -18,10 +22,10 @@ export type UpdateWebhookRequestBody = {
    * The URL Mollie will send the events to. This URL must be publicly accessible.
    */
   url?: string | undefined;
-  /**
-   * The event's type
-   */
-  webhookEventTypes?: models.WebhookEventTypes | undefined;
+  eventTypes?:
+    | Array<models.WebhookEventTypes>
+    | models.WebhookEventTypes
+    | undefined;
   /**
    * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
    *
@@ -46,6 +50,45 @@ export type UpdateWebhookRequest = {
 };
 
 /** @internal */
+export const UpdateWebhookEventTypes$inboundSchema: z.ZodType<
+  UpdateWebhookEventTypes,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.array(models.WebhookEventTypes$inboundSchema),
+  models.WebhookEventTypes$inboundSchema,
+]);
+/** @internal */
+export type UpdateWebhookEventTypes$Outbound = Array<string> | string;
+
+/** @internal */
+export const UpdateWebhookEventTypes$outboundSchema: z.ZodType<
+  UpdateWebhookEventTypes$Outbound,
+  z.ZodTypeDef,
+  UpdateWebhookEventTypes
+> = z.union([
+  z.array(models.WebhookEventTypes$outboundSchema),
+  models.WebhookEventTypes$outboundSchema,
+]);
+
+export function updateWebhookEventTypesToJSON(
+  updateWebhookEventTypes: UpdateWebhookEventTypes,
+): string {
+  return JSON.stringify(
+    UpdateWebhookEventTypes$outboundSchema.parse(updateWebhookEventTypes),
+  );
+}
+export function updateWebhookEventTypesFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateWebhookEventTypes, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateWebhookEventTypes$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateWebhookEventTypes' from JSON`,
+  );
+}
+
+/** @internal */
 export const UpdateWebhookRequestBody$inboundSchema: z.ZodType<
   UpdateWebhookRequestBody,
   z.ZodTypeDef,
@@ -53,18 +96,17 @@ export const UpdateWebhookRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   url: z.string().optional(),
-  eventTypes: models.WebhookEventTypes$inboundSchema.optional(),
+  eventTypes: z.union([
+    z.array(models.WebhookEventTypes$inboundSchema),
+    models.WebhookEventTypes$inboundSchema,
+  ]).optional(),
   testmode: z.nullable(z.boolean()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "eventTypes": "webhookEventTypes",
-  });
 });
 /** @internal */
 export type UpdateWebhookRequestBody$Outbound = {
   name?: string | undefined;
   url?: string | undefined;
-  eventTypes?: string | undefined;
+  eventTypes?: Array<string> | string | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -76,12 +118,11 @@ export const UpdateWebhookRequestBody$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   url: z.string().optional(),
-  webhookEventTypes: models.WebhookEventTypes$outboundSchema.optional(),
+  eventTypes: z.union([
+    z.array(models.WebhookEventTypes$outboundSchema),
+    models.WebhookEventTypes$outboundSchema,
+  ]).optional(),
   testmode: z.nullable(z.boolean()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    webhookEventTypes: "eventTypes",
-  });
 });
 
 export function updateWebhookRequestBodyToJSON(

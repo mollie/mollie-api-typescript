@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: adc1359a5f53bfc67f09961b0725e6f9
+  docChecksum: 1d2641433a69902c38d579ef00824956
   docVersion: 1.0.0
-  speakeasyVersion: 1.668.0
+  speakeasyVersion: 1.668.1
   generationVersion: 2.770.0
-  releaseVersion: 0.9.0
-  configChecksum: 4751f3550d59376cc493d1f1daf34cde
+  releaseVersion: 0.9.1
+  configChecksum: 6723f86338a8c5989d73c3f078032587
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
@@ -335,6 +335,7 @@ generatedFiles:
   - docs/models/operations/createrefundrequest.md
   - docs/models/operations/createsalesinvoicerequest.md
   - docs/models/operations/createsubscriptionrequest.md
+  - docs/models/operations/createwebhookeventtypes.md
   - docs/models/operations/createwebhookrequest.md
   - docs/models/operations/createwebhookrequestbody.md
   - docs/models/operations/deletecustomerrequest.md
@@ -558,6 +559,7 @@ generatedFiles:
   - docs/models/operations/updatesalesinvoicerequest.md
   - docs/models/operations/updatesubscriptionrequest.md
   - docs/models/operations/updatesubscriptionrequestbody.md
+  - docs/models/operations/updatewebhookeventtypes.md
   - docs/models/operations/updatewebhookrequest.md
   - docs/models/operations/updatewebhookrequestbody.md
   - docs/models/operations/useragenttoken.md
@@ -4817,4 +4819,4 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.webhooks.list()`:  `response._embedded.webhooks.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.clients.list()`:  `response._embedded.clients.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.settlements.listPayments()`:  `response._embedded.payments.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.settlements.listCaptures()`:  `response._embedded.captures.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.settlements.listRefunds()`:  `response._embedded.refunds.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.settlements.listChargebacks()`:  `response._embedded.chargebacks.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.salesInvoices.list()`:  `response._embedded.salesInvoices.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.permissions.list()`:  `response._embedded.permissions.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.profiles.list()`:  `response._embedded.profiles.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.customers.list()`:  `response._embedded.customers.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.settlements.list()`:  `response._embedded.settlements.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.subscriptions.list()`:  `response._embedded.subscriptions.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.balances.list()`:  `response._embedded.balances.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.mandates.list()`:  `response._embedded.mandates.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.methods.list()`:  `response._embedded.methods.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.terminals.list()`:  `response._embedded.terminals.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.delayedRouting.list()`:  `response._embedded.routes.[].Links.documentation` **Removed** **Breaking** :warning:\n* `client.invoices.list()`:  `response._embedded.invoices.[]` **Changed**\n* `client.balanceTransfers.get()`:  `response.metadata` **Added**\n* `client.balanceTransfers.create()`: \n  *  `request.entity-balance-transfer.metadata` **Added**\n  *  `response.metadata` **Added**\n* `client.balanceTransfers.list()`:  `response._embedded.connectBalanceTransfers.[].metadata` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.webhooks.create()`: \n  *  `request.requestBody` **Changed** **Breaking** :warning:\n* `client.webhooks.update()`: \n  *  `request.requestBody` **Changed** **Breaking** :warning:\n"

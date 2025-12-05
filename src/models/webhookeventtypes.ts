@@ -6,7 +6,10 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The event's type
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection.
  */
 export const WebhookEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
@@ -18,7 +21,10 @@ export const WebhookEventTypes = {
   Wildcard: "*",
 } as const;
 /**
- * The event's type
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection.
  */
 export type WebhookEventTypes = ClosedEnum<typeof WebhookEventTypes>;
 

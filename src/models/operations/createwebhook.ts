@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type CreateWebhookEventTypes =
+  | Array<models.WebhookEventTypes>
+  | models.WebhookEventTypes;
+
 export type CreateWebhookRequestBody = {
   /**
    * A name that identifies the webhook.
@@ -18,10 +22,7 @@ export type CreateWebhookRequestBody = {
    * The URL Mollie will send the events to. This URL must be publicly accessible.
    */
   url: string;
-  /**
-   * The event's type
-   */
-  webhookEventTypes: models.WebhookEventTypes;
+  eventTypes: Array<models.WebhookEventTypes> | models.WebhookEventTypes;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -43,6 +44,45 @@ export type CreateWebhookRequest = {
 };
 
 /** @internal */
+export const CreateWebhookEventTypes$inboundSchema: z.ZodType<
+  CreateWebhookEventTypes,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.array(models.WebhookEventTypes$inboundSchema),
+  models.WebhookEventTypes$inboundSchema,
+]);
+/** @internal */
+export type CreateWebhookEventTypes$Outbound = Array<string> | string;
+
+/** @internal */
+export const CreateWebhookEventTypes$outboundSchema: z.ZodType<
+  CreateWebhookEventTypes$Outbound,
+  z.ZodTypeDef,
+  CreateWebhookEventTypes
+> = z.union([
+  z.array(models.WebhookEventTypes$outboundSchema),
+  models.WebhookEventTypes$outboundSchema,
+]);
+
+export function createWebhookEventTypesToJSON(
+  createWebhookEventTypes: CreateWebhookEventTypes,
+): string {
+  return JSON.stringify(
+    CreateWebhookEventTypes$outboundSchema.parse(createWebhookEventTypes),
+  );
+}
+export function createWebhookEventTypesFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateWebhookEventTypes, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateWebhookEventTypes$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateWebhookEventTypes' from JSON`,
+  );
+}
+
+/** @internal */
 export const CreateWebhookRequestBody$inboundSchema: z.ZodType<
   CreateWebhookRequestBody,
   z.ZodTypeDef,
@@ -50,18 +90,17 @@ export const CreateWebhookRequestBody$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   url: z.string(),
-  eventTypes: models.WebhookEventTypes$inboundSchema,
+  eventTypes: z.union([
+    z.array(models.WebhookEventTypes$inboundSchema),
+    models.WebhookEventTypes$inboundSchema,
+  ]),
   testmode: z.nullable(z.boolean()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "eventTypes": "webhookEventTypes",
-  });
 });
 /** @internal */
 export type CreateWebhookRequestBody$Outbound = {
   name: string;
   url: string;
-  eventTypes: string;
+  eventTypes: Array<string> | string;
   testmode?: boolean | null | undefined;
 };
 
@@ -73,12 +112,11 @@ export const CreateWebhookRequestBody$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   url: z.string(),
-  webhookEventTypes: models.WebhookEventTypes$outboundSchema,
+  eventTypes: z.union([
+    z.array(models.WebhookEventTypes$outboundSchema),
+    models.WebhookEventTypes$outboundSchema,
+  ]),
   testmode: z.nullable(z.boolean()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    webhookEventTypes: "eventTypes",
-  });
 });
 
 export function createWebhookRequestBodyToJSON(

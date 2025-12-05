@@ -34,7 +34,7 @@ async function run() {
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
-      webhookEventTypes: "payment-link.paid",
+      eventTypes: "payment-link.paid",
       testmode: false,
     },
   });
@@ -67,7 +67,7 @@ async function run() {
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
-      webhookEventTypes: "payment-link.paid",
+      eventTypes: "payment-link.paid",
       testmode: false,
     },
   });
@@ -213,7 +213,7 @@ async function run() {
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
-      webhookEventTypes: "payment-link.paid",
+      eventTypes: "payment-link.paid",
       testmode: false,
     },
   });
@@ -247,7 +247,7 @@ async function run() {
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
-      webhookEventTypes: "payment-link.paid",
+      eventTypes: "payment-link.paid",
       testmode: false,
     },
   });

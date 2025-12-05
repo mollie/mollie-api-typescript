@@ -9159,11 +9159,14 @@ paths:
                   description: The URL Mollie will send the events to. This URL must be publicly accessible.
                   example: https://mollie.com/
                 eventTypes:
-                  type: string
-                  description: |-
-                    The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
-                    that require explicit selection. Separate multiple event types with a comma.
-                  $ref: '#/components/schemas/webhook-event-types'
+                  oneOf:
+                    - type: array
+                      description: |-
+                        The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+                        that require explicit selection.
+                      items:
+                        $ref: '#/components/schemas/webhook-event-types'
+                    - $ref: '#/components/schemas/webhook-event-types'
                 testmode:
                   $ref: '#/components/schemas/testmode-create'
               required:
@@ -9410,11 +9413,14 @@ paths:
                   description: The URL Mollie will send the events to. This URL must be publicly accessible.
                   example: https://mollie.com/
                 eventTypes:
-                  type: string
-                  description: |-
-                    The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
-                    that require explicit selection. Separate multiple event types with a comma.
-                  $ref: '#/components/schemas/webhook-event-types'
+                  oneOf:
+                    - type: array
+                      description: |-
+                        The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+                        that require explicit selection.
+                      items:
+                        $ref: '#/components/schemas/webhook-event-types'
+                    - $ref: '#/components/schemas/webhook-event-types'
                 testmode:
                   $ref: '#/components/schemas/testmode'
       responses:
@@ -27488,7 +27494,6 @@ components:
         - multibanco
         - mybank
         - paybybank
-        - payconiq
         - paypal
         - paysafecard
         - przelewy24
@@ -27502,6 +27507,10 @@ components:
         - twint
         - vipps
         - voucher
+      x-deprecated-enum:
+        - payconiq
+      x-speakeasy-enum-descriptions:
+        payconiq: No longer available
       example: creditcard
       x-speakeasy-unknown-values: allow
     balance-card-issuer:
@@ -28971,7 +28980,6 @@ components:
         - multibanco
         - mybank
         - paybybank
-        - payconiq
         - paypal
         - paysafecard
         - pointofsale
@@ -31599,7 +31607,9 @@ components:
       x-speakeasy-unknown-values: allow
     webhook-event-types:
       type: string
-      description: The event's type
+      description: |-
+        The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+        that require explicit selection.
       x-speakeasy-name-override: webhook-event-types
       enum:
         - payment-link.paid
@@ -35442,7 +35452,6 @@ components:
         - multibanco
         - mybank
         - paybybank
-        - payconiq
         - paypal
         - paysafecard
         - pointofsale
@@ -35457,10 +35466,12 @@ components:
         - klarnapaylater
         - klarnapaynow
         - klarnasliceit
+        - payconiq
       x-speakeasy-enum-descriptions:
         klarnapaylater: Deprecated, use 'klarna' instead
         klarnapaynow: Deprecated, use 'klarna' instead
         klarnasliceit: Deprecated, use 'klarna' instead
+        payconiq: No longer available
       x-speakeasy-unknown-values: allow
     capture-mode-response:
       type:
@@ -36267,7 +36278,9 @@ components:
       x-speakeasy-unknown-values: allow
     webhook-event-types-response:
       type: string
-      description: The event's type
+      description: |-
+        The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+        that require explicit selection.
       x-speakeasy-name-override: webhook-event-types
       enum:
         - payment-link.paid

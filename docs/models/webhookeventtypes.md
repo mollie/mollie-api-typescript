@@ -1,6 +1,7 @@
 # WebhookEventTypes
 
-The event's type
+The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+that require explicit selection.
 
 ## Example Usage
 

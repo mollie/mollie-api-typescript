@@ -41,7 +41,6 @@ export const MethodResponse = {
   Multibanco: "multibanco",
   Mybank: "mybank",
   Paybybank: "paybybank",
-  Payconiq: "payconiq",
   Paypal: "paypal",
   Paysafecard: "paysafecard",
   Pointofsale: "pointofsale",
@@ -65,6 +64,10 @@ export const MethodResponse = {
    * Deprecated, use 'klarna' instead
    */
   Klarnasliceit: "klarnasliceit",
+  /**
+   * No longer available
+   */
+  Payconiq: "payconiq",
 } as const;
 /**
  * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment

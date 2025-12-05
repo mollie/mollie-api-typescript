@@ -29,7 +29,10 @@ import {
 } from "./url.js";
 
 /**
- * The event's type
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection.
  */
 export const EntityWebhookEventWebhookEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
@@ -41,7 +44,10 @@ export const EntityWebhookEventWebhookEventTypes = {
   Wildcard: "*",
 } as const;
 /**
- * The event's type
+ * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
+ *
+ * @remarks
+ * that require explicit selection.
  */
 export type EntityWebhookEventWebhookEventTypes = OpenEnum<
   typeof EntityWebhookEventWebhookEventTypes

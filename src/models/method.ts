@@ -40,7 +40,6 @@ export const Method = {
   Multibanco: "multibanco",
   Mybank: "mybank",
   Paybybank: "paybybank",
-  Payconiq: "payconiq",
   Paypal: "paypal",
   Paysafecard: "paysafecard",
   Pointofsale: "pointofsale",

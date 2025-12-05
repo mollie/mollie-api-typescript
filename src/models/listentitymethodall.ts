@@ -57,7 +57,6 @@ export const ListEntityMethodAllId = {
   Multibanco: "multibanco",
   Mybank: "mybank",
   Paybybank: "paybybank",
-  Payconiq: "payconiq",
   Paypal: "paypal",
   Paysafecard: "paysafecard",
   Pointofsale: "pointofsale",
@@ -81,6 +80,10 @@ export const ListEntityMethodAllId = {
    * Deprecated, use 'klarna' instead
    */
   Klarnasliceit: "klarnasliceit",
+  /**
+   * No longer available
+   */
+  Payconiq: "payconiq",
 } as const;
 /**
  * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
