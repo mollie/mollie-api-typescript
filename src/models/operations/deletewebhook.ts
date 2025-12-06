@@ -10,14 +10,13 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteWebhookRequestBody = {
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+   * You can enable test mode by setting `testmode` to `true`.
    *
    * @remarks
-   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 export type DeleteWebhookRequest = {
@@ -38,11 +37,11 @@ export const DeleteWebhookRequestBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 /** @internal */
 export type DeleteWebhookRequestBody$Outbound = {
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -51,7 +50,7 @@ export const DeleteWebhookRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeleteWebhookRequestBody
 > = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 
 export function deleteWebhookRequestBodyToJSON(

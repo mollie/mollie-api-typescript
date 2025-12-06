@@ -1,5 +1,4 @@
 # Wallets
-(*wallets*)
 
 ## Overview
 

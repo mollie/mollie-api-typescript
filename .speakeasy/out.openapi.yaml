@@ -92,7 +92,7 @@ paths:
             type: string
             example: bal_gVMhHKqSSRYJyPsuoPNFH
         - $ref: '#/components/parameters/list-limit'
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -308,7 +308,7 @@ paths:
         balance instantly. With slower payment methods, like credit card for example, it can take a few days before the
         funds are available on your balance. These funds will be shown under the *pending amount* in the meanwhile.
       parameters:
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -561,7 +561,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/balance-report-grouping'
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -1363,7 +1363,7 @@ paths:
             type: string
             example: baltr_QM24QwzUWR4ev4Xfgyt29A
         - $ref: '#/components/parameters/list-limit'
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -7046,7 +7046,7 @@ paths:
         - oAuth: []
       description: Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
       parameters:
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -7146,7 +7146,7 @@ paths:
 
         If you have a *partner account*', you can retrieve organization details of connected organizations.
       parameters:
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -7790,7 +7790,7 @@ paths:
             - profiles.read
       description: Retrieve a single profile by its ID.
       parameters:
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -9168,7 +9168,7 @@ paths:
                         $ref: '#/components/schemas/webhook-event-types'
                     - $ref: '#/components/schemas/webhook-event-types'
                 testmode:
-                  $ref: '#/components/schemas/testmode-create'
+                  $ref: '#/components/schemas/oauth-testmode-create'
               required:
                 - name
                 - url
@@ -9272,7 +9272,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/webhook-event-types'
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -9422,7 +9422,7 @@ paths:
                         $ref: '#/components/schemas/webhook-event-types'
                     - $ref: '#/components/schemas/webhook-event-types'
                 testmode:
-                  $ref: '#/components/schemas/testmode'
+                  $ref: '#/components/schemas/oauth-testmode'
       responses:
         '200':
           description: The webhook object.
@@ -9513,7 +9513,7 @@ paths:
             - webhooks.read
       description: Retrieve a single webhook object by its ID.
       parameters:
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -9620,7 +9620,7 @@ paths:
               type: object
               properties:
                 testmode:
-                  $ref: '#/components/schemas/testmode'
+                  $ref: '#/components/schemas/oauth-testmode'
       responses:
         '204':
           description: No content.
@@ -9688,7 +9688,7 @@ paths:
               type: object
               properties:
                 testmode:
-                  $ref: '#/components/schemas/testmode'
+                  $ref: '#/components/schemas/oauth-testmode'
       responses:
         '202':
           description: Accepted.
@@ -9750,7 +9750,7 @@ paths:
             - events.read
       description: Retrieve a single webhook event object by its event ID.
       parameters:
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -9953,7 +9953,7 @@ paths:
             example: cbtr_j8NvRAM2WNZtsykpLEX8J
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -10076,7 +10076,7 @@ paths:
             - balance-transfers.read
       description: Retrieve a single Connect balance transfer object by its ID.
       parameters:
-        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/oauth-testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -26953,12 +26953,10 @@ components:
         minimum: 1
         maximum: 250
         example: 50
-    testmode:
+    oauth-testmode:
       name: testmode
       description: |-
-        Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-        parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-        setting the `testmode` query parameter to `true`.
+        You can enable test mode by setting the `testmode` query parameter to `true`.
 
         Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
       in: query
@@ -27007,6 +27005,18 @@ components:
       in: query
       schema:
         $ref: '#/components/schemas/profileToken'
+    testmode:
+      name: testmode
+      description: |-
+        Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+        parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+        setting the `testmode` query parameter to `true`.
+
+        Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+      in: query
+      schema:
+        type: boolean
+        example: false
     embed:
       name: embed
       description: |-
@@ -31709,6 +31719,14 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    oauth-testmode-create:
+      type: boolean
+      description: |-
+        Whether to create the entity in test mode or live mode.
+
+        You can enable test mode by setting `testmode` to `true`.
+      writeOnly: true
+      example: false
     create-webhook:
       type: object
       required:
@@ -31782,13 +31800,10 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
-    testmode:
-      type:
-        - boolean
-        - 'null'
+    oauth-testmode:
+      type: boolean
       description: |-
-        Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
-        such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+        You can enable test mode by setting `testmode` to `true`.
 
         Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
       writeOnly: true
@@ -32263,7 +32278,7 @@ components:
           readOnly: true
           example: '2024-03-20T09:28:37+00:00'
         testmode:
-          $ref: '#/components/schemas/testmode-create'
+          $ref: '#/components/schemas/oauth-testmode-create'
         mode:
           $ref: '#/components/schemas/mode'
       required:
@@ -32850,6 +32865,17 @@ components:
       type: object
       additionalProperties: true
       properties: {}
+    testmode:
+      type:
+        - boolean
+        - 'null'
+      description: |-
+        Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+        such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+
+        Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+      writeOnly: true
+      example: false
     terminalToken:
       type: string
       example: term_vytxeTZskVKR7C7WgdSP3d
@@ -36417,7 +36443,7 @@ components:
           readOnly: true
           example: '2024-03-20T09:28:37+00:00'
         testmode:
-          $ref: '#/components/schemas/testmode-create'
+          $ref: '#/components/schemas/oauth-testmode-create'
         mode:
           $ref: '#/components/schemas/mode'
       required:

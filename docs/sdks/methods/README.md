@@ -1,5 +1,4 @@
 # Methods
-(*methods*)
 
 ## Overview
 

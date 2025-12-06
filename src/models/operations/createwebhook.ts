@@ -28,11 +28,9 @@ export type CreateWebhookRequestBody = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
-   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
-   * `testmode` to `true`.
+   * You can enable test mode by setting `testmode` to `true`.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 export type CreateWebhookRequest = {
@@ -94,14 +92,14 @@ export const CreateWebhookRequestBody$inboundSchema: z.ZodType<
     z.array(models.WebhookEventTypes$inboundSchema),
     models.WebhookEventTypes$inboundSchema,
   ]),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 /** @internal */
 export type CreateWebhookRequestBody$Outbound = {
   name: string;
   url: string;
   eventTypes: Array<string> | string;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -116,7 +114,7 @@ export const CreateWebhookRequestBody$outboundSchema: z.ZodType<
     z.array(models.WebhookEventTypes$outboundSchema),
     models.WebhookEventTypes$outboundSchema,
   ]),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 
 export function createWebhookRequestBodyToJSON(

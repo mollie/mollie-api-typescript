@@ -27,14 +27,13 @@ export type UpdateWebhookRequestBody = {
     | models.WebhookEventTypes
     | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+   * You can enable test mode by setting `testmode` to `true`.
    *
    * @remarks
-   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 export type UpdateWebhookRequest = {
@@ -100,14 +99,14 @@ export const UpdateWebhookRequestBody$inboundSchema: z.ZodType<
     z.array(models.WebhookEventTypes$inboundSchema),
     models.WebhookEventTypes$inboundSchema,
   ]).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 /** @internal */
 export type UpdateWebhookRequestBody$Outbound = {
   name?: string | undefined;
   url?: string | undefined;
   eventTypes?: Array<string> | string | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -122,7 +121,7 @@ export const UpdateWebhookRequestBody$outboundSchema: z.ZodType<
     z.array(models.WebhookEventTypes$outboundSchema),
     models.WebhookEventTypes$outboundSchema,
   ]).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 
 export function updateWebhookRequestBodyToJSON(

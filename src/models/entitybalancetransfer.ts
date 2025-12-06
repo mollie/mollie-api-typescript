@@ -57,11 +57,9 @@ export type EntityBalanceTransfer = {
    *
    * @remarks
    *
-   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
-   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
-   * `testmode` to `true`.
+   * You can enable test mode by setting `testmode` to `true`.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -76,7 +74,7 @@ export const EntityBalanceTransfer$inboundSchema: z.ZodType<
   description: z.string(),
   category: BalanceTransferCategory$inboundSchema.optional(),
   metadata: z.record(z.any()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 /** @internal */
 export type EntityBalanceTransfer$Outbound = {
@@ -86,7 +84,7 @@ export type EntityBalanceTransfer$Outbound = {
   description: string;
   category?: string | undefined;
   metadata?: { [k: string]: any } | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -101,7 +99,7 @@ export const EntityBalanceTransfer$outboundSchema: z.ZodType<
   description: z.string(),
   category: BalanceTransferCategory$outboundSchema.optional(),
   metadata: z.record(z.any()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 
 export function entityBalanceTransferToJSON(

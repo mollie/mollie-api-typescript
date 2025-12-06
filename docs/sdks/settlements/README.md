@@ -1,5 +1,4 @@
 # Settlements
-(*settlements*)
 
 ## Overview
 
