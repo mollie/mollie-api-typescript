@@ -2,7 +2,7 @@
 
 {
   "name": "mollie-api-typescript",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "exports": {
     ".": "./src/index.ts",    
     "./models/errors": "./src/models/errors/index.ts",    

@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 153d82e86ba8e45ae7cf02038e7e096c
+  docChecksum: 476471c5239de2e0b4b88bc7eea59836
   docVersion: 1.0.0
-  speakeasyVersion: 1.669.1
-  generationVersion: 2.772.0
-  releaseVersion: 0.9.3
-  configChecksum: 2a446d6d1867d21f5c46b460ae3fa82a
+  speakeasyVersion: 1.676.1
+  generationVersion: 2.781.2
+  releaseVersion: 0.9.4
+  configChecksum: 9a710fbe627ca60255fdb461e5721821
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 65736649-082c-4f27-b05d-fb2bcae29084
-  pristine_commit_hash: a6914620d5bd662386656fd445feb3713cfb8f02
-  pristine_tree_hash: 8c8d3ca47b0248a9ebda146bf41373cb873e2c75
+  generation_id: fbadac53-263a-4ec0-a8e9-0445fe35e46f
+  pristine_commit_hash: a0d09abe6436bca5f634bd204c4c257f3541d9c6
+  pristine_tree_hash: cffa74ec86fa8f6b52c26694543bccd583a15039
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.26.14
+    core: 3.26.15
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -2861,12 +2861,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:2769f466dac00bd1549cc1f17b28175c09bf5738
-    pristine_git_object: 40cf3e50a4d98adf810635c62f4c2cf10b4c9bce
+    last_write_checksum: sha1:2049680f9b250a38f671b309bab448d07d2420dc
+    pristine_git_object: a9ccc7a7e9dea836659d52ed6de2740c490fbda9
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:c19fccd50fc2e545105983b65ea806f9b85d56a2
-    pristine_git_object: 442e35da99767bdef4df2d7f8938df830f6a6986
+    last_write_checksum: sha1:1bb920c0ed1b0a041b4ba1a3608bf79a16dab8a4
+    pristine_git_object: c577a5ad6cfefccf891c86ff5c2b07f7df472954
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d9ddd6581847914e25feb525eb329e4168189d46
@@ -3277,8 +3277,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:3575ef4bdcafb5f77a3d21395fc5b1bf8b7cfcd7
-    pristine_git_object: 369020cd1a54e79fde67b1a8adfdd943124b5491
+    last_write_checksum: sha1:744d22c93f111cea48f6a777d3db5fe0874bc10c
+    pristine_git_object: 7112ecdbb8d3ec88bd2d6fb5f69f76b5722745bc
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -3361,8 +3361,8 @@ trackedFiles:
     pristine_git_object: 0955a573c2ce989d63c737410ab8cc28706d9f74
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:b7ed274d219b620120fef66cd383d45eb471436b
-    pristine_git_object: b12c561eb6a09ac8d0e6ae6a4ab676998a29c291
+    last_write_checksum: sha1:039107e99cf2e718026f761d63c40f1c4e7667b6
+    pristine_git_object: e9d4ae9057fe90db5fa496869ff120a3e36b329c
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:b99b91395607434d6180fd3b7fefe3c7b500214c
@@ -3377,8 +3377,8 @@ trackedFiles:
     pristine_git_object: c25696d4c4f70e081fa5d87ad6891874c509a577
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:e52b3f7320e904839d8f43017c69949ff7217bad
-    pristine_git_object: 19cc6f1c81519da696aeed29d5da740691c3077d
+    last_write_checksum: sha1:0ea24150dba91fc707ecadbdedbab55f01237d46
+    pristine_git_object: de8bc8270372fc337127803fc2be4f661930412d
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:56c73d4429691516e35541825e759a0285747a2b
@@ -3953,8 +3953,8 @@ trackedFiles:
     pristine_git_object: 96454b3bf03468135255d1e47cdb7b975ff869c4
   src/models/entitymethod.ts:
     id: 5088aaab25d6
-    last_write_checksum: sha1:84bf994eda3f774ae0575fbe22a4ccec9d5bd3b1
-    pristine_git_object: d5b15198b594decdf44474c6255084c24dcda33c
+    last_write_checksum: sha1:503fe93470538f76199af9e299fd2849e5306107
+    pristine_git_object: b834b60dc4829c3bf407ec529102d9915ef0a16f
   src/models/entityonboardingstatus.ts:
     id: 72c15ea7e999
     last_write_checksum: sha1:68c9923cd1ab93c261d05aa01af056ad34c5bad8
@@ -4065,12 +4065,12 @@ trackedFiles:
     pristine_git_object: b7c378c0b4276fbd449cabc45b1ae2c2ffab6953
   src/models/listentitymethod.ts:
     id: d2fa4a676853
-    last_write_checksum: sha1:bbde583ae9390a9b7af1d12ae43eda616ef0bb94
-    pristine_git_object: a16e40e8d779ba8da393cbc7b917286ea3248b78
+    last_write_checksum: sha1:74ed9f0ce2415f04c0d84f3f532ba53ec651a044
+    pristine_git_object: 6a1db2e7f03012c5878c9ac8f7c13c66decb678b
   src/models/listentitymethodall.ts:
     id: 332aa184e0a5
-    last_write_checksum: sha1:ae8259a8dbdd99e04c0852207e3055421f2e046d
-    pristine_git_object: 1e309b0e151896c20230909f436764ba213f7638
+    last_write_checksum: sha1:55bad19039eb8b1b4a07e1b99a97c6fbefa2bf0a
+    pristine_git_object: 88842626504c21672c10f9f7e7b5bd62aad6a71b
   src/models/listentitypermission.ts:
     id: e7f08f1eea93
     last_write_checksum: sha1:66682bb280bde5f43bbe570183a5dbf4ef17ffa6
@@ -8573,7 +8573,11 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.webhooks.create()`: \n  *  `request.requestBody.testmode` **Changed** **Breaking** :warning:\n* `client.webhooks.update()`: \n  *  `request.requestBody.testmode` **Changed** **Breaking** :warning:\n* `client.webhooks.delete()`: \n  *  `request.requestBody.testmode` **Changed** **Breaking** :warning:\n* `client.webhooks.test()`: \n  *  `request.requestBody.testmode` **Changed** **Breaking** :warning:\n* `client.balanceTransfers.create()`: \n  *  `request.entity-balance-transfer.testmode` **Changed** **Breaking** :warning:\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `client.methods.list()`:  `response._embedded.methods.[].status` **Changed** **Breaking** :warning:
+  * `client.methods.all()`:  `response._embedded.methods.[].status` **Changed** **Breaking** :warning:
+  * `client.methods.get()`:  `response.status` **Changed** **Breaking** :warning:
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
