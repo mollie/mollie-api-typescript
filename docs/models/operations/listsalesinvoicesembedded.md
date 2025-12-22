@@ -96,10 +96,6 @@ let value: ListSalesInvoicesEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
         next: {
           href: "https://...",
           type: "application/hal+json",
@@ -118,4 +114,4 @@ let value: ListSalesInvoicesEmbedded = {
 
 | Field                                                                                                                                                                | Type                                                                                                                                                                 | Required                                                                                                                                                             | Description                                                                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `salesInvoices`                                                                                                                                                      | [models.SalesInvoiceResponse](../../models/salesinvoiceresponse.md)[]                                                                                                | :heavy_minus_sign:                                                                                                                                                   | An array of sales invoice objects. For a complete reference of the sales invoice object, refer to<br/>the [Get sales invoice endpoint](get-sales-invoice) documentation. |
+| `salesInvoices`                                                                                                                                                      | [models.ListSalesInvoiceResponse](../../models/listsalesinvoiceresponse.md)[]                                                                                        | :heavy_minus_sign:                                                                                                                                                   | An array of sales invoice objects. For a complete reference of the sales invoice object, refer to<br/>the [Get sales invoice endpoint](get-sales-invoice) documentation. |

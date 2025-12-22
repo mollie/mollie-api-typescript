@@ -57,10 +57,6 @@ let value: ListSubscriptionsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
       },
     },
   ],
@@ -69,6 +65,6 @@ let value: ListSubscriptionsEmbedded = {
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `subscriptions`                                                       | [models.SubscriptionResponse](../../models/subscriptionresponse.md)[] | :heavy_minus_sign:                                                    | An array of subscription objects.                                     |
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `subscriptions`                                                               | [models.ListSubscriptionResponse](../../models/listsubscriptionresponse.md)[] | :heavy_minus_sign:                                                            | An array of subscription objects.                                             |

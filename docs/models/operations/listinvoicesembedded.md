@@ -38,10 +38,6 @@ let value: ListInvoicesEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
       },
     },
   ],
@@ -52,4 +48,4 @@ let value: ListInvoicesEmbedded = {
 
 | Field                                                                                                                                        | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `invoices`                                                                                                                                   | [models.EntityInvoice](../../models/entityinvoice.md)[]                                                                                      | :heavy_check_mark:                                                                                                                           | An array of invoice objects. For a complete reference of<br/>the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation. |
+| `invoices`                                                                                                                                   | [models.ListEntityInvoice](../../models/listentityinvoice.md)[]                                                                              | :heavy_check_mark:                                                                                                                           | An array of invoice objects. For a complete reference of<br/>the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation. |

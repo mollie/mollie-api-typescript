@@ -61,10 +61,6 @@ let value: ListAllSubscriptionsResponse = {
             href: "https://...",
             type: "application/hal+json",
           },
-          documentation: {
-            href: "https://...",
-            type: "application/hal+json",
-          },
         },
       },
     ],

@@ -17,10 +17,6 @@ let value: ListPermissionsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
       },
     },
   ],
@@ -29,6 +25,6 @@ let value: ListPermissionsEmbedded = {
 
 ## Fields
 
-| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `permissions`                                                 | [models.EntityPermission](../../models/entitypermission.md)[] | :heavy_check_mark:                                            | An array of permission objects.                               |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `permissions`                                                         | [models.ListEntityPermission](../../models/listentitypermission.md)[] | :heavy_check_mark:                                                    | An array of permission objects.                                       |

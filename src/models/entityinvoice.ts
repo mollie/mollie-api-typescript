@@ -38,7 +38,7 @@ export type EntityInvoiceStatus = OpenEnum<typeof EntityInvoiceStatus>;
 /**
  * Total amount of the invoice, excluding VAT.
  */
-export type NetAmount = {
+export type EntityInvoiceNetAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -56,7 +56,7 @@ export type NetAmount = {
  * be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
  * the EU, no VAT will be charged.
  */
-export type VatAmount = {
+export type EntityInvoiceVatAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -70,7 +70,7 @@ export type VatAmount = {
 /**
  * Total amount of the invoice, including VAT.
  */
-export type GrossAmount = {
+export type EntityInvoiceGrossAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -143,7 +143,7 @@ export type EntityInvoice = {
   /**
    * Total amount of the invoice, excluding VAT.
    */
-  netAmount: NetAmount;
+  netAmount: EntityInvoiceNetAmount;
   /**
    * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
    *
@@ -151,11 +151,11 @@ export type EntityInvoice = {
    * be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
    * the EU, no VAT will be charged.
    */
-  vatAmount: VatAmount;
+  vatAmount: EntityInvoiceVatAmount;
   /**
    * Total amount of the invoice, including VAT.
    */
-  grossAmount: GrossAmount;
+  grossAmount: EntityInvoiceGrossAmount;
   /**
    * The collection of products which make up the invoice.
    */
@@ -192,8 +192,8 @@ export const EntityInvoiceStatus$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(EntityInvoiceStatus);
 
 /** @internal */
-export const NetAmount$inboundSchema: z.ZodType<
-  NetAmount,
+export const EntityInvoiceNetAmount$inboundSchema: z.ZodType<
+  EntityInvoiceNetAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -201,37 +201,41 @@ export const NetAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type NetAmount$Outbound = {
+export type EntityInvoiceNetAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const NetAmount$outboundSchema: z.ZodType<
-  NetAmount$Outbound,
+export const EntityInvoiceNetAmount$outboundSchema: z.ZodType<
+  EntityInvoiceNetAmount$Outbound,
   z.ZodTypeDef,
-  NetAmount
+  EntityInvoiceNetAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function netAmountToJSON(netAmount: NetAmount): string {
-  return JSON.stringify(NetAmount$outboundSchema.parse(netAmount));
+export function entityInvoiceNetAmountToJSON(
+  entityInvoiceNetAmount: EntityInvoiceNetAmount,
+): string {
+  return JSON.stringify(
+    EntityInvoiceNetAmount$outboundSchema.parse(entityInvoiceNetAmount),
+  );
 }
-export function netAmountFromJSON(
+export function entityInvoiceNetAmountFromJSON(
   jsonString: string,
-): SafeParseResult<NetAmount, SDKValidationError> {
+): SafeParseResult<EntityInvoiceNetAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => NetAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NetAmount' from JSON`,
+    (x) => EntityInvoiceNetAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityInvoiceNetAmount' from JSON`,
   );
 }
 
 /** @internal */
-export const VatAmount$inboundSchema: z.ZodType<
-  VatAmount,
+export const EntityInvoiceVatAmount$inboundSchema: z.ZodType<
+  EntityInvoiceVatAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -239,37 +243,41 @@ export const VatAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type VatAmount$Outbound = {
+export type EntityInvoiceVatAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const VatAmount$outboundSchema: z.ZodType<
-  VatAmount$Outbound,
+export const EntityInvoiceVatAmount$outboundSchema: z.ZodType<
+  EntityInvoiceVatAmount$Outbound,
   z.ZodTypeDef,
-  VatAmount
+  EntityInvoiceVatAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function vatAmountToJSON(vatAmount: VatAmount): string {
-  return JSON.stringify(VatAmount$outboundSchema.parse(vatAmount));
+export function entityInvoiceVatAmountToJSON(
+  entityInvoiceVatAmount: EntityInvoiceVatAmount,
+): string {
+  return JSON.stringify(
+    EntityInvoiceVatAmount$outboundSchema.parse(entityInvoiceVatAmount),
+  );
 }
-export function vatAmountFromJSON(
+export function entityInvoiceVatAmountFromJSON(
   jsonString: string,
-): SafeParseResult<VatAmount, SDKValidationError> {
+): SafeParseResult<EntityInvoiceVatAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => VatAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VatAmount' from JSON`,
+    (x) => EntityInvoiceVatAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityInvoiceVatAmount' from JSON`,
   );
 }
 
 /** @internal */
-export const GrossAmount$inboundSchema: z.ZodType<
-  GrossAmount,
+export const EntityInvoiceGrossAmount$inboundSchema: z.ZodType<
+  EntityInvoiceGrossAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -277,31 +285,35 @@ export const GrossAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type GrossAmount$Outbound = {
+export type EntityInvoiceGrossAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const GrossAmount$outboundSchema: z.ZodType<
-  GrossAmount$Outbound,
+export const EntityInvoiceGrossAmount$outboundSchema: z.ZodType<
+  EntityInvoiceGrossAmount$Outbound,
   z.ZodTypeDef,
-  GrossAmount
+  EntityInvoiceGrossAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function grossAmountToJSON(grossAmount: GrossAmount): string {
-  return JSON.stringify(GrossAmount$outboundSchema.parse(grossAmount));
+export function entityInvoiceGrossAmountToJSON(
+  entityInvoiceGrossAmount: EntityInvoiceGrossAmount,
+): string {
+  return JSON.stringify(
+    EntityInvoiceGrossAmount$outboundSchema.parse(entityInvoiceGrossAmount),
+  );
 }
-export function grossAmountFromJSON(
+export function entityInvoiceGrossAmountFromJSON(
   jsonString: string,
-): SafeParseResult<GrossAmount, SDKValidationError> {
+): SafeParseResult<EntityInvoiceGrossAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => GrossAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GrossAmount' from JSON`,
+    (x) => EntityInvoiceGrossAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityInvoiceGrossAmount' from JSON`,
   );
 }
 
@@ -412,9 +424,9 @@ export const EntityInvoice$inboundSchema: z.ZodType<
   reference: z.string(),
   vatNumber: z.nullable(z.string()),
   status: EntityInvoiceStatus$inboundSchema,
-  netAmount: z.lazy(() => NetAmount$inboundSchema),
-  vatAmount: z.lazy(() => VatAmount$inboundSchema),
-  grossAmount: z.lazy(() => GrossAmount$inboundSchema),
+  netAmount: z.lazy(() => EntityInvoiceNetAmount$inboundSchema),
+  vatAmount: z.lazy(() => EntityInvoiceVatAmount$inboundSchema),
+  grossAmount: z.lazy(() => EntityInvoiceGrossAmount$inboundSchema),
   lines: z.array(z.lazy(() => EntityInvoiceLine$inboundSchema)),
   issuedAt: z.string(),
   paidAt: z.nullable(z.string()).optional(),
@@ -432,9 +444,9 @@ export type EntityInvoice$Outbound = {
   reference: string;
   vatNumber: string | null;
   status: string;
-  netAmount: NetAmount$Outbound;
-  vatAmount: VatAmount$Outbound;
-  grossAmount: GrossAmount$Outbound;
+  netAmount: EntityInvoiceNetAmount$Outbound;
+  vatAmount: EntityInvoiceVatAmount$Outbound;
+  grossAmount: EntityInvoiceGrossAmount$Outbound;
   lines: Array<EntityInvoiceLine$Outbound>;
   issuedAt: string;
   paidAt?: string | null | undefined;
@@ -453,9 +465,9 @@ export const EntityInvoice$outboundSchema: z.ZodType<
   reference: z.string(),
   vatNumber: z.nullable(z.string()),
   status: EntityInvoiceStatus$outboundSchema,
-  netAmount: z.lazy(() => NetAmount$outboundSchema),
-  vatAmount: z.lazy(() => VatAmount$outboundSchema),
-  grossAmount: z.lazy(() => GrossAmount$outboundSchema),
+  netAmount: z.lazy(() => EntityInvoiceNetAmount$outboundSchema),
+  vatAmount: z.lazy(() => EntityInvoiceVatAmount$outboundSchema),
+  grossAmount: z.lazy(() => EntityInvoiceGrossAmount$outboundSchema),
   lines: z.array(z.lazy(() => EntityInvoiceLine$outboundSchema)),
   issuedAt: z.string(),
   paidAt: z.nullable(z.string()).optional(),

@@ -43,10 +43,7 @@ let value: SubscriptionResponse = {
       href: "https://...",
       type: "application/hal+json",
     },
-    mandate: {
-      href: "https://...",
-      type: "application/hal+json",
-    },
+    mandate: null,
     profile: {
       href: "https://...",
       type: "application/hal+json",

@@ -121,7 +121,7 @@ paths:
                           the balance object, refer to the [Get balance endpoint](get-balance) documentation.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-balance'
+                          $ref: '#/components/schemas/list-entity-balance'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -2192,7 +2192,7 @@ paths:
                           of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-settlement'
+                          $ref: '#/components/schemas/list-entity-settlement'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -2859,7 +2859,7 @@ paths:
                         description: An array of payment objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/payment-response'
+                          $ref: '#/components/schemas/list-payment-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -5248,7 +5248,7 @@ paths:
                         description: An array of refund objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-refund-response'
+                          $ref: '#/components/schemas/list-entity-refund'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -5400,7 +5400,7 @@ paths:
                         description: A list of chargeback objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-chargeback'
+                          $ref: '#/components/schemas/list-entity-chargeback'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -5660,7 +5660,7 @@ paths:
                           the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-invoice'
+                          $ref: '#/components/schemas/list-entity-invoice'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -6747,7 +6747,7 @@ paths:
                         description: An array of permission objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-permission'
+                          $ref: '#/components/schemas/list-entity-permission'
                   _links:
                     type: object
                     description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -7695,7 +7695,7 @@ paths:
                         description: An array of profile objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/profile-response'
+                          $ref: '#/components/schemas/list-profile-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -8710,7 +8710,7 @@ paths:
                         type: array
                         items:
                           allOf:
-                            - $ref: '#/components/schemas/entity-client'
+                            - $ref: '#/components/schemas/list-entity-client'
                             - type: object
                               properties:
                                 _embedded:
@@ -9299,7 +9299,7 @@ paths:
                         description: A list of webhooks.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-webhook'
+                          $ref: '#/components/schemas/list-entity-webhook'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -10810,7 +10810,7 @@ paths:
                         description: An array of payment objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/payment-response'
+                          $ref: '#/components/schemas/list-payment-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -13736,7 +13736,7 @@ paths:
                           documentation.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-method'
+                          $ref: '#/components/schemas/list-entity-method'
                   _links:
                     type: object
                     required:
@@ -14245,7 +14245,7 @@ paths:
                           documentation.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-method-all'
+                          $ref: '#/components/schemas/list-entity-method-all'
                   _links:
                     type: object
                     required:
@@ -16108,7 +16108,7 @@ paths:
                         description: An array of refund objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-refund-response'
+                          $ref: '#/components/schemas/list-entity-refund'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -16428,7 +16428,7 @@ paths:
                         description: An array of refund objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-refund-response'
+                          $ref: '#/components/schemas/list-entity-refund'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -16576,7 +16576,7 @@ paths:
                         description: A list of chargeback objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-chargeback'
+                          $ref: '#/components/schemas/list-entity-chargeback'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -16972,7 +16972,7 @@ paths:
                         description: A list of chargeback objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-chargeback'
+                          $ref: '#/components/schemas/list-entity-chargeback'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -18827,7 +18827,7 @@ paths:
                         description: An array of payment objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/payment-response'
+                          $ref: '#/components/schemas/list-payment-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
                 required:
@@ -18946,7 +18946,7 @@ paths:
                         description: An array of terminal objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/entity-terminal'
+                          $ref: '#/components/schemas/list-entity-terminal'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -19290,7 +19290,7 @@ paths:
                         description: An array of route objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/route-get-response'
+                          $ref: '#/components/schemas/list-route-get-response'
                   _links:
                     type: object
                     description: Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
@@ -19533,7 +19533,7 @@ paths:
                         description: An array of customer objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/customer-response'
+                          $ref: '#/components/schemas/list-customer-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -20564,7 +20564,7 @@ paths:
                         description: An array of payment objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/payment-response'
+                          $ref: '#/components/schemas/list-payment-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -22886,7 +22886,7 @@ paths:
                         description: An array of mandate objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/mandate-response'
+                          $ref: '#/components/schemas/list-mandate-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -23317,7 +23317,7 @@ paths:
                         description: An array of subscription objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/subscription-response'
+                          $ref: '#/components/schemas/list-subscription-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -23914,7 +23914,7 @@ paths:
                         description: A list of subscription objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/subscription-response'
+                          $ref: '#/components/schemas/list-subscription-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -24065,7 +24065,7 @@ paths:
                         description: An array of payment objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/payment-response'
+                          $ref: '#/components/schemas/list-payment-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -26440,7 +26440,7 @@ paths:
                           the [Get sales invoice endpoint](get-sales-invoice) documentation.
                         type: array
                         items:
-                          $ref: '#/components/schemas/sales-invoice-response'
+                          $ref: '#/components/schemas/list-sales-invoice-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
                     writeOnly: false
@@ -33073,7 +33073,7 @@ components:
           readOnly: true
     route-get-response:
       allOf:
-        - $ref: '#/components/schemas/entity-route-response'
+        - $ref: '#/components/schemas/entity-route'
         - type: object
           required:
             - resource
@@ -34370,6 +34370,1246 @@ components:
         discount:
           $ref: '#/components/schemas/sales-invoice-discount'
           description: The discount to be applied to the entire invoice, possibly on top of the line item discounts.
+    list-entity-balance:
+      type: object
+      required:
+        - resource
+        - id
+        - mode
+        - createdAt
+        - currency
+        - description
+        - availableAmount
+        - pendingAmount
+        - status
+        - _links
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a balance object. Will always contain the string `balance` for this endpoint.
+          readOnly: true
+          example: balance
+        id:
+          allOf:
+            - $ref: '#/components/schemas/balanceToken'
+          description: The identifier uniquely referring to this balance.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        currency:
+          allOf:
+            - $ref: '#/components/schemas/currencies'
+          description: The balance's ISO 4217 currency code.
+          readOnly: true
+        description:
+          type: string
+          description: The description or name of the balance. Can be used to denote the purpose of the balance.
+          readOnly: true
+          example: Balance description
+        status:
+          allOf:
+            - $ref: '#/components/schemas/balance-status'
+          readOnly: true
+        transferFrequency:
+          allOf:
+            - $ref: '#/components/schemas/balance-transfer-frequency'
+          readOnly: true
+        transferThreshold:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: |-
+            The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
+            this threshold, the complete balance will be paid out to the transfer destination according to the configured
+            frequency.
+          readOnly: true
+        transferReference:
+          type:
+            - string
+            - 'null'
+          description: The transfer reference set to be included in all the transfers for this balance.
+          example: RF12-3456-7890-1234
+          readOnly: true
+        transferDestination:
+          type:
+            - object
+            - 'null'
+          description: |-
+            The destination where the available amount will be automatically transferred to according to the configured
+            transfer frequency.
+          properties:
+            type:
+              $ref: '#/components/schemas/balance-transfer-destination-type'
+            bankAccount:
+              type: string
+              description: The configured bank account number of the beneficiary the balance amount is to be transferred to.
+              example: 123456
+            beneficiaryName:
+              type: string
+              description: The full name of the beneficiary the balance amount is to be transferred to.
+              example: John Doe
+          readOnly: true
+        availableAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The amount directly available on the balance, e.g. `{"currency":"EUR", "value":"100.00"}`.
+          readOnly: true
+        pendingAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: |-
+            The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+            few days to clear.
+          readOnly: true
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+    list-entity-settlement:
+      type: object
+      required:
+        - resource
+        - id
+        - status
+        - amount
+        - balanceId
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a settlement object. Will always contain the string `settlement` for this
+            endpoint.
+          readOnly: true
+          example: settlement
+        id:
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
+          description: The identifier uniquely referring to this settlement.
+          readOnly: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        reference:
+          type:
+            - string
+            - 'null'
+          description: The settlement's bank reference, as found in your Mollie account and on your bank statement.
+          readOnly: true
+          example: 07049691.2406.01
+        settledAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date on which the settlement was settled, in ISO 8601 format.
+
+            For an [open settlement](get-open-settlement) or for the [next settlement](get-next-settlement), no settlement
+            date is available.
+          readOnly: true
+          example: '2025-03-31T12:54:39+00:00'
+        status:
+          allOf:
+            - $ref: '#/components/schemas/settlement-status'
+          readOnly: true
+        amount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount of the settlement.
+          readOnly: true
+        balanceId:
+          allOf:
+            - $ref: '#/components/schemas/balanceToken'
+          description: The balance token that the settlement was settled to.
+          readOnly: true
+        invoiceId:
+          allOf:
+            - $ref: '#/components/schemas/invoiceToken'
+          type:
+            - string
+            - 'null'
+          description: The ID of the oldest invoice created for all the periods, if the invoice has been created yet.
+          readOnly: true
+        periods:
+          type: object
+          description: |-
+            For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These
+            transactions are grouped into 'period' objects — one for each calendar month.
+
+            For example, if a settlement includes funds from 15 April until 4 May, it will include two period objects. One for
+            all transactions processed between 15 April and 30 April, and one for all transactions between 1 May and 4 May.
+
+            Period objects are grouped by year, and then by month. So in the above example, the full `periods` collection will
+            look as follows: `{"2024": {"04": {...}, "05": {...}}}`. The year and month in this documentation are referred as `<year>` and `<month>`.
+
+            The example response should give a good idea of what this looks like in practise.
+          readOnly: true
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                costs:
+                  type: array
+                  description: An array of cost objects, describing the fees withheld for each payment method during this period.
+                  items:
+                    type: object
+                    required:
+                      - description
+                      - method
+                      - count
+                      - rate
+                      - amountNet
+                      - amountVat
+                      - amountGross
+                    properties:
+                      description:
+                        type: string
+                        description: A description of the cost subtotal
+                        example: Credit card - Visa debit consumer domestic
+                      method:
+                        $ref: '#/components/schemas/payment-method'
+                      count:
+                        type: integer
+                        description: The number of fees
+                        example: 10
+                      rate:
+                        type: object
+                        description: The service rates, further divided into `fixed` and `percentage` costs.
+                        properties:
+                          fixed:
+                            $ref: '#/components/schemas/amount'
+                          percentage:
+                            type: string
+                            example: '2.5'
+                      amountNet:
+                        $ref: '#/components/schemas/amount'
+                        description: The net total cost, i.e. excluding VAT
+                      amountVat:
+                        $ref: '#/components/schemas/amount-nullable'
+                        description: The applicable VAT
+                      amountGross:
+                        $ref: '#/components/schemas/amount'
+                        description: The gross total cost, i.e. including VAT
+                revenue:
+                  type: array
+                  description: An array of revenue objects containing the total revenue for each payment method during this period.
+                  items:
+                    type: object
+                    required:
+                      - description
+                      - method
+                      - count
+                      - amountNet
+                      - amountVat
+                      - amountGross
+                    properties:
+                      description:
+                        type: string
+                        description: A description of the revenue subtotal
+                        example: Credit card
+                      method:
+                        $ref: '#/components/schemas/payment-method'
+                      count:
+                        type: integer
+                        description: The number of payments
+                        example: 10
+                      amountNet:
+                        $ref: '#/components/schemas/amount'
+                        description: The net total of received funds, i.e. excluding VAT
+                      amountVat:
+                        $ref: '#/components/schemas/amount-nullable'
+                        description: The applicable VAT
+                      amountGross:
+                        $ref: '#/components/schemas/amount'
+                        description: The gross total of received funds, i.e. including VAT
+                invoiceId:
+                  $ref: '#/components/schemas/invoiceToken'
+                  type:
+                    - string
+                    - 'null'
+                  description: The ID of the invoice created for this period, if the invoice has been created already.
+                invoiceReference:
+                  type:
+                    - string
+                    - 'null'
+                  description: The invoice reference, if the invoice has been created already.
+                  example: MOLR2021.0001399669
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            payments:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [payments](list-payments) included in this settlement.
+            captures:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [captures](list-captures) included in this settlement.
+            refunds:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [refunds](list-refunds) deducted from this settlement.
+            chargebacks:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [chargebacks](list-chargebacks) deducted from this settlement.
+            invoice:
+              $ref: '#/components/schemas/url-nullable'
+              description: The API resource URL of the [invoice](list-invoices).
+          readOnly: true
+    list-entity-payment:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a payment object. Will always contain the string `payment` for this endpoint.
+          readOnly: true
+          example: payment
+        id:
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
+          description: |-
+            The identifier uniquely referring to this payment. Mollie assigns this identifier at payment creation time. Mollie
+            will always refer to the payment by this ID. Example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        description:
+          type: string
+          description: |-
+            The description of the payment. This will be shown to your customer on their card or bank statement when possible.
+            We truncate the description automatically according to the limits of the used payment method. The description is
+            also visible in any exports you generate.
+
+            We recommend you use a unique identifier so that you can always link the payment to the order in your back office.
+            This is particularly useful for bookkeeping.
+
+            The maximum length of the description field differs per payment method, with the absolute maximum being 255
+            characters. The API will not reject strings longer than the maximum length but it will truncate them to fit.
+          maxLength: 255
+          example: Chess Board
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount that you want to charge, e.g. `{currency:"EUR", value:"1000.00"}` if you would want to charge €1000.00.
+
+            You can find the minimum and maximum amounts per payment method in our help center. Additionally, they can be
+            retrieved using the Get method endpoint.
+
+            If a tip was added for a Point-of-Sale payment, the amount will be updated to reflect the initial amount plus the
+            tip amount.
+        amountRefunded:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: |-
+            The total amount that is already refunded. Only available when refunds are available for this payment. For some
+            payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+            costs for a return shipment to the customer.
+          readOnly: true
+        amountRemaining:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
+          readOnly: true
+        amountCaptured:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount that is already captured for this payment. Only available when this payment supports captures.
+          readOnly: true
+        amountChargedBack:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: |-
+            The total amount that was charged back for this payment. Only available when the total charged back amount is not
+            zero.
+          readOnly: true
+        settlementAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: |-
+            This optional field will contain the approximate amount that will be settled to your account, converted to the
+            currency your account is settled in.
+
+            Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
+            settled by Mollie the `settlementAmount` is omitted from the response.
+
+            Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
+            using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+          readOnly: true
+        redirectUrl:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The URL your customer will be redirected to after the payment process.
+
+            It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
+            right page referencing the order when your customer returns.
+
+            The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
+            Apple Pay payments with an `applePayPaymentToken`.
+          example: https://example.org/redirect
+        cancelUrl:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
+            provided, the customer will be redirected to the `redirectUrl` instead — see above.
+
+            Mollie will always give you status updates via webhooks, including for the canceled status. This parameter is
+            therefore entirely optional, but can be useful when implementing a dedicated customer-facing flow to handle
+            payment cancellations.
+          example: https://example.org/cancel
+        webhookUrl:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The webhook URL where we will send payment status updates to.
+
+            The webhookUrl is optional, but without a webhook you will miss out on important status changes to your payment.
+
+            The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use
+            webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
+            local machine.
+          example: https://example.org/webhooks
+        lines:
+          type:
+            - array
+            - 'null'
+          description: |-
+            Optionally provide the order lines for the payment. Each line contains details such as a description of the item
+            ordered and its price.
+
+            All lines must have the same currency as the payment.
+
+            Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/payment-line-item-response'
+              - type: object
+                properties:
+                  recurring:
+                    $ref: '#/components/schemas/recurring-line-item'
+                    description: |-
+                      The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout
+                      to inform the shopper of the details for recurring products in the payments.
+        billingAddress:
+          allOf:
+            - $ref: '#/components/schemas/payment-address'
+            - type: object
+              properties:
+                organizationName:
+                  description: |-
+                    The name of the organization, in case the addressee is an organization.
+
+                    Required for payment method `billie`.
+          description: |-
+            The customer's billing address details. We advise to provide these details to improve fraud protection and
+            conversion.
+
+            Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+            `country`.
+
+            Required for payment method `in3`, `klarna`, `billie` and `riverty`.
+        shippingAddress:
+          $ref: '#/components/schemas/payment-address'
+          description: |-
+            The customer's shipping address details. We advise to provide these details to improve fraud protection and
+            conversion.
+
+            Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+            `country`.
+        locale:
+          type:
+            - string
+            - 'null'
+          $ref: '#/components/schemas/locale-response'
+          description: |-
+            Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+            is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+            language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+            locale, but our hosted payment pages currently only support the specified languages.
+
+            For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+            transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+            customer use a local bank account greatly increases the conversion and speed of payment.
+        countryCode:
+          type:
+            - string
+            - 'null'
+          description: |-
+            This optional field contains your customer's ISO 3166-1 alpha-2 country code, detected by us during checkout. This
+            field is omitted if the country code was not detected.
+          example: BE
+          minLength: 2
+          maxLength: 2
+          readOnly: true
+        method:
+          $ref: '#/components/schemas/method-response'
+        issuer:
+          type:
+            - string
+            - 'null'
+          description: |-
+            **Only relevant for iDEAL, KBC/CBC, gift card, and voucher payments.**
+
+            **⚠️ With the introduction of iDEAL 2 in 2025, this field will be ignored for iDEAL payments. For more information
+            on the migration, refer to our [help center](https://help.mollie.com/hc/articles/19100313768338-iDEAL-2-0).**
+
+            Some payment methods are a network of connected banks or card issuers. In these cases, after selecting the payment
+            method, the customer may still need to select the appropriate issuer before the payment can proceed.
+
+            We provide hosted issuer selection screens, but these screens can be skipped by providing the `issuer` via the API
+            up front.
+
+            The full list of issuers for a specific method can be retrieved via the Methods API by using the optional
+            `issuers` include.
+
+            A valid issuer for iDEAL is for example `ideal_INGBNL2A` (for ING Bank).
+          example: ideal_INGBNL2A
+          writeOnly: true
+        restrictPaymentMethodsToCountry:
+          type:
+            - string
+            - 'null'
+          description: |-
+            For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
+            rates you have used for the order to ensure your customer's country matches the VAT country.
+
+            Use this parameter to restrict the payment methods available to your customer to those from a single country.
+
+            If available, the credit card method will still be offered, but only cards from the allowed country are accepted.
+
+            The field expects a country code in ISO 3166-1 alpha-2 format, for example `NL`.
+          example: NL
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        captureMode:
+          $ref: '#/components/schemas/capture-mode-response'
+        captureDelay:
+          type:
+            - string
+            - 'null'
+          description: |-
+            **Only relevant if you wish to manage authorization and capturing separately.**
+
+            Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a
+            later point either be 'captured' or canceled.
+
+            By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a
+            capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For
+            example `8 hours` or `2 days`.
+
+            To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+
+            The maximum delay is 7 days (168 hours).
+
+            Possible values: `... hours` `... days`
+          example: 8 hours
+          pattern: ^\d+ (hours|days)$
+        captureBefore:
+          type:
+            - string
+            - 'null'
+          description: |-
+            Indicates the date before which the payment needs to be captured, in ISO 8601 format. From this date onwards we
+            can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37+00:00'
+        applicationFee:
+          type:
+            - object
+            - 'null'
+          description: |-
+            With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+            merchants.
+
+            If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this
+            `applicationFee` parameter. If the payment succeeds, the fee will be deducted from the merchant's balance and sent
+            to your own account balance.
+
+            If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
+            `routing` parameter.
+          properties:
+            amount:
+              $ref: '#/components/schemas/amount'
+              description: |-
+                The fee that you wish to charge.
+
+                Be careful to leave enough space for Mollie's own fees to be deducted as well. For example, you cannot charge
+                a €0.99 fee on a €1.00 payment.
+            description:
+              type: string
+              description: |-
+                The description of the application fee. This will appear on settlement reports towards both you and the
+                connected merchant.
+              maxLength: 255
+              example: 10
+        routing:
+          type:
+            - array
+            - 'null'
+          description: |-
+            *This functionality is not enabled by default. Reach out to our partner management team if you wish to use it.*
+
+            With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+            merchants.
+
+            If you create payments on your own account that you want to split between yourself and one or more connected
+            merchants, you can use this `routing` parameter to route the payment accordingly.
+
+            The `routing` parameter should contain an array of objects, with each object describing the destination for a
+            specific portion of the payment.
+
+            It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total
+            payment amount have been routed, the amount left will be routed to the current organization automatically.
+
+            If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee`
+            parameter.
+          items:
+            $ref: '#/components/schemas/entity-payment-route-response'
+        sequenceType:
+          $ref: '#/components/schemas/sequence-type-response'
+          description: |-
+            **Only relevant for recurring payments.**
+
+            Indicate which part of a recurring sequence this payment is for.
+
+            Recurring payments can only take place if a mandate is available. A common way to establish such a mandate is
+            through a `first` payment. With a `first` payment, the customer agrees to automatic recurring charges taking place
+            on their account in the future.
+
+            If set to `recurring`, the customer's card is charged automatically.
+
+            Defaults to `oneoff`, which is a regular non-recurring payment.
+
+            For PayPal payments, recurring is only possible if your connected PayPal account allows it. You can call our
+            [Methods API](list-methods) with parameter `sequenceType: first` to discover which payment methods on your account
+            are set up correctly for recurring payments.
+        subscriptionId:
+          type:
+            - string
+            - 'null'
+          allOf:
+            - $ref: '#/components/schemas/subscriptionToken'
+          description: |-
+            If the payment was automatically created via a subscription, the ID of the [subscription](get-subscription) will
+            be added to the response.
+          readOnly: true
+        mandateId:
+          type:
+            - string
+            - 'null'
+          allOf:
+            - $ref: '#/components/schemas/mandateToken'
+          description: |-
+            **Only relevant for recurring payments.**
+
+            When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+            the customer's accounts should be credited.
+        customerId:
+          type:
+            - string
+            - 'null'
+          $ref: '#/components/schemas/customerToken'
+          description: |-
+            The ID of the [customer](get-customer) the payment is being created for. This is used primarily for recurring
+            payments, but can also be used on regular payments to enable single-click payments.
+
+            If `sequenceType` is set to `recurring`, this field is required.
+        profileId:
+          type: string
+          $ref: '#/components/schemas/profileToken'
+          description: |-
+            The identifier referring to the [profile](get-profile) this entity belongs to.
+
+            When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+            Organization tokens, the `profileId` is required.
+
+            For more information, see [Authentication](authentication).
+        settlementId:
+          type:
+            - string
+            - 'null'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
+          description: The identifier referring to the [settlement](get-settlement) this payment was settled with.
+          readOnly: true
+        orderId:
+          type:
+            - string
+            - 'null'
+          allOf:
+            - $ref: '#/components/schemas/orderToken'
+          description: If the payment was created for an [order](get-order), the ID of that order will be part of the response.
+          readOnly: true
+        status:
+          allOf:
+            - $ref: '#/components/schemas/payment-status'
+          readOnly: true
+        statusReason:
+          $ref: '#/components/schemas/status-reason'
+        isCancelable:
+          type:
+            - boolean
+            - 'null'
+          description: Whether the payment can be canceled. This parameter is omitted if the payment reaches a final state.
+          readOnly: true
+          example: true
+        details:
+          type:
+            - object
+            - 'null'
+          description: |-
+            An object containing payment details collected during the payment process. For example, details may include the
+            customer's card or bank details and a payment reference. For the full list of details, please refer to the
+            [method-specific parameters](extra-payment-parameters) guide.
+          readOnly: true
+          properties:
+            consumerName:
+              type:
+                - string
+                - 'null'
+              description: The customer's name, if made available by the payment method. For card payments, refer to details.cardHolder.
+              example: John Doe
+              x-methodSpecific: true
+            consumerAccount:
+              type:
+                - string
+                - 'null'
+              description: |-
+                The customer's account reference.
+
+                For banking-based payment methods — such as iDEAL — this is normally either an IBAN or a domestic bank account
+                number.
+
+                For PayPal, the account reference is an email address.
+
+                For card and Bancontact payments, refer to details.cardNumber.
+              example: NL91ABNA0417164300
+              x-methodSpecific: true
+            consumerBic:
+              type:
+                - string
+                - 'null'
+              description: The BIC of the customer's bank account, if applicable.
+              example: ABNANL2A
+              x-methodSpecific: true
+            shippingAddress:
+              type:
+                - object
+                - 'null'
+              description: |-
+                For wallet payment methods — such as Apple Pay and PayPal — the shipping address is often already known by the
+                wallet provider. In these cases the shipping address may be available as a payment detail.
+              properties: {}
+              additionalProperties: true
+              x-methodSpecific: true
+            cardNumber:
+              type:
+                - string
+                - 'null'
+              description: |-
+                For bancontact, it will be the customer's masked card number. For cards, it will be the last 4-digit of the
+                PAN. For Point-of-sale, it will be the the last 4 digits of the customer's masked card number.
+              example: '************1234'
+              x-methodSpecific: true
+            bankName:
+              type: string
+              description: The name of the bank that the customer will need to make the bank transfer payment towards.
+              example: Mollie Bank
+              x-methodSpecific: true
+            bankAccount:
+              type: string
+              description: The bank account number the customer will need to make the bank transfer payment towards.
+              example: NL91ABNA0417164300
+              x-methodSpecific: true
+            bankBic:
+              type: string
+              description: The BIC of the bank the customer will need to make the bank transfer payment towards.
+              example: ABNANL2A
+              x-methodSpecific: true
+            transferReference:
+              type:
+                - string
+                - 'null'
+              description: |-
+                The Mollie-generated reference the customer needs to use when transfering the amount. Do not apply any
+                formatting here; show it to the customer as-is.
+              example: '...'
+              x-methodSpecific: true
+            cardFingerprint:
+              type:
+                - string
+                - 'null'
+              description: |-
+                A unique fingerprint for a specific card. Can be used to identify returning customers.
+
+                In the case of Point-of-sale payments, it's a unique identifier assigned to a cardholder's payment account,
+                linking multiple transactions from wallets and physical card to a single account, also across payment methods
+                or when the card is reissued.
+              example: '...'
+              x-methodSpecific: true
+            cardHolder:
+              type:
+                - string
+                - 'null'
+              description: The customer's name as shown on their card.
+              example: John Doe
+              x-methodSpecific: true
+            cardAudition:
+              $ref: '#/components/schemas/payment-details-card-audition-response'
+              x-methodSpecific: true
+            cardLabel:
+              $ref: '#/components/schemas/payment-details-card-label-response'
+              x-methodSpecific: true
+            cardCountryCode:
+              type:
+                - string
+                - 'null'
+              description: The ISO 3166-1 alpha-2 country code of the country the card was issued in.
+              example: NL
+              x-methodSpecific: true
+            cardExpiryDate:
+              type:
+                - string
+                - 'null'
+              description: The expiry date (MM/YY) of the card as displayed on the card.
+              example: 12/25
+              x-methodSpecific: true
+            cardFunding:
+              $ref: '#/components/schemas/payment-details-card-funding-response'
+              x-methodSpecific: true
+            cardSecurity:
+              $ref: '#/components/schemas/payment-details-card-security-response'
+              x-methodSpecific: true
+            feeRegion:
+              $ref: '#/components/schemas/payment-details-fee-region-response'
+              x-methodSpecific: true
+            cardMaskedNumber:
+              type:
+                - string
+                - 'null'
+              description: The first 6 and last 4 digits of the card number.
+              example: '...'
+              x-methodSpecific: true
+            card3dsEci:
+              type:
+                - string
+                - 'null'
+              description: The outcome of authentication attempted on transactions enforced by 3DS (ie valid only for oneoff and first).
+              example: '...'
+              x-methodSpecific: true
+            cardBin:
+              type:
+                - string
+                - 'null'
+              description: The first 6 digit of the card bank identification number.
+              example: '...'
+              x-methodSpecific: true
+            cardIssuer:
+              type:
+                - string
+                - 'null'
+              description: The issuer of the Card.
+              example: '...'
+              x-methodSpecific: true
+            failureReason:
+              $ref: '#/components/schemas/payment-details-failure-reason-response'
+              x-methodSpecific: true
+            failureMessage:
+              type:
+                - string
+                - 'null'
+              description: |-
+                A human-friendly failure message that can be shown to the customer. The message is translated in accordance
+                with the payment's locale setting.
+              example: Your card was declined.
+              x-methodSpecific: true
+            wallet:
+              $ref: '#/components/schemas/payment-details-wallet-response'
+              x-methodSpecific: true
+            paypalReference:
+              type:
+                - string
+                - 'null'
+              description: PayPal's reference for the payment.
+              example: '...'
+              x-methodSpecific: true
+            paypalPayerId:
+              type:
+                - string
+                - 'null'
+              description: ID of the customer's PayPal account.
+              example: '...'
+              x-methodSpecific: true
+            sellerProtection:
+              $ref: '#/components/schemas/payment-details-seller-protection-response'
+              x-methodSpecific: true
+            paypalFee:
+              $ref: '#/components/schemas/amount-nullable'
+              description: |-
+                An amount object containing the fee PayPal will charge for this transaction. The field may be omitted if
+                PayPal will not charge a fee for this transaction.
+              x-methodSpecific: true
+            customerReference:
+              type: string
+              description: The paysafecard customer reference either provided via the API or otherwise auto-generated by Mollie.
+              example: '...'
+              x-methodSpecific: true
+            terminalId:
+              type: string
+              description: The ID of the terminal device where the payment took place on.
+              example: term_12345
+              x-methodSpecific: true
+            maskedNumber:
+              type:
+                - string
+                - 'null'
+              description: The first 6 digits & last 4 digits of the customer's masked card number.
+              example: '...'
+              x-methodSpecific: true
+            receipt:
+              type: object
+              description: The Point of sale receipt object.
+              properties:
+                authorizationCode:
+                  type:
+                    - string
+                    - 'null'
+                  description: A unique code provided by the cardholder’s bank to confirm that the transaction was successfully approved.
+                  example: '...'
+                applicationIdentifier:
+                  type:
+                    - string
+                    - 'null'
+                  description: The unique number that identifies a specific payment application on a chip card.
+                  example: '...'
+                cardReadMethod:
+                  $ref: '#/components/schemas/payment-details-receipt-card-read-method-response'
+                cardVerificationMethod:
+                  $ref: '#/components/schemas/payment-details-receipt-card-verification-method-response'
+              x-methodSpecific: true
+            creditorIdentifier:
+              type:
+                - string
+                - 'null'
+              description: |-
+                The creditor identifier indicates who is authorized to execute the payment. In this case, it is a
+                reference to Mollie.
+              example: '...'
+              x-methodSpecific: true
+            dueDate:
+              type:
+                - string
+                - 'null'
+              format: date
+              description: Estimated date the payment is debited from the customer's bank account, in YYYY-MM-DD format.
+              example: '2025-01-01'
+              x-methodSpecific: true
+            signatureDate:
+              type:
+                - string
+                - 'null'
+              format: date
+              description: |-
+                Date the payment has been signed by the customer, in YYYY-MM-DD format. Only available if the payment
+                has been signed.
+              example: '2024-03-20'
+              x-methodSpecific: true
+            bankReasonCode:
+              type:
+                - string
+                - 'null'
+              description: |-
+                The official reason why this payment has failed. A detailed description of each reason is available on the
+                website of the European Payments Council.
+              example: '...'
+              x-methodSpecific: true
+            bankReason:
+              type:
+                - string
+                - 'null'
+              description: A human-friendly description of the failure reason.
+              example: '...'
+              x-methodSpecific: true
+            endToEndIdentifier:
+              type:
+                - string
+                - 'null'
+              description: The end-to-end identifier you provided in the batch file.
+              example: '...'
+              x-methodSpecific: true
+            mandateReference:
+              type:
+                - string
+                - 'null'
+              description: The mandate reference you provided in the batch file.
+              example: '...'
+              x-methodSpecific: true
+            batchReference:
+              type:
+                - string
+                - 'null'
+              description: The batch reference you provided in the batch file.
+              example: '...'
+              x-methodSpecific: true
+            fileReference:
+              type:
+                - string
+                - 'null'
+              description: The file reference you provided in the batch file.
+              example: '...'
+              x-methodSpecific: true
+            qrCode:
+              type: object
+              description: |-
+                Optional include. If a QR code was requested during payment creation for a QR-compatible payment method,
+                the QR code details will be available in this object.
+
+                The QR code can be scanned by the customer to complete the payment on their mobile device. For example,
+                Bancontact QR payments can be completed by the customer using the Bancontact app.
+              properties:
+                height:
+                  type: integer
+                  description: The height of the QR code image in pixels.
+                  example: 300
+                width:
+                  type: integer
+                  description: The width of the QR code image in pixels.
+                  example: 300
+                src:
+                  type: string
+                  description: |-
+                    The URL to the QR code image. The image is a PNG file, and can be displayed directly in the browser or
+                    downloaded.
+                  example: https://www.mollie.com/images/qr-code.png
+              x-methodSpecific: true
+            voucherNumber:
+              type: string
+              description: 'For payments with gift cards: the masked gift card number of the first gift card applied to the payment.'
+              example: '...'
+              x-methodSpecific: true
+            giftcards:
+              type: array
+              description: An array of detail objects for each gift card that was used on this payment, if any.
+              items:
+                type: object
+                properties: {}
+                additionalProperties: true
+              x-methodSpecific: true
+            issuer:
+              type: string
+              description: 'For payments with vouchers: the brand name of the first voucher applied.'
+              example: '...'
+              x-methodSpecific: true
+            vouchers:
+              type: array
+              description: An array of detail objects for each voucher that was used on this payment, if any.
+              items:
+                type: object
+                properties: {}
+                additionalProperties: true
+              x-methodSpecific: true
+            remainderAmount:
+              $ref: '#/components/schemas/amount'
+              description: An amount object for the amount that remained after all gift cards or vouchers were applied.
+              x-methodSpecific: true
+            remainderMethod:
+              type: string
+              description: The payment method used to pay the remainder amount, after all gift cards or vouchers were applied.
+              example: creditcard
+              x-methodSpecific: true
+            remainderDetails:
+              type: object
+              description: Optional include. The full payment method details of the remainder payment.
+              properties: {}
+              additionalProperties: true
+              x-methodSpecific: true
+            multibancoReference:
+              type:
+                - string
+                - 'null'
+              description: Multibanco payment reference of the transaction
+              example: 123456789
+              x-methodSpecific: true
+            multibancoEntity:
+              type:
+                - string
+                - 'null'
+              description: Multibanco entity reference of the transaction
+              example: 98765
+              x-methodSpecific: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        authorizedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payment became authorized, in ISO 8601 format. This parameter is omitted if the payment is
+            not authorized (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37+00:00'
+        paidAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payment became paid, in ISO 8601 format. This parameter is omitted if the payment is not
+            completed (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37+00:00'
+        canceledAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payment was canceled, in ISO 8601 format. This parameter is omitted if the payment is not
+            canceled (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37+00:00'
+        expiresAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payment will expire, in ISO 8601 format. This parameter is omitted if the payment can no
+            longer expire.
+          readOnly: true
+          example: '2024-03-20T09:28:37+00:00'
+        expiredAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payment was expired, in ISO 8601 format. This parameter is omitted if the payment did not
+            expire (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37+00:00'
+        failedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payment failed, in ISO 8601 format. This parameter is omitted if the payment did not fail
+            (yet).
+          readOnly: true
+          example: '2024-03-20T09:28:37+00:00'
+        dueDate:
+          type: string
+          description: The date by which the payment should be completed in `YYYY-MM-DD` format
+          example: '2025-01-01'
+          writeOnly: true
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - dashboard
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            checkout:
+              $ref: '#/components/schemas/url'
+              description: The URL your customer should visit to make the payment. This is where you should redirect the customer to.
+            mobileAppCheckout:
+              $ref: '#/components/schemas/url'
+              description: The deeplink URL to the app of the payment method. Currently only available for `bancontact`.
+              x-methodSpecific: true
+            changePaymentState:
+              $ref: '#/components/schemas/url'
+              description: |-
+                For test mode payments in certain scenarios, a hosted interface is available to help you test different
+                payment states.
+
+                Firstly, for recurring test mode payments. Recurring payments do not have a checkout URL, because these
+                payments are executed without any user interaction.
+
+                Secondly, for paid test mode payments. The payment state screen will then allow you to create a refund or
+                chargeback for the test payment.
+            dashboard:
+              $ref: '#/components/schemas/url'
+              description: Direct link to the payment in the Mollie Dashboard.
+            refunds:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [refunds](list-payment-refunds) that belong to this payment.
+            chargebacks:
+              $ref: '#/components/schemas/url'
+              description: |-
+                The API resource URL of the [chargebacks](list-payment-chargebacks) that belong to this
+                payment.
+            captures:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [captures](list-payment-captures) that belong to this payment.
+            settlement:
+              $ref: '#/components/schemas/url'
+              description: |-
+                The API resource URL of the [settlement](get-settlement) this payment has been settled with.
+                Not present if not yet settled.
+            customer:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [customer](get-customer).
+            mandate:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [mandate](get-mandate).
+            subscription:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [subscription](get-subscription).
+            order:
+              $ref: '#/components/schemas/url'
+              description: |-
+                The API resource URL of the [order](get-order) this payment was created for. Not present if not created for an
+                order.
+            terminal:
+              $ref: '#/components/schemas/url'
+              description: |-
+                The API resource URL of the [terminal](get-terminal) this payment was created for. Only present for
+                point-of-sale payments.
+            status:
+              $ref: '#/components/schemas/url'
+              description: |-
+                Link to customer-facing page showing the status of the bank transfer (to verify if the transaction was
+                successful).
+              x-methodSpecific: true
+            payOnline:
+              $ref: '#/components/schemas/url'
+              description: |-
+                Link to Mollie Checkout page allowing customers to select a different payment method instead of legacy
+                bank transfer.
+              x-methodSpecific: true
+          readOnly: true
+    list-payment-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-payment'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - createdAt
+            - amount
+            - description
+            - status
+            - profileId
+            - sequenceType
+            - _links
+        - type: object
+          properties:
+            method:
+              $ref: '#/components/schemas/method-response'
+              description: |-
+                The payment method used for this transaction. If a specific method was selected during payment initialization,
+                this field reflects that choice.
     list-entity-capture:
       type: object
       properties:
@@ -34475,6 +35715,1639 @@ components:
             - createdAt
             - paymentId
             - _links
+    list-entity-refund:
+      type: object
+      required:
+        - resource
+        - id
+        - mode
+        - amount
+        - status
+        - createdAt
+        - description
+        - metadata
+        - _links
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a refund object. Will always contain the string `refund` for this endpoint.
+          readOnly: true
+          example: refund
+        id:
+          allOf:
+            - $ref: '#/components/schemas/refundToken'
+          description: |-
+            The identifier uniquely referring to this refund. Mollie assigns this identifier at refund creation time. Mollie
+            will always refer to the refund by this ID. Example: `re_4qqhO89gsT`.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        description:
+          type: string
+          description: The description of the refund that may be shown to your customer, depending on the payment method used.
+          maxLength: 255
+          example: Refunding a Chess Board
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment
+            amount.
+        settlementAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
+          description: |-
+            This optional field will contain the approximate amount that will be deducted from your account balance, converted
+            to the currency your account is settled in.
+
+            The amount is a **negative** amount.
+
+            If the refund is not directly processed by Mollie, for example for PayPal refunds, the settlement amount will be
+            zero.
+
+            Since the field contains an estimated amount during refund processing, it may change over time. For example, while
+            the refund is queued the settlement amount is likely not yet available.
+
+            To retrieve accurate settlement amounts we recommend using the
+            [List balance transactions endpoint](list-balance-transactions) instead.
+          readOnly: true
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        paymentId:
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
+          description: |-
+            The unique identifier of the payment this refund was created for.
+            The full payment object can be retrieved via the payment URL in the `_links` object.
+          readOnly: true
+        settlementId:
+          type:
+            - string
+            - 'null'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
+          description: The identifier referring to the settlement this refund was settled with. This field is omitted if the refund is not settled (yet).
+          readOnly: true
+        status:
+          allOf:
+            - $ref: '#/components/schemas/refund-status-response'
+          readOnly: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        externalReference:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/refund-external-reference-type-response'
+            id:
+              type: string
+              description: Unique reference from the payment provider
+              example: 123456789012345
+        reverseRouting:
+          type:
+            - boolean
+            - 'null'
+          description: |-
+            *This feature is only available to marketplace operators.*
+
+            With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+            merchants, by providing the `routing` object during [payment creation](create-payment).
+
+            When creating refunds for these *routed* payments, by default the full amount is deducted from your balance.
+
+            If you want to pull back the funds that were routed to the connected merchant(s), you can set this parameter to
+            `true` when issuing a full refund.
+
+            For more fine-grained control and for partial refunds, use the `routingReversals` parameter instead.
+          writeOnly: true
+          example: false
+        routingReversals:
+          type:
+            - array
+            - 'null'
+          description: |-
+            *This feature is only available to marketplace operators.*
+
+            When creating refunds for *routed* payments, by default the full amount is deducted from your balance.
+
+            If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount
+            needs to be reversed from which merchant(s).
+
+            If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
+          items:
+            type: object
+            properties:
+              amount:
+                $ref: '#/components/schemas/amount'
+                description: The amount that will be pulled back.
+              source:
+                type: object
+                description: Where the funds will be pulled back from.
+                properties:
+                  type:
+                    allOf:
+                      - $ref: '#/components/schemas/refund-routing-reversals-source-type-response'
+                    writeOnly: true
+                  organizationId:
+                    $ref: '#/components/schemas/organizationToken'
+                    description: |-
+                      Required for source type `organization`. The ID of the connected organization the funds should be pulled
+                      back from.
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - payment
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            payment:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [payment](get-payment) that this refund belongs to.
+            settlement:
+              $ref: '#/components/schemas/url-nullable'
+              description: |-
+                The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
+                yet settled.
+          readOnly: true
+    list-entity-chargeback:
+      type: object
+      required:
+        - resource
+        - id
+        - amount
+        - createdAt
+        - paymentId
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a chargeback object. Will always contain the string `chargeback` for this
+            endpoint.
+          readOnly: true
+          example: chargeback
+        id:
+          allOf:
+            - $ref: '#/components/schemas/chargebackToken'
+          description: 'The identifier uniquely referring to this chargeback. Example: `chb_n9z0tp`.'
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: The amount charged back by the customer.
+        settlementAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
+          description: |-
+            This optional field will contain the approximate amount that will be deducted from your account balance, converted
+            to the currency your account is settled in.
+
+            The amount is a **negative** amount.
+
+            Since the field contains an estimated amount during chargeback processing, it may change over time. To retrieve
+            accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
+            instead.
+          readOnly: true
+        reason:
+          type:
+            - object
+            - 'null'
+          description: Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
+          required:
+            - code
+            - description
+          properties:
+            code:
+              type: string
+              description: Technical code provided by the bank.
+              example: AC01
+            description:
+              type: string
+              description: A more detailed human-friendly description.
+              example: Account identifier incorrect (i.e. invalid IBAN)
+          readOnly: true
+        paymentId:
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
+          description: |-
+            The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+            The full payment object can be retrieved via the payment URL in the `_links` object.
+          readOnly: true
+        settlementId:
+          type:
+            - string
+            - 'null'
+          allOf:
+            - $ref: '#/components/schemas/settlementToken'
+          description: |-
+            The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field
+            is omitted if the refund is not settled (yet).
+          readOnly: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        reversedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the chargeback was reversed if applicable, in
+            [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+          example: '2024-03-21T09:13:37+00:00'
+          readOnly: true
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - payment
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            payment:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [payment](get-payment) that this chargeback belongs to.
+            settlement:
+              $ref: '#/components/schemas/url-nullable'
+              description: |-
+                The API resource URL of the [settlement](get-settlement) this chargeback has been settled with. Not present if
+                not yet settled.
+          readOnly: true
+    list-entity-invoice:
+      type: object
+      required:
+        - resource
+        - id
+        - reference
+        - vatNumber
+        - status
+        - issuedAt
+        - netAmount
+        - vatAmount
+        - grossAmount
+        - lines
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates that the response contains an invoice object.
+            Will always contain the string `invoice` for this endpoint.
+          readOnly: true
+          example: invoice
+        id:
+          allOf:
+            - $ref: '#/components/schemas/invoiceToken'
+          readOnly: true
+        reference:
+          type: string
+          description: 'The reference number of the invoice. An example value would be: `2024.10000`.'
+          readOnly: true
+          example: '2024.10000'
+        vatNumber:
+          type:
+            - string
+            - 'null'
+          description: The VAT number to which the invoice was issued to, if applicable.
+          readOnly: true
+          example: NL123456789B01
+        status:
+          allOf:
+            - $ref: '#/components/schemas/invoice-status'
+          readOnly: true
+        netAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: Total amount of the invoice, excluding VAT.
+          readOnly: true
+        vatAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: |-
+            VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
+            be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
+            the EU, no VAT will be charged.
+          readOnly: true
+        grossAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: Total amount of the invoice, including VAT.
+          readOnly: true
+        lines:
+          type: array
+          description: The collection of products which make up the invoice.
+          items:
+            type: object
+            required:
+              - period
+              - description
+              - count
+              - vatPercentage
+              - amount
+            properties:
+              period:
+                type: string
+                description: The administrative period in `YYYY-MM` on which the line should be booked.
+                example: 2024-01
+              description:
+                type: string
+                description: Description of the product.
+                example: 'Product #1'
+              count:
+                type: integer
+                description: Number of products invoiced. For example, the number of payments.
+                example: 3
+              vatPercentage:
+                type: integer
+                description: VAT percentage rate that applies to this product.
+                example: 21
+              amount:
+                $ref: '#/components/schemas/amount'
+                description: Line item amount excluding VAT.
+          readOnly: true
+        issuedAt:
+          type: string
+          description: The invoice date in `YYYY-MM-DD` format.
+          readOnly: true
+          example: '2024-01-15'
+        paidAt:
+          type:
+            - string
+            - 'null'
+          description: The date on which the invoice was paid, if applicable, in `YYYY-MM-DD` format.
+          readOnly: true
+          example: '2024-01-20'
+        dueAt:
+          type:
+            - string
+            - 'null'
+          description: The date on which the invoice is due, if applicable, in `YYYY-MM-DD` format.
+          readOnly: true
+          example: '2024-01-30'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+              description: URL to the current invoice resource.
+            pdf:
+              $ref: '#/components/schemas/url'
+              description: URL to a downloadable PDF of the invoice.
+          readOnly: true
+    list-entity-permission:
+      type: object
+      required:
+        - resource
+        - id
+        - description
+        - granted
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a permission object. Will always contain the string `permission` for this
+            endpoint.
+          readOnly: true
+          example: permission
+        id:
+          allOf:
+            - $ref: '#/components/schemas/permissionToken'
+          description: 'The identifier uniquely referring to this permission. Example: `payments.read`.'
+          readOnly: true
+        description:
+          type: string
+          description: A short description of what kind of access the permission enables.
+          example: View your payments
+          readOnly: true
+        granted:
+          type: boolean
+          description: Whether this permission is granted to the app by the organization.
+          example: true
+          readOnly: true
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+    list-entity-profile:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a profile object. Will always contain the string `profile` for this endpoint.
+          readOnly: true
+          example: profile
+        id:
+          type: string
+          description: 'The identifier uniquely referring to this profile. Example: `pfl_v9hTwCvYqw`.'
+          readOnly: true
+          example: pfl_QkEhN94Ba
+        mode:
+          $ref: '#/components/schemas/mode'
+          example: live
+        name:
+          type: string
+          description: |-
+            The profile's name, this will usually reflect the trade name or brand name of the profile's website or
+            application.
+          example: My website name
+        website:
+          type: string
+          description: |-
+            The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are
+            allowed.
+          example: https://example.com
+        email:
+          type: string
+          description: The email address associated with the profile's trade name or brand.
+          example: test@mollie.com
+        phone:
+          type: string
+          description: The phone number associated with the profile's trade name or brand.
+          example: '+31208202070'
+        description:
+          type: string
+          description: The products or services offered by the profile's website or application.
+          example: My website description
+          maxLength: 500
+        countriesOfActivity:
+          type: array
+          items:
+            type: string
+          description: |-
+            A list of countries where you expect that the majority of the profile's customers reside,
+            in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+          example:
+            - NL
+            - GB
+        businessCategory:
+          type: string
+          description: |-
+            The industry associated with the profile's trade name or brand. Please refer to the
+            [business category list](common-data-types#business-category) for all possible options.
+          example: OTHER_MERCHANDISE
+        status:
+          allOf:
+            - $ref: '#/components/schemas/profile-status-response'
+          readOnly: true
+        review:
+          type: object
+          description: |-
+            Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
+            automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
+            `null` in test mode.
+          properties:
+            status:
+              $ref: '#/components/schemas/profile-review-status-response'
+          readOnly: true
+          example:
+            status: pending
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+          example: '2022-01-19T12:30:22+00:00'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            dashboard:
+              $ref: '#/components/schemas/url'
+              description: Link to the profile in the Mollie dashboard.
+            chargebacks:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the chargebacks that belong to this profile.
+            methods:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the methods that are enabled for this profile.
+            payments:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the payments that belong to this profile.
+            refunds:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the refunds that belong to this profile.
+            checkoutPreviewUrl:
+              $ref: '#/components/schemas/url'
+              description: The hosted checkout preview URL. You need to be logged in to access this page.
+          readOnly: true
+          example:
+            self:
+              href: '...'
+              type: application/hal+json
+            dashboard:
+              href: https://www.mollie.com/dashboard/org_7049691/settings/profiles/pfl_2q3RyuMGry
+              type: text/html
+            chargebacks:
+              href: https://api.mollie.com/v2/chargebacks?profileId=pfl_2q3RyuMGry
+              type: application/hal+json
+            methods:
+              href: https://api.mollie.com/v2/methods?profileId=pfl_2q3RyuMGry
+              type: application/hal+json
+            payments:
+              href: https://api.mollie.com/v2/payments?profileId=pfl_2q3RyuMGry
+              type: application/hal+json
+            refunds:
+              href: https://api.mollie.com/v2/refunds?profileId=pfl_2q3RyuMGry
+              type: application/hal+json
+            checkoutPreviewUrl:
+              href: https://www.mollie.com/checkout/preview/pfl_2q3RyuMGry
+              type: text/html
+            documentation:
+              href: '...'
+              type: text/html
+    list-profile-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-profile'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - name
+            - website
+            - email
+            - phone
+            - businessCategory
+            - status
+            - createdAt
+            - _links
+    list-entity-client:
+      type: object
+      required:
+        - resource
+        - id
+        - _links
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a client object. Will always contain the string `client` for this resource type.
+          readOnly: true
+          example: client
+        id:
+          allOf:
+            - $ref: '#/components/schemas/organizationToken'
+          description: 'The identifier uniquely referring to this client. Example: `org_12345678`.'
+          readOnly: true
+        commission:
+          type:
+            - object
+            - 'null'
+          description: The commission object.
+          properties:
+            count:
+              type: integer
+              description: The commission count.
+              example: 10
+        organizationCreatedAt:
+          type: string
+          description: |-
+            The date and time the client organization was created, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+          example: '2023-01-15T13:45:30+00:00'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            organization:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the client's organization.
+            onboarding:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the client's onboarding status.
+          readOnly: true
+    list-entity-webhook:
+      type: object
+      required:
+        - resource
+        - id
+        - url
+        - createdAt
+        - name
+        - eventTypes
+        - status
+        - mode
+        - profileId
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a webhook subscription object.
+            Will always contain the string `webhook` for this endpoint.
+          readOnly: true
+          example: webhook
+        id:
+          type: string
+          description: The identifier uniquely referring to this subscription.
+          readOnly: true
+          example: hook_tNP6fpF9fLJpFWziRcgiH
+        url:
+          type: string
+          description: The subscription's events destination.
+          example: https://example.com/webhook-endpoint
+        profileId:
+          type:
+            - string
+            - 'null'
+          description: The identifier uniquely referring to the profile that created the subscription.
+          readOnly: true
+          example: pfl_YyoaNFjtHc
+        createdAt:
+          type: string
+          description: The subscription's date time of creation.
+          readOnly: true
+          example: '2023-03-15T10:00:00+00:00'
+        name:
+          type: string
+          description: The subscription's name.
+          example: Profile Updates Webhook
+        eventTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/webhook-event-types-response'
+          description: The events types that are subscribed.
+          example:
+            - profile.create
+            - profile.blocked
+        status:
+          $ref: '#/components/schemas/webhook-status'
+        mode:
+          $ref: '#/components/schemas/mode'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+    list-entity-method:
+      type: object
+      required:
+        - resource
+        - id
+        - description
+        - minimumAmount
+        - maximumAmount
+        - image
+        - status
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a payment method object. Will always contain the string `method` for this
+            endpoint.
+          readOnly: true
+          example: method
+        id:
+          allOf:
+            - $ref: '#/components/schemas/method-response'
+          type: string
+          description: |-
+            The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
+            method selection screen will be skipped.
+          example: ideal
+          readOnly: true
+        description:
+          type: string
+          description: |-
+            The full name of the payment method.
+
+            If a `locale` parameter is provided, the name is translated to the given locale if possible.
+          example: iDeal
+          readOnly: true
+        minimumAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The minimum payment amount required to use this payment method.
+          readOnly: true
+        maximumAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
+          description: |-
+            The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
+            is returned instead.
+          readOnly: true
+        image:
+          type: object
+          description: URLs of images representing the payment method.
+          required:
+            - size1x
+            - size2x
+            - svg
+          properties:
+            size1x:
+              type: string
+              description: The URL pointing to an icon of 32 by 24 pixels.
+              example: https://...
+            size2x:
+              type: string
+              description: The URL pointing to an icon of 64 by 48 pixels.
+              example: https://...
+            svg:
+              type: string
+              description: |-
+                The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+                scale to any desired size without compromising visual quality.
+              example: https://...
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/method-status'
+        issuers:
+          type: array
+          description: |-
+            **Optional include.** Array of objects for each 'issuer' that is available for this payment method. Only relevant
+            for iDEAL, KBC/CBC, gift cards, and vouchers.
+          items:
+            type: object
+            required:
+              - resource
+              - id
+              - name
+              - image
+            properties:
+              resource:
+                type: string
+                example: issuer
+              id:
+                type: string
+                example: ideal_ABNANL2A
+              name:
+                type: string
+                description: The full name of the issuer.
+                example: ING Bank
+              image:
+                type: object
+                description: |-
+                  URLs of images representing the issuer.
+                  required:
+                    - size1x
+                    - size2x
+                    - svg
+                properties:
+                  size1x:
+                    type: string
+                    description: The URL pointing to an icon of 32 by 24 pixels.
+                    example: https://...
+                  size2x:
+                    type: string
+                    description: The URL pointing to an icon of 64 by 48 pixels.
+                    example: https://...
+                  svg:
+                    type: string
+                    description: |-
+                      The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can
+                      scale to any desired size without compromising visual quality.
+                    example: https://...
+            readOnly: true
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+    list-entity-method-all:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-method'
+        - type: object
+          properties:
+            pricing:
+              type: array
+              description: |-
+                **Optional include.** Array of objects describing the pricing configuration applicable for this payment method on
+                your account.
+              items:
+                type: object
+                required:
+                  - description
+                  - fixed
+                  - variable
+                properties:
+                  description:
+                    type: string
+                    description: |-
+                      A description of what the pricing applies to. For example, a specific country (`The Netherlands`) or a
+                      category of cards (`American Express`). If a `locale` is provided, the description may be translated.
+                    example: The Netherlands
+                  fixed:
+                    $ref: '#/components/schemas/amount'
+                    description: The fixed price charged per payment.
+                  variable:
+                    type: string
+                    description: The variable price charged per payment, as a percentage string.
+                    example: 0
+                  feeRegion:
+                    type:
+                      - string
+                      - 'null'
+                    description: |-
+                      Only present for credit card pricing. It will correspond with the `feeRegion` of credit card payments as
+                      returned in the [Payments API](get-payment).
+                    example: other
+              readOnly: true
+    list-entity-terminal:
+      type: object
+      required:
+        - resource
+        - id
+        - mode
+        - profileId
+        - status
+        - brand
+        - model
+        - serialNumber
+        - currency
+        - description
+        - createdAt
+        - updatedAt
+        - _links
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a terminal object. Will always contain the string `terminal` for this endpoint.
+          readOnly: true
+          example: terminal
+        id:
+          allOf:
+            - $ref: '#/components/schemas/terminalToken'
+          description: 'The identifier uniquely referring to this terminal. Example: `term_7MgL4wea46qkRcoTZjWEH`.'
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        description:
+          type: string
+          description: |-
+            A short description of the terminal. The description can be used as an identifier for the terminal. Currently, the
+            description is set when the terminal is initially configured. It will be visible in the Mollie Dashboard, and it
+            may be visible on the device itself depending on the device.
+          maxLength: 255
+          example: Main Terminal
+        status:
+          allOf:
+            - $ref: '#/components/schemas/terminal-status'
+          readOnly: true
+        brand:
+          $ref: '#/components/schemas/terminal-brand'
+        model:
+          $ref: '#/components/schemas/terminal-model'
+        serialNumber:
+          type:
+            - string
+            - 'null'
+          example: '1234567890'
+          description: The serial number of the terminal. The serial number is provided at terminal creation time.
+        currency:
+          type: string
+          example: EUR
+          description: |-
+            The currency configured on the terminal, in ISO 4217 format. Currently most of our terminals are bound to a
+            specific currency, chosen during setup.
+        profileId:
+          type: string
+          $ref: '#/components/schemas/profileToken'
+          description: |-
+            The identifier referring to the [profile](get-profile) this entity belongs to.
+
+            Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+            request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+            required.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        updatedAt:
+          type: string
+          description: The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+          example: '2025-03-20T09:13:37+00:00'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+    list-entity-route:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
+          readOnly: true
+          example: route
+        id:
+          allOf:
+            - $ref: '#/components/schemas/connectRouteToken'
+          description: |-
+            The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
+            will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
+          readOnly: true
+        paymentId:
+          allOf:
+            - $ref: '#/components/schemas/paymentToken'
+          description: |-
+            The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
+            The full payment object can be retrieved via the payment URL in the `_links` object.
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the route.
+            That amount that will be routed to the specified destination.
+        description:
+          type: string
+          description: The description of the route. This description is shown in the reports.
+          maxLength: 255
+          example: 'Payment for Order #12345'
+        destination:
+          type: object
+          description: The destination of the route.
+          required:
+            - type
+            - organizationId
+          properties:
+            type:
+              $ref: '#/components/schemas/route-destination-type-response'
+            organizationId:
+              $ref: '#/components/schemas/organizationToken'
+              description: |-
+                Required for destination type `organization`. The ID of the connected organization the funds should be
+                routed to.
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+    list-route-get-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-route'
+        - type: object
+          required:
+            - resource
+            - id
+            - paymentId
+            - amount
+            - description
+            - destination
+            - _links
+        - type: object
+          required:
+            - createdAt
+          properties:
+            createdAt:
+              $ref: '#/components/schemas/created-at'
+    list-entity-customer:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
+          readOnly: true
+          example: customer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
+          description: 'The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.'
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        name:
+          type:
+            - string
+            - 'null'
+          description: The full name of the customer.
+          example: John Doe
+        email:
+          type:
+            - string
+            - 'null'
+          description: The email address of the customer.
+          example: example@email.com
+        locale:
+          type:
+            - string
+            - 'null'
+          $ref: '#/components/schemas/locale-response'
+          description: |-
+            Preconfigure the language to be used in the hosted payment pages shown to the customer. Should only be provided if
+            absolutely necessary. If not provided, the browser language will be used which is typically highly accurate.
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - dashboard
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            dashboard:
+              $ref: '#/components/schemas/url'
+            payments:
+              $ref: '#/components/schemas/url-nullable'
+              description: |-
+                The API resource URL of the [payments](list-payments) linked to this customer. Omitted if no such payments
+                exist (yet).
+            mandates:
+              $ref: '#/components/schemas/url-nullable'
+              description: |-
+                The API resource URL of the [mandates](list-mandates) linked to this customer. Omitted if no such mandates
+                exist (yet).
+            subscriptions:
+              $ref: '#/components/schemas/url-nullable'
+              description: |-
+                The API resource URL of the [subscriptions](list-subscriptions) linked to this customer. Omitted if no such
+                subscriptions exist (yet).
+          readOnly: true
+    list-customer-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-customer'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - name
+            - email
+            - locale
+            - metadata
+            - createdAt
+            - _links
+    list-entity-mandate:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a mandate object. Will always contain the string `mandate` for this endpoint.
+          readOnly: true
+          example: mandate
+        id:
+          allOf:
+            - $ref: '#/components/schemas/mandateToken'
+          description: 'The identifier uniquely referring to this mandate. Example: `mdt_pWUnw6pkBN`.'
+        mode:
+          $ref: '#/components/schemas/mode'
+        method:
+          $ref: '#/components/schemas/mandate-method-response'
+        consumerName:
+          type: string
+          description: The customer's name.
+          example: John Doe
+          writeOnly: true
+        consumerAccount:
+          type:
+            - string
+            - 'null'
+          description: The customer's IBAN. Required for SEPA Direct Debit mandates.
+          example: NL55INGB0000000000
+          writeOnly: true
+        consumerBic:
+          type:
+            - string
+            - 'null'
+          description: The BIC of the customer's bank.
+          example: BANKBIC
+          writeOnly: true
+        consumerEmail:
+          type:
+            - string
+            - 'null'
+          description: The customer's email address. Required for PayPal mandates.
+          example: example@email.com
+          writeOnly: true
+        details:
+          type: object
+          properties:
+            consumerName:
+              type:
+                - string
+                - 'null'
+              description: The customer's name. Available for SEPA Direct Debit and PayPal mandates.
+              example: John Doe
+            consumerAccount:
+              type:
+                - string
+                - 'null'
+              description: The customer's IBAN or email address. Available for SEPA Direct Debit and PayPal mandates.
+              example: NL55INGB0000000000
+            consumerBic:
+              type:
+                - string
+                - 'null'
+              description: The BIC of the customer's bank. Available for SEPA Direct Debit mandates.
+              example: BANKBIC
+            cardHolder:
+              type:
+                - string
+                - 'null'
+              description: The card holder's name. Available for card mandates.
+              example: John Doe
+            cardNumber:
+              type:
+                - string
+                - 'null'
+              description: The last four digits of the card number. Available for card mandates.
+              example: 3240
+            cardExpiryDate:
+              type:
+                - string
+                - 'null'
+              description: The card's expiry date in `YYYY-MM-DD` format. Available for card mandates.
+              example: '2025-01-01'
+            cardLabel:
+              $ref: '#/components/schemas/mandate-details-card-label-response'
+            cardFingerprint:
+              type:
+                - string
+                - 'null'
+              description: |-
+                Unique alphanumeric representation of this specific card. Available for card mandates. Can be used to identify
+                returning customers.
+              example: d3290e932k02f
+          readOnly: true
+        signatureDate:
+          type:
+            - string
+            - 'null'
+          description: The date when the mandate was signed in `YYYY-MM-DD` format.
+          example: '2025-01-01'
+        mandateReference:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A custom mandate reference. For SEPA Direct Debit, it is vital to provide a unique reference. Some banks will
+            decline Direct Debit payments if the mandate reference is not unique.
+          example: ID-1023892
+        paypalBillingAgreementId:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The billing agreement ID given by PayPal. For example: `B-12A34567B8901234CD`. Required for PayPal mandates.
+            Must provide either this field or `payPalVaultId`, but not both.
+          example: B-12A34567B8901234CD
+          writeOnly: true
+        payPalVaultId:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The Vault ID given by PayPal. For example: `8kk8451t`. Required for PayPal mandates.
+            Must provide either this field or `paypalBillingAgreementId`, but not both.
+          example: 8kk8451t
+          writeOnly: true
+        status:
+          allOf:
+            - $ref: '#/components/schemas/mandate-status-response'
+          readOnly: true
+        customerId:
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
+          description: The identifier referring to the [customer](get-customer) this mandate was linked to.
+          readOnly: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - customer
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            customer:
+              $ref: '#/components/schemas/url'
+              description: The API resource URL of the [customer](get-customer) that this mandate belongs to.
+          readOnly: true
+    list-mandate-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-mandate'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - status
+            - method
+            - details
+            - customerId
+            - mandateReference
+            - signatureDate
+            - createdAt
+            - _links
+    list-entity-subscription:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a subscription object. Will always contain the string `subscription` for this
+            endpoint.
+          readOnly: true
+          example: subscription
+        id:
+          allOf:
+            - $ref: '#/components/schemas/subscriptionToken'
+          description: 'The identifier uniquely referring to this subscription. Example: `sub_rVKGtNd6s3`.'
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        status:
+          allOf:
+            - $ref: '#/components/schemas/subscription-status-response'
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount for each individual payment that is charged with this subscription. For example, for a monthly
+            subscription of €10, the subscription amount should be set to €10.
+        times:
+          type:
+            - integer
+            - 'null'
+          description: |-
+            Total number of payments for the subscription. Once this number of payments is reached, the subscription is
+            considered completed.
+
+            Test mode subscriptions will get canceled automatically after 10 payments.
+          example: 6
+        timesRemaining:
+          type:
+            - integer
+            - 'null'
+          description: Number of payments left for the subscription.
+          example: 5
+          readOnly: true
+        interval:
+          type: string
+          description: |-
+            Interval to wait between payments, for example `1 month` or `14 days`.
+
+            The maximum interval is one year (`12 months`, `52 weeks`, or `365 days`).
+
+            Possible values: `... days`, `... weeks`, `... months`.
+          pattern: ^\d+ (days|weeks|months)$
+          example: 2 days
+        startDate:
+          type: string
+          description: The start date of the subscription in `YYYY-MM-DD` format.
+          example: '2025-01-01'
+        nextPaymentDate:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date of the next scheduled payment in `YYYY-MM-DD` format. If the subscription has been completed or canceled,
+            this parameter will not be returned.
+          example: '2025-01-01'
+          readOnly: true
+        description:
+          type: string
+          description: |-
+            The subscription's description will be used as the description of the resulting individual payments and so showing
+            up on the bank statement of the consumer.
+
+            **Please note:** the description needs to be unique for the Customer in case it has multiple active subscriptions.
+          example: Subscription of streaming channel
+        method:
+          $ref: '#/components/schemas/subscription-method-response'
+        applicationFee:
+          type: object
+          description: |-
+            With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
+            merchants.
+
+            Setting an application fee on the subscription will ensure this fee is charged on each individual payment.
+
+            Refer to the `applicationFee` parameter on the [Get payment endpoint](get-payment) documentation for more
+            information.
+          required:
+            - amount
+            - description
+          properties:
+            amount:
+              $ref: '#/components/schemas/amount'
+            description:
+              type: string
+              example: Platform fee
+        metadata:
+          $ref: '#/components/schemas/metadata'
+          description: |-
+            Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity.
+            Whenever you fetch the entity with our API, we will also include the metadata. You can use up to approximately
+            1kB.
+
+            Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
+        webhookUrl:
+          type: string
+          description: |-
+            We will call this URL for any payment status changes of payments resulting from this subscription.
+
+            This webhook will receive **all** events for the subscription's payments. This may include payment failures as
+            well. Be sure to verify the payment's subscription ID and its status.
+          example: https://example.com/webhook
+        customerId:
+          allOf:
+            - $ref: '#/components/schemas/customerToken'
+          description: The customer this subscription belongs to.
+          readOnly: true
+        mandateId:
+          type:
+            - string
+            - 'null'
+          $ref: '#/components/schemas/mandateToken'
+          description: The mandate used for this subscription, if any.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        canceledAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The subscription's date and time of cancellation, in ISO 8601 format. This parameter is omitted if the
+            subscription is not canceled (yet).
+          example: '2025-01-01T13:10:19+00:00'
+          readOnly: true
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - profile
+            - customer
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            customer:
+              $ref: '#/components/schemas/url-nullable'
+              description: The API resource URL of the [customer](get-customer) this subscription was created for.
+            mandate:
+              $ref: '#/components/schemas/url-nullable'
+              description: The API resource URL of the [mandate](get-mandate) this subscription was created for.
+            profile:
+              $ref: '#/components/schemas/url-nullable'
+              description: The API resource URL of the [profile](get-profile) this subscription was created for.
+            payments:
+              $ref: '#/components/schemas/url-nullable'
+              description: |-
+                The API resource URL of the [payments](list-payments) created for this subscription. Omitted if no such
+                payments exist (yet).
+          readOnly: true
+    list-subscription-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-subscription'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - customerId
+            - createdAt
+            - status
+            - amount
+            - description
+            - method
+            - times
+            - timesRemaining
+            - interval
+            - startDate
+            - webhookUrl
+            - metadata
+            - _links
+    list-entity-sales-invoice:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
+            endpoint.
+          readOnly: true
+          writeOnly: false
+          example: sales-invoice
+        id:
+          allOf:
+            - $ref: '#/components/schemas/salesInvoiceToken'
+          type: string
+          description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        invoiceNumber:
+          example: INV-0000001
+          type:
+            - string
+            - 'null'
+          description: When issued, an invoice number will be set for the sales invoice.
+          readOnly: true
+        profileId:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The identifier referring to the [profile](get-profile) this entity belongs to.
+
+            Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation
+            request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+            required.
+          example: pfl_QkEhN94Ba
+          writeOnly: true
+        status:
+          $ref: '#/components/schemas/sales-invoice-status-response'
+        vatScheme:
+          $ref: '#/components/schemas/sales-invoice-vat-scheme-response'
+        vatMode:
+          $ref: '#/components/schemas/sales-invoice-vat-mode-response'
+        memo:
+          example: This is a memo!
+          type:
+            - string
+            - 'null'
+          description: A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
+        metadata:
+          type:
+            - object
+            - 'null'
+          properties: {}
+          description: |-
+            Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
+            you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+        paymentTerm:
+          $ref: '#/components/schemas/sales-invoice-payment-term-response'
+        paymentDetails:
+          description: |-
+            Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+            provided details. Required for `paid` status.
+        emailDetails:
+          $ref: '#/components/schemas/sales-invoice-email-details'
+          description: |-
+            Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
+            recipient with the provided `subject` and `body`. Required for `issued` status.
+        customerId:
+          type:
+            - string
+          description: |-
+            The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
+            provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
+          example: cst_8wmqcHMN4U
+        mandateId:
+          type: string
+          description: |-
+            The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided,
+            `customerId` becomes required as well. Only allowed for invoices with status `paid`.
+          example: mdt_pWUnw6pkBN
+        recipientIdentifier:
+          example: customer-xyz-0123
+          type: string
+          description: |-
+            An identifier tied to the recipient data. This should be a unique value based on data your system contains,
+            so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
+            is not required to send a first invoice to a recipient.
+        recipient:
+          $ref: '#/components/schemas/sales-invoice-recipient-response'
+        lines:
+          type:
+            - array
+            - 'null'
+          description: |-
+            Provide the line items for the invoice. Each line contains details such as a description of the item
+            ordered and its price.
+
+            All lines must have the same currency as the invoice.
+          items:
+            $ref: '#/components/schemas/sales-invoice-line-item-response'
+        discount:
+          $ref: '#/components/schemas/sales-invoice-discount-response'
+          description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
+        amountDue:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The amount that is left to be paid.
+          readOnly: true
+        subtotalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount without VAT before discounts.
+          readOnly: true
+        totalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount with VAT.
+          readOnly: true
+        totalVatAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total VAT amount.
+          readOnly: true
+        discountedSubtotalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount without VAT after discounts.
+          readOnly: true
+        createdAt:
+          type: string
+          $ref: '#/components/schemas/created-at'
+        issuedAt:
+          example: '2024-10-03T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        paidAt:
+          example: '2024-10-04T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        dueAt:
+          example: '2024-11-01T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            invoicePayment:
+              $ref: '#/components/schemas/url'
+              description: |-
+                The URL your customer should visit to make payment for the invoice. This is where you should redirect the
+                customer to unless the `status` is set to `paid`.
+            pdfLink:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+              description: The URL the invoice is available at, if generated.
+            next:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+            previous:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+          readOnly: true
+          writeOnly: false
+    list-sales-invoice-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-sales-invoice'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+        - type: object
+          properties:
+            paymentDetails:
+              $ref: '#/components/schemas/sales-invoice-payment-details-response'
     entity-payment-response:
       type: object
       properties:

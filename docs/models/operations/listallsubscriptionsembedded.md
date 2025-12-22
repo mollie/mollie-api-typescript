@@ -57,10 +57,6 @@ let value: ListAllSubscriptionsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
       },
     },
   ],
@@ -69,6 +65,6 @@ let value: ListAllSubscriptionsEmbedded = {
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `subscriptions`                                                       | [models.SubscriptionResponse](../../models/subscriptionresponse.md)[] | :heavy_minus_sign:                                                    | A list of subscription objects.                                       |
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `subscriptions`                                                               | [models.ListSubscriptionResponse](../../models/listsubscriptionresponse.md)[] | :heavy_minus_sign:                                                            | A list of subscription objects.                                               |

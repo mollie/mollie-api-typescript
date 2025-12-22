@@ -273,10 +273,6 @@ let value: ListSettlementPaymentsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
         status: {
           href: "https://...",
           type: "application/hal+json",
@@ -293,6 +289,6 @@ let value: ListSettlementPaymentsEmbedded = {
 
 ## Fields
 
-| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `payments`                                                  | [models.PaymentResponse](../../models/paymentresponse.md)[] | :heavy_minus_sign:                                          | An array of payment objects.                                |
+| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `payments`                                                          | [models.ListPaymentResponse](../../models/listpaymentresponse.md)[] | :heavy_minus_sign:                                                  | An array of payment objects.                                        |

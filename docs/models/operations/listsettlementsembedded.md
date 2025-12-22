@@ -93,10 +93,6 @@ let value: ListSettlementsEmbedded = {
           type: "application/hal+json",
         },
         invoice: null,
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
       },
     },
   ],
@@ -107,4 +103,4 @@ let value: ListSettlementsEmbedded = {
 
 | Field                                                                                                                                                    | Type                                                                                                                                                     | Required                                                                                                                                                 | Description                                                                                                                                              |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `settlements`                                                                                                                                            | [models.EntitySettlement](../../models/entitysettlement.md)[]                                                                                            | :heavy_check_mark:                                                                                                                                       | An array of settlement objects. For a complete reference<br/>of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation. |
+| `settlements`                                                                                                                                            | [models.ListEntitySettlement](../../models/listentitysettlement.md)[]                                                                                    | :heavy_check_mark:                                                                                                                                       | An array of settlement objects. For a complete reference<br/>of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation. |

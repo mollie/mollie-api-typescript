@@ -25,10 +25,6 @@ let value: Client = {
       href: "https://...",
       type: "application/hal+json",
     },
-    documentation: {
-      href: "https://...",
-      type: "application/hal+json",
-    },
   },
   embedded: {
     organization: {

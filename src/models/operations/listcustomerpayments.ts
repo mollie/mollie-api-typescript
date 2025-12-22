@@ -85,7 +85,7 @@ export type ListCustomerPaymentsEmbedded = {
   /**
    * An array of payment objects.
    */
-  payments?: Array<models.PaymentResponse> | undefined;
+  payments?: Array<models.ListPaymentResponse> | undefined;
 };
 
 /**
@@ -226,11 +226,11 @@ export const ListCustomerPaymentsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  payments: z.array(models.PaymentResponse$inboundSchema).optional(),
+  payments: z.array(models.ListPaymentResponse$inboundSchema).optional(),
 });
 /** @internal */
 export type ListCustomerPaymentsEmbedded$Outbound = {
-  payments?: Array<models.PaymentResponse$Outbound> | undefined;
+  payments?: Array<models.ListPaymentResponse$Outbound> | undefined;
 };
 
 /** @internal */
@@ -239,7 +239,7 @@ export const ListCustomerPaymentsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCustomerPaymentsEmbedded
 > = z.object({
-  payments: z.array(models.PaymentResponse$outboundSchema).optional(),
+  payments: z.array(models.ListPaymentResponse$outboundSchema).optional(),
 });
 
 export function listCustomerPaymentsEmbeddedToJSON(

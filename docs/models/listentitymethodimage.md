@@ -1,0 +1,23 @@
+# ListEntityMethodImage
+
+URLs of images representing the payment method.
+
+## Example Usage
+
+```typescript
+import { ListEntityMethodImage } from "mollie-api-typescript/models";
+
+let value: ListEntityMethodImage = {
+  size1x: "https://...",
+  size2x: "https://...",
+  svg: "https://...",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                  | Type                                                                                                                                                                   | Required                                                                                                                                                               | Description                                                                                                                                                            | Example                                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `size1x`                                                                                                                                                               | *string*                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                     | The URL pointing to an icon of 32 by 24 pixels.                                                                                                                        | https://...                                                                                                                                                            |
+| `size2x`                                                                                                                                                               | *string*                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                     | The URL pointing to an icon of 64 by 48 pixels.                                                                                                                        | https://...                                                                                                                                                            |
+| `svg`                                                                                                                                                                  | *string*                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                     | The URL pointing to a vector version of the icon. Usage of this format is preferred, since the icon can<br/>scale to any desired size without compromising visual quality. | https://...                                                                                                                                                            |

@@ -39,10 +39,6 @@ let value: ListSettlementChargebacksEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
-        documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
       },
     },
   ],
@@ -51,6 +47,6 @@ let value: ListSettlementChargebacksEmbedded = {
 
 ## Fields
 
-| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `chargebacks`                                                 | [models.EntityChargeback](../../models/entitychargeback.md)[] | :heavy_check_mark:                                            | A list of chargeback objects.                                 |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `chargebacks`                                                         | [models.ListEntityChargeback](../../models/listentitychargeback.md)[] | :heavy_check_mark:                                                    | A list of chargeback objects.                                         |

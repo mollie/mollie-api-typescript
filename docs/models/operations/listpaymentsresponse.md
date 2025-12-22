@@ -277,10 +277,6 @@ let value: ListPaymentsResponse = {
             href: "https://...",
             type: "application/hal+json",
           },
-          documentation: {
-            href: "https://...",
-            type: "application/hal+json",
-          },
           status: {
             href: "https://...",
             type: "application/hal+json",

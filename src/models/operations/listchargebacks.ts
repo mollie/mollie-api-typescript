@@ -65,7 +65,7 @@ export type ListChargebacksEmbedded = {
   /**
    * A list of chargeback objects.
    */
-  chargebacks: Array<models.EntityChargeback>;
+  chargebacks: Array<models.ListEntityChargeback>;
 };
 
 /**
@@ -196,11 +196,11 @@ export const ListChargebacksEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  chargebacks: z.array(models.EntityChargeback$inboundSchema),
+  chargebacks: z.array(models.ListEntityChargeback$inboundSchema),
 });
 /** @internal */
 export type ListChargebacksEmbedded$Outbound = {
-  chargebacks: Array<models.EntityChargeback$Outbound>;
+  chargebacks: Array<models.ListEntityChargeback$Outbound>;
 };
 
 /** @internal */
@@ -209,7 +209,7 @@ export const ListChargebacksEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListChargebacksEmbedded
 > = z.object({
-  chargebacks: z.array(models.EntityChargeback$outboundSchema),
+  chargebacks: z.array(models.ListEntityChargeback$outboundSchema),
 });
 
 export function listChargebacksEmbeddedToJSON(

@@ -56,7 +56,7 @@ export type ListInvoicesEmbedded = {
    * @remarks
    * the invoice object, refer to the [Get invoice endpoint](get-invoice) documentation.
    */
-  invoices: Array<models.EntityInvoice>;
+  invoices: Array<models.ListEntityInvoice>;
 };
 
 /**
@@ -154,11 +154,11 @@ export const ListInvoicesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  invoices: z.array(models.EntityInvoice$inboundSchema),
+  invoices: z.array(models.ListEntityInvoice$inboundSchema),
 });
 /** @internal */
 export type ListInvoicesEmbedded$Outbound = {
-  invoices: Array<models.EntityInvoice$Outbound>;
+  invoices: Array<models.ListEntityInvoice$Outbound>;
 };
 
 /** @internal */
@@ -167,7 +167,7 @@ export const ListInvoicesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListInvoicesEmbedded
 > = z.object({
-  invoices: z.array(models.EntityInvoice$outboundSchema),
+  invoices: z.array(models.ListEntityInvoice$outboundSchema),
 });
 
 export function listInvoicesEmbeddedToJSON(
