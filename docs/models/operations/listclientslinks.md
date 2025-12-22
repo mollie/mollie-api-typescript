@@ -20,6 +20,10 @@ let value: ListClientsLinks = {
     href: "https://...",
     type: "application/hal+json",
   },
+  documentation: {
+    href: "https://...",
+    type: "application/hal+json",
+  },
 };
 ```
 
@@ -30,3 +34,4 @@ let value: ListClientsLinks = {
 | `self`                                                                                     | [models.Url](../../models/url.md)                                                          | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
 | `organization`                                                                             | [models.Url](../../models/url.md)                                                          | :heavy_minus_sign:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
 | `onboarding`                                                                               | [models.Url](../../models/url.md)                                                          | :heavy_minus_sign:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
+| `documentation`                                                                            | [models.Url](../../models/url.md)                                                          | :heavy_minus_sign:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |

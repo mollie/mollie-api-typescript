@@ -65,7 +65,7 @@ export type ListMandatesEmbedded = {
   /**
    * An array of mandate objects.
    */
-  mandates: Array<models.ListMandateResponse>;
+  mandates: Array<models.MandateResponse>;
 };
 
 /**
@@ -196,11 +196,11 @@ export const ListMandatesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mandates: z.array(models.ListMandateResponse$inboundSchema),
+  mandates: z.array(models.MandateResponse$inboundSchema),
 });
 /** @internal */
 export type ListMandatesEmbedded$Outbound = {
-  mandates: Array<models.ListMandateResponse$Outbound>;
+  mandates: Array<models.MandateResponse$Outbound>;
 };
 
 /** @internal */
@@ -209,7 +209,7 @@ export const ListMandatesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMandatesEmbedded
 > = z.object({
-  mandates: z.array(models.ListMandateResponse$outboundSchema),
+  mandates: z.array(models.MandateResponse$outboundSchema),
 });
 
 export function listMandatesEmbeddedToJSON(

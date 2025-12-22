@@ -101,6 +101,10 @@ let value: ListSalesInvoicesResponse = {
             href: "https://...",
             type: "application/hal+json",
           },
+          documentation: {
+            href: "https://...",
+            type: "application/hal+json",
+          },
           next: {
             href: "https://...",
             type: "application/hal+json",

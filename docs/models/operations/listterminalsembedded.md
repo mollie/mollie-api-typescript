@@ -25,6 +25,10 @@ let value: ListTerminalsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
       },
     },
   ],
@@ -33,6 +37,6 @@ let value: ListTerminalsEmbedded = {
 
 ## Fields
 
-| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `terminals`                                                       | [models.ListEntityTerminal](../../models/listentityterminal.md)[] | :heavy_minus_sign:                                                | An array of terminal objects.                                     |
+| Field                                                     | Type                                                      | Required                                                  | Description                                               |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `terminals`                                               | [models.EntityTerminal](../../models/entityterminal.md)[] | :heavy_minus_sign:                                        | An array of terminal objects.                             |

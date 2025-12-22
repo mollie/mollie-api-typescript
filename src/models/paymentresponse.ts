@@ -147,7 +147,7 @@ import {
  * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
  * costs for a return shipment to the customer.
  */
-export type PaymentResponseAmountRefunded = {
+export type AmountRefunded = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -161,7 +161,7 @@ export type PaymentResponseAmountRefunded = {
 /**
  * The remaining amount that can be refunded. Only available when refunds are available for this payment.
  */
-export type PaymentResponseAmountRemaining = {
+export type AmountRemaining = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -175,7 +175,7 @@ export type PaymentResponseAmountRemaining = {
 /**
  * The total amount that is already captured for this payment. Only available when this payment supports captures.
  */
-export type PaymentResponseAmountCaptured = {
+export type AmountCaptured = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -192,7 +192,7 @@ export type PaymentResponseAmountCaptured = {
  * @remarks
  * zero.
  */
-export type PaymentResponseAmountChargedBack = {
+export type AmountChargedBack = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -444,7 +444,7 @@ export type PaymentResponseStatus = OpenEnum<typeof PaymentResponseStatus>;
 /**
  * The Point of sale receipt object.
  */
-export type PaymentResponseReceipt = {
+export type Receipt = {
   /**
    * A unique code provided by the cardholder’s bank to confirm that the transaction was successfully approved.
    */
@@ -478,7 +478,7 @@ export type PaymentResponseReceipt = {
  * The QR code can be scanned by the customer to complete the payment on their mobile device. For example,
  * Bancontact QR payments can be completed by the customer using the Bancontact app.
  */
-export type PaymentResponseQrCode = {
+export type QrCode = {
   /**
    * The height of the QR code image in pixels.
    */
@@ -665,7 +665,7 @@ export type PaymentResponseDetails = {
   /**
    * The Point of sale receipt object.
    */
-  receipt?: PaymentResponseReceipt | undefined;
+  receipt?: Receipt | undefined;
   /**
    * The creditor identifier indicates who is authorized to execute the payment. In this case, it is a
    *
@@ -720,7 +720,7 @@ export type PaymentResponseDetails = {
    * The QR code can be scanned by the customer to complete the payment on their mobile device. For example,
    * Bancontact QR payments can be completed by the customer using the Bancontact app.
    */
-  qrCode?: PaymentResponseQrCode | undefined;
+  qrCode?: QrCode | undefined;
   /**
    * For payments with gift cards: the masked gift card number of the first gift card applied to the payment.
    */
@@ -874,22 +874,22 @@ export type PaymentResponse = {
    * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
    * costs for a return shipment to the customer.
    */
-  amountRefunded?: PaymentResponseAmountRefunded | undefined;
+  amountRefunded?: AmountRefunded | undefined;
   /**
    * The remaining amount that can be refunded. Only available when refunds are available for this payment.
    */
-  amountRemaining?: PaymentResponseAmountRemaining | undefined;
+  amountRemaining?: AmountRemaining | undefined;
   /**
    * The total amount that is already captured for this payment. Only available when this payment supports captures.
    */
-  amountCaptured?: PaymentResponseAmountCaptured | undefined;
+  amountCaptured?: AmountCaptured | undefined;
   /**
    * The total amount that was charged back for this payment. Only available when the total charged back amount is not
    *
    * @remarks
    * zero.
    */
-  amountChargedBack?: PaymentResponseAmountChargedBack | undefined;
+  amountChargedBack?: AmountChargedBack | undefined;
   /**
    * This optional field will contain the approximate amount that will be settled to your account, converted to the
    *
@@ -1187,8 +1187,8 @@ export type PaymentResponse = {
 };
 
 /** @internal */
-export const PaymentResponseAmountRefunded$inboundSchema: z.ZodType<
-  PaymentResponseAmountRefunded,
+export const AmountRefunded$inboundSchema: z.ZodType<
+  AmountRefunded,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1196,43 +1196,37 @@ export const PaymentResponseAmountRefunded$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type PaymentResponseAmountRefunded$Outbound = {
+export type AmountRefunded$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const PaymentResponseAmountRefunded$outboundSchema: z.ZodType<
-  PaymentResponseAmountRefunded$Outbound,
+export const AmountRefunded$outboundSchema: z.ZodType<
+  AmountRefunded$Outbound,
   z.ZodTypeDef,
-  PaymentResponseAmountRefunded
+  AmountRefunded
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function paymentResponseAmountRefundedToJSON(
-  paymentResponseAmountRefunded: PaymentResponseAmountRefunded,
-): string {
-  return JSON.stringify(
-    PaymentResponseAmountRefunded$outboundSchema.parse(
-      paymentResponseAmountRefunded,
-    ),
-  );
+export function amountRefundedToJSON(amountRefunded: AmountRefunded): string {
+  return JSON.stringify(AmountRefunded$outboundSchema.parse(amountRefunded));
 }
-export function paymentResponseAmountRefundedFromJSON(
+export function amountRefundedFromJSON(
   jsonString: string,
-): SafeParseResult<PaymentResponseAmountRefunded, SDKValidationError> {
+): SafeParseResult<AmountRefunded, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PaymentResponseAmountRefunded$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentResponseAmountRefunded' from JSON`,
+    (x) => AmountRefunded$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountRefunded' from JSON`,
   );
 }
 
 /** @internal */
-export const PaymentResponseAmountRemaining$inboundSchema: z.ZodType<
-  PaymentResponseAmountRemaining,
+export const AmountRemaining$inboundSchema: z.ZodType<
+  AmountRemaining,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1240,43 +1234,39 @@ export const PaymentResponseAmountRemaining$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type PaymentResponseAmountRemaining$Outbound = {
+export type AmountRemaining$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const PaymentResponseAmountRemaining$outboundSchema: z.ZodType<
-  PaymentResponseAmountRemaining$Outbound,
+export const AmountRemaining$outboundSchema: z.ZodType<
+  AmountRemaining$Outbound,
   z.ZodTypeDef,
-  PaymentResponseAmountRemaining
+  AmountRemaining
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function paymentResponseAmountRemainingToJSON(
-  paymentResponseAmountRemaining: PaymentResponseAmountRemaining,
+export function amountRemainingToJSON(
+  amountRemaining: AmountRemaining,
 ): string {
-  return JSON.stringify(
-    PaymentResponseAmountRemaining$outboundSchema.parse(
-      paymentResponseAmountRemaining,
-    ),
-  );
+  return JSON.stringify(AmountRemaining$outboundSchema.parse(amountRemaining));
 }
-export function paymentResponseAmountRemainingFromJSON(
+export function amountRemainingFromJSON(
   jsonString: string,
-): SafeParseResult<PaymentResponseAmountRemaining, SDKValidationError> {
+): SafeParseResult<AmountRemaining, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PaymentResponseAmountRemaining$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentResponseAmountRemaining' from JSON`,
+    (x) => AmountRemaining$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountRemaining' from JSON`,
   );
 }
 
 /** @internal */
-export const PaymentResponseAmountCaptured$inboundSchema: z.ZodType<
-  PaymentResponseAmountCaptured,
+export const AmountCaptured$inboundSchema: z.ZodType<
+  AmountCaptured,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1284,43 +1274,37 @@ export const PaymentResponseAmountCaptured$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type PaymentResponseAmountCaptured$Outbound = {
+export type AmountCaptured$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const PaymentResponseAmountCaptured$outboundSchema: z.ZodType<
-  PaymentResponseAmountCaptured$Outbound,
+export const AmountCaptured$outboundSchema: z.ZodType<
+  AmountCaptured$Outbound,
   z.ZodTypeDef,
-  PaymentResponseAmountCaptured
+  AmountCaptured
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function paymentResponseAmountCapturedToJSON(
-  paymentResponseAmountCaptured: PaymentResponseAmountCaptured,
-): string {
-  return JSON.stringify(
-    PaymentResponseAmountCaptured$outboundSchema.parse(
-      paymentResponseAmountCaptured,
-    ),
-  );
+export function amountCapturedToJSON(amountCaptured: AmountCaptured): string {
+  return JSON.stringify(AmountCaptured$outboundSchema.parse(amountCaptured));
 }
-export function paymentResponseAmountCapturedFromJSON(
+export function amountCapturedFromJSON(
   jsonString: string,
-): SafeParseResult<PaymentResponseAmountCaptured, SDKValidationError> {
+): SafeParseResult<AmountCaptured, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PaymentResponseAmountCaptured$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentResponseAmountCaptured' from JSON`,
+    (x) => AmountCaptured$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountCaptured' from JSON`,
   );
 }
 
 /** @internal */
-export const PaymentResponseAmountChargedBack$inboundSchema: z.ZodType<
-  PaymentResponseAmountChargedBack,
+export const AmountChargedBack$inboundSchema: z.ZodType<
+  AmountChargedBack,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1328,37 +1312,35 @@ export const PaymentResponseAmountChargedBack$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type PaymentResponseAmountChargedBack$Outbound = {
+export type AmountChargedBack$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const PaymentResponseAmountChargedBack$outboundSchema: z.ZodType<
-  PaymentResponseAmountChargedBack$Outbound,
+export const AmountChargedBack$outboundSchema: z.ZodType<
+  AmountChargedBack$Outbound,
   z.ZodTypeDef,
-  PaymentResponseAmountChargedBack
+  AmountChargedBack
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function paymentResponseAmountChargedBackToJSON(
-  paymentResponseAmountChargedBack: PaymentResponseAmountChargedBack,
+export function amountChargedBackToJSON(
+  amountChargedBack: AmountChargedBack,
 ): string {
   return JSON.stringify(
-    PaymentResponseAmountChargedBack$outboundSchema.parse(
-      paymentResponseAmountChargedBack,
-    ),
+    AmountChargedBack$outboundSchema.parse(amountChargedBack),
   );
 }
-export function paymentResponseAmountChargedBackFromJSON(
+export function amountChargedBackFromJSON(
   jsonString: string,
-): SafeParseResult<PaymentResponseAmountChargedBack, SDKValidationError> {
+): SafeParseResult<AmountChargedBack, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PaymentResponseAmountChargedBack$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentResponseAmountChargedBack' from JSON`,
+    (x) => AmountChargedBack$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountChargedBack' from JSON`,
   );
 }
 
@@ -1616,22 +1598,19 @@ export const PaymentResponseStatus$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(PaymentResponseStatus);
 
 /** @internal */
-export const PaymentResponseReceipt$inboundSchema: z.ZodType<
-  PaymentResponseReceipt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authorizationCode: z.nullable(z.string()).optional(),
-  applicationIdentifier: z.nullable(z.string()).optional(),
-  cardReadMethod: z.nullable(
-    PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
-  ).optional(),
-  cardVerificationMethod: z.nullable(
-    PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
-  ).optional(),
-});
+export const Receipt$inboundSchema: z.ZodType<Receipt, z.ZodTypeDef, unknown> =
+  z.object({
+    authorizationCode: z.nullable(z.string()).optional(),
+    applicationIdentifier: z.nullable(z.string()).optional(),
+    cardReadMethod: z.nullable(
+      PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
+    ).optional(),
+    cardVerificationMethod: z.nullable(
+      PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
+    ).optional(),
+  });
 /** @internal */
-export type PaymentResponseReceipt$Outbound = {
+export type Receipt$Outbound = {
   authorizationCode?: string | null | undefined;
   applicationIdentifier?: string | null | undefined;
   cardReadMethod?: string | null | undefined;
@@ -1639,10 +1618,10 @@ export type PaymentResponseReceipt$Outbound = {
 };
 
 /** @internal */
-export const PaymentResponseReceipt$outboundSchema: z.ZodType<
-  PaymentResponseReceipt$Outbound,
+export const Receipt$outboundSchema: z.ZodType<
+  Receipt$Outbound,
   z.ZodTypeDef,
-  PaymentResponseReceipt
+  Receipt
 > = z.object({
   authorizationCode: z.nullable(z.string()).optional(),
   applicationIdentifier: z.nullable(z.string()).optional(),
@@ -1654,65 +1633,54 @@ export const PaymentResponseReceipt$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-export function paymentResponseReceiptToJSON(
-  paymentResponseReceipt: PaymentResponseReceipt,
-): string {
-  return JSON.stringify(
-    PaymentResponseReceipt$outboundSchema.parse(paymentResponseReceipt),
-  );
+export function receiptToJSON(receipt: Receipt): string {
+  return JSON.stringify(Receipt$outboundSchema.parse(receipt));
 }
-export function paymentResponseReceiptFromJSON(
+export function receiptFromJSON(
   jsonString: string,
-): SafeParseResult<PaymentResponseReceipt, SDKValidationError> {
+): SafeParseResult<Receipt, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PaymentResponseReceipt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentResponseReceipt' from JSON`,
+    (x) => Receipt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Receipt' from JSON`,
   );
 }
 
 /** @internal */
-export const PaymentResponseQrCode$inboundSchema: z.ZodType<
-  PaymentResponseQrCode,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  height: z.number().int().optional(),
-  width: z.number().int().optional(),
-  src: z.string().optional(),
-});
+export const QrCode$inboundSchema: z.ZodType<QrCode, z.ZodTypeDef, unknown> = z
+  .object({
+    height: z.number().int().optional(),
+    width: z.number().int().optional(),
+    src: z.string().optional(),
+  });
 /** @internal */
-export type PaymentResponseQrCode$Outbound = {
+export type QrCode$Outbound = {
   height?: number | undefined;
   width?: number | undefined;
   src?: string | undefined;
 };
 
 /** @internal */
-export const PaymentResponseQrCode$outboundSchema: z.ZodType<
-  PaymentResponseQrCode$Outbound,
+export const QrCode$outboundSchema: z.ZodType<
+  QrCode$Outbound,
   z.ZodTypeDef,
-  PaymentResponseQrCode
+  QrCode
 > = z.object({
   height: z.number().int().optional(),
   width: z.number().int().optional(),
   src: z.string().optional(),
 });
 
-export function paymentResponseQrCodeToJSON(
-  paymentResponseQrCode: PaymentResponseQrCode,
-): string {
-  return JSON.stringify(
-    PaymentResponseQrCode$outboundSchema.parse(paymentResponseQrCode),
-  );
+export function qrCodeToJSON(qrCode: QrCode): string {
+  return JSON.stringify(QrCode$outboundSchema.parse(qrCode));
 }
-export function paymentResponseQrCodeFromJSON(
+export function qrCodeFromJSON(
   jsonString: string,
-): SafeParseResult<PaymentResponseQrCode, SDKValidationError> {
+): SafeParseResult<QrCode, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PaymentResponseQrCode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentResponseQrCode' from JSON`,
+    (x) => QrCode$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'QrCode' from JSON`,
   );
 }
 
@@ -1762,7 +1730,7 @@ export const PaymentResponseDetails$inboundSchema: z.ZodType<
   customerReference: z.string().optional(),
   terminalId: z.string().optional(),
   maskedNumber: z.nullable(z.string()).optional(),
-  receipt: z.lazy(() => PaymentResponseReceipt$inboundSchema).optional(),
+  receipt: z.lazy(() => Receipt$inboundSchema).optional(),
   creditorIdentifier: z.nullable(z.string()).optional(),
   dueDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
   signatureDate: z.nullable(z.string().transform(v => new RFCDate(v)))
@@ -1773,7 +1741,7 @@ export const PaymentResponseDetails$inboundSchema: z.ZodType<
   mandateReference: z.nullable(z.string()).optional(),
   batchReference: z.nullable(z.string()).optional(),
   fileReference: z.nullable(z.string()).optional(),
-  qrCode: z.lazy(() => PaymentResponseQrCode$inboundSchema).optional(),
+  qrCode: z.lazy(() => QrCode$inboundSchema).optional(),
   voucherNumber: z.string().optional(),
   giftcards: z.array(z.record(z.any())).optional(),
   issuer: z.string().optional(),
@@ -1818,7 +1786,7 @@ export type PaymentResponseDetails$Outbound = {
   customerReference?: string | undefined;
   terminalId?: string | undefined;
   maskedNumber?: string | null | undefined;
-  receipt?: PaymentResponseReceipt$Outbound | undefined;
+  receipt?: Receipt$Outbound | undefined;
   creditorIdentifier?: string | null | undefined;
   dueDate?: string | null | undefined;
   signatureDate?: string | null | undefined;
@@ -1828,7 +1796,7 @@ export type PaymentResponseDetails$Outbound = {
   mandateReference?: string | null | undefined;
   batchReference?: string | null | undefined;
   fileReference?: string | null | undefined;
-  qrCode?: PaymentResponseQrCode$Outbound | undefined;
+  qrCode?: QrCode$Outbound | undefined;
   voucherNumber?: string | undefined;
   giftcards?: Array<{ [k: string]: any }> | undefined;
   issuer?: string | undefined;
@@ -1886,7 +1854,7 @@ export const PaymentResponseDetails$outboundSchema: z.ZodType<
   customerReference: z.string().optional(),
   terminalId: z.string().optional(),
   maskedNumber: z.nullable(z.string()).optional(),
-  receipt: z.lazy(() => PaymentResponseReceipt$outboundSchema).optional(),
+  receipt: z.lazy(() => Receipt$outboundSchema).optional(),
   creditorIdentifier: z.nullable(z.string()).optional(),
   dueDate: z.nullable(z.instanceof(RFCDate).transform(v => v.toString()))
     .optional(),
@@ -1898,7 +1866,7 @@ export const PaymentResponseDetails$outboundSchema: z.ZodType<
   mandateReference: z.nullable(z.string()).optional(),
   batchReference: z.nullable(z.string()).optional(),
   fileReference: z.nullable(z.string()).optional(),
-  qrCode: z.lazy(() => PaymentResponseQrCode$outboundSchema).optional(),
+  qrCode: z.lazy(() => QrCode$outboundSchema).optional(),
   voucherNumber: z.string().optional(),
   giftcards: z.array(z.record(z.any())).optional(),
   issuer: z.string().optional(),
@@ -2025,15 +1993,10 @@ export const PaymentResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   description: z.string(),
   amount: Amount$inboundSchema,
-  amountRefunded: z.lazy(() => PaymentResponseAmountRefunded$inboundSchema)
-    .optional(),
-  amountRemaining: z.lazy(() => PaymentResponseAmountRemaining$inboundSchema)
-    .optional(),
-  amountCaptured: z.lazy(() => PaymentResponseAmountCaptured$inboundSchema)
-    .optional(),
-  amountChargedBack: z.lazy(() =>
-    PaymentResponseAmountChargedBack$inboundSchema
-  ).optional(),
+  amountRefunded: z.lazy(() => AmountRefunded$inboundSchema).optional(),
+  amountRemaining: z.lazy(() => AmountRemaining$inboundSchema).optional(),
+  amountCaptured: z.lazy(() => AmountCaptured$inboundSchema).optional(),
+  amountChargedBack: z.lazy(() => AmountChargedBack$inboundSchema).optional(),
   settlementAmount: z.lazy(() => PaymentResponseSettlementAmount$inboundSchema)
     .optional(),
   redirectUrl: z.nullable(z.string()).optional(),
@@ -2089,10 +2052,10 @@ export type PaymentResponse$Outbound = {
   mode: string;
   description: string;
   amount: Amount$Outbound;
-  amountRefunded?: PaymentResponseAmountRefunded$Outbound | undefined;
-  amountRemaining?: PaymentResponseAmountRemaining$Outbound | undefined;
-  amountCaptured?: PaymentResponseAmountCaptured$Outbound | undefined;
-  amountChargedBack?: PaymentResponseAmountChargedBack$Outbound | undefined;
+  amountRefunded?: AmountRefunded$Outbound | undefined;
+  amountRemaining?: AmountRemaining$Outbound | undefined;
+  amountCaptured?: AmountCaptured$Outbound | undefined;
+  amountChargedBack?: AmountChargedBack$Outbound | undefined;
   settlementAmount?: PaymentResponseSettlementAmount$Outbound | undefined;
   redirectUrl?: string | null | undefined;
   cancelUrl?: string | null | undefined;
@@ -2142,15 +2105,10 @@ export const PaymentResponse$outboundSchema: z.ZodType<
   mode: Mode$outboundSchema,
   description: z.string(),
   amount: Amount$outboundSchema,
-  amountRefunded: z.lazy(() => PaymentResponseAmountRefunded$outboundSchema)
-    .optional(),
-  amountRemaining: z.lazy(() => PaymentResponseAmountRemaining$outboundSchema)
-    .optional(),
-  amountCaptured: z.lazy(() => PaymentResponseAmountCaptured$outboundSchema)
-    .optional(),
-  amountChargedBack: z.lazy(() =>
-    PaymentResponseAmountChargedBack$outboundSchema
-  ).optional(),
+  amountRefunded: z.lazy(() => AmountRefunded$outboundSchema).optional(),
+  amountRemaining: z.lazy(() => AmountRemaining$outboundSchema).optional(),
+  amountCaptured: z.lazy(() => AmountCaptured$outboundSchema).optional(),
+  amountChargedBack: z.lazy(() => AmountChargedBack$outboundSchema).optional(),
   settlementAmount: z.lazy(() => PaymentResponseSettlementAmount$outboundSchema)
     .optional(),
   redirectUrl: z.nullable(z.string()).optional(),

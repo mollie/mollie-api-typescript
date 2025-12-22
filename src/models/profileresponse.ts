@@ -54,7 +54,7 @@ export type ProfileResponseStatus = OpenEnum<typeof ProfileResponseStatus>;
  * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
  * `null` in test mode.
  */
-export type ProfileResponseReview = {
+export type Review = {
   /**
    * The status of the requested changes.
    */
@@ -160,7 +160,7 @@ export type ProfileResponse = {
    * automatically, unless a switch to a live profile has been requested. The review object will therefore usually be
    * `null` in test mode.
    */
-  review?: ProfileResponseReview | undefined;
+  review?: Review | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -185,41 +185,34 @@ export const ProfileResponseStatus$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(ProfileResponseStatus);
 
 /** @internal */
-export const ProfileResponseReview$inboundSchema: z.ZodType<
-  ProfileResponseReview,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  status: ProfileReviewStatusResponse$inboundSchema.optional(),
-});
+export const Review$inboundSchema: z.ZodType<Review, z.ZodTypeDef, unknown> = z
+  .object({
+    status: ProfileReviewStatusResponse$inboundSchema.optional(),
+  });
 /** @internal */
-export type ProfileResponseReview$Outbound = {
+export type Review$Outbound = {
   status?: string | undefined;
 };
 
 /** @internal */
-export const ProfileResponseReview$outboundSchema: z.ZodType<
-  ProfileResponseReview$Outbound,
+export const Review$outboundSchema: z.ZodType<
+  Review$Outbound,
   z.ZodTypeDef,
-  ProfileResponseReview
+  Review
 > = z.object({
   status: ProfileReviewStatusResponse$outboundSchema.optional(),
 });
 
-export function profileResponseReviewToJSON(
-  profileResponseReview: ProfileResponseReview,
-): string {
-  return JSON.stringify(
-    ProfileResponseReview$outboundSchema.parse(profileResponseReview),
-  );
+export function reviewToJSON(review: Review): string {
+  return JSON.stringify(Review$outboundSchema.parse(review));
 }
-export function profileResponseReviewFromJSON(
+export function reviewFromJSON(
   jsonString: string,
-): SafeParseResult<ProfileResponseReview, SDKValidationError> {
+): SafeParseResult<Review, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ProfileResponseReview$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProfileResponseReview' from JSON`,
+    (x) => Review$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Review' from JSON`,
   );
 }
 
@@ -300,7 +293,7 @@ export const ProfileResponse$inboundSchema: z.ZodType<
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string(),
   status: ProfileResponseStatus$inboundSchema,
-  review: z.lazy(() => ProfileResponseReview$inboundSchema).optional(),
+  review: z.lazy(() => Review$inboundSchema).optional(),
   createdAt: z.string(),
   _links: z.lazy(() => ProfileResponseLinks$inboundSchema),
 }).transform((v) => {
@@ -321,7 +314,7 @@ export type ProfileResponse$Outbound = {
   countriesOfActivity?: Array<string> | undefined;
   businessCategory: string;
   status: string;
-  review?: ProfileResponseReview$Outbound | undefined;
+  review?: Review$Outbound | undefined;
   createdAt: string;
   _links: ProfileResponseLinks$Outbound;
 };
@@ -343,7 +336,7 @@ export const ProfileResponse$outboundSchema: z.ZodType<
   countriesOfActivity: z.array(z.string()).optional(),
   businessCategory: z.string(),
   status: ProfileResponseStatus$outboundSchema,
-  review: z.lazy(() => ProfileResponseReview$outboundSchema).optional(),
+  review: z.lazy(() => Review$outboundSchema).optional(),
   createdAt: z.string(),
   links: z.lazy(() => ProfileResponseLinks$outboundSchema),
 }).transform((v) => {

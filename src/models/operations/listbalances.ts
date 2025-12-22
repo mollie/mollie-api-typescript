@@ -59,7 +59,7 @@ export type ListBalancesEmbedded = {
    * @remarks
    * the balance object, refer to the [Get balance endpoint](get-balance) documentation.
    */
-  balances: Array<models.ListEntityBalance>;
+  balances: Array<models.EntityBalance>;
 };
 
 /**
@@ -190,11 +190,11 @@ export const ListBalancesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  balances: z.array(models.ListEntityBalance$inboundSchema),
+  balances: z.array(models.EntityBalance$inboundSchema),
 });
 /** @internal */
 export type ListBalancesEmbedded$Outbound = {
-  balances: Array<models.ListEntityBalance$Outbound>;
+  balances: Array<models.EntityBalance$Outbound>;
 };
 
 /** @internal */
@@ -203,7 +203,7 @@ export const ListBalancesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListBalancesEmbedded
 > = z.object({
-  balances: z.array(models.ListEntityBalance$outboundSchema),
+  balances: z.array(models.EntityBalance$outboundSchema),
 });
 
 export function listBalancesEmbeddedToJSON(

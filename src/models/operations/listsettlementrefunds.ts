@@ -65,7 +65,7 @@ export type ListSettlementRefundsEmbedded = {
   /**
    * An array of refund objects.
    */
-  refunds: Array<models.ListEntityRefundResponse>;
+  refunds: Array<models.EntityRefundResponse>;
 };
 
 /**
@@ -203,11 +203,11 @@ export const ListSettlementRefundsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  refunds: z.array(models.ListEntityRefundResponse$inboundSchema),
+  refunds: z.array(models.EntityRefundResponse$inboundSchema),
 });
 /** @internal */
 export type ListSettlementRefundsEmbedded$Outbound = {
-  refunds: Array<models.ListEntityRefundResponse$Outbound>;
+  refunds: Array<models.EntityRefundResponse$Outbound>;
 };
 
 /** @internal */
@@ -216,7 +216,7 @@ export const ListSettlementRefundsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementRefundsEmbedded
 > = z.object({
-  refunds: z.array(models.ListEntityRefundResponse$outboundSchema),
+  refunds: z.array(models.EntityRefundResponse$outboundSchema),
 });
 
 export function listSettlementRefundsEmbeddedToJSON(

@@ -76,7 +76,7 @@ export type SalesInvoiceResponseMetadata = {};
 /**
  * The amount that is left to be paid.
  */
-export type SalesInvoiceResponseAmountDue = {
+export type AmountDue = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -90,7 +90,7 @@ export type SalesInvoiceResponseAmountDue = {
 /**
  * The total amount without VAT before discounts.
  */
-export type SalesInvoiceResponseSubtotalAmount = {
+export type SubtotalAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -104,7 +104,7 @@ export type SalesInvoiceResponseSubtotalAmount = {
 /**
  * The total amount with VAT.
  */
-export type SalesInvoiceResponseTotalAmount = {
+export type TotalAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -118,7 +118,7 @@ export type SalesInvoiceResponseTotalAmount = {
 /**
  * The total VAT amount.
  */
-export type SalesInvoiceResponseTotalVatAmount = {
+export type TotalVatAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -132,7 +132,7 @@ export type SalesInvoiceResponseTotalVatAmount = {
 /**
  * The total amount without VAT after discounts.
  */
-export type SalesInvoiceResponseDiscountedSubtotalAmount = {
+export type DiscountedSubtotalAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -275,25 +275,23 @@ export type SalesInvoiceResponse = {
   /**
    * The amount that is left to be paid.
    */
-  amountDue?: SalesInvoiceResponseAmountDue | undefined;
+  amountDue?: AmountDue | undefined;
   /**
    * The total amount without VAT before discounts.
    */
-  subtotalAmount?: SalesInvoiceResponseSubtotalAmount | undefined;
+  subtotalAmount?: SubtotalAmount | undefined;
   /**
    * The total amount with VAT.
    */
-  totalAmount?: SalesInvoiceResponseTotalAmount | undefined;
+  totalAmount?: TotalAmount | undefined;
   /**
    * The total VAT amount.
    */
-  totalVatAmount?: SalesInvoiceResponseTotalVatAmount | undefined;
+  totalVatAmount?: TotalVatAmount | undefined;
   /**
    * The total amount without VAT after discounts.
    */
-  discountedSubtotalAmount?:
-    | SalesInvoiceResponseDiscountedSubtotalAmount
-    | undefined;
+  discountedSubtotalAmount?: DiscountedSubtotalAmount | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -361,8 +359,8 @@ export function salesInvoiceResponseMetadataFromJSON(
 }
 
 /** @internal */
-export const SalesInvoiceResponseAmountDue$inboundSchema: z.ZodType<
-  SalesInvoiceResponseAmountDue,
+export const AmountDue$inboundSchema: z.ZodType<
+  AmountDue,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -370,43 +368,37 @@ export const SalesInvoiceResponseAmountDue$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type SalesInvoiceResponseAmountDue$Outbound = {
+export type AmountDue$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const SalesInvoiceResponseAmountDue$outboundSchema: z.ZodType<
-  SalesInvoiceResponseAmountDue$Outbound,
+export const AmountDue$outboundSchema: z.ZodType<
+  AmountDue$Outbound,
   z.ZodTypeDef,
-  SalesInvoiceResponseAmountDue
+  AmountDue
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function salesInvoiceResponseAmountDueToJSON(
-  salesInvoiceResponseAmountDue: SalesInvoiceResponseAmountDue,
-): string {
-  return JSON.stringify(
-    SalesInvoiceResponseAmountDue$outboundSchema.parse(
-      salesInvoiceResponseAmountDue,
-    ),
-  );
+export function amountDueToJSON(amountDue: AmountDue): string {
+  return JSON.stringify(AmountDue$outboundSchema.parse(amountDue));
 }
-export function salesInvoiceResponseAmountDueFromJSON(
+export function amountDueFromJSON(
   jsonString: string,
-): SafeParseResult<SalesInvoiceResponseAmountDue, SDKValidationError> {
+): SafeParseResult<AmountDue, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SalesInvoiceResponseAmountDue$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceResponseAmountDue' from JSON`,
+    (x) => AmountDue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmountDue' from JSON`,
   );
 }
 
 /** @internal */
-export const SalesInvoiceResponseSubtotalAmount$inboundSchema: z.ZodType<
-  SalesInvoiceResponseSubtotalAmount,
+export const SubtotalAmount$inboundSchema: z.ZodType<
+  SubtotalAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -414,44 +406,37 @@ export const SalesInvoiceResponseSubtotalAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type SalesInvoiceResponseSubtotalAmount$Outbound = {
+export type SubtotalAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const SalesInvoiceResponseSubtotalAmount$outboundSchema: z.ZodType<
-  SalesInvoiceResponseSubtotalAmount$Outbound,
+export const SubtotalAmount$outboundSchema: z.ZodType<
+  SubtotalAmount$Outbound,
   z.ZodTypeDef,
-  SalesInvoiceResponseSubtotalAmount
+  SubtotalAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function salesInvoiceResponseSubtotalAmountToJSON(
-  salesInvoiceResponseSubtotalAmount: SalesInvoiceResponseSubtotalAmount,
-): string {
-  return JSON.stringify(
-    SalesInvoiceResponseSubtotalAmount$outboundSchema.parse(
-      salesInvoiceResponseSubtotalAmount,
-    ),
-  );
+export function subtotalAmountToJSON(subtotalAmount: SubtotalAmount): string {
+  return JSON.stringify(SubtotalAmount$outboundSchema.parse(subtotalAmount));
 }
-export function salesInvoiceResponseSubtotalAmountFromJSON(
+export function subtotalAmountFromJSON(
   jsonString: string,
-): SafeParseResult<SalesInvoiceResponseSubtotalAmount, SDKValidationError> {
+): SafeParseResult<SubtotalAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      SalesInvoiceResponseSubtotalAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceResponseSubtotalAmount' from JSON`,
+    (x) => SubtotalAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SubtotalAmount' from JSON`,
   );
 }
 
 /** @internal */
-export const SalesInvoiceResponseTotalAmount$inboundSchema: z.ZodType<
-  SalesInvoiceResponseTotalAmount,
+export const TotalAmount$inboundSchema: z.ZodType<
+  TotalAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -459,43 +444,37 @@ export const SalesInvoiceResponseTotalAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type SalesInvoiceResponseTotalAmount$Outbound = {
+export type TotalAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const SalesInvoiceResponseTotalAmount$outboundSchema: z.ZodType<
-  SalesInvoiceResponseTotalAmount$Outbound,
+export const TotalAmount$outboundSchema: z.ZodType<
+  TotalAmount$Outbound,
   z.ZodTypeDef,
-  SalesInvoiceResponseTotalAmount
+  TotalAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function salesInvoiceResponseTotalAmountToJSON(
-  salesInvoiceResponseTotalAmount: SalesInvoiceResponseTotalAmount,
-): string {
-  return JSON.stringify(
-    SalesInvoiceResponseTotalAmount$outboundSchema.parse(
-      salesInvoiceResponseTotalAmount,
-    ),
-  );
+export function totalAmountToJSON(totalAmount: TotalAmount): string {
+  return JSON.stringify(TotalAmount$outboundSchema.parse(totalAmount));
 }
-export function salesInvoiceResponseTotalAmountFromJSON(
+export function totalAmountFromJSON(
   jsonString: string,
-): SafeParseResult<SalesInvoiceResponseTotalAmount, SDKValidationError> {
+): SafeParseResult<TotalAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SalesInvoiceResponseTotalAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceResponseTotalAmount' from JSON`,
+    (x) => TotalAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TotalAmount' from JSON`,
   );
 }
 
 /** @internal */
-export const SalesInvoiceResponseTotalVatAmount$inboundSchema: z.ZodType<
-  SalesInvoiceResponseTotalVatAmount,
+export const TotalVatAmount$inboundSchema: z.ZodType<
+  TotalVatAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -503,91 +482,73 @@ export const SalesInvoiceResponseTotalVatAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type SalesInvoiceResponseTotalVatAmount$Outbound = {
+export type TotalVatAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const SalesInvoiceResponseTotalVatAmount$outboundSchema: z.ZodType<
-  SalesInvoiceResponseTotalVatAmount$Outbound,
+export const TotalVatAmount$outboundSchema: z.ZodType<
+  TotalVatAmount$Outbound,
   z.ZodTypeDef,
-  SalesInvoiceResponseTotalVatAmount
+  TotalVatAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function salesInvoiceResponseTotalVatAmountToJSON(
-  salesInvoiceResponseTotalVatAmount: SalesInvoiceResponseTotalVatAmount,
-): string {
-  return JSON.stringify(
-    SalesInvoiceResponseTotalVatAmount$outboundSchema.parse(
-      salesInvoiceResponseTotalVatAmount,
-    ),
-  );
+export function totalVatAmountToJSON(totalVatAmount: TotalVatAmount): string {
+  return JSON.stringify(TotalVatAmount$outboundSchema.parse(totalVatAmount));
 }
-export function salesInvoiceResponseTotalVatAmountFromJSON(
+export function totalVatAmountFromJSON(
   jsonString: string,
-): SafeParseResult<SalesInvoiceResponseTotalVatAmount, SDKValidationError> {
+): SafeParseResult<TotalVatAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      SalesInvoiceResponseTotalVatAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceResponseTotalVatAmount' from JSON`,
+    (x) => TotalVatAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TotalVatAmount' from JSON`,
   );
 }
 
 /** @internal */
-export const SalesInvoiceResponseDiscountedSubtotalAmount$inboundSchema:
-  z.ZodType<
-    SalesInvoiceResponseDiscountedSubtotalAmount,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
+export const DiscountedSubtotalAmount$inboundSchema: z.ZodType<
+  DiscountedSubtotalAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 /** @internal */
-export type SalesInvoiceResponseDiscountedSubtotalAmount$Outbound = {
+export type DiscountedSubtotalAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const SalesInvoiceResponseDiscountedSubtotalAmount$outboundSchema:
-  z.ZodType<
-    SalesInvoiceResponseDiscountedSubtotalAmount$Outbound,
-    z.ZodTypeDef,
-    SalesInvoiceResponseDiscountedSubtotalAmount
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
+export const DiscountedSubtotalAmount$outboundSchema: z.ZodType<
+  DiscountedSubtotalAmount$Outbound,
+  z.ZodTypeDef,
+  DiscountedSubtotalAmount
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
-export function salesInvoiceResponseDiscountedSubtotalAmountToJSON(
-  salesInvoiceResponseDiscountedSubtotalAmount:
-    SalesInvoiceResponseDiscountedSubtotalAmount,
+export function discountedSubtotalAmountToJSON(
+  discountedSubtotalAmount: DiscountedSubtotalAmount,
 ): string {
   return JSON.stringify(
-    SalesInvoiceResponseDiscountedSubtotalAmount$outboundSchema.parse(
-      salesInvoiceResponseDiscountedSubtotalAmount,
-    ),
+    DiscountedSubtotalAmount$outboundSchema.parse(discountedSubtotalAmount),
   );
 }
-export function salesInvoiceResponseDiscountedSubtotalAmountFromJSON(
+export function discountedSubtotalAmountFromJSON(
   jsonString: string,
-): SafeParseResult<
-  SalesInvoiceResponseDiscountedSubtotalAmount,
-  SDKValidationError
-> {
+): SafeParseResult<DiscountedSubtotalAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      SalesInvoiceResponseDiscountedSubtotalAmount$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SalesInvoiceResponseDiscountedSubtotalAmount' from JSON`,
+    (x) => DiscountedSubtotalAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DiscountedSubtotalAmount' from JSON`,
   );
 }
 
@@ -672,17 +633,12 @@ export const SalesInvoiceResponse$inboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$inboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
-  amountDue: z.lazy(() => SalesInvoiceResponseAmountDue$inboundSchema)
+  amountDue: z.lazy(() => AmountDue$inboundSchema).optional(),
+  subtotalAmount: z.lazy(() => SubtotalAmount$inboundSchema).optional(),
+  totalAmount: z.lazy(() => TotalAmount$inboundSchema).optional(),
+  totalVatAmount: z.lazy(() => TotalVatAmount$inboundSchema).optional(),
+  discountedSubtotalAmount: z.lazy(() => DiscountedSubtotalAmount$inboundSchema)
     .optional(),
-  subtotalAmount: z.lazy(() => SalesInvoiceResponseSubtotalAmount$inboundSchema)
-    .optional(),
-  totalAmount: z.lazy(() => SalesInvoiceResponseTotalAmount$inboundSchema)
-    .optional(),
-  totalVatAmount: z.lazy(() => SalesInvoiceResponseTotalVatAmount$inboundSchema)
-    .optional(),
-  discountedSubtotalAmount: z.lazy(() =>
-    SalesInvoiceResponseDiscountedSubtotalAmount$inboundSchema
-  ).optional(),
   createdAt: z.string().optional(),
   issuedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
@@ -713,13 +669,11 @@ export type SalesInvoiceResponse$Outbound = {
   recipient?: SalesInvoiceRecipientResponse$Outbound | null | undefined;
   lines?: Array<SalesInvoiceLineItemResponse$Outbound> | null | undefined;
   discount?: SalesInvoiceDiscountResponse$Outbound | null | undefined;
-  amountDue?: SalesInvoiceResponseAmountDue$Outbound | undefined;
-  subtotalAmount?: SalesInvoiceResponseSubtotalAmount$Outbound | undefined;
-  totalAmount?: SalesInvoiceResponseTotalAmount$Outbound | undefined;
-  totalVatAmount?: SalesInvoiceResponseTotalVatAmount$Outbound | undefined;
-  discountedSubtotalAmount?:
-    | SalesInvoiceResponseDiscountedSubtotalAmount$Outbound
-    | undefined;
+  amountDue?: AmountDue$Outbound | undefined;
+  subtotalAmount?: SubtotalAmount$Outbound | undefined;
+  totalAmount?: TotalAmount$Outbound | undefined;
+  totalVatAmount?: TotalVatAmount$Outbound | undefined;
+  discountedSubtotalAmount?: DiscountedSubtotalAmount$Outbound | undefined;
   createdAt?: string | undefined;
   issuedAt?: string | null | undefined;
   paidAt?: string | null | undefined;
@@ -756,18 +710,12 @@ export const SalesInvoiceResponse$outboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$outboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$outboundSchema).optional(),
-  amountDue: z.lazy(() => SalesInvoiceResponseAmountDue$outboundSchema)
-    .optional(),
-  subtotalAmount: z.lazy(() =>
-    SalesInvoiceResponseSubtotalAmount$outboundSchema
-  ).optional(),
-  totalAmount: z.lazy(() => SalesInvoiceResponseTotalAmount$outboundSchema)
-    .optional(),
-  totalVatAmount: z.lazy(() =>
-    SalesInvoiceResponseTotalVatAmount$outboundSchema
-  ).optional(),
+  amountDue: z.lazy(() => AmountDue$outboundSchema).optional(),
+  subtotalAmount: z.lazy(() => SubtotalAmount$outboundSchema).optional(),
+  totalAmount: z.lazy(() => TotalAmount$outboundSchema).optional(),
+  totalVatAmount: z.lazy(() => TotalVatAmount$outboundSchema).optional(),
   discountedSubtotalAmount: z.lazy(() =>
-    SalesInvoiceResponseDiscountedSubtotalAmount$outboundSchema
+    DiscountedSubtotalAmount$outboundSchema
   ).optional(),
   createdAt: z.string().optional(),
   issuedAt: z.nullable(z.string()).optional(),

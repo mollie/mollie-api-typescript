@@ -12,6 +12,6 @@ let value: ListCapturesEmbedded = {
 
 ## Fields
 
-| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `captures`                                                  | [models.CaptureResponse](../../models/captureresponse.md)[] | :heavy_check_mark:                                          | An array of capture objects.                                |
+| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `captures`                                                          | [models.ListCaptureResponse](../../models/listcaptureresponse.md)[] | :heavy_check_mark:                                                  | An array of capture objects.                                        |

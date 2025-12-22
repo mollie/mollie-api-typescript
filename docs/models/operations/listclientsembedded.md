@@ -27,6 +27,10 @@ let value: ListClientsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
       },
       embedded: {
         organization: {

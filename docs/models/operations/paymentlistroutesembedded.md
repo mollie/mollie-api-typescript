@@ -25,6 +25,10 @@ let value: PaymentListRoutesEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
       },
       createdAt: "2024-03-20T09:13:37+00:00",
     },
@@ -34,6 +38,6 @@ let value: PaymentListRoutesEmbedded = {
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `routes`                                                              | [models.ListRouteGetResponse](../../models/listroutegetresponse.md)[] | :heavy_check_mark:                                                    | An array of route objects.                                            |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `routes`                                                      | [models.RouteGetResponse](../../models/routegetresponse.md)[] | :heavy_check_mark:                                            | An array of route objects.                                    |

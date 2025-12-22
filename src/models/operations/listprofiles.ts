@@ -31,7 +31,7 @@ export type ListProfilesEmbedded = {
   /**
    * An array of profile objects.
    */
-  profiles: Array<models.ListProfileResponse>;
+  profiles: Array<models.ProfileResponse>;
 };
 
 /**
@@ -114,11 +114,11 @@ export const ListProfilesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  profiles: z.array(models.ListProfileResponse$inboundSchema),
+  profiles: z.array(models.ProfileResponse$inboundSchema),
 });
 /** @internal */
 export type ListProfilesEmbedded$Outbound = {
-  profiles: Array<models.ListProfileResponse$Outbound>;
+  profiles: Array<models.ProfileResponse$Outbound>;
 };
 
 /** @internal */
@@ -127,7 +127,7 @@ export const ListProfilesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListProfilesEmbedded
 > = z.object({
-  profiles: z.array(models.ListProfileResponse$outboundSchema),
+  profiles: z.array(models.ProfileResponse$outboundSchema),
 });
 
 export function listProfilesEmbeddedToJSON(

@@ -61,7 +61,7 @@ export type ListCustomersEmbedded = {
   /**
    * An array of customer objects.
    */
-  customers: Array<models.ListCustomerResponse>;
+  customers: Array<models.CustomerResponse>;
 };
 
 /**
@@ -189,11 +189,11 @@ export const ListCustomersEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  customers: z.array(models.ListCustomerResponse$inboundSchema),
+  customers: z.array(models.CustomerResponse$inboundSchema),
 });
 /** @internal */
 export type ListCustomersEmbedded$Outbound = {
-  customers: Array<models.ListCustomerResponse$Outbound>;
+  customers: Array<models.CustomerResponse$Outbound>;
 };
 
 /** @internal */
@@ -202,7 +202,7 @@ export const ListCustomersEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListCustomersEmbedded
 > = z.object({
-  customers: z.array(models.ListCustomerResponse$outboundSchema),
+  customers: z.array(models.CustomerResponse$outboundSchema),
 });
 
 export function listCustomersEmbeddedToJSON(

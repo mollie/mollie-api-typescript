@@ -47,7 +47,7 @@ export type PaymentListRoutesEmbedded = {
   /**
    * An array of route objects.
    */
-  routes: Array<models.ListRouteGetResponse>;
+  routes: Array<models.RouteGetResponse>;
 };
 
 /**
@@ -183,11 +183,11 @@ export const PaymentListRoutesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  routes: z.array(models.ListRouteGetResponse$inboundSchema),
+  routes: z.array(models.RouteGetResponse$inboundSchema),
 });
 /** @internal */
 export type PaymentListRoutesEmbedded$Outbound = {
-  routes: Array<models.ListRouteGetResponse$Outbound>;
+  routes: Array<models.RouteGetResponse$Outbound>;
 };
 
 /** @internal */
@@ -196,7 +196,7 @@ export const PaymentListRoutesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentListRoutesEmbedded
 > = z.object({
-  routes: z.array(models.ListRouteGetResponse$outboundSchema),
+  routes: z.array(models.RouteGetResponse$outboundSchema),
 });
 
 export function paymentListRoutesEmbeddedToJSON(

@@ -57,6 +57,10 @@ let value: ListProfilesEmbedded = {
           href: "https://www.mollie.com/checkout/preview/pfl_2q3RyuMGry",
           type: "text/html",
         },
+        documentation: {
+          href: "https://...",
+          type: "text/html",
+        },
       },
     },
   ],
@@ -65,6 +69,6 @@ let value: ListProfilesEmbedded = {
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `profiles`                                                          | [models.ListProfileResponse](../../models/listprofileresponse.md)[] | :heavy_check_mark:                                                  | An array of profile objects.                                        |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `profiles`                                                  | [models.ProfileResponse](../../models/profileresponse.md)[] | :heavy_check_mark:                                          | An array of profile objects.                                |

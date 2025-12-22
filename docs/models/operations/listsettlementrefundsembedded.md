@@ -43,6 +43,10 @@ let value: ListSettlementRefundsEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
       },
     },
   ],
@@ -51,6 +55,6 @@ let value: ListSettlementRefundsEmbedded = {
 
 ## Fields
 
-| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `refunds`                                                                     | [models.ListEntityRefundResponse](../../models/listentityrefundresponse.md)[] | :heavy_check_mark:                                                            | An array of refund objects.                                                   |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `refunds`                                                             | [models.EntityRefundResponse](../../models/entityrefundresponse.md)[] | :heavy_check_mark:                                                    | An array of refund objects.                                           |

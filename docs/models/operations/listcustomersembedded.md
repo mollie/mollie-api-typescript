@@ -41,6 +41,10 @@ let value: ListCustomersEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
       },
     },
   ],
@@ -49,6 +53,6 @@ let value: ListCustomersEmbedded = {
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `customers`                                                           | [models.ListCustomerResponse](../../models/listcustomerresponse.md)[] | :heavy_check_mark:                                                    | An array of customer objects.                                         |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `customers`                                                   | [models.CustomerResponse](../../models/customerresponse.md)[] | :heavy_check_mark:                                            | An array of customer objects.                                 |

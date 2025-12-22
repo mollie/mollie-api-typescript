@@ -12,6 +12,6 @@ let value: ListMandatesEmbedded = {
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `mandates`                                                          | [models.ListMandateResponse](../../models/listmandateresponse.md)[] | :heavy_check_mark:                                                  | An array of mandate objects.                                        |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `mandates`                                                  | [models.MandateResponse](../../models/mandateresponse.md)[] | :heavy_check_mark:                                          | An array of mandate objects.                                |

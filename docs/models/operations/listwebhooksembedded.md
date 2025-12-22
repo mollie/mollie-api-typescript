@@ -25,6 +25,10 @@ let value: ListWebhooksEmbedded = {
           href: "https://...",
           type: "application/hal+json",
         },
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
       },
     },
   ],
@@ -33,6 +37,6 @@ let value: ListWebhooksEmbedded = {
 
 ## Fields
 
-| Field                                                           | Type                                                            | Required                                                        | Description                                                     |
-| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| `webhooks`                                                      | [models.ListEntityWebhook](../../models/listentitywebhook.md)[] | :heavy_check_mark:                                              | A list of webhooks.                                             |
+| Field                                                   | Type                                                    | Required                                                | Description                                             |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `webhooks`                                              | [models.EntityWebhook](../../models/entitywebhook.md)[] | :heavy_check_mark:                                      | A list of webhooks.                                     |

@@ -52,7 +52,7 @@ export type EntityChargebackSettlementAmount = {
 /**
  * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
  */
-export type EntityChargebackReason = {
+export type Reason = {
   /**
    * Technical code provided by the bank.
    */
@@ -117,7 +117,7 @@ export type EntityChargeback = {
   /**
    * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
    */
-  reason?: EntityChargebackReason | null | undefined;
+  reason?: Reason | null | undefined;
   /**
    * The unique identifier of the payment this chargeback was created for. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
    *
@@ -194,44 +194,37 @@ export function entityChargebackSettlementAmountFromJSON(
 }
 
 /** @internal */
-export const EntityChargebackReason$inboundSchema: z.ZodType<
-  EntityChargebackReason,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.string(),
-  description: z.string(),
-});
+export const Reason$inboundSchema: z.ZodType<Reason, z.ZodTypeDef, unknown> = z
+  .object({
+    code: z.string(),
+    description: z.string(),
+  });
 /** @internal */
-export type EntityChargebackReason$Outbound = {
+export type Reason$Outbound = {
   code: string;
   description: string;
 };
 
 /** @internal */
-export const EntityChargebackReason$outboundSchema: z.ZodType<
-  EntityChargebackReason$Outbound,
+export const Reason$outboundSchema: z.ZodType<
+  Reason$Outbound,
   z.ZodTypeDef,
-  EntityChargebackReason
+  Reason
 > = z.object({
   code: z.string(),
   description: z.string(),
 });
 
-export function entityChargebackReasonToJSON(
-  entityChargebackReason: EntityChargebackReason,
-): string {
-  return JSON.stringify(
-    EntityChargebackReason$outboundSchema.parse(entityChargebackReason),
-  );
+export function reasonToJSON(reason: Reason): string {
+  return JSON.stringify(Reason$outboundSchema.parse(reason));
 }
-export function entityChargebackReasonFromJSON(
+export function reasonFromJSON(
   jsonString: string,
-): SafeParseResult<EntityChargebackReason, SDKValidationError> {
+): SafeParseResult<Reason, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityChargebackReason$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityChargebackReason' from JSON`,
+    (x) => Reason$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Reason' from JSON`,
   );
 }
 
@@ -295,8 +288,7 @@ export const EntityChargeback$inboundSchema: z.ZodType<
   settlementAmount: z.nullable(
     z.lazy(() => EntityChargebackSettlementAmount$inboundSchema),
   ).optional(),
-  reason: z.nullable(z.lazy(() => EntityChargebackReason$inboundSchema))
-    .optional(),
+  reason: z.nullable(z.lazy(() => Reason$inboundSchema)).optional(),
   paymentId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
@@ -316,7 +308,7 @@ export type EntityChargeback$Outbound = {
     | EntityChargebackSettlementAmount$Outbound
     | null
     | undefined;
-  reason?: EntityChargebackReason$Outbound | null | undefined;
+  reason?: Reason$Outbound | null | undefined;
   paymentId: string;
   settlementId?: string | null | undefined;
   createdAt: string;
@@ -336,8 +328,7 @@ export const EntityChargeback$outboundSchema: z.ZodType<
   settlementAmount: z.nullable(
     z.lazy(() => EntityChargebackSettlementAmount$outboundSchema),
   ).optional(),
-  reason: z.nullable(z.lazy(() => EntityChargebackReason$outboundSchema))
-    .optional(),
+  reason: z.nullable(z.lazy(() => Reason$outboundSchema)).optional(),
   paymentId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   createdAt: z.string(),

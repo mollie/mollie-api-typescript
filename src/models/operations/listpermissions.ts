@@ -20,7 +20,7 @@ export type ListPermissionsEmbedded = {
   /**
    * An array of permission objects.
    */
-  permissions: Array<models.ListEntityPermission>;
+  permissions: Array<models.EntityPermission>;
 };
 
 /**
@@ -111,11 +111,11 @@ export const ListPermissionsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  permissions: z.array(models.ListEntityPermission$inboundSchema),
+  permissions: z.array(models.EntityPermission$inboundSchema),
 });
 /** @internal */
 export type ListPermissionsEmbedded$Outbound = {
-  permissions: Array<models.ListEntityPermission$Outbound>;
+  permissions: Array<models.EntityPermission$Outbound>;
 };
 
 /** @internal */
@@ -124,7 +124,7 @@ export const ListPermissionsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListPermissionsEmbedded
 > = z.object({
-  permissions: z.array(models.ListEntityPermission$outboundSchema),
+  permissions: z.array(models.EntityPermission$outboundSchema),
 });
 
 export function listPermissionsEmbeddedToJSON(

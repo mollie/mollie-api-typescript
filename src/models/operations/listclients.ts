@@ -60,6 +60,10 @@ export type ListClientsLinks = {
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
   onboarding?: models.Url | undefined;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  documentation?: models.Url | undefined;
 };
 
 export type ClientEmbedded = {
@@ -233,12 +237,14 @@ export const ListClientsLinks$inboundSchema: z.ZodType<
   self: models.Url$inboundSchema,
   organization: models.Url$inboundSchema.optional(),
   onboarding: models.Url$inboundSchema.optional(),
+  documentation: models.Url$inboundSchema.optional(),
 });
 /** @internal */
 export type ListClientsLinks$Outbound = {
   self: models.Url$Outbound;
   organization?: models.Url$Outbound | undefined;
   onboarding?: models.Url$Outbound | undefined;
+  documentation?: models.Url$Outbound | undefined;
 };
 
 /** @internal */
@@ -250,6 +256,7 @@ export const ListClientsLinks$outboundSchema: z.ZodType<
   self: models.Url$outboundSchema,
   organization: models.Url$outboundSchema.optional(),
   onboarding: models.Url$outboundSchema.optional(),
+  documentation: models.Url$outboundSchema.optional(),
 });
 
 export function listClientsLinksToJSON(
