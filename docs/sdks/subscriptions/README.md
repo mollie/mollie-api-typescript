@@ -69,6 +69,7 @@ async function run() {
       },
       webhookUrl: "https://example.com/webhook",
       mandateId: "mdt_5B8cwPMGnU",
+      profileId: "pfl_5B8cwPMGnU",
       testmode: false,
     },
   });
@@ -118,6 +119,7 @@ async function run() {
       },
       webhookUrl: "https://example.com/webhook",
       mandateId: "mdt_5B8cwPMGnU",
+      profileId: "pfl_5B8cwPMGnU",
       testmode: false,
     },
   });

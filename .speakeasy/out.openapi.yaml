@@ -19558,9 +19558,6 @@ paths:
                             dashboard:
                               href: https://www.mollie.com/dashboard/org_13514547/customers/cst_tKt44u85MM
                               type: text/html
-                            documentation:
-                              href: '...'
-                              type: text/html
                     _links:
                       self:
                         href: '...'
@@ -33587,6 +33584,17 @@ components:
             subscription is not canceled (yet).
           example: '2025-01-01T13:10:19+00:00'
           readOnly: true
+        profileId:
+          allOf:
+            - $ref: '#/components/schemas/profileToken'
+              description: |-
+                The identifier referring to the [profile](get-profile) this entity belongs to.
+
+                When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+                Organization tokens, the `profileId` is required.
+
+                For more information, see [Authentication](authentication).
+          writeOnly: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
         _links:
@@ -33773,6 +33781,17 @@ components:
             subscription is not canceled (yet).
           example: '2025-01-01T13:10:19+00:00'
           readOnly: true
+        profileId:
+          allOf:
+            - $ref: '#/components/schemas/profileToken'
+              description: |-
+                The identifier referring to the [profile](get-profile) this entity belongs to.
+
+                When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+                Organization tokens, the `profileId` is required.
+
+                For more information, see [Authentication](authentication).
+          writeOnly: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
         _links:
@@ -37097,6 +37116,17 @@ components:
             subscription is not canceled (yet).
           example: '2025-01-01T13:10:19+00:00'
           readOnly: true
+        profileId:
+          allOf:
+            - $ref: '#/components/schemas/profileToken'
+              description: |-
+                The identifier referring to the [profile](get-profile) this entity belongs to.
+
+                When using an API Key, the `profileId` can be omitted since it is linked to the key. However, for OAuth and
+                Organization tokens, the `profileId` is required.
+
+                For more information, see [Authentication](authentication).
+          writeOnly: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
         _links:
@@ -40710,9 +40740,9 @@ x-speakeasy-retries:
   strategy: backoff
   backoff:
     initialInterval: 500
-    maxInterval: 60000
-    maxElapsedTime: 3600000
-    exponent: 1.5
+    maxInterval: 5000
+    maxElapsedTime: 7500
+    exponent: 2
   statusCodes:
     - 5xx
   retryConnectionErrors: true

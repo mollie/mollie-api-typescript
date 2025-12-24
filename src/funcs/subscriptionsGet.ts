@@ -135,9 +135,9 @@ async function $do(
         strategy: "backoff",
         backoff: {
           initialInterval: 500,
-          maxInterval: 60000,
-          exponent: 1.5,
-          maxElapsedTime: 3600000,
+          maxInterval: 5000,
+          exponent: 2,
+          maxElapsedTime: 7500,
         },
         retryConnectionErrors: true,
       }

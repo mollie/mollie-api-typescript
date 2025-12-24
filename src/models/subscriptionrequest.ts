@@ -113,6 +113,7 @@ export type SubscriptionRequest = {
    */
   webhookUrl?: string | undefined;
   mandateId?: string | undefined;
+  profileId?: string | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -186,6 +187,7 @@ export const SubscriptionRequest$inboundSchema: z.ZodType<
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.string().optional(),
+  profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 /** @internal */
@@ -200,6 +202,7 @@ export type SubscriptionRequest$Outbound = {
   metadata?: Metadata$Outbound | null | undefined;
   webhookUrl?: string | undefined;
   mandateId?: string | undefined;
+  profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -220,6 +223,7 @@ export const SubscriptionRequest$outboundSchema: z.ZodType<
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.string().optional(),
+  profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 

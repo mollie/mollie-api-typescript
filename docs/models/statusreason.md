@@ -14,8 +14,7 @@ import { StatusReason } from "mollie-api-typescript/models";
 let value: StatusReason = {
   code: "insufficient_funds",
   message:
-    "The account associated with the card has insufficient funds. The shopper should use another payment method or\n"
-    + "contact their bank.",
+    "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank.",
 };
 ```
 
