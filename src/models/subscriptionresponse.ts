@@ -207,7 +207,7 @@ export type SubscriptionResponse = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl: string;
+  webhookUrl: string | null;
   /**
    * The customer this subscription belongs to.
    */
@@ -363,7 +363,7 @@ export const SubscriptionResponse$inboundSchema: z.ZodType<
   applicationFee: z.lazy(() => SubscriptionResponseApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(Metadata$inboundSchema),
-  webhookUrl: z.string(),
+  webhookUrl: z.nullable(z.string()),
   customerId: z.string(),
   mandateId: z.string().optional(),
   createdAt: z.string(),
@@ -390,7 +390,7 @@ export type SubscriptionResponse$Outbound = {
   method: string | null;
   applicationFee?: SubscriptionResponseApplicationFee$Outbound | undefined;
   metadata: Metadata$Outbound | null;
-  webhookUrl: string;
+  webhookUrl: string | null;
   customerId: string;
   mandateId?: string | undefined;
   createdAt: string;
@@ -420,7 +420,7 @@ export const SubscriptionResponse$outboundSchema: z.ZodType<
     SubscriptionResponseApplicationFee$outboundSchema
   ).optional(),
   metadata: z.nullable(Metadata$outboundSchema),
-  webhookUrl: z.string(),
+  webhookUrl: z.nullable(z.string()),
   customerId: z.string(),
   mandateId: z.string().optional(),
   createdAt: z.string(),

@@ -33555,7 +33555,9 @@ components:
 
             Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
         webhookUrl:
-          type: string
+          type:
+            - string
+            - 'null'
           description: |-
             We will call this URL for any payment status changes of payments resulting from this subscription.
 
@@ -33752,7 +33754,9 @@ components:
 
             Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
         webhookUrl:
-          type: string
+          type:
+            - string
+            - 'null'
           description: |-
             We will call this URL for any payment status changes of payments resulting from this subscription.
 
@@ -37087,7 +37091,9 @@ components:
 
             Any metadata added to the subscription will be automatically forwarded to the payments generated for it.
         webhookUrl:
-          type: string
+          type:
+            - string
+            - 'null'
           description: |-
             We will call this URL for any payment status changes of payments resulting from this subscription.
 

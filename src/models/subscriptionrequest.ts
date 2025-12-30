@@ -111,7 +111,7 @@ export type SubscriptionRequest = {
    * This webhook will receive **all** events for the subscription's payments. This may include payment failures as
    * well. Be sure to verify the payment's subscription ID and its status.
    */
-  webhookUrl?: string | undefined;
+  webhookUrl?: string | null | undefined;
   mandateId?: string | undefined;
   profileId?: string | undefined;
   /**
@@ -185,7 +185,7 @@ export const SubscriptionRequest$inboundSchema: z.ZodType<
   applicationFee: z.lazy(() => SubscriptionRequestApplicationFee$inboundSchema)
     .optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
-  webhookUrl: z.string().optional(),
+  webhookUrl: z.nullable(z.string()).optional(),
   mandateId: z.string().optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
@@ -200,7 +200,7 @@ export type SubscriptionRequest$Outbound = {
   method?: string | null | undefined;
   applicationFee?: SubscriptionRequestApplicationFee$Outbound | undefined;
   metadata?: Metadata$Outbound | null | undefined;
-  webhookUrl?: string | undefined;
+  webhookUrl?: string | null | undefined;
   mandateId?: string | undefined;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
@@ -221,7 +221,7 @@ export const SubscriptionRequest$outboundSchema: z.ZodType<
   applicationFee: z.lazy(() => SubscriptionRequestApplicationFee$outboundSchema)
     .optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
-  webhookUrl: z.string().optional(),
+  webhookUrl: z.nullable(z.string()).optional(),
   mandateId: z.string().optional(),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),

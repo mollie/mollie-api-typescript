@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 266915dbd7c4f4ca104ac0cf85626c74
+  docChecksum: d8adc5b190687e805fcf0458df28af7f
   docVersion: 1.0.0
-  speakeasyVersion: 1.680.5
+  speakeasyVersion: 1.680.10
   generationVersion: 2.788.7
-  releaseVersion: 0.9.7
-  configChecksum: e819157d65a6b86b38a0563dae55ee5e
+  releaseVersion: 0.9.8
+  configChecksum: ef96dd333e775b90de86a899ccadd272
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: f112e7e8-da9d-4c2a-acfc-79dea97c1a6a
-  pristine_commit_hash: c6d41043c3200c2ede7fb3ceb68599971a579670
-  pristine_tree_hash: 9103bdaef4ef69f1af44faec80bf1e3c1b801201
+  generation_id: e31fffbd-9742-44ea-940e-761d08d34b3e
+  pristine_commit_hash: 21f9abe196826c8f79e2183385aa41de1c0e4c4b
+  pristine_tree_hash: 7d14474f8bfef02b8e443e571f2aa96eacdc7666
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -2861,12 +2861,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:263dc6b9d6977608abedbaa5cc3e46ba40ee12e4
-    pristine_git_object: 58cb8d73e99b1b6fc5c03553c1f9d44c48dc0988
+    last_write_checksum: sha1:b9be79ea37acd077c4615e03f1831f5fe0631602
+    pristine_git_object: 55d7b9b83dc8e8ebd556357b04937056f95926f7
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:0b1dd1d537847b5b48794ca156d5a6de7f2c0813
-    pristine_git_object: a474721a3150fba29e4a4c54805cf2918365eb96
+    last_write_checksum: sha1:fc7d0a11fc5c04a7d30e21b1f9ae39f5e2ac829d
+    pristine_git_object: 12d46283f6458daaae41df13c25fa90a85ebeb33
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d9ddd6581847914e25feb525eb329e4168189d46
@@ -3277,8 +3277,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:94b90826c518b3f750377a6bbcc13c310990f624
-    pristine_git_object: 1bea948be008f1f57aaa32d66d6ad183e28c2e9c
+    last_write_checksum: sha1:44de3fda0fe1b1a05e3ed64d72e3c3e81568e204
+    pristine_git_object: c12df73fecb09a0d9dec5903132c36339eda9cbd
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -3361,8 +3361,8 @@ trackedFiles:
     pristine_git_object: 0955a573c2ce989d63c737410ab8cc28706d9f74
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:77d8d801cee8f273cb38055d339b5830ed83400d
-    pristine_git_object: ac4989bcbb6468da245df98755752f06c0fe384b
+    last_write_checksum: sha1:ceba7ba5defa57b917d499f5c150831ca53ae23e
+    pristine_git_object: 51a2dcfe3742ce6bd5a043679ccac9c7915ee4d7
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:905d497dc387068fb5a27df52f6c2385d63d7536
@@ -3377,8 +3377,8 @@ trackedFiles:
     pristine_git_object: c25696d4c4f70e081fa5d87ad6891874c509a577
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:f9cbfbbd849a3144b532e2c679b9a830c6429640
-    pristine_git_object: 355ca3dc4bc858f5a78aa88d7fa9a64679d23784
+    last_write_checksum: sha1:556895e6753e88ba560a6fd711ec84e8027649f1
+    pristine_git_object: e7faa63c0089745abbab8bcb708947f97c57d01d
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:56c73d4429691516e35541825e759a0285747a2b
@@ -4117,8 +4117,8 @@ trackedFiles:
     pristine_git_object: 7f7972db566408c01fe8d1df7ce7d7689b690d98
   src/models/listsubscriptionresponse.ts:
     id: d7d9ec8d27a9
-    last_write_checksum: sha1:bf4faf49c08b1b3f9ac2aaa37d83d03aba488e7b
-    pristine_git_object: 8b3bca8cb21d3e1edcb9a504987e6029938981e9
+    last_write_checksum: sha1:be304ecc0cac738b0eaa2bacc3ec955a75839ff6
+    pristine_git_object: dfa99c59bb704fab62a0e67650240d5c01200d51
   src/models/locale.ts:
     id: 59fce36fa544
     last_write_checksum: sha1:0e20a7d1d6418573d8daeab8199af82570f21386
@@ -4845,12 +4845,12 @@ trackedFiles:
     pristine_git_object: 546750078f76965615a36d0251ca8723b34a6a31
   src/models/subscriptionrequest.ts:
     id: 4cf8dfa8cf19
-    last_write_checksum: sha1:c99a6b76d27c9b83fa4b9003cb5ff9287c4d7ca3
-    pristine_git_object: de59ad89dd35f09156b608bc48a5cb0c0b21a08e
+    last_write_checksum: sha1:f5f3bcfd3111ae0afe175935902f222f02a0c514
+    pristine_git_object: f33168e5170d7d3469708c1f5f64040f0ff6b278
   src/models/subscriptionresponse.ts:
     id: 398ad499853d
-    last_write_checksum: sha1:e7eeb819968fcf12de255f914f791ca0160d7bb5
-    pristine_git_object: 0fe7ff357b64e94ccd103dfe514d6dfabef1af7c
+    last_write_checksum: sha1:f966799528ecc633c2c268b1b6127507909bbd9d
+    pristine_git_object: c32686d0fa2a3f75ac6279df86ed6748ca7d453f
   src/models/subtotals.ts:
     id: 6f76bbaf3a29
     last_write_checksum: sha1:d1dbddfc3f867c94401e1fef3d0e0d5e34a0003a
@@ -8573,7 +8573,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.subscriptions.create()`: \n  *  `request.subscription-request.profileId` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.subscriptions.create()`: \n  *  `request.subscription-request.webhookUrl` **Changed**\n  *  `response.webhookurl` **Changed** **Breaking** :warning:\n* `client.subscriptions.list()`:  `response._embedded.subscriptions.[].webhookUrl` **Changed** **Breaking** :warning:\n* `client.subscriptions.get()`:  `response.webhookurl` **Changed** **Breaking** :warning:\n* `client.subscriptions.update()`:  `response.webhookurl` **Changed** **Breaking** :warning:\n* `client.subscriptions.cancel()`:  `response.webhookurl` **Changed** **Breaking** :warning:\n* `client.subscriptions.all()`:  `response._embedded.subscriptions.[].webhookUrl` **Changed** **Breaking** :warning:\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
