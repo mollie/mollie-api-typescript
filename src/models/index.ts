@@ -47,7 +47,7 @@ export * from "./entitychargeback.js";
 export * from "./entitycustomer.js";
 export * from "./entityevent.js";
 export * from "./entityinvoice.js";
-export * from "./entitymethod.js";
+export * from "./entitymethodget.js";
 export * from "./entityonboardingstatus.js";
 export * from "./entityorganization.js";
 export * from "./entitypaymentroute.js";

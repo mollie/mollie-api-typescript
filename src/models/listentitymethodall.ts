@@ -59,7 +59,6 @@ export const ListEntityMethodAllId = {
   Paybybank: "paybybank",
   Paypal: "paypal",
   Paysafecard: "paysafecard",
-  Pointofsale: "pointofsale",
   Przelewy24: "przelewy24",
   Riverty: "riverty",
   Satispay: "satispay",
@@ -68,22 +67,6 @@ export const ListEntityMethodAllId = {
   Twint: "twint",
   Vipps: "vipps",
   Voucher: "voucher",
-  /**
-   * Deprecated, use 'klarna' instead
-   */
-  Klarnapaylater: "klarnapaylater",
-  /**
-   * Deprecated, use 'klarna' instead
-   */
-  Klarnapaynow: "klarnapaynow",
-  /**
-   * Deprecated, use 'klarna' instead
-   */
-  Klarnasliceit: "klarnasliceit",
-  /**
-   * No longer available
-   */
-  Payconiq: "payconiq",
 } as const;
 /**
  * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment

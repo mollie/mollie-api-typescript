@@ -31,6 +31,9 @@ export class Methods extends ClientSDK {
    * By default, only payment methods for the Euro currency are returned. If you
    * wish to retrieve payment methods which exclusively support other currencies (e.g. Twint), you need to use the
    * `amount` parameters.
+   *
+   * ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
+   * a non-online payment method, you can use the [Get payment method endpoint](get-method).
    */
   async list(
     request?: operations.ListMethodsRequest | undefined,
@@ -51,6 +54,9 @@ export class Methods extends ClientSDK {
    * method. The results of this endpoint are **not** paginated — unlike most other list endpoints in our API.
    *
    * The list can optionally be filtered using a number of parameters described below.
+   *
+   * ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
+   * a non-online payment method, you can use the [Get payment method endpoint](get-method).
    */
   async all(
     request?: operations.ListAllMethodsRequest | undefined,
@@ -83,7 +89,7 @@ export class Methods extends ClientSDK {
   async get(
     request: operations.GetMethodRequest,
     options?: RequestOptions,
-  ): Promise<models.EntityMethod> {
+  ): Promise<models.EntityMethodGet> {
     return unwrapAsync(methodsGet(
       this,
       request,

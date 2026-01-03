@@ -38,6 +38,9 @@ import { Result } from "../types/fp.js";
  * method. The results of this endpoint are **not** paginated — unlike most other list endpoints in our API.
  *
  * The list can optionally be filtered using a number of parameters described below.
+ *
+ * ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
+ * a non-online payment method, you can use the [Get payment method endpoint](get-method).
  */
 export function methodsAll(
   client: ClientCore,

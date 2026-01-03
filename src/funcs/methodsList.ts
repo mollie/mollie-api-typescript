@@ -50,6 +50,9 @@ import { Result } from "../types/fp.js";
  * By default, only payment methods for the Euro currency are returned. If you
  * wish to retrieve payment methods which exclusively support other currencies (e.g. Twint), you need to use the
  * `amount` parameters.
+ *
+ * ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
+ * a non-online payment method, you can use the [Get payment method endpoint](get-method).
  */
 export function methodsList(
   client: ClientCore,

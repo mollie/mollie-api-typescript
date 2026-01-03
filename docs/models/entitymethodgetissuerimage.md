@@ -1,4 +1,4 @@
-# EntityMethodIssuerImage
+# EntityMethodGetIssuerImage
 
 URLs of images representing the issuer.
 required:
@@ -9,9 +9,9 @@ required:
 ## Example Usage
 
 ```typescript
-import { EntityMethodIssuerImage } from "mollie-api-typescript/models";
+import { EntityMethodGetIssuerImage } from "mollie-api-typescript/models";
 
-let value: EntityMethodIssuerImage = {
+let value: EntityMethodGetIssuerImage = {
   size1x: "https://...",
   size2x: "https://...",
   svg: "https://...",

@@ -27,7 +27,7 @@ import {
  * @remarks
  * method selection screen will be skipped.
  */
-export const EntityMethodId = {
+export const EntityMethodGetId = {
   Alma: "alma",
   Applepay: "applepay",
   Bacs: "bacs",
@@ -85,12 +85,12 @@ export const EntityMethodId = {
  * @remarks
  * method selection screen will be skipped.
  */
-export type EntityMethodId = OpenEnum<typeof EntityMethodId>;
+export type EntityMethodGetId = OpenEnum<typeof EntityMethodGetId>;
 
 /**
  * The minimum payment amount required to use this payment method.
  */
-export type EntityMethodMinimumAmount = {
+export type EntityMethodGetMinimumAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -107,7 +107,7 @@ export type EntityMethodMinimumAmount = {
  * @remarks
  * is returned instead.
  */
-export type EntityMethodMaximumAmount = {
+export type EntityMethodGetMaximumAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -121,7 +121,7 @@ export type EntityMethodMaximumAmount = {
 /**
  * URLs of images representing the payment method.
  */
-export type EntityMethodImage = {
+export type EntityMethodGetImage = {
   /**
    * The URL pointing to an icon of 32 by 24 pixels.
    */
@@ -148,7 +148,7 @@ export type EntityMethodImage = {
  *   - size2x
  *   - svg
  */
-export type EntityMethodIssuerImage = {
+export type EntityMethodGetIssuerImage = {
   /**
    * The URL pointing to an icon of 32 by 24 pixels.
    */
@@ -166,7 +166,7 @@ export type EntityMethodIssuerImage = {
   svg?: string | undefined;
 };
 
-export type EntityMethodIssuer = {
+export type EntityMethodGetIssuer = {
   resource: string;
   id: string;
   /**
@@ -182,13 +182,13 @@ export type EntityMethodIssuer = {
    *   - size2x
    *   - svg
    */
-  image: EntityMethodIssuerImage;
+  image: EntityMethodGetIssuerImage;
 };
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
-export type EntityMethodLinks = {
+export type EntityMethodGetLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -199,7 +199,7 @@ export type EntityMethodLinks = {
   documentation?: Url | undefined;
 };
 
-export type EntityMethod = {
+export type EntityMethodGet = {
   /**
    * Indicates the response contains a payment method object. Will always contain the string `method` for this
    *
@@ -213,7 +213,7 @@ export type EntityMethod = {
    * @remarks
    * method selection screen will be skipped.
    */
-  id: EntityMethodId | null;
+  id: EntityMethodGetId | null;
   /**
    * The full name of the payment method.
    *
@@ -225,18 +225,18 @@ export type EntityMethod = {
   /**
    * The minimum payment amount required to use this payment method.
    */
-  minimumAmount: EntityMethodMinimumAmount;
+  minimumAmount: EntityMethodGetMinimumAmount;
   /**
    * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
    *
    * @remarks
    * is returned instead.
    */
-  maximumAmount: EntityMethodMaximumAmount | null;
+  maximumAmount: EntityMethodGetMaximumAmount | null;
   /**
    * URLs of images representing the payment method.
    */
-  image: EntityMethodImage;
+  image: EntityMethodGetImage;
   /**
    * The payment method's activation status for this profile.
    */
@@ -247,29 +247,29 @@ export type EntityMethod = {
    * @remarks
    * for iDEAL, KBC/CBC, gift cards, and vouchers.
    */
-  issuers?: Array<EntityMethodIssuer> | undefined;
+  issuers?: Array<EntityMethodGetIssuer> | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
-  links: EntityMethodLinks;
+  links: EntityMethodGetLinks;
 };
 
 /** @internal */
-export const EntityMethodId$inboundSchema: z.ZodType<
-  EntityMethodId,
+export const EntityMethodGetId$inboundSchema: z.ZodType<
+  EntityMethodGetId,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(EntityMethodId);
+> = openEnums.inboundSchema(EntityMethodGetId);
 /** @internal */
-export const EntityMethodId$outboundSchema: z.ZodType<
+export const EntityMethodGetId$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  EntityMethodId
-> = openEnums.outboundSchema(EntityMethodId);
+  EntityMethodGetId
+> = openEnums.outboundSchema(EntityMethodGetId);
 
 /** @internal */
-export const EntityMethodMinimumAmount$inboundSchema: z.ZodType<
-  EntityMethodMinimumAmount,
+export const EntityMethodGetMinimumAmount$inboundSchema: z.ZodType<
+  EntityMethodGetMinimumAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -277,41 +277,43 @@ export const EntityMethodMinimumAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type EntityMethodMinimumAmount$Outbound = {
+export type EntityMethodGetMinimumAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const EntityMethodMinimumAmount$outboundSchema: z.ZodType<
-  EntityMethodMinimumAmount$Outbound,
+export const EntityMethodGetMinimumAmount$outboundSchema: z.ZodType<
+  EntityMethodGetMinimumAmount$Outbound,
   z.ZodTypeDef,
-  EntityMethodMinimumAmount
+  EntityMethodGetMinimumAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function entityMethodMinimumAmountToJSON(
-  entityMethodMinimumAmount: EntityMethodMinimumAmount,
+export function entityMethodGetMinimumAmountToJSON(
+  entityMethodGetMinimumAmount: EntityMethodGetMinimumAmount,
 ): string {
   return JSON.stringify(
-    EntityMethodMinimumAmount$outboundSchema.parse(entityMethodMinimumAmount),
+    EntityMethodGetMinimumAmount$outboundSchema.parse(
+      entityMethodGetMinimumAmount,
+    ),
   );
 }
-export function entityMethodMinimumAmountFromJSON(
+export function entityMethodGetMinimumAmountFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMethodMinimumAmount, SDKValidationError> {
+): SafeParseResult<EntityMethodGetMinimumAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMethodMinimumAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMethodMinimumAmount' from JSON`,
+    (x) => EntityMethodGetMinimumAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodGetMinimumAmount' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityMethodMaximumAmount$inboundSchema: z.ZodType<
-  EntityMethodMaximumAmount,
+export const EntityMethodGetMaximumAmount$inboundSchema: z.ZodType<
+  EntityMethodGetMaximumAmount,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -319,41 +321,43 @@ export const EntityMethodMaximumAmount$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type EntityMethodMaximumAmount$Outbound = {
+export type EntityMethodGetMaximumAmount$Outbound = {
   currency: string;
   value: string;
 };
 
 /** @internal */
-export const EntityMethodMaximumAmount$outboundSchema: z.ZodType<
-  EntityMethodMaximumAmount$Outbound,
+export const EntityMethodGetMaximumAmount$outboundSchema: z.ZodType<
+  EntityMethodGetMaximumAmount$Outbound,
   z.ZodTypeDef,
-  EntityMethodMaximumAmount
+  EntityMethodGetMaximumAmount
 > = z.object({
   currency: z.string(),
   value: z.string(),
 });
 
-export function entityMethodMaximumAmountToJSON(
-  entityMethodMaximumAmount: EntityMethodMaximumAmount,
+export function entityMethodGetMaximumAmountToJSON(
+  entityMethodGetMaximumAmount: EntityMethodGetMaximumAmount,
 ): string {
   return JSON.stringify(
-    EntityMethodMaximumAmount$outboundSchema.parse(entityMethodMaximumAmount),
+    EntityMethodGetMaximumAmount$outboundSchema.parse(
+      entityMethodGetMaximumAmount,
+    ),
   );
 }
-export function entityMethodMaximumAmountFromJSON(
+export function entityMethodGetMaximumAmountFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMethodMaximumAmount, SDKValidationError> {
+): SafeParseResult<EntityMethodGetMaximumAmount, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMethodMaximumAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMethodMaximumAmount' from JSON`,
+    (x) => EntityMethodGetMaximumAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodGetMaximumAmount' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityMethodImage$inboundSchema: z.ZodType<
-  EntityMethodImage,
+export const EntityMethodGetImage$inboundSchema: z.ZodType<
+  EntityMethodGetImage,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -362,43 +366,43 @@ export const EntityMethodImage$inboundSchema: z.ZodType<
   svg: z.string(),
 });
 /** @internal */
-export type EntityMethodImage$Outbound = {
+export type EntityMethodGetImage$Outbound = {
   size1x: string;
   size2x: string;
   svg: string;
 };
 
 /** @internal */
-export const EntityMethodImage$outboundSchema: z.ZodType<
-  EntityMethodImage$Outbound,
+export const EntityMethodGetImage$outboundSchema: z.ZodType<
+  EntityMethodGetImage$Outbound,
   z.ZodTypeDef,
-  EntityMethodImage
+  EntityMethodGetImage
 > = z.object({
   size1x: z.string(),
   size2x: z.string(),
   svg: z.string(),
 });
 
-export function entityMethodImageToJSON(
-  entityMethodImage: EntityMethodImage,
+export function entityMethodGetImageToJSON(
+  entityMethodGetImage: EntityMethodGetImage,
 ): string {
   return JSON.stringify(
-    EntityMethodImage$outboundSchema.parse(entityMethodImage),
+    EntityMethodGetImage$outboundSchema.parse(entityMethodGetImage),
   );
 }
-export function entityMethodImageFromJSON(
+export function entityMethodGetImageFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMethodImage, SDKValidationError> {
+): SafeParseResult<EntityMethodGetImage, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMethodImage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMethodImage' from JSON`,
+    (x) => EntityMethodGetImage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodGetImage' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityMethodIssuerImage$inboundSchema: z.ZodType<
-  EntityMethodIssuerImage,
+export const EntityMethodGetIssuerImage$inboundSchema: z.ZodType<
+  EntityMethodGetIssuerImage,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -407,91 +411,91 @@ export const EntityMethodIssuerImage$inboundSchema: z.ZodType<
   svg: z.string().optional(),
 });
 /** @internal */
-export type EntityMethodIssuerImage$Outbound = {
+export type EntityMethodGetIssuerImage$Outbound = {
   size1x?: string | undefined;
   size2x?: string | undefined;
   svg?: string | undefined;
 };
 
 /** @internal */
-export const EntityMethodIssuerImage$outboundSchema: z.ZodType<
-  EntityMethodIssuerImage$Outbound,
+export const EntityMethodGetIssuerImage$outboundSchema: z.ZodType<
+  EntityMethodGetIssuerImage$Outbound,
   z.ZodTypeDef,
-  EntityMethodIssuerImage
+  EntityMethodGetIssuerImage
 > = z.object({
   size1x: z.string().optional(),
   size2x: z.string().optional(),
   svg: z.string().optional(),
 });
 
-export function entityMethodIssuerImageToJSON(
-  entityMethodIssuerImage: EntityMethodIssuerImage,
+export function entityMethodGetIssuerImageToJSON(
+  entityMethodGetIssuerImage: EntityMethodGetIssuerImage,
 ): string {
   return JSON.stringify(
-    EntityMethodIssuerImage$outboundSchema.parse(entityMethodIssuerImage),
+    EntityMethodGetIssuerImage$outboundSchema.parse(entityMethodGetIssuerImage),
   );
 }
-export function entityMethodIssuerImageFromJSON(
+export function entityMethodGetIssuerImageFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMethodIssuerImage, SDKValidationError> {
+): SafeParseResult<EntityMethodGetIssuerImage, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMethodIssuerImage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMethodIssuerImage' from JSON`,
+    (x) => EntityMethodGetIssuerImage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodGetIssuerImage' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityMethodIssuer$inboundSchema: z.ZodType<
-  EntityMethodIssuer,
+export const EntityMethodGetIssuer$inboundSchema: z.ZodType<
+  EntityMethodGetIssuer,
   z.ZodTypeDef,
   unknown
 > = z.object({
   resource: z.string(),
   id: z.string(),
   name: z.string(),
-  image: z.lazy(() => EntityMethodIssuerImage$inboundSchema),
+  image: z.lazy(() => EntityMethodGetIssuerImage$inboundSchema),
 });
 /** @internal */
-export type EntityMethodIssuer$Outbound = {
+export type EntityMethodGetIssuer$Outbound = {
   resource: string;
   id: string;
   name: string;
-  image: EntityMethodIssuerImage$Outbound;
+  image: EntityMethodGetIssuerImage$Outbound;
 };
 
 /** @internal */
-export const EntityMethodIssuer$outboundSchema: z.ZodType<
-  EntityMethodIssuer$Outbound,
+export const EntityMethodGetIssuer$outboundSchema: z.ZodType<
+  EntityMethodGetIssuer$Outbound,
   z.ZodTypeDef,
-  EntityMethodIssuer
+  EntityMethodGetIssuer
 > = z.object({
   resource: z.string(),
   id: z.string(),
   name: z.string(),
-  image: z.lazy(() => EntityMethodIssuerImage$outboundSchema),
+  image: z.lazy(() => EntityMethodGetIssuerImage$outboundSchema),
 });
 
-export function entityMethodIssuerToJSON(
-  entityMethodIssuer: EntityMethodIssuer,
+export function entityMethodGetIssuerToJSON(
+  entityMethodGetIssuer: EntityMethodGetIssuer,
 ): string {
   return JSON.stringify(
-    EntityMethodIssuer$outboundSchema.parse(entityMethodIssuer),
+    EntityMethodGetIssuer$outboundSchema.parse(entityMethodGetIssuer),
   );
 }
-export function entityMethodIssuerFromJSON(
+export function entityMethodGetIssuerFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMethodIssuer, SDKValidationError> {
+): SafeParseResult<EntityMethodGetIssuer, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMethodIssuer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMethodIssuer' from JSON`,
+    (x) => EntityMethodGetIssuer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodGetIssuer' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityMethodLinks$inboundSchema: z.ZodType<
-  EntityMethodLinks,
+export const EntityMethodGetLinks$inboundSchema: z.ZodType<
+  EntityMethodGetLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -499,105 +503,109 @@ export const EntityMethodLinks$inboundSchema: z.ZodType<
   documentation: Url$inboundSchema.optional(),
 });
 /** @internal */
-export type EntityMethodLinks$Outbound = {
+export type EntityMethodGetLinks$Outbound = {
   self: Url$Outbound;
   documentation?: Url$Outbound | undefined;
 };
 
 /** @internal */
-export const EntityMethodLinks$outboundSchema: z.ZodType<
-  EntityMethodLinks$Outbound,
+export const EntityMethodGetLinks$outboundSchema: z.ZodType<
+  EntityMethodGetLinks$Outbound,
   z.ZodTypeDef,
-  EntityMethodLinks
+  EntityMethodGetLinks
 > = z.object({
   self: Url$outboundSchema,
   documentation: Url$outboundSchema.optional(),
 });
 
-export function entityMethodLinksToJSON(
-  entityMethodLinks: EntityMethodLinks,
+export function entityMethodGetLinksToJSON(
+  entityMethodGetLinks: EntityMethodGetLinks,
 ): string {
   return JSON.stringify(
-    EntityMethodLinks$outboundSchema.parse(entityMethodLinks),
+    EntityMethodGetLinks$outboundSchema.parse(entityMethodGetLinks),
   );
 }
-export function entityMethodLinksFromJSON(
+export function entityMethodGetLinksFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMethodLinks, SDKValidationError> {
+): SafeParseResult<EntityMethodGetLinks, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMethodLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMethodLinks' from JSON`,
+    (x) => EntityMethodGetLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodGetLinks' from JSON`,
   );
 }
 
 /** @internal */
-export const EntityMethod$inboundSchema: z.ZodType<
-  EntityMethod,
+export const EntityMethodGet$inboundSchema: z.ZodType<
+  EntityMethodGet,
   z.ZodTypeDef,
   unknown
 > = z.object({
   resource: z.string(),
-  id: z.nullable(EntityMethodId$inboundSchema),
+  id: z.nullable(EntityMethodGetId$inboundSchema),
   description: z.string(),
-  minimumAmount: z.lazy(() => EntityMethodMinimumAmount$inboundSchema),
+  minimumAmount: z.lazy(() => EntityMethodGetMinimumAmount$inboundSchema),
   maximumAmount: z.nullable(
-    z.lazy(() => EntityMethodMaximumAmount$inboundSchema),
+    z.lazy(() => EntityMethodGetMaximumAmount$inboundSchema),
   ),
-  image: z.lazy(() => EntityMethodImage$inboundSchema),
+  image: z.lazy(() => EntityMethodGetImage$inboundSchema),
   status: z.nullable(MethodStatus$inboundSchema),
-  issuers: z.array(z.lazy(() => EntityMethodIssuer$inboundSchema)).optional(),
-  _links: z.lazy(() => EntityMethodLinks$inboundSchema),
+  issuers: z.array(z.lazy(() => EntityMethodGetIssuer$inboundSchema))
+    .optional(),
+  _links: z.lazy(() => EntityMethodGetLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
   });
 });
 /** @internal */
-export type EntityMethod$Outbound = {
+export type EntityMethodGet$Outbound = {
   resource: string;
   id: string | null;
   description: string;
-  minimumAmount: EntityMethodMinimumAmount$Outbound;
-  maximumAmount: EntityMethodMaximumAmount$Outbound | null;
-  image: EntityMethodImage$Outbound;
+  minimumAmount: EntityMethodGetMinimumAmount$Outbound;
+  maximumAmount: EntityMethodGetMaximumAmount$Outbound | null;
+  image: EntityMethodGetImage$Outbound;
   status: string | null;
-  issuers?: Array<EntityMethodIssuer$Outbound> | undefined;
-  _links: EntityMethodLinks$Outbound;
+  issuers?: Array<EntityMethodGetIssuer$Outbound> | undefined;
+  _links: EntityMethodGetLinks$Outbound;
 };
 
 /** @internal */
-export const EntityMethod$outboundSchema: z.ZodType<
-  EntityMethod$Outbound,
+export const EntityMethodGet$outboundSchema: z.ZodType<
+  EntityMethodGet$Outbound,
   z.ZodTypeDef,
-  EntityMethod
+  EntityMethodGet
 > = z.object({
   resource: z.string(),
-  id: z.nullable(EntityMethodId$outboundSchema),
+  id: z.nullable(EntityMethodGetId$outboundSchema),
   description: z.string(),
-  minimumAmount: z.lazy(() => EntityMethodMinimumAmount$outboundSchema),
+  minimumAmount: z.lazy(() => EntityMethodGetMinimumAmount$outboundSchema),
   maximumAmount: z.nullable(
-    z.lazy(() => EntityMethodMaximumAmount$outboundSchema),
+    z.lazy(() => EntityMethodGetMaximumAmount$outboundSchema),
   ),
-  image: z.lazy(() => EntityMethodImage$outboundSchema),
+  image: z.lazy(() => EntityMethodGetImage$outboundSchema),
   status: z.nullable(MethodStatus$outboundSchema),
-  issuers: z.array(z.lazy(() => EntityMethodIssuer$outboundSchema)).optional(),
-  links: z.lazy(() => EntityMethodLinks$outboundSchema),
+  issuers: z.array(z.lazy(() => EntityMethodGetIssuer$outboundSchema))
+    .optional(),
+  links: z.lazy(() => EntityMethodGetLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
   });
 });
 
-export function entityMethodToJSON(entityMethod: EntityMethod): string {
-  return JSON.stringify(EntityMethod$outboundSchema.parse(entityMethod));
+export function entityMethodGetToJSON(
+  entityMethodGet: EntityMethodGet,
+): string {
+  return JSON.stringify(EntityMethodGet$outboundSchema.parse(entityMethodGet));
 }
-export function entityMethodFromJSON(
+export function entityMethodGetFromJSON(
   jsonString: string,
-): SafeParseResult<EntityMethod, SDKValidationError> {
+): SafeParseResult<EntityMethodGet, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EntityMethod$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityMethod' from JSON`,
+    (x) => EntityMethodGet$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityMethodGet' from JSON`,
   );
 }

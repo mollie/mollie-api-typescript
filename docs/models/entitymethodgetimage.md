@@ -1,13 +1,13 @@
-# EntityMethodImage
+# EntityMethodGetImage
 
 URLs of images representing the payment method.
 
 ## Example Usage
 
 ```typescript
-import { EntityMethodImage } from "mollie-api-typescript/models";
+import { EntityMethodGetImage } from "mollie-api-typescript/models";
 
-let value: EntityMethodImage = {
+let value: EntityMethodGetImage = {
   size1x: "https://...",
   size2x: "https://...",
   svg: "https://...",

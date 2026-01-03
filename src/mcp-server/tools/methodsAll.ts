@@ -17,7 +17,10 @@ export const tool$methodsAll: ToolDefinition<typeof args> = {
 Retrieve all payment methods that Mollie offers, regardless of the eligibility of the organization for the specific
 method. The results of this endpoint are **not** paginated — unlike most other list endpoints in our API.
 
-The list can optionally be filtered using a number of parameters described below.`,
+The list can optionally be filtered using a number of parameters described below.
+
+ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
+a non-online payment method, you can use the [Get payment method endpoint](get-method).`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await methodsAll(

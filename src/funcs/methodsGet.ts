@@ -49,7 +49,7 @@ export function methodsGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.EntityMethod,
+    models.EntityMethodGet,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -75,7 +75,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.EntityMethod,
+      models.EntityMethodGet,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -187,7 +187,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.EntityMethod,
+    models.EntityMethodGet,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -198,7 +198,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.EntityMethod$inboundSchema, {
+    M.json(200, models.EntityMethodGet$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr([400, 404], errors.ErrorResponse$inboundSchema, {

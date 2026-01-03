@@ -1,13 +1,13 @@
-# EntityMethodMinimumAmount
+# EntityMethodGetMinimumAmount
 
 The minimum payment amount required to use this payment method.
 
 ## Example Usage
 
 ```typescript
-import { EntityMethodMinimumAmount } from "mollie-api-typescript/models";
+import { EntityMethodGetMinimumAmount } from "mollie-api-typescript/models";
 
-let value: EntityMethodMinimumAmount = {
+let value: EntityMethodGetMinimumAmount = {
   currency: "EUR",
   value: "10.00",
 };

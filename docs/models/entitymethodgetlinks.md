@@ -1,13 +1,13 @@
-# EntityMethodLinks
+# EntityMethodGetLinks
 
 An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
 
 ## Example Usage
 
 ```typescript
-import { EntityMethodLinks } from "mollie-api-typescript/models";
+import { EntityMethodGetLinks } from "mollie-api-typescript/models";
 
-let value: EntityMethodLinks = {
+let value: EntityMethodGetLinks = {
   self: {
     href: "https://...",
     type: "application/hal+json",

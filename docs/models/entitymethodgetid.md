@@ -1,4 +1,4 @@
-# EntityMethodId
+# EntityMethodGetId
 
 The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
 method selection screen will be skipped.
@@ -6,9 +6,9 @@ method selection screen will be skipped.
 ## Example Usage
 
 ```typescript
-import { EntityMethodId } from "mollie-api-typescript/models";
+import { EntityMethodGetId } from "mollie-api-typescript/models";
 
-let value: EntityMethodId = "ideal";
+let value: EntityMethodGetId = "ideal";
 ```
 
 ## Values

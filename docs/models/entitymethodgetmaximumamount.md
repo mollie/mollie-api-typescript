@@ -1,4 +1,4 @@
-# EntityMethodMaximumAmount
+# EntityMethodGetMaximumAmount
 
 The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`
 is returned instead.
@@ -6,9 +6,9 @@ is returned instead.
 ## Example Usage
 
 ```typescript
-import { EntityMethodMaximumAmount } from "mollie-api-typescript/models";
+import { EntityMethodGetMaximumAmount } from "mollie-api-typescript/models";
 
-let value: EntityMethodMaximumAmount = {
+let value: EntityMethodGetMaximumAmount = {
   currency: "EUR",
   value: "10.00",
 };
