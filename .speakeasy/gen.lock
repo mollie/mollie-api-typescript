@@ -3,17 +3,17 @@ id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
   docChecksum: 7520bdcaa712c27ef1aeede01e77a556
   docVersion: 1.0.0
-  speakeasyVersion: 1.680.11
-  generationVersion: 2.788.15
-  releaseVersion: 0.9.9
-  configChecksum: e0111452b277d3448d4ece507cbde2a7
+  speakeasyVersion: 1.682.0
+  generationVersion: 2.791.1
+  releaseVersion: 1.0.0
+  configChecksum: 879384276621c17099e86fc44c667b7e
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 50d41251-3683-4247-aae5-084db756d63a
-  pristine_commit_hash: 2e5754ec43404cf0c790371cd7d5c39b01503e08
-  pristine_tree_hash: 5db1082fd2e18abe24294beec20dd05e86d5e807
+  generation_id: bf0063b7-0cb5-48e8-9879-fb7ec285092f
+  pristine_commit_hash: d2d5fe68e5de1cc9718f4f143ccd54441a578c36
+  pristine_tree_hash: e0349de46c0023f9c3284a83b221076e9274acb6
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -2861,12 +2861,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:2af723cf9e85dadcd84d94da3ede3e62083866bd
-    pristine_git_object: 2430ba3e23bfd44b760d1910900578e98a6dc3ce
+    last_write_checksum: sha1:382cfa4edd05290a0b9b9502bfe9d102fa46b6a6
+    pristine_git_object: 3702b33e89bb83dccd4a877c8df3d92e34aad4c8
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:825e78ec4573a8f4d3a84ed9b6a83dc6c569f5b3
-    pristine_git_object: 6c8ea6f8760d9cdd40beeb24a137be543e040fe1
+    last_write_checksum: sha1:6609674139e617cd9757a415d527ff2a4caa217d
+    pristine_git_object: 016a4b2ece6d7b1819e35fc4dde998d33ae3bbcc
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d9ddd6581847914e25feb525eb329e4168189d46
@@ -3277,8 +3277,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:c6f36731b6af6c727c883d8262048c90f7425a93
-    pristine_git_object: d91df1c82ab75c0b5de9549eda4d924fd62cfdc2
+    last_write_checksum: sha1:900ace53eae991de6458202b775e452b8471fcef
+    pristine_git_object: 0ceaea89524f5b71bef81ec703e3fa14463f2f86
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -3361,8 +3361,8 @@ trackedFiles:
     pristine_git_object: 0955a573c2ce989d63c737410ab8cc28706d9f74
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:5c280381767e38eb96ad0b295b5357f82fbd5f98
-    pristine_git_object: a7d4da9d69ab2bc276240636c53cee9691f103d9
+    last_write_checksum: sha1:c9a95dbb6f64024b79d867da8da789d84ebd88ff
+    pristine_git_object: 7007bf5f60acfa6a6dee4f7f4259f74dab037d48
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:905d497dc387068fb5a27df52f6c2385d63d7536
@@ -3377,8 +3377,8 @@ trackedFiles:
     pristine_git_object: c25696d4c4f70e081fa5d87ad6891874c509a577
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:4bc3dd95b7768722365c4511e229b073d6408b82
-    pristine_git_object: 5d04aac2d2c3dec08474ae598b4ec9e1950dcb74
+    last_write_checksum: sha1:23ab1ffe21dfb1dc683c320ee95f96df3f18d655
+    pristine_git_object: 624a2357eaa75db5f2cca75ca0ff2688fcfa58a3
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:56c73d4429691516e35541825e759a0285747a2b

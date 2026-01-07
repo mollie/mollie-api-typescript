@@ -30,7 +30,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.9.9
+  version: 1.0.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -50,6 +50,7 @@ typescript:
   enumFormat: union
   envVarPrefix: CLIENT
   exportZodModelNamespace: false
+  flatAdditionalProperties: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string
