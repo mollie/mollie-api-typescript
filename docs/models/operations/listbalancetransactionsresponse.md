@@ -38,13 +38,13 @@ let value: ListBalanceTransactionsResponse = {
             captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
             captureDescription: "Capture Description",
           },
-          captureCommision: {
+          captureCommision: null,
+          captureRollingReserveRelease: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
             captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
             captureDescription: "Capture Description",
           },
-          captureRollingReserveRelease: null,
           unauthorizedDirectDebit: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -121,14 +121,15 @@ let value: ListBalanceTransactionsResponse = {
             paymentDescription: "Payment Description",
             payingOwner: "org_1234567",
           },
-          splitPayment: {
-            paymentId: "tr_5B8cwPMGnU",
-            paymentDescription: "Payment Description",
-            paymentOnwer: "org_1234567",
-          },
+          splitPayment: null,
           platformPaymentRefund: null,
           returnedPlatformPaymentRefund: null,
-          platformPaymentChargeback: null,
+          platformPaymentChargeback: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+            chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
+            chargebackDescription: "Chargeback Description",
+          },
           reversedPlatformPaymentChargeback: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -156,11 +157,10 @@ let value: ListBalanceTransactionsResponse = {
             feeType: "feeType",
             feeId: "feeId",
           },
-          returnedManagedFee: {
-            feeType: "feeType",
-            feeId: "feeId",
+          returnedManagedFee: null,
+          postPaymentSplitPayment: {
+            paymentId: "tr_5B8cwPMGnU",
           },
-          postPaymentSplitPayment: null,
         },
         createdAt: "2024-03-20T09:13:37+00:00",
       },

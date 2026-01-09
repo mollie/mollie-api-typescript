@@ -382,7 +382,7 @@ export type EntityBalanceTransaction = {
    * * Type `cash-collateral-issuance`: none
    * * Type `cash-collateral-release`: none
    */
-  context?: Context | undefined;
+  context?: Context | null | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -2069,7 +2069,7 @@ export const EntityBalanceTransaction$inboundSchema: z.ZodType<
   resultAmount: Amount$inboundSchema,
   initialAmount: Amount$inboundSchema,
   deductions: z.nullable(AmountNullable$inboundSchema).optional(),
-  context: z.lazy(() => Context$inboundSchema).optional(),
+  context: z.nullable(z.lazy(() => Context$inboundSchema)).optional(),
   createdAt: z.string(),
 });
 /** @internal */
@@ -2080,7 +2080,7 @@ export type EntityBalanceTransaction$Outbound = {
   resultAmount: Amount$Outbound;
   initialAmount: Amount$Outbound;
   deductions?: AmountNullable$Outbound | null | undefined;
-  context?: Context$Outbound | undefined;
+  context?: Context$Outbound | null | undefined;
   createdAt: string;
 };
 
@@ -2096,7 +2096,7 @@ export const EntityBalanceTransaction$outboundSchema: z.ZodType<
   resultAmount: Amount$outboundSchema,
   initialAmount: Amount$outboundSchema,
   deductions: z.nullable(AmountNullable$outboundSchema).optional(),
-  context: z.lazy(() => Context$outboundSchema).optional(),
+  context: z.nullable(z.lazy(() => Context$outboundSchema)).optional(),
   createdAt: z.string(),
 });
 

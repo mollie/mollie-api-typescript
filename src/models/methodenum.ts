@@ -16,7 +16,7 @@ import { ClosedEnum } from "../types/enums.js";
  * but will only show the methods specified in the array. For example, you can use this functionality to only show
  * payment methods from a specific country to your customer `['bancontact', 'belfius']`.
  */
-export const Method = {
+export const MethodEnum = {
   Alma: "alma",
   Applepay: "applepay",
   Bacs: "bacs",
@@ -63,11 +63,11 @@ export const Method = {
  * but will only show the methods specified in the array. For example, you can use this functionality to only show
  * payment methods from a specific country to your customer `['bancontact', 'belfius']`.
  */
-export type Method = ClosedEnum<typeof Method>;
+export type MethodEnum = ClosedEnum<typeof MethodEnum>;
 
 /** @internal */
-export const Method$inboundSchema: z.ZodNativeEnum<typeof Method> = z
-  .nativeEnum(Method);
+export const MethodEnum$inboundSchema: z.ZodNativeEnum<typeof MethodEnum> = z
+  .nativeEnum(MethodEnum);
 /** @internal */
-export const Method$outboundSchema: z.ZodNativeEnum<typeof Method> =
-  Method$inboundSchema;
+export const MethodEnum$outboundSchema: z.ZodNativeEnum<typeof MethodEnum> =
+  MethodEnum$inboundSchema;

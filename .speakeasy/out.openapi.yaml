@@ -28044,7 +28044,9 @@ components:
             When moving funds to a balance, we always round the deduction to a 'real' amount. Any differences between these
             real-time rounded amounts and the final invoice will be compensated when the invoice is generated.
         context:
-          type: object
+          type:
+            - object
+            - 'null'
           description: |-
             Depending on the type of the balance transaction, we will try to give more context about the specific event that
             triggered it. For example, the context object for a payment transaction will look like
@@ -32410,6 +32412,14 @@ components:
             - amount
             - description
             - redirectUrl
+        - type: object
+          properties:
+            method:
+              allOf:
+                - $ref: '#/components/schemas/method'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/method'
         - $ref: '#/components/schemas/extra-parameter-parameters'
     description:
       type: string
