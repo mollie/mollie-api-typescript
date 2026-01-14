@@ -4,6 +4,9 @@ import { SDK_METADATA } from "../lib/config.js";
 
 export class MollieHooks implements BeforeCreateRequestHook {
     beforeCreateRequest(hookContext: HookContext, input: RequestInput): RequestInput {
+        // Validate path parameters
+        this.validatePathParameters(input);
+        
         // Always normalize to Headers
         let headers = new Headers(input.options?.headers);
 
@@ -27,6 +30,25 @@ export class MollieHooks implements BeforeCreateRequestHook {
         }
 
         return input;
+    }
+
+    private validatePathParameters(input: RequestInput): void {
+        const url = input.url;
+        const pathSegments = url.pathname.split('/');
+
+        for (let i = 0; i < pathSegments.length; i++) {
+            const segment = pathSegments[i];
+            
+            if (i === 0 && segment === '') {
+                continue;
+            }
+
+            if (segment === '' || segment?.trim() === '') {
+                throw new Error(
+                    `Invalid request: empty path parameter detected in [${input.options?.method || 'GET'}] '${url.pathname}'`
+                );
+            }
+        }
     }
 
     private isOAuthRequest(headers: Headers, hookContext: HookContext): boolean {
