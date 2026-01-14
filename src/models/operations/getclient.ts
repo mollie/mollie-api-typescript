@@ -11,9 +11,9 @@ import * as models from "../index.js";
 
 export type GetClientRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related organization.
    */
-  id: string;
+  organizationId: string;
   /**
    * This endpoint allows embedding related API items by appending the following values via the `embed` query string
    *
@@ -101,7 +101,7 @@ export const GetClientRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  organizationId: z.string(),
   embed: z.nullable(z.string()).optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -111,7 +111,7 @@ export const GetClientRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetClientRequest$Outbound = {
-  id: string;
+  organizationId: string;
   embed?: string | null | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -122,7 +122,7 @@ export const GetClientRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetClientRequest
 > = z.object({
-  id: z.string(),
+  organizationId: z.string(),
   embed: z.nullable(z.string()).optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

@@ -278,7 +278,7 @@ Retrieve a single sales invoice by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-sales-invoice" method="get" path="/sales-invoices/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-sales-invoice" method="get" path="/sales-invoices/{salesInvoiceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -291,7 +291,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.salesInvoices.get({
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -320,7 +320,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await salesInvoicesGet(client, {
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -366,7 +366,7 @@ respectively).
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="update-sales-invoice" method="patch" path="/sales-invoices/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="update-sales-invoice" method="patch" path="/sales-invoices/{salesInvoiceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -378,7 +378,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.salesInvoices.update({
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     updateValuesSalesInvoice: {
       testmode: false,
@@ -458,7 +458,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await salesInvoicesUpdate(client, {
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     updateValuesSalesInvoice: {
       testmode: false,
@@ -555,7 +555,7 @@ Sales invoices which are in status `draft` can be deleted. For all other statuse
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete-sales-invoice" method="delete" path="/sales-invoices/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete-sales-invoice" method="delete" path="/sales-invoices/{salesInvoiceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -567,7 +567,7 @@ const client = new Client({
 
 async function run() {
   await client.salesInvoices.delete({
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     deleteValuesSalesInvoice: {
       testmode: false,
@@ -598,7 +598,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await salesInvoicesDelete(client, {
-    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
+    salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     deleteValuesSalesInvoice: {
       testmode: false,

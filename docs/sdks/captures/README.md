@@ -220,7 +220,7 @@ const client = new Client({
 async function run() {
   const result = await client.captures.get({
     paymentId: "tr_5B8cwPMGnU",
-    captureId: "cpt_gVMhHKqSSRYJyPsuoPNFH",
+    captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
@@ -251,7 +251,7 @@ const client = new ClientCore({
 async function run() {
   const res = await capturesGet(client, {
     paymentId: "tr_5B8cwPMGnU",
-    captureId: "cpt_gVMhHKqSSRYJyPsuoPNFH",
+    captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });

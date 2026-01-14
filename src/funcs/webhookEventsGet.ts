@@ -90,13 +90,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    webhookEventId: encodeSimple("webhookEventId", payload.webhookEventId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/events/{id}")(pathParams);
+  const path = pathToFunc("/events/{webhookEventId}")(pathParams);
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

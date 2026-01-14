@@ -11,9 +11,9 @@ import * as models from "../index.js";
 
 export type DeleteSalesInvoiceRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related sales invoice.
    */
-  id: string;
+  salesInvoiceId: string;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -27,7 +27,7 @@ export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  salesInvoiceId: z.string(),
   "idempotency-key": z.string().optional(),
   "delete-values-sales-invoice": models.DeleteValuesSalesInvoice$inboundSchema
     .optional(),
@@ -39,7 +39,7 @@ export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type DeleteSalesInvoiceRequest$Outbound = {
-  id: string;
+  salesInvoiceId: string;
   "idempotency-key"?: string | undefined;
   "delete-values-sales-invoice"?:
     | models.DeleteValuesSalesInvoice$Outbound
@@ -52,7 +52,7 @@ export const DeleteSalesInvoiceRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeleteSalesInvoiceRequest
 > = z.object({
-  id: z.string(),
+  salesInvoiceId: z.string(),
   idempotencyKey: z.string().optional(),
   deleteValuesSalesInvoice: models.DeleteValuesSalesInvoice$outboundSchema
     .optional(),

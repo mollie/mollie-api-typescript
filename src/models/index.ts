@@ -90,6 +90,7 @@ export * from "./mandaterequest.js";
 export * from "./mandateresponse.js";
 export * from "./metadata.js";
 export * from "./methodenum.js";
+export * from "./methodid.js";
 export * from "./methodincludewalletsparameter.js";
 export * from "./methodresourceparameter.js";
 export * from "./methodresponse.js";

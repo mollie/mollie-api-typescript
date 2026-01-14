@@ -95,13 +95,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    organizationId: encodeSimple("organizationId", payload.organizationId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/organizations/{id}")(pathParams);
+  const path = pathToFunc("/organizations/{organizationId}")(pathParams);
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

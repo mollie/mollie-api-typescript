@@ -101,13 +101,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    methodId: encodeSimple("methodId", payload.methodId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/methods/{id}")(pathParams);
+  const path = pathToFunc("/methods/{methodId}")(pathParams);
 
   const query = encodeFormQuery({
     "currency": payload.currency,

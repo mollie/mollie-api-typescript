@@ -206,7 +206,7 @@ Retrieve a single profile by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-profile" method="get" path="/profiles/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-profile" method="get" path="/profiles/{profileId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -219,7 +219,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.profiles.get({
-    id: "pfl_QkEhN94Ba",
+    profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -248,7 +248,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await profilesGet(client, {
-    id: "pfl_QkEhN94Ba",
+    profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -291,7 +291,7 @@ Alternatively, you can use this endpoint to automate profile management.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="update-profile" method="patch" path="/profiles/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="update-profile" method="patch" path="/profiles/{profileId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -303,7 +303,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.profiles.update({
-    id: "pfl_QkEhN94Ba",
+    profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "My new website name",
@@ -343,7 +343,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await profilesUpdate(client, {
-    id: "pfl_QkEhN94Ba",
+    profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "My new website name",
@@ -395,7 +395,7 @@ Delete a profile. A deleted profile and its related credentials can no longer be
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete-profile" method="delete" path="/profiles/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete-profile" method="delete" path="/profiles/{profileId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -407,7 +407,7 @@ const client = new Client({
 
 async function run() {
   await client.profiles.delete({
-    id: "pfl_QkEhN94Ba",
+    profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -435,7 +435,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await profilesDelete(client, {
-    id: "pfl_QkEhN94Ba",
+    profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

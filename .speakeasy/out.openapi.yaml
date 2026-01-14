@@ -276,12 +276,9 @@ paths:
 
               balances = Mollie::Balance.all
       x-speakeasy-group: balances
-  /balances/{id}:
+  /balances/{balanceId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: bal_gVMhHKqSSRYJyPsuoPNFH
+      - $ref: '#/components/parameters/parent-balance-id'
     get:
       summary: Get balance
       x-speakeasy-name-override: get
@@ -2290,12 +2287,9 @@ paths:
 
               settlements = Mollie::settlement.all
       x-speakeasy-group: settlements
-  /settlements/{id}:
+  /settlements/{settlementId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: stl_jDk30akdN
+      - $ref: '#/components/parameters/parent-settlement-id'
     get:
       summary: Get settlement
       x-speakeasy-name-override: get
@@ -6605,13 +6599,9 @@ paths:
 
               invoices = Mollie::invoice.all
       x-speakeasy-group: invoices
-  /invoices/{id}:
+  /invoices/{invoiceId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: inv_FrvewDA3Pr
-        required: true
+      - $ref: '#/components/parameters/parent-invoice-id'
     get:
       summary: Get invoice
       x-speakeasy-name-override: get
@@ -7123,12 +7113,9 @@ paths:
 
               permission = Mollie::Permission.get('payments.read')
       x-speakeasy-group: permissions
-  /organizations/{id}:
+  /organizations/{organizationId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: org_12345678
+      - $ref: '#/components/parameters/parent-organization-id'
     get:
       summary: Get organization
       x-speakeasy-name-override: get
@@ -7773,12 +7760,9 @@ paths:
 
               profiles = Mollie::Profile.all
       x-speakeasy-group: profiles
-  /profiles/{id}:
+  /profiles/{profileId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: pfl_QkEhN94Ba
+      - $ref: '#/components/parameters/parent-profile-id'
     get:
       summary: Get profile
       x-speakeasy-name-override: get
@@ -8790,12 +8774,9 @@ paths:
 
               clients = Mollie::Client.all
       x-speakeasy-group: clients
-  /clients/{id}:
+  /clients/{organizationId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: org_12345678
+      - $ref: '#/components/parameters/parent-organization-id'
     get:
       summary: Get client
       x-speakeasy-name-override: get
@@ -9382,12 +9363,9 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: webhooks
-  /webhooks/{id}:
+  /webhooks/{webhookId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: hook_B2EyhTH5N4KWUnoYPcgiH
+      - $ref: '#/components/parameters/parent-webhook-id'
     patch:
       summary: Update a webhook
       x-speakeasy-name-override: update
@@ -9665,12 +9643,9 @@ paths:
       x-speakeasy-group: webhooks
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
-  /webhooks/{id}/ping:
+  /webhooks/{webhookId}/ping:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: hook_B2EyhTH5N4KWUnoYPcgiH
+      - $ref: '#/components/parameters/parent-webhook-id'
     post:
       summary: Test a webhook
       x-speakeasy-name-override: test
@@ -9733,12 +9708,9 @@ paths:
       x-speakeasy-group: webhooks
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
-  /events/{id}:
+  /events/{webhookEventId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: event_jd9v34P5YqN9pT8n3HJyH
+      - $ref: '#/components/parameters/parent-webhook-event-id'
     get:
       summary: Get a Webhook Event
       x-speakeasy-name-override: get
@@ -10059,12 +10031,9 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: balance-transfers
-  /connect/balance-transfers/{id}:
+  /connect/balance-transfers/{balanceTransferId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: cbtr_j8NvRAM2WNZtsykpLEX8J
+      - $ref: '#/components/parameters/parent-connect-balance-transfer-id'
     get:
       summary: Get a Connect balance transfer
       x-speakeasy-name-override: get
@@ -15325,12 +15294,9 @@ paths:
 
               methods = Mollie::Method.all_available
       x-speakeasy-group: methods
-  /methods/{id}:
+  /methods/{methodId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: ideal
+      - $ref: '#/components/parameters/parent-method-id'
     get:
       summary: Get payment method
       x-speakeasy-name-override: get
@@ -15485,13 +15451,10 @@ paths:
               # Methods for the Orders API
               methods = Mollie::Method.all(resource: 'orders')
       x-speakeasy-group: methods
-  /profiles/{profileId}/methods/{id}:
+  /profiles/{profileId}/methods/{methodId}:
     parameters:
-      - $ref: '#/components/parameters/parent-profile-id'
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: ideal
+      - $ref: '#/components/parameters/parent-profile-and-me-id'
+      - $ref: '#/components/parameters/parent-method-id'
     post:
       summary: Enable payment method
       x-speakeasy-name-override: enable
@@ -15697,14 +15660,11 @@ paths:
       x-speakeasy-group: methods
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
-  /profiles/{profileId}/methods/{methodId}/issuers/{id}:
+  /profiles/{profileId}/methods/{methodId}/issuers/{issuerId}:
     parameters:
-      - $ref: '#/components/parameters/parent-profile-id'
-      - $ref: '#/components/parameters/parent-method-id'
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: edenred-france-sports
+      - $ref: '#/components/parameters/parent-profile-and-me-id'
+      - $ref: '#/components/parameters/parent-method-with-issuer-id'
+      - $ref: '#/components/parameters/parent-issuer-id'
     post:
       summary: Enable payment method issuer
       x-speakeasy-name-override: enable-issuer
@@ -26544,12 +26504,9 @@ paths:
               # share suggestions on our Discord:
               # https://discord.gg/VaTVkXB4aQ
       x-speakeasy-group: sales-invoices
-  /sales-invoices/{id}:
+  /sales-invoices/{salesInvoiceId}:
     parameters:
-      - $ref: '#/components/parameters/id'
-        schema:
-          type: string
-          example: invoice_4Y0eZitmBnQ6IDoMqZQKh
+      - $ref: '#/components/parameters/parent-sales-invoice-id'
     get:
       summary: Get sales invoice
       x-speakeasy-name-override: get
@@ -26966,29 +26923,20 @@ components:
       schema:
         type: boolean
         example: false
-    id:
-      name: id
-      description: Provide the ID of the item you want to perform this operation on.
-      in: path
-      required: true
-      schema:
-        type: string
     parent-balance-id:
       name: balanceId
       description: Provide the ID of the related balance.
       in: path
       required: true
       schema:
-        type: string
-        example: bal_gVMhHKqSSRYJyPsuoPNFH
+        $ref: '#/components/schemas/balanceToken'
     parent-settlement-id:
       name: settlementId
       description: Provide the ID of the related settlement.
       in: path
       required: true
       schema:
-        type: string
-        example: stl_jDk30akdN
+        $ref: '#/components/schemas/settlementToken'
     list-sort:
       name: sort
       description: |-
@@ -27030,6 +26978,13 @@ components:
         type:
           - string
           - 'null'
+    parent-invoice-id:
+      name: invoiceId
+      description: Provide the ID of the related invoice.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/invoiceToken'
     parent-permission-id:
       name: permissionId
       description: Provide the ID of the related permission.
@@ -27037,6 +26992,41 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/permissionToken'
+    parent-organization-id:
+      name: organizationId
+      description: Provide the ID of the related organization.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/organizationToken'
+    parent-profile-id:
+      name: profileId
+      description: Provide the ID of the related profile.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/profileToken'
+    parent-webhook-id:
+      name: webhookId
+      description: Provide the ID of the related webhook.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/webhookToken'
+    parent-webhook-event-id:
+      name: webhookEventId
+      description: Provide the ID of the related webhook event.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/webhookEventToken'
+    parent-connect-balance-transfer-id:
+      name: balanceTransferId
+      description: Provide the ID of the related balance transfer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/connectBalanceTransferToken'
     include:
       name: include
       description: This endpoint allows you to include additional information via the `include` query string parameter.
@@ -27059,7 +27049,14 @@ components:
       schema:
         type: string
         $ref: '#/components/schemas/locale'
-    parent-profile-id:
+    parent-method-id:
+      name: methodId
+      description: Provide the ID of the related payment method.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/method-id'
+    parent-profile-and-me-id:
       name: profileId
       description: Provide the ID of the related profile.
       in: path
@@ -27068,13 +27065,22 @@ components:
         oneOf:
           - $ref: '#/components/schemas/profileToken'
           - $ref: '#/components/schemas/profile-path-id'
-    parent-method-id:
+    parent-method-with-issuer-id:
       name: methodId
       description: Provide the ID of the related payment method.
       in: path
       required: true
       schema:
         $ref: '#/components/schemas/method-id-with-issuer'
+    parent-issuer-id:
+      name: issuerId
+      description: Provide the ID of the related issuer.
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        example: edenred-france-sports
     parent-refund-id:
       name: refundId
       description: Provide the ID of the related refund.
@@ -27095,8 +27101,7 @@ components:
       in: path
       required: true
       schema:
-        type: string
-        example: cpt_gVMhHKqSSRYJyPsuoPNFH
+        $ref: '#/components/schemas/captureToken'
     parent-payment-link-id:
       name: paymentLinkId
       description: Provide the ID of the related payment link.
@@ -27132,6 +27137,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/subscriptionToken'
+    parent-sales-invoice-id:
+      name: salesInvoiceId
+      description: Provide the ID of the related sales invoice.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/salesInvoiceToken'
     idempotency-key:
       name: idempotency-key
       in: header
@@ -27154,6 +27166,7 @@ components:
       example: 5
     balanceToken:
       type: string
+      pattern: ^bal_.+$
       example: bal_gVMhHKqSSRYJyPsuoPNFH
     mode:
       type: string
@@ -27950,6 +27963,7 @@ components:
       x-speakeasy-unknown-values: allow
     balanceTransactionToken:
       type: string
+      pattern: ^baltr_.+$
       example: baltr_QM24QwzUWR4ev4Xfgyt29d
     amount-nullable:
       type:
@@ -27970,27 +27984,35 @@ components:
           example: '10.00'
     paymentToken:
       type: string
+      pattern: ^tr_.+$
       example: tr_5B8cwPMGnU
     captureToken:
       type: string
+      pattern: ^cpt_.+$
       example: cpt_vytxeTZskVKR7C7WgdSP3d
     refundToken:
       type: string
+      pattern: ^re_.+$
       example: re_5B8cwPMGnU
     chargebackToken:
       type: string
+      pattern: ^chb_.+$
       example: chb_xFzwUN4ci8HAmSGUACS4J
     transferToken:
       type: string
+      pattern: ^trf_.+$
       example: trf_nyjwa2
     settlementToken:
       type: string
+      pattern: ^stl_.+$
       example: stl_5B8cwPMGnU
     invoiceToken:
       type: string
+      pattern: ^inv_.+$
       example: inv_aHbjjdrUdm
     organizationToken:
       type: string
+      pattern: ^org_.+$
       example: org_1234567
     entity-balance-transaction:
       type: object
@@ -28703,6 +28725,7 @@ components:
       example: desc
     profileToken:
       type: string
+      pattern: ^pfl_.+$
       example: pfl_5B8cwPMGnU
       description: |-
         The identifier referring to the [profile](get-profile) this entity belongs to.
@@ -29030,6 +29053,7 @@ components:
         - manual
     routeToken:
       type: string
+      pattern: ^rt_.+$
       example: rt_5B8cwPMGnU
     route-destination-type:
       type: string
@@ -29115,15 +29139,19 @@ components:
       example: oneoff
     subscriptionToken:
       type: string
+      pattern: ^sub_.+$
       example: sub_5B8cwPMGnU
     mandateToken:
       type: string
+      pattern: ^mdt_.+$
       example: mdt_5B8cwPMGnU
     customerToken:
       type: string
+      pattern: ^cst_.+$
       example: cst_5B8cwPMGnU
     orderToken:
       type: string
+      pattern: ^ord_.+$
       example: ord_5B8cwPMGnU
     payment-status:
       type: string
@@ -30401,6 +30429,7 @@ components:
       example: succeeded
     shipmentToken:
       type: string
+      pattern: ^shp_.+$
       example: shp_5x4xQJDWGNcY3tKGL7X5J
     entity-capture:
       type: object
@@ -30939,6 +30968,7 @@ components:
       x-speakeasy-unknown-values: allow
     permissionToken:
       type: string
+      minLength: 1
       example: payments.read
     entity-permission:
       type: object
@@ -31805,6 +31835,10 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
       x-speakeasy-unknown-values: allow
+    webhookToken:
+      type: string
+      pattern: ^hook_.+$
+      example: hook_1234567890
     oauth-testmode:
       type: boolean
       description: |-
@@ -31813,8 +31847,13 @@ components:
         Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
       writeOnly: true
       example: false
+    webhookEventToken:
+      type: string
+      pattern: ^event_.+$
+      example: event_1234567890
     paymentLinkToken:
       type: string
+      pattern: ^pl_.+$
       example: pl_d9fQur83kFdhH8hIhaZfq
     payment-link-method:
       type: string
@@ -32145,6 +32184,7 @@ components:
       x-speakeasy-unknown-values: allow
     connectBalanceTransferToken:
       type: string
+      pattern: ^cbtr_.+$
       example: cbtr_j8NvRAM2WNZtsykpLEX8J
     balance-transfer-party-type:
       type: string
@@ -32415,7 +32455,7 @@ components:
         - type: object
           properties:
             method:
-              allOf:
+              oneOf:
                 - $ref: '#/components/schemas/method'
                 - type: array
                   items:
@@ -32967,6 +33007,7 @@ components:
       example: false
     terminalToken:
       type: string
+      pattern: ^term_.+$
       example: term_vytxeTZskVKR7C7WgdSP3d
     terminal-status:
       type: string
@@ -33096,6 +33137,7 @@ components:
       x-speakeasy-unknown-values: allow
     connectRouteToken:
       type: string
+      pattern: ^crt_.+$
       example: crt_dyARQ3JzCgtPDhU2Pbq3J
     entity-route:
       type: object
@@ -33917,6 +33959,7 @@ components:
           readOnly: true
     salesInvoiceToken:
       type: string
+      pattern: ^invoice_.+$
       example: invoice_4Y0eZitmBnQ6IDoMqZQKh
     sales-invoice-status:
       type: string

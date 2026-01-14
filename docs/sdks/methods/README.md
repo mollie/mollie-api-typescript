@@ -249,7 +249,7 @@ are enabled by passing the wallet ID (`applepay`) as the method ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-method" method="get" path="/methods/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-method" method="get" path="/methods/{methodId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -263,7 +263,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.methods.get({
-    id: "ideal",
+    methodId: "ideal",
     locale: "en_US",
     currency: "EUR",
     include: "issuers",
@@ -297,7 +297,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await methodsGet(client, {
-    id: "ideal",
+    methodId: "ideal",
     locale: "en_US",
     currency: "EUR",
     include: "issuers",

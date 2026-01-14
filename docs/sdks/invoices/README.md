@@ -109,7 +109,7 @@ call the [List invoices](list-invoices) endpoint with the `reference` parameter.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-invoice" method="get" path="/invoices/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-invoice" method="get" path="/invoices/{invoiceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -121,7 +121,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.invoices.get({
-    id: "inv_FrvewDA3Pr",
+    invoiceId: "inv_aHbjjdrUdm",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -149,7 +149,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await invoicesGet(client, {
-    id: "inv_FrvewDA3Pr",
+    invoiceId: "inv_aHbjjdrUdm",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

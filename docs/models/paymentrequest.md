@@ -85,6 +85,7 @@ let value: PaymentRequest = {
     country: "NL",
   },
   locale: "en_US",
+  method: "ideal",
   issuer: "ideal_INGBNL2A",
   restrictPaymentMethodsToCountry: "NL",
   captureMode: "manual",

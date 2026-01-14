@@ -118,7 +118,7 @@ funds are available on your balance. These funds will be shown under the *pendin
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-balance" method="get" path="/balances/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-balance" method="get" path="/balances/{balanceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -131,7 +131,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.balances.get({
-    id: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -160,7 +160,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await balancesGet(client, {
-    id: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

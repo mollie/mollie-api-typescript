@@ -99,7 +99,7 @@ Retrieve a single client by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -111,7 +111,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.clients.get({
-    id: "org_12345678",
+    organizationId: "org_1234567",
     embed: "organization",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
@@ -140,7 +140,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await clientsGet(client, {
-    id: "org_12345678",
+    organizationId: "org_1234567",
     embed: "organization",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });

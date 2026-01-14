@@ -122,7 +122,7 @@ For more accurate bookkeeping, refer to the [balance report](get-balance-report)
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-settlement" method="get" path="/settlements/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-settlement" method="get" path="/settlements/{settlementId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -134,7 +134,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.settlements.get({
-    id: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -162,7 +162,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await settlementsGet(client, {
-    id: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -388,7 +388,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.settlements.listPayments({
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
@@ -421,7 +421,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await settlementsListPayments(client, {
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "tr_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
@@ -479,7 +479,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.settlements.listCaptures({
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
     limit: 50,
     embed: "payment",
@@ -511,7 +511,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await settlementsListCaptures(client, {
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "cpt_vytxeTZskVKR7C7WgdSP3d",
     limit: 50,
     embed: "payment",
@@ -569,7 +569,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.settlements.listRefunds({
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "re_5B8cwPMGnU",
     limit: 50,
     embed: "payment",
@@ -601,7 +601,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await settlementsListRefunds(client, {
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "re_5B8cwPMGnU",
     limit: 50,
     embed: "payment",
@@ -659,7 +659,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.settlements.listChargebacks({
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     limit: 50,
     embed: "payment",
@@ -691,7 +691,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await settlementsListChargebacks(client, {
-    settlementId: "stl_jDk30akdN",
+    settlementId: "stl_5B8cwPMGnU",
     from: "chb_xFzwUN4ci8HAmSGUACS4J",
     limit: 50,
     embed: "payment",

@@ -90,13 +90,13 @@ async function $do(
   const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    webhookId: encodeSimple("webhookId", payload.webhookId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/webhooks/{id}")(pathParams);
+  const path = pathToFunc("/webhooks/{webhookId}")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

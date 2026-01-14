@@ -3,19 +3,17 @@
 
 ## Supported Types
 
-### `models.PaymentRequestMethodEnum`
+### `models.MethodEnum`
 
 ```typescript
-const value: models.PaymentRequestMethodEnum = "belfius";
+const value: models.MethodEnum = "ideal";
 ```
 
-### `any[]`
+### `models.MethodEnum[]`
 
 ```typescript
-const value: any[] = [
-  "<value 1>",
-  "<value 2>",
-  "<value 3>",
+const value: models.MethodEnum[] = [
+  "ideal",
 ];
 ```
 

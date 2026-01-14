@@ -23,9 +23,9 @@ export type GetBalanceGlobals = {
 
 export type GetBalanceRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related balance.
    */
-  id: string;
+  balanceId: string;
   /**
    * You can enable test mode by setting the `testmode` query parameter to `true`.
    *
@@ -85,7 +85,7 @@ export const GetBalanceRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  balanceId: z.string(),
   testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -95,7 +95,7 @@ export const GetBalanceRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetBalanceRequest$Outbound = {
-  id: string;
+  balanceId: string;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -106,7 +106,7 @@ export const GetBalanceRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetBalanceRequest
 > = z.object({
-  id: z.string(),
+  balanceId: z.string(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

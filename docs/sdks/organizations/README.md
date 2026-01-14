@@ -19,7 +19,7 @@ If you have a *partner account*', you can retrieve organization details of conne
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-organization" method="get" path="/organizations/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-organization" method="get" path="/organizations/{organizationId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -32,7 +32,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.organizations.get({
-    id: "org_12345678",
+    organizationId: "org_1234567",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -61,7 +61,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await organizationsGet(client, {
-    id: "org_12345678",
+    organizationId: "org_1234567",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

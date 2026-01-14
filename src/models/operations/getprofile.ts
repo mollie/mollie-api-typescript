@@ -23,9 +23,9 @@ export type GetProfileGlobals = {
 
 export type GetProfileRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related profile.
    */
-  id: string;
+  profileId: string;
   /**
    * You can enable test mode by setting the `testmode` query parameter to `true`.
    *
@@ -85,7 +85,7 @@ export const GetProfileRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  profileId: z.string(),
   testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -95,7 +95,7 @@ export const GetProfileRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetProfileRequest$Outbound = {
-  id: string;
+  profileId: string;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -106,7 +106,7 @@ export const GetProfileRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetProfileRequest
 > = z.object({
-  id: z.string(),
+  profileId: z.string(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

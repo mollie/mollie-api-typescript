@@ -97,13 +97,13 @@ async function $do(
   });
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    salesInvoiceId: encodeSimple("salesInvoiceId", payload.salesInvoiceId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/sales-invoices/{id}")(pathParams);
+  const path = pathToFunc("/sales-invoices/{salesInvoiceId}")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

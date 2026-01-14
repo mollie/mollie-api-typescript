@@ -89,13 +89,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    organizationId: encodeSimple("organizationId", payload.organizationId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/clients/{id}")(pathParams);
+  const path = pathToFunc("/clients/{organizationId}")(pathParams);
 
   const query = encodeFormQuery({
     "embed": payload.embed,

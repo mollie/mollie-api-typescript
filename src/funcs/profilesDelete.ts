@@ -90,13 +90,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    profileId: encodeSimple("profileId", payload.profileId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/profiles/{id}")(pathParams);
+  const path = pathToFunc("/profiles/{profileId}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",

@@ -38,9 +38,9 @@ export type UpdateWebhookRequestBody = {
 
 export type UpdateWebhookRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related webhook.
    */
-  id: string;
+  webhookId: string;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -147,7 +147,7 @@ export const UpdateWebhookRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  webhookId: z.string(),
   "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => UpdateWebhookRequestBody$inboundSchema).optional(),
 }).transform((v) => {
@@ -158,7 +158,7 @@ export const UpdateWebhookRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type UpdateWebhookRequest$Outbound = {
-  id: string;
+  webhookId: string;
   "idempotency-key"?: string | undefined;
   RequestBody?: UpdateWebhookRequestBody$Outbound | undefined;
 };
@@ -169,7 +169,7 @@ export const UpdateWebhookRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateWebhookRequest
 > = z.object({
-  id: z.string(),
+  webhookId: z.string(),
   idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => UpdateWebhookRequestBody$outboundSchema).optional(),
 }).transform((v) => {

@@ -53,9 +53,9 @@ export type UpdateProfileRequestBody = {
 
 export type UpdateProfileRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related profile.
    */
-  id: string;
+  profileId: string;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -126,7 +126,7 @@ export const UpdateProfileRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  profileId: z.string(),
   "idempotency-key": z.string().optional(),
   RequestBody: z.lazy(() => UpdateProfileRequestBody$inboundSchema),
 }).transform((v) => {
@@ -137,7 +137,7 @@ export const UpdateProfileRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type UpdateProfileRequest$Outbound = {
-  id: string;
+  profileId: string;
   "idempotency-key"?: string | undefined;
   RequestBody: UpdateProfileRequestBody$Outbound;
 };
@@ -148,7 +148,7 @@ export const UpdateProfileRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateProfileRequest
 > = z.object({
-  id: z.string(),
+  profileId: z.string(),
   idempotencyKey: z.string().optional(),
   requestBody: z.lazy(() => UpdateProfileRequestBody$outboundSchema),
 }).transform((v) => {

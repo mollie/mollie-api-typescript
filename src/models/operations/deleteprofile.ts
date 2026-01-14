@@ -10,9 +10,9 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteProfileRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related profile.
    */
-  id: string;
+  profileId: string;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -25,7 +25,7 @@ export const DeleteProfileRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  profileId: z.string(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -34,7 +34,7 @@ export const DeleteProfileRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type DeleteProfileRequest$Outbound = {
-  id: string;
+  profileId: string;
   "idempotency-key"?: string | undefined;
 };
 
@@ -44,7 +44,7 @@ export const DeleteProfileRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeleteProfileRequest
 > = z.object({
-  id: z.string(),
+  profileId: z.string(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

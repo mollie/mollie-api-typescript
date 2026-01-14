@@ -12,7 +12,7 @@ Retrieve a single webhook event object by its event ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-webhook-event" method="get" path="/events/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-webhook-event" method="get" path="/events/{webhookEventId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -25,7 +25,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.webhookEvents.get({
-    id: "event_jd9v34P5YqN9pT8n3HJyH",
+    webhookEventId: "event_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -54,7 +54,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await webhookEventsGet(client, {
-    id: "event_jd9v34P5YqN9pT8n3HJyH",
+    webhookEventId: "event_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

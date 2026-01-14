@@ -23,9 +23,9 @@ export type GetOrganizationGlobals = {
 
 export type GetOrganizationRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related organization.
    */
-  id: string;
+  organizationId: string;
   /**
    * You can enable test mode by setting the `testmode` query parameter to `true`.
    *
@@ -85,7 +85,7 @@ export const GetOrganizationRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  organizationId: z.string(),
   testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -95,7 +95,7 @@ export const GetOrganizationRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetOrganizationRequest$Outbound = {
-  id: string;
+  organizationId: string;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -106,7 +106,7 @@ export const GetOrganizationRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetOrganizationRequest
 > = z.object({
-  id: z.string(),
+  organizationId: z.string(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

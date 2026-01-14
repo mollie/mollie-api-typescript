@@ -34,9 +34,9 @@ export type GetMethodGlobals = {
 
 export type GetMethodRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related payment method.
    */
-  id: string;
+  methodId: models.MethodId | null;
   /**
    * Response language
    */
@@ -135,7 +135,7 @@ export const GetMethodRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  methodId: z.nullable(models.MethodId$inboundSchema),
   locale: z.nullable(models.Locale$inboundSchema).optional(),
   currency: z.string().optional(),
   profileId: z.string().optional(),
@@ -150,7 +150,7 @@ export const GetMethodRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetMethodRequest$Outbound = {
-  id: string;
+  methodId: string | null;
   locale?: string | null | undefined;
   currency?: string | undefined;
   profileId?: string | undefined;
@@ -166,7 +166,7 @@ export const GetMethodRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetMethodRequest
 > = z.object({
-  id: z.string(),
+  methodId: z.nullable(models.MethodId$outboundSchema),
   locale: z.nullable(models.Locale$outboundSchema).optional(),
   currency: z.string().optional(),
   profileId: z.string().optional(),

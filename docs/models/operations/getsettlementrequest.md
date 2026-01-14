@@ -6,7 +6,7 @@
 import { GetSettlementRequest } from "mollie-api-typescript/models/operations";
 
 let value: GetSettlementRequest = {
-  id: "<id>",
+  settlementId: "stl_5B8cwPMGnU",
   idempotencyKey: "123e4567-e89b-12d3-a456-426",
 };
 ```
@@ -15,5 +15,5 @@ let value: GetSettlementRequest = {
 
 | Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `id`                                                                             | *string*                                                                         | :heavy_check_mark:                                                               | Provide the ID of the item you want to perform this operation on.                |                                                                                  |
+| `settlementId`                                                                   | *string*                                                                         | :heavy_check_mark:                                                               | Provide the ID of the related settlement.                                        | stl_5B8cwPMGnU                                                                   |
 | `idempotencyKey`                                                                 | *string*                                                                         | :heavy_minus_sign:                                                               | A unique key to ensure idempotent requests. This key should be a UUID v4 string. | 123e4567-e89b-12d3-a456-426                                                      |

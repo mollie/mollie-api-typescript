@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { RFCDate } from "../types/rfcdate.js";
 import {
@@ -41,6 +40,11 @@ import {
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
+import {
+  MethodEnum,
+  MethodEnum$inboundSchema,
+  MethodEnum$outboundSchema,
+} from "./methodenum.js";
 import {
   PaymentAddress,
   PaymentAddress$inboundSchema,
@@ -229,47 +233,7 @@ export type PaymentRequestBillingAddress = {
   country?: string | undefined;
 };
 
-export const PaymentRequestMethodEnum = {
-  Alma: "alma",
-  Applepay: "applepay",
-  Bacs: "bacs",
-  Bancomatpay: "bancomatpay",
-  Bancontact: "bancontact",
-  Banktransfer: "banktransfer",
-  Belfius: "belfius",
-  Billie: "billie",
-  Bizum: "bizum",
-  Blik: "blik",
-  Creditcard: "creditcard",
-  Directdebit: "directdebit",
-  Eps: "eps",
-  Giftcard: "giftcard",
-  Ideal: "ideal",
-  In3: "in3",
-  Kbc: "kbc",
-  Klarna: "klarna",
-  Mbway: "mbway",
-  Mobilepay: "mobilepay",
-  Multibanco: "multibanco",
-  Mybank: "mybank",
-  Paybybank: "paybybank",
-  Paypal: "paypal",
-  Paysafecard: "paysafecard",
-  Pointofsale: "pointofsale",
-  Przelewy24: "przelewy24",
-  Riverty: "riverty",
-  Satispay: "satispay",
-  Swish: "swish",
-  Trustly: "trustly",
-  Twint: "twint",
-  Vipps: "vipps",
-  Voucher: "voucher",
-} as const;
-export type PaymentRequestMethodEnum = ClosedEnum<
-  typeof PaymentRequestMethodEnum
->;
-
-export type Method = PaymentRequestMethodEnum | Array<any>;
+export type Method = MethodEnum | Array<MethodEnum | null>;
 
 /**
  * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie
@@ -402,7 +366,7 @@ export type PaymentRequest = {
    * Allows you to preset the language to be used.
    */
   locale?: Locale | null | undefined;
-  method?: PaymentRequestMethodEnum | Array<any> | null | undefined;
+  method?: MethodEnum | Array<MethodEnum | null> | null | undefined;
   /**
    * **Only relevant for iDEAL, KBC/CBC, gift card, and voucher payments.**
    *
@@ -773,26 +737,23 @@ export function paymentRequestBillingAddressFromJSON(
 }
 
 /** @internal */
-export const PaymentRequestMethodEnum$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentRequestMethodEnum
-> = z.nativeEnum(PaymentRequestMethodEnum);
-/** @internal */
-export const PaymentRequestMethodEnum$outboundSchema: z.ZodNativeEnum<
-  typeof PaymentRequestMethodEnum
-> = PaymentRequestMethodEnum$inboundSchema;
-
-/** @internal */
 export const Method$inboundSchema: z.ZodType<Method, z.ZodTypeDef, unknown> = z
-  .union([PaymentRequestMethodEnum$inboundSchema, z.array(z.any())]);
+  .union([
+    MethodEnum$inboundSchema,
+    z.array(z.nullable(MethodEnum$inboundSchema)),
+  ]);
 /** @internal */
-export type Method$Outbound = string | Array<any>;
+export type Method$Outbound = string | Array<string | null>;
 
 /** @internal */
 export const Method$outboundSchema: z.ZodType<
   Method$Outbound,
   z.ZodTypeDef,
   Method
-> = z.union([PaymentRequestMethodEnum$outboundSchema, z.array(z.any())]);
+> = z.union([
+  MethodEnum$outboundSchema,
+  z.array(z.nullable(MethodEnum$outboundSchema)),
+]);
 
 export function methodToJSON(method: Method): string {
   return JSON.stringify(Method$outboundSchema.parse(method));
@@ -907,7 +868,10 @@ export const PaymentRequest$inboundSchema: z.ZodType<
   shippingAddress: PaymentAddress$inboundSchema.optional(),
   locale: z.nullable(Locale$inboundSchema).optional(),
   method: z.nullable(
-    z.union([PaymentRequestMethodEnum$inboundSchema, z.array(z.any())]),
+    z.union([
+      MethodEnum$inboundSchema,
+      z.array(z.nullable(MethodEnum$inboundSchema)),
+    ]),
   ).optional(),
   issuer: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
@@ -947,7 +911,7 @@ export type PaymentRequest$Outbound = {
   billingAddress?: PaymentRequestBillingAddress$Outbound | undefined;
   shippingAddress?: PaymentAddress$Outbound | undefined;
   locale?: string | null | undefined;
-  method?: string | Array<any> | null | undefined;
+  method?: string | Array<string | null> | null | undefined;
   issuer?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
   metadata?: Metadata$Outbound | null | undefined;
@@ -992,7 +956,10 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   shippingAddress: PaymentAddress$outboundSchema.optional(),
   locale: z.nullable(Locale$outboundSchema).optional(),
   method: z.nullable(
-    z.union([PaymentRequestMethodEnum$outboundSchema, z.array(z.any())]),
+    z.union([
+      MethodEnum$outboundSchema,
+      z.array(z.nullable(MethodEnum$outboundSchema)),
+    ]),
   ).optional(),
   issuer: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),

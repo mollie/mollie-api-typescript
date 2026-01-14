@@ -23,9 +23,9 @@ export type GetConnectBalanceTransferGlobals = {
 
 export type GetConnectBalanceTransferRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related balance transfer.
    */
-  id: string;
+  balanceTransferId: string;
   /**
    * You can enable test mode by setting the `testmode` query parameter to `true`.
    *
@@ -87,7 +87,7 @@ export const GetConnectBalanceTransferRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  balanceTransferId: z.string(),
   testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -97,7 +97,7 @@ export const GetConnectBalanceTransferRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetConnectBalanceTransferRequest$Outbound = {
-  id: string;
+  balanceTransferId: string;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -108,7 +108,7 @@ export const GetConnectBalanceTransferRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetConnectBalanceTransferRequest
 > = z.object({
-  id: z.string(),
+  balanceTransferId: z.string(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

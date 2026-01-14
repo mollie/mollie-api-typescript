@@ -6,7 +6,7 @@
 import { UpdateProfileRequest } from "mollie-api-typescript/models/operations";
 
 let value: UpdateProfileRequest = {
-  id: "<id>",
+  profileId: "pfl_5B8cwPMGnU",
   idempotencyKey: "123e4567-e89b-12d3-a456-426",
   requestBody: {
     name: "My new website name",
@@ -27,6 +27,6 @@ let value: UpdateProfileRequest = {
 
 | Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                | Example                                                                                    |
 | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `id`                                                                                       | *string*                                                                                   | :heavy_check_mark:                                                                         | Provide the ID of the item you want to perform this operation on.                          |                                                                                            |
+| `profileId`                                                                                | *string*                                                                                   | :heavy_check_mark:                                                                         | Provide the ID of the related profile.                                                     | pfl_5B8cwPMGnU                                                                             |
 | `idempotencyKey`                                                                           | *string*                                                                                   | :heavy_minus_sign:                                                                         | A unique key to ensure idempotent requests. This key should be a UUID v4 string.           | 123e4567-e89b-12d3-a456-426                                                                |
 | `requestBody`                                                                              | [operations.UpdateProfileRequestBody](../../models/operations/updateprofilerequestbody.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |                                                                                            |

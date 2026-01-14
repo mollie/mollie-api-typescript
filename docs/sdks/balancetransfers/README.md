@@ -225,7 +225,7 @@ Retrieve a single Connect balance transfer object by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-connect-balance-transfer" method="get" path="/connect/balance-transfers/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-connect-balance-transfer" method="get" path="/connect/balance-transfers/{balanceTransferId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -238,7 +238,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.balanceTransfers.get({
-    id: "<id>",
+    balanceTransferId: "cbtr_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -267,7 +267,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await balanceTransfersGet(client, {
-    id: "<id>",
+    balanceTransferId: "cbtr_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {

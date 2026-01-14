@@ -23,9 +23,9 @@ export type GetWebhookGlobals = {
 
 export type GetWebhookRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related webhook.
    */
-  id: string;
+  webhookId: string;
   /**
    * You can enable test mode by setting the `testmode` query parameter to `true`.
    *
@@ -85,7 +85,7 @@ export const GetWebhookRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  webhookId: z.string(),
   testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -95,7 +95,7 @@ export const GetWebhookRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetWebhookRequest$Outbound = {
-  id: string;
+  webhookId: string;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -106,7 +106,7 @@ export const GetWebhookRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWebhookRequest
 > = z.object({
-  id: z.string(),
+  webhookId: z.string(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

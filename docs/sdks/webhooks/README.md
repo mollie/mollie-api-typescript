@@ -195,7 +195,7 @@ Updates the webhook. You may edit the name, url and the list of subscribed event
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/webhooks/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/webhooks/{webhookId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -207,7 +207,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.webhooks.update({
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "Webhook #1",
@@ -241,7 +241,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await webhooksUpdate(client, {
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       name: "Webhook #1",
@@ -287,7 +287,7 @@ Retrieve a single webhook object by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-webhook" method="get" path="/webhooks/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="get-webhook" method="get" path="/webhooks/{webhookId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -300,7 +300,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.webhooks.get({
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -329,7 +329,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await webhooksGet(client, {
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -369,7 +369,7 @@ Delete a single webhook object by its webhook ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete-webhook" method="delete" path="/webhooks/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete-webhook" method="delete" path="/webhooks/{webhookId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -381,7 +381,7 @@ const client = new Client({
 
 async function run() {
   await client.webhooks.delete({
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
@@ -412,7 +412,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await webhooksDelete(client, {
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
@@ -455,7 +455,7 @@ Sends a test event to the webhook to verify the endpoint is working as expected.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="test-webhook" method="post" path="/webhooks/{id}/ping" -->
+<!-- UsageSnippet language="typescript" operationID="test-webhook" method="post" path="/webhooks/{webhookId}/ping" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -467,7 +467,7 @@ const client = new Client({
 
 async function run() {
   await client.webhooks.test({
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,
@@ -498,7 +498,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await webhooksTest(client, {
-    id: "hook_B2EyhTH5N4KWUnoYPcgiH",
+    webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       testmode: false,

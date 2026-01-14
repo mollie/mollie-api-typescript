@@ -11,9 +11,9 @@ import * as models from "../index.js";
 
 export type UpdateSalesInvoiceRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related sales invoice.
    */
-  id: string;
+  salesInvoiceId: string;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -27,7 +27,7 @@ export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  salesInvoiceId: z.string(),
   "idempotency-key": z.string().optional(),
   "update-values-sales-invoice": models.UpdateValuesSalesInvoice$inboundSchema
     .optional(),
@@ -39,7 +39,7 @@ export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type UpdateSalesInvoiceRequest$Outbound = {
-  id: string;
+  salesInvoiceId: string;
   "idempotency-key"?: string | undefined;
   "update-values-sales-invoice"?:
     | models.UpdateValuesSalesInvoice$Outbound
@@ -52,7 +52,7 @@ export const UpdateSalesInvoiceRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateSalesInvoiceRequest
 > = z.object({
-  id: z.string(),
+  salesInvoiceId: z.string(),
   idempotencyKey: z.string().optional(),
   updateValuesSalesInvoice: models.UpdateValuesSalesInvoice$outboundSchema
     .optional(),

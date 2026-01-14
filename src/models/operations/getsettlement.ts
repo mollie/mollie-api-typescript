@@ -10,9 +10,9 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSettlementRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related settlement.
    */
-  id: string;
+  settlementId: string;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -25,7 +25,7 @@ export const GetSettlementRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  settlementId: z.string(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -34,7 +34,7 @@ export const GetSettlementRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetSettlementRequest$Outbound = {
-  id: string;
+  settlementId: string;
   "idempotency-key"?: string | undefined;
 };
 
@@ -44,7 +44,7 @@ export const GetSettlementRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSettlementRequest
 > = z.object({
-  id: z.string(),
+  settlementId: z.string(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

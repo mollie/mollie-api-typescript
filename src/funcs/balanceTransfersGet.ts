@@ -91,13 +91,16 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    balanceTransferId: encodeSimple(
+      "balanceTransferId",
+      payload.balanceTransferId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
 
-  const path = pathToFunc("/connect/balance-transfers/{id}")(pathParams);
+  const path = pathToFunc("/connect/balance-transfers/{balanceTransferId}")(
+    pathParams,
+  );
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

@@ -23,9 +23,9 @@ export type GetSalesInvoiceGlobals = {
 
 export type GetSalesInvoiceRequest = {
   /**
-   * Provide the ID of the item you want to perform this operation on.
+   * Provide the ID of the related sales invoice.
    */
-  id: string;
+  salesInvoiceId: string;
   /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
@@ -87,7 +87,7 @@ export const GetSalesInvoiceRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  salesInvoiceId: z.string(),
   testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
@@ -97,7 +97,7 @@ export const GetSalesInvoiceRequest$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type GetSalesInvoiceRequest$Outbound = {
-  id: string;
+  salesInvoiceId: string;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -108,7 +108,7 @@ export const GetSalesInvoiceRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSalesInvoiceRequest
 > = z.object({
-  id: z.string(),
+  salesInvoiceId: z.string(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
