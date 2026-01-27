@@ -39,10 +39,7 @@ export type ListChargebacksRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * This endpoint allows embedding related API items by appending the following values via the `embed` query string
-   *
-   * @remarks
-   * parameter.
+   * This endpoint allows you to embed additional information via the `embed` query string parameter.
    */
   embed?: string | null | undefined;
   /**

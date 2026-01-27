@@ -34,7 +34,10 @@ export type ListAllMethodsGlobals = {
 
 export type ListAllMethodsRequest = {
   /**
-   * Response language
+   * Passing a locale will sort the payment methods in the preferred order
+   *
+   * @remarks
+   * for the country, and translate the payment method names in the corresponding language.
    */
   locale?: models.Locale | null | undefined;
   /**
@@ -47,7 +50,10 @@ export type ListAllMethodsRequest = {
    */
   amount?: models.Amount | undefined;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
+   * This endpoint allows you to include additional information via the
+   *
+   * @remarks
+   * `include` query string parameter.
    */
   include?: string | null | undefined;
   /**

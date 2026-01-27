@@ -38,7 +38,10 @@ export type GetMethodRequest = {
    */
   methodId: models.MethodId | null;
   /**
-   * Response language
+   * Passing a locale will sort the payment methods in the preferred order
+   *
+   * @remarks
+   * for the country, and translate the payment method names in the corresponding language.
    */
   locale?: models.Locale | null | undefined;
   /**
@@ -59,7 +62,10 @@ export type GetMethodRequest = {
    */
   profileId?: string | undefined;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
+   * This endpoint allows you to include additional information via the
+   *
+   * @remarks
+   * `include` query string parameter.
    */
   include?: string | null | undefined;
   /**

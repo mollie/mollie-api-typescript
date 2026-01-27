@@ -16,6 +16,7 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -30,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 1.0.2
+  version: 1.0.3
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -69,6 +70,7 @@ typescript:
   inputModelSuffix: input
   jsonpath: rfc9535
   laxMode: strict
+  legacyFileNaming: true
   maxMethodParams: 0
   methodArguments: infer-optional-args
   modelPropertyCasing: camel

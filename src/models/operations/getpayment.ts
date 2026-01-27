@@ -31,10 +31,10 @@ export type GetPaymentRequest = {
    */
   include?: string | null | undefined;
   /**
-   * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+   * This endpoint allows embedding related API items by appending the
    *
    * @remarks
-   * parameter.
+   * following values via the `embed` query string parameter.
    */
   embed?: string | null | undefined;
   /**

@@ -39,10 +39,10 @@ export type ListSettlementCapturesRequest = {
    */
   limit?: number | null | undefined;
   /**
-   * This endpoint allows embedding related API items by appending the following values via the `embed` query string
+   * This endpoint allows you to embed additional resources via the
    *
    * @remarks
-   * parameter.
+   * `embed` query string parameter.
    */
   embed?: string | null | undefined;
   /**
