@@ -301,7 +301,7 @@ export type ListPaymentResponseLine = {
  * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
  * `country`.
  *
- * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
+ * Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
  */
 export type ListPaymentResponseBillingAddress = {
   /**
@@ -956,7 +956,7 @@ export type ListPaymentResponse = {
    * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
    * `country`.
    *
-   * Required for payment method `in3`, `klarna`, `billie` and `riverty`.
+   * Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
    */
   billingAddress?: ListPaymentResponseBillingAddress | undefined;
   shippingAddress?: PaymentAddress | undefined;
