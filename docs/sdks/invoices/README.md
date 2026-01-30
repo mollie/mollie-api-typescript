@@ -30,7 +30,6 @@ async function run() {
   const result = await client.invoices.list({
     reference: "2024.10000",
     year: "2024",
-    month: "01",
     from: "inv_xBEbP9rvAq",
     limit: 50,
     sort: "desc",
@@ -63,7 +62,6 @@ async function run() {
   const res = await invoicesList(client, {
     reference: "2024.10000",
     year: "2024",
-    month: "01",
     from: "inv_xBEbP9rvAq",
     limit: 50,
     sort: "desc",

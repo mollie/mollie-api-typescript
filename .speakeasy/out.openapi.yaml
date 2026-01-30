@@ -5609,15 +5609,6 @@ paths:
               - string
               - 'null'
             example: 2024
-        - name: month
-          description: Filter for invoices of a specific month, for example `01`.
-          in: query
-          schema:
-            type:
-              - string
-              - 'null'
-            example: '01'
-            pattern: ^(0[1-9]|1[0-2])$
         - $ref: '#/components/parameters/list-from'
           schema:
             type:
@@ -29307,6 +29298,7 @@ components:
                 - login_failed_unknown_user
                 - login_failed_invalid_password
                 - invalid_ean_code
+                - card_error
               x-methodSpecific: true
         message:
           type: string

@@ -136,6 +136,7 @@ export const Code = {
   LoginFailedUnknownUser: "login_failed_unknown_user",
   LoginFailedInvalidPassword: "login_failed_invalid_password",
   InvalidEanCode: "invalid_ean_code",
+  CardError: "card_error",
 } as const;
 /**
  * A machine-readable code that indicates the reason for the payment's status.

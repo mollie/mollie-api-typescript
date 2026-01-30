@@ -97,7 +97,6 @@ async function $do(
   const query = encodeFormQuery({
     "from": payload?.from,
     "limit": payload?.limit,
-    "month": payload?.month,
     "reference": payload?.reference,
     "sort": payload?.sort,
     "year": payload?.year,

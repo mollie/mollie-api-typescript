@@ -22,10 +22,6 @@ export type ListInvoicesRequest = {
    */
   year?: string | null | undefined;
   /**
-   * Filter for invoices of a specific month, for example `01`.
-   */
-  month?: string | null | undefined;
-  /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
    *
    * @remarks
@@ -91,7 +87,6 @@ export const ListInvoicesRequest$inboundSchema: z.ZodType<
 > = z.object({
   reference: z.nullable(z.string()).optional(),
   year: z.nullable(z.string()).optional(),
-  month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$inboundSchema.optional(),
@@ -105,7 +100,6 @@ export const ListInvoicesRequest$inboundSchema: z.ZodType<
 export type ListInvoicesRequest$Outbound = {
   reference?: string | null | undefined;
   year?: string | null | undefined;
-  month?: string | null | undefined;
   from?: string | null | undefined;
   limit?: number | null | undefined;
   sort?: string | undefined;
@@ -120,7 +114,6 @@ export const ListInvoicesRequest$outboundSchema: z.ZodType<
 > = z.object({
   reference: z.nullable(z.string()).optional(),
   year: z.nullable(z.string()).optional(),
-  month: z.nullable(z.string()).optional(),
   from: z.nullable(z.string()).optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),
