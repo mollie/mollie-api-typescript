@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 9f75aa3893b04629c033db9812989f12
+  docChecksum: 6c3e2fac7288f1a292fc3e02b30fe61a
   docVersion: 1.0.0
   speakeasyVersion: 1.700.2
   generationVersion: 2.801.2
-  releaseVersion: 1.0.5
-  configChecksum: 635dca37af1995e5b8dceeabe786ac5f
+  releaseVersion: 1.0.6
+  configChecksum: 048a83decc960784c1c80ec0570150cd
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 9cba6820-2bd9-4a94-a57a-f7023542241c
-  pristine_commit_hash: cbaf4b5431a203fce80e25e4e5540d1cacc16801
-  pristine_tree_hash: f228288ea555ddf52954f0fafa65a3b39592e293
+  generation_id: 758b3ab7-4b6b-463a-8495-b2f8a7004abf
+  pristine_commit_hash: b9c9a0e37889606dd19075ea0a0d46f886db46e2
+  pristine_tree_hash: b81dd375e48f332dcf915905fa6571187a8e9a09
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -245,8 +245,8 @@ trackedFiles:
     pristine_git_object: de6af8fed74def47e63e8c536387df599bb1bc46
   docs/models/code.md:
     id: 2fcb3964c9c0
-    last_write_checksum: sha1:55aa7e1e25fb630a3846edda4ec5e37bd4f4a62f
-    pristine_git_object: 442e5f176c5ded1f9fda0f730fa7cded2d6caa57
+    last_write_checksum: sha1:f06051538d79dadf99478769aa6dc53e9415d693
+    pristine_git_object: 545dc78180b20bdfd0ff19ef456234fc61175f26
   docs/models/company.md:
     id: 25a3bf8dece0
     last_write_checksum: sha1:eb812e235e71bfa126944cbe6a2acb7faca5ad5f
@@ -2869,12 +2869,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:205d7ff7d2b1b20897809f75d8abdc84f22a97b0
-    pristine_git_object: 1b0462fcfcb50d0eff2aa2165a1900c548726eb7
+    last_write_checksum: sha1:242b25b284ce429a41a365b3a2c140791ef84f82
+    pristine_git_object: c3a8ea683d81ec485838cd3b5572e66220ffd9d0
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:d25e07266f16a960c75c4919dd245c950d364771
-    pristine_git_object: cf5b571b156c88d543daff2b185ffd47e5aa2690
+    last_write_checksum: sha1:55649722341a7539a0e0341a649ec4f1cfcbea61
+    pristine_git_object: a551f2cc547d502597d7fb32e75f25ca7f8e48f9
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d9ddd6581847914e25feb525eb329e4168189d46
@@ -3285,8 +3285,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:5908228b856a642d1afd2d53e9fa0c69e86fb81e
-    pristine_git_object: 34b99ee8413cbd67282fb50e8b0d510b33059661
+    last_write_checksum: sha1:19239d18ec1b97e280b0414fa320c216d934377a
+    pristine_git_object: 1a9838d9c6f56c3d40e98dcfaecae66f32fb2f56
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -3369,8 +3369,8 @@ trackedFiles:
     pristine_git_object: 0955a573c2ce989d63c737410ab8cc28706d9f74
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:cf602d788a870695372a3d9b7459987a15cf8362
-    pristine_git_object: 4a4242c2aee253cc2ab01b41e77657a1579adf1c
+    last_write_checksum: sha1:c7b897ca6e3ed485c4752a162794c57ffeee9be6
+    pristine_git_object: 31ecc0521db0e6a6c718b24a24014a7ebbdccdd5
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:905d497dc387068fb5a27df52f6c2385d63d7536
@@ -3385,8 +3385,8 @@ trackedFiles:
     pristine_git_object: c25696d4c4f70e081fa5d87ad6891874c509a577
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:219b4a33d85f07f2a5dbdd95bf117b27e898dfe5
-    pristine_git_object: 1d8a83ed4e93a6fba7898e8efb7320342c86ba5a
+    last_write_checksum: sha1:dda632544df066a506d02009c7bdaf3cdb8b4fe9
+    pristine_git_object: ef71924a4dbddd3ba9735466a5043229bd60962d
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:56c73d4429691516e35541825e759a0285747a2b
@@ -4841,8 +4841,8 @@ trackedFiles:
     pristine_git_object: 38c8684ed09f52dfa6c6c7eff83c0cd3d64af1b4
   src/models/statusreason.ts:
     id: 426115f0badc
-    last_write_checksum: sha1:c9cb07b9f349014e2a63827897dcf269d9c5102d
-    pristine_git_object: 4e761ea36348fce22f3fcbe41218e98c6a019c1b
+    last_write_checksum: sha1:d6de3a16255771a87d5510e071e796568b7fd9c6
+    pristine_git_object: 2e198e679996f55c5b83f0ea49778b95b16e0c15
   src/models/subgroup.ts:
     id: 5907d8bdbdf4
     last_write_checksum: sha1:c458c98206d744155ea336ee1b4e92b732c8724b
@@ -8621,7 +8621,18 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.settlements.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.invoices.list()`: \n  *  `request.month` **Removed** **Breaking** ⚠️\n* `client.payments.create()`:  `response.statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.payments.list()`:  `response.Embedded.payments[].statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.payments.get()`:  `response.statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.payments.update()`:  `response.statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.payments.cancel()`:  `response.statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.customers.createPayment()`:  `response.statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.customers.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n* `client.subscriptions.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(cardError)` **Added** **Breaking** ⚠️\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `client.settlements.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.payments.create()`:  `response.statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.payments.list()`:  `response.Embedded.payments[].statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.payments.get()`:  `response.statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.payments.update()`:  `response.statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.payments.cancel()`:  `response.statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.customers.createPayment()`:  `response.statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.customers.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
+  * `client.subscriptions.listPayments()`:  `response.Embedded.payments[].statusReason.code.enum(terminalConfigurationIssue)` **Added** **Breaking** ⚠️
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

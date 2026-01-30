@@ -29299,6 +29299,7 @@ components:
                 - login_failed_invalid_password
                 - invalid_ean_code
                 - card_error
+                - terminal_configuration_issue
               x-methodSpecific: true
         message:
           type: string
