@@ -92,7 +92,7 @@ async function run() {
         country: "NL",
       },
       registrationNumber: "12345678",
-      vatNumber: "123456789B01",
+      legalEntity: "nl-bv",
     },
   });
 
@@ -136,7 +136,7 @@ async function run() {
         country: "NL",
       },
       registrationNumber: "12345678",
-      vatNumber: "123456789B01",
+      legalEntity: "nl-bv",
     },
   });
   if (res.ok) {
