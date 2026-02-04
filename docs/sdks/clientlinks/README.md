@@ -93,6 +93,8 @@ async function run() {
       },
       registrationNumber: "12345678",
       legalEntity: "nl-bv",
+      registrationOffice: "aachen",
+      incorporationDate: "2024-12-24",
     },
   });
 
@@ -137,6 +139,8 @@ async function run() {
       },
       registrationNumber: "12345678",
       legalEntity: "nl-bv",
+      registrationOffice: "aachen",
+      incorporationDate: "2024-12-24",
     },
   });
   if (res.ok) {

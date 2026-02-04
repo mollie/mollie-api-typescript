@@ -419,7 +419,7 @@ export type ListPaymentResponseApplicationFee = {
 };
 
 /**
- * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/handling-payment-status) for more info about which
  *
  * @remarks
  * statuses occur at what point.
@@ -434,7 +434,7 @@ export const ListPaymentResponseStatus = {
   Failed: "failed",
 } as const;
 /**
- * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/status-change#/) for more info about which
+ * The payment's status. Refer to the [documentation regarding statuses](https://docs.mollie.com/docs/handling-payment-status) for more info about which
  *
  * @remarks
  * statuses occur at what point.
