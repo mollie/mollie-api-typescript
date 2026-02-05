@@ -64,14 +64,15 @@ export type UpdateSubscriptionRequestBody = {
   webhookUrl?: string | undefined;
   mandateId?: string | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+   * Whether the entity was created in test mode or live mode. This field does not update the mode of the entity.
    *
    * @remarks
-   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
    *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 export type UpdateSubscriptionRequest = {
@@ -104,7 +105,7 @@ export const UpdateSubscriptionRequestBody$inboundSchema: z.ZodType<
   metadata: z.nullable(models.Metadata$inboundSchema).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 /** @internal */
 export type UpdateSubscriptionRequestBody$Outbound = {
@@ -116,7 +117,7 @@ export type UpdateSubscriptionRequestBody$Outbound = {
   metadata?: models.Metadata$Outbound | null | undefined;
   webhookUrl?: string | undefined;
   mandateId?: string | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -133,7 +134,7 @@ export const UpdateSubscriptionRequestBody$outboundSchema: z.ZodType<
   metadata: z.nullable(models.Metadata$outboundSchema).optional(),
   webhookUrl: z.string().optional(),
   mandateId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 
 export function updateSubscriptionRequestBodyToJSON(

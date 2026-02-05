@@ -9,6 +9,66 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type UpdateSalesInvoiceRequestBody = {
+  /**
+   * Whether the entity was created in test mode or live mode. This field does not update the mode of the entity.
+   *
+   * @remarks
+   *
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
+   */
+  testmode?: boolean | undefined;
+  /**
+   * The status for the invoice to end up in.
+   *
+   * @remarks
+   *
+   * A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+   * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+   * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+   *
+   * A status value that cannot be set but can be returned is `canceled`, for invoices which were
+   * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+   *
+   * Dependent parameters:
+   *   - `paymentDetails` is required if invoice should be set directly to `paid`
+   *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+   *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+   */
+  status?: models.SalesInvoiceStatus | undefined;
+  /**
+   * A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
+   */
+  memo?: string | null | undefined;
+  /**
+   * The payment term to be set on the invoice.
+   */
+  paymentTerm?: models.SalesInvoicePaymentTerm | null | undefined;
+  paymentDetails?: models.SalesInvoicePaymentDetails | undefined;
+  emailDetails?: models.SalesInvoiceEmailDetails | null | undefined;
+  /**
+   * An identifier tied to the recipient data. This should be a unique value based on data your system contains,
+   *
+   * @remarks
+   * so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
+   * is not required to send a first invoice to a recipient.
+   */
+  recipientIdentifier?: string | undefined;
+  recipient?: models.SalesInvoiceRecipient | null | undefined;
+  /**
+   * Provide the line items for the invoice. Each line contains details such as a description of the item
+   *
+   * @remarks
+   * ordered and its price.
+   *
+   * All lines must have the same currency as the invoice.
+   */
+  lines?: Array<models.SalesInvoiceLineItem> | null | undefined;
+  discount?: models.SalesInvoiceDiscount | null | undefined;
+};
+
 export type UpdateSalesInvoiceRequest = {
   /**
    * Provide the ID of the related sales invoice.
@@ -18,8 +78,82 @@ export type UpdateSalesInvoiceRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  updateValuesSalesInvoice?: models.UpdateValuesSalesInvoice | undefined;
+  requestBody?: UpdateSalesInvoiceRequestBody | undefined;
 };
+
+/** @internal */
+export const UpdateSalesInvoiceRequestBody$inboundSchema: z.ZodType<
+  UpdateSalesInvoiceRequestBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  testmode: z.boolean().optional(),
+  status: models.SalesInvoiceStatus$inboundSchema.optional(),
+  memo: z.nullable(z.string()).optional(),
+  paymentTerm: z.nullable(models.SalesInvoicePaymentTerm$inboundSchema)
+    .optional(),
+  paymentDetails: models.SalesInvoicePaymentDetails$inboundSchema.optional(),
+  emailDetails: z.nullable(models.SalesInvoiceEmailDetails$inboundSchema)
+    .optional(),
+  recipientIdentifier: z.string().optional(),
+  recipient: z.nullable(models.SalesInvoiceRecipient$inboundSchema).optional(),
+  lines: z.nullable(z.array(models.SalesInvoiceLineItem$inboundSchema))
+    .optional(),
+  discount: z.nullable(models.SalesInvoiceDiscount$inboundSchema).optional(),
+});
+/** @internal */
+export type UpdateSalesInvoiceRequestBody$Outbound = {
+  testmode?: boolean | undefined;
+  status?: string | undefined;
+  memo?: string | null | undefined;
+  paymentTerm?: string | null | undefined;
+  paymentDetails?: models.SalesInvoicePaymentDetails$Outbound | undefined;
+  emailDetails?: models.SalesInvoiceEmailDetails$Outbound | null | undefined;
+  recipientIdentifier?: string | undefined;
+  recipient?: models.SalesInvoiceRecipient$Outbound | null | undefined;
+  lines?: Array<models.SalesInvoiceLineItem$Outbound> | null | undefined;
+  discount?: models.SalesInvoiceDiscount$Outbound | null | undefined;
+};
+
+/** @internal */
+export const UpdateSalesInvoiceRequestBody$outboundSchema: z.ZodType<
+  UpdateSalesInvoiceRequestBody$Outbound,
+  z.ZodTypeDef,
+  UpdateSalesInvoiceRequestBody
+> = z.object({
+  testmode: z.boolean().optional(),
+  status: models.SalesInvoiceStatus$outboundSchema.optional(),
+  memo: z.nullable(z.string()).optional(),
+  paymentTerm: z.nullable(models.SalesInvoicePaymentTerm$outboundSchema)
+    .optional(),
+  paymentDetails: models.SalesInvoicePaymentDetails$outboundSchema.optional(),
+  emailDetails: z.nullable(models.SalesInvoiceEmailDetails$outboundSchema)
+    .optional(),
+  recipientIdentifier: z.string().optional(),
+  recipient: z.nullable(models.SalesInvoiceRecipient$outboundSchema).optional(),
+  lines: z.nullable(z.array(models.SalesInvoiceLineItem$outboundSchema))
+    .optional(),
+  discount: z.nullable(models.SalesInvoiceDiscount$outboundSchema).optional(),
+});
+
+export function updateSalesInvoiceRequestBodyToJSON(
+  updateSalesInvoiceRequestBody: UpdateSalesInvoiceRequestBody,
+): string {
+  return JSON.stringify(
+    UpdateSalesInvoiceRequestBody$outboundSchema.parse(
+      updateSalesInvoiceRequestBody,
+    ),
+  );
+}
+export function updateSalesInvoiceRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateSalesInvoiceRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateSalesInvoiceRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateSalesInvoiceRequestBody' from JSON`,
+  );
+}
 
 /** @internal */
 export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
@@ -29,21 +163,19 @@ export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
 > = z.object({
   salesInvoiceId: z.string(),
   "idempotency-key": z.string().optional(),
-  "update-values-sales-invoice": models.UpdateValuesSalesInvoice$inboundSchema
+  RequestBody: z.lazy(() => UpdateSalesInvoiceRequestBody$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "update-values-sales-invoice": "updateValuesSalesInvoice",
+    "RequestBody": "requestBody",
   });
 });
 /** @internal */
 export type UpdateSalesInvoiceRequest$Outbound = {
   salesInvoiceId: string;
   "idempotency-key"?: string | undefined;
-  "update-values-sales-invoice"?:
-    | models.UpdateValuesSalesInvoice$Outbound
-    | undefined;
+  RequestBody?: UpdateSalesInvoiceRequestBody$Outbound | undefined;
 };
 
 /** @internal */
@@ -54,12 +186,12 @@ export const UpdateSalesInvoiceRequest$outboundSchema: z.ZodType<
 > = z.object({
   salesInvoiceId: z.string(),
   idempotencyKey: z.string().optional(),
-  updateValuesSalesInvoice: models.UpdateValuesSalesInvoice$outboundSchema
+  requestBody: z.lazy(() => UpdateSalesInvoiceRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    updateValuesSalesInvoice: "update-values-sales-invoice",
+    requestBody: "RequestBody",
   });
 });
 

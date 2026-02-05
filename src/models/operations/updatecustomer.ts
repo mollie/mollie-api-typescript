@@ -9,6 +9,38 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type UpdateCustomerRequestBody = {
+  /**
+   * The full name of the customer.
+   */
+  name?: string | null | undefined;
+  /**
+   * The email address of the customer.
+   */
+  email?: string | null | undefined;
+  /**
+   * Allows you to preset the language to be used.
+   */
+  locale?: models.LocaleResponse | null | undefined;
+  /**
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
+   *
+   * @remarks
+   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+   */
+  metadata?: models.Metadata | null | undefined;
+  /**
+   * Whether the entity was created in test mode or live mode. This field does not update the mode of the entity.
+   *
+   * @remarks
+   *
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
+   */
+  testmode?: boolean | undefined;
+};
+
 export type UpdateCustomerRequest = {
   /**
    * Provide the ID of the related customer.
@@ -18,8 +50,59 @@ export type UpdateCustomerRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  entityCustomer?: models.EntityCustomer | undefined;
+  requestBody?: UpdateCustomerRequestBody | undefined;
 };
+
+/** @internal */
+export const UpdateCustomerRequestBody$inboundSchema: z.ZodType<
+  UpdateCustomerRequestBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.nullable(z.string()).optional(),
+  email: z.nullable(z.string()).optional(),
+  locale: z.nullable(models.LocaleResponse$inboundSchema).optional(),
+  metadata: z.nullable(models.Metadata$inboundSchema).optional(),
+  testmode: z.boolean().optional(),
+});
+/** @internal */
+export type UpdateCustomerRequestBody$Outbound = {
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  locale?: string | null | undefined;
+  metadata?: models.Metadata$Outbound | null | undefined;
+  testmode?: boolean | undefined;
+};
+
+/** @internal */
+export const UpdateCustomerRequestBody$outboundSchema: z.ZodType<
+  UpdateCustomerRequestBody$Outbound,
+  z.ZodTypeDef,
+  UpdateCustomerRequestBody
+> = z.object({
+  name: z.nullable(z.string()).optional(),
+  email: z.nullable(z.string()).optional(),
+  locale: z.nullable(models.LocaleResponse$outboundSchema).optional(),
+  metadata: z.nullable(models.Metadata$outboundSchema).optional(),
+  testmode: z.boolean().optional(),
+});
+
+export function updateCustomerRequestBodyToJSON(
+  updateCustomerRequestBody: UpdateCustomerRequestBody,
+): string {
+  return JSON.stringify(
+    UpdateCustomerRequestBody$outboundSchema.parse(updateCustomerRequestBody),
+  );
+}
+export function updateCustomerRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateCustomerRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateCustomerRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateCustomerRequestBody' from JSON`,
+  );
+}
 
 /** @internal */
 export const UpdateCustomerRequest$inboundSchema: z.ZodType<
@@ -29,18 +112,18 @@ export const UpdateCustomerRequest$inboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   "idempotency-key": z.string().optional(),
-  "entity-customer": models.EntityCustomer$inboundSchema.optional(),
+  RequestBody: z.lazy(() => UpdateCustomerRequestBody$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "entity-customer": "entityCustomer",
+    "RequestBody": "requestBody",
   });
 });
 /** @internal */
 export type UpdateCustomerRequest$Outbound = {
   customerId: string;
   "idempotency-key"?: string | undefined;
-  "entity-customer"?: models.EntityCustomer$Outbound | undefined;
+  RequestBody?: UpdateCustomerRequestBody$Outbound | undefined;
 };
 
 /** @internal */
@@ -51,11 +134,12 @@ export const UpdateCustomerRequest$outboundSchema: z.ZodType<
 > = z.object({
   customerId: z.string(),
   idempotencyKey: z.string().optional(),
-  entityCustomer: models.EntityCustomer$outboundSchema.optional(),
+  requestBody: z.lazy(() => UpdateCustomerRequestBody$outboundSchema)
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    entityCustomer: "entity-customer",
+    requestBody: "RequestBody",
   });
 });
 

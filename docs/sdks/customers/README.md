@@ -299,7 +299,7 @@ async function run() {
   const result = await client.customers.update({
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityCustomer: {
+    requestBody: {
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",
@@ -333,7 +333,7 @@ async function run() {
   const res = await customersUpdate(client, {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    entityCustomer: {
+    requestBody: {
       name: "John Doe",
       email: "example@email.com",
       locale: "en_US",

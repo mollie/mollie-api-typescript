@@ -380,7 +380,7 @@ async function run() {
   const result = await client.salesInvoices.update({
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    updateValuesSalesInvoice: {
+    requestBody: {
       testmode: false,
       status: "draft",
       memo: "An updated memo!",
@@ -460,7 +460,7 @@ async function run() {
   const res = await salesInvoicesUpdate(client, {
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
-    updateValuesSalesInvoice: {
+    requestBody: {
       testmode: false,
       status: "draft",
       memo: "An updated memo!",

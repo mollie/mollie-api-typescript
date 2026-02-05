@@ -9391,7 +9391,7 @@ paths:
                         $ref: '#/components/schemas/webhook-event-types'
                     - $ref: '#/components/schemas/webhook-event-types'
                 testmode:
-                  $ref: '#/components/schemas/oauth-testmode'
+                  $ref: '#/components/schemas/testmode-patch'
       responses:
         '200':
           description: The webhook object.
@@ -13149,7 +13149,7 @@ paths:
                 restrictPaymentMethodsToCountry:
                   $ref: '#/components/schemas/restrictPaymentMethodsToCountry'
                 testmode:
-                  $ref: '#/components/schemas/testmode-create'
+                  $ref: '#/components/schemas/testmode-patch'
                 issuer:
                   $ref: '#/components/schemas/issuer'
                 billingAddress:
@@ -18576,7 +18576,7 @@ paths:
                     Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
                     `country`.
                 testmode:
-                  $ref: '#/components/schemas/testmode'
+                  $ref: '#/components/schemas/testmode-patch'
       responses:
         '200':
           description: The payment link object.
@@ -19673,7 +19673,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/entity-customer'
+              allOf:
+                - $ref: '#/components/schemas/entity-customer'
+                - type: object
+                  properties:
+                    testmode:
+                      $ref: '#/components/schemas/testmode-patch'
       responses:
         '200':
           description: The updated customer object.
@@ -23529,7 +23534,7 @@ paths:
                   $ref: '#/components/schemas/mandateToken'
                   description: The mandate used for this subscription, if any.
                 testmode:
-                  $ref: '#/components/schemas/testmode'
+                  $ref: '#/components/schemas/testmode-patch'
       responses:
         '200':
           description: The updated subscription object.
@@ -26640,7 +26645,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/update-values-sales-invoice'
+              allOf:
+                - $ref: '#/components/schemas/update-values-sales-invoice'
+                - type: object
+                  properties:
+                    testmode:
+                      $ref: '#/components/schemas/testmode-patch'
       responses:
         '200':
           description: The sales invoice object.
@@ -31859,6 +31869,16 @@ components:
         You can enable test mode by setting `testmode` to `true`.
 
         Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+      writeOnly: true
+      example: false
+    testmode-patch:
+      type: boolean
+      description: |-
+        Whether the entity was created in test mode or live mode. This field does not update the mode of the entity.
+
+        Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+        omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+        `testmode` to `true`.
       writeOnly: true
       example: false
     webhookEventToken:

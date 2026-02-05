@@ -100,7 +100,7 @@ export type UpdatePaymentRequestBody = {
    */
   restrictPaymentMethodsToCountry?: string | null | undefined;
   /**
-   * Whether to create the entity in test mode or live mode.
+   * Whether the entity was created in test mode or live mode. This field does not update the mode of the entity.
    *
    * @remarks
    *
@@ -108,7 +108,7 @@ export type UpdatePaymentRequestBody = {
    * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
    * `testmode` to `true`.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   /**
    * **Only relevant for iDEAL, KBC/CBC, gift card, and voucher payments.**
    *
@@ -172,7 +172,7 @@ export const UpdatePaymentRequestBody$inboundSchema: z.ZodType<
   locale: z.nullable(models.Locale$inboundSchema).optional(),
   dueDate: z.string().optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   issuer: z.nullable(z.string()).optional(),
   billingAddress: models.BillingAddress$inboundSchema.optional(),
   shippingAddress: models.PaymentAddress$inboundSchema.optional(),
@@ -189,7 +189,7 @@ export type UpdatePaymentRequestBody$Outbound = {
   locale?: string | null | undefined;
   dueDate?: string | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
   issuer?: string | null | undefined;
   billingAddress?: models.BillingAddress$Outbound | undefined;
   shippingAddress?: models.PaymentAddress$Outbound | undefined;
@@ -211,7 +211,7 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   locale: z.nullable(models.Locale$outboundSchema).optional(),
   dueDate: z.string().optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
   issuer: z.nullable(z.string()).optional(),
   billingAddress: models.BillingAddress$outboundSchema.optional(),
   shippingAddress: models.PaymentAddress$outboundSchema.optional(),

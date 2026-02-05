@@ -171,7 +171,6 @@ export * from "./subscriptionresponse.js";
 export * from "./subtotals.js";
 export * from "./terminalbrand.js";
 export * from "./terminalmodel.js";
-export * from "./updatevaluessalesinvoice.js";
 export * from "./url.js";
 export * from "./urlnullable.js";
 export * from "./webhookeventtypes.js";

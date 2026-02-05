@@ -51,14 +51,15 @@ export type UpdatePaymentLinkRequestBody = {
   billingAddress?: models.PaymentAddress | undefined;
   shippingAddress?: models.PaymentAddress | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+   * Whether the entity was created in test mode or live mode. This field does not update the mode of the entity.
    *
    * @remarks
-   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
    *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter can be
+   * omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    */
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 export type UpdatePaymentLinkRequest = {
@@ -87,7 +88,7 @@ export const UpdatePaymentLinkRequestBody$inboundSchema: z.ZodType<
   lines: z.nullable(z.array(models.PaymentLineItem$inboundSchema)).optional(),
   billingAddress: models.PaymentAddress$inboundSchema.optional(),
   shippingAddress: models.PaymentAddress$inboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 /** @internal */
 export type UpdatePaymentLinkRequestBody$Outbound = {
@@ -98,7 +99,7 @@ export type UpdatePaymentLinkRequestBody$Outbound = {
   lines?: Array<models.PaymentLineItem$Outbound> | null | undefined;
   billingAddress?: models.PaymentAddress$Outbound | undefined;
   shippingAddress?: models.PaymentAddress$Outbound | undefined;
-  testmode?: boolean | null | undefined;
+  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -115,7 +116,7 @@ export const UpdatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   lines: z.nullable(z.array(models.PaymentLineItem$outboundSchema)).optional(),
   billingAddress: models.PaymentAddress$outboundSchema.optional(),
   shippingAddress: models.PaymentAddress$outboundSchema.optional(),
-  testmode: z.nullable(z.boolean()).optional(),
+  testmode: z.boolean().optional(),
 });
 
 export function updatePaymentLinkRequestBodyToJSON(
