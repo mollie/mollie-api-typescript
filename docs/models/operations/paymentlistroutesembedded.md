@@ -20,13 +20,17 @@ let value: PaymentListRoutesEmbedded = {
         type: "organization",
         organizationId: "org_1234567",
       },
+      createdAt: "2024-03-20T09:13:37+00:00",
       links: {
         self: {
           href: "https://...",
           type: "application/hal+json",
         },
+        payment: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
       },
-      createdAt: "2024-03-20T09:13:37+00:00",
     },
   ],
 };

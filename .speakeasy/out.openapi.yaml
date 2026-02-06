@@ -19141,7 +19141,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/entity-route'
+              $ref: '#/components/schemas/route-create-request'
       responses:
         '201':
           description: The route object.
@@ -19163,6 +19163,7 @@ paths:
                     destination:
                       type: organization
                       organizationId: org_123
+                    createdAt: '2024-05-22T15:11:19+02:00'
                     _links:
                       self:
                         href: '...'
@@ -19352,6 +19353,70 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: delayed-routing
+  /payments/{paymentId}/routes/{routeId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-payment-id'
+      - $ref: '#/components/parameters/route-id'
+    get:
+      operationId: payment-get-route
+      summary: Get a delayed route
+      x-speakeasy-name-override: get
+      tags:
+        - Delayed Routing API
+      security:
+        - apiKey: []
+        - oAuth:
+            - payments.read
+      description: Retrieve a single route created for a specific payment.
+      responses:
+        '200':
+          description: The route object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/route-get-response'
+              examples:
+                get-route-200-1:
+                  summary: Route object
+                  value:
+                    resource: route
+                    id: crt_YQ2KwmkrGDyZhejzTbUJJ
+                    paymentId: tr_VRQGmASmUXBtj3DQJbUJJ
+                    amount:
+                      value: '5.00'
+                      currency: EUR
+                    description: A-312345
+                    destination:
+                      type: organization
+                      organizationId: org_19303380
+                    createdAt: '2025-12-17T17:25:34+00:00'
+                    _links:
+                      self:
+                        href: '...'
+                        type: application/hal+json
+                      documentation:
+                        href: '...'
+                        type: text/html
+                      payment:
+                        href: '...'
+                        type: application/hal+json
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/payments/tr_5B8cwPMGnU6qLbRvo7qEZo/routes \
+                  -H "Authorization: Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: delayed-routing
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /customers:
     post:
       summary: Create customer
@@ -27118,6 +27183,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/terminalToken'
+    route-id:
+      name: routeId
+      description: Provide the ID of the route.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/connectRouteToken'
     parent-customer-id:
       name: customerId
       description: Provide the ID of the related customer.
@@ -33221,18 +33293,24 @@ components:
                 routed to.
         testmode:
           $ref: '#/components/schemas/testmode-create'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
           required:
             - self
             - documentation
+            - payment
           properties:
             self:
               $ref: '#/components/schemas/url'
             documentation:
               $ref: '#/components/schemas/url'
+            payment:
+              $ref: '#/components/schemas/url'
           readOnly: true
+      x-speakeasy-unknown-values: allow
     route-get-response:
       allOf:
         - $ref: '#/components/schemas/entity-route'
@@ -33244,25 +33322,49 @@ components:
             - amount
             - description
             - destination
-            - _links
-        - type: object
-          required:
             - createdAt
-          properties:
-            createdAt:
-              $ref: '#/components/schemas/created-at'
+            - _links
       x-speakeasy-unknown-values: allow
+    route-create-request:
+      type: object
+      description: Payload to create a new delayed route for a payment.
+      required:
+        - amount
+        - destination
+      properties:
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: The amount to be routed.
+        destination:
+          type: object
+          description: The destination of the route.
+          required:
+            - type
+            - organizationId
+          properties:
+            type:
+              $ref: '#/components/schemas/route-destination-type'
+            organizationId:
+              $ref: '#/components/schemas/organizationToken'
+              description: |-
+                Required for destination type `organization`. The ID of the connected organization the funds should be
+                routed to.
+        description:
+          type: string
+          description: Description shown in reports.
+          maxLength: 255
+          example: 'Payment for Order #12345'
     route-create-response:
       allOf:
-        - $ref: '#/components/schemas/entity-route-response'
+        - $ref: '#/components/schemas/entity-route'
         - type: object
           required:
             - resource
             - id
             - paymentId
             - amount
-            - description
             - destination
+            - createdAt
             - _links
       x-speakeasy-unknown-values: allow
     entity-customer:
@@ -36878,13 +36980,18 @@ components:
                 routed to.
         testmode:
           $ref: '#/components/schemas/testmode-create'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
           required:
             - self
+            - payment
           properties:
             self:
+              $ref: '#/components/schemas/url'
+            payment:
               $ref: '#/components/schemas/url'
           readOnly: true
     list-route-get-response:
@@ -36898,13 +37005,8 @@ components:
             - amount
             - description
             - destination
-            - _links
-        - type: object
-          required:
             - createdAt
-          properties:
-            createdAt:
-              $ref: '#/components/schemas/created-at'
+            - _links
     list-entity-customer:
       type: object
       properties:
@@ -39725,67 +39827,6 @@ components:
         - manual_correction
         - other_fee
       example: invoice_collection
-      x-speakeasy-unknown-values: allow
-    entity-route-response:
-      type: object
-      properties:
-        resource:
-          type: string
-          description: Indicates the response contains a route object. Will always contain the string `route` for this endpoint.
-          readOnly: true
-          example: route
-        id:
-          allOf:
-            - $ref: '#/components/schemas/connectRouteToken'
-          description: |-
-            The identifier uniquely referring to this route. Mollie assigns this identifier at route creation time. Mollie
-            will always refer to the route by this ID. Example: `crt_dyARQ3JzCgtPDhU2Pbq3J`.
-          readOnly: true
-        paymentId:
-          allOf:
-            - $ref: '#/components/schemas/paymentToken'
-          description: |-
-            The unique identifier of the payment. For example: `tr_5B8cwPMGnU6qLbRvo7qEZo`.
-            The full payment object can be retrieved via the payment URL in the `_links` object.
-          readOnly: true
-        amount:
-          $ref: '#/components/schemas/amount'
-          description: |-
-            The amount of the route.
-            That amount that will be routed to the specified destination.
-        description:
-          type: string
-          description: The description of the route. This description is shown in the reports.
-          maxLength: 255
-          example: 'Payment for Order #12345'
-        destination:
-          type: object
-          description: The destination of the route.
-          required:
-            - type
-            - organizationId
-          properties:
-            type:
-              $ref: '#/components/schemas/route-destination-type-response'
-            organizationId:
-              $ref: '#/components/schemas/organizationToken'
-              description: |-
-                Required for destination type `organization`. The ID of the connected organization the funds should be
-                routed to.
-        testmode:
-          $ref: '#/components/schemas/testmode-create'
-        _links:
-          type: object
-          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-          required:
-            - self
-            - documentation
-          properties:
-            self:
-              $ref: '#/components/schemas/url'
-            documentation:
-              $ref: '#/components/schemas/url'
-          readOnly: true
       x-speakeasy-unknown-values: allow
     entity-customer-response:
       type: object

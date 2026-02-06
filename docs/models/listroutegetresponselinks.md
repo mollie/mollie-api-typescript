@@ -12,6 +12,10 @@ let value: ListRouteGetResponseLinks = {
     href: "https://...",
     type: "application/hal+json",
   },
+  payment: {
+    href: "https://...",
+    type: "application/hal+json",
+  },
 };
 ```
 
@@ -20,3 +24,4 @@ let value: ListRouteGetResponseLinks = {
 | Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
 | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | `self`                                                                                     | [models.Url](../models/url.md)                                                             | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
+| `payment`                                                                                  | [models.Url](../models/url.md)                                                             | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |

@@ -85,6 +85,7 @@ export * from "./listsubscriptions.js";
 export * from "./listterminals.js";
 export * from "./listwebhooks.js";
 export * from "./paymentcreateroute.js";
+export * from "./paymentgetroute.js";
 export * from "./paymentlistroutes.js";
 export * from "./releaseauthorization.js";
 export * from "./requestapplepaypaymentsession.js";

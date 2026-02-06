@@ -39,6 +39,7 @@ import { tool$customersList } from "./tools/customersList.js";
 import { tool$customersListPayments } from "./tools/customersListPayments.js";
 import { tool$customersUpdate } from "./tools/customersUpdate.js";
 import { tool$delayedRoutingCreate } from "./tools/delayedRoutingCreate.js";
+import { tool$delayedRoutingGet } from "./tools/delayedRoutingGet.js";
 import { tool$delayedRoutingList } from "./tools/delayedRoutingList.js";
 import { tool$invoicesGet } from "./tools/invoicesGet.js";
 import { tool$invoicesList } from "./tools/invoicesList.js";
@@ -123,7 +124,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "1.1.1",
+    version: "1.1.2",
   });
 
   const client = new ClientCore({
@@ -229,6 +230,7 @@ export function createMCPServer(deps: {
   tool(tool$terminalsGet);
   tool(tool$delayedRoutingCreate);
   tool(tool$delayedRoutingList);
+  tool(tool$delayedRoutingGet);
   tool(tool$customersCreate);
   tool(tool$customersList);
   tool(tool$customersGet);

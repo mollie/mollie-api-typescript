@@ -3,6 +3,7 @@
  */
 
 import { delayedRoutingCreate } from "../funcs/delayedRoutingCreate.js";
+import { delayedRoutingGet } from "../funcs/delayedRoutingGet.js";
 import { delayedRoutingList } from "../funcs/delayedRoutingList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
@@ -39,6 +40,23 @@ export class DelayedRouting extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.PaymentListRoutesResponse> {
     return unwrapAsync(delayedRoutingList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get a delayed route
+   *
+   * @remarks
+   * Retrieve a single route created for a specific payment.
+   */
+  async get(
+    request: operations.PaymentGetRouteRequest,
+    options?: RequestOptions,
+  ): Promise<models.RouteGetResponse> {
+    return unwrapAsync(delayedRoutingGet(
       this,
       request,
       options,

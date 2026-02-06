@@ -381,6 +381,7 @@ let client = new Client({
 
 * [create](docs/sdks/delayedrouting/README.md#create) - Create a delayed route
 * [list](docs/sdks/delayedrouting/README.md#list) - List payment routes
+* [get](docs/sdks/delayedrouting/README.md#get) - Get a delayed route
 
 ### [Invoices](docs/sdks/invoices/README.md)
 
@@ -546,6 +547,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`customersListPayments`](docs/sdks/customers/README.md#listpayments) - List customer payments
 - [`customersUpdate`](docs/sdks/customers/README.md#update) - Update customer
 - [`delayedRoutingCreate`](docs/sdks/delayedrouting/README.md#create) - Create a delayed route
+- [`delayedRoutingGet`](docs/sdks/delayedrouting/README.md#get) - Get a delayed route
 - [`delayedRoutingList`](docs/sdks/delayedrouting/README.md#list) - List payment routes
 - [`invoicesGet`](docs/sdks/invoices/README.md#get) - Get invoice
 - [`invoicesList`](docs/sdks/invoices/README.md#list) - List invoices

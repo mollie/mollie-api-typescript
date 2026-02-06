@@ -1,13 +1,13 @@
-# RouteCreateResponseLinks
+# RouteGetResponseLinks
 
 An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
 
 ## Example Usage
 
 ```typescript
-import { RouteCreateResponseLinks } from "mollie-api-typescript/models";
+import { RouteGetResponseLinks } from "mollie-api-typescript/models";
 
-let value: RouteCreateResponseLinks = {
+let value: RouteGetResponseLinks = {
   self: {
     href: "https://...",
     type: "application/hal+json",

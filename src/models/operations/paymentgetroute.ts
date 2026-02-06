@@ -7,71 +7,71 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
-export type PaymentCreateRouteRequest = {
+export type PaymentGetRouteRequest = {
   /**
    * Provide the ID of the related payment.
    */
   paymentId: string;
   /**
+   * Provide the ID of the route.
+   */
+  routeId: string;
+  /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
-  routeCreateRequest?: models.RouteCreateRequest | undefined;
 };
 
 /** @internal */
-export const PaymentCreateRouteRequest$inboundSchema: z.ZodType<
-  PaymentCreateRouteRequest,
+export const PaymentGetRouteRequest$inboundSchema: z.ZodType<
+  PaymentGetRouteRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   paymentId: z.string(),
+  routeId: z.string(),
   "idempotency-key": z.string().optional(),
-  "route-create-request": models.RouteCreateRequest$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "idempotency-key": "idempotencyKey",
-    "route-create-request": "routeCreateRequest",
   });
 });
 /** @internal */
-export type PaymentCreateRouteRequest$Outbound = {
+export type PaymentGetRouteRequest$Outbound = {
   paymentId: string;
+  routeId: string;
   "idempotency-key"?: string | undefined;
-  "route-create-request"?: models.RouteCreateRequest$Outbound | undefined;
 };
 
 /** @internal */
-export const PaymentCreateRouteRequest$outboundSchema: z.ZodType<
-  PaymentCreateRouteRequest$Outbound,
+export const PaymentGetRouteRequest$outboundSchema: z.ZodType<
+  PaymentGetRouteRequest$Outbound,
   z.ZodTypeDef,
-  PaymentCreateRouteRequest
+  PaymentGetRouteRequest
 > = z.object({
   paymentId: z.string(),
+  routeId: z.string(),
   idempotencyKey: z.string().optional(),
-  routeCreateRequest: models.RouteCreateRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
-    routeCreateRequest: "route-create-request",
   });
 });
 
-export function paymentCreateRouteRequestToJSON(
-  paymentCreateRouteRequest: PaymentCreateRouteRequest,
+export function paymentGetRouteRequestToJSON(
+  paymentGetRouteRequest: PaymentGetRouteRequest,
 ): string {
   return JSON.stringify(
-    PaymentCreateRouteRequest$outboundSchema.parse(paymentCreateRouteRequest),
+    PaymentGetRouteRequest$outboundSchema.parse(paymentGetRouteRequest),
   );
 }
-export function paymentCreateRouteRequestFromJSON(
+export function paymentGetRouteRequestFromJSON(
   jsonString: string,
-): SafeParseResult<PaymentCreateRouteRequest, SDKValidationError> {
+): SafeParseResult<PaymentGetRouteRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PaymentCreateRouteRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentCreateRouteRequest' from JSON`,
+    (x) => PaymentGetRouteRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PaymentGetRouteRequest' from JSON`,
   );
 }

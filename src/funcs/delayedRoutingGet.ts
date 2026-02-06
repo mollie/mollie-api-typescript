@@ -3,7 +3,7 @@
  */
 
 import { ClientCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,19 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create a delayed route
+ * Get a delayed route
  *
  * @remarks
- * Create a route for a specific payment.
- * The routed amount is credited to the account of your customer.
+ * Retrieve a single route created for a specific payment.
  */
-export function delayedRoutingCreate(
+export function delayedRoutingGet(
   client: ClientCore,
-  request: operations.PaymentCreateRouteRequest,
+  request: operations.PaymentGetRouteRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.RouteCreateResponse,
+    models.RouteGetResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -60,12 +59,12 @@ export function delayedRoutingCreate(
 
 async function $do(
   client: ClientCore,
-  request: operations.PaymentCreateRouteRequest,
+  request: operations.PaymentGetRouteRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      models.RouteCreateResponse,
+      models.RouteGetResponse,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -81,28 +80,29 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.PaymentCreateRouteRequest$outboundSchema.parse(value),
+    (value) => operations.PaymentGetRouteRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload["route-create-request"], {
-    explode: true,
-  });
+  const body = null;
 
   const pathParams = {
     paymentId: encodeSimple("paymentId", payload.paymentId, {
       explode: false,
       charEncoding: "percent",
     }),
+    routeId: encodeSimple("routeId", payload.routeId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/payments/{paymentId}/routes")(pathParams);
+  const path = pathToFunc("/payments/{paymentId}/routes/{routeId}")(pathParams);
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/hal+json",
     "idempotency-key": encodeSimple(
       "idempotency-key",
@@ -117,7 +117,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "payment-create-route",
+    operationID: "payment-get-route",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -141,7 +141,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -170,7 +170,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.RouteCreateResponse,
+    models.RouteGetResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -181,7 +181,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.RouteCreateResponse$inboundSchema, {
+    M.json(200, models.RouteGetResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr(404, errors.ErrorResponse$inboundSchema, {

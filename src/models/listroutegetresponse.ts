@@ -44,6 +44,10 @@ export type ListRouteGetResponseLinks = {
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
   self: Url;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  payment: Url;
 };
 
 export type ListRouteGetResponse = {
@@ -78,13 +82,13 @@ export type ListRouteGetResponse = {
    */
   destination: ListRouteGetResponseDestination;
   /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links: ListRouteGetResponseLinks;
-  /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   createdAt: string;
+  /**
+   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+   */
+  links: ListRouteGetResponseLinks;
 };
 
 /** @internal */
@@ -138,10 +142,12 @@ export const ListRouteGetResponseLinks$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   self: Url$inboundSchema,
+  payment: Url$inboundSchema,
 });
 /** @internal */
 export type ListRouteGetResponseLinks$Outbound = {
   self: Url$Outbound;
+  payment: Url$Outbound;
 };
 
 /** @internal */
@@ -151,6 +157,7 @@ export const ListRouteGetResponseLinks$outboundSchema: z.ZodType<
   ListRouteGetResponseLinks
 > = z.object({
   self: Url$outboundSchema,
+  payment: Url$outboundSchema,
 });
 
 export function listRouteGetResponseLinksToJSON(
@@ -182,8 +189,8 @@ export const ListRouteGetResponse$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema,
   description: z.string(),
   destination: z.lazy(() => ListRouteGetResponseDestination$inboundSchema),
-  _links: z.lazy(() => ListRouteGetResponseLinks$inboundSchema),
   createdAt: z.string(),
+  _links: z.lazy(() => ListRouteGetResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
@@ -197,8 +204,8 @@ export type ListRouteGetResponse$Outbound = {
   amount: Amount$Outbound;
   description: string;
   destination: ListRouteGetResponseDestination$Outbound;
-  _links: ListRouteGetResponseLinks$Outbound;
   createdAt: string;
+  _links: ListRouteGetResponseLinks$Outbound;
 };
 
 /** @internal */
@@ -213,8 +220,8 @@ export const ListRouteGetResponse$outboundSchema: z.ZodType<
   amount: Amount$outboundSchema,
   description: z.string(),
   destination: z.lazy(() => ListRouteGetResponseDestination$outboundSchema),
-  links: z.lazy(() => ListRouteGetResponseLinks$outboundSchema),
   createdAt: z.string(),
+  links: z.lazy(() => ListRouteGetResponseLinks$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     links: "_links",
