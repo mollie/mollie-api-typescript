@@ -62,9 +62,191 @@ to the URL.
 >
 > A client link must be used within 30 days of creation. After that period, it will expire and you will need to create a new client link.
 
-### Example Usage
+### Example Usage: create-client-link-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/client-links" -->
+<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/client-links" example="create-client-link-201-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.clientLinks.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    clientLinkRequest: {
+      owner: {
+        email: "john@example.org",
+        givenName: "John",
+        familyName: "Doe",
+        locale: "en_US",
+      },
+      name: "Acme Corporation",
+      address: {
+        streetAndNumber: "Main Street 123",
+        postalCode: "1234AB",
+        city: "Amsterdam",
+        country: "NL",
+      },
+      registrationNumber: "12345678",
+      legalEntity: "nl-bv",
+      registrationOffice: "aachen",
+      incorporationDate: "2024-12-24",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { clientLinksCreate } from "mollie-api-typescript/funcs/clientLinksCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await clientLinksCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    clientLinkRequest: {
+      owner: {
+        email: "john@example.org",
+        givenName: "John",
+        familyName: "Doe",
+        locale: "en_US",
+      },
+      name: "Acme Corporation",
+      address: {
+        streetAndNumber: "Main Street 123",
+        postalCode: "1234AB",
+        city: "Amsterdam",
+        country: "NL",
+      },
+      registrationNumber: "12345678",
+      legalEntity: "nl-bv",
+      registrationOffice: "aachen",
+      incorporationDate: "2024-12-24",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("clientLinksCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-client-link-201-2
+
+<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/client-links" example="create-client-link-201-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.clientLinks.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    clientLinkRequest: {
+      owner: {
+        email: "john@example.org",
+        givenName: "John",
+        familyName: "Doe",
+        locale: "en_US",
+      },
+      name: "Acme Corporation",
+      address: {
+        streetAndNumber: "Main Street 123",
+        postalCode: "1234AB",
+        city: "Amsterdam",
+        country: "NL",
+      },
+      registrationNumber: "12345678",
+      legalEntity: "nl-bv",
+      registrationOffice: "aachen",
+      incorporationDate: "2024-12-24",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { clientLinksCreate } from "mollie-api-typescript/funcs/clientLinksCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await clientLinksCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    clientLinkRequest: {
+      owner: {
+        email: "john@example.org",
+        givenName: "John",
+        familyName: "Doe",
+        locale: "en_US",
+      },
+      name: "Acme Corporation",
+      address: {
+        streetAndNumber: "Main Street 123",
+        postalCode: "1234AB",
+        city: "Amsterdam",
+        country: "NL",
+      },
+      registrationNumber: "12345678",
+      legalEntity: "nl-bv",
+      registrationOffice: "aachen",
+      incorporationDate: "2024-12-24",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("clientLinksCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-client-link-201-3
+
+<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/client-links" example="create-client-link-201-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

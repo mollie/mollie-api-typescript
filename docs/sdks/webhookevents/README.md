@@ -12,7 +12,7 @@ Retrieve a single webhook event object by its event ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-webhook-event" method="get" path="/events/{webhookEventId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-webhook-event" method="get" path="/events/{webhookEventId}" example="get-webhook-event-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

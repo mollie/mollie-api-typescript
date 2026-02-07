@@ -16,9 +16,70 @@ Retrieve a list of the organization's balances, including the primary balance.
 
 The results are paginated.
 
-### Example Usage
+### Example Usage: list-balances-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-balances" method="get" path="/balances" -->
+<!-- UsageSnippet language="typescript" operationID="list-balances" method="get" path="/balances" example="list-balances-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { balancesList } from "mollie-api-typescript/funcs/balancesList.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await balancesList(client, {
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("balancesList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-balances-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-balances" method="get" path="/balances" example="list-balances-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -116,9 +177,66 @@ With instant payment methods like iDEAL, payments are moved to the available
 balance instantly. With slower payment methods, like credit card for example, it can take a few days before the
 funds are available on your balance. These funds will be shown under the *pending amount* in the meanwhile.
 
-### Example Usage
+### Example Usage: get-balance-200-1
 
-<!-- UsageSnippet language="typescript" operationID="get-balance" method="get" path="/balances/{balanceId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-balance" method="get" path="/balances/{balanceId}" example="get-balance-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balances.get({
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { balancesGet } from "mollie-api-typescript/funcs/balancesGet.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await balancesGet(client, {
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("balancesGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-balance-200-2
+
+<!-- UsageSnippet language="typescript" operationID="get-balance" method="get" path="/balances/{balanceId}" example="get-balance-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -204,7 +322,7 @@ endpoint.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-primary-balance" method="get" path="/balances/primary" -->
+<!-- UsageSnippet language="typescript" operationID="get-primary-balance" method="get" path="/balances/primary" example="get-primary-balance-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -285,9 +403,135 @@ during the reported period, ahead of your Mollie invoice.
 The alias `primary` can be used instead of the balance ID to refer to the
 organization's primary balance.
 
-### Example Usage
+### Example Usage: get-balance-report-200-1
 
-<!-- UsageSnippet language="typescript" operationID="get-balance-report" method="get" path="/balances/{balanceId}/report" -->
+<!-- UsageSnippet language="typescript" operationID="get-balance-report" method="get" path="/balances/{balanceId}/report" example="get-balance-report-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balances.getReport({
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    from: "2024-01-01",
+    until: "2024-02-01",
+    grouping: "status-balances",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { balancesGetReport } from "mollie-api-typescript/funcs/balancesGetReport.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await balancesGetReport(client, {
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    from: "2024-01-01",
+    until: "2024-02-01",
+    grouping: "status-balances",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("balancesGetReport failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-balance-report-200-2
+
+<!-- UsageSnippet language="typescript" operationID="get-balance-report" method="get" path="/balances/{balanceId}/report" example="get-balance-report-200-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balances.getReport({
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    from: "2024-01-01",
+    until: "2024-02-01",
+    grouping: "status-balances",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { balancesGetReport } from "mollie-api-typescript/funcs/balancesGetReport.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await balancesGetReport(client, {
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    from: "2024-01-01",
+    until: "2024-02-01",
+    grouping: "status-balances",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("balancesGetReport failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-balance-report-200-3
+
+<!-- UsageSnippet language="typescript" operationID="get-balance-report" method="get" path="/balances/{balanceId}/report" example="get-balance-report-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -382,9 +626,70 @@ organization's primary balance.
 
 The results are paginated.
 
-### Example Usage
+### Example Usage: list-balance-transactions-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-balance-transactions" method="get" path="/balances/{balanceId}/transactions" -->
+<!-- UsageSnippet language="typescript" operationID="list-balance-transactions" method="get" path="/balances/{balanceId}/transactions" example="list-balance-transactions-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balances.listTransactions({
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { balancesListTransactions } from "mollie-api-typescript/funcs/balancesListTransactions.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await balancesListTransactions(client, {
+    balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("balancesListTransactions failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-balance-transactions-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-balance-transactions" method="get" path="/balances/{balanceId}/transactions" example="list-balance-transactions-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

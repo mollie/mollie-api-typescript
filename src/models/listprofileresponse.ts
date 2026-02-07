@@ -143,13 +143,7 @@ export type ListProfileResponse = {
    * in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   countriesOfActivity?: Array<string> | undefined;
-  /**
-   * The industry associated with the profile's trade name or brand. Please refer to the
-   *
-   * @remarks
-   * [business category list](common-data-types#business-category) for all possible options.
-   */
-  businessCategory: string;
+  businessCategory?: string | null | undefined;
   status: ListProfileResponseStatus;
   /**
    * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
@@ -293,7 +287,7 @@ export const ListProfileResponse$inboundSchema: z.ZodType<
   phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string(),
+  businessCategory: z.nullable(z.string()).optional(),
   status: ListProfileResponseStatus$inboundSchema,
   review: z.lazy(() => ListProfileResponseReview$inboundSchema).optional(),
   createdAt: z.string(),
@@ -314,7 +308,7 @@ export type ListProfileResponse$Outbound = {
   phone: string;
   description?: string | undefined;
   countriesOfActivity?: Array<string> | undefined;
-  businessCategory: string;
+  businessCategory?: string | null | undefined;
   status: string;
   review?: ListProfileResponseReview$Outbound | undefined;
   createdAt: string;
@@ -336,7 +330,7 @@ export const ListProfileResponse$outboundSchema: z.ZodType<
   phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string(),
+  businessCategory: z.nullable(z.string()).optional(),
   status: ListProfileResponseStatus$outboundSchema,
   review: z.lazy(() => ListProfileResponseReview$outboundSchema).optional(),
   createdAt: z.string(),

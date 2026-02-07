@@ -30,7 +30,7 @@ full documentation, see the official
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="request-apple-pay-payment-session" method="post" path="/wallets/applepay/sessions" -->
+<!-- UsageSnippet language="typescript" operationID="request-apple-pay-payment-session" method="post" path="/wallets/applepay/sessions" example="request-apple-pay-payment-session-201-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

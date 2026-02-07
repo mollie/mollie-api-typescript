@@ -30,9 +30,167 @@ wish to retrieve payment methods which exclusively support other currencies (e.g
 ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
 a non-online payment method, you can use the [Get payment method endpoint](get-method).
 
-### Example Usage
+### Example Usage: list-method-200-3
 
-<!-- UsageSnippet language="typescript" operationID="list-methods" method="get" path="/methods" -->
+<!-- UsageSnippet language="typescript" operationID="list-methods" method="get" path="/methods" example="list-method-200-3" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.methods.list({
+    sequenceType: "oneoff",
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    resource: "payments",
+    billingCountry: "DE",
+    includeWallets: "applepay",
+    orderLineCategories: "eco",
+    include: "issuers",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { methodsList } from "mollie-api-typescript/funcs/methodsList.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await methodsList(client, {
+    sequenceType: "oneoff",
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    resource: "payments",
+    billingCountry: "DE",
+    includeWallets: "applepay",
+    orderLineCategories: "eco",
+    include: "issuers",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("methodsList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-methods-200-1
+
+<!-- UsageSnippet language="typescript" operationID="list-methods" method="get" path="/methods" example="list-methods-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.methods.list({
+    sequenceType: "oneoff",
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    resource: "payments",
+    billingCountry: "DE",
+    includeWallets: "applepay",
+    orderLineCategories: "eco",
+    include: "issuers",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { methodsList } from "mollie-api-typescript/funcs/methodsList.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await methodsList(client, {
+    sequenceType: "oneoff",
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    resource: "payments",
+    billingCountry: "DE",
+    includeWallets: "applepay",
+    orderLineCategories: "eco",
+    include: "issuers",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("methodsList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-methods-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-methods" method="get" path="/methods" example="list-methods-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -140,9 +298,222 @@ The list can optionally be filtered using a number of parameters described below
 ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
 a non-online payment method, you can use the [Get payment method endpoint](get-method).
 
-### Example Usage
+### Example Usage: list-all-methods-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-all-methods" method="get" path="/methods/all" -->
+<!-- UsageSnippet language="typescript" operationID="list-all-methods" method="get" path="/methods/all" example="list-all-methods-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.methods.all({
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    include: "issuers",
+    sequenceType: "oneoff",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { methodsAll } from "mollie-api-typescript/funcs/methodsAll.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await methodsAll(client, {
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    include: "issuers",
+    sequenceType: "oneoff",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("methodsAll failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-all-methods-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-all-methods" method="get" path="/methods/all" example="list-all-methods-200-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.methods.all({
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    include: "issuers",
+    sequenceType: "oneoff",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { methodsAll } from "mollie-api-typescript/funcs/methodsAll.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await methodsAll(client, {
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    include: "issuers",
+    sequenceType: "oneoff",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("methodsAll failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-all-methods-200-3
+
+<!-- UsageSnippet language="typescript" operationID="list-all-methods" method="get" path="/methods/all" example="list-all-methods-200-3" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.methods.all({
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    include: "issuers",
+    sequenceType: "oneoff",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { methodsAll } from "mollie-api-typescript/funcs/methodsAll.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await methodsAll(client, {
+    locale: "en_US",
+    amount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    include: "issuers",
+    sequenceType: "oneoff",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("methodsAll failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-all-methods-200-4
+
+<!-- UsageSnippet language="typescript" operationID="list-all-methods" method="get" path="/methods/all" example="list-all-methods-200-4" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -249,7 +620,7 @@ are enabled by passing the wallet ID (`applepay`) as the method ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-method" method="get" path="/methods/{methodId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-method" method="get" path="/methods/{methodId}" example="get-method-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

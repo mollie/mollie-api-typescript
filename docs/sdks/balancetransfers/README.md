@@ -15,9 +15,108 @@ You can also create a balance transfer between two connected organizations.
 To create a balance transfer, you must be authenticated as the source organization, and the destination organization must be a connected organization
 that has authorized the `balance-transfers.write` scope for your organization.
 
-### Example Usage
+### Example Usage: create-balance-transfer-200-1
 
-<!-- UsageSnippet language="typescript" operationID="create-connect-balance-transfer" method="post" path="/connect/balance-transfers" -->
+<!-- UsageSnippet language="typescript" operationID="create-connect-balance-transfer" method="post" path="/connect/balance-transfers" example="create-balance-transfer-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balanceTransfers.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityBalanceTransfer: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      source: {
+        type: "organization",
+        id: "org_1234567",
+        description: "Invoice fee",
+      },
+      destination: {
+        type: "organization",
+        id: "org_1234567",
+        description: "Invoice fee",
+      },
+      description: "Invoice fee",
+      category: "invoice_collection",
+      metadata: {
+        "order_id": 12345,
+        "customer_id": 9876,
+      },
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { balanceTransfersCreate } from "mollie-api-typescript/funcs/balanceTransfersCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await balanceTransfersCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    entityBalanceTransfer: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      source: {
+        type: "organization",
+        id: "org_1234567",
+        description: "Invoice fee",
+      },
+      destination: {
+        type: "organization",
+        id: "org_1234567",
+        description: "Invoice fee",
+      },
+      description: "Invoice fee",
+      category: "invoice_collection",
+      metadata: {
+        "order_id": 12345,
+        "customer_id": 9876,
+      },
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("balanceTransfersCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-balance-transfer-422-1
+
+<!-- UsageSnippet language="typescript" operationID="create-connect-balance-transfer" method="post" path="/connect/balance-transfers" example="create-balance-transfer-422-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -141,7 +240,7 @@ Returns a paginated list of balance transfers associated with your organization.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-connect-balance-transfers" method="get" path="/connect/balance-transfers" -->
+<!-- UsageSnippet language="typescript" operationID="list-connect-balance-transfers" method="get" path="/connect/balance-transfers" example="list-balance-transfer-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -225,7 +324,7 @@ Retrieve a single Connect balance transfer object by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-connect-balance-transfer" method="get" path="/connect/balance-transfers/{balanceTransferId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-connect-balance-transfer" method="get" path="/connect/balance-transfers/{balanceTransferId}" example="get-balance-transfer-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

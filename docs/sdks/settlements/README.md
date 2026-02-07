@@ -21,7 +21,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-settlements" method="get" path="/settlements" -->
+<!-- UsageSnippet language="typescript" operationID="list-settlements" method="get" path="/settlements" example="list-settlements-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -122,7 +122,7 @@ For more accurate bookkeeping, refer to the [balance report](get-balance-report)
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-settlement" method="get" path="/settlements/{settlementId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-settlement" method="get" path="/settlements/{settlementId}" example="get-settlement-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -209,7 +209,7 @@ For more accurate bookkeeping, refer to the [balance report](get-balance-report)
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-open-settlement" method="get" path="/settlements/open" -->
+<!-- UsageSnippet language="typescript" operationID="get-open-settlement" method="get" path="/settlements/open" example="get-settlement-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -292,7 +292,7 @@ For more accurate bookkeeping, refer to the [balance report](get-balance-report)
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-next-settlement" method="get" path="/settlements/next" -->
+<!-- UsageSnippet language="typescript" operationID="get-next-settlement" method="get" path="/settlements/next" example="get-settlement-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -372,9 +372,139 @@ The response is in the same format as the response of the [List payments endpoin
 For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the
 [List captures endpoint](list-captures) endpoint instead.
 
-### Example Usage
+### Example Usage: list-payments-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-settlement-payments" method="get" path="/settlements/{settlementId}/payments" -->
+<!-- UsageSnippet language="typescript" operationID="list-settlement-payments" method="get" path="/settlements/{settlementId}/payments" example="list-payments-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listPayments({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListPayments } from "mollie-api-typescript/funcs/settlementsListPayments.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListPayments(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("settlementsListPayments failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-payments-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-payments" method="get" path="/settlements/{settlementId}/payments" example="list-payments-200-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listPayments({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListPayments } from "mollie-api-typescript/funcs/settlementsListPayments.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListPayments(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("settlementsListPayments failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-payments-200-3
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-payments" method="get" path="/settlements/{settlementId}/payments" example="list-payments-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -464,9 +594,72 @@ Retrieve all captures included in the given settlement.
 
 The response is in the same format as the response of the [List captures endpoint](list-captures).
 
-### Example Usage
+### Example Usage: list-captures-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-settlement-captures" method="get" path="/settlements/{settlementId}/captures" -->
+<!-- UsageSnippet language="typescript" operationID="list-settlement-captures" method="get" path="/settlements/{settlementId}/captures" example="list-captures-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listCaptures({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    embed: "payment",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListCaptures } from "mollie-api-typescript/funcs/settlementsListCaptures.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListCaptures(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    embed: "payment",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("settlementsListCaptures failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-captures-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-captures" method="get" path="/settlements/{settlementId}/captures" example="list-captures-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -556,7 +749,7 @@ The response is in the same format as the response of the [List refunds endpoint
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-settlement-refunds" method="get" path="/settlements/{settlementId}/refunds" -->
+<!-- UsageSnippet language="typescript" operationID="list-settlement-refunds" method="get" path="/settlements/{settlementId}/refunds" example="list-refunds-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -644,9 +837,135 @@ Retrieve all chargebacks 'deducted' from the given settlement.
 
 The response is in the same format as the response of the [List chargebacks endpoint](list-chargebacks).
 
-### Example Usage
+### Example Usage: list-chargeback-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-settlement-chargebacks" method="get" path="/settlements/{settlementId}/chargebacks" -->
+<!-- UsageSnippet language="typescript" operationID="list-settlement-chargebacks" method="get" path="/settlements/{settlementId}/chargebacks" example="list-chargeback-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listChargebacks({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
+    embed: "payment",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListChargebacks } from "mollie-api-typescript/funcs/settlementsListChargebacks.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListChargebacks(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
+    embed: "payment",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("settlementsListChargebacks failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-chargeback-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-chargebacks" method="get" path="/settlements/{settlementId}/chargebacks" example="list-chargeback-200-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listChargebacks({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
+    embed: "payment",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListChargebacks } from "mollie-api-typescript/funcs/settlementsListChargebacks.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListChargebacks(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "chb_xFzwUN4ci8HAmSGUACS4J",
+    limit: 50,
+    embed: "payment",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("settlementsListChargebacks failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-chargeback-200-3
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-chargebacks" method="get" path="/settlements/{settlementId}/chargebacks" example="list-chargeback-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

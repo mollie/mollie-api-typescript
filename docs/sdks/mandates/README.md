@@ -17,9 +17,90 @@ account recurrently.
 It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create
 mandates for cards, your customers need to perform a 'first payment' with their card.
 
-### Example Usage
+### Example Usage: create-mandate-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/customers/{customerId}/mandates" -->
+<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/customers/{customerId}/mandates" example="create-mandate-201-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.mandates.create({
+    customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    mandateRequest: {
+      id: "mdt_5B8cwPMGnU",
+      method: "directdebit",
+      consumerName: "John Doe",
+      consumerAccount: "NL55INGB0000000000",
+      consumerBic: "BANKBIC",
+      consumerEmail: "example@email.com",
+      signatureDate: "2025-01-01",
+      mandateReference: "ID-1023892",
+      paypalBillingAgreementId: "B-12A34567B8901234CD",
+      payPalVaultId: "8kk8451t",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { mandatesCreate } from "mollie-api-typescript/funcs/mandatesCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await mandatesCreate(client, {
+    customerId: "cst_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    mandateRequest: {
+      id: "mdt_5B8cwPMGnU",
+      method: "directdebit",
+      consumerName: "John Doe",
+      consumerAccount: "NL55INGB0000000000",
+      consumerBic: "BANKBIC",
+      consumerEmail: "example@email.com",
+      signatureDate: "2025-01-01",
+      mandateReference: "ID-1023892",
+      paypalBillingAgreementId: "B-12A34567B8901234CD",
+      payPalVaultId: "8kk8451t",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mandatesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-mandate-201-2
+
+<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/customers/{customerId}/mandates" example="create-mandate-201-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -127,7 +208,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-mandates" method="get" path="/customers/{customerId}/mandates" -->
+<!-- UsageSnippet language="typescript" operationID="list-mandates" method="get" path="/customers/{customerId}/mandates" example="list-mandates-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -216,7 +297,7 @@ account details, card details, or PayPal account details.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-mandate" method="get" path="/customers/{customerId}/mandates/{mandateId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-mandate" method="get" path="/customers/{customerId}/mandates/{mandateId}" example="get-mandate-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

@@ -19,7 +19,7 @@ If you have a *partner account*', you can retrieve organization details of conne
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-organization" method="get" path="/organizations/{organizationId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-organization" method="get" path="/organizations/{organizationId}" example="get-organization-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -105,7 +105,7 @@ documentation.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-current-organization" method="get" path="/organizations/me" -->
+<!-- UsageSnippet language="typescript" operationID="get-current-organization" method="get" path="/organizations/me" example="get-current-organization-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -183,7 +183,7 @@ accounts*.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-partner-status" method="get" path="/organizations/me/partner" -->
+<!-- UsageSnippet language="typescript" operationID="get-partner-status" method="get" path="/organizations/me/partner" example="get-partner-status-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

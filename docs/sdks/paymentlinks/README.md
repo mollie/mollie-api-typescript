@@ -17,9 +17,690 @@ With the Payment links API you can generate payment links that by default, unlik
 The payment link can be shared with your customers and will redirect them to them the payment page where they can
 complete the payment. A [payment](get-payment) will only be created once the customer initiates the payment.
 
-### Example Usage
+### Example Usage: create-payment-link-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-payment-link" method="post" path="/payment-links" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment-link" method="post" path="/payment-links" example="create-payment-link-201-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.paymentLinks.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { paymentLinksCreate } from "mollie-api-typescript/funcs/paymentLinksCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await paymentLinksCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("paymentLinksCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-payment-link-201-2
+
+<!-- UsageSnippet language="typescript" operationID="create-payment-link" method="post" path="/payment-links" example="create-payment-link-201-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.paymentLinks.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { paymentLinksCreate } from "mollie-api-typescript/funcs/paymentLinksCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await paymentLinksCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("paymentLinksCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-payment-link-201-3
+
+<!-- UsageSnippet language="typescript" operationID="create-payment-link" method="post" path="/payment-links" example="create-payment-link-201-3" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.paymentLinks.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { paymentLinksCreate } from "mollie-api-typescript/funcs/paymentLinksCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await paymentLinksCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      minimumAmount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://webshop.example.org/payment-links/redirect/",
+      webhookUrl: "https://webshop.example.org/payment-links/webhook/",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      profileId: "pfl_QkEhN94Ba",
+      reusable: false,
+      expiresAt: "2025-12-24T11:00:16+00:00",
+      allowedMethods: null,
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "Platform fee",
+      },
+      sequenceType: "oneoff",
+      customerId: "cst_XimFHuaEzd",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("paymentLinksCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-payment-link-201-4
+
+<!-- UsageSnippet language="typescript" operationID="create-payment-link" method="post" path="/payment-links" example="create-payment-link-201-4" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -271,9 +952,68 @@ Retrieve a list of all payment links.
 
 The results are paginated.
 
-### Example Usage
+### Example Usage: list-payment-links-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-payment-links" method="get" path="/payment-links" -->
+<!-- UsageSnippet language="typescript" operationID="list-payment-links" method="get" path="/payment-links" example="list-payment-links-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.paymentLinks.list({
+    from: "pl_d9fQur83kFdhH8hIhaZfq",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { paymentLinksList } from "mollie-api-typescript/funcs/paymentLinksList.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await paymentLinksList(client, {
+    from: "pl_d9fQur83kFdhH8hIhaZfq",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("paymentLinksList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-payment-links-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-payment-links" method="get" path="/payment-links" example="list-payment-links-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -357,7 +1097,7 @@ Retrieve a single payment link by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-payment-link" method="get" path="/payment-links/{paymentLinkId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-payment-link" method="get" path="/payment-links/{paymentLinkId}" example="get-payment-link-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -439,7 +1179,7 @@ Certain details of an existing payment link can be updated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="update-payment-link" method="patch" path="/payment-links/{paymentLinkId}" -->
+<!-- UsageSnippet language="typescript" operationID="update-payment-link" method="patch" path="/payment-links/{paymentLinkId}" example="update-payment-link-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -695,7 +1435,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-payment-link-payments" method="get" path="/payment-links/{paymentLinkId}/payments" -->
+<!-- UsageSnippet language="typescript" operationID="get-payment-link-payments" method="get" path="/payment-links/{paymentLinkId}/payments" example="get-payment-link-payments-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

@@ -17,7 +17,7 @@ A webhook must have a name, an url and a list of event types. You can also creat
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="create-webhook" method="post" path="/webhooks" -->
+<!-- UsageSnippet language="typescript" operationID="create-webhook" method="post" path="/webhooks" example="create-webhook-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -107,7 +107,7 @@ Returns a paginated list of your webhooks. If no webhook endpoints are available
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-webhooks" method="get" path="/webhooks" -->
+<!-- UsageSnippet language="typescript" operationID="list-webhooks" method="get" path="/webhooks" example="list-webhook-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -195,7 +195,7 @@ Updates the webhook. You may edit the name, url and the list of subscribed event
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/webhooks/{webhookId}" -->
+<!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/webhooks/{webhookId}" example="create-webhook-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -285,9 +285,66 @@ run();
 
 Retrieve a single webhook object by its ID.
 
-### Example Usage
+### Example Usage: get-webhook-200
 
-<!-- UsageSnippet language="typescript" operationID="get-webhook" method="get" path="/webhooks/{webhookId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-webhook" method="get" path="/webhooks/{webhookId}" example="get-webhook-200" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.webhooks.get({
+    webhookId: "hook_1234567890",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { webhooksGet } from "mollie-api-typescript/funcs/webhooksGet.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await webhooksGet(client, {
+    webhookId: "hook_1234567890",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("webhooksGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-webhook-200-1
+
+<!-- UsageSnippet language="typescript" operationID="get-webhook" method="get" path="/webhooks/{webhookId}" example="get-webhook-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

@@ -15,9 +15,120 @@
 Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank
 transfer or by refunding the amount to your customer's credit card.
 
-### Example Usage
+### Example Usage: create-refund-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-refund" method="post" path="/payments/{paymentId}/refunds" -->
+<!-- UsageSnippet language="typescript" operationID="create-refund" method="post" path="/payments/{paymentId}/refunds" example="create-refund-201-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.refunds.create({
+    paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    refundRequest: {
+      description: "Refunding a Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      metadata: {
+
+      },
+      externalReference: {
+        type: "acquirer-reference",
+        id: "123456789012345",
+      },
+      reverseRouting: false,
+      routingReversals: [
+        {
+          amount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          source: {
+            type: "organization",
+            organizationId: "org_1234567",
+          },
+        },
+      ],
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { refundsCreate } from "mollie-api-typescript/funcs/refundsCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await refundsCreate(client, {
+    paymentId: "tr_5B8cwPMGnU",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    refundRequest: {
+      description: "Refunding a Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      metadata: {
+  
+      },
+      externalReference: {
+        type: "acquirer-reference",
+        id: "123456789012345",
+      },
+      reverseRouting: false,
+      routingReversals: [
+        {
+          amount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          source: {
+            type: "organization",
+            organizationId: "org_1234567",
+          },
+        },
+      ],
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("refundsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-refund-201-2
+
+<!-- UsageSnippet language="typescript" operationID="create-refund" method="post" path="/payments/{paymentId}/refunds" example="create-refund-201-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -155,7 +266,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-refunds" method="get" path="/payments/{paymentId}/refunds" -->
+<!-- UsageSnippet language="typescript" operationID="list-refunds" method="get" path="/payments/{paymentId}/refunds" example="list-refunds-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -243,7 +354,7 @@ Retrieve a single payment refund by its ID and the ID of its parent payment.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-refund" method="get" path="/payments/{paymentId}/refunds/{refundId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-refund" method="get" path="/payments/{paymentId}/refunds/{refundId}" example="get-refund-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -419,7 +530,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-all-refunds" method="get" path="/refunds" -->
+<!-- UsageSnippet language="typescript" operationID="list-all-refunds" method="get" path="/refunds" example="list-refunds-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

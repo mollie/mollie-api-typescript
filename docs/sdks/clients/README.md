@@ -15,7 +15,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-clients" method="get" path="/clients" -->
+<!-- UsageSnippet language="typescript" operationID="list-clients" method="get" path="/clients" example="list-clients-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -97,9 +97,180 @@ run();
 
 Retrieve a single client by its ID.
 
-### Example Usage
+### Example Usage: get-client-200-1
 
-<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.clients.get({
+    organizationId: "org_1234567",
+    embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { clientsGet } from "mollie-api-typescript/funcs/clientsGet.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await clientsGet(client, {
+    organizationId: "org_1234567",
+    embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("clientsGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-client-200-2
+
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.clients.get({
+    organizationId: "org_1234567",
+    embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { clientsGet } from "mollie-api-typescript/funcs/clientsGet.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await clientsGet(client, {
+    organizationId: "org_1234567",
+    embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("clientsGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-client-200-3
+
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-3" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.clients.get({
+    organizationId: "org_1234567",
+    embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { clientsGet } from "mollie-api-typescript/funcs/clientsGet.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await clientsGet(client, {
+    organizationId: "org_1234567",
+    embed: "organization",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("clientsGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-client-200-4
+
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-4" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

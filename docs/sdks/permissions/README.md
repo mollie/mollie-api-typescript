@@ -13,9 +13,62 @@ Retrieve a list of all permissions available to the current access token.
 
 The results are **not** paginated.
 
-### Example Usage
+### Example Usage: list-permissions-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-permissions" method="get" path="/permissions" -->
+<!-- UsageSnippet language="typescript" operationID="list-permissions" method="get" path="/permissions" example="list-permissions-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.permissions.list({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { permissionsList } from "mollie-api-typescript/funcs/permissionsList.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await permissionsList(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("permissionsList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-permissions-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-permissions" method="get" path="/permissions" example="list-permissions-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -91,9 +144,66 @@ run();
 
 Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
 
-### Example Usage
+### Example Usage: get-permission-200-1
 
-<!-- UsageSnippet language="typescript" operationID="get-permission" method="get" path="/permissions/{permissionId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-permission" method="get" path="/permissions/{permissionId}" example="get-permission-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.permissions.get({
+    permissionId: "payments.read",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { permissionsGet } from "mollie-api-typescript/funcs/permissionsGet.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await permissionsGet(client, {
+    permissionId: "payments.read",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("permissionsGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-permission-200-2
+
+<!-- UsageSnippet language="typescript" operationID="get-permission" method="get" path="/permissions/{permissionId}" example="get-permission-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

@@ -13,9 +13,70 @@ Retrieve a list of all physical point-of-sale devices.
 
 The results are paginated.
 
-### Example Usage
+### Example Usage: list-terminals-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-terminals" method="get" path="/terminals" -->
+<!-- UsageSnippet language="typescript" operationID="list-terminals" method="get" path="/terminals" example="list-terminals-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.terminals.list({
+    from: "term_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { terminalsList } from "mollie-api-typescript/funcs/terminalsList.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await terminalsList(client, {
+    from: "term_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("terminalsList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-terminals-200-2
+
+<!-- UsageSnippet language="typescript" operationID="list-terminals" method="get" path="/terminals" example="list-terminals-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -101,7 +162,7 @@ Retrieve a single terminal by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-terminal" method="get" path="/terminals/{terminalId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-terminal" method="get" path="/terminals/{terminalId}" example="get-terminal-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

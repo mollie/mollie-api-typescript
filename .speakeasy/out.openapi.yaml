@@ -31343,6 +31343,12 @@ components:
             documentation:
               href: '...'
               type: text/html
+    businessCategory:
+      type: string
+      description: |-
+        The industry associated with the profile's trade name or brand. Please refer to the
+        [business category list](common-data-types#business-category) for all possible options.
+      example: OTHER_MERCHANDISE
     profile-response:
       allOf:
         - $ref: '#/components/schemas/entity-profile-response'
@@ -31355,10 +31361,14 @@ components:
             - website
             - email
             - phone
-            - businessCategory
             - status
             - createdAt
             - _links
+          properties:
+            businessCategory:
+              allOf:
+                - $ref: '#/components/schemas/businessCategory'
+                - nullable: true
       x-speakeasy-unknown-values: allow
     profile-request:
       allOf:
@@ -36563,10 +36573,14 @@ components:
             - website
             - email
             - phone
-            - businessCategory
             - status
             - createdAt
             - _links
+          properties:
+            businessCategory:
+              allOf:
+                - $ref: '#/components/schemas/businessCategory'
+                - nullable: true
     list-entity-client:
       type: object
       required:
