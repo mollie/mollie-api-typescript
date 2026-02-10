@@ -31361,6 +31361,7 @@ components:
             - website
             - email
             - phone
+            - businessCategory
             - status
             - createdAt
             - _links
@@ -36573,6 +36574,7 @@ components:
             - website
             - email
             - phone
+            - businessCategory
             - status
             - createdAt
             - _links

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 9aff82578b9acde76766df00847b5336
+  docChecksum: 92f34d273917127bcde2ac571f79ac1a
   docVersion: 1.0.0
-  speakeasyVersion: 1.708.2
-  generationVersion: 2.811.4
-  releaseVersion: 1.1.3
-  configChecksum: c150f5c5820f54379be12abebe14eddd
+  speakeasyVersion: 1.709.3
+  generationVersion: 2.814.0
+  releaseVersion: 1.1.4
+  configChecksum: fc9d9ed397caa48f59037819cdab68de
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 949634cf-4cf6-4e73-a193-78956b0996b8
-  pristine_commit_hash: 5069a51b207c4a2a1960fbb29cab5c9002682d5e
-  pristine_tree_hash: 272a8dd60eebc01fa51c36326ef91e0303c27ee1
+  generation_id: 95655bbb-91fb-49d1-8975-13079ea48dba
+  pristine_commit_hash: cf4e226b0087fcdfc9b49f25f9c68d866e208138
+  pristine_tree_hash: fb11f0d5b539d8cfa80d8fc1c7b260f4ea28408a
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -989,8 +989,8 @@ trackedFiles:
     pristine_git_object: 5781ecf679da0c7855fb0b951b03dcbe630f2889
   docs/models/listprofileresponse.md:
     id: 02dd4ed48736
-    last_write_checksum: sha1:d1a957dd0948d979e31e09fabab9f00d09066eb3
-    pristine_git_object: 8e15a65e44eaffcb9eafc1099d99ae313a9b9fd6
+    last_write_checksum: sha1:bdb334896830bf9472a37b2f6bc971e0f62a1757
+    pristine_git_object: 2e9b1bd817295655127830d804e005cd79bf6ce7
   docs/models/listprofileresponselinks.md:
     id: 1601b5c76725
     last_write_checksum: sha1:2ccd8cb5a384e24f2b7fd422d3d078e448394cd5
@@ -2381,8 +2381,8 @@ trackedFiles:
     pristine_git_object: f6f3fc3e64c2677f63453bcbf8bf45ba5e99de24
   docs/models/profileresponse.md:
     id: 5f458f9c61b4
-    last_write_checksum: sha1:dbccff10857368006de800b71e5109bbcb0bc4a5
-    pristine_git_object: ec3301dc27fa44e74b02c744d420087d092d3636
+    last_write_checksum: sha1:7aa8226f3cc32f4712c3bec98b2b545763d25866
+    pristine_git_object: 7f06d554683862a1ec99f1ae1045ccd3a203c16b
   docs/models/profileresponselinks.md:
     id: eb49c90b0063
     last_write_checksum: sha1:e833d7b0e62cfaffe03b63ef65d6ac9979aeea0d
@@ -2889,12 +2889,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:77686656e30f1795cc19e8a90ca018bb07fe5966
-    pristine_git_object: 2c04e29b84540aa645170eb26563d9b218c0b176
+    last_write_checksum: sha1:d50a28289df2d7da8ab7e5c96e0ab88ea85aa2d8
+    pristine_git_object: c52ee221cdb639b164e1f961894396f5a00feb65
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:05d6c6bab418ac46db07fe02419d41af57ceb781
-    pristine_git_object: 4880b82c45b308e9abdde23aa192de747419f497
+    last_write_checksum: sha1:08c1ffd3e80c64216679030b3415b242aaa272ee
+    pristine_git_object: 9e9d8ea77521bd99d2189c76d41d8f47d25249a7
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d9ddd6581847914e25feb525eb329e4168189d46
@@ -3309,8 +3309,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:b121552cd980deee1607150a747c13ea42a045e0
-    pristine_git_object: 2609989cd621d1bc265e645eaf64565a5cbdf43f
+    last_write_checksum: sha1:7cf7ab53966d37fcd0a07956118d65849a4d6042
+    pristine_git_object: bf7f184e5214be132316df85f7de186347a51ceb
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -3393,8 +3393,8 @@ trackedFiles:
     pristine_git_object: 0955a573c2ce989d63c737410ab8cc28706d9f74
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:ae250079f2ae9d09e195d86b325e99d1c4d04b5f
-    pristine_git_object: 1238273da39c85084fc3c17b1b597361779b8e0e
+    last_write_checksum: sha1:8a998f8043987b45a64b678faef2d7eb691da1b9
+    pristine_git_object: ef089fec05bb398b655bda37364c2deb03ecf8e1
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:905d497dc387068fb5a27df52f6c2385d63d7536
@@ -3409,8 +3409,8 @@ trackedFiles:
     pristine_git_object: c25696d4c4f70e081fa5d87ad6891874c509a577
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:846524c830800e88f7d424cbf6fb1bde88deecde
-    pristine_git_object: 67ad0f51a66f01fd5b7a594386673f75ebd5cbf1
+    last_write_checksum: sha1:40cd1364cd5be21b4a7942cd3cb43366e834ade4
+    pristine_git_object: 78efef8f9f66a3990ece16c8c01cc490febb1923
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:56c73d4429691516e35541825e759a0285747a2b
@@ -4137,8 +4137,8 @@ trackedFiles:
     pristine_git_object: d72bb232347761a0a0868379badc9509772f0c3b
   src/models/listprofileresponse.ts:
     id: ebe4cd5cb357
-    last_write_checksum: sha1:f78657bd4517a5e84ac7cc925bfbc99f5f443bc3
-    pristine_git_object: 00b74994bdebeb2d83e3f9f5ce19fa2dd4485a0f
+    last_write_checksum: sha1:14e6745356794af6d0db1b27ddb50b66db8900f2
+    pristine_git_object: c4820b4cb56d542bba3c26e464a3d2b204131413
   src/models/listroutegetresponse.ts:
     id: 0a6fb46e6e04
     last_write_checksum: sha1:7ac9d174082c339fd0ac8ea90c9e140b5026e7b3
@@ -4709,8 +4709,8 @@ trackedFiles:
     pristine_git_object: ded2b73962d2ca841cc2c488a1e28b8d8ab777a8
   src/models/profileresponse.ts:
     id: beecc732beeb
-    last_write_checksum: sha1:010f0d4075aca7a7c79c8141548c091e3728d2e3
-    pristine_git_object: 262cd768da4bca7def56214da078ae48bef6e6ee
+    last_write_checksum: sha1:c2deb2964f7404f6983d26ab3671b9e4862157ea
+    pristine_git_object: 0cce952d46469170e987c603cbbede81c2e3ce02
   src/models/profilereviewstatusresponse.ts:
     id: 41007377a89b
     last_write_checksum: sha1:7477cbb5110be8acd10fbc4e6b918724f51f47da
@@ -8678,12 +8678,12 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `client.profiles.create()`:  `response.businessCategory` **Changed** (Breaking ⚠️)
-  * `client.profiles.list()`:  `response.Embedded.profiles[].businessCategory` **Changed** (Breaking ⚠️)
-  * `client.profiles.get()`:  `response.businessCategory` **Changed** (Breaking ⚠️)
-  * `client.profiles.update()`:  `response.businessCategory` **Changed** (Breaking ⚠️)
-  * `client.profiles.getCurrent()`:  `response.businessCategory` **Changed** (Breaking ⚠️)
-  * `client.webhookEvents.get()`:  `response.Embedded.entity.union(profile-response).businessCategory` **Changed** (Breaking ⚠️)
+  * `client.profiles.create()`:  `response.businessCategory` **Changed**
+  * `client.profiles.list()`:  `response.Embedded.profiles[].businessCategory` **Changed**
+  * `client.profiles.get()`:  `response.businessCategory` **Changed**
+  * `client.profiles.update()`:  `response.businessCategory` **Changed**
+  * `client.profiles.getCurrent()`:  `response.businessCategory` **Changed**
+  * `client.webhookEvents.get()`:  `response.Embedded.entity.union(profile-response).businessCategory` **Changed**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
