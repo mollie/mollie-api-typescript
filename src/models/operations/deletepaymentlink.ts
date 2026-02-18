@@ -10,10 +10,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeletePaymentLinkRequestBody = {
   /**
-   * Most API credentials are specifically created for either live mode or test mode. For organization-level credentials
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter must
    *
    * @remarks
-   * such as OAuth access tokens, you can enable test mode by setting `testmode` to `true`.
+   * not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
    */

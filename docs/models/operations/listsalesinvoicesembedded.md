@@ -12,6 +12,7 @@ let value: ListSalesInvoicesEmbedded = {
       id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
       mode: "live",
       invoiceNumber: "INV-0000001",
+      profileId: "pfl_QkEhN94Ba",
       status: "draft",
       vatScheme: "standard",
       vatMode: "exclusive",

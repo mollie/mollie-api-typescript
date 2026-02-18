@@ -190,6 +190,16 @@ export type ListSalesInvoiceResponse = {
    */
   invoiceNumber?: string | null | undefined;
   /**
+   * The identifier referring to the [profile](get-profile) this entity belongs to.
+   *
+   * @remarks
+   *
+   * Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent in the creation
+   * request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+   * required.
+   */
+  profileId?: string | null | undefined;
+  /**
    * The status for the invoice to end up in.
    *
    * @remarks
@@ -653,6 +663,7 @@ export const ListSalesInvoiceResponse$inboundSchema: z.ZodType<
   id: z.string(),
   mode: Mode$inboundSchema,
   invoiceNumber: z.nullable(z.string()).optional(),
+  profileId: z.nullable(z.string()).optional(),
   status: SalesInvoiceStatusResponse$inboundSchema.optional(),
   vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
   vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
@@ -700,6 +711,7 @@ export type ListSalesInvoiceResponse$Outbound = {
   id: string;
   mode: string;
   invoiceNumber?: string | null | undefined;
+  profileId?: string | null | undefined;
   status?: string | undefined;
   vatScheme?: string | undefined;
   vatMode?: string | undefined;
@@ -738,6 +750,7 @@ export const ListSalesInvoiceResponse$outboundSchema: z.ZodType<
   id: z.string(),
   mode: Mode$outboundSchema,
   invoiceNumber: z.nullable(z.string()).optional(),
+  profileId: z.nullable(z.string()).optional(),
   status: SalesInvoiceStatusResponse$outboundSchema.optional(),
   vatScheme: SalesInvoiceVatSchemeResponse$outboundSchema.optional(),
   vatMode: SalesInvoiceVatModeResponse$outboundSchema.optional(),

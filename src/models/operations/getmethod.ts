@@ -16,7 +16,7 @@ export type GetMethodGlobals = {
    * @remarks
    * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent. For
    * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
@@ -24,7 +24,7 @@ export type GetMethodGlobals = {
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
-   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
    * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
@@ -57,7 +57,7 @@ export type GetMethodRequest = {
    * @remarks
    * retrieve the resources for.
    *
-   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted. For
+   * Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent. For
    * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
@@ -81,7 +81,7 @@ export type GetMethodRequest = {
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
-   * parameter can be omitted. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
    * setting the `testmode` query parameter to `true`.
    *
    * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
