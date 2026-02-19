@@ -27,6 +27,21 @@ let value: ListBalanceTransactionsResponse = {
           currency: "EUR",
           value: "10.00",
         },
+        deductionDetails: {
+          fees: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          commissions: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          repayments: null,
+          reservations: {
+            currency: "EUR",
+            value: "10.00",
+          },
+        },
         context: {
           payment: {
             paymentId: "tr_5B8cwPMGnU",
@@ -38,7 +53,12 @@ let value: ListBalanceTransactionsResponse = {
             captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
             captureDescription: "Capture Description",
           },
-          captureCommision: null,
+          captureCommision: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+            captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
+            captureDescription: "Capture Description",
+          },
           captureRollingReserveRelease: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -101,18 +121,9 @@ let value: ListBalanceTransactionsResponse = {
             chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
             chargebackDescription: "Chargeback Description",
           },
-          outgoingTransfer: {
-            transferId: "trf_nyjwa2",
-            settlementId: "stl_5B8cwPMGnU",
-          },
-          canceledOutgoingTransfer: {
-            transferId: "trf_nyjwa2",
-            settlementId: "stl_5B8cwPMGnU",
-          },
-          returnedTransfer: {
-            transferId: "trf_nyjwa2",
-            settlementId: "stl_s3hcSM2hKP",
-          },
+          outgoingTransfer: null,
+          canceledOutgoingTransfer: null,
+          returnedTransfer: null,
           invoiceCompensation: {
             invoiceId: "inv_aHbjjdrUdm",
           },
@@ -121,9 +132,23 @@ let value: ListBalanceTransactionsResponse = {
             paymentDescription: "Payment Description",
             payingOwner: "org_1234567",
           },
-          splitPayment: null,
-          platformPaymentRefund: null,
-          returnedPlatformPaymentRefund: null,
+          splitPayment: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+            paymentOnwer: "org_1234567",
+          },
+          platformPaymentRefund: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+            refundId: "re_5B8cwPMGnU",
+            refundDescription: "Refund Description",
+          },
+          returnedPlatformPaymentRefund: {
+            paymentId: "tr_5B8cwPMGnU",
+            paymentDescription: "Payment Description",
+            refundId: "re_5B8cwPMGnU",
+            refundDescription: "Refund Description",
+          },
           platformPaymentChargeback: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -136,11 +161,7 @@ let value: ListBalanceTransactionsResponse = {
             chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
             chargebackDescription: "Chargeback Description",
           },
-          paymentCommission: {
-            paymentId: "tr_5B8cwPMGnU",
-            paymentDescription: "Payment Description",
-            organizationId: "org_1234567",
-          },
+          paymentCommission: null,
           reimbursementFee: {
             paymentId: "tr_5B8cwPMGnU",
             paymentDescription: "Payment Description",
@@ -157,7 +178,10 @@ let value: ListBalanceTransactionsResponse = {
             feeType: "feeType",
             feeId: "feeId",
           },
-          returnedManagedFee: null,
+          returnedManagedFee: {
+            feeType: "feeType",
+            feeId: "feeId",
+          },
           postPaymentSplitPayment: {
             paymentId: "tr_5B8cwPMGnU",
           },

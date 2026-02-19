@@ -1407,6 +1407,10 @@ paths:
                           deductions:
                             currency: EUR
                             value: '-0.25'
+                          deductionDetails:
+                            fees:
+                              currency: EUR
+                              value: '-0.25'
                           createdAt: '2022-12-16T11:23:25+00:00'
                           context:
                             paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
@@ -1423,6 +1427,19 @@ paths:
                           deductions:
                             currency: EUR
                             value: '-0.29'
+                          deductionDetails:
+                            fees:
+                              currency: EUR
+                              value: '-0.02'
+                            commissions:
+                              currency: EUR
+                              value: '-0.09'
+                            reservations:
+                              currency: EUR
+                              value: '-0.09'
+                            repayments:
+                              currency: EUR
+                              value: '-0.09'
                           createdAt: '2022-12-16T11:23:25+00:00'
                           context:
                             paymentId: tr_5B8cwPMGnU6qLbRvo7qEZo
@@ -1610,6 +1627,19 @@ paths:
                           deductions:
                             value: '-0.38'
                             currency: EUR
+                          deductionDetails:
+                            fees:
+                              currency: EUR
+                              value: '-0.01'
+                            commissions:
+                              currency: EUR
+                              value: '-0.20'
+                            repayments:
+                              currency: EUR
+                              value: '-0.07'
+                            reservations:
+                              currency: EUR
+                              value: '-0.10'
                           createdAt: '2022-12-15T08:32:17+00:00'
                           context:
                             paymentId: tr_5ZYFyKSBLy
@@ -1710,6 +1740,10 @@ paths:
                           deductions:
                             value: '-0.25'
                             currency: EUR
+                          deductionDetails:
+                            fees:
+                              currency: EUR
+                              value: '-0.25'
                           createdAt: '2022-12-13T15:01:56+00:00'
                           context:
                             paymentId: tr_PsZAZznzcg
@@ -28153,6 +28187,26 @@ components:
 
             When moving funds to a balance, we always round the deduction to a 'real' amount. Any differences between these
             real-time rounded amounts and the final invoice will be compensated when the invoice is generated.
+        deductionDetails:
+          type:
+            - object
+            - 'null'
+          description: |-
+            A detailed breakdown of the deductions withheld from the movement. Each field represents a specific type of
+            deduction applied to the transaction. Only the applicable fields will be present.
+          properties:
+            fees:
+              $ref: '#/components/schemas/amount-nullable'
+              description: The amount deducted for all transaction fees.
+            commissions:
+              $ref: '#/components/schemas/amount-nullable'
+              description: The amount deducted for commissions (e.g Application fees).
+            repayments:
+              $ref: '#/components/schemas/amount-nullable'
+              description: The amount deducted for Mollie Capital repayments.
+            reservations:
+              $ref: '#/components/schemas/amount-nullable'
+              description: The amount deducted for rolling reservations.
         context:
           type:
             - object

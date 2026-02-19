@@ -25,6 +25,31 @@ import {
 } from "./balancetransactiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * A detailed breakdown of the deductions withheld from the movement. Each field represents a specific type of
+ *
+ * @remarks
+ * deduction applied to the transaction. Only the applicable fields will be present.
+ */
+export type DeductionDetails = {
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  fees?: AmountNullable | null | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  commissions?: AmountNullable | null | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  repayments?: AmountNullable | null | undefined;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  reservations?: AmountNullable | null | undefined;
+};
+
 export type Payment = {
   paymentId?: string | undefined;
   paymentDescription?: string | undefined;
@@ -333,6 +358,13 @@ export type EntityBalanceTransaction = {
    */
   deductions?: AmountNullable | null | undefined;
   /**
+   * A detailed breakdown of the deductions withheld from the movement. Each field represents a specific type of
+   *
+   * @remarks
+   * deduction applied to the transaction. Only the applicable fields will be present.
+   */
+  deductionDetails?: DeductionDetails | null | undefined;
+  /**
    * Depending on the type of the balance transaction, we will try to give more context about the specific event that
    *
    * @remarks
@@ -388,6 +420,54 @@ export type EntityBalanceTransaction = {
    */
   createdAt: string;
 };
+
+/** @internal */
+export const DeductionDetails$inboundSchema: z.ZodType<
+  DeductionDetails,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  fees: z.nullable(AmountNullable$inboundSchema).optional(),
+  commissions: z.nullable(AmountNullable$inboundSchema).optional(),
+  repayments: z.nullable(AmountNullable$inboundSchema).optional(),
+  reservations: z.nullable(AmountNullable$inboundSchema).optional(),
+});
+/** @internal */
+export type DeductionDetails$Outbound = {
+  fees?: AmountNullable$Outbound | null | undefined;
+  commissions?: AmountNullable$Outbound | null | undefined;
+  repayments?: AmountNullable$Outbound | null | undefined;
+  reservations?: AmountNullable$Outbound | null | undefined;
+};
+
+/** @internal */
+export const DeductionDetails$outboundSchema: z.ZodType<
+  DeductionDetails$Outbound,
+  z.ZodTypeDef,
+  DeductionDetails
+> = z.object({
+  fees: z.nullable(AmountNullable$outboundSchema).optional(),
+  commissions: z.nullable(AmountNullable$outboundSchema).optional(),
+  repayments: z.nullable(AmountNullable$outboundSchema).optional(),
+  reservations: z.nullable(AmountNullable$outboundSchema).optional(),
+});
+
+export function deductionDetailsToJSON(
+  deductionDetails: DeductionDetails,
+): string {
+  return JSON.stringify(
+    DeductionDetails$outboundSchema.parse(deductionDetails),
+  );
+}
+export function deductionDetailsFromJSON(
+  jsonString: string,
+): SafeParseResult<DeductionDetails, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeductionDetails$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeductionDetails' from JSON`,
+  );
+}
 
 /** @internal */
 export const Payment$inboundSchema: z.ZodType<Payment, z.ZodTypeDef, unknown> =
@@ -2069,6 +2149,8 @@ export const EntityBalanceTransaction$inboundSchema: z.ZodType<
   resultAmount: Amount$inboundSchema,
   initialAmount: Amount$inboundSchema,
   deductions: z.nullable(AmountNullable$inboundSchema).optional(),
+  deductionDetails: z.nullable(z.lazy(() => DeductionDetails$inboundSchema))
+    .optional(),
   context: z.nullable(z.lazy(() => Context$inboundSchema)).optional(),
   createdAt: z.string(),
 });
@@ -2080,6 +2162,7 @@ export type EntityBalanceTransaction$Outbound = {
   resultAmount: Amount$Outbound;
   initialAmount: Amount$Outbound;
   deductions?: AmountNullable$Outbound | null | undefined;
+  deductionDetails?: DeductionDetails$Outbound | null | undefined;
   context?: Context$Outbound | null | undefined;
   createdAt: string;
 };
@@ -2096,6 +2179,8 @@ export const EntityBalanceTransaction$outboundSchema: z.ZodType<
   resultAmount: Amount$outboundSchema,
   initialAmount: Amount$outboundSchema,
   deductions: z.nullable(AmountNullable$outboundSchema).optional(),
+  deductionDetails: z.nullable(z.lazy(() => DeductionDetails$outboundSchema))
+    .optional(),
   context: z.nullable(z.lazy(() => Context$outboundSchema)).optional(),
   createdAt: z.string(),
 });
