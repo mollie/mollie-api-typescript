@@ -68,7 +68,7 @@ export type ListChargebacksEmbedded = {
 /**
  * A list of chargeback objects.
  */
-export type ListChargebacksResponse = {
+export type ListChargebacksResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -84,6 +84,10 @@ export type ListChargebacksResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListChargebacksResponse = {
+  result: ListChargebacksResponseBody;
 };
 
 /** @internal */
@@ -227,8 +231,8 @@ export function listChargebacksEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListChargebacksResponse$inboundSchema: z.ZodType<
-  ListChargebacksResponse,
+export const ListChargebacksResponseBody$inboundSchema: z.ZodType<
+  ListChargebacksResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -242,17 +246,17 @@ export const ListChargebacksResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListChargebacksResponse$Outbound = {
+export type ListChargebacksResponseBody$Outbound = {
   count: number;
   _embedded: ListChargebacksEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListChargebacksResponse$outboundSchema: z.ZodType<
-  ListChargebacksResponse$Outbound,
+export const ListChargebacksResponseBody$outboundSchema: z.ZodType<
+  ListChargebacksResponseBody$Outbound,
   z.ZodTypeDef,
-  ListChargebacksResponse
+  ListChargebacksResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListChargebacksEmbedded$outboundSchema),
@@ -261,6 +265,55 @@ export const ListChargebacksResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listChargebacksResponseBodyToJSON(
+  listChargebacksResponseBody: ListChargebacksResponseBody,
+): string {
+  return JSON.stringify(
+    ListChargebacksResponseBody$outboundSchema.parse(
+      listChargebacksResponseBody,
+    ),
+  );
+}
+export function listChargebacksResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListChargebacksResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListChargebacksResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListChargebacksResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListChargebacksResponse$inboundSchema: z.ZodType<
+  ListChargebacksResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListChargebacksResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListChargebacksResponse$Outbound = {
+  Result: ListChargebacksResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListChargebacksResponse$outboundSchema: z.ZodType<
+  ListChargebacksResponse$Outbound,
+  z.ZodTypeDef,
+  ListChargebacksResponse
+> = z.object({
+  result: z.lazy(() => ListChargebacksResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

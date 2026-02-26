@@ -12,6 +12,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Payments extends ClientSDK {
   /**
@@ -53,8 +54,8 @@ export class Payments extends ClientSDK {
   async list(
     request?: operations.ListPaymentsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListPaymentsResponse> {
-    return unwrapAsync(paymentsList(
+  ): Promise<PageIterator<operations.ListPaymentsResponse, { url: string }>> {
+    return unwrapResultIterator(paymentsList(
       this,
       request,
       options,

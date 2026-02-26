@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Refunds extends ClientSDK {
   /**
@@ -42,8 +43,8 @@ export class Refunds extends ClientSDK {
   async list(
     request: operations.ListRefundsRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListRefundsResponse> {
-    return unwrapAsync(refundsList(
+  ): Promise<PageIterator<operations.ListRefundsResponse, { url: string }>> {
+    return unwrapResultIterator(refundsList(
       this,
       request,
       options,
@@ -99,8 +100,8 @@ export class Refunds extends ClientSDK {
   async all(
     request?: operations.ListAllRefundsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListAllRefundsResponse> {
-    return unwrapAsync(refundsAll(
+  ): Promise<PageIterator<operations.ListAllRefundsResponse, { url: string }>> {
+    return unwrapResultIterator(refundsAll(
       this,
       request,
       options,

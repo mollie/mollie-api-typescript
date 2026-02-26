@@ -95,7 +95,7 @@ export type ListSubscriptionPaymentsEmbedded = {
 /**
  * A list of payment objects.
  */
-export type ListSubscriptionPaymentsResponse = {
+export type ListSubscriptionPaymentsResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -111,6 +111,10 @@ export type ListSubscriptionPaymentsResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListSubscriptionPaymentsResponse = {
+  result: ListSubscriptionPaymentsResponseBody;
 };
 
 /** @internal */
@@ -269,8 +273,8 @@ export function listSubscriptionPaymentsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListSubscriptionPaymentsResponse$inboundSchema: z.ZodType<
-  ListSubscriptionPaymentsResponse,
+export const ListSubscriptionPaymentsResponseBody$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -284,17 +288,17 @@ export const ListSubscriptionPaymentsResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListSubscriptionPaymentsResponse$Outbound = {
+export type ListSubscriptionPaymentsResponseBody$Outbound = {
   count: number;
   _embedded: ListSubscriptionPaymentsEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListSubscriptionPaymentsResponse$outboundSchema: z.ZodType<
-  ListSubscriptionPaymentsResponse$Outbound,
+export const ListSubscriptionPaymentsResponseBody$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsResponseBody$Outbound,
   z.ZodTypeDef,
-  ListSubscriptionPaymentsResponse
+  ListSubscriptionPaymentsResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListSubscriptionPaymentsEmbedded$outboundSchema),
@@ -303,6 +307,56 @@ export const ListSubscriptionPaymentsResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listSubscriptionPaymentsResponseBodyToJSON(
+  listSubscriptionPaymentsResponseBody: ListSubscriptionPaymentsResponseBody,
+): string {
+  return JSON.stringify(
+    ListSubscriptionPaymentsResponseBody$outboundSchema.parse(
+      listSubscriptionPaymentsResponseBody,
+    ),
+  );
+}
+export function listSubscriptionPaymentsResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSubscriptionPaymentsResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSubscriptionPaymentsResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSubscriptionPaymentsResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSubscriptionPaymentsResponse$inboundSchema: z.ZodType<
+  ListSubscriptionPaymentsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListSubscriptionPaymentsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListSubscriptionPaymentsResponse$Outbound = {
+  Result: ListSubscriptionPaymentsResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListSubscriptionPaymentsResponse$outboundSchema: z.ZodType<
+  ListSubscriptionPaymentsResponse$Outbound,
+  z.ZodTypeDef,
+  ListSubscriptionPaymentsResponse
+> = z.object({
+  result: z.lazy(() => ListSubscriptionPaymentsResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

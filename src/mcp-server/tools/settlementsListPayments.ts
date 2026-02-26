@@ -35,7 +35,7 @@ For capture-based payment methods such as Klarna, the payments are not listed he
       };
     }
 
-    const value = result.value;
+    const value = result.value.result;
 
     return formatResult(value, apiCall);
   },

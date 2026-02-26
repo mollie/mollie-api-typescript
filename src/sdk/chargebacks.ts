@@ -9,6 +9,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Chargebacks extends ClientSDK {
   /**
@@ -22,8 +23,10 @@ export class Chargebacks extends ClientSDK {
   async list(
     request: operations.ListChargebacksRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListChargebacksResponse> {
-    return unwrapAsync(chargebacksList(
+  ): Promise<
+    PageIterator<operations.ListChargebacksResponse, { url: string }>
+  > {
+    return unwrapResultIterator(chargebacksList(
       this,
       request,
       options,
@@ -58,8 +61,10 @@ export class Chargebacks extends ClientSDK {
   async all(
     request?: operations.ListAllChargebacksRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListAllChargebacksResponse> {
-    return unwrapAsync(chargebacksAll(
+  ): Promise<
+    PageIterator<operations.ListAllChargebacksResponse, { url: string }>
+  > {
+    return unwrapResultIterator(chargebacksAll(
       this,
       request,
       options,

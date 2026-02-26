@@ -239,6 +239,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -2114,6 +2118,10 @@ paths:
                   documentation:
                     href: '...'
                     type: text/html
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -2279,6 +2287,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -4973,6 +4985,10 @@ paths:
                         type: application/hal+json
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -5167,6 +5183,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -5323,6 +5343,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -5564,6 +5588,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -6588,6 +6616,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -7746,6 +7778,10 @@ paths:
                         type: text/html
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -8764,6 +8800,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -9365,6 +9405,10 @@ paths:
                         type: application/hal+json
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -10041,6 +10085,10 @@ paths:
                         type: text/html
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -12890,6 +12938,10 @@ paths:
                         type: application/hal+json
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -16146,6 +16198,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -16464,6 +16520,10 @@ paths:
                         type: text/html
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -16703,6 +16763,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -17196,6 +17260,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -17520,6 +17588,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -18441,6 +18513,10 @@ paths:
                       next: null
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -18874,6 +18950,10 @@ paths:
                         type: text/html
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -19050,6 +19130,10 @@ paths:
                       next: null
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -19643,6 +19727,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -22722,6 +22810,10 @@ paths:
                         type: application/hal+json
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -23003,6 +23095,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -23446,6 +23542,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -24044,6 +24144,10 @@ paths:
           $ref: '#/components/responses/400-invalid-list-request'
         '404':
           $ref: '#/components/responses/404-invalid-id'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -26224,6 +26328,10 @@ paths:
                         type: application/hal+json
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell
@@ -26567,6 +26675,10 @@ paths:
                   previous: null
         '400':
           $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
       x-readme:
         code-samples:
           - language: shell

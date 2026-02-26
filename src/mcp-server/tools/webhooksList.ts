@@ -30,7 +30,7 @@ Returns a paginated list of your webhooks. If no webhook endpoints are available
       };
     }
 
-    const value = result.value;
+    const value = result.value.result;
 
     return formatResult(value, apiCall);
   },

@@ -9,6 +9,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class BalanceTransfers extends ClientSDK {
   /**
@@ -40,8 +41,13 @@ export class BalanceTransfers extends ClientSDK {
   async list(
     request?: operations.ListConnectBalanceTransfersRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListConnectBalanceTransfersResponse> {
-    return unwrapAsync(balanceTransfersList(
+  ): Promise<
+    PageIterator<
+      operations.ListConnectBalanceTransfersResponse,
+      { url: string }
+    >
+  > {
+    return unwrapResultIterator(balanceTransfersList(
       this,
       request,
       options,

@@ -74,7 +74,7 @@ export type ListRefundsEmbedded = {
  * @remarks
  * [Get refund endpoint](get-refund) documentation.
  */
-export type ListRefundsResponse = {
+export type ListRefundsResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -90,6 +90,10 @@ export type ListRefundsResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListRefundsResponse = {
+  result: ListRefundsResponseBody;
 };
 
 /** @internal */
@@ -233,8 +237,8 @@ export function listRefundsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListRefundsResponse$inboundSchema: z.ZodType<
-  ListRefundsResponse,
+export const ListRefundsResponseBody$inboundSchema: z.ZodType<
+  ListRefundsResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -248,17 +252,17 @@ export const ListRefundsResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListRefundsResponse$Outbound = {
+export type ListRefundsResponseBody$Outbound = {
   count: number;
   _embedded: ListRefundsEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListRefundsResponse$outboundSchema: z.ZodType<
-  ListRefundsResponse$Outbound,
+export const ListRefundsResponseBody$outboundSchema: z.ZodType<
+  ListRefundsResponseBody$Outbound,
   z.ZodTypeDef,
-  ListRefundsResponse
+  ListRefundsResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListRefundsEmbedded$outboundSchema),
@@ -267,6 +271,53 @@ export const ListRefundsResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listRefundsResponseBodyToJSON(
+  listRefundsResponseBody: ListRefundsResponseBody,
+): string {
+  return JSON.stringify(
+    ListRefundsResponseBody$outboundSchema.parse(listRefundsResponseBody),
+  );
+}
+export function listRefundsResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListRefundsResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListRefundsResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListRefundsResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListRefundsResponse$inboundSchema: z.ZodType<
+  ListRefundsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListRefundsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListRefundsResponse$Outbound = {
+  Result: ListRefundsResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListRefundsResponse$outboundSchema: z.ZodType<
+  ListRefundsResponse$Outbound,
+  z.ZodTypeDef,
+  ListRefundsResponse
+> = z.object({
+  result: z.lazy(() => ListRefundsResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

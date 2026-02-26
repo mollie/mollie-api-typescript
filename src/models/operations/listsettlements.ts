@@ -62,7 +62,7 @@ export type ListSettlementsEmbedded = {
  * @remarks
  * object, refer to the [Get settlement endpoint](get-settlement) documentation.
  */
-export type ListSettlementsResponse = {
+export type ListSettlementsResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -78,6 +78,10 @@ export type ListSettlementsResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListSettlementsResponse = {
+  result: ListSettlementsResponseBody;
 };
 
 /** @internal */
@@ -185,8 +189,8 @@ export function listSettlementsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListSettlementsResponse$inboundSchema: z.ZodType<
-  ListSettlementsResponse,
+export const ListSettlementsResponseBody$inboundSchema: z.ZodType<
+  ListSettlementsResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -200,17 +204,17 @@ export const ListSettlementsResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListSettlementsResponse$Outbound = {
+export type ListSettlementsResponseBody$Outbound = {
   count: number;
   _embedded: ListSettlementsEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListSettlementsResponse$outboundSchema: z.ZodType<
-  ListSettlementsResponse$Outbound,
+export const ListSettlementsResponseBody$outboundSchema: z.ZodType<
+  ListSettlementsResponseBody$Outbound,
   z.ZodTypeDef,
-  ListSettlementsResponse
+  ListSettlementsResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListSettlementsEmbedded$outboundSchema),
@@ -219,6 +223,55 @@ export const ListSettlementsResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listSettlementsResponseBodyToJSON(
+  listSettlementsResponseBody: ListSettlementsResponseBody,
+): string {
+  return JSON.stringify(
+    ListSettlementsResponseBody$outboundSchema.parse(
+      listSettlementsResponseBody,
+    ),
+  );
+}
+export function listSettlementsResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSettlementsResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListSettlementsResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSettlementsResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSettlementsResponse$inboundSchema: z.ZodType<
+  ListSettlementsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListSettlementsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListSettlementsResponse$Outbound = {
+  Result: ListSettlementsResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListSettlementsResponse$outboundSchema: z.ZodType<
+  ListSettlementsResponse$Outbound,
+  z.ZodTypeDef,
+  ListSettlementsResponse
+> = z.object({
+  result: z.lazy(() => ListSettlementsResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

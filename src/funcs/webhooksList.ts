@@ -3,6 +3,7 @@
  */
 
 import { ClientCore } from "../core.js";
+import { dlv } from "../lib/dlv.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -24,6 +25,13 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
+import {
+  createPageIterator,
+  haltIterator,
+  PageIterator,
+  Paginator,
+  URL_OVERRIDE,
+} from "../types/operations.js";
 
 /**
  * List all webhooks
@@ -34,34 +42,9 @@ import { Result } from "../types/fp.js";
 export function webhooksList(
   client: ClientCore,
   request?: operations.ListWebhooksRequest | undefined,
-  options?: RequestOptions,
+  options?: RequestOptions & { [URL_OVERRIDE]?: URL },
 ): APIPromise<
-  Result<
-    operations.ListWebhooksResponse,
-    | errors.ErrorResponse
-    | ClientError
-    | ResponseValidationError
-    | ConnectionError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | InvalidRequestError
-    | UnexpectedClientError
-    | SDKValidationError
-  >
-> {
-  return new APIPromise($do(
-    client,
-    request,
-    options,
-  ));
-}
-
-async function $do(
-  client: ClientCore,
-  request?: operations.ListWebhooksRequest | undefined,
-  options?: RequestOptions,
-): Promise<
-  [
+  PageIterator<
     Result<
       operations.ListWebhooksResponse,
       | errors.ErrorResponse
@@ -74,6 +57,37 @@ async function $do(
       | UnexpectedClientError
       | SDKValidationError
     >,
+    { url: string }
+  >
+> {
+  return new APIPromise($do(
+    client,
+    request,
+    options,
+  ));
+}
+
+async function $do(
+  client: ClientCore,
+  request?: operations.ListWebhooksRequest | undefined,
+  options?: RequestOptions & { [URL_OVERRIDE]?: URL },
+): Promise<
+  [
+    PageIterator<
+      Result<
+        operations.ListWebhooksResponse,
+        | errors.ErrorResponse
+        | ClientError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >,
+      { url: string }
+    >,
     APICall,
   ]
 > {
@@ -84,20 +98,24 @@ async function $do(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
+    return [haltIterator(parsed), { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/webhooks")();
+  const path = options?.[URL_OVERRIDE]
+    ? options[URL_OVERRIDE].pathname
+    : pathToFunc("/webhooks")();
 
-  const query = encodeFormQuery({
-    "eventTypes": payload?.eventTypes,
-    "from": payload?.from,
-    "limit": payload?.limit,
-    "sort": payload?.sort,
-    "testmode": payload?.testmode ?? client._options.testmode,
-  });
+  const query = options?.[URL_OVERRIDE]
+    ? options[URL_OVERRIDE].search.substring(1)
+    : encodeFormQuery({
+      "eventTypes": payload?.eventTypes,
+      "from": payload?.from,
+      "limit": payload?.limit,
+      "sort": payload?.sort,
+      "testmode": payload?.testmode ?? client._options.testmode,
+    });
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",
@@ -139,7 +157,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.serverURL,
+    baseURL: options?.[URL_OVERRIDE]?.origin || options?.serverURL,
     path: path,
     headers: headers,
     query: query,
@@ -148,7 +166,7 @@ async function $do(
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return [requestRes, { status: "invalid" }];
+    return [haltIterator(requestRes), { status: "invalid" }];
   }
   const req = requestRes.value;
 
@@ -159,7 +177,7 @@ async function $do(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return [doResult, { status: "request-error", request: req }];
+    return [haltIterator(doResult), { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -167,7 +185,7 @@ async function $do(
     HttpMeta: { Response: response, Request: req },
   };
 
-  const [result] = await M.match<
+  const [result, raw] = await M.match<
     operations.ListWebhooksResponse,
     | errors.ErrorResponse
     | ClientError
@@ -181,6 +199,7 @@ async function $do(
   >(
     M.json(200, operations.ListWebhooksResponse$inboundSchema, {
       ctype: "application/hal+json",
+      key: "Result",
     }),
     M.jsonErr(400, errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
@@ -189,8 +208,63 @@ async function $do(
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return [result, { status: "complete", request: req, response }];
+    return [haltIterator(result), {
+      status: "complete",
+      request: req,
+      response,
+    }];
   }
 
-  return [result, { status: "complete", request: req, response }];
+  const nextFunc = (
+    responseData: unknown,
+  ): {
+    next: Paginator<
+      Result<
+        operations.ListWebhooksResponse,
+        | errors.ErrorResponse
+        | ClientError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >
+    >;
+    "~next"?: { url: string };
+  } => {
+    let nextURL = dlv(responseData, "_links.next.href");
+    if (typeof nextURL !== "string") {
+      return { next: () => null };
+    }
+
+    if (nextURL.startsWith("/")) {
+      nextURL = `${client._baseURL?.origin}${nextURL}`;
+    }
+
+    try {
+      new URL(nextURL);
+    } catch (_error) {
+      return { next: () => null };
+    }
+
+    const nextVal = () =>
+      webhooksList(
+        client,
+        {
+          ...request!,
+        },
+        { ...options, [URL_OVERRIDE]: new URL(nextURL) },
+      );
+
+    return { next: nextVal, "~next": { url: nextURL } };
+  };
+
+  const page = { ...result, ...nextFunc(raw) };
+  return [{ ...page, ...createPageIterator(page, (v) => !v.ok) }, {
+    status: "complete",
+    request: req,
+    response,
+  }];
 }

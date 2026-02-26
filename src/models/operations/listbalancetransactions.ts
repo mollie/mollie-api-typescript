@@ -62,7 +62,7 @@ export type ListBalanceTransactionsEmbedded = {
 /**
  * A list of balance transaction objects.
  */
-export type ListBalanceTransactionsResponse = {
+export type ListBalanceTransactionsResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -78,6 +78,10 @@ export type ListBalanceTransactionsResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListBalanceTransactionsResponse = {
+  result: ListBalanceTransactionsResponseBody;
 };
 
 /** @internal */
@@ -232,8 +236,8 @@ export function listBalanceTransactionsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
-  ListBalanceTransactionsResponse,
+export const ListBalanceTransactionsResponseBody$inboundSchema: z.ZodType<
+  ListBalanceTransactionsResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -247,17 +251,17 @@ export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListBalanceTransactionsResponse$Outbound = {
+export type ListBalanceTransactionsResponseBody$Outbound = {
   count: number;
   _embedded: ListBalanceTransactionsEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListBalanceTransactionsResponse$outboundSchema: z.ZodType<
-  ListBalanceTransactionsResponse$Outbound,
+export const ListBalanceTransactionsResponseBody$outboundSchema: z.ZodType<
+  ListBalanceTransactionsResponseBody$Outbound,
   z.ZodTypeDef,
-  ListBalanceTransactionsResponse
+  ListBalanceTransactionsResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListBalanceTransactionsEmbedded$outboundSchema),
@@ -266,6 +270,56 @@ export const ListBalanceTransactionsResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listBalanceTransactionsResponseBodyToJSON(
+  listBalanceTransactionsResponseBody: ListBalanceTransactionsResponseBody,
+): string {
+  return JSON.stringify(
+    ListBalanceTransactionsResponseBody$outboundSchema.parse(
+      listBalanceTransactionsResponseBody,
+    ),
+  );
+}
+export function listBalanceTransactionsResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListBalanceTransactionsResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListBalanceTransactionsResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListBalanceTransactionsResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
+  ListBalanceTransactionsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListBalanceTransactionsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListBalanceTransactionsResponse$Outbound = {
+  Result: ListBalanceTransactionsResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListBalanceTransactionsResponse$outboundSchema: z.ZodType<
+  ListBalanceTransactionsResponse$Outbound,
+  z.ZodTypeDef,
+  ListBalanceTransactionsResponse
+> = z.object({
+  result: z.lazy(() => ListBalanceTransactionsResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

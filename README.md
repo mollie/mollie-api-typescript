@@ -29,6 +29,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
   * [Global Parameters](#global-parameters)
+  * [Pagination](#pagination)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -193,7 +194,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -232,7 +235,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -663,13 +668,55 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
 
 ```
 <!-- End Global Parameters [global-parameters] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some of the endpoints in this SDK support pagination. To use pagination, you
+make your SDK calls as usual, but the returned response object will also be an
+async iterable that can be consumed using the [`for await...of`][for-await-of]
+syntax.
+
+[for-await-of]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+
+Here's an example of one such pagination call:
+
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  testmode: false,
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+
+```
+<!-- End Pagination [pagination] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -706,7 +753,9 @@ async function run() {
     },
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -742,7 +791,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -785,7 +836,9 @@ async function run() {
       idempotencyKey: "123e4567-e89b-12d3-a456-426",
     });
 
-    console.log(result);
+    for await (const page of result) {
+      console.log(page);
+    }
   } catch (error) {
     // The base class for HTTP error responses
     if (error instanceof errors.ClientError) {
@@ -860,7 +913,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();

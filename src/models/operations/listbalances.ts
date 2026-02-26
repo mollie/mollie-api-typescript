@@ -68,7 +68,7 @@ export type ListBalancesEmbedded = {
  * @remarks
  * object, refer to the [Get balance endpoint](get-balance) documentation.
  */
-export type ListBalancesResponse = {
+export type ListBalancesResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -84,6 +84,10 @@ export type ListBalancesResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListBalancesResponse = {
+  result: ListBalancesResponseBody;
 };
 
 /** @internal */
@@ -224,8 +228,8 @@ export function listBalancesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListBalancesResponse$inboundSchema: z.ZodType<
-  ListBalancesResponse,
+export const ListBalancesResponseBody$inboundSchema: z.ZodType<
+  ListBalancesResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -239,17 +243,17 @@ export const ListBalancesResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListBalancesResponse$Outbound = {
+export type ListBalancesResponseBody$Outbound = {
   count: number;
   _embedded: ListBalancesEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListBalancesResponse$outboundSchema: z.ZodType<
-  ListBalancesResponse$Outbound,
+export const ListBalancesResponseBody$outboundSchema: z.ZodType<
+  ListBalancesResponseBody$Outbound,
   z.ZodTypeDef,
-  ListBalancesResponse
+  ListBalancesResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListBalancesEmbedded$outboundSchema),
@@ -258,6 +262,53 @@ export const ListBalancesResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listBalancesResponseBodyToJSON(
+  listBalancesResponseBody: ListBalancesResponseBody,
+): string {
+  return JSON.stringify(
+    ListBalancesResponseBody$outboundSchema.parse(listBalancesResponseBody),
+  );
+}
+export function listBalancesResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListBalancesResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListBalancesResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListBalancesResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListBalancesResponse$inboundSchema: z.ZodType<
+  ListBalancesResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListBalancesResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListBalancesResponse$Outbound = {
+  Result: ListBalancesResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListBalancesResponse$outboundSchema: z.ZodType<
+  ListBalancesResponse$Outbound,
+  z.ZodTypeDef,
+  ListBalancesResponse
+> = z.object({
+  result: z.lazy(() => ListBalancesResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

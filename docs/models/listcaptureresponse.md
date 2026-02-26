@@ -32,10 +32,7 @@ let value: ListCaptureResponse = {
       href: "https://...",
       type: "application/hal+json",
     },
-    settlement: {
-      href: "https://...",
-      type: "application/hal+json",
-    },
+    settlement: null,
     shipment: {
       href: "https://...",
       type: "application/hal+json",

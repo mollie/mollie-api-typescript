@@ -31,7 +31,7 @@ Returns a paginated list of balance transfers associated with your organization.
       };
     }
 
-    const value = result.value;
+    const value = result.value.result;
 
     return formatResult(value, apiCall);
   },

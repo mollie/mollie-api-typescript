@@ -36,7 +36,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -69,7 +71,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("invoicesList failed:", res.error);
   }
@@ -99,7 +103,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -132,7 +138,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("invoicesList failed:", res.error);
   }
@@ -162,7 +170,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -195,7 +205,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("invoicesList failed:", res.error);
   }
@@ -225,7 +237,9 @@ async function run() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -258,7 +272,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("invoicesList failed:", res.error);
   }

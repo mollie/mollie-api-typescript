@@ -71,7 +71,7 @@ export type ListSettlementCapturesEmbedded = {
 /**
  * A list of capture objects.
  */
-export type ListSettlementCapturesResponse = {
+export type ListSettlementCapturesResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -87,6 +87,10 @@ export type ListSettlementCapturesResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListSettlementCapturesResponse = {
+  result: ListSettlementCapturesResponseBody;
 };
 
 /** @internal */
@@ -236,8 +240,8 @@ export function listSettlementCapturesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListSettlementCapturesResponse$inboundSchema: z.ZodType<
-  ListSettlementCapturesResponse,
+export const ListSettlementCapturesResponseBody$inboundSchema: z.ZodType<
+  ListSettlementCapturesResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -251,17 +255,17 @@ export const ListSettlementCapturesResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListSettlementCapturesResponse$Outbound = {
+export type ListSettlementCapturesResponseBody$Outbound = {
   count: number;
   _embedded: ListSettlementCapturesEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListSettlementCapturesResponse$outboundSchema: z.ZodType<
-  ListSettlementCapturesResponse$Outbound,
+export const ListSettlementCapturesResponseBody$outboundSchema: z.ZodType<
+  ListSettlementCapturesResponseBody$Outbound,
   z.ZodTypeDef,
-  ListSettlementCapturesResponse
+  ListSettlementCapturesResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListSettlementCapturesEmbedded$outboundSchema),
@@ -270,6 +274,56 @@ export const ListSettlementCapturesResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listSettlementCapturesResponseBodyToJSON(
+  listSettlementCapturesResponseBody: ListSettlementCapturesResponseBody,
+): string {
+  return JSON.stringify(
+    ListSettlementCapturesResponseBody$outboundSchema.parse(
+      listSettlementCapturesResponseBody,
+    ),
+  );
+}
+export function listSettlementCapturesResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSettlementCapturesResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSettlementCapturesResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSettlementCapturesResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListSettlementCapturesResponse$inboundSchema: z.ZodType<
+  ListSettlementCapturesResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListSettlementCapturesResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListSettlementCapturesResponse$Outbound = {
+  Result: ListSettlementCapturesResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListSettlementCapturesResponse$outboundSchema: z.ZodType<
+  ListSettlementCapturesResponse$Outbound,
+  z.ZodTypeDef,
+  ListSettlementCapturesResponse
+> = z.object({
+  result: z.lazy(() => ListSettlementCapturesResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

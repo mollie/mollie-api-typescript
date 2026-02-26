@@ -37,7 +37,7 @@ export type ListProfilesEmbedded = {
 /**
  * A list of profile objects.
  */
-export type ListProfilesResponse = {
+export type ListProfilesResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -53,6 +53,10 @@ export type ListProfilesResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListProfilesResponse = {
+  result: ListProfilesResponseBody;
 };
 
 /** @internal */
@@ -148,8 +152,8 @@ export function listProfilesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListProfilesResponse$inboundSchema: z.ZodType<
-  ListProfilesResponse,
+export const ListProfilesResponseBody$inboundSchema: z.ZodType<
+  ListProfilesResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -163,17 +167,17 @@ export const ListProfilesResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListProfilesResponse$Outbound = {
+export type ListProfilesResponseBody$Outbound = {
   count: number;
   _embedded: ListProfilesEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListProfilesResponse$outboundSchema: z.ZodType<
-  ListProfilesResponse$Outbound,
+export const ListProfilesResponseBody$outboundSchema: z.ZodType<
+  ListProfilesResponseBody$Outbound,
   z.ZodTypeDef,
-  ListProfilesResponse
+  ListProfilesResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListProfilesEmbedded$outboundSchema),
@@ -182,6 +186,53 @@ export const ListProfilesResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listProfilesResponseBodyToJSON(
+  listProfilesResponseBody: ListProfilesResponseBody,
+): string {
+  return JSON.stringify(
+    ListProfilesResponseBody$outboundSchema.parse(listProfilesResponseBody),
+  );
+}
+export function listProfilesResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListProfilesResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListProfilesResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListProfilesResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListProfilesResponse$inboundSchema: z.ZodType<
+  ListProfilesResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListProfilesResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListProfilesResponse$Outbound = {
+  Result: ListProfilesResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListProfilesResponse$outboundSchema: z.ZodType<
+  ListProfilesResponse$Outbound,
+  z.ZodTypeDef,
+  ListProfilesResponse
+> = z.object({
+  result: z.lazy(() => ListProfilesResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Balances extends ClientSDK {
   /**
@@ -24,8 +25,8 @@ export class Balances extends ClientSDK {
   async list(
     request?: operations.ListBalancesRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListBalancesResponse> {
-    return unwrapAsync(balancesList(
+  ): Promise<PageIterator<operations.ListBalancesResponse, { url: string }>> {
+    return unwrapResultIterator(balancesList(
       this,
       request,
       options,
@@ -125,8 +126,10 @@ export class Balances extends ClientSDK {
   async listTransactions(
     request: operations.ListBalanceTransactionsRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListBalanceTransactionsResponse> {
-    return unwrapAsync(balancesListTransactions(
+  ): Promise<
+    PageIterator<operations.ListBalanceTransactionsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(balancesListTransactions(
       this,
       request,
       options,

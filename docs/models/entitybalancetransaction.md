@@ -30,7 +30,10 @@ let value: EntityBalanceTransaction = {
       currency: "EUR",
       value: "10.00",
     },
-    repayments: null,
+    repayments: {
+      currency: "EUR",
+      value: "10.00",
+    },
     reservations: {
       currency: "EUR",
       value: "10.00",
@@ -85,12 +88,7 @@ let value: EntityBalanceTransaction = {
       refundId: "re_5B8cwPMGnU",
       refundDescription: "Refund Description",
     },
-    returnedRefundCompensation: {
-      paymentId: "tr_5B8cwPMGnU",
-      paymentDescription: "Payment Description",
-      refundId: "re_5B8cwPMGnU",
-      refundDescription: "Refund Description",
-    },
+    returnedRefundCompensation: null,
     chargeback: {
       paymentId: "tr_5B8cwPMGnU",
       paymentDescription: "Payment Description",
@@ -115,8 +113,14 @@ let value: EntityBalanceTransaction = {
       chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
       chargebackDescription: "Chargeback Description",
     },
-    outgoingTransfer: null,
-    canceledOutgoingTransfer: null,
+    outgoingTransfer: {
+      transferId: "trf_nyjwa2",
+      settlementId: "stl_5B8cwPMGnU",
+    },
+    canceledOutgoingTransfer: {
+      transferId: "trf_nyjwa2",
+      settlementId: "stl_5B8cwPMGnU",
+    },
     returnedTransfer: null,
     invoiceCompensation: {
       invoiceId: "inv_aHbjjdrUdm",
@@ -155,19 +159,17 @@ let value: EntityBalanceTransaction = {
       chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
       chargebackDescription: "Chargeback Description",
     },
-    paymentCommission: null,
-    reimbursementFee: {
+    paymentCommission: {
       paymentId: "tr_5B8cwPMGnU",
       paymentDescription: "Payment Description",
+      organizationId: "org_1234567",
     },
+    reimbursementFee: null,
     failedPaymentFee: {
       paymentId: "tr_5B8cwPMGnU",
       paymentDescription: "Payment Description",
     },
-    paymentFee: {
-      paymentId: "tr_5B8cwPMGnU",
-      paymentDescription: "Payment Description",
-    },
+    paymentFee: null,
     managedFee: {
       feeType: "feeType",
       feeId: "feeId",

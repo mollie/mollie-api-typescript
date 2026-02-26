@@ -60,7 +60,7 @@ export type ListPaymentLinksEmbedded = {
 /**
  * A list of payment link objects.
  */
-export type ListPaymentLinksResponse = {
+export type ListPaymentLinksResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -76,6 +76,10 @@ export type ListPaymentLinksResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListPaymentLinksResponse = {
+  result: ListPaymentLinksResponseBody;
 };
 
 /** @internal */
@@ -221,8 +225,8 @@ export function listPaymentLinksEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListPaymentLinksResponse$inboundSchema: z.ZodType<
-  ListPaymentLinksResponse,
+export const ListPaymentLinksResponseBody$inboundSchema: z.ZodType<
+  ListPaymentLinksResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -236,17 +240,17 @@ export const ListPaymentLinksResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListPaymentLinksResponse$Outbound = {
+export type ListPaymentLinksResponseBody$Outbound = {
   count: number;
   _embedded: ListPaymentLinksEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListPaymentLinksResponse$outboundSchema: z.ZodType<
-  ListPaymentLinksResponse$Outbound,
+export const ListPaymentLinksResponseBody$outboundSchema: z.ZodType<
+  ListPaymentLinksResponseBody$Outbound,
   z.ZodTypeDef,
-  ListPaymentLinksResponse
+  ListPaymentLinksResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListPaymentLinksEmbedded$outboundSchema),
@@ -255,6 +259,55 @@ export const ListPaymentLinksResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listPaymentLinksResponseBodyToJSON(
+  listPaymentLinksResponseBody: ListPaymentLinksResponseBody,
+): string {
+  return JSON.stringify(
+    ListPaymentLinksResponseBody$outboundSchema.parse(
+      listPaymentLinksResponseBody,
+    ),
+  );
+}
+export function listPaymentLinksResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListPaymentLinksResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListPaymentLinksResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListPaymentLinksResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListPaymentLinksResponse$inboundSchema: z.ZodType<
+  ListPaymentLinksResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListPaymentLinksResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListPaymentLinksResponse$Outbound = {
+  Result: ListPaymentLinksResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListPaymentLinksResponse$outboundSchema: z.ZodType<
+  ListPaymentLinksResponse$Outbound,
+  z.ZodTypeDef,
+  ListPaymentLinksResponse
+> = z.object({
+  result: z.lazy(() => ListPaymentLinksResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

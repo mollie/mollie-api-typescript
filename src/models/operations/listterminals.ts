@@ -67,7 +67,7 @@ export type ListTerminalsEmbedded = {
 /**
  * A list of terminal objects.
  */
-export type ListTerminalsResponse = {
+export type ListTerminalsResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -83,6 +83,10 @@ export type ListTerminalsResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListTerminalsResponse = {
+  result: ListTerminalsResponseBody;
 };
 
 /** @internal */
@@ -223,8 +227,8 @@ export function listTerminalsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListTerminalsResponse$inboundSchema: z.ZodType<
-  ListTerminalsResponse,
+export const ListTerminalsResponseBody$inboundSchema: z.ZodType<
+  ListTerminalsResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -238,17 +242,17 @@ export const ListTerminalsResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListTerminalsResponse$Outbound = {
+export type ListTerminalsResponseBody$Outbound = {
   count: number;
   _embedded: ListTerminalsEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListTerminalsResponse$outboundSchema: z.ZodType<
-  ListTerminalsResponse$Outbound,
+export const ListTerminalsResponseBody$outboundSchema: z.ZodType<
+  ListTerminalsResponseBody$Outbound,
   z.ZodTypeDef,
-  ListTerminalsResponse
+  ListTerminalsResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListTerminalsEmbedded$outboundSchema),
@@ -257,6 +261,53 @@ export const ListTerminalsResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listTerminalsResponseBodyToJSON(
+  listTerminalsResponseBody: ListTerminalsResponseBody,
+): string {
+  return JSON.stringify(
+    ListTerminalsResponseBody$outboundSchema.parse(listTerminalsResponseBody),
+  );
+}
+export function listTerminalsResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListTerminalsResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListTerminalsResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListTerminalsResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListTerminalsResponse$inboundSchema: z.ZodType<
+  ListTerminalsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListTerminalsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListTerminalsResponse$Outbound = {
+  Result: ListTerminalsResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListTerminalsResponse$outboundSchema: z.ZodType<
+  ListTerminalsResponse$Outbound,
+  z.ZodTypeDef,
+  ListTerminalsResponse
+> = z.object({
+  result: z.lazy(() => ListTerminalsResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

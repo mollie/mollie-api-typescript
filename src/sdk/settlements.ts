@@ -14,6 +14,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Settlements extends ClientSDK {
   /**
@@ -27,8 +28,10 @@ export class Settlements extends ClientSDK {
   async list(
     request?: operations.ListSettlementsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListSettlementsResponse> {
-    return unwrapAsync(settlementsList(
+  ): Promise<
+    PageIterator<operations.ListSettlementsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(settlementsList(
       this,
       request,
       options,
@@ -124,8 +127,10 @@ export class Settlements extends ClientSDK {
   async listPayments(
     request: operations.ListSettlementPaymentsRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListSettlementPaymentsResponse> {
-    return unwrapAsync(settlementsListPayments(
+  ): Promise<
+    PageIterator<operations.ListSettlementPaymentsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(settlementsListPayments(
       this,
       request,
       options,
@@ -143,8 +148,10 @@ export class Settlements extends ClientSDK {
   async listCaptures(
     request: operations.ListSettlementCapturesRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListSettlementCapturesResponse> {
-    return unwrapAsync(settlementsListCaptures(
+  ): Promise<
+    PageIterator<operations.ListSettlementCapturesResponse, { url: string }>
+  > {
+    return unwrapResultIterator(settlementsListCaptures(
       this,
       request,
       options,
@@ -162,8 +169,10 @@ export class Settlements extends ClientSDK {
   async listRefunds(
     request: operations.ListSettlementRefundsRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListSettlementRefundsResponse> {
-    return unwrapAsync(settlementsListRefunds(
+  ): Promise<
+    PageIterator<operations.ListSettlementRefundsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(settlementsListRefunds(
       this,
       request,
       options,
@@ -181,8 +190,10 @@ export class Settlements extends ClientSDK {
   async listChargebacks(
     request: operations.ListSettlementChargebacksRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListSettlementChargebacksResponse> {
-    return unwrapAsync(settlementsListChargebacks(
+  ): Promise<
+    PageIterator<operations.ListSettlementChargebacksResponse, { url: string }>
+  > {
+    return unwrapResultIterator(settlementsListChargebacks(
       this,
       request,
       options,

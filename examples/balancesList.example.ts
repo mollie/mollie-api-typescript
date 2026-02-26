@@ -28,7 +28,9 @@ async function main() {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 main().catch(console.error);

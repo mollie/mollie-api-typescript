@@ -9,6 +9,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Captures extends ClientSDK {
   /**
@@ -46,8 +47,8 @@ export class Captures extends ClientSDK {
   async list(
     request: operations.ListCapturesRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListCapturesResponse> {
-    return unwrapAsync(capturesList(
+  ): Promise<PageIterator<operations.ListCapturesResponse, { url: string }>> {
+    return unwrapResultIterator(capturesList(
       this,
       request,
       options,

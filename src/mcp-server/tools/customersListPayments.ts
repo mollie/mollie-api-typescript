@@ -30,7 +30,7 @@ Retrieve all payments linked to the customer.`,
       };
     }
 
-    const value = result.value;
+    const value = result.value.result;
 
     return formatResult(value, apiCall);
   },

@@ -72,7 +72,7 @@ export type ListWebhooksEmbedded = {
  * @remarks
  * object, refer to the [Get hook endpoint](get-webhook) documentation.
  */
-export type ListWebhooksResponse = {
+export type ListWebhooksResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -88,6 +88,10 @@ export type ListWebhooksResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListWebhooksResponse = {
+  result: ListWebhooksResponseBody;
 };
 
 /** @internal */
@@ -231,8 +235,8 @@ export function listWebhooksEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListWebhooksResponse$inboundSchema: z.ZodType<
-  ListWebhooksResponse,
+export const ListWebhooksResponseBody$inboundSchema: z.ZodType<
+  ListWebhooksResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -246,17 +250,17 @@ export const ListWebhooksResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListWebhooksResponse$Outbound = {
+export type ListWebhooksResponseBody$Outbound = {
   count: number;
   _embedded: ListWebhooksEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListWebhooksResponse$outboundSchema: z.ZodType<
-  ListWebhooksResponse$Outbound,
+export const ListWebhooksResponseBody$outboundSchema: z.ZodType<
+  ListWebhooksResponseBody$Outbound,
   z.ZodTypeDef,
-  ListWebhooksResponse
+  ListWebhooksResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListWebhooksEmbedded$outboundSchema),
@@ -265,6 +269,53 @@ export const ListWebhooksResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listWebhooksResponseBodyToJSON(
+  listWebhooksResponseBody: ListWebhooksResponseBody,
+): string {
+  return JSON.stringify(
+    ListWebhooksResponseBody$outboundSchema.parse(listWebhooksResponseBody),
+  );
+}
+export function listWebhooksResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListWebhooksResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListWebhooksResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListWebhooksResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListWebhooksResponse$inboundSchema: z.ZodType<
+  ListWebhooksResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListWebhooksResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListWebhooksResponse$Outbound = {
+  Result: ListWebhooksResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListWebhooksResponse$outboundSchema: z.ZodType<
+  ListWebhooksResponse$Outbound,
+  z.ZodTypeDef,
+  ListWebhooksResponse
+> = z.object({
+  result: z.lazy(() => ListWebhooksResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

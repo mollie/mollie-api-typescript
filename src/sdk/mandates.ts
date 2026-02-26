@@ -10,6 +10,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Mandates extends ClientSDK {
   /**
@@ -44,8 +45,8 @@ export class Mandates extends ClientSDK {
   async list(
     request: operations.ListMandatesRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListMandatesResponse> {
-    return unwrapAsync(mandatesList(
+  ): Promise<PageIterator<operations.ListMandatesResponse, { url: string }>> {
+    return unwrapResultIterator(mandatesList(
       this,
       request,
       options,

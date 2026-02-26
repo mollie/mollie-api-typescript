@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class SalesInvoices extends ClientSDK {
   /**
@@ -49,8 +50,10 @@ export class SalesInvoices extends ClientSDK {
   async list(
     request?: operations.ListSalesInvoicesRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListSalesInvoicesResponse> {
-    return unwrapAsync(salesInvoicesList(
+  ): Promise<
+    PageIterator<operations.ListSalesInvoicesResponse, { url: string }>
+  > {
+    return unwrapResultIterator(salesInvoicesList(
       this,
       request,
       options,

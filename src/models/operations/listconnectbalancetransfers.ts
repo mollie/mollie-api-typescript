@@ -68,7 +68,7 @@ export type ListConnectBalanceTransfersEmbedded = {
  * @remarks
  * object, refer to the [Get balance transfer endpoint](get-balance-transfer) documentation.
  */
-export type ListConnectBalanceTransfersResponse = {
+export type ListConnectBalanceTransfersResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -84,6 +84,10 @@ export type ListConnectBalanceTransfersResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListConnectBalanceTransfersResponse = {
+  result: ListConnectBalanceTransfersResponseBody;
 };
 
 /** @internal */
@@ -247,8 +251,8 @@ export function listConnectBalanceTransfersEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListConnectBalanceTransfersResponse$inboundSchema: z.ZodType<
-  ListConnectBalanceTransfersResponse,
+export const ListConnectBalanceTransfersResponseBody$inboundSchema: z.ZodType<
+  ListConnectBalanceTransfersResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -262,17 +266,17 @@ export const ListConnectBalanceTransfersResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListConnectBalanceTransfersResponse$Outbound = {
+export type ListConnectBalanceTransfersResponseBody$Outbound = {
   count: number;
   _embedded: ListConnectBalanceTransfersEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListConnectBalanceTransfersResponse$outboundSchema: z.ZodType<
-  ListConnectBalanceTransfersResponse$Outbound,
+export const ListConnectBalanceTransfersResponseBody$outboundSchema: z.ZodType<
+  ListConnectBalanceTransfersResponseBody$Outbound,
   z.ZodTypeDef,
-  ListConnectBalanceTransfersResponse
+  ListConnectBalanceTransfersResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListConnectBalanceTransfersEmbedded$outboundSchema),
@@ -281,6 +285,62 @@ export const ListConnectBalanceTransfersResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listConnectBalanceTransfersResponseBodyToJSON(
+  listConnectBalanceTransfersResponseBody:
+    ListConnectBalanceTransfersResponseBody,
+): string {
+  return JSON.stringify(
+    ListConnectBalanceTransfersResponseBody$outboundSchema.parse(
+      listConnectBalanceTransfersResponseBody,
+    ),
+  );
+}
+export function listConnectBalanceTransfersResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListConnectBalanceTransfersResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListConnectBalanceTransfersResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListConnectBalanceTransfersResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListConnectBalanceTransfersResponse$inboundSchema: z.ZodType<
+  ListConnectBalanceTransfersResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListConnectBalanceTransfersResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListConnectBalanceTransfersResponse$Outbound = {
+  Result: ListConnectBalanceTransfersResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListConnectBalanceTransfersResponse$outboundSchema: z.ZodType<
+  ListConnectBalanceTransfersResponse$Outbound,
+  z.ZodTypeDef,
+  ListConnectBalanceTransfersResponse
+> = z.object({
+  result: z.lazy(() => ListConnectBalanceTransfersResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

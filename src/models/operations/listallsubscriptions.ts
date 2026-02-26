@@ -81,7 +81,7 @@ export type ListAllSubscriptionsEmbedded = {
 /**
  * A list of subscription objects.
  */
-export type ListAllSubscriptionsResponse = {
+export type ListAllSubscriptionsResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -97,6 +97,10 @@ export type ListAllSubscriptionsResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListAllSubscriptionsResponse = {
+  result: ListAllSubscriptionsResponseBody;
 };
 
 /** @internal */
@@ -248,8 +252,8 @@ export function listAllSubscriptionsEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListAllSubscriptionsResponse$inboundSchema: z.ZodType<
-  ListAllSubscriptionsResponse,
+export const ListAllSubscriptionsResponseBody$inboundSchema: z.ZodType<
+  ListAllSubscriptionsResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -263,17 +267,17 @@ export const ListAllSubscriptionsResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListAllSubscriptionsResponse$Outbound = {
+export type ListAllSubscriptionsResponseBody$Outbound = {
   count: number;
   _embedded: ListAllSubscriptionsEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListAllSubscriptionsResponse$outboundSchema: z.ZodType<
-  ListAllSubscriptionsResponse$Outbound,
+export const ListAllSubscriptionsResponseBody$outboundSchema: z.ZodType<
+  ListAllSubscriptionsResponseBody$Outbound,
   z.ZodTypeDef,
-  ListAllSubscriptionsResponse
+  ListAllSubscriptionsResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListAllSubscriptionsEmbedded$outboundSchema),
@@ -282,6 +286,55 @@ export const ListAllSubscriptionsResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listAllSubscriptionsResponseBodyToJSON(
+  listAllSubscriptionsResponseBody: ListAllSubscriptionsResponseBody,
+): string {
+  return JSON.stringify(
+    ListAllSubscriptionsResponseBody$outboundSchema.parse(
+      listAllSubscriptionsResponseBody,
+    ),
+  );
+}
+export function listAllSubscriptionsResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAllSubscriptionsResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAllSubscriptionsResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAllSubscriptionsResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAllSubscriptionsResponse$inboundSchema: z.ZodType<
+  ListAllSubscriptionsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListAllSubscriptionsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListAllSubscriptionsResponse$Outbound = {
+  Result: ListAllSubscriptionsResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListAllSubscriptionsResponse$outboundSchema: z.ZodType<
+  ListAllSubscriptionsResponse$Outbound,
+  z.ZodTypeDef,
+  ListAllSubscriptionsResponse
+> = z.object({
+  result: z.lazy(() => ListAllSubscriptionsResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

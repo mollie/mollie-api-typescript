@@ -61,7 +61,7 @@ export type ListInvoicesEmbedded = {
  * @remarks
  * object, refer to the [Get invoice endpoint](get-invoice) documentation.
  */
-export type ListInvoicesResponse = {
+export type ListInvoicesResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -77,6 +77,10 @@ export type ListInvoicesResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListInvoicesResponse = {
+  result: ListInvoicesResponseBody;
 };
 
 /** @internal */
@@ -181,8 +185,8 @@ export function listInvoicesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListInvoicesResponse$inboundSchema: z.ZodType<
-  ListInvoicesResponse,
+export const ListInvoicesResponseBody$inboundSchema: z.ZodType<
+  ListInvoicesResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -196,17 +200,17 @@ export const ListInvoicesResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListInvoicesResponse$Outbound = {
+export type ListInvoicesResponseBody$Outbound = {
   count: number;
   _embedded: ListInvoicesEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListInvoicesResponse$outboundSchema: z.ZodType<
-  ListInvoicesResponse$Outbound,
+export const ListInvoicesResponseBody$outboundSchema: z.ZodType<
+  ListInvoicesResponseBody$Outbound,
   z.ZodTypeDef,
-  ListInvoicesResponse
+  ListInvoicesResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListInvoicesEmbedded$outboundSchema),
@@ -215,6 +219,53 @@ export const ListInvoicesResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listInvoicesResponseBodyToJSON(
+  listInvoicesResponseBody: ListInvoicesResponseBody,
+): string {
+  return JSON.stringify(
+    ListInvoicesResponseBody$outboundSchema.parse(listInvoicesResponseBody),
+  );
+}
+export function listInvoicesResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListInvoicesResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListInvoicesResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListInvoicesResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListInvoicesResponse$inboundSchema: z.ZodType<
+  ListInvoicesResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListInvoicesResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListInvoicesResponse$Outbound = {
+  Result: ListInvoicesResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListInvoicesResponse$outboundSchema: z.ZodType<
+  ListInvoicesResponse$Outbound,
+  z.ZodTypeDef,
+  ListInvoicesResponse
+> = z.object({
+  result: z.lazy(() => ListInvoicesResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 

@@ -8,6 +8,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Terminals extends ClientSDK {
   /**
@@ -21,8 +22,8 @@ export class Terminals extends ClientSDK {
   async list(
     request?: operations.ListTerminalsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListTerminalsResponse> {
-    return unwrapAsync(terminalsList(
+  ): Promise<PageIterator<operations.ListTerminalsResponse, { url: string }>> {
+    return unwrapResultIterator(terminalsList(
       this,
       request,
       options,

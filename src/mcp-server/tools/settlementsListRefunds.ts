@@ -32,7 +32,7 @@ The response is in the same format as the response of the [List refunds endpoint
       };
     }
 
-    const value = result.value;
+    const value = result.value.result;
 
     return formatResult(value, apiCall);
   },

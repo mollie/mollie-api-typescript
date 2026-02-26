@@ -13,6 +13,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Subscriptions extends ClientSDK {
   /**
@@ -61,8 +62,10 @@ export class Subscriptions extends ClientSDK {
   async list(
     request: operations.ListSubscriptionsRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListSubscriptionsResponse> {
-    return unwrapAsync(subscriptionsList(
+  ): Promise<
+    PageIterator<operations.ListSubscriptionsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(subscriptionsList(
       this,
       request,
       options,
@@ -135,8 +138,10 @@ export class Subscriptions extends ClientSDK {
   async all(
     request?: operations.ListAllSubscriptionsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListAllSubscriptionsResponse> {
-    return unwrapAsync(subscriptionsAll(
+  ): Promise<
+    PageIterator<operations.ListAllSubscriptionsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(subscriptionsAll(
       this,
       request,
       options,
@@ -154,8 +159,10 @@ export class Subscriptions extends ClientSDK {
   async listPayments(
     request: operations.ListSubscriptionPaymentsRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListSubscriptionPaymentsResponse> {
-    return unwrapAsync(subscriptionsListPayments(
+  ): Promise<
+    PageIterator<operations.ListSubscriptionPaymentsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(subscriptionsListPayments(
       this,
       request,
       options,

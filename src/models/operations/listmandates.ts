@@ -71,7 +71,7 @@ export type ListMandatesEmbedded = {
 /**
  * A list of mandate objects.
  */
-export type ListMandatesResponse = {
+export type ListMandatesResponseBody = {
   /**
    * The number of items in this result set. If more items are available, a `_links.next` URL will be present in the result
    *
@@ -87,6 +87,10 @@ export type ListMandatesResponse = {
    * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
    */
   links: models.ListLinks;
+};
+
+export type ListMandatesResponse = {
+  result: ListMandatesResponseBody;
 };
 
 /** @internal */
@@ -230,8 +234,8 @@ export function listMandatesEmbeddedFromJSON(
 }
 
 /** @internal */
-export const ListMandatesResponse$inboundSchema: z.ZodType<
-  ListMandatesResponse,
+export const ListMandatesResponseBody$inboundSchema: z.ZodType<
+  ListMandatesResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -245,17 +249,17 @@ export const ListMandatesResponse$inboundSchema: z.ZodType<
   });
 });
 /** @internal */
-export type ListMandatesResponse$Outbound = {
+export type ListMandatesResponseBody$Outbound = {
   count: number;
   _embedded: ListMandatesEmbedded$Outbound;
   _links: models.ListLinks$Outbound;
 };
 
 /** @internal */
-export const ListMandatesResponse$outboundSchema: z.ZodType<
-  ListMandatesResponse$Outbound,
+export const ListMandatesResponseBody$outboundSchema: z.ZodType<
+  ListMandatesResponseBody$Outbound,
   z.ZodTypeDef,
-  ListMandatesResponse
+  ListMandatesResponseBody
 > = z.object({
   count: z.number().int(),
   embedded: z.lazy(() => ListMandatesEmbedded$outboundSchema),
@@ -264,6 +268,53 @@ export const ListMandatesResponse$outboundSchema: z.ZodType<
   return remap$(v, {
     embedded: "_embedded",
     links: "_links",
+  });
+});
+
+export function listMandatesResponseBodyToJSON(
+  listMandatesResponseBody: ListMandatesResponseBody,
+): string {
+  return JSON.stringify(
+    ListMandatesResponseBody$outboundSchema.parse(listMandatesResponseBody),
+  );
+}
+export function listMandatesResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListMandatesResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListMandatesResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListMandatesResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListMandatesResponse$inboundSchema: z.ZodType<
+  ListMandatesResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: z.lazy(() => ListMandatesResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+/** @internal */
+export type ListMandatesResponse$Outbound = {
+  Result: ListMandatesResponseBody$Outbound;
+};
+
+/** @internal */
+export const ListMandatesResponse$outboundSchema: z.ZodType<
+  ListMandatesResponse$Outbound,
+  z.ZodTypeDef,
+  ListMandatesResponse
+> = z.object({
+  result: z.lazy(() => ListMandatesResponseBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
   });
 });
 
