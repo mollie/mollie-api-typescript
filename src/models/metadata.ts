@@ -13,23 +13,27 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
  * @remarks
  * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
  */
-export type Metadata = string | { [k: string]: any } | Array<string>;
+export type Metadata = string | number | { [k: string]: any } | Array<string>;
 
 /** @internal */
 export const Metadata$inboundSchema: z.ZodType<
   Metadata,
   z.ZodTypeDef,
   unknown
-> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
+> = z.union([z.string(), z.number(), z.record(z.any()), z.array(z.string())]);
 /** @internal */
-export type Metadata$Outbound = string | { [k: string]: any } | Array<string>;
+export type Metadata$Outbound =
+  | string
+  | number
+  | { [k: string]: any }
+  | Array<string>;
 
 /** @internal */
 export const Metadata$outboundSchema: z.ZodType<
   Metadata$Outbound,
   z.ZodTypeDef,
   Metadata
-> = z.union([z.string(), z.record(z.any()), z.array(z.string())]);
+> = z.union([z.string(), z.number(), z.record(z.any()), z.array(z.string())]);
 
 export function metadataToJSON(metadata: Metadata): string {
   return JSON.stringify(Metadata$outboundSchema.parse(metadata));

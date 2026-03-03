@@ -19,9 +19,9 @@ let value: EntityRefundResponse = {
     value: "10.00",
   },
   metadata: {
-    "0": "<value 1>",
-    "1": "<value 2>",
-    "2": "<value 3>",
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
   paymentId: "tr_5B8cwPMGnU",
   settlementId: "stl_5B8cwPMGnU",

@@ -139,6 +139,12 @@ import {
   Url$Outbound,
   Url$outboundSchema,
 } from "./url.js";
+import {
+  UrlNullable,
+  UrlNullable$inboundSchema,
+  UrlNullable$Outbound,
+  UrlNullable$outboundSchema,
+} from "./urlnullable.js";
 
 /**
  * The total amount that is already refunded. Only available when refunds are available for this payment. For some
@@ -778,7 +784,7 @@ export type PaymentResponseLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  changePaymentState?: Url | undefined;
+  changePaymentState?: UrlNullable | null | undefined;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -1936,7 +1942,7 @@ export const PaymentResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   checkout: Url$inboundSchema.optional(),
   mobileAppCheckout: Url$inboundSchema.optional(),
-  changePaymentState: Url$inboundSchema.optional(),
+  changePaymentState: z.nullable(UrlNullable$inboundSchema).optional(),
   dashboard: Url$inboundSchema,
   refunds: Url$inboundSchema.optional(),
   chargebacks: Url$inboundSchema.optional(),
@@ -1956,7 +1962,7 @@ export type PaymentResponseLinks$Outbound = {
   self: Url$Outbound;
   checkout?: Url$Outbound | undefined;
   mobileAppCheckout?: Url$Outbound | undefined;
-  changePaymentState?: Url$Outbound | undefined;
+  changePaymentState?: UrlNullable$Outbound | null | undefined;
   dashboard: Url$Outbound;
   refunds?: Url$Outbound | undefined;
   chargebacks?: Url$Outbound | undefined;
@@ -1981,7 +1987,7 @@ export const PaymentResponseLinks$outboundSchema: z.ZodType<
   self: Url$outboundSchema,
   checkout: Url$outboundSchema.optional(),
   mobileAppCheckout: Url$outboundSchema.optional(),
-  changePaymentState: Url$outboundSchema.optional(),
+  changePaymentState: z.nullable(UrlNullable$outboundSchema).optional(),
   dashboard: Url$outboundSchema,
   refunds: Url$outboundSchema.optional(),
   chargebacks: Url$outboundSchema.optional(),

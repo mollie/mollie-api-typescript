@@ -14,10 +14,7 @@ let value: GetCustomerResponse = {
   name: "John Doe",
   email: "example@email.com",
   locale: "en_US",
-  metadata: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
+  metadata: 6410.61,
   createdAt: "2024-03-20T09:13:37+00:00",
   links: {
     self: {

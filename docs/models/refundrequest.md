@@ -11,9 +11,7 @@ let value: RefundRequest = {
     currency: "EUR",
     value: "10.00",
   },
-  metadata: {
-    "key": "<value>",
-  },
+  metadata: 4582.01,
   externalReference: {
     type: "acquirer-reference",
     id: "123456789012345",

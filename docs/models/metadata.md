@@ -12,6 +12,12 @@ you fetch the entity with our API, we will also include the metadata. You can us
 const value: string = "<value>";
 ```
 
+### `number`
+
+```typescript
+const value: number = 1284.03;
+```
+
 ### `{ [k: string]: any }`
 
 ```typescript
