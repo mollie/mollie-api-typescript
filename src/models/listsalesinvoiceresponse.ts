@@ -279,6 +279,17 @@ export type ListSalesInvoiceResponse = {
   lines?: Array<SalesInvoiceLineItemResponse> | null | undefined;
   discount?: SalesInvoiceDiscountResponse | null | undefined;
   /**
+   * This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+   *
+   * @remarks
+   * after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
+   * recipient.
+   *
+   * E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
+   * the recipient is also located in one of these countries.
+   */
+  isEInvoice?: boolean | undefined;
+  /**
    * The amount that is left to be paid.
    */
   amountDue?: ListSalesInvoiceResponseAmountDue | undefined;
@@ -682,6 +693,7 @@ export const ListSalesInvoiceResponse$inboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$inboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
   amountDue: z.lazy(() => ListSalesInvoiceResponseAmountDue$inboundSchema)
     .optional(),
   subtotalAmount: z.lazy(() =>
@@ -726,6 +738,7 @@ export type ListSalesInvoiceResponse$Outbound = {
   recipient?: SalesInvoiceRecipientResponse$Outbound | null | undefined;
   lines?: Array<SalesInvoiceLineItemResponse$Outbound> | null | undefined;
   discount?: SalesInvoiceDiscountResponse$Outbound | null | undefined;
+  isEInvoice?: boolean | undefined;
   amountDue?: ListSalesInvoiceResponseAmountDue$Outbound | undefined;
   subtotalAmount?: ListSalesInvoiceResponseSubtotalAmount$Outbound | undefined;
   totalAmount?: ListSalesInvoiceResponseTotalAmount$Outbound | undefined;
@@ -770,6 +783,7 @@ export const ListSalesInvoiceResponse$outboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItemResponse$outboundSchema))
     .optional(),
   discount: z.nullable(SalesInvoiceDiscountResponse$outboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
   amountDue: z.lazy(() => ListSalesInvoiceResponseAmountDue$outboundSchema)
     .optional(),
   subtotalAmount: z.lazy(() =>

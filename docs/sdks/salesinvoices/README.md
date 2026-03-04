@@ -75,6 +75,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
     },
   });
 
@@ -145,6 +146,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
     },
   });
   if (res.ok) {
@@ -435,6 +437,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
     },
   });
 
@@ -515,6 +518,7 @@ async function run() {
         type: "amount",
         value: "10.00",
       },
+      isEInvoice: false,
     },
   });
   if (res.ok) {

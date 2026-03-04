@@ -65,6 +65,7 @@ let value: ListSalesInvoicesResponseBody = {
           },
         ],
         discount: null,
+        isEInvoice: false,
         amountDue: {
           currency: "EUR",
           value: "10.00",

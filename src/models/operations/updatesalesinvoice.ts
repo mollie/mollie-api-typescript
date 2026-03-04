@@ -67,6 +67,15 @@ export type UpdateSalesInvoiceRequestBody = {
    */
   lines?: Array<models.SalesInvoiceLineItem> | null | undefined;
   discount?: models.SalesInvoiceDiscount | null | undefined;
+  /**
+   * This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+   *
+   * @remarks
+   * after the invoice has been issued.
+   *
+   * When `emailDetails` is provided, an additional email is sent to the recipient.
+   */
+  isEInvoice?: boolean | undefined;
 };
 
 export type UpdateSalesInvoiceRequest = {
@@ -100,6 +109,7 @@ export const UpdateSalesInvoiceRequestBody$inboundSchema: z.ZodType<
   lines: z.nullable(z.array(models.SalesInvoiceLineItem$inboundSchema))
     .optional(),
   discount: z.nullable(models.SalesInvoiceDiscount$inboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
 });
 /** @internal */
 export type UpdateSalesInvoiceRequestBody$Outbound = {
@@ -113,6 +123,7 @@ export type UpdateSalesInvoiceRequestBody$Outbound = {
   recipient?: models.SalesInvoiceRecipient$Outbound | null | undefined;
   lines?: Array<models.SalesInvoiceLineItem$Outbound> | null | undefined;
   discount?: models.SalesInvoiceDiscount$Outbound | null | undefined;
+  isEInvoice?: boolean | undefined;
 };
 
 /** @internal */
@@ -134,6 +145,7 @@ export const UpdateSalesInvoiceRequestBody$outboundSchema: z.ZodType<
   lines: z.nullable(z.array(models.SalesInvoiceLineItem$outboundSchema))
     .optional(),
   discount: z.nullable(models.SalesInvoiceDiscount$outboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
 });
 
 export function updateSalesInvoiceRequestBodyToJSON(

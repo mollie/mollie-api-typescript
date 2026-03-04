@@ -165,6 +165,17 @@ export type SalesInvoiceRequest = {
    */
   lines: Array<SalesInvoiceLineItem> | null;
   discount?: SalesInvoiceDiscount | null | undefined;
+  /**
+   * This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+   *
+   * @remarks
+   * after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
+   * recipient.
+   *
+   * E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
+   * the recipient is also located in one of these countries.
+   */
+  isEInvoice?: boolean | undefined;
 };
 
 /** @internal */
@@ -225,6 +236,7 @@ export const SalesInvoiceRequest$inboundSchema: z.ZodType<
   recipient: z.nullable(SalesInvoiceRecipient$inboundSchema),
   lines: z.nullable(z.array(SalesInvoiceLineItem$inboundSchema)),
   discount: z.nullable(SalesInvoiceDiscount$inboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
 });
 /** @internal */
 export type SalesInvoiceRequest$Outbound = {
@@ -244,6 +256,7 @@ export type SalesInvoiceRequest$Outbound = {
   recipient: SalesInvoiceRecipient$Outbound | null;
   lines: Array<SalesInvoiceLineItem$Outbound> | null;
   discount?: SalesInvoiceDiscount$Outbound | null | undefined;
+  isEInvoice?: boolean | undefined;
 };
 
 /** @internal */
@@ -269,6 +282,7 @@ export const SalesInvoiceRequest$outboundSchema: z.ZodType<
   recipient: z.nullable(SalesInvoiceRecipient$outboundSchema),
   lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)),
   discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
 });
 
 export function salesInvoiceRequestToJSON(
