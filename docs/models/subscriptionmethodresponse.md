@@ -8,11 +8,11 @@ The payment method used for this subscription. If omitted, any of the customer's
 import { SubscriptionMethodResponse } from "mollie-api-typescript/models";
 
 let value: SubscriptionMethodResponse = "paypal";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "creditcard" | "directdebit" | "paypal" | Unrecognized<string>

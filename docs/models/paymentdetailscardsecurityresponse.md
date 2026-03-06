@@ -8,11 +8,11 @@ The level of security applied during card processing.
 import { PaymentDetailsCardSecurityResponse } from "mollie-api-typescript/models";
 
 let value: PaymentDetailsCardSecurityResponse = "normal";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "normal" | "3dsecure" | Unrecognized<string>

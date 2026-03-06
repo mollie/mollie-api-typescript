@@ -9,11 +9,11 @@ If no due date is given, the status will be `requested`.
 import { CapabilityRequirementStatus } from "mollie-api-typescript/models";
 
 let value: CapabilityRequirementStatus = "past-due";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "currently-due" | "past-due" | "requested" | Unrecognized<string>

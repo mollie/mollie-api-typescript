@@ -20,11 +20,11 @@ Dependent parameters:
 import { SalesInvoiceStatusResponse } from "mollie-api-typescript/models";
 
 let value: SalesInvoiceStatusResponse = "draft";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "draft" | "issued" | "paid" | Unrecognized<string>

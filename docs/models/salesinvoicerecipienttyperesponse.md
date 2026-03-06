@@ -9,11 +9,11 @@ required on the `recipient` object.
 import { SalesInvoiceRecipientTypeResponse } from "mollie-api-typescript/models";
 
 let value: SalesInvoiceRecipientTypeResponse = "consumer";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "consumer" | "business" | Unrecognized<string>

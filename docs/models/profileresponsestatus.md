@@ -12,11 +12,11 @@ The profile status determines whether the profile is able to receive live paymen
 import { ProfileResponseStatus } from "mollie-api-typescript/models";
 
 let value: ProfileResponseStatus = "unverified";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "unverified" | "verified" | "blocked" | Unrecognized<string>

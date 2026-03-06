@@ -9,11 +9,11 @@ enabling the subscription.
 import { SubscriptionResponseStatus } from "mollie-api-typescript/models";
 
 let value: SubscriptionResponseStatus = "active";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "pending" | "active" | "canceled" | "suspended" | "completed" | Unrecognized<string>

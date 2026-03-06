@@ -9,11 +9,11 @@ statuses occur at what point.
 import { ListPaymentResponseStatus } from "mollie-api-typescript/models";
 
 let value: ListPaymentResponseStatus = "open";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "open" | "pending" | "authorized" | "paid" | "canceled" | "expired" | "failed" | Unrecognized<string>

@@ -11,11 +11,11 @@ The field is not present for merchants residing in other countries.
 import { OrganizationVatRegulation } from "mollie-api-typescript/models";
 
 let value: OrganizationVatRegulation = "dutch";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "dutch" | "british" | "shifted" | Unrecognized<string>

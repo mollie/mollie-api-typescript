@@ -182,7 +182,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -465,6 +465,11 @@ let client = new Client({
 * [update](docs/sdks/salesinvoices/README.md#update) - Update sales invoice
 * [delete](docs/sdks/salesinvoices/README.md#delete) - Delete sales invoice
 
+### [Sessions](docs/sdks/sessions/README.md)
+
+* [create](docs/sdks/sessions/README.md#create) - Create session [BETA]
+* [get](docs/sdks/sessions/README.md#get) - Get session
+
 ### [Settlements](docs/sdks/settlements/README.md)
 
 * [list](docs/sdks/settlements/README.md#list) - List settlements
@@ -598,6 +603,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`salesInvoicesGet`](docs/sdks/salesinvoices/README.md#get) - Get sales invoice
 - [`salesInvoicesList`](docs/sdks/salesinvoices/README.md#list) - List sales invoices
 - [`salesInvoicesUpdate`](docs/sdks/salesinvoices/README.md#update) - Update sales invoice
+- [`sessionsCreate`](docs/sdks/sessions/README.md#create) - Create session [BETA]
+- [`sessionsGet`](docs/sdks/sessions/README.md#get) - Get session
 - [`settlementsGet`](docs/sdks/settlements/README.md#get) - Get settlement
 - [`settlementsGetNext`](docs/sdks/settlements/README.md#getnext) - Get next settlement
 - [`settlementsGetOpen`](docs/sdks/settlements/README.md#getopen) - Get open settlement
@@ -656,7 +663,7 @@ const client = new Client({
   profileId: "<id>",
   customUserAgent: "<value>",
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -696,7 +703,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -730,7 +737,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -779,7 +786,7 @@ const client = new Client({
   },
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -823,7 +830,7 @@ import * as errors from "mollie-api-typescript/models/errors";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -901,7 +908,7 @@ const client = new Client({
   serverURL: "https://api.mollie.com/v2",
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 

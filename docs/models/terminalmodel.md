@@ -8,11 +8,11 @@ The model of the terminal. For example for a PAX A920, this field's value will b
 import { TerminalModel } from "mollie-api-typescript/models";
 
 let value: TerminalModel = "A920";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "A35" | "A77" | "A920" | "A920Pro" | "IM30" | "Tap" | Unrecognized<string>

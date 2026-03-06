@@ -11,11 +11,11 @@ Settlements created during weekends or on bank holidays will take place on the n
 import { ListEntityBalanceTransferFrequency } from "mollie-api-typescript/models";
 
 let value: ListEntityBalanceTransferFrequency = "daily";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "every-day" | "daily" | "every-monday" | "every-tuesday" | "every-wednesday" | "every-thursday" | "every-friday" | "monthly" | "revenue-day" | "never" | Unrecognized<string>

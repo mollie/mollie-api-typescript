@@ -23,7 +23,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -56,7 +56,7 @@ import { webhooksCreate } from "mollie-api-typescript/funcs/webhooksCreate.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -114,7 +114,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -148,7 +148,7 @@ import { webhooksList } from "mollie-api-typescript/funcs/webhooksList.js";
 const client = new ClientCore({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -205,7 +205,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -239,7 +239,7 @@ import { webhooksUpdate } from "mollie-api-typescript/funcs/webhooksUpdate.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -298,7 +298,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -327,7 +327,7 @@ import { webhooksGet } from "mollie-api-typescript/funcs/webhooksGet.js";
 const client = new ClientCore({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -355,7 +355,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -384,7 +384,7 @@ import { webhooksGet } from "mollie-api-typescript/funcs/webhooksGet.js";
 const client = new ClientCore({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -436,7 +436,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -467,7 +467,7 @@ import { webhooksDelete } from "mollie-api-typescript/funcs/webhooksDelete.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -522,7 +522,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -553,7 +553,7 @@ import { webhooksTest } from "mollie-api-typescript/funcs/webhooksTest.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 

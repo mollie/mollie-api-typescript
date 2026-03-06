@@ -10,11 +10,11 @@ SEPA Direct Debit and PayPal mandates can be created directly.
 import { MandateMethodResponse } from "mollie-api-typescript/models";
 
 let value: MandateMethodResponse = "directdebit";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "creditcard" | "directdebit" | "paypal" | Unrecognized<string>

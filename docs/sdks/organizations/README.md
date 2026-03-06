@@ -26,7 +26,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -55,7 +55,7 @@ import { organizationsGet } from "mollie-api-typescript/funcs/organizationsGet.j
 const client = new ClientCore({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -111,7 +111,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -138,7 +138,7 @@ import { organizationsGetCurrent } from "mollie-api-typescript/funcs/organizatio
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -189,7 +189,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -216,7 +216,7 @@ import { organizationsGetPartner } from "mollie-api-typescript/funcs/organizatio
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 

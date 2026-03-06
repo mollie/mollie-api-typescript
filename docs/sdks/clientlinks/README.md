@@ -70,7 +70,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -117,7 +117,7 @@ import { clientLinksCreate } from "mollie-api-typescript/funcs/clientLinksCreate
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -163,7 +163,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -210,7 +210,7 @@ import { clientLinksCreate } from "mollie-api-typescript/funcs/clientLinksCreate
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -256,7 +256,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -303,7 +303,7 @@ import { clientLinksCreate } from "mollie-api-typescript/funcs/clientLinksCreate
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 

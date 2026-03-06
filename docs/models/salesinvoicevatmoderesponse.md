@@ -9,11 +9,11 @@ price. `inclusive` means the prices you are providing to us already contain the 
 import { SalesInvoiceVatModeResponse } from "mollie-api-typescript/models";
 
 let value: SalesInvoiceVatModeResponse = "exclusive";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "exclusive" | "inclusive" | Unrecognized<string>

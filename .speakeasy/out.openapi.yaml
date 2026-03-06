@@ -51,6 +51,8 @@ tags:
     description: Operations related to the Refunds API
   - name: Sales Invoices API
     description: Operations related to the Sales Invoices API
+  - name: Sessions API
+    description: Operations related to the Sessions API
   - name: Settlements API
     description: Operations related to the Settlements API
   - name: Subscriptions API
@@ -13642,6 +13644,190 @@ paths:
       x-speakeasy-group: payments
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
+  /sessions:
+    post:
+      summary: Create session [BETA]
+      x-speakeasy-name-override: create
+      tags:
+        - Sessions API
+      operationId: create-session
+      security:
+        - apiKey: []
+        - oAuth:
+            - sessions.write
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in private beta, and the final specification may still change.\n\nCreate a session to start a checkout process with Mollie Components."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/session-request'
+      responses:
+        '201':
+          description: The newly created session object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/session-response'
+              examples:
+                create-session-201-1:
+                  $ref: '#/components/examples/get-session'
+        '422':
+          description: The request contains issues.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: The 'description' field is missing
+                field: description
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/payments \
+                  -H "Authorization: Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM" \
+                  -d "amount[currency]=EUR" \
+                  -d "amount[value]=10.00" \
+                  -d "description=Order #12345" \
+                  -d "lines[0][description]=T-shirt" \
+                  -d "lines[0][quantity]=1" \
+                  -d "lines[0][unitPrice][currency]=EUR" \
+                  -d "lines[0][unitPrice][value]=10.00" \
+                  -d "lines[0][totalAmount][currency]=EUR" \
+                  -d "lines[0][totalAmount][value]=10.00" \
+                  -d "payment[webhookUrl]=https://webshop.example.org/payments/webhook/" \
+                  -d "redirectUrl=https://webshop.example.org/order/12345/" \
+                  -d "metadata={\"order_id\": \"12345\"}"
+          - language: php
+            code: |-
+              <?php
+              use Mollie\Api\Http\Data\Money;
+              use Mollie\Api\Http\Requests\CreatePaymentRequest;
+
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $payment = $mollie->send(
+                  new CreateSessionRequest(
+                      description: "Order #12345",
+                      amount: new Money(currency: "EUR", value: "10.00"),
+                      lines: [
+                          [
+                              "description" => "T-shirt",
+                              "quantity" => 1,
+                              "unitPrice" => new Money(currency: "EUR", value: "10.00"),
+                              "totalAmount" => new Money(currency: "EUR", value: "10.00"),
+                          ],
+                      ],
+                      redirectUrl: "https://webshop.example.org/order/12345/",
+                      payment: [
+                          "webhookUrl" => "https://webshop.example.org/payments/webhook/",
+                      ],
+                      metadata: [
+                          "order_id" => "12345",
+                      ]
+                  )
+              );
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const payment = await mollieClient.payments.create({
+                amount: {
+                  currency: 'EUR',
+                  value: '10.00'
+                },
+                description: 'Order #12345',
+                lines: [
+                  {
+                    description: 'T-shirt',
+                    quantity: 1,
+                    unitPrice: {
+                      currency: 'EUR',
+                      value: '10.00'
+                    },
+                    totalAmount: {
+                      currency: 'EUR',
+                      value: '10.00'
+                    }
+                  }
+                ],
+                redirectUrl: 'https://webshop.example.org/order/12345/',
+                payment: {
+                  webhookUrl: 'https://webshop.example.org/payments/webhook/'
+                },
+                metadata: {
+                  order_id: '12345'
+                }
+              });
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: sessions
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+  /sessions/{sessionId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-session-id'
+    get:
+      summary: Get session
+      x-speakeasy-name-override: get
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in private beta, and the final specification may still change.\n\nRetrieve a session to view its details and status to inform your customers about the checkout process."
+      tags:
+        - Sessions API
+      operationId: get-session
+      security:
+        - apiKey: []
+        - oAuth:
+            - sessions.read
+      responses:
+        '200':
+          description: The session object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/session-response'
+              examples:
+                get-session-200-1:
+                  $ref: '#/components/examples/get-session'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/sessions/sess_CQBQJqxubaq4w6oresxMJ \
+                  -H "Authorization: Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              use Mollie\Api\Http\Requests\GetSessionRequest;
+
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $session = $mollie->send(
+                  new GetSessionRequest(id: "sess_CQBQJqxubaq4w6oresxMJ")
+              );
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const session = await mollieClient.sessions.get('sess_CQBQJqxubaq4w6oresxMJ');
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: sessions
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /methods:
     get:
       summary: List payment methods
@@ -17834,7 +18020,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/entity-session'
+                $ref: '#/components/schemas/entity-session-2'
               examples:
                 request-apple-pay-payment-session-201-1:
                   summary: The Apple Pay payment session object
@@ -27276,6 +27462,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/paymentToken'
+    parent-session-id:
+      name: sessionId
+      description: Provide the ID of the related session.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/sessionToken'
     locale:
       name: locale
       description: Response language
@@ -27289,7 +27482,7 @@ components:
       in: path
       required: true
       schema:
-        $ref: '#/components/schemas/method-id'
+        $ref: '#/components/schemas/method'
     parent-profile-and-me-id:
       name: profileId
       description: Provide the ID of the related profile.
@@ -32880,6 +33073,248 @@ components:
         `country`.
 
         Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+    sessionToken:
+      type: string
+      pattern: ^sess_.+$
+      example: sess_82jFYDTrLcCQV68NLDvMJ
+    session-status:
+      type: string
+      description: The session's status.
+      enum:
+        - open
+        - completed
+        - expired
+      readOnly: true
+      example: open
+      x-speakeasy-unknown-values: allow
+    session-sequence-type:
+      type: string
+      enum:
+        - oneoff
+        - first
+      example: oneoff
+    session-line-item:
+      type: object
+      required:
+        - description
+        - quantity
+        - unitPrice
+        - totalAmount
+      properties:
+        type:
+          $ref: '#/components/schemas/payment-line-type-response'
+        description:
+          type: string
+          description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
+          example: LEGO 4440 Forest Police Station
+        quantity:
+          type: integer
+          description: The number of items.
+          minimum: 1
+          example: 1
+        quantityUnit:
+          type: string
+          description: The unit for the quantity. For example *pcs*, *kg*, or *cm*.
+          example: pcs
+        unitPrice:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The price of a single item including VAT.
+
+            For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
+
+            For types `discount`, `store_credit`, and `gift_card`, the unit price must be negative.
+
+            The unit price can be zero in case of free items.
+        discountAmount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+            type.
+        totalAmount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The total amount of the line, including VAT and discounts.
+
+            Should match the following formula: `(unitPrice × quantity) - discountAmount`.
+
+            The sum of all `totalAmount` values of all order lines should be equal to the full payment amount.
+        vatRate:
+          type: string
+          description: |-
+            The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+            not as a float, to ensure the correct number of decimals are passed.
+          example: '21.00'
+        vatAmount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
+            calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+
+            Any deviations from this will result in an error.
+
+            For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+            `SEK 100.00 × (25 / 125) = SEK 20.00`.
+        sku:
+          type: string
+          description: The SKU, EAN, ISBN or UPC of the product sold.
+          maxLength: 64
+          example: '9780241661628'
+        imageUrl:
+          type: string
+          description: A link pointing to an image of the product sold.
+          example: https://...
+        productUrl:
+          type: string
+          description: A link pointing to the product page in your web shop of the product sold.
+          example: https://...
+    entity-session:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: The resource type of the object.
+          readOnly: true
+          example: session
+        id:
+          allOf:
+            - $ref: '#/components/schemas/sessionToken'
+          description: |-
+            The identifier uniquely referring to this session. Mollie assigns this identifier at session creation time. Mollie
+            will always refer to the session by this ID. Example: `sess_5B8cwPMGnU6qLbRvo7qEZo`.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        clientAccessToken:
+          type: string
+          description: The client access token for the session. Use the client access token to initialize Mollie Components.
+          readOnly: true
+          example: ewogICJzZXNzaW9uVG9rZW4i...
+        status:
+          allOf:
+            - $ref: '#/components/schemas/session-status'
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+        description:
+          type: string
+          description: "A user-friendly description of the session that may be shown to the customer during the checkout process. \n\nAny payment created for the session will use the same description."
+          example: 'Order #12345'
+        redirectUrl:
+          type: string
+          description: |-
+            The URL your customer will be redirected to after the payment process.
+
+            It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
+            right page referencing the order when your customer returns.
+          example: https://example.org/redirect
+        billingAddress:
+          $ref: '#/components/schemas/payment-address'
+          description: |-
+            The customer's billing address details. We advise to provide these details to improve fraud protection and
+            conversion.
+        shippingAddress:
+          $ref: '#/components/schemas/payment-address'
+          description: |-
+            The customer's shipping address details. We advise to provide these details to improve fraud protection and
+            conversion.
+        customerId:
+          type:
+            - string
+            - 'null'
+          $ref: '#/components/schemas/customerToken'
+          description: |-
+            The ID of the [customer](get-customer) the session is being created for. This is used primarily for recurring
+            payments, but can also be used on regular payments to enable single-click payments.
+
+            If `sequenceType` is set to `first`, this field is required.
+        sequenceType:
+          $ref: '#/components/schemas/session-sequence-type'
+          description: |-
+            **Only relevant for recurring payments.**
+
+            Indicate if this session is used for a one-off or a first of a recurring payment.
+
+            With a `first` payment, the customer agrees to automatic recurring charges taking place
+            on their account in the future.
+
+            Defaults to `oneoff`, which is a regular non-recurring payment.
+        metadata:
+          type: object
+          description: |-
+            Provide any data you like in a JSON object. We will save the data alongside the entity. Whenever
+            you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+
+            Any payment created for the session will use the same metadata.
+          additionalProperties: true
+        payment:
+          type: object
+          properties:
+            webhookUrl:
+              type: string
+              description: |-
+                The webhook URL where we will send payment status updates to.
+
+                This URL will be automatically set as the webhook URL for all payments created for this session.
+              example: https://example.org/webhook
+        lines:
+          type: array
+          description: |-
+            List of items the customer will pay for in this session. The sum of all line items must equal the
+            session's amount.
+
+            All lines must have the same currency as the session.
+          items:
+            $ref: '#/components/schemas/session-line-item'
+        profileId:
+          $ref: '#/components/schemas/profileToken'
+          description: |-
+            The identifier referring to the [profile](get-profile) this entity belongs to.
+
+            When using an API Key, the `profileId` must not be sent since it is linked to the key. However, for OAuth and
+            Organization tokens, the `profileId` is required.
+
+            For more information, see [Authentication](authentication).
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+    session-request:
+      allOf:
+        - $ref: '#/components/schemas/entity-session'
+        - type: object
+          required:
+            - amount
+            - description
+            - lines
+            - redirectUrl
+    session-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-session-response'
+        - type: object
+          required:
+            - resource
+            - id
+            - clientAccessToken
+            - mode
+            - createdAt
+            - amount
+            - description
+            - lines
+            - redirectUrl
+            - status
+            - profileId
+            - _links
+      x-speakeasy-unknown-values: allow
     method-resource-parameter:
       type: string
       enum:
@@ -33298,7 +33733,7 @@ components:
         - type: object
           required:
             - amount
-    entity-session:
+    entity-session-2:
       type: object
       additionalProperties: true
       properties: {}
@@ -40066,6 +40501,210 @@ components:
         - other_fee
       example: invoice_collection
       x-speakeasy-unknown-values: allow
+    entity-session-response:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: The resource type of the object.
+          readOnly: true
+          example: session
+        id:
+          allOf:
+            - $ref: '#/components/schemas/sessionToken'
+          description: |-
+            The identifier uniquely referring to this session. Mollie assigns this identifier at session creation time. Mollie
+            will always refer to the session by this ID. Example: `sess_5B8cwPMGnU6qLbRvo7qEZo`.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        clientAccessToken:
+          type: string
+          description: The client access token for the session. Use the client access token to initialize Mollie Components.
+          readOnly: true
+          example: ewogICJzZXNzaW9uVG9rZW4i...
+        status:
+          allOf:
+            - $ref: '#/components/schemas/session-status'
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+        description:
+          type: string
+          description: "A user-friendly description of the session that may be shown to the customer during the checkout process. \n\nAny payment created for the session will use the same description."
+          example: 'Order #12345'
+        redirectUrl:
+          type: string
+          description: |-
+            The URL your customer will be redirected to after the payment process.
+
+            It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
+            right page referencing the order when your customer returns.
+          example: https://example.org/redirect
+        billingAddress:
+          $ref: '#/components/schemas/payment-address'
+          description: |-
+            The customer's billing address details. We advise to provide these details to improve fraud protection and
+            conversion.
+        shippingAddress:
+          $ref: '#/components/schemas/payment-address'
+          description: |-
+            The customer's shipping address details. We advise to provide these details to improve fraud protection and
+            conversion.
+        customerId:
+          type:
+            - string
+            - 'null'
+          $ref: '#/components/schemas/customerToken'
+          description: |-
+            The ID of the [customer](get-customer) the session is being created for. This is used primarily for recurring
+            payments, but can also be used on regular payments to enable single-click payments.
+
+            If `sequenceType` is set to `first`, this field is required.
+        sequenceType:
+          $ref: '#/components/schemas/session-sequence-type-response'
+          description: |-
+            **Only relevant for recurring payments.**
+
+            Indicate if this session is used for a one-off or a first of a recurring payment.
+
+            With a `first` payment, the customer agrees to automatic recurring charges taking place
+            on their account in the future.
+
+            Defaults to `oneoff`, which is a regular non-recurring payment.
+        metadata:
+          type: object
+          description: |-
+            Provide any data you like in a JSON object. We will save the data alongside the entity. Whenever
+            you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+
+            Any payment created for the session will use the same metadata.
+          additionalProperties: true
+        payment:
+          type: object
+          properties:
+            webhookUrl:
+              type: string
+              description: |-
+                The webhook URL where we will send payment status updates to.
+
+                This URL will be automatically set as the webhook URL for all payments created for this session.
+              example: https://example.org/webhook
+        lines:
+          type: array
+          description: |-
+            List of items the customer will pay for in this session. The sum of all line items must equal the
+            session's amount.
+
+            All lines must have the same currency as the session.
+          items:
+            $ref: '#/components/schemas/session-line-item-response'
+        profileId:
+          $ref: '#/components/schemas/profileToken'
+          description: |-
+            The identifier referring to the [profile](get-profile) this entity belongs to.
+
+            When using an API Key, the `profileId` must not be sent since it is linked to the key. However, for OAuth and
+            Organization tokens, the `profileId` is required.
+
+            For more information, see [Authentication](authentication).
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+          readOnly: true
+      x-speakeasy-unknown-values: allow
+    session-sequence-type-response:
+      type: string
+      enum:
+        - oneoff
+        - first
+      example: oneoff
+      x-speakeasy-unknown-values: allow
+    session-line-item-response:
+      type: object
+      required:
+        - description
+        - quantity
+        - unitPrice
+        - totalAmount
+      properties:
+        type:
+          $ref: '#/components/schemas/payment-line-type-response'
+        description:
+          type: string
+          description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
+          example: LEGO 4440 Forest Police Station
+        quantity:
+          type: integer
+          description: The number of items.
+          minimum: 1
+          example: 1
+        quantityUnit:
+          type: string
+          description: The unit for the quantity. For example *pcs*, *kg*, or *cm*.
+          example: pcs
+        unitPrice:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The price of a single item including VAT.
+
+            For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
+
+            For types `discount`, `store_credit`, and `gift_card`, the unit price must be negative.
+
+            The unit price can be zero in case of free items.
+        discountAmount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount
+            type.
+        totalAmount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The total amount of the line, including VAT and discounts.
+
+            Should match the following formula: `(unitPrice × quantity) - discountAmount`.
+
+            The sum of all `totalAmount` values of all order lines should be equal to the full payment amount.
+        vatRate:
+          type: string
+          description: |-
+            The VAT rate applied to the line, for example `21.00` for 21%. The vatRate should be passed as a string and
+            not as a float, to ensure the correct number of decimals are passed.
+          example: '21.00'
+        vatAmount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be
+            calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+
+            Any deviations from this will result in an error.
+
+            For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of
+            `SEK 100.00 × (25 / 125) = SEK 20.00`.
+        sku:
+          type: string
+          description: The SKU, EAN, ISBN or UPC of the product sold.
+          maxLength: 64
+          example: '9780241661628'
+        imageUrl:
+          type: string
+          description: A link pointing to an image of the product sold.
+          example: https://...
+        productUrl:
+          type: string
+          description: A link pointing to the product page in your web shop of the product sold.
+          example: https://...
+      x-speakeasy-unknown-values: allow
     entity-customer-response:
       type: object
       properties:
@@ -40983,6 +41622,43 @@ components:
           dashboard:
             href: https://www.mollie.com/dashboard/org_12345678/payments/tr_WDqYK6vllg
             type: text/html
+          documentation:
+            href: '...'
+            type: text/html
+    get-session:
+      summary: The session object
+      value:
+        resource: session
+        id: sess_CQBQJqxubaq4w6oresxMJ
+        mode: live
+        clientAccessToken: ewogICJzZXNzaW9uVG9rZW4iOiAic2Vzc19DUUJRSnF4dWJhcTR3Nm9yZXN4TUoiLAogICJzZWNyZXQiOiAiaGFja2Vycy1iZS1uaWNlIiwKICAidGVzdG1vZGUiOiBmYWxzZSwKICAicHJvZmlsZVRva2VuIjogInBmbF9Ra0VoTjk0QmEiLAogICJhdmFpbGFibGVQYXltZW50TWV0aG9kcyI6IFsKICAgICJpZGVhbCIsCiAgICAiY3JlZGl0Y2FyZCIsCiAgICAicGF5cGFsIiwKICAgICJwYXlieWJhbmsiLAogICAgImJhbmNvbnRhY3QiLAogICAgImFwcGxlcGF5IiwKICAgICJnb29nbGVwYXkiCiAgXSwKICAiYXZhaWxhYmxlQXV0aGVudGljYXRpb25NZXRob2RzIjogewogICAgImJhbmNvbnRhY3QiOiBbCiAgICAgICJtb2JpbGUiLAogICAgICAiY2FyZCIKICAgIF0KICB9LAogICJvcmdhbml6YXRpb25Db3VudHJ5Q29kZSI6ICJOTCIsCiAgIm1lcmNoYW50UHJvZmlsZU5hbWUiOiAiTW9sbGllIFN3YWcgU2hvcCIKfQ==
+        amount:
+          value: '10.00'
+          currency: EUR
+        description: 'Order #12345'
+        lines:
+          - description: T-shirt
+            quantity: 1
+            unitPrice:
+              value: '10.00'
+              currency: EUR
+            totalAmount:
+              value: '10.00'
+              currency: EUR
+        sequenceType: oneoff
+        redirectUrl: https://webshop.example.org/order/12345/
+        payment:
+          webhookUrl: https://webshop.example.org/payments/webhook/
+        metadata:
+          order_id: '12345'
+        profileId: pfl_QkEhN94Ba
+        status: open
+        createdAt: '2024-03-20T09:13:37+00:00'
+        expiresAt: '2024-03-20T09:28:37+00:00'
+        _links:
+          self:
+            href: '...'
+            type: application/hal+json
           documentation:
             href: '...'
             type: text/html

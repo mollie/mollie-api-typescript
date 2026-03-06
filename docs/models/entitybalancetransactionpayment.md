@@ -1,11 +1,11 @@
-# Payment
+# EntityBalanceTransactionPayment
 
 ## Example Usage
 
 ```typescript
-import { Payment } from "mollie-api-typescript/models";
+import { EntityBalanceTransactionPayment } from "mollie-api-typescript/models";
 
-let value: Payment = {
+let value: EntityBalanceTransactionPayment = {
   paymentId: "tr_5B8cwPMGnU",
   paymentDescription: "Payment Description",
 };

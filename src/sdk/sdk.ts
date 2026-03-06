@@ -23,6 +23,7 @@ import { Permissions } from "./permissions.js";
 import { Profiles } from "./profiles.js";
 import { Refunds } from "./refunds.js";
 import { SalesInvoices } from "./salesinvoices.js";
+import { Sessions } from "./sessions.js";
 import { Settlements } from "./settlements.js";
 import { Subscriptions } from "./subscriptions.js";
 import { Terminals } from "./terminals.js";
@@ -99,6 +100,11 @@ export class Client extends ClientSDK {
   private _payments?: Payments;
   get payments(): Payments {
     return (this._payments ??= new Payments(this._options));
+  }
+
+  private _sessions?: Sessions;
+  get sessions(): Sessions {
+    return (this._sessions ??= new Sessions(this._options));
   }
 
   private _methods?: Methods;

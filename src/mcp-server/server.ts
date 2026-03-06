@@ -85,6 +85,8 @@ import { tool$salesInvoicesDelete } from "./tools/salesInvoicesDelete.js";
 import { tool$salesInvoicesGet } from "./tools/salesInvoicesGet.js";
 import { tool$salesInvoicesList } from "./tools/salesInvoicesList.js";
 import { tool$salesInvoicesUpdate } from "./tools/salesInvoicesUpdate.js";
+import { tool$sessionsCreate } from "./tools/sessionsCreate.js";
+import { tool$sessionsGet } from "./tools/sessionsGet.js";
 import { tool$settlementsGet } from "./tools/settlementsGet.js";
 import { tool$settlementsGetNext } from "./tools/settlementsGetNext.js";
 import { tool$settlementsGetOpen } from "./tools/settlementsGetOpen.js";
@@ -124,7 +126,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "1.2.2",
+    version: "1.2.3",
   });
 
   const client = new ClientCore({
@@ -205,6 +207,8 @@ export function createMCPServer(deps: {
   tool(tool$paymentsUpdate);
   tool(tool$paymentsCancel);
   tool(tool$paymentsReleaseAuthorization);
+  tool(tool$sessionsCreate);
+  tool(tool$sessionsGet);
   tool(tool$methodsList);
   tool(tool$methodsAll);
   tool(tool$methodsGet);

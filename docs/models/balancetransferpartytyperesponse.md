@@ -8,11 +8,11 @@ Defines the type of the party. At the moment, only `organization` is supported.
 import { BalanceTransferPartyTypeResponse } from "mollie-api-typescript/models";
 
 let value: BalanceTransferPartyTypeResponse = "organization";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "organization" | Unrecognized<string>

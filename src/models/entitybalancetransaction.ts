@@ -50,7 +50,7 @@ export type DeductionDetails = {
   reservations?: AmountNullable | null | undefined;
 };
 
-export type Payment = {
+export type EntityBalanceTransactionPayment = {
   paymentId?: string | undefined;
   paymentDescription?: string | undefined;
 };
@@ -287,7 +287,7 @@ export type PostPaymentSplitPayment = {
  * * Type `cash-collateral-release`: none
  */
 export type Context = {
-  payment?: Payment | null | undefined;
+  payment?: EntityBalanceTransactionPayment | null | undefined;
   capture?: Capture | null | undefined;
   captureCommision?: CaptureCommision | null | undefined;
   captureRollingReserveRelease?:
@@ -470,37 +470,46 @@ export function deductionDetailsFromJSON(
 }
 
 /** @internal */
-export const Payment$inboundSchema: z.ZodType<Payment, z.ZodTypeDef, unknown> =
-  z.object({
-    paymentId: z.string().optional(),
-    paymentDescription: z.string().optional(),
-  });
+export const EntityBalanceTransactionPayment$inboundSchema: z.ZodType<
+  EntityBalanceTransactionPayment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  paymentId: z.string().optional(),
+  paymentDescription: z.string().optional(),
+});
 /** @internal */
-export type Payment$Outbound = {
+export type EntityBalanceTransactionPayment$Outbound = {
   paymentId?: string | undefined;
   paymentDescription?: string | undefined;
 };
 
 /** @internal */
-export const Payment$outboundSchema: z.ZodType<
-  Payment$Outbound,
+export const EntityBalanceTransactionPayment$outboundSchema: z.ZodType<
+  EntityBalanceTransactionPayment$Outbound,
   z.ZodTypeDef,
-  Payment
+  EntityBalanceTransactionPayment
 > = z.object({
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
 
-export function paymentToJSON(payment: Payment): string {
-  return JSON.stringify(Payment$outboundSchema.parse(payment));
+export function entityBalanceTransactionPaymentToJSON(
+  entityBalanceTransactionPayment: EntityBalanceTransactionPayment,
+): string {
+  return JSON.stringify(
+    EntityBalanceTransactionPayment$outboundSchema.parse(
+      entityBalanceTransactionPayment,
+    ),
+  );
 }
-export function paymentFromJSON(
+export function entityBalanceTransactionPaymentFromJSON(
   jsonString: string,
-): SafeParseResult<Payment, SDKValidationError> {
+): SafeParseResult<EntityBalanceTransactionPayment, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Payment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Payment' from JSON`,
+    (x) => EntityBalanceTransactionPayment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EntityBalanceTransactionPayment' from JSON`,
   );
 }
 
@@ -1834,7 +1843,9 @@ export function postPaymentSplitPaymentFromJSON(
 /** @internal */
 export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
   z.object({
-    payment: z.nullable(z.lazy(() => Payment$inboundSchema)).optional(),
+    payment: z.nullable(
+      z.lazy(() => EntityBalanceTransactionPayment$inboundSchema),
+    ).optional(),
     capture: z.nullable(z.lazy(() => Capture$inboundSchema)).optional(),
     "capture-commision": z.nullable(
       z.lazy(() => CaptureCommision$inboundSchema),
@@ -1948,7 +1959,7 @@ export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
   });
 /** @internal */
 export type Context$Outbound = {
-  payment?: Payment$Outbound | null | undefined;
+  payment?: EntityBalanceTransactionPayment$Outbound | null | undefined;
   capture?: Capture$Outbound | null | undefined;
   "capture-commision"?: CaptureCommision$Outbound | null | undefined;
   "capture-rolling-reserve-release"?:
@@ -2020,7 +2031,9 @@ export const Context$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Context
 > = z.object({
-  payment: z.nullable(z.lazy(() => Payment$outboundSchema)).optional(),
+  payment: z.nullable(
+    z.lazy(() => EntityBalanceTransactionPayment$outboundSchema),
+  ).optional(),
   capture: z.nullable(z.lazy(() => Capture$outboundSchema)).optional(),
   captureCommision: z.nullable(z.lazy(() => CaptureCommision$outboundSchema))
     .optional(),

@@ -8,11 +8,11 @@ Specifies the reference type
 import { RefundExternalReferenceTypeResponse } from "mollie-api-typescript/models";
 
 let value: RefundExternalReferenceTypeResponse = "acquirer-reference";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "acquirer-reference" | Unrecognized<string>

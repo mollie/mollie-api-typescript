@@ -8,11 +8,11 @@ The status of the settlement.
 import { ListEntitySettlementStatus } from "mollie-api-typescript/models";
 
 let value: ListEntitySettlementStatus = "paidout";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "open" | "pending" | "paidout" | "failed" | Unrecognized<string>

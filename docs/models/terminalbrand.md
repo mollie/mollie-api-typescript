@@ -8,11 +8,11 @@ The brand of the terminal.
 import { TerminalBrand } from "mollie-api-typescript/models";
 
 let value: TerminalBrand = "PAX";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "PAX" | "Tap" | Unrecognized<string>

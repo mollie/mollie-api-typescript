@@ -11,11 +11,11 @@ This field needs to be set to `manual` for method `riverty`.
 import { CaptureModeResponse } from "mollie-api-typescript/models";
 
 let value: CaptureModeResponse = "manual";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "automatic" | "manual" | Unrecognized<string>

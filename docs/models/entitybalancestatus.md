@@ -8,11 +8,11 @@ The status of the balance.
 import { EntityBalanceStatus } from "mollie-api-typescript/models";
 
 let value: EntityBalanceStatus = "active";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "active" | "inactive" | Unrecognized<string>

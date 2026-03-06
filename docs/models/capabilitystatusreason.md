@@ -6,11 +6,11 @@
 import { CapabilityStatusReason } from "mollie-api-typescript/models";
 
 let value: CapabilityStatusReason = "requirement-past-due";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "requirement-past-due" | "onboarding-information-needed" | Unrecognized<string>

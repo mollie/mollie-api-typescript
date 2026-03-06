@@ -8,11 +8,11 @@ The type of the transfer. Different fees may apply to different types of transfe
 import { BalanceTransferCategoryResponse } from "mollie-api-typescript/models";
 
 let value: BalanceTransferCategoryResponse = "invoice_collection";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "invoice_collection" | "purchase" | "chargeback" | "refund" | "service_penalty" | "discount_compensation" | "manual_correction" | "other_fee" | Unrecognized<string>

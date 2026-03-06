@@ -19,7 +19,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
@@ -48,7 +48,7 @@ import { webhookEventsGet } from "mollie-api-typescript/funcs/webhookEventsGet.j
 const client = new ClientCore({
   testmode: false,
   security: {
-    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 

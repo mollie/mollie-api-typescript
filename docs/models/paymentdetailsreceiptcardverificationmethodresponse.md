@@ -9,11 +9,11 @@ import { PaymentDetailsReceiptCardVerificationMethodResponse } from "mollie-api-
 
 let value: PaymentDetailsReceiptCardVerificationMethodResponse =
   "no-cvm-required";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "no-cvm-required" | "online-pin" | "offline-pin" | "consumer-device" | "signature" | "signature-and-online-pin" | "online-pin-and-signature" | "none" | "failed" | Unrecognized<string>

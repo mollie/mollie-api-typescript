@@ -9,11 +9,11 @@ when we did not received the IBAN yet from the first payment.
 import { ListMandateResponseStatus } from "mollie-api-typescript/models";
 
 let value: ListMandateResponseStatus = "valid";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "valid" | "pending" | "invalid" | Unrecognized<string>

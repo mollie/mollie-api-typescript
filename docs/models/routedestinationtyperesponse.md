@@ -8,11 +8,11 @@ The type of destination. Currently only the destination type `organization` is s
 import { RouteDestinationTypeResponse } from "mollie-api-typescript/models";
 
 let value: RouteDestinationTypeResponse = "organization";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "organization" | Unrecognized<string>

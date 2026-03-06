@@ -10,11 +10,11 @@ The default destination of automatic scheduled transfers. Currently only `bank-a
 import { BalanceTransferDestinationType } from "mollie-api-typescript/models";
 
 let value: BalanceTransferDestinationType = "bank-account";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "bank-account" | Unrecognized<string>

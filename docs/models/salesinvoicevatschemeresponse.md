@@ -8,11 +8,11 @@ The VAT scheme to create the invoice for. You must be enrolled with One Stop Sho
 import { SalesInvoiceVatSchemeResponse } from "mollie-api-typescript/models";
 
 let value: SalesInvoiceVatSchemeResponse = "standard";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "standard" | "one-stop-shop" | Unrecognized<string>

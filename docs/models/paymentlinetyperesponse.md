@@ -10,11 +10,11 @@ The `tip` payment line type is not available when creating a payment.
 import { PaymentLineTypeResponse } from "mollie-api-typescript/models";
 
 let value: PaymentLineTypeResponse = "physical";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "physical" | "digital" | "shipping_fee" | "discount" | "store_credit" | "gift_card" | "surcharge" | "tip" | Unrecognized<string>
