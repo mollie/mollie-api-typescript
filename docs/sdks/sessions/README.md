@@ -4,7 +4,7 @@
 
 ### Available Operations
 
-* [create](#create) - Create session [BETA]
+* [create](#create) - Create session
 * [get](#get) - Get session
 
 ## create
@@ -36,6 +36,7 @@ async function run() {
         value: "10.00",
       },
       description: "Order #12345",
+      lines: [],
       redirectUrl: "https://example.org/redirect",
       billingAddress: {
         title: "Mr.",
@@ -70,7 +71,6 @@ async function run() {
       payment: {
         webhookUrl: "https://example.org/webhook",
       },
-      lines: [],
       profileId: "pfl_5B8cwPMGnU",
       testmode: false,
     },
@@ -107,6 +107,7 @@ async function run() {
         value: "10.00",
       },
       description: "Order #12345",
+      lines: [],
       redirectUrl: "https://example.org/redirect",
       billingAddress: {
         title: "Mr.",
@@ -141,7 +142,6 @@ async function run() {
       payment: {
         webhookUrl: "https://example.org/webhook",
       },
-      lines: [],
       profileId: "pfl_5B8cwPMGnU",
       testmode: false,
     },

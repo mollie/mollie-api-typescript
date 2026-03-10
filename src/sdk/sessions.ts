@@ -11,7 +11,7 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Sessions extends ClientSDK {
   /**
-   * Create session [BETA]
+   * Create session
    *
    * @remarks
    * > 🚧 Beta feature

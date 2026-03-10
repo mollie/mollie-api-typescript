@@ -32,7 +32,8 @@ export type EntityCapabilityRequirement = {
    *
    * @remarks
    * to enable or re-enable the capability. The name is unique among other requirements
-   * of the same capability.
+   * of the same capability. Requirements related to the onboarding process start with 'onboarding-', while
+   * requirements related to information requests start with 'information-request-'.
    */
   id: string;
   /**

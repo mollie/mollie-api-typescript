@@ -12,7 +12,7 @@ const args = {
 
 export const tool$sessionsCreate: ToolDefinition<typeof args> = {
   name: "sessions-create",
-  description: `Create session [BETA]
+  description: `Create session
 
 > 🚧 Beta feature
 >

@@ -467,7 +467,7 @@ let client = new Client({
 
 ### [Sessions](docs/sdks/sessions/README.md)
 
-* [create](docs/sdks/sessions/README.md#create) - Create session [BETA]
+* [create](docs/sdks/sessions/README.md#create) - Create session
 * [get](docs/sdks/sessions/README.md#get) - Get session
 
 ### [Settlements](docs/sdks/settlements/README.md)
@@ -603,7 +603,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`salesInvoicesGet`](docs/sdks/salesinvoices/README.md#get) - Get sales invoice
 - [`salesInvoicesList`](docs/sdks/salesinvoices/README.md#list) - List sales invoices
 - [`salesInvoicesUpdate`](docs/sdks/salesinvoices/README.md#update) - Update sales invoice
-- [`sessionsCreate`](docs/sdks/sessions/README.md#create) - Create session [BETA]
+- [`sessionsCreate`](docs/sdks/sessions/README.md#create) - Create session
 - [`sessionsGet`](docs/sdks/sessions/README.md#get) - Get session
 - [`settlementsGet`](docs/sdks/settlements/README.md#get) - Get settlement
 - [`settlementsGetNext`](docs/sdks/settlements/README.md#getnext) - Get next settlement

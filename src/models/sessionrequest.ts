@@ -55,6 +55,15 @@ export type SessionRequest = {
    */
   description: string;
   /**
+   * List of items the customer will pay for in this session. The sum of all line items must equal the
+   *
+   * @remarks
+   * session's amount.
+   *
+   * All lines must have the same currency as the session.
+   */
+  lines: Array<SessionLineItem>;
+  /**
    * The URL your customer will be redirected to after the payment process.
    *
    * @remarks
@@ -77,15 +86,6 @@ export type SessionRequest = {
    */
   metadata?: { [k: string]: any } | undefined;
   payment?: SessionRequestPayment | undefined;
-  /**
-   * List of items the customer will pay for in this session. The sum of all line items must equal the
-   *
-   * @remarks
-   * session's amount.
-   *
-   * All lines must have the same currency as the session.
-   */
-  lines: Array<SessionLineItem>;
   /**
    * The identifier referring to the [profile](get-profile) this entity belongs to.
    *
@@ -155,6 +155,7 @@ export const SessionRequest$inboundSchema: z.ZodType<
 > = z.object({
   amount: Amount$inboundSchema,
   description: z.string(),
+  lines: z.array(SessionLineItem$inboundSchema),
   redirectUrl: z.string(),
   billingAddress: PaymentAddress$inboundSchema.optional(),
   shippingAddress: PaymentAddress$inboundSchema.optional(),
@@ -162,7 +163,6 @@ export const SessionRequest$inboundSchema: z.ZodType<
   sequenceType: SessionSequenceType$inboundSchema.optional(),
   metadata: z.record(z.any()).optional(),
   payment: z.lazy(() => SessionRequestPayment$inboundSchema).optional(),
-  lines: z.array(SessionLineItem$inboundSchema),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
@@ -170,6 +170,7 @@ export const SessionRequest$inboundSchema: z.ZodType<
 export type SessionRequest$Outbound = {
   amount: Amount$Outbound;
   description: string;
+  lines: Array<SessionLineItem$Outbound>;
   redirectUrl: string;
   billingAddress?: PaymentAddress$Outbound | undefined;
   shippingAddress?: PaymentAddress$Outbound | undefined;
@@ -177,7 +178,6 @@ export type SessionRequest$Outbound = {
   sequenceType?: string | undefined;
   metadata?: { [k: string]: any } | undefined;
   payment?: SessionRequestPayment$Outbound | undefined;
-  lines: Array<SessionLineItem$Outbound>;
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
 };
@@ -190,6 +190,7 @@ export const SessionRequest$outboundSchema: z.ZodType<
 > = z.object({
   amount: Amount$outboundSchema,
   description: z.string(),
+  lines: z.array(SessionLineItem$outboundSchema),
   redirectUrl: z.string(),
   billingAddress: PaymentAddress$outboundSchema.optional(),
   shippingAddress: PaymentAddress$outboundSchema.optional(),
@@ -197,7 +198,6 @@ export const SessionRequest$outboundSchema: z.ZodType<
   sequenceType: SessionSequenceType$outboundSchema.optional(),
   metadata: z.record(z.any()).optional(),
   payment: z.lazy(() => SessionRequestPayment$outboundSchema).optional(),
-  lines: z.array(SessionLineItem$outboundSchema),
   profileId: z.string().optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });

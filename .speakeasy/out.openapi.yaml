@@ -8607,7 +8607,7 @@ paths:
       security:
         - oAuth:
             - onboarding.read
-      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nRetrieve a list of capabilities for an organization.\n\nThis API provides detailed insights into the specific requirements and status of each client's onboarding journey.\n\nCapabilities are at the organization level, indicating if the organization can perform a given capability.\n\nFor payments, regardless them being at the profile level, the capability is listed at the organization level.\nThis means that if at least one of the clients's profiles can receive payments,\nthe payments capability is enabled, communicating that the organization can indeed receive payments."
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nRetrieve a list of capabilities for an organization.\n\nThis API provides detailed insights into the specific requirements and status of each client's onboarding journey.\n\nCapabilities are at the organization level, indicating if the organization can perform a given capability.\nCapabilities may have requirements, which provide more information on what is needed to use this capability. \nRequirements may have a due date, which indicates the date by which the requirement should be fulfilled. \nIf a requirement is past due, the capability is disabled until the requirement is fulfilled.\n\nFor payments, regardless them being at the profile level, the capability is listed at the organization level.\nThis means that if at least one of the clients's profiles can receive payments,\nthe payments capability is enabled, communicating that the organization can indeed receive payments."
       responses:
         '200':
           description: A list of capabilities.
@@ -8650,14 +8650,14 @@ paths:
                           status: pending
                           statusReason: onboarding-information-needed
                           requirements:
-                            - id: legal-representatives
+                            - id: onboarding-stakeholder-ubo-identity-document
                               dueDate: null
                               status: requested
                               _links:
                                 dashboard:
                                   href: https://my.mollie.com/dashboard/...
                                   type: text/html
-                            - id: bank-account
+                            - id: onboarding-bank-account
                               dueDate: '2024-05-14T01:29:09+00:00'
                               status: past-due
                               _links:
@@ -13646,7 +13646,7 @@ paths:
         - $ref: '#/components/parameters/idempotency-key'
   /sessions:
     post:
-      summary: Create session [BETA]
+      summary: Create session
       x-speakeasy-name-override: create
       tags:
         - Sessions API
@@ -13713,7 +13713,7 @@ paths:
               $mollie = new \Mollie\Api\MollieApiClient();
               $mollie->setApiKey("live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
 
-              $payment = $mollie->send(
+              $session = $mollie->send(
                   new CreateSessionRequest(
                       description: "Order #12345",
                       amount: new Money(currency: "EUR", value: "10.00"),
@@ -13739,7 +13739,7 @@ paths:
               const { createMollieClient } = require('@mollie/api-client');
               const mollieClient = createMollieClient({ apiKey: 'live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
-              const payment = await mollieClient.payments.create({
+              const session = await mollieClient.sessions.create({
                 amount: {
                   currency: 'EUR',
                   value: '10.00'
@@ -31892,8 +31892,9 @@ components:
           description: |-
             The name of this requirement, referring to the task to be fulfilled by the organization
             to enable or re-enable the capability. The name is unique among other requirements
-            of the same capability.
-          example: legal-representatives
+            of the same capability. Requirements related to the onboarding process start with 'onboarding-', while
+            requirements related to information requests start with 'information-request-'.
+          example: information-request-aml-charities-and-donations
         status:
           $ref: '#/components/schemas/capability-requirement-status'
         dueDate:
@@ -33087,12 +33088,6 @@ components:
       readOnly: true
       example: open
       x-speakeasy-unknown-values: allow
-    session-sequence-type:
-      type: string
-      enum:
-        - oneoff
-        - first
-      example: oneoff
     session-line-item:
       type: object
       required:
@@ -33168,6 +33163,12 @@ components:
           type: string
           description: A link pointing to the product page in your web shop of the product sold.
           example: https://...
+    session-sequence-type:
+      type: string
+      enum:
+        - oneoff
+        - first
+      example: oneoff
     entity-session:
       type: object
       properties:
@@ -33200,6 +33201,15 @@ components:
           type: string
           description: "A user-friendly description of the session that may be shown to the customer during the checkout process. \n\nAny payment created for the session will use the same description."
           example: 'Order #12345'
+        lines:
+          type: array
+          description: |-
+            List of items the customer will pay for in this session. The sum of all line items must equal the
+            session's amount.
+
+            All lines must have the same currency as the session.
+          items:
+            $ref: '#/components/schemas/session-line-item'
         redirectUrl:
           type: string
           description: |-
@@ -33257,15 +33267,6 @@ components:
 
                 This URL will be automatically set as the webhook URL for all payments created for this session.
               example: https://example.org/webhook
-        lines:
-          type: array
-          description: |-
-            List of items the customer will pay for in this session. The sum of all line items must equal the
-            session's amount.
-
-            All lines must have the same currency as the session.
-          items:
-            $ref: '#/components/schemas/session-line-item'
         profileId:
           $ref: '#/components/schemas/profileToken'
           description: |-
@@ -40533,6 +40534,15 @@ components:
           type: string
           description: "A user-friendly description of the session that may be shown to the customer during the checkout process. \n\nAny payment created for the session will use the same description."
           example: 'Order #12345'
+        lines:
+          type: array
+          description: |-
+            List of items the customer will pay for in this session. The sum of all line items must equal the
+            session's amount.
+
+            All lines must have the same currency as the session.
+          items:
+            $ref: '#/components/schemas/session-line-item-response'
         redirectUrl:
           type: string
           description: |-
@@ -40590,15 +40600,6 @@ components:
 
                 This URL will be automatically set as the webhook URL for all payments created for this session.
               example: https://example.org/webhook
-        lines:
-          type: array
-          description: |-
-            List of items the customer will pay for in this session. The sum of all line items must equal the
-            session's amount.
-
-            All lines must have the same currency as the session.
-          items:
-            $ref: '#/components/schemas/session-line-item-response'
         profileId:
           $ref: '#/components/schemas/profileToken'
           description: |-
@@ -40621,13 +40622,6 @@ components:
             self:
               $ref: '#/components/schemas/url'
           readOnly: true
-      x-speakeasy-unknown-values: allow
-    session-sequence-type-response:
-      type: string
-      enum:
-        - oneoff
-        - first
-      example: oneoff
       x-speakeasy-unknown-values: allow
     session-line-item-response:
       type: object
@@ -40704,6 +40698,13 @@ components:
           type: string
           description: A link pointing to the product page in your web shop of the product sold.
           example: https://...
+      x-speakeasy-unknown-values: allow
+    session-sequence-type-response:
+      type: string
+      enum:
+        - oneoff
+        - first
+      example: oneoff
       x-speakeasy-unknown-values: allow
     entity-customer-response:
       type: object

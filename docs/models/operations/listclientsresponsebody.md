@@ -97,7 +97,7 @@ let value: ListClientsResponseBody = {
             statusReason: "requirement-past-due",
             requirements: [
               {
-                id: "legal-representatives",
+                id: "information-request-aml-charities-and-donations",
                 status: "past-due",
                 dueDate: "2024-01-01T12:00:00+00:00",
                 links: {
