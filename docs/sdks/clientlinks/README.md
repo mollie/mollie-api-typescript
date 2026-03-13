@@ -30,7 +30,7 @@ the customer:
 * `scope` _string (required)_
 
   A space-separated list of permissions ('scopes') your app requires. See the
-  [permissions list](https://docs.mollie.com/docs/connect-permissions) for more information about the available
+  [permissions list](https://docs.mollie.com/docs/permissions) for more information about the available
   scopes.
 
   We recommend at least : `onboarding.read onboarding.write`
