@@ -5,6 +5,7 @@
 import { SDKHooks } from "../hooks/hooks.js";
 import { HookContext } from "../hooks/types.js";
 import {
+  ClientCreationError,
   ConnectionError,
   InvalidRequestError,
   RequestAbortedError,
@@ -14,6 +15,7 @@ import {
 import { ERR, OK, Result } from "../types/fp.js";
 import { stringToBase64 } from "./base64.js";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "./config.js";
+import { Security } from "../models/security.js";
 import { encodeForm } from "./encodings.js";
 import { env, fillGlobals } from "./env.js";
 import {
@@ -114,6 +116,31 @@ export class ClientSDK {
     if (!this.#logger && env().CLIENT_DEBUG) {
       this.#logger = console;
     }
+
+    if (!this._canHaveDefaultFields(options) && this._hasDefaultFields(options)) {
+      throw new ClientCreationError("Invalid client configuration", {
+        cause: 'Default fields like testmode and profileId can only be set when using an Access or oAuth Key.'
+      });
+    }
+  }
+
+  private _canHaveDefaultFields(options: SDKOptions): boolean {
+    const security = options.security;
+    if (!security) {
+      return false;
+    }
+
+    const securityObj = typeof security === "function" ? security() : security;
+    if (securityObj instanceof Promise) {
+      return false;
+    }
+
+    const token = (securityObj as Security).apiKey || (securityObj as Security).oAuth;
+    return !!token && token.startsWith("access_");
+  }
+
+  private _hasDefaultFields(options: SDKOptions): boolean {
+    return !!options.testmode || !!options.profileId;
   }
 
   public _createRequest(

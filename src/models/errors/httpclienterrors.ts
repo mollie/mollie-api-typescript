@@ -60,3 +60,10 @@ export class RequestTimeoutError extends HTTPClientError {
 export class ConnectionError extends HTTPClientError {
   override readonly name = "ConnectionError";
 }
+
+/**
+ * An error that is raised when the client creation is invalid due to invalid inputs or configuration.
+ */
+export class ClientCreationError extends HTTPClientError {
+  override readonly name = "ClientCreationError";
+}
