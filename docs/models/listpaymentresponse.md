@@ -181,7 +181,7 @@ let value: ListPaymentResponse = {
     failureReason: "card_declined",
     failureMessage: "Your card was declined.",
     wallet: "applepay",
-    sellerProtection: "Eligible",
+    sellerProtection: "ELIGIBLE",
     paypalFee: {
       currency: "EUR",
       value: "10.00",

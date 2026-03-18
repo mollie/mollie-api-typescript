@@ -29876,15 +29876,11 @@ components:
         Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
         payments, and if the information is made available by PayPal.
       enum:
-        - Eligible
-        - Ineligible
-        - Partially Eligible - INR Only
-        - Partially Eligible - Unauth Only
-        - Partially Eligible
-        - None
-        - Active
-        - Fraud Control - Unauth Premium Eligible
-      example: Eligible
+        - ELIGIBLE
+        - PARTIALLY_ELIGIBLE
+        - NOT_ELIGIBLE
+      example: ELIGIBLE
+      x-methodSpecific: true
     payment-details-receipt-card-read-method:
       type:
         - string
@@ -39662,6 +39658,9 @@ components:
         Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
         payments, and if the information is made available by PayPal.
       enum:
+        - ELIGIBLE
+        - PARTIALLY_ELIGIBLE
+        - NOT_ELIGIBLE
         - Eligible
         - Ineligible
         - Partially Eligible - INR Only
@@ -39670,7 +39669,17 @@ components:
         - None
         - Active
         - Fraud Control - Unauth Premium Eligible
-      example: Eligible
+      x-speakeasy-enum-descriptions:
+        Eligible: Deprecated value
+        Ineligible: Deprecated value
+        Partially Eligible - INR Only: Deprecated value
+        Partially Eligible - Unauth Only: Deprecated value
+        Partially Eligible: Deprecated value
+        None: Deprecated value
+        Active: Deprecated value
+        Fraud Control - Unauth Premium Eligible: Deprecated value
+      example: ELIGIBLE
+      x-methodSpecific: true
       x-speakeasy-unknown-values: allow
     payment-details-receipt-card-read-method-response:
       type:

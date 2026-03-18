@@ -8,7 +8,7 @@ payments, and if the information is made available by PayPal.
 ```typescript
 import { PaymentDetailsSellerProtectionResponse } from "mollie-api-typescript/models";
 
-let value: PaymentDetailsSellerProtectionResponse = "Eligible";
+let value: PaymentDetailsSellerProtectionResponse = "ELIGIBLE";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -16,5 +16,5 @@ let value: PaymentDetailsSellerProtectionResponse = "Eligible";
 ## Values
 
 ```typescript
-"Eligible" | "Ineligible" | "Partially Eligible - INR Only" | "Partially Eligible - Unauth Only" | "Partially Eligible" | "None" | "Active" | "Fraud Control - Unauth Premium Eligible" | Unrecognized<string>
+"ELIGIBLE" | "PARTIALLY_ELIGIBLE" | "NOT_ELIGIBLE" | "Eligible" | "Ineligible" | "Partially Eligible - INR Only" | "Partially Eligible - Unauth Only" | "Partially Eligible" | "None" | "Active" | "Fraud Control - Unauth Premium Eligible" | Unrecognized<string>
 ```
