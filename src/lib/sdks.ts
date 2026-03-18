@@ -117,14 +117,14 @@ export class ClientSDK {
       this.#logger = console;
     }
 
-    if (!this._canHaveDefaultFields(options) && this._hasDefaultFields(options)) {
+    if (!this._canHaveGlobalFields(options) && this._hasGlobalFields(options)) {
       throw new ClientCreationError("Invalid client configuration", {
-        cause: 'Default fields like testmode and profileId can only be set when using an Access or oAuth Key.'
+        cause: 'Global fields like testmode and profileId can only be set when using an Access or oAuth Key.'
       });
     }
   }
 
-  private _canHaveDefaultFields(options: SDKOptions): boolean {
+  private _canHaveGlobalFields(options: SDKOptions): boolean {
     const security = options.security;
     if (!security) {
       return false;
@@ -139,7 +139,7 @@ export class ClientSDK {
     return !!token && token.startsWith("access_");
   }
 
-  private _hasDefaultFields(options: SDKOptions): boolean {
+  private _hasGlobalFields(options: SDKOptions): boolean {
     return !!options.testmode || !!options.profileId;
   }
 
