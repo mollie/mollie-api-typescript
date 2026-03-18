@@ -1,0 +1,17 @@
+# Code
+
+A machine-readable code that indicates the reason for the payment's status.
+
+## Example Usage
+
+```typescript
+import { Code } from "mollie-api-typescript/models";
+
+let value: Code = "insufficient_funds";
+```
+
+## Values
+
+```typescript
+"approved_or_completed_successfully" | "refer_to_card_issuer" | "invalid_merchant" | "capture_card" | "do_not_honor" | "error" | "partial_approval" | "invalid_transaction" | "invalid_amount" | "invalid_issuer" | "lost_card" | "stolen_card" | "insufficient_funds" | "expired_card" | "invalid_pin" | "transaction_not_permitted_to_cardholder" | "transaction_not_allowed_at_terminal" | "exceeds_withdrawal_amount_limit" | "restricted_card" | "security_violation" | "exceeds_withdrawal_count_limit" | "allowable_number_of_pin_tries_exceeded" | "no_reason_to_decline" | "cannot_verify_pin" | "issuer_unavailable" | "unable_to_route_transaction" | "duplicate_transaction" | "system_malfunction" | "honor_with_id" | "invalid_card_number" | "format_error" | "contact_card_issuer" | "pin_not_changed" | "invalid_nonexistent_to_account_specified" | "invalid_nonexistent_from_account_specified" | "invalid_nonexistent_account_specified" | "lifecycle_related" | "domestic_debit_transaction_not_allowed" | "policy_related" | "fraud_security_related" | "invalid_authorization_life_cycle" | "purchase_amount_only_no_cash_back_allowed" | "cryptographic_failure" | "unacceptable_pin" | "refer_to_card_issuer_special_condition" | "pick_up_card_special_condition" | "vip_approval" | "invalid_account_number" | "re_enter_transaction" | "no_action_taken" | "unable_to_locate_record" | "file_temporarily_unavailable" | "no_credit_account" | "closed_account" | "no_checking_account" | "no_savings_account" | "suspected_fraud" | "transaction_does_not_fulfill_aml_requirement" | "pin_data_required" | "unable_to_locate_previous_message" | "previous_message_located_inconsistent_data" | "blocked_first_used" | "transaction_reversed" | "credit_issuer_unavailable" | "pin_cryptographic_error_found" | "negative_online_cam_result" | "violation_of_law" | "force_stip" | "cash_service_not_available" | "cashback_request_exceeds_issuer_limit" | "decline_for_cvv2_failure" | "transaction_amount_exceeds_pre_authorized_amount" | "invalid_biller_information" | "pin_change_unblock_request_declined" | "unsafe_pin" | "card_authentication_failed" | "stop_payment_order" | "revocation_of_authorization" | "revocation_of_all_authorizations" | "forward_to_issuer_xa" | "forward_to_issuer_xd" | "unable_to_go_online" | "additional_customer_authentication_required" | "merchant_id_not_found" | "merchant_account_closed" | "terminal_id_not_found" | "terminal_closed" | "invalid_category_code" | "invalid_currency" | "missing_cvv2_cvc2" | "cvv2_not_allowed" | "merchant_not_registered_vbv" | "merchant_not_registered_for_amex" | "transaction_not_permitted_at_terminal" | "agreement_terminal_not_related" | "invalid_processor_id" | "invalid_merchant_data" | "sub_merchant_account_closed" | "terminal_busy" | "terminal_unreachable" | "service_failed" | "invalid_operation" | "authorization_error" | "login_failed_without_reason" | "invalid_retailer" | "card_does_not_exist" | "card_is_blocked" | "invalid_card_id" | "card_is_transferred" | "card_is_not_active" | "incorrect_purchase_value" | "card_not_available" | "wrong_currency" | "login_failed_unknown_user" | "login_failed_invalid_password" | "invalid_ean_code" | "card_error" | "terminal_configuration_issue"
+```
