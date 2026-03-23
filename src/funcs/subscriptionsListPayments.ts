@@ -117,7 +117,7 @@ async function $do(
     }),
   };
   const path = options?.[URL_OVERRIDE]
-    ? options[URL_OVERRIDE].pathname
+    ? ""
     : pathToFunc(
       "/customers/{customerId}/subscriptions/{subscriptionId}/payments",
     )(pathParams);
@@ -172,7 +172,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.[URL_OVERRIDE]?.origin || options?.serverURL,
+    baseURL: options?.[URL_OVERRIDE]?.href || options?.serverURL,
     path: path,
     headers: headers,
     query: query,
@@ -254,11 +254,10 @@ async function $do(
       return { next: () => null };
     }
 
-    if (nextURL.startsWith("/")) {
-      nextURL = `${client._baseURL?.origin}${nextURL}`;
-    }
-
     try {
+      if (nextURL.startsWith("/")) {
+        nextURL = new URL(nextURL, client._baseURL ?? "").href;
+      }
       new URL(nextURL);
     } catch (_error) {
       return { next: () => null };

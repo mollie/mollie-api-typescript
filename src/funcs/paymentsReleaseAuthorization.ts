@@ -104,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/payments/{paymentId}/release-authorization")(
     pathParams,
   );
