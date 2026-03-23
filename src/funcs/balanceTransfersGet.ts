@@ -98,7 +98,6 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-
   const path = pathToFunc("/connect/balance-transfers/{balanceTransferId}")(
     pathParams,
   );

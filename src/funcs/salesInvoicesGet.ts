@@ -100,7 +100,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/sales-invoices/{salesInvoiceId}")(pathParams);
 
   const query = encodeFormQuery({
