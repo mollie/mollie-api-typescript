@@ -1,6 +1,8 @@
 import { RequestInput } from "../lib/http.js";
 import { BeforeCreateRequestHook, HookContext } from "./types.js";
 import { SDK_METADATA } from "../lib/config.js";
+import { globalUsage } from "./global-usage.js";
+import { clientCanHaveGlobalFields } from "./mollie-auth-utils.js";
 
 export class MollieHooks implements BeforeCreateRequestHook {
     beforeCreateRequest(hookContext: HookContext, input: RequestInput): RequestInput {
@@ -24,9 +26,8 @@ export class MollieHooks implements BeforeCreateRequestHook {
             },
         };
 
-        // Populate the profileID and testmode if OAuth (this may update headers again)
-        if (this.isOAuthRequest(headers, hookContext)) {
-            input = this.populateProfileIdAndTestmode(input, hookContext);
+        if (clientCanHaveGlobalFields(hookContext.options)) {
+            input = this.injectGlobalFields(input, hookContext);
         }
 
         return input;
@@ -101,79 +102,54 @@ export class MollieHooks implements BeforeCreateRequestHook {
         return headers;
     }
 
-    private populateProfileIdAndTestmode(input: RequestInput, hookContext: HookContext): RequestInput {
-        const clientProfileId = hookContext.options.profileId;
-        const clientTestmode = hookContext.options.testmode;
+    private injectGlobalFields(input: RequestInput, hookContext: HookContext): RequestInput {
+        const operationID = hookContext.operationID;
+        const options = hookContext.options;
 
-        const method = input.options?.method || "GET";
+        const fieldMap: Record<string, string | boolean | undefined> = {
+            profileId: options.profileId,
+            testmode: options.testmode,
+        };
 
-        if (method === "GET") {
-            // Update the query parameters. If testmode or profileId are not present, add them.
-            const url = new URL(input.url);
-            
-            // Add profileId if not already present
-            if (clientProfileId !== undefined && !url.searchParams.has('profileId')) {
-                url.searchParams.set('profileId', clientProfileId);
+        const fieldsToInject: Record<string, string | boolean> = {};
+        for (const [field, operations] of Object.entries(globalUsage)) {
+            if ((operations as string[]).includes(operationID) && fieldMap[field] !== undefined) {
+                fieldsToInject[field] = fieldMap[field] as string | boolean;
             }
-            
-            // Add testmode if not already present
-            if (clientTestmode !== undefined && !url.searchParams.has('testmode')) {
-                url.searchParams.set('testmode', String(clientTestmode));
-            }
-            
-            return {
-                ...input,
-                url,
-            };
         }
 
-        // It's POST, DELETE, PATCH
-        // Update the JSON body. If testmode or profileId are not present, add them.
-        let body: any = {};
-        
+        if (Object.keys(fieldsToInject).length === 0) {
+            return input;
+        }
+
+        let body: Record<string, unknown> = {};
         if (input.options?.body) {
             try {
-                // Parse the existing body if it's a string
-                if (typeof input.options.body === 'string') {
+                if (typeof input.options.body === "string") {
                     body = JSON.parse(input.options.body);
                 } else if (input.options.body instanceof ArrayBuffer || input.options.body instanceof Uint8Array) {
-                    const decoder = new TextDecoder();
-                    const text = decoder.decode(input.options.body);
-                    body = JSON.parse(text);
+                    body = JSON.parse(new TextDecoder().decode(input.options.body));
                 } else {
-                    // If it's already an object, use it
-                    body = input.options.body;
+                    body = input.options.body as unknown as Record<string, unknown>;
                 }
-            } catch (error) {
-                // If it's not JSON, return the request unchanged
+            } catch {
                 return input;
             }
         }
-        
-        // Add profileId if not already present
-        if (clientProfileId !== undefined && !('profileId' in body)) {
-            body.profileId = clientProfileId;
+
+        for (const [field, value] of Object.entries(fieldsToInject)) {
+            if (!(field in body)) {
+                body[field] = value;
+            }
         }
-        
-        // Add testmode if not already present
-        if (clientTestmode !== undefined && !('testmode' in body)) {
-            body.testmode = clientTestmode;
-        }
-        
-        // Create a new request with updated body
+
         const newContent = JSON.stringify(body);
-        
-        // Ensure headers is a Headers object
         const headers = new Headers(input.options?.headers);
-        headers.set('Content-Length', String(new TextEncoder().encode(newContent).length));
-        
+        headers.set("Content-Length", String(new TextEncoder().encode(newContent).length));
+
         return {
             ...input,
-            options: {
-                ...input.options,
-                headers,
-                body: newContent,
-            },
+            options: { ...input.options, headers, body: newContent },
         };
     }
 
