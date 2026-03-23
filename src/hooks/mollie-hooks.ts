@@ -52,25 +52,6 @@ export class MollieHooks implements BeforeCreateRequestHook {
         }
     }
 
-    private isOAuthRequest(headers: Headers, hookContext: HookContext): boolean {
-        const security = hookContext.options.security;
-
-        if (typeof security === "function") {
-            return false;
-        }
-
-        if (security === null) {
-            return false;
-        }
-
-        const oAuth = security?.oAuth;
-        if (!oAuth) {
-            return false;
-        }
-
-        return headers.get("Authorization") === `Bearer ${oAuth}`;
-    }
-
     private handleIdempotencyKey(headers: Headers): Headers {
         const idempotencyKey = "Idempotency-Key";
 
