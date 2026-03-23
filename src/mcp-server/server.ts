@@ -127,7 +127,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "1.3.6",
+    version: "1.3.7",
   });
 
   const client = new ClientCore({
