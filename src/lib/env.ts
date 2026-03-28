@@ -9,6 +9,7 @@ import { dlv } from "./dlv.js";
 
 export interface Env {
   CLIENT_API_KEY?: string | undefined;
+  CLIENT_ORGANIZATION_ACCESS_TOKEN?: string | undefined;
   CLIENT_O_AUTH?: string | undefined;
 
   /**
@@ -31,6 +32,7 @@ export interface Env {
 
 export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
   CLIENT_API_KEY: z.string().optional(),
+  CLIENT_ORGANIZATION_ACCESS_TOKEN: z.string().optional(),
   CLIENT_O_AUTH: z.string().optional(),
 
   CLIENT_PROFILE_ID: z.string().optional(),

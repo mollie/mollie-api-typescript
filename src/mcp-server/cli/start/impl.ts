@@ -19,6 +19,7 @@ interface StartCommandFlags {
   readonly port: number;
   readonly tool?: string[];
   readonly "api-key"?: string | undefined;
+  readonly "organization-access-token"?: string | undefined;
   readonly "o-auth"?: string | undefined;
   readonly "profile-id"?: SDKOptions["profileId"] | undefined;
   readonly testmode?: SDKOptions["testmode"] | undefined;
@@ -52,7 +53,11 @@ async function startStdio(flags: StartCommandFlags) {
   const server = createMCPServer({
     logger,
     allowedTools: flags.tool,
-    security: { apiKey: flags["api-key"] ?? "", oAuth: flags["o-auth"] ?? "" },
+    security: {
+      apiKey: flags["api-key"] ?? "",
+      organizationAccessToken: flags["organization-access-token"] ?? "",
+      oAuth: flags["o-auth"] ?? "",
+    },
     profileId: flags["profile-id"],
     testmode: flags.testmode,
     customUserAgent: flags["custom-user-agent"],
@@ -75,7 +80,11 @@ async function startSSE(flags: StartCommandFlags) {
   const mcpServer = createMCPServer({
     logger,
     allowedTools: flags.tool,
-    security: { apiKey: flags["api-key"] ?? "", oAuth: flags["o-auth"] ?? "" },
+    security: {
+      apiKey: flags["api-key"] ?? "",
+      organizationAccessToken: flags["organization-access-token"] ?? "",
+      oAuth: flags["o-auth"] ?? "",
+    },
     profileId: flags["profile-id"],
     testmode: flags.testmode,
     customUserAgent: flags["custom-user-agent"],

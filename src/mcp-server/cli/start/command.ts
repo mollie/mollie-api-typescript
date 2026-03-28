@@ -44,6 +44,14 @@ export const startCommand = buildCommand({
           return z.string().parse(value);
         },
       },
+      "organization-access-token": {
+        kind: "parsed",
+        brief: "Sets the organizationAccessToken auth field for the API",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
       "o-auth": {
         kind: "parsed",
         brief: "Sets the oAuth auth field for the API",
