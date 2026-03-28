@@ -9,6 +9,7 @@ servers:
   - url: https://api.mollie.com/v2
 security:
   - apiKey: []
+  - organizationAccessToken: []
   - oAuth: []
 tags:
   - name: Balance Transfers API
@@ -27304,6 +27305,10 @@ components:
       type: http
       scheme: bearer
       x-default: live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM
+    organizationAccessToken:
+      type: http
+      scheme: bearer
+      x-default: access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM
     oAuth:
       type: oauth2
       flows:

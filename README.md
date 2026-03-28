@@ -95,6 +95,7 @@ Add the following server definition to your `claude_desktop_config.json` file:
         "--",
         "mcp", "start",
         "--api-key", "...",
+        "--organization-access-token", "...",
         "--o-auth", "...",
         "--profile-id", "...",
         "--testmode", "...",
@@ -122,6 +123,7 @@ Create a `.cursor/mcp.json` file in your project root with the following content
         "--",
         "mcp", "start",
         "--api-key", "...",
+        "--organization-access-token", "...",
         "--o-auth", "...",
         "--profile-id", "...",
         "--testmode", "...",
@@ -211,10 +213,11 @@ run();
 
 This SDK supports the following security schemes globally:
 
-| Name     | Type   | Scheme       | Environment Variable |
-| -------- | ------ | ------------ | -------------------- |
-| `apiKey` | http   | HTTP Bearer  | `CLIENT_API_KEY`     |
-| `oAuth`  | oauth2 | OAuth2 token | `CLIENT_O_AUTH`      |
+| Name                      | Type   | Scheme       | Environment Variable               |
+| ------------------------- | ------ | ------------ | ---------------------------------- |
+| `apiKey`                  | http   | HTTP Bearer  | `CLIENT_API_KEY`                   |
+| `organizationAccessToken` | http   | HTTP Bearer  | `CLIENT_ORGANIZATION_ACCESS_TOKEN` |
+| `oAuth`                   | oauth2 | OAuth2 token | `CLIENT_O_AUTH`                    |
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
