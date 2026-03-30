@@ -27,7 +27,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -62,7 +62,7 @@ import { settlementsList } from "mollie-api-typescript/funcs/settlementsList.js"
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -132,7 +132,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -160,7 +160,7 @@ import { settlementsGet } from "mollie-api-typescript/funcs/settlementsGet.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -219,7 +219,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -246,7 +246,7 @@ import { settlementsGetOpen } from "mollie-api-typescript/funcs/settlementsGetOp
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -302,7 +302,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -329,7 +329,7 @@ import { settlementsGetNext } from "mollie-api-typescript/funcs/settlementsGetNe
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -386,7 +386,7 @@ const client = new Client({
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -421,7 +421,7 @@ const client = new ClientCore({
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -455,7 +455,7 @@ const client = new Client({
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -490,7 +490,7 @@ const client = new ClientCore({
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -524,7 +524,7 @@ const client = new Client({
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -559,7 +559,7 @@ const client = new ClientCore({
   profileId: "pfl_5B8cwPMGnU",
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -619,7 +619,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -653,7 +653,7 @@ import { settlementsListCaptures } from "mollie-api-typescript/funcs/settlements
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -686,7 +686,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -720,7 +720,7 @@ import { settlementsListCaptures } from "mollie-api-typescript/funcs/settlements
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -780,7 +780,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -814,7 +814,7 @@ import { settlementsListRefunds } from "mollie-api-typescript/funcs/settlementsL
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -874,7 +874,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -908,7 +908,7 @@ import { settlementsListChargebacks } from "mollie-api-typescript/funcs/settleme
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -941,7 +941,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -975,7 +975,7 @@ import { settlementsListChargebacks } from "mollie-api-typescript/funcs/settleme
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -1008,7 +1008,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -1042,7 +1042,7 @@ import { settlementsListChargebacks } from "mollie-api-typescript/funcs/settleme
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 

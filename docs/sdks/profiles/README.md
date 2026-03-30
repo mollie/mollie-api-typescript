@@ -26,7 +26,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -65,7 +65,7 @@ import { profilesCreate } from "mollie-api-typescript/funcs/profilesCreate.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -103,7 +103,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -142,7 +142,7 @@ import { profilesCreate } from "mollie-api-typescript/funcs/profilesCreate.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -190,7 +190,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 422                       | application/hal+json      |
+| errors.ErrorResponse      | 403, 422                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
@@ -207,7 +207,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -238,7 +238,7 @@ import { profilesList } from "mollie-api-typescript/funcs/profilesList.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -294,7 +294,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -323,7 +323,7 @@ import { profilesGet } from "mollie-api-typescript/funcs/profilesGet.js";
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -378,7 +378,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -418,7 +418,7 @@ import { profilesUpdate } from "mollie-api-typescript/funcs/profilesUpdate.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -457,7 +457,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -497,7 +497,7 @@ import { profilesUpdate } from "mollie-api-typescript/funcs/profilesUpdate.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -546,7 +546,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404, 410, 422             | application/hal+json      |
+| errors.ErrorResponse      | 403, 404, 410, 422        | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
@@ -561,7 +561,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -589,7 +589,7 @@ import { profilesDelete } from "mollie-api-typescript/funcs/profilesDelete.js";
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 

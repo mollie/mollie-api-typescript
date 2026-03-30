@@ -184,7 +184,8 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 
@@ -666,7 +667,8 @@ const client = new Client({
   profileId: "<id>",
   customUserAgent: "<value>",
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 
@@ -706,7 +708,8 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 
@@ -740,7 +743,8 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 
@@ -789,7 +793,8 @@ const client = new Client({
   },
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 
@@ -833,7 +838,8 @@ import * as errors from "mollie-api-typescript/models/errors";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 
@@ -911,7 +917,8 @@ const client = new Client({
   serverURL: "https://api.mollie.com/v2",
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 

@@ -75,6 +75,8 @@ paths:
         - Balances API
       operationId: list-balances
       security:
+        - organizationAccessToken:
+            - balances.read
         - oAuth:
             - balances.read
       description: |-
@@ -293,6 +295,8 @@ paths:
         - Balances API
       operationId: get-balance
       security:
+        - organizationAccessToken:
+            - balances.read
         - oAuth:
             - balances.read
       description: |-
@@ -433,6 +437,8 @@ paths:
         - Balances API
       operationId: get-primary-balance
       security:
+        - organizationAccessToken:
+            - balances.read
         - oAuth:
             - balances.read
       description: |-
@@ -523,6 +529,8 @@ paths:
         - Balances API
       operationId: get-balance-report
       security:
+        - organizationAccessToken:
+            - balance-reports.read
         - oAuth:
             - balance-reports.read
       description: |-
@@ -1348,6 +1356,8 @@ paths:
         - Balances API
       operationId: list-balance-transactions
       security:
+        - organizationAccessToken:
+            - balances.read
         - oAuth:
             - balances.read
       description: |-
@@ -2157,6 +2167,8 @@ paths:
         - Settlements API
       operationId: list-settlements
       security:
+        - organizationAccessToken:
+            - settlements.read
         - oAuth:
             - settlements.read
       description: |-
@@ -2346,6 +2358,8 @@ paths:
         - Settlements API
       operationId: get-settlement
       security:
+        - organizationAccessToken:
+            - settlements.read
         - oAuth:
             - settlements.read
       description: |-
@@ -2519,6 +2533,8 @@ paths:
         - Settlements API
       operationId: get-open-settlement
       security:
+        - organizationAccessToken:
+            - settlements.read
         - oAuth:
             - settlements.read
       description: |-
@@ -2688,6 +2704,8 @@ paths:
         - Settlements API
       operationId: get-next-settlement
       security:
+        - organizationAccessToken:
+            - settlements.read
         - oAuth:
             - settlements.read
       description: |-
@@ -2858,6 +2876,9 @@ paths:
         - Settlements API
       operationId: list-settlement-payments
       security:
+        - organizationAccessToken:
+            - settlements.read
+            - payments.read
         - oAuth:
             - settlements.read
             - payments.read
@@ -5047,6 +5068,9 @@ paths:
         - Settlements API
       operationId: list-settlement-captures
       security:
+        - organizationAccessToken:
+            - settlements.read
+            - payments.read
         - oAuth:
             - settlements.read
             - payments.read
@@ -5245,6 +5269,9 @@ paths:
         - Settlements API
       operationId: list-settlement-refunds
       security:
+        - organizationAccessToken:
+            - settlements.read
+            - refunds.read
         - oAuth:
             - settlements.read
             - refunds.read
@@ -5405,6 +5432,9 @@ paths:
         - Settlements API
       operationId: list-settlement-chargebacks
       security:
+        - organizationAccessToken:
+            - settlements.read
+            - payments.read
         - oAuth:
             - settlements.read
             - payments.read
@@ -5648,6 +5678,8 @@ paths:
         - Invoices API
       operationId: list-invoices
       security:
+        - organizationAccessToken:
+            - invoices.read
         - oAuth:
             - invoices.read
       description: |-
@@ -6669,6 +6701,8 @@ paths:
         - Invoices API
       operationId: get-invoice
       security:
+        - organizationAccessToken:
+            - invoices.read
         - oAuth:
             - invoices.read
       description: |-
@@ -6769,6 +6803,7 @@ paths:
         - Permissions API
       operationId: list-permissions
       security:
+        - organizationAccessToken: []
         - oAuth: []
       description: |-
         Retrieve a list of all permissions available to the current access token.
@@ -7093,6 +7128,7 @@ paths:
         - Permissions API
       operationId: get-permission
       security:
+        - organizationAccessToken: []
         - oAuth: []
       description: Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
       parameters:
@@ -7183,6 +7219,8 @@ paths:
         - Organizations API
       operationId: get-organization
       security:
+        - organizationAccessToken:
+            - organizations.read
         - oAuth:
             - organizations.read
       description: |-
@@ -7274,6 +7312,8 @@ paths:
         - Organizations API
       operationId: get-current-organization
       security:
+        - organizationAccessToken:
+            - organizations.read
         - oAuth:
             - organizations.read
       description: |-
@@ -7388,6 +7428,8 @@ paths:
         - Organizations API
       operationId: get-partner-status
       security:
+        - organizationAccessToken:
+            - organizations.read
         - oAuth:
             - organizations.read
       description: |-
@@ -7544,6 +7586,8 @@ paths:
         - Profiles API
       operationId: create-profile
       security:
+        - organizationAccessToken:
+            - profiles.write
         - oAuth:
             - profiles.write
       description: |-
@@ -7608,6 +7652,20 @@ paths:
                       documentation:
                         href: '...'
                         type: text/html
+        '403':
+          description: Profile limit has been reached for demo accounts.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 403
+                title: Forbidden
+                detail: Profile limit has been reached for demo accounts.
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
         '422':
           description: The request contains issues. For example, if a profile name is missing or website URL is invalid.
           content:
@@ -7706,6 +7764,8 @@ paths:
         - Profiles API
       operationId: list-profiles
       security:
+        - organizationAccessToken:
+            - profiles.read
         - oAuth:
             - profiles.read
       description: |-
@@ -7834,6 +7894,8 @@ paths:
         - Profiles API
       operationId: get-profile
       security:
+        - organizationAccessToken:
+            - profiles.read
         - oAuth:
             - profiles.read
       description: Retrieve a single profile by its ID.
@@ -7914,6 +7976,8 @@ paths:
         - Profiles API
       operationId: update-profile
       security:
+        - organizationAccessToken:
+            - profiles.write
         - oAuth:
             - profiles.write
       description: |-
@@ -8062,6 +8126,20 @@ paths:
                       documentation:
                         href: '...'
                         type: text/html
+        '403':
+          description: This profile cannot be edited because it belongs to a demo account.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 403
+                title: Forbidden
+                detail: This profile cannot be edited because it belongs to a demo account.
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
         '404':
           $ref: '#/components/responses/404-invalid-id'
         '410':
@@ -8162,6 +8240,8 @@ paths:
         - Profiles API
       operationId: delete-profile
       security:
+        - organizationAccessToken:
+            - profiles.write
         - oAuth:
             - profiles.write
       description: Delete a profile. A deleted profile and its related credentials can no longer be used for accepting payments.
@@ -8339,6 +8419,8 @@ paths:
         - Onboarding API
       operationId: get-onboarding-status
       security:
+        - organizationAccessToken:
+            - onboarding.read
         - oAuth:
             - onboarding.read
       description: Retrieve the onboarding status of the currently authenticated organization.
@@ -8416,6 +8498,8 @@ paths:
         - Onboarding API
       operationId: submit-onboarding-data
       security:
+        - organizationAccessToken:
+            - onboarding.write
         - oAuth:
             - onboarding.write
       description: "**⚠️ We no longer recommend implementing this endpoint. Please refer to the Client Links API instead to kick off the\nonboarding process for your merchants.**\n\nSubmit data that will be prefilled in the merchant's onboarding. The data you submit will only be processed when the\nonboarding status is `needs-data`.  \nInformation that the merchant has entered in their dashboard will not be overwritten."
@@ -8606,6 +8690,8 @@ paths:
         - Capabilities API
       operationId: list-capabilities
       security:
+        - organizationAccessToken:
+            - onboarding.read
         - oAuth:
             - onboarding.read
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nRetrieve a list of capabilities for an organization.\n\nThis API provides detailed insights into the specific requirements and status of each client's onboarding journey.\n\nCapabilities are at the organization level, indicating if the organization can perform a given capability.\nCapabilities may have requirements, which provide more information on what is needed to use this capability. \nRequirements may have a due date, which indicates the date by which the requirement should be fulfilled. \nIf a requirement is past due, the capability is disabled until the requirement is fulfilled.\n\nFor payments, regardless them being at the profile level, the capability is listed at the organization level.\nThis means that if at least one of the clients's profiles can receive payments,\nthe payments capability is enabled, communicating that the organization can indeed receive payments."
@@ -8707,7 +8793,7 @@ paths:
         - Clients API
       operationId: list-clients
       security:
-        - oAuth:
+        - organizationAccessToken:
             - clients.read
       description: |-
         Retrieve a list of all clients linked to your account.
@@ -8852,7 +8938,7 @@ paths:
         - Clients API
       operationId: get-client
       security:
-        - oAuth:
+        - organizationAccessToken:
             - clients.read
       description: Retrieve a single client by its ID.
       parameters:
@@ -9058,7 +9144,7 @@ paths:
         - Client Links API
       operationId: create-client-link
       security:
-        - oAuth:
+        - organizationAccessToken:
             - clients.write
       description: "Link a new or existing organization to your OAuth application, in effect creating a new client. The response\ncontains a `clientLink` where you should redirect your customer to.\n\n## Redirecting the Customer\n\nThe `clientLink` URL behaves similarly to a standard OAuth authorization URL. Therefore, after receiving the\n`clientLink` URL in the API response, you need to **append the following query parameters** *before* redirecting\nthe customer:\n\n* `client_id` _string (required)_\n\n  The client ID you received when you registered your OAuth app. The ID starts with `app_`. For example:\n  `app_abc123qwerty`.\n\n* `state` _string (required)_\n\n  A random string **generated by your app** to prevent CSRF attacks. This will be reflected in the `state` query\n  parameter when the user returns to the `redirect_uri` after authorizing your app.\n\n* `scope` _string (required)_\n\n  A space-separated list of permissions ('scopes') your app requires. See the\n  [permissions list](https://docs.mollie.com/docs/permissions) for more information about the available\n  scopes.\n\n  We recommend at least : `onboarding.read onboarding.write`\n\n* `approval_prompt` _string_\n\n  Can be set to `force` to force showing the consent screen to the merchant, *even when it is not necessary*. If you\n  force an approval prompt and the user creates a new authorization, previously active authorizations will be\n  revoked.\n\n  Possible values: `auto` `force` (default: `auto`)\n\n### Example of a Complete Redirect URL\n\nAfter adding the above url parameter your URL will look something like this and you can redirect your client to this\npage:\n\n```\nhttps://my.mollie.com/dashboard/client-link/{id}?client_id={your_client_id}&state={unique_state}&scope=onboarding.read%20onboarding.write\n```\n\n## Error Handling\n\nError handling is also dealt with similar to the [Authorize](https://docs.mollie.com/reference/authorize) endpoint:\nthe customer is redirected back to your app's redirect URL with the `error` and `error_description` parameters added\nto the URL.\n\n> \U0001F6A7\n>\n> A client link must be used within 30 days of creation. After that period, it will expire and you will need to create a new client link."
       requestBody:
@@ -9190,6 +9276,8 @@ paths:
         - Webhooks API
       operationId: create-webhook
       security:
+        - organizationAccessToken:
+            - webhooks.write
         - oAuth:
             - webhooks.write
       description: A webhook must have a name, an url and a list of event types. You can also create webhooks in the webhooks settings section of the Dashboard.
@@ -9306,6 +9394,8 @@ paths:
         - Webhooks API
       operationId: list-webhooks
       security:
+        - organizationAccessToken:
+            - webhooks.read
         - oAuth:
             - webhooks.read
       description: Returns a paginated list of your webhooks. If no webhook endpoints are available, the resulting array will be empty. This request should never throw an error.
@@ -9445,6 +9535,8 @@ paths:
         - Webhooks API
       operationId: update-webhook
       security:
+        - organizationAccessToken:
+            - webhooks.write
         - oAuth:
             - webhooks.write
       description: Updates the webhook. You may edit the name, url and the list of subscribed event types.
@@ -9559,6 +9651,8 @@ paths:
         - Webhooks API
       operationId: get-webhook
       security:
+        - organizationAccessToken:
+            - webhooks.read
         - oAuth:
             - webhooks.read
       description: Retrieve a single webhook object by its ID.
@@ -9660,6 +9754,8 @@ paths:
         - Webhooks API
       operationId: delete-webhook
       security:
+        - organizationAccessToken:
+            - webhooks.write
         - oAuth:
             - webhooks.write
       description: Delete a single webhook object by its webhook ID.
@@ -9725,6 +9821,8 @@ paths:
         - Webhooks API
       operationId: test-webhook
       security:
+        - organizationAccessToken:
+            - webhooks.write
         - oAuth:
             - webhooks.write
       description: Sends a test event to the webhook to verify the endpoint is working as expected.
@@ -9790,6 +9888,8 @@ paths:
         - Webhook Events API
       operationId: get-webhook-event
       security:
+        - organizationAccessToken:
+            - events.read
         - oAuth:
             - events.read
       description: Retrieve a single webhook event object by its event ID.
@@ -9886,6 +9986,8 @@ paths:
         - Balance Transfers API
       operationId: create-connect-balance-transfer
       security:
+        - organizationAccessToken:
+            - balance-transfers.write
         - oAuth:
             - balance-transfers.write
       description: |-
@@ -9987,6 +10089,8 @@ paths:
         - Balance Transfers API
       operationId: list-connect-balance-transfers
       security:
+        - organizationAccessToken:
+            - balance-transfers.read
         - oAuth:
             - balance-transfers.read
       description: Returns a paginated list of balance transfers associated with your organization. These may be a balance transfer that was received or sent from your balance, or a balance transfer that you initiated on behalf of your clients. If no balance transfers are available, the resulting array will be empty. This request should never throw an error.
@@ -10117,6 +10221,8 @@ paths:
         - Balance Transfers API
       operationId: get-connect-balance-transfer
       security:
+        - organizationAccessToken:
+            - balance-transfers.read
         - oAuth:
             - balance-transfers.read
       description: Retrieve a single Connect balance transfer object by its ID.
@@ -10185,6 +10291,8 @@ paths:
       operationId: create-payment
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -10815,6 +10923,8 @@ paths:
       operationId: list-payments
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -13004,6 +13114,8 @@ paths:
       operationId: get-payment
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: Retrieve a single payment object by its payment ID.
@@ -13207,6 +13319,8 @@ paths:
       operationId: update-payment
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -13476,6 +13590,8 @@ paths:
       operationId: cancel-payment
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -13575,6 +13691,8 @@ paths:
       operationId: release-authorization
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -13654,6 +13772,8 @@ paths:
       operationId: create-session
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - sessions.write
         - oAuth:
             - sessions.write
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in private beta, and the final specification may still change.\n\nCreate a session to start a checkout process with Mollie Components."
@@ -13787,6 +13907,8 @@ paths:
       operationId: get-session
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - sessions.read
         - oAuth:
             - sessions.read
       responses:
@@ -13838,6 +13960,8 @@ paths:
       operationId: list-methods
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -14401,6 +14525,8 @@ paths:
       operationId: list-all-methods
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -15569,6 +15695,8 @@ paths:
       operationId: get-method
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -15727,6 +15855,8 @@ paths:
       operationId: enable-method
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - profiles.write
         - oAuth:
             - profiles.write
       description: |-
@@ -15860,6 +15990,8 @@ paths:
       operationId: disable-method
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - profiles.write
         - oAuth:
             - profiles.write
       description: |-
@@ -15937,6 +16069,8 @@ paths:
       operationId: enable-method-issuer
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - profiles.write
         - oAuth:
             - profiles.write
       description: |-
@@ -16043,6 +16177,8 @@ paths:
       operationId: disable-method-issuer
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - profiles.write
         - oAuth:
             - profiles.write
       description: |-
@@ -16114,6 +16250,8 @@ paths:
       operationId: create-refund
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - refunds.write
         - oAuth:
             - refunds.write
       description: |-
@@ -16285,6 +16423,8 @@ paths:
       operationId: list-refunds
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - refunds.read
         - oAuth:
             - refunds.read
       description: |-
@@ -16446,6 +16586,8 @@ paths:
       operationId: get-refund
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - refunds.read
         - oAuth:
             - refunds.read
       description: Retrieve a single payment refund by its ID and the ID of its parent payment.
@@ -16534,6 +16676,8 @@ paths:
       operationId: cancel-refund
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - refunds.write
         - oAuth:
             - refunds.write
       description: |-
@@ -16609,6 +16753,8 @@ paths:
       operationId: list-all-refunds
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - refunds.read
         - oAuth:
             - refunds.read
       description: |-
@@ -16765,6 +16911,8 @@ paths:
       operationId: list-chargebacks
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -17010,6 +17158,8 @@ paths:
       operationId: get-chargeback
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: Retrieve a single payment chargeback by its ID and the ID of its parent payment.
@@ -17146,6 +17296,8 @@ paths:
       operationId: list-all-chargebacks
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -17503,6 +17655,8 @@ paths:
       operationId: create-capture
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -17637,6 +17791,8 @@ paths:
       operationId: list-captures
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -17835,6 +17991,8 @@ paths:
       operationId: get-capture
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: |-
@@ -17954,6 +18112,8 @@ paths:
       operationId: request-apple-pay-payment-session
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -18089,6 +18249,8 @@ paths:
       operationId: create-payment-link
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payment-links.write
         - oAuth:
             - payment-links.write
       description: |-
@@ -18518,6 +18680,8 @@ paths:
       operationId: list-payment-links
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payment-links.read
         - oAuth:
             - payment-links.read
       description: |-
@@ -18751,6 +18915,8 @@ paths:
       operationId: get-payment-link
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payment-links.read
         - oAuth:
             - payment-links.read
       description: Retrieve a single payment link by its ID.
@@ -18810,6 +18976,8 @@ paths:
       operationId: update-payment-link
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payment-links.write
         - oAuth:
             - payment-links.write
       description: Certain details of an existing payment link can be updated.
@@ -18973,6 +19141,8 @@ paths:
       operationId: delete-payment-link
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payment-links.write
         - oAuth:
             - payment-links.write
       description: |-
@@ -19046,6 +19216,8 @@ paths:
       operationId: get-payment-link-payments
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payment-links.read
         - oAuth:
             - payment-links.read
       description: |-
@@ -19165,6 +19337,8 @@ paths:
       operationId: list-terminals
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - terminals.read
         - oAuth:
             - terminals.read
       description: |-
@@ -19360,6 +19534,8 @@ paths:
       operationId: get-terminal
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - terminals.read
         - oAuth:
             - terminals.read
       description: Retrieve a single terminal by its ID.
@@ -19437,6 +19613,8 @@ paths:
         - Delayed Routing API
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -19527,6 +19705,8 @@ paths:
         - Delayed Routing API
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: Retrieve a list of all routes created for a specific payment.
@@ -19682,6 +19862,8 @@ paths:
         - Delayed Routing API
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.read
         - oAuth:
             - payments.read
       description: Retrieve a single route created for a specific payment.
@@ -19745,6 +19927,8 @@ paths:
       operationId: create-customer
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - customers.write
         - oAuth:
             - customers.write
       description: |-
@@ -19833,6 +20017,8 @@ paths:
       operationId: list-customers
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - customers.read
         - oAuth:
             - customers.read
       description: |-
@@ -19969,6 +20155,10 @@ paths:
       operationId: get-customer
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - customers.read
+        - oAuth:
+            - customers.read
       description: Retrieve a single customer by its ID.
       parameters:
         - $ref: '#/components/parameters/include'
@@ -20053,6 +20243,10 @@ paths:
       operationId: update-customer
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - customers.write
+        - oAuth:
+            - customers.write
       description: |-
         Update an existing customer.
 
@@ -20188,6 +20382,10 @@ paths:
       operationId: delete-customer
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - customers.write
+        - oAuth:
+            - customers.write
       description: Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
       requestBody:
         content:
@@ -20257,6 +20455,8 @@ paths:
       operationId: create-customer-payment
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - payments.write
         - oAuth:
             - payments.write
       description: |-
@@ -20873,6 +21073,9 @@ paths:
       operationId: list-customer-payments
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - customers.read
+            - payments.read
         - oAuth:
             - customers.read
             - payments.read
@@ -23055,6 +23258,8 @@ paths:
       operationId: create-mandate
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - mandates.write
         - oAuth:
             - mandates.write
       description: |-
@@ -23196,6 +23401,8 @@ paths:
       operationId: list-mandates
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - mandates.read
         - oAuth:
             - mandates.read
       description: |-
@@ -23342,6 +23549,8 @@ paths:
       operationId: get-mandate
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - mandates.read
         - oAuth:
             - mandates.read
       description: |-
@@ -23416,6 +23625,8 @@ paths:
       operationId: revoke-mandate
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - mandates.write
         - oAuth:
             - mandates.write
       description: |-
@@ -23493,6 +23704,8 @@ paths:
       operationId: create-subscription
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - subscriptions.write
         - oAuth:
             - subscriptions.write
       description: |-
@@ -23633,6 +23846,8 @@ paths:
       operationId: list-subscriptions
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - subscriptions.read
         - oAuth:
             - subscriptions.read
       description: |-
@@ -23790,6 +24005,8 @@ paths:
       operationId: get-subscription
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - subscriptions.read
         - oAuth:
             - subscriptions.read
       description: Retrieve a single subscription by its ID and the ID of its parent customer.
@@ -23866,6 +24083,8 @@ paths:
       operationId: update-subscription
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - subscriptions.write
         - oAuth:
             - subscriptions.write
       description: |-
@@ -24106,6 +24325,8 @@ paths:
       operationId: cancel-subscription
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - subscriptions.write
         - oAuth:
             - subscriptions.write
       description: Cancel an existing subscription. Canceling a subscription has no effect on the mandates of the customer.
@@ -24225,6 +24446,8 @@ paths:
       operationId: list-all-subscriptions
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - subscriptions.read
         - oAuth:
             - subscriptions.read
       description: |-
@@ -24388,6 +24611,9 @@ paths:
       operationId: list-subscription-payments
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - subscriptions.read
+            - payments.read
         - oAuth:
             - subscriptions.read
             - payments.read
@@ -26570,6 +26796,8 @@ paths:
       operationId: create-sales-invoice
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - sales-invoices.write
         - oAuth:
             - sales-invoices.write
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nWith the Sales Invoice API you can generate sales invoices to send to your customers."
@@ -26779,6 +27007,8 @@ paths:
       operationId: list-sales-invoices
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - sales-invoices.read
         - oAuth:
             - sales-invoices.read
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nRetrieve a list of all sales invoices created through the API.\n\nThe results are paginated."
@@ -26928,6 +27158,8 @@ paths:
       operationId: get-sales-invoice
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - sales-invoices.read
         - oAuth:
             - sales-invoices.read
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nRetrieve a single sales invoice by its ID."
@@ -27055,6 +27287,8 @@ paths:
       operationId: update-sales-invoice
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - sales-invoices.write
         - oAuth:
             - sales-invoices.write
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nCertain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for\nstatuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`,\nrespectively)."
@@ -27219,6 +27453,8 @@ paths:
       operationId: delete-sales-invoice
       security:
         - apiKey: []
+        - organizationAccessToken:
+            - sales-invoices.write
         - oAuth:
             - sales-invoices.write
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nSales invoices which are in status `draft` can be deleted. For all other statuses, please use the\n[Update sales invoice](update-sales-invoice) endpoint instead."
