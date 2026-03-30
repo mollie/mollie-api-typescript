@@ -17,7 +17,8 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
+      ?? "",
   },
 });
 

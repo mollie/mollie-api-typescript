@@ -27,7 +27,7 @@ import { balancesList } from "mollie-api-typescript/funcs/balancesList.js";
 const client = new ClientCore({
   testmode: false,
   security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
 });
 
