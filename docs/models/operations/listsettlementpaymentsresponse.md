@@ -160,7 +160,7 @@ let value: ListSettlementPaymentsResponse = {
           profileId: "pfl_5B8cwPMGnU",
           settlementId: "stl_5B8cwPMGnU",
           orderId: "ord_5B8cwPMGnU",
-          status: "open",
+          status: "paid",
           statusReason: {
             code: "insufficient_funds",
             message:

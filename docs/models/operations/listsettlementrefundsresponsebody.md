@@ -1,7 +1,6 @@
 # ListSettlementRefundsResponseBody
 
-A list of refund objects. For a complete reference of the refund object, refer to the
-[Get refund endpoint](get-refund) documentation.
+A list of refund objects.
 
 ## Example Usage
 
@@ -28,7 +27,7 @@ let value: ListSettlementRefundsResponseBody = {
         metadata: "<value>",
         paymentId: "tr_5B8cwPMGnU",
         settlementId: "stl_5B8cwPMGnU",
-        status: "queued",
+        status: "refunded",
         createdAt: "2024-03-20T09:13:37+00:00",
         externalReference: {
           type: "acquirer-reference",

@@ -384,7 +384,6 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   profileId: "pfl_5B8cwPMGnU",
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -419,7 +418,6 @@ import { settlementsListPayments } from "mollie-api-typescript/funcs/settlements
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   profileId: "pfl_5B8cwPMGnU",
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -453,7 +451,6 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   profileId: "pfl_5B8cwPMGnU",
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -488,7 +485,6 @@ import { settlementsListPayments } from "mollie-api-typescript/funcs/settlements
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   profileId: "pfl_5B8cwPMGnU",
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -522,7 +518,6 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   profileId: "pfl_5B8cwPMGnU",
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -557,7 +552,6 @@ import { settlementsListPayments } from "mollie-api-typescript/funcs/settlements
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   profileId: "pfl_5B8cwPMGnU",
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -617,7 +611,6 @@ The response is in the same format as the response of the [List captures endpoin
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -651,7 +644,6 @@ import { settlementsListCaptures } from "mollie-api-typescript/funcs/settlements
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -684,7 +676,6 @@ run();
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -718,7 +709,6 @@ import { settlementsListCaptures } from "mollie-api-typescript/funcs/settlements
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -778,7 +768,6 @@ The response is in the same format as the response of the [List refunds endpoint
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },
@@ -812,7 +801,6 @@ import { settlementsListRefunds } from "mollie-api-typescript/funcs/settlementsL
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
-  testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
   },

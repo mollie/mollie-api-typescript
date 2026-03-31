@@ -128,7 +128,6 @@ async function $do(
       "limit": payload.limit,
       "profileId": payload.profileId ?? client._options.profileId,
       "sort": payload.sort,
-      "testmode": payload.testmode ?? client._options.testmode,
     });
 
   const headers = new Headers(compactMap({

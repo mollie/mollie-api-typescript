@@ -232,10 +232,7 @@ let value: GetPaymentLinkPaymentsResponseBody = {
             href: "https://...",
             type: "application/hal+json",
           },
-          changePaymentState: {
-            href: "https://...",
-            type: "application/hal+json",
-          },
+          changePaymentState: null,
           dashboard: {
             href: "https://...",
             type: "application/hal+json",

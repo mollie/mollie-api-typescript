@@ -157,7 +157,7 @@ let value: ListSettlementPaymentsEmbedded = {
       profileId: "pfl_5B8cwPMGnU",
       settlementId: "stl_5B8cwPMGnU",
       orderId: "ord_5B8cwPMGnU",
-      status: "open",
+      status: "paid",
       statusReason: {
         code: "insufficient_funds",
         message:
@@ -288,6 +288,6 @@ let value: ListSettlementPaymentsEmbedded = {
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `payments`                                                          | [models.ListPaymentResponse](../../models/listpaymentresponse.md)[] | :heavy_minus_sign:                                                  | An array of payment objects.                                        |
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `payments`                                                                              | [models.ListSettlementPaymentResponse](../../models/listsettlementpaymentresponse.md)[] | :heavy_minus_sign:                                                                      | An array of payment objects.                                                            |

@@ -10,29 +10,16 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ListSettlementRefundsGlobals = {
-  /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
-};
-
 export type ListSettlementRefundsRequest = {
   /**
    * Provide the ID of the related settlement.
    */
   settlementId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
    *
    * @remarks
-   * result set.
+   * the result set.
    */
   from?: string | undefined;
   /**
@@ -47,16 +34,6 @@ export type ListSettlementRefundsRequest = {
    */
   embed?: string | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
-  /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
@@ -66,14 +43,11 @@ export type ListSettlementRefundsEmbedded = {
   /**
    * An array of refund objects.
    */
-  refunds: Array<models.ListEntityRefund>;
+  refunds: Array<models.ListSettlementRefundResponse>;
 };
 
 /**
- * A list of refund objects. For a complete reference of the refund object, refer to the
- *
- * @remarks
- * [Get refund endpoint](get-refund) documentation.
+ * A list of refund objects.
  */
 export type ListSettlementRefundsResponseBody = {
   /**
@@ -98,47 +72,6 @@ export type ListSettlementRefundsResponse = {
 };
 
 /** @internal */
-export const ListSettlementRefundsGlobals$inboundSchema: z.ZodType<
-  ListSettlementRefundsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListSettlementRefundsGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListSettlementRefundsGlobals$outboundSchema: z.ZodType<
-  ListSettlementRefundsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListSettlementRefundsGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listSettlementRefundsGlobalsToJSON(
-  listSettlementRefundsGlobals: ListSettlementRefundsGlobals,
-): string {
-  return JSON.stringify(
-    ListSettlementRefundsGlobals$outboundSchema.parse(
-      listSettlementRefundsGlobals,
-    ),
-  );
-}
-export function listSettlementRefundsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementRefundsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListSettlementRefundsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementRefundsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListSettlementRefundsRequest$inboundSchema: z.ZodType<
   ListSettlementRefundsRequest,
   z.ZodTypeDef,
@@ -148,7 +81,6 @@ export const ListSettlementRefundsRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -161,7 +93,6 @@ export type ListSettlementRefundsRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   embed?: string | null | undefined;
-  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -175,7 +106,6 @@ export const ListSettlementRefundsRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -208,11 +138,11 @@ export const ListSettlementRefundsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  refunds: z.array(models.ListEntityRefund$inboundSchema),
+  refunds: z.array(models.ListSettlementRefundResponse$inboundSchema),
 });
 /** @internal */
 export type ListSettlementRefundsEmbedded$Outbound = {
-  refunds: Array<models.ListEntityRefund$Outbound>;
+  refunds: Array<models.ListSettlementRefundResponse$Outbound>;
 };
 
 /** @internal */
@@ -221,7 +151,7 @@ export const ListSettlementRefundsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementRefundsEmbedded
 > = z.object({
-  refunds: z.array(models.ListEntityRefund$outboundSchema),
+  refunds: z.array(models.ListSettlementRefundResponse$outboundSchema),
 });
 
 export function listSettlementRefundsEmbeddedToJSON(

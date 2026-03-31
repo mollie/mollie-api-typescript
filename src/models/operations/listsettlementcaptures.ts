@@ -10,29 +10,16 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ListSettlementCapturesGlobals = {
-  /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
-};
-
 export type ListSettlementCapturesRequest = {
   /**
    * Provide the ID of the related settlement.
    */
   settlementId: string;
   /**
-   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+   * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
    *
    * @remarks
-   * result set.
+   * the result set.
    */
   from?: string | undefined;
   /**
@@ -47,16 +34,6 @@ export type ListSettlementCapturesRequest = {
    */
   embed?: string | null | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
-  /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
@@ -66,7 +43,7 @@ export type ListSettlementCapturesEmbedded = {
   /**
    * An array of capture objects.
    */
-  captures: Array<models.ListCaptureResponse>;
+  captures: Array<models.ListSettlementCaptureResponse>;
 };
 
 /**
@@ -95,47 +72,6 @@ export type ListSettlementCapturesResponse = {
 };
 
 /** @internal */
-export const ListSettlementCapturesGlobals$inboundSchema: z.ZodType<
-  ListSettlementCapturesGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListSettlementCapturesGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListSettlementCapturesGlobals$outboundSchema: z.ZodType<
-  ListSettlementCapturesGlobals$Outbound,
-  z.ZodTypeDef,
-  ListSettlementCapturesGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listSettlementCapturesGlobalsToJSON(
-  listSettlementCapturesGlobals: ListSettlementCapturesGlobals,
-): string {
-  return JSON.stringify(
-    ListSettlementCapturesGlobals$outboundSchema.parse(
-      listSettlementCapturesGlobals,
-    ),
-  );
-}
-export function listSettlementCapturesGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementCapturesGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListSettlementCapturesGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementCapturesGlobals' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListSettlementCapturesRequest$inboundSchema: z.ZodType<
   ListSettlementCapturesRequest,
   z.ZodTypeDef,
@@ -145,7 +81,6 @@ export const ListSettlementCapturesRequest$inboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -158,7 +93,6 @@ export type ListSettlementCapturesRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   embed?: string | null | undefined;
-  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -172,7 +106,6 @@ export const ListSettlementCapturesRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -205,11 +138,11 @@ export const ListSettlementCapturesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  captures: z.array(models.ListCaptureResponse$inboundSchema),
+  captures: z.array(models.ListSettlementCaptureResponse$inboundSchema),
 });
 /** @internal */
 export type ListSettlementCapturesEmbedded$Outbound = {
-  captures: Array<models.ListCaptureResponse$Outbound>;
+  captures: Array<models.ListSettlementCaptureResponse$Outbound>;
 };
 
 /** @internal */
@@ -218,7 +151,7 @@ export const ListSettlementCapturesEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementCapturesEmbedded
 > = z.object({
-  captures: z.array(models.ListCaptureResponse$outboundSchema),
+  captures: z.array(models.ListSettlementCaptureResponse$outboundSchema),
 });
 
 export function listSettlementCapturesEmbeddedToJSON(

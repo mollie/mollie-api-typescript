@@ -23,7 +23,7 @@ let value: ListSettlementRefundsEmbedded = {
       metadata: "<value>",
       paymentId: "tr_5B8cwPMGnU",
       settlementId: "stl_5B8cwPMGnU",
-      status: "queued",
+      status: "refunded",
       createdAt: "2024-03-20T09:13:37+00:00",
       externalReference: {
         type: "acquirer-reference",
@@ -51,6 +51,6 @@ let value: ListSettlementRefundsEmbedded = {
 
 ## Fields
 
-| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `refunds`                                                     | [models.ListEntityRefund](../../models/listentityrefund.md)[] | :heavy_check_mark:                                            | An array of refund objects.                                   |
+| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `refunds`                                                                             | [models.ListSettlementRefundResponse](../../models/listsettlementrefundresponse.md)[] | :heavy_check_mark:                                                                    | An array of refund objects.                                                           |
