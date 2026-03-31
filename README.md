@@ -500,6 +500,15 @@ let client = new Client({
 * [list](docs/sdks/terminals/README.md#list) - List terminals
 * [get](docs/sdks/terminals/README.md#get) - Get terminal
 
+### [Transfers](docs/sdks/transfers/README.md)
+
+* [create](docs/sdks/transfers/README.md#create) - Create transfer
+* [get](docs/sdks/transfers/README.md#get) - Get transfer
+
+### [VerifyPayees](docs/sdks/verifypayees/README.md)
+
+* [create](docs/sdks/verifypayees/README.md#create) - Verify Payee
+
 ### [Wallets](docs/sdks/wallets/README.md)
 
 * [requestApplePaySession](docs/sdks/wallets/README.md#requestapplepaysession) - Request Apple Pay payment session
@@ -626,6 +635,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`subscriptionsUpdate`](docs/sdks/subscriptions/README.md#update) - Update subscription
 - [`terminalsGet`](docs/sdks/terminals/README.md#get) - Get terminal
 - [`terminalsList`](docs/sdks/terminals/README.md#list) - List terminals
+- [`transfersCreate`](docs/sdks/transfers/README.md#create) - Create transfer
+- [`transfersGet`](docs/sdks/transfers/README.md#get) - Get transfer
+- [`verifyPayeesCreate`](docs/sdks/verifypayees/README.md#create) - Verify Payee
 - [`walletsRequestApplePaySession`](docs/sdks/wallets/README.md#requestapplepaysession) - Request Apple Pay payment session
 - [`webhookEventsGet`](docs/sdks/webhookevents/README.md#get) - Get a Webhook Event
 - [`webhooksCreate`](docs/sdks/webhooks/README.md#create) - Create a webhook

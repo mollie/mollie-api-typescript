@@ -31,6 +31,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single client by its ID.
+ *
+ * If set, this operation will use {@link Security.organizationAccessToken} from the global security.
  */
 export function clientsGet(
   client: ClientCore,
@@ -111,7 +113,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,

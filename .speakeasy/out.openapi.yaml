@@ -60,6 +60,10 @@ tags:
     description: Operations related to the Subscriptions API
   - name: Terminals API
     description: Operations related to the Terminals API
+  - name: Transfers API
+    description: Operations related to the Transfers API
+  - name: Verify Payees API
+    description: Operations related to the Verify Payees API
   - name: Wallets API
     description: Operations related to the Wallets API
   - name: Webhook Events API
@@ -27535,6 +27539,515 @@ paths:
       x-speakeasy-group: sales-invoices
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
+  /business-accounts/transfers:
+    post:
+      summary: Create transfer
+      x-speakeasy-name-override: create
+      tags:
+        - Transfers API
+      operationId: create-transfer
+      security:
+        - organizationAccessToken:
+            - business-account-transfers.write
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nCreate a SEPA Credit Transfer from your Mollie Business Account.\n\nTo initiate a transfer, you must provide the transfer scheme, the amount, the debtor IBAN (your Mollie Business\nAccount IBAN), and the creditor (recipient) details.\n\nEach request must include an `Idempotency-Key` header to prevent duplicate transfers, and must be signed using the\n`X-Client-Signature` and `X-Client-Signed-At` headers.\n\n### Simulating transfer scenarios in test mode\n\nIn test mode, you can simulate various transfer scenarios by adjusting the transfer amount. This allows you to\nmimic the typical status progression of a real-world transfer. Note that a transfer's progression will stop once\nit reaches a final status: `blocked`, `failed`, or `processed`.\n\n| Amount  | Scenario                                           | Webhook sequence                                                                                                                                                   |\n|---------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| `11.00` | Transfer initiated, pending review by Mollie       | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review`                                         |\n| `12.00` | Transfer initiated, blocked by Mollie              | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review` → `business-account-transfer.blocked`   |\n| `13.00` | Transfer initiated, failed on scheme submission    | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.failed`                                                 |\n| Other   | Default: transfer is processed                     | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed`                                              |"
+      parameters:
+        - name: X-Client-Signature
+          in: header
+          description: A cryptographic signature of the request payload, used to verify the authenticity of the transfer request.
+          required: true
+          schema:
+            type: string
+        - name: X-Client-Signed-At
+          in: header
+          description: |-
+            The timestamp (in ISO 8601 format) indicating when the client signed the request. Used in conjunction with
+            `X-Client-Signature` for request verification.
+          required: true
+          schema:
+            type: string
+          example: '2025-01-01T12:00:00Z'
+        - name: Idempotency-Key
+          in: header
+          description: |-
+            A unique value used to identify this request and prevent duplicate transfers. UUIDv4 is recommended to
+            guarantee uniqueness across multiple processes or servers. If two requests are received with the same
+            idempotency key, the second request will be discarded.
+
+            View the [public documentation](https://docs.mollie.com/reference/api-idempotency#using-an-idempotency-key)
+            to learn more.
+          required: true
+          schema:
+            type: string
+          example: aa84d3c0-1484-4f45-8a8d-4674a0147f3f
+        - $ref: '#/components/parameters/idempotency-key'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transfer-request'
+      responses:
+        '201':
+          description: The newly created transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/transfer-response'
+              examples:
+                create-transfer-201:
+                  $ref: '#/components/examples/create-transfer'
+        '422':
+          description: |-
+            The request contains issues. For example, if the transfer amount is
+            missing, or if the debtor IBAN does not belong to your organization.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: The 'creditor.account.iban' field is invalid
+                field: creditor.account.iban
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+        '503':
+          description: |-
+            An unexpected error occurred on our end. This is not related to your request.
+            Please try again later. If the problem persists, contact support.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 503
+                title: Service Unavailable
+                detail: An unexpected error occurred while processing the transfer. Please try again later.
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -i -X POST \
+              https://api.mollie.com/v2/business-accounts/transfers \
+              -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+              -H 'Content-Type: application/json' \
+              -H 'Idempotency-Key: aa84d3c0-1484-4f45-8a8d-4674a0147f3f' \
+              -H 'X-Client-Signature: string' \
+              -H 'X-Client-Signed-At: 2025-01-01T12:00:00Z' \
+                -d '{
+                    "transferScheme": {
+                      "type": "sepa-credit-inst"
+                    },
+                    "amount": {
+                      "currency": "EUR",
+                      "value": "10.00"
+                    },
+                    "debtorIban": "NL55MLLE0123456789",
+                    "creditor": {
+                      "fullName": "Jan Jansen",
+                      "account": {
+                        "iban": "NL02ABNA0123456789"
+                      }
+                    },
+                    "description": "Invoice 12345",
+                    "metadata": {
+                      "order_id": "12345",
+                      "customer_reference": "cust_001"
+                    }
+                  }'
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $transfer = $mollie->businessAccountTransfers->create([
+                  "transferScheme" => [
+                      "type" => "sepa-credit-inst"
+                  ],
+                  "amount" => [
+                      "currency" => "EUR",
+                      "value" => "10.00",
+                  ],
+                  "debtorIban" => "NL55MLLE0123456789",
+                  "creditor" => [
+                      "fullName" => "Jan Jansen",
+                      "account" => [
+                          "iban" => "NL02ABNA0123456789",
+                      ],
+                  ],
+                  "description" => "Invoice 12345",
+                  "metadata" => [
+                      "order_id" => "12345",
+                      "customer_reference" => "cust_001",
+                  ],
+              ]);
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const transfer = await mollieClient.businessAccountTransfers.create({
+                transferScheme: {
+                  type: 'sepa-credit-inst'
+                },
+                amount: {
+                  currency: 'EUR',
+                  value: '10.00'
+                },
+                debtorIban: 'NL55MLLE0123456789',
+                creditor: {
+                  fullName: 'Jan Jansen',
+                  account: {
+                    iban: 'NL02ABNA0123456789'
+                  }
+                },
+                description: 'Invoice 12345',
+                metadata: {
+                  order_id: '12345',
+                  customer_reference: 'cust_001'
+                }
+              });
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_api_key("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              transfer = mollie_client.business_account_transfers.create({
+                  "transferScheme": {
+                      "type": "sepa-credit-inst",
+                  },
+                  "amount": {
+                      "currency": "EUR",
+                      "value": "10.00",
+                  },
+                  "debtorIban": "NL55MLLE0123456789",
+                  "creditor": {
+                      "fullName": "Jan Jansen",
+                      "account": {
+                          "iban": "NL02ABNA0123456789",
+                      },
+                  },
+                  "description": "Invoice 12345",
+              })
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              transfer = Mollie::BusinessAccount::Transfer.create(
+                transfer_scheme: 'sepa-credit-inst',
+                amount: {
+                  currency: 'EUR',
+                  value: '10.00'
+                },
+                debtorIban: 'NL55MLLE0123456789',
+                creditor: {
+                  full_name: 'Jan Jansen',
+                  account: {
+                    iban: 'NL02ABNA0123456789'
+                  }
+                },
+                description: 'Invoice 12345'
+              )
+      x-speakeasy-group: transfers
+  /business-accounts/transfers/{businessAccountsTransferId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-business-accounts-transfer-id'
+    get:
+      summary: Get transfer
+      x-speakeasy-name-override: get
+      tags:
+        - Transfers API
+      operationId: get-transfer
+      security:
+        - organizationAccessToken:
+            - business-account-transfers.read
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nRetrieve a single transfer object by its transfer ID. This allows you to check the current status\nand details of a previously created transfer."
+      parameters:
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/transfer-response'
+              examples:
+                get-transfer-200:
+                  $ref: '#/components/examples/create-transfer'
+                processed-transfer:
+                  summary: Processed transfer
+                  value:
+                    resource: business-account-transfer
+                    id: batrf_87GByBuj4UCcUTEbs6aGJ
+                    mode: live
+                    businessAccountTransactionId: batr_87GByBuj4UCcUTEbs6aGJ
+                    transferScheme:
+                      type: sepa-credit-inst
+                    creditDebitIndicator: debit
+                    amount:
+                      currency: EUR
+                      value: '100.00'
+                    debtor:
+                      fullName: Mollie B.V.
+                      account:
+                        iban: NL55MLLE0123456789
+                    creditor:
+                      fullName: Jan Jansen
+                      account:
+                        iban: NL02ABNA0123456789
+                    description: Invoice 12345
+                    metadata:
+                      customer_reference: cust_001
+                    status: processed
+                    statusHistory:
+                      - status: requested
+                        createdAt: '2025-01-01T12:00:00+00:00'
+                      - status: initiated
+                        createdAt: '2025-01-01T12:00:01+00:00'
+                      - status: pending-review
+                        createdAt: '2025-01-01T12:00:02+00:00'
+                      - status: processed
+                        createdAt: '2025-01-01T12:00:03+00:00'
+                    createdAt: '2025-01-01T12:00:00+00:00'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl https://api.mollie.com/v2/business-accounts/transfers/batrf_87GByBuj4UCcUTEbs6aGJ \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $transfer = $mollie->businessAccountTransfers->get("batrf_87GByBuj4UCcUTEbs6aGJ");
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const transfer = await mollieClient.businessAccountTransfers.get('batrf_87GByBuj4UCcUTEbs6aGJ');
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_api_key("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              transfer = mollie_client.business_account_transfers.get("batrf_87GByBuj4UCcUTEbs6aGJ")
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              transfer = Mollie::BusinessAccount::Transfer.get('batrf_87GByBuj4UCcUTEbs6aGJ')
+      x-speakeasy-group: transfers
+  /business-accounts/payee-verifications:
+    post:
+      summary: Verify Payee
+      x-speakeasy-name-override: create
+      tags:
+        - Verify Payees API
+      operationId: verify-payee
+      security:
+        - organizationAccessToken:
+            - business-account-payee-verifications.write
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nPerform a Verification of Payee (VoP) check. This allows you to verify the account holder name against the\nrecords held by the receiving bank before initiating a transfer.\n\nThe verification result indicates whether the provided name matches, closely matches, or does not match the\nname on file at the receiving bank. This helps prevent misdirected payments.\n\n### Simulating verification scenarios in test mode\n\nIn test mode, you can simulate various verification outcomes by adjusting the creditor name in the\n`creditorBankAccount.accountHolderName` property. This allows you to test all possible Verification of Payee\nresults without needing special properties. The names are case insensitive.\n\n| Account holder name                    | Scenario                                      | Verification result | Suggested name |\n|----------------------------------------|-----------------------------------------------|---------------------|----------------|\n| `John Close Match`                     | Name closely matches the bank records          | `close-match`       | `John Match`   |\n| `John No Match`                        | Name does not match the bank records           | `no-match`          | —              |\n| `John Unavailable`                     | Verification is not available                  | `not-available`     | —              |\n| Any other name                         | Default: name matches the bank records         | `match`             | —              |"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/verification-of-payee-request'
+      responses:
+        '200':
+          description: The verification result object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/verification-of-payee-response'
+              examples:
+                verify-payee-200-match:
+                  summary: Match result
+                  value:
+                    resource: business-account-payee-verification
+                    creditorBankAccount:
+                      accountHolderName: Jan Jansen
+                      format: iban
+                      accountNumber: NL02ABNA0123456789
+                    verificationResult:
+                      outcome: match
+                    createdAt: '2025-01-01T12:00:00+00:00'
+                verify-payee-200-no-match:
+                  summary: No match result
+                  value:
+                    resource: business-account-payee-verification
+                    creditorBankAccount:
+                      accountHolderName: Jan Jansen
+                      format: iban
+                      accountNumber: NL02ABNA0123456789
+                    verificationResult:
+                      outcome: no-match
+                    createdAt: '2025-01-01T12:00:00+00:00'
+                verify-payee-200-close-match:
+                  summary: Close match result
+                  value:
+                    resource: business-account-payee-verification
+                    creditorBankAccount:
+                      accountHolderName: Jan Jans
+                      format: iban
+                      accountNumber: NL02ABNA0123456789
+                    verificationResult:
+                      accountHolderName: Jan Jansen
+                      outcome: close-match
+                    createdAt: '2025-01-01T12:00:00+00:00'
+                verify-payee-200-not-available:
+                  summary: Not available result
+                  value:
+                    resource: business-account-payee-verification
+                    creditorBankAccount:
+                      accountHolderName: Jan Jansen
+                      format: iban
+                      accountNumber: NL02ABNA0123456789
+                    verificationResult:
+                      outcome: not-available
+                    createdAt: '2025-01-01T12:00:00+00:00'
+        '422':
+          description: |-
+            The request contains issues. For example, if the creditor bank account
+            details are missing or invalid.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: The 'creditorBankAccount.accountNumber' field is missing
+                field: creditorBankAccount.accountNumber
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+        '429':
+          description: Rate Limit has been reached.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 492
+                title: Too Many Requests
+                detail: Too Many Requests in a brief period. Please wait X seconds before retrying
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+        '503':
+          description: |-
+            An unexpected error occurred on our end. This is not related to your request.
+            Please try again later. If the problem persists, contact support.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 503
+                title: Service Unavailable
+                detail: An unexpected error occurred while processing the verification request. Please try again later.
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/business-accounts/payee-verifications \
+                -H 'Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' \
+                -H 'Content-Type: application/json' \
+                -d '{
+                  "creditorBankAccount": {
+                    "accountHolderName": "Jan Jansen",
+                    "format": "iban",
+                    "accountNumber": "NL02ABNA0123456789"
+                  }
+                }'
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $verification = $mollie->businessAccountPayeeVerifications->create([
+                  "creditorBankAccount" => [
+                      "accountHolderName" => "Jan Jansen",
+                      "format" => "iban",
+                      "accountNumber" => "NL02ABNA0123456789",
+                  ],
+              ]);
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const verification = await mollieClient.businessAccountPayeeVerifications.create({
+                creditorBankAccount: {
+                  accountHolderName: 'Jan Jansen',
+                  format: 'iban',
+                  accountNumber: 'NL02ABNA0123456789'
+                }
+              });
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_api_key("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              verification = mollie_client.business_account_payee_verifications.create({
+                  "creditorBankAccount": {
+                      "accountHolderName": "Jan Jansen",
+                      "format": "iban",
+                      "accountNumber": "NL02ABNA0123456789",
+                  },
+              })
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              verification = Mollie::BusinessAccount::PayeeVerification.create(
+                creditor_bank_account: {
+                  account_holder_name: 'Jan Jansen',
+                  format: 'iban',
+                  account_number: 'NL02ABNA0123456789'
+                }
+              )
+      x-speakeasy-group: verify-payees
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
 components:
   securitySchemes:
     apiKey:
@@ -27819,6 +28332,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/salesInvoiceToken'
+    parent-business-accounts-transfer-id:
+      name: businessAccountsTransferId
+      description: Provide the ID of the related transfer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/businessAccountTransferToken'
     idempotency-key:
       name: idempotency-key
       in: header
@@ -35554,6 +36074,329 @@ components:
 
             When `emailDetails` is provided, an additional email is sent to the recipient.
           example: false
+    businessAccountTransferToken:
+      type: string
+      pattern: ^batrf_.+$
+      example: batrf_87GByBuj4UCcUTEbs6aGJ
+    transfer-party:
+      type: object
+      description: |-
+        A party involved in the transfer, representing either the debtor (sender) or creditor (recipient).
+        Contains the party's name and account details.
+      required:
+        - fullName
+        - account
+      properties:
+        fullName:
+          type: string
+          description: The full name of the account holder.
+          example: Jan Jansen
+        account:
+          type: object
+          description: The bank account details of the party.
+          required:
+            - iban
+          properties:
+            iban:
+              type: string
+              description: The IBAN (International Bank Account Number) of the account holder.
+              example: NL02ABNA0123456789
+    businessAccountTransactionToken:
+      type: string
+      pattern: ^batr_.+$
+      example: batr_87GByBuj4UCcUTEbs6aGJ
+    transfer-scheme-type:
+      type: string
+      description: The transfer scheme to be used for the transfer. The transfer scheme determines the processing time and method of the transfer.
+      enum:
+        - sepa-credit-inst
+        - sepa-credit
+      x-enumDescriptions:
+        sepa-credit-inst: Processing time of up to 9 seconds.
+        sepa-credit: Processing time may take up to 2 days.
+      example: sepa-credit-inst
+    transfer-scheme:
+      type: object
+      description: The scheme, as requested by the client.
+      required:
+        - type
+      properties:
+        type:
+          $ref: '#/components/schemas/transfer-scheme-type'
+    credit-debit-indicator:
+      type: string
+      description: Indicates whether the transfer is a credit or debit transaction from the perspective of the account holder.
+      enum:
+        - credit
+        - debit
+      x-enumDescriptions:
+        debit: Funds are sent from the account.
+        credit: Funds are received into the account.
+      readOnly: true
+      example: debit
+      x-speakeasy-unknown-values: allow
+    transfer-status:
+      type: string
+      description: The status of the transfer.
+      enum:
+        - requested
+        - initiated
+        - pending-review
+        - processed
+        - failed
+        - blocked
+        - incoming-settled
+      x-enumDescriptions:
+        requested: The transfer is requested by the client, and the transfer is pending SCA  (exempt for Transfers API).
+        initiated: The transfer is SCA-authorized for execution. Funds are reserved.
+        pending-review: The transfer has been created and is awaiting processing.
+        processed: The transfer has been successfully processed and the funds have been sent.
+        failed: The transfer was rejected. Refer to the `statusReason` field for more details.
+        blocked: The transfer is blocked. The reason is specified in extra fields as described in the next section.
+        incoming-settled: The transfer was returned by the receiving bank. The funds have been credited back to the debtor account.
+      readOnly: true
+      example: initiated
+      x-speakeasy-unknown-values: allow
+    status-reason-code:
+      type: string
+      description: A machine-readable code indicating the reason for the transfer's terminal status.
+      enum:
+        - insufficient-funds
+        - rejected
+        - error
+      x-enumDescriptions:
+        insufficient-funds: The debtor account has insufficient funds to complete the transfer.
+        rejected: The transfer was blocked following a review by Mollie.
+        error: An unexpected error occurred. Refer to the `message` field for further details.
+      example: insufficient-funds
+    status-reason-2:
+      type:
+        - object
+        - 'null'
+      description: |-
+        A human-readable reason explaining the current status of the transfer. Only populated when the transfer has
+        reached a terminal status of `failed`, `rejected`, or `blocked`.
+
+        This field is `null` for transfers that have not reached one of these statuses.
+      readOnly: true
+      properties:
+        code:
+          $ref: '#/components/schemas/status-reason-code-response'
+        message:
+          type:
+            - string
+            - 'null'
+          description: Provides further details about failure indicated. This field is only populated if the`code` field is set to `error`.
+          example: The creditor account does not exist.
+      x-speakeasy-unknown-values: allow
+    status-history-entry:
+      type: object
+      description: Represents an entry in the transfer's status history, recording a past status transition.
+      required:
+        - status
+        - createdAt
+      properties:
+        status:
+          $ref: '#/components/schemas/transfer-status'
+          description: The status that the transfer transitioned to.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+    entity-transfer:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a transfer object. Will always contain the string `business-account-transfer`
+            for this endpoint.
+          readOnly: true
+          example: business-account-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransferToken'
+          description: The identifier uniquely referring to this transfer. Mollie assigns this identifier at transfer creation time.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        debtorIban:
+          type: string
+          description: The IBAN of the debtor's (sender) Mollie account from which to initiate the transfer.
+          example: NL55MLLE0123456789
+          writeOnly: true
+        debtor:
+          allOf:
+            - $ref: '#/components/schemas/transfer-party'
+          description: The debtor (sender) of the transfer, including their name and account details.
+          readOnly: true
+        creditor:
+          $ref: '#/components/schemas/transfer-party'
+          description: The creditor (recipient) of the transfer, including their name and account details.
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer €100.00.
+
+            Only `EUR` is supported for SEPA transfers.
+        description:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A short description of the transfer. This will appear on the bank statement of both the debtor and creditor.
+
+            It must begin with an alphanumeric character, followed by any combination of letters, numbers, spaces or special characters `/ - ? : ( ) . , ' + _`.
+
+            Constraints:
+            - Cannot be solely a hyphen (-) or colon (:)
+            - Cannot contain consecutive hyphens (--)
+            - Cannot contain consecutive colons (::)
+          maxLength: 140
+          pattern: ^(?![:\-]$)(?!.*(--|::))([a-zA-Z0-9]+[\s]*[a-zA-Z0-9/\-?:().,'+_ ]*)?$
+          example: Invoice 12345
+        businessAccountTransactionId:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransactionToken'
+          description: The identifier of the corresponding transaction in the business accounts transaction resource.
+          readOnly: true
+        transferScheme:
+          $ref: '#/components/schemas/transfer-scheme'
+        creditDebitIndicator:
+          $ref: '#/components/schemas/credit-debit-indicator'
+        status:
+          $ref: '#/components/schemas/transfer-status'
+        statusHistory:
+          type: array
+          description: A chronological list of status transitions the transfer has gone through.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/status-history-entry'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+    transfer-request:
+      allOf:
+        - $ref: '#/components/schemas/entity-transfer'
+        - type: object
+          required:
+            - debtorIban
+            - creditor
+            - amount
+            - transferScheme
+    transfer-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-transfer-response'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - businessAccountTransactionId
+            - transferScheme
+            - creditDebitIndicator
+            - amount
+            - debtor
+            - creditor
+            - status
+            - statusHistory
+            - createdAt
+      x-speakeasy-unknown-values: allow
+    account-number-format:
+      type: string
+      description: The format of the account number.
+      enum:
+        - iban
+      example: iban
+    creditor-bank-account:
+      type: object
+      description: The bank account details of the creditor (recipient) for Verification of Payee.
+      required:
+        - accountHolderName
+        - format
+        - accountNumber
+      properties:
+        accountHolderName:
+          type: string
+          description: The full name of the creditor account holder to verify against bank records.
+          example: Jan Jansen
+        format:
+          $ref: '#/components/schemas/account-number-format'
+          description: The format of the bank account details provided.
+        accountNumber:
+          type: string
+          description: The bank account details of the creditor.
+          example: NL02ABNA0123456789
+    verification-of-payee-request:
+      type: object
+      description: |-
+        The request body for performing a Verification of Payee (VoP) check. VoP allows you to verify the
+        account holder name against the records held by the receiving bank before initiating a transfer.
+      required:
+        - creditorBankAccount
+      properties:
+        creditorBankAccount:
+          $ref: '#/components/schemas/creditor-bank-account'
+          description: The bank account details of the creditor (recipient) to verify.
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+    verification-result:
+      type: string
+      description: The result of the Verification of Payee check.
+      enum:
+        - match
+        - no-match
+        - close-match
+        - not-available
+      x-enumDescriptions:
+        match: The provided name and account details match the records of the receiving bank.
+        no-match: The provided name and account details do not match.
+        close-match: The provided name is a close but not exact match with the records of the receiving bank.
+        not-available: The verification service is currently unavailable.
+      readOnly: true
+      example: matched
+      x-speakeasy-unknown-values: allow
+    verification-of-payee-response:
+      type: object
+      description: |-
+        The Verification of Payee response object. Contains the result of verifying the creditor's
+        account holder name against the records held by the receiving bank.
+      required:
+        - resource
+        - creditorBankAccount
+        - verificationResult
+        - createdAt
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a payee verification object. Will always contain the string
+            `business-account-payee-verification` for this endpoint.
+          readOnly: true
+          example: business-account-payee-verification
+        creditorBankAccount:
+          $ref: '#/components/schemas/creditor-bank-account-response'
+          description: The bank account details of the creditor that were verified.
+        verificationResult:
+          type: object
+          required:
+            - outcome
+          properties:
+            outcome:
+              $ref: '#/components/schemas/verification-result'
+            accountHolderName:
+              type: string
+              description: The corrected name if the verification result is `close_match`.
+              readOnly: true
+              example: Jan Jansen
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+      x-speakeasy-unknown-values: allow
     list-entity-balance:
       type: object
       required:
@@ -41699,6 +42542,159 @@ components:
         - payment
       example: payment-link
       x-speakeasy-unknown-values: allow
+    entity-transfer-response:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a transfer object. Will always contain the string `business-account-transfer`
+            for this endpoint.
+          readOnly: true
+          example: business-account-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransferToken'
+          description: The identifier uniquely referring to this transfer. Mollie assigns this identifier at transfer creation time.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        debtorIban:
+          type: string
+          description: The IBAN of the debtor's (sender) Mollie account from which to initiate the transfer.
+          example: NL55MLLE0123456789
+          writeOnly: true
+        debtor:
+          allOf:
+            - $ref: '#/components/schemas/transfer-party'
+          description: The debtor (sender) of the transfer, including their name and account details.
+          readOnly: true
+        creditor:
+          $ref: '#/components/schemas/transfer-party'
+          description: The creditor (recipient) of the transfer, including their name and account details.
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer €100.00.
+
+            Only `EUR` is supported for SEPA transfers.
+        description:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A short description of the transfer. This will appear on the bank statement of both the debtor and creditor.
+
+            It must begin with an alphanumeric character, followed by any combination of letters, numbers, spaces or special characters `/ - ? : ( ) . , ' + _`.
+
+            Constraints:
+            - Cannot be solely a hyphen (-) or colon (:)
+            - Cannot contain consecutive hyphens (--)
+            - Cannot contain consecutive colons (::)
+          maxLength: 140
+          pattern: ^(?![:\-]$)(?!.*(--|::))([a-zA-Z0-9]+[\s]*[a-zA-Z0-9/\-?:().,'+_ ]*)?$
+          example: Invoice 12345
+        businessAccountTransactionId:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransactionToken'
+          description: The identifier of the corresponding transaction in the business accounts transaction resource.
+          readOnly: true
+        transferScheme:
+          $ref: '#/components/schemas/transfer-scheme-response'
+        creditDebitIndicator:
+          $ref: '#/components/schemas/credit-debit-indicator'
+        status:
+          $ref: '#/components/schemas/transfer-status'
+        statusHistory:
+          type: array
+          description: A chronological list of status transitions the transfer has gone through.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/status-history-entry-response'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+      x-speakeasy-unknown-values: allow
+    transfer-scheme-response:
+      type: object
+      description: The scheme, as requested by the client.
+      required:
+        - type
+      properties:
+        type:
+          $ref: '#/components/schemas/transfer-scheme-type-response'
+      x-speakeasy-unknown-values: allow
+    transfer-scheme-type-response:
+      type: string
+      description: The transfer scheme to be used for the transfer. The transfer scheme determines the processing time and method of the transfer.
+      enum:
+        - sepa-credit-inst
+        - sepa-credit
+      x-enumDescriptions:
+        sepa-credit-inst: Processing time of up to 9 seconds.
+        sepa-credit: Processing time may take up to 2 days.
+      example: sepa-credit-inst
+      x-speakeasy-unknown-values: allow
+    status-history-entry-response:
+      type: object
+      description: Represents an entry in the transfer's status history, recording a past status transition.
+      required:
+        - status
+        - createdAt
+      properties:
+        status:
+          $ref: '#/components/schemas/transfer-status'
+          description: The status that the transfer transitioned to.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+      x-speakeasy-unknown-values: allow
+    status-reason-code-response:
+      type: string
+      description: A machine-readable code indicating the reason for the transfer's terminal status.
+      enum:
+        - insufficient-funds
+        - rejected
+        - error
+      x-enumDescriptions:
+        insufficient-funds: The debtor account has insufficient funds to complete the transfer.
+        rejected: The transfer was blocked following a review by Mollie.
+        error: An unexpected error occurred. Refer to the `message` field for further details.
+      example: insufficient-funds
+      x-speakeasy-unknown-values: allow
+    creditor-bank-account-response:
+      type: object
+      description: The bank account details of the creditor (recipient) for Verification of Payee.
+      required:
+        - accountHolderName
+        - format
+        - accountNumber
+      properties:
+        accountHolderName:
+          type: string
+          description: The full name of the creditor account holder to verify against bank records.
+          example: Jan Jansen
+        format:
+          $ref: '#/components/schemas/account-number-format-response'
+          description: The format of the bank account details provided.
+        accountNumber:
+          type: string
+          description: The bank account details of the creditor.
+          example: NL02ABNA0123456789
+      x-speakeasy-unknown-values: allow
+    account-number-format-response:
+      type: string
+      description: The format of the account number.
+      enum:
+        - iban
+      example: iban
+      x-speakeasy-unknown-values: allow
   responses:
     400-invalid-list-request:
       description: The request contains issues. For example, if the specified `from` value is not a valid ID.
@@ -42101,6 +43097,37 @@ components:
           documentation:
             href: '...'
             type: text/html
+    create-transfer:
+      summary: Initiated transfer
+      value:
+        resource: business-account-transfer
+        id: batrf_87GByBuj4UCcUTEbs6aGJ
+        mode: live
+        businessAccountTransactionId: batr_87GByBuj4UCcUTEbs6aGJ
+        transferScheme:
+          type: sepa-credit-inst
+        creditDebitIndicator: debit
+        amount:
+          currency: EUR
+          value: '100.00'
+        debtor:
+          fullName: Mollie B.V.
+          account:
+            iban: NL55MLLE0123456789
+        creditor:
+          fullName: Jan Jansen
+          account:
+            iban: NL02ABNA0123456789
+        description: Invoice 12345
+        metadata:
+          customer_reference: cust_001
+        status: initiated
+        statusHistory:
+          - status: requested
+            createdAt: '2025-01-01T12:00:00+00:00'
+          - status: initiated
+            createdAt: '2025-01-01T12:00:01+00:00'
+        createdAt: '2025-01-01T12:00:00+00:00'
   requestBodies:
     requestBody:
       content:

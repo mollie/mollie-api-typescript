@@ -35,6 +35,8 @@ import { Result } from "../types/fp.js";
  *
  * For a complete reference of the profile object, refer to the [Get profile](get-profile) endpoint
  * documentation.
+ *
+ * If set, this operation will use {@link Security.apiKey} from the global security.
  */
 export function profilesGetCurrent(
   client: ClientCore,
@@ -106,7 +108,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0]);
 
   const context = {
     options: client._options,

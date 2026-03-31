@@ -41,6 +41,8 @@ import {
  * Retrieve all captures included in the given settlement.
  *
  * The response is in the same format as the response of the [List captures endpoint](list-captures).
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function settlementsListCaptures(
   client: ClientCore,
@@ -135,7 +137,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,
