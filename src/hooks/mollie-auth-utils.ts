@@ -7,8 +7,9 @@ export function clientCanHaveGlobalFields(options: SDKOptions): boolean {
     const securityObj = typeof security === "function" ? security() : security;
     if (securityObj instanceof Promise) return false;
 
-    const token = (securityObj as { apiKey?: string; oAuth?: string }).apiKey
-        || (securityObj as { apiKey?: string; oAuth?: string }).oAuth;
+    const token = (securityObj as { apiKey?: string; organizationAccessToken?: string; oAuth?: string }).apiKey
+        || (securityObj as { apiKey?: string; organizationAccessToken?: string; oAuth?: string }).organizationAccessToken
+        || (securityObj as { apiKey?: string; organizationAccessToken?: string; oAuth?: string }).oAuth;
     return !!token && token.startsWith("access_");
 }
 
