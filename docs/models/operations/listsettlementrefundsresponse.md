@@ -26,7 +26,7 @@ let value: ListSettlementRefundsResponse = {
           metadata: "<value>",
           paymentId: "tr_5B8cwPMGnU",
           settlementId: "stl_5B8cwPMGnU",
-          status: "queued",
+          status: "refunded",
           createdAt: "2024-03-20T09:13:37+00:00",
           externalReference: {
             type: "acquirer-reference",

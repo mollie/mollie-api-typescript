@@ -2904,7 +2904,6 @@ paths:
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
         - $ref: '#/components/parameters/profile-id'
-        - $ref: '#/components/parameters/testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -2927,7 +2926,7 @@ paths:
                         description: An array of payment objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/list-payment-response'
+                          $ref: '#/components/schemas/list-settlement-payment-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -5086,8 +5085,8 @@ paths:
         - name: from
           in: query
           description: |-
-            Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
-            result set.
+            Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
+            the result set.
           schema:
             $ref: '#/components/schemas/captureToken'
         - $ref: '#/components/parameters/list-limit'
@@ -5102,7 +5101,6 @@ paths:
             x-enumDescriptions:
               payment: Embed the payments that the captures were created for.
             example: payment
-        - $ref: '#/components/parameters/testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
@@ -5127,7 +5125,7 @@ paths:
                         description: An array of capture objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/list-capture-response'
+                          $ref: '#/components/schemas/list-settlement-capture-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -5287,8 +5285,8 @@ paths:
         - name: from
           in: query
           description: |-
-            Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
-            result set.
+            Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
+            the result set.
           schema:
             $ref: '#/components/schemas/refundToken'
         - $ref: '#/components/parameters/list-limit'
@@ -5303,13 +5301,10 @@ paths:
             x-enumDescriptions:
               payment: Embed the payment related to this refund.
             example: payment
-        - $ref: '#/components/parameters/testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
         '200':
-          description: |-
-            A list of refund objects. For a complete reference of the refund object, refer to the
-            [Get refund endpoint](get-refund) documentation.
+          description: A list of refund objects.
           content:
             application/hal+json:
               schema:
@@ -5330,7 +5325,7 @@ paths:
                         description: An array of refund objects.
                         type: array
                         items:
-                          $ref: '#/components/schemas/list-entity-refund'
+                          $ref: '#/components/schemas/list-settlement-refund-response'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -28130,6 +28125,16 @@ components:
       in: query
       schema:
         $ref: '#/components/schemas/profileToken'
+    embed:
+      name: embed
+      description: |-
+        This endpoint allows embedding related API items by appending the following values via the `embed` query string
+        parameter.
+      in: query
+      schema:
+        type:
+          - string
+          - 'null'
     testmode:
       name: testmode
       description: |-
@@ -28142,16 +28147,6 @@ components:
       schema:
         type: boolean
         example: false
-    embed:
-      name: embed
-      description: |-
-        This endpoint allows embedding related API items by appending the following values via the `embed` query string
-        parameter.
-      in: query
-      schema:
-        type:
-          - string
-          - 'null'
     parent-invoice-id:
       name: invoiceId
       description: Provide the ID of the related invoice.
@@ -31633,6 +31628,32 @@ components:
                 The payment method used for this transaction. If a specific method was selected during payment initialization,
                 this field reflects that choice.
       x-speakeasy-unknown-values: allow
+    settlement-mode:
+      type: string
+      description: Whether this entity was created in live mode or in test mode. Settlements are always in live mode.
+      enum:
+        - live
+      readOnly: true
+      example: live
+      x-speakeasy-unknown-values: allow
+    settlement-payment-status:
+      type: string
+      description: The payment's status. Settlement payments always have a status of `paid`.
+      enum:
+        - paid
+      readOnly: true
+      example: paid
+      x-speakeasy-unknown-values: allow
+    settlement-payment-response:
+      allOf:
+        - $ref: '#/components/schemas/payment-response'
+        - type: object
+          properties:
+            mode:
+              $ref: '#/components/schemas/settlement-mode'
+            status:
+              $ref: '#/components/schemas/settlement-payment-status'
+      x-speakeasy-unknown-values: allow
     capture-status:
       type: string
       description: The capture's status.
@@ -31753,6 +31774,24 @@ components:
             - createdAt
             - paymentId
             - _links
+      x-speakeasy-unknown-values: allow
+    settlement-capture-status:
+      type: string
+      description: The capture's status. Settlement captures always have a status of `succeeded`.
+      enum:
+        - succeeded
+      readOnly: true
+      example: succeeded
+      x-speakeasy-unknown-values: allow
+    settlement-capture-response:
+      allOf:
+        - $ref: '#/components/schemas/capture-response'
+        - type: object
+          properties:
+            mode:
+              $ref: '#/components/schemas/settlement-mode'
+            status:
+              $ref: '#/components/schemas/settlement-capture-status'
       x-speakeasy-unknown-values: allow
     refund-status:
       type: string
@@ -31936,6 +31975,24 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
+    settlement-refund-status:
+      type: string
+      description: The refund's status. Settlement refunds always have a status of `refunded`.
+      enum:
+        - refunded
+      readOnly: true
+      example: refunded
+      x-speakeasy-unknown-values: allow
+    settlement-refund-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-refund'
+        - type: object
+          properties:
+            mode:
+              $ref: '#/components/schemas/settlement-mode'
+            status:
+              $ref: '#/components/schemas/settlement-refund-status'
+      x-speakeasy-unknown-values: allow
     entity-chargeback:
       type: object
       required:
@@ -37637,6 +37694,15 @@ components:
               description: |-
                 The payment method used for this transaction. If a specific method was selected during payment initialization,
                 this field reflects that choice.
+    list-settlement-payment-response:
+      allOf:
+        - $ref: '#/components/schemas/list-payment-response'
+        - type: object
+          properties:
+            mode:
+              $ref: '#/components/schemas/settlement-mode'
+            status:
+              $ref: '#/components/schemas/settlement-payment-status'
     list-entity-capture:
       type: object
       properties:
@@ -37742,6 +37808,15 @@ components:
             - createdAt
             - paymentId
             - _links
+    list-settlement-capture-response:
+      allOf:
+        - $ref: '#/components/schemas/list-capture-response'
+        - type: object
+          properties:
+            mode:
+              $ref: '#/components/schemas/settlement-mode'
+            status:
+              $ref: '#/components/schemas/settlement-capture-status'
     list-entity-refund:
       type: object
       required:
@@ -37899,6 +37974,15 @@ components:
                 The API resource URL of the [settlement](get-settlement) this refund has been settled with. Not present if not
                 yet settled.
           readOnly: true
+    list-settlement-refund-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-refund'
+        - type: object
+          properties:
+            mode:
+              $ref: '#/components/schemas/settlement-mode'
+            status:
+              $ref: '#/components/schemas/settlement-refund-status'
     list-entity-chargeback:
       type: object
       required:

@@ -21,16 +21,6 @@ export type ListSettlementPaymentsGlobals = {
    * organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    */
   profileId?: string | undefined;
-  /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
 };
 
 export type ListSettlementPaymentsRequest = {
@@ -67,16 +57,6 @@ export type ListSettlementPaymentsRequest = {
    */
   profileId?: string | undefined;
   /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
-  /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
@@ -86,7 +66,7 @@ export type ListSettlementPaymentsEmbedded = {
   /**
    * An array of payment objects.
    */
-  payments?: Array<models.ListPaymentResponse> | undefined;
+  payments?: Array<models.ListSettlementPaymentResponse> | undefined;
 };
 
 /**
@@ -121,12 +101,10 @@ export const ListSettlementPaymentsGlobals$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
 });
 /** @internal */
 export type ListSettlementPaymentsGlobals$Outbound = {
   profileId?: string | undefined;
-  testmode?: boolean | undefined;
 };
 
 /** @internal */
@@ -136,7 +114,6 @@ export const ListSettlementPaymentsGlobals$outboundSchema: z.ZodType<
   ListSettlementPaymentsGlobals
 > = z.object({
   profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
 });
 
 export function listSettlementPaymentsGlobalsToJSON(
@@ -169,7 +146,6 @@ export const ListSettlementPaymentsRequest$inboundSchema: z.ZodType<
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$inboundSchema.optional(),
   profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
   "idempotency-key": z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -183,7 +159,6 @@ export type ListSettlementPaymentsRequest$Outbound = {
   limit?: number | null | undefined;
   sort?: string | undefined;
   profileId?: string | undefined;
-  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
 
@@ -198,7 +173,6 @@ export const ListSettlementPaymentsRequest$outboundSchema: z.ZodType<
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),
   profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -231,11 +205,12 @@ export const ListSettlementPaymentsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  payments: z.array(models.ListPaymentResponse$inboundSchema).optional(),
+  payments: z.array(models.ListSettlementPaymentResponse$inboundSchema)
+    .optional(),
 });
 /** @internal */
 export type ListSettlementPaymentsEmbedded$Outbound = {
-  payments?: Array<models.ListPaymentResponse$Outbound> | undefined;
+  payments?: Array<models.ListSettlementPaymentResponse$Outbound> | undefined;
 };
 
 /** @internal */
@@ -244,7 +219,8 @@ export const ListSettlementPaymentsEmbedded$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListSettlementPaymentsEmbedded
 > = z.object({
-  payments: z.array(models.ListPaymentResponse$outboundSchema).optional(),
+  payments: z.array(models.ListSettlementPaymentResponse$outboundSchema)
+    .optional(),
 });
 
 export function listSettlementPaymentsEmbeddedToJSON(

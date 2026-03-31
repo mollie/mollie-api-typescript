@@ -24,7 +24,11 @@ let value: ListAllRefundsResponseBody = {
           currency: "EUR",
           value: "10.00",
         },
-        metadata: "<value>",
+        metadata: {
+          "key": "<value>",
+          "key1": "<value>",
+          "key2": "<value>",
+        },
         paymentId: "tr_5B8cwPMGnU",
         settlementId: "stl_5B8cwPMGnU",
         status: "queued",
@@ -33,7 +37,17 @@ let value: ListAllRefundsResponseBody = {
           type: "acquirer-reference",
           id: "123456789012345",
         },
-        routingReversals: null,
+        routingReversals: [
+          {
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+            source: {
+              organizationId: "org_1234567",
+            },
+          },
+        ],
         links: {
           self: {
             href: "https://...",
