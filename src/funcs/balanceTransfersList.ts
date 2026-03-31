@@ -39,6 +39,8 @@ import {
  *
  * @remarks
  * Returns a paginated list of balance transfers associated with your organization. These may be a balance transfer that was received or sent from your balance, or a balance transfer that you initiated on behalf of your clients. If no balance transfers are available, the resulting array will be empty. This request should never throw an error.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function balanceTransfersList(
   client: ClientCore,
@@ -128,7 +130,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

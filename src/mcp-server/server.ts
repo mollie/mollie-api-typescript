@@ -105,6 +105,9 @@ import { tool$subscriptionsListPayments } from "./tools/subscriptionsListPayment
 import { tool$subscriptionsUpdate } from "./tools/subscriptionsUpdate.js";
 import { tool$terminalsGet } from "./tools/terminalsGet.js";
 import { tool$terminalsList } from "./tools/terminalsList.js";
+import { tool$transfersCreate } from "./tools/transfersCreate.js";
+import { tool$transfersGet } from "./tools/transfersGet.js";
+import { tool$verifyPayeesCreate } from "./tools/verifyPayeesCreate.js";
 import { tool$walletsRequestApplePaySession } from "./tools/walletsRequestApplePaySession.js";
 import { tool$webhookEventsGet } from "./tools/webhookEventsGet.js";
 import { tool$webhooksCreate } from "./tools/webhooksCreate.js";
@@ -127,7 +130,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "1.3.3",
+    version: "1.3.4",
   });
 
   const client = new ClientCore({
@@ -259,6 +262,9 @@ export function createMCPServer(deps: {
   tool(tool$salesInvoicesGet);
   tool(tool$salesInvoicesUpdate);
   tool(tool$salesInvoicesDelete);
+  tool(tool$transfersCreate);
+  tool(tool$transfersGet);
+  tool(tool$verifyPayeesCreate);
 
   return server;
 }

@@ -35,6 +35,8 @@ import { Result } from "../types/fp.js";
  *
  * For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint
  * documentation.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function organizationsGetCurrent(
   client: ClientCore,
@@ -106,7 +108,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

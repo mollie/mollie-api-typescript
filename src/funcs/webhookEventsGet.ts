@@ -32,6 +32,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieve a single webhook event object by its event ID.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function webhookEventsGet(
   client: ClientCore,
@@ -112,7 +114,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

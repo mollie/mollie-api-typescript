@@ -84,6 +84,8 @@ import { Result } from "../types/fp.js";
  * > 🚧
  * >
  * > A client link must be used within 30 days of creation. After that period, it will expire and you will need to create a new client link.
+ *
+ * If set, this operation will use {@link Security.organizationAccessToken} from the global security.
  */
 export function clientLinksCreate(
   client: ClientCore,
@@ -158,7 +160,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,

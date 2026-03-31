@@ -41,6 +41,8 @@ import {
  * Retrieve a list of the organization's balances, including the primary balance.
  *
  * The results are paginated.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function balancesList(
   client: ClientCore,
@@ -129,7 +131,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

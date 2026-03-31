@@ -32,6 +32,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * A webhook must have a name, an url and a list of event types. You can also create webhooks in the webhooks settings section of the Dashboard.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function webhooksCreate(
   client: ClientCore,
@@ -104,7 +106,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

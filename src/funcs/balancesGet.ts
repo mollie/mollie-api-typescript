@@ -46,6 +46,8 @@ import { Result } from "../types/fp.js";
  * With instant payment methods like iDEAL, payments are moved to the available
  * balance instantly. With slower payment methods, like credit card for example, it can take a few days before the
  * funds are available on your balance. These funds will be shown under the *pending amount* in the meanwhile.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function balancesGet(
   client: ClientCore,
@@ -126,7 +128,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

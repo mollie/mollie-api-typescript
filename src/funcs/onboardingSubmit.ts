@@ -36,6 +36,8 @@ import { Result } from "../types/fp.js";
  * Submit data that will be prefilled in the merchant's onboarding. The data you submit will only be processed when the
  * onboarding status is `needs-data`.
  * Information that the merchant has entered in their dashboard will not be overwritten.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function onboardingSubmit(
   client: ClientCore,
@@ -108,7 +110,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

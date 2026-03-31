@@ -45,6 +45,8 @@ import { Result } from "../types/fp.js";
  * For payments, regardless them being at the profile level, the capability is listed at the organization level.
  * This means that if at least one of the clients's profiles can receive payments,
  * the payments capability is enabled, communicating that the organization can indeed receive payments.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function capabilitiesList(
   client: ClientCore,
@@ -114,7 +116,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

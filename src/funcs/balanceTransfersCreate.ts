@@ -35,6 +35,8 @@ import { Result } from "../types/fp.js";
  * You can also create a balance transfer between two connected organizations.
  * To create a balance transfer, you must be authenticated as the source organization, and the destination organization must be a connected organization
  * that has authorized the `balance-transfers.write` scope for your organization.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function balanceTransfersCreate(
   client: ClientCore,
@@ -110,7 +112,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

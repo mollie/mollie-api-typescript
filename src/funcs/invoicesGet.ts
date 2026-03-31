@@ -35,6 +35,8 @@ import { Result } from "../types/fp.js";
  *
  * If you want to retrieve the details of an invoice by its invoice number,
  * call the [List invoices](list-invoices) endpoint with the `reference` parameter.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function invoicesGet(
   client: ClientCore,
@@ -111,7 +113,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

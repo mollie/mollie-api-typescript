@@ -35,6 +35,8 @@ import { Result } from "../types/fp.js";
  *
  * Profiles are required for payment processing. Normally they are created via the Mollie dashboard. Alternatively, you
  * can use this endpoint to automate profile creation.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function profilesCreate(
   client: ClientCore,
@@ -108,7 +110,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

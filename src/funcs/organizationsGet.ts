@@ -37,6 +37,8 @@ import { Result } from "../types/fp.js";
  * for OAuth apps. See also [Get current organization](get-current-organization).
  *
  * If you have a *partner account*', you can retrieve organization details of connected organizations.
+ *
+ * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function organizationsGet(
   client: ClientCore,
@@ -117,7 +119,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1, 2]);
 
   const context = {
     options: client._options,

@@ -28,6 +28,8 @@ import { Sessions } from "./sessions.js";
 import { Settlements } from "./settlements.js";
 import { Subscriptions } from "./subscriptions.js";
 import { Terminals } from "./terminals.js";
+import { Transfers } from "./transfers.js";
+import { VerifyPayees } from "./verifypayees.js";
 import { Wallets } from "./wallets.js";
 import { WebhookEvents } from "./webhookevents.js";
 import { Webhooks } from "./webhooks.js";
@@ -166,5 +168,15 @@ export class Client extends ClientSDK {
   private _salesInvoices?: SalesInvoices;
   get salesInvoices(): SalesInvoices {
     return (this._salesInvoices ??= new SalesInvoices(this._options));
+  }
+
+  private _transfers?: Transfers;
+  get transfers(): Transfers {
+    return (this._transfers ??= new Transfers(this._options));
+  }
+
+  private _verifyPayees?: VerifyPayees;
+  get verifyPayees(): VerifyPayees {
+    return (this._verifyPayees ??= new VerifyPayees(this._options));
   }
 }
