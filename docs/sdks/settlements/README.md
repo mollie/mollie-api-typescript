@@ -577,6 +577,73 @@ async function run() {
 
 run();
 ```
+### Example Usage: list-settlement-payments-200-1
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-payments" method="get" path="/settlements/{settlementId}/payments" example="list-settlement-payments-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  profileId: "pfl_5B8cwPMGnU",
+  security: {
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listPayments({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListPayments } from "mollie-api-typescript/funcs/settlementsListPayments.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  profileId: "pfl_5B8cwPMGnU",
+  security: {
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListPayments(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "tr_5B8cwPMGnU",
+    limit: 50,
+    sort: "desc",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("settlementsListPayments failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -734,6 +801,69 @@ async function run() {
 
 run();
 ```
+### Example Usage: list-settlement-captures-200-1
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-captures" method="get" path="/settlements/{settlementId}/captures" example="list-settlement-captures-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listCaptures({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListCaptures } from "mollie-api-typescript/funcs/settlementsListCaptures.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListCaptures(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "cpt_vytxeTZskVKR7C7WgdSP3d",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("settlementsListCaptures failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -761,7 +891,7 @@ Retrieve all refunds 'deducted' from the given settlement.
 
 The response is in the same format as the response of the [List refunds endpoint](list-refunds).
 
-### Example Usage
+### Example Usage: list-refunds-200-1
 
 <!-- UsageSnippet language="typescript" operationID="list-settlement-refunds" method="get" path="/settlements/{settlementId}/refunds" example="list-refunds-200-1" -->
 ```typescript
@@ -812,6 +942,69 @@ async function run() {
     from: "re_5B8cwPMGnU",
     limit: 50,
     embed: "payment",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("settlementsListRefunds failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: list-settlement-refunds-200-1
+
+<!-- UsageSnippet language="typescript" operationID="list-settlement-refunds" method="get" path="/settlements/{settlementId}/refunds" example="list-settlement-refunds-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.listRefunds({
+    settlementId: "stl_5B8cwPMGnU",
+    from: "re_5B8cwPMGnU",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsListRefunds } from "mollie-api-typescript/funcs/settlementsListRefunds.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsListRefunds(client, {
+    settlementId: "stl_5B8cwPMGnU",
+    from: "re_5B8cwPMGnU",
+    limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
