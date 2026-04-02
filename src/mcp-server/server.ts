@@ -14,6 +14,10 @@ import {
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
 import { createRegisterTool } from "./tools.js";
+import { tool$accountsGet } from "./tools/accountsGet.js";
+import { tool$accountsGetAccount } from "./tools/accountsGetAccount.js";
+import { tool$accountsList } from "./tools/accountsList.js";
+import { tool$accountsListAccounts } from "./tools/accountsListAccounts.js";
 import { tool$balancesGet } from "./tools/balancesGet.js";
 import { tool$balancesGetPrimary } from "./tools/balancesGetPrimary.js";
 import { tool$balancesGetReport } from "./tools/balancesGetReport.js";
@@ -130,7 +134,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "1.3.6",
+    version: "1.3.7",
   });
 
   const client = new ClientCore({
@@ -262,6 +266,10 @@ export function createMCPServer(deps: {
   tool(tool$salesInvoicesGet);
   tool(tool$salesInvoicesUpdate);
   tool(tool$salesInvoicesDelete);
+  tool(tool$accountsListAccounts);
+  tool(tool$accountsGetAccount);
+  tool(tool$accountsList);
+  tool(tool$accountsGet);
   tool(tool$transfersCreate);
   tool(tool$transfersGet);
   tool(tool$verifyPayeesCreate);

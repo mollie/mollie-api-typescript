@@ -8,14 +8,14 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * Indicates whether the transfer is a credit or debit transaction from the perspective of the account holder.
+ * Indicates whether the entry is a credit or debit from the perspective of the account holder.
  */
 export const CreditDebitIndicator = {
   Credit: "credit",
   Debit: "debit",
 } as const;
 /**
- * Indicates whether the transfer is a credit or debit transaction from the perspective of the account holder.
+ * Indicates whether the entry is a credit or debit from the perspective of the account holder.
  */
 export type CreditDebitIndicator = OpenEnum<typeof CreditDebitIndicator>;
 
