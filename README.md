@@ -337,6 +337,13 @@ let client = new Client({
 <details open>
 <summary>Available methods</summary>
 
+### [Accounts](docs/sdks/accounts/README.md)
+
+* [listAccounts](docs/sdks/accounts/README.md#listaccounts) - List business accounts
+* [getAccount](docs/sdks/accounts/README.md#getaccount) - Get business account
+* [list](docs/sdks/accounts/README.md#list) - List transactions
+* [get](docs/sdks/accounts/README.md#get) - Get transaction
+
 ### [BalanceTransfers](docs/sdks/balancetransfers/README.md)
 
 * [create](docs/sdks/balancetransfers/README.md#create) - Create a Connect balance transfer
@@ -544,6 +551,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`accountsGet`](docs/sdks/accounts/README.md#get) - Get transaction
+- [`accountsGetAccount`](docs/sdks/accounts/README.md#getaccount) - Get business account
+- [`accountsList`](docs/sdks/accounts/README.md#list) - List transactions
+- [`accountsListAccounts`](docs/sdks/accounts/README.md#listaccounts) - List business accounts
 - [`balancesGet`](docs/sdks/balances/README.md#get) - Get balance
 - [`balancesGetPrimary`](docs/sdks/balances/README.md#getprimary) - Get primary balance
 - [`balancesGetReport`](docs/sdks/balances/README.md#getreport) - Get balance report

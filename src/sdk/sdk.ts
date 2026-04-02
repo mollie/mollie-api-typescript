@@ -4,6 +4,7 @@
  */
 
 import { ClientSDK } from "../lib/sdks.js";
+import { Accounts } from "./accounts.js";
 import { Balances } from "./balances.js";
 import { BalanceTransfers } from "./balancetransfers.js";
 import { Capabilities } from "./capabilities.js";
@@ -168,6 +169,11 @@ export class Client extends ClientSDK {
   private _salesInvoices?: SalesInvoices;
   get salesInvoices(): SalesInvoices {
     return (this._salesInvoices ??= new SalesInvoices(this._options));
+  }
+
+  private _accounts?: Accounts;
+  get accounts(): Accounts {
+    return (this._accounts ??= new Accounts(this._options));
   }
 
   private _transfers?: Transfers;

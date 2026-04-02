@@ -12,6 +12,8 @@ security:
   - organizationAccessToken: []
   - oAuth: []
 tags:
+  - name: Accounts API
+    description: Operations related to the Accounts API
   - name: Balance Transfers API
     description: Operations related to the Balance Transfers API
   - name: Balances API
@@ -25456,6 +25458,432 @@ paths:
       x-speakeasy-group: sales-invoices
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
+  /business-accounts/accounts:
+    get:
+      summary: List business accounts
+      x-speakeasy-name-override: list-accounts
+      tags:
+        - Accounts API
+      operationId: list-business-accounts
+      security:
+        - oAuth:
+            - business-accounts.read
+      description: |-
+        Retrieve all business accounts for the authenticated organization.
+
+        The results are paginated.
+      parameters:
+        - name: from
+          in: query
+          description: |-
+            Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
+            the result set.
+          schema:
+            $ref: '#/components/schemas/businessAccountToken'
+        - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/list-sort'
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: A list of business account objects.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - _embedded
+                properties:
+                  count:
+                    $ref: '#/components/schemas/list-count'
+                  _embedded:
+                    type: object
+                    properties:
+                      businessAccounts:
+                        description: An array of business account objects.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/business-account-response'
+              examples:
+                list-business-accounts-200:
+                  summary: A list of business accounts
+                  value:
+                    count: 1
+                    _embedded:
+                      businessAccounts:
+                        - resource: business-account
+                          id: ba_nopqrstuvwxyz23456789A
+                          mode: live
+                          accountDetails:
+                            accountHolderName: Mollie B.V.
+                            name: Main Checking Account
+                            currency: EUR
+                            iban: NL02MLLE123456780
+                            bic: MLLEXX
+                          status: active
+                          balance:
+                            total:
+                              currency: EUR
+                              value: '5000.00'
+                          createdAt: '2024-03-20T09:13:37+00:00'
+        '400':
+          $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/business-accounts/accounts?limit=5 \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setAccessToken("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $accounts = $mollie->businessAccounts->page();
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const accounts = await mollieClient.businessAccounts.list();
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_access_token("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              accounts = mollie_client.business_accounts.list()
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              accounts = Mollie::BusinessAccount.all
+      x-speakeasy-group: accounts
+  /business-accounts/accounts/{businessAccountId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-business-account-id'
+    get:
+      summary: Get business account
+      x-speakeasy-name-override: get-account
+      tags:
+        - Accounts API
+      operationId: get-business-account
+      security:
+        - oAuth:
+            - business-accounts.read
+      description: |-
+        Retrieve a single business account object by its account ID. This allows you to check the current status,
+        balance, and account details.
+      parameters:
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The business account object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/business-account-response'
+              examples:
+                get-business-account-200:
+                  $ref: '#/components/examples/get-business-account'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/business-accounts/accounts/ba_nopqrstuvwxyz23456789A \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setAccessToken("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $account = $mollie->businessAccounts->get("ba_nopqrstuvwxyz23456789A");
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const account = await mollieClient.businessAccounts.get('ba_nopqrstuvwxyz23456789A');
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_access_token("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              account = mollie_client.business_accounts.get("ba_nopqrstuvwxyz23456789A")
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              account = Mollie::BusinessAccount.get('ba_nopqrstuvwxyz23456789A')
+      x-speakeasy-group: accounts
+  /business-accounts/accounts/{businessAccountId}/transactions:
+    parameters:
+      - $ref: '#/components/parameters/parent-business-account-id'
+    get:
+      summary: List transactions
+      x-speakeasy-name-override: list
+      tags:
+        - Accounts API
+      operationId: list-business-account-transactions
+      security:
+        - oAuth:
+            - business-accounts.read
+      description: |-
+        Retrieve all transactions for a specific business account.
+
+        The results are paginated.
+      parameters:
+        - name: from
+          in: query
+          description: |-
+            Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
+            the result set.
+          schema:
+            $ref: '#/components/schemas/businessAccountTransactionToken'
+        - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/list-sort'
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: A list of transaction objects.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - _embedded
+                properties:
+                  count:
+                    $ref: '#/components/schemas/list-count'
+                  _embedded:
+                    type: object
+                    properties:
+                      transactions:
+                        description: An array of transaction objects.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/transaction-response'
+              examples:
+                list-transactions-200:
+                  summary: A list of transactions
+                  value:
+                    count: 2
+                    _embedded:
+                      transactions:
+                        - resource: business-account-transaction
+                          id: batr_jzQPWFaiDhzpkBcAeKEZH
+                          businessAccountId: ba_nopqrstuvwxyz23456789A
+                          mode: live
+                          creditDebitIndicator: debit
+                          type: bank-transfer
+                          amount:
+                            currency: EUR
+                            value: '100.00'
+                          description: Payment for services
+                          counterparty:
+                            identifier: NL11ABNA01234567890
+                            name: Beneficiary Name
+                          afterBalance:
+                            total:
+                              currency: EUR
+                              value: '4900.00'
+                          processedAt: '2025-02-26T08:00:00+00:00'
+                          createdAt: '2025-02-26T08:15:00+00:00'
+                        - resource: business-account-transaction
+                          id: batr_87GByBuj4UCcUTEbs6aGJ
+                          businessAccountId: ba_nopqrstuvwxyz23456789A
+                          mode: live
+                          creditDebitIndicator: credit
+                          type: ideal-payment
+                          amount:
+                            currency: EUR
+                            value: '250.00'
+                          description: iDEAL payment received
+                          counterparty:
+                            identifier: NL91ABNA0417164300
+                            name: Jan Jansen
+                          afterBalance:
+                            total:
+                              currency: EUR
+                              value: '5250.00'
+                          processedAt: '2025-02-26T10:30:00+00:00'
+                          createdAt: '2025-02-26T10:30:00+00:00'
+        '400':
+          $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/business-accounts/accounts/ba_nopqrstuvwxyz23456789A/transactions?limit=5 \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setAccessToken("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $transactions = $mollie->businessAccountTransactions->pageFor(
+                  $mollie->businessAccounts->get("ba_nopqrstuvwxyz23456789A")
+              );
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const transactions = await mollieClient.businessAccountTransactions.list({
+                businessAccountId: 'ba_nopqrstuvwxyz23456789A'
+              });
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_access_token("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              transactions = mollie_client.business_account_transactions.list(
+                  "ba_nopqrstuvwxyz23456789A"
+              )
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              transactions = Mollie::BusinessAccount::Transaction.all(
+                business_account_id: 'ba_nopqrstuvwxyz23456789A'
+              )
+      x-speakeasy-group: accounts
+  /business-accounts/accounts/{businessAccountId}/transactions/{transactionId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-business-account-id'
+      - $ref: '#/components/parameters/parent-business-account-transaction-id'
+    get:
+      summary: Get transaction
+      x-speakeasy-name-override: get
+      tags:
+        - Accounts API
+      operationId: get-business-account-transaction
+      security:
+        - oAuth:
+            - business-accounts.read
+      description: |-
+        Retrieve a single transaction object by its transaction ID. This allows you to check the details,
+        amount, counterparty, and balance impact of a specific transaction.
+      parameters:
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The transaction object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/transaction-response'
+              examples:
+                get-transaction-200:
+                  $ref: '#/components/examples/get-transaction'
+                get-transaction-200-credit:
+                  summary: A credit transaction
+                  value:
+                    resource: business-account-transaction
+                    id: batr_87GByBuj4UCcUTEbs6aGJ
+                    businessAccountId: ba_nopqrstuvwxyz23456789A
+                    mode: live
+                    creditDebitIndicator: credit
+                    type: ideal-payment
+                    amount:
+                      currency: EUR
+                      value: '250.00'
+                    description: iDEAL payment received
+                    counterparty:
+                      identifier: NL91ABNA0417164300
+                      name: Jan Jansen
+                    afterBalance:
+                      total:
+                        currency: EUR
+                        value: '5250.00'
+                    processedAt: '2025-02-26T10:30:00+00:00'
+                    createdAt: '2025-02-26T10:30:00+00:00'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/business-accounts/accounts/ba_nopqrstuvwxyz23456789A/transactions/batr_jzQPWFaiDhzpkBcAeKEZH \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setAccessToken("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $transaction = $mollie->businessAccountTransactions->getFor(
+                  $mollie->businessAccounts->get("ba_nopqrstuvwxyz23456789A"),
+                  "batr_jzQPWFaiDhzpkBcAeKEZH"
+              );
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const transaction = await mollieClient.businessAccountTransactions.get(
+                'batr_jzQPWFaiDhzpkBcAeKEZH',
+                { businessAccountId: 'ba_nopqrstuvwxyz23456789A' }
+              );
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_access_token("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              transaction = mollie_client.business_account_transactions.get(
+                  "batr_jzQPWFaiDhzpkBcAeKEZH",
+                  business_account_id="ba_nopqrstuvwxyz23456789A"
+              )
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              transaction = Mollie::BusinessAccount::Transaction.get(
+                'batr_jzQPWFaiDhzpkBcAeKEZH',
+                business_account_id: 'ba_nopqrstuvwxyz23456789A'
+              )
+      x-speakeasy-group: accounts
   /business-accounts/transfers:
     post:
       summary: Create transfer
@@ -26249,6 +26677,20 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/salesInvoiceToken'
+    parent-business-account-id:
+      name: businessAccountId
+      description: Provide the ID of the related business account.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/businessAccountToken'
+    parent-business-account-transaction-id:
+      name: transactionId
+      description: Provide the ID of the related transaction.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/businessAccountTransactionToken'
     parent-business-accounts-transfer-id:
       name: businessAccountsTransferId
       description: Provide the ID of the related transfer.
@@ -34053,6 +34495,232 @@ components:
 
             When `emailDetails` is provided, an additional email is sent to the recipient.
           example: false
+    businessAccountToken:
+      type: string
+      pattern: ^ba_.+$
+      example: ba_nopqrstuvwxyz23456789A
+    account-details:
+      type: object
+      description: The account holder details and bank account information for the business account.
+      required:
+        - accountHolderName
+        - currency
+        - iban
+      properties:
+        accountHolderName:
+          type: string
+          description: The name of the account holder.
+          example: Mollie B.V.
+        name:
+          type: string
+          description: A name of the account.
+          example: Main Checking Account
+        currency:
+          type: string
+          description: The currency of the account in ISO 4217 format.
+          example: EUR
+        iban:
+          type: string
+          description: The IBAN (International Bank Account Number) of the account.
+          example: NL02MLLE123456780
+        bic:
+          type: string
+          description: The BIC (Bank Identifier Code) of the account.
+          example: MLLENL2AXXX
+    balance:
+      type: object
+      description: The balance of the business account.
+      required:
+        - total
+      properties:
+        total:
+          $ref: '#/components/schemas/amount'
+          description: The total available balance of the business account.
+    account-status:
+      type: string
+      description: The status of the business account.
+      enum:
+        - active
+        - blocked
+        - closed
+      x-enumDescriptions:
+        active: The account is active and operational.
+        blocked: The account is blocked and cannot be used for transactions.
+        closed: The account has been closed.
+      readOnly: true
+      example: active
+      x-speakeasy-unknown-values: allow
+    entity-business-account:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a business account object. Will always contain the string `business-account`
+            for this endpoint.
+          readOnly: true
+          example: business-account
+        id:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountToken'
+          description: |-
+            The identifier uniquely referring to this business account. Mollie assigns this identifier at account creation
+            time.
+          readOnly: true
+        accountDetails:
+          $ref: '#/components/schemas/account-details'
+        balance:
+          $ref: '#/components/schemas/balance'
+        status:
+          $ref: '#/components/schemas/account-status'
+        mode:
+          $ref: '#/components/schemas/mode'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+      x-speakeasy-unknown-values: allow
+    business-account-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-business-account'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - accountDetails
+            - status
+            - balance
+            - createdAt
+      x-speakeasy-unknown-values: allow
+    businessAccountTransactionToken:
+      type: string
+      pattern: ^batr_.+$
+      example: batr_87GByBuj4UCcUTEbs6aGJ
+    credit-debit-indicator:
+      type: string
+      description: Indicates whether the entry is a credit or debit from the perspective of the account holder.
+      enum:
+        - credit
+        - debit
+      x-enumDescriptions:
+        credit: Funds are received into the account.
+        debit: Funds are sent from the account.
+      readOnly: true
+      example: debit
+      x-speakeasy-unknown-values: allow
+    transaction-type:
+      type: string
+      description: "Indicates what kind of transaction this is.\n\nWe may introduce new transaction types as we expand the product. We recommend building your integration\nto handle unexpected values gracefully, so nothing breaks when that happens. "
+      enum:
+        - card-payment
+        - bank-transfer
+        - psp-transfer
+        - internal-transfer
+        - ideal-payment
+        - fee
+        - correction
+        - direct-debit
+        - direct-debit-refund
+      x-enumDescriptions:
+        card-payment: A card payment transaction.
+        bank-transfer: A bank transfer transaction.
+        psp-transfer: A payment service provider transfer.
+        internal-transfer: An internal transfer between Mollie accounts.
+        ideal-payment: An iDEAL payment transaction.
+        fee: A fee charged by Mollie.
+        correction: A correction transaction.
+        direct-debit: A direct debit transaction.
+        direct-debit-refund: A refund of a direct debit transaction.
+      readOnly: true
+      example: bank-transfer
+      x-speakeasy-unknown-values: allow
+    counterparty:
+      type: object
+      description: The counterparty involved in the transaction, including their name and account identifier.
+      properties:
+        identifier:
+          type: string
+          description: The account identifier (e.g. IBAN) of the counterparty.
+          example: NL11ABNA01234567890
+        name:
+          type: string
+          description: The name of the counterparty.
+          example: Beneficiary Name
+    after-balance:
+      type: object
+      description: The balance of the business account after this transaction was processed.
+      required:
+        - total
+      properties:
+        total:
+          $ref: '#/components/schemas/amount'
+          description: The total balance of the business account after this transaction.
+    entity-transaction:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a business account transaction object. Will always contain the string
+            `business-account-transaction` for this endpoint.
+          readOnly: true
+          example: business-account-transaction
+        id:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransactionToken'
+          description: |-
+            The identifier uniquely referring to this transaction. Mollie assigns this identifier at transaction creation
+            time.
+          readOnly: true
+        businessAccountId:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountToken'
+          description: The identifier of the business account this transaction belongs to.
+          readOnly: true
+        creditDebitIndicator:
+          $ref: '#/components/schemas/credit-debit-indicator'
+        type:
+          $ref: '#/components/schemas/transaction-type'
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: The amount of the transaction, e.g. `{"currency":"EUR", "value":"100.00"}`.
+        description:
+          type:
+            - string
+            - 'null'
+          description: A short description of the transaction.
+          example: Payment for services
+        counterparty:
+          $ref: '#/components/schemas/counterparty'
+          description: The counterparty involved in this transaction.
+        afterBalance:
+          $ref: '#/components/schemas/after-balance'
+          description: The balance of the business account after this transaction was processed.
+        processedAt:
+          type:
+            - string
+            - 'null'
+          description: The date and time when the transaction was processed, in ISO 8601 format.
+          readOnly: true
+          example: '2025-02-26T08:00:00+00:00'
+        mode:
+          $ref: '#/components/schemas/mode'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+      x-speakeasy-unknown-values: allow
+    transaction-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-transaction'
+        - type: object
+          required:
+            - resource
+            - id
+            - businessAccountId
+            - mode
+            - creditDebitIndicator
+            - type
+            - amount
+            - createdAt
+      x-speakeasy-unknown-values: allow
     businessAccountTransferToken:
       type: string
       pattern: ^batrf_.+$
@@ -34080,10 +34748,6 @@ components:
               type: string
               description: The IBAN (International Bank Account Number) of the account holder.
               example: NL02ABNA0123456789
-    businessAccountTransactionToken:
-      type: string
-      pattern: ^batr_.+$
-      example: batr_87GByBuj4UCcUTEbs6aGJ
     transfer-scheme-type:
       type: string
       description: The transfer scheme to be used for the transfer. The transfer scheme determines the processing time and method of the transfer.
@@ -34102,18 +34766,6 @@ components:
       properties:
         type:
           $ref: '#/components/schemas/transfer-scheme-type'
-    credit-debit-indicator:
-      type: string
-      description: Indicates whether the transfer is a credit or debit transaction from the perspective of the account holder.
-      enum:
-        - credit
-        - debit
-      x-enumDescriptions:
-        debit: Funds are sent from the account.
-        credit: Funds are received into the account.
-      readOnly: true
-      example: debit
-      x-speakeasy-unknown-values: allow
     transfer-status:
       type: string
       description: The status of the transfer.
@@ -41103,6 +41755,46 @@ components:
           documentation:
             href: '...'
             type: text/html
+    get-business-account:
+      summary: The business account object
+      value:
+        resource: business-account
+        id: ba_nopqrstuvwxyz23456789A
+        mode: live
+        accountDetails:
+          accountHolderName: Mollie B.V.
+          name: Main Checking Account
+          currency: EUR
+          iban: NL02MLLE123456780
+          bic: MLLEXX
+        status: active
+        balance:
+          total:
+            currency: EUR
+            value: '5000.00'
+        createdAt: '2024-03-20T09:13:37+00:00'
+    get-transaction:
+      summary: The transaction object
+      value:
+        resource: business-account-transaction
+        id: batr_jzQPWFaiDhzpkBcAeKEZH
+        businessAccountId: ba_nopqrstuvwxyz23456789A
+        mode: live
+        creditDebitIndicator: debit
+        type: bank-transfer
+        amount:
+          currency: EUR
+          value: '100.00'
+        description: Payment for services
+        counterparty:
+          identifier: NL11ABNA01234567890
+          name: Beneficiary Name
+        afterBalance:
+          total:
+            currency: EUR
+            value: '4900.00'
+        processedAt: '2025-02-26T08:00:00+00:00'
+        createdAt: '2025-02-26T08:15:00+00:00'
     create-transfer:
       summary: Initiated transfer
       value:
