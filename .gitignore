@@ -11,6 +11,7 @@
 /funcs
 /react-query
 /mcp-server
+/src/mcp-server
 /hooks
 /index.*
 /core.*
