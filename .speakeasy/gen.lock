@@ -5,15 +5,15 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 1.3.8
-  configChecksum: 131d359ac18229617c7d1051a4d1e924
+  releaseVersion: 1.3.9
+  configChecksum: d0ae35915d9d499d523f919f9f93a7dc
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 37c2cc60-e25c-4712-b775-fbac787cc570
-  pristine_commit_hash: 18fb67b5b820ea059136603974ed246607b07597
-  pristine_tree_hash: 25f717d1500cd8d7d2858509c03aa74e4895f33f
+  generation_id: 1975c89b-b21b-4762-ada9-90dbc55867dd
+  pristine_commit_hash: dead77162aedfcb7385e94506bc07624cbfdd41b
+  pristine_tree_hash: b7f82ee4e46ac24199b8daef15c7b6c59f8432be
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3478,12 +3478,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:d034ecf926fa00e3587b2a0a7f003b43e2d5dec3
-    pristine_git_object: 5776a7c75cbc5ee6b876d6c061bbbb4cbd006a31
+    last_write_checksum: sha1:3ee6af56d2f02453161554adcaf8e76431f737c0
+    pristine_git_object: d7169a769a31c7fec739a5cfecb99fd944eb2c50
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:c69158b133849dcb0d76c290729eb0056f479693
-    pristine_git_object: c5e59af8a9ff7b7320a29e0f6d96f7548faf5378
+    last_write_checksum: sha1:7f3e4a6934c8e9cc70e3b8027aedf6905dae65c5
+    pristine_git_object: 288e8e7d15504857c43b3f703a6df82503a85c49
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -3950,8 +3950,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:97d7c3944e0abcd27d922ce63bad952b1b146be4
-    pristine_git_object: 78315b0f066c2d146680b073f35a3d51aae0a86d
+    last_write_checksum: sha1:2ad9f5ae36f88b980e2e1c7c45da6f5b551e6c71
+    pristine_git_object: f0c3f06bbed4350b918a071309faf9c18e429e0c
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -4012,494 +4012,617 @@ trackedFiles:
     id: f7a2ed2de4d7
     last_write_checksum: sha1:1a7a5dc9ace5a5d707bd8d2339f76719e525e7eb
     pristine_git_object: a04739f2ac2154c097ea821daf364ee4c037a820
+    deleted: true
   src/mcp-server/cli.ts:
     id: 4ade0ef98b00
     last_write_checksum: sha1:328ffc5ed0eca56509bf2828264c3b2c87926e09
     pristine_git_object: ed4a1808d7da14f0f0bb0cf27cc7eb7414a3182c
+    deleted: true
   src/mcp-server/cli/start/command.ts:
     id: b3e53408ccb4
     last_write_checksum: sha1:4848f81c413a0ab3aa43d5f2288b3074de755888
     pristine_git_object: 84f1588fb77b5bab318b231926f4921bdad4e59e
+    deleted: true
   src/mcp-server/cli/start/impl.ts:
     id: 37494f674015
     last_write_checksum: sha1:c1b8f3638ca51dac5d3a016b8129a32bcfbf4b7e
     pristine_git_object: 9cc87419ab400db98cedc76e3d0294d7a50c407f
+    deleted: true
   src/mcp-server/console-logger.ts:
     id: 57aff4ff2e15
     last_write_checksum: sha1:7d1f74cc302f8aa47ee493c434d764b1a88f42a6
     pristine_git_object: 8482f3211004e57f71de1648ba1d25c0b9ed22f1
+    deleted: true
   src/mcp-server/extensions.ts:
     id: 3d9d20ff158f
     last_write_checksum: sha1:09b3e4561dfb1633d00c8c629648270217bb8ad8
     pristine_git_object: 43ae7d30087f185c9cbb341ec1cd2b3250addce6
+    deleted: true
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:e348404da1cafbce4a18c6e60bebb6586520f884
-    pristine_git_object: 3b3ecc0985dc00400ca5c08e9edb86d0b156a14c
+    last_write_checksum: sha1:97c3d48a3e92e0b87ee48f3a873ce615d3ce99ff
+    pristine_git_object: b1586dfb678167cf70cac279133dc46986e2d69b
+    deleted: true
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:49e20bcf315167637603f85904b00733b814c554
     pristine_git_object: 107534d1f19afd3b8fd322fecd2eb7501f23f5c0
+    deleted: true
   src/mcp-server/resources.ts:
     id: cb0c57ebeaea
     last_write_checksum: sha1:b7ff7b2c283bd1bfa6ec9ff159f83d595822b04d
     pristine_git_object: 73f0cd0bb2a6e3c200ba45f586c5597fbf767da8
+    deleted: true
   src/mcp-server/scopes.ts:
     id: 8966d24256b2
     last_write_checksum: sha1:5d7f452efc469fe7a5039f5542caaaee43a6667f
     pristine_git_object: 524b864b4a0d515386ff3f42ed22463827039c06
+    deleted: true
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:7260a8de998573de21853a8096115daaab3c0e04
-    pristine_git_object: d95cb0824a74883578303f632e500c67f499c9cb
+    last_write_checksum: sha1:9c548d5112eac774704d33f74ca162bd31ca6e0e
+    pristine_git_object: e427b0d746b32a69ef59cbbf3ea5b8b68621fddd
+    deleted: true
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:7a10009458806644fae13b3aace830d4b31790fb
     pristine_git_object: 552c6cc64143ba974c10ecba312cb44eebbfee80
+    deleted: true
   src/mcp-server/tools.ts:
     id: 654d5d1f2062
     last_write_checksum: sha1:727bac622ed80b18dffe844d151a595ee1e65713
     pristine_git_object: dc8551104d584d0ffda1fbb4b333536e169ab849
+    deleted: true
   src/mcp-server/tools/accountsGet.ts:
     id: 2ab8577922e3
     last_write_checksum: sha1:8b919976353034c7158dc55d6b4eb9545d35d0e5
     pristine_git_object: c78cf8d16007b9c2ed668942721a2331313dd52e
+    deleted: true
   src/mcp-server/tools/accountsGetAccount.ts:
     id: a51d0b6181e7
     last_write_checksum: sha1:eb1ec144e111360706c9f221ec9c96c9cc2a6850
     pristine_git_object: 26516ffad7b8067fe863c6a3dcdfae808a6e06d0
+    deleted: true
   src/mcp-server/tools/accountsList.ts:
     id: 9ff942e2a41a
     last_write_checksum: sha1:42488d1ce056b085f0ae6af63e2076a7a2e20ddb
     pristine_git_object: 5619dd0b5f4262297da4eabd9b54b3393f6fada8
+    deleted: true
   src/mcp-server/tools/accountsListAccounts.ts:
     id: ac4b5e79e0c6
     last_write_checksum: sha1:31b542ef3578443f03899971b028fdf79f721505
     pristine_git_object: 073495018114826dc1436dde21675002fb071c8a
+    deleted: true
   src/mcp-server/tools/balanceTransfersCreate.ts:
     id: 319cb949f9a4
     last_write_checksum: sha1:7793b04c01c9729b08fbf5e4fa73cfe60f640be4
     pristine_git_object: bdbb9f5d398ef91573b2e0ea3ca855e863100721
+    deleted: true
   src/mcp-server/tools/balanceTransfersGet.ts:
     id: 619c12e89800
     last_write_checksum: sha1:d1d30a983b43a9e50d0b648c79964260e9f17248
     pristine_git_object: befef3a0c97b33e974153c3ed8b9d49862701d3c
+    deleted: true
   src/mcp-server/tools/balanceTransfersList.ts:
     id: 332bbbf189e1
     last_write_checksum: sha1:513710b33125f8c87496df6069c0d3bddd7bae9d
     pristine_git_object: a078a5d9183aa44ebeb9273eed2c4415da302b4c
+    deleted: true
   src/mcp-server/tools/balancesGet.ts:
     id: b7cbcdce548c
     last_write_checksum: sha1:0c38367ec7d07613d1e479947fc1df6d34859fda
     pristine_git_object: af6b4a86c73608f23b9470e3405afa8596490dc6
+    deleted: true
   src/mcp-server/tools/balancesGetPrimary.ts:
     id: a1bd692dd0f9
     last_write_checksum: sha1:3d5bf5dab446a612f4e75546bdaca4d18afbe4ec
     pristine_git_object: e85669b470729ab10c22432d4279c406d98cf44e
+    deleted: true
   src/mcp-server/tools/balancesGetReport.ts:
     id: c67914d1772f
     last_write_checksum: sha1:291214eb8ab8689534afba4fedd8517972e10119
     pristine_git_object: 5f7f9ed9d1b1cfdb4664a613b92e2dc3b1378c97
+    deleted: true
   src/mcp-server/tools/balancesList.ts:
     id: 18bc00a74b18
     last_write_checksum: sha1:7571392964c3ef6b2ddb36ffe25114bb73316626
     pristine_git_object: 3787c9d90db56159224750aacf1165192efeecdd
+    deleted: true
   src/mcp-server/tools/balancesListTransactions.ts:
     id: 1342f6e4fd70
     last_write_checksum: sha1:6f6b7f8f9d240c944421ae13d3fb684637603b8e
     pristine_git_object: 34cdaf85fe35c1a4163174bdf9730ba89a8919fc
+    deleted: true
   src/mcp-server/tools/capabilitiesList.ts:
     id: feb2534cc6d0
     last_write_checksum: sha1:6f4aa63350872e0492f92250a285643d9a2dd0a8
     pristine_git_object: c18b46d47989463d694260759aa990a01fb26696
+    deleted: true
   src/mcp-server/tools/capturesCreate.ts:
     id: 74ab67b303fd
     last_write_checksum: sha1:2f491ea889fffdd6a3671657658afb2e53e0f55b
     pristine_git_object: 52a62b041570509aad7802d598dbb5f018d0e264
+    deleted: true
   src/mcp-server/tools/capturesGet.ts:
     id: cab7ab3e1662
     last_write_checksum: sha1:ce34f0ea5c77ea43c80a7f0277c2307e4a8b85e6
     pristine_git_object: 8bcbb735e6e14b3ed8dc3230ba3e8e134a7b0ae0
+    deleted: true
   src/mcp-server/tools/capturesList.ts:
     id: 8e40e4425cc3
     last_write_checksum: sha1:63628a942df2738c5caadae0d391c205d2494990
     pristine_git_object: b4deafb57855b8e8e3c8a48258f24137eded7355
+    deleted: true
   src/mcp-server/tools/chargebacksAll.ts:
     id: 0ddf38353928
     last_write_checksum: sha1:5ba4922e075f5669ff6eac816adc6eeff8c19ac1
     pristine_git_object: 90bbdf4def1728f219d3fc8f5bf2947b1fe399f5
+    deleted: true
   src/mcp-server/tools/chargebacksGet.ts:
     id: eb05e0eed9e9
     last_write_checksum: sha1:7747ed2e5cd119aa16712d422961d0f0a6aa0599
     pristine_git_object: dcab8e2ed3ce4b25bc3958ef00ffdbd22d62ae30
+    deleted: true
   src/mcp-server/tools/chargebacksList.ts:
     id: 703001ce91ea
     last_write_checksum: sha1:375819b0db22900977ca5a74505d600c6ac5f5cb
     pristine_git_object: fc9e0b8131fde15d5f09541857311f061b34a81f
+    deleted: true
   src/mcp-server/tools/clientLinksCreate.ts:
     id: 8d0552e4b516
     last_write_checksum: sha1:6682fa88e3d6d0840ef2ce3730469640e061114e
     pristine_git_object: 26d3ae5c17cf93cbaf193fe97e6511d8fd4289b3
+    deleted: true
   src/mcp-server/tools/clientsGet.ts:
     id: ca714a9bf5e6
     last_write_checksum: sha1:c8aeb42e474b5a3f48bbd1c15f32b529fe7eeb5a
     pristine_git_object: 95354007d143e96b00e86b16a022ff0e3f9a3bae
+    deleted: true
   src/mcp-server/tools/clientsList.ts:
     id: 7292c4cd288f
     last_write_checksum: sha1:fe3a4ddcc31c80af3e802b60165e7bc4379116d2
     pristine_git_object: 22bdd44e29e176059200dd93a3f87408b3a97aec
+    deleted: true
   src/mcp-server/tools/customersCreate.ts:
     id: 9665440f15fe
     last_write_checksum: sha1:cd2dd70a2c4c39b0dd845de54cff9f6af380e1e8
     pristine_git_object: b11d3101c6aeaa48926ee0c3cb1009414f9e888b
+    deleted: true
   src/mcp-server/tools/customersCreatePayment.ts:
     id: f8163285c64f
     last_write_checksum: sha1:70f853d01bf79e2cbbc284b282769a9416095387
     pristine_git_object: d86a94f9c909417fbb38cf81c6cea94c3cad7ff1
+    deleted: true
   src/mcp-server/tools/customersDelete.ts:
     id: 87b3b20fca48
     last_write_checksum: sha1:c3e810bef266ac8583aa6d46ebfba100fe6dfb12
     pristine_git_object: ac071ce6584bb97c366bea5b2484e874ddcbe02a
+    deleted: true
   src/mcp-server/tools/customersGet.ts:
     id: 1fef81e63ffb
     last_write_checksum: sha1:5d89a0b3c8a9c5783ae91f7f1a11c8dbb92594e8
     pristine_git_object: fe45a89b500c7eae6a32be4b06a200609deb689d
+    deleted: true
   src/mcp-server/tools/customersList.ts:
     id: 5b334953771e
     last_write_checksum: sha1:9e3a8e5327426d4342a26fdd6e986dfef539f053
     pristine_git_object: c09391aad4f1a22d9ccd67747149db3bd3c5b605
+    deleted: true
   src/mcp-server/tools/customersListPayments.ts:
     id: b9346103d8c8
     last_write_checksum: sha1:1e2d6ee69f91297b1b0781e61206c4eeba01c891
     pristine_git_object: 7d62084a53f5438237454fb567f368a25e7c754b
+    deleted: true
   src/mcp-server/tools/customersUpdate.ts:
     id: 4b033dbbb0da
     last_write_checksum: sha1:8e4230d50904ed82e7f04c72bdda1a51f212c202
     pristine_git_object: 56089146830f1c44caf162b09f53db2e714bf34e
+    deleted: true
   src/mcp-server/tools/delayedRoutingCreate.ts:
     id: da810b1ce6b2
     last_write_checksum: sha1:69096f16d70d6ad972d7e2da7298ac1cb5e9f7bf
     pristine_git_object: 91b52976524da39f4da3a9eb99d34617e95e3fac
+    deleted: true
   src/mcp-server/tools/delayedRoutingGet.ts:
     id: 03be410b37c6
     last_write_checksum: sha1:5f23f497f6b0a786c7daae519e4baf094b4bac53
     pristine_git_object: 4a41eaa6e3df90dcf34b0c72b3d0a71c60b8fae2
+    deleted: true
   src/mcp-server/tools/delayedRoutingList.ts:
     id: 66da16c1cc62
     last_write_checksum: sha1:ad5a52e53310b256ce856df681f54bd9940a5a5c
     pristine_git_object: e374cfdb3b34b035cecbda7939ab4a93800ddcc1
+    deleted: true
   src/mcp-server/tools/invoicesGet.ts:
     id: 200b9a31f0fa
     last_write_checksum: sha1:5ee8fd6c1c43bdaa9ce4c50c29a449f0672b536f
     pristine_git_object: 7c6954cb887296442e4c71b9dd80b92aba5cec54
+    deleted: true
   src/mcp-server/tools/invoicesList.ts:
     id: bd6ab9a48a89
     last_write_checksum: sha1:88a5aa519a33d3b2cfcb10bc35ab9ca747c8e5ae
     pristine_git_object: f57338c7192544f540d570b10e870c2b5e55474f
+    deleted: true
   src/mcp-server/tools/mandatesCreate.ts:
     id: cab3706cb311
     last_write_checksum: sha1:29b73b7fec2956520a5234632ac6fbefbdd4cec7
     pristine_git_object: 4c4452ead3b32e5d8c1de423d4e70615dd5bc86b
+    deleted: true
   src/mcp-server/tools/mandatesGet.ts:
     id: 2fbf6d3093ec
     last_write_checksum: sha1:878476af6cd835999ceb6d5de18850ba0768c4de
     pristine_git_object: 6f4bb3ff834678b065c93a7a65579e7d3e518b9f
+    deleted: true
   src/mcp-server/tools/mandatesList.ts:
     id: 0614ff5825f0
     last_write_checksum: sha1:8668dc58dffbe086811aa7de759f06d0ac078454
     pristine_git_object: 5ad4135a5e99cd71a29faf7070c85f4ad5f116f6
+    deleted: true
   src/mcp-server/tools/mandatesRevoke.ts:
     id: c66ff92fdc0d
     last_write_checksum: sha1:5604d8f838ef0880c546f0211b490f42a36d1e1a
     pristine_git_object: 8b182eadbb5bb04c2c87fbb3dd1ffd65ee71ea61
+    deleted: true
   src/mcp-server/tools/methodsAll.ts:
     id: fd686b5c5551
     last_write_checksum: sha1:60fd450d7baa9fc8b23774c8dcc32c30c027c24c
     pristine_git_object: 60fa4d36c0efaf9b181e59cda1aa9de440cd84db
+    deleted: true
   src/mcp-server/tools/methodsGet.ts:
     id: 44c901b56109
     last_write_checksum: sha1:d06e14d27db547f3da744a6ee40b6422fcc72892
     pristine_git_object: 958cc855478eb2999842e8a4e8c89bb5a712baa6
+    deleted: true
   src/mcp-server/tools/methodsList.ts:
     id: 1231228eb998
     last_write_checksum: sha1:76d562e7573621d53aafeba95a8c92cfe73e833f
     pristine_git_object: 71886f39c902a3ead2a98cd21341b51ed211c507
+    deleted: true
   src/mcp-server/tools/onboardingGet.ts:
     id: 3d2347c075bb
     last_write_checksum: sha1:8cb6873499d652a953849e8a713a1f90fd2f99dd
     pristine_git_object: a0ff6b8043a78652fa0cf8816df00d9f6c82f05b
+    deleted: true
   src/mcp-server/tools/onboardingSubmit.ts:
     id: 066a8d7342bf
     last_write_checksum: sha1:b288d9d2684e411ef3bffe0dd09d63f06de46462
     pristine_git_object: c7ad3b3b44d3a07677b7b66db188d75b6d487c43
+    deleted: true
   src/mcp-server/tools/organizationsGet.ts:
     id: 2d748a30a772
     last_write_checksum: sha1:c035ab2b631d98e86f7131ae1a3f745bd74c2449
     pristine_git_object: 6d8f6b8e5c55817f08816471ed693586fcbbdd81
+    deleted: true
   src/mcp-server/tools/organizationsGetCurrent.ts:
     id: 18f34d57aef5
     last_write_checksum: sha1:709e556e41c8d058e92097aceb0edd505bf8ecfb
     pristine_git_object: ddf5e1ab869ea580e8c16789ab60493c5fd8f4f5
+    deleted: true
   src/mcp-server/tools/organizationsGetPartner.ts:
     id: ac3509da500a
     last_write_checksum: sha1:2074d82115b1bb5350efaaf9629d66e35c6fb9f9
     pristine_git_object: 05d5cefe8500df412a08ebc1dc2ae1a88bf25e6c
+    deleted: true
   src/mcp-server/tools/paymentLinksCreate.ts:
     id: 66b04451a2bd
     last_write_checksum: sha1:764cbe1c29e2c534f3f4283fd27f457586068972
     pristine_git_object: 9ae8ebb8f3b20b60156c8932f228454bcc8d160b
+    deleted: true
   src/mcp-server/tools/paymentLinksDelete.ts:
     id: 25e59ef4f17b
     last_write_checksum: sha1:833acbe5d08769ca68254f331fcffafba3a77608
     pristine_git_object: 75c926031884d334acf45f56ab447203357d3a70
+    deleted: true
   src/mcp-server/tools/paymentLinksGet.ts:
     id: ce49c3a944f2
     last_write_checksum: sha1:d5098135c911c485de6ce1803e3ea82db4d8b889
     pristine_git_object: 5331ebf936af24d7d4723efb643535e554ea6b38
+    deleted: true
   src/mcp-server/tools/paymentLinksList.ts:
     id: 33acd11dd8d9
     last_write_checksum: sha1:435fe513ec4194e8189bd5cddcf0f4d64b786085
     pristine_git_object: 56c97cfa04d4b021bba79efadeb8529d762804f8
+    deleted: true
   src/mcp-server/tools/paymentLinksListPayments.ts:
     id: d8482049ecfb
     last_write_checksum: sha1:962ace420b8fa7f3427352761ddec56ee8e65538
     pristine_git_object: dc833b9fa81bd93669f244ad4f8efa3b53459df5
+    deleted: true
   src/mcp-server/tools/paymentLinksUpdate.ts:
     id: fff19e4eb731
     last_write_checksum: sha1:c521adf95b3dfa91f1b5f06c5715ec40aa920e46
     pristine_git_object: d8ef55236b372969368a734f2fd94db2707021a7
+    deleted: true
   src/mcp-server/tools/paymentsCancel.ts:
     id: c2f5d189d79b
     last_write_checksum: sha1:95324150aed789da992fd17cd2e7ad8e54f585d8
     pristine_git_object: 1a11749000715bb0e20f94a79c729c746393fea6
+    deleted: true
   src/mcp-server/tools/paymentsCreate.ts:
     id: dde0eccdd81a
     last_write_checksum: sha1:b81bb88c8c6cdd10794aaf7c745a9dd0f471a9d4
     pristine_git_object: cd5438c2239117accc3aa1eeb7e6023ea5b808d7
+    deleted: true
   src/mcp-server/tools/paymentsGet.ts:
     id: 8577f75eac37
     last_write_checksum: sha1:536dfbf50b5b9dce5c34ddd681d9fe83079292de
     pristine_git_object: 9813bad31f61adc88f2eef40d160a87525eecfd6
+    deleted: true
   src/mcp-server/tools/paymentsList.ts:
     id: 4941cb685b5d
     last_write_checksum: sha1:6d1c617c49a5c1315f8d0ef373034fb326fbb5e9
     pristine_git_object: eebb3c1ebb0102b03a100b4e22e153d06668d032
+    deleted: true
   src/mcp-server/tools/paymentsReleaseAuthorization.ts:
     id: 3048ad2f0ca2
     last_write_checksum: sha1:ecbc1d3f041ec6d4ff8515ba16c6bdd329d9cf08
     pristine_git_object: 42d7c4d6b04c86fe8427529854c0ba5f81550c84
+    deleted: true
   src/mcp-server/tools/paymentsUpdate.ts:
     id: 231fcf99443d
     last_write_checksum: sha1:bf7591fc3b1b6a5e658d8a4414aeebdcbf827bd1
     pristine_git_object: 3dde487de8976b15f19e26c5e522ad8b1aca56b3
+    deleted: true
   src/mcp-server/tools/permissionsGet.ts:
     id: 314ce0d7591f
     last_write_checksum: sha1:55b885ee4f500c60f50dea12fd22f2c60a1416a3
     pristine_git_object: d3b4068c61cfaecb6fead515f729be8940782686
+    deleted: true
   src/mcp-server/tools/permissionsList.ts:
     id: b397416aef9d
     last_write_checksum: sha1:3eebe8dfeb12da25ec3415f5b0a116c4dc78f093
     pristine_git_object: 527d34c2220f0c03031066e7e98ce47b827f5443
+    deleted: true
   src/mcp-server/tools/profilesCreate.ts:
     id: 3da98ee7583b
     last_write_checksum: sha1:c40822d3db63ef6c6e70d742c95877c94fc5b648
     pristine_git_object: e4acbb5e6602c48eee0fcc65fc284d81f4e7b7b8
+    deleted: true
   src/mcp-server/tools/profilesDelete.ts:
     id: b550f313ee7a
     last_write_checksum: sha1:698e5667f64b964afed110d1f2294553c151d4d1
     pristine_git_object: 44693f13cf0672f0db31ea2545bf8ba4bf8accde
+    deleted: true
   src/mcp-server/tools/profilesGet.ts:
     id: 67cfb99eb969
     last_write_checksum: sha1:b2f6228a28dfef8d8e9b38a35cee79412402bded
     pristine_git_object: 928afcd3c8dd18fefed427fdc61bc872f62bcd51
+    deleted: true
   src/mcp-server/tools/profilesGetCurrent.ts:
     id: c4cf8b0c8b8d
     last_write_checksum: sha1:680627bbcc9e7d820969e4f7a29225e0dc3fae24
     pristine_git_object: 689002559636564ef2a45a66082050e9176b64a7
+    deleted: true
   src/mcp-server/tools/profilesList.ts:
     id: 6eba54f26b9a
     last_write_checksum: sha1:e227642b99c70e0e717ef4c3f96cf0bb82f4e40e
     pristine_git_object: ebf19d5eb8274043a7e851fd27b62260e518a0fc
+    deleted: true
   src/mcp-server/tools/profilesUpdate.ts:
     id: c4a137b22797
     last_write_checksum: sha1:e3db45afa051e26ab2ea773a3b13c3999cc6cf07
     pristine_git_object: 0c6ef49aededae7ebeff7a3a6cdd1580bf39ad4a
+    deleted: true
   src/mcp-server/tools/refundsAll.ts:
     id: 628146034b31
     last_write_checksum: sha1:6f862d7b9c92b1518fb897830816445f242c8e1d
     pristine_git_object: 7903aa9c80e57aaad17b63116b5bc178dd6288d6
+    deleted: true
   src/mcp-server/tools/refundsCancel.ts:
     id: eb06454cfa57
     last_write_checksum: sha1:66814b53247374757aae729b4efb047da47e4108
     pristine_git_object: ee7e3e67841af0320b563841ddc3852a811df92c
+    deleted: true
   src/mcp-server/tools/refundsCreate.ts:
     id: 24966e06feda
     last_write_checksum: sha1:8567f8c0636928c4aac7e3be6e9600c524c2dfba
     pristine_git_object: ac98fefcd10779a76dc02a3a04669a122c910518
+    deleted: true
   src/mcp-server/tools/refundsGet.ts:
     id: 41dc026e3075
     last_write_checksum: sha1:5dbfd01493900bb9e4b1c0f6befb19b626766ad4
     pristine_git_object: 0daa96b2b53d4a86b62853cd5a53c368cb911d6d
+    deleted: true
   src/mcp-server/tools/refundsList.ts:
     id: 24d850829cd0
     last_write_checksum: sha1:2ea4a68fa4db5a6211555fdf0e15f432a380e925
     pristine_git_object: 66d65cc5bc2daae6479c7bc91868f340f0b03305
+    deleted: true
   src/mcp-server/tools/salesInvoicesCreate.ts:
     id: 7dd3c0c9293a
     last_write_checksum: sha1:cb9752bb241bbae380445fe9f85df7f48ecc9588
     pristine_git_object: 80898483bd4786b5536f26aa4bc882da9eae923b
+    deleted: true
   src/mcp-server/tools/salesInvoicesDelete.ts:
     id: 22d07097a3f8
     last_write_checksum: sha1:e99a79a37beff3b0cb3b033b85329643e954b02f
     pristine_git_object: bd58ac332f172fcb131e758ffc2679b677ab0208
+    deleted: true
   src/mcp-server/tools/salesInvoicesGet.ts:
     id: d71e240d4e2a
     last_write_checksum: sha1:19c6503c589068e038669ae4afa86d3fd042403b
     pristine_git_object: 58bac55ab7c19464534daeccc4cdd31dd2961536
+    deleted: true
   src/mcp-server/tools/salesInvoicesList.ts:
     id: 1911a66d2542
     last_write_checksum: sha1:756ff5ded653300b2deed355b4c156c8e2dd709d
     pristine_git_object: d420d6656efbe3d194b7705ac4372a5bf80d5724
+    deleted: true
   src/mcp-server/tools/salesInvoicesUpdate.ts:
     id: f5d5e4e078dd
     last_write_checksum: sha1:7979bf4d2f86598affb220f67448f1b0bd409d67
     pristine_git_object: c8c79ab4121a90ce1dba55ae21c9faa38255e580
+    deleted: true
   src/mcp-server/tools/sessionsCreate.ts:
     id: ff3faad9a554
     last_write_checksum: sha1:0da5b55cdee9a096a343e61ca0bb9931a51c6bc3
     pristine_git_object: e4c769692342fab16327bcd6e7a7591347b72870
+    deleted: true
   src/mcp-server/tools/sessionsGet.ts:
     id: b5a1797de8fa
     last_write_checksum: sha1:bd33c86b824f4676417d440a1a42d845c18f9cef
     pristine_git_object: f637f693fb74528f910ecd3ba538509eb5e1a4ea
+    deleted: true
   src/mcp-server/tools/settlementsGet.ts:
     id: b97b7d5e0ccb
     last_write_checksum: sha1:70d43f80237418370e96509f71bb4fe4bf70492a
     pristine_git_object: 8deb93e978a76ce8b3479b37379e81db67df8a70
+    deleted: true
   src/mcp-server/tools/settlementsGetNext.ts:
     id: 350c8c04cafb
     last_write_checksum: sha1:4d74ce93c8b2206f5929be0ac4c5624228fb894e
     pristine_git_object: 1694a87cfe2b1e252826000e35b24e7bbc4463c4
+    deleted: true
   src/mcp-server/tools/settlementsGetOpen.ts:
     id: a3ebc778d8dd
     last_write_checksum: sha1:df65e29264200b9a780025540684ffe881ac340f
     pristine_git_object: 46b5195d2738742413df4284df8b67056d85373d
+    deleted: true
   src/mcp-server/tools/settlementsList.ts:
     id: 582ad95a729e
     last_write_checksum: sha1:b6582170741c46732930f10add5edbb9f2a65594
     pristine_git_object: 7cd545aad33fc9643a71f74a8449bfa67197053c
+    deleted: true
   src/mcp-server/tools/settlementsListCaptures.ts:
     id: f882bca239c5
     last_write_checksum: sha1:1a02c4820f8e2dbd7a2d9e21cef3cb038d3fdfe7
     pristine_git_object: c7d651262e0634480576a016886a3d9708d4185d
+    deleted: true
   src/mcp-server/tools/settlementsListChargebacks.ts:
     id: f036e4d973cf
     last_write_checksum: sha1:799f2e688ce35a535c28f3121c7888d8474b5bd8
     pristine_git_object: f6191c8f418f03e74cc5b7abf03b6389d23910e2
+    deleted: true
   src/mcp-server/tools/settlementsListPayments.ts:
     id: 6e0120984e94
     last_write_checksum: sha1:a8dbeccf25e5704f436f53cb78af96491688b0c8
     pristine_git_object: f56cf4fad00574d84dee023b8a7b41dcda1a3d7c
+    deleted: true
   src/mcp-server/tools/settlementsListRefunds.ts:
     id: b551432d2889
     last_write_checksum: sha1:cd841b957b77cdb0f88efbbcfb602d973dcdff1e
     pristine_git_object: 1efa0dd61e47a222b0e85cac1fb79cc607b68dbf
+    deleted: true
   src/mcp-server/tools/subscriptionsAll.ts:
     id: 07c7fa422783
     last_write_checksum: sha1:505791b48a6607a0fb73ad1ddd8246f2b7af49e4
     pristine_git_object: accb5ab62db0d927c1777954b3739a3b846ef904
+    deleted: true
   src/mcp-server/tools/subscriptionsCancel.ts:
     id: 3bef40106015
     last_write_checksum: sha1:2c10f16157700531a5c15aa004ac5a49b808d3c6
     pristine_git_object: afb12e4bbc2a171ea4615c66b00d36e43133069f
+    deleted: true
   src/mcp-server/tools/subscriptionsCreate.ts:
     id: ad61a6e522eb
     last_write_checksum: sha1:bc3afa284aeae30b92accbf09be2e6ec2657184e
     pristine_git_object: 7358bace84e49d7320f9c369f5443c3d0c254120
+    deleted: true
   src/mcp-server/tools/subscriptionsGet.ts:
     id: cffe950f16f6
     last_write_checksum: sha1:64c332444070cf27b5e78cc444d3aa26e28529af
     pristine_git_object: 3a1b741f75650bcb4021c698f6a5e31c25b44dcc
+    deleted: true
   src/mcp-server/tools/subscriptionsList.ts:
     id: 6700445ab1d6
     last_write_checksum: sha1:ce9addf72ccead2276c44693acb430055db87563
     pristine_git_object: f6f7163d77fecf5b2cf018f2aa7b765c83789ca2
+    deleted: true
   src/mcp-server/tools/subscriptionsListPayments.ts:
     id: eb79ba0652f3
     last_write_checksum: sha1:d01f19d60782f3c265af3b5eccf315caa7a2b91f
     pristine_git_object: 35c50a07bcf3b1732fc2f44b1ec401dc8b2f70b7
+    deleted: true
   src/mcp-server/tools/subscriptionsUpdate.ts:
     id: 109b276f31b5
     last_write_checksum: sha1:3361c1623fb5d2e29f1f96c29c43f4875c2ee5e8
     pristine_git_object: 3259b86eb7485ba2884917ca9b0d7d0f8450ee0c
+    deleted: true
   src/mcp-server/tools/terminalsGet.ts:
     id: 9c7e1c2f2b22
     last_write_checksum: sha1:8cb0d334a56927e1f014c40fe4a0332ee4e42046
     pristine_git_object: d0a767057d193ab6d3091f91fb09e628b94a8c25
+    deleted: true
   src/mcp-server/tools/terminalsList.ts:
     id: b2a14977933a
     last_write_checksum: sha1:6044631c631be2dd6e332a542d86527fd6898301
     pristine_git_object: f47ca1ec460cbd4468fcbf80e9b5620efc06845b
+    deleted: true
   src/mcp-server/tools/transfersCreate.ts:
     id: 973b197c2696
     last_write_checksum: sha1:dcb5c567061a235d60abe2eec31695e5cd68527f
     pristine_git_object: 72009c43c856f41964d773d076dd0a0f44032337
+    deleted: true
   src/mcp-server/tools/transfersGet.ts:
     id: dc03b8b6e094
     last_write_checksum: sha1:01baf90e382d4e14dd866af24b24db3a66d3985a
     pristine_git_object: 6325b0a7077c41ec1f2efa1be633a0986d888876
+    deleted: true
   src/mcp-server/tools/unmatchedCreditTransfersGet.ts:
     id: 8f7d7f81d0ae
     last_write_checksum: sha1:886080dadd7b0753f55d082a27a75b06d0c9b385
     pristine_git_object: bc6c943c9165d53d078f43adc3b0dcb09a5e9cee
+    deleted: true
   src/mcp-server/tools/unmatchedCreditTransfersList.ts:
     id: 8e87d00f4b98
     last_write_checksum: sha1:bb0c02d9c386d480099789016a1df16023596844
     pristine_git_object: 228f6b7b6f9ac906632c7433aa248e8a5d9c12c8
+    deleted: true
   src/mcp-server/tools/unmatchedCreditTransfersMatch.ts:
     id: 119c1043258b
     last_write_checksum: sha1:dac830f1b47cb2efd7d93a6e1c17721c8ce74204
     pristine_git_object: fb41966c76302460355b96a73138433ca4c80c77
+    deleted: true
   src/mcp-server/tools/unmatchedCreditTransfersReturn.ts:
     id: 8cbf46735dd2
     last_write_checksum: sha1:da2c291027b08808fe427b8c21c9431809623c3a
     pristine_git_object: 440935a1e5853d9b11a02311e389cd67dbf275ab
+    deleted: true
   src/mcp-server/tools/verifyPayeesCreate.ts:
     id: b7a84eda5fc9
     last_write_checksum: sha1:7e8680f12877799ce748f23586700dcb35c7fc34
     pristine_git_object: b4dfab4f144035a69d851981ce466540615e46ec
+    deleted: true
   src/mcp-server/tools/walletsRequestApplePaySession.ts:
     id: a1fd601e4fc8
     last_write_checksum: sha1:134ec5f0e15dddc87a42919d72577be4faf20e47
     pristine_git_object: 42ace6227810c70e01573ff11c29c60e883600a3
+    deleted: true
   src/mcp-server/tools/webhookEventsGet.ts:
     id: fb4d7d7b97e1
     last_write_checksum: sha1:d3b9acf532fde3fbee35d11c11ae645368e74cad
     pristine_git_object: 8223d13713adbbfa36ffd1fdc899590ab576767f
+    deleted: true
   src/mcp-server/tools/webhooksCreate.ts:
     id: 090ef2734d01
     last_write_checksum: sha1:4cb705ac713e8a167acbd7ccc5f474593bc7ac7f
     pristine_git_object: 43707641713bed1dda2b96a36029cfd44a05bb02
+    deleted: true
   src/mcp-server/tools/webhooksDelete.ts:
     id: 199f83a1defd
     last_write_checksum: sha1:e5c73cbb7dfef3bfe99b7db89a9cc365b45e31ee
     pristine_git_object: c27428dcbd52ad05cbf03953f656fbb6a8682c57
+    deleted: true
   src/mcp-server/tools/webhooksGet.ts:
     id: fe013b01a299
     last_write_checksum: sha1:0af7709edb447b02548b83c15f0e9f86c7072730
     pristine_git_object: ce8e0ff841b9092b2e97bc954abdfe2ea2a1fecc
+    deleted: true
   src/mcp-server/tools/webhooksList.ts:
     id: 25d0869dbf78
     last_write_checksum: sha1:3d9817a8e6c4a651ccfb9c78c759ae395baab815
     pristine_git_object: 4cb4892bea743a8e4aa5f8f14dd76eb57b9d370d
+    deleted: true
   src/mcp-server/tools/webhooksTest.ts:
     id: 19b268f7c6d6
     last_write_checksum: sha1:75cc7c27c0802f6f6cbfcc65664ec208a3393979
     pristine_git_object: 7e0aa4f820eaef6db842d7c56723dc2fdebb901e
+    deleted: true
   src/mcp-server/tools/webhooksUpdate.ts:
     id: bbc8d3960f7d
     last_write_checksum: sha1:890583246ebed498ab28caf4c80b2807d5e3a7c8
     pristine_git_object: addb49e533445d26d35943e41a2207972b4464f8
+    deleted: true
   src/models/accountdetails.ts:
     id: 2517099beaa4
     last_write_checksum: sha1:60bd2680eaa100ced6960bf129d9a1f341f1cf7d
@@ -9994,12 +10117,6 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `client.unmatchedCreditTransfers.list()`: **Added**
-  * `client.unmatchedCreditTransfers.get()`: **Added**
-  * `client.unmatchedCreditTransfers.match()`: **Added**
-  * `client.unmatchedCreditTransfers.return()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
