@@ -512,6 +512,13 @@ let client = new Client({
 * [create](docs/sdks/transfers/README.md#create) - Create transfer
 * [get](docs/sdks/transfers/README.md#get) - Get transfer
 
+### [UnmatchedCreditTransfers](docs/sdks/unmatchedcredittransfers/README.md)
+
+* [list](docs/sdks/unmatchedcredittransfers/README.md#list) - List unmatched credit transfers
+* [get](docs/sdks/unmatchedcredittransfers/README.md#get) - Get unmatched credit transfer
+* [match](docs/sdks/unmatchedcredittransfers/README.md#match) - Match unmatched credit transfer
+* [return](docs/sdks/unmatchedcredittransfers/README.md#return) - Return unmatched credit transfer
+
 ### [VerifyPayees](docs/sdks/verifypayees/README.md)
 
 * [create](docs/sdks/verifypayees/README.md#create) - Verify Payee
@@ -648,6 +655,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`terminalsList`](docs/sdks/terminals/README.md#list) - List terminals
 - [`transfersCreate`](docs/sdks/transfers/README.md#create) - Create transfer
 - [`transfersGet`](docs/sdks/transfers/README.md#get) - Get transfer
+- [`unmatchedCreditTransfersGet`](docs/sdks/unmatchedcredittransfers/README.md#get) - Get unmatched credit transfer
+- [`unmatchedCreditTransfersList`](docs/sdks/unmatchedcredittransfers/README.md#list) - List unmatched credit transfers
+- [`unmatchedCreditTransfersMatch`](docs/sdks/unmatchedcredittransfers/README.md#match) - Match unmatched credit transfer
+- [`unmatchedCreditTransfersReturn`](docs/sdks/unmatchedcredittransfers/README.md#return) - Return unmatched credit transfer
 - [`verifyPayeesCreate`](docs/sdks/verifypayees/README.md#create) - Verify Payee
 - [`walletsRequestApplePaySession`](docs/sdks/wallets/README.md#requestapplepaysession) - Request Apple Pay payment session
 - [`webhookEventsGet`](docs/sdks/webhookevents/README.md#get) - Get a Webhook Event

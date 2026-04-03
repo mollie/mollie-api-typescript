@@ -1,13 +1,13 @@
-# Documentation
+# ErrorResponseDocumentation
 
 The URL to the generic Mollie API error handling guide.
 
 ## Example Usage
 
 ```typescript
-import { Documentation } from "mollie-api-typescript/models";
+import { ErrorResponseDocumentation } from "mollie-api-typescript/models";
 
-let value: Documentation = {
+let value: ErrorResponseDocumentation = {
   href: "https://docs.mollie.com/errors",
   type: "text/html",
 };

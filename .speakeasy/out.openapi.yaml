@@ -64,6 +64,8 @@ tags:
     description: Operations related to the Terminals API
   - name: Transfers API
     description: Operations related to the Transfers API
+  - name: Unmatched Credit Transfers API
+    description: Operations related to the Unmatched Credit Transfers API
   - name: Verify Payees API
     description: Operations related to the Verify Payees API
   - name: Wallets API
@@ -11684,6 +11686,302 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: payments
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+  /unmatched-credit-transfers:
+    get:
+      summary: List unmatched credit transfers
+      x-speakeasy-name-override: list
+      tags:
+        - Unmatched Credit Transfers API
+      operationId: list-unmatched-credit-transfers
+      security:
+        - apiKey: []
+        - organizationAccessToken:
+            - unmatched-credit-transfers.read
+        - oAuth:
+            - unmatched-credit-transfers.read
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in private beta, and the final specification may still change.\n\nRetrieves a list of unmatched credit transfers for the profile.\n\nThe results are paginated."
+      parameters:
+        - $ref: '#/components/parameters/list-from'
+          schema:
+            type: string
+            example: uct_abcDEFghij123456789
+        - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: A list of unmatched credit transfer objects.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
+                properties:
+                  count:
+                    $ref: '#/components/schemas/list-count'
+                  _embedded:
+                    type: object
+                    required:
+                      - unmatched-credit-transfers
+                    properties:
+                      unmatched-credit-transfers:
+                        description: An array of unmatched credit transfer objects.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/list-entity-unmatched-credit-transfer'
+                  _links:
+                    $ref: '#/components/schemas/list-links'
+              examples:
+                list-unmatched-credit-transfers-200-1:
+                  summary: A list of unmatched credit transfer objects
+                  value:
+                    count: 2
+                    _embedded:
+                      unmatched-credit-transfers:
+                        - resource: unmatched-credit-transfer
+                          id: uct_abcDEFghij123456789
+                          profileId: pfl_sampleProfileId
+                          amount:
+                            value: '10.00'
+                            currency: EUR
+                          source:
+                            format: iban
+                            accountHolderName: Jan Jansen
+                            iban: NL91ABNA0417164300
+                            bic: ABNANL2A
+                          remittanceInformation:
+                            unstructured: ''
+                            references:
+                              creditorReference: RF33678094651239
+                              endToEndId: NOTPROVIDED
+                          status: received
+                          createdAt: '2024-03-20T09:13:37+00:00'
+                          expiresAt: '2024-03-22T09:13:37+00:00'
+                          _links:
+                            documentation:
+                              href: https://docs.mollie.com/reference/get-unmatched-credit-transfer
+                              type: text/html
+                            self:
+                              href: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789
+                              type: application/hal+json
+                        - resource: unmatched-credit-transfer
+                          id: uct_987654321jiHGFEdcba
+                          profileId: pfl_sampleProfileId
+                          amount:
+                            value: '5.00'
+                            currency: EUR
+                          source:
+                            format: iban
+                            accountHolderName: Piet Pietersen
+                            iban: NL68INGB0101484658
+                            bic: INGBNL2A
+                          remittanceInformation:
+                            unstructured: ''
+                            references:
+                              creditorReference: null
+                              endToEndId: NOTPROVIDED
+                          status: matched
+                          createdAt: '2024-03-19T14:30:00+00:00'
+                          expiresAt: '2024-03-21T14:30:00+00:00'
+                          paymentIds:
+                            - tr_samplePaymentId1
+                          _links:
+                            documentation:
+                              href: https://docs.mollie.com/reference/get-unmatched-credit-transfer
+                              type: text/html
+                            self:
+                              href: https://api.mollie.com/v2/unmatched-credit-transfers/uct_987654321jiHGFEdcba
+                              type: application/hal+json
+                    _links:
+                      documentation:
+                        href: https://docs.mollie.com/reference/list-unmatched-credit-transfers
+                        type: text/html
+                      self:
+                        href: https://api.mollie.com/v2/unmatched-credit-transfers?limit=50
+                        type: application/hal+json
+                      previous: null
+                      next: null
+        '400':
+          $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/unmatched-credit-transfers \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: unmatched-credit-transfers
+  /unmatched-credit-transfers/{unmatchedCreditTransferId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-unmatched-credit-transfer-id'
+    get:
+      summary: Get unmatched credit transfer
+      x-speakeasy-name-override: get
+      tags:
+        - Unmatched Credit Transfers API
+      operationId: get-unmatched-credit-transfer
+      security:
+        - apiKey: []
+        - organizationAccessToken:
+            - unmatched-credit-transfers.read
+        - oAuth:
+            - unmatched-credit-transfers.read
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in private beta, and the final specification may still change.\n\nRetrieves a single unmatched credit transfer by its identifier."
+      responses:
+        '200':
+          description: The unmatched credit transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-unmatched-credit-transfer'
+              examples:
+                get-unmatched-credit-transfer-200-1:
+                  $ref: '#/components/examples/get-unmatched-credit-transfer'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789 \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: unmatched-credit-transfers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+  /unmatched-credit-transfers/{unmatchedCreditTransferId}/match:
+    parameters:
+      - $ref: '#/components/parameters/parent-unmatched-credit-transfer-id'
+    post:
+      summary: Match unmatched credit transfer
+      x-speakeasy-name-override: match
+      tags:
+        - Unmatched Credit Transfers API
+      operationId: match-unmatched-credit-transfer
+      security:
+        - apiKey: []
+        - organizationAccessToken:
+            - unmatched-credit-transfers.write
+        - oAuth:
+            - unmatched-credit-transfers.write
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in private beta, and the final specification may still change.\n\nMatches an unmatched credit transfer to one or more payments, settling the funds accordingly."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/unmatched-credit-transfer-match-request'
+      responses:
+        '201':
+          description: The unmatched credit transfer action object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/unmatched-credit-transfer-action-response'
+              examples:
+                match-unmatched-credit-transfer-201-1:
+                  $ref: '#/components/examples/match-unmatched-credit-transfer'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+        '422':
+          description: |-
+            The request contains issues. For example, if the amount of the unmatched
+            credit transfer does not match the amount of the payment(s).
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: Amount of the unmatched credit transfer does not match the amount of the payment(s).
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/errors
+                    type: text/html
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789/match \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM" \
+                  -H "Content-Type: application/json" \
+                  -d '{"paymentIds": ["tr_newPaYMentTOKENHere"]}'
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: unmatched-credit-transfers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+  /unmatched-credit-transfers/{unmatchedCreditTransferId}/return:
+    parameters:
+      - $ref: '#/components/parameters/parent-unmatched-credit-transfer-id'
+    post:
+      summary: Return unmatched credit transfer
+      x-speakeasy-name-override: return
+      tags:
+        - Unmatched Credit Transfers API
+      operationId: return-unmatched-credit-transfer
+      security:
+        - apiKey: []
+        - organizationAccessToken:
+            - unmatched-credit-transfers.write
+        - oAuth:
+            - unmatched-credit-transfers.write
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in private beta, and the final specification may still change.\n\nReturns an unmatched credit transfer, sending the funds back to the original sender."
+      responses:
+        '201':
+          description: The unmatched credit transfer action object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/unmatched-credit-transfer-action-response'
+              examples:
+                return-unmatched-credit-transfer-201-1:
+                  $ref: '#/components/examples/return-unmatched-credit-transfer'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789/return \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: unmatched-credit-transfers
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
   /sessions:
@@ -26561,6 +26859,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/paymentToken'
+    parent-unmatched-credit-transfer-id:
+      name: unmatchedCreditTransferId
+      description: Provide the ID of the related unmatched credit transfer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/unmatchedCreditTransferToken'
     parent-session-id:
       name: sessionId
       description: Provide the ID of the related session.
@@ -32252,6 +32557,258 @@ components:
         `country`.
 
         Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+    unmatchedCreditTransferToken:
+      type: string
+      pattern: ^uct_.+$
+      example: uct_abcDEFghij123456789
+    unmatched-credit-transfer-status:
+      type: string
+      enum:
+        - received
+        - matched
+        - returned
+        - expired
+      example: received
+      x-enumDescriptions:
+        received: The credit transfer has been received but not yet matched or returned.
+        matched: The credit transfer has been matched to one or more payments.
+        returned: The credit transfer has been returned to the sender.
+        expired: The credit transfer has expired without being matched or returned.
+      x-speakeasy-unknown-values: allow
+    entity-unmatched-credit-transfer:
+      type: object
+      required:
+        - resource
+        - id
+        - profileId
+        - amount
+        - source
+        - remittanceInformation
+        - status
+        - createdAt
+        - expiresAt
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains an unmatched credit transfer object. Will always contain the string
+            `unmatched-credit-transfer` for this endpoint.
+          readOnly: true
+          example: unmatched-credit-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/unmatchedCreditTransferToken'
+          description: The identifier uniquely referring to this unmatched credit transfer.
+          readOnly: true
+        profileId:
+          allOf:
+            - $ref: '#/components/schemas/profileToken'
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+        source:
+          type: object
+          description: Details about the sender of the credit transfer.
+          readOnly: true
+          required:
+            - format
+            - accountHolderName
+            - iban
+            - bic
+          properties:
+            format:
+              type: string
+              description: The format of the source account. Currently always `iban`.
+              example: iban
+            accountHolderName:
+              type: string
+              description: The name of the account holder who sent the unmatched credit transfer.
+              example: Jan Jansen
+            iban:
+              type: string
+              description: The IBAN of the sender's bank account.
+              example: NL91ABNA0417164300
+            bic:
+              type: string
+              description: The BIC of the sender's bank.
+              example: ABNANL2A
+        remittanceInformation:
+          type: object
+          description: Remittance information provided with the unmatched credit transfer.
+          readOnly: true
+          properties:
+            unstructured:
+              type: string
+              description: Unstructured remittance information, such as a free-text payment description.
+              example: ''
+            references:
+              type: object
+              description: Structured references provided with the unmatched credit transfer.
+              properties:
+                creditorReference:
+                  type:
+                    - string
+                    - 'null'
+                  description: The creditor reference.
+                  example: RF33678094651239
+                endToEndId:
+                  type: string
+                  description: The end-to-end identifier.
+                  example: NOTPROVIDED
+        status:
+          $ref: '#/components/schemas/unmatched-credit-transfer-status'
+          description: The status of the unmatched credit transfer.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        expiresAt:
+          type: string
+          description: |-
+            The date and time at which the unmatched credit transfer expires, in
+            [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+          readOnly: true
+          example: '2024-03-22T09:13:37+00:00'
+        paymentIds:
+          type: array
+          description: The IDs of the payments this credit transfer was matched to. Only present when the status is `matched`.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/paymentToken'
+        _links:
+          type: object
+          description: Links to related resources.
+          readOnly: true
+          properties:
+            self:
+              type: object
+              description: The URL to this unmatched credit transfer.
+              properties:
+                href:
+                  type: string
+                  example: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789
+                type:
+                  type: string
+                  example: application/hal+json
+            documentation:
+              type: object
+              description: The URL to the documentation of this endpoint.
+              properties:
+                href:
+                  type: string
+                  example: https://docs.mollie.com/reference/get-unmatched-credit-transfer
+                type:
+                  type: string
+                  example: text/html
+      x-speakeasy-unknown-values: allow
+    unmatched-credit-transfer-match-request:
+      type: object
+      required:
+        - paymentIds
+      properties:
+        paymentIds:
+          type: array
+          description: The IDs of the payments to match against the unmatched credit transfer.
+          items:
+            $ref: '#/components/schemas/paymentToken'
+    unmatchedCreditTransferActionToken:
+      type: string
+      pattern: ^uct-act_.+$
+      example: uct-act_xyz789
+    unmatched-credit-transfer-action-type:
+      type: string
+      enum:
+        - match
+        - return
+      x-enumDescriptions:
+        match: The unmatched credit transfer is matched to the specified payments.
+        return: The unmatched credit transfer is returned to the original sender.
+      x-speakeasy-unknown-values: allow
+    unmatched-credit-transfer-action-status:
+      type: string
+      enum:
+        - pending
+      x-enumDescriptions:
+        pending: The action has been created and is awaiting processing.
+      x-speakeasy-unknown-values: allow
+    entity-unmatched-credit-transfer-action:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: The resource type of the object.
+          readOnly: true
+          example: unmatched-credit-transfer-action
+        id:
+          allOf:
+            - $ref: '#/components/schemas/unmatchedCreditTransferActionToken'
+          description: The identifier uniquely referring to this unmatched credit transfer action.
+          readOnly: true
+        unmatchedCreditTransferId:
+          allOf:
+            - $ref: '#/components/schemas/unmatchedCreditTransferToken'
+          description: The identifier of the unmatched credit transfer this action belongs to.
+          readOnly: true
+        action:
+          allOf:
+            - $ref: '#/components/schemas/unmatched-credit-transfer-action-type'
+          description: The action performed on the unmatched credit transfer.
+          readOnly: true
+        status:
+          allOf:
+            - $ref: '#/components/schemas/unmatched-credit-transfer-action-status'
+          description: The current status of the action.
+          readOnly: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        details:
+          type: object
+          description: Additional details about the action.
+          readOnly: true
+          properties:
+            paymentIds:
+              type: array
+              description: The IDs of the payments matched to the unmatched credit transfer.
+              items:
+                $ref: '#/components/schemas/paymentToken'
+        _links:
+          type: object
+          description: Links to related resources.
+          readOnly: true
+          properties:
+            self:
+              type: object
+              description: The URL to this action.
+              properties:
+                href:
+                  type: string
+                  example: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789/match
+                type:
+                  type: string
+                  example: application/hal+json
+            documentation:
+              type: object
+              description: The URL to the documentation of this endpoint.
+              properties:
+                href:
+                  type: string
+                  example: https://docs.mollie.com/reference/match-unmatched-credit-transfer
+                type:
+                  type: string
+                  example: text/html
+      x-speakeasy-unknown-values: allow
+    unmatched-credit-transfer-action-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-unmatched-credit-transfer-action'
+        - type: object
+          required:
+            - resource
+            - id
+            - unmatchedCreditTransferId
+            - action
+            - status
+            - createdAt
+            - _links
+      x-speakeasy-unknown-values: allow
     sessionToken:
       type: string
       pattern: ^sess_.+$
@@ -37084,6 +37641,120 @@ components:
             self:
               $ref: '#/components/schemas/url'
           readOnly: true
+    list-entity-unmatched-credit-transfer:
+      type: object
+      required:
+        - resource
+        - id
+        - profileId
+        - amount
+        - source
+        - remittanceInformation
+        - status
+        - createdAt
+        - expiresAt
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains an unmatched credit transfer object. Will always contain the string
+            `unmatched-credit-transfer` for this endpoint.
+          readOnly: true
+          example: unmatched-credit-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/unmatchedCreditTransferToken'
+          description: The identifier uniquely referring to this unmatched credit transfer.
+          readOnly: true
+        profileId:
+          allOf:
+            - $ref: '#/components/schemas/profileToken'
+          readOnly: true
+        amount:
+          $ref: '#/components/schemas/amount'
+        source:
+          type: object
+          description: Details about the sender of the credit transfer.
+          readOnly: true
+          required:
+            - format
+            - accountHolderName
+            - iban
+            - bic
+          properties:
+            format:
+              type: string
+              description: The format of the source account. Currently always `iban`.
+              example: iban
+            accountHolderName:
+              type: string
+              description: The name of the account holder who sent the unmatched credit transfer.
+              example: Jan Jansen
+            iban:
+              type: string
+              description: The IBAN of the sender's bank account.
+              example: NL91ABNA0417164300
+            bic:
+              type: string
+              description: The BIC of the sender's bank.
+              example: ABNANL2A
+        remittanceInformation:
+          type: object
+          description: Remittance information provided with the unmatched credit transfer.
+          readOnly: true
+          properties:
+            unstructured:
+              type: string
+              description: Unstructured remittance information, such as a free-text payment description.
+              example: ''
+            references:
+              type: object
+              description: Structured references provided with the unmatched credit transfer.
+              properties:
+                creditorReference:
+                  type:
+                    - string
+                    - 'null'
+                  description: The creditor reference.
+                  example: RF33678094651239
+                endToEndId:
+                  type: string
+                  description: The end-to-end identifier.
+                  example: NOTPROVIDED
+        status:
+          $ref: '#/components/schemas/unmatched-credit-transfer-status'
+          description: The status of the unmatched credit transfer.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        expiresAt:
+          type: string
+          description: |-
+            The date and time at which the unmatched credit transfer expires, in
+            [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+          readOnly: true
+          example: '2024-03-22T09:13:37+00:00'
+        paymentIds:
+          type: array
+          description: The IDs of the payments this credit transfer was matched to. Only present when the status is `matched`.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/paymentToken'
+        _links:
+          type: object
+          description: Links to related resources.
+          readOnly: true
+          properties:
+            self:
+              type: object
+              description: The URL to this unmatched credit transfer.
+              properties:
+                href:
+                  type: string
+                  example: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789
+                type:
+                  type: string
+                  example: application/hal+json
     list-entity-method:
       type: object
       required:
@@ -41378,7 +42049,7 @@ components:
           example:
             status: 404
             title: Not Found
-            detail: No entity exists with token '7UhSN1zuXS'
+            detail: No entity exists with token 'uct_abcDEFghij123456789'
             _links:
               documentation:
                 href: '...'
@@ -41530,6 +42201,70 @@ components:
           documentation:
             href: '...'
             type: text/html
+    get-unmatched-credit-transfer:
+      summary: An unmatched credit transfer object
+      value:
+        resource: unmatched-credit-transfer
+        id: uct_abcDEFghij123456789
+        profileId: pfl_sampleProfileId
+        amount:
+          value: '10.00'
+          currency: EUR
+        source:
+          format: iban
+          accountHolderName: Jan Jansen
+          iban: NL91ABNA0417164300
+          bic: ABNANL2A
+        remittanceInformation:
+          unstructured: ''
+          references:
+            creditorReference: null
+            endToEndId: NOTPROVIDED
+        status: expired
+        createdAt: '2024-03-20T09:13:37+00:00'
+        expiresAt: '2024-03-22T09:13:37+00:00'
+        _links:
+          documentation:
+            href: https://docs.mollie.com/reference/get-unmatched-credit-transfer
+            type: text/html
+          self:
+            href: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789
+            type: application/hal+json
+    match-unmatched-credit-transfer:
+      summary: The unmatched credit transfer action object
+      value:
+        resource: unmatched-credit-transfer-action
+        id: uct-act_xyz789
+        unmatchedCreditTransferId: uct_abcDEFghij123456789
+        action: match
+        status: pending
+        createdAt: '2024-03-20T09:13:37+00:00'
+        details:
+          paymentIds:
+            - tr_newPaYMentTOKENHere
+        _links:
+          documentation:
+            href: https://docs.mollie.com/reference/match-unmatched-credit-transfer
+            type: text/html
+          self:
+            href: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789/match
+            type: application/hal+json
+    return-unmatched-credit-transfer:
+      summary: The unmatched credit transfer action object
+      value:
+        resource: unmatched-credit-transfer-action
+        id: uct-act_xyz789
+        unmatchedCreditTransferId: uct_abcDEFghij123456789
+        action: return
+        status: pending
+        createdAt: '2024-03-20T09:13:37+00:00'
+        _links:
+          documentation:
+            href: https://docs.mollie.com/reference/return-unmatched-credit-transfer
+            type: text/html
+          self:
+            href: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789/return
+            type: application/hal+json
     get-session:
       summary: The session object
       value:

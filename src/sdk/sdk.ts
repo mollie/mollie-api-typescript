@@ -30,6 +30,7 @@ import { Settlements } from "./settlements.js";
 import { Subscriptions } from "./subscriptions.js";
 import { Terminals } from "./terminals.js";
 import { Transfers } from "./transfers.js";
+import { UnmatchedCreditTransfers } from "./unmatchedcredittransfers.js";
 import { VerifyPayees } from "./verifypayees.js";
 import { Wallets } from "./wallets.js";
 import { WebhookEvents } from "./webhookevents.js";
@@ -104,6 +105,13 @@ export class Client extends ClientSDK {
   private _payments?: Payments;
   get payments(): Payments {
     return (this._payments ??= new Payments(this._options));
+  }
+
+  private _unmatchedCreditTransfers?: UnmatchedCreditTransfers;
+  get unmatchedCreditTransfers(): UnmatchedCreditTransfers {
+    return (this._unmatchedCreditTransfers ??= new UnmatchedCreditTransfers(
+      this._options,
+    ));
   }
 
   private _sessions?: Sessions;
