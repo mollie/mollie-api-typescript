@@ -111,6 +111,10 @@ import { tool$terminalsGet } from "./tools/terminalsGet.js";
 import { tool$terminalsList } from "./tools/terminalsList.js";
 import { tool$transfersCreate } from "./tools/transfersCreate.js";
 import { tool$transfersGet } from "./tools/transfersGet.js";
+import { tool$unmatchedCreditTransfersGet } from "./tools/unmatchedCreditTransfersGet.js";
+import { tool$unmatchedCreditTransfersList } from "./tools/unmatchedCreditTransfersList.js";
+import { tool$unmatchedCreditTransfersMatch } from "./tools/unmatchedCreditTransfersMatch.js";
+import { tool$unmatchedCreditTransfersReturn } from "./tools/unmatchedCreditTransfersReturn.js";
 import { tool$verifyPayeesCreate } from "./tools/verifyPayeesCreate.js";
 import { tool$walletsRequestApplePaySession } from "./tools/walletsRequestApplePaySession.js";
 import { tool$webhookEventsGet } from "./tools/webhookEventsGet.js";
@@ -134,7 +138,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Client",
-    version: "1.3.7",
+    version: "1.3.8",
   });
 
   const client = new ClientCore({
@@ -215,6 +219,10 @@ export function createMCPServer(deps: {
   tool(tool$paymentsUpdate);
   tool(tool$paymentsCancel);
   tool(tool$paymentsReleaseAuthorization);
+  tool(tool$unmatchedCreditTransfersList);
+  tool(tool$unmatchedCreditTransfersGet);
+  tool(tool$unmatchedCreditTransfersMatch);
+  tool(tool$unmatchedCreditTransfersReturn);
   tool(tool$sessionsCreate);
   tool(tool$sessionsGet);
   tool(tool$methodsList);

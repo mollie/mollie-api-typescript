@@ -11,7 +11,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * The URL to the generic Mollie API error handling guide.
  */
-export type Documentation = {
+export type ErrorResponseDocumentation = {
   href: string;
   type: string;
 };
@@ -20,12 +20,12 @@ export type ErrorResponseLinks = {
   /**
    * The URL to the generic Mollie API error handling guide.
    */
-  documentation: Documentation;
+  documentation: ErrorResponseDocumentation;
 };
 
 /** @internal */
-export const Documentation$inboundSchema: z.ZodType<
-  Documentation,
+export const ErrorResponseDocumentation$inboundSchema: z.ZodType<
+  ErrorResponseDocumentation,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -33,31 +33,35 @@ export const Documentation$inboundSchema: z.ZodType<
   type: z.string(),
 });
 /** @internal */
-export type Documentation$Outbound = {
+export type ErrorResponseDocumentation$Outbound = {
   href: string;
   type: string;
 };
 
 /** @internal */
-export const Documentation$outboundSchema: z.ZodType<
-  Documentation$Outbound,
+export const ErrorResponseDocumentation$outboundSchema: z.ZodType<
+  ErrorResponseDocumentation$Outbound,
   z.ZodTypeDef,
-  Documentation
+  ErrorResponseDocumentation
 > = z.object({
   href: z.string(),
   type: z.string(),
 });
 
-export function documentationToJSON(documentation: Documentation): string {
-  return JSON.stringify(Documentation$outboundSchema.parse(documentation));
+export function errorResponseDocumentationToJSON(
+  errorResponseDocumentation: ErrorResponseDocumentation,
+): string {
+  return JSON.stringify(
+    ErrorResponseDocumentation$outboundSchema.parse(errorResponseDocumentation),
+  );
 }
-export function documentationFromJSON(
+export function errorResponseDocumentationFromJSON(
   jsonString: string,
-): SafeParseResult<Documentation, SDKValidationError> {
+): SafeParseResult<ErrorResponseDocumentation, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Documentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Documentation' from JSON`,
+    (x) => ErrorResponseDocumentation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ErrorResponseDocumentation' from JSON`,
   );
 }
 
@@ -67,11 +71,11 @@ export const ErrorResponseLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  documentation: z.lazy(() => Documentation$inboundSchema),
+  documentation: z.lazy(() => ErrorResponseDocumentation$inboundSchema),
 });
 /** @internal */
 export type ErrorResponseLinks$Outbound = {
-  documentation: Documentation$Outbound;
+  documentation: ErrorResponseDocumentation$Outbound;
 };
 
 /** @internal */
@@ -80,7 +84,7 @@ export const ErrorResponseLinks$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ErrorResponseLinks
 > = z.object({
-  documentation: z.lazy(() => Documentation$outboundSchema),
+  documentation: z.lazy(() => ErrorResponseDocumentation$outboundSchema),
 });
 
 export function errorResponseLinksToJSON(
