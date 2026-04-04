@@ -12,29 +12,12 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
   AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
 } from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * This optional field will contain the approximate amount that will be settled to your account, converted to the
@@ -174,31 +157,7 @@ export const ListCaptureResponseSettlementAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListCaptureResponseSettlementAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListCaptureResponseSettlementAmount$outboundSchema: z.ZodType<
-  ListCaptureResponseSettlementAmount$Outbound,
-  z.ZodTypeDef,
-  ListCaptureResponseSettlementAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listCaptureResponseSettlementAmountToJSON(
-  listCaptureResponseSettlementAmount: ListCaptureResponseSettlementAmount,
-): string {
-  return JSON.stringify(
-    ListCaptureResponseSettlementAmount$outboundSchema.parse(
-      listCaptureResponseSettlementAmount,
-    ),
-  );
-}
 export function listCaptureResponseSettlementAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCaptureResponseSettlementAmount, SDKValidationError> {
@@ -216,12 +175,6 @@ export const ListCaptureResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ListCaptureResponseStatus);
-/** @internal */
-export const ListCaptureResponseStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ListCaptureResponseStatus
-> = openEnums.outboundSchema(ListCaptureResponseStatus);
 
 /** @internal */
 export const ListCaptureResponseLinks$inboundSchema: z.ZodType<
@@ -234,33 +187,7 @@ export const ListCaptureResponseLinks$inboundSchema: z.ZodType<
   settlement: z.nullable(UrlNullable$inboundSchema).optional(),
   shipment: z.nullable(UrlNullable$inboundSchema).optional(),
 });
-/** @internal */
-export type ListCaptureResponseLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-  settlement?: UrlNullable$Outbound | null | undefined;
-  shipment?: UrlNullable$Outbound | null | undefined;
-};
 
-/** @internal */
-export const ListCaptureResponseLinks$outboundSchema: z.ZodType<
-  ListCaptureResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ListCaptureResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-  settlement: z.nullable(UrlNullable$outboundSchema).optional(),
-  shipment: z.nullable(UrlNullable$outboundSchema).optional(),
-});
-
-export function listCaptureResponseLinksToJSON(
-  listCaptureResponseLinks: ListCaptureResponseLinks,
-): string {
-  return JSON.stringify(
-    ListCaptureResponseLinks$outboundSchema.parse(listCaptureResponseLinks),
-  );
-}
 export function listCaptureResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCaptureResponseLinks, SDKValidationError> {
@@ -297,60 +224,7 @@ export const ListCaptureResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListCaptureResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  description?: string | undefined;
-  amount: AmountNullable$Outbound | null;
-  settlementAmount?:
-    | ListCaptureResponseSettlementAmount$Outbound
-    | null
-    | undefined;
-  status: string;
-  metadata?: Metadata$Outbound | null | undefined;
-  paymentId: string;
-  shipmentId?: string | null | undefined;
-  settlementId?: string | null | undefined;
-  createdAt: string;
-  _links: ListCaptureResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ListCaptureResponse$outboundSchema: z.ZodType<
-  ListCaptureResponse$Outbound,
-  z.ZodTypeDef,
-  ListCaptureResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  description: z.string().optional(),
-  amount: z.nullable(AmountNullable$outboundSchema),
-  settlementAmount: z.nullable(
-    z.lazy(() => ListCaptureResponseSettlementAmount$outboundSchema),
-  ).optional(),
-  status: ListCaptureResponseStatus$outboundSchema,
-  metadata: z.nullable(Metadata$outboundSchema).optional(),
-  paymentId: z.string(),
-  shipmentId: z.nullable(z.string()).optional(),
-  settlementId: z.nullable(z.string()).optional(),
-  createdAt: z.string(),
-  links: z.lazy(() => ListCaptureResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listCaptureResponseToJSON(
-  listCaptureResponse: ListCaptureResponse,
-): string {
-  return JSON.stringify(
-    ListCaptureResponse$outboundSchema.parse(listCaptureResponse),
-  );
-}
 export function listCaptureResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCaptureResponse, SDKValidationError> {

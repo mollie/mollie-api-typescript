@@ -22,10 +22,6 @@ export type SalesInvoicePaymentDetailsSource = ClosedEnum<
 >;
 
 /** @internal */
-export const SalesInvoicePaymentDetailsSource$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoicePaymentDetailsSource
-> = z.nativeEnum(SalesInvoicePaymentDetailsSource);
-/** @internal */
 export const SalesInvoicePaymentDetailsSource$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoicePaymentDetailsSource
-> = SalesInvoicePaymentDetailsSource$inboundSchema;
+> = z.nativeEnum(SalesInvoicePaymentDetailsSource);

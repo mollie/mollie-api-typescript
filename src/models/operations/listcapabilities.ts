@@ -41,18 +41,6 @@ export type ListCapabilitiesResponse = {
 };
 
 /** @internal */
-export const ListCapabilitiesRequest$inboundSchema: z.ZodType<
-  ListCapabilitiesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListCapabilitiesRequest$Outbound = {
   "idempotency-key"?: string | undefined;
 };
@@ -77,15 +65,6 @@ export function listCapabilitiesRequestToJSON(
     ListCapabilitiesRequest$outboundSchema.parse(listCapabilitiesRequest),
   );
 }
-export function listCapabilitiesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListCapabilitiesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListCapabilitiesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListCapabilitiesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListCapabilitiesEmbedded$inboundSchema: z.ZodType<
@@ -95,27 +74,7 @@ export const ListCapabilitiesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   capabilities: z.array(models.EntityCapability$inboundSchema),
 });
-/** @internal */
-export type ListCapabilitiesEmbedded$Outbound = {
-  capabilities: Array<models.EntityCapability$Outbound>;
-};
 
-/** @internal */
-export const ListCapabilitiesEmbedded$outboundSchema: z.ZodType<
-  ListCapabilitiesEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListCapabilitiesEmbedded
-> = z.object({
-  capabilities: z.array(models.EntityCapability$outboundSchema),
-});
-
-export function listCapabilitiesEmbeddedToJSON(
-  listCapabilitiesEmbedded: ListCapabilitiesEmbedded,
-): string {
-  return JSON.stringify(
-    ListCapabilitiesEmbedded$outboundSchema.parse(listCapabilitiesEmbedded),
-  );
-}
 export function listCapabilitiesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapabilitiesEmbedded, SDKValidationError> {
@@ -134,27 +93,7 @@ export const ListCapabilitiesLinks$inboundSchema: z.ZodType<
 > = z.object({
   documentation: models.Url$inboundSchema.optional(),
 });
-/** @internal */
-export type ListCapabilitiesLinks$Outbound = {
-  documentation?: models.Url$Outbound | undefined;
-};
 
-/** @internal */
-export const ListCapabilitiesLinks$outboundSchema: z.ZodType<
-  ListCapabilitiesLinks$Outbound,
-  z.ZodTypeDef,
-  ListCapabilitiesLinks
-> = z.object({
-  documentation: models.Url$outboundSchema.optional(),
-});
-
-export function listCapabilitiesLinksToJSON(
-  listCapabilitiesLinks: ListCapabilitiesLinks,
-): string {
-  return JSON.stringify(
-    ListCapabilitiesLinks$outboundSchema.parse(listCapabilitiesLinks),
-  );
-}
 export function listCapabilitiesLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapabilitiesLinks, SDKValidationError> {
@@ -180,36 +119,7 @@ export const ListCapabilitiesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListCapabilitiesResponse$Outbound = {
-  count: number;
-  _embedded: ListCapabilitiesEmbedded$Outbound;
-  _links: ListCapabilitiesLinks$Outbound;
-};
 
-/** @internal */
-export const ListCapabilitiesResponse$outboundSchema: z.ZodType<
-  ListCapabilitiesResponse$Outbound,
-  z.ZodTypeDef,
-  ListCapabilitiesResponse
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListCapabilitiesEmbedded$outboundSchema),
-  links: z.lazy(() => ListCapabilitiesLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listCapabilitiesResponseToJSON(
-  listCapabilitiesResponse: ListCapabilitiesResponse,
-): string {
-  return JSON.stringify(
-    ListCapabilitiesResponse$outboundSchema.parse(listCapabilitiesResponse),
-  );
-}
 export function listCapabilitiesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCapabilitiesResponse, SDKValidationError> {

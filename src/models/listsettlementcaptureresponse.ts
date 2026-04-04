@@ -10,38 +10,19 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
   AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
 } from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
 import {
   SettlementCaptureStatus,
   SettlementCaptureStatus$inboundSchema,
-  SettlementCaptureStatus$outboundSchema,
 } from "./settlementcapturestatus.js";
 import {
   SettlementMode,
   SettlementMode$inboundSchema,
-  SettlementMode$outboundSchema,
 } from "./settlementmode.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * This optional field will contain the approximate amount that will be settled to your account, converted to the
@@ -173,33 +154,7 @@ export const ListSettlementCaptureResponseSettlementAmount$inboundSchema:
     currency: z.string(),
     value: z.string(),
   });
-/** @internal */
-export type ListSettlementCaptureResponseSettlementAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListSettlementCaptureResponseSettlementAmount$outboundSchema:
-  z.ZodType<
-    ListSettlementCaptureResponseSettlementAmount$Outbound,
-    z.ZodTypeDef,
-    ListSettlementCaptureResponseSettlementAmount
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
-
-export function listSettlementCaptureResponseSettlementAmountToJSON(
-  listSettlementCaptureResponseSettlementAmount:
-    ListSettlementCaptureResponseSettlementAmount,
-): string {
-  return JSON.stringify(
-    ListSettlementCaptureResponseSettlementAmount$outboundSchema.parse(
-      listSettlementCaptureResponseSettlementAmount,
-    ),
-  );
-}
 export function listSettlementCaptureResponseSettlementAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -227,35 +182,7 @@ export const ListSettlementCaptureResponseLinks$inboundSchema: z.ZodType<
   settlement: z.nullable(UrlNullable$inboundSchema).optional(),
   shipment: z.nullable(UrlNullable$inboundSchema).optional(),
 });
-/** @internal */
-export type ListSettlementCaptureResponseLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-  settlement?: UrlNullable$Outbound | null | undefined;
-  shipment?: UrlNullable$Outbound | null | undefined;
-};
 
-/** @internal */
-export const ListSettlementCaptureResponseLinks$outboundSchema: z.ZodType<
-  ListSettlementCaptureResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ListSettlementCaptureResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-  settlement: z.nullable(UrlNullable$outboundSchema).optional(),
-  shipment: z.nullable(UrlNullable$outboundSchema).optional(),
-});
-
-export function listSettlementCaptureResponseLinksToJSON(
-  listSettlementCaptureResponseLinks: ListSettlementCaptureResponseLinks,
-): string {
-  return JSON.stringify(
-    ListSettlementCaptureResponseLinks$outboundSchema.parse(
-      listSettlementCaptureResponseLinks,
-    ),
-  );
-}
 export function listSettlementCaptureResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementCaptureResponseLinks, SDKValidationError> {
@@ -293,62 +220,7 @@ export const ListSettlementCaptureResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListSettlementCaptureResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  description?: string | undefined;
-  amount: AmountNullable$Outbound | null;
-  settlementAmount?:
-    | ListSettlementCaptureResponseSettlementAmount$Outbound
-    | null
-    | undefined;
-  status: string;
-  metadata?: Metadata$Outbound | null | undefined;
-  paymentId: string;
-  shipmentId?: string | null | undefined;
-  settlementId?: string | null | undefined;
-  createdAt: string;
-  _links: ListSettlementCaptureResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ListSettlementCaptureResponse$outboundSchema: z.ZodType<
-  ListSettlementCaptureResponse$Outbound,
-  z.ZodTypeDef,
-  ListSettlementCaptureResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: SettlementMode$outboundSchema,
-  description: z.string().optional(),
-  amount: z.nullable(AmountNullable$outboundSchema),
-  settlementAmount: z.nullable(
-    z.lazy(() => ListSettlementCaptureResponseSettlementAmount$outboundSchema),
-  ).optional(),
-  status: SettlementCaptureStatus$outboundSchema,
-  metadata: z.nullable(Metadata$outboundSchema).optional(),
-  paymentId: z.string(),
-  shipmentId: z.nullable(z.string()).optional(),
-  settlementId: z.nullable(z.string()).optional(),
-  createdAt: z.string(),
-  links: z.lazy(() => ListSettlementCaptureResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listSettlementCaptureResponseToJSON(
-  listSettlementCaptureResponse: ListSettlementCaptureResponse,
-): string {
-  return JSON.stringify(
-    ListSettlementCaptureResponse$outboundSchema.parse(
-      listSettlementCaptureResponse,
-    ),
-  );
-}
 export function listSettlementCaptureResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementCaptureResponse, SDKValidationError> {

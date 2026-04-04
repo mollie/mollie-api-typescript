@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type RevokeMandateRequestBody = {
   /**
@@ -39,14 +36,6 @@ export type RevokeMandateRequest = {
 };
 
 /** @internal */
-export const RevokeMandateRequestBody$inboundSchema: z.ZodType<
-  RevokeMandateRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type RevokeMandateRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
 };
@@ -67,32 +56,7 @@ export function revokeMandateRequestBodyToJSON(
     RevokeMandateRequestBody$outboundSchema.parse(revokeMandateRequestBody),
   );
 }
-export function revokeMandateRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<RevokeMandateRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RevokeMandateRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RevokeMandateRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const RevokeMandateRequest$inboundSchema: z.ZodType<
-  RevokeMandateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  mandateId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => RevokeMandateRequestBody$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type RevokeMandateRequest$Outbound = {
   customerId: string;
@@ -123,14 +87,5 @@ export function revokeMandateRequestToJSON(
 ): string {
   return JSON.stringify(
     RevokeMandateRequest$outboundSchema.parse(revokeMandateRequest),
-  );
-}
-export function revokeMandateRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<RevokeMandateRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RevokeMandateRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RevokeMandateRequest' from JSON`,
   );
 }

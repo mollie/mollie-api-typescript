@@ -7,25 +7,14 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   RouteDestinationTypeResponse,
   RouteDestinationTypeResponse$inboundSchema,
-  RouteDestinationTypeResponse$outboundSchema,
 } from "./routedestinationtyperesponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The destination of this portion of the payment.
@@ -104,31 +93,7 @@ export const EntityPaymentRouteResponseDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-/** @internal */
-export type EntityPaymentRouteResponseDestination$Outbound = {
-  type: string;
-  organizationId: string;
-};
 
-/** @internal */
-export const EntityPaymentRouteResponseDestination$outboundSchema: z.ZodType<
-  EntityPaymentRouteResponseDestination$Outbound,
-  z.ZodTypeDef,
-  EntityPaymentRouteResponseDestination
-> = z.object({
-  type: RouteDestinationTypeResponse$outboundSchema,
-  organizationId: z.string(),
-});
-
-export function entityPaymentRouteResponseDestinationToJSON(
-  entityPaymentRouteResponseDestination: EntityPaymentRouteResponseDestination,
-): string {
-  return JSON.stringify(
-    EntityPaymentRouteResponseDestination$outboundSchema.parse(
-      entityPaymentRouteResponseDestination,
-    ),
-  );
-}
 export function entityPaymentRouteResponseDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteResponseDestination, SDKValidationError> {
@@ -149,31 +114,7 @@ export const EntityPaymentRouteResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   payment: Url$inboundSchema,
 });
-/** @internal */
-export type EntityPaymentRouteResponseLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-};
 
-/** @internal */
-export const EntityPaymentRouteResponseLinks$outboundSchema: z.ZodType<
-  EntityPaymentRouteResponseLinks$Outbound,
-  z.ZodTypeDef,
-  EntityPaymentRouteResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-});
-
-export function entityPaymentRouteResponseLinksToJSON(
-  entityPaymentRouteResponseLinks: EntityPaymentRouteResponseLinks,
-): string {
-  return JSON.stringify(
-    EntityPaymentRouteResponseLinks$outboundSchema.parse(
-      entityPaymentRouteResponseLinks,
-    ),
-  );
-}
 export function entityPaymentRouteResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteResponseLinks, SDKValidationError> {
@@ -205,47 +146,7 @@ export const EntityPaymentRouteResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityPaymentRouteResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  amount: Amount$Outbound;
-  destination: EntityPaymentRouteResponseDestination$Outbound;
-  createdAt: string;
-  releaseDate?: string | null | undefined;
-  _links: EntityPaymentRouteResponseLinks$Outbound;
-};
 
-/** @internal */
-export const EntityPaymentRouteResponse$outboundSchema: z.ZodType<
-  EntityPaymentRouteResponse$Outbound,
-  z.ZodTypeDef,
-  EntityPaymentRouteResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  amount: Amount$outboundSchema,
-  destination: z.lazy(() =>
-    EntityPaymentRouteResponseDestination$outboundSchema
-  ),
-  createdAt: z.string(),
-  releaseDate: z.nullable(z.string()).optional(),
-  links: z.lazy(() => EntityPaymentRouteResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityPaymentRouteResponseToJSON(
-  entityPaymentRouteResponse: EntityPaymentRouteResponse,
-): string {
-  return JSON.stringify(
-    EntityPaymentRouteResponse$outboundSchema.parse(entityPaymentRouteResponse),
-  );
-}
 export function entityPaymentRouteResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPaymentRouteResponse, SDKValidationError> {

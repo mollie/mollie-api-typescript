@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 /**
@@ -159,15 +156,6 @@ export type CreatePaymentLinkRequest = {
 };
 
 /** @internal */
-export const ApplicationFee$inboundSchema: z.ZodType<
-  ApplicationFee,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: models.Amount$inboundSchema,
-  description: z.string(),
-});
-/** @internal */
 export type ApplicationFee$Outbound = {
   amount: models.Amount$Outbound;
   description: string;
@@ -186,40 +174,7 @@ export const ApplicationFee$outboundSchema: z.ZodType<
 export function applicationFeeToJSON(applicationFee: ApplicationFee): string {
   return JSON.stringify(ApplicationFee$outboundSchema.parse(applicationFee));
 }
-export function applicationFeeFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationFee, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationFee$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationFee' from JSON`,
-  );
-}
 
-/** @internal */
-export const CreatePaymentLinkRequestBody$inboundSchema: z.ZodType<
-  CreatePaymentLinkRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string(),
-  amount: z.nullable(models.AmountNullable$inboundSchema).optional(),
-  minimumAmount: z.nullable(models.AmountNullable$inboundSchema).optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  lines: z.nullable(z.array(models.PaymentLineItem$inboundSchema)).optional(),
-  billingAddress: models.PaymentAddress$inboundSchema.optional(),
-  shippingAddress: models.PaymentAddress$inboundSchema.optional(),
-  profileId: z.nullable(z.string()).optional(),
-  reusable: z.nullable(z.boolean()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$inboundSchema))
-    .optional(),
-  applicationFee: z.lazy(() => ApplicationFee$inboundSchema).optional(),
-  sequenceType: models.PaymentLinkSequenceType$inboundSchema.optional(),
-  customerId: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
 /** @internal */
 export type CreatePaymentLinkRequestBody$Outbound = {
   description: string;
@@ -274,31 +229,7 @@ export function createPaymentLinkRequestBodyToJSON(
     ),
   );
 }
-export function createPaymentLinkRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<CreatePaymentLinkRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreatePaymentLinkRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreatePaymentLinkRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const CreatePaymentLinkRequest$inboundSchema: z.ZodType<
-  CreatePaymentLinkRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => CreatePaymentLinkRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type CreatePaymentLinkRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -326,14 +257,5 @@ export function createPaymentLinkRequestToJSON(
 ): string {
   return JSON.stringify(
     CreatePaymentLinkRequest$outboundSchema.parse(createPaymentLinkRequest),
-  );
-}
-export function createPaymentLinkRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreatePaymentLinkRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreatePaymentLinkRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreatePaymentLinkRequest' from JSON`,
   );
 }

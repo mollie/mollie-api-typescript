@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ReleaseAuthorizationRequestBody = {
   /**
@@ -45,15 +42,6 @@ export type ReleaseAuthorizationRequest = {
 };
 
 /** @internal */
-export const ReleaseAuthorizationRequestBody$inboundSchema: z.ZodType<
-  ReleaseAuthorizationRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type ReleaseAuthorizationRequestBody$Outbound = {
   profileId?: string | undefined;
   testmode?: boolean | null | undefined;
@@ -78,32 +66,7 @@ export function releaseAuthorizationRequestBodyToJSON(
     ),
   );
 }
-export function releaseAuthorizationRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<ReleaseAuthorizationRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReleaseAuthorizationRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReleaseAuthorizationRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const ReleaseAuthorizationRequest$inboundSchema: z.ZodType<
-  ReleaseAuthorizationRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => ReleaseAuthorizationRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type ReleaseAuthorizationRequest$Outbound = {
   paymentId: string;
@@ -135,14 +98,5 @@ export function releaseAuthorizationRequestToJSON(
     ReleaseAuthorizationRequest$outboundSchema.parse(
       releaseAuthorizationRequest,
     ),
-  );
-}
-export function releaseAuthorizationRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ReleaseAuthorizationRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReleaseAuthorizationRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReleaseAuthorizationRequest' from JSON`,
   );
 }

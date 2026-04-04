@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetWebhookGlobals = {
   /**
@@ -42,59 +39,6 @@ export type GetWebhookRequest = {
 };
 
 /** @internal */
-export const GetWebhookGlobals$inboundSchema: z.ZodType<
-  GetWebhookGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetWebhookGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetWebhookGlobals$outboundSchema: z.ZodType<
-  GetWebhookGlobals$Outbound,
-  z.ZodTypeDef,
-  GetWebhookGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getWebhookGlobalsToJSON(
-  getWebhookGlobals: GetWebhookGlobals,
-): string {
-  return JSON.stringify(
-    GetWebhookGlobals$outboundSchema.parse(getWebhookGlobals),
-  );
-}
-export function getWebhookGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetWebhookGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetWebhookGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetWebhookGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetWebhookRequest$inboundSchema: z.ZodType<
-  GetWebhookRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  webhookId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetWebhookRequest$Outbound = {
   webhookId: string;
   testmode?: boolean | undefined;
@@ -121,14 +65,5 @@ export function getWebhookRequestToJSON(
 ): string {
   return JSON.stringify(
     GetWebhookRequest$outboundSchema.parse(getWebhookRequest),
-  );
-}
-export function getWebhookRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetWebhookRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetWebhookRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetWebhookRequest' from JSON`,
   );
 }

@@ -6,17 +6,11 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentLineTypeResponse,
   PaymentLineTypeResponse$inboundSchema,
-  PaymentLineTypeResponse$outboundSchema,
 } from "./paymentlinetyperesponse.js";
 
 export type SessionLineItemResponse = {
@@ -96,49 +90,7 @@ export const SessionLineItemResponse$inboundSchema: z.ZodType<
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
 });
-/** @internal */
-export type SessionLineItemResponse$Outbound = {
-  type?: string | undefined;
-  description: string;
-  quantity: number;
-  quantityUnit?: string | undefined;
-  unitPrice: Amount$Outbound;
-  discountAmount?: Amount$Outbound | undefined;
-  totalAmount: Amount$Outbound;
-  vatRate?: string | undefined;
-  vatAmount?: Amount$Outbound | undefined;
-  sku?: string | undefined;
-  imageUrl?: string | undefined;
-  productUrl?: string | undefined;
-};
 
-/** @internal */
-export const SessionLineItemResponse$outboundSchema: z.ZodType<
-  SessionLineItemResponse$Outbound,
-  z.ZodTypeDef,
-  SessionLineItemResponse
-> = z.object({
-  type: PaymentLineTypeResponse$outboundSchema.optional(),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: Amount$outboundSchema,
-  discountAmount: Amount$outboundSchema.optional(),
-  totalAmount: Amount$outboundSchema,
-  vatRate: z.string().optional(),
-  vatAmount: Amount$outboundSchema.optional(),
-  sku: z.string().optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-});
-
-export function sessionLineItemResponseToJSON(
-  sessionLineItemResponse: SessionLineItemResponse,
-): string {
-  return JSON.stringify(
-    SessionLineItemResponse$outboundSchema.parse(sessionLineItemResponse),
-  );
-}
 export function sessionLineItemResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SessionLineItemResponse, SDKValidationError> {

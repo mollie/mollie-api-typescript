@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateSubscriptionRequest = {
@@ -22,21 +19,6 @@ export type CreateSubscriptionRequest = {
   subscriptionRequest?: models.SubscriptionRequest | undefined;
 };
 
-/** @internal */
-export const CreateSubscriptionRequest$inboundSchema: z.ZodType<
-  CreateSubscriptionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "subscription-request": models.SubscriptionRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "subscription-request": "subscriptionRequest",
-  });
-});
 /** @internal */
 export type CreateSubscriptionRequest$Outbound = {
   customerId: string;
@@ -65,14 +47,5 @@ export function createSubscriptionRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateSubscriptionRequest$outboundSchema.parse(createSubscriptionRequest),
-  );
-}
-export function createSubscriptionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateSubscriptionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateSubscriptionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateSubscriptionRequest' from JSON`,
   );
 }

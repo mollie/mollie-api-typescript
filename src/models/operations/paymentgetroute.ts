@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PaymentGetRouteRequest = {
   /**
@@ -24,20 +21,6 @@ export type PaymentGetRouteRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const PaymentGetRouteRequest$inboundSchema: z.ZodType<
-  PaymentGetRouteRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  routeId: z.string(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type PaymentGetRouteRequest$Outbound = {
   paymentId: string;
@@ -65,14 +48,5 @@ export function paymentGetRouteRequestToJSON(
 ): string {
   return JSON.stringify(
     PaymentGetRouteRequest$outboundSchema.parse(paymentGetRouteRequest),
-  );
-}
-export function paymentGetRouteRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentGetRouteRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentGetRouteRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentGetRouteRequest' from JSON`,
   );
 }

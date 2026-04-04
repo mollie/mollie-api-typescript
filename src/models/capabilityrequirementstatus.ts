@@ -34,9 +34,3 @@ export const CapabilityRequirementStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CapabilityRequirementStatus);
-/** @internal */
-export const CapabilityRequirementStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CapabilityRequirementStatus
-> = openEnums.outboundSchema(CapabilityRequirementStatus);

@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdatePaymentLinkRequestBody = {
@@ -76,22 +73,6 @@ export type UpdatePaymentLinkRequest = {
 };
 
 /** @internal */
-export const UpdatePaymentLinkRequestBody$inboundSchema: z.ZodType<
-  UpdatePaymentLinkRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string().optional(),
-  minimumAmount: models.Amount$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$inboundSchema))
-    .optional(),
-  lines: z.nullable(z.array(models.PaymentLineItem$inboundSchema)).optional(),
-  billingAddress: models.PaymentAddress$inboundSchema.optional(),
-  shippingAddress: models.PaymentAddress$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-});
-/** @internal */
 export type UpdatePaymentLinkRequestBody$Outbound = {
   description?: string | undefined;
   minimumAmount?: models.Amount$Outbound | undefined;
@@ -129,32 +110,7 @@ export function updatePaymentLinkRequestBodyToJSON(
     ),
   );
 }
-export function updatePaymentLinkRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePaymentLinkRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePaymentLinkRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePaymentLinkRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const UpdatePaymentLinkRequest$inboundSchema: z.ZodType<
-  UpdatePaymentLinkRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentLinkId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => UpdatePaymentLinkRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type UpdatePaymentLinkRequest$Outbound = {
   paymentLinkId: string;
@@ -184,14 +140,5 @@ export function updatePaymentLinkRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdatePaymentLinkRequest$outboundSchema.parse(updatePaymentLinkRequest),
-  );
-}
-export function updatePaymentLinkRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePaymentLinkRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePaymentLinkRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePaymentLinkRequest' from JSON`,
   );
 }

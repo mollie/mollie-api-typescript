@@ -166,9 +166,6 @@ export type StatusReason = {
 export const Code$inboundSchema: z.ZodNativeEnum<typeof Code> = z.nativeEnum(
   Code,
 );
-/** @internal */
-export const Code$outboundSchema: z.ZodNativeEnum<typeof Code> =
-  Code$inboundSchema;
 
 /** @internal */
 export const StatusReason$inboundSchema: z.ZodType<
@@ -179,25 +176,7 @@ export const StatusReason$inboundSchema: z.ZodType<
   code: Code$inboundSchema,
   message: z.string(),
 });
-/** @internal */
-export type StatusReason$Outbound = {
-  code: string;
-  message: string;
-};
 
-/** @internal */
-export const StatusReason$outboundSchema: z.ZodType<
-  StatusReason$Outbound,
-  z.ZodTypeDef,
-  StatusReason
-> = z.object({
-  code: Code$outboundSchema,
-  message: z.string(),
-});
-
-export function statusReasonToJSON(statusReason: StatusReason): string {
-  return JSON.stringify(StatusReason$outboundSchema.parse(statusReason));
-}
 export function statusReasonFromJSON(
   jsonString: string,
 ): SafeParseResult<StatusReason, SDKValidationError> {

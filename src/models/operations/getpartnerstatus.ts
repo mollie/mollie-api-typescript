@@ -127,18 +127,6 @@ export type GetPartnerStatusResponse = {
 };
 
 /** @internal */
-export const GetPartnerStatusRequest$inboundSchema: z.ZodType<
-  GetPartnerStatusRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetPartnerStatusRequest$Outbound = {
   "idempotency-key"?: string | undefined;
 };
@@ -163,22 +151,10 @@ export function getPartnerStatusRequestToJSON(
     GetPartnerStatusRequest$outboundSchema.parse(getPartnerStatusRequest),
   );
 }
-export function getPartnerStatusRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPartnerStatusRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPartnerStatusRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPartnerStatusRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const PartnerType$inboundSchema: z.ZodNativeEnum<typeof PartnerType> = z
   .nativeEnum(PartnerType);
-/** @internal */
-export const PartnerType$outboundSchema: z.ZodNativeEnum<typeof PartnerType> =
-  PartnerType$inboundSchema;
 
 /** @internal */
 export const UserAgentToken$inboundSchema: z.ZodType<
@@ -190,27 +166,7 @@ export const UserAgentToken$inboundSchema: z.ZodType<
   startsAt: z.string().optional(),
   endsAt: z.nullable(z.string()).optional(),
 });
-/** @internal */
-export type UserAgentToken$Outbound = {
-  token?: string | undefined;
-  startsAt?: string | undefined;
-  endsAt?: string | null | undefined;
-};
 
-/** @internal */
-export const UserAgentToken$outboundSchema: z.ZodType<
-  UserAgentToken$Outbound,
-  z.ZodTypeDef,
-  UserAgentToken
-> = z.object({
-  token: z.string().optional(),
-  startsAt: z.string().optional(),
-  endsAt: z.nullable(z.string()).optional(),
-});
-
-export function userAgentTokenToJSON(userAgentToken: UserAgentToken): string {
-  return JSON.stringify(UserAgentToken$outboundSchema.parse(userAgentToken));
-}
 export function userAgentTokenFromJSON(
   jsonString: string,
 ): SafeParseResult<UserAgentToken, SDKValidationError> {
@@ -231,31 +187,7 @@ export const GetPartnerStatusLinks$inboundSchema: z.ZodType<
   signuplink: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-/** @internal */
-export type GetPartnerStatusLinks$Outbound = {
-  self?: models.Url$Outbound | undefined;
-  signuplink?: models.Url$Outbound | undefined;
-  documentation?: models.Url$Outbound | undefined;
-};
 
-/** @internal */
-export const GetPartnerStatusLinks$outboundSchema: z.ZodType<
-  GetPartnerStatusLinks$Outbound,
-  z.ZodTypeDef,
-  GetPartnerStatusLinks
-> = z.object({
-  self: models.Url$outboundSchema.optional(),
-  signuplink: models.Url$outboundSchema.optional(),
-  documentation: models.Url$outboundSchema.optional(),
-});
-
-export function getPartnerStatusLinksToJSON(
-  getPartnerStatusLinks: GetPartnerStatusLinks,
-): string {
-  return JSON.stringify(
-    GetPartnerStatusLinks$outboundSchema.parse(getPartnerStatusLinks),
-  );
-}
 export function getPartnerStatusLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPartnerStatusLinks, SDKValidationError> {
@@ -286,46 +218,7 @@ export const GetPartnerStatusResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type GetPartnerStatusResponse$Outbound = {
-  resource: string;
-  partnerType: string | null;
-  isCommissionPartner?: boolean | undefined;
-  userAgentTokens?: Array<UserAgentToken$Outbound> | undefined;
-  partnerContractSignedAt?: string | null | undefined;
-  partnerContractUpdateAvailable?: boolean | undefined;
-  partnerContractExpiresAt?: string | undefined;
-  _links?: GetPartnerStatusLinks$Outbound | undefined;
-};
 
-/** @internal */
-export const GetPartnerStatusResponse$outboundSchema: z.ZodType<
-  GetPartnerStatusResponse$Outbound,
-  z.ZodTypeDef,
-  GetPartnerStatusResponse
-> = z.object({
-  resource: z.string(),
-  partnerType: z.nullable(PartnerType$outboundSchema),
-  isCommissionPartner: z.boolean().optional(),
-  userAgentTokens: z.array(z.lazy(() => UserAgentToken$outboundSchema))
-    .optional(),
-  partnerContractSignedAt: z.nullable(z.string()).optional(),
-  partnerContractUpdateAvailable: z.boolean().optional(),
-  partnerContractExpiresAt: z.string().optional(),
-  links: z.lazy(() => GetPartnerStatusLinks$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function getPartnerStatusResponseToJSON(
-  getPartnerStatusResponse: GetPartnerStatusResponse,
-): string {
-  return JSON.stringify(
-    GetPartnerStatusResponse$outboundSchema.parse(getPartnerStatusResponse),
-  );
-}
 export function getPartnerStatusResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPartnerStatusResponse, SDKValidationError> {

@@ -28,10 +28,6 @@ export type SalesInvoiceRecipientLocale = ClosedEnum<
 >;
 
 /** @internal */
-export const SalesInvoiceRecipientLocale$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceRecipientLocale
-> = z.nativeEnum(SalesInvoiceRecipientLocale);
-/** @internal */
 export const SalesInvoiceRecipientLocale$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceRecipientLocale
-> = SalesInvoiceRecipientLocale$inboundSchema;
+> = z.nativeEnum(SalesInvoiceRecipientLocale);

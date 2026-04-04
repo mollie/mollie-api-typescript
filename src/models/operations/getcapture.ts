@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetCaptureGlobals = {
   /**
@@ -55,61 +52,6 @@ export type GetCaptureRequest = {
 };
 
 /** @internal */
-export const GetCaptureGlobals$inboundSchema: z.ZodType<
-  GetCaptureGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetCaptureGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetCaptureGlobals$outboundSchema: z.ZodType<
-  GetCaptureGlobals$Outbound,
-  z.ZodTypeDef,
-  GetCaptureGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getCaptureGlobalsToJSON(
-  getCaptureGlobals: GetCaptureGlobals,
-): string {
-  return JSON.stringify(
-    GetCaptureGlobals$outboundSchema.parse(getCaptureGlobals),
-  );
-}
-export function getCaptureGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCaptureGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCaptureGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCaptureGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCaptureRequest$inboundSchema: z.ZodType<
-  GetCaptureRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  captureId: z.string(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetCaptureRequest$Outbound = {
   paymentId: string;
   captureId: string;
@@ -140,14 +82,5 @@ export function getCaptureRequestToJSON(
 ): string {
   return JSON.stringify(
     GetCaptureRequest$outboundSchema.parse(getCaptureRequest),
-  );
-}
-export function getCaptureRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCaptureRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCaptureRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCaptureRequest' from JSON`,
   );
 }

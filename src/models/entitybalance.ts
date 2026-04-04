@@ -12,16 +12,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceTransferDestinationType,
   BalanceTransferDestinationType$inboundSchema,
-  BalanceTransferDestinationType$outboundSchema,
 } from "./balancetransferdestinationtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The balance's ISO 4217 currency code.
@@ -246,12 +240,6 @@ export const EntityBalanceCurrency$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntityBalanceCurrency);
-/** @internal */
-export const EntityBalanceCurrency$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntityBalanceCurrency
-> = openEnums.outboundSchema(EntityBalanceCurrency);
 
 /** @internal */
 export const EntityBalanceStatus$inboundSchema: z.ZodType<
@@ -259,12 +247,6 @@ export const EntityBalanceStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntityBalanceStatus);
-/** @internal */
-export const EntityBalanceStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntityBalanceStatus
-> = openEnums.outboundSchema(EntityBalanceStatus);
 
 /** @internal */
 export const EntityBalanceTransferFrequency$inboundSchema: z.ZodType<
@@ -272,12 +254,6 @@ export const EntityBalanceTransferFrequency$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntityBalanceTransferFrequency);
-/** @internal */
-export const EntityBalanceTransferFrequency$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntityBalanceTransferFrequency
-> = openEnums.outboundSchema(EntityBalanceTransferFrequency);
 
 /** @internal */
 export const EntityBalanceTransferThreshold$inboundSchema: z.ZodType<
@@ -288,31 +264,7 @@ export const EntityBalanceTransferThreshold$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type EntityBalanceTransferThreshold$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const EntityBalanceTransferThreshold$outboundSchema: z.ZodType<
-  EntityBalanceTransferThreshold$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceTransferThreshold
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function entityBalanceTransferThresholdToJSON(
-  entityBalanceTransferThreshold: EntityBalanceTransferThreshold,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransferThreshold$outboundSchema.parse(
-      entityBalanceTransferThreshold,
-    ),
-  );
-}
 export function entityBalanceTransferThresholdFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransferThreshold, SDKValidationError> {
@@ -333,33 +285,7 @@ export const EntityBalanceTransferDestination$inboundSchema: z.ZodType<
   bankAccount: z.string().optional(),
   beneficiaryName: z.string().optional(),
 });
-/** @internal */
-export type EntityBalanceTransferDestination$Outbound = {
-  type?: string | undefined;
-  bankAccount?: string | undefined;
-  beneficiaryName?: string | undefined;
-};
 
-/** @internal */
-export const EntityBalanceTransferDestination$outboundSchema: z.ZodType<
-  EntityBalanceTransferDestination$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceTransferDestination
-> = z.object({
-  type: BalanceTransferDestinationType$outboundSchema.optional(),
-  bankAccount: z.string().optional(),
-  beneficiaryName: z.string().optional(),
-});
-
-export function entityBalanceTransferDestinationToJSON(
-  entityBalanceTransferDestination: EntityBalanceTransferDestination,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransferDestination$outboundSchema.parse(
-      entityBalanceTransferDestination,
-    ),
-  );
-}
 export function entityBalanceTransferDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransferDestination, SDKValidationError> {
@@ -379,31 +305,7 @@ export const EntityBalanceAvailableAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type EntityBalanceAvailableAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const EntityBalanceAvailableAmount$outboundSchema: z.ZodType<
-  EntityBalanceAvailableAmount$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceAvailableAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function entityBalanceAvailableAmountToJSON(
-  entityBalanceAvailableAmount: EntityBalanceAvailableAmount,
-): string {
-  return JSON.stringify(
-    EntityBalanceAvailableAmount$outboundSchema.parse(
-      entityBalanceAvailableAmount,
-    ),
-  );
-}
 export function entityBalanceAvailableAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceAvailableAmount, SDKValidationError> {
@@ -423,29 +325,7 @@ export const EntityBalancePendingAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type EntityBalancePendingAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const EntityBalancePendingAmount$outboundSchema: z.ZodType<
-  EntityBalancePendingAmount$Outbound,
-  z.ZodTypeDef,
-  EntityBalancePendingAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function entityBalancePendingAmountToJSON(
-  entityBalancePendingAmount: EntityBalancePendingAmount,
-): string {
-  return JSON.stringify(
-    EntityBalancePendingAmount$outboundSchema.parse(entityBalancePendingAmount),
-  );
-}
 export function entityBalancePendingAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalancePendingAmount, SDKValidationError> {
@@ -465,29 +345,7 @@ export const EntityBalanceLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityBalanceLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityBalanceLinks$outboundSchema: z.ZodType<
-  EntityBalanceLinks$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function entityBalanceLinksToJSON(
-  entityBalanceLinks: EntityBalanceLinks,
-): string {
-  return JSON.stringify(
-    EntityBalanceLinks$outboundSchema.parse(entityBalanceLinks),
-  );
-}
 export function entityBalanceLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceLinks, SDKValidationError> {
@@ -526,59 +384,7 @@ export const EntityBalance$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityBalance$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  createdAt: string;
-  currency: string;
-  description: string;
-  status: string;
-  transferFrequency?: string | undefined;
-  transferThreshold?: EntityBalanceTransferThreshold$Outbound | undefined;
-  transferReference?: string | null | undefined;
-  transferDestination?:
-    | EntityBalanceTransferDestination$Outbound
-    | null
-    | undefined;
-  availableAmount: EntityBalanceAvailableAmount$Outbound;
-  pendingAmount: EntityBalancePendingAmount$Outbound;
-  _links: EntityBalanceLinks$Outbound;
-};
 
-/** @internal */
-export const EntityBalance$outboundSchema: z.ZodType<
-  EntityBalance$Outbound,
-  z.ZodTypeDef,
-  EntityBalance
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  createdAt: z.string(),
-  currency: EntityBalanceCurrency$outboundSchema,
-  description: z.string(),
-  status: EntityBalanceStatus$outboundSchema,
-  transferFrequency: EntityBalanceTransferFrequency$outboundSchema.optional(),
-  transferThreshold: z.lazy(() => EntityBalanceTransferThreshold$outboundSchema)
-    .optional(),
-  transferReference: z.nullable(z.string()).optional(),
-  transferDestination: z.nullable(
-    z.lazy(() => EntityBalanceTransferDestination$outboundSchema),
-  ).optional(),
-  availableAmount: z.lazy(() => EntityBalanceAvailableAmount$outboundSchema),
-  pendingAmount: z.lazy(() => EntityBalancePendingAmount$outboundSchema),
-  links: z.lazy(() => EntityBalanceLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityBalanceToJSON(entityBalance: EntityBalance): string {
-  return JSON.stringify(EntityBalance$outboundSchema.parse(entityBalance));
-}
 export function entityBalanceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalance, SDKValidationError> {

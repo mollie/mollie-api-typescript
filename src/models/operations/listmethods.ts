@@ -172,70 +172,6 @@ export type ListMethodsResponse = {
 };
 
 /** @internal */
-export const ListMethodsGlobals$inboundSchema: z.ZodType<
-  ListMethodsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListMethodsGlobals$Outbound = {
-  profileId?: string | undefined;
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListMethodsGlobals$outboundSchema: z.ZodType<
-  ListMethodsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListMethodsGlobals
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
-
-export function listMethodsGlobalsToJSON(
-  listMethodsGlobals: ListMethodsGlobals,
-): string {
-  return JSON.stringify(
-    ListMethodsGlobals$outboundSchema.parse(listMethodsGlobals),
-  );
-}
-export function listMethodsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMethodsRequest$inboundSchema: z.ZodType<
-  ListMethodsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sequenceType: models.SequenceType$inboundSchema.optional(),
-  locale: z.nullable(models.Locale$inboundSchema).optional(),
-  amount: models.Amount$inboundSchema.optional(),
-  resource: models.MethodResourceParameter$inboundSchema.optional(),
-  billingCountry: z.string().optional(),
-  includeWallets: models.MethodIncludeWalletsParameter$inboundSchema.optional(),
-  orderLineCategories: models.LineCategories$inboundSchema.optional(),
-  profileId: z.string().optional(),
-  include: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListMethodsRequest$Outbound = {
   sequenceType?: string | undefined;
   locale?: string | null | undefined;
@@ -281,15 +217,6 @@ export function listMethodsRequestToJSON(
     ListMethodsRequest$outboundSchema.parse(listMethodsRequest),
   );
 }
-export function listMethodsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMethodsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMethodsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMethodsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListMethodsEmbedded$inboundSchema: z.ZodType<
@@ -299,27 +226,7 @@ export const ListMethodsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   methods: z.array(models.ListEntityMethod$inboundSchema),
 });
-/** @internal */
-export type ListMethodsEmbedded$Outbound = {
-  methods: Array<models.ListEntityMethod$Outbound>;
-};
 
-/** @internal */
-export const ListMethodsEmbedded$outboundSchema: z.ZodType<
-  ListMethodsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListMethodsEmbedded
-> = z.object({
-  methods: z.array(models.ListEntityMethod$outboundSchema),
-});
-
-export function listMethodsEmbeddedToJSON(
-  listMethodsEmbedded: ListMethodsEmbedded,
-): string {
-  return JSON.stringify(
-    ListMethodsEmbedded$outboundSchema.parse(listMethodsEmbedded),
-  );
-}
 export function listMethodsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMethodsEmbedded, SDKValidationError> {
@@ -339,29 +246,7 @@ export const ListMethodsLinks$inboundSchema: z.ZodType<
   self: models.Url$inboundSchema,
   documentation: models.Url$inboundSchema,
 });
-/** @internal */
-export type ListMethodsLinks$Outbound = {
-  self: models.Url$Outbound;
-  documentation: models.Url$Outbound;
-};
 
-/** @internal */
-export const ListMethodsLinks$outboundSchema: z.ZodType<
-  ListMethodsLinks$Outbound,
-  z.ZodTypeDef,
-  ListMethodsLinks
-> = z.object({
-  self: models.Url$outboundSchema,
-  documentation: models.Url$outboundSchema,
-});
-
-export function listMethodsLinksToJSON(
-  listMethodsLinks: ListMethodsLinks,
-): string {
-  return JSON.stringify(
-    ListMethodsLinks$outboundSchema.parse(listMethodsLinks),
-  );
-}
 export function listMethodsLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMethodsLinks, SDKValidationError> {
@@ -387,36 +272,7 @@ export const ListMethodsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListMethodsResponse$Outbound = {
-  count: number;
-  _embedded: ListMethodsEmbedded$Outbound;
-  _links: ListMethodsLinks$Outbound;
-};
 
-/** @internal */
-export const ListMethodsResponse$outboundSchema: z.ZodType<
-  ListMethodsResponse$Outbound,
-  z.ZodTypeDef,
-  ListMethodsResponse
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListMethodsEmbedded$outboundSchema),
-  links: z.lazy(() => ListMethodsLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listMethodsResponseToJSON(
-  listMethodsResponse: ListMethodsResponse,
-): string {
-  return JSON.stringify(
-    ListMethodsResponse$outboundSchema.parse(listMethodsResponse),
-  );
-}
 export function listMethodsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMethodsResponse, SDKValidationError> {

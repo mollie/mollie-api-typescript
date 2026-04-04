@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type MatchUnmatchedCreditTransferRequest = {
@@ -24,23 +21,6 @@ export type MatchUnmatchedCreditTransferRequest = {
     | undefined;
 };
 
-/** @internal */
-export const MatchUnmatchedCreditTransferRequest$inboundSchema: z.ZodType<
-  MatchUnmatchedCreditTransferRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  unmatchedCreditTransferId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "unmatched-credit-transfer-match-request": models
-    .UnmatchedCreditTransferMatchRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "unmatched-credit-transfer-match-request":
-      "unmatchedCreditTransferMatchRequest",
-  });
-});
 /** @internal */
 export type MatchUnmatchedCreditTransferRequest$Outbound = {
   unmatchedCreditTransferId: string;
@@ -75,15 +55,5 @@ export function matchUnmatchedCreditTransferRequestToJSON(
     MatchUnmatchedCreditTransferRequest$outboundSchema.parse(
       matchUnmatchedCreditTransferRequest,
     ),
-  );
-}
-export function matchUnmatchedCreditTransferRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<MatchUnmatchedCreditTransferRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MatchUnmatchedCreditTransferRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MatchUnmatchedCreditTransferRequest' from JSON`,
   );
 }

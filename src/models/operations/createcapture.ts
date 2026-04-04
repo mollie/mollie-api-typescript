@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateCaptureRequest = {
@@ -22,21 +19,6 @@ export type CreateCaptureRequest = {
   entityCapture?: models.EntityCapture | undefined;
 };
 
-/** @internal */
-export const CreateCaptureRequest$inboundSchema: z.ZodType<
-  CreateCaptureRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "entity-capture": models.EntityCapture$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "entity-capture": "entityCapture",
-  });
-});
 /** @internal */
 export type CreateCaptureRequest$Outbound = {
   paymentId: string;
@@ -65,14 +47,5 @@ export function createCaptureRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateCaptureRequest$outboundSchema.parse(createCaptureRequest),
-  );
-}
-export function createCaptureRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCaptureRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateCaptureRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCaptureRequest' from JSON`,
   );
 }

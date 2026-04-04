@@ -10,12 +10,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoiceRecipientLocaleResponse,
   SalesInvoiceRecipientLocaleResponse$inboundSchema,
-  SalesInvoiceRecipientLocaleResponse$outboundSchema,
 } from "./salesinvoicerecipientlocaleresponse.js";
 import {
   SalesInvoiceRecipientTypeResponse,
   SalesInvoiceRecipientTypeResponse$inboundSchema,
-  SalesInvoiceRecipientTypeResponse$outboundSchema,
 } from "./salesinvoicerecipienttyperesponse.js";
 
 export type SalesInvoiceRecipientResponse = {
@@ -123,59 +121,7 @@ export const SalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
   country: z.string(),
   locale: SalesInvoiceRecipientLocaleResponse$inboundSchema,
 });
-/** @internal */
-export type SalesInvoiceRecipientResponse$Outbound = {
-  type: string;
-  title?: string | null | undefined;
-  givenName?: string | null | undefined;
-  familyName?: string | null | undefined;
-  organizationName?: string | null | undefined;
-  organizationNumber?: string | null | undefined;
-  vatNumber?: string | null | undefined;
-  email: string;
-  phone?: string | null | undefined;
-  streetAndNumber: string;
-  streetAdditional?: string | null | undefined;
-  postalCode: string;
-  city: string;
-  region?: string | null | undefined;
-  country: string;
-  locale: string;
-};
 
-/** @internal */
-export const SalesInvoiceRecipientResponse$outboundSchema: z.ZodType<
-  SalesInvoiceRecipientResponse$Outbound,
-  z.ZodTypeDef,
-  SalesInvoiceRecipientResponse
-> = z.object({
-  type: SalesInvoiceRecipientTypeResponse$outboundSchema,
-  title: z.nullable(z.string()).optional(),
-  givenName: z.nullable(z.string()).optional(),
-  familyName: z.nullable(z.string()).optional(),
-  organizationName: z.nullable(z.string()).optional(),
-  organizationNumber: z.nullable(z.string()).optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  email: z.string(),
-  phone: z.nullable(z.string()).optional(),
-  streetAndNumber: z.string(),
-  streetAdditional: z.nullable(z.string()).optional(),
-  postalCode: z.string(),
-  city: z.string(),
-  region: z.nullable(z.string()).optional(),
-  country: z.string(),
-  locale: SalesInvoiceRecipientLocaleResponse$outboundSchema,
-});
-
-export function salesInvoiceRecipientResponseToJSON(
-  salesInvoiceRecipientResponse: SalesInvoiceRecipientResponse,
-): string {
-  return JSON.stringify(
-    SalesInvoiceRecipientResponse$outboundSchema.parse(
-      salesInvoiceRecipientResponse,
-    ),
-  );
-}
 export function salesInvoiceRecipientResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoiceRecipientResponse, SDKValidationError> {

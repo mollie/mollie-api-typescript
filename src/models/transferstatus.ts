@@ -30,9 +30,3 @@ export const TransferStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(TransferStatus);
-/** @internal */
-export const TransferStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  TransferStatus
-> = openEnums.outboundSchema(TransferStatus);

@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSalesInvoiceGlobals = {
   /**
@@ -44,59 +41,6 @@ export type GetSalesInvoiceRequest = {
 };
 
 /** @internal */
-export const GetSalesInvoiceGlobals$inboundSchema: z.ZodType<
-  GetSalesInvoiceGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetSalesInvoiceGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetSalesInvoiceGlobals$outboundSchema: z.ZodType<
-  GetSalesInvoiceGlobals$Outbound,
-  z.ZodTypeDef,
-  GetSalesInvoiceGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getSalesInvoiceGlobalsToJSON(
-  getSalesInvoiceGlobals: GetSalesInvoiceGlobals,
-): string {
-  return JSON.stringify(
-    GetSalesInvoiceGlobals$outboundSchema.parse(getSalesInvoiceGlobals),
-  );
-}
-export function getSalesInvoiceGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSalesInvoiceGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSalesInvoiceGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSalesInvoiceGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetSalesInvoiceRequest$inboundSchema: z.ZodType<
-  GetSalesInvoiceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  salesInvoiceId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetSalesInvoiceRequest$Outbound = {
   salesInvoiceId: string;
   testmode?: boolean | undefined;
@@ -123,14 +67,5 @@ export function getSalesInvoiceRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSalesInvoiceRequest$outboundSchema.parse(getSalesInvoiceRequest),
-  );
-}
-export function getSalesInvoiceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSalesInvoiceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSalesInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSalesInvoiceRequest' from JSON`,
   );
 }

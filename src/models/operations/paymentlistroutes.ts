@@ -87,59 +87,6 @@ export type PaymentListRoutesResponse = {
 };
 
 /** @internal */
-export const PaymentListRoutesGlobals$inboundSchema: z.ZodType<
-  PaymentListRoutesGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type PaymentListRoutesGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const PaymentListRoutesGlobals$outboundSchema: z.ZodType<
-  PaymentListRoutesGlobals$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function paymentListRoutesGlobalsToJSON(
-  paymentListRoutesGlobals: PaymentListRoutesGlobals,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesGlobals$outboundSchema.parse(paymentListRoutesGlobals),
-  );
-}
-export function paymentListRoutesGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const PaymentListRoutesRequest$inboundSchema: z.ZodType<
-  PaymentListRoutesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type PaymentListRoutesRequest$Outbound = {
   paymentId: string;
   testmode?: boolean | undefined;
@@ -168,15 +115,6 @@ export function paymentListRoutesRequestToJSON(
     PaymentListRoutesRequest$outboundSchema.parse(paymentListRoutesRequest),
   );
 }
-export function paymentListRoutesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentListRoutesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentListRoutesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentListRoutesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const PaymentListRoutesEmbedded$inboundSchema: z.ZodType<
@@ -186,27 +124,7 @@ export const PaymentListRoutesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   routes: z.array(models.ListRouteGetResponse$inboundSchema),
 });
-/** @internal */
-export type PaymentListRoutesEmbedded$Outbound = {
-  routes: Array<models.ListRouteGetResponse$Outbound>;
-};
 
-/** @internal */
-export const PaymentListRoutesEmbedded$outboundSchema: z.ZodType<
-  PaymentListRoutesEmbedded$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesEmbedded
-> = z.object({
-  routes: z.array(models.ListRouteGetResponse$outboundSchema),
-});
-
-export function paymentListRoutesEmbeddedToJSON(
-  paymentListRoutesEmbedded: PaymentListRoutesEmbedded,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesEmbedded$outboundSchema.parse(paymentListRoutesEmbedded),
-  );
-}
 export function paymentListRoutesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesEmbedded, SDKValidationError> {
@@ -226,29 +144,7 @@ export const PaymentListRoutesLinks$inboundSchema: z.ZodType<
   self: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-/** @internal */
-export type PaymentListRoutesLinks$Outbound = {
-  self?: models.Url$Outbound | undefined;
-  documentation?: models.Url$Outbound | undefined;
-};
 
-/** @internal */
-export const PaymentListRoutesLinks$outboundSchema: z.ZodType<
-  PaymentListRoutesLinks$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesLinks
-> = z.object({
-  self: models.Url$outboundSchema.optional(),
-  documentation: models.Url$outboundSchema.optional(),
-});
-
-export function paymentListRoutesLinksToJSON(
-  paymentListRoutesLinks: PaymentListRoutesLinks,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesLinks$outboundSchema.parse(paymentListRoutesLinks),
-  );
-}
 export function paymentListRoutesLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesLinks, SDKValidationError> {
@@ -274,36 +170,7 @@ export const PaymentListRoutesResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type PaymentListRoutesResponse$Outbound = {
-  count: number;
-  _embedded: PaymentListRoutesEmbedded$Outbound;
-  _links: PaymentListRoutesLinks$Outbound;
-};
 
-/** @internal */
-export const PaymentListRoutesResponse$outboundSchema: z.ZodType<
-  PaymentListRoutesResponse$Outbound,
-  z.ZodTypeDef,
-  PaymentListRoutesResponse
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => PaymentListRoutesEmbedded$outboundSchema),
-  links: z.lazy(() => PaymentListRoutesLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function paymentListRoutesResponseToJSON(
-  paymentListRoutesResponse: PaymentListRoutesResponse,
-): string {
-  return JSON.stringify(
-    PaymentListRoutesResponse$outboundSchema.parse(paymentListRoutesResponse),
-  );
-}
 export function paymentListRoutesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentListRoutesResponse, SDKValidationError> {

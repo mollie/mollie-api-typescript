@@ -21,9 +21,3 @@ export const BalanceCardRegion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(BalanceCardRegion);
-/** @internal */
-export const BalanceCardRegion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  BalanceCardRegion
-> = openEnums.outboundSchema(BalanceCardRegion);

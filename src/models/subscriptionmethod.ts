@@ -20,10 +20,6 @@ export const SubscriptionMethod = {
 export type SubscriptionMethod = ClosedEnum<typeof SubscriptionMethod>;
 
 /** @internal */
-export const SubscriptionMethod$inboundSchema: z.ZodNativeEnum<
-  typeof SubscriptionMethod
-> = z.nativeEnum(SubscriptionMethod);
-/** @internal */
 export const SubscriptionMethod$outboundSchema: z.ZodNativeEnum<
   typeof SubscriptionMethod
-> = SubscriptionMethod$inboundSchema;
+> = z.nativeEnum(SubscriptionMethod);

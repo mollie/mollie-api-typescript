@@ -9,36 +9,15 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
   AmountNullable,
   AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
 } from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  PaymentMethod,
-  PaymentMethod$inboundSchema,
-  PaymentMethod$outboundSchema,
-} from "./paymentmethod.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { PaymentMethod, PaymentMethod$inboundSchema } from "./paymentmethod.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * The status of the settlement.
@@ -258,12 +237,6 @@ export const EntitySettlementStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntitySettlementStatus);
-/** @internal */
-export const EntitySettlementStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntitySettlementStatus
-> = openEnums.outboundSchema(EntitySettlementStatus);
 
 /** @internal */
 export const EntitySettlementAmount$inboundSchema: z.ZodType<
@@ -274,29 +247,7 @@ export const EntitySettlementAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type EntitySettlementAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const EntitySettlementAmount$outboundSchema: z.ZodType<
-  EntitySettlementAmount$Outbound,
-  z.ZodTypeDef,
-  EntitySettlementAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function entitySettlementAmountToJSON(
-  entitySettlementAmount: EntitySettlementAmount,
-): string {
-  return JSON.stringify(
-    EntitySettlementAmount$outboundSchema.parse(entitySettlementAmount),
-  );
-}
 export function entitySettlementAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlementAmount, SDKValidationError> {
@@ -316,29 +267,7 @@ export const EntitySettlementRate$inboundSchema: z.ZodType<
   fixed: Amount$inboundSchema.optional(),
   percentage: z.string().optional(),
 });
-/** @internal */
-export type EntitySettlementRate$Outbound = {
-  fixed?: Amount$Outbound | undefined;
-  percentage?: string | undefined;
-};
 
-/** @internal */
-export const EntitySettlementRate$outboundSchema: z.ZodType<
-  EntitySettlementRate$Outbound,
-  z.ZodTypeDef,
-  EntitySettlementRate
-> = z.object({
-  fixed: Amount$outboundSchema.optional(),
-  percentage: z.string().optional(),
-});
-
-export function entitySettlementRateToJSON(
-  entitySettlementRate: EntitySettlementRate,
-): string {
-  return JSON.stringify(
-    EntitySettlementRate$outboundSchema.parse(entitySettlementRate),
-  );
-}
 export function entitySettlementRateFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlementRate, SDKValidationError> {
@@ -363,39 +292,7 @@ export const EntitySettlementCost$inboundSchema: z.ZodType<
   amountVat: z.nullable(AmountNullable$inboundSchema),
   amountGross: Amount$inboundSchema,
 });
-/** @internal */
-export type EntitySettlementCost$Outbound = {
-  description: string;
-  method: string | null;
-  count: number;
-  rate: EntitySettlementRate$Outbound;
-  amountNet: Amount$Outbound;
-  amountVat: AmountNullable$Outbound | null;
-  amountGross: Amount$Outbound;
-};
 
-/** @internal */
-export const EntitySettlementCost$outboundSchema: z.ZodType<
-  EntitySettlementCost$Outbound,
-  z.ZodTypeDef,
-  EntitySettlementCost
-> = z.object({
-  description: z.string(),
-  method: z.nullable(PaymentMethod$outboundSchema),
-  count: z.number().int(),
-  rate: z.lazy(() => EntitySettlementRate$outboundSchema),
-  amountNet: Amount$outboundSchema,
-  amountVat: z.nullable(AmountNullable$outboundSchema),
-  amountGross: Amount$outboundSchema,
-});
-
-export function entitySettlementCostToJSON(
-  entitySettlementCost: EntitySettlementCost,
-): string {
-  return JSON.stringify(
-    EntitySettlementCost$outboundSchema.parse(entitySettlementCost),
-  );
-}
 export function entitySettlementCostFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlementCost, SDKValidationError> {
@@ -419,37 +316,7 @@ export const EntitySettlementRevenue$inboundSchema: z.ZodType<
   amountVat: z.nullable(AmountNullable$inboundSchema),
   amountGross: Amount$inboundSchema,
 });
-/** @internal */
-export type EntitySettlementRevenue$Outbound = {
-  description: string;
-  method: string | null;
-  count: number;
-  amountNet: Amount$Outbound;
-  amountVat: AmountNullable$Outbound | null;
-  amountGross: Amount$Outbound;
-};
 
-/** @internal */
-export const EntitySettlementRevenue$outboundSchema: z.ZodType<
-  EntitySettlementRevenue$Outbound,
-  z.ZodTypeDef,
-  EntitySettlementRevenue
-> = z.object({
-  description: z.string(),
-  method: z.nullable(PaymentMethod$outboundSchema),
-  count: z.number().int(),
-  amountNet: Amount$outboundSchema,
-  amountVat: z.nullable(AmountNullable$outboundSchema),
-  amountGross: Amount$outboundSchema,
-});
-
-export function entitySettlementRevenueToJSON(
-  entitySettlementRevenue: EntitySettlementRevenue,
-): string {
-  return JSON.stringify(
-    EntitySettlementRevenue$outboundSchema.parse(entitySettlementRevenue),
-  );
-}
 export function entitySettlementRevenueFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlementRevenue, SDKValidationError> {
@@ -472,34 +339,7 @@ export const EntitySettlementPeriods$inboundSchema: z.ZodType<
   invoiceId: z.string().optional(),
   invoiceReference: z.nullable(z.string()).optional(),
 });
-/** @internal */
-export type EntitySettlementPeriods$Outbound = {
-  costs?: Array<EntitySettlementCost$Outbound> | undefined;
-  revenue?: Array<EntitySettlementRevenue$Outbound> | undefined;
-  invoiceId?: string | undefined;
-  invoiceReference?: string | null | undefined;
-};
 
-/** @internal */
-export const EntitySettlementPeriods$outboundSchema: z.ZodType<
-  EntitySettlementPeriods$Outbound,
-  z.ZodTypeDef,
-  EntitySettlementPeriods
-> = z.object({
-  costs: z.array(z.lazy(() => EntitySettlementCost$outboundSchema)).optional(),
-  revenue: z.array(z.lazy(() => EntitySettlementRevenue$outboundSchema))
-    .optional(),
-  invoiceId: z.string().optional(),
-  invoiceReference: z.nullable(z.string()).optional(),
-});
-
-export function entitySettlementPeriodsToJSON(
-  entitySettlementPeriods: EntitySettlementPeriods,
-): string {
-  return JSON.stringify(
-    EntitySettlementPeriods$outboundSchema.parse(entitySettlementPeriods),
-  );
-}
 export function entitySettlementPeriodsFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlementPeriods, SDKValidationError> {
@@ -524,39 +364,7 @@ export const EntitySettlementLinks$inboundSchema: z.ZodType<
   invoice: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntitySettlementLinks$Outbound = {
-  self: Url$Outbound;
-  payments?: Url$Outbound | undefined;
-  captures?: Url$Outbound | undefined;
-  refunds?: Url$Outbound | undefined;
-  chargebacks?: Url$Outbound | undefined;
-  invoice?: UrlNullable$Outbound | null | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntitySettlementLinks$outboundSchema: z.ZodType<
-  EntitySettlementLinks$Outbound,
-  z.ZodTypeDef,
-  EntitySettlementLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payments: Url$outboundSchema.optional(),
-  captures: Url$outboundSchema.optional(),
-  refunds: Url$outboundSchema.optional(),
-  chargebacks: Url$outboundSchema.optional(),
-  invoice: z.nullable(UrlNullable$outboundSchema).optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function entitySettlementLinksToJSON(
-  entitySettlementLinks: EntitySettlementLinks,
-): string {
-  return JSON.stringify(
-    EntitySettlementLinks$outboundSchema.parse(entitySettlementLinks),
-  );
-}
 export function entitySettlementLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlementLinks, SDKValidationError> {
@@ -591,55 +399,7 @@ export const EntitySettlement$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntitySettlement$Outbound = {
-  resource: string;
-  id: string;
-  createdAt?: string | undefined;
-  reference?: string | null | undefined;
-  settledAt?: string | null | undefined;
-  status: string;
-  amount: EntitySettlementAmount$Outbound;
-  balanceId: string;
-  invoiceId?: string | null | undefined;
-  periods?:
-    | { [k: string]: { [k: string]: EntitySettlementPeriods$Outbound } }
-    | undefined;
-  _links: EntitySettlementLinks$Outbound;
-};
 
-/** @internal */
-export const EntitySettlement$outboundSchema: z.ZodType<
-  EntitySettlement$Outbound,
-  z.ZodTypeDef,
-  EntitySettlement
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  createdAt: z.string().optional(),
-  reference: z.nullable(z.string()).optional(),
-  settledAt: z.nullable(z.string()).optional(),
-  status: EntitySettlementStatus$outboundSchema,
-  amount: z.lazy(() => EntitySettlementAmount$outboundSchema),
-  balanceId: z.string(),
-  invoiceId: z.nullable(z.string()).optional(),
-  periods: z.record(
-    z.record(z.lazy(() => EntitySettlementPeriods$outboundSchema)),
-  ).optional(),
-  links: z.lazy(() => EntitySettlementLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entitySettlementToJSON(
-  entitySettlement: EntitySettlement,
-): string {
-  return JSON.stringify(
-    EntitySettlement$outboundSchema.parse(entitySettlement),
-  );
-}
 export function entitySettlementFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitySettlement, SDKValidationError> {

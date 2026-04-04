@@ -38,9 +38,3 @@ export const OrganizationVatRegulation$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(OrganizationVatRegulation);
-/** @internal */
-export const OrganizationVatRegulation$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OrganizationVatRegulation
-> = openEnums.outboundSchema(OrganizationVatRegulation);

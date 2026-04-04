@@ -4,12 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   MandateMethod,
-  MandateMethod$inboundSchema,
   MandateMethod$outboundSchema,
 } from "./mandatemethod.js";
 
@@ -80,24 +76,6 @@ export type MandateRequest = {
 };
 
 /** @internal */
-export const MandateRequest$inboundSchema: z.ZodType<
-  MandateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  method: MandateMethod$inboundSchema,
-  consumerName: z.string(),
-  consumerAccount: z.nullable(z.string()).optional(),
-  consumerBic: z.nullable(z.string()).optional(),
-  consumerEmail: z.nullable(z.string()).optional(),
-  signatureDate: z.nullable(z.string()).optional(),
-  mandateReference: z.nullable(z.string()).optional(),
-  paypalBillingAgreementId: z.nullable(z.string()).optional(),
-  payPalVaultId: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type MandateRequest$Outbound = {
   id?: string | undefined;
   method: string;
@@ -133,13 +111,4 @@ export const MandateRequest$outboundSchema: z.ZodType<
 
 export function mandateRequestToJSON(mandateRequest: MandateRequest): string {
   return JSON.stringify(MandateRequest$outboundSchema.parse(mandateRequest));
-}
-export function mandateRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<MandateRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MandateRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MandateRequest' from JSON`,
-  );
 }

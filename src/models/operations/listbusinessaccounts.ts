@@ -87,63 +87,6 @@ export type ListBusinessAccountsResponse = {
 };
 
 /** @internal */
-export const ListBusinessAccountsGlobals$inboundSchema: z.ZodType<
-  ListBusinessAccountsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListBusinessAccountsGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListBusinessAccountsGlobals$outboundSchema: z.ZodType<
-  ListBusinessAccountsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListBusinessAccountsGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listBusinessAccountsGlobalsToJSON(
-  listBusinessAccountsGlobals: ListBusinessAccountsGlobals,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountsGlobals$outboundSchema.parse(
-      listBusinessAccountsGlobals,
-    ),
-  );
-}
-export function listBusinessAccountsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListBusinessAccountsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListBusinessAccountsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListBusinessAccountsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListBusinessAccountsRequest$inboundSchema: z.ZodType<
-  ListBusinessAccountsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListBusinessAccountsRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
@@ -178,15 +121,6 @@ export function listBusinessAccountsRequestToJSON(
     ),
   );
 }
-export function listBusinessAccountsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListBusinessAccountsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListBusinessAccountsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListBusinessAccountsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListBusinessAccountsEmbedded$inboundSchema: z.ZodType<
@@ -197,30 +131,7 @@ export const ListBusinessAccountsEmbedded$inboundSchema: z.ZodType<
   businessAccounts: z.array(models.BusinessAccountResponse$inboundSchema)
     .optional(),
 });
-/** @internal */
-export type ListBusinessAccountsEmbedded$Outbound = {
-  businessAccounts?: Array<models.BusinessAccountResponse$Outbound> | undefined;
-};
 
-/** @internal */
-export const ListBusinessAccountsEmbedded$outboundSchema: z.ZodType<
-  ListBusinessAccountsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListBusinessAccountsEmbedded
-> = z.object({
-  businessAccounts: z.array(models.BusinessAccountResponse$outboundSchema)
-    .optional(),
-});
-
-export function listBusinessAccountsEmbeddedToJSON(
-  listBusinessAccountsEmbedded: ListBusinessAccountsEmbedded,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountsEmbedded$outboundSchema.parse(
-      listBusinessAccountsEmbedded,
-    ),
-  );
-}
 export function listBusinessAccountsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBusinessAccountsEmbedded, SDKValidationError> {
@@ -244,35 +155,7 @@ export const ListBusinessAccountsResponseBody$inboundSchema: z.ZodType<
     "_embedded": "embedded",
   });
 });
-/** @internal */
-export type ListBusinessAccountsResponseBody$Outbound = {
-  count: number;
-  _embedded: ListBusinessAccountsEmbedded$Outbound;
-};
 
-/** @internal */
-export const ListBusinessAccountsResponseBody$outboundSchema: z.ZodType<
-  ListBusinessAccountsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListBusinessAccountsResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListBusinessAccountsEmbedded$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-  });
-});
-
-export function listBusinessAccountsResponseBodyToJSON(
-  listBusinessAccountsResponseBody: ListBusinessAccountsResponseBody,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountsResponseBody$outboundSchema.parse(
-      listBusinessAccountsResponseBody,
-    ),
-  );
-}
 export function listBusinessAccountsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBusinessAccountsResponseBody, SDKValidationError> {
@@ -295,33 +178,7 @@ export const ListBusinessAccountsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListBusinessAccountsResponse$Outbound = {
-  Result: ListBusinessAccountsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListBusinessAccountsResponse$outboundSchema: z.ZodType<
-  ListBusinessAccountsResponse$Outbound,
-  z.ZodTypeDef,
-  ListBusinessAccountsResponse
-> = z.object({
-  result: z.lazy(() => ListBusinessAccountsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listBusinessAccountsResponseToJSON(
-  listBusinessAccountsResponse: ListBusinessAccountsResponse,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountsResponse$outboundSchema.parse(
-      listBusinessAccountsResponse,
-    ),
-  );
-}
 export function listBusinessAccountsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBusinessAccountsResponse, SDKValidationError> {

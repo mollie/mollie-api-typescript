@@ -7,24 +7,13 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   RouteDestinationTypeResponse,
   RouteDestinationTypeResponse$inboundSchema,
-  RouteDestinationTypeResponse$outboundSchema,
 } from "./routedestinationtyperesponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The destination of the route.
@@ -105,31 +94,7 @@ export const RouteCreateResponseDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-/** @internal */
-export type RouteCreateResponseDestination$Outbound = {
-  type: string;
-  organizationId: string;
-};
 
-/** @internal */
-export const RouteCreateResponseDestination$outboundSchema: z.ZodType<
-  RouteCreateResponseDestination$Outbound,
-  z.ZodTypeDef,
-  RouteCreateResponseDestination
-> = z.object({
-  type: RouteDestinationTypeResponse$outboundSchema,
-  organizationId: z.string(),
-});
-
-export function routeCreateResponseDestinationToJSON(
-  routeCreateResponseDestination: RouteCreateResponseDestination,
-): string {
-  return JSON.stringify(
-    RouteCreateResponseDestination$outboundSchema.parse(
-      routeCreateResponseDestination,
-    ),
-  );
-}
 export function routeCreateResponseDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteCreateResponseDestination, SDKValidationError> {
@@ -150,31 +115,7 @@ export const RouteCreateResponseLinks$inboundSchema: z.ZodType<
   documentation: Url$inboundSchema,
   payment: Url$inboundSchema,
 });
-/** @internal */
-export type RouteCreateResponseLinks$Outbound = {
-  self: Url$Outbound;
-  documentation: Url$Outbound;
-  payment: Url$Outbound;
-};
 
-/** @internal */
-export const RouteCreateResponseLinks$outboundSchema: z.ZodType<
-  RouteCreateResponseLinks$Outbound,
-  z.ZodTypeDef,
-  RouteCreateResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  documentation: Url$outboundSchema,
-  payment: Url$outboundSchema,
-});
-
-export function routeCreateResponseLinksToJSON(
-  routeCreateResponseLinks: RouteCreateResponseLinks,
-): string {
-  return JSON.stringify(
-    RouteCreateResponseLinks$outboundSchema.parse(routeCreateResponseLinks),
-  );
-}
 export function routeCreateResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteCreateResponseLinks, SDKValidationError> {
@@ -204,45 +145,7 @@ export const RouteCreateResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type RouteCreateResponse$Outbound = {
-  resource: string;
-  id: string;
-  paymentId: string;
-  amount: Amount$Outbound;
-  description?: string | undefined;
-  destination: RouteCreateResponseDestination$Outbound;
-  createdAt: string;
-  _links: RouteCreateResponseLinks$Outbound;
-};
 
-/** @internal */
-export const RouteCreateResponse$outboundSchema: z.ZodType<
-  RouteCreateResponse$Outbound,
-  z.ZodTypeDef,
-  RouteCreateResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  paymentId: z.string(),
-  amount: Amount$outboundSchema,
-  description: z.string().optional(),
-  destination: z.lazy(() => RouteCreateResponseDestination$outboundSchema),
-  createdAt: z.string(),
-  links: z.lazy(() => RouteCreateResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function routeCreateResponseToJSON(
-  routeCreateResponse: RouteCreateResponse,
-): string {
-  return JSON.stringify(
-    RouteCreateResponse$outboundSchema.parse(routeCreateResponse),
-  );
-}
 export function routeCreateResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteCreateResponse, SDKValidationError> {

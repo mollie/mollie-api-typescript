@@ -61,20 +61,6 @@ export type ListProfilesResponse = {
 };
 
 /** @internal */
-export const ListProfilesRequest$inboundSchema: z.ZodType<
-  ListProfilesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListProfilesRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
@@ -103,15 +89,6 @@ export function listProfilesRequestToJSON(
     ListProfilesRequest$outboundSchema.parse(listProfilesRequest),
   );
 }
-export function listProfilesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListProfilesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListProfilesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListProfilesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListProfilesEmbedded$inboundSchema: z.ZodType<
@@ -121,27 +98,7 @@ export const ListProfilesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   profiles: z.array(models.ListProfileResponse$inboundSchema),
 });
-/** @internal */
-export type ListProfilesEmbedded$Outbound = {
-  profiles: Array<models.ListProfileResponse$Outbound>;
-};
 
-/** @internal */
-export const ListProfilesEmbedded$outboundSchema: z.ZodType<
-  ListProfilesEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListProfilesEmbedded
-> = z.object({
-  profiles: z.array(models.ListProfileResponse$outboundSchema),
-});
-
-export function listProfilesEmbeddedToJSON(
-  listProfilesEmbedded: ListProfilesEmbedded,
-): string {
-  return JSON.stringify(
-    ListProfilesEmbedded$outboundSchema.parse(listProfilesEmbedded),
-  );
-}
 export function listProfilesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListProfilesEmbedded, SDKValidationError> {
@@ -167,36 +124,7 @@ export const ListProfilesResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListProfilesResponseBody$Outbound = {
-  count: number;
-  _embedded: ListProfilesEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListProfilesResponseBody$outboundSchema: z.ZodType<
-  ListProfilesResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListProfilesResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListProfilesEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listProfilesResponseBodyToJSON(
-  listProfilesResponseBody: ListProfilesResponseBody,
-): string {
-  return JSON.stringify(
-    ListProfilesResponseBody$outboundSchema.parse(listProfilesResponseBody),
-  );
-}
 export function listProfilesResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListProfilesResponseBody, SDKValidationError> {
@@ -219,31 +147,7 @@ export const ListProfilesResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListProfilesResponse$Outbound = {
-  Result: ListProfilesResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListProfilesResponse$outboundSchema: z.ZodType<
-  ListProfilesResponse$Outbound,
-  z.ZodTypeDef,
-  ListProfilesResponse
-> = z.object({
-  result: z.lazy(() => ListProfilesResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listProfilesResponseToJSON(
-  listProfilesResponse: ListProfilesResponse,
-): string {
-  return JSON.stringify(
-    ListProfilesResponse$outboundSchema.parse(listProfilesResponse),
-  );
-}
 export function listProfilesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListProfilesResponse, SDKValidationError> {

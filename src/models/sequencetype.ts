@@ -14,8 +14,5 @@ export const SequenceType = {
 export type SequenceType = ClosedEnum<typeof SequenceType>;
 
 /** @internal */
-export const SequenceType$inboundSchema: z.ZodNativeEnum<typeof SequenceType> =
-  z.nativeEnum(SequenceType);
-/** @internal */
 export const SequenceType$outboundSchema: z.ZodNativeEnum<typeof SequenceType> =
-  SequenceType$inboundSchema;
+  z.nativeEnum(SequenceType);

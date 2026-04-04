@@ -8,63 +8,44 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   SalesInvoiceDiscountResponse,
   SalesInvoiceDiscountResponse$inboundSchema,
-  SalesInvoiceDiscountResponse$Outbound,
-  SalesInvoiceDiscountResponse$outboundSchema,
 } from "./salesinvoicediscountresponse.js";
 import {
   SalesInvoiceEmailDetails,
   SalesInvoiceEmailDetails$inboundSchema,
-  SalesInvoiceEmailDetails$Outbound,
-  SalesInvoiceEmailDetails$outboundSchema,
 } from "./salesinvoiceemaildetails.js";
 import {
   SalesInvoiceLineItemResponse,
   SalesInvoiceLineItemResponse$inboundSchema,
-  SalesInvoiceLineItemResponse$Outbound,
-  SalesInvoiceLineItemResponse$outboundSchema,
 } from "./salesinvoicelineitemresponse.js";
 import {
   SalesInvoicePaymentDetailsResponse,
   SalesInvoicePaymentDetailsResponse$inboundSchema,
-  SalesInvoicePaymentDetailsResponse$Outbound,
-  SalesInvoicePaymentDetailsResponse$outboundSchema,
 } from "./salesinvoicepaymentdetailsresponse.js";
 import {
   SalesInvoicePaymentTermResponse,
   SalesInvoicePaymentTermResponse$inboundSchema,
-  SalesInvoicePaymentTermResponse$outboundSchema,
 } from "./salesinvoicepaymenttermresponse.js";
 import {
   SalesInvoiceRecipientResponse,
   SalesInvoiceRecipientResponse$inboundSchema,
-  SalesInvoiceRecipientResponse$Outbound,
-  SalesInvoiceRecipientResponse$outboundSchema,
 } from "./salesinvoicerecipientresponse.js";
 import {
   SalesInvoiceStatusResponse,
   SalesInvoiceStatusResponse$inboundSchema,
-  SalesInvoiceStatusResponse$outboundSchema,
 } from "./salesinvoicestatusresponse.js";
 import {
   SalesInvoiceVatModeResponse,
   SalesInvoiceVatModeResponse$inboundSchema,
-  SalesInvoiceVatModeResponse$outboundSchema,
 } from "./salesinvoicevatmoderesponse.js";
 import {
   SalesInvoiceVatSchemeResponse,
   SalesInvoiceVatSchemeResponse$inboundSchema,
-  SalesInvoiceVatSchemeResponse$outboundSchema,
 } from "./salesinvoicevatschemeresponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
@@ -349,25 +330,7 @@ export const ListSalesInvoiceResponseMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-/** @internal */
-export type ListSalesInvoiceResponseMetadata$Outbound = {};
 
-/** @internal */
-export const ListSalesInvoiceResponseMetadata$outboundSchema: z.ZodType<
-  ListSalesInvoiceResponseMetadata$Outbound,
-  z.ZodTypeDef,
-  ListSalesInvoiceResponseMetadata
-> = z.object({});
-
-export function listSalesInvoiceResponseMetadataToJSON(
-  listSalesInvoiceResponseMetadata: ListSalesInvoiceResponseMetadata,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponseMetadata$outboundSchema.parse(
-      listSalesInvoiceResponseMetadata,
-    ),
-  );
-}
 export function listSalesInvoiceResponseMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoiceResponseMetadata, SDKValidationError> {
@@ -387,31 +350,7 @@ export const ListSalesInvoiceResponseAmountDue$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListSalesInvoiceResponseAmountDue$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListSalesInvoiceResponseAmountDue$outboundSchema: z.ZodType<
-  ListSalesInvoiceResponseAmountDue$Outbound,
-  z.ZodTypeDef,
-  ListSalesInvoiceResponseAmountDue
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listSalesInvoiceResponseAmountDueToJSON(
-  listSalesInvoiceResponseAmountDue: ListSalesInvoiceResponseAmountDue,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponseAmountDue$outboundSchema.parse(
-      listSalesInvoiceResponseAmountDue,
-    ),
-  );
-}
 export function listSalesInvoiceResponseAmountDueFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoiceResponseAmountDue, SDKValidationError> {
@@ -431,32 +370,7 @@ export const ListSalesInvoiceResponseSubtotalAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListSalesInvoiceResponseSubtotalAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListSalesInvoiceResponseSubtotalAmount$outboundSchema: z.ZodType<
-  ListSalesInvoiceResponseSubtotalAmount$Outbound,
-  z.ZodTypeDef,
-  ListSalesInvoiceResponseSubtotalAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listSalesInvoiceResponseSubtotalAmountToJSON(
-  listSalesInvoiceResponseSubtotalAmount:
-    ListSalesInvoiceResponseSubtotalAmount,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponseSubtotalAmount$outboundSchema.parse(
-      listSalesInvoiceResponseSubtotalAmount,
-    ),
-  );
-}
 export function listSalesInvoiceResponseSubtotalAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoiceResponseSubtotalAmount, SDKValidationError> {
@@ -477,31 +391,7 @@ export const ListSalesInvoiceResponseTotalAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListSalesInvoiceResponseTotalAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListSalesInvoiceResponseTotalAmount$outboundSchema: z.ZodType<
-  ListSalesInvoiceResponseTotalAmount$Outbound,
-  z.ZodTypeDef,
-  ListSalesInvoiceResponseTotalAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listSalesInvoiceResponseTotalAmountToJSON(
-  listSalesInvoiceResponseTotalAmount: ListSalesInvoiceResponseTotalAmount,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponseTotalAmount$outboundSchema.parse(
-      listSalesInvoiceResponseTotalAmount,
-    ),
-  );
-}
 export function listSalesInvoiceResponseTotalAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoiceResponseTotalAmount, SDKValidationError> {
@@ -522,32 +412,7 @@ export const ListSalesInvoiceResponseTotalVatAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListSalesInvoiceResponseTotalVatAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListSalesInvoiceResponseTotalVatAmount$outboundSchema: z.ZodType<
-  ListSalesInvoiceResponseTotalVatAmount$Outbound,
-  z.ZodTypeDef,
-  ListSalesInvoiceResponseTotalVatAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listSalesInvoiceResponseTotalVatAmountToJSON(
-  listSalesInvoiceResponseTotalVatAmount:
-    ListSalesInvoiceResponseTotalVatAmount,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponseTotalVatAmount$outboundSchema.parse(
-      listSalesInvoiceResponseTotalVatAmount,
-    ),
-  );
-}
 export function listSalesInvoiceResponseTotalVatAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoiceResponseTotalVatAmount, SDKValidationError> {
@@ -569,33 +434,7 @@ export const ListSalesInvoiceResponseDiscountedSubtotalAmount$inboundSchema:
     currency: z.string(),
     value: z.string(),
   });
-/** @internal */
-export type ListSalesInvoiceResponseDiscountedSubtotalAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListSalesInvoiceResponseDiscountedSubtotalAmount$outboundSchema:
-  z.ZodType<
-    ListSalesInvoiceResponseDiscountedSubtotalAmount$Outbound,
-    z.ZodTypeDef,
-    ListSalesInvoiceResponseDiscountedSubtotalAmount
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
-
-export function listSalesInvoiceResponseDiscountedSubtotalAmountToJSON(
-  listSalesInvoiceResponseDiscountedSubtotalAmount:
-    ListSalesInvoiceResponseDiscountedSubtotalAmount,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponseDiscountedSubtotalAmount$outboundSchema.parse(
-      listSalesInvoiceResponseDiscountedSubtotalAmount,
-    ),
-  );
-}
 export function listSalesInvoiceResponseDiscountedSubtotalAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -624,37 +463,7 @@ export const ListSalesInvoiceResponseLinks$inboundSchema: z.ZodType<
   next: Url$inboundSchema.optional(),
   previous: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type ListSalesInvoiceResponseLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  invoicePayment?: Url$Outbound | undefined;
-  pdfLink?: Url$Outbound | undefined;
-  next?: Url$Outbound | undefined;
-  previous?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const ListSalesInvoiceResponseLinks$outboundSchema: z.ZodType<
-  ListSalesInvoiceResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ListSalesInvoiceResponseLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  invoicePayment: Url$outboundSchema.optional(),
-  pdfLink: Url$outboundSchema.optional(),
-  next: Url$outboundSchema.optional(),
-  previous: Url$outboundSchema.optional(),
-});
-
-export function listSalesInvoiceResponseLinksToJSON(
-  listSalesInvoiceResponseLinks: ListSalesInvoiceResponseLinks,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponseLinks$outboundSchema.parse(
-      listSalesInvoiceResponseLinks,
-    ),
-  );
-}
 export function listSalesInvoiceResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoiceResponseLinks, SDKValidationError> {
@@ -718,104 +527,7 @@ export const ListSalesInvoiceResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListSalesInvoiceResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  invoiceNumber?: string | null | undefined;
-  profileId?: string | null | undefined;
-  status?: string | undefined;
-  vatScheme?: string | undefined;
-  vatMode?: string | undefined;
-  memo?: string | null | undefined;
-  metadata?: ListSalesInvoiceResponseMetadata$Outbound | null | undefined;
-  paymentTerm?: string | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetailsResponse$Outbound | undefined;
-  emailDetails?: SalesInvoiceEmailDetails$Outbound | null | undefined;
-  customerId?: string | undefined;
-  mandateId?: string | undefined;
-  recipientIdentifier?: string | undefined;
-  recipient?: SalesInvoiceRecipientResponse$Outbound | null | undefined;
-  lines?: Array<SalesInvoiceLineItemResponse$Outbound> | null | undefined;
-  discount?: SalesInvoiceDiscountResponse$Outbound | null | undefined;
-  isEInvoice?: boolean | undefined;
-  amountDue?: ListSalesInvoiceResponseAmountDue$Outbound | undefined;
-  subtotalAmount?: ListSalesInvoiceResponseSubtotalAmount$Outbound | undefined;
-  totalAmount?: ListSalesInvoiceResponseTotalAmount$Outbound | undefined;
-  totalVatAmount?: ListSalesInvoiceResponseTotalVatAmount$Outbound | undefined;
-  discountedSubtotalAmount?:
-    | ListSalesInvoiceResponseDiscountedSubtotalAmount$Outbound
-    | undefined;
-  createdAt?: string | undefined;
-  issuedAt?: string | null | undefined;
-  paidAt?: string | null | undefined;
-  dueAt?: string | null | undefined;
-  _links?: ListSalesInvoiceResponseLinks$Outbound | undefined;
-};
 
-/** @internal */
-export const ListSalesInvoiceResponse$outboundSchema: z.ZodType<
-  ListSalesInvoiceResponse$Outbound,
-  z.ZodTypeDef,
-  ListSalesInvoiceResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  invoiceNumber: z.nullable(z.string()).optional(),
-  profileId: z.nullable(z.string()).optional(),
-  status: SalesInvoiceStatusResponse$outboundSchema.optional(),
-  vatScheme: SalesInvoiceVatSchemeResponse$outboundSchema.optional(),
-  vatMode: SalesInvoiceVatModeResponse$outboundSchema.optional(),
-  memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(
-    z.lazy(() => ListSalesInvoiceResponseMetadata$outboundSchema),
-  ).optional(),
-  paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$outboundSchema)
-    .optional(),
-  paymentDetails: SalesInvoicePaymentDetailsResponse$outboundSchema.optional(),
-  emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),
-  customerId: z.string().optional(),
-  mandateId: z.string().optional(),
-  recipientIdentifier: z.string().optional(),
-  recipient: z.nullable(SalesInvoiceRecipientResponse$outboundSchema)
-    .optional(),
-  lines: z.nullable(z.array(SalesInvoiceLineItemResponse$outboundSchema))
-    .optional(),
-  discount: z.nullable(SalesInvoiceDiscountResponse$outboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
-  amountDue: z.lazy(() => ListSalesInvoiceResponseAmountDue$outboundSchema)
-    .optional(),
-  subtotalAmount: z.lazy(() =>
-    ListSalesInvoiceResponseSubtotalAmount$outboundSchema
-  ).optional(),
-  totalAmount: z.lazy(() => ListSalesInvoiceResponseTotalAmount$outboundSchema)
-    .optional(),
-  totalVatAmount: z.lazy(() =>
-    ListSalesInvoiceResponseTotalVatAmount$outboundSchema
-  ).optional(),
-  discountedSubtotalAmount: z.lazy(() =>
-    ListSalesInvoiceResponseDiscountedSubtotalAmount$outboundSchema
-  ).optional(),
-  createdAt: z.string().optional(),
-  issuedAt: z.nullable(z.string()).optional(),
-  paidAt: z.nullable(z.string()).optional(),
-  dueAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => ListSalesInvoiceResponseLinks$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listSalesInvoiceResponseToJSON(
-  listSalesInvoiceResponse: ListSalesInvoiceResponse,
-): string {
-  return JSON.stringify(
-    ListSalesInvoiceResponse$outboundSchema.parse(listSalesInvoiceResponse),
-  );
-}
 export function listSalesInvoiceResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSalesInvoiceResponse, SDKValidationError> {

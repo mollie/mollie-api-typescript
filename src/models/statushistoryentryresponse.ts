@@ -7,16 +7,10 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  StatusReason2,
-  StatusReason2$inboundSchema,
-  StatusReason2$Outbound,
-  StatusReason2$outboundSchema,
-} from "./statusreason2.js";
+import { StatusReason2, StatusReason2$inboundSchema } from "./statusreason2.js";
 import {
   TransferStatus,
   TransferStatus$inboundSchema,
-  TransferStatus$outboundSchema,
 } from "./transferstatus.js";
 
 /**
@@ -52,31 +46,7 @@ export const StatusHistoryEntryResponse$inboundSchema: z.ZodType<
   createdAt: z.string(),
   statusReason: z.nullable(StatusReason2$inboundSchema).optional(),
 });
-/** @internal */
-export type StatusHistoryEntryResponse$Outbound = {
-  status: string;
-  createdAt: string;
-  statusReason?: StatusReason2$Outbound | null | undefined;
-};
 
-/** @internal */
-export const StatusHistoryEntryResponse$outboundSchema: z.ZodType<
-  StatusHistoryEntryResponse$Outbound,
-  z.ZodTypeDef,
-  StatusHistoryEntryResponse
-> = z.object({
-  status: TransferStatus$outboundSchema,
-  createdAt: z.string(),
-  statusReason: z.nullable(StatusReason2$outboundSchema).optional(),
-});
-
-export function statusHistoryEntryResponseToJSON(
-  statusHistoryEntryResponse: StatusHistoryEntryResponse,
-): string {
-  return JSON.stringify(
-    StatusHistoryEntryResponse$outboundSchema.parse(statusHistoryEntryResponse),
-  );
-}
 export function statusHistoryEntryResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<StatusHistoryEntryResponse, SDKValidationError> {

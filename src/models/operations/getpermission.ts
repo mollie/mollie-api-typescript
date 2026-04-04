@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetPermissionGlobals = {
   /**
@@ -42,59 +39,6 @@ export type GetPermissionRequest = {
 };
 
 /** @internal */
-export const GetPermissionGlobals$inboundSchema: z.ZodType<
-  GetPermissionGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetPermissionGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetPermissionGlobals$outboundSchema: z.ZodType<
-  GetPermissionGlobals$Outbound,
-  z.ZodTypeDef,
-  GetPermissionGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getPermissionGlobalsToJSON(
-  getPermissionGlobals: GetPermissionGlobals,
-): string {
-  return JSON.stringify(
-    GetPermissionGlobals$outboundSchema.parse(getPermissionGlobals),
-  );
-}
-export function getPermissionGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPermissionGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPermissionGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPermissionGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetPermissionRequest$inboundSchema: z.ZodType<
-  GetPermissionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  permissionId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetPermissionRequest$Outbound = {
   permissionId: string;
   testmode?: boolean | undefined;
@@ -121,14 +65,5 @@ export function getPermissionRequestToJSON(
 ): string {
   return JSON.stringify(
     GetPermissionRequest$outboundSchema.parse(getPermissionRequest),
-  );
-}
-export function getPermissionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPermissionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPermissionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPermissionRequest' from JSON`,
   );
 }

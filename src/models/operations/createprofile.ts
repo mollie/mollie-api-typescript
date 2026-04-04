@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateProfileRequest = {
@@ -18,20 +15,6 @@ export type CreateProfileRequest = {
   profileRequest: models.ProfileRequest;
 };
 
-/** @internal */
-export const CreateProfileRequest$inboundSchema: z.ZodType<
-  CreateProfileRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  "profile-request": models.ProfileRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "profile-request": "profileRequest",
-  });
-});
 /** @internal */
 export type CreateProfileRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -58,14 +41,5 @@ export function createProfileRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateProfileRequest$outboundSchema.parse(createProfileRequest),
-  );
-}
-export function createProfileRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateProfileRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateProfileRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateProfileRequest' from JSON`,
   );
 }

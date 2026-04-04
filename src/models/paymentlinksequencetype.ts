@@ -15,10 +15,6 @@ export type PaymentLinkSequenceType = ClosedEnum<
 >;
 
 /** @internal */
-export const PaymentLinkSequenceType$inboundSchema: z.ZodNativeEnum<
-  typeof PaymentLinkSequenceType
-> = z.nativeEnum(PaymentLinkSequenceType);
-/** @internal */
 export const PaymentLinkSequenceType$outboundSchema: z.ZodNativeEnum<
   typeof PaymentLinkSequenceType
-> = PaymentLinkSequenceType$inboundSchema;
+> = z.nativeEnum(PaymentLinkSequenceType);

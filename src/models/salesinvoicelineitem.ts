@@ -4,18 +4,9 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   SalesInvoiceDiscount,
-  SalesInvoiceDiscount$inboundSchema,
   SalesInvoiceDiscount$Outbound,
   SalesInvoiceDiscount$outboundSchema,
 } from "./salesinvoicediscount.js";
@@ -40,18 +31,6 @@ export type SalesInvoiceLineItem = {
   discount?: SalesInvoiceDiscount | null | undefined;
 };
 
-/** @internal */
-export const SalesInvoiceLineItem$inboundSchema: z.ZodType<
-  SalesInvoiceLineItem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string(),
-  quantity: z.number().int(),
-  vatRate: z.string(),
-  unitPrice: Amount$inboundSchema,
-  discount: z.nullable(SalesInvoiceDiscount$inboundSchema).optional(),
-});
 /** @internal */
 export type SalesInvoiceLineItem$Outbound = {
   description: string;
@@ -79,14 +58,5 @@ export function salesInvoiceLineItemToJSON(
 ): string {
   return JSON.stringify(
     SalesInvoiceLineItem$outboundSchema.parse(salesInvoiceLineItem),
-  );
-}
-export function salesInvoiceLineItemFromJSON(
-  jsonString: string,
-): SafeParseResult<SalesInvoiceLineItem, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SalesInvoiceLineItem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceLineItem' from JSON`,
   );
 }

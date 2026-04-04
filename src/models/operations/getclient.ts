@@ -104,20 +104,6 @@ export type GetClientResponse = {
 };
 
 /** @internal */
-export const GetClientRequest$inboundSchema: z.ZodType<
-  GetClientRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  organizationId: z.string(),
-  embed: z.nullable(z.string()).optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetClientRequest$Outbound = {
   organizationId: string;
   embed?: string | null | undefined;
@@ -146,15 +132,6 @@ export function getClientRequestToJSON(
     GetClientRequest$outboundSchema.parse(getClientRequest),
   );
 }
-export function getClientRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetClientRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetClientRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetClientRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const GetClientCommission$inboundSchema: z.ZodType<
@@ -164,27 +141,7 @@ export const GetClientCommission$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int().optional(),
 });
-/** @internal */
-export type GetClientCommission$Outbound = {
-  count?: number | undefined;
-};
 
-/** @internal */
-export const GetClientCommission$outboundSchema: z.ZodType<
-  GetClientCommission$Outbound,
-  z.ZodTypeDef,
-  GetClientCommission
-> = z.object({
-  count: z.number().int().optional(),
-});
-
-export function getClientCommissionToJSON(
-  getClientCommission: GetClientCommission,
-): string {
-  return JSON.stringify(
-    GetClientCommission$outboundSchema.parse(getClientCommission),
-  );
-}
 export function getClientCommissionFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientCommission, SDKValidationError> {
@@ -206,29 +163,7 @@ export const GetClientLinks$inboundSchema: z.ZodType<
   onboarding: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-/** @internal */
-export type GetClientLinks$Outbound = {
-  self: models.Url$Outbound;
-  organization?: models.Url$Outbound | undefined;
-  onboarding?: models.Url$Outbound | undefined;
-  documentation?: models.Url$Outbound | undefined;
-};
 
-/** @internal */
-export const GetClientLinks$outboundSchema: z.ZodType<
-  GetClientLinks$Outbound,
-  z.ZodTypeDef,
-  GetClientLinks
-> = z.object({
-  self: models.Url$outboundSchema,
-  organization: models.Url$outboundSchema.optional(),
-  onboarding: models.Url$outboundSchema.optional(),
-  documentation: models.Url$outboundSchema.optional(),
-});
-
-export function getClientLinksToJSON(getClientLinks: GetClientLinks): string {
-  return JSON.stringify(GetClientLinks$outboundSchema.parse(getClientLinks));
-}
 export function getClientLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientLinks, SDKValidationError> {
@@ -249,31 +184,7 @@ export const GetClientEmbedded$inboundSchema: z.ZodType<
   onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
   capabilities: models.EntityCapability$inboundSchema.optional(),
 });
-/** @internal */
-export type GetClientEmbedded$Outbound = {
-  organization?: models.EntityOrganization$Outbound | undefined;
-  onboarding?: models.EntityOnboardingStatus$Outbound | undefined;
-  capabilities?: models.EntityCapability$Outbound | undefined;
-};
 
-/** @internal */
-export const GetClientEmbedded$outboundSchema: z.ZodType<
-  GetClientEmbedded$Outbound,
-  z.ZodTypeDef,
-  GetClientEmbedded
-> = z.object({
-  organization: models.EntityOrganization$outboundSchema.optional(),
-  onboarding: models.EntityOnboardingStatus$outboundSchema.optional(),
-  capabilities: models.EntityCapability$outboundSchema.optional(),
-});
-
-export function getClientEmbeddedToJSON(
-  getClientEmbedded: GetClientEmbedded,
-): string {
-  return JSON.stringify(
-    GetClientEmbedded$outboundSchema.parse(getClientEmbedded),
-  );
-}
 export function getClientEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientEmbedded, SDKValidationError> {
@@ -303,43 +214,7 @@ export const GetClientResponse$inboundSchema: z.ZodType<
     "_embedded": "embedded",
   });
 });
-/** @internal */
-export type GetClientResponse$Outbound = {
-  resource: string;
-  id: string;
-  commission?: GetClientCommission$Outbound | null | undefined;
-  organizationCreatedAt?: string | undefined;
-  _links: GetClientLinks$Outbound;
-  _embedded?: GetClientEmbedded$Outbound | undefined;
-};
 
-/** @internal */
-export const GetClientResponse$outboundSchema: z.ZodType<
-  GetClientResponse$Outbound,
-  z.ZodTypeDef,
-  GetClientResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  commission: z.nullable(z.lazy(() => GetClientCommission$outboundSchema))
-    .optional(),
-  organizationCreatedAt: z.string().optional(),
-  links: z.lazy(() => GetClientLinks$outboundSchema),
-  embedded: z.lazy(() => GetClientEmbedded$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-    embedded: "_embedded",
-  });
-});
-
-export function getClientResponseToJSON(
-  getClientResponse: GetClientResponse,
-): string {
-  return JSON.stringify(
-    GetClientResponse$outboundSchema.parse(getClientResponse),
-  );
-}
 export function getClientResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetClientResponse, SDKValidationError> {

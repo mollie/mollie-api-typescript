@@ -8,12 +8,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -64,29 +59,7 @@ export const EntityPermissionLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityPermissionLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityPermissionLinks$outboundSchema: z.ZodType<
-  EntityPermissionLinks$Outbound,
-  z.ZodTypeDef,
-  EntityPermissionLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function entityPermissionLinksToJSON(
-  entityPermissionLinks: EntityPermissionLinks,
-): string {
-  return JSON.stringify(
-    EntityPermissionLinks$outboundSchema.parse(entityPermissionLinks),
-  );
-}
 export function entityPermissionLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPermissionLinks, SDKValidationError> {
@@ -113,39 +86,7 @@ export const EntityPermission$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityPermission$Outbound = {
-  resource: string;
-  id: string;
-  description: string;
-  granted: boolean;
-  _links: EntityPermissionLinks$Outbound;
-};
 
-/** @internal */
-export const EntityPermission$outboundSchema: z.ZodType<
-  EntityPermission$Outbound,
-  z.ZodTypeDef,
-  EntityPermission
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  description: z.string(),
-  granted: z.boolean(),
-  links: z.lazy(() => EntityPermissionLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityPermissionToJSON(
-  entityPermission: EntityPermission,
-): string {
-  return JSON.stringify(
-    EntityPermission$outboundSchema.parse(entityPermission),
-  );
-}
 export function entityPermissionFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityPermission, SDKValidationError> {

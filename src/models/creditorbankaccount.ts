@@ -4,14 +4,10 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountNumberFormat,
-  AccountNumberFormat$inboundSchema,
   AccountNumberFormat$outboundSchema,
 } from "./accountnumberformat.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * The bank account details of the creditor (recipient) for Verification of Payee.
@@ -31,16 +27,6 @@ export type CreditorBankAccount = {
   accountNumber: string;
 };
 
-/** @internal */
-export const CreditorBankAccount$inboundSchema: z.ZodType<
-  CreditorBankAccount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  accountHolderName: z.string(),
-  format: AccountNumberFormat$inboundSchema,
-  accountNumber: z.string(),
-});
 /** @internal */
 export type CreditorBankAccount$Outbound = {
   accountHolderName: string;
@@ -64,14 +50,5 @@ export function creditorBankAccountToJSON(
 ): string {
   return JSON.stringify(
     CreditorBankAccount$outboundSchema.parse(creditorBankAccount),
-  );
-}
-export function creditorBankAccountFromJSON(
-  jsonString: string,
-): SafeParseResult<CreditorBankAccount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreditorBankAccount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreditorBankAccount' from JSON`,
   );
 }

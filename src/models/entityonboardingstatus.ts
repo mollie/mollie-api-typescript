@@ -10,12 +10,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The current status of the organization's onboarding process.
@@ -91,12 +86,6 @@ export const EntityOnboardingStatusStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntityOnboardingStatusStatus);
-/** @internal */
-export const EntityOnboardingStatusStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntityOnboardingStatusStatus
-> = openEnums.outboundSchema(EntityOnboardingStatusStatus);
 
 /** @internal */
 export const EntityOnboardingStatusLinks$inboundSchema: z.ZodType<
@@ -109,35 +98,7 @@ export const EntityOnboardingStatusLinks$inboundSchema: z.ZodType<
   organization: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityOnboardingStatusLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  dashboard?: Url$Outbound | undefined;
-  organization?: Url$Outbound | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityOnboardingStatusLinks$outboundSchema: z.ZodType<
-  EntityOnboardingStatusLinks$Outbound,
-  z.ZodTypeDef,
-  EntityOnboardingStatusLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  dashboard: Url$outboundSchema.optional(),
-  organization: Url$outboundSchema.optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function entityOnboardingStatusLinksToJSON(
-  entityOnboardingStatusLinks: EntityOnboardingStatusLinks,
-): string {
-  return JSON.stringify(
-    EntityOnboardingStatusLinks$outboundSchema.parse(
-      entityOnboardingStatusLinks,
-    ),
-  );
-}
 export function entityOnboardingStatusLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOnboardingStatusLinks, SDKValidationError> {
@@ -166,43 +127,7 @@ export const EntityOnboardingStatus$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityOnboardingStatus$Outbound = {
-  resource: string;
-  name: string;
-  status: string;
-  canReceivePayments: boolean;
-  canReceiveSettlements: boolean;
-  signedUpAt: string;
-  _links: EntityOnboardingStatusLinks$Outbound;
-};
 
-/** @internal */
-export const EntityOnboardingStatus$outboundSchema: z.ZodType<
-  EntityOnboardingStatus$Outbound,
-  z.ZodTypeDef,
-  EntityOnboardingStatus
-> = z.object({
-  resource: z.string(),
-  name: z.string(),
-  status: EntityOnboardingStatusStatus$outboundSchema,
-  canReceivePayments: z.boolean(),
-  canReceiveSettlements: z.boolean(),
-  signedUpAt: z.string(),
-  links: z.lazy(() => EntityOnboardingStatusLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityOnboardingStatusToJSON(
-  entityOnboardingStatus: EntityOnboardingStatus,
-): string {
-  return JSON.stringify(
-    EntityOnboardingStatus$outboundSchema.parse(entityOnboardingStatus),
-  );
-}
 export function entityOnboardingStatusFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOnboardingStatus, SDKValidationError> {

@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetMethodGlobals = {
@@ -95,67 +92,6 @@ export type GetMethodRequest = {
 };
 
 /** @internal */
-export const GetMethodGlobals$inboundSchema: z.ZodType<
-  GetMethodGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetMethodGlobals$Outbound = {
-  profileId?: string | undefined;
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetMethodGlobals$outboundSchema: z.ZodType<
-  GetMethodGlobals$Outbound,
-  z.ZodTypeDef,
-  GetMethodGlobals
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
-
-export function getMethodGlobalsToJSON(
-  getMethodGlobals: GetMethodGlobals,
-): string {
-  return JSON.stringify(
-    GetMethodGlobals$outboundSchema.parse(getMethodGlobals),
-  );
-}
-export function getMethodGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetMethodGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetMethodGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMethodGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetMethodRequest$inboundSchema: z.ZodType<
-  GetMethodRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  methodId: z.nullable(models.MethodEnum$inboundSchema),
-  locale: z.nullable(models.Locale$inboundSchema).optional(),
-  currency: z.string().optional(),
-  profileId: z.string().optional(),
-  include: z.nullable(z.string()).optional(),
-  sequenceType: models.SequenceType$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetMethodRequest$Outbound = {
   methodId: string | null;
   locale?: string | null | undefined;
@@ -192,14 +128,5 @@ export function getMethodRequestToJSON(
 ): string {
   return JSON.stringify(
     GetMethodRequest$outboundSchema.parse(getMethodRequest),
-  );
-}
-export function getMethodRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetMethodRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetMethodRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMethodRequest' from JSON`,
   );
 }

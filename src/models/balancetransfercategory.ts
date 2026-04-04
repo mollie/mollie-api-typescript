@@ -27,10 +27,6 @@ export type BalanceTransferCategory = ClosedEnum<
 >;
 
 /** @internal */
-export const BalanceTransferCategory$inboundSchema: z.ZodNativeEnum<
-  typeof BalanceTransferCategory
-> = z.nativeEnum(BalanceTransferCategory);
-/** @internal */
 export const BalanceTransferCategory$outboundSchema: z.ZodNativeEnum<
   typeof BalanceTransferCategory
-> = BalanceTransferCategory$inboundSchema;
+> = z.nativeEnum(BalanceTransferCategory);

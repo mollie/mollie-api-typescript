@@ -4,12 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferSchemeType,
-  TransferSchemeType$inboundSchema,
   TransferSchemeType$outboundSchema,
 } from "./transferschemetype.js";
 
@@ -23,14 +19,6 @@ export type TransferScheme = {
   type: TransferSchemeType;
 };
 
-/** @internal */
-export const TransferScheme$inboundSchema: z.ZodType<
-  TransferScheme,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: TransferSchemeType$inboundSchema,
-});
 /** @internal */
 export type TransferScheme$Outbound = {
   type: string;
@@ -47,13 +35,4 @@ export const TransferScheme$outboundSchema: z.ZodType<
 
 export function transferSchemeToJSON(transferScheme: TransferScheme): string {
   return JSON.stringify(TransferScheme$outboundSchema.parse(transferScheme));
-}
-export function transferSchemeFromJSON(
-  jsonString: string,
-): SafeParseResult<TransferScheme, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TransferScheme$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TransferScheme' from JSON`,
-  );
 }

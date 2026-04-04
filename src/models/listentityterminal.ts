@@ -10,23 +10,10 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
-import {
-  TerminalBrand,
-  TerminalBrand$inboundSchema,
-  TerminalBrand$outboundSchema,
-} from "./terminalbrand.js";
-import {
-  TerminalModel,
-  TerminalModel$inboundSchema,
-  TerminalModel$outboundSchema,
-} from "./terminalmodel.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
+import { TerminalBrand, TerminalBrand$inboundSchema } from "./terminalbrand.js";
+import { TerminalModel, TerminalModel$inboundSchema } from "./terminalmodel.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The status of the terminal.
@@ -124,12 +111,6 @@ export const ListEntityTerminalStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ListEntityTerminalStatus);
-/** @internal */
-export const ListEntityTerminalStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ListEntityTerminalStatus
-> = openEnums.outboundSchema(ListEntityTerminalStatus);
 
 /** @internal */
 export const ListEntityTerminalLinks$inboundSchema: z.ZodType<
@@ -139,27 +120,7 @@ export const ListEntityTerminalLinks$inboundSchema: z.ZodType<
 > = z.object({
   self: Url$inboundSchema,
 });
-/** @internal */
-export type ListEntityTerminalLinks$Outbound = {
-  self: Url$Outbound;
-};
 
-/** @internal */
-export const ListEntityTerminalLinks$outboundSchema: z.ZodType<
-  ListEntityTerminalLinks$Outbound,
-  z.ZodTypeDef,
-  ListEntityTerminalLinks
-> = z.object({
-  self: Url$outboundSchema,
-});
-
-export function listEntityTerminalLinksToJSON(
-  listEntityTerminalLinks: ListEntityTerminalLinks,
-): string {
-  return JSON.stringify(
-    ListEntityTerminalLinks$outboundSchema.parse(listEntityTerminalLinks),
-  );
-}
 export function listEntityTerminalLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityTerminalLinks, SDKValidationError> {
@@ -194,55 +155,7 @@ export const ListEntityTerminal$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListEntityTerminal$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  description: string;
-  status: string;
-  brand: string | null;
-  model: string | null;
-  serialNumber: string | null;
-  currency: string;
-  profileId: string;
-  createdAt: string;
-  updatedAt: string;
-  _links: ListEntityTerminalLinks$Outbound;
-};
 
-/** @internal */
-export const ListEntityTerminal$outboundSchema: z.ZodType<
-  ListEntityTerminal$Outbound,
-  z.ZodTypeDef,
-  ListEntityTerminal
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  description: z.string(),
-  status: ListEntityTerminalStatus$outboundSchema,
-  brand: z.nullable(TerminalBrand$outboundSchema),
-  model: z.nullable(TerminalModel$outboundSchema),
-  serialNumber: z.nullable(z.string()),
-  currency: z.string(),
-  profileId: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  links: z.lazy(() => ListEntityTerminalLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listEntityTerminalToJSON(
-  listEntityTerminal: ListEntityTerminal,
-): string {
-  return JSON.stringify(
-    ListEntityTerminal$outboundSchema.parse(listEntityTerminal),
-  );
-}
 export function listEntityTerminalFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityTerminal, SDKValidationError> {

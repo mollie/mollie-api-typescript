@@ -26,9 +26,3 @@ export const RouteDestinationTypeResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(RouteDestinationTypeResponse);
-/** @internal */
-export const RouteDestinationTypeResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RouteDestinationTypeResponse
-> = openEnums.outboundSchema(RouteDestinationTypeResponse);

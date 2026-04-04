@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateSalesInvoiceRequest = {
@@ -18,20 +15,6 @@ export type CreateSalesInvoiceRequest = {
   salesInvoiceRequest?: models.SalesInvoiceRequest | undefined;
 };
 
-/** @internal */
-export const CreateSalesInvoiceRequest$inboundSchema: z.ZodType<
-  CreateSalesInvoiceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  "sales-invoice-request": models.SalesInvoiceRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "sales-invoice-request": "salesInvoiceRequest",
-  });
-});
 /** @internal */
 export type CreateSalesInvoiceRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -58,14 +41,5 @@ export function createSalesInvoiceRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateSalesInvoiceRequest$outboundSchema.parse(createSalesInvoiceRequest),
-  );
-}
-export function createSalesInvoiceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateSalesInvoiceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateSalesInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateSalesInvoiceRequest' from JSON`,
   );
 }

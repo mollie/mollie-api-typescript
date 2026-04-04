@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateSubscriptionRequestBody = {
@@ -93,22 +90,6 @@ export type UpdateSubscriptionRequest = {
 };
 
 /** @internal */
-export const UpdateSubscriptionRequestBody$inboundSchema: z.ZodType<
-  UpdateSubscriptionRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: models.Amount$inboundSchema.optional(),
-  description: z.string().optional(),
-  interval: z.string().optional(),
-  startDate: z.string().optional(),
-  times: z.number().int().optional(),
-  metadata: z.nullable(models.Metadata$inboundSchema).optional(),
-  webhookUrl: z.string().optional(),
-  mandateId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
-/** @internal */
 export type UpdateSubscriptionRequestBody$Outbound = {
   amount?: models.Amount$Outbound | undefined;
   description?: string | undefined;
@@ -147,33 +128,7 @@ export function updateSubscriptionRequestBodyToJSON(
     ),
   );
 }
-export function updateSubscriptionRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateSubscriptionRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateSubscriptionRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateSubscriptionRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const UpdateSubscriptionRequest$inboundSchema: z.ZodType<
-  UpdateSubscriptionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  subscriptionId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => UpdateSubscriptionRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type UpdateSubscriptionRequest$Outbound = {
   customerId: string;
@@ -205,14 +160,5 @@ export function updateSubscriptionRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateSubscriptionRequest$outboundSchema.parse(updateSubscriptionRequest),
-  );
-}
-export function updateSubscriptionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateSubscriptionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateSubscriptionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateSubscriptionRequest' from JSON`,
   );
 }

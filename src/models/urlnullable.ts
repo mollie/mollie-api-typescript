@@ -31,25 +31,7 @@ export const UrlNullable$inboundSchema: z.ZodType<
   href: z.string().optional(),
   type: z.string().optional(),
 });
-/** @internal */
-export type UrlNullable$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
 
-/** @internal */
-export const UrlNullable$outboundSchema: z.ZodType<
-  UrlNullable$Outbound,
-  z.ZodTypeDef,
-  UrlNullable
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-export function urlNullableToJSON(urlNullable: UrlNullable): string {
-  return JSON.stringify(UrlNullable$outboundSchema.parse(urlNullable));
-}
 export function urlNullableFromJSON(
   jsonString: string,
 ): SafeParseResult<UrlNullable, SDKValidationError> {

@@ -13,8 +13,5 @@ export const Sorting = {
 export type Sorting = ClosedEnum<typeof Sorting>;
 
 /** @internal */
-export const Sorting$inboundSchema: z.ZodNativeEnum<typeof Sorting> = z
+export const Sorting$outboundSchema: z.ZodNativeEnum<typeof Sorting> = z
   .nativeEnum(Sorting);
-/** @internal */
-export const Sorting$outboundSchema: z.ZodNativeEnum<typeof Sorting> =
-  Sorting$inboundSchema;

@@ -7,18 +7,8 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * Links to help navigate through the lists of items. Every URL object will contain an `href` and a `type` field.
@@ -53,29 +43,7 @@ export const ListLinks$inboundSchema: z.ZodType<
   next: z.nullable(UrlNullable$inboundSchema),
   documentation: Url$inboundSchema,
 });
-/** @internal */
-export type ListLinks$Outbound = {
-  self: Url$Outbound;
-  previous: UrlNullable$Outbound | null;
-  next: UrlNullable$Outbound | null;
-  documentation: Url$Outbound;
-};
 
-/** @internal */
-export const ListLinks$outboundSchema: z.ZodType<
-  ListLinks$Outbound,
-  z.ZodTypeDef,
-  ListLinks
-> = z.object({
-  self: Url$outboundSchema,
-  previous: z.nullable(UrlNullable$outboundSchema),
-  next: z.nullable(UrlNullable$outboundSchema),
-  documentation: Url$outboundSchema,
-});
-
-export function listLinksToJSON(listLinks: ListLinks): string {
-  return JSON.stringify(ListLinks$outboundSchema.parse(listLinks));
-}
 export function listLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListLinks, SDKValidationError> {

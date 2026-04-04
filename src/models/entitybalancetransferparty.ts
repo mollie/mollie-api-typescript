@@ -4,14 +4,10 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceTransferPartyType,
-  BalanceTransferPartyType$inboundSchema,
   BalanceTransferPartyType$outboundSchema,
 } from "./balancetransferpartytype.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * A party involved in the balance transfer, either the sender or the receiver.
@@ -28,16 +24,6 @@ export type EntityBalanceTransferParty = {
   description: string;
 };
 
-/** @internal */
-export const EntityBalanceTransferParty$inboundSchema: z.ZodType<
-  EntityBalanceTransferParty,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: BalanceTransferPartyType$inboundSchema,
-  id: z.string(),
-  description: z.string(),
-});
 /** @internal */
 export type EntityBalanceTransferParty$Outbound = {
   type: string;
@@ -61,14 +47,5 @@ export function entityBalanceTransferPartyToJSON(
 ): string {
   return JSON.stringify(
     EntityBalanceTransferParty$outboundSchema.parse(entityBalanceTransferParty),
-  );
-}
-export function entityBalanceTransferPartyFromJSON(
-  jsonString: string,
-): SafeParseResult<EntityBalanceTransferParty, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EntityBalanceTransferParty$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityBalanceTransferParty' from JSON`,
   );
 }

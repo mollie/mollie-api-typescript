@@ -46,31 +46,7 @@ export const AccountDetails$inboundSchema: z.ZodType<
   iban: z.string(),
   bic: z.string().optional(),
 });
-/** @internal */
-export type AccountDetails$Outbound = {
-  accountHolderName: string;
-  name?: string | undefined;
-  currency: string;
-  iban: string;
-  bic?: string | undefined;
-};
 
-/** @internal */
-export const AccountDetails$outboundSchema: z.ZodType<
-  AccountDetails$Outbound,
-  z.ZodTypeDef,
-  AccountDetails
-> = z.object({
-  accountHolderName: z.string(),
-  name: z.string().optional(),
-  currency: z.string(),
-  iban: z.string(),
-  bic: z.string().optional(),
-});
-
-export function accountDetailsToJSON(accountDetails: AccountDetails): string {
-  return JSON.stringify(AccountDetails$outboundSchema.parse(accountDetails));
-}
 export function accountDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<AccountDetails, SDKValidationError> {

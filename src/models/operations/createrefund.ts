@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateRefundRequest = {
@@ -22,21 +19,6 @@ export type CreateRefundRequest = {
   refundRequest?: models.RefundRequest | undefined;
 };
 
-/** @internal */
-export const CreateRefundRequest$inboundSchema: z.ZodType<
-  CreateRefundRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "refund-request": models.RefundRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "refund-request": "refundRequest",
-  });
-});
 /** @internal */
 export type CreateRefundRequest$Outbound = {
   paymentId: string;
@@ -65,14 +47,5 @@ export function createRefundRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateRefundRequest$outboundSchema.parse(createRefundRequest),
-  );
-}
-export function createRefundRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateRefundRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateRefundRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateRefundRequest' from JSON`,
   );
 }

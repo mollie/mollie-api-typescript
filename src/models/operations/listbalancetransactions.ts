@@ -86,63 +86,6 @@ export type ListBalanceTransactionsResponse = {
 };
 
 /** @internal */
-export const ListBalanceTransactionsGlobals$inboundSchema: z.ZodType<
-  ListBalanceTransactionsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListBalanceTransactionsGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListBalanceTransactionsGlobals$outboundSchema: z.ZodType<
-  ListBalanceTransactionsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListBalanceTransactionsGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listBalanceTransactionsGlobalsToJSON(
-  listBalanceTransactionsGlobals: ListBalanceTransactionsGlobals,
-): string {
-  return JSON.stringify(
-    ListBalanceTransactionsGlobals$outboundSchema.parse(
-      listBalanceTransactionsGlobals,
-    ),
-  );
-}
-export function listBalanceTransactionsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListBalanceTransactionsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListBalanceTransactionsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListBalanceTransactionsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListBalanceTransactionsRequest$inboundSchema: z.ZodType<
-  ListBalanceTransactionsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  balanceId: z.string(),
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListBalanceTransactionsRequest$Outbound = {
   balanceId: string;
   from?: string | null | undefined;
@@ -177,15 +120,6 @@ export function listBalanceTransactionsRequestToJSON(
     ),
   );
 }
-export function listBalanceTransactionsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListBalanceTransactionsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListBalanceTransactionsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListBalanceTransactionsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListBalanceTransactionsEmbedded$inboundSchema: z.ZodType<
@@ -199,33 +133,7 @@ export const ListBalanceTransactionsEmbedded$inboundSchema: z.ZodType<
     "balance_transactions": "balanceTransactions",
   });
 });
-/** @internal */
-export type ListBalanceTransactionsEmbedded$Outbound = {
-  balance_transactions: Array<models.EntityBalanceTransaction$Outbound>;
-};
 
-/** @internal */
-export const ListBalanceTransactionsEmbedded$outboundSchema: z.ZodType<
-  ListBalanceTransactionsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListBalanceTransactionsEmbedded
-> = z.object({
-  balanceTransactions: z.array(models.EntityBalanceTransaction$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    balanceTransactions: "balance_transactions",
-  });
-});
-
-export function listBalanceTransactionsEmbeddedToJSON(
-  listBalanceTransactionsEmbedded: ListBalanceTransactionsEmbedded,
-): string {
-  return JSON.stringify(
-    ListBalanceTransactionsEmbedded$outboundSchema.parse(
-      listBalanceTransactionsEmbedded,
-    ),
-  );
-}
 export function listBalanceTransactionsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBalanceTransactionsEmbedded, SDKValidationError> {
@@ -251,38 +159,7 @@ export const ListBalanceTransactionsResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListBalanceTransactionsResponseBody$Outbound = {
-  count: number;
-  _embedded: ListBalanceTransactionsEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListBalanceTransactionsResponseBody$outboundSchema: z.ZodType<
-  ListBalanceTransactionsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListBalanceTransactionsResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListBalanceTransactionsEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listBalanceTransactionsResponseBodyToJSON(
-  listBalanceTransactionsResponseBody: ListBalanceTransactionsResponseBody,
-): string {
-  return JSON.stringify(
-    ListBalanceTransactionsResponseBody$outboundSchema.parse(
-      listBalanceTransactionsResponseBody,
-    ),
-  );
-}
 export function listBalanceTransactionsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBalanceTransactionsResponseBody, SDKValidationError> {
@@ -306,33 +183,7 @@ export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListBalanceTransactionsResponse$Outbound = {
-  Result: ListBalanceTransactionsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListBalanceTransactionsResponse$outboundSchema: z.ZodType<
-  ListBalanceTransactionsResponse$Outbound,
-  z.ZodTypeDef,
-  ListBalanceTransactionsResponse
-> = z.object({
-  result: z.lazy(() => ListBalanceTransactionsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listBalanceTransactionsResponseToJSON(
-  listBalanceTransactionsResponse: ListBalanceTransactionsResponse,
-): string {
-  return JSON.stringify(
-    ListBalanceTransactionsResponse$outboundSchema.parse(
-      listBalanceTransactionsResponse,
-    ),
-  );
-}
 export function listBalanceTransactionsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListBalanceTransactionsResponse, SDKValidationError> {

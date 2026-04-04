@@ -4,17 +4,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LocaleResponse,
-  LocaleResponse$inboundSchema,
   LocaleResponse$outboundSchema,
 } from "./localeresponse.js";
 import {
   Metadata,
-  Metadata$inboundSchema,
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
@@ -52,18 +47,6 @@ export type EntityCustomer = {
 };
 
 /** @internal */
-export const EntityCustomer$inboundSchema: z.ZodType<
-  EntityCustomer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type EntityCustomer$Outbound = {
   name?: string | null | undefined;
   email?: string | null | undefined;
@@ -87,13 +70,4 @@ export const EntityCustomer$outboundSchema: z.ZodType<
 
 export function entityCustomerToJSON(entityCustomer: EntityCustomer): string {
   return JSON.stringify(EntityCustomer$outboundSchema.parse(entityCustomer));
-}
-export function entityCustomerFromJSON(
-  jsonString: string,
-): SafeParseResult<EntityCustomer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EntityCustomer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityCustomer' from JSON`,
-  );
 }

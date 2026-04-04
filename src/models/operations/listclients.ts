@@ -142,21 +142,6 @@ export type ListClientsResponse = {
 };
 
 /** @internal */
-export const ListClientsRequest$inboundSchema: z.ZodType<
-  ListClientsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  embed: z.nullable(z.string()).optional(),
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListClientsRequest$Outbound = {
   embed?: string | null | undefined;
   from?: string | null | undefined;
@@ -187,15 +172,6 @@ export function listClientsRequestToJSON(
     ListClientsRequest$outboundSchema.parse(listClientsRequest),
   );
 }
-export function listClientsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListClientsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListClientsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListClientsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListClientsCommission$inboundSchema: z.ZodType<
@@ -205,27 +181,7 @@ export const ListClientsCommission$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number().int().optional(),
 });
-/** @internal */
-export type ListClientsCommission$Outbound = {
-  count?: number | undefined;
-};
 
-/** @internal */
-export const ListClientsCommission$outboundSchema: z.ZodType<
-  ListClientsCommission$Outbound,
-  z.ZodTypeDef,
-  ListClientsCommission
-> = z.object({
-  count: z.number().int().optional(),
-});
-
-export function listClientsCommissionToJSON(
-  listClientsCommission: ListClientsCommission,
-): string {
-  return JSON.stringify(
-    ListClientsCommission$outboundSchema.parse(listClientsCommission),
-  );
-}
 export function listClientsCommissionFromJSON(
   jsonString: string,
 ): SafeParseResult<ListClientsCommission, SDKValidationError> {
@@ -246,31 +202,7 @@ export const ListClientsLinks$inboundSchema: z.ZodType<
   organization: models.Url$inboundSchema.optional(),
   onboarding: models.Url$inboundSchema.optional(),
 });
-/** @internal */
-export type ListClientsLinks$Outbound = {
-  self: models.Url$Outbound;
-  organization?: models.Url$Outbound | undefined;
-  onboarding?: models.Url$Outbound | undefined;
-};
 
-/** @internal */
-export const ListClientsLinks$outboundSchema: z.ZodType<
-  ListClientsLinks$Outbound,
-  z.ZodTypeDef,
-  ListClientsLinks
-> = z.object({
-  self: models.Url$outboundSchema,
-  organization: models.Url$outboundSchema.optional(),
-  onboarding: models.Url$outboundSchema.optional(),
-});
-
-export function listClientsLinksToJSON(
-  listClientsLinks: ListClientsLinks,
-): string {
-  return JSON.stringify(
-    ListClientsLinks$outboundSchema.parse(listClientsLinks),
-  );
-}
 export function listClientsLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListClientsLinks, SDKValidationError> {
@@ -291,27 +223,7 @@ export const ClientEmbedded$inboundSchema: z.ZodType<
   onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
   capabilities: models.EntityCapability$inboundSchema.optional(),
 });
-/** @internal */
-export type ClientEmbedded$Outbound = {
-  organization?: models.EntityOrganization$Outbound | undefined;
-  onboarding?: models.EntityOnboardingStatus$Outbound | undefined;
-  capabilities?: models.EntityCapability$Outbound | undefined;
-};
 
-/** @internal */
-export const ClientEmbedded$outboundSchema: z.ZodType<
-  ClientEmbedded$Outbound,
-  z.ZodTypeDef,
-  ClientEmbedded
-> = z.object({
-  organization: models.EntityOrganization$outboundSchema.optional(),
-  onboarding: models.EntityOnboardingStatus$outboundSchema.optional(),
-  capabilities: models.EntityCapability$outboundSchema.optional(),
-});
-
-export function clientEmbeddedToJSON(clientEmbedded: ClientEmbedded): string {
-  return JSON.stringify(ClientEmbedded$outboundSchema.parse(clientEmbedded));
-}
 export function clientEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ClientEmbedded, SDKValidationError> {
@@ -338,39 +250,7 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
       "_embedded": "embedded",
     });
   });
-/** @internal */
-export type Client$Outbound = {
-  resource: string;
-  id: string;
-  commission?: ListClientsCommission$Outbound | null | undefined;
-  organizationCreatedAt?: string | undefined;
-  _links: ListClientsLinks$Outbound;
-  _embedded?: ClientEmbedded$Outbound | undefined;
-};
 
-/** @internal */
-export const Client$outboundSchema: z.ZodType<
-  Client$Outbound,
-  z.ZodTypeDef,
-  Client
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  commission: z.nullable(z.lazy(() => ListClientsCommission$outboundSchema))
-    .optional(),
-  organizationCreatedAt: z.string().optional(),
-  links: z.lazy(() => ListClientsLinks$outboundSchema),
-  embedded: z.lazy(() => ClientEmbedded$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-    embedded: "_embedded",
-  });
-});
-
-export function clientToJSON(client: Client): string {
-  return JSON.stringify(Client$outboundSchema.parse(client));
-}
 export function clientFromJSON(
   jsonString: string,
 ): SafeParseResult<Client, SDKValidationError> {
@@ -389,27 +269,7 @@ export const ListClientsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   clients: z.array(z.lazy(() => Client$inboundSchema)).optional(),
 });
-/** @internal */
-export type ListClientsEmbedded$Outbound = {
-  clients?: Array<Client$Outbound> | undefined;
-};
 
-/** @internal */
-export const ListClientsEmbedded$outboundSchema: z.ZodType<
-  ListClientsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListClientsEmbedded
-> = z.object({
-  clients: z.array(z.lazy(() => Client$outboundSchema)).optional(),
-});
-
-export function listClientsEmbeddedToJSON(
-  listClientsEmbedded: ListClientsEmbedded,
-): string {
-  return JSON.stringify(
-    ListClientsEmbedded$outboundSchema.parse(listClientsEmbedded),
-  );
-}
 export function listClientsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListClientsEmbedded, SDKValidationError> {
@@ -435,36 +295,7 @@ export const ListClientsResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListClientsResponseBody$Outbound = {
-  count?: number | undefined;
-  _embedded?: ListClientsEmbedded$Outbound | undefined;
-  _links?: models.ListLinks$Outbound | undefined;
-};
 
-/** @internal */
-export const ListClientsResponseBody$outboundSchema: z.ZodType<
-  ListClientsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListClientsResponseBody
-> = z.object({
-  count: z.number().int().optional(),
-  embedded: z.lazy(() => ListClientsEmbedded$outboundSchema).optional(),
-  links: models.ListLinks$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listClientsResponseBodyToJSON(
-  listClientsResponseBody: ListClientsResponseBody,
-): string {
-  return JSON.stringify(
-    ListClientsResponseBody$outboundSchema.parse(listClientsResponseBody),
-  );
-}
 export function listClientsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListClientsResponseBody, SDKValidationError> {
@@ -487,31 +318,7 @@ export const ListClientsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListClientsResponse$Outbound = {
-  Result: ListClientsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListClientsResponse$outboundSchema: z.ZodType<
-  ListClientsResponse$Outbound,
-  z.ZodTypeDef,
-  ListClientsResponse
-> = z.object({
-  result: z.lazy(() => ListClientsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listClientsResponseToJSON(
-  listClientsResponse: ListClientsResponse,
-): string {
-  return JSON.stringify(
-    ListClientsResponse$outboundSchema.parse(listClientsResponse),
-  );
-}
 export function listClientsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListClientsResponse, SDKValidationError> {

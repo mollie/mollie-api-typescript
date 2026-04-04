@@ -9,37 +9,16 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   SubscriptionMethodResponse,
   SubscriptionMethodResponse$inboundSchema,
-  SubscriptionMethodResponse$outboundSchema,
 } from "./subscriptionmethodresponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * The subscription's current status is directly related to the status of the underlying customer or mandate that is
@@ -233,12 +212,6 @@ export const ListSubscriptionResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ListSubscriptionResponseStatus);
-/** @internal */
-export const ListSubscriptionResponseStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ListSubscriptionResponseStatus
-> = openEnums.outboundSchema(ListSubscriptionResponseStatus);
 
 /** @internal */
 export const ListSubscriptionResponseApplicationFee$inboundSchema: z.ZodType<
@@ -249,32 +222,7 @@ export const ListSubscriptionResponseApplicationFee$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema,
   description: z.string(),
 });
-/** @internal */
-export type ListSubscriptionResponseApplicationFee$Outbound = {
-  amount: Amount$Outbound;
-  description: string;
-};
 
-/** @internal */
-export const ListSubscriptionResponseApplicationFee$outboundSchema: z.ZodType<
-  ListSubscriptionResponseApplicationFee$Outbound,
-  z.ZodTypeDef,
-  ListSubscriptionResponseApplicationFee
-> = z.object({
-  amount: Amount$outboundSchema,
-  description: z.string(),
-});
-
-export function listSubscriptionResponseApplicationFeeToJSON(
-  listSubscriptionResponseApplicationFee:
-    ListSubscriptionResponseApplicationFee,
-): string {
-  return JSON.stringify(
-    ListSubscriptionResponseApplicationFee$outboundSchema.parse(
-      listSubscriptionResponseApplicationFee,
-    ),
-  );
-}
 export function listSubscriptionResponseApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSubscriptionResponseApplicationFee, SDKValidationError> {
@@ -298,37 +246,7 @@ export const ListSubscriptionResponseLinks$inboundSchema: z.ZodType<
   profile: z.nullable(UrlNullable$inboundSchema),
   payments: z.nullable(UrlNullable$inboundSchema).optional(),
 });
-/** @internal */
-export type ListSubscriptionResponseLinks$Outbound = {
-  self: Url$Outbound;
-  customer: UrlNullable$Outbound | null;
-  mandate?: UrlNullable$Outbound | null | undefined;
-  profile: UrlNullable$Outbound | null;
-  payments?: UrlNullable$Outbound | null | undefined;
-};
 
-/** @internal */
-export const ListSubscriptionResponseLinks$outboundSchema: z.ZodType<
-  ListSubscriptionResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ListSubscriptionResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  customer: z.nullable(UrlNullable$outboundSchema),
-  mandate: z.nullable(UrlNullable$outboundSchema).optional(),
-  profile: z.nullable(UrlNullable$outboundSchema),
-  payments: z.nullable(UrlNullable$outboundSchema).optional(),
-});
-
-export function listSubscriptionResponseLinksToJSON(
-  listSubscriptionResponseLinks: ListSubscriptionResponseLinks,
-): string {
-  return JSON.stringify(
-    ListSubscriptionResponseLinks$outboundSchema.parse(
-      listSubscriptionResponseLinks,
-    ),
-  );
-}
 export function listSubscriptionResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSubscriptionResponseLinks, SDKValidationError> {
@@ -372,71 +290,7 @@ export const ListSubscriptionResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListSubscriptionResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  status: string;
-  amount: Amount$Outbound;
-  times: number | null;
-  timesRemaining: number | null;
-  interval: string;
-  startDate: string;
-  nextPaymentDate?: string | null | undefined;
-  description: string;
-  method: string | null;
-  applicationFee?: ListSubscriptionResponseApplicationFee$Outbound | undefined;
-  metadata: Metadata$Outbound | null;
-  webhookUrl: string | null;
-  customerId: string;
-  mandateId?: string | undefined;
-  createdAt: string;
-  canceledAt?: string | null | undefined;
-  _links: ListSubscriptionResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ListSubscriptionResponse$outboundSchema: z.ZodType<
-  ListSubscriptionResponse$Outbound,
-  z.ZodTypeDef,
-  ListSubscriptionResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  status: ListSubscriptionResponseStatus$outboundSchema,
-  amount: Amount$outboundSchema,
-  times: z.nullable(z.number().int()),
-  timesRemaining: z.nullable(z.number().int()),
-  interval: z.string(),
-  startDate: z.string(),
-  nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string(),
-  method: z.nullable(SubscriptionMethodResponse$outboundSchema),
-  applicationFee: z.lazy(() =>
-    ListSubscriptionResponseApplicationFee$outboundSchema
-  ).optional(),
-  metadata: z.nullable(Metadata$outboundSchema),
-  webhookUrl: z.nullable(z.string()),
-  customerId: z.string(),
-  mandateId: z.string().optional(),
-  createdAt: z.string(),
-  canceledAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => ListSubscriptionResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listSubscriptionResponseToJSON(
-  listSubscriptionResponse: ListSubscriptionResponse,
-): string {
-  return JSON.stringify(
-    ListSubscriptionResponse$outboundSchema.parse(listSubscriptionResponse),
-  );
-}
 export function listSubscriptionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSubscriptionResponse, SDKValidationError> {

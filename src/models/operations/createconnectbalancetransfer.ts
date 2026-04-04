@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateConnectBalanceTransferRequest = {
@@ -18,21 +15,6 @@ export type CreateConnectBalanceTransferRequest = {
   entityBalanceTransfer?: models.EntityBalanceTransfer | undefined;
 };
 
-/** @internal */
-export const CreateConnectBalanceTransferRequest$inboundSchema: z.ZodType<
-  CreateConnectBalanceTransferRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  "entity-balance-transfer": models.EntityBalanceTransfer$inboundSchema
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "entity-balance-transfer": "entityBalanceTransfer",
-  });
-});
 /** @internal */
 export type CreateConnectBalanceTransferRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -61,15 +43,5 @@ export function createConnectBalanceTransferRequestToJSON(
     CreateConnectBalanceTransferRequest$outboundSchema.parse(
       createConnectBalanceTransferRequest,
     ),
-  );
-}
-export function createConnectBalanceTransferRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateConnectBalanceTransferRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateConnectBalanceTransferRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateConnectBalanceTransferRequest' from JSON`,
   );
 }

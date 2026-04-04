@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteProfileRequest = {
   /**
@@ -20,19 +17,6 @@ export type DeleteProfileRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const DeleteProfileRequest$inboundSchema: z.ZodType<
-  DeleteProfileRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  profileId: z.string(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type DeleteProfileRequest$Outbound = {
   profileId: string;
@@ -58,14 +42,5 @@ export function deleteProfileRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteProfileRequest$outboundSchema.parse(deleteProfileRequest),
-  );
-}
-export function deleteProfileRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteProfileRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteProfileRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteProfileRequest' from JSON`,
   );
 }

@@ -125,60 +125,6 @@ export type GetCustomerResponse = {
 };
 
 /** @internal */
-export const GetCustomerGlobals$inboundSchema: z.ZodType<
-  GetCustomerGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetCustomerGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetCustomerGlobals$outboundSchema: z.ZodType<
-  GetCustomerGlobals$Outbound,
-  z.ZodTypeDef,
-  GetCustomerGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getCustomerGlobalsToJSON(
-  getCustomerGlobals: GetCustomerGlobals,
-): string {
-  return JSON.stringify(
-    GetCustomerGlobals$outboundSchema.parse(getCustomerGlobals),
-  );
-}
-export function getCustomerGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerRequest$inboundSchema: z.ZodType<
-  GetCustomerRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  include: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetCustomerRequest$Outbound = {
   customerId: string;
   include?: string | null | undefined;
@@ -209,15 +155,6 @@ export function getCustomerRequestToJSON(
     GetCustomerRequest$outboundSchema.parse(getCustomerRequest),
   );
 }
-export function getCustomerRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const GetCustomerLinks$inboundSchema: z.ZodType<
@@ -232,37 +169,7 @@ export const GetCustomerLinks$inboundSchema: z.ZodType<
   subscriptions: z.nullable(models.UrlNullable$inboundSchema).optional(),
   documentation: models.Url$inboundSchema,
 });
-/** @internal */
-export type GetCustomerLinks$Outbound = {
-  self: models.Url$Outbound;
-  dashboard: models.Url$Outbound;
-  payments?: models.UrlNullable$Outbound | null | undefined;
-  mandates?: models.UrlNullable$Outbound | null | undefined;
-  subscriptions?: models.UrlNullable$Outbound | null | undefined;
-  documentation: models.Url$Outbound;
-};
 
-/** @internal */
-export const GetCustomerLinks$outboundSchema: z.ZodType<
-  GetCustomerLinks$Outbound,
-  z.ZodTypeDef,
-  GetCustomerLinks
-> = z.object({
-  self: models.Url$outboundSchema,
-  dashboard: models.Url$outboundSchema,
-  payments: z.nullable(models.UrlNullable$outboundSchema).optional(),
-  mandates: z.nullable(models.UrlNullable$outboundSchema).optional(),
-  subscriptions: z.nullable(models.UrlNullable$outboundSchema).optional(),
-  documentation: models.Url$outboundSchema,
-});
-
-export function getCustomerLinksToJSON(
-  getCustomerLinks: GetCustomerLinks,
-): string {
-  return JSON.stringify(
-    GetCustomerLinks$outboundSchema.parse(getCustomerLinks),
-  );
-}
 export function getCustomerLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCustomerLinks, SDKValidationError> {
@@ -294,49 +201,7 @@ export const GetCustomerResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type GetCustomerResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  name: string | null;
-  email: string | null;
-  locale: string | null;
-  metadata: models.Metadata$Outbound | null;
-  createdAt: string;
-  _links: GetCustomerLinks$Outbound;
-  events?: Array<models.EntityEvent$Outbound> | undefined;
-};
 
-/** @internal */
-export const GetCustomerResponse$outboundSchema: z.ZodType<
-  GetCustomerResponse$Outbound,
-  z.ZodTypeDef,
-  GetCustomerResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: models.Mode$outboundSchema,
-  name: z.nullable(z.string()),
-  email: z.nullable(z.string()),
-  locale: z.nullable(models.LocaleResponse$outboundSchema),
-  metadata: z.nullable(models.Metadata$outboundSchema),
-  createdAt: z.string(),
-  links: z.lazy(() => GetCustomerLinks$outboundSchema),
-  events: z.array(models.EntityEvent$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function getCustomerResponseToJSON(
-  getCustomerResponse: GetCustomerResponse,
-): string {
-  return JSON.stringify(
-    GetCustomerResponse$outboundSchema.parse(getCustomerResponse),
-  );
-}
 export function getCustomerResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetCustomerResponse, SDKValidationError> {

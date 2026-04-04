@@ -33,9 +33,3 @@ export const BalanceTransferCategoryResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(BalanceTransferCategoryResponse);
-/** @internal */
-export const BalanceTransferCategoryResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  BalanceTransferCategoryResponse
-> = openEnums.outboundSchema(BalanceTransferCategoryResponse);

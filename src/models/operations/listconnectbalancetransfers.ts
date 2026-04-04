@@ -92,64 +92,6 @@ export type ListConnectBalanceTransfersResponse = {
 };
 
 /** @internal */
-export const ListConnectBalanceTransfersGlobals$inboundSchema: z.ZodType<
-  ListConnectBalanceTransfersGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListConnectBalanceTransfersGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListConnectBalanceTransfersGlobals$outboundSchema: z.ZodType<
-  ListConnectBalanceTransfersGlobals$Outbound,
-  z.ZodTypeDef,
-  ListConnectBalanceTransfersGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listConnectBalanceTransfersGlobalsToJSON(
-  listConnectBalanceTransfersGlobals: ListConnectBalanceTransfersGlobals,
-): string {
-  return JSON.stringify(
-    ListConnectBalanceTransfersGlobals$outboundSchema.parse(
-      listConnectBalanceTransfersGlobals,
-    ),
-  );
-}
-export function listConnectBalanceTransfersGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListConnectBalanceTransfersGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListConnectBalanceTransfersGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListConnectBalanceTransfersGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListConnectBalanceTransfersRequest$inboundSchema: z.ZodType<
-  ListConnectBalanceTransfersRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListConnectBalanceTransfersRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
@@ -184,16 +126,6 @@ export function listConnectBalanceTransfersRequestToJSON(
     ),
   );
 }
-export function listConnectBalanceTransfersRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListConnectBalanceTransfersRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListConnectBalanceTransfersRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListConnectBalanceTransfersRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListConnectBalanceTransfersEmbedded$inboundSchema: z.ZodType<
@@ -209,37 +141,7 @@ export const ListConnectBalanceTransfersEmbedded$inboundSchema: z.ZodType<
     "connect_balance_transfers": "connectBalanceTransfers",
   });
 });
-/** @internal */
-export type ListConnectBalanceTransfersEmbedded$Outbound = {
-  connect_balance_transfers: Array<
-    models.EntityBalanceTransferResponse$Outbound
-  >;
-};
 
-/** @internal */
-export const ListConnectBalanceTransfersEmbedded$outboundSchema: z.ZodType<
-  ListConnectBalanceTransfersEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListConnectBalanceTransfersEmbedded
-> = z.object({
-  connectBalanceTransfers: z.array(
-    models.EntityBalanceTransferResponse$outboundSchema,
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    connectBalanceTransfers: "connect_balance_transfers",
-  });
-});
-
-export function listConnectBalanceTransfersEmbeddedToJSON(
-  listConnectBalanceTransfersEmbedded: ListConnectBalanceTransfersEmbedded,
-): string {
-  return JSON.stringify(
-    ListConnectBalanceTransfersEmbedded$outboundSchema.parse(
-      listConnectBalanceTransfersEmbedded,
-    ),
-  );
-}
 export function listConnectBalanceTransfersEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListConnectBalanceTransfersEmbedded, SDKValidationError> {
@@ -266,39 +168,7 @@ export const ListConnectBalanceTransfersResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListConnectBalanceTransfersResponseBody$Outbound = {
-  count: number;
-  _embedded: ListConnectBalanceTransfersEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListConnectBalanceTransfersResponseBody$outboundSchema: z.ZodType<
-  ListConnectBalanceTransfersResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListConnectBalanceTransfersResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListConnectBalanceTransfersEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listConnectBalanceTransfersResponseBodyToJSON(
-  listConnectBalanceTransfersResponseBody:
-    ListConnectBalanceTransfersResponseBody,
-): string {
-  return JSON.stringify(
-    ListConnectBalanceTransfersResponseBody$outboundSchema.parse(
-      listConnectBalanceTransfersResponseBody,
-    ),
-  );
-}
 export function listConnectBalanceTransfersResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -327,33 +197,7 @@ export const ListConnectBalanceTransfersResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListConnectBalanceTransfersResponse$Outbound = {
-  Result: ListConnectBalanceTransfersResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListConnectBalanceTransfersResponse$outboundSchema: z.ZodType<
-  ListConnectBalanceTransfersResponse$Outbound,
-  z.ZodTypeDef,
-  ListConnectBalanceTransfersResponse
-> = z.object({
-  result: z.lazy(() => ListConnectBalanceTransfersResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listConnectBalanceTransfersResponseToJSON(
-  listConnectBalanceTransfersResponse: ListConnectBalanceTransfersResponse,
-): string {
-  return JSON.stringify(
-    ListConnectBalanceTransfersResponse$outboundSchema.parse(
-      listConnectBalanceTransfersResponse,
-    ),
-  );
-}
 export function listConnectBalanceTransfersResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListConnectBalanceTransfersResponse, SDKValidationError> {

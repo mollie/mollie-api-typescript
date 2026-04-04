@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeletePaymentLinkRequestBody = {
   /**
@@ -35,14 +32,6 @@ export type DeletePaymentLinkRequest = {
 };
 
 /** @internal */
-export const DeletePaymentLinkRequestBody$inboundSchema: z.ZodType<
-  DeletePaymentLinkRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type DeletePaymentLinkRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
 };
@@ -65,32 +54,7 @@ export function deletePaymentLinkRequestBodyToJSON(
     ),
   );
 }
-export function deletePaymentLinkRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<DeletePaymentLinkRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeletePaymentLinkRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeletePaymentLinkRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const DeletePaymentLinkRequest$inboundSchema: z.ZodType<
-  DeletePaymentLinkRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentLinkId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => DeletePaymentLinkRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type DeletePaymentLinkRequest$Outbound = {
   paymentLinkId: string;
@@ -120,14 +84,5 @@ export function deletePaymentLinkRequestToJSON(
 ): string {
   return JSON.stringify(
     DeletePaymentLinkRequest$outboundSchema.parse(deletePaymentLinkRequest),
-  );
-}
-export function deletePaymentLinkRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeletePaymentLinkRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeletePaymentLinkRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeletePaymentLinkRequest' from JSON`,
   );
 }

@@ -22,6 +22,3 @@ export type Mode = OpenEnum<typeof Mode>;
 /** @internal */
 export const Mode$inboundSchema: z.ZodType<Mode, z.ZodTypeDef, unknown> =
   openEnums.inboundSchema(Mode);
-/** @internal */
-export const Mode$outboundSchema: z.ZodType<string, z.ZodTypeDef, Mode> =
-  openEnums.outboundSchema(Mode);

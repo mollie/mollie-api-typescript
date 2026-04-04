@@ -42,9 +42,3 @@ export const TransactionType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(TransactionType);
-/** @internal */
-export const TransactionType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  TransactionType
-> = openEnums.outboundSchema(TransactionType);

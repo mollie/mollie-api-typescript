@@ -116,9 +116,6 @@ export type UnmatchedCreditTransferActionResponse = {
 /** @internal */
 export const Action$inboundSchema: z.ZodType<Action, z.ZodTypeDef, unknown> =
   openEnums.inboundSchema(Action);
-/** @internal */
-export const Action$outboundSchema: z.ZodType<string, z.ZodTypeDef, Action> =
-  openEnums.outboundSchema(Action);
 
 /** @internal */
 export const UnmatchedCreditTransferActionResponseStatus$inboundSchema:
@@ -127,10 +124,6 @@ export const UnmatchedCreditTransferActionResponseStatus$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(UnmatchedCreditTransferActionResponseStatus);
-/** @internal */
-export const UnmatchedCreditTransferActionResponseStatus$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, UnmatchedCreditTransferActionResponseStatus> =
-    openEnums.outboundSchema(UnmatchedCreditTransferActionResponseStatus);
 
 /** @internal */
 export const UnmatchedCreditTransferActionResponseDetails$inboundSchema:
@@ -141,31 +134,7 @@ export const UnmatchedCreditTransferActionResponseDetails$inboundSchema:
   > = z.object({
     paymentIds: z.array(z.string()).optional(),
   });
-/** @internal */
-export type UnmatchedCreditTransferActionResponseDetails$Outbound = {
-  paymentIds?: Array<string> | undefined;
-};
 
-/** @internal */
-export const UnmatchedCreditTransferActionResponseDetails$outboundSchema:
-  z.ZodType<
-    UnmatchedCreditTransferActionResponseDetails$Outbound,
-    z.ZodTypeDef,
-    UnmatchedCreditTransferActionResponseDetails
-  > = z.object({
-    paymentIds: z.array(z.string()).optional(),
-  });
-
-export function unmatchedCreditTransferActionResponseDetailsToJSON(
-  unmatchedCreditTransferActionResponseDetails:
-    UnmatchedCreditTransferActionResponseDetails,
-): string {
-  return JSON.stringify(
-    UnmatchedCreditTransferActionResponseDetails$outboundSchema.parse(
-      unmatchedCreditTransferActionResponseDetails,
-    ),
-  );
-}
 export function unmatchedCreditTransferActionResponseDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -191,33 +160,7 @@ export const UnmatchedCreditTransferActionResponseSelf$inboundSchema: z.ZodType<
   href: z.string().optional(),
   type: z.string().optional(),
 });
-/** @internal */
-export type UnmatchedCreditTransferActionResponseSelf$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
 
-/** @internal */
-export const UnmatchedCreditTransferActionResponseSelf$outboundSchema:
-  z.ZodType<
-    UnmatchedCreditTransferActionResponseSelf$Outbound,
-    z.ZodTypeDef,
-    UnmatchedCreditTransferActionResponseSelf
-  > = z.object({
-    href: z.string().optional(),
-    type: z.string().optional(),
-  });
-
-export function unmatchedCreditTransferActionResponseSelfToJSON(
-  unmatchedCreditTransferActionResponseSelf:
-    UnmatchedCreditTransferActionResponseSelf,
-): string {
-  return JSON.stringify(
-    UnmatchedCreditTransferActionResponseSelf$outboundSchema.parse(
-      unmatchedCreditTransferActionResponseSelf,
-    ),
-  );
-}
 export function unmatchedCreditTransferActionResponseSelfFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -244,33 +187,7 @@ export const UnmatchedCreditTransferActionResponseDocumentation$inboundSchema:
     href: z.string().optional(),
     type: z.string().optional(),
   });
-/** @internal */
-export type UnmatchedCreditTransferActionResponseDocumentation$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
 
-/** @internal */
-export const UnmatchedCreditTransferActionResponseDocumentation$outboundSchema:
-  z.ZodType<
-    UnmatchedCreditTransferActionResponseDocumentation$Outbound,
-    z.ZodTypeDef,
-    UnmatchedCreditTransferActionResponseDocumentation
-  > = z.object({
-    href: z.string().optional(),
-    type: z.string().optional(),
-  });
-
-export function unmatchedCreditTransferActionResponseDocumentationToJSON(
-  unmatchedCreditTransferActionResponseDocumentation:
-    UnmatchedCreditTransferActionResponseDocumentation,
-): string {
-  return JSON.stringify(
-    UnmatchedCreditTransferActionResponseDocumentation$outboundSchema.parse(
-      unmatchedCreditTransferActionResponseDocumentation,
-    ),
-  );
-}
 export function unmatchedCreditTransferActionResponseDocumentationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -298,38 +215,7 @@ export const UnmatchedCreditTransferActionResponseLinks$inboundSchema:
         UnmatchedCreditTransferActionResponseDocumentation$inboundSchema
       ).optional(),
     });
-/** @internal */
-export type UnmatchedCreditTransferActionResponseLinks$Outbound = {
-  self?: UnmatchedCreditTransferActionResponseSelf$Outbound | undefined;
-  documentation?:
-    | UnmatchedCreditTransferActionResponseDocumentation$Outbound
-    | undefined;
-};
 
-/** @internal */
-export const UnmatchedCreditTransferActionResponseLinks$outboundSchema:
-  z.ZodType<
-    UnmatchedCreditTransferActionResponseLinks$Outbound,
-    z.ZodTypeDef,
-    UnmatchedCreditTransferActionResponseLinks
-  > = z.object({
-    self: z.lazy(() => UnmatchedCreditTransferActionResponseSelf$outboundSchema)
-      .optional(),
-    documentation: z.lazy(() =>
-      UnmatchedCreditTransferActionResponseDocumentation$outboundSchema
-    ).optional(),
-  });
-
-export function unmatchedCreditTransferActionResponseLinksToJSON(
-  unmatchedCreditTransferActionResponseLinks:
-    UnmatchedCreditTransferActionResponseLinks,
-): string {
-  return JSON.stringify(
-    UnmatchedCreditTransferActionResponseLinks$outboundSchema.parse(
-      unmatchedCreditTransferActionResponseLinks,
-    ),
-  );
-}
 export function unmatchedCreditTransferActionResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -369,51 +255,7 @@ export const UnmatchedCreditTransferActionResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type UnmatchedCreditTransferActionResponse$Outbound = {
-  resource: string;
-  id: string;
-  unmatchedCreditTransferId: string;
-  action: string;
-  status: string;
-  createdAt: string;
-  details?: UnmatchedCreditTransferActionResponseDetails$Outbound | undefined;
-  _links: UnmatchedCreditTransferActionResponseLinks$Outbound;
-};
 
-/** @internal */
-export const UnmatchedCreditTransferActionResponse$outboundSchema: z.ZodType<
-  UnmatchedCreditTransferActionResponse$Outbound,
-  z.ZodTypeDef,
-  UnmatchedCreditTransferActionResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  unmatchedCreditTransferId: z.string(),
-  action: Action$outboundSchema,
-  status: UnmatchedCreditTransferActionResponseStatus$outboundSchema,
-  createdAt: z.string(),
-  details: z.lazy(() =>
-    UnmatchedCreditTransferActionResponseDetails$outboundSchema
-  ).optional(),
-  links: z.lazy(() =>
-    UnmatchedCreditTransferActionResponseLinks$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function unmatchedCreditTransferActionResponseToJSON(
-  unmatchedCreditTransferActionResponse: UnmatchedCreditTransferActionResponse,
-): string {
-  return JSON.stringify(
-    UnmatchedCreditTransferActionResponse$outboundSchema.parse(
-      unmatchedCreditTransferActionResponse,
-    ),
-  );
-}
 export function unmatchedCreditTransferActionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<UnmatchedCreditTransferActionResponse, SDKValidationError> {

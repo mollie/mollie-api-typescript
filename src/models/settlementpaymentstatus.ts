@@ -24,9 +24,3 @@ export const SettlementPaymentStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(SettlementPaymentStatus);
-/** @internal */
-export const SettlementPaymentStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SettlementPaymentStatus
-> = openEnums.outboundSchema(SettlementPaymentStatus);

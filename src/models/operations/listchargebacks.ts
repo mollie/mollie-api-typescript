@@ -92,62 +92,6 @@ export type ListChargebacksResponse = {
 };
 
 /** @internal */
-export const ListChargebacksGlobals$inboundSchema: z.ZodType<
-  ListChargebacksGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListChargebacksGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListChargebacksGlobals$outboundSchema: z.ZodType<
-  ListChargebacksGlobals$Outbound,
-  z.ZodTypeDef,
-  ListChargebacksGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listChargebacksGlobalsToJSON(
-  listChargebacksGlobals: ListChargebacksGlobals,
-): string {
-  return JSON.stringify(
-    ListChargebacksGlobals$outboundSchema.parse(listChargebacksGlobals),
-  );
-}
-export function listChargebacksGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListChargebacksGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListChargebacksGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListChargebacksGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListChargebacksRequest$inboundSchema: z.ZodType<
-  ListChargebacksRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListChargebacksRequest$Outbound = {
   paymentId: string;
   from?: string | undefined;
@@ -182,15 +126,6 @@ export function listChargebacksRequestToJSON(
     ListChargebacksRequest$outboundSchema.parse(listChargebacksRequest),
   );
 }
-export function listChargebacksRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListChargebacksRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListChargebacksRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListChargebacksRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListChargebacksEmbedded$inboundSchema: z.ZodType<
@@ -200,27 +135,7 @@ export const ListChargebacksEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   chargebacks: z.array(models.ListEntityChargeback$inboundSchema),
 });
-/** @internal */
-export type ListChargebacksEmbedded$Outbound = {
-  chargebacks: Array<models.ListEntityChargeback$Outbound>;
-};
 
-/** @internal */
-export const ListChargebacksEmbedded$outboundSchema: z.ZodType<
-  ListChargebacksEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListChargebacksEmbedded
-> = z.object({
-  chargebacks: z.array(models.ListEntityChargeback$outboundSchema),
-});
-
-export function listChargebacksEmbeddedToJSON(
-  listChargebacksEmbedded: ListChargebacksEmbedded,
-): string {
-  return JSON.stringify(
-    ListChargebacksEmbedded$outboundSchema.parse(listChargebacksEmbedded),
-  );
-}
 export function listChargebacksEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListChargebacksEmbedded, SDKValidationError> {
@@ -246,38 +161,7 @@ export const ListChargebacksResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListChargebacksResponseBody$Outbound = {
-  count: number;
-  _embedded: ListChargebacksEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListChargebacksResponseBody$outboundSchema: z.ZodType<
-  ListChargebacksResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListChargebacksResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListChargebacksEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listChargebacksResponseBodyToJSON(
-  listChargebacksResponseBody: ListChargebacksResponseBody,
-): string {
-  return JSON.stringify(
-    ListChargebacksResponseBody$outboundSchema.parse(
-      listChargebacksResponseBody,
-    ),
-  );
-}
 export function listChargebacksResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListChargebacksResponseBody, SDKValidationError> {
@@ -300,31 +184,7 @@ export const ListChargebacksResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListChargebacksResponse$Outbound = {
-  Result: ListChargebacksResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListChargebacksResponse$outboundSchema: z.ZodType<
-  ListChargebacksResponse$Outbound,
-  z.ZodTypeDef,
-  ListChargebacksResponse
-> = z.object({
-  result: z.lazy(() => ListChargebacksResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listChargebacksResponseToJSON(
-  listChargebacksResponse: ListChargebacksResponse,
-): string {
-  return JSON.stringify(
-    ListChargebacksResponse$outboundSchema.parse(listChargebacksResponse),
-  );
-}
 export function listChargebacksResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListChargebacksResponse, SDKValidationError> {

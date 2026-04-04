@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateSalesInvoiceRequestBody = {
@@ -92,27 +89,6 @@ export type UpdateSalesInvoiceRequest = {
 };
 
 /** @internal */
-export const UpdateSalesInvoiceRequestBody$inboundSchema: z.ZodType<
-  UpdateSalesInvoiceRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-  status: models.SalesInvoiceStatus$inboundSchema.optional(),
-  memo: z.nullable(z.string()).optional(),
-  paymentTerm: z.nullable(models.SalesInvoicePaymentTerm$inboundSchema)
-    .optional(),
-  paymentDetails: models.SalesInvoicePaymentDetails$inboundSchema.optional(),
-  emailDetails: z.nullable(models.SalesInvoiceEmailDetails$inboundSchema)
-    .optional(),
-  recipientIdentifier: z.string().optional(),
-  recipient: z.nullable(models.SalesInvoiceRecipient$inboundSchema).optional(),
-  lines: z.nullable(z.array(models.SalesInvoiceLineItem$inboundSchema))
-    .optional(),
-  discount: z.nullable(models.SalesInvoiceDiscount$inboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
-});
-/** @internal */
 export type UpdateSalesInvoiceRequestBody$Outbound = {
   testmode?: boolean | undefined;
   status?: string | undefined;
@@ -158,32 +134,7 @@ export function updateSalesInvoiceRequestBodyToJSON(
     ),
   );
 }
-export function updateSalesInvoiceRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateSalesInvoiceRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateSalesInvoiceRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateSalesInvoiceRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const UpdateSalesInvoiceRequest$inboundSchema: z.ZodType<
-  UpdateSalesInvoiceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  salesInvoiceId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => UpdateSalesInvoiceRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type UpdateSalesInvoiceRequest$Outbound = {
   salesInvoiceId: string;
@@ -213,14 +164,5 @@ export function updateSalesInvoiceRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateSalesInvoiceRequest$outboundSchema.parse(updateSalesInvoiceRequest),
-  );
-}
-export function updateSalesInvoiceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateSalesInvoiceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateSalesInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateSalesInvoiceRequest' from JSON`,
   );
 }

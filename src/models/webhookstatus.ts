@@ -27,9 +27,3 @@ export const WebhookStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(WebhookStatus);
-/** @internal */
-export const WebhookStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  WebhookStatus
-> = openEnums.outboundSchema(WebhookStatus);

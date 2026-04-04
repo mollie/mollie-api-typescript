@@ -23,9 +23,3 @@ export const UnmatchedCreditTransferStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(UnmatchedCreditTransferStatus);
-/** @internal */
-export const UnmatchedCreditTransferStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  UnmatchedCreditTransferStatus
-> = openEnums.outboundSchema(UnmatchedCreditTransferStatus);

@@ -19,10 +19,6 @@ export const TransferSchemeType = {
 export type TransferSchemeType = ClosedEnum<typeof TransferSchemeType>;
 
 /** @internal */
-export const TransferSchemeType$inboundSchema: z.ZodNativeEnum<
-  typeof TransferSchemeType
-> = z.nativeEnum(TransferSchemeType);
-/** @internal */
 export const TransferSchemeType$outboundSchema: z.ZodNativeEnum<
   typeof TransferSchemeType
-> = TransferSchemeType$inboundSchema;
+> = z.nativeEnum(TransferSchemeType);

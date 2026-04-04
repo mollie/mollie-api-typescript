@@ -10,7 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoicePaymentDetailsSourceResponse,
   SalesInvoicePaymentDetailsSourceResponse$inboundSchema,
-  SalesInvoicePaymentDetailsSourceResponse$outboundSchema,
 } from "./salesinvoicepaymentdetailssourceresponse.js";
 
 export type SalesInvoicePaymentDetailsResponse = {
@@ -36,31 +35,7 @@ export const SalesInvoicePaymentDetailsResponse$inboundSchema: z.ZodType<
   source: SalesInvoicePaymentDetailsSourceResponse$inboundSchema,
   sourceReference: z.nullable(z.string()).optional(),
 });
-/** @internal */
-export type SalesInvoicePaymentDetailsResponse$Outbound = {
-  source: string;
-  sourceReference?: string | null | undefined;
-};
 
-/** @internal */
-export const SalesInvoicePaymentDetailsResponse$outboundSchema: z.ZodType<
-  SalesInvoicePaymentDetailsResponse$Outbound,
-  z.ZodTypeDef,
-  SalesInvoicePaymentDetailsResponse
-> = z.object({
-  source: SalesInvoicePaymentDetailsSourceResponse$outboundSchema,
-  sourceReference: z.nullable(z.string()).optional(),
-});
-
-export function salesInvoicePaymentDetailsResponseToJSON(
-  salesInvoicePaymentDetailsResponse: SalesInvoicePaymentDetailsResponse,
-): string {
-  return JSON.stringify(
-    SalesInvoicePaymentDetailsResponse$outboundSchema.parse(
-      salesInvoicePaymentDetailsResponse,
-    ),
-  );
-}
 export function salesInvoicePaymentDetailsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoicePaymentDetailsResponse, SDKValidationError> {

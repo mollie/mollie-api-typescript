@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateWebhookEventTypes =
@@ -43,15 +40,6 @@ export type CreateWebhookRequest = {
 };
 
 /** @internal */
-export const CreateWebhookEventTypes$inboundSchema: z.ZodType<
-  CreateWebhookEventTypes,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.array(models.WebhookEventTypes$inboundSchema),
-  models.WebhookEventTypes$inboundSchema,
-]);
-/** @internal */
 export type CreateWebhookEventTypes$Outbound = Array<string> | string;
 
 /** @internal */
@@ -71,30 +59,7 @@ export function createWebhookEventTypesToJSON(
     CreateWebhookEventTypes$outboundSchema.parse(createWebhookEventTypes),
   );
 }
-export function createWebhookEventTypesFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateWebhookEventTypes, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateWebhookEventTypes$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateWebhookEventTypes' from JSON`,
-  );
-}
 
-/** @internal */
-export const CreateWebhookRequestBody$inboundSchema: z.ZodType<
-  CreateWebhookRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  url: z.string(),
-  eventTypes: z.union([
-    z.array(models.WebhookEventTypes$inboundSchema),
-    models.WebhookEventTypes$inboundSchema,
-  ]),
-  testmode: z.boolean().optional(),
-});
 /** @internal */
 export type CreateWebhookRequestBody$Outbound = {
   name: string;
@@ -125,30 +90,7 @@ export function createWebhookRequestBodyToJSON(
     CreateWebhookRequestBody$outboundSchema.parse(createWebhookRequestBody),
   );
 }
-export function createWebhookRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateWebhookRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateWebhookRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateWebhookRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const CreateWebhookRequest$inboundSchema: z.ZodType<
-  CreateWebhookRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => CreateWebhookRequestBody$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type CreateWebhookRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -175,14 +117,5 @@ export function createWebhookRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateWebhookRequest$outboundSchema.parse(createWebhookRequest),
-  );
-}
-export function createWebhookRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateWebhookRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateWebhookRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateWebhookRequest' from JSON`,
   );
 }

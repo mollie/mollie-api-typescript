@@ -34,9 +34,3 @@ export const SalesInvoiceRecipientLocaleResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(SalesInvoiceRecipientLocaleResponse);
-/** @internal */
-export const SalesInvoiceRecipientLocaleResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SalesInvoiceRecipientLocaleResponse
-> = openEnums.outboundSchema(SalesInvoiceRecipientLocaleResponse);

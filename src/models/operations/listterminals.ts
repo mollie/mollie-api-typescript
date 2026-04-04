@@ -91,61 +91,6 @@ export type ListTerminalsResponse = {
 };
 
 /** @internal */
-export const ListTerminalsGlobals$inboundSchema: z.ZodType<
-  ListTerminalsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListTerminalsGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListTerminalsGlobals$outboundSchema: z.ZodType<
-  ListTerminalsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListTerminalsGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listTerminalsGlobalsToJSON(
-  listTerminalsGlobals: ListTerminalsGlobals,
-): string {
-  return JSON.stringify(
-    ListTerminalsGlobals$outboundSchema.parse(listTerminalsGlobals),
-  );
-}
-export function listTerminalsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListTerminalsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListTerminalsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListTerminalsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListTerminalsRequest$inboundSchema: z.ZodType<
-  ListTerminalsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListTerminalsRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
@@ -178,15 +123,6 @@ export function listTerminalsRequestToJSON(
     ListTerminalsRequest$outboundSchema.parse(listTerminalsRequest),
   );
 }
-export function listTerminalsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListTerminalsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListTerminalsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListTerminalsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListTerminalsEmbedded$inboundSchema: z.ZodType<
@@ -196,27 +132,7 @@ export const ListTerminalsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   terminals: z.array(models.ListEntityTerminal$inboundSchema).optional(),
 });
-/** @internal */
-export type ListTerminalsEmbedded$Outbound = {
-  terminals?: Array<models.ListEntityTerminal$Outbound> | undefined;
-};
 
-/** @internal */
-export const ListTerminalsEmbedded$outboundSchema: z.ZodType<
-  ListTerminalsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListTerminalsEmbedded
-> = z.object({
-  terminals: z.array(models.ListEntityTerminal$outboundSchema).optional(),
-});
-
-export function listTerminalsEmbeddedToJSON(
-  listTerminalsEmbedded: ListTerminalsEmbedded,
-): string {
-  return JSON.stringify(
-    ListTerminalsEmbedded$outboundSchema.parse(listTerminalsEmbedded),
-  );
-}
 export function listTerminalsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListTerminalsEmbedded, SDKValidationError> {
@@ -242,36 +158,7 @@ export const ListTerminalsResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListTerminalsResponseBody$Outbound = {
-  count: number;
-  _embedded: ListTerminalsEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListTerminalsResponseBody$outboundSchema: z.ZodType<
-  ListTerminalsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListTerminalsResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListTerminalsEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listTerminalsResponseBodyToJSON(
-  listTerminalsResponseBody: ListTerminalsResponseBody,
-): string {
-  return JSON.stringify(
-    ListTerminalsResponseBody$outboundSchema.parse(listTerminalsResponseBody),
-  );
-}
 export function listTerminalsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListTerminalsResponseBody, SDKValidationError> {
@@ -294,31 +181,7 @@ export const ListTerminalsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListTerminalsResponse$Outbound = {
-  Result: ListTerminalsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListTerminalsResponse$outboundSchema: z.ZodType<
-  ListTerminalsResponse$Outbound,
-  z.ZodTypeDef,
-  ListTerminalsResponse
-> = z.object({
-  result: z.lazy(() => ListTerminalsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listTerminalsResponseToJSON(
-  listTerminalsResponse: ListTerminalsResponse,
-): string {
-  return JSON.stringify(
-    ListTerminalsResponse$outboundSchema.parse(listTerminalsResponse),
-  );
-}
 export function listTerminalsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListTerminalsResponse, SDKValidationError> {

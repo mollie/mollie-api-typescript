@@ -25,9 +25,3 @@ export const CreditDebitIndicator$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CreditDebitIndicator);
-/** @internal */
-export const CreditDebitIndicator$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreditDebitIndicator
-> = openEnums.outboundSchema(CreditDebitIndicator);

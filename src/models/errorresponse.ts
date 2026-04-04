@@ -32,29 +32,7 @@ export const ErrorResponseDocumentation$inboundSchema: z.ZodType<
   href: z.string(),
   type: z.string(),
 });
-/** @internal */
-export type ErrorResponseDocumentation$Outbound = {
-  href: string;
-  type: string;
-};
 
-/** @internal */
-export const ErrorResponseDocumentation$outboundSchema: z.ZodType<
-  ErrorResponseDocumentation$Outbound,
-  z.ZodTypeDef,
-  ErrorResponseDocumentation
-> = z.object({
-  href: z.string(),
-  type: z.string(),
-});
-
-export function errorResponseDocumentationToJSON(
-  errorResponseDocumentation: ErrorResponseDocumentation,
-): string {
-  return JSON.stringify(
-    ErrorResponseDocumentation$outboundSchema.parse(errorResponseDocumentation),
-  );
-}
 export function errorResponseDocumentationFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorResponseDocumentation, SDKValidationError> {
@@ -73,27 +51,7 @@ export const ErrorResponseLinks$inboundSchema: z.ZodType<
 > = z.object({
   documentation: z.lazy(() => ErrorResponseDocumentation$inboundSchema),
 });
-/** @internal */
-export type ErrorResponseLinks$Outbound = {
-  documentation: ErrorResponseDocumentation$Outbound;
-};
 
-/** @internal */
-export const ErrorResponseLinks$outboundSchema: z.ZodType<
-  ErrorResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorResponseLinks
-> = z.object({
-  documentation: z.lazy(() => ErrorResponseDocumentation$outboundSchema),
-});
-
-export function errorResponseLinksToJSON(
-  errorResponseLinks: ErrorResponseLinks,
-): string {
-  return JSON.stringify(
-    ErrorResponseLinks$outboundSchema.parse(errorResponseLinks),
-  );
-}
 export function errorResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorResponseLinks, SDKValidationError> {

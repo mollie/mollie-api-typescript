@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetTerminalGlobals = {
   /**
@@ -44,59 +41,6 @@ export type GetTerminalRequest = {
 };
 
 /** @internal */
-export const GetTerminalGlobals$inboundSchema: z.ZodType<
-  GetTerminalGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetTerminalGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetTerminalGlobals$outboundSchema: z.ZodType<
-  GetTerminalGlobals$Outbound,
-  z.ZodTypeDef,
-  GetTerminalGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getTerminalGlobalsToJSON(
-  getTerminalGlobals: GetTerminalGlobals,
-): string {
-  return JSON.stringify(
-    GetTerminalGlobals$outboundSchema.parse(getTerminalGlobals),
-  );
-}
-export function getTerminalGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetTerminalGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetTerminalGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetTerminalGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetTerminalRequest$inboundSchema: z.ZodType<
-  GetTerminalRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  terminalId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetTerminalRequest$Outbound = {
   terminalId: string;
   testmode?: boolean | undefined;
@@ -123,14 +67,5 @@ export function getTerminalRequestToJSON(
 ): string {
   return JSON.stringify(
     GetTerminalRequest$outboundSchema.parse(getTerminalRequest),
-  );
-}
-export function getTerminalRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetTerminalRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetTerminalRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetTerminalRequest' from JSON`,
   );
 }

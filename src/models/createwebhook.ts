@@ -8,23 +8,13 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
+import { Url, Url$inboundSchema } from "./url.js";
 import {
   WebhookEventTypes,
   WebhookEventTypes$inboundSchema,
-  WebhookEventTypes$outboundSchema,
 } from "./webhookeventtypes.js";
-import {
-  WebhookStatus,
-  WebhookStatus$inboundSchema,
-  WebhookStatus$outboundSchema,
-} from "./webhookstatus.js";
+import { WebhookStatus, WebhookStatus$inboundSchema } from "./webhookstatus.js";
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -96,29 +86,7 @@ export const CreateWebhookLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   documentation: Url$inboundSchema,
 });
-/** @internal */
-export type CreateWebhookLinks$Outbound = {
-  self: Url$Outbound;
-  documentation: Url$Outbound;
-};
 
-/** @internal */
-export const CreateWebhookLinks$outboundSchema: z.ZodType<
-  CreateWebhookLinks$Outbound,
-  z.ZodTypeDef,
-  CreateWebhookLinks
-> = z.object({
-  self: Url$outboundSchema,
-  documentation: Url$outboundSchema,
-});
-
-export function createWebhookLinksToJSON(
-  createWebhookLinks: CreateWebhookLinks,
-): string {
-  return JSON.stringify(
-    CreateWebhookLinks$outboundSchema.parse(createWebhookLinks),
-  );
-}
 export function createWebhookLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateWebhookLinks, SDKValidationError> {
@@ -151,47 +119,7 @@ export const CreateWebhook$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type CreateWebhook$Outbound = {
-  resource: string;
-  id: string;
-  url: string;
-  profileId: string | null;
-  createdAt: string;
-  name: string;
-  eventTypes: Array<string>;
-  status: string;
-  mode: string;
-  webhookSecret: string;
-  _links: CreateWebhookLinks$Outbound;
-};
 
-/** @internal */
-export const CreateWebhook$outboundSchema: z.ZodType<
-  CreateWebhook$Outbound,
-  z.ZodTypeDef,
-  CreateWebhook
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  url: z.string(),
-  profileId: z.nullable(z.string()),
-  createdAt: z.string(),
-  name: z.string(),
-  eventTypes: z.array(WebhookEventTypes$outboundSchema),
-  status: WebhookStatus$outboundSchema,
-  mode: Mode$outboundSchema,
-  webhookSecret: z.string(),
-  links: z.lazy(() => CreateWebhookLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function createWebhookToJSON(createWebhook: CreateWebhook): string {
-  return JSON.stringify(CreateWebhook$outboundSchema.parse(createWebhook));
-}
 export function createWebhookFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateWebhook, SDKValidationError> {

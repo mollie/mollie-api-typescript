@@ -6,53 +6,27 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
   CreditDebitIndicator,
   CreditDebitIndicator$inboundSchema,
-  CreditDebitIndicator$outboundSchema,
 } from "./creditdebitindicator.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   StatusHistoryEntryResponse,
   StatusHistoryEntryResponse$inboundSchema,
-  StatusHistoryEntryResponse$Outbound,
-  StatusHistoryEntryResponse$outboundSchema,
 } from "./statushistoryentryresponse.js";
-import {
-  StatusReason2,
-  StatusReason2$inboundSchema,
-  StatusReason2$Outbound,
-  StatusReason2$outboundSchema,
-} from "./statusreason2.js";
-import {
-  TransferParty,
-  TransferParty$inboundSchema,
-  TransferParty$Outbound,
-  TransferParty$outboundSchema,
-} from "./transferparty.js";
+import { StatusReason2, StatusReason2$inboundSchema } from "./statusreason2.js";
+import { TransferParty, TransferParty$inboundSchema } from "./transferparty.js";
 import {
   TransferSchemeResponse,
   TransferSchemeResponse$inboundSchema,
-  TransferSchemeResponse$Outbound,
-  TransferSchemeResponse$outboundSchema,
 } from "./transferschemeresponse.js";
 import {
   TransferStatus,
   TransferStatus$inboundSchema,
-  TransferStatus$outboundSchema,
 } from "./transferstatus.js";
 
 /**
@@ -173,27 +147,7 @@ export const TransferResponseAccount$inboundSchema: z.ZodType<
 > = z.object({
   iban: z.string(),
 });
-/** @internal */
-export type TransferResponseAccount$Outbound = {
-  iban: string;
-};
 
-/** @internal */
-export const TransferResponseAccount$outboundSchema: z.ZodType<
-  TransferResponseAccount$Outbound,
-  z.ZodTypeDef,
-  TransferResponseAccount
-> = z.object({
-  iban: z.string(),
-});
-
-export function transferResponseAccountToJSON(
-  transferResponseAccount: TransferResponseAccount,
-): string {
-  return JSON.stringify(
-    TransferResponseAccount$outboundSchema.parse(transferResponseAccount),
-  );
-}
 export function transferResponseAccountFromJSON(
   jsonString: string,
 ): SafeParseResult<TransferResponseAccount, SDKValidationError> {
@@ -210,25 +164,7 @@ export const Debtor$inboundSchema: z.ZodType<Debtor, z.ZodTypeDef, unknown> = z
     fullName: z.string(),
     account: z.lazy(() => TransferResponseAccount$inboundSchema),
   });
-/** @internal */
-export type Debtor$Outbound = {
-  fullName: string;
-  account: TransferResponseAccount$Outbound;
-};
 
-/** @internal */
-export const Debtor$outboundSchema: z.ZodType<
-  Debtor$Outbound,
-  z.ZodTypeDef,
-  Debtor
-> = z.object({
-  fullName: z.string(),
-  account: z.lazy(() => TransferResponseAccount$outboundSchema),
-});
-
-export function debtorToJSON(debtor: Debtor): string {
-  return JSON.stringify(Debtor$outboundSchema.parse(debtor));
-}
 export function debtorFromJSON(
   jsonString: string,
 ): SafeParseResult<Debtor, SDKValidationError> {
@@ -261,55 +197,7 @@ export const TransferResponse$inboundSchema: z.ZodType<
   statusReason: z.nullable(StatusReason2$inboundSchema).optional(),
   metadata: z.nullable(Metadata$inboundSchema).optional(),
 });
-/** @internal */
-export type TransferResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  debtor: Debtor$Outbound;
-  creditor: TransferParty$Outbound;
-  amount: Amount$Outbound;
-  description?: string | null | undefined;
-  businessAccountTransactionId: string;
-  transferScheme: TransferSchemeResponse$Outbound;
-  creditDebitIndicator: string;
-  status: string;
-  statusHistory: Array<StatusHistoryEntryResponse$Outbound>;
-  createdAt: string;
-  statusReason?: StatusReason2$Outbound | null | undefined;
-  metadata?: Metadata$Outbound | null | undefined;
-};
 
-/** @internal */
-export const TransferResponse$outboundSchema: z.ZodType<
-  TransferResponse$Outbound,
-  z.ZodTypeDef,
-  TransferResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  debtor: z.lazy(() => Debtor$outboundSchema),
-  creditor: TransferParty$outboundSchema,
-  amount: Amount$outboundSchema,
-  description: z.nullable(z.string()).optional(),
-  businessAccountTransactionId: z.string(),
-  transferScheme: TransferSchemeResponse$outboundSchema,
-  creditDebitIndicator: CreditDebitIndicator$outboundSchema,
-  status: TransferStatus$outboundSchema,
-  statusHistory: z.array(StatusHistoryEntryResponse$outboundSchema),
-  createdAt: z.string(),
-  statusReason: z.nullable(StatusReason2$outboundSchema).optional(),
-  metadata: z.nullable(Metadata$outboundSchema).optional(),
-});
-
-export function transferResponseToJSON(
-  transferResponse: TransferResponse,
-): string {
-  return JSON.stringify(
-    TransferResponse$outboundSchema.parse(transferResponse),
-  );
-}
 export function transferResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<TransferResponse, SDKValidationError> {

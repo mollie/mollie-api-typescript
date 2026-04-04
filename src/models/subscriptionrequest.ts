@@ -4,24 +4,14 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   Metadata,
-  Metadata$inboundSchema,
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
 import {
   SubscriptionMethod,
-  SubscriptionMethod$inboundSchema,
   SubscriptionMethod$outboundSchema,
 } from "./subscriptionmethod.js";
 
@@ -128,15 +118,6 @@ export type SubscriptionRequest = {
 };
 
 /** @internal */
-export const SubscriptionRequestApplicationFee$inboundSchema: z.ZodType<
-  SubscriptionRequestApplicationFee,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: Amount$inboundSchema,
-  description: z.string(),
-});
-/** @internal */
 export type SubscriptionRequestApplicationFee$Outbound = {
   amount: Amount$Outbound;
   description: string;
@@ -161,36 +142,7 @@ export function subscriptionRequestApplicationFeeToJSON(
     ),
   );
 }
-export function subscriptionRequestApplicationFeeFromJSON(
-  jsonString: string,
-): SafeParseResult<SubscriptionRequestApplicationFee, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SubscriptionRequestApplicationFee$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubscriptionRequestApplicationFee' from JSON`,
-  );
-}
 
-/** @internal */
-export const SubscriptionRequest$inboundSchema: z.ZodType<
-  SubscriptionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: Amount$inboundSchema.optional(),
-  times: z.nullable(z.number().int()).optional(),
-  interval: z.string().optional(),
-  startDate: z.string().optional(),
-  description: z.string().optional(),
-  method: z.nullable(SubscriptionMethod$inboundSchema).optional(),
-  applicationFee: z.lazy(() => SubscriptionRequestApplicationFee$inboundSchema)
-    .optional(),
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  mandateId: z.string().optional(),
-  profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
 /** @internal */
 export type SubscriptionRequest$Outbound = {
   amount?: Amount$Outbound | undefined;
@@ -233,14 +185,5 @@ export function subscriptionRequestToJSON(
 ): string {
   return JSON.stringify(
     SubscriptionRequest$outboundSchema.parse(subscriptionRequest),
-  );
-}
-export function subscriptionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<SubscriptionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SubscriptionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubscriptionRequest' from JSON`,
   );
 }

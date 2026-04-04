@@ -4,30 +4,19 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   Metadata,
-  Metadata$inboundSchema,
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
 import {
   TransferParty,
-  TransferParty$inboundSchema,
   TransferParty$Outbound,
   TransferParty$outboundSchema,
 } from "./transferparty.js";
 import {
   TransferScheme,
-  TransferScheme$inboundSchema,
   TransferScheme$Outbound,
   TransferScheme$outboundSchema,
 } from "./transferscheme.js";
@@ -85,20 +74,6 @@ export type TransferRequest = {
 };
 
 /** @internal */
-export const TransferRequest$inboundSchema: z.ZodType<
-  TransferRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  debtorIban: z.string(),
-  creditor: TransferParty$inboundSchema,
-  amount: Amount$inboundSchema,
-  description: z.nullable(z.string()).optional(),
-  transferScheme: TransferScheme$inboundSchema,
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type TransferRequest$Outbound = {
   debtorIban: string;
   creditor: TransferParty$Outbound;
@@ -128,13 +103,4 @@ export function transferRequestToJSON(
   transferRequest: TransferRequest,
 ): string {
   return JSON.stringify(TransferRequest$outboundSchema.parse(transferRequest));
-}
-export function transferRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<TransferRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TransferRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TransferRequest' from JSON`,
-  );
 }

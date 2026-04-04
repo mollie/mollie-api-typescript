@@ -67,8 +67,5 @@ export const MethodEnum = {
 export type MethodEnum = ClosedEnum<typeof MethodEnum>;
 
 /** @internal */
-export const MethodEnum$inboundSchema: z.ZodNativeEnum<typeof MethodEnum> = z
+export const MethodEnum$outboundSchema: z.ZodNativeEnum<typeof MethodEnum> = z
   .nativeEnum(MethodEnum);
-/** @internal */
-export const MethodEnum$outboundSchema: z.ZodNativeEnum<typeof MethodEnum> =
-  MethodEnum$inboundSchema;

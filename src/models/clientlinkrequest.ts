@@ -4,12 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LocaleResponse,
-  LocaleResponse$inboundSchema,
   LocaleResponse$outboundSchema,
 } from "./localeresponse.js";
 
@@ -108,14 +104,6 @@ export type ClientLinkRequest = {
 };
 
 /** @internal */
-export const Owner$inboundSchema: z.ZodType<Owner, z.ZodTypeDef, unknown> = z
-  .object({
-    email: z.string(),
-    givenName: z.string(),
-    familyName: z.string(),
-    locale: z.nullable(LocaleResponse$inboundSchema).optional(),
-  });
-/** @internal */
 export type Owner$Outbound = {
   email: string;
   givenName: string;
@@ -138,27 +126,7 @@ export const Owner$outboundSchema: z.ZodType<
 export function ownerToJSON(owner: Owner): string {
   return JSON.stringify(Owner$outboundSchema.parse(owner));
 }
-export function ownerFromJSON(
-  jsonString: string,
-): SafeParseResult<Owner, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Owner$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Owner' from JSON`,
-  );
-}
 
-/** @internal */
-export const ClientLinkRequestAddress$inboundSchema: z.ZodType<
-  ClientLinkRequestAddress,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  streetAndNumber: z.nullable(z.string()).optional(),
-  postalCode: z.nullable(z.string()).optional(),
-  city: z.nullable(z.string()).optional(),
-  country: z.string(),
-});
 /** @internal */
 export type ClientLinkRequestAddress$Outbound = {
   streetAndNumber?: string | null | undefined;
@@ -186,31 +154,7 @@ export function clientLinkRequestAddressToJSON(
     ClientLinkRequestAddress$outboundSchema.parse(clientLinkRequestAddress),
   );
 }
-export function clientLinkRequestAddressFromJSON(
-  jsonString: string,
-): SafeParseResult<ClientLinkRequestAddress, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ClientLinkRequestAddress$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ClientLinkRequestAddress' from JSON`,
-  );
-}
 
-/** @internal */
-export const ClientLinkRequest$inboundSchema: z.ZodType<
-  ClientLinkRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  owner: z.lazy(() => Owner$inboundSchema),
-  name: z.string(),
-  address: z.lazy(() => ClientLinkRequestAddress$inboundSchema),
-  registrationNumber: z.nullable(z.string()).optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  legalEntity: z.string().optional(),
-  registrationOffice: z.string().optional(),
-  incorporationDate: z.nullable(z.string()).optional(),
-});
 /** @internal */
 export type ClientLinkRequest$Outbound = {
   owner: Owner$Outbound;
@@ -244,14 +188,5 @@ export function clientLinkRequestToJSON(
 ): string {
   return JSON.stringify(
     ClientLinkRequest$outboundSchema.parse(clientLinkRequest),
-  );
-}
-export function clientLinkRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ClientLinkRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ClientLinkRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ClientLinkRequest' from JSON`,
   );
 }

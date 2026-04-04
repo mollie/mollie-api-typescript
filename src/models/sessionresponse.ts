@@ -9,37 +9,22 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   PaymentAddress,
   PaymentAddress$inboundSchema,
-  PaymentAddress$Outbound,
-  PaymentAddress$outboundSchema,
 } from "./paymentaddress.js";
 import {
   SessionLineItemResponse,
   SessionLineItemResponse$inboundSchema,
-  SessionLineItemResponse$Outbound,
-  SessionLineItemResponse$outboundSchema,
 } from "./sessionlineitemresponse.js";
 import {
   SessionSequenceTypeResponse,
   SessionSequenceTypeResponse$inboundSchema,
-  SessionSequenceTypeResponse$outboundSchema,
 } from "./sessionsequencetyperesponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The session's status.
@@ -166,12 +151,6 @@ export const SessionResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(SessionResponseStatus);
-/** @internal */
-export const SessionResponseStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SessionResponseStatus
-> = openEnums.outboundSchema(SessionResponseStatus);
 
 /** @internal */
 export const SessionResponsePayment$inboundSchema: z.ZodType<
@@ -181,27 +160,7 @@ export const SessionResponsePayment$inboundSchema: z.ZodType<
 > = z.object({
   webhookUrl: z.string().optional(),
 });
-/** @internal */
-export type SessionResponsePayment$Outbound = {
-  webhookUrl?: string | undefined;
-};
 
-/** @internal */
-export const SessionResponsePayment$outboundSchema: z.ZodType<
-  SessionResponsePayment$Outbound,
-  z.ZodTypeDef,
-  SessionResponsePayment
-> = z.object({
-  webhookUrl: z.string().optional(),
-});
-
-export function sessionResponsePaymentToJSON(
-  sessionResponsePayment: SessionResponsePayment,
-): string {
-  return JSON.stringify(
-    SessionResponsePayment$outboundSchema.parse(sessionResponsePayment),
-  );
-}
 export function sessionResponsePaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<SessionResponsePayment, SDKValidationError> {
@@ -220,27 +179,7 @@ export const SessionResponseLinks$inboundSchema: z.ZodType<
 > = z.object({
   self: Url$inboundSchema,
 });
-/** @internal */
-export type SessionResponseLinks$Outbound = {
-  self: Url$Outbound;
-};
 
-/** @internal */
-export const SessionResponseLinks$outboundSchema: z.ZodType<
-  SessionResponseLinks$Outbound,
-  z.ZodTypeDef,
-  SessionResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-});
-
-export function sessionResponseLinksToJSON(
-  sessionResponseLinks: SessionResponseLinks,
-): string {
-  return JSON.stringify(
-    SessionResponseLinks$outboundSchema.parse(sessionResponseLinks),
-  );
-}
 export function sessionResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<SessionResponseLinks, SDKValidationError> {
@@ -280,63 +219,7 @@ export const SessionResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type SessionResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  clientAccessToken: string;
-  status: string;
-  amount: Amount$Outbound;
-  description: string;
-  lines: Array<SessionLineItemResponse$Outbound>;
-  redirectUrl: string;
-  billingAddress?: PaymentAddress$Outbound | undefined;
-  shippingAddress?: PaymentAddress$Outbound | undefined;
-  customerId?: string | undefined;
-  sequenceType?: string | undefined;
-  metadata?: { [k: string]: any } | undefined;
-  payment?: SessionResponsePayment$Outbound | undefined;
-  profileId: string;
-  createdAt: string;
-  _links: SessionResponseLinks$Outbound;
-};
 
-/** @internal */
-export const SessionResponse$outboundSchema: z.ZodType<
-  SessionResponse$Outbound,
-  z.ZodTypeDef,
-  SessionResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  clientAccessToken: z.string(),
-  status: SessionResponseStatus$outboundSchema,
-  amount: Amount$outboundSchema,
-  description: z.string(),
-  lines: z.array(SessionLineItemResponse$outboundSchema),
-  redirectUrl: z.string(),
-  billingAddress: PaymentAddress$outboundSchema.optional(),
-  shippingAddress: PaymentAddress$outboundSchema.optional(),
-  customerId: z.string().optional(),
-  sequenceType: SessionSequenceTypeResponse$outboundSchema.optional(),
-  metadata: z.record(z.any()).optional(),
-  payment: z.lazy(() => SessionResponsePayment$outboundSchema).optional(),
-  profileId: z.string(),
-  createdAt: z.string(),
-  links: z.lazy(() => SessionResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function sessionResponseToJSON(
-  sessionResponse: SessionResponse,
-): string {
-  return JSON.stringify(SessionResponse$outboundSchema.parse(sessionResponse));
-}
 export function sessionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SessionResponse, SDKValidationError> {

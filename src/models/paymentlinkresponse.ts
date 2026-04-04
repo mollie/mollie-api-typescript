@@ -7,48 +7,30 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
   AmountNullable,
   AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
 } from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   PaymentAddress,
   PaymentAddress$inboundSchema,
-  PaymentAddress$Outbound,
-  PaymentAddress$outboundSchema,
 } from "./paymentaddress.js";
 import {
   PaymentLineItemResponse,
   PaymentLineItemResponse$inboundSchema,
-  PaymentLineItemResponse$Outbound,
-  PaymentLineItemResponse$outboundSchema,
 } from "./paymentlineitemresponse.js";
 import {
   PaymentLinkMethodResponse,
   PaymentLinkMethodResponse$inboundSchema,
-  PaymentLinkMethodResponse$outboundSchema,
 } from "./paymentlinkmethodresponse.js";
 import {
   PaymentLinkSequenceTypeResponse,
   PaymentLinkSequenceTypeResponse$inboundSchema,
-  PaymentLinkSequenceTypeResponse$outboundSchema,
 } from "./paymentlinksequencetyperesponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie
@@ -234,31 +216,7 @@ export const PaymentLinkResponseApplicationFee$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema,
   description: z.string(),
 });
-/** @internal */
-export type PaymentLinkResponseApplicationFee$Outbound = {
-  amount: Amount$Outbound;
-  description: string;
-};
 
-/** @internal */
-export const PaymentLinkResponseApplicationFee$outboundSchema: z.ZodType<
-  PaymentLinkResponseApplicationFee$Outbound,
-  z.ZodTypeDef,
-  PaymentLinkResponseApplicationFee
-> = z.object({
-  amount: Amount$outboundSchema,
-  description: z.string(),
-});
-
-export function paymentLinkResponseApplicationFeeToJSON(
-  paymentLinkResponseApplicationFee: PaymentLinkResponseApplicationFee,
-): string {
-  return JSON.stringify(
-    PaymentLinkResponseApplicationFee$outboundSchema.parse(
-      paymentLinkResponseApplicationFee,
-    ),
-  );
-}
 export function paymentLinkResponseApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLinkResponseApplicationFee, SDKValidationError> {
@@ -278,29 +236,7 @@ export const PaymentLinkResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   paymentLink: Url$inboundSchema,
 });
-/** @internal */
-export type PaymentLinkResponseLinks$Outbound = {
-  self: Url$Outbound;
-  paymentLink: Url$Outbound;
-};
 
-/** @internal */
-export const PaymentLinkResponseLinks$outboundSchema: z.ZodType<
-  PaymentLinkResponseLinks$Outbound,
-  z.ZodTypeDef,
-  PaymentLinkResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  paymentLink: Url$outboundSchema,
-});
-
-export function paymentLinkResponseLinksToJSON(
-  paymentLinkResponseLinks: PaymentLinkResponseLinks,
-): string {
-  return JSON.stringify(
-    PaymentLinkResponseLinks$outboundSchema.parse(paymentLinkResponseLinks),
-  );
-}
 export function paymentLinkResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLinkResponseLinks, SDKValidationError> {
@@ -345,74 +281,7 @@ export const PaymentLinkResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type PaymentLinkResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  description: string;
-  amount: AmountNullable$Outbound | null;
-  minimumAmount?: AmountNullable$Outbound | null | undefined;
-  archived: boolean;
-  redirectUrl: string | null;
-  webhookUrl: string | null;
-  lines?: Array<PaymentLineItemResponse$Outbound> | null | undefined;
-  billingAddress?: PaymentAddress$Outbound | undefined;
-  shippingAddress?: PaymentAddress$Outbound | undefined;
-  profileId: string | null;
-  reusable: boolean | null;
-  createdAt: string;
-  paidAt: string | null;
-  expiresAt: string | null;
-  allowedMethods: Array<string> | null;
-  applicationFee?: PaymentLinkResponseApplicationFee$Outbound | undefined;
-  sequenceType?: string | undefined;
-  customerId?: string | null | undefined;
-  _links: PaymentLinkResponseLinks$Outbound;
-};
 
-/** @internal */
-export const PaymentLinkResponse$outboundSchema: z.ZodType<
-  PaymentLinkResponse$Outbound,
-  z.ZodTypeDef,
-  PaymentLinkResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  description: z.string(),
-  amount: z.nullable(AmountNullable$outboundSchema),
-  minimumAmount: z.nullable(AmountNullable$outboundSchema).optional(),
-  archived: z.boolean(),
-  redirectUrl: z.nullable(z.string()),
-  webhookUrl: z.nullable(z.string()),
-  lines: z.nullable(z.array(PaymentLineItemResponse$outboundSchema)).optional(),
-  billingAddress: PaymentAddress$outboundSchema.optional(),
-  shippingAddress: PaymentAddress$outboundSchema.optional(),
-  profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean()),
-  createdAt: z.string(),
-  paidAt: z.nullable(z.string()),
-  expiresAt: z.nullable(z.string()),
-  allowedMethods: z.nullable(z.array(PaymentLinkMethodResponse$outboundSchema)),
-  applicationFee: z.lazy(() => PaymentLinkResponseApplicationFee$outboundSchema)
-    .optional(),
-  sequenceType: PaymentLinkSequenceTypeResponse$outboundSchema.optional(),
-  customerId: z.nullable(z.string()).optional(),
-  links: z.lazy(() => PaymentLinkResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function paymentLinkResponseToJSON(
-  paymentLinkResponse: PaymentLinkResponse,
-): string {
-  return JSON.stringify(
-    PaymentLinkResponse$outboundSchema.parse(paymentLinkResponse),
-  );
-}
 export function paymentLinkResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLinkResponse, SDKValidationError> {

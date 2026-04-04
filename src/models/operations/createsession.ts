@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateSessionRequest = {
@@ -18,20 +15,6 @@ export type CreateSessionRequest = {
   sessionRequest?: models.SessionRequest | undefined;
 };
 
-/** @internal */
-export const CreateSessionRequest$inboundSchema: z.ZodType<
-  CreateSessionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  "session-request": models.SessionRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "session-request": "sessionRequest",
-  });
-});
 /** @internal */
 export type CreateSessionRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -58,14 +41,5 @@ export function createSessionRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateSessionRequest$outboundSchema.parse(createSessionRequest),
-  );
-}
-export function createSessionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateSessionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateSessionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateSessionRequest' from JSON`,
   );
 }

@@ -32,9 +32,3 @@ export const SalesInvoicePaymentTermResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(SalesInvoicePaymentTermResponse);
-/** @internal */
-export const SalesInvoicePaymentTermResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SalesInvoicePaymentTermResponse
-> = openEnums.outboundSchema(SalesInvoicePaymentTermResponse);

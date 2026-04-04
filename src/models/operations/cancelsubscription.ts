@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CancelSubscriptionRequestBody = {
   /**
@@ -39,14 +36,6 @@ export type CancelSubscriptionRequest = {
 };
 
 /** @internal */
-export const CancelSubscriptionRequestBody$inboundSchema: z.ZodType<
-  CancelSubscriptionRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type CancelSubscriptionRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
 };
@@ -69,33 +58,7 @@ export function cancelSubscriptionRequestBodyToJSON(
     ),
   );
 }
-export function cancelSubscriptionRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelSubscriptionRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelSubscriptionRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelSubscriptionRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const CancelSubscriptionRequest$inboundSchema: z.ZodType<
-  CancelSubscriptionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  subscriptionId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => CancelSubscriptionRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type CancelSubscriptionRequest$Outbound = {
   customerId: string;
@@ -127,14 +90,5 @@ export function cancelSubscriptionRequestToJSON(
 ): string {
   return JSON.stringify(
     CancelSubscriptionRequest$outboundSchema.parse(cancelSubscriptionRequest),
-  );
-}
-export function cancelSubscriptionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelSubscriptionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelSubscriptionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelSubscriptionRequest' from JSON`,
   );
 }

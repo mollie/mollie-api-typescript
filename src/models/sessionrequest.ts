@@ -4,30 +4,19 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   PaymentAddress,
-  PaymentAddress$inboundSchema,
   PaymentAddress$Outbound,
   PaymentAddress$outboundSchema,
 } from "./paymentaddress.js";
 import {
   SessionLineItem,
-  SessionLineItem$inboundSchema,
   SessionLineItem$Outbound,
   SessionLineItem$outboundSchema,
 } from "./sessionlineitem.js";
 import {
   SessionSequenceType,
-  SessionSequenceType$inboundSchema,
   SessionSequenceType$outboundSchema,
 } from "./sessionsequencetype.js";
 
@@ -110,14 +99,6 @@ export type SessionRequest = {
 };
 
 /** @internal */
-export const SessionRequestPayment$inboundSchema: z.ZodType<
-  SessionRequestPayment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  webhookUrl: z.string().optional(),
-});
-/** @internal */
 export type SessionRequestPayment$Outbound = {
   webhookUrl?: string | undefined;
 };
@@ -138,35 +119,7 @@ export function sessionRequestPaymentToJSON(
     SessionRequestPayment$outboundSchema.parse(sessionRequestPayment),
   );
 }
-export function sessionRequestPaymentFromJSON(
-  jsonString: string,
-): SafeParseResult<SessionRequestPayment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SessionRequestPayment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SessionRequestPayment' from JSON`,
-  );
-}
 
-/** @internal */
-export const SessionRequest$inboundSchema: z.ZodType<
-  SessionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: Amount$inboundSchema,
-  description: z.string(),
-  lines: z.array(SessionLineItem$inboundSchema),
-  redirectUrl: z.string(),
-  billingAddress: PaymentAddress$inboundSchema.optional(),
-  shippingAddress: PaymentAddress$inboundSchema.optional(),
-  customerId: z.string().optional(),
-  sequenceType: SessionSequenceType$inboundSchema.optional(),
-  metadata: z.record(z.any()).optional(),
-  payment: z.lazy(() => SessionRequestPayment$inboundSchema).optional(),
-  profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
 /** @internal */
 export type SessionRequest$Outbound = {
   amount: Amount$Outbound;
@@ -205,13 +158,4 @@ export const SessionRequest$outboundSchema: z.ZodType<
 
 export function sessionRequestToJSON(sessionRequest: SessionRequest): string {
   return JSON.stringify(SessionRequest$outboundSchema.parse(sessionRequest));
-}
-export function sessionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<SessionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SessionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SessionRequest' from JSON`,
-  );
 }

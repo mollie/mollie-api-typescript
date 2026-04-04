@@ -24,12 +24,6 @@ export const Currencies = {
 export type Currencies = OpenEnum<typeof Currencies>;
 
 /** @internal */
-export const Currencies$inboundSchema: z.ZodType<
-  Currencies,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(Currencies);
-/** @internal */
 export const Currencies$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,

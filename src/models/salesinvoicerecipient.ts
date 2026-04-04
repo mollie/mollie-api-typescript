@@ -4,17 +4,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoiceRecipientLocale,
-  SalesInvoiceRecipientLocale$inboundSchema,
   SalesInvoiceRecipientLocale$outboundSchema,
 } from "./salesinvoicerecipientlocale.js";
 import {
   SalesInvoiceRecipientType,
-  SalesInvoiceRecipientType$inboundSchema,
   SalesInvoiceRecipientType$outboundSchema,
 } from "./salesinvoicerecipienttype.js";
 
@@ -101,29 +96,6 @@ export type SalesInvoiceRecipient = {
 };
 
 /** @internal */
-export const SalesInvoiceRecipient$inboundSchema: z.ZodType<
-  SalesInvoiceRecipient,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: SalesInvoiceRecipientType$inboundSchema,
-  title: z.nullable(z.string()).optional(),
-  givenName: z.nullable(z.string()).optional(),
-  familyName: z.nullable(z.string()).optional(),
-  organizationName: z.nullable(z.string()).optional(),
-  organizationNumber: z.nullable(z.string()).optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  email: z.string(),
-  phone: z.nullable(z.string()).optional(),
-  streetAndNumber: z.string(),
-  streetAdditional: z.nullable(z.string()).optional(),
-  postalCode: z.string(),
-  city: z.string(),
-  region: z.nullable(z.string()).optional(),
-  country: z.string(),
-  locale: SalesInvoiceRecipientLocale$inboundSchema,
-});
-/** @internal */
 export type SalesInvoiceRecipient$Outbound = {
   type: string;
   title?: string | null | undefined;
@@ -172,14 +144,5 @@ export function salesInvoiceRecipientToJSON(
 ): string {
   return JSON.stringify(
     SalesInvoiceRecipient$outboundSchema.parse(salesInvoiceRecipient),
-  );
-}
-export function salesInvoiceRecipientFromJSON(
-  jsonString: string,
-): SafeParseResult<SalesInvoiceRecipient, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SalesInvoiceRecipient$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceRecipient' from JSON`,
   );
 }

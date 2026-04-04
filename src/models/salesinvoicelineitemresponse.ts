@@ -6,18 +6,11 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoiceDiscountResponse,
   SalesInvoiceDiscountResponse$inboundSchema,
-  SalesInvoiceDiscountResponse$Outbound,
-  SalesInvoiceDiscountResponse$outboundSchema,
 } from "./salesinvoicediscountresponse.js";
 
 export type SalesInvoiceLineItemResponse = {
@@ -52,37 +45,7 @@ export const SalesInvoiceLineItemResponse$inboundSchema: z.ZodType<
   unitPrice: Amount$inboundSchema,
   discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
 });
-/** @internal */
-export type SalesInvoiceLineItemResponse$Outbound = {
-  description: string;
-  quantity: number;
-  vatRate: string;
-  unitPrice: Amount$Outbound;
-  discount?: SalesInvoiceDiscountResponse$Outbound | null | undefined;
-};
 
-/** @internal */
-export const SalesInvoiceLineItemResponse$outboundSchema: z.ZodType<
-  SalesInvoiceLineItemResponse$Outbound,
-  z.ZodTypeDef,
-  SalesInvoiceLineItemResponse
-> = z.object({
-  description: z.string(),
-  quantity: z.number().int(),
-  vatRate: z.string(),
-  unitPrice: Amount$outboundSchema,
-  discount: z.nullable(SalesInvoiceDiscountResponse$outboundSchema).optional(),
-});
-
-export function salesInvoiceLineItemResponseToJSON(
-  salesInvoiceLineItemResponse: SalesInvoiceLineItemResponse,
-): string {
-  return JSON.stringify(
-    SalesInvoiceLineItemResponse$outboundSchema.parse(
-      salesInvoiceLineItemResponse,
-    ),
-  );
-}
 export function salesInvoiceLineItemResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoiceLineItemResponse, SDKValidationError> {

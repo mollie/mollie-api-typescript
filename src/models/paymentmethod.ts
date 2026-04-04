@@ -66,9 +66,3 @@ export const PaymentMethod$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(PaymentMethod);
-/** @internal */
-export const PaymentMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PaymentMethod
-> = openEnums.outboundSchema(PaymentMethod);

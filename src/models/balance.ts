@@ -6,12 +6,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -29,23 +24,7 @@ export const Balance$inboundSchema: z.ZodType<Balance, z.ZodTypeDef, unknown> =
   z.object({
     total: Amount$inboundSchema,
   });
-/** @internal */
-export type Balance$Outbound = {
-  total: Amount$Outbound;
-};
 
-/** @internal */
-export const Balance$outboundSchema: z.ZodType<
-  Balance$Outbound,
-  z.ZodTypeDef,
-  Balance
-> = z.object({
-  total: Amount$outboundSchema,
-});
-
-export function balanceToJSON(balance: Balance): string {
-  return JSON.stringify(Balance$outboundSchema.parse(balance));
-}
 export function balanceFromJSON(
   jsonString: string,
 ): SafeParseResult<Balance, SDKValidationError> {

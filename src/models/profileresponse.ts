@@ -10,18 +10,12 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   ProfileReviewStatusResponse,
   ProfileReviewStatusResponse$inboundSchema,
-  ProfileReviewStatusResponse$outboundSchema,
 } from "./profilereviewstatusresponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The profile status determines whether the profile is able to receive live payments.
@@ -178,12 +172,6 @@ export const ProfileResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ProfileResponseStatus);
-/** @internal */
-export const ProfileResponseStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ProfileResponseStatus
-> = openEnums.outboundSchema(ProfileResponseStatus);
 
 /** @internal */
 export const ProfileResponseReview$inboundSchema: z.ZodType<
@@ -193,27 +181,7 @@ export const ProfileResponseReview$inboundSchema: z.ZodType<
 > = z.object({
   status: ProfileReviewStatusResponse$inboundSchema.optional(),
 });
-/** @internal */
-export type ProfileResponseReview$Outbound = {
-  status?: string | undefined;
-};
 
-/** @internal */
-export const ProfileResponseReview$outboundSchema: z.ZodType<
-  ProfileResponseReview$Outbound,
-  z.ZodTypeDef,
-  ProfileResponseReview
-> = z.object({
-  status: ProfileReviewStatusResponse$outboundSchema.optional(),
-});
-
-export function profileResponseReviewToJSON(
-  profileResponseReview: ProfileResponseReview,
-): string {
-  return JSON.stringify(
-    ProfileResponseReview$outboundSchema.parse(profileResponseReview),
-  );
-}
 export function profileResponseReviewFromJSON(
   jsonString: string,
 ): SafeParseResult<ProfileResponseReview, SDKValidationError> {
@@ -239,41 +207,7 @@ export const ProfileResponseLinks$inboundSchema: z.ZodType<
   checkoutPreviewUrl: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type ProfileResponseLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  dashboard?: Url$Outbound | undefined;
-  chargebacks?: Url$Outbound | undefined;
-  methods?: Url$Outbound | undefined;
-  payments?: Url$Outbound | undefined;
-  refunds?: Url$Outbound | undefined;
-  checkoutPreviewUrl?: Url$Outbound | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const ProfileResponseLinks$outboundSchema: z.ZodType<
-  ProfileResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ProfileResponseLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  dashboard: Url$outboundSchema.optional(),
-  chargebacks: Url$outboundSchema.optional(),
-  methods: Url$outboundSchema.optional(),
-  payments: Url$outboundSchema.optional(),
-  refunds: Url$outboundSchema.optional(),
-  checkoutPreviewUrl: Url$outboundSchema.optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function profileResponseLinksToJSON(
-  profileResponseLinks: ProfileResponseLinks,
-): string {
-  return JSON.stringify(
-    ProfileResponseLinks$outboundSchema.parse(profileResponseLinks),
-  );
-}
 export function profileResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ProfileResponseLinks, SDKValidationError> {
@@ -309,55 +243,7 @@ export const ProfileResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ProfileResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  name: string;
-  website: string;
-  email: string;
-  phone: string;
-  description?: string | undefined;
-  countriesOfActivity?: Array<string> | undefined;
-  businessCategory: string;
-  status: string;
-  review?: ProfileResponseReview$Outbound | undefined;
-  createdAt: string;
-  _links: ProfileResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ProfileResponse$outboundSchema: z.ZodType<
-  ProfileResponse$Outbound,
-  z.ZodTypeDef,
-  ProfileResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  name: z.string(),
-  website: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  description: z.string().optional(),
-  countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string(),
-  status: ProfileResponseStatus$outboundSchema,
-  review: z.lazy(() => ProfileResponseReview$outboundSchema).optional(),
-  createdAt: z.string(),
-  links: z.lazy(() => ProfileResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function profileResponseToJSON(
-  profileResponse: ProfileResponse,
-): string {
-  return JSON.stringify(ProfileResponse$outboundSchema.parse(profileResponse));
-}
 export function profileResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ProfileResponse, SDKValidationError> {

@@ -9,39 +9,29 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceCardAudience,
   BalanceCardAudience$inboundSchema,
-  BalanceCardAudience$outboundSchema,
 } from "./balancecardaudience.js";
 import {
   BalanceCardIssuer,
   BalanceCardIssuer$inboundSchema,
-  BalanceCardIssuer$outboundSchema,
 } from "./balancecardissuer.js";
 import {
   BalanceCardRegion,
   BalanceCardRegion$inboundSchema,
-  BalanceCardRegion$outboundSchema,
 } from "./balancecardregion.js";
 import {
   BalanceFeeType,
   BalanceFeeType$inboundSchema,
-  BalanceFeeType$outboundSchema,
 } from "./balancefeetype.js";
 import {
   BalancePrepaymentPartType,
   BalancePrepaymentPartType$inboundSchema,
-  BalancePrepaymentPartType$outboundSchema,
 } from "./balanceprepaymentparttype.js";
 import {
   BalanceTransactionType,
   BalanceTransactionType$inboundSchema,
-  BalanceTransactionType$outboundSchema,
 } from "./balancetransactiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  PaymentMethod,
-  PaymentMethod$inboundSchema,
-  PaymentMethod$outboundSchema,
-} from "./paymentmethod.js";
+import { PaymentMethod, PaymentMethod$inboundSchema } from "./paymentmethod.js";
 
 export type SubTotals = {
   /**
@@ -75,37 +65,7 @@ export const SubTotals$inboundSchema: z.ZodType<
   prepaymentPartType: BalancePrepaymentPartType$inboundSchema.optional(),
   transactionType: BalanceTransactionType$inboundSchema.optional(),
 });
-/** @internal */
-export type SubTotals$Outbound = {
-  count?: number | undefined;
-  method?: string | null | undefined;
-  cardIssuer?: string | undefined;
-  cardAudience?: string | undefined;
-  cardRegion?: string | undefined;
-  feeType?: string | undefined;
-  prepaymentPartType?: string | undefined;
-  transactionType?: string | undefined;
-};
 
-/** @internal */
-export const SubTotals$outboundSchema: z.ZodType<
-  SubTotals$Outbound,
-  z.ZodTypeDef,
-  SubTotals
-> = z.object({
-  count: z.number().int().optional(),
-  method: z.nullable(PaymentMethod$outboundSchema).optional(),
-  cardIssuer: BalanceCardIssuer$outboundSchema.optional(),
-  cardAudience: BalanceCardAudience$outboundSchema.optional(),
-  cardRegion: BalanceCardRegion$outboundSchema.optional(),
-  feeType: BalanceFeeType$outboundSchema.optional(),
-  prepaymentPartType: BalancePrepaymentPartType$outboundSchema.optional(),
-  transactionType: BalanceTransactionType$outboundSchema.optional(),
-});
-
-export function subTotalsToJSON(subTotals: SubTotals): string {
-  return JSON.stringify(SubTotals$outboundSchema.parse(subTotals));
-}
 export function subTotalsFromJSON(
   jsonString: string,
 ): SafeParseResult<SubTotals, SDKValidationError> {

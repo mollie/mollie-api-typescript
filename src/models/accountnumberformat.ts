@@ -18,10 +18,6 @@ export const AccountNumberFormat = {
 export type AccountNumberFormat = ClosedEnum<typeof AccountNumberFormat>;
 
 /** @internal */
-export const AccountNumberFormat$inboundSchema: z.ZodNativeEnum<
-  typeof AccountNumberFormat
-> = z.nativeEnum(AccountNumberFormat);
-/** @internal */
 export const AccountNumberFormat$outboundSchema: z.ZodNativeEnum<
   typeof AccountNumberFormat
-> = AccountNumberFormat$inboundSchema;
+> = z.nativeEnum(AccountNumberFormat);

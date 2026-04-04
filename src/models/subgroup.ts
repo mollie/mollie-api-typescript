@@ -6,17 +6,10 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
   ComponentsSubTotals,
   ComponentsSubTotals$inboundSchema,
-  ComponentsSubTotals$Outbound,
-  ComponentsSubTotals$outboundSchema,
 } from "./componentssubtotals.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -37,25 +30,7 @@ export const SubGroup$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema.optional(),
   subtotals: z.nullable(z.array(ComponentsSubTotals$inboundSchema)).optional(),
 });
-/** @internal */
-export type SubGroup$Outbound = {
-  amount?: Amount$Outbound | undefined;
-  subtotals?: Array<ComponentsSubTotals$Outbound> | null | undefined;
-};
 
-/** @internal */
-export const SubGroup$outboundSchema: z.ZodType<
-  SubGroup$Outbound,
-  z.ZodTypeDef,
-  SubGroup
-> = z.object({
-  amount: Amount$outboundSchema.optional(),
-  subtotals: z.nullable(z.array(ComponentsSubTotals$outboundSchema)).optional(),
-});
-
-export function subGroupToJSON(subGroup: SubGroup): string {
-  return JSON.stringify(SubGroup$outboundSchema.parse(subGroup));
-}
 export function subGroupFromJSON(
   jsonString: string,
 ): SafeParseResult<SubGroup, SDKValidationError> {

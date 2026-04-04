@@ -7,25 +7,10 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * This optional field will contain the approximate amount that will be deducted from your account balance, converted
@@ -155,31 +140,7 @@ export const ListEntityChargebackSettlementAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListEntityChargebackSettlementAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListEntityChargebackSettlementAmount$outboundSchema: z.ZodType<
-  ListEntityChargebackSettlementAmount$Outbound,
-  z.ZodTypeDef,
-  ListEntityChargebackSettlementAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityChargebackSettlementAmountToJSON(
-  listEntityChargebackSettlementAmount: ListEntityChargebackSettlementAmount,
-): string {
-  return JSON.stringify(
-    ListEntityChargebackSettlementAmount$outboundSchema.parse(
-      listEntityChargebackSettlementAmount,
-    ),
-  );
-}
 export function listEntityChargebackSettlementAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityChargebackSettlementAmount, SDKValidationError> {
@@ -200,29 +161,7 @@ export const ListEntityChargebackReason$inboundSchema: z.ZodType<
   code: z.string(),
   description: z.string(),
 });
-/** @internal */
-export type ListEntityChargebackReason$Outbound = {
-  code: string;
-  description: string;
-};
 
-/** @internal */
-export const ListEntityChargebackReason$outboundSchema: z.ZodType<
-  ListEntityChargebackReason$Outbound,
-  z.ZodTypeDef,
-  ListEntityChargebackReason
-> = z.object({
-  code: z.string(),
-  description: z.string(),
-});
-
-export function listEntityChargebackReasonToJSON(
-  listEntityChargebackReason: ListEntityChargebackReason,
-): string {
-  return JSON.stringify(
-    ListEntityChargebackReason$outboundSchema.parse(listEntityChargebackReason),
-  );
-}
 export function listEntityChargebackReasonFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityChargebackReason, SDKValidationError> {
@@ -243,31 +182,7 @@ export const ListEntityChargebackLinks$inboundSchema: z.ZodType<
   payment: Url$inboundSchema,
   settlement: z.nullable(UrlNullable$inboundSchema).optional(),
 });
-/** @internal */
-export type ListEntityChargebackLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-  settlement?: UrlNullable$Outbound | null | undefined;
-};
 
-/** @internal */
-export const ListEntityChargebackLinks$outboundSchema: z.ZodType<
-  ListEntityChargebackLinks$Outbound,
-  z.ZodTypeDef,
-  ListEntityChargebackLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-  settlement: z.nullable(UrlNullable$outboundSchema).optional(),
-});
-
-export function listEntityChargebackLinksToJSON(
-  listEntityChargebackLinks: ListEntityChargebackLinks,
-): string {
-  return JSON.stringify(
-    ListEntityChargebackLinks$outboundSchema.parse(listEntityChargebackLinks),
-  );
-}
 export function listEntityChargebackLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityChargebackLinks, SDKValidationError> {
@@ -302,55 +217,7 @@ export const ListEntityChargeback$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListEntityChargeback$Outbound = {
-  resource: string;
-  id: string;
-  amount: Amount$Outbound;
-  settlementAmount?:
-    | ListEntityChargebackSettlementAmount$Outbound
-    | null
-    | undefined;
-  reason?: ListEntityChargebackReason$Outbound | null | undefined;
-  paymentId: string;
-  settlementId?: string | null | undefined;
-  createdAt: string;
-  reversedAt?: string | null | undefined;
-  _links: ListEntityChargebackLinks$Outbound;
-};
 
-/** @internal */
-export const ListEntityChargeback$outboundSchema: z.ZodType<
-  ListEntityChargeback$Outbound,
-  z.ZodTypeDef,
-  ListEntityChargeback
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  amount: Amount$outboundSchema,
-  settlementAmount: z.nullable(
-    z.lazy(() => ListEntityChargebackSettlementAmount$outboundSchema),
-  ).optional(),
-  reason: z.nullable(z.lazy(() => ListEntityChargebackReason$outboundSchema))
-    .optional(),
-  paymentId: z.string(),
-  settlementId: z.nullable(z.string()).optional(),
-  createdAt: z.string(),
-  reversedAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => ListEntityChargebackLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listEntityChargebackToJSON(
-  listEntityChargeback: ListEntityChargeback,
-): string {
-  return JSON.stringify(
-    ListEntityChargeback$outboundSchema.parse(listEntityChargeback),
-  );
-}
 export function listEntityChargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityChargeback, SDKValidationError> {

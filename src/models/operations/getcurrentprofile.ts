@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetCurrentProfileRequest = {
   /**
@@ -16,18 +13,6 @@ export type GetCurrentProfileRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetCurrentProfileRequest$inboundSchema: z.ZodType<
-  GetCurrentProfileRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetCurrentProfileRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -51,14 +36,5 @@ export function getCurrentProfileRequestToJSON(
 ): string {
   return JSON.stringify(
     GetCurrentProfileRequest$outboundSchema.parse(getCurrentProfileRequest),
-  );
-}
-export function getCurrentProfileRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCurrentProfileRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCurrentProfileRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCurrentProfileRequest' from JSON`,
   );
 }

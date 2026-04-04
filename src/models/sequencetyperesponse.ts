@@ -20,9 +20,3 @@ export const SequenceTypeResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(SequenceTypeResponse);
-/** @internal */
-export const SequenceTypeResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SequenceTypeResponse
-> = openEnums.outboundSchema(SequenceTypeResponse);

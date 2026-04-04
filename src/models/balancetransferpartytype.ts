@@ -20,10 +20,6 @@ export type BalanceTransferPartyType = ClosedEnum<
 >;
 
 /** @internal */
-export const BalanceTransferPartyType$inboundSchema: z.ZodNativeEnum<
-  typeof BalanceTransferPartyType
-> = z.nativeEnum(BalanceTransferPartyType);
-/** @internal */
 export const BalanceTransferPartyType$outboundSchema: z.ZodNativeEnum<
   typeof BalanceTransferPartyType
-> = BalanceTransferPartyType$inboundSchema;
+> = z.nativeEnum(BalanceTransferPartyType);

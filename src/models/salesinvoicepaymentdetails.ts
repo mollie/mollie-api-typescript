@@ -4,12 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoicePaymentDetailsSource,
-  SalesInvoicePaymentDetailsSource$inboundSchema,
   SalesInvoicePaymentDetailsSource$outboundSchema,
 } from "./salesinvoicepaymentdetailssource.js";
 
@@ -27,15 +23,6 @@ export type SalesInvoicePaymentDetails = {
   sourceReference?: string | null | undefined;
 };
 
-/** @internal */
-export const SalesInvoicePaymentDetails$inboundSchema: z.ZodType<
-  SalesInvoicePaymentDetails,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  source: SalesInvoicePaymentDetailsSource$inboundSchema,
-  sourceReference: z.nullable(z.string()).optional(),
-});
 /** @internal */
 export type SalesInvoicePaymentDetails$Outbound = {
   source: string;
@@ -57,14 +44,5 @@ export function salesInvoicePaymentDetailsToJSON(
 ): string {
   return JSON.stringify(
     SalesInvoicePaymentDetails$outboundSchema.parse(salesInvoicePaymentDetails),
-  );
-}
-export function salesInvoicePaymentDetailsFromJSON(
-  jsonString: string,
-): SafeParseResult<SalesInvoicePaymentDetails, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SalesInvoicePaymentDetails$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoicePaymentDetails' from JSON`,
   );
 }

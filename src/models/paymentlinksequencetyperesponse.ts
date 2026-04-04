@@ -21,9 +21,3 @@ export const PaymentLinkSequenceTypeResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(PaymentLinkSequenceTypeResponse);
-/** @internal */
-export const PaymentLinkSequenceTypeResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PaymentLinkSequenceTypeResponse
-> = openEnums.outboundSchema(PaymentLinkSequenceTypeResponse);

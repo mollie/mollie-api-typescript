@@ -9,37 +9,16 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   RefundExternalReferenceTypeResponse,
   RefundExternalReferenceTypeResponse$inboundSchema,
-  RefundExternalReferenceTypeResponse$outboundSchema,
 } from "./refundexternalreferencetyperesponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * This optional field will contain the approximate amount that will be deducted from your account balance, converted
@@ -229,31 +208,7 @@ export const EntityRefundResponseSettlementAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type EntityRefundResponseSettlementAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const EntityRefundResponseSettlementAmount$outboundSchema: z.ZodType<
-  EntityRefundResponseSettlementAmount$Outbound,
-  z.ZodTypeDef,
-  EntityRefundResponseSettlementAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function entityRefundResponseSettlementAmountToJSON(
-  entityRefundResponseSettlementAmount: EntityRefundResponseSettlementAmount,
-): string {
-  return JSON.stringify(
-    EntityRefundResponseSettlementAmount$outboundSchema.parse(
-      entityRefundResponseSettlementAmount,
-    ),
-  );
-}
 export function entityRefundResponseSettlementAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseSettlementAmount, SDKValidationError> {
@@ -271,12 +226,6 @@ export const EntityRefundResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntityRefundResponseStatus);
-/** @internal */
-export const EntityRefundResponseStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntityRefundResponseStatus
-> = openEnums.outboundSchema(EntityRefundResponseStatus);
 
 /** @internal */
 export const EntityRefundResponseExternalReference$inboundSchema: z.ZodType<
@@ -287,31 +236,7 @@ export const EntityRefundResponseExternalReference$inboundSchema: z.ZodType<
   type: RefundExternalReferenceTypeResponse$inboundSchema.optional(),
   id: z.string().optional(),
 });
-/** @internal */
-export type EntityRefundResponseExternalReference$Outbound = {
-  type?: string | undefined;
-  id?: string | undefined;
-};
 
-/** @internal */
-export const EntityRefundResponseExternalReference$outboundSchema: z.ZodType<
-  EntityRefundResponseExternalReference$Outbound,
-  z.ZodTypeDef,
-  EntityRefundResponseExternalReference
-> = z.object({
-  type: RefundExternalReferenceTypeResponse$outboundSchema.optional(),
-  id: z.string().optional(),
-});
-
-export function entityRefundResponseExternalReferenceToJSON(
-  entityRefundResponseExternalReference: EntityRefundResponseExternalReference,
-): string {
-  return JSON.stringify(
-    EntityRefundResponseExternalReference$outboundSchema.parse(
-      entityRefundResponseExternalReference,
-    ),
-  );
-}
 export function entityRefundResponseExternalReferenceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseExternalReference, SDKValidationError> {
@@ -331,27 +256,7 @@ export const EntityRefundResponseSource$inboundSchema: z.ZodType<
 > = z.object({
   organizationId: z.string().optional(),
 });
-/** @internal */
-export type EntityRefundResponseSource$Outbound = {
-  organizationId?: string | undefined;
-};
 
-/** @internal */
-export const EntityRefundResponseSource$outboundSchema: z.ZodType<
-  EntityRefundResponseSource$Outbound,
-  z.ZodTypeDef,
-  EntityRefundResponseSource
-> = z.object({
-  organizationId: z.string().optional(),
-});
-
-export function entityRefundResponseSourceToJSON(
-  entityRefundResponseSource: EntityRefundResponseSource,
-): string {
-  return JSON.stringify(
-    EntityRefundResponseSource$outboundSchema.parse(entityRefundResponseSource),
-  );
-}
 export function entityRefundResponseSourceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseSource, SDKValidationError> {
@@ -371,31 +276,7 @@ export const EntityRefundResponseRoutingReversal$inboundSchema: z.ZodType<
   amount: Amount$inboundSchema.optional(),
   source: z.lazy(() => EntityRefundResponseSource$inboundSchema).optional(),
 });
-/** @internal */
-export type EntityRefundResponseRoutingReversal$Outbound = {
-  amount?: Amount$Outbound | undefined;
-  source?: EntityRefundResponseSource$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityRefundResponseRoutingReversal$outboundSchema: z.ZodType<
-  EntityRefundResponseRoutingReversal$Outbound,
-  z.ZodTypeDef,
-  EntityRefundResponseRoutingReversal
-> = z.object({
-  amount: Amount$outboundSchema.optional(),
-  source: z.lazy(() => EntityRefundResponseSource$outboundSchema).optional(),
-});
-
-export function entityRefundResponseRoutingReversalToJSON(
-  entityRefundResponseRoutingReversal: EntityRefundResponseRoutingReversal,
-): string {
-  return JSON.stringify(
-    EntityRefundResponseRoutingReversal$outboundSchema.parse(
-      entityRefundResponseRoutingReversal,
-    ),
-  );
-}
 export function entityRefundResponseRoutingReversalFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseRoutingReversal, SDKValidationError> {
@@ -418,33 +299,7 @@ export const EntityRefundResponseLinks$inboundSchema: z.ZodType<
   settlement: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema,
 });
-/** @internal */
-export type EntityRefundResponseLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-  settlement?: UrlNullable$Outbound | null | undefined;
-  documentation: Url$Outbound;
-};
 
-/** @internal */
-export const EntityRefundResponseLinks$outboundSchema: z.ZodType<
-  EntityRefundResponseLinks$Outbound,
-  z.ZodTypeDef,
-  EntityRefundResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-  settlement: z.nullable(UrlNullable$outboundSchema).optional(),
-  documentation: Url$outboundSchema,
-});
-
-export function entityRefundResponseLinksToJSON(
-  entityRefundResponseLinks: EntityRefundResponseLinks,
-): string {
-  return JSON.stringify(
-    EntityRefundResponseLinks$outboundSchema.parse(entityRefundResponseLinks),
-  );
-}
 export function entityRefundResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponseLinks, SDKValidationError> {
@@ -486,71 +341,7 @@ export const EntityRefundResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityRefundResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  description: string;
-  amount: Amount$Outbound;
-  settlementAmount?:
-    | EntityRefundResponseSettlementAmount$Outbound
-    | null
-    | undefined;
-  metadata: Metadata$Outbound | null;
-  paymentId?: string | undefined;
-  settlementId?: string | null | undefined;
-  status: string;
-  createdAt: string;
-  externalReference?:
-    | EntityRefundResponseExternalReference$Outbound
-    | undefined;
-  routingReversals?:
-    | Array<EntityRefundResponseRoutingReversal$Outbound>
-    | null
-    | undefined;
-  _links: EntityRefundResponseLinks$Outbound;
-};
 
-/** @internal */
-export const EntityRefundResponse$outboundSchema: z.ZodType<
-  EntityRefundResponse$Outbound,
-  z.ZodTypeDef,
-  EntityRefundResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  description: z.string(),
-  amount: Amount$outboundSchema,
-  settlementAmount: z.nullable(
-    z.lazy(() => EntityRefundResponseSettlementAmount$outboundSchema),
-  ).optional(),
-  metadata: z.nullable(Metadata$outboundSchema),
-  paymentId: z.string().optional(),
-  settlementId: z.nullable(z.string()).optional(),
-  status: EntityRefundResponseStatus$outboundSchema,
-  createdAt: z.string(),
-  externalReference: z.lazy(() =>
-    EntityRefundResponseExternalReference$outboundSchema
-  ).optional(),
-  routingReversals: z.nullable(
-    z.array(z.lazy(() => EntityRefundResponseRoutingReversal$outboundSchema)),
-  ).optional(),
-  links: z.lazy(() => EntityRefundResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityRefundResponseToJSON(
-  entityRefundResponse: EntityRefundResponse,
-): string {
-  return JSON.stringify(
-    EntityRefundResponse$outboundSchema.parse(entityRefundResponse),
-  );
-}
 export function entityRefundResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityRefundResponse, SDKValidationError> {

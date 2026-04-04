@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type TestWebhookRequestBody = {
   /**
@@ -33,14 +30,6 @@ export type TestWebhookRequest = {
 };
 
 /** @internal */
-export const TestWebhookRequestBody$inboundSchema: z.ZodType<
-  TestWebhookRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
 export type TestWebhookRequestBody$Outbound = {
   testmode?: boolean | undefined;
 };
@@ -61,31 +50,7 @@ export function testWebhookRequestBodyToJSON(
     TestWebhookRequestBody$outboundSchema.parse(testWebhookRequestBody),
   );
 }
-export function testWebhookRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<TestWebhookRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TestWebhookRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TestWebhookRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const TestWebhookRequest$inboundSchema: z.ZodType<
-  TestWebhookRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  webhookId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => TestWebhookRequestBody$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type TestWebhookRequest$Outbound = {
   webhookId: string;
@@ -114,14 +79,5 @@ export function testWebhookRequestToJSON(
 ): string {
   return JSON.stringify(
     TestWebhookRequest$outboundSchema.parse(testWebhookRequest),
-  );
-}
-export function testWebhookRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<TestWebhookRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TestWebhookRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TestWebhookRequest' from JSON`,
   );
 }

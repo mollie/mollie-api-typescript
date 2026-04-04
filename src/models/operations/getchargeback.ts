@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetChargebackGlobals = {
   /**
@@ -52,61 +49,6 @@ export type GetChargebackRequest = {
 };
 
 /** @internal */
-export const GetChargebackGlobals$inboundSchema: z.ZodType<
-  GetChargebackGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetChargebackGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetChargebackGlobals$outboundSchema: z.ZodType<
-  GetChargebackGlobals$Outbound,
-  z.ZodTypeDef,
-  GetChargebackGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getChargebackGlobalsToJSON(
-  getChargebackGlobals: GetChargebackGlobals,
-): string {
-  return JSON.stringify(
-    GetChargebackGlobals$outboundSchema.parse(getChargebackGlobals),
-  );
-}
-export function getChargebackGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetChargebackGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetChargebackGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetChargebackGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetChargebackRequest$inboundSchema: z.ZodType<
-  GetChargebackRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  chargebackId: z.string(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetChargebackRequest$Outbound = {
   paymentId: string;
   chargebackId: string;
@@ -137,14 +79,5 @@ export function getChargebackRequestToJSON(
 ): string {
   return JSON.stringify(
     GetChargebackRequest$outboundSchema.parse(getChargebackRequest),
-  );
-}
-export function getChargebackRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetChargebackRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetChargebackRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetChargebackRequest' from JSON`,
   );
 }

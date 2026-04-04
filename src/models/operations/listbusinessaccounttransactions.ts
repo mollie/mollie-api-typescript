@@ -91,66 +91,6 @@ export type ListBusinessAccountTransactionsResponse = {
 };
 
 /** @internal */
-export const ListBusinessAccountTransactionsGlobals$inboundSchema: z.ZodType<
-  ListBusinessAccountTransactionsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListBusinessAccountTransactionsGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListBusinessAccountTransactionsGlobals$outboundSchema: z.ZodType<
-  ListBusinessAccountTransactionsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListBusinessAccountTransactionsGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listBusinessAccountTransactionsGlobalsToJSON(
-  listBusinessAccountTransactionsGlobals:
-    ListBusinessAccountTransactionsGlobals,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountTransactionsGlobals$outboundSchema.parse(
-      listBusinessAccountTransactionsGlobals,
-    ),
-  );
-}
-export function listBusinessAccountTransactionsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListBusinessAccountTransactionsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListBusinessAccountTransactionsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListBusinessAccountTransactionsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListBusinessAccountTransactionsRequest$inboundSchema: z.ZodType<
-  ListBusinessAccountTransactionsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  businessAccountId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListBusinessAccountTransactionsRequest$Outbound = {
   businessAccountId: string;
   from?: string | undefined;
@@ -188,16 +128,6 @@ export function listBusinessAccountTransactionsRequestToJSON(
     ),
   );
 }
-export function listBusinessAccountTransactionsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListBusinessAccountTransactionsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListBusinessAccountTransactionsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListBusinessAccountTransactionsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListBusinessAccountTransactionsEmbedded$inboundSchema: z.ZodType<
@@ -207,30 +137,7 @@ export const ListBusinessAccountTransactionsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   transactions: z.array(models.TransactionResponse$inboundSchema).optional(),
 });
-/** @internal */
-export type ListBusinessAccountTransactionsEmbedded$Outbound = {
-  transactions?: Array<models.TransactionResponse$Outbound> | undefined;
-};
 
-/** @internal */
-export const ListBusinessAccountTransactionsEmbedded$outboundSchema: z.ZodType<
-  ListBusinessAccountTransactionsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListBusinessAccountTransactionsEmbedded
-> = z.object({
-  transactions: z.array(models.TransactionResponse$outboundSchema).optional(),
-});
-
-export function listBusinessAccountTransactionsEmbeddedToJSON(
-  listBusinessAccountTransactionsEmbedded:
-    ListBusinessAccountTransactionsEmbedded,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountTransactionsEmbedded$outboundSchema.parse(
-      listBusinessAccountTransactionsEmbedded,
-    ),
-  );
-}
 export function listBusinessAccountTransactionsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -263,39 +170,7 @@ export const ListBusinessAccountTransactionsResponseBody$inboundSchema:
       "_embedded": "embedded",
     });
   });
-/** @internal */
-export type ListBusinessAccountTransactionsResponseBody$Outbound = {
-  count: number;
-  _embedded: ListBusinessAccountTransactionsEmbedded$Outbound;
-};
 
-/** @internal */
-export const ListBusinessAccountTransactionsResponseBody$outboundSchema:
-  z.ZodType<
-    ListBusinessAccountTransactionsResponseBody$Outbound,
-    z.ZodTypeDef,
-    ListBusinessAccountTransactionsResponseBody
-  > = z.object({
-    count: z.number().int(),
-    embedded: z.lazy(() =>
-      ListBusinessAccountTransactionsEmbedded$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      embedded: "_embedded",
-    });
-  });
-
-export function listBusinessAccountTransactionsResponseBodyToJSON(
-  listBusinessAccountTransactionsResponseBody:
-    ListBusinessAccountTransactionsResponseBody,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountTransactionsResponseBody$outboundSchema.parse(
-      listBusinessAccountTransactionsResponseBody,
-    ),
-  );
-}
 export function listBusinessAccountTransactionsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -326,36 +201,7 @@ export const ListBusinessAccountTransactionsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListBusinessAccountTransactionsResponse$Outbound = {
-  Result: ListBusinessAccountTransactionsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListBusinessAccountTransactionsResponse$outboundSchema: z.ZodType<
-  ListBusinessAccountTransactionsResponse$Outbound,
-  z.ZodTypeDef,
-  ListBusinessAccountTransactionsResponse
-> = z.object({
-  result: z.lazy(() =>
-    ListBusinessAccountTransactionsResponseBody$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listBusinessAccountTransactionsResponseToJSON(
-  listBusinessAccountTransactionsResponse:
-    ListBusinessAccountTransactionsResponse,
-): string {
-  return JSON.stringify(
-    ListBusinessAccountTransactionsResponse$outboundSchema.parse(
-      listBusinessAccountTransactionsResponse,
-    ),
-  );
-}
 export function listBusinessAccountTransactionsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<

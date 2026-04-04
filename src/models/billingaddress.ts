@@ -4,9 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * The customer's billing address details. We advise to provide these details to improve fraud protection and
@@ -108,25 +105,6 @@ export type BillingAddress = {
 };
 
 /** @internal */
-export const BillingAddress$inboundSchema: z.ZodType<
-  BillingAddress,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.any().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
-/** @internal */
 export type BillingAddress$Outbound = {
   title?: string | undefined;
   givenName?: string | undefined;
@@ -164,13 +142,4 @@ export const BillingAddress$outboundSchema: z.ZodType<
 
 export function billingAddressToJSON(billingAddress: BillingAddress): string {
   return JSON.stringify(BillingAddress$outboundSchema.parse(billingAddress));
-}
-export function billingAddressFromJSON(
-  jsonString: string,
-): SafeParseResult<BillingAddress, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BillingAddress$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BillingAddress' from JSON`,
-  );
 }

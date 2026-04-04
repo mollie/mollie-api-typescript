@@ -34,9 +34,3 @@ export const BalanceTransferDestinationType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(BalanceTransferDestinationType);
-/** @internal */
-export const BalanceTransferDestinationType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  BalanceTransferDestinationType
-> = openEnums.outboundSchema(BalanceTransferDestinationType);

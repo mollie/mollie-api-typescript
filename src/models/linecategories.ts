@@ -17,10 +17,6 @@ export const LineCategories = {
 export type LineCategories = ClosedEnum<typeof LineCategories>;
 
 /** @internal */
-export const LineCategories$inboundSchema: z.ZodNativeEnum<
-  typeof LineCategories
-> = z.nativeEnum(LineCategories);
-/** @internal */
 export const LineCategories$outboundSchema: z.ZodNativeEnum<
   typeof LineCategories
-> = LineCategories$inboundSchema;
+> = z.nativeEnum(LineCategories);
