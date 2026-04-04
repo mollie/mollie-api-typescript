@@ -6,35 +6,25 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
   BalanceTransferCategoryResponse,
   BalanceTransferCategoryResponse$inboundSchema,
-  BalanceTransferCategoryResponse$outboundSchema,
 } from "./balancetransfercategoryresponse.js";
 import {
   BalanceTransferStatus,
   BalanceTransferStatus$inboundSchema,
-  BalanceTransferStatus$outboundSchema,
 } from "./balancetransferstatus.js";
 import {
   BalanceTransferStatusReasonResponse,
   BalanceTransferStatusReasonResponse$inboundSchema,
-  BalanceTransferStatusReasonResponse$outboundSchema,
 } from "./balancetransferstatusreasonresponse.js";
 import {
   EntityBalanceTransferPartyResponse,
   EntityBalanceTransferPartyResponse$inboundSchema,
-  EntityBalanceTransferPartyResponse$Outbound,
-  EntityBalanceTransferPartyResponse$outboundSchema,
 } from "./entitybalancetransferpartyresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 
 /**
  * The reason for the current status of the transfer, if applicable.
@@ -123,33 +113,7 @@ export const EntityBalanceTransferResponseStatusReason$inboundSchema: z.ZodType<
   code: BalanceTransferStatusReasonResponse$inboundSchema,
   message: z.string(),
 });
-/** @internal */
-export type EntityBalanceTransferResponseStatusReason$Outbound = {
-  code: string;
-  message: string;
-};
 
-/** @internal */
-export const EntityBalanceTransferResponseStatusReason$outboundSchema:
-  z.ZodType<
-    EntityBalanceTransferResponseStatusReason$Outbound,
-    z.ZodTypeDef,
-    EntityBalanceTransferResponseStatusReason
-  > = z.object({
-    code: BalanceTransferStatusReasonResponse$outboundSchema,
-    message: z.string(),
-  });
-
-export function entityBalanceTransferResponseStatusReasonToJSON(
-  entityBalanceTransferResponseStatusReason:
-    EntityBalanceTransferResponseStatusReason,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransferResponseStatusReason$outboundSchema.parse(
-      entityBalanceTransferResponseStatusReason,
-    ),
-  );
-}
 export function entityBalanceTransferResponseStatusReasonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -188,55 +152,7 @@ export const EntityBalanceTransferResponse$inboundSchema: z.ZodType<
   executedAt: z.nullable(z.string()).optional(),
   mode: Mode$inboundSchema,
 });
-/** @internal */
-export type EntityBalanceTransferResponse$Outbound = {
-  resource: string;
-  id: string;
-  amount: Amount$Outbound;
-  source: EntityBalanceTransferPartyResponse$Outbound;
-  destination: EntityBalanceTransferPartyResponse$Outbound;
-  description: string;
-  status: string;
-  statusReason: EntityBalanceTransferResponseStatusReason$Outbound;
-  category?: string | undefined;
-  metadata?: { [k: string]: any } | undefined;
-  createdAt: string;
-  executedAt?: string | null | undefined;
-  mode: string;
-};
 
-/** @internal */
-export const EntityBalanceTransferResponse$outboundSchema: z.ZodType<
-  EntityBalanceTransferResponse$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceTransferResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  amount: Amount$outboundSchema,
-  source: EntityBalanceTransferPartyResponse$outboundSchema,
-  destination: EntityBalanceTransferPartyResponse$outboundSchema,
-  description: z.string(),
-  status: BalanceTransferStatus$outboundSchema,
-  statusReason: z.lazy(() =>
-    EntityBalanceTransferResponseStatusReason$outboundSchema
-  ),
-  category: BalanceTransferCategoryResponse$outboundSchema.optional(),
-  metadata: z.record(z.any()).optional(),
-  createdAt: z.string(),
-  executedAt: z.nullable(z.string()).optional(),
-  mode: Mode$outboundSchema,
-});
-
-export function entityBalanceTransferResponseToJSON(
-  entityBalanceTransferResponse: EntityBalanceTransferResponse,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransferResponse$outboundSchema.parse(
-      entityBalanceTransferResponse,
-    ),
-  );
-}
 export function entityBalanceTransferResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransferResponse, SDKValidationError> {

@@ -95,62 +95,6 @@ export type ListMandatesResponse = {
 };
 
 /** @internal */
-export const ListMandatesGlobals$inboundSchema: z.ZodType<
-  ListMandatesGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListMandatesGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListMandatesGlobals$outboundSchema: z.ZodType<
-  ListMandatesGlobals$Outbound,
-  z.ZodTypeDef,
-  ListMandatesGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listMandatesGlobalsToJSON(
-  listMandatesGlobals: ListMandatesGlobals,
-): string {
-  return JSON.stringify(
-    ListMandatesGlobals$outboundSchema.parse(listMandatesGlobals),
-  );
-}
-export function listMandatesGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMandatesGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMandatesGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMandatesGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMandatesRequest$inboundSchema: z.ZodType<
-  ListMandatesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListMandatesRequest$Outbound = {
   customerId: string;
   from?: string | undefined;
@@ -185,15 +129,6 @@ export function listMandatesRequestToJSON(
     ListMandatesRequest$outboundSchema.parse(listMandatesRequest),
   );
 }
-export function listMandatesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMandatesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMandatesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMandatesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListMandatesEmbedded$inboundSchema: z.ZodType<
@@ -203,27 +138,7 @@ export const ListMandatesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   mandates: z.array(models.ListMandateResponse$inboundSchema),
 });
-/** @internal */
-export type ListMandatesEmbedded$Outbound = {
-  mandates: Array<models.ListMandateResponse$Outbound>;
-};
 
-/** @internal */
-export const ListMandatesEmbedded$outboundSchema: z.ZodType<
-  ListMandatesEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListMandatesEmbedded
-> = z.object({
-  mandates: z.array(models.ListMandateResponse$outboundSchema),
-});
-
-export function listMandatesEmbeddedToJSON(
-  listMandatesEmbedded: ListMandatesEmbedded,
-): string {
-  return JSON.stringify(
-    ListMandatesEmbedded$outboundSchema.parse(listMandatesEmbedded),
-  );
-}
 export function listMandatesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandatesEmbedded, SDKValidationError> {
@@ -249,36 +164,7 @@ export const ListMandatesResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListMandatesResponseBody$Outbound = {
-  count: number;
-  _embedded: ListMandatesEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListMandatesResponseBody$outboundSchema: z.ZodType<
-  ListMandatesResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListMandatesResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListMandatesEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listMandatesResponseBodyToJSON(
-  listMandatesResponseBody: ListMandatesResponseBody,
-): string {
-  return JSON.stringify(
-    ListMandatesResponseBody$outboundSchema.parse(listMandatesResponseBody),
-  );
-}
 export function listMandatesResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandatesResponseBody, SDKValidationError> {
@@ -301,31 +187,7 @@ export const ListMandatesResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListMandatesResponse$Outbound = {
-  Result: ListMandatesResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListMandatesResponse$outboundSchema: z.ZodType<
-  ListMandatesResponse$Outbound,
-  z.ZodTypeDef,
-  ListMandatesResponse
-> = z.object({
-  result: z.lazy(() => ListMandatesResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listMandatesResponseToJSON(
-  listMandatesResponse: ListMandatesResponse,
-): string {
-  return JSON.stringify(
-    ListMandatesResponse$outboundSchema.parse(listMandatesResponse),
-  );
-}
 export function listMandatesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandatesResponse, SDKValidationError> {

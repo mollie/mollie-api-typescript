@@ -9,22 +9,11 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountDetails,
   AccountDetails$inboundSchema,
-  AccountDetails$Outbound,
-  AccountDetails$outboundSchema,
 } from "./accountdetails.js";
-import {
-  AccountStatus,
-  AccountStatus$inboundSchema,
-  AccountStatus$outboundSchema,
-} from "./accountstatus.js";
-import {
-  Balance,
-  Balance$inboundSchema,
-  Balance$Outbound,
-  Balance$outboundSchema,
-} from "./balance.js";
+import { AccountStatus, AccountStatus$inboundSchema } from "./accountstatus.js";
+import { Balance, Balance$inboundSchema } from "./balance.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 
 export type BusinessAccountResponse = {
   /**
@@ -77,39 +66,7 @@ export const BusinessAccountResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   createdAt: z.string(),
 });
-/** @internal */
-export type BusinessAccountResponse$Outbound = {
-  resource: string;
-  id: string;
-  accountDetails: AccountDetails$Outbound;
-  balance: Balance$Outbound;
-  status: string;
-  mode: string;
-  createdAt: string;
-};
 
-/** @internal */
-export const BusinessAccountResponse$outboundSchema: z.ZodType<
-  BusinessAccountResponse$Outbound,
-  z.ZodTypeDef,
-  BusinessAccountResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  accountDetails: AccountDetails$outboundSchema,
-  balance: Balance$outboundSchema,
-  status: AccountStatus$outboundSchema,
-  mode: Mode$outboundSchema,
-  createdAt: z.string(),
-});
-
-export function businessAccountResponseToJSON(
-  businessAccountResponse: BusinessAccountResponse,
-): string {
-  return JSON.stringify(
-    BusinessAccountResponse$outboundSchema.parse(businessAccountResponse),
-  );
-}
 export function businessAccountResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<BusinessAccountResponse, SDKValidationError> {

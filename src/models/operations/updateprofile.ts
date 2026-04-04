@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateProfileRequestBody = {
   /**
@@ -65,20 +62,6 @@ export type UpdateProfileRequest = {
 };
 
 /** @internal */
-export const UpdateProfileRequestBody$inboundSchema: z.ZodType<
-  UpdateProfileRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  website: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  phone: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  countriesOfActivity: z.nullable(z.array(z.string())).optional(),
-  businessCategory: z.nullable(z.string()).optional(),
-});
-/** @internal */
 export type UpdateProfileRequestBody$Outbound = {
   name?: string | null | undefined;
   website?: string | null | undefined;
@@ -111,31 +94,7 @@ export function updateProfileRequestBodyToJSON(
     UpdateProfileRequestBody$outboundSchema.parse(updateProfileRequestBody),
   );
 }
-export function updateProfileRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateProfileRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateProfileRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateProfileRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const UpdateProfileRequest$inboundSchema: z.ZodType<
-  UpdateProfileRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  profileId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => UpdateProfileRequestBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type UpdateProfileRequest$Outbound = {
   profileId: string;
@@ -164,14 +123,5 @@ export function updateProfileRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateProfileRequest$outboundSchema.parse(updateProfileRequest),
-  );
-}
-export function updateProfileRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateProfileRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateProfileRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateProfileRequest' from JSON`,
   );
 }

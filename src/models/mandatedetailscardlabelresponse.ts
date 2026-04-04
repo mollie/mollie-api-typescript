@@ -37,9 +37,3 @@ export const MandateDetailsCardLabelResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(MandateDetailsCardLabelResponse);
-/** @internal */
-export const MandateDetailsCardLabelResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  MandateDetailsCardLabelResponse
-> = openEnums.outboundSchema(MandateDetailsCardLabelResponse);

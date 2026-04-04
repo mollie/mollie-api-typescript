@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type Organization = {
@@ -90,19 +87,6 @@ export type SubmitOnboardingDataRequest = {
 };
 
 /** @internal */
-export const Organization$inboundSchema: z.ZodType<
-  Organization,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  address: models.Address$inboundSchema.optional(),
-  registrationNumber: z.string().optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(models.OnboardingVatRegulation$inboundSchema)
-    .optional(),
-});
-/** @internal */
 export type Organization$Outbound = {
   name?: string | undefined;
   address?: models.Address$Outbound | undefined;
@@ -128,26 +112,7 @@ export const Organization$outboundSchema: z.ZodType<
 export function organizationToJSON(organization: Organization): string {
   return JSON.stringify(Organization$outboundSchema.parse(organization));
 }
-export function organizationFromJSON(
-  jsonString: string,
-): SafeParseResult<Organization, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Organization$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Organization' from JSON`,
-  );
-}
 
-/** @internal */
-export const Profile$inboundSchema: z.ZodType<Profile, z.ZodTypeDef, unknown> =
-  z.object({
-    name: z.string().optional(),
-    url: z.string().optional(),
-    email: z.string().optional(),
-    phone: z.string().optional(),
-    description: z.nullable(z.string()).optional(),
-    businessCategory: z.string().optional(),
-  });
 /** @internal */
 export type Profile$Outbound = {
   name?: string | undefined;
@@ -175,25 +140,7 @@ export const Profile$outboundSchema: z.ZodType<
 export function profileToJSON(profile: Profile): string {
   return JSON.stringify(Profile$outboundSchema.parse(profile));
 }
-export function profileFromJSON(
-  jsonString: string,
-): SafeParseResult<Profile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Profile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Profile' from JSON`,
-  );
-}
 
-/** @internal */
-export const SubmitOnboardingDataRequestBody$inboundSchema: z.ZodType<
-  SubmitOnboardingDataRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  organization: z.lazy(() => Organization$inboundSchema).optional(),
-  profile: z.lazy(() => Profile$inboundSchema).optional(),
-});
 /** @internal */
 export type SubmitOnboardingDataRequestBody$Outbound = {
   organization?: Organization$Outbound | undefined;
@@ -219,31 +166,7 @@ export function submitOnboardingDataRequestBodyToJSON(
     ),
   );
 }
-export function submitOnboardingDataRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<SubmitOnboardingDataRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SubmitOnboardingDataRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubmitOnboardingDataRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const SubmitOnboardingDataRequest$inboundSchema: z.ZodType<
-  SubmitOnboardingDataRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => SubmitOnboardingDataRequestBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type SubmitOnboardingDataRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -273,14 +196,5 @@ export function submitOnboardingDataRequestToJSON(
     SubmitOnboardingDataRequest$outboundSchema.parse(
       submitOnboardingDataRequest,
     ),
-  );
-}
-export function submitOnboardingDataRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<SubmitOnboardingDataRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SubmitOnboardingDataRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubmitOnboardingDataRequest' from JSON`,
   );
 }

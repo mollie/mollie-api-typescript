@@ -7,17 +7,11 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   UnmatchedCreditTransferStatus,
   UnmatchedCreditTransferStatus$inboundSchema,
-  UnmatchedCreditTransferStatus$outboundSchema,
 } from "./unmatchedcredittransferstatus.js";
 
 /**
@@ -158,35 +152,7 @@ export const EntityUnmatchedCreditTransferSource$inboundSchema: z.ZodType<
   iban: z.string(),
   bic: z.string(),
 });
-/** @internal */
-export type EntityUnmatchedCreditTransferSource$Outbound = {
-  format: string;
-  accountHolderName: string;
-  iban: string;
-  bic: string;
-};
 
-/** @internal */
-export const EntityUnmatchedCreditTransferSource$outboundSchema: z.ZodType<
-  EntityUnmatchedCreditTransferSource$Outbound,
-  z.ZodTypeDef,
-  EntityUnmatchedCreditTransferSource
-> = z.object({
-  format: z.string(),
-  accountHolderName: z.string(),
-  iban: z.string(),
-  bic: z.string(),
-});
-
-export function entityUnmatchedCreditTransferSourceToJSON(
-  entityUnmatchedCreditTransferSource: EntityUnmatchedCreditTransferSource,
-): string {
-  return JSON.stringify(
-    EntityUnmatchedCreditTransferSource$outboundSchema.parse(
-      entityUnmatchedCreditTransferSource,
-    ),
-  );
-}
 export function entityUnmatchedCreditTransferSourceFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityUnmatchedCreditTransferSource, SDKValidationError> {
@@ -207,32 +173,7 @@ export const EntityUnmatchedCreditTransferReferences$inboundSchema: z.ZodType<
   creditorReference: z.nullable(z.string()).optional(),
   endToEndId: z.string().optional(),
 });
-/** @internal */
-export type EntityUnmatchedCreditTransferReferences$Outbound = {
-  creditorReference?: string | null | undefined;
-  endToEndId?: string | undefined;
-};
 
-/** @internal */
-export const EntityUnmatchedCreditTransferReferences$outboundSchema: z.ZodType<
-  EntityUnmatchedCreditTransferReferences$Outbound,
-  z.ZodTypeDef,
-  EntityUnmatchedCreditTransferReferences
-> = z.object({
-  creditorReference: z.nullable(z.string()).optional(),
-  endToEndId: z.string().optional(),
-});
-
-export function entityUnmatchedCreditTransferReferencesToJSON(
-  entityUnmatchedCreditTransferReferences:
-    EntityUnmatchedCreditTransferReferences,
-): string {
-  return JSON.stringify(
-    EntityUnmatchedCreditTransferReferences$outboundSchema.parse(
-      entityUnmatchedCreditTransferReferences,
-    ),
-  );
-}
 export function entityUnmatchedCreditTransferReferencesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -261,35 +202,7 @@ export const EntityUnmatchedCreditTransferRemittanceInformation$inboundSchema:
       EntityUnmatchedCreditTransferReferences$inboundSchema
     ).optional(),
   });
-/** @internal */
-export type EntityUnmatchedCreditTransferRemittanceInformation$Outbound = {
-  unstructured?: string | undefined;
-  references?: EntityUnmatchedCreditTransferReferences$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityUnmatchedCreditTransferRemittanceInformation$outboundSchema:
-  z.ZodType<
-    EntityUnmatchedCreditTransferRemittanceInformation$Outbound,
-    z.ZodTypeDef,
-    EntityUnmatchedCreditTransferRemittanceInformation
-  > = z.object({
-    unstructured: z.string().optional(),
-    references: z.lazy(() =>
-      EntityUnmatchedCreditTransferReferences$outboundSchema
-    ).optional(),
-  });
-
-export function entityUnmatchedCreditTransferRemittanceInformationToJSON(
-  entityUnmatchedCreditTransferRemittanceInformation:
-    EntityUnmatchedCreditTransferRemittanceInformation,
-): string {
-  return JSON.stringify(
-    EntityUnmatchedCreditTransferRemittanceInformation$outboundSchema.parse(
-      entityUnmatchedCreditTransferRemittanceInformation,
-    ),
-  );
-}
 export function entityUnmatchedCreditTransferRemittanceInformationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -315,31 +228,7 @@ export const EntityUnmatchedCreditTransferSelf$inboundSchema: z.ZodType<
   href: z.string().optional(),
   type: z.string().optional(),
 });
-/** @internal */
-export type EntityUnmatchedCreditTransferSelf$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
 
-/** @internal */
-export const EntityUnmatchedCreditTransferSelf$outboundSchema: z.ZodType<
-  EntityUnmatchedCreditTransferSelf$Outbound,
-  z.ZodTypeDef,
-  EntityUnmatchedCreditTransferSelf
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-export function entityUnmatchedCreditTransferSelfToJSON(
-  entityUnmatchedCreditTransferSelf: EntityUnmatchedCreditTransferSelf,
-): string {
-  return JSON.stringify(
-    EntityUnmatchedCreditTransferSelf$outboundSchema.parse(
-      entityUnmatchedCreditTransferSelf,
-    ),
-  );
-}
 export function entityUnmatchedCreditTransferSelfFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityUnmatchedCreditTransferSelf, SDKValidationError> {
@@ -357,33 +246,7 @@ export const EntityUnmatchedCreditTransferDocumentation$inboundSchema:
       href: z.string().optional(),
       type: z.string().optional(),
     });
-/** @internal */
-export type EntityUnmatchedCreditTransferDocumentation$Outbound = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
 
-/** @internal */
-export const EntityUnmatchedCreditTransferDocumentation$outboundSchema:
-  z.ZodType<
-    EntityUnmatchedCreditTransferDocumentation$Outbound,
-    z.ZodTypeDef,
-    EntityUnmatchedCreditTransferDocumentation
-  > = z.object({
-    href: z.string().optional(),
-    type: z.string().optional(),
-  });
-
-export function entityUnmatchedCreditTransferDocumentationToJSON(
-  entityUnmatchedCreditTransferDocumentation:
-    EntityUnmatchedCreditTransferDocumentation,
-): string {
-  return JSON.stringify(
-    EntityUnmatchedCreditTransferDocumentation$outboundSchema.parse(
-      entityUnmatchedCreditTransferDocumentation,
-    ),
-  );
-}
 export function entityUnmatchedCreditTransferDocumentationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -412,36 +275,7 @@ export const EntityUnmatchedCreditTransferLinks$inboundSchema: z.ZodType<
     EntityUnmatchedCreditTransferDocumentation$inboundSchema
   ).optional(),
 });
-/** @internal */
-export type EntityUnmatchedCreditTransferLinks$Outbound = {
-  self?: EntityUnmatchedCreditTransferSelf$Outbound | undefined;
-  documentation?:
-    | EntityUnmatchedCreditTransferDocumentation$Outbound
-    | undefined;
-};
 
-/** @internal */
-export const EntityUnmatchedCreditTransferLinks$outboundSchema: z.ZodType<
-  EntityUnmatchedCreditTransferLinks$Outbound,
-  z.ZodTypeDef,
-  EntityUnmatchedCreditTransferLinks
-> = z.object({
-  self: z.lazy(() => EntityUnmatchedCreditTransferSelf$outboundSchema)
-    .optional(),
-  documentation: z.lazy(() =>
-    EntityUnmatchedCreditTransferDocumentation$outboundSchema
-  ).optional(),
-});
-
-export function entityUnmatchedCreditTransferLinksToJSON(
-  entityUnmatchedCreditTransferLinks: EntityUnmatchedCreditTransferLinks,
-): string {
-  return JSON.stringify(
-    EntityUnmatchedCreditTransferLinks$outboundSchema.parse(
-      entityUnmatchedCreditTransferLinks,
-    ),
-  );
-}
 export function entityUnmatchedCreditTransferLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityUnmatchedCreditTransferLinks, SDKValidationError> {
@@ -477,56 +311,7 @@ export const EntityUnmatchedCreditTransfer$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityUnmatchedCreditTransfer$Outbound = {
-  resource: string;
-  id: string;
-  profileId: string;
-  amount: Amount$Outbound;
-  source: EntityUnmatchedCreditTransferSource$Outbound;
-  remittanceInformation:
-    EntityUnmatchedCreditTransferRemittanceInformation$Outbound;
-  status: string;
-  createdAt: string;
-  expiresAt: string;
-  paymentIds?: Array<string> | undefined;
-  _links: EntityUnmatchedCreditTransferLinks$Outbound;
-};
 
-/** @internal */
-export const EntityUnmatchedCreditTransfer$outboundSchema: z.ZodType<
-  EntityUnmatchedCreditTransfer$Outbound,
-  z.ZodTypeDef,
-  EntityUnmatchedCreditTransfer
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  profileId: z.string(),
-  amount: Amount$outboundSchema,
-  source: z.lazy(() => EntityUnmatchedCreditTransferSource$outboundSchema),
-  remittanceInformation: z.lazy(() =>
-    EntityUnmatchedCreditTransferRemittanceInformation$outboundSchema
-  ),
-  status: UnmatchedCreditTransferStatus$outboundSchema,
-  createdAt: z.string(),
-  expiresAt: z.string(),
-  paymentIds: z.array(z.string()).optional(),
-  links: z.lazy(() => EntityUnmatchedCreditTransferLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityUnmatchedCreditTransferToJSON(
-  entityUnmatchedCreditTransfer: EntityUnmatchedCreditTransfer,
-): string {
-  return JSON.stringify(
-    EntityUnmatchedCreditTransfer$outboundSchema.parse(
-      entityUnmatchedCreditTransfer,
-    ),
-  );
-}
 export function entityUnmatchedCreditTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityUnmatchedCreditTransfer, SDKValidationError> {

@@ -6,22 +6,15 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LineCategoriesResponse,
   LineCategoriesResponse$inboundSchema,
-  LineCategoriesResponse$outboundSchema,
 } from "./linecategoriesresponse.js";
 import {
   PaymentLineTypeResponse,
   PaymentLineTypeResponse$inboundSchema,
-  PaymentLineTypeResponse$outboundSchema,
 } from "./paymentlinetyperesponse.js";
 
 export type PaymentLineItemResponse = {
@@ -109,51 +102,7 @@ export const PaymentLineItemResponse$inboundSchema: z.ZodType<
   imageUrl: z.string().optional(),
   productUrl: z.string().optional(),
 });
-/** @internal */
-export type PaymentLineItemResponse$Outbound = {
-  type?: string | undefined;
-  description: string;
-  quantity: number;
-  quantityUnit?: string | undefined;
-  unitPrice: Amount$Outbound;
-  discountAmount?: Amount$Outbound | undefined;
-  totalAmount: Amount$Outbound;
-  vatRate?: string | undefined;
-  vatAmount?: Amount$Outbound | undefined;
-  sku?: string | undefined;
-  categories?: Array<string> | undefined;
-  imageUrl?: string | undefined;
-  productUrl?: string | undefined;
-};
 
-/** @internal */
-export const PaymentLineItemResponse$outboundSchema: z.ZodType<
-  PaymentLineItemResponse$Outbound,
-  z.ZodTypeDef,
-  PaymentLineItemResponse
-> = z.object({
-  type: PaymentLineTypeResponse$outboundSchema.optional(),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: Amount$outboundSchema,
-  discountAmount: Amount$outboundSchema.optional(),
-  totalAmount: Amount$outboundSchema,
-  vatRate: z.string().optional(),
-  vatAmount: Amount$outboundSchema.optional(),
-  sku: z.string().optional(),
-  categories: z.array(LineCategoriesResponse$outboundSchema).optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-});
-
-export function paymentLineItemResponseToJSON(
-  paymentLineItemResponse: PaymentLineItemResponse,
-): string {
-  return JSON.stringify(
-    PaymentLineItemResponse$outboundSchema.parse(paymentLineItemResponse),
-  );
-}
 export function paymentLineItemResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentLineItemResponse, SDKValidationError> {

@@ -92,64 +92,6 @@ export type ListSettlementChargebacksResponse = {
 };
 
 /** @internal */
-export const ListSettlementChargebacksGlobals$inboundSchema: z.ZodType<
-  ListSettlementChargebacksGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListSettlementChargebacksGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListSettlementChargebacksGlobals$outboundSchema: z.ZodType<
-  ListSettlementChargebacksGlobals$Outbound,
-  z.ZodTypeDef,
-  ListSettlementChargebacksGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listSettlementChargebacksGlobalsToJSON(
-  listSettlementChargebacksGlobals: ListSettlementChargebacksGlobals,
-): string {
-  return JSON.stringify(
-    ListSettlementChargebacksGlobals$outboundSchema.parse(
-      listSettlementChargebacksGlobals,
-    ),
-  );
-}
-export function listSettlementChargebacksGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementChargebacksGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListSettlementChargebacksGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementChargebacksGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListSettlementChargebacksRequest$inboundSchema: z.ZodType<
-  ListSettlementChargebacksRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  settlementId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListSettlementChargebacksRequest$Outbound = {
   settlementId: string;
   from?: string | undefined;
@@ -186,15 +128,6 @@ export function listSettlementChargebacksRequestToJSON(
     ),
   );
 }
-export function listSettlementChargebacksRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementChargebacksRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListSettlementChargebacksRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementChargebacksRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListSettlementChargebacksEmbedded$inboundSchema: z.ZodType<
@@ -204,29 +137,7 @@ export const ListSettlementChargebacksEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   chargebacks: z.array(models.ListEntityChargeback$inboundSchema),
 });
-/** @internal */
-export type ListSettlementChargebacksEmbedded$Outbound = {
-  chargebacks: Array<models.ListEntityChargeback$Outbound>;
-};
 
-/** @internal */
-export const ListSettlementChargebacksEmbedded$outboundSchema: z.ZodType<
-  ListSettlementChargebacksEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListSettlementChargebacksEmbedded
-> = z.object({
-  chargebacks: z.array(models.ListEntityChargeback$outboundSchema),
-});
-
-export function listSettlementChargebacksEmbeddedToJSON(
-  listSettlementChargebacksEmbedded: ListSettlementChargebacksEmbedded,
-): string {
-  return JSON.stringify(
-    ListSettlementChargebacksEmbedded$outboundSchema.parse(
-      listSettlementChargebacksEmbedded,
-    ),
-  );
-}
 export function listSettlementChargebacksEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementChargebacksEmbedded, SDKValidationError> {
@@ -252,38 +163,7 @@ export const ListSettlementChargebacksResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListSettlementChargebacksResponseBody$Outbound = {
-  count: number;
-  _embedded: ListSettlementChargebacksEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListSettlementChargebacksResponseBody$outboundSchema: z.ZodType<
-  ListSettlementChargebacksResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListSettlementChargebacksResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListSettlementChargebacksEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listSettlementChargebacksResponseBodyToJSON(
-  listSettlementChargebacksResponseBody: ListSettlementChargebacksResponseBody,
-): string {
-  return JSON.stringify(
-    ListSettlementChargebacksResponseBody$outboundSchema.parse(
-      listSettlementChargebacksResponseBody,
-    ),
-  );
-}
 export function listSettlementChargebacksResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementChargebacksResponseBody, SDKValidationError> {
@@ -307,33 +187,7 @@ export const ListSettlementChargebacksResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListSettlementChargebacksResponse$Outbound = {
-  Result: ListSettlementChargebacksResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListSettlementChargebacksResponse$outboundSchema: z.ZodType<
-  ListSettlementChargebacksResponse$Outbound,
-  z.ZodTypeDef,
-  ListSettlementChargebacksResponse
-> = z.object({
-  result: z.lazy(() => ListSettlementChargebacksResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listSettlementChargebacksResponseToJSON(
-  listSettlementChargebacksResponse: ListSettlementChargebacksResponse,
-): string {
-  return JSON.stringify(
-    ListSettlementChargebacksResponse$outboundSchema.parse(
-      listSettlementChargebacksResponse,
-    ),
-  );
-}
 export function listSettlementChargebacksResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementChargebacksResponse, SDKValidationError> {

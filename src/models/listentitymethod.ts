@@ -10,17 +10,8 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  MethodStatus,
-  MethodStatus$inboundSchema,
-  MethodStatus$outboundSchema,
-} from "./methodstatus.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { MethodStatus, MethodStatus$inboundSchema } from "./methodstatus.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
@@ -240,12 +231,6 @@ export const ListEntityMethodId$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ListEntityMethodId);
-/** @internal */
-export const ListEntityMethodId$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ListEntityMethodId
-> = openEnums.outboundSchema(ListEntityMethodId);
 
 /** @internal */
 export const ListEntityMethodMinimumAmount$inboundSchema: z.ZodType<
@@ -256,31 +241,7 @@ export const ListEntityMethodMinimumAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListEntityMethodMinimumAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListEntityMethodMinimumAmount$outboundSchema: z.ZodType<
-  ListEntityMethodMinimumAmount$Outbound,
-  z.ZodTypeDef,
-  ListEntityMethodMinimumAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityMethodMinimumAmountToJSON(
-  listEntityMethodMinimumAmount: ListEntityMethodMinimumAmount,
-): string {
-  return JSON.stringify(
-    ListEntityMethodMinimumAmount$outboundSchema.parse(
-      listEntityMethodMinimumAmount,
-    ),
-  );
-}
 export function listEntityMethodMinimumAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityMethodMinimumAmount, SDKValidationError> {
@@ -300,31 +261,7 @@ export const ListEntityMethodMaximumAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListEntityMethodMaximumAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListEntityMethodMaximumAmount$outboundSchema: z.ZodType<
-  ListEntityMethodMaximumAmount$Outbound,
-  z.ZodTypeDef,
-  ListEntityMethodMaximumAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityMethodMaximumAmountToJSON(
-  listEntityMethodMaximumAmount: ListEntityMethodMaximumAmount,
-): string {
-  return JSON.stringify(
-    ListEntityMethodMaximumAmount$outboundSchema.parse(
-      listEntityMethodMaximumAmount,
-    ),
-  );
-}
 export function listEntityMethodMaximumAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityMethodMaximumAmount, SDKValidationError> {
@@ -345,31 +282,7 @@ export const ListEntityMethodImage$inboundSchema: z.ZodType<
   size2x: z.string(),
   svg: z.string(),
 });
-/** @internal */
-export type ListEntityMethodImage$Outbound = {
-  size1x: string;
-  size2x: string;
-  svg: string;
-};
 
-/** @internal */
-export const ListEntityMethodImage$outboundSchema: z.ZodType<
-  ListEntityMethodImage$Outbound,
-  z.ZodTypeDef,
-  ListEntityMethodImage
-> = z.object({
-  size1x: z.string(),
-  size2x: z.string(),
-  svg: z.string(),
-});
-
-export function listEntityMethodImageToJSON(
-  listEntityMethodImage: ListEntityMethodImage,
-): string {
-  return JSON.stringify(
-    ListEntityMethodImage$outboundSchema.parse(listEntityMethodImage),
-  );
-}
 export function listEntityMethodImageFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityMethodImage, SDKValidationError> {
@@ -390,33 +303,7 @@ export const ListEntityMethodIssuerImage$inboundSchema: z.ZodType<
   size2x: z.string().optional(),
   svg: z.string().optional(),
 });
-/** @internal */
-export type ListEntityMethodIssuerImage$Outbound = {
-  size1x?: string | undefined;
-  size2x?: string | undefined;
-  svg?: string | undefined;
-};
 
-/** @internal */
-export const ListEntityMethodIssuerImage$outboundSchema: z.ZodType<
-  ListEntityMethodIssuerImage$Outbound,
-  z.ZodTypeDef,
-  ListEntityMethodIssuerImage
-> = z.object({
-  size1x: z.string().optional(),
-  size2x: z.string().optional(),
-  svg: z.string().optional(),
-});
-
-export function listEntityMethodIssuerImageToJSON(
-  listEntityMethodIssuerImage: ListEntityMethodIssuerImage,
-): string {
-  return JSON.stringify(
-    ListEntityMethodIssuerImage$outboundSchema.parse(
-      listEntityMethodIssuerImage,
-    ),
-  );
-}
 export function listEntityMethodIssuerImageFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityMethodIssuerImage, SDKValidationError> {
@@ -438,33 +325,7 @@ export const ListEntityMethodIssuer$inboundSchema: z.ZodType<
   name: z.string(),
   image: z.lazy(() => ListEntityMethodIssuerImage$inboundSchema),
 });
-/** @internal */
-export type ListEntityMethodIssuer$Outbound = {
-  resource: string;
-  id: string;
-  name: string;
-  image: ListEntityMethodIssuerImage$Outbound;
-};
 
-/** @internal */
-export const ListEntityMethodIssuer$outboundSchema: z.ZodType<
-  ListEntityMethodIssuer$Outbound,
-  z.ZodTypeDef,
-  ListEntityMethodIssuer
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  name: z.string(),
-  image: z.lazy(() => ListEntityMethodIssuerImage$outboundSchema),
-});
-
-export function listEntityMethodIssuerToJSON(
-  listEntityMethodIssuer: ListEntityMethodIssuer,
-): string {
-  return JSON.stringify(
-    ListEntityMethodIssuer$outboundSchema.parse(listEntityMethodIssuer),
-  );
-}
 export function listEntityMethodIssuerFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityMethodIssuer, SDKValidationError> {
@@ -483,27 +344,7 @@ export const ListEntityMethodLinks$inboundSchema: z.ZodType<
 > = z.object({
   self: Url$inboundSchema,
 });
-/** @internal */
-export type ListEntityMethodLinks$Outbound = {
-  self: Url$Outbound;
-};
 
-/** @internal */
-export const ListEntityMethodLinks$outboundSchema: z.ZodType<
-  ListEntityMethodLinks$Outbound,
-  z.ZodTypeDef,
-  ListEntityMethodLinks
-> = z.object({
-  self: Url$outboundSchema,
-});
-
-export function listEntityMethodLinksToJSON(
-  listEntityMethodLinks: ListEntityMethodLinks,
-): string {
-  return JSON.stringify(
-    ListEntityMethodLinks$outboundSchema.parse(listEntityMethodLinks),
-  );
-}
 export function listEntityMethodLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityMethodLinks, SDKValidationError> {
@@ -537,50 +378,7 @@ export const ListEntityMethod$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListEntityMethod$Outbound = {
-  resource: string;
-  id: string | null;
-  description: string;
-  minimumAmount: ListEntityMethodMinimumAmount$Outbound;
-  maximumAmount: ListEntityMethodMaximumAmount$Outbound | null;
-  image: ListEntityMethodImage$Outbound;
-  status: string | null;
-  issuers?: Array<ListEntityMethodIssuer$Outbound> | undefined;
-  _links: ListEntityMethodLinks$Outbound;
-};
 
-/** @internal */
-export const ListEntityMethod$outboundSchema: z.ZodType<
-  ListEntityMethod$Outbound,
-  z.ZodTypeDef,
-  ListEntityMethod
-> = z.object({
-  resource: z.string(),
-  id: z.nullable(ListEntityMethodId$outboundSchema),
-  description: z.string(),
-  minimumAmount: z.lazy(() => ListEntityMethodMinimumAmount$outboundSchema),
-  maximumAmount: z.nullable(
-    z.lazy(() => ListEntityMethodMaximumAmount$outboundSchema),
-  ),
-  image: z.lazy(() => ListEntityMethodImage$outboundSchema),
-  status: z.nullable(MethodStatus$outboundSchema),
-  issuers: z.array(z.lazy(() => ListEntityMethodIssuer$outboundSchema))
-    .optional(),
-  links: z.lazy(() => ListEntityMethodLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listEntityMethodToJSON(
-  listEntityMethod: ListEntityMethod,
-): string {
-  return JSON.stringify(
-    ListEntityMethod$outboundSchema.parse(listEntityMethod),
-  );
-}
 export function listEntityMethodFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityMethod, SDKValidationError> {

@@ -27,9 +27,3 @@ export const VerificationResultEnum$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(VerificationResultEnum);
-/** @internal */
-export const VerificationResultEnum$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  VerificationResultEnum
-> = openEnums.outboundSchema(VerificationResultEnum);

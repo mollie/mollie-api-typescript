@@ -9,19 +9,9 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * Status of the invoice.
@@ -181,12 +171,6 @@ export const ListEntityInvoiceStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ListEntityInvoiceStatus);
-/** @internal */
-export const ListEntityInvoiceStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ListEntityInvoiceStatus
-> = openEnums.outboundSchema(ListEntityInvoiceStatus);
 
 /** @internal */
 export const ListEntityInvoiceNetAmount$inboundSchema: z.ZodType<
@@ -197,29 +181,7 @@ export const ListEntityInvoiceNetAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListEntityInvoiceNetAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListEntityInvoiceNetAmount$outboundSchema: z.ZodType<
-  ListEntityInvoiceNetAmount$Outbound,
-  z.ZodTypeDef,
-  ListEntityInvoiceNetAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityInvoiceNetAmountToJSON(
-  listEntityInvoiceNetAmount: ListEntityInvoiceNetAmount,
-): string {
-  return JSON.stringify(
-    ListEntityInvoiceNetAmount$outboundSchema.parse(listEntityInvoiceNetAmount),
-  );
-}
 export function listEntityInvoiceNetAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityInvoiceNetAmount, SDKValidationError> {
@@ -239,29 +201,7 @@ export const ListEntityInvoiceVatAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListEntityInvoiceVatAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListEntityInvoiceVatAmount$outboundSchema: z.ZodType<
-  ListEntityInvoiceVatAmount$Outbound,
-  z.ZodTypeDef,
-  ListEntityInvoiceVatAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityInvoiceVatAmountToJSON(
-  listEntityInvoiceVatAmount: ListEntityInvoiceVatAmount,
-): string {
-  return JSON.stringify(
-    ListEntityInvoiceVatAmount$outboundSchema.parse(listEntityInvoiceVatAmount),
-  );
-}
 export function listEntityInvoiceVatAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityInvoiceVatAmount, SDKValidationError> {
@@ -281,31 +221,7 @@ export const ListEntityInvoiceGrossAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type ListEntityInvoiceGrossAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const ListEntityInvoiceGrossAmount$outboundSchema: z.ZodType<
-  ListEntityInvoiceGrossAmount$Outbound,
-  z.ZodTypeDef,
-  ListEntityInvoiceGrossAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityInvoiceGrossAmountToJSON(
-  listEntityInvoiceGrossAmount: ListEntityInvoiceGrossAmount,
-): string {
-  return JSON.stringify(
-    ListEntityInvoiceGrossAmount$outboundSchema.parse(
-      listEntityInvoiceGrossAmount,
-    ),
-  );
-}
 export function listEntityInvoiceGrossAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityInvoiceGrossAmount, SDKValidationError> {
@@ -328,35 +244,7 @@ export const ListEntityInvoiceLine$inboundSchema: z.ZodType<
   vatPercentage: z.number().int(),
   amount: Amount$inboundSchema,
 });
-/** @internal */
-export type ListEntityInvoiceLine$Outbound = {
-  period: string;
-  description: string;
-  count: number;
-  vatPercentage: number;
-  amount: Amount$Outbound;
-};
 
-/** @internal */
-export const ListEntityInvoiceLine$outboundSchema: z.ZodType<
-  ListEntityInvoiceLine$Outbound,
-  z.ZodTypeDef,
-  ListEntityInvoiceLine
-> = z.object({
-  period: z.string(),
-  description: z.string(),
-  count: z.number().int(),
-  vatPercentage: z.number().int(),
-  amount: Amount$outboundSchema,
-});
-
-export function listEntityInvoiceLineToJSON(
-  listEntityInvoiceLine: ListEntityInvoiceLine,
-): string {
-  return JSON.stringify(
-    ListEntityInvoiceLine$outboundSchema.parse(listEntityInvoiceLine),
-  );
-}
 export function listEntityInvoiceLineFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityInvoiceLine, SDKValidationError> {
@@ -376,29 +264,7 @@ export const ListEntityInvoiceLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema.optional(),
   pdf: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type ListEntityInvoiceLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  pdf?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const ListEntityInvoiceLinks$outboundSchema: z.ZodType<
-  ListEntityInvoiceLinks$Outbound,
-  z.ZodTypeDef,
-  ListEntityInvoiceLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  pdf: Url$outboundSchema.optional(),
-});
-
-export function listEntityInvoiceLinksToJSON(
-  listEntityInvoiceLinks: ListEntityInvoiceLinks,
-): string {
-  return JSON.stringify(
-    ListEntityInvoiceLinks$outboundSchema.parse(listEntityInvoiceLinks),
-  );
-}
 export function listEntityInvoiceLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityInvoiceLinks, SDKValidationError> {
@@ -433,55 +299,7 @@ export const ListEntityInvoice$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListEntityInvoice$Outbound = {
-  resource: string;
-  id: string;
-  reference: string;
-  vatNumber: string | null;
-  status: string;
-  netAmount: ListEntityInvoiceNetAmount$Outbound;
-  vatAmount: ListEntityInvoiceVatAmount$Outbound;
-  grossAmount: ListEntityInvoiceGrossAmount$Outbound;
-  lines: Array<ListEntityInvoiceLine$Outbound>;
-  issuedAt: string;
-  paidAt?: string | null | undefined;
-  dueAt?: string | null | undefined;
-  _links: ListEntityInvoiceLinks$Outbound;
-};
 
-/** @internal */
-export const ListEntityInvoice$outboundSchema: z.ZodType<
-  ListEntityInvoice$Outbound,
-  z.ZodTypeDef,
-  ListEntityInvoice
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  reference: z.string(),
-  vatNumber: z.nullable(z.string()),
-  status: ListEntityInvoiceStatus$outboundSchema,
-  netAmount: z.lazy(() => ListEntityInvoiceNetAmount$outboundSchema),
-  vatAmount: z.lazy(() => ListEntityInvoiceVatAmount$outboundSchema),
-  grossAmount: z.lazy(() => ListEntityInvoiceGrossAmount$outboundSchema),
-  lines: z.array(z.lazy(() => ListEntityInvoiceLine$outboundSchema)),
-  issuedAt: z.string(),
-  paidAt: z.nullable(z.string()).optional(),
-  dueAt: z.nullable(z.string()).optional(),
-  links: z.lazy(() => ListEntityInvoiceLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listEntityInvoiceToJSON(
-  listEntityInvoice: ListEntityInvoice,
-): string {
-  return JSON.stringify(
-    ListEntityInvoice$outboundSchema.parse(listEntityInvoice),
-  );
-}
 export function listEntityInvoiceFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityInvoice, SDKValidationError> {

@@ -95,64 +95,6 @@ export type GetPaymentLinkPaymentsResponse = {
 };
 
 /** @internal */
-export const GetPaymentLinkPaymentsGlobals$inboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetPaymentLinkPaymentsGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetPaymentLinkPaymentsGlobals$outboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsGlobals$Outbound,
-  z.ZodTypeDef,
-  GetPaymentLinkPaymentsGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getPaymentLinkPaymentsGlobalsToJSON(
-  getPaymentLinkPaymentsGlobals: GetPaymentLinkPaymentsGlobals,
-): string {
-  return JSON.stringify(
-    GetPaymentLinkPaymentsGlobals$outboundSchema.parse(
-      getPaymentLinkPaymentsGlobals,
-    ),
-  );
-}
-export function getPaymentLinkPaymentsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPaymentLinkPaymentsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPaymentLinkPaymentsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPaymentLinkPaymentsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetPaymentLinkPaymentsRequest$inboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentLinkId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetPaymentLinkPaymentsRequest$Outbound = {
   paymentLinkId: string;
   from?: string | undefined;
@@ -189,15 +131,6 @@ export function getPaymentLinkPaymentsRequestToJSON(
     ),
   );
 }
-export function getPaymentLinkPaymentsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPaymentLinkPaymentsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPaymentLinkPaymentsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPaymentLinkPaymentsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const GetPaymentLinkPaymentsEmbedded$inboundSchema: z.ZodType<
@@ -207,29 +140,7 @@ export const GetPaymentLinkPaymentsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   payments: z.array(models.ListPaymentResponse$inboundSchema).optional(),
 });
-/** @internal */
-export type GetPaymentLinkPaymentsEmbedded$Outbound = {
-  payments?: Array<models.ListPaymentResponse$Outbound> | undefined;
-};
 
-/** @internal */
-export const GetPaymentLinkPaymentsEmbedded$outboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsEmbedded$Outbound,
-  z.ZodTypeDef,
-  GetPaymentLinkPaymentsEmbedded
-> = z.object({
-  payments: z.array(models.ListPaymentResponse$outboundSchema).optional(),
-});
-
-export function getPaymentLinkPaymentsEmbeddedToJSON(
-  getPaymentLinkPaymentsEmbedded: GetPaymentLinkPaymentsEmbedded,
-): string {
-  return JSON.stringify(
-    GetPaymentLinkPaymentsEmbedded$outboundSchema.parse(
-      getPaymentLinkPaymentsEmbedded,
-    ),
-  );
-}
 export function getPaymentLinkPaymentsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentLinkPaymentsEmbedded, SDKValidationError> {
@@ -255,38 +166,7 @@ export const GetPaymentLinkPaymentsResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type GetPaymentLinkPaymentsResponseBody$Outbound = {
-  count: number;
-  _embedded: GetPaymentLinkPaymentsEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const GetPaymentLinkPaymentsResponseBody$outboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsResponseBody$Outbound,
-  z.ZodTypeDef,
-  GetPaymentLinkPaymentsResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => GetPaymentLinkPaymentsEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function getPaymentLinkPaymentsResponseBodyToJSON(
-  getPaymentLinkPaymentsResponseBody: GetPaymentLinkPaymentsResponseBody,
-): string {
-  return JSON.stringify(
-    GetPaymentLinkPaymentsResponseBody$outboundSchema.parse(
-      getPaymentLinkPaymentsResponseBody,
-    ),
-  );
-}
 export function getPaymentLinkPaymentsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentLinkPaymentsResponseBody, SDKValidationError> {
@@ -310,33 +190,7 @@ export const GetPaymentLinkPaymentsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type GetPaymentLinkPaymentsResponse$Outbound = {
-  Result: GetPaymentLinkPaymentsResponseBody$Outbound;
-};
 
-/** @internal */
-export const GetPaymentLinkPaymentsResponse$outboundSchema: z.ZodType<
-  GetPaymentLinkPaymentsResponse$Outbound,
-  z.ZodTypeDef,
-  GetPaymentLinkPaymentsResponse
-> = z.object({
-  result: z.lazy(() => GetPaymentLinkPaymentsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function getPaymentLinkPaymentsResponseToJSON(
-  getPaymentLinkPaymentsResponse: GetPaymentLinkPaymentsResponse,
-): string {
-  return JSON.stringify(
-    GetPaymentLinkPaymentsResponse$outboundSchema.parse(
-      getPaymentLinkPaymentsResponse,
-    ),
-  );
-}
 export function getPaymentLinkPaymentsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetPaymentLinkPaymentsResponse, SDKValidationError> {

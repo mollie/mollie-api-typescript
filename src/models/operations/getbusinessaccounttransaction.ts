@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetBusinessAccountTransactionGlobals = {
   /**
@@ -48,63 +45,6 @@ export type GetBusinessAccountTransactionRequest = {
 };
 
 /** @internal */
-export const GetBusinessAccountTransactionGlobals$inboundSchema: z.ZodType<
-  GetBusinessAccountTransactionGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetBusinessAccountTransactionGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetBusinessAccountTransactionGlobals$outboundSchema: z.ZodType<
-  GetBusinessAccountTransactionGlobals$Outbound,
-  z.ZodTypeDef,
-  GetBusinessAccountTransactionGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getBusinessAccountTransactionGlobalsToJSON(
-  getBusinessAccountTransactionGlobals: GetBusinessAccountTransactionGlobals,
-): string {
-  return JSON.stringify(
-    GetBusinessAccountTransactionGlobals$outboundSchema.parse(
-      getBusinessAccountTransactionGlobals,
-    ),
-  );
-}
-export function getBusinessAccountTransactionGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetBusinessAccountTransactionGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetBusinessAccountTransactionGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetBusinessAccountTransactionGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetBusinessAccountTransactionRequest$inboundSchema: z.ZodType<
-  GetBusinessAccountTransactionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  businessAccountId: z.string(),
-  transactionId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetBusinessAccountTransactionRequest$Outbound = {
   businessAccountId: string;
   transactionId: string;
@@ -135,15 +75,5 @@ export function getBusinessAccountTransactionRequestToJSON(
     GetBusinessAccountTransactionRequest$outboundSchema.parse(
       getBusinessAccountTransactionRequest,
     ),
-  );
-}
-export function getBusinessAccountTransactionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetBusinessAccountTransactionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetBusinessAccountTransactionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetBusinessAccountTransactionRequest' from JSON`,
   );
 }

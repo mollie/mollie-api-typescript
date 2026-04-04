@@ -8,12 +8,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -47,27 +42,7 @@ export const EntityEventLinks$inboundSchema: z.ZodType<
 > = z.object({
   url: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityEventLinks$Outbound = {
-  url?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityEventLinks$outboundSchema: z.ZodType<
-  EntityEventLinks$Outbound,
-  z.ZodTypeDef,
-  EntityEventLinks
-> = z.object({
-  url: Url$outboundSchema.optional(),
-});
-
-export function entityEventLinksToJSON(
-  entityEventLinks: EntityEventLinks,
-): string {
-  return JSON.stringify(
-    EntityEventLinks$outboundSchema.parse(entityEventLinks),
-  );
-}
 export function entityEventLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityEventLinks, SDKValidationError> {
@@ -94,35 +69,7 @@ export const EntityEvent$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityEvent$Outbound = {
-  resource: string;
-  type: number;
-  createdAt: string;
-  message: string;
-  _links?: EntityEventLinks$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityEvent$outboundSchema: z.ZodType<
-  EntityEvent$Outbound,
-  z.ZodTypeDef,
-  EntityEvent
-> = z.object({
-  resource: z.string(),
-  type: z.number().int(),
-  createdAt: z.string(),
-  message: z.string(),
-  links: z.lazy(() => EntityEventLinks$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityEventToJSON(entityEvent: EntityEvent): string {
-  return JSON.stringify(EntityEvent$outboundSchema.parse(entityEvent));
-}
 export function entityEventFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityEvent, SDKValidationError> {

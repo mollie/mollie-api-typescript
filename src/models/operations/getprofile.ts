@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetProfileGlobals = {
   /**
@@ -42,59 +39,6 @@ export type GetProfileRequest = {
 };
 
 /** @internal */
-export const GetProfileGlobals$inboundSchema: z.ZodType<
-  GetProfileGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetProfileGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetProfileGlobals$outboundSchema: z.ZodType<
-  GetProfileGlobals$Outbound,
-  z.ZodTypeDef,
-  GetProfileGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getProfileGlobalsToJSON(
-  getProfileGlobals: GetProfileGlobals,
-): string {
-  return JSON.stringify(
-    GetProfileGlobals$outboundSchema.parse(getProfileGlobals),
-  );
-}
-export function getProfileGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetProfileGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetProfileGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetProfileGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetProfileRequest$inboundSchema: z.ZodType<
-  GetProfileRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  profileId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetProfileRequest$Outbound = {
   profileId: string;
   testmode?: boolean | undefined;
@@ -121,14 +65,5 @@ export function getProfileRequestToJSON(
 ): string {
   return JSON.stringify(
     GetProfileRequest$outboundSchema.parse(getProfileRequest),
-  );
-}
-export function getProfileRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetProfileRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetProfileRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetProfileRequest' from JSON`,
   );
 }

@@ -9,14 +9,11 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CreditorBankAccountResponse,
   CreditorBankAccountResponse$inboundSchema,
-  CreditorBankAccountResponse$Outbound,
-  CreditorBankAccountResponse$outboundSchema,
 } from "./creditorbankaccountresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   VerificationResultEnum,
   VerificationResultEnum$inboundSchema,
-  VerificationResultEnum$outboundSchema,
 } from "./verificationresultenum.js";
 
 export type VerificationOfPayeeResponseVerificationResult = {
@@ -65,33 +62,7 @@ export const VerificationOfPayeeResponseVerificationResult$inboundSchema:
     outcome: VerificationResultEnum$inboundSchema,
     accountHolderName: z.string().optional(),
   });
-/** @internal */
-export type VerificationOfPayeeResponseVerificationResult$Outbound = {
-  outcome: string;
-  accountHolderName?: string | undefined;
-};
 
-/** @internal */
-export const VerificationOfPayeeResponseVerificationResult$outboundSchema:
-  z.ZodType<
-    VerificationOfPayeeResponseVerificationResult$Outbound,
-    z.ZodTypeDef,
-    VerificationOfPayeeResponseVerificationResult
-  > = z.object({
-    outcome: VerificationResultEnum$outboundSchema,
-    accountHolderName: z.string().optional(),
-  });
-
-export function verificationOfPayeeResponseVerificationResultToJSON(
-  verificationOfPayeeResponseVerificationResult:
-    VerificationOfPayeeResponseVerificationResult,
-): string {
-  return JSON.stringify(
-    VerificationOfPayeeResponseVerificationResult$outboundSchema.parse(
-      verificationOfPayeeResponseVerificationResult,
-    ),
-  );
-}
 export function verificationOfPayeeResponseVerificationResultFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -121,37 +92,7 @@ export const VerificationOfPayeeResponse$inboundSchema: z.ZodType<
   ),
   createdAt: z.string(),
 });
-/** @internal */
-export type VerificationOfPayeeResponse$Outbound = {
-  resource: string;
-  creditorBankAccount: CreditorBankAccountResponse$Outbound;
-  verificationResult: VerificationOfPayeeResponseVerificationResult$Outbound;
-  createdAt: string;
-};
 
-/** @internal */
-export const VerificationOfPayeeResponse$outboundSchema: z.ZodType<
-  VerificationOfPayeeResponse$Outbound,
-  z.ZodTypeDef,
-  VerificationOfPayeeResponse
-> = z.object({
-  resource: z.string(),
-  creditorBankAccount: CreditorBankAccountResponse$outboundSchema,
-  verificationResult: z.lazy(() =>
-    VerificationOfPayeeResponseVerificationResult$outboundSchema
-  ),
-  createdAt: z.string(),
-});
-
-export function verificationOfPayeeResponseToJSON(
-  verificationOfPayeeResponse: VerificationOfPayeeResponse,
-): string {
-  return JSON.stringify(
-    VerificationOfPayeeResponse$outboundSchema.parse(
-      verificationOfPayeeResponse,
-    ),
-  );
-}
 export function verificationOfPayeeResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<VerificationOfPayeeResponse, SDKValidationError> {

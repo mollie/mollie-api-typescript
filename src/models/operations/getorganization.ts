@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetOrganizationGlobals = {
   /**
@@ -42,59 +39,6 @@ export type GetOrganizationRequest = {
 };
 
 /** @internal */
-export const GetOrganizationGlobals$inboundSchema: z.ZodType<
-  GetOrganizationGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetOrganizationGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetOrganizationGlobals$outboundSchema: z.ZodType<
-  GetOrganizationGlobals$Outbound,
-  z.ZodTypeDef,
-  GetOrganizationGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getOrganizationGlobalsToJSON(
-  getOrganizationGlobals: GetOrganizationGlobals,
-): string {
-  return JSON.stringify(
-    GetOrganizationGlobals$outboundSchema.parse(getOrganizationGlobals),
-  );
-}
-export function getOrganizationGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOrganizationGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOrganizationGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOrganizationGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetOrganizationRequest$inboundSchema: z.ZodType<
-  GetOrganizationRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  organizationId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetOrganizationRequest$Outbound = {
   organizationId: string;
   testmode?: boolean | undefined;
@@ -121,14 +65,5 @@ export function getOrganizationRequestToJSON(
 ): string {
   return JSON.stringify(
     GetOrganizationRequest$outboundSchema.parse(getOrganizationRequest),
-  );
-}
-export function getOrganizationRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOrganizationRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOrganizationRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOrganizationRequest' from JSON`,
   );
 }

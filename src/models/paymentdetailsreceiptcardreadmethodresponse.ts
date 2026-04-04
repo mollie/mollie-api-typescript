@@ -31,7 +31,3 @@ export const PaymentDetailsReceiptCardReadMethodResponse$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(PaymentDetailsReceiptCardReadMethodResponse);
-/** @internal */
-export const PaymentDetailsReceiptCardReadMethodResponse$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, PaymentDetailsReceiptCardReadMethodResponse> =
-    openEnums.outboundSchema(PaymentDetailsReceiptCardReadMethodResponse);

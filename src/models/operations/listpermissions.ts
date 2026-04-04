@@ -60,18 +60,6 @@ export type ListPermissionsResponse = {
 };
 
 /** @internal */
-export const ListPermissionsRequest$inboundSchema: z.ZodType<
-  ListPermissionsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListPermissionsRequest$Outbound = {
   "idempotency-key"?: string | undefined;
 };
@@ -96,15 +84,6 @@ export function listPermissionsRequestToJSON(
     ListPermissionsRequest$outboundSchema.parse(listPermissionsRequest),
   );
 }
-export function listPermissionsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListPermissionsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListPermissionsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPermissionsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListPermissionsEmbedded$inboundSchema: z.ZodType<
@@ -114,27 +93,7 @@ export const ListPermissionsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   permissions: z.array(models.ListEntityPermission$inboundSchema),
 });
-/** @internal */
-export type ListPermissionsEmbedded$Outbound = {
-  permissions: Array<models.ListEntityPermission$Outbound>;
-};
 
-/** @internal */
-export const ListPermissionsEmbedded$outboundSchema: z.ZodType<
-  ListPermissionsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListPermissionsEmbedded
-> = z.object({
-  permissions: z.array(models.ListEntityPermission$outboundSchema),
-});
-
-export function listPermissionsEmbeddedToJSON(
-  listPermissionsEmbedded: ListPermissionsEmbedded,
-): string {
-  return JSON.stringify(
-    ListPermissionsEmbedded$outboundSchema.parse(listPermissionsEmbedded),
-  );
-}
 export function listPermissionsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPermissionsEmbedded, SDKValidationError> {
@@ -154,29 +113,7 @@ export const ListPermissionsLinks$inboundSchema: z.ZodType<
   self: models.Url$inboundSchema.optional(),
   documentation: models.Url$inboundSchema.optional(),
 });
-/** @internal */
-export type ListPermissionsLinks$Outbound = {
-  self?: models.Url$Outbound | undefined;
-  documentation?: models.Url$Outbound | undefined;
-};
 
-/** @internal */
-export const ListPermissionsLinks$outboundSchema: z.ZodType<
-  ListPermissionsLinks$Outbound,
-  z.ZodTypeDef,
-  ListPermissionsLinks
-> = z.object({
-  self: models.Url$outboundSchema.optional(),
-  documentation: models.Url$outboundSchema.optional(),
-});
-
-export function listPermissionsLinksToJSON(
-  listPermissionsLinks: ListPermissionsLinks,
-): string {
-  return JSON.stringify(
-    ListPermissionsLinks$outboundSchema.parse(listPermissionsLinks),
-  );
-}
 export function listPermissionsLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPermissionsLinks, SDKValidationError> {
@@ -202,36 +139,7 @@ export const ListPermissionsResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListPermissionsResponse$Outbound = {
-  count: number;
-  _embedded: ListPermissionsEmbedded$Outbound;
-  _links: ListPermissionsLinks$Outbound;
-};
 
-/** @internal */
-export const ListPermissionsResponse$outboundSchema: z.ZodType<
-  ListPermissionsResponse$Outbound,
-  z.ZodTypeDef,
-  ListPermissionsResponse
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListPermissionsEmbedded$outboundSchema),
-  links: z.lazy(() => ListPermissionsLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listPermissionsResponseToJSON(
-  listPermissionsResponse: ListPermissionsResponse,
-): string {
-  return JSON.stringify(
-    ListPermissionsResponse$outboundSchema.parse(listPermissionsResponse),
-  );
-}
 export function listPermissionsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPermissionsResponse, SDKValidationError> {

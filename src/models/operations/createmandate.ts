@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateMandateRequest = {
@@ -22,21 +19,6 @@ export type CreateMandateRequest = {
   mandateRequest?: models.MandateRequest | undefined;
 };
 
-/** @internal */
-export const CreateMandateRequest$inboundSchema: z.ZodType<
-  CreateMandateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "mandate-request": models.MandateRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "mandate-request": "mandateRequest",
-  });
-});
 /** @internal */
 export type CreateMandateRequest$Outbound = {
   customerId: string;
@@ -65,14 +47,5 @@ export function createMandateRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateMandateRequest$outboundSchema.parse(createMandateRequest),
-  );
-}
-export function createMandateRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateMandateRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateMandateRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateMandateRequest' from JSON`,
   );
 }

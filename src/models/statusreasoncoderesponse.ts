@@ -28,9 +28,3 @@ export const StatusReasonCodeResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(StatusReasonCodeResponse);
-/** @internal */
-export const StatusReasonCodeResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  StatusReasonCodeResponse
-> = openEnums.outboundSchema(StatusReasonCodeResponse);

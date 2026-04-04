@@ -72,22 +72,6 @@ export type ListSettlementCapturesResponse = {
 };
 
 /** @internal */
-export const ListSettlementCapturesRequest$inboundSchema: z.ZodType<
-  ListSettlementCapturesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  settlementId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  embed: z.nullable(z.string()).optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListSettlementCapturesRequest$Outbound = {
   settlementId: string;
   from?: string | undefined;
@@ -122,15 +106,6 @@ export function listSettlementCapturesRequestToJSON(
     ),
   );
 }
-export function listSettlementCapturesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementCapturesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListSettlementCapturesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementCapturesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListSettlementCapturesEmbedded$inboundSchema: z.ZodType<
@@ -140,29 +115,7 @@ export const ListSettlementCapturesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   captures: z.array(models.ListSettlementCaptureResponse$inboundSchema),
 });
-/** @internal */
-export type ListSettlementCapturesEmbedded$Outbound = {
-  captures: Array<models.ListSettlementCaptureResponse$Outbound>;
-};
 
-/** @internal */
-export const ListSettlementCapturesEmbedded$outboundSchema: z.ZodType<
-  ListSettlementCapturesEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListSettlementCapturesEmbedded
-> = z.object({
-  captures: z.array(models.ListSettlementCaptureResponse$outboundSchema),
-});
-
-export function listSettlementCapturesEmbeddedToJSON(
-  listSettlementCapturesEmbedded: ListSettlementCapturesEmbedded,
-): string {
-  return JSON.stringify(
-    ListSettlementCapturesEmbedded$outboundSchema.parse(
-      listSettlementCapturesEmbedded,
-    ),
-  );
-}
 export function listSettlementCapturesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementCapturesEmbedded, SDKValidationError> {
@@ -188,38 +141,7 @@ export const ListSettlementCapturesResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListSettlementCapturesResponseBody$Outbound = {
-  count: number;
-  _embedded: ListSettlementCapturesEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListSettlementCapturesResponseBody$outboundSchema: z.ZodType<
-  ListSettlementCapturesResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListSettlementCapturesResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListSettlementCapturesEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listSettlementCapturesResponseBodyToJSON(
-  listSettlementCapturesResponseBody: ListSettlementCapturesResponseBody,
-): string {
-  return JSON.stringify(
-    ListSettlementCapturesResponseBody$outboundSchema.parse(
-      listSettlementCapturesResponseBody,
-    ),
-  );
-}
 export function listSettlementCapturesResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementCapturesResponseBody, SDKValidationError> {
@@ -243,33 +165,7 @@ export const ListSettlementCapturesResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListSettlementCapturesResponse$Outbound = {
-  Result: ListSettlementCapturesResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListSettlementCapturesResponse$outboundSchema: z.ZodType<
-  ListSettlementCapturesResponse$Outbound,
-  z.ZodTypeDef,
-  ListSettlementCapturesResponse
-> = z.object({
-  result: z.lazy(() => ListSettlementCapturesResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listSettlementCapturesResponseToJSON(
-  listSettlementCapturesResponse: ListSettlementCapturesResponse,
-): string {
-  return JSON.stringify(
-    ListSettlementCapturesResponse$outboundSchema.parse(
-      listSettlementCapturesResponse,
-    ),
-  );
-}
 export function listSettlementCapturesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementCapturesResponse, SDKValidationError> {

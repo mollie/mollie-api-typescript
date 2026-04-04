@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type RequestApplePayPaymentSessionRequestBody = {
   /**
@@ -50,16 +47,6 @@ export type RequestApplePayPaymentSessionRequest = {
 };
 
 /** @internal */
-export const RequestApplePayPaymentSessionRequestBody$inboundSchema: z.ZodType<
-  RequestApplePayPaymentSessionRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  validationUrl: z.string(),
-  domain: z.string(),
-  profileId: z.string().optional(),
-});
-/** @internal */
 export type RequestApplePayPaymentSessionRequestBody$Outbound = {
   validationUrl: string;
   domain: string;
@@ -87,38 +74,7 @@ export function requestApplePayPaymentSessionRequestBodyToJSON(
     ),
   );
 }
-export function requestApplePayPaymentSessionRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RequestApplePayPaymentSessionRequestBody,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RequestApplePayPaymentSessionRequestBody$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RequestApplePayPaymentSessionRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const RequestApplePayPaymentSessionRequest$inboundSchema: z.ZodType<
-  RequestApplePayPaymentSessionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() =>
-    RequestApplePayPaymentSessionRequestBody$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type RequestApplePayPaymentSessionRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -149,15 +105,5 @@ export function requestApplePayPaymentSessionRequestToJSON(
     RequestApplePayPaymentSessionRequest$outboundSchema.parse(
       requestApplePayPaymentSessionRequest,
     ),
-  );
-}
-export function requestApplePayPaymentSessionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<RequestApplePayPaymentSessionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RequestApplePayPaymentSessionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RequestApplePayPaymentSessionRequest' from JSON`,
   );
 }

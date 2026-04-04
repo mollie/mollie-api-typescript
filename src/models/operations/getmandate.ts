@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetMandateGlobals = {
   /**
@@ -48,60 +45,6 @@ export type GetMandateRequest = {
 };
 
 /** @internal */
-export const GetMandateGlobals$inboundSchema: z.ZodType<
-  GetMandateGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetMandateGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetMandateGlobals$outboundSchema: z.ZodType<
-  GetMandateGlobals$Outbound,
-  z.ZodTypeDef,
-  GetMandateGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getMandateGlobalsToJSON(
-  getMandateGlobals: GetMandateGlobals,
-): string {
-  return JSON.stringify(
-    GetMandateGlobals$outboundSchema.parse(getMandateGlobals),
-  );
-}
-export function getMandateGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetMandateGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetMandateGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMandateGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetMandateRequest$inboundSchema: z.ZodType<
-  GetMandateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  mandateId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetMandateRequest$Outbound = {
   customerId: string;
   mandateId: string;
@@ -130,14 +73,5 @@ export function getMandateRequestToJSON(
 ): string {
   return JSON.stringify(
     GetMandateRequest$outboundSchema.parse(getMandateRequest),
-  );
-}
-export function getMandateRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetMandateRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetMandateRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMandateRequest' from JSON`,
   );
 }

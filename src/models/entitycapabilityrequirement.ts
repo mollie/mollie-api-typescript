@@ -10,15 +10,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CapabilityRequirementStatus,
   CapabilityRequirementStatus$inboundSchema,
-  CapabilityRequirementStatus$outboundSchema,
 } from "./capabilityrequirementstatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 export type EntityCapabilityRequirementLinks = {
   /**
@@ -59,29 +53,7 @@ export const EntityCapabilityRequirementLinks$inboundSchema: z.ZodType<
 > = z.object({
   dashboard: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityCapabilityRequirementLinks$Outbound = {
-  dashboard?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityCapabilityRequirementLinks$outboundSchema: z.ZodType<
-  EntityCapabilityRequirementLinks$Outbound,
-  z.ZodTypeDef,
-  EntityCapabilityRequirementLinks
-> = z.object({
-  dashboard: Url$outboundSchema.optional(),
-});
-
-export function entityCapabilityRequirementLinksToJSON(
-  entityCapabilityRequirementLinks: EntityCapabilityRequirementLinks,
-): string {
-  return JSON.stringify(
-    EntityCapabilityRequirementLinks$outboundSchema.parse(
-      entityCapabilityRequirementLinks,
-    ),
-  );
-}
 export function entityCapabilityRequirementLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCapabilityRequirementLinks, SDKValidationError> {
@@ -107,39 +79,7 @@ export const EntityCapabilityRequirement$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityCapabilityRequirement$Outbound = {
-  id: string;
-  status: string;
-  dueDate: string | null;
-  _links: EntityCapabilityRequirementLinks$Outbound;
-};
 
-/** @internal */
-export const EntityCapabilityRequirement$outboundSchema: z.ZodType<
-  EntityCapabilityRequirement$Outbound,
-  z.ZodTypeDef,
-  EntityCapabilityRequirement
-> = z.object({
-  id: z.string(),
-  status: CapabilityRequirementStatus$outboundSchema,
-  dueDate: z.nullable(z.string()),
-  links: z.lazy(() => EntityCapabilityRequirementLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityCapabilityRequirementToJSON(
-  entityCapabilityRequirement: EntityCapabilityRequirement,
-): string {
-  return JSON.stringify(
-    EntityCapabilityRequirement$outboundSchema.parse(
-      entityCapabilityRequirement,
-    ),
-  );
-}
 export function entityCapabilityRequirementFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCapabilityRequirement, SDKValidationError> {

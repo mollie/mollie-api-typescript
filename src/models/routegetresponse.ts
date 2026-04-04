@@ -7,24 +7,13 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   RouteDestinationTypeResponse,
   RouteDestinationTypeResponse$inboundSchema,
-  RouteDestinationTypeResponse$outboundSchema,
 } from "./routedestinationtyperesponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The destination of the route.
@@ -105,31 +94,7 @@ export const RouteGetResponseDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-/** @internal */
-export type RouteGetResponseDestination$Outbound = {
-  type: string;
-  organizationId: string;
-};
 
-/** @internal */
-export const RouteGetResponseDestination$outboundSchema: z.ZodType<
-  RouteGetResponseDestination$Outbound,
-  z.ZodTypeDef,
-  RouteGetResponseDestination
-> = z.object({
-  type: RouteDestinationTypeResponse$outboundSchema,
-  organizationId: z.string(),
-});
-
-export function routeGetResponseDestinationToJSON(
-  routeGetResponseDestination: RouteGetResponseDestination,
-): string {
-  return JSON.stringify(
-    RouteGetResponseDestination$outboundSchema.parse(
-      routeGetResponseDestination,
-    ),
-  );
-}
 export function routeGetResponseDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteGetResponseDestination, SDKValidationError> {
@@ -150,31 +115,7 @@ export const RouteGetResponseLinks$inboundSchema: z.ZodType<
   documentation: Url$inboundSchema,
   payment: Url$inboundSchema,
 });
-/** @internal */
-export type RouteGetResponseLinks$Outbound = {
-  self: Url$Outbound;
-  documentation: Url$Outbound;
-  payment: Url$Outbound;
-};
 
-/** @internal */
-export const RouteGetResponseLinks$outboundSchema: z.ZodType<
-  RouteGetResponseLinks$Outbound,
-  z.ZodTypeDef,
-  RouteGetResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  documentation: Url$outboundSchema,
-  payment: Url$outboundSchema,
-});
-
-export function routeGetResponseLinksToJSON(
-  routeGetResponseLinks: RouteGetResponseLinks,
-): string {
-  return JSON.stringify(
-    RouteGetResponseLinks$outboundSchema.parse(routeGetResponseLinks),
-  );
-}
 export function routeGetResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteGetResponseLinks, SDKValidationError> {
@@ -204,45 +145,7 @@ export const RouteGetResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type RouteGetResponse$Outbound = {
-  resource: string;
-  id: string;
-  paymentId: string;
-  amount: Amount$Outbound;
-  description: string;
-  destination: RouteGetResponseDestination$Outbound;
-  createdAt: string;
-  _links: RouteGetResponseLinks$Outbound;
-};
 
-/** @internal */
-export const RouteGetResponse$outboundSchema: z.ZodType<
-  RouteGetResponse$Outbound,
-  z.ZodTypeDef,
-  RouteGetResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  paymentId: z.string(),
-  amount: Amount$outboundSchema,
-  description: z.string(),
-  destination: z.lazy(() => RouteGetResponseDestination$outboundSchema),
-  createdAt: z.string(),
-  links: z.lazy(() => RouteGetResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function routeGetResponseToJSON(
-  routeGetResponse: RouteGetResponse,
-): string {
-  return JSON.stringify(
-    RouteGetResponse$outboundSchema.parse(routeGetResponse),
-  );
-}
 export function routeGetResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteGetResponse, SDKValidationError> {

@@ -9,24 +9,13 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Address,
-  Address$inboundSchema,
-  Address$Outbound,
-  Address$outboundSchema,
-} from "./address.js";
+import { Address, Address$inboundSchema } from "./address.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OrganizationVatRegulation,
   OrganizationVatRegulation$inboundSchema,
-  OrganizationVatRegulation$outboundSchema,
 } from "./organizationvatregulation.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The preferred locale of the merchant, as set in their Mollie dashboard.
@@ -137,12 +126,6 @@ export const EntityOrganizationLocale$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntityOrganizationLocale);
-/** @internal */
-export const EntityOrganizationLocale$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntityOrganizationLocale
-> = openEnums.outboundSchema(EntityOrganizationLocale);
 
 /** @internal */
 export const EntityOrganizationLinks$inboundSchema: z.ZodType<
@@ -154,31 +137,7 @@ export const EntityOrganizationLinks$inboundSchema: z.ZodType<
   dashboard: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityOrganizationLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  dashboard?: Url$Outbound | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityOrganizationLinks$outboundSchema: z.ZodType<
-  EntityOrganizationLinks$Outbound,
-  z.ZodTypeDef,
-  EntityOrganizationLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  dashboard: Url$outboundSchema.optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function entityOrganizationLinksToJSON(
-  entityOrganizationLinks: EntityOrganizationLinks,
-): string {
-  return JSON.stringify(
-    EntityOrganizationLinks$outboundSchema.parse(entityOrganizationLinks),
-  );
-}
 export function entityOrganizationLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOrganizationLinks, SDKValidationError> {
@@ -210,50 +169,7 @@ export const EntityOrganization$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityOrganization$Outbound = {
-  resource: string;
-  id: string;
-  name: string;
-  email: string;
-  locale: string | null;
-  address: Address$Outbound;
-  registrationNumber: string;
-  vatNumber?: string | null | undefined;
-  vatRegulation?: string | null | undefined;
-  _links: EntityOrganizationLinks$Outbound;
-};
 
-/** @internal */
-export const EntityOrganization$outboundSchema: z.ZodType<
-  EntityOrganization$Outbound,
-  z.ZodTypeDef,
-  EntityOrganization
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  name: z.string(),
-  email: z.string(),
-  locale: z.nullable(EntityOrganizationLocale$outboundSchema),
-  address: Address$outboundSchema,
-  registrationNumber: z.string(),
-  vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(OrganizationVatRegulation$outboundSchema)
-    .optional(),
-  links: z.lazy(() => EntityOrganizationLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityOrganizationToJSON(
-  entityOrganization: EntityOrganization,
-): string {
-  return JSON.stringify(
-    EntityOrganization$outboundSchema.parse(entityOrganization),
-  );
-}
 export function entityOrganizationFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityOrganization, SDKValidationError> {

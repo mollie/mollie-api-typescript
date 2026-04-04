@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type VerifyPayeeRequest = {
@@ -18,21 +15,6 @@ export type VerifyPayeeRequest = {
   verificationOfPayeeRequest?: models.VerificationOfPayeeRequest | undefined;
 };
 
-/** @internal */
-export const VerifyPayeeRequest$inboundSchema: z.ZodType<
-  VerifyPayeeRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  "verification-of-payee-request": models
-    .VerificationOfPayeeRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "verification-of-payee-request": "verificationOfPayeeRequest",
-  });
-});
 /** @internal */
 export type VerifyPayeeRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -62,14 +44,5 @@ export function verifyPayeeRequestToJSON(
 ): string {
   return JSON.stringify(
     VerifyPayeeRequest$outboundSchema.parse(verifyPayeeRequest),
-  );
-}
-export function verifyPayeeRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<VerifyPayeeRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VerifyPayeeRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VerifyPayeeRequest' from JSON`,
   );
 }

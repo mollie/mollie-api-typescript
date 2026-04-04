@@ -4,9 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DeleteValuesSalesInvoice = {
   /**
@@ -21,14 +18,6 @@ export type DeleteValuesSalesInvoice = {
   testmode?: boolean | null | undefined;
 };
 
-/** @internal */
-export const DeleteValuesSalesInvoice$inboundSchema: z.ZodType<
-  DeleteValuesSalesInvoice,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
 /** @internal */
 export type DeleteValuesSalesInvoice$Outbound = {
   testmode?: boolean | null | undefined;
@@ -48,14 +37,5 @@ export function deleteValuesSalesInvoiceToJSON(
 ): string {
   return JSON.stringify(
     DeleteValuesSalesInvoice$outboundSchema.parse(deleteValuesSalesInvoice),
-  );
-}
-export function deleteValuesSalesInvoiceFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteValuesSalesInvoice, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteValuesSalesInvoice$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteValuesSalesInvoice' from JSON`,
   );
 }

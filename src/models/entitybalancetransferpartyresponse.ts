@@ -9,7 +9,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceTransferPartyTypeResponse,
   BalanceTransferPartyTypeResponse$inboundSchema,
-  BalanceTransferPartyTypeResponse$outboundSchema,
 } from "./balancetransferpartytyperesponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -38,33 +37,7 @@ export const EntityBalanceTransferPartyResponse$inboundSchema: z.ZodType<
   id: z.string(),
   description: z.string(),
 });
-/** @internal */
-export type EntityBalanceTransferPartyResponse$Outbound = {
-  type: string;
-  id: string;
-  description: string;
-};
 
-/** @internal */
-export const EntityBalanceTransferPartyResponse$outboundSchema: z.ZodType<
-  EntityBalanceTransferPartyResponse$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceTransferPartyResponse
-> = z.object({
-  type: BalanceTransferPartyTypeResponse$outboundSchema,
-  id: z.string(),
-  description: z.string(),
-});
-
-export function entityBalanceTransferPartyResponseToJSON(
-  entityBalanceTransferPartyResponse: EntityBalanceTransferPartyResponse,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransferPartyResponse$outboundSchema.parse(
-      entityBalanceTransferPartyResponse,
-    ),
-  );
-}
 export function entityBalanceTransferPartyResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransferPartyResponse, SDKValidationError> {

@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteCustomerRequestBody = {
   /**
@@ -35,14 +32,6 @@ export type DeleteCustomerRequest = {
 };
 
 /** @internal */
-export const DeleteCustomerRequestBody$inboundSchema: z.ZodType<
-  DeleteCustomerRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type DeleteCustomerRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
 };
@@ -63,31 +52,7 @@ export function deleteCustomerRequestBodyToJSON(
     DeleteCustomerRequestBody$outboundSchema.parse(deleteCustomerRequestBody),
   );
 }
-export function deleteCustomerRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteCustomerRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteCustomerRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteCustomerRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const DeleteCustomerRequest$inboundSchema: z.ZodType<
-  DeleteCustomerRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => DeleteCustomerRequestBody$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type DeleteCustomerRequest$Outbound = {
   customerId: string;
@@ -117,14 +82,5 @@ export function deleteCustomerRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteCustomerRequest$outboundSchema.parse(deleteCustomerRequest),
-  );
-}
-export function deleteCustomerRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteCustomerRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteCustomerRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteCustomerRequest' from JSON`,
   );
 }

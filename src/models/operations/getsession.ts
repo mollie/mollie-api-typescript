@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSessionRequest = {
   /**
@@ -20,19 +17,6 @@ export type GetSessionRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetSessionRequest$inboundSchema: z.ZodType<
-  GetSessionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sessionId: z.string(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetSessionRequest$Outbound = {
   sessionId: string;
@@ -58,14 +42,5 @@ export function getSessionRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSessionRequest$outboundSchema.parse(getSessionRequest),
-  );
-}
-export function getSessionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSessionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSessionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSessionRequest' from JSON`,
   );
 }

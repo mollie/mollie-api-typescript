@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetBalanceGlobals = {
   /**
@@ -42,59 +39,6 @@ export type GetBalanceRequest = {
 };
 
 /** @internal */
-export const GetBalanceGlobals$inboundSchema: z.ZodType<
-  GetBalanceGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetBalanceGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetBalanceGlobals$outboundSchema: z.ZodType<
-  GetBalanceGlobals$Outbound,
-  z.ZodTypeDef,
-  GetBalanceGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getBalanceGlobalsToJSON(
-  getBalanceGlobals: GetBalanceGlobals,
-): string {
-  return JSON.stringify(
-    GetBalanceGlobals$outboundSchema.parse(getBalanceGlobals),
-  );
-}
-export function getBalanceGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetBalanceGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetBalanceGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetBalanceGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetBalanceRequest$inboundSchema: z.ZodType<
-  GetBalanceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  balanceId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetBalanceRequest$Outbound = {
   balanceId: string;
   testmode?: boolean | undefined;
@@ -121,14 +65,5 @@ export function getBalanceRequestToJSON(
 ): string {
   return JSON.stringify(
     GetBalanceRequest$outboundSchema.parse(getBalanceRequest),
-  );
-}
-export function getBalanceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetBalanceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetBalanceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetBalanceRequest' from JSON`,
   );
 }

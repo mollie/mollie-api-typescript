@@ -35,9 +35,3 @@ export const CaptureModeResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CaptureModeResponse);
-/** @internal */
-export const CaptureModeResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CaptureModeResponse
-> = openEnums.outboundSchema(CaptureModeResponse);

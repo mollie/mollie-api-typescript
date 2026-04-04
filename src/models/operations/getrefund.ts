@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetRefundGlobals = {
   /**
@@ -55,61 +52,6 @@ export type GetRefundRequest = {
 };
 
 /** @internal */
-export const GetRefundGlobals$inboundSchema: z.ZodType<
-  GetRefundGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetRefundGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetRefundGlobals$outboundSchema: z.ZodType<
-  GetRefundGlobals$Outbound,
-  z.ZodTypeDef,
-  GetRefundGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getRefundGlobalsToJSON(
-  getRefundGlobals: GetRefundGlobals,
-): string {
-  return JSON.stringify(
-    GetRefundGlobals$outboundSchema.parse(getRefundGlobals),
-  );
-}
-export function getRefundGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetRefundGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetRefundGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetRefundGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetRefundRequest$inboundSchema: z.ZodType<
-  GetRefundRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  refundId: z.string(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetRefundRequest$Outbound = {
   paymentId: string;
   refundId: string;
@@ -140,14 +82,5 @@ export function getRefundRequestToJSON(
 ): string {
   return JSON.stringify(
     GetRefundRequest$outboundSchema.parse(getRefundRequest),
-  );
-}
-export function getRefundRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetRefundRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetRefundRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetRefundRequest' from JSON`,
   );
 }

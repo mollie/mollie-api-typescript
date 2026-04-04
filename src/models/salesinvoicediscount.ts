@@ -4,12 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoiceDiscountType,
-  SalesInvoiceDiscountType$inboundSchema,
   SalesInvoiceDiscountType$outboundSchema,
 } from "./salesinvoicediscounttype.js";
 
@@ -24,15 +20,6 @@ export type SalesInvoiceDiscount = {
   value: string;
 };
 
-/** @internal */
-export const SalesInvoiceDiscount$inboundSchema: z.ZodType<
-  SalesInvoiceDiscount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: SalesInvoiceDiscountType$inboundSchema,
-  value: z.string(),
-});
 /** @internal */
 export type SalesInvoiceDiscount$Outbound = {
   type: string;
@@ -54,14 +41,5 @@ export function salesInvoiceDiscountToJSON(
 ): string {
   return JSON.stringify(
     SalesInvoiceDiscount$outboundSchema.parse(salesInvoiceDiscount),
-  );
-}
-export function salesInvoiceDiscountFromJSON(
-  jsonString: string,
-): SafeParseResult<SalesInvoiceDiscount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SalesInvoiceDiscount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceDiscount' from JSON`,
   );
 }

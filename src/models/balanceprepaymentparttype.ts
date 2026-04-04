@@ -24,9 +24,3 @@ export const BalancePrepaymentPartType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(BalancePrepaymentPartType);
-/** @internal */
-export const BalancePrepaymentPartType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  BalancePrepaymentPartType
-> = openEnums.outboundSchema(BalancePrepaymentPartType);

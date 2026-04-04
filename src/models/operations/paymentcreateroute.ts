@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type PaymentCreateRouteRequest = {
@@ -22,21 +19,6 @@ export type PaymentCreateRouteRequest = {
   routeCreateRequest?: models.RouteCreateRequest | undefined;
 };
 
-/** @internal */
-export const PaymentCreateRouteRequest$inboundSchema: z.ZodType<
-  PaymentCreateRouteRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "route-create-request": models.RouteCreateRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "route-create-request": "routeCreateRequest",
-  });
-});
 /** @internal */
 export type PaymentCreateRouteRequest$Outbound = {
   paymentId: string;
@@ -65,14 +47,5 @@ export function paymentCreateRouteRequestToJSON(
 ): string {
   return JSON.stringify(
     PaymentCreateRouteRequest$outboundSchema.parse(paymentCreateRouteRequest),
-  );
-}
-export function paymentCreateRouteRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentCreateRouteRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentCreateRouteRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentCreateRouteRequest' from JSON`,
   );
 }

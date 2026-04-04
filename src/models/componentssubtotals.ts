@@ -10,45 +10,30 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceCardAudience,
   BalanceCardAudience$inboundSchema,
-  BalanceCardAudience$outboundSchema,
 } from "./balancecardaudience.js";
 import {
   BalanceCardIssuer,
   BalanceCardIssuer$inboundSchema,
-  BalanceCardIssuer$outboundSchema,
 } from "./balancecardissuer.js";
 import {
   BalanceCardRegion,
   BalanceCardRegion$inboundSchema,
-  BalanceCardRegion$outboundSchema,
 } from "./balancecardregion.js";
 import {
   BalanceFeeType,
   BalanceFeeType$inboundSchema,
-  BalanceFeeType$outboundSchema,
 } from "./balancefeetype.js";
 import {
   BalancePrepaymentPartType,
   BalancePrepaymentPartType$inboundSchema,
-  BalancePrepaymentPartType$outboundSchema,
 } from "./balanceprepaymentparttype.js";
 import {
   BalanceTransactionType,
   BalanceTransactionType$inboundSchema,
-  BalanceTransactionType$outboundSchema,
 } from "./balancetransactiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  PaymentMethod,
-  PaymentMethod$inboundSchema,
-  PaymentMethod$outboundSchema,
-} from "./paymentmethod.js";
-import {
-  SubTotals,
-  SubTotals$inboundSchema,
-  SubTotals$Outbound,
-  SubTotals$outboundSchema,
-} from "./subtotals.js";
+import { PaymentMethod, PaymentMethod$inboundSchema } from "./paymentmethod.js";
+import { SubTotals, SubTotals$inboundSchema } from "./subtotals.js";
 
 export type ComponentsSubTotals = {
   subTotals?: Array<SubTotals> | null | undefined;
@@ -88,47 +73,7 @@ export const ComponentsSubTotals$inboundSchema: z.ZodType<
     "sub-totals": "subTotals",
   });
 });
-/** @internal */
-export type ComponentsSubTotals$Outbound = {
-  "sub-totals"?: Array<SubTotals$Outbound> | null | undefined;
-  count?: number | undefined;
-  method?: string | null | undefined;
-  cardIssuer?: string | undefined;
-  cardAudience?: string | undefined;
-  cardRegion?: string | undefined;
-  feeType?: string | undefined;
-  prepaymentPartType?: string | undefined;
-  transactionType?: string | undefined;
-};
 
-/** @internal */
-export const ComponentsSubTotals$outboundSchema: z.ZodType<
-  ComponentsSubTotals$Outbound,
-  z.ZodTypeDef,
-  ComponentsSubTotals
-> = z.object({
-  subTotals: z.nullable(z.array(SubTotals$outboundSchema)).optional(),
-  count: z.number().int().optional(),
-  method: z.nullable(PaymentMethod$outboundSchema).optional(),
-  cardIssuer: BalanceCardIssuer$outboundSchema.optional(),
-  cardAudience: BalanceCardAudience$outboundSchema.optional(),
-  cardRegion: BalanceCardRegion$outboundSchema.optional(),
-  feeType: BalanceFeeType$outboundSchema.optional(),
-  prepaymentPartType: BalancePrepaymentPartType$outboundSchema.optional(),
-  transactionType: BalanceTransactionType$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    subTotals: "sub-totals",
-  });
-});
-
-export function componentsSubTotalsToJSON(
-  componentsSubTotals: ComponentsSubTotals,
-): string {
-  return JSON.stringify(
-    ComponentsSubTotals$outboundSchema.parse(componentsSubTotals),
-  );
-}
 export function componentsSubTotalsFromJSON(
   jsonString: string,
 ): SafeParseResult<ComponentsSubTotals, SDKValidationError> {

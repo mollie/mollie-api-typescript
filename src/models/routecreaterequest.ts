@@ -4,18 +4,9 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   RouteDestinationType,
-  RouteDestinationType$inboundSchema,
   RouteDestinationType$outboundSchema,
 } from "./routedestinationtype.js";
 
@@ -49,15 +40,6 @@ export type RouteCreateRequest = {
 };
 
 /** @internal */
-export const RouteCreateRequestDestination$inboundSchema: z.ZodType<
-  RouteCreateRequestDestination,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: RouteDestinationType$inboundSchema,
-  organizationId: z.string(),
-});
-/** @internal */
 export type RouteCreateRequestDestination$Outbound = {
   type: string;
   organizationId: string;
@@ -82,26 +64,7 @@ export function routeCreateRequestDestinationToJSON(
     ),
   );
 }
-export function routeCreateRequestDestinationFromJSON(
-  jsonString: string,
-): SafeParseResult<RouteCreateRequestDestination, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RouteCreateRequestDestination$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RouteCreateRequestDestination' from JSON`,
-  );
-}
 
-/** @internal */
-export const RouteCreateRequest$inboundSchema: z.ZodType<
-  RouteCreateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: Amount$inboundSchema,
-  destination: z.lazy(() => RouteCreateRequestDestination$inboundSchema),
-  description: z.string().optional(),
-});
 /** @internal */
 export type RouteCreateRequest$Outbound = {
   amount: Amount$Outbound;
@@ -125,14 +88,5 @@ export function routeCreateRequestToJSON(
 ): string {
   return JSON.stringify(
     RouteCreateRequest$outboundSchema.parse(routeCreateRequest),
-  );
-}
-export function routeCreateRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<RouteCreateRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RouteCreateRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RouteCreateRequest' from JSON`,
   );
 }

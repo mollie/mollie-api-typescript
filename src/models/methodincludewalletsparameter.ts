@@ -14,10 +14,6 @@ export type MethodIncludeWalletsParameter = ClosedEnum<
 >;
 
 /** @internal */
-export const MethodIncludeWalletsParameter$inboundSchema: z.ZodNativeEnum<
-  typeof MethodIncludeWalletsParameter
-> = z.nativeEnum(MethodIncludeWalletsParameter);
-/** @internal */
 export const MethodIncludeWalletsParameter$outboundSchema: z.ZodNativeEnum<
   typeof MethodIncludeWalletsParameter
-> = MethodIncludeWalletsParameter$inboundSchema;
+> = z.nativeEnum(MethodIncludeWalletsParameter);

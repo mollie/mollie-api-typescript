@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetOnboardingStatusRequest = {
   /**
@@ -16,18 +13,6 @@ export type GetOnboardingStatusRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetOnboardingStatusRequest$inboundSchema: z.ZodType<
-  GetOnboardingStatusRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetOnboardingStatusRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -51,14 +36,5 @@ export function getOnboardingStatusRequestToJSON(
 ): string {
   return JSON.stringify(
     GetOnboardingStatusRequest$outboundSchema.parse(getOnboardingStatusRequest),
-  );
-}
-export function getOnboardingStatusRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOnboardingStatusRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOnboardingStatusRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOnboardingStatusRequest' from JSON`,
   );
 }

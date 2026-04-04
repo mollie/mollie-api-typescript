@@ -26,9 +26,3 @@ export const AccountNumberFormatResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(AccountNumberFormatResponse);
-/** @internal */
-export const AccountNumberFormatResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AccountNumberFormatResponse
-> = openEnums.outboundSchema(AccountNumberFormatResponse);

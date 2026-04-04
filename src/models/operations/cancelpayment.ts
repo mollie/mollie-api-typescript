@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CancelPaymentRequestBody = {
   /**
@@ -35,14 +32,6 @@ export type CancelPaymentRequest = {
 };
 
 /** @internal */
-export const CancelPaymentRequestBody$inboundSchema: z.ZodType<
-  CancelPaymentRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type CancelPaymentRequestBody$Outbound = {
   testmode?: boolean | null | undefined;
 };
@@ -63,31 +52,7 @@ export function cancelPaymentRequestBodyToJSON(
     CancelPaymentRequestBody$outboundSchema.parse(cancelPaymentRequestBody),
   );
 }
-export function cancelPaymentRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelPaymentRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelPaymentRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelPaymentRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const CancelPaymentRequest$inboundSchema: z.ZodType<
-  CancelPaymentRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => CancelPaymentRequestBody$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type CancelPaymentRequest$Outbound = {
   paymentId: string;
@@ -116,14 +81,5 @@ export function cancelPaymentRequestToJSON(
 ): string {
   return JSON.stringify(
     CancelPaymentRequest$outboundSchema.parse(cancelPaymentRequest),
-  );
-}
-export function cancelPaymentRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelPaymentRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelPaymentRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelPaymentRequest' from JSON`,
   );
 }

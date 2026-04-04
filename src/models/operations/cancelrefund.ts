@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CancelRefundGlobals = {
   /**
@@ -48,60 +45,6 @@ export type CancelRefundRequest = {
 };
 
 /** @internal */
-export const CancelRefundGlobals$inboundSchema: z.ZodType<
-  CancelRefundGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type CancelRefundGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const CancelRefundGlobals$outboundSchema: z.ZodType<
-  CancelRefundGlobals$Outbound,
-  z.ZodTypeDef,
-  CancelRefundGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function cancelRefundGlobalsToJSON(
-  cancelRefundGlobals: CancelRefundGlobals,
-): string {
-  return JSON.stringify(
-    CancelRefundGlobals$outboundSchema.parse(cancelRefundGlobals),
-  );
-}
-export function cancelRefundGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelRefundGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelRefundGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelRefundGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const CancelRefundRequest$inboundSchema: z.ZodType<
-  CancelRefundRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  refundId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type CancelRefundRequest$Outbound = {
   paymentId: string;
   refundId: string;
@@ -130,14 +73,5 @@ export function cancelRefundRequestToJSON(
 ): string {
   return JSON.stringify(
     CancelRefundRequest$outboundSchema.parse(cancelRefundRequest),
-  );
-}
-export function cancelRefundRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CancelRefundRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CancelRefundRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CancelRefundRequest' from JSON`,
   );
 }

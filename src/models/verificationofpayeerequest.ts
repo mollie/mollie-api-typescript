@@ -4,15 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CreditorBankAccount,
-  CreditorBankAccount$inboundSchema,
   CreditorBankAccount$Outbound,
   CreditorBankAccount$outboundSchema,
 } from "./creditorbankaccount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * The request body for performing a Verification of Payee (VoP) check. VoP allows you to verify the
@@ -38,15 +34,6 @@ export type VerificationOfPayeeRequest = {
 };
 
 /** @internal */
-export const VerificationOfPayeeRequest$inboundSchema: z.ZodType<
-  VerificationOfPayeeRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  creditorBankAccount: CreditorBankAccount$inboundSchema,
-  testmode: z.nullable(z.boolean()).optional(),
-});
-/** @internal */
 export type VerificationOfPayeeRequest$Outbound = {
   creditorBankAccount: CreditorBankAccount$Outbound;
   testmode?: boolean | null | undefined;
@@ -67,14 +54,5 @@ export function verificationOfPayeeRequestToJSON(
 ): string {
   return JSON.stringify(
     VerificationOfPayeeRequest$outboundSchema.parse(verificationOfPayeeRequest),
-  );
-}
-export function verificationOfPayeeRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<VerificationOfPayeeRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VerificationOfPayeeRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VerificationOfPayeeRequest' from JSON`,
   );
 }

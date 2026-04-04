@@ -85,23 +85,6 @@ export type ListInvoicesResponse = {
 };
 
 /** @internal */
-export const ListInvoicesRequest$inboundSchema: z.ZodType<
-  ListInvoicesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  reference: z.nullable(z.string()).optional(),
-  year: z.nullable(z.string()).optional(),
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListInvoicesRequest$Outbound = {
   reference?: string | null | undefined;
   year?: string | null | undefined;
@@ -136,15 +119,6 @@ export function listInvoicesRequestToJSON(
     ListInvoicesRequest$outboundSchema.parse(listInvoicesRequest),
   );
 }
-export function listInvoicesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListInvoicesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListInvoicesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListInvoicesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListInvoicesEmbedded$inboundSchema: z.ZodType<
@@ -154,27 +128,7 @@ export const ListInvoicesEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   invoices: z.array(models.ListEntityInvoice$inboundSchema),
 });
-/** @internal */
-export type ListInvoicesEmbedded$Outbound = {
-  invoices: Array<models.ListEntityInvoice$Outbound>;
-};
 
-/** @internal */
-export const ListInvoicesEmbedded$outboundSchema: z.ZodType<
-  ListInvoicesEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesEmbedded
-> = z.object({
-  invoices: z.array(models.ListEntityInvoice$outboundSchema),
-});
-
-export function listInvoicesEmbeddedToJSON(
-  listInvoicesEmbedded: ListInvoicesEmbedded,
-): string {
-  return JSON.stringify(
-    ListInvoicesEmbedded$outboundSchema.parse(listInvoicesEmbedded),
-  );
-}
 export function listInvoicesEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListInvoicesEmbedded, SDKValidationError> {
@@ -200,36 +154,7 @@ export const ListInvoicesResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListInvoicesResponseBody$Outbound = {
-  count: number;
-  _embedded: ListInvoicesEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListInvoicesResponseBody$outboundSchema: z.ZodType<
-  ListInvoicesResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListInvoicesEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listInvoicesResponseBodyToJSON(
-  listInvoicesResponseBody: ListInvoicesResponseBody,
-): string {
-  return JSON.stringify(
-    ListInvoicesResponseBody$outboundSchema.parse(listInvoicesResponseBody),
-  );
-}
 export function listInvoicesResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListInvoicesResponseBody, SDKValidationError> {
@@ -252,31 +177,7 @@ export const ListInvoicesResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListInvoicesResponse$Outbound = {
-  Result: ListInvoicesResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListInvoicesResponse$outboundSchema: z.ZodType<
-  ListInvoicesResponse$Outbound,
-  z.ZodTypeDef,
-  ListInvoicesResponse
-> = z.object({
-  result: z.lazy(() => ListInvoicesResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listInvoicesResponseToJSON(
-  listInvoicesResponse: ListInvoicesResponse,
-): string {
-  return JSON.stringify(
-    ListInvoicesResponse$outboundSchema.parse(listInvoicesResponse),
-  );
-}
 export function listInvoicesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListInvoicesResponse, SDKValidationError> {

@@ -6,12 +6,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -32,23 +27,7 @@ export const AfterBalance$inboundSchema: z.ZodType<
 > = z.object({
   total: Amount$inboundSchema,
 });
-/** @internal */
-export type AfterBalance$Outbound = {
-  total: Amount$Outbound;
-};
 
-/** @internal */
-export const AfterBalance$outboundSchema: z.ZodType<
-  AfterBalance$Outbound,
-  z.ZodTypeDef,
-  AfterBalance
-> = z.object({
-  total: Amount$outboundSchema,
-});
-
-export function afterBalanceToJSON(afterBalance: AfterBalance): string {
-  return JSON.stringify(AfterBalance$outboundSchema.parse(afterBalance));
-}
 export function afterBalanceFromJSON(
   jsonString: string,
 ): SafeParseResult<AfterBalance, SDKValidationError> {

@@ -4,70 +4,40 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import { RFCDate } from "../types/rfcdate.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import {
-  CaptureMode,
-  CaptureMode$inboundSchema,
-  CaptureMode$outboundSchema,
-} from "./capturemode.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
+import { CaptureMode, CaptureMode$outboundSchema } from "./capturemode.js";
 import {
   EntityPaymentRoute,
-  EntityPaymentRoute$inboundSchema,
   EntityPaymentRoute$Outbound,
   EntityPaymentRoute$outboundSchema,
 } from "./entitypaymentroute.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LineCategories,
-  LineCategories$inboundSchema,
   LineCategories$outboundSchema,
 } from "./linecategories.js";
-import {
-  Locale,
-  Locale$inboundSchema,
-  Locale$outboundSchema,
-} from "./locale.js";
+import { Locale, Locale$outboundSchema } from "./locale.js";
 import {
   Metadata,
-  Metadata$inboundSchema,
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
-import {
-  MethodEnum,
-  MethodEnum$inboundSchema,
-  MethodEnum$outboundSchema,
-} from "./methodenum.js";
+import { MethodEnum, MethodEnum$outboundSchema } from "./methodenum.js";
 import {
   PaymentAddress,
-  PaymentAddress$inboundSchema,
   PaymentAddress$Outbound,
   PaymentAddress$outboundSchema,
 } from "./paymentaddress.js";
 import {
   PaymentLineType,
-  PaymentLineType$inboundSchema,
   PaymentLineType$outboundSchema,
 } from "./paymentlinetype.js";
 import {
   RecurringLineItem,
-  RecurringLineItem$inboundSchema,
   RecurringLineItem$Outbound,
   RecurringLineItem$outboundSchema,
 } from "./recurringlineitem.js";
-import {
-  SequenceType,
-  SequenceType$inboundSchema,
-  SequenceType$outboundSchema,
-} from "./sequencetype.js";
+import { SequenceType, SequenceType$outboundSchema } from "./sequencetype.js";
 
 export type PaymentRequestLine = {
   /**
@@ -586,27 +556,6 @@ export type PaymentRequest = {
 };
 
 /** @internal */
-export const PaymentRequestLine$inboundSchema: z.ZodType<
-  PaymentRequestLine,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: PaymentLineType$inboundSchema.optional(),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: Amount$inboundSchema,
-  discountAmount: Amount$inboundSchema.optional(),
-  totalAmount: Amount$inboundSchema,
-  vatRate: z.string().optional(),
-  vatAmount: Amount$inboundSchema.optional(),
-  sku: z.string().optional(),
-  categories: z.array(LineCategories$inboundSchema).optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-  recurring: RecurringLineItem$inboundSchema.optional(),
-});
-/** @internal */
 export type PaymentRequestLine$Outbound = {
   type?: string | undefined;
   description: string;
@@ -653,35 +602,7 @@ export function paymentRequestLineToJSON(
     PaymentRequestLine$outboundSchema.parse(paymentRequestLine),
   );
 }
-export function paymentRequestLineFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentRequestLine, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentRequestLine$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentRequestLine' from JSON`,
-  );
-}
 
-/** @internal */
-export const PaymentRequestBillingAddress$inboundSchema: z.ZodType<
-  PaymentRequestBillingAddress,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.any().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
 /** @internal */
 export type PaymentRequestBillingAddress$Outbound = {
   title?: string | undefined;
@@ -727,22 +648,7 @@ export function paymentRequestBillingAddressToJSON(
     ),
   );
 }
-export function paymentRequestBillingAddressFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentRequestBillingAddress, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentRequestBillingAddress$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentRequestBillingAddress' from JSON`,
-  );
-}
 
-/** @internal */
-export const Method$inboundSchema: z.ZodType<Method, z.ZodTypeDef, unknown> = z
-  .union([
-    MethodEnum$inboundSchema,
-    z.array(z.nullable(MethodEnum$inboundSchema)),
-  ]);
 /** @internal */
 export type Method$Outbound = string | Array<string | null>;
 
@@ -759,25 +665,7 @@ export const Method$outboundSchema: z.ZodType<
 export function methodToJSON(method: Method): string {
   return JSON.stringify(Method$outboundSchema.parse(method));
 }
-export function methodFromJSON(
-  jsonString: string,
-): SafeParseResult<Method, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Method$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Method' from JSON`,
-  );
-}
 
-/** @internal */
-export const PaymentRequestApplicationFee$inboundSchema: z.ZodType<
-  PaymentRequestApplicationFee,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: Amount$inboundSchema.optional(),
-  description: z.string().optional(),
-});
 /** @internal */
 export type PaymentRequestApplicationFee$Outbound = {
   amount?: Amount$Outbound | undefined;
@@ -803,23 +691,7 @@ export function paymentRequestApplicationFeeToJSON(
     ),
   );
 }
-export function paymentRequestApplicationFeeFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentRequestApplicationFee, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentRequestApplicationFee$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentRequestApplicationFee' from JSON`,
-  );
-}
 
-/** @internal */
-export const Company$inboundSchema: z.ZodType<Company, z.ZodTypeDef, unknown> =
-  z.object({
-    registrationNumber: z.string().optional(),
-    vatNumber: z.string().optional(),
-    entityType: z.string().optional(),
-  });
 /** @internal */
 export type Company$Outbound = {
   registrationNumber?: string | undefined;
@@ -841,66 +713,7 @@ export const Company$outboundSchema: z.ZodType<
 export function companyToJSON(company: Company): string {
   return JSON.stringify(Company$outboundSchema.parse(company));
 }
-export function companyFromJSON(
-  jsonString: string,
-): SafeParseResult<Company, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Company$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Company' from JSON`,
-  );
-}
 
-/** @internal */
-export const PaymentRequest$inboundSchema: z.ZodType<
-  PaymentRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string(),
-  amount: Amount$inboundSchema,
-  redirectUrl: z.nullable(z.string()),
-  cancelUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$inboundSchema)))
-    .optional(),
-  billingAddress: z.lazy(() => PaymentRequestBillingAddress$inboundSchema)
-    .optional(),
-  shippingAddress: PaymentAddress$inboundSchema.optional(),
-  locale: z.nullable(Locale$inboundSchema).optional(),
-  method: z.nullable(
-    z.union([
-      MethodEnum$inboundSchema,
-      z.array(z.nullable(MethodEnum$inboundSchema)),
-    ]),
-  ).optional(),
-  issuer: z.nullable(z.string()).optional(),
-  restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-  captureMode: z.nullable(CaptureMode$inboundSchema).optional(),
-  captureDelay: z.nullable(z.string()).optional(),
-  applicationFee: z.nullable(
-    z.lazy(() => PaymentRequestApplicationFee$inboundSchema),
-  ).optional(),
-  routing: z.nullable(z.array(EntityPaymentRoute$inboundSchema)).optional(),
-  sequenceType: SequenceType$inboundSchema.optional(),
-  mandateId: z.nullable(z.string()).optional(),
-  customerId: z.string().optional(),
-  profileId: z.string().optional(),
-  dueDate: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-  applePayPaymentToken: z.string().optional(),
-  company: z.lazy(() => Company$inboundSchema).optional(),
-  cardToken: z.string().optional(),
-  voucherNumber: z.string().optional(),
-  voucherPin: z.string().optional(),
-  consumerDateOfBirth: z.string().transform(v => new RFCDate(v)).optional(),
-  extraMerchantData: z.record(z.any()).optional(),
-  sessionId: z.string().optional(),
-  digitalGoods: z.boolean().optional(),
-  customerReference: z.string().optional(),
-  terminalId: z.string().optional(),
-});
 /** @internal */
 export type PaymentRequest$Outbound = {
   description: string;
@@ -993,13 +806,4 @@ export const PaymentRequest$outboundSchema: z.ZodType<
 
 export function paymentRequestToJSON(paymentRequest: PaymentRequest): string {
   return JSON.stringify(PaymentRequest$outboundSchema.parse(paymentRequest));
-}
-export function paymentRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentRequest' from JSON`,
-  );
 }

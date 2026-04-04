@@ -8,12 +8,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -61,31 +56,7 @@ export const ClientLinkResponseLinks$inboundSchema: z.ZodType<
   clientLink: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type ClientLinkResponseLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  clientLink?: Url$Outbound | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const ClientLinkResponseLinks$outboundSchema: z.ZodType<
-  ClientLinkResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ClientLinkResponseLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  clientLink: Url$outboundSchema.optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function clientLinkResponseLinksToJSON(
-  clientLinkResponseLinks: ClientLinkResponseLinks,
-): string {
-  return JSON.stringify(
-    ClientLinkResponseLinks$outboundSchema.parse(clientLinkResponseLinks),
-  );
-}
 export function clientLinkResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ClientLinkResponseLinks, SDKValidationError> {
@@ -110,35 +81,7 @@ export const ClientLinkResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ClientLinkResponse$Outbound = {
-  resource: string;
-  id: string;
-  _links: ClientLinkResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ClientLinkResponse$outboundSchema: z.ZodType<
-  ClientLinkResponse$Outbound,
-  z.ZodTypeDef,
-  ClientLinkResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  links: z.lazy(() => ClientLinkResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function clientLinkResponseToJSON(
-  clientLinkResponse: ClientLinkResponse,
-): string {
-  return JSON.stringify(
-    ClientLinkResponse$outboundSchema.parse(clientLinkResponse),
-  );
-}
 export function clientLinkResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ClientLinkResponse, SDKValidationError> {

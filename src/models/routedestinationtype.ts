@@ -18,10 +18,6 @@ export const RouteDestinationType = {
 export type RouteDestinationType = ClosedEnum<typeof RouteDestinationType>;
 
 /** @internal */
-export const RouteDestinationType$inboundSchema: z.ZodNativeEnum<
-  typeof RouteDestinationType
-> = z.nativeEnum(RouteDestinationType);
-/** @internal */
 export const RouteDestinationType$outboundSchema: z.ZodNativeEnum<
   typeof RouteDestinationType
-> = RouteDestinationType$inboundSchema;
+> = z.nativeEnum(RouteDestinationType);

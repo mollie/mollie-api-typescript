@@ -40,8 +40,5 @@ export const Locale = {
 export type Locale = ClosedEnum<typeof Locale>;
 
 /** @internal */
-export const Locale$inboundSchema: z.ZodNativeEnum<typeof Locale> = z
+export const Locale$outboundSchema: z.ZodNativeEnum<typeof Locale> = z
   .nativeEnum(Locale);
-/** @internal */
-export const Locale$outboundSchema: z.ZodNativeEnum<typeof Locale> =
-  Locale$inboundSchema;

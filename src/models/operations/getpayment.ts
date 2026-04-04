@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetPaymentGlobals = {
   /**
@@ -55,61 +52,6 @@ export type GetPaymentRequest = {
 };
 
 /** @internal */
-export const GetPaymentGlobals$inboundSchema: z.ZodType<
-  GetPaymentGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetPaymentGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetPaymentGlobals$outboundSchema: z.ZodType<
-  GetPaymentGlobals$Outbound,
-  z.ZodTypeDef,
-  GetPaymentGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getPaymentGlobalsToJSON(
-  getPaymentGlobals: GetPaymentGlobals,
-): string {
-  return JSON.stringify(
-    GetPaymentGlobals$outboundSchema.parse(getPaymentGlobals),
-  );
-}
-export function getPaymentGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPaymentGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPaymentGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPaymentGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetPaymentRequest$inboundSchema: z.ZodType<
-  GetPaymentRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  include: z.nullable(z.string()).optional(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetPaymentRequest$Outbound = {
   paymentId: string;
   include?: string | null | undefined;
@@ -140,14 +82,5 @@ export function getPaymentRequestToJSON(
 ): string {
   return JSON.stringify(
     GetPaymentRequest$outboundSchema.parse(getPaymentRequest),
-  );
-}
-export function getPaymentRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPaymentRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPaymentRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPaymentRequest' from JSON`,
   );
 }

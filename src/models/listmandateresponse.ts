@@ -13,20 +13,13 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   MandateDetailsCardLabelResponse,
   MandateDetailsCardLabelResponse$inboundSchema,
-  MandateDetailsCardLabelResponse$outboundSchema,
 } from "./mandatedetailscardlabelresponse.js";
 import {
   MandateMethodResponse,
   MandateMethodResponse$inboundSchema,
-  MandateMethodResponse$outboundSchema,
 } from "./mandatemethodresponse.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 export type ListMandateResponseDetails = {
   /**
@@ -165,42 +158,7 @@ export const ListMandateResponseDetails$inboundSchema: z.ZodType<
     .optional(),
   cardFingerprint: z.nullable(z.string()).optional(),
 });
-/** @internal */
-export type ListMandateResponseDetails$Outbound = {
-  consumerName?: string | null | undefined;
-  consumerAccount?: string | null | undefined;
-  consumerBic?: string | null | undefined;
-  cardHolder?: string | null | undefined;
-  cardNumber?: string | null | undefined;
-  cardExpiryDate?: string | null | undefined;
-  cardLabel?: string | null | undefined;
-  cardFingerprint?: string | null | undefined;
-};
 
-/** @internal */
-export const ListMandateResponseDetails$outboundSchema: z.ZodType<
-  ListMandateResponseDetails$Outbound,
-  z.ZodTypeDef,
-  ListMandateResponseDetails
-> = z.object({
-  consumerName: z.nullable(z.string()).optional(),
-  consumerAccount: z.nullable(z.string()).optional(),
-  consumerBic: z.nullable(z.string()).optional(),
-  cardHolder: z.nullable(z.string()).optional(),
-  cardNumber: z.nullable(z.string()).optional(),
-  cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(MandateDetailsCardLabelResponse$outboundSchema)
-    .optional(),
-  cardFingerprint: z.nullable(z.string()).optional(),
-});
-
-export function listMandateResponseDetailsToJSON(
-  listMandateResponseDetails: ListMandateResponseDetails,
-): string {
-  return JSON.stringify(
-    ListMandateResponseDetails$outboundSchema.parse(listMandateResponseDetails),
-  );
-}
 export function listMandateResponseDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandateResponseDetails, SDKValidationError> {
@@ -217,12 +175,6 @@ export const ListMandateResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ListMandateResponseStatus);
-/** @internal */
-export const ListMandateResponseStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ListMandateResponseStatus
-> = openEnums.outboundSchema(ListMandateResponseStatus);
 
 /** @internal */
 export const ListMandateResponseLinks$inboundSchema: z.ZodType<
@@ -233,29 +185,7 @@ export const ListMandateResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   customer: Url$inboundSchema,
 });
-/** @internal */
-export type ListMandateResponseLinks$Outbound = {
-  self: Url$Outbound;
-  customer: Url$Outbound;
-};
 
-/** @internal */
-export const ListMandateResponseLinks$outboundSchema: z.ZodType<
-  ListMandateResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ListMandateResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  customer: Url$outboundSchema,
-});
-
-export function listMandateResponseLinksToJSON(
-  listMandateResponseLinks: ListMandateResponseLinks,
-): string {
-  return JSON.stringify(
-    ListMandateResponseLinks$outboundSchema.parse(listMandateResponseLinks),
-  );
-}
 export function listMandateResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandateResponseLinks, SDKValidationError> {
@@ -288,51 +218,7 @@ export const ListMandateResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListMandateResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  method: string;
-  details: ListMandateResponseDetails$Outbound;
-  signatureDate: string | null;
-  mandateReference: string | null;
-  status: string;
-  customerId: string;
-  createdAt: string;
-  _links: ListMandateResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ListMandateResponse$outboundSchema: z.ZodType<
-  ListMandateResponse$Outbound,
-  z.ZodTypeDef,
-  ListMandateResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  method: MandateMethodResponse$outboundSchema,
-  details: z.lazy(() => ListMandateResponseDetails$outboundSchema),
-  signatureDate: z.nullable(z.string()),
-  mandateReference: z.nullable(z.string()),
-  status: ListMandateResponseStatus$outboundSchema,
-  customerId: z.string(),
-  createdAt: z.string(),
-  links: z.lazy(() => ListMandateResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listMandateResponseToJSON(
-  listMandateResponse: ListMandateResponse,
-): string {
-  return JSON.stringify(
-    ListMandateResponse$outboundSchema.parse(listMandateResponse),
-  );
-}
 export function listMandateResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMandateResponse, SDKValidationError> {

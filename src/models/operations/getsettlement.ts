@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSettlementRequest = {
   /**
@@ -20,19 +17,6 @@ export type GetSettlementRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetSettlementRequest$inboundSchema: z.ZodType<
-  GetSettlementRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  settlementId: z.string(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetSettlementRequest$Outbound = {
   settlementId: string;
@@ -58,14 +42,5 @@ export function getSettlementRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSettlementRequest$outboundSchema.parse(getSettlementRequest),
-  );
-}
-export function getSettlementRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSettlementRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSettlementRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSettlementRequest' from JSON`,
   );
 }

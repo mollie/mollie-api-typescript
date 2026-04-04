@@ -29,9 +29,3 @@ export const TerminalModel$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(TerminalModel);
-/** @internal */
-export const TerminalModel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  TerminalModel
-> = openEnums.outboundSchema(TerminalModel);

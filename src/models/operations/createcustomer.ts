@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateCustomerRequest = {
@@ -18,20 +15,6 @@ export type CreateCustomerRequest = {
   entityCustomer?: models.EntityCustomer | undefined;
 };
 
-/** @internal */
-export const CreateCustomerRequest$inboundSchema: z.ZodType<
-  CreateCustomerRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  "entity-customer": models.EntityCustomer$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "entity-customer": "entityCustomer",
-  });
-});
 /** @internal */
 export type CreateCustomerRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -58,14 +41,5 @@ export function createCustomerRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateCustomerRequest$outboundSchema.parse(createCustomerRequest),
-  );
-}
-export function createCustomerRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCustomerRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateCustomerRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCustomerRequest' from JSON`,
   );
 }

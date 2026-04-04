@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetTransferGlobals = {
   /**
@@ -44,59 +41,6 @@ export type GetTransferRequest = {
 };
 
 /** @internal */
-export const GetTransferGlobals$inboundSchema: z.ZodType<
-  GetTransferGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetTransferGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetTransferGlobals$outboundSchema: z.ZodType<
-  GetTransferGlobals$Outbound,
-  z.ZodTypeDef,
-  GetTransferGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getTransferGlobalsToJSON(
-  getTransferGlobals: GetTransferGlobals,
-): string {
-  return JSON.stringify(
-    GetTransferGlobals$outboundSchema.parse(getTransferGlobals),
-  );
-}
-export function getTransferGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetTransferGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetTransferGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetTransferGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetTransferRequest$inboundSchema: z.ZodType<
-  GetTransferRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  businessAccountsTransferId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetTransferRequest$Outbound = {
   businessAccountsTransferId: string;
   testmode?: boolean | undefined;
@@ -123,14 +67,5 @@ export function getTransferRequestToJSON(
 ): string {
   return JSON.stringify(
     GetTransferRequest$outboundSchema.parse(getTransferRequest),
-  );
-}
-export function getTransferRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetTransferRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetTransferRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetTransferRequest' from JSON`,
   );
 }

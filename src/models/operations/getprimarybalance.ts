@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetPrimaryBalanceRequest = {
   /**
@@ -16,18 +13,6 @@ export type GetPrimaryBalanceRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetPrimaryBalanceRequest$inboundSchema: z.ZodType<
-  GetPrimaryBalanceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetPrimaryBalanceRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -51,14 +36,5 @@ export function getPrimaryBalanceRequestToJSON(
 ): string {
   return JSON.stringify(
     GetPrimaryBalanceRequest$outboundSchema.parse(getPrimaryBalanceRequest),
-  );
-}
-export function getPrimaryBalanceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPrimaryBalanceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPrimaryBalanceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPrimaryBalanceRequest' from JSON`,
   );
 }

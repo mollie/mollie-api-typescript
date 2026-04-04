@@ -7,22 +7,14 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
   AmountNullable,
   AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
 } from "./amountnullable.js";
 import {
   BalanceTransactionType,
   BalanceTransactionType$inboundSchema,
-  BalanceTransactionType$outboundSchema,
 } from "./balancetransactiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -433,33 +425,7 @@ export const DeductionDetails$inboundSchema: z.ZodType<
   repayments: z.nullable(AmountNullable$inboundSchema).optional(),
   reservations: z.nullable(AmountNullable$inboundSchema).optional(),
 });
-/** @internal */
-export type DeductionDetails$Outbound = {
-  fees?: AmountNullable$Outbound | null | undefined;
-  commissions?: AmountNullable$Outbound | null | undefined;
-  repayments?: AmountNullable$Outbound | null | undefined;
-  reservations?: AmountNullable$Outbound | null | undefined;
-};
 
-/** @internal */
-export const DeductionDetails$outboundSchema: z.ZodType<
-  DeductionDetails$Outbound,
-  z.ZodTypeDef,
-  DeductionDetails
-> = z.object({
-  fees: z.nullable(AmountNullable$outboundSchema).optional(),
-  commissions: z.nullable(AmountNullable$outboundSchema).optional(),
-  repayments: z.nullable(AmountNullable$outboundSchema).optional(),
-  reservations: z.nullable(AmountNullable$outboundSchema).optional(),
-});
-
-export function deductionDetailsToJSON(
-  deductionDetails: DeductionDetails,
-): string {
-  return JSON.stringify(
-    DeductionDetails$outboundSchema.parse(deductionDetails),
-  );
-}
 export function deductionDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<DeductionDetails, SDKValidationError> {
@@ -479,31 +445,7 @@ export const EntityBalanceTransactionPayment$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-/** @internal */
-export type EntityBalanceTransactionPayment$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-};
 
-/** @internal */
-export const EntityBalanceTransactionPayment$outboundSchema: z.ZodType<
-  EntityBalanceTransactionPayment$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceTransactionPayment
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-});
-
-export function entityBalanceTransactionPaymentToJSON(
-  entityBalanceTransactionPayment: EntityBalanceTransactionPayment,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransactionPayment$outboundSchema.parse(
-      entityBalanceTransactionPayment,
-    ),
-  );
-}
 export function entityBalanceTransactionPaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransactionPayment, SDKValidationError> {
@@ -522,29 +464,7 @@ export const Capture$inboundSchema: z.ZodType<Capture, z.ZodTypeDef, unknown> =
     captureId: z.string().optional(),
     captureDescription: z.string().optional(),
   });
-/** @internal */
-export type Capture$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  captureId?: string | undefined;
-  captureDescription?: string | undefined;
-};
 
-/** @internal */
-export const Capture$outboundSchema: z.ZodType<
-  Capture$Outbound,
-  z.ZodTypeDef,
-  Capture
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  captureId: z.string().optional(),
-  captureDescription: z.string().optional(),
-});
-
-export function captureToJSON(capture: Capture): string {
-  return JSON.stringify(Capture$outboundSchema.parse(capture));
-}
 export function captureFromJSON(
   jsonString: string,
 ): SafeParseResult<Capture, SDKValidationError> {
@@ -566,33 +486,7 @@ export const CaptureCommision$inboundSchema: z.ZodType<
   captureId: z.string().optional(),
   captureDescription: z.string().optional(),
 });
-/** @internal */
-export type CaptureCommision$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  captureId?: string | undefined;
-  captureDescription?: string | undefined;
-};
 
-/** @internal */
-export const CaptureCommision$outboundSchema: z.ZodType<
-  CaptureCommision$Outbound,
-  z.ZodTypeDef,
-  CaptureCommision
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  captureId: z.string().optional(),
-  captureDescription: z.string().optional(),
-});
-
-export function captureCommisionToJSON(
-  captureCommision: CaptureCommision,
-): string {
-  return JSON.stringify(
-    CaptureCommision$outboundSchema.parse(captureCommision),
-  );
-}
 export function captureCommisionFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureCommision, SDKValidationError> {
@@ -614,35 +508,7 @@ export const CaptureRollingReserveRelease$inboundSchema: z.ZodType<
   captureId: z.string().optional(),
   captureDescription: z.string().optional(),
 });
-/** @internal */
-export type CaptureRollingReserveRelease$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  captureId?: string | undefined;
-  captureDescription?: string | undefined;
-};
 
-/** @internal */
-export const CaptureRollingReserveRelease$outboundSchema: z.ZodType<
-  CaptureRollingReserveRelease$Outbound,
-  z.ZodTypeDef,
-  CaptureRollingReserveRelease
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  captureId: z.string().optional(),
-  captureDescription: z.string().optional(),
-});
-
-export function captureRollingReserveReleaseToJSON(
-  captureRollingReserveRelease: CaptureRollingReserveRelease,
-): string {
-  return JSON.stringify(
-    CaptureRollingReserveRelease$outboundSchema.parse(
-      captureRollingReserveRelease,
-    ),
-  );
-}
 export function captureRollingReserveReleaseFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureRollingReserveRelease, SDKValidationError> {
@@ -662,29 +528,7 @@ export const UnauthorizedDirectDebit$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-/** @internal */
-export type UnauthorizedDirectDebit$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-};
 
-/** @internal */
-export const UnauthorizedDirectDebit$outboundSchema: z.ZodType<
-  UnauthorizedDirectDebit$Outbound,
-  z.ZodTypeDef,
-  UnauthorizedDirectDebit
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-});
-
-export function unauthorizedDirectDebitToJSON(
-  unauthorizedDirectDebit: UnauthorizedDirectDebit,
-): string {
-  return JSON.stringify(
-    UnauthorizedDirectDebit$outboundSchema.parse(unauthorizedDirectDebit),
-  );
-}
 export function unauthorizedDirectDebitFromJSON(
   jsonString: string,
 ): SafeParseResult<UnauthorizedDirectDebit, SDKValidationError> {
@@ -704,25 +548,7 @@ export const FailedPayment$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-/** @internal */
-export type FailedPayment$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-};
 
-/** @internal */
-export const FailedPayment$outboundSchema: z.ZodType<
-  FailedPayment$Outbound,
-  z.ZodTypeDef,
-  FailedPayment
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-});
-
-export function failedPaymentToJSON(failedPayment: FailedPayment): string {
-  return JSON.stringify(FailedPayment$outboundSchema.parse(failedPayment));
-}
 export function failedPaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<FailedPayment, SDKValidationError> {
@@ -741,29 +567,7 @@ export const Refund$inboundSchema: z.ZodType<Refund, z.ZodTypeDef, unknown> = z
     refundId: z.string().optional(),
     refundDescription: z.string().optional(),
   });
-/** @internal */
-export type Refund$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  refundId?: string | undefined;
-  refundDescription?: string | undefined;
-};
 
-/** @internal */
-export const Refund$outboundSchema: z.ZodType<
-  Refund$Outbound,
-  z.ZodTypeDef,
-  Refund
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  refundId: z.string().optional(),
-  refundDescription: z.string().optional(),
-});
-
-export function refundToJSON(refund: Refund): string {
-  return JSON.stringify(Refund$outboundSchema.parse(refund));
-}
 export function refundFromJSON(
   jsonString: string,
 ): SafeParseResult<Refund, SDKValidationError> {
@@ -785,33 +589,7 @@ export const RefundCompensation$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-/** @internal */
-export type RefundCompensation$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  refundId?: string | undefined;
-  refundDescription?: string | undefined;
-};
 
-/** @internal */
-export const RefundCompensation$outboundSchema: z.ZodType<
-  RefundCompensation$Outbound,
-  z.ZodTypeDef,
-  RefundCompensation
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  refundId: z.string().optional(),
-  refundDescription: z.string().optional(),
-});
-
-export function refundCompensationToJSON(
-  refundCompensation: RefundCompensation,
-): string {
-  return JSON.stringify(
-    RefundCompensation$outboundSchema.parse(refundCompensation),
-  );
-}
 export function refundCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<RefundCompensation, SDKValidationError> {
@@ -833,29 +611,7 @@ export const ReturnedRefund$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-/** @internal */
-export type ReturnedRefund$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  refundId?: string | undefined;
-  refundDescription?: string | undefined;
-};
 
-/** @internal */
-export const ReturnedRefund$outboundSchema: z.ZodType<
-  ReturnedRefund$Outbound,
-  z.ZodTypeDef,
-  ReturnedRefund
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  refundId: z.string().optional(),
-  refundDescription: z.string().optional(),
-});
-
-export function returnedRefundToJSON(returnedRefund: ReturnedRefund): string {
-  return JSON.stringify(ReturnedRefund$outboundSchema.parse(returnedRefund));
-}
 export function returnedRefundFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedRefund, SDKValidationError> {
@@ -877,33 +633,7 @@ export const ReturnedRefundCompensation$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-/** @internal */
-export type ReturnedRefundCompensation$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  refundId?: string | undefined;
-  refundDescription?: string | undefined;
-};
 
-/** @internal */
-export const ReturnedRefundCompensation$outboundSchema: z.ZodType<
-  ReturnedRefundCompensation$Outbound,
-  z.ZodTypeDef,
-  ReturnedRefundCompensation
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  refundId: z.string().optional(),
-  refundDescription: z.string().optional(),
-});
-
-export function returnedRefundCompensationToJSON(
-  returnedRefundCompensation: ReturnedRefundCompensation,
-): string {
-  return JSON.stringify(
-    ReturnedRefundCompensation$outboundSchema.parse(returnedRefundCompensation),
-  );
-}
 export function returnedRefundCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedRefundCompensation, SDKValidationError> {
@@ -925,29 +655,7 @@ export const Chargeback$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-/** @internal */
-export type Chargeback$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  chargebackId?: string | undefined;
-  chargebackDescription?: string | undefined;
-};
 
-/** @internal */
-export const Chargeback$outboundSchema: z.ZodType<
-  Chargeback$Outbound,
-  z.ZodTypeDef,
-  Chargeback
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  chargebackId: z.string().optional(),
-  chargebackDescription: z.string().optional(),
-});
-
-export function chargebackToJSON(chargeback: Chargeback): string {
-  return JSON.stringify(Chargeback$outboundSchema.parse(chargeback));
-}
 export function chargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<Chargeback, SDKValidationError> {
@@ -969,33 +677,7 @@ export const ChargebackReversal$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-/** @internal */
-export type ChargebackReversal$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  chargebackId?: string | undefined;
-  chargebackDescription?: string | undefined;
-};
 
-/** @internal */
-export const ChargebackReversal$outboundSchema: z.ZodType<
-  ChargebackReversal$Outbound,
-  z.ZodTypeDef,
-  ChargebackReversal
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  chargebackId: z.string().optional(),
-  chargebackDescription: z.string().optional(),
-});
-
-export function chargebackReversalToJSON(
-  chargebackReversal: ChargebackReversal,
-): string {
-  return JSON.stringify(
-    ChargebackReversal$outboundSchema.parse(chargebackReversal),
-  );
-}
 export function chargebackReversalFromJSON(
   jsonString: string,
 ): SafeParseResult<ChargebackReversal, SDKValidationError> {
@@ -1017,33 +699,7 @@ export const ChargebackCompensation$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-/** @internal */
-export type ChargebackCompensation$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  chargebackId?: string | undefined;
-  chargebackDescription?: string | undefined;
-};
 
-/** @internal */
-export const ChargebackCompensation$outboundSchema: z.ZodType<
-  ChargebackCompensation$Outbound,
-  z.ZodTypeDef,
-  ChargebackCompensation
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  chargebackId: z.string().optional(),
-  chargebackDescription: z.string().optional(),
-});
-
-export function chargebackCompensationToJSON(
-  chargebackCompensation: ChargebackCompensation,
-): string {
-  return JSON.stringify(
-    ChargebackCompensation$outboundSchema.parse(chargebackCompensation),
-  );
-}
 export function chargebackCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<ChargebackCompensation, SDKValidationError> {
@@ -1065,35 +721,7 @@ export const ReversedChargebackCompensation$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-/** @internal */
-export type ReversedChargebackCompensation$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  chargebackId?: string | undefined;
-  chargebackDescription?: string | undefined;
-};
 
-/** @internal */
-export const ReversedChargebackCompensation$outboundSchema: z.ZodType<
-  ReversedChargebackCompensation$Outbound,
-  z.ZodTypeDef,
-  ReversedChargebackCompensation
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  chargebackId: z.string().optional(),
-  chargebackDescription: z.string().optional(),
-});
-
-export function reversedChargebackCompensationToJSON(
-  reversedChargebackCompensation: ReversedChargebackCompensation,
-): string {
-  return JSON.stringify(
-    ReversedChargebackCompensation$outboundSchema.parse(
-      reversedChargebackCompensation,
-    ),
-  );
-}
 export function reversedChargebackCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<ReversedChargebackCompensation, SDKValidationError> {
@@ -1113,29 +741,7 @@ export const OutgoingTransfer$inboundSchema: z.ZodType<
   transferId: z.string().optional(),
   settlementId: z.string().optional(),
 });
-/** @internal */
-export type OutgoingTransfer$Outbound = {
-  transferId?: string | undefined;
-  settlementId?: string | undefined;
-};
 
-/** @internal */
-export const OutgoingTransfer$outboundSchema: z.ZodType<
-  OutgoingTransfer$Outbound,
-  z.ZodTypeDef,
-  OutgoingTransfer
-> = z.object({
-  transferId: z.string().optional(),
-  settlementId: z.string().optional(),
-});
-
-export function outgoingTransferToJSON(
-  outgoingTransfer: OutgoingTransfer,
-): string {
-  return JSON.stringify(
-    OutgoingTransfer$outboundSchema.parse(outgoingTransfer),
-  );
-}
 export function outgoingTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<OutgoingTransfer, SDKValidationError> {
@@ -1155,29 +761,7 @@ export const CanceledOutgoingTransfer$inboundSchema: z.ZodType<
   transferId: z.string().optional(),
   settlementId: z.string().optional(),
 });
-/** @internal */
-export type CanceledOutgoingTransfer$Outbound = {
-  transferId?: string | undefined;
-  settlementId?: string | undefined;
-};
 
-/** @internal */
-export const CanceledOutgoingTransfer$outboundSchema: z.ZodType<
-  CanceledOutgoingTransfer$Outbound,
-  z.ZodTypeDef,
-  CanceledOutgoingTransfer
-> = z.object({
-  transferId: z.string().optional(),
-  settlementId: z.string().optional(),
-});
-
-export function canceledOutgoingTransferToJSON(
-  canceledOutgoingTransfer: CanceledOutgoingTransfer,
-): string {
-  return JSON.stringify(
-    CanceledOutgoingTransfer$outboundSchema.parse(canceledOutgoingTransfer),
-  );
-}
 export function canceledOutgoingTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<CanceledOutgoingTransfer, SDKValidationError> {
@@ -1197,29 +781,7 @@ export const ReturnedTransfer$inboundSchema: z.ZodType<
   transferId: z.string().optional(),
   settlementId: z.string().optional(),
 });
-/** @internal */
-export type ReturnedTransfer$Outbound = {
-  transferId?: string | undefined;
-  settlementId?: string | undefined;
-};
 
-/** @internal */
-export const ReturnedTransfer$outboundSchema: z.ZodType<
-  ReturnedTransfer$Outbound,
-  z.ZodTypeDef,
-  ReturnedTransfer
-> = z.object({
-  transferId: z.string().optional(),
-  settlementId: z.string().optional(),
-});
-
-export function returnedTransferToJSON(
-  returnedTransfer: ReturnedTransfer,
-): string {
-  return JSON.stringify(
-    ReturnedTransfer$outboundSchema.parse(returnedTransfer),
-  );
-}
 export function returnedTransferFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedTransfer, SDKValidationError> {
@@ -1238,27 +800,7 @@ export const InvoiceCompensation$inboundSchema: z.ZodType<
 > = z.object({
   invoiceId: z.string().optional(),
 });
-/** @internal */
-export type InvoiceCompensation$Outbound = {
-  invoiceId?: string | undefined;
-};
 
-/** @internal */
-export const InvoiceCompensation$outboundSchema: z.ZodType<
-  InvoiceCompensation$Outbound,
-  z.ZodTypeDef,
-  InvoiceCompensation
-> = z.object({
-  invoiceId: z.string().optional(),
-});
-
-export function invoiceCompensationToJSON(
-  invoiceCompensation: InvoiceCompensation,
-): string {
-  return JSON.stringify(
-    InvoiceCompensation$outboundSchema.parse(invoiceCompensation),
-  );
-}
 export function invoiceCompensationFromJSON(
   jsonString: string,
 ): SafeParseResult<InvoiceCompensation, SDKValidationError> {
@@ -1279,34 +821,7 @@ export const EntityBalanceTransactionApplicationFee$inboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
   payingOwner: z.string().optional(),
 });
-/** @internal */
-export type EntityBalanceTransactionApplicationFee$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  payingOwner?: string | undefined;
-};
 
-/** @internal */
-export const EntityBalanceTransactionApplicationFee$outboundSchema: z.ZodType<
-  EntityBalanceTransactionApplicationFee$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceTransactionApplicationFee
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  payingOwner: z.string().optional(),
-});
-
-export function entityBalanceTransactionApplicationFeeToJSON(
-  entityBalanceTransactionApplicationFee:
-    EntityBalanceTransactionApplicationFee,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransactionApplicationFee$outboundSchema.parse(
-      entityBalanceTransactionApplicationFee,
-    ),
-  );
-}
 export function entityBalanceTransactionApplicationFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransactionApplicationFee, SDKValidationError> {
@@ -1328,27 +843,7 @@ export const SplitPayment$inboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
   paymentOnwer: z.string().optional(),
 });
-/** @internal */
-export type SplitPayment$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  paymentOnwer?: string | undefined;
-};
 
-/** @internal */
-export const SplitPayment$outboundSchema: z.ZodType<
-  SplitPayment$Outbound,
-  z.ZodTypeDef,
-  SplitPayment
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  paymentOnwer: z.string().optional(),
-});
-
-export function splitPaymentToJSON(splitPayment: SplitPayment): string {
-  return JSON.stringify(SplitPayment$outboundSchema.parse(splitPayment));
-}
 export function splitPaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<SplitPayment, SDKValidationError> {
@@ -1370,33 +865,7 @@ export const PlatformPaymentRefund$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-/** @internal */
-export type PlatformPaymentRefund$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  refundId?: string | undefined;
-  refundDescription?: string | undefined;
-};
 
-/** @internal */
-export const PlatformPaymentRefund$outboundSchema: z.ZodType<
-  PlatformPaymentRefund$Outbound,
-  z.ZodTypeDef,
-  PlatformPaymentRefund
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  refundId: z.string().optional(),
-  refundDescription: z.string().optional(),
-});
-
-export function platformPaymentRefundToJSON(
-  platformPaymentRefund: PlatformPaymentRefund,
-): string {
-  return JSON.stringify(
-    PlatformPaymentRefund$outboundSchema.parse(platformPaymentRefund),
-  );
-}
 export function platformPaymentRefundFromJSON(
   jsonString: string,
 ): SafeParseResult<PlatformPaymentRefund, SDKValidationError> {
@@ -1418,35 +887,7 @@ export const ReturnedPlatformPaymentRefund$inboundSchema: z.ZodType<
   refundId: z.string().optional(),
   refundDescription: z.string().optional(),
 });
-/** @internal */
-export type ReturnedPlatformPaymentRefund$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  refundId?: string | undefined;
-  refundDescription?: string | undefined;
-};
 
-/** @internal */
-export const ReturnedPlatformPaymentRefund$outboundSchema: z.ZodType<
-  ReturnedPlatformPaymentRefund$Outbound,
-  z.ZodTypeDef,
-  ReturnedPlatformPaymentRefund
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  refundId: z.string().optional(),
-  refundDescription: z.string().optional(),
-});
-
-export function returnedPlatformPaymentRefundToJSON(
-  returnedPlatformPaymentRefund: ReturnedPlatformPaymentRefund,
-): string {
-  return JSON.stringify(
-    ReturnedPlatformPaymentRefund$outboundSchema.parse(
-      returnedPlatformPaymentRefund,
-    ),
-  );
-}
 export function returnedPlatformPaymentRefundFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedPlatformPaymentRefund, SDKValidationError> {
@@ -1468,33 +909,7 @@ export const PlatformPaymentChargeback$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-/** @internal */
-export type PlatformPaymentChargeback$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  chargebackId?: string | undefined;
-  chargebackDescription?: string | undefined;
-};
 
-/** @internal */
-export const PlatformPaymentChargeback$outboundSchema: z.ZodType<
-  PlatformPaymentChargeback$Outbound,
-  z.ZodTypeDef,
-  PlatformPaymentChargeback
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  chargebackId: z.string().optional(),
-  chargebackDescription: z.string().optional(),
-});
-
-export function platformPaymentChargebackToJSON(
-  platformPaymentChargeback: PlatformPaymentChargeback,
-): string {
-  return JSON.stringify(
-    PlatformPaymentChargeback$outboundSchema.parse(platformPaymentChargeback),
-  );
-}
 export function platformPaymentChargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<PlatformPaymentChargeback, SDKValidationError> {
@@ -1516,35 +931,7 @@ export const ReversedPlatformPaymentChargeback$inboundSchema: z.ZodType<
   chargebackId: z.string().optional(),
   chargebackDescription: z.string().optional(),
 });
-/** @internal */
-export type ReversedPlatformPaymentChargeback$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  chargebackId?: string | undefined;
-  chargebackDescription?: string | undefined;
-};
 
-/** @internal */
-export const ReversedPlatformPaymentChargeback$outboundSchema: z.ZodType<
-  ReversedPlatformPaymentChargeback$Outbound,
-  z.ZodTypeDef,
-  ReversedPlatformPaymentChargeback
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  chargebackId: z.string().optional(),
-  chargebackDescription: z.string().optional(),
-});
-
-export function reversedPlatformPaymentChargebackToJSON(
-  reversedPlatformPaymentChargeback: ReversedPlatformPaymentChargeback,
-): string {
-  return JSON.stringify(
-    ReversedPlatformPaymentChargeback$outboundSchema.parse(
-      reversedPlatformPaymentChargeback,
-    ),
-  );
-}
 export function reversedPlatformPaymentChargebackFromJSON(
   jsonString: string,
 ): SafeParseResult<ReversedPlatformPaymentChargeback, SDKValidationError> {
@@ -1565,31 +952,7 @@ export const PaymentCommission$inboundSchema: z.ZodType<
   paymentDescription: z.string().optional(),
   organizationId: z.string().optional(),
 });
-/** @internal */
-export type PaymentCommission$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-  organizationId?: string | undefined;
-};
 
-/** @internal */
-export const PaymentCommission$outboundSchema: z.ZodType<
-  PaymentCommission$Outbound,
-  z.ZodTypeDef,
-  PaymentCommission
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-  organizationId: z.string().optional(),
-});
-
-export function paymentCommissionToJSON(
-  paymentCommission: PaymentCommission,
-): string {
-  return JSON.stringify(
-    PaymentCommission$outboundSchema.parse(paymentCommission),
-  );
-}
 export function paymentCommissionFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentCommission, SDKValidationError> {
@@ -1609,29 +972,7 @@ export const ReimbursementFee$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-/** @internal */
-export type ReimbursementFee$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-};
 
-/** @internal */
-export const ReimbursementFee$outboundSchema: z.ZodType<
-  ReimbursementFee$Outbound,
-  z.ZodTypeDef,
-  ReimbursementFee
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-});
-
-export function reimbursementFeeToJSON(
-  reimbursementFee: ReimbursementFee,
-): string {
-  return JSON.stringify(
-    ReimbursementFee$outboundSchema.parse(reimbursementFee),
-  );
-}
 export function reimbursementFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ReimbursementFee, SDKValidationError> {
@@ -1651,29 +992,7 @@ export const FailedPaymentFee$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-/** @internal */
-export type FailedPaymentFee$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-};
 
-/** @internal */
-export const FailedPaymentFee$outboundSchema: z.ZodType<
-  FailedPaymentFee$Outbound,
-  z.ZodTypeDef,
-  FailedPaymentFee
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-});
-
-export function failedPaymentFeeToJSON(
-  failedPaymentFee: FailedPaymentFee,
-): string {
-  return JSON.stringify(
-    FailedPaymentFee$outboundSchema.parse(failedPaymentFee),
-  );
-}
 export function failedPaymentFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<FailedPaymentFee, SDKValidationError> {
@@ -1693,25 +1012,7 @@ export const PaymentFee$inboundSchema: z.ZodType<
   paymentId: z.string().optional(),
   paymentDescription: z.string().optional(),
 });
-/** @internal */
-export type PaymentFee$Outbound = {
-  paymentId?: string | undefined;
-  paymentDescription?: string | undefined;
-};
 
-/** @internal */
-export const PaymentFee$outboundSchema: z.ZodType<
-  PaymentFee$Outbound,
-  z.ZodTypeDef,
-  PaymentFee
-> = z.object({
-  paymentId: z.string().optional(),
-  paymentDescription: z.string().optional(),
-});
-
-export function paymentFeeToJSON(paymentFee: PaymentFee): string {
-  return JSON.stringify(PaymentFee$outboundSchema.parse(paymentFee));
-}
 export function paymentFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<PaymentFee, SDKValidationError> {
@@ -1731,25 +1032,7 @@ export const ManagedFee$inboundSchema: z.ZodType<
   feeType: z.string().optional(),
   feeId: z.string().optional(),
 });
-/** @internal */
-export type ManagedFee$Outbound = {
-  feeType?: string | undefined;
-  feeId?: string | undefined;
-};
 
-/** @internal */
-export const ManagedFee$outboundSchema: z.ZodType<
-  ManagedFee$Outbound,
-  z.ZodTypeDef,
-  ManagedFee
-> = z.object({
-  feeType: z.string().optional(),
-  feeId: z.string().optional(),
-});
-
-export function managedFeeToJSON(managedFee: ManagedFee): string {
-  return JSON.stringify(ManagedFee$outboundSchema.parse(managedFee));
-}
 export function managedFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ManagedFee, SDKValidationError> {
@@ -1769,29 +1052,7 @@ export const ReturnedManagedFee$inboundSchema: z.ZodType<
   feeType: z.string().optional(),
   feeId: z.string().optional(),
 });
-/** @internal */
-export type ReturnedManagedFee$Outbound = {
-  feeType?: string | undefined;
-  feeId?: string | undefined;
-};
 
-/** @internal */
-export const ReturnedManagedFee$outboundSchema: z.ZodType<
-  ReturnedManagedFee$Outbound,
-  z.ZodTypeDef,
-  ReturnedManagedFee
-> = z.object({
-  feeType: z.string().optional(),
-  feeId: z.string().optional(),
-});
-
-export function returnedManagedFeeToJSON(
-  returnedManagedFee: ReturnedManagedFee,
-): string {
-  return JSON.stringify(
-    ReturnedManagedFee$outboundSchema.parse(returnedManagedFee),
-  );
-}
 export function returnedManagedFeeFromJSON(
   jsonString: string,
 ): SafeParseResult<ReturnedManagedFee, SDKValidationError> {
@@ -1810,27 +1071,7 @@ export const PostPaymentSplitPayment$inboundSchema: z.ZodType<
 > = z.object({
   paymentId: z.string().optional(),
 });
-/** @internal */
-export type PostPaymentSplitPayment$Outbound = {
-  paymentId?: string | undefined;
-};
 
-/** @internal */
-export const PostPaymentSplitPayment$outboundSchema: z.ZodType<
-  PostPaymentSplitPayment$Outbound,
-  z.ZodTypeDef,
-  PostPaymentSplitPayment
-> = z.object({
-  paymentId: z.string().optional(),
-});
-
-export function postPaymentSplitPaymentToJSON(
-  postPaymentSplitPayment: PostPaymentSplitPayment,
-): string {
-  return JSON.stringify(
-    PostPaymentSplitPayment$outboundSchema.parse(postPaymentSplitPayment),
-  );
-}
 export function postPaymentSplitPaymentFromJSON(
   jsonString: string,
 ): SafeParseResult<PostPaymentSplitPayment, SDKValidationError> {
@@ -1958,189 +1199,7 @@ export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
       "post-payment-split-payment": "postPaymentSplitPayment",
     });
   });
-/** @internal */
-export type Context$Outbound = {
-  payment?: EntityBalanceTransactionPayment$Outbound | null | undefined;
-  capture?: Capture$Outbound | null | undefined;
-  "capture-commision"?: CaptureCommision$Outbound | null | undefined;
-  "capture-rolling-reserve-release"?:
-    | CaptureRollingReserveRelease$Outbound
-    | null
-    | undefined;
-  "unauthorized-direct-debit"?:
-    | UnauthorizedDirectDebit$Outbound
-    | null
-    | undefined;
-  "failed-payment"?: FailedPayment$Outbound | null | undefined;
-  refund?: Refund$Outbound | null | undefined;
-  "refund-compensation"?: RefundCompensation$Outbound | null | undefined;
-  "returned-refund"?: ReturnedRefund$Outbound | null | undefined;
-  "returned-refund-compensation"?:
-    | ReturnedRefundCompensation$Outbound
-    | null
-    | undefined;
-  chargeback?: Chargeback$Outbound | null | undefined;
-  "chargeback-reversal"?: ChargebackReversal$Outbound | null | undefined;
-  "chargeback-compensation"?:
-    | ChargebackCompensation$Outbound
-    | null
-    | undefined;
-  "reversed-chargeback-compensation"?:
-    | ReversedChargebackCompensation$Outbound
-    | null
-    | undefined;
-  "outgoing-transfer"?: OutgoingTransfer$Outbound | null | undefined;
-  "canceled-outgoing-transfer"?:
-    | CanceledOutgoingTransfer$Outbound
-    | null
-    | undefined;
-  "returned-transfer"?: ReturnedTransfer$Outbound | null | undefined;
-  "invoice-compensation"?: InvoiceCompensation$Outbound | null | undefined;
-  "application-fee"?:
-    | EntityBalanceTransactionApplicationFee$Outbound
-    | null
-    | undefined;
-  "split-payment"?: SplitPayment$Outbound | null | undefined;
-  "platform-payment-refund"?: PlatformPaymentRefund$Outbound | null | undefined;
-  "returned-platform-payment-refund"?:
-    | ReturnedPlatformPaymentRefund$Outbound
-    | null
-    | undefined;
-  "platform-payment-chargeback"?:
-    | PlatformPaymentChargeback$Outbound
-    | null
-    | undefined;
-  "reversed-platform-payment-chargeback"?:
-    | ReversedPlatformPaymentChargeback$Outbound
-    | null
-    | undefined;
-  "payment-commission"?: PaymentCommission$Outbound | null | undefined;
-  "reimbursement-fee"?: ReimbursementFee$Outbound | null | undefined;
-  "failed-payment-fee"?: FailedPaymentFee$Outbound | null | undefined;
-  "payment-fee"?: PaymentFee$Outbound | null | undefined;
-  "managed-fee"?: ManagedFee$Outbound | null | undefined;
-  "returned-managed-fee"?: ReturnedManagedFee$Outbound | null | undefined;
-  "post-payment-split-payment"?:
-    | PostPaymentSplitPayment$Outbound
-    | null
-    | undefined;
-};
 
-/** @internal */
-export const Context$outboundSchema: z.ZodType<
-  Context$Outbound,
-  z.ZodTypeDef,
-  Context
-> = z.object({
-  payment: z.nullable(
-    z.lazy(() => EntityBalanceTransactionPayment$outboundSchema),
-  ).optional(),
-  capture: z.nullable(z.lazy(() => Capture$outboundSchema)).optional(),
-  captureCommision: z.nullable(z.lazy(() => CaptureCommision$outboundSchema))
-    .optional(),
-  captureRollingReserveRelease: z.nullable(
-    z.lazy(() => CaptureRollingReserveRelease$outboundSchema),
-  ).optional(),
-  unauthorizedDirectDebit: z.nullable(
-    z.lazy(() => UnauthorizedDirectDebit$outboundSchema),
-  ).optional(),
-  failedPayment: z.nullable(z.lazy(() => FailedPayment$outboundSchema))
-    .optional(),
-  refund: z.nullable(z.lazy(() => Refund$outboundSchema)).optional(),
-  refundCompensation: z.nullable(
-    z.lazy(() => RefundCompensation$outboundSchema),
-  ).optional(),
-  returnedRefund: z.nullable(z.lazy(() => ReturnedRefund$outboundSchema))
-    .optional(),
-  returnedRefundCompensation: z.nullable(
-    z.lazy(() => ReturnedRefundCompensation$outboundSchema),
-  ).optional(),
-  chargeback: z.nullable(z.lazy(() => Chargeback$outboundSchema)).optional(),
-  chargebackReversal: z.nullable(
-    z.lazy(() => ChargebackReversal$outboundSchema),
-  ).optional(),
-  chargebackCompensation: z.nullable(
-    z.lazy(() => ChargebackCompensation$outboundSchema),
-  ).optional(),
-  reversedChargebackCompensation: z.nullable(
-    z.lazy(() => ReversedChargebackCompensation$outboundSchema),
-  ).optional(),
-  outgoingTransfer: z.nullable(z.lazy(() => OutgoingTransfer$outboundSchema))
-    .optional(),
-  canceledOutgoingTransfer: z.nullable(
-    z.lazy(() => CanceledOutgoingTransfer$outboundSchema),
-  ).optional(),
-  returnedTransfer: z.nullable(z.lazy(() => ReturnedTransfer$outboundSchema))
-    .optional(),
-  invoiceCompensation: z.nullable(
-    z.lazy(() => InvoiceCompensation$outboundSchema),
-  ).optional(),
-  applicationFee: z.nullable(
-    z.lazy(() => EntityBalanceTransactionApplicationFee$outboundSchema),
-  ).optional(),
-  splitPayment: z.nullable(z.lazy(() => SplitPayment$outboundSchema))
-    .optional(),
-  platformPaymentRefund: z.nullable(
-    z.lazy(() => PlatformPaymentRefund$outboundSchema),
-  ).optional(),
-  returnedPlatformPaymentRefund: z.nullable(
-    z.lazy(() => ReturnedPlatformPaymentRefund$outboundSchema),
-  ).optional(),
-  platformPaymentChargeback: z.nullable(
-    z.lazy(() => PlatformPaymentChargeback$outboundSchema),
-  ).optional(),
-  reversedPlatformPaymentChargeback: z.nullable(
-    z.lazy(() => ReversedPlatformPaymentChargeback$outboundSchema),
-  ).optional(),
-  paymentCommission: z.nullable(z.lazy(() => PaymentCommission$outboundSchema))
-    .optional(),
-  reimbursementFee: z.nullable(z.lazy(() => ReimbursementFee$outboundSchema))
-    .optional(),
-  failedPaymentFee: z.nullable(z.lazy(() => FailedPaymentFee$outboundSchema))
-    .optional(),
-  paymentFee: z.nullable(z.lazy(() => PaymentFee$outboundSchema)).optional(),
-  managedFee: z.nullable(z.lazy(() => ManagedFee$outboundSchema)).optional(),
-  returnedManagedFee: z.nullable(
-    z.lazy(() => ReturnedManagedFee$outboundSchema),
-  ).optional(),
-  postPaymentSplitPayment: z.nullable(
-    z.lazy(() => PostPaymentSplitPayment$outboundSchema),
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    captureCommision: "capture-commision",
-    captureRollingReserveRelease: "capture-rolling-reserve-release",
-    unauthorizedDirectDebit: "unauthorized-direct-debit",
-    failedPayment: "failed-payment",
-    refundCompensation: "refund-compensation",
-    returnedRefund: "returned-refund",
-    returnedRefundCompensation: "returned-refund-compensation",
-    chargebackReversal: "chargeback-reversal",
-    chargebackCompensation: "chargeback-compensation",
-    reversedChargebackCompensation: "reversed-chargeback-compensation",
-    outgoingTransfer: "outgoing-transfer",
-    canceledOutgoingTransfer: "canceled-outgoing-transfer",
-    returnedTransfer: "returned-transfer",
-    invoiceCompensation: "invoice-compensation",
-    applicationFee: "application-fee",
-    splitPayment: "split-payment",
-    platformPaymentRefund: "platform-payment-refund",
-    returnedPlatformPaymentRefund: "returned-platform-payment-refund",
-    platformPaymentChargeback: "platform-payment-chargeback",
-    reversedPlatformPaymentChargeback: "reversed-platform-payment-chargeback",
-    paymentCommission: "payment-commission",
-    reimbursementFee: "reimbursement-fee",
-    failedPaymentFee: "failed-payment-fee",
-    paymentFee: "payment-fee",
-    managedFee: "managed-fee",
-    returnedManagedFee: "returned-managed-fee",
-    postPaymentSplitPayment: "post-payment-split-payment",
-  });
-});
-
-export function contextToJSON(context: Context): string {
-  return JSON.stringify(Context$outboundSchema.parse(context));
-}
 export function contextFromJSON(
   jsonString: string,
 ): SafeParseResult<Context, SDKValidationError> {
@@ -2168,44 +1227,7 @@ export const EntityBalanceTransaction$inboundSchema: z.ZodType<
   context: z.nullable(z.lazy(() => Context$inboundSchema)).optional(),
   createdAt: z.string(),
 });
-/** @internal */
-export type EntityBalanceTransaction$Outbound = {
-  resource: string;
-  id: string;
-  type: string;
-  resultAmount: Amount$Outbound;
-  initialAmount: Amount$Outbound;
-  deductions?: AmountNullable$Outbound | null | undefined;
-  deductionDetails?: DeductionDetails$Outbound | null | undefined;
-  context?: Context$Outbound | null | undefined;
-  createdAt: string;
-};
 
-/** @internal */
-export const EntityBalanceTransaction$outboundSchema: z.ZodType<
-  EntityBalanceTransaction$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceTransaction
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  type: BalanceTransactionType$outboundSchema,
-  resultAmount: Amount$outboundSchema,
-  initialAmount: Amount$outboundSchema,
-  deductions: z.nullable(AmountNullable$outboundSchema).optional(),
-  deductionDetails: z.nullable(z.lazy(() => DeductionDetails$outboundSchema))
-    .optional(),
-  context: z.nullable(z.lazy(() => Context$outboundSchema)).optional(),
-  createdAt: z.string(),
-});
-
-export function entityBalanceTransactionToJSON(
-  entityBalanceTransaction: EntityBalanceTransaction,
-): string {
-  return JSON.stringify(
-    EntityBalanceTransaction$outboundSchema.parse(entityBalanceTransaction),
-  );
-}
 export function entityBalanceTransactionFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceTransaction, SDKValidationError> {

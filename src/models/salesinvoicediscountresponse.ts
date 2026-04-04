@@ -10,7 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoiceDiscountTypeResponse,
   SalesInvoiceDiscountTypeResponse$inboundSchema,
-  SalesInvoiceDiscountTypeResponse$outboundSchema,
 } from "./salesinvoicediscounttyperesponse.js";
 
 export type SalesInvoiceDiscountResponse = {
@@ -33,31 +32,7 @@ export const SalesInvoiceDiscountResponse$inboundSchema: z.ZodType<
   type: SalesInvoiceDiscountTypeResponse$inboundSchema,
   value: z.string(),
 });
-/** @internal */
-export type SalesInvoiceDiscountResponse$Outbound = {
-  type: string;
-  value: string;
-};
 
-/** @internal */
-export const SalesInvoiceDiscountResponse$outboundSchema: z.ZodType<
-  SalesInvoiceDiscountResponse$Outbound,
-  z.ZodTypeDef,
-  SalesInvoiceDiscountResponse
-> = z.object({
-  type: SalesInvoiceDiscountTypeResponse$outboundSchema,
-  value: z.string(),
-});
-
-export function salesInvoiceDiscountResponseToJSON(
-  salesInvoiceDiscountResponse: SalesInvoiceDiscountResponse,
-): string {
-  return JSON.stringify(
-    SalesInvoiceDiscountResponse$outboundSchema.parse(
-      salesInvoiceDiscountResponse,
-    ),
-  );
-}
 export function salesInvoiceDiscountResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SalesInvoiceDiscountResponse, SDKValidationError> {

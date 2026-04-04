@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateClientLinkRequest = {
@@ -18,20 +15,6 @@ export type CreateClientLinkRequest = {
   clientLinkRequest?: models.ClientLinkRequest | undefined;
 };
 
-/** @internal */
-export const CreateClientLinkRequest$inboundSchema: z.ZodType<
-  CreateClientLinkRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-  "client-link-request": models.ClientLinkRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "client-link-request": "clientLinkRequest",
-  });
-});
 /** @internal */
 export type CreateClientLinkRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -58,14 +41,5 @@ export function createClientLinkRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateClientLinkRequest$outboundSchema.parse(createClientLinkRequest),
-  );
-}
-export function createClientLinkRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateClientLinkRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateClientLinkRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateClientLinkRequest' from JSON`,
   );
 }

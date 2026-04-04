@@ -96,62 +96,6 @@ export type ListWebhooksResponse = {
 };
 
 /** @internal */
-export const ListWebhooksGlobals$inboundSchema: z.ZodType<
-  ListWebhooksGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListWebhooksGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListWebhooksGlobals$outboundSchema: z.ZodType<
-  ListWebhooksGlobals$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listWebhooksGlobalsToJSON(
-  listWebhooksGlobals: ListWebhooksGlobals,
-): string {
-  return JSON.stringify(
-    ListWebhooksGlobals$outboundSchema.parse(listWebhooksGlobals),
-  );
-}
-export function listWebhooksGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListWebhooksRequest$inboundSchema: z.ZodType<
-  ListWebhooksRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$inboundSchema.optional(),
-  eventTypes: models.WebhookEventTypes$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListWebhooksRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
@@ -186,15 +130,6 @@ export function listWebhooksRequestToJSON(
     ListWebhooksRequest$outboundSchema.parse(listWebhooksRequest),
   );
 }
-export function listWebhooksRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListWebhooksRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListWebhooksRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListWebhooksRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListWebhooksEmbedded$inboundSchema: z.ZodType<
@@ -204,27 +139,7 @@ export const ListWebhooksEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   webhooks: z.array(models.ListEntityWebhook$inboundSchema),
 });
-/** @internal */
-export type ListWebhooksEmbedded$Outbound = {
-  webhooks: Array<models.ListEntityWebhook$Outbound>;
-};
 
-/** @internal */
-export const ListWebhooksEmbedded$outboundSchema: z.ZodType<
-  ListWebhooksEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksEmbedded
-> = z.object({
-  webhooks: z.array(models.ListEntityWebhook$outboundSchema),
-});
-
-export function listWebhooksEmbeddedToJSON(
-  listWebhooksEmbedded: ListWebhooksEmbedded,
-): string {
-  return JSON.stringify(
-    ListWebhooksEmbedded$outboundSchema.parse(listWebhooksEmbedded),
-  );
-}
 export function listWebhooksEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListWebhooksEmbedded, SDKValidationError> {
@@ -250,36 +165,7 @@ export const ListWebhooksResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListWebhooksResponseBody$Outbound = {
-  count: number;
-  _embedded: ListWebhooksEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListWebhooksResponseBody$outboundSchema: z.ZodType<
-  ListWebhooksResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListWebhooksEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listWebhooksResponseBodyToJSON(
-  listWebhooksResponseBody: ListWebhooksResponseBody,
-): string {
-  return JSON.stringify(
-    ListWebhooksResponseBody$outboundSchema.parse(listWebhooksResponseBody),
-  );
-}
 export function listWebhooksResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListWebhooksResponseBody, SDKValidationError> {
@@ -302,31 +188,7 @@ export const ListWebhooksResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListWebhooksResponse$Outbound = {
-  Result: ListWebhooksResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListWebhooksResponse$outboundSchema: z.ZodType<
-  ListWebhooksResponse$Outbound,
-  z.ZodTypeDef,
-  ListWebhooksResponse
-> = z.object({
-  result: z.lazy(() => ListWebhooksResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listWebhooksResponseToJSON(
-  listWebhooksResponse: ListWebhooksResponse,
-): string {
-  return JSON.stringify(
-    ListWebhooksResponse$outboundSchema.parse(listWebhooksResponse),
-  );
-}
 export function listWebhooksResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListWebhooksResponse, SDKValidationError> {

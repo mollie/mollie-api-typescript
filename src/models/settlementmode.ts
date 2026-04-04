@@ -24,9 +24,3 @@ export const SettlementMode$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(SettlementMode);
-/** @internal */
-export const SettlementMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SettlementMode
-> = openEnums.outboundSchema(SettlementMode);

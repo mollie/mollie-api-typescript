@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetBalanceReportGlobals = {
@@ -70,62 +67,6 @@ export type GetBalanceReportRequest = {
 };
 
 /** @internal */
-export const GetBalanceReportGlobals$inboundSchema: z.ZodType<
-  GetBalanceReportGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetBalanceReportGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetBalanceReportGlobals$outboundSchema: z.ZodType<
-  GetBalanceReportGlobals$Outbound,
-  z.ZodTypeDef,
-  GetBalanceReportGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getBalanceReportGlobalsToJSON(
-  getBalanceReportGlobals: GetBalanceReportGlobals,
-): string {
-  return JSON.stringify(
-    GetBalanceReportGlobals$outboundSchema.parse(getBalanceReportGlobals),
-  );
-}
-export function getBalanceReportGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetBalanceReportGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetBalanceReportGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetBalanceReportGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetBalanceReportRequest$inboundSchema: z.ZodType<
-  GetBalanceReportRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  balanceId: z.string(),
-  from: z.string(),
-  until: z.string(),
-  grouping: models.BalanceReportGrouping$inboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetBalanceReportRequest$Outbound = {
   balanceId: string;
   from: string;
@@ -158,14 +99,5 @@ export function getBalanceReportRequestToJSON(
 ): string {
   return JSON.stringify(
     GetBalanceReportRequest$outboundSchema.parse(getBalanceReportRequest),
-  );
-}
-export function getBalanceReportRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetBalanceReportRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetBalanceReportRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetBalanceReportRequest' from JSON`,
   );
 }

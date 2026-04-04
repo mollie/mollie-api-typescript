@@ -32,10 +32,6 @@ export type OnboardingVatRegulation = ClosedEnum<
 >;
 
 /** @internal */
-export const OnboardingVatRegulation$inboundSchema: z.ZodNativeEnum<
-  typeof OnboardingVatRegulation
-> = z.nativeEnum(OnboardingVatRegulation);
-/** @internal */
 export const OnboardingVatRegulation$outboundSchema: z.ZodNativeEnum<
   typeof OnboardingVatRegulation
-> = OnboardingVatRegulation$inboundSchema;
+> = z.nativeEnum(OnboardingVatRegulation);

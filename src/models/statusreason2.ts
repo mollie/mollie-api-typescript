@@ -10,7 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   StatusReasonCodeResponse,
   StatusReasonCodeResponse$inboundSchema,
-  StatusReasonCodeResponse$outboundSchema,
 } from "./statusreasoncoderesponse.js";
 
 /**
@@ -41,25 +40,7 @@ export const StatusReason2$inboundSchema: z.ZodType<
   code: StatusReasonCodeResponse$inboundSchema.optional(),
   message: z.nullable(z.string()).optional(),
 });
-/** @internal */
-export type StatusReason2$Outbound = {
-  code?: string | undefined;
-  message?: string | null | undefined;
-};
 
-/** @internal */
-export const StatusReason2$outboundSchema: z.ZodType<
-  StatusReason2$Outbound,
-  z.ZodTypeDef,
-  StatusReason2
-> = z.object({
-  code: StatusReasonCodeResponse$outboundSchema.optional(),
-  message: z.nullable(z.string()).optional(),
-});
-
-export function statusReason2ToJSON(statusReason2: StatusReason2): string {
-  return JSON.stringify(StatusReason2$outboundSchema.parse(statusReason2));
-}
 export function statusReason2FromJSON(
   jsonString: string,
 ): SafeParseResult<StatusReason2, SDKValidationError> {

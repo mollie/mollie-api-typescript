@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSubscriptionGlobals = {
   /**
@@ -48,60 +45,6 @@ export type GetSubscriptionRequest = {
 };
 
 /** @internal */
-export const GetSubscriptionGlobals$inboundSchema: z.ZodType<
-  GetSubscriptionGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetSubscriptionGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetSubscriptionGlobals$outboundSchema: z.ZodType<
-  GetSubscriptionGlobals$Outbound,
-  z.ZodTypeDef,
-  GetSubscriptionGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getSubscriptionGlobalsToJSON(
-  getSubscriptionGlobals: GetSubscriptionGlobals,
-): string {
-  return JSON.stringify(
-    GetSubscriptionGlobals$outboundSchema.parse(getSubscriptionGlobals),
-  );
-}
-export function getSubscriptionGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSubscriptionGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSubscriptionGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSubscriptionGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetSubscriptionRequest$inboundSchema: z.ZodType<
-  GetSubscriptionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  subscriptionId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetSubscriptionRequest$Outbound = {
   customerId: string;
   subscriptionId: string;
@@ -130,14 +73,5 @@ export function getSubscriptionRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSubscriptionRequest$outboundSchema.parse(getSubscriptionRequest),
-  );
-}
-export function getSubscriptionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSubscriptionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSubscriptionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSubscriptionRequest' from JSON`,
   );
 }

@@ -20,10 +20,6 @@ export type RefundExternalReferenceType = ClosedEnum<
 >;
 
 /** @internal */
-export const RefundExternalReferenceType$inboundSchema: z.ZodNativeEnum<
-  typeof RefundExternalReferenceType
-> = z.nativeEnum(RefundExternalReferenceType);
-/** @internal */
 export const RefundExternalReferenceType$outboundSchema: z.ZodNativeEnum<
   typeof RefundExternalReferenceType
-> = RefundExternalReferenceType$inboundSchema;
+> = z.nativeEnum(RefundExternalReferenceType);

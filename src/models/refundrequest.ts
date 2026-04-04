@@ -4,25 +4,15 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   Metadata,
-  Metadata$inboundSchema,
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
 import {
   RefundExternalReferenceType,
-  RefundExternalReferenceType$inboundSchema,
   RefundExternalReferenceType$outboundSchema,
 } from "./refundexternalreferencetype.js";
 
@@ -126,15 +116,6 @@ export type RefundRequest = {
 };
 
 /** @internal */
-export const RefundRequestExternalReference$inboundSchema: z.ZodType<
-  RefundRequestExternalReference,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: RefundExternalReferenceType$inboundSchema.optional(),
-  id: z.string().optional(),
-});
-/** @internal */
 export type RefundRequestExternalReference$Outbound = {
   type?: string | undefined;
   id?: string | undefined;
@@ -159,33 +140,12 @@ export function refundRequestExternalReferenceToJSON(
     ),
   );
 }
-export function refundRequestExternalReferenceFromJSON(
-  jsonString: string,
-): SafeParseResult<RefundRequestExternalReference, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RefundRequestExternalReference$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RefundRequestExternalReference' from JSON`,
-  );
-}
 
 /** @internal */
-export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
+export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
   Type,
 );
-/** @internal */
-export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
-  Type$inboundSchema;
 
-/** @internal */
-export const RefundRequestSource$inboundSchema: z.ZodType<
-  RefundRequestSource,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: Type$inboundSchema.optional(),
-  organizationId: z.string().optional(),
-});
 /** @internal */
 export type RefundRequestSource$Outbound = {
   type?: string | undefined;
@@ -209,25 +169,7 @@ export function refundRequestSourceToJSON(
     RefundRequestSource$outboundSchema.parse(refundRequestSource),
   );
 }
-export function refundRequestSourceFromJSON(
-  jsonString: string,
-): SafeParseResult<RefundRequestSource, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RefundRequestSource$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RefundRequestSource' from JSON`,
-  );
-}
 
-/** @internal */
-export const RefundRequestRoutingReversal$inboundSchema: z.ZodType<
-  RefundRequestRoutingReversal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: Amount$inboundSchema.optional(),
-  source: z.lazy(() => RefundRequestSource$inboundSchema).optional(),
-});
 /** @internal */
 export type RefundRequestRoutingReversal$Outbound = {
   amount?: Amount$Outbound | undefined;
@@ -253,33 +195,7 @@ export function refundRequestRoutingReversalToJSON(
     ),
   );
 }
-export function refundRequestRoutingReversalFromJSON(
-  jsonString: string,
-): SafeParseResult<RefundRequestRoutingReversal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RefundRequestRoutingReversal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RefundRequestRoutingReversal' from JSON`,
-  );
-}
 
-/** @internal */
-export const RefundRequest$inboundSchema: z.ZodType<
-  RefundRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string(),
-  amount: Amount$inboundSchema,
-  metadata: z.nullable(Metadata$inboundSchema),
-  externalReference: z.lazy(() => RefundRequestExternalReference$inboundSchema)
-    .optional(),
-  reverseRouting: z.nullable(z.boolean()).optional(),
-  routingReversals: z.nullable(
-    z.array(z.lazy(() => RefundRequestRoutingReversal$inboundSchema)),
-  ).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
 /** @internal */
 export type RefundRequest$Outbound = {
   description: string;
@@ -314,13 +230,4 @@ export const RefundRequest$outboundSchema: z.ZodType<
 
 export function refundRequestToJSON(refundRequest: RefundRequest): string {
   return JSON.stringify(RefundRequest$outboundSchema.parse(refundRequest));
-}
-export function refundRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<RefundRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RefundRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RefundRequest' from JSON`,
-  );
 }

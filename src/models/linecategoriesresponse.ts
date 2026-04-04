@@ -23,9 +23,3 @@ export const LineCategoriesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(LineCategoriesResponse);
-/** @internal */
-export const LineCategoriesResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  LineCategoriesResponse
-> = openEnums.outboundSchema(LineCategoriesResponse);

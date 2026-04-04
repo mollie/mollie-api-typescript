@@ -107,33 +107,3 @@ export const ErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type ErrorResponse$Outbound = {
-  status: number;
-  title: string;
-  detail: string;
-  field?: string | undefined;
-  _links: models.ErrorResponseLinks$Outbound;
-};
-
-/** @internal */
-export const ErrorResponse$outboundSchema: z.ZodType<
-  ErrorResponse$Outbound,
-  z.ZodTypeDef,
-  ErrorResponse
-> = z.instanceof(ErrorResponse)
-  .transform(v => v.data$)
-  .pipe(
-    z.object({
-      status: z.number().int(),
-      title: z.string(),
-      detail: z.string(),
-      field: z.string().optional(),
-      links: z.lazy(() => models.ErrorResponseLinks$outboundSchema),
-    }).transform((v) => {
-      return remap$(v, {
-        links: "_links",
-      });
-    }),
-  );

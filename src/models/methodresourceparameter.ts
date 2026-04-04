@@ -15,10 +15,6 @@ export type MethodResourceParameter = ClosedEnum<
 >;
 
 /** @internal */
-export const MethodResourceParameter$inboundSchema: z.ZodNativeEnum<
-  typeof MethodResourceParameter
-> = z.nativeEnum(MethodResourceParameter);
-/** @internal */
 export const MethodResourceParameter$outboundSchema: z.ZodNativeEnum<
   typeof MethodResourceParameter
-> = MethodResourceParameter$inboundSchema;
+> = z.nativeEnum(MethodResourceParameter);

@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetOpenSettlementRequest = {
   /**
@@ -16,18 +13,6 @@ export type GetOpenSettlementRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetOpenSettlementRequest$inboundSchema: z.ZodType<
-  GetOpenSettlementRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetOpenSettlementRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -51,14 +36,5 @@ export function getOpenSettlementRequestToJSON(
 ): string {
   return JSON.stringify(
     GetOpenSettlementRequest$outboundSchema.parse(getOpenSettlementRequest),
-  );
-}
-export function getOpenSettlementRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOpenSettlementRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOpenSettlementRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOpenSettlementRequest' from JSON`,
   );
 }

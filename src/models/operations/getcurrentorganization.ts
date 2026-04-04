@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetCurrentOrganizationRequest = {
   /**
@@ -16,18 +13,6 @@ export type GetCurrentOrganizationRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetCurrentOrganizationRequest$inboundSchema: z.ZodType<
-  GetCurrentOrganizationRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetCurrentOrganizationRequest$Outbound = {
   "idempotency-key"?: string | undefined;
@@ -53,14 +38,5 @@ export function getCurrentOrganizationRequestToJSON(
     GetCurrentOrganizationRequest$outboundSchema.parse(
       getCurrentOrganizationRequest,
     ),
-  );
-}
-export function getCurrentOrganizationRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCurrentOrganizationRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCurrentOrganizationRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCurrentOrganizationRequest' from JSON`,
   );
 }

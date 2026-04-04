@@ -10,21 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceReportGrouping,
   BalanceReportGrouping$inboundSchema,
-  BalanceReportGrouping$outboundSchema,
 } from "./balancereportgrouping.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  SubGroup,
-  SubGroup$inboundSchema,
-  SubGroup$Outbound,
-  SubGroup$outboundSchema,
-} from "./subgroup.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { SubGroup, SubGroup$inboundSchema } from "./subgroup.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The pending balance. Only available if grouping is `status-balances`.
@@ -294,29 +283,7 @@ export const PendingBalance$inboundSchema: z.ZodType<
   pending: SubGroup$inboundSchema.optional(),
   movedToAvailable: SubGroup$inboundSchema.optional(),
 });
-/** @internal */
-export type PendingBalance$Outbound = {
-  open?: SubGroup$Outbound | undefined;
-  close?: SubGroup$Outbound | undefined;
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const PendingBalance$outboundSchema: z.ZodType<
-  PendingBalance$Outbound,
-  z.ZodTypeDef,
-  PendingBalance
-> = z.object({
-  open: SubGroup$outboundSchema.optional(),
-  close: SubGroup$outboundSchema.optional(),
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function pendingBalanceToJSON(pendingBalance: PendingBalance): string {
-  return JSON.stringify(PendingBalance$outboundSchema.parse(pendingBalance));
-}
 export function pendingBalanceFromJSON(
   jsonString: string,
 ): SafeParseResult<PendingBalance, SDKValidationError> {
@@ -338,33 +305,7 @@ export const AvailableBalance$inboundSchema: z.ZodType<
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
   close: SubGroup$inboundSchema.optional(),
 });
-/** @internal */
-export type AvailableBalance$Outbound = {
-  open?: SubGroup$Outbound | undefined;
-  movedFromPending?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-  close?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const AvailableBalance$outboundSchema: z.ZodType<
-  AvailableBalance$Outbound,
-  z.ZodTypeDef,
-  AvailableBalance
-> = z.object({
-  open: SubGroup$outboundSchema.optional(),
-  movedFromPending: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-  close: SubGroup$outboundSchema.optional(),
-});
-
-export function availableBalanceToJSON(
-  availableBalance: AvailableBalance,
-): string {
-  return JSON.stringify(
-    AvailableBalance$outboundSchema.parse(availableBalance),
-  );
-}
 export function availableBalanceFromJSON(
   jsonString: string,
 ): SafeParseResult<AvailableBalance, SDKValidationError> {
@@ -381,22 +322,7 @@ export const Open$inboundSchema: z.ZodType<Open, z.ZodTypeDef, unknown> = z
     pending: SubGroup$inboundSchema.optional(),
     available: SubGroup$inboundSchema.optional(),
   });
-/** @internal */
-export type Open$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  available?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Open$outboundSchema: z.ZodType<Open$Outbound, z.ZodTypeDef, Open> =
-  z.object({
-    pending: SubGroup$outboundSchema.optional(),
-    available: SubGroup$outboundSchema.optional(),
-  });
-
-export function openToJSON(open: Open): string {
-  return JSON.stringify(Open$outboundSchema.parse(open));
-}
 export function openFromJSON(
   jsonString: string,
 ): SafeParseResult<Open, SDKValidationError> {
@@ -413,25 +339,7 @@ export const Close$inboundSchema: z.ZodType<Close, z.ZodTypeDef, unknown> = z
     pending: SubGroup$inboundSchema.optional(),
     available: SubGroup$inboundSchema.optional(),
   });
-/** @internal */
-export type Close$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  available?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Close$outboundSchema: z.ZodType<
-  Close$Outbound,
-  z.ZodTypeDef,
-  Close
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  available: SubGroup$outboundSchema.optional(),
-});
-
-export function closeToJSON(close: Close): string {
-  return JSON.stringify(Close$outboundSchema.parse(close));
-}
 export function closeFromJSON(
   jsonString: string,
 ): SafeParseResult<Close, SDKValidationError> {
@@ -452,27 +360,7 @@ export const Payments$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-/** @internal */
-export type Payments$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Payments$outboundSchema: z.ZodType<
-  Payments$Outbound,
-  z.ZodTypeDef,
-  Payments
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function paymentsToJSON(payments: Payments): string {
-  return JSON.stringify(Payments$outboundSchema.parse(payments));
-}
 export function paymentsFromJSON(
   jsonString: string,
 ): SafeParseResult<Payments, SDKValidationError> {
@@ -490,27 +378,7 @@ export const Refunds$inboundSchema: z.ZodType<Refunds, z.ZodTypeDef, unknown> =
     movedToAvailable: SubGroup$inboundSchema.optional(),
     immediatelyAvailable: SubGroup$inboundSchema.optional(),
   });
-/** @internal */
-export type Refunds$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Refunds$outboundSchema: z.ZodType<
-  Refunds$Outbound,
-  z.ZodTypeDef,
-  Refunds
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function refundsToJSON(refunds: Refunds): string {
-  return JSON.stringify(Refunds$outboundSchema.parse(refunds));
-}
 export function refundsFromJSON(
   jsonString: string,
 ): SafeParseResult<Refunds, SDKValidationError> {
@@ -531,27 +399,7 @@ export const Chargebacks$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-/** @internal */
-export type Chargebacks$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Chargebacks$outboundSchema: z.ZodType<
-  Chargebacks$Outbound,
-  z.ZodTypeDef,
-  Chargebacks
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function chargebacksToJSON(chargebacks: Chargebacks): string {
-  return JSON.stringify(Chargebacks$outboundSchema.parse(chargebacks));
-}
 export function chargebacksFromJSON(
   jsonString: string,
 ): SafeParseResult<Chargebacks, SDKValidationError> {
@@ -569,27 +417,7 @@ export const Capital$inboundSchema: z.ZodType<Capital, z.ZodTypeDef, unknown> =
     movedToAvailable: SubGroup$inboundSchema.optional(),
     immediatelyAvailable: SubGroup$inboundSchema.optional(),
   });
-/** @internal */
-export type Capital$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Capital$outboundSchema: z.ZodType<
-  Capital$Outbound,
-  z.ZodTypeDef,
-  Capital
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function capitalToJSON(capital: Capital): string {
-  return JSON.stringify(Capital$outboundSchema.parse(capital));
-}
 export function capitalFromJSON(
   jsonString: string,
 ): SafeParseResult<Capital, SDKValidationError> {
@@ -610,27 +438,7 @@ export const Transfers$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-/** @internal */
-export type Transfers$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Transfers$outboundSchema: z.ZodType<
-  Transfers$Outbound,
-  z.ZodTypeDef,
-  Transfers
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function transfersToJSON(transfers: Transfers): string {
-  return JSON.stringify(Transfers$outboundSchema.parse(transfers));
-}
 export function transfersFromJSON(
   jsonString: string,
 ): SafeParseResult<Transfers, SDKValidationError> {
@@ -651,27 +459,7 @@ export const FeePrepayments$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-/** @internal */
-export type FeePrepayments$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const FeePrepayments$outboundSchema: z.ZodType<
-  FeePrepayments$Outbound,
-  z.ZodTypeDef,
-  FeePrepayments
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function feePrepaymentsToJSON(feePrepayments: FeePrepayments): string {
-  return JSON.stringify(FeePrepayments$outboundSchema.parse(feePrepayments));
-}
 export function feePrepaymentsFromJSON(
   jsonString: string,
 ): SafeParseResult<FeePrepayments, SDKValidationError> {
@@ -692,27 +480,7 @@ export const Corrections$inboundSchema: z.ZodType<
   movedToAvailable: SubGroup$inboundSchema.optional(),
   immediatelyAvailable: SubGroup$inboundSchema.optional(),
 });
-/** @internal */
-export type Corrections$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Corrections$outboundSchema: z.ZodType<
-  Corrections$Outbound,
-  z.ZodTypeDef,
-  Corrections
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function correctionsToJSON(corrections: Corrections): string {
-  return JSON.stringify(Corrections$outboundSchema.parse(corrections));
-}
 export function correctionsFromJSON(
   jsonString: string,
 ): SafeParseResult<Corrections, SDKValidationError> {
@@ -730,27 +498,7 @@ export const Topups$inboundSchema: z.ZodType<Topups, z.ZodTypeDef, unknown> = z
     movedToAvailable: SubGroup$inboundSchema.optional(),
     immediatelyAvailable: SubGroup$inboundSchema.optional(),
   });
-/** @internal */
-export type Topups$Outbound = {
-  pending?: SubGroup$Outbound | undefined;
-  movedToAvailable?: SubGroup$Outbound | undefined;
-  immediatelyAvailable?: SubGroup$Outbound | undefined;
-};
 
-/** @internal */
-export const Topups$outboundSchema: z.ZodType<
-  Topups$Outbound,
-  z.ZodTypeDef,
-  Topups
-> = z.object({
-  pending: SubGroup$outboundSchema.optional(),
-  movedToAvailable: SubGroup$outboundSchema.optional(),
-  immediatelyAvailable: SubGroup$outboundSchema.optional(),
-});
-
-export function topupsToJSON(topups: Topups): string {
-  return JSON.stringify(Topups$outboundSchema.parse(topups));
-}
 export function topupsFromJSON(
   jsonString: string,
 ): SafeParseResult<Topups, SDKValidationError> {
@@ -783,51 +531,7 @@ export const Totals$inboundSchema: z.ZodType<Totals, z.ZodTypeDef, unknown> = z
       "fee-prepayments": "feePrepayments",
     });
   });
-/** @internal */
-export type Totals$Outbound = {
-  pendingBalance?: PendingBalance$Outbound | null | undefined;
-  availableBalance?: AvailableBalance$Outbound | null | undefined;
-  open?: Open$Outbound | undefined;
-  close?: Close$Outbound | undefined;
-  payments?: Payments$Outbound | undefined;
-  refunds?: Refunds$Outbound | undefined;
-  chargebacks?: Chargebacks$Outbound | undefined;
-  capital?: Capital$Outbound | undefined;
-  transfers?: Transfers$Outbound | undefined;
-  "fee-prepayments"?: FeePrepayments$Outbound | undefined;
-  corrections?: Corrections$Outbound | undefined;
-  topups?: Topups$Outbound | undefined;
-};
 
-/** @internal */
-export const Totals$outboundSchema: z.ZodType<
-  Totals$Outbound,
-  z.ZodTypeDef,
-  Totals
-> = z.object({
-  pendingBalance: z.nullable(z.lazy(() => PendingBalance$outboundSchema))
-    .optional(),
-  availableBalance: z.nullable(z.lazy(() => AvailableBalance$outboundSchema))
-    .optional(),
-  open: z.lazy(() => Open$outboundSchema).optional(),
-  close: z.lazy(() => Close$outboundSchema).optional(),
-  payments: z.lazy(() => Payments$outboundSchema).optional(),
-  refunds: z.lazy(() => Refunds$outboundSchema).optional(),
-  chargebacks: z.lazy(() => Chargebacks$outboundSchema).optional(),
-  capital: z.lazy(() => Capital$outboundSchema).optional(),
-  transfers: z.lazy(() => Transfers$outboundSchema).optional(),
-  feePrepayments: z.lazy(() => FeePrepayments$outboundSchema).optional(),
-  corrections: z.lazy(() => Corrections$outboundSchema).optional(),
-  topups: z.lazy(() => Topups$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    feePrepayments: "fee-prepayments",
-  });
-});
-
-export function totalsToJSON(totals: Totals): string {
-  return JSON.stringify(Totals$outboundSchema.parse(totals));
-}
 export function totalsFromJSON(
   jsonString: string,
 ): SafeParseResult<Totals, SDKValidationError> {
@@ -847,29 +551,7 @@ export const EntityBalanceReportLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema.optional(),
   documentation: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityBalanceReportLinks$Outbound = {
-  self?: Url$Outbound | undefined;
-  documentation?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityBalanceReportLinks$outboundSchema: z.ZodType<
-  EntityBalanceReportLinks$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceReportLinks
-> = z.object({
-  self: Url$outboundSchema.optional(),
-  documentation: Url$outboundSchema.optional(),
-});
-
-export function entityBalanceReportLinksToJSON(
-  entityBalanceReportLinks: EntityBalanceReportLinks,
-): string {
-  return JSON.stringify(
-    EntityBalanceReportLinks$outboundSchema.parse(entityBalanceReportLinks),
-  );
-}
 export function entityBalanceReportLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceReportLinks, SDKValidationError> {
@@ -899,45 +581,7 @@ export const EntityBalanceReport$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityBalanceReport$Outbound = {
-  resource: string;
-  balanceId: string;
-  timeZone: string;
-  from: string;
-  until: string;
-  grouping: string;
-  totals: Totals$Outbound;
-  _links: EntityBalanceReportLinks$Outbound;
-};
 
-/** @internal */
-export const EntityBalanceReport$outboundSchema: z.ZodType<
-  EntityBalanceReport$Outbound,
-  z.ZodTypeDef,
-  EntityBalanceReport
-> = z.object({
-  resource: z.string(),
-  balanceId: z.string(),
-  timeZone: z.string(),
-  from: z.string(),
-  until: z.string(),
-  grouping: BalanceReportGrouping$outboundSchema,
-  totals: z.lazy(() => Totals$outboundSchema),
-  links: z.lazy(() => EntityBalanceReportLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function entityBalanceReportToJSON(
-  entityBalanceReport: EntityBalanceReport,
-): string {
-  return JSON.stringify(
-    EntityBalanceReport$outboundSchema.parse(entityBalanceReport),
-  );
-}
 export function entityBalanceReportFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityBalanceReport, SDKValidationError> {

@@ -11,27 +11,11 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LocaleResponse,
   LocaleResponse$inboundSchema,
-  LocaleResponse$outboundSchema,
 } from "./localeresponse.js";
-import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -113,35 +97,7 @@ export const ListCustomerResponseLinks$inboundSchema: z.ZodType<
   mandates: z.nullable(UrlNullable$inboundSchema).optional(),
   subscriptions: z.nullable(UrlNullable$inboundSchema).optional(),
 });
-/** @internal */
-export type ListCustomerResponseLinks$Outbound = {
-  self: Url$Outbound;
-  dashboard: Url$Outbound;
-  payments?: UrlNullable$Outbound | null | undefined;
-  mandates?: UrlNullable$Outbound | null | undefined;
-  subscriptions?: UrlNullable$Outbound | null | undefined;
-};
 
-/** @internal */
-export const ListCustomerResponseLinks$outboundSchema: z.ZodType<
-  ListCustomerResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ListCustomerResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  dashboard: Url$outboundSchema,
-  payments: z.nullable(UrlNullable$outboundSchema).optional(),
-  mandates: z.nullable(UrlNullable$outboundSchema).optional(),
-  subscriptions: z.nullable(UrlNullable$outboundSchema).optional(),
-});
-
-export function listCustomerResponseLinksToJSON(
-  listCustomerResponseLinks: ListCustomerResponseLinks,
-): string {
-  return JSON.stringify(
-    ListCustomerResponseLinks$outboundSchema.parse(listCustomerResponseLinks),
-  );
-}
 export function listCustomerResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCustomerResponseLinks, SDKValidationError> {
@@ -172,47 +128,7 @@ export const ListCustomerResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListCustomerResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  name: string | null;
-  email: string | null;
-  locale: string | null;
-  metadata: Metadata$Outbound | null;
-  createdAt: string;
-  _links: ListCustomerResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ListCustomerResponse$outboundSchema: z.ZodType<
-  ListCustomerResponse$Outbound,
-  z.ZodTypeDef,
-  ListCustomerResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  name: z.nullable(z.string()),
-  email: z.nullable(z.string()),
-  locale: z.nullable(LocaleResponse$outboundSchema),
-  metadata: z.nullable(Metadata$outboundSchema),
-  createdAt: z.string(),
-  links: z.lazy(() => ListCustomerResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listCustomerResponseToJSON(
-  listCustomerResponse: ListCustomerResponse,
-): string {
-  return JSON.stringify(
-    ListCustomerResponse$outboundSchema.parse(listCustomerResponse),
-  );
-}
 export function listCustomerResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListCustomerResponse, SDKValidationError> {

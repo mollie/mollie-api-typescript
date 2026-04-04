@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetConnectBalanceTransferGlobals = {
   /**
@@ -42,61 +39,6 @@ export type GetConnectBalanceTransferRequest = {
 };
 
 /** @internal */
-export const GetConnectBalanceTransferGlobals$inboundSchema: z.ZodType<
-  GetConnectBalanceTransferGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type GetConnectBalanceTransferGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const GetConnectBalanceTransferGlobals$outboundSchema: z.ZodType<
-  GetConnectBalanceTransferGlobals$Outbound,
-  z.ZodTypeDef,
-  GetConnectBalanceTransferGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function getConnectBalanceTransferGlobalsToJSON(
-  getConnectBalanceTransferGlobals: GetConnectBalanceTransferGlobals,
-): string {
-  return JSON.stringify(
-    GetConnectBalanceTransferGlobals$outboundSchema.parse(
-      getConnectBalanceTransferGlobals,
-    ),
-  );
-}
-export function getConnectBalanceTransferGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<GetConnectBalanceTransferGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetConnectBalanceTransferGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetConnectBalanceTransferGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetConnectBalanceTransferRequest$inboundSchema: z.ZodType<
-  GetConnectBalanceTransferRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  balanceTransferId: z.string(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type GetConnectBalanceTransferRequest$Outbound = {
   balanceTransferId: string;
   testmode?: boolean | undefined;
@@ -125,14 +67,5 @@ export function getConnectBalanceTransferRequestToJSON(
     GetConnectBalanceTransferRequest$outboundSchema.parse(
       getConnectBalanceTransferRequest,
     ),
-  );
-}
-export function getConnectBalanceTransferRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetConnectBalanceTransferRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetConnectBalanceTransferRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetConnectBalanceTransferRequest' from JSON`,
   );
 }

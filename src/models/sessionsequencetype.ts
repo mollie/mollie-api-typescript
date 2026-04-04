@@ -13,10 +13,6 @@ export const SessionSequenceType = {
 export type SessionSequenceType = ClosedEnum<typeof SessionSequenceType>;
 
 /** @internal */
-export const SessionSequenceType$inboundSchema: z.ZodNativeEnum<
-  typeof SessionSequenceType
-> = z.nativeEnum(SessionSequenceType);
-/** @internal */
 export const SessionSequenceType$outboundSchema: z.ZodNativeEnum<
   typeof SessionSequenceType
-> = SessionSequenceType$inboundSchema;
+> = z.nativeEnum(SessionSequenceType);

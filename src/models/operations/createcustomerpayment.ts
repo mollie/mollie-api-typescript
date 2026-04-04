@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateCustomerPaymentRequest = {
@@ -22,21 +19,6 @@ export type CreateCustomerPaymentRequest = {
   paymentRequest?: models.PaymentRequest | undefined;
 };
 
-/** @internal */
-export const CreateCustomerPaymentRequest$inboundSchema: z.ZodType<
-  CreateCustomerPaymentRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  customerId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "payment-request": models.PaymentRequest$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "payment-request": "paymentRequest",
-  });
-});
 /** @internal */
 export type CreateCustomerPaymentRequest$Outbound = {
   customerId: string;
@@ -67,14 +49,5 @@ export function createCustomerPaymentRequestToJSON(
     CreateCustomerPaymentRequest$outboundSchema.parse(
       createCustomerPaymentRequest,
     ),
-  );
-}
-export function createCustomerPaymentRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCustomerPaymentRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateCustomerPaymentRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCustomerPaymentRequest' from JSON`,
   );
 }

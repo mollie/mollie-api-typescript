@@ -4,57 +4,45 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SalesInvoiceDiscount,
-  SalesInvoiceDiscount$inboundSchema,
   SalesInvoiceDiscount$Outbound,
   SalesInvoiceDiscount$outboundSchema,
 } from "./salesinvoicediscount.js";
 import {
   SalesInvoiceEmailDetails,
-  SalesInvoiceEmailDetails$inboundSchema,
   SalesInvoiceEmailDetails$Outbound,
   SalesInvoiceEmailDetails$outboundSchema,
 } from "./salesinvoiceemaildetails.js";
 import {
   SalesInvoiceLineItem,
-  SalesInvoiceLineItem$inboundSchema,
   SalesInvoiceLineItem$Outbound,
   SalesInvoiceLineItem$outboundSchema,
 } from "./salesinvoicelineitem.js";
 import {
   SalesInvoicePaymentDetails,
-  SalesInvoicePaymentDetails$inboundSchema,
   SalesInvoicePaymentDetails$Outbound,
   SalesInvoicePaymentDetails$outboundSchema,
 } from "./salesinvoicepaymentdetails.js";
 import {
   SalesInvoicePaymentTerm,
-  SalesInvoicePaymentTerm$inboundSchema,
   SalesInvoicePaymentTerm$outboundSchema,
 } from "./salesinvoicepaymentterm.js";
 import {
   SalesInvoiceRecipient,
-  SalesInvoiceRecipient$inboundSchema,
   SalesInvoiceRecipient$Outbound,
   SalesInvoiceRecipient$outboundSchema,
 } from "./salesinvoicerecipient.js";
 import {
   SalesInvoiceStatus,
-  SalesInvoiceStatus$inboundSchema,
   SalesInvoiceStatus$outboundSchema,
 } from "./salesinvoicestatus.js";
 import {
   SalesInvoiceVatMode,
-  SalesInvoiceVatMode$inboundSchema,
   SalesInvoiceVatMode$outboundSchema,
 } from "./salesinvoicevatmode.js";
 import {
   SalesInvoiceVatScheme,
-  SalesInvoiceVatScheme$inboundSchema,
   SalesInvoiceVatScheme$outboundSchema,
 } from "./salesinvoicevatscheme.js";
 
@@ -180,12 +168,6 @@ export type SalesInvoiceRequest = {
 };
 
 /** @internal */
-export const SalesInvoiceRequestMetadata$inboundSchema: z.ZodType<
-  SalesInvoiceRequestMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type SalesInvoiceRequestMetadata$Outbound = {};
 
 /** @internal */
@@ -204,41 +186,7 @@ export function salesInvoiceRequestMetadataToJSON(
     ),
   );
 }
-export function salesInvoiceRequestMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<SalesInvoiceRequestMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SalesInvoiceRequestMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceRequestMetadata' from JSON`,
-  );
-}
 
-/** @internal */
-export const SalesInvoiceRequest$inboundSchema: z.ZodType<
-  SalesInvoiceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-  profileId: z.nullable(z.string()).optional(),
-  status: SalesInvoiceStatus$inboundSchema,
-  vatScheme: SalesInvoiceVatScheme$inboundSchema.optional(),
-  vatMode: SalesInvoiceVatMode$inboundSchema.optional(),
-  memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(z.lazy(() => SalesInvoiceRequestMetadata$inboundSchema))
-    .optional(),
-  paymentTerm: z.nullable(SalesInvoicePaymentTerm$inboundSchema).optional(),
-  paymentDetails: SalesInvoicePaymentDetails$inboundSchema.optional(),
-  emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
-  customerId: z.string().optional(),
-  mandateId: z.string().optional(),
-  recipientIdentifier: z.string(),
-  recipient: z.nullable(SalesInvoiceRecipient$inboundSchema),
-  lines: z.nullable(z.array(SalesInvoiceLineItem$inboundSchema)),
-  discount: z.nullable(SalesInvoiceDiscount$inboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
-});
 /** @internal */
 export type SalesInvoiceRequest$Outbound = {
   testmode?: boolean | null | undefined;
@@ -291,14 +239,5 @@ export function salesInvoiceRequestToJSON(
 ): string {
   return JSON.stringify(
     SalesInvoiceRequest$outboundSchema.parse(salesInvoiceRequest),
-  );
-}
-export function salesInvoiceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<SalesInvoiceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SalesInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceRequest' from JSON`,
   );
 }

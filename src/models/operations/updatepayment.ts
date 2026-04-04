@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdatePaymentRequestBody = {
@@ -159,27 +156,6 @@ export type UpdatePaymentRequest = {
 };
 
 /** @internal */
-export const UpdatePaymentRequestBody$inboundSchema: z.ZodType<
-  UpdatePaymentRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string().optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  cancelUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  metadata: z.nullable(models.Metadata$inboundSchema).optional(),
-  method: z.nullable(models.MethodEnum$inboundSchema).optional(),
-  locale: z.nullable(models.Locale$inboundSchema).optional(),
-  dueDate: z.string().optional(),
-  restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  issuer: z.nullable(z.string()).optional(),
-  billingAddress: models.BillingAddress$inboundSchema.optional(),
-  shippingAddress: models.PaymentAddress$inboundSchema.optional(),
-  billingEmail: z.string().optional(),
-});
-/** @internal */
 export type UpdatePaymentRequestBody$Outbound = {
   description?: string | undefined;
   redirectUrl?: string | null | undefined;
@@ -226,31 +202,7 @@ export function updatePaymentRequestBodyToJSON(
     UpdatePaymentRequestBody$outboundSchema.parse(updatePaymentRequestBody),
   );
 }
-export function updatePaymentRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePaymentRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePaymentRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePaymentRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const UpdatePaymentRequest$inboundSchema: z.ZodType<
-  UpdatePaymentRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => UpdatePaymentRequestBody$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type UpdatePaymentRequest$Outbound = {
   paymentId: string;
@@ -279,14 +231,5 @@ export function updatePaymentRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdatePaymentRequest$outboundSchema.parse(updatePaymentRequest),
-  );
-}
-export function updatePaymentRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePaymentRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePaymentRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePaymentRequest' from JSON`,
   );
 }

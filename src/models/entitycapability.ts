@@ -9,18 +9,14 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CapabilityStatus,
   CapabilityStatus$inboundSchema,
-  CapabilityStatus$outboundSchema,
 } from "./capabilitystatus.js";
 import {
   CapabilityStatusReason,
   CapabilityStatusReason$inboundSchema,
-  CapabilityStatusReason$outboundSchema,
 } from "./capabilitystatusreason.js";
 import {
   EntityCapabilityRequirement,
   EntityCapabilityRequirement$inboundSchema,
-  EntityCapabilityRequirement$Outbound,
-  EntityCapabilityRequirement$outboundSchema,
 } from "./entitycapabilityrequirement.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -50,35 +46,7 @@ export const EntityCapability$inboundSchema: z.ZodType<
   statusReason: z.nullable(CapabilityStatusReason$inboundSchema),
   requirements: z.array(EntityCapabilityRequirement$inboundSchema),
 });
-/** @internal */
-export type EntityCapability$Outbound = {
-  resource: string;
-  name: string;
-  status: string;
-  statusReason: string | null;
-  requirements: Array<EntityCapabilityRequirement$Outbound>;
-};
 
-/** @internal */
-export const EntityCapability$outboundSchema: z.ZodType<
-  EntityCapability$Outbound,
-  z.ZodTypeDef,
-  EntityCapability
-> = z.object({
-  resource: z.string(),
-  name: z.string(),
-  status: CapabilityStatus$outboundSchema,
-  statusReason: z.nullable(CapabilityStatusReason$outboundSchema),
-  requirements: z.array(EntityCapabilityRequirement$outboundSchema),
-});
-
-export function entityCapabilityToJSON(
-  entityCapability: EntityCapability,
-): string {
-  return JSON.stringify(
-    EntityCapability$outboundSchema.parse(entityCapability),
-  );
-}
 export function entityCapabilityFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityCapability, SDKValidationError> {

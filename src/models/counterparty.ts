@@ -31,25 +31,7 @@ export const Counterparty$inboundSchema: z.ZodType<
   identifier: z.string().optional(),
   name: z.string().optional(),
 });
-/** @internal */
-export type Counterparty$Outbound = {
-  identifier?: string | undefined;
-  name?: string | undefined;
-};
 
-/** @internal */
-export const Counterparty$outboundSchema: z.ZodType<
-  Counterparty$Outbound,
-  z.ZodTypeDef,
-  Counterparty
-> = z.object({
-  identifier: z.string().optional(),
-  name: z.string().optional(),
-});
-
-export function counterpartyToJSON(counterparty: Counterparty): string {
-  return JSON.stringify(Counterparty$outboundSchema.parse(counterparty));
-}
 export function counterpartyFromJSON(
   jsonString: string,
 ): SafeParseResult<Counterparty, SDKValidationError> {

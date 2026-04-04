@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetInvoiceRequest = {
   /**
@@ -20,19 +17,6 @@ export type GetInvoiceRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/** @internal */
-export const GetInvoiceRequest$inboundSchema: z.ZodType<
-  GetInvoiceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  invoiceId: z.string(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
 /** @internal */
 export type GetInvoiceRequest$Outbound = {
   invoiceId: string;
@@ -58,14 +42,5 @@ export function getInvoiceRequestToJSON(
 ): string {
   return JSON.stringify(
     GetInvoiceRequest$outboundSchema.parse(getInvoiceRequest),
-  );
-}
-export function getInvoiceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetInvoiceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetInvoiceRequest' from JSON`,
   );
 }

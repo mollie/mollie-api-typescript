@@ -4,18 +4,13 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
-  AmountNullable$inboundSchema,
   AmountNullable$Outbound,
   AmountNullable$outboundSchema,
 } from "./amountnullable.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   Metadata,
-  Metadata$inboundSchema,
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
@@ -39,16 +34,6 @@ export type EntityCapture = {
 };
 
 /** @internal */
-export const EntityCapture$inboundSchema: z.ZodType<
-  EntityCapture,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string().optional(),
-  amount: z.nullable(AmountNullable$inboundSchema).optional(),
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-});
-/** @internal */
 export type EntityCapture$Outbound = {
   description?: string | undefined;
   amount?: AmountNullable$Outbound | null | undefined;
@@ -68,13 +53,4 @@ export const EntityCapture$outboundSchema: z.ZodType<
 
 export function entityCaptureToJSON(entityCapture: EntityCapture): string {
   return JSON.stringify(EntityCapture$outboundSchema.parse(entityCapture));
-}
-export function entityCaptureFromJSON(
-  jsonString: string,
-): SafeParseResult<EntityCapture, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EntityCapture$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityCapture' from JSON`,
-  );
 }

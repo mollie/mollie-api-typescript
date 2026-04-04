@@ -12,29 +12,12 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
   AmountNullable$inboundSchema,
-  AmountNullable$Outbound,
-  AmountNullable$outboundSchema,
 } from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
-import {
-  UrlNullable,
-  UrlNullable$inboundSchema,
-  UrlNullable$Outbound,
-  UrlNullable$outboundSchema,
-} from "./urlnullable.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
+import { Url, Url$inboundSchema } from "./url.js";
+import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
  * This optional field will contain the approximate amount that will be settled to your account, converted to the
@@ -176,31 +159,7 @@ export const CaptureResponseSettlementAmount$inboundSchema: z.ZodType<
   currency: z.string(),
   value: z.string(),
 });
-/** @internal */
-export type CaptureResponseSettlementAmount$Outbound = {
-  currency: string;
-  value: string;
-};
 
-/** @internal */
-export const CaptureResponseSettlementAmount$outboundSchema: z.ZodType<
-  CaptureResponseSettlementAmount$Outbound,
-  z.ZodTypeDef,
-  CaptureResponseSettlementAmount
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function captureResponseSettlementAmountToJSON(
-  captureResponseSettlementAmount: CaptureResponseSettlementAmount,
-): string {
-  return JSON.stringify(
-    CaptureResponseSettlementAmount$outboundSchema.parse(
-      captureResponseSettlementAmount,
-    ),
-  );
-}
 export function captureResponseSettlementAmountFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureResponseSettlementAmount, SDKValidationError> {
@@ -217,12 +176,6 @@ export const CaptureResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CaptureResponseStatus);
-/** @internal */
-export const CaptureResponseStatus$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CaptureResponseStatus
-> = openEnums.outboundSchema(CaptureResponseStatus);
 
 /** @internal */
 export const CaptureResponseLinks$inboundSchema: z.ZodType<
@@ -236,35 +189,7 @@ export const CaptureResponseLinks$inboundSchema: z.ZodType<
   shipment: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema,
 });
-/** @internal */
-export type CaptureResponseLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-  settlement?: UrlNullable$Outbound | null | undefined;
-  shipment?: UrlNullable$Outbound | null | undefined;
-  documentation: Url$Outbound;
-};
 
-/** @internal */
-export const CaptureResponseLinks$outboundSchema: z.ZodType<
-  CaptureResponseLinks$Outbound,
-  z.ZodTypeDef,
-  CaptureResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-  settlement: z.nullable(UrlNullable$outboundSchema).optional(),
-  shipment: z.nullable(UrlNullable$outboundSchema).optional(),
-  documentation: Url$outboundSchema,
-});
-
-export function captureResponseLinksToJSON(
-  captureResponseLinks: CaptureResponseLinks,
-): string {
-  return JSON.stringify(
-    CaptureResponseLinks$outboundSchema.parse(captureResponseLinks),
-  );
-}
 export function captureResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureResponseLinks, SDKValidationError> {
@@ -301,58 +226,7 @@ export const CaptureResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type CaptureResponse$Outbound = {
-  resource: string;
-  id: string;
-  mode: string;
-  description?: string | undefined;
-  amount: AmountNullable$Outbound | null;
-  settlementAmount?:
-    | CaptureResponseSettlementAmount$Outbound
-    | null
-    | undefined;
-  status: string;
-  metadata?: Metadata$Outbound | null | undefined;
-  paymentId: string;
-  shipmentId?: string | null | undefined;
-  settlementId?: string | null | undefined;
-  createdAt: string;
-  _links: CaptureResponseLinks$Outbound;
-};
 
-/** @internal */
-export const CaptureResponse$outboundSchema: z.ZodType<
-  CaptureResponse$Outbound,
-  z.ZodTypeDef,
-  CaptureResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$outboundSchema,
-  description: z.string().optional(),
-  amount: z.nullable(AmountNullable$outboundSchema),
-  settlementAmount: z.nullable(
-    z.lazy(() => CaptureResponseSettlementAmount$outboundSchema),
-  ).optional(),
-  status: CaptureResponseStatus$outboundSchema,
-  metadata: z.nullable(Metadata$outboundSchema).optional(),
-  paymentId: z.string(),
-  shipmentId: z.nullable(z.string()).optional(),
-  settlementId: z.nullable(z.string()).optional(),
-  createdAt: z.string(),
-  links: z.lazy(() => CaptureResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function captureResponseToJSON(
-  captureResponse: CaptureResponse,
-): string {
-  return JSON.stringify(CaptureResponse$outboundSchema.parse(captureResponse));
-}
 export function captureResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureResponse, SDKValidationError> {

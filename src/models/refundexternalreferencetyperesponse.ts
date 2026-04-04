@@ -26,9 +26,3 @@ export const RefundExternalReferenceTypeResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(RefundExternalReferenceTypeResponse);
-/** @internal */
-export const RefundExternalReferenceTypeResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RefundExternalReferenceTypeResponse
-> = openEnums.outboundSchema(RefundExternalReferenceTypeResponse);

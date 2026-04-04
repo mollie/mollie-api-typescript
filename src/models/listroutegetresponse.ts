@@ -7,24 +7,13 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   RouteDestinationTypeResponse,
   RouteDestinationTypeResponse$inboundSchema,
-  RouteDestinationTypeResponse$outboundSchema,
 } from "./routedestinationtyperesponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The destination of the route.
@@ -101,31 +90,7 @@ export const ListRouteGetResponseDestination$inboundSchema: z.ZodType<
   type: RouteDestinationTypeResponse$inboundSchema,
   organizationId: z.string(),
 });
-/** @internal */
-export type ListRouteGetResponseDestination$Outbound = {
-  type: string;
-  organizationId: string;
-};
 
-/** @internal */
-export const ListRouteGetResponseDestination$outboundSchema: z.ZodType<
-  ListRouteGetResponseDestination$Outbound,
-  z.ZodTypeDef,
-  ListRouteGetResponseDestination
-> = z.object({
-  type: RouteDestinationTypeResponse$outboundSchema,
-  organizationId: z.string(),
-});
-
-export function listRouteGetResponseDestinationToJSON(
-  listRouteGetResponseDestination: ListRouteGetResponseDestination,
-): string {
-  return JSON.stringify(
-    ListRouteGetResponseDestination$outboundSchema.parse(
-      listRouteGetResponseDestination,
-    ),
-  );
-}
 export function listRouteGetResponseDestinationFromJSON(
   jsonString: string,
 ): SafeParseResult<ListRouteGetResponseDestination, SDKValidationError> {
@@ -145,29 +110,7 @@ export const ListRouteGetResponseLinks$inboundSchema: z.ZodType<
   self: Url$inboundSchema,
   payment: Url$inboundSchema,
 });
-/** @internal */
-export type ListRouteGetResponseLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-};
 
-/** @internal */
-export const ListRouteGetResponseLinks$outboundSchema: z.ZodType<
-  ListRouteGetResponseLinks$Outbound,
-  z.ZodTypeDef,
-  ListRouteGetResponseLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-});
-
-export function listRouteGetResponseLinksToJSON(
-  listRouteGetResponseLinks: ListRouteGetResponseLinks,
-): string {
-  return JSON.stringify(
-    ListRouteGetResponseLinks$outboundSchema.parse(listRouteGetResponseLinks),
-  );
-}
 export function listRouteGetResponseLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ListRouteGetResponseLinks, SDKValidationError> {
@@ -197,45 +140,7 @@ export const ListRouteGetResponse$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListRouteGetResponse$Outbound = {
-  resource: string;
-  id: string;
-  paymentId: string;
-  amount: Amount$Outbound;
-  description: string;
-  destination: ListRouteGetResponseDestination$Outbound;
-  createdAt: string;
-  _links: ListRouteGetResponseLinks$Outbound;
-};
 
-/** @internal */
-export const ListRouteGetResponse$outboundSchema: z.ZodType<
-  ListRouteGetResponse$Outbound,
-  z.ZodTypeDef,
-  ListRouteGetResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  paymentId: z.string(),
-  amount: Amount$outboundSchema,
-  description: z.string(),
-  destination: z.lazy(() => ListRouteGetResponseDestination$outboundSchema),
-  createdAt: z.string(),
-  links: z.lazy(() => ListRouteGetResponseLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
-});
-
-export function listRouteGetResponseToJSON(
-  listRouteGetResponse: ListRouteGetResponse,
-): string {
-  return JSON.stringify(
-    ListRouteGetResponse$outboundSchema.parse(listRouteGetResponse),
-  );
-}
 export function listRouteGetResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListRouteGetResponse, SDKValidationError> {

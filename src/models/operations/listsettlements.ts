@@ -86,24 +86,6 @@ export type ListSettlementsResponse = {
 };
 
 /** @internal */
-export const ListSettlementsRequest$inboundSchema: z.ZodType<
-  ListSettlementsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  balanceId: z.string().optional(),
-  year: z.nullable(z.string()).optional(),
-  month: z.nullable(z.string()).optional(),
-  currencies: models.Currencies$inboundSchema.optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListSettlementsRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
@@ -140,15 +122,6 @@ export function listSettlementsRequestToJSON(
     ListSettlementsRequest$outboundSchema.parse(listSettlementsRequest),
   );
 }
-export function listSettlementsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListSettlementsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListSettlementsEmbedded$inboundSchema: z.ZodType<
@@ -158,27 +131,7 @@ export const ListSettlementsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   settlements: z.array(models.ListEntitySettlement$inboundSchema),
 });
-/** @internal */
-export type ListSettlementsEmbedded$Outbound = {
-  settlements: Array<models.ListEntitySettlement$Outbound>;
-};
 
-/** @internal */
-export const ListSettlementsEmbedded$outboundSchema: z.ZodType<
-  ListSettlementsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListSettlementsEmbedded
-> = z.object({
-  settlements: z.array(models.ListEntitySettlement$outboundSchema),
-});
-
-export function listSettlementsEmbeddedToJSON(
-  listSettlementsEmbedded: ListSettlementsEmbedded,
-): string {
-  return JSON.stringify(
-    ListSettlementsEmbedded$outboundSchema.parse(listSettlementsEmbedded),
-  );
-}
 export function listSettlementsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementsEmbedded, SDKValidationError> {
@@ -204,38 +157,7 @@ export const ListSettlementsResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListSettlementsResponseBody$Outbound = {
-  count: number;
-  _embedded: ListSettlementsEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListSettlementsResponseBody$outboundSchema: z.ZodType<
-  ListSettlementsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListSettlementsResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListSettlementsEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listSettlementsResponseBodyToJSON(
-  listSettlementsResponseBody: ListSettlementsResponseBody,
-): string {
-  return JSON.stringify(
-    ListSettlementsResponseBody$outboundSchema.parse(
-      listSettlementsResponseBody,
-    ),
-  );
-}
 export function listSettlementsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementsResponseBody, SDKValidationError> {
@@ -258,31 +180,7 @@ export const ListSettlementsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListSettlementsResponse$Outbound = {
-  Result: ListSettlementsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListSettlementsResponse$outboundSchema: z.ZodType<
-  ListSettlementsResponse$Outbound,
-  z.ZodTypeDef,
-  ListSettlementsResponse
-> = z.object({
-  result: z.lazy(() => ListSettlementsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listSettlementsResponseToJSON(
-  listSettlementsResponse: ListSettlementsResponse,
-): string {
-  return JSON.stringify(
-    ListSettlementsResponse$outboundSchema.parse(listSettlementsResponse),
-  );
-}
 export function listSettlementsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListSettlementsResponse, SDKValidationError> {

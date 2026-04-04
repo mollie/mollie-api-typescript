@@ -98,62 +98,6 @@ export type ListRefundsResponse = {
 };
 
 /** @internal */
-export const ListRefundsGlobals$inboundSchema: z.ZodType<
-  ListRefundsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListRefundsGlobals$Outbound = {
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListRefundsGlobals$outboundSchema: z.ZodType<
-  ListRefundsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListRefundsGlobals
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-
-export function listRefundsGlobalsToJSON(
-  listRefundsGlobals: ListRefundsGlobals,
-): string {
-  return JSON.stringify(
-    ListRefundsGlobals$outboundSchema.parse(listRefundsGlobals),
-  );
-}
-export function listRefundsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListRefundsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListRefundsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListRefundsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListRefundsRequest$inboundSchema: z.ZodType<
-  ListRefundsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paymentId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListRefundsRequest$Outbound = {
   paymentId: string;
   from?: string | undefined;
@@ -188,15 +132,6 @@ export function listRefundsRequestToJSON(
     ListRefundsRequest$outboundSchema.parse(listRefundsRequest),
   );
 }
-export function listRefundsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListRefundsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListRefundsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListRefundsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListRefundsEmbedded$inboundSchema: z.ZodType<
@@ -206,27 +141,7 @@ export const ListRefundsEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   refunds: z.array(models.ListEntityRefund$inboundSchema),
 });
-/** @internal */
-export type ListRefundsEmbedded$Outbound = {
-  refunds: Array<models.ListEntityRefund$Outbound>;
-};
 
-/** @internal */
-export const ListRefundsEmbedded$outboundSchema: z.ZodType<
-  ListRefundsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListRefundsEmbedded
-> = z.object({
-  refunds: z.array(models.ListEntityRefund$outboundSchema),
-});
-
-export function listRefundsEmbeddedToJSON(
-  listRefundsEmbedded: ListRefundsEmbedded,
-): string {
-  return JSON.stringify(
-    ListRefundsEmbedded$outboundSchema.parse(listRefundsEmbedded),
-  );
-}
 export function listRefundsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListRefundsEmbedded, SDKValidationError> {
@@ -252,36 +167,7 @@ export const ListRefundsResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListRefundsResponseBody$Outbound = {
-  count: number;
-  _embedded: ListRefundsEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListRefundsResponseBody$outboundSchema: z.ZodType<
-  ListRefundsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListRefundsResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListRefundsEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listRefundsResponseBodyToJSON(
-  listRefundsResponseBody: ListRefundsResponseBody,
-): string {
-  return JSON.stringify(
-    ListRefundsResponseBody$outboundSchema.parse(listRefundsResponseBody),
-  );
-}
 export function listRefundsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListRefundsResponseBody, SDKValidationError> {
@@ -304,31 +190,7 @@ export const ListRefundsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListRefundsResponse$Outbound = {
-  Result: ListRefundsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListRefundsResponse$outboundSchema: z.ZodType<
-  ListRefundsResponse$Outbound,
-  z.ZodTypeDef,
-  ListRefundsResponse
-> = z.object({
-  result: z.lazy(() => ListRefundsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listRefundsResponseToJSON(
-  listRefundsResponse: ListRefundsResponse,
-): string {
-  return JSON.stringify(
-    ListRefundsResponse$outboundSchema.parse(listRefundsResponse),
-  );
-}
 export function listRefundsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListRefundsResponse, SDKValidationError> {

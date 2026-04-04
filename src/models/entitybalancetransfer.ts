@@ -4,26 +4,16 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   BalanceTransferCategory,
-  BalanceTransferCategory$inboundSchema,
   BalanceTransferCategory$outboundSchema,
 } from "./balancetransfercategory.js";
 import {
   EntityBalanceTransferParty,
-  EntityBalanceTransferParty$inboundSchema,
   EntityBalanceTransferParty$Outbound,
   EntityBalanceTransferParty$outboundSchema,
 } from "./entitybalancetransferparty.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type EntityBalanceTransfer = {
   /**
@@ -64,20 +54,6 @@ export type EntityBalanceTransfer = {
 };
 
 /** @internal */
-export const EntityBalanceTransfer$inboundSchema: z.ZodType<
-  EntityBalanceTransfer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  amount: Amount$inboundSchema,
-  source: EntityBalanceTransferParty$inboundSchema,
-  destination: EntityBalanceTransferParty$inboundSchema,
-  description: z.string(),
-  category: BalanceTransferCategory$inboundSchema.optional(),
-  metadata: z.record(z.any()).optional(),
-  testmode: z.boolean().optional(),
-});
-/** @internal */
 export type EntityBalanceTransfer$Outbound = {
   amount: Amount$Outbound;
   source: EntityBalanceTransferParty$Outbound;
@@ -108,14 +84,5 @@ export function entityBalanceTransferToJSON(
 ): string {
   return JSON.stringify(
     EntityBalanceTransfer$outboundSchema.parse(entityBalanceTransfer),
-  );
-}
-export function entityBalanceTransferFromJSON(
-  jsonString: string,
-): SafeParseResult<EntityBalanceTransfer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EntityBalanceTransfer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntityBalanceTransfer' from JSON`,
   );
 }

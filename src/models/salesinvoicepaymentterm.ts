@@ -26,10 +26,6 @@ export type SalesInvoicePaymentTerm = ClosedEnum<
 >;
 
 /** @internal */
-export const SalesInvoicePaymentTerm$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoicePaymentTerm
-> = z.nativeEnum(SalesInvoicePaymentTerm);
-/** @internal */
 export const SalesInvoicePaymentTerm$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoicePaymentTerm
-> = SalesInvoicePaymentTerm$inboundSchema;
+> = z.nativeEnum(SalesInvoicePaymentTerm);

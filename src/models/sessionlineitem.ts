@@ -4,18 +4,9 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   PaymentLineTypeResponse,
-  PaymentLineTypeResponse$inboundSchema,
   PaymentLineTypeResponse$outboundSchema,
 } from "./paymentlinetyperesponse.js";
 
@@ -78,25 +69,6 @@ export type SessionLineItem = {
 };
 
 /** @internal */
-export const SessionLineItem$inboundSchema: z.ZodType<
-  SessionLineItem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: PaymentLineTypeResponse$inboundSchema.optional(),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: Amount$inboundSchema,
-  discountAmount: Amount$inboundSchema.optional(),
-  totalAmount: Amount$inboundSchema,
-  vatRate: z.string().optional(),
-  vatAmount: Amount$inboundSchema.optional(),
-  sku: z.string().optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-});
-/** @internal */
 export type SessionLineItem$Outbound = {
   type?: string | undefined;
   description: string;
@@ -136,13 +108,4 @@ export function sessionLineItemToJSON(
   sessionLineItem: SessionLineItem,
 ): string {
   return JSON.stringify(SessionLineItem$outboundSchema.parse(sessionLineItem));
-}
-export function sessionLineItemFromJSON(
-  jsonString: string,
-): SafeParseResult<SessionLineItem, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SessionLineItem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SessionLineItem' from JSON`,
-  );
 }

@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type DeleteSalesInvoiceRequest = {
@@ -22,22 +19,6 @@ export type DeleteSalesInvoiceRequest = {
   deleteValuesSalesInvoice?: models.DeleteValuesSalesInvoice | undefined;
 };
 
-/** @internal */
-export const DeleteSalesInvoiceRequest$inboundSchema: z.ZodType<
-  DeleteSalesInvoiceRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  salesInvoiceId: z.string(),
-  "idempotency-key": z.string().optional(),
-  "delete-values-sales-invoice": models.DeleteValuesSalesInvoice$inboundSchema
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "delete-values-sales-invoice": "deleteValuesSalesInvoice",
-  });
-});
 /** @internal */
 export type DeleteSalesInvoiceRequest$Outbound = {
   salesInvoiceId: string;
@@ -69,14 +50,5 @@ export function deleteSalesInvoiceRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteSalesInvoiceRequest$outboundSchema.parse(deleteSalesInvoiceRequest),
-  );
-}
-export function deleteSalesInvoiceRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteSalesInvoiceRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteSalesInvoiceRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteSalesInvoiceRequest' from JSON`,
   );
 }

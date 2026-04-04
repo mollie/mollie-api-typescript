@@ -9,7 +9,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountNumberFormatResponse,
   AccountNumberFormatResponse$inboundSchema,
-  AccountNumberFormatResponse$outboundSchema,
 } from "./accountnumberformatresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -41,33 +40,7 @@ export const CreditorBankAccountResponse$inboundSchema: z.ZodType<
   format: AccountNumberFormatResponse$inboundSchema,
   accountNumber: z.string(),
 });
-/** @internal */
-export type CreditorBankAccountResponse$Outbound = {
-  accountHolderName: string;
-  format: string;
-  accountNumber: string;
-};
 
-/** @internal */
-export const CreditorBankAccountResponse$outboundSchema: z.ZodType<
-  CreditorBankAccountResponse$Outbound,
-  z.ZodTypeDef,
-  CreditorBankAccountResponse
-> = z.object({
-  accountHolderName: z.string(),
-  format: AccountNumberFormatResponse$outboundSchema,
-  accountNumber: z.string(),
-});
-
-export function creditorBankAccountResponseToJSON(
-  creditorBankAccountResponse: CreditorBankAccountResponse,
-): string {
-  return JSON.stringify(
-    CreditorBankAccountResponse$outboundSchema.parse(
-      creditorBankAccountResponse,
-    ),
-  );
-}
 export function creditorBankAccountResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CreditorBankAccountResponse, SDKValidationError> {

@@ -13,21 +13,12 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentLinkResponse,
   PaymentLinkResponse$inboundSchema,
-  PaymentLinkResponse$Outbound,
-  PaymentLinkResponse$outboundSchema,
 } from "./paymentlinkresponse.js";
 import {
   ProfileResponse,
   ProfileResponse$inboundSchema,
-  ProfileResponse$Outbound,
-  ProfileResponse$outboundSchema,
 } from "./profileresponse.js";
-import {
-  Url,
-  Url$inboundSchema,
-  Url$Outbound,
-  Url$outboundSchema,
-} from "./url.js";
+import { Url, Url$inboundSchema } from "./url.js";
 
 /**
  * The list of events to enable for this webhook. You may specify `'*'` to add all events, except those
@@ -115,34 +106,11 @@ export const EntityWebhookEventWebhookEventTypes$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(EntityWebhookEventWebhookEventTypes);
-/** @internal */
-export const EntityWebhookEventWebhookEventTypes$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EntityWebhookEventWebhookEventTypes
-> = openEnums.outboundSchema(EntityWebhookEventWebhookEventTypes);
 
 /** @internal */
 export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
   .union([PaymentLinkResponse$inboundSchema, ProfileResponse$inboundSchema]);
-/** @internal */
-export type Entity$Outbound =
-  | PaymentLinkResponse$Outbound
-  | ProfileResponse$Outbound;
 
-/** @internal */
-export const Entity$outboundSchema: z.ZodType<
-  Entity$Outbound,
-  z.ZodTypeDef,
-  Entity
-> = z.union([
-  PaymentLinkResponse$outboundSchema,
-  ProfileResponse$outboundSchema,
-]);
-
-export function entityToJSON(entity: Entity): string {
-  return JSON.stringify(Entity$outboundSchema.parse(entity));
-}
 export function entityFromJSON(
   jsonString: string,
 ): SafeParseResult<Entity, SDKValidationError> {
@@ -164,26 +132,7 @@ export const Embedded$inboundSchema: z.ZodType<
     ProfileResponse$inboundSchema,
   ]).optional(),
 });
-/** @internal */
-export type Embedded$Outbound = {
-  entity?: PaymentLinkResponse$Outbound | ProfileResponse$Outbound | undefined;
-};
 
-/** @internal */
-export const Embedded$outboundSchema: z.ZodType<
-  Embedded$Outbound,
-  z.ZodTypeDef,
-  Embedded
-> = z.object({
-  entity: z.union([
-    PaymentLinkResponse$outboundSchema,
-    ProfileResponse$outboundSchema,
-  ]).optional(),
-});
-
-export function embeddedToJSON(embedded: Embedded): string {
-  return JSON.stringify(Embedded$outboundSchema.parse(embedded));
-}
 export function embeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<Embedded, SDKValidationError> {
@@ -204,31 +153,7 @@ export const EntityWebhookEventLinks$inboundSchema: z.ZodType<
   documentation: Url$inboundSchema,
   entity: Url$inboundSchema.optional(),
 });
-/** @internal */
-export type EntityWebhookEventLinks$Outbound = {
-  self: Url$Outbound;
-  documentation: Url$Outbound;
-  entity?: Url$Outbound | undefined;
-};
 
-/** @internal */
-export const EntityWebhookEventLinks$outboundSchema: z.ZodType<
-  EntityWebhookEventLinks$Outbound,
-  z.ZodTypeDef,
-  EntityWebhookEventLinks
-> = z.object({
-  self: Url$outboundSchema,
-  documentation: Url$outboundSchema,
-  entity: Url$outboundSchema.optional(),
-});
-
-export function entityWebhookEventLinksToJSON(
-  entityWebhookEventLinks: EntityWebhookEventLinks,
-): string {
-  return JSON.stringify(
-    EntityWebhookEventLinks$outboundSchema.parse(entityWebhookEventLinks),
-  );
-}
 export function entityWebhookEventLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityWebhookEventLinks, SDKValidationError> {
@@ -259,45 +184,7 @@ export const EntityWebhookEvent$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type EntityWebhookEvent$Outbound = {
-  resource: string;
-  id: string;
-  type: string;
-  entityId: string;
-  createdAt: string;
-  _embedded?: Embedded$Outbound | null | undefined;
-  _links: EntityWebhookEventLinks$Outbound;
-};
 
-/** @internal */
-export const EntityWebhookEvent$outboundSchema: z.ZodType<
-  EntityWebhookEvent$Outbound,
-  z.ZodTypeDef,
-  EntityWebhookEvent
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  webhookEventTypes: EntityWebhookEventWebhookEventTypes$outboundSchema,
-  entityId: z.string(),
-  createdAt: z.string(),
-  embedded: z.nullable(z.lazy(() => Embedded$outboundSchema)).optional(),
-  links: z.lazy(() => EntityWebhookEventLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    webhookEventTypes: "type",
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function entityWebhookEventToJSON(
-  entityWebhookEvent: EntityWebhookEvent,
-): string {
-  return JSON.stringify(
-    EntityWebhookEvent$outboundSchema.parse(entityWebhookEvent),
-  );
-}
 export function entityWebhookEventFromJSON(
   jsonString: string,
 ): SafeParseResult<EntityWebhookEvent, SDKValidationError> {

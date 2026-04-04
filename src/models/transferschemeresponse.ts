@@ -10,7 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferSchemeTypeResponse,
   TransferSchemeTypeResponse$inboundSchema,
-  TransferSchemeTypeResponse$outboundSchema,
 } from "./transferschemetyperesponse.js";
 
 /**
@@ -31,27 +30,7 @@ export const TransferSchemeResponse$inboundSchema: z.ZodType<
 > = z.object({
   type: TransferSchemeTypeResponse$inboundSchema,
 });
-/** @internal */
-export type TransferSchemeResponse$Outbound = {
-  type: string;
-};
 
-/** @internal */
-export const TransferSchemeResponse$outboundSchema: z.ZodType<
-  TransferSchemeResponse$Outbound,
-  z.ZodTypeDef,
-  TransferSchemeResponse
-> = z.object({
-  type: TransferSchemeTypeResponse$outboundSchema,
-});
-
-export function transferSchemeResponseToJSON(
-  transferSchemeResponse: TransferSchemeResponse,
-): string {
-  return JSON.stringify(
-    TransferSchemeResponse$outboundSchema.parse(transferSchemeResponse),
-  );
-}
 export function transferSchemeResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<TransferSchemeResponse, SDKValidationError> {

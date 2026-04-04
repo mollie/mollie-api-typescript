@@ -34,9 +34,3 @@ export const MandateMethodResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(MandateMethodResponse);
-/** @internal */
-export const MandateMethodResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  MandateMethodResponse
-> = openEnums.outboundSchema(MandateMethodResponse);

@@ -4,23 +4,13 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   LineCategories,
-  LineCategories$inboundSchema,
   LineCategories$outboundSchema,
 } from "./linecategories.js";
 import {
   PaymentLineType,
-  PaymentLineType$inboundSchema,
   PaymentLineType$outboundSchema,
 } from "./paymentlinetype.js";
 
@@ -90,26 +80,6 @@ export type PaymentLineItem = {
 };
 
 /** @internal */
-export const PaymentLineItem$inboundSchema: z.ZodType<
-  PaymentLineItem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: PaymentLineType$inboundSchema.optional(),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: Amount$inboundSchema,
-  discountAmount: Amount$inboundSchema.optional(),
-  totalAmount: Amount$inboundSchema,
-  vatRate: z.string().optional(),
-  vatAmount: Amount$inboundSchema.optional(),
-  sku: z.string().optional(),
-  categories: z.array(LineCategories$inboundSchema).optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-});
-/** @internal */
 export type PaymentLineItem$Outbound = {
   type?: string | undefined;
   description: string;
@@ -151,13 +121,4 @@ export function paymentLineItemToJSON(
   paymentLineItem: PaymentLineItem,
 ): string {
   return JSON.stringify(PaymentLineItem$outboundSchema.parse(paymentLineItem));
-}
-export function paymentLineItemFromJSON(
-  jsonString: string,
-): SafeParseResult<PaymentLineItem, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PaymentLineItem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PaymentLineItem' from JSON`,
-  );
 }

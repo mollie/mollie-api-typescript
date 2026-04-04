@@ -4,9 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ProfileRequest = {
   /**
@@ -52,20 +49,6 @@ export type ProfileRequest = {
 };
 
 /** @internal */
-export const ProfileRequest$inboundSchema: z.ZodType<
-  ProfileRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  website: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  description: z.string().optional(),
-  countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string().optional(),
-});
-/** @internal */
 export type ProfileRequest$Outbound = {
   name: string;
   website: string;
@@ -93,13 +76,4 @@ export const ProfileRequest$outboundSchema: z.ZodType<
 
 export function profileRequestToJSON(profileRequest: ProfileRequest): string {
   return JSON.stringify(ProfileRequest$outboundSchema.parse(profileRequest));
-}
-export function profileRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ProfileRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProfileRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProfileRequest' from JSON`,
-  );
 }

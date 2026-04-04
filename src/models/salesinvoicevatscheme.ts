@@ -19,10 +19,6 @@ export const SalesInvoiceVatScheme = {
 export type SalesInvoiceVatScheme = ClosedEnum<typeof SalesInvoiceVatScheme>;
 
 /** @internal */
-export const SalesInvoiceVatScheme$inboundSchema: z.ZodNativeEnum<
-  typeof SalesInvoiceVatScheme
-> = z.nativeEnum(SalesInvoiceVatScheme);
-/** @internal */
 export const SalesInvoiceVatScheme$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceVatScheme
-> = SalesInvoiceVatScheme$inboundSchema;
+> = z.nativeEnum(SalesInvoiceVatScheme);

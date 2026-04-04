@@ -6,35 +6,18 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AfterBalance,
-  AfterBalance$inboundSchema,
-  AfterBalance$Outbound,
-  AfterBalance$outboundSchema,
-} from "./afterbalance.js";
-import {
-  Amount,
-  Amount$inboundSchema,
-  Amount$Outbound,
-  Amount$outboundSchema,
-} from "./amount.js";
-import {
-  Counterparty,
-  Counterparty$inboundSchema,
-  Counterparty$Outbound,
-  Counterparty$outboundSchema,
-} from "./counterparty.js";
+import { AfterBalance, AfterBalance$inboundSchema } from "./afterbalance.js";
+import { Amount, Amount$inboundSchema } from "./amount.js";
+import { Counterparty, Counterparty$inboundSchema } from "./counterparty.js";
 import {
   CreditDebitIndicator,
   CreditDebitIndicator$inboundSchema,
-  CreditDebitIndicator$outboundSchema,
 } from "./creditdebitindicator.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Mode, Mode$inboundSchema, Mode$outboundSchema } from "./mode.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   TransactionType,
   TransactionType$inboundSchema,
-  TransactionType$outboundSchema,
 } from "./transactiontype.js";
 
 export type TransactionResponse = {
@@ -118,49 +101,7 @@ export const TransactionResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   createdAt: z.string(),
 });
-/** @internal */
-export type TransactionResponse$Outbound = {
-  resource: string;
-  id: string;
-  businessAccountId: string;
-  creditDebitIndicator: string;
-  type: string;
-  amount: Amount$Outbound;
-  description?: string | null | undefined;
-  counterparty?: Counterparty$Outbound | undefined;
-  afterBalance?: AfterBalance$Outbound | undefined;
-  processedAt?: string | null | undefined;
-  mode: string;
-  createdAt: string;
-};
 
-/** @internal */
-export const TransactionResponse$outboundSchema: z.ZodType<
-  TransactionResponse$Outbound,
-  z.ZodTypeDef,
-  TransactionResponse
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  businessAccountId: z.string(),
-  creditDebitIndicator: CreditDebitIndicator$outboundSchema,
-  type: TransactionType$outboundSchema,
-  amount: Amount$outboundSchema,
-  description: z.nullable(z.string()).optional(),
-  counterparty: Counterparty$outboundSchema.optional(),
-  afterBalance: AfterBalance$outboundSchema.optional(),
-  processedAt: z.nullable(z.string()).optional(),
-  mode: Mode$outboundSchema,
-  createdAt: z.string(),
-});
-
-export function transactionResponseToJSON(
-  transactionResponse: TransactionResponse,
-): string {
-  return JSON.stringify(
-    TransactionResponse$outboundSchema.parse(transactionResponse),
-  );
-}
 export function transactionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<TransactionResponse, SDKValidationError> {

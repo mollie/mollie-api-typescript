@@ -105,66 +105,6 @@ export type ListAllSubscriptionsResponse = {
 };
 
 /** @internal */
-export const ListAllSubscriptionsGlobals$inboundSchema: z.ZodType<
-  ListAllSubscriptionsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
-/** @internal */
-export type ListAllSubscriptionsGlobals$Outbound = {
-  profileId?: string | undefined;
-  testmode?: boolean | undefined;
-};
-
-/** @internal */
-export const ListAllSubscriptionsGlobals$outboundSchema: z.ZodType<
-  ListAllSubscriptionsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsGlobals
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
-
-export function listAllSubscriptionsGlobalsToJSON(
-  listAllSubscriptionsGlobals: ListAllSubscriptionsGlobals,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsGlobals$outboundSchema.parse(
-      listAllSubscriptionsGlobals,
-    ),
-  );
-}
-export function listAllSubscriptionsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAllSubscriptionsRequest$inboundSchema: z.ZodType<
-  ListAllSubscriptionsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  profileId: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  "idempotency-key": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-  });
-});
-/** @internal */
 export type ListAllSubscriptionsRequest$Outbound = {
   from?: string | null | undefined;
   limit?: number | null | undefined;
@@ -199,15 +139,6 @@ export function listAllSubscriptionsRequestToJSON(
     ),
   );
 }
-export function listAllSubscriptionsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAllSubscriptionsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAllSubscriptionsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAllSubscriptionsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListAllSubscriptionsEmbedded$inboundSchema: z.ZodType<
@@ -218,30 +149,7 @@ export const ListAllSubscriptionsEmbedded$inboundSchema: z.ZodType<
   subscriptions: z.array(models.ListSubscriptionResponse$inboundSchema)
     .optional(),
 });
-/** @internal */
-export type ListAllSubscriptionsEmbedded$Outbound = {
-  subscriptions?: Array<models.ListSubscriptionResponse$Outbound> | undefined;
-};
 
-/** @internal */
-export const ListAllSubscriptionsEmbedded$outboundSchema: z.ZodType<
-  ListAllSubscriptionsEmbedded$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsEmbedded
-> = z.object({
-  subscriptions: z.array(models.ListSubscriptionResponse$outboundSchema)
-    .optional(),
-});
-
-export function listAllSubscriptionsEmbeddedToJSON(
-  listAllSubscriptionsEmbedded: ListAllSubscriptionsEmbedded,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsEmbedded$outboundSchema.parse(
-      listAllSubscriptionsEmbedded,
-    ),
-  );
-}
 export function listAllSubscriptionsEmbeddedFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllSubscriptionsEmbedded, SDKValidationError> {
@@ -267,38 +175,7 @@ export const ListAllSubscriptionsResponseBody$inboundSchema: z.ZodType<
     "_links": "links",
   });
 });
-/** @internal */
-export type ListAllSubscriptionsResponseBody$Outbound = {
-  count: number;
-  _embedded: ListAllSubscriptionsEmbedded$Outbound;
-  _links: models.ListLinks$Outbound;
-};
 
-/** @internal */
-export const ListAllSubscriptionsResponseBody$outboundSchema: z.ZodType<
-  ListAllSubscriptionsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsResponseBody
-> = z.object({
-  count: z.number().int(),
-  embedded: z.lazy(() => ListAllSubscriptionsEmbedded$outboundSchema),
-  links: models.ListLinks$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    embedded: "_embedded",
-    links: "_links",
-  });
-});
-
-export function listAllSubscriptionsResponseBodyToJSON(
-  listAllSubscriptionsResponseBody: ListAllSubscriptionsResponseBody,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsResponseBody$outboundSchema.parse(
-      listAllSubscriptionsResponseBody,
-    ),
-  );
-}
 export function listAllSubscriptionsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllSubscriptionsResponseBody, SDKValidationError> {
@@ -321,33 +198,7 @@ export const ListAllSubscriptionsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListAllSubscriptionsResponse$Outbound = {
-  Result: ListAllSubscriptionsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListAllSubscriptionsResponse$outboundSchema: z.ZodType<
-  ListAllSubscriptionsResponse$Outbound,
-  z.ZodTypeDef,
-  ListAllSubscriptionsResponse
-> = z.object({
-  result: z.lazy(() => ListAllSubscriptionsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listAllSubscriptionsResponseToJSON(
-  listAllSubscriptionsResponse: ListAllSubscriptionsResponse,
-): string {
-  return JSON.stringify(
-    ListAllSubscriptionsResponse$outboundSchema.parse(
-      listAllSubscriptionsResponse,
-    ),
-  );
-}
 export function listAllSubscriptionsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListAllSubscriptionsResponse, SDKValidationError> {

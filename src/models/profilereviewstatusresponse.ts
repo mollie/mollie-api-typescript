@@ -27,9 +27,3 @@ export const ProfileReviewStatusResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ProfileReviewStatusResponse);
-/** @internal */
-export const ProfileReviewStatusResponse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ProfileReviewStatusResponse
-> = openEnums.outboundSchema(ProfileReviewStatusResponse);

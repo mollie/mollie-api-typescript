@@ -28,10 +28,6 @@ export const MandateMethod = {
 export type MandateMethod = ClosedEnum<typeof MandateMethod>;
 
 /** @internal */
-export const MandateMethod$inboundSchema: z.ZodNativeEnum<
-  typeof MandateMethod
-> = z.nativeEnum(MandateMethod);
-/** @internal */
 export const MandateMethod$outboundSchema: z.ZodNativeEnum<
   typeof MandateMethod
-> = MandateMethod$inboundSchema;
+> = z.nativeEnum(MandateMethod);

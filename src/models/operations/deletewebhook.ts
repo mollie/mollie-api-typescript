@@ -5,9 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteWebhookRequestBody = {
   /**
@@ -33,14 +30,6 @@ export type DeleteWebhookRequest = {
 };
 
 /** @internal */
-export const DeleteWebhookRequestBody$inboundSchema: z.ZodType<
-  DeleteWebhookRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  testmode: z.boolean().optional(),
-});
-/** @internal */
 export type DeleteWebhookRequestBody$Outbound = {
   testmode?: boolean | undefined;
 };
@@ -61,31 +50,7 @@ export function deleteWebhookRequestBodyToJSON(
     DeleteWebhookRequestBody$outboundSchema.parse(deleteWebhookRequestBody),
   );
 }
-export function deleteWebhookRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteWebhookRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteWebhookRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteWebhookRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const DeleteWebhookRequest$inboundSchema: z.ZodType<
-  DeleteWebhookRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  webhookId: z.string(),
-  "idempotency-key": z.string().optional(),
-  RequestBody: z.lazy(() => DeleteWebhookRequestBody$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "idempotency-key": "idempotencyKey",
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type DeleteWebhookRequest$Outbound = {
   webhookId: string;
@@ -114,14 +79,5 @@ export function deleteWebhookRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteWebhookRequest$outboundSchema.parse(deleteWebhookRequest),
-  );
-}
-export function deleteWebhookRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteWebhookRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteWebhookRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteWebhookRequest' from JSON`,
   );
 }
