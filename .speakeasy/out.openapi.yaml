@@ -8724,6 +8724,51 @@ paths:
                       documentation:
                         href: '...'
                         type: text/html
+                create-payment-201-13:
+                  summary: Save card on successful payment linked to customer
+                  x-request: ./../_components/requests/common-payment-requests.yaml#/api-save-card-on-payment-success
+                  value:
+                    resource: payment
+                    id: tr_NQCRf7VzKP
+                    mode: test
+                    createdAt: '2026-04-01T14:37:01+00:00'
+                    amount:
+                      value: '1.00'
+                      currency: EUR
+                    description: My first payment
+                    method: creditcard
+                    metadata:
+                      someProperty: someValue
+                      anotherProperty: anotherValue
+                    status: paid
+                    isCancelable: false
+                    expiresAt: '2022-01-14T14:54:01+00:00'
+                    locale: en_US
+                    profileId: pfl_85dxyKqNHa
+                    customerId: cst_tKt44u85MM
+                    mandateId: mdt_KmQnsDNkq2
+                    sequenceType: oneoff
+                    redirectUrl: https://example.com/redirect
+                    webhookUrl: https://example.com/webhook
+                    _links:
+                      self:
+                        href: '...'
+                        type: application/hal+json
+                      checkout:
+                        href: https://www.mollie.com/checkout/test-mode?method=creditcard&token=3.ivicl6
+                        type: text/html
+                      dashboard:
+                        href: https://www.mollie.com/dashboard/org_13514547/payments/tr_NQCRf7VtKP
+                        type: text/html
+                      customer:
+                        href: https://api.mollie.com/v2/customers/cst_tKt44u85MM
+                        type: application/hal+json
+                      mandate:
+                        href: https://api.mollie.com/v2/customers/cst_tKt44u85MM/mandates/mdt_KmQnsDNkq2
+                        type: application/hal+json
+                      documentation:
+                        href: '...'
+                        type: text/html
         '422':
           description: |-
             The request contains issues. For example, if a payment description is
@@ -19167,6 +19212,51 @@ paths:
                       documentation:
                         href: '...'
                         type: text/html
+                create-payment-201-13:
+                  summary: Save card on successful payment linked to customer
+                  x-request: ./../_components/requests/common-payment-requests.yaml#/api-save-card-on-payment-success
+                  value:
+                    resource: payment
+                    id: tr_NQCRf7VzKP
+                    mode: test
+                    createdAt: '2026-04-01T14:37:01+00:00'
+                    amount:
+                      value: '1.00'
+                      currency: EUR
+                    description: My first payment
+                    method: creditcard
+                    metadata:
+                      someProperty: someValue
+                      anotherProperty: anotherValue
+                    status: paid
+                    isCancelable: false
+                    expiresAt: '2022-01-14T14:54:01+00:00'
+                    locale: en_US
+                    profileId: pfl_85dxyKqNHa
+                    customerId: cst_tKt44u85MM
+                    mandateId: mdt_KmQnsDNkq2
+                    sequenceType: oneoff
+                    redirectUrl: https://example.com/redirect
+                    webhookUrl: https://example.com/webhook
+                    _links:
+                      self:
+                        href: '...'
+                        type: application/hal+json
+                      checkout:
+                        href: https://www.mollie.com/checkout/test-mode?method=creditcard&token=3.ivicl6
+                        type: text/html
+                      dashboard:
+                        href: https://www.mollie.com/dashboard/org_13514547/payments/tr_NQCRf7VtKP
+                        type: text/html
+                      customer:
+                        href: https://api.mollie.com/v2/customers/cst_tKt44u85MM
+                        type: application/hal+json
+                      mandate:
+                        href: https://api.mollie.com/v2/customers/cst_tKt44u85MM/mandates/mdt_KmQnsDNkq2
+                        type: application/hal+json
+                      documentation:
+                        href: '...'
+                        type: text/html
         '422':
           description: |-
             The request contains issues. For example, if a payment description is
@@ -21646,6 +21736,13 @@ paths:
             $ref: '#/components/schemas/mandateToken'
         - $ref: '#/components/parameters/list-limit'
         - $ref: '#/components/parameters/list-sort'
+        - name: scopes
+          in: query
+          description: Returns only mandates that include the specified scopes.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/mandate-scopes'
         - $ref: '#/components/parameters/testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
@@ -21690,6 +21787,8 @@ paths:
                           mandateReference: EXAMPLE-CORP-MD13804
                           signatureDate: '2023-05-07'
                           customerId: cst_4qqhO89gsT
+                          scopes:
+                            - customer-not-present
                           createdAt: '2023-05-07T10:49:08+00:00'
                           _links:
                             self:
@@ -29702,10 +29801,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/mandateToken'
           description: |-
-            **Only relevant for recurring payments.**
+            **Only relevant for recurring payments and stored cards.**
 
-            When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
-            the customer's accounts should be credited.
+            When creating recurring or stored cards payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+            the customer's accounts should be debited.
         customerId:
           type:
             - string
@@ -30200,6 +30299,12 @@ components:
           description: The date by which the payment should be completed in `YYYY-MM-DD` format
           example: '2025-01-01'
           writeOnly: true
+        storeCredentials:
+          type:
+            - boolean
+          description: "Whether the card details should be stored for the customer after a successful payment. This will create a mandate for the customer, \nallowing for future customer present saved-card CIT payments. Requires customerId, cardToken, and the creditcard method to be specified. "
+          writeOnly: true
+          example: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
         _links:
@@ -33872,6 +33977,16 @@ components:
           properties:
             url:
               $ref: '#/components/schemas/url'
+    mandate-scopes:
+      type: string
+      description: "An array defining the eligible use cases for the mandate. For creditcard mandates, this field will always be \npresent and can contain one or both of the following values:"
+      enum:
+        - customer-present
+        - customer-not-present
+      x-enumDescriptions:
+        customer-present: "Indicates the mandate can be used for payments where the customer is present (e.g., \"one-click\" \npayments with a saved card)."
+        customer-not-present: "Indicates the mandate can be used for Merchant-Initiated Transactions (MIT), such as recurring \npayments or subscriptions, where the customer is not present."
+      example: customer-present
     mandate-method:
       type: string
       description: |-
@@ -34036,6 +34151,15 @@ components:
             Must provide either this field or `paypalBillingAgreementId`, but not both.
           example: 8kk8451t
           writeOnly: true
+        scopes:
+          type:
+            - array
+            - 'null'
+          description: "An array defining the eligible use cases for the mandate. This field will always be \npresent and can contain one or both of the following values:"
+          readOnly: true
+          items:
+            allOf:
+              - $ref: '#/components/schemas/mandate-scopes'
         status:
           allOf:
             - $ref: '#/components/schemas/mandate-status'
@@ -36248,10 +36372,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/mandateToken'
           description: |-
-            **Only relevant for recurring payments.**
+            **Only relevant for recurring payments and stored cards.**
 
-            When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
-            the customer's accounts should be credited.
+            When creating recurring or stored cards payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+            the customer's accounts should be debited.
         customerId:
           type:
             - string
@@ -36746,6 +36870,12 @@ components:
           description: The date by which the payment should be completed in `YYYY-MM-DD` format
           example: '2025-01-01'
           writeOnly: true
+        storeCredentials:
+          type:
+            - boolean
+          description: "Whether the card details should be stored for the customer after a successful payment. This will create a mandate for the customer, \nallowing for future customer present saved-card CIT payments. Requires customerId, cardToken, and the creditcard method to be specified. "
+          writeOnly: true
+          example: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
         _links:
@@ -38314,6 +38444,15 @@ components:
             Must provide either this field or `paypalBillingAgreementId`, but not both.
           example: 8kk8451t
           writeOnly: true
+        scopes:
+          type:
+            - array
+            - 'null'
+          description: "An array defining the eligible use cases for the mandate. This field will always be \npresent and can contain one or both of the following values:"
+          readOnly: true
+          items:
+            allOf:
+              - $ref: '#/components/schemas/mandate-scopes-response'
         status:
           allOf:
             - $ref: '#/components/schemas/mandate-status-response'
@@ -39110,10 +39249,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/mandateToken'
           description: |-
-            **Only relevant for recurring payments.**
+            **Only relevant for recurring payments and stored cards.**
 
-            When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
-            the customer's accounts should be credited.
+            When creating recurring or stored cards payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+            the customer's accounts should be debited.
         customerId:
           type:
             - string
@@ -39608,6 +39747,12 @@ components:
           description: The date by which the payment should be completed in `YYYY-MM-DD` format
           example: '2025-01-01'
           writeOnly: true
+        storeCredentials:
+          type:
+            - boolean
+          description: "Whether the card details should be stored for the customer after a successful payment. This will create a mandate for the customer, \nallowing for future customer present saved-card CIT payments. Requires customerId, cardToken, and the creditcard method to be specified. "
+          writeOnly: true
+          example: true
         testmode:
           $ref: '#/components/schemas/testmode-create'
         _links:
@@ -41362,6 +41507,15 @@ components:
             Must provide either this field or `paypalBillingAgreementId`, but not both.
           example: 8kk8451t
           writeOnly: true
+        scopes:
+          type:
+            - array
+            - 'null'
+          description: "An array defining the eligible use cases for the mandate. This field will always be \npresent and can contain one or both of the following values:"
+          readOnly: true
+          items:
+            allOf:
+              - $ref: '#/components/schemas/mandate-scopes-response'
         status:
           allOf:
             - $ref: '#/components/schemas/mandate-status-response'
@@ -41423,6 +41577,17 @@ components:
         - Unionpay
         - Visa
       example: Visa
+      x-speakeasy-unknown-values: allow
+    mandate-scopes-response:
+      type: string
+      description: "An array defining the eligible use cases for the mandate. For creditcard mandates, this field will always be \npresent and can contain one or both of the following values:"
+      enum:
+        - customer-present
+        - customer-not-present
+      x-enumDescriptions:
+        customer-present: "Indicates the mandate can be used for payments where the customer is present (e.g., \"one-click\" \npayments with a saved card)."
+        customer-not-present: "Indicates the mandate can be used for Merchant-Initiated Transactions (MIT), such as recurring \npayments or subscriptions, where the customer is not present."
+      example: customer-present
       x-speakeasy-unknown-values: allow
     mandate-status-response:
       type: string
@@ -42485,6 +42650,8 @@ components:
         mandateReference: EXAMPLE-CORP-MD13804
         signatureDate: '2023-05-07'
         customerId: cst_4qqhO89gsT
+        scopes:
+          - customer-not-present
         createdAt: '2023-05-07T10:49:08+00:00'
         _links:
           self:

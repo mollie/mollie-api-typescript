@@ -47,6 +47,10 @@ export type ListMandatesRequest = {
    */
   sort?: models.Sorting | undefined;
   /**
+   * Returns only mandates that include the specified scopes.
+   */
+  scopes?: Array<models.MandateScopes> | undefined;
+  /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
@@ -100,6 +104,7 @@ export type ListMandatesRequest$Outbound = {
   from?: string | undefined;
   limit?: number | null | undefined;
   sort?: string | undefined;
+  scopes?: Array<string> | undefined;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -114,6 +119,7 @@ export const ListMandatesRequest$outboundSchema: z.ZodType<
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),
+  scopes: z.array(models.MandateScopes$outboundSchema).optional(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {

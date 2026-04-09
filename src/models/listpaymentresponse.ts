@@ -1042,12 +1042,12 @@ export type ListPaymentResponse = {
    */
   subscriptionId?: string | null | undefined;
   /**
-   * **Only relevant for recurring payments.**
+   * **Only relevant for recurring payments and stored cards.**
    *
    * @remarks
    *
-   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
-   * the customer's accounts should be credited.
+   * When creating recurring or stored cards payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be debited.
    */
   mandateId?: string | null | undefined;
   customerId?: string | undefined;

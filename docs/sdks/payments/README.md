@@ -162,6 +162,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -324,6 +325,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -485,6 +487,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -647,6 +650,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -808,6 +812,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -970,6 +975,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -1131,6 +1137,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -1293,6 +1300,330 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
+      testmode: false,
+      applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("paymentsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-payment-201-13
+
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-13" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+import { RFCDate } from "mollie-api-typescript/types";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.payments.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    paymentRequest: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://example.org/redirect",
+      cancelUrl: "https://example.org/cancel",
+      webhookUrl: "https://example.org/webhooks",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+          recurring: {
+            description: "Gym subscription",
+            interval: "... days",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+            times: 1,
+            startDate: "2024-12-12",
+          },
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      locale: "en_US",
+      method: "ideal",
+      issuer: "ideal_INGBNL2A",
+      restrictPaymentMethodsToCountry: "NL",
+      captureMode: "manual",
+      captureDelay: "8 hours",
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "10",
+      },
+      routing: [
+        {
+          amount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          destination: {
+            type: "organization",
+            organizationId: "org_1234567",
+          },
+          releaseDate: "2024-12-12",
+          links: {
+            self: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+            payment: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+          },
+        },
+      ],
+      sequenceType: "oneoff",
+      mandateId: "mdt_5B8cwPMGnU",
+      customerId: "cst_5B8cwPMGnU",
+      profileId: "pfl_5B8cwPMGnU",
+      dueDate: "2025-01-01",
+      storeCredentials: true,
+      testmode: false,
+      applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
+      company: {
+        registrationNumber: "12345678",
+        vatNumber: "NL123456789B01",
+      },
+      cardToken: "tkn_12345",
+      voucherNumber: "1234567890",
+      voucherPin: "1234",
+      consumerDateOfBirth: new RFCDate("2000-01-01"),
+      digitalGoods: true,
+      customerReference: "1234567890",
+      terminalId: "term_1234567890",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { paymentsCreate } from "mollie-api-typescript/funcs/paymentsCreate.js";
+import { RFCDate } from "mollie-api-typescript/types";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await paymentsCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    paymentRequest: {
+      description: "Chess Board",
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      redirectUrl: "https://example.org/redirect",
+      cancelUrl: "https://example.org/cancel",
+      webhookUrl: "https://example.org/webhooks",
+      lines: [
+        {
+          type: "physical",
+          description: "LEGO 4440 Forest Police Station",
+          quantity: 1,
+          quantityUnit: "pcs",
+          unitPrice: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          discountAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          totalAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          vatRate: "21.00",
+          vatAmount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          sku: "9780241661628",
+          categories: [
+            "meal",
+            "eco",
+          ],
+          imageUrl: "https://...",
+          productUrl: "https://...",
+          recurring: {
+            description: "Gym subscription",
+            interval: "... days",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+            times: 1,
+            startDate: "2024-12-12",
+          },
+        },
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      locale: "en_US",
+      method: "ideal",
+      issuer: "ideal_INGBNL2A",
+      restrictPaymentMethodsToCountry: "NL",
+      captureMode: "manual",
+      captureDelay: "8 hours",
+      applicationFee: {
+        amount: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        description: "10",
+      },
+      routing: [
+        {
+          amount: {
+            currency: "EUR",
+            value: "10.00",
+          },
+          destination: {
+            type: "organization",
+            organizationId: "org_1234567",
+          },
+          releaseDate: "2024-12-12",
+          links: {
+            self: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+            payment: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+          },
+        },
+      ],
+      sequenceType: "oneoff",
+      mandateId: "mdt_5B8cwPMGnU",
+      customerId: "cst_5B8cwPMGnU",
+      profileId: "pfl_5B8cwPMGnU",
+      dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -1454,6 +1785,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -1616,6 +1948,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -1777,6 +2110,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -1939,6 +2273,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -2100,6 +2435,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -2262,6 +2598,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -2423,6 +2760,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -2585,6 +2923,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -2746,6 +3085,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -2908,6 +3248,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -3069,6 +3410,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -3231,6 +3573,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -3392,6 +3735,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -3554,6 +3898,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -3715,6 +4060,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
@@ -3877,6 +4223,7 @@ async function run() {
       customerId: "cst_5B8cwPMGnU",
       profileId: "pfl_5B8cwPMGnU",
       dueDate: "2025-01-01",
+      storeCredentials: true,
       testmode: false,
       applePayPaymentToken: "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}",
       company: {
