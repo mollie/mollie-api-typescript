@@ -120,6 +120,7 @@ async function $do(
     : encodeFormQuery({
       "from": payload.from,
       "limit": payload.limit,
+      "scopes": payload.scopes,
       "sort": payload.sort,
       "testmode": payload.testmode ?? client._options.testmode,
     });

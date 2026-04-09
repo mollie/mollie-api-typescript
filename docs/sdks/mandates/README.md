@@ -225,6 +225,9 @@ async function run() {
     from: "mdt_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
+    scopes: [
+      "customer-present",
+    ],
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -259,6 +262,9 @@ async function run() {
     from: "mdt_5B8cwPMGnU",
     limit: 50,
     sort: "desc",
+    scopes: [
+      "customer-present",
+    ],
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
