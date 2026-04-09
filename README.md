@@ -31,6 +31,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
   * [Global Parameters](#global-parameters)
   * [Pagination](#pagination)
   * [Retries](#retries)
+  * [Webhook Signature Validation](#webhook-signature-validation)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
@@ -755,6 +756,62 @@ run();
 
 ```
 <!-- End Retries [retries] -->
+
+<!-- Start Webhook Signature Validation [webhook-signature-validation] -->
+## Webhook Signature Validation
+
+The SDK includes a helper to validate Mollie webhook signatures using HMAC-SHA256.
+Use it with the raw request body exactly as received by your framework and the value of the
+`X-Mollie-Signature` header.
+
+```typescript
+import {
+  InvalidSignatureException,
+  SignatureValidator,
+} from "mollie-api-typescript";
+
+const validator = new SignatureValidator(process.env["MOLLIE_WEBHOOK_SECRET"] ?? "");
+
+async function handleWebhook(rawBody: string, signatureHeader?: string) {
+  try {
+    const isVerified = await validator.validatePayload(rawBody, signatureHeader);
+
+    if (!isVerified) {
+      console.log("No signature header was provided; treating it as a legacy webhook");
+      return;
+    }
+
+    console.log("Webhook signature is valid");
+  } catch (error) {
+    if (error instanceof InvalidSignatureException) {
+      console.log("Webhook signature is invalid");
+      return;
+    }
+
+    throw error;
+  }
+}
+```
+
+You can also use the static helper when you do not want to instantiate the validator yourself:
+
+```typescript
+import { SignatureValidator } from "mollie-api-typescript";
+
+const isVerified = await SignatureValidator.validate(
+  rawBody,
+  ["current_secret", "previous_secret"],
+  signatureHeader,
+);
+```
+
+Notes:
+
+- `validatePayload()` returns `true` when at least one signature matches.
+- It returns `false` when no signature is present, which lets you support legacy webhooks.
+- It throws `InvalidSignatureException` when a signature is present but does not match.
+- Header values with the `sha256=` prefix are supported automatically.
+<!-- End Webhook Signature Validation [webhook-signature-validation] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
