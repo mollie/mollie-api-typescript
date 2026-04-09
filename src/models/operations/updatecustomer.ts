@@ -14,6 +14,10 @@ export type UpdateCustomerRequestBody = {
   name?: string | null | undefined;
   /**
    * The email address of the customer.
+   *
+   * @remarks
+   *
+   * If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
    */
   email?: string | null | undefined;
   /**

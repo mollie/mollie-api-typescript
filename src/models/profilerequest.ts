@@ -22,6 +22,10 @@ export type ProfileRequest = {
   website: string;
   /**
    * The email address associated with the profile's trade name or brand.
+   *
+   * @remarks
+   *
+   * If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
    */
   email: string;
   /**
