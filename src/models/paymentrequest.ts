@@ -445,12 +445,12 @@ export type PaymentRequest = {
   routing?: Array<EntityPaymentRoute> | null | undefined;
   sequenceType?: SequenceType | undefined;
   /**
-   * **Only relevant for recurring payments.**
+   * **Only relevant for recurring payments and stored cards.**
    *
    * @remarks
    *
-   * When creating recurring payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
-   * the customer's accounts should be credited.
+   * When creating recurring or stored cards payments, the ID of a specific [mandate](get-mandate) can be supplied to indicate which of
+   * the customer's accounts should be debited.
    */
   mandateId?: string | null | undefined;
   customerId?: string | undefined;
@@ -468,6 +468,13 @@ export type PaymentRequest = {
    * The date by which the payment should be completed in `YYYY-MM-DD` format
    */
   dueDate?: string | undefined;
+  /**
+   * Whether the card details should be stored for the customer after a successful payment. This will create a mandate for the customer,
+   *
+   * @remarks
+   * allowing for future customer present saved-card CIT payments. Requires customerId, cardToken, and the creditcard method to be specified.
+   */
+  storeCredentials?: boolean | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -740,6 +747,7 @@ export type PaymentRequest$Outbound = {
   customerId?: string | undefined;
   profileId?: string | undefined;
   dueDate?: string | undefined;
+  storeCredentials?: boolean | undefined;
   testmode?: boolean | null | undefined;
   applePayPaymentToken?: string | undefined;
   company?: Company$Outbound | undefined;
@@ -791,6 +799,7 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   customerId: z.string().optional(),
   profileId: z.string().optional(),
   dueDate: z.string().optional(),
+  storeCredentials: z.boolean().optional(),
   testmode: z.nullable(z.boolean()).optional(),
   applePayPaymentToken: z.string().optional(),
   company: z.lazy(() => Company$outboundSchema).optional(),

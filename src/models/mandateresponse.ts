@@ -60,6 +60,24 @@ export type MandateResponseDetails = {
 };
 
 /**
+ * An array defining the eligible use cases for the mandate. For creditcard mandates, this field will always be
+ *
+ * @remarks
+ * present and can contain one or both of the following values:
+ */
+export const MandateResponseScope = {
+  CustomerPresent: "customer-present",
+  CustomerNotPresent: "customer-not-present",
+} as const;
+/**
+ * An array defining the eligible use cases for the mandate. For creditcard mandates, this field will always be
+ *
+ * @remarks
+ * present and can contain one or both of the following values:
+ */
+export type MandateResponseScope = OpenEnum<typeof MandateResponseScope>;
+
+/**
  * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
  *
  * @remarks
@@ -129,6 +147,13 @@ export type MandateResponse = {
    * decline Direct Debit payments if the mandate reference is not unique.
    */
   mandateReference: string | null;
+  /**
+   * An array defining the eligible use cases for the mandate. This field will always be
+   *
+   * @remarks
+   * present and can contain one or both of the following values:
+   */
+  scopes?: Array<MandateResponseScope> | null | undefined;
   status: MandateResponseStatus;
   /**
    * The identifier referring to the [customer](get-customer) this mandate was linked to.
@@ -172,6 +197,13 @@ export function mandateResponseDetailsFromJSON(
 }
 
 /** @internal */
+export const MandateResponseScope$inboundSchema: z.ZodType<
+  MandateResponseScope,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(MandateResponseScope);
+
+/** @internal */
 export const MandateResponseStatus$inboundSchema: z.ZodType<
   MandateResponseStatus,
   z.ZodTypeDef,
@@ -212,6 +244,7 @@ export const MandateResponse$inboundSchema: z.ZodType<
   details: z.lazy(() => MandateResponseDetails$inboundSchema),
   signatureDate: z.nullable(z.string()),
   mandateReference: z.nullable(z.string()),
+  scopes: z.nullable(z.array(MandateResponseScope$inboundSchema)).optional(),
   status: MandateResponseStatus$inboundSchema,
   customerId: z.string(),
   createdAt: z.string(),

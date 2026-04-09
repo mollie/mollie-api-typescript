@@ -60,6 +60,26 @@ export type ListMandateResponseDetails = {
 };
 
 /**
+ * An array defining the eligible use cases for the mandate. For creditcard mandates, this field will always be
+ *
+ * @remarks
+ * present and can contain one or both of the following values:
+ */
+export const ListMandateResponseScope = {
+  CustomerPresent: "customer-present",
+  CustomerNotPresent: "customer-not-present",
+} as const;
+/**
+ * An array defining the eligible use cases for the mandate. For creditcard mandates, this field will always be
+ *
+ * @remarks
+ * present and can contain one or both of the following values:
+ */
+export type ListMandateResponseScope = OpenEnum<
+  typeof ListMandateResponseScope
+>;
+
+/**
  * The status of the mandate. A status can be `pending` for mandates when the first payment is not yet finalized, or
  *
  * @remarks
@@ -127,6 +147,13 @@ export type ListMandateResponse = {
    * decline Direct Debit payments if the mandate reference is not unique.
    */
   mandateReference: string | null;
+  /**
+   * An array defining the eligible use cases for the mandate. This field will always be
+   *
+   * @remarks
+   * present and can contain one or both of the following values:
+   */
+  scopes?: Array<ListMandateResponseScope> | null | undefined;
   status: ListMandateResponseStatus;
   /**
    * The identifier referring to the [customer](get-customer) this mandate was linked to.
@@ -170,6 +197,13 @@ export function listMandateResponseDetailsFromJSON(
 }
 
 /** @internal */
+export const ListMandateResponseScope$inboundSchema: z.ZodType<
+  ListMandateResponseScope,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(ListMandateResponseScope);
+
+/** @internal */
 export const ListMandateResponseStatus$inboundSchema: z.ZodType<
   ListMandateResponseStatus,
   z.ZodTypeDef,
@@ -209,6 +243,8 @@ export const ListMandateResponse$inboundSchema: z.ZodType<
   details: z.lazy(() => ListMandateResponseDetails$inboundSchema),
   signatureDate: z.nullable(z.string()),
   mandateReference: z.nullable(z.string()),
+  scopes: z.nullable(z.array(ListMandateResponseScope$inboundSchema))
+    .optional(),
   status: ListMandateResponseStatus$inboundSchema,
   customerId: z.string(),
   createdAt: z.string(),
