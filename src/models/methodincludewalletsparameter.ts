@@ -8,6 +8,7 @@ import { ClosedEnum } from "../types/enums.js";
 
 export const MethodIncludeWalletsParameter = {
   Applepay: "applepay",
+  Googlepay: "googlepay",
 } as const;
 export type MethodIncludeWalletsParameter = ClosedEnum<
   typeof MethodIncludeWalletsParameter

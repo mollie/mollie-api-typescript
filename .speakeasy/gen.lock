@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: d1ea56ec793f5de741cc1f74e334eb06
+  docChecksum: 79cf5ff55b1ce7e85b9156c043710931
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 1.5.0
-  configChecksum: 7fd948cc61fd5fcdfac5d7a859ca5d31
+  releaseVersion: 1.5.1
+  configChecksum: 944ceacbc8d204fd26681d2c2f9fe410
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: f3f6674b-4d26-45be-9f5c-9ee780cf31db
-  pristine_commit_hash: 015e5d28e840e1109a56d261d5cbcbed35aac5f3
-  pristine_tree_hash: 81841b7f0d12b26c90e043f502aef92ed3e077bc
+  generation_id: 9673c805-09c8-4386-800e-afbf2de6ed78
+  pristine_commit_hash: 04f8423e7fe0926624d58850812430aa6483de4f
+  pristine_tree_hash: 271842e04f375d50398ed576857030beaacfb585
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -857,8 +857,8 @@ trackedFiles:
     pristine_git_object: 2d3c6edbae6848d9e6b2989666e3a78917fa1b98
   docs/models/listentitymethodallid.md:
     id: 785b3c8471b7
-    last_write_checksum: sha1:e17e32c14228eb21ee18d38850d0c54c5c05409d
-    pristine_git_object: d4ba61438a98592f501ed5589c9e2876f4d1aa09
+    last_write_checksum: sha1:1956722f74f28ddeed9743e64e683caa6b0522ac
+    pristine_git_object: 5ba09741f40160f662f3f188837c0cf0e722b3f8
   docs/models/listentitymethodallimage.md:
     id: 5eb6453fbdc5
     last_write_checksum: sha1:06b52346e53cfcfd73ee561b7e65f701cc11f7f1
@@ -885,8 +885,8 @@ trackedFiles:
     pristine_git_object: 388369e24ba6ff6172663375c9229d0cacbe42da
   docs/models/listentitymethodid.md:
     id: e3d45c1841da
-    last_write_checksum: sha1:d24f581d1623db2290d3a08151a58aedf1d6f3b7
-    pristine_git_object: 66c29d5ff27c3a94cc0db94841118c932726fd2d
+    last_write_checksum: sha1:f3371d64dfc26c0c937412a5b2d07c689fbf5904
+    pristine_git_object: a081ada3dc1e5d0c547086b7bda75d5e4a2ea551
   docs/models/listentitymethodimage.md:
     id: 62e57329278b
     last_write_checksum: sha1:8f6ca8ebecc8a91d96ab4af182ccacb3ca57b89f
@@ -1333,8 +1333,8 @@ trackedFiles:
     pristine_git_object: b0f367454268da3fb622e156bb420a082aa5f6e3
   docs/models/methodincludewalletsparameter.md:
     id: 8c7233d5f4c1
-    last_write_checksum: sha1:a65bb4c88c86fbe0538088488a99652f5e9ce1e1
-    pristine_git_object: 8a7a4d1c3afdd4249a0ff68f6cb6f3234ef9e679
+    last_write_checksum: sha1:ea337e93fb981177e1098ec9c01c538e3de079f9
+    pristine_git_object: d0424a4751df864809541d94cbfc9884057c2a12
   docs/models/methodresourceparameter.md:
     id: 7593e3a4c678
     last_write_checksum: sha1:8266dc1a0baa1a3620574afd4233a2a50cf945c9
@@ -3489,12 +3489,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:8ccd0cea851d7af44c8afe015d7719fcdab7711c
-    pristine_git_object: 18df740e6847bd1a8b0bd9eba0703d39c24a6393
+    last_write_checksum: sha1:3218c9bbb25f85c142f879c7613fbcd118781c09
+    pristine_git_object: f64729035e65216594432ef6d78997db88e321e0
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:20a73e96ec2f69b7dda058f4d62bbd1a0f150753
-    pristine_git_object: 199c13588ef849541c18b33bc1a8bab5326885d5
+    last_write_checksum: sha1:fc523f5e07feab1589f6db83a24921d8f3b2c11f
+    pristine_git_object: fa64a798a4585811464bd0f891f21468b650d21b
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -3961,8 +3961,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:1f6fe40943cb21a67b6e8c55ca50626bd6795e03
-    pristine_git_object: b6cadb9297aa1b1584e4303fa92647ba38d7996d
+    last_write_checksum: sha1:e2ff2ab43009d12da81e0efd4c22223d13eadd3c
+    pristine_git_object: b23771a05f8e48dddfcb96ed84fbdef031b850a7
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -4972,12 +4972,12 @@ trackedFiles:
     pristine_git_object: 4c0f503d4450386bfd8bf8c5f6ee76b44365cbfb
   src/models/listentitymethod.ts:
     id: d2fa4a676853
-    last_write_checksum: sha1:add7d56060b4bc9947cd6e322d9e50005baa7bc7
-    pristine_git_object: e480ddbd4f7fceb4b64ca722c79cb05abf361c50
+    last_write_checksum: sha1:0493511febb8bf962c262bd6d4211f36ca74f324
+    pristine_git_object: 122c82364d1d9edbfb61145aaf57dde746b33684
   src/models/listentitymethodall.ts:
     id: 332aa184e0a5
-    last_write_checksum: sha1:0b7eb2d86b310255c59e7501eaac992a61daac91
-    pristine_git_object: d9a04d297ecde0c995a9aa67be722fa1d6fc2160
+    last_write_checksum: sha1:8f0dcf1d138778ab4da2f9daeb9cba9233720935
+    pristine_git_object: c498c438b0f123d23d6e9d9ffbd68611f067b77d
   src/models/listentitypermission.ts:
     id: e7f08f1eea93
     last_write_checksum: sha1:131a62bb3691c741e493342c8f5e2b54f9494389
@@ -5084,8 +5084,8 @@ trackedFiles:
     pristine_git_object: cfa90808fe845eea649a85a49a18ed01eb8e447f
   src/models/methodincludewalletsparameter.ts:
     id: 65586d67aa9c
-    last_write_checksum: sha1:b42f025c02eec012ff15465d39f806950cf9ae83
-    pristine_git_object: c87095b4ce9a4b00ab0961ff334f9fcaedaa8420
+    last_write_checksum: sha1:702779dedf7e11d97ef1190e4ff8ab1c18f04c5b
+    pristine_git_object: 33331fbb53786809ae531ca968a7186d77bde077
   src/models/methodresourceparameter.ts:
     id: 2396c2e0fe54
     last_write_checksum: sha1:6a220ff84a9d0afce065fba247eb42addf671924
@@ -10154,7 +10154,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.payments.create()`: \n  *  `request.paymentRequest.storeCredentials` **Added**\n* `client.customers.createPayment()`: \n  *  `request.paymentRequest.storeCredentials` **Added**\n* `client.mandates.create()`:  `response.scopes` **Added**\n* `client.mandates.list()`: \n  *  `request.scopes` **Added**\n  *  `response.Embedded.mandates[].scopes` **Added**\n* `client.mandates.get()`:  `response.scopes` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.methods.list()`: \n  *  `request.includeWallets` **Changed**\n  *  `response.Embedded.methods[].id.enum(googlepay)` **Added**\n* `client.methods.all()`:  `response.Embedded.methods[].id.enum(googlepay)` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

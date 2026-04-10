@@ -33183,6 +33183,7 @@ components:
       type: string
       enum:
         - applepay
+        - googlepay
       example: applepay
     method-id:
       type:
@@ -33212,6 +33213,7 @@ components:
         - directdebit
         - eps
         - giftcard
+        - googlepay
         - ideal
         - in3
         - kbc
