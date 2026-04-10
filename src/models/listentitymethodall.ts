@@ -35,6 +35,7 @@ export const ListEntityMethodAllId = {
   Directdebit: "directdebit",
   Eps: "eps",
   Giftcard: "giftcard",
+  Googlepay: "googlepay",
   Ideal: "ideal",
   In3: "in3",
   Kbc: "kbc",

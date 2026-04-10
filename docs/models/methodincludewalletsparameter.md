@@ -11,5 +11,5 @@ let value: MethodIncludeWalletsParameter = "applepay";
 ## Values
 
 ```typescript
-"applepay"
+"applepay" | "googlepay"
 ```
