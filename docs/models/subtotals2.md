@@ -1,11 +1,11 @@
-# ComponentsSubTotals
+# SubTotals2
 
 ## Example Usage
 
 ```typescript
-import { ComponentsSubTotals } from "mollie-api-typescript/models";
+import { SubTotals2 } from "mollie-api-typescript/models";
 
-let value: ComponentsSubTotals = {
+let value: SubTotals2 = {
   subTotals: [
     {
       count: 50,

@@ -7,18 +7,15 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
-import {
-  ComponentsSubTotals,
-  ComponentsSubTotals$inboundSchema,
-} from "./componentssubtotals.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { SubTotals2, SubTotals2$inboundSchema } from "./subtotals2.js";
 
 export type SubGroup = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount?: Amount | undefined;
-  subtotals?: Array<ComponentsSubTotals> | null | undefined;
+  subtotals?: Array<SubTotals2> | null | undefined;
 };
 
 /** @internal */
@@ -28,7 +25,7 @@ export const SubGroup$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   amount: Amount$inboundSchema.optional(),
-  subtotals: z.nullable(z.array(ComponentsSubTotals$inboundSchema)).optional(),
+  subtotals: z.nullable(z.array(SubTotals2$inboundSchema)).optional(),
 });
 
 export function subGroupFromJSON(

@@ -27661,7 +27661,7 @@ components:
           $ref: '#/components/schemas/balance-transaction-type'
           description: Represents the transaction type
       x-speakeasy-unknown-values: allow
-    components-sub-totals:
+    sub-totals-2:
       type: object
       properties:
         sub-totals:
@@ -27724,7 +27724,7 @@ components:
             - array
             - 'null'
           items:
-            $ref: '#/components/schemas/components-sub-totals'
+            $ref: '#/components/schemas/sub-totals-2'
       x-speakeasy-unknown-values: allow
     entity-balance-report:
       type: object
