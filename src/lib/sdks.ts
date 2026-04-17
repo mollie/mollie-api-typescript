@@ -23,7 +23,6 @@ import {
   isConnectionError,
   isTimeoutError,
   matchContentType,
-  matchStatusCode,
 } from "./http.js";
 import { Logger } from "./logger.js";
 import { retry, RetryConfig } from "./retries.js";
@@ -234,7 +233,7 @@ export class ClientSDK {
     request: Request,
     options: {
       context: HookContext;
-      errorCodes: number | string | (number | string)[];
+      isErrorStatusCode: (statusCode: number) => boolean;
       retryConfig: RetryConfig;
       retryCodes: string[];
     },
@@ -247,7 +246,7 @@ export class ClientSDK {
       | UnexpectedClientError
     >
   > {
-    const { context, errorCodes } = options;
+    const { context, isErrorStatusCode } = options;
 
     return retry(
       async () => {
@@ -259,7 +258,7 @@ export class ClientSDK {
         let response = await this.#httpClient.request(req);
 
         try {
-          if (matchStatusCode(response, errorCodes)) {
+          if (isErrorStatusCode(response.status)) {
             const result = await this.#hooks.afterError(
               context,
               response,
