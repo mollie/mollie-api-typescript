@@ -4,14 +4,32 @@
  */
 
 import * as z from "zod/v3";
-import {
-  SalesInvoiceRecipientLocale,
-  SalesInvoiceRecipientLocale$outboundSchema,
-} from "./salesinvoicerecipientlocale.js";
+import { ClosedEnum } from "../types/enums.js";
 import {
   SalesInvoiceRecipientType,
   SalesInvoiceRecipientType$outboundSchema,
 } from "./salesinvoicerecipienttype.js";
+
+/**
+ * The locale for the recipient, to be used for translations in PDF generation and payment pages.
+ */
+export const SalesInvoiceRecipientLocale = {
+  EnUS: "en_US",
+  EnGB: "en_GB",
+  NLNL: "nl_NL",
+  NlBE: "nl_BE",
+  DEDE: "de_DE",
+  DeAT: "de_AT",
+  DeCH: "de_CH",
+  FRFR: "fr_FR",
+  FrBE: "fr_BE",
+} as const;
+/**
+ * The locale for the recipient, to be used for translations in PDF generation and payment pages.
+ */
+export type SalesInvoiceRecipientLocale = ClosedEnum<
+  typeof SalesInvoiceRecipientLocale
+>;
 
 export type SalesInvoiceRecipient = {
   /**
@@ -93,11 +111,13 @@ export type SalesInvoiceRecipient = {
    * A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   country: string;
-  /**
-   * The locale for the recipient, to be used for translations in PDF generation and payment pages.
-   */
   locale: SalesInvoiceRecipientLocale;
 };
+
+/** @internal */
+export const SalesInvoiceRecipientLocale$outboundSchema: z.ZodNativeEnum<
+  typeof SalesInvoiceRecipientLocale
+> = z.nativeEnum(SalesInvoiceRecipientLocale);
 
 /** @internal */
 export type SalesInvoiceRecipient$Outbound = {
