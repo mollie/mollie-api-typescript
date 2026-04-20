@@ -25160,7 +25160,6 @@ paths:
                   postalCode: 1000 AA
                   city: Amsterdam
                   country: NL
-                  locale: nl_NL
                 lines:
                   - description: LEGO 4440 Forest Police Station
                     quantity: 1
@@ -25515,7 +25514,6 @@ paths:
                   postalCode: 1000 AA
                   city: Amsterdam
                   country: NL
-                  locale: nl_NL
                 lines:
                   - description: LEGO 4440 Forest Police Station
                     quantity: 1
@@ -25654,7 +25652,6 @@ paths:
                   postalCode: 1000 AA
                   city: Amsterdam
                   country: NL
-                  locale: nl_NL
                 lines:
                   - description: LEGO 4440 Forest Police Station
                     quantity: 1
@@ -34808,7 +34805,9 @@ components:
           type: string
           description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
         locale:
-          $ref: '#/components/schemas/sales-invoice-recipient-locale'
+          allOf:
+            - $ref: '#/components/schemas/sales-invoice-recipient-locale'
+          writeOnly: true
     sales-invoice-discount-type:
       type: string
       description: The type of discount.
@@ -41986,7 +41985,9 @@ components:
           type: string
           description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
         locale:
-          $ref: '#/components/schemas/sales-invoice-recipient-locale-response'
+          allOf:
+            - $ref: '#/components/schemas/sales-invoice-recipient-locale-response'
+          writeOnly: true
       x-speakeasy-unknown-values: allow
     sales-invoice-recipient-type-response:
       type: string

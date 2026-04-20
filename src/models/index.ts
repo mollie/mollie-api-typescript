@@ -162,8 +162,6 @@ export * from "./salesinvoicepaymentdetailssourceresponse.js";
 export * from "./salesinvoicepaymentterm.js";
 export * from "./salesinvoicepaymenttermresponse.js";
 export * from "./salesinvoicerecipient.js";
-export * from "./salesinvoicerecipientlocale.js";
-export * from "./salesinvoicerecipientlocaleresponse.js";
 export * from "./salesinvoicerecipientresponse.js";
 export * from "./salesinvoicerecipienttype.js";
 export * from "./salesinvoicerecipienttyperesponse.js";

@@ -45,7 +45,6 @@ let value: ListSalesInvoicesResponse = {
             city: "Amsterdam",
             region: "Noord-Holland",
             country: "NL",
-            locale: "nl_NL",
           },
           lines: [
             {

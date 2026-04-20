@@ -8,10 +8,6 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  SalesInvoiceRecipientLocaleResponse,
-  SalesInvoiceRecipientLocaleResponse$inboundSchema,
-} from "./salesinvoicerecipientlocaleresponse.js";
-import {
   SalesInvoiceRecipientTypeResponse,
   SalesInvoiceRecipientTypeResponse$inboundSchema,
 } from "./salesinvoicerecipienttyperesponse.js";
@@ -96,10 +92,6 @@ export type SalesInvoiceRecipientResponse = {
    * A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    */
   country: string;
-  /**
-   * The locale for the recipient, to be used for translations in PDF generation and payment pages.
-   */
-  locale: SalesInvoiceRecipientLocaleResponse;
 };
 
 /** @internal */
@@ -123,7 +115,6 @@ export const SalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
   city: z.string(),
   region: z.nullable(z.string()).optional(),
   country: z.string(),
-  locale: SalesInvoiceRecipientLocaleResponse$inboundSchema,
 });
 
 export function salesInvoiceRecipientResponseFromJSON(
