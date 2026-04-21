@@ -33,7 +33,7 @@ results without needing special properties. The names are case insensitive.
 
 ### Example Usage: verify-payee-200-close-match
 
-<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/business-accounts/payee-verifications" example="verify-payee-200-close-match" -->
+<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/v2/business-accounts/payee-verifications" example="verify-payee-200-close-match" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -102,7 +102,7 @@ run();
 ```
 ### Example Usage: verify-payee-200-match
 
-<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/business-accounts/payee-verifications" example="verify-payee-200-match" -->
+<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/v2/business-accounts/payee-verifications" example="verify-payee-200-match" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -171,7 +171,7 @@ run();
 ```
 ### Example Usage: verify-payee-200-no-match
 
-<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/business-accounts/payee-verifications" example="verify-payee-200-no-match" -->
+<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/v2/business-accounts/payee-verifications" example="verify-payee-200-no-match" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -240,7 +240,7 @@ run();
 ```
 ### Example Usage: verify-payee-200-not-available
 
-<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/business-accounts/payee-verifications" example="verify-payee-200-not-available" -->
+<!-- UsageSnippet language="typescript" operationID="verify-payee" method="post" path="/v2/business-accounts/payee-verifications" example="verify-payee-200-not-available" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

@@ -99,7 +99,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/permissions/{permissionId}")(pathParams);
+  const path = pathToFunc("/v2/permissions/{permissionId}")(pathParams);
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

@@ -101,9 +101,9 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/payments/{paymentId}/chargebacks/{chargebackId}")(
-    pathParams,
-  );
+  const path = pathToFunc(
+    "/v2/payments/{paymentId}/chargebacks/{chargebackId}",
+  )(pathParams);
 
   const query = encodeFormQuery({
     "embed": payload.embed,

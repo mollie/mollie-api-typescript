@@ -105,7 +105,7 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/capabilities")();
+  const path = pathToFunc("/v2/capabilities")();
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",

@@ -13,7 +13,7 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
-  "https://api.mollie.com/v2",
+  "https://api.mollie.com",
 ] as const;
 
 export type SDKOptions = {
@@ -78,8 +78,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0.0",
-  sdkVersion: "1.5.4",
+  sdkVersion: "1.6.0",
   genVersion: "2.881.4",
   userAgent:
-    "speakeasy-sdk/typescript 1.5.4 2.881.4 1.0.0 mollie-api-typescript",
+    "speakeasy-sdk/typescript 1.6.0 2.881.4 1.0.0 mollie-api-typescript",
 } as const;

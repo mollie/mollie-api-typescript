@@ -148,7 +148,7 @@ async function $do(
     explode: true,
   });
 
-  const path = pathToFunc("/client-links")();
+  const path = pathToFunc("/v2/client-links")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

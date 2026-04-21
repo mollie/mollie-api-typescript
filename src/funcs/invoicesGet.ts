@@ -102,7 +102,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/invoices/{invoiceId}")(pathParams);
+  const path = pathToFunc("/v2/invoices/{invoiceId}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",

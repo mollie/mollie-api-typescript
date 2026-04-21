@@ -109,7 +109,7 @@ async function $do(
     }),
   };
   const path = pathToFunc(
-    "/business-accounts/accounts/{businessAccountId}/transactions/{transactionId}",
+    "/v2/business-accounts/accounts/{businessAccountId}/transactions/{transactionId}",
   )(pathParams);
 
   const query = encodeFormQuery({

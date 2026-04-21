@@ -28,7 +28,7 @@ guide on [method-specific parameters](extra-payment-parameters).
 
 ### Example Usage: create-payment-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -353,7 +353,7 @@ run();
 ```
 ### Example Usage: create-payment-201-10
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-10" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-10" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -678,7 +678,7 @@ run();
 ```
 ### Example Usage: create-payment-201-11
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-11" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-11" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -1003,7 +1003,7 @@ run();
 ```
 ### Example Usage: create-payment-201-12
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-12" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-12" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -1328,7 +1328,7 @@ run();
 ```
 ### Example Usage: create-payment-201-13
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-13" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-13" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -1651,7 +1651,7 @@ run();
 ```
 ### Example Usage: create-payment-201-2
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-2" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -1976,7 +1976,7 @@ run();
 ```
 ### Example Usage: create-payment-201-3
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-3" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -2301,7 +2301,7 @@ run();
 ```
 ### Example Usage: create-payment-201-4
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-4" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-4" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -2626,7 +2626,7 @@ run();
 ```
 ### Example Usage: create-payment-201-5
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-5" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-5" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -2951,7 +2951,7 @@ run();
 ```
 ### Example Usage: create-payment-201-6
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-6" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-6" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -3276,7 +3276,7 @@ run();
 ```
 ### Example Usage: create-payment-201-7
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-7" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-7" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -3601,7 +3601,7 @@ run();
 ```
 ### Example Usage: create-payment-201-8
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-8" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-8" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -3926,7 +3926,7 @@ run();
 ```
 ### Example Usage: create-payment-201-9
 
-<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/payments" example="create-payment-201-9" -->
+<!-- UsageSnippet language="typescript" operationID="create-payment" method="post" path="/v2/payments" example="create-payment-201-9" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -4279,7 +4279,7 @@ The results are paginated.
 
 ### Example Usage: list-payments-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-payments" method="get" path="/payments" example="list-payments-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-payments" method="get" path="/v2/payments" example="list-payments-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4346,7 +4346,7 @@ run();
 ```
 ### Example Usage: list-payments-200-2
 
-<!-- UsageSnippet language="typescript" operationID="list-payments" method="get" path="/payments" example="list-payments-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="list-payments" method="get" path="/v2/payments" example="list-payments-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4413,7 +4413,7 @@ run();
 ```
 ### Example Usage: list-payments-200-3
 
-<!-- UsageSnippet language="typescript" operationID="list-payments" method="get" path="/payments" example="list-payments-200-3" -->
+<!-- UsageSnippet language="typescript" operationID="list-payments" method="get" path="/v2/payments" example="list-payments-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4505,7 +4505,7 @@ Retrieve a single payment object by its payment ID.
 
 ### Example Usage: get-payment-200-1
 
-<!-- UsageSnippet language="typescript" operationID="get-payment" method="get" path="/payments/{paymentId}" example="get-payment-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-payment" method="get" path="/v2/payments/{paymentId}" example="get-payment-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4566,7 +4566,7 @@ run();
 ```
 ### Example Usage: get-payment-200-2
 
-<!-- UsageSnippet language="typescript" operationID="get-payment" method="get" path="/payments/{paymentId}" example="get-payment-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="get-payment" method="get" path="/v2/payments/{paymentId}" example="get-payment-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4627,7 +4627,7 @@ run();
 ```
 ### Example Usage: get-payment-200-3
 
-<!-- UsageSnippet language="typescript" operationID="get-payment" method="get" path="/payments/{paymentId}" example="get-payment-200-3" -->
+<!-- UsageSnippet language="typescript" operationID="get-payment" method="get" path="/v2/payments/{paymentId}" example="get-payment-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4715,7 +4715,7 @@ Updating the payment details will not result in a webhook call.
 
 ### Example Usage: update-payment-200-1
 
-<!-- UsageSnippet language="typescript" operationID="update-payment" method="patch" path="/payments/{paymentId}" example="update-payment-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="update-payment" method="patch" path="/v2/payments/{paymentId}" example="update-payment-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4850,7 +4850,7 @@ run();
 ```
 ### Example Usage: update-payment-200-2
 
-<!-- UsageSnippet language="typescript" operationID="update-payment" method="patch" path="/payments/{paymentId}" example="update-payment-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="update-payment" method="patch" path="/v2/payments/{paymentId}" example="update-payment-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4985,7 +4985,7 @@ run();
 ```
 ### Example Usage: update-payment-200-3
 
-<!-- UsageSnippet language="typescript" operationID="update-payment" method="patch" path="/payments/{paymentId}" example="update-payment-200-3" -->
+<!-- UsageSnippet language="typescript" operationID="update-payment" method="patch" path="/v2/payments/{paymentId}" example="update-payment-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -5150,7 +5150,7 @@ The `isCancelable` property on the [Payment object](get-payment) will indicate i
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="cancel-payment" method="delete" path="/payments/{paymentId}" example="cancel-payment-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="cancel-payment" method="delete" path="/v2/payments/{paymentId}" example="cancel-payment-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -5243,7 +5243,7 @@ If there is a successful capture, the payment will transition to `paid`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="release-authorization" method="post" path="/payments/{paymentId}/release-authorization" -->
+<!-- UsageSnippet language="typescript" operationID="release-authorization" method="post" path="/v2/payments/{paymentId}/release-authorization" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

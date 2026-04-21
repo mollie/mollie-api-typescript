@@ -13,7 +13,7 @@ Retrieve the onboarding status of the currently authenticated organization.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-onboarding-status" method="get" path="/onboarding/me" example="get-onboarding-status-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-onboarding-status" method="get" path="/v2/onboarding/me" example="get-onboarding-status-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -95,7 +95,7 @@ Information that the merchant has entered in their dashboard will not be overwri
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="submit-onboarding-data" method="post" path="/onboarding/me" -->
+<!-- UsageSnippet language="typescript" operationID="submit-onboarding-data" method="post" path="/v2/onboarding/me" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

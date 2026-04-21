@@ -106,7 +106,7 @@ async function $do(
     ),
   };
   const path = pathToFunc(
-    "/business-accounts/transfers/{businessAccountsTransferId}",
+    "/v2/business-accounts/transfers/{businessAccountsTransferId}",
   )(pathParams);
 
   const query = encodeFormQuery({

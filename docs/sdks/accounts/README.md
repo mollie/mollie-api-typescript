@@ -17,7 +17,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-business-accounts" method="get" path="/business-accounts/accounts" example="list-business-accounts-200" -->
+<!-- UsageSnippet language="typescript" operationID="list-business-accounts" method="get" path="/v2/business-accounts/accounts" example="list-business-accounts-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -108,7 +108,7 @@ balance, and account details.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-business-account" method="get" path="/business-accounts/accounts/{businessAccountId}" example="get-business-account-200" -->
+<!-- UsageSnippet language="typescript" operationID="get-business-account" method="get" path="/v2/business-accounts/accounts/{businessAccountId}" example="get-business-account-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -192,7 +192,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-business-account-transactions" method="get" path="/business-accounts/accounts/{businessAccountId}/transactions" example="list-transactions-200" -->
+<!-- UsageSnippet language="typescript" operationID="list-business-account-transactions" method="get" path="/v2/business-accounts/accounts/{businessAccountId}/transactions" example="list-transactions-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -285,7 +285,7 @@ amount, counterparty, and balance impact of a specific transaction.
 
 ### Example Usage: get-transaction-200
 
-<!-- UsageSnippet language="typescript" operationID="get-business-account-transaction" method="get" path="/business-accounts/accounts/{businessAccountId}/transactions/{transactionId}" example="get-transaction-200" -->
+<!-- UsageSnippet language="typescript" operationID="get-business-account-transaction" method="get" path="/v2/business-accounts/accounts/{businessAccountId}/transactions/{transactionId}" example="get-transaction-200" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -344,7 +344,7 @@ run();
 ```
 ### Example Usage: get-transaction-200-credit
 
-<!-- UsageSnippet language="typescript" operationID="get-business-account-transaction" method="get" path="/business-accounts/accounts/{businessAccountId}/transactions/{transactionId}" example="get-transaction-200-credit" -->
+<!-- UsageSnippet language="typescript" operationID="get-business-account-transaction" method="get" path="/v2/business-accounts/accounts/{businessAccountId}/transactions/{transactionId}" example="get-transaction-200-credit" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

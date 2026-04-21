@@ -101,7 +101,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/sales-invoices/{salesInvoiceId}")(pathParams);
+  const path = pathToFunc("/v2/sales-invoices/{salesInvoiceId}")(pathParams);
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

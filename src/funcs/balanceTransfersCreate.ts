@@ -100,7 +100,7 @@ async function $do(
     explode: true,
   });
 
-  const path = pathToFunc("/connect/balance-transfers")();
+  const path = pathToFunc("/v2/connect/balance-transfers")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

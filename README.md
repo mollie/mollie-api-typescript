@@ -89,24 +89,17 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
 async function run() {
-  const result = await client.balances.list({
-    currency: "EUR",
-    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    limit: 50,
+  const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -135,20 +128,14 @@ const client = new Client({
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
-  testmode: false,
 });
 
 async function run() {
-  const result = await client.balances.list({
-    currency: "EUR",
-    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    limit: 50,
+  const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -323,6 +310,11 @@ let client = new Client({
 * [list](docs/sdks/methods/README.md#list) - List payment methods
 * [all](docs/sdks/methods/README.md#all) - List all payment methods
 * [get](docs/sdks/methods/README.md#get) - Get payment method
+
+### [Oauth](docs/sdks/oauth/README.md)
+
+* [generate](docs/sdks/oauth/README.md#generate) - Generate tokens
+* [revoke](docs/sdks/oauth/README.md#revoke) - Revoke tokens
 
 ### [Onboarding](docs/sdks/onboarding/README.md)
 
@@ -506,6 +498,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`methodsAll`](docs/sdks/methods/README.md#all) - List all payment methods
 - [`methodsGet`](docs/sdks/methods/README.md#get) - Get payment method
 - [`methodsList`](docs/sdks/methods/README.md#list) - List payment methods
+- [`oauthGenerate`](docs/sdks/oauth/README.md#generate) - Generate tokens
+- [`oauthRevoke`](docs/sdks/oauth/README.md#revoke) - Revoke tokens
 - [`onboardingGet`](docs/sdks/onboarding/README.md#get) - Get onboarding status
 - [`onboardingSubmit`](docs/sdks/onboarding/README.md#submit) - Submit onboarding data
 - [`organizationsGet`](docs/sdks/organizations/README.md#get) - Get organization
@@ -682,18 +676,13 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
 async function run() {
-  const result = await client.balances.list({
-    currency: "EUR",
-    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    limit: 50,
+  const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   }, {
     retries: {
@@ -708,9 +697,7 @@ async function run() {
     },
   });
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -732,24 +719,17 @@ const client = new Client({
     },
     retryConnectionErrors: false,
   },
-  testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
 async function run() {
-  const result = await client.balances.list({
-    currency: "EUR",
-    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    limit: 50,
+  const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -911,7 +891,7 @@ The default server can be overridden globally by passing a URL to the `serverURL
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  serverURL: "https://api.mollie.com/v2",
+  serverURL: "https://api.mollie.com",
   testmode: false,
   security: {
     organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
@@ -930,6 +910,32 @@ async function run() {
   for await (const page of result) {
     console.log(page);
   }
+}
+
+run();
+
+```
+
+### Override Server URL Per-Operation
+
+The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.oauth.generate({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  }, {
+    serverURL: "https://api.mollie.com/oauth2",
+  });
+
+  console.log(result);
 }
 
 run();

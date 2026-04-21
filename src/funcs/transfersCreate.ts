@@ -119,7 +119,7 @@ async function $do(
     explode: true,
   });
 
-  const path = pathToFunc("/business-accounts/transfers")();
+  const path = pathToFunc("/v2/business-accounts/transfers")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

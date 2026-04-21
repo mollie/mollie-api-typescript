@@ -15,7 +15,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-clients" method="get" path="/clients" example="list-clients-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-clients" method="get" path="/v2/clients" example="list-clients-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -103,7 +103,7 @@ Retrieve a single client by its ID.
 
 ### Example Usage: get-client-200-1
 
-<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/v2/clients/{organizationId}" example="get-client-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -160,7 +160,7 @@ run();
 ```
 ### Example Usage: get-client-200-2
 
-<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/v2/clients/{organizationId}" example="get-client-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -217,7 +217,7 @@ run();
 ```
 ### Example Usage: get-client-200-3
 
-<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-3" -->
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/v2/clients/{organizationId}" example="get-client-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -274,7 +274,7 @@ run();
 ```
 ### Example Usage: get-client-200-4
 
-<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/clients/{organizationId}" example="get-client-200-4" -->
+<!-- UsageSnippet language="typescript" operationID="get-client" method="get" path="/v2/clients/{organizationId}" example="get-client-200-4" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

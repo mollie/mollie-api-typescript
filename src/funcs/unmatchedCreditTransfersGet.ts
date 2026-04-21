@@ -104,7 +104,7 @@ async function $do(
     ),
   };
   const path = pathToFunc(
-    "/unmatched-credit-transfers/{unmatchedCreditTransferId}",
+    "/v2/unmatched-credit-transfers/{unmatchedCreditTransferId}",
   )(pathParams);
 
   const headers = new Headers(compactMap({
