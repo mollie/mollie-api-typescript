@@ -17,7 +17,7 @@ export const TransferStatus = {
   Processed: "processed",
   Failed: "failed",
   Blocked: "blocked",
-  IncomingSettled: "incoming-settled",
+  Returned: "returned",
 } as const;
 /**
  * The status of the transfer.

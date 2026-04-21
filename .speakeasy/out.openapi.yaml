@@ -26294,7 +26294,7 @@ paths:
       security:
         - organizationAccessToken:
             - business-account-transfers.write
-      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nCreate a SEPA Credit Transfer from your Mollie Business Account.\n\nTo initiate a transfer, you must provide the transfer scheme, the amount, the debtor IBAN (your Mollie Business\nAccount IBAN), and the creditor (recipient) details.\n\nEach request must include an `Idempotency-Key` header to prevent duplicate transfers, and must be signed using the\n`X-Client-Signature` and `X-Client-Signed-At` headers.\n\n### Simulating transfer scenarios in test mode\n\nIn test mode, you can simulate various transfer scenarios by adjusting the transfer amount. This allows you to\nmimic the typical status progression of a real-world transfer. Note that a transfer's progression will stop once\nit reaches a final status: `blocked`, `failed`, or `processed`.\n\n| Amount  | Scenario                                           | Webhook sequence                                                                                                                                                   |\n|---------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| `11.00` | Transfer initiated, pending review by Mollie       | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review`                                         |\n| `12.00` | Transfer initiated, blocked by Mollie              | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review` → `business-account-transfer.blocked`   |\n| `13.00` | Transfer initiated, failed on scheme submission    | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.failed`                                                 |\n| Other   | Default: transfer is processed                     | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed`                                              |"
+      description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nCreate a SEPA Credit Transfer from your Mollie Business Account.\n\nTo initiate a transfer, you must provide the transfer scheme, the amount, the debtor IBAN (your Mollie Business\nAccount IBAN), and the creditor (recipient) details.\n\nEach request must include an `Idempotency-Key` header to prevent duplicate transfers, and must be signed using the\n`X-Client-Signature` and `X-Client-Signed-At` headers.\n\n### Simulating transfer scenarios in test mode\n\nIn test mode, you can simulate various transfer scenarios by adjusting the transfer amount. This allows you to\nmimic the typical status progression of a real-world transfer. Note that a transfer's progression will stop once\nit reaches a final status: `blocked`, `failed`, `processed`, or `returned`.\n\n| Amount  | Scenario                                            | Webhook sequence                                                                                                                                                   |\n|---------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| `11.00` | Transfer initiated, pending review by Mollie        | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review`                                         |\n| `12.00` | Transfer initiated, blocked by Mollie               | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review` → `business-account-transfer.blocked`   |\n| `13.00` | Transfer initiated, failed on scheme submission     | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.failed`                                                 |\n| `14.00` | Transfer processed, then returned by receiving bank | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed` → `business-account-transfer.returned`       |\n| Other   | Default: transfer is processed                      | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed`                                              |"
       parameters:
         - name: X-Client-Signature
           in: header
@@ -26634,6 +26634,7 @@ paths:
                   summary: Match result
                   value:
                     resource: business-account-payee-verification
+                    mode: live
                     creditorBankAccount:
                       accountHolderName: Jan Jansen
                       format: iban
@@ -26645,6 +26646,7 @@ paths:
                   summary: No match result
                   value:
                     resource: business-account-payee-verification
+                    mode: live
                     creditorBankAccount:
                       accountHolderName: Jan Jansen
                       format: iban
@@ -26656,6 +26658,7 @@ paths:
                   summary: Close match result
                   value:
                     resource: business-account-payee-verification
+                    mode: live
                     creditorBankAccount:
                       accountHolderName: Jan Jans
                       format: iban
@@ -26668,6 +26671,7 @@ paths:
                   summary: Not available result
                   value:
                     resource: business-account-payee-verification
+                    mode: live
                     creditorBankAccount:
                       accountHolderName: Jan Jansen
                       format: iban
@@ -34918,6 +34922,7 @@ components:
             - object
             - 'null'
           properties: {}
+          additionalProperties: true
           description: |-
             Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
             you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
@@ -35481,7 +35486,7 @@ components:
         - processed
         - failed
         - blocked
-        - incoming-settled
+        - returned
       x-enumDescriptions:
         requested: The transfer is requested by the client, and the transfer is pending SCA  (exempt for Transfers API).
         initiated: The transfer is SCA-authorized for execution. Funds are reserved.
@@ -35489,7 +35494,7 @@ components:
         processed: The transfer has been successfully processed and the funds have been sent.
         failed: The transfer was rejected. Refer to the `statusReason` field for more details.
         blocked: The transfer is blocked. The reason is specified in extra fields as described in the next section.
-        incoming-settled: The transfer was returned by the receiving bank. The funds have been credited back to the debtor account.
+        returned: The transfer was returned by the receiving bank. The funds have been credited back to the debtor account.
       readOnly: true
       example: initiated
       x-speakeasy-unknown-values: allow
@@ -35704,6 +35709,7 @@ components:
         account holder name against the records held by the receiving bank.
       required:
         - resource
+        - mode
         - creditorBankAccount
         - verificationResult
         - createdAt
@@ -35715,6 +35721,8 @@ components:
             `business-account-payee-verification` for this endpoint.
           readOnly: true
           example: business-account-payee-verification
+        mode:
+          $ref: '#/components/schemas/mode'
         creditorBankAccount:
           $ref: '#/components/schemas/creditor-bank-account-response'
           description: The bank account details of the creditor that were verified.
@@ -38746,6 +38754,7 @@ components:
             - object
             - 'null'
           properties: {}
+          additionalProperties: true
           description: |-
             Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
             you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
@@ -41682,6 +41691,7 @@ components:
             - object
             - 'null'
           properties: {}
+          additionalProperties: true
           description: |-
             Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
             you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.

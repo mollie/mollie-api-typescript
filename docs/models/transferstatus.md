@@ -15,5 +15,5 @@ let value: TransferStatus = "initiated";
 ## Values
 
 ```typescript
-"requested" | "initiated" | "pending-review" | "processed" | "failed" | "blocked" | "incoming-settled" | Unrecognized<string>
+"requested" | "initiated" | "pending-review" | "processed" | "failed" | "blocked" | "returned" | Unrecognized<string>
 ```

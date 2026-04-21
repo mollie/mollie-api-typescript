@@ -48,14 +48,6 @@ import {
 import { Url, Url$inboundSchema } from "./url.js";
 
 /**
- * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
- *
- * @remarks
- * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
- */
-export type ListSalesInvoiceResponseMetadata = {};
-
-/**
  * The amount that is left to be paid.
  */
 export type ListSalesInvoiceResponseAmountDue = {
@@ -220,7 +212,7 @@ export type ListSalesInvoiceResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: ListSalesInvoiceResponseMetadata | null | undefined;
+  metadata?: { [k: string]: any } | null | undefined;
   /**
    * The payment term to be set on the invoice.
    */
@@ -323,23 +315,6 @@ export type ListSalesInvoiceResponse = {
    */
   links?: ListSalesInvoiceResponseLinks | undefined;
 };
-
-/** @internal */
-export const ListSalesInvoiceResponseMetadata$inboundSchema: z.ZodType<
-  ListSalesInvoiceResponseMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function listSalesInvoiceResponseMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSalesInvoiceResponseMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListSalesInvoiceResponseMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSalesInvoiceResponseMetadata' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListSalesInvoiceResponseAmountDue$inboundSchema: z.ZodType<
@@ -489,9 +464,7 @@ export const ListSalesInvoiceResponse$inboundSchema: z.ZodType<
   vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
   vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(
-    z.lazy(() => ListSalesInvoiceResponseMetadata$inboundSchema),
-  ).optional(),
+  metadata: z.nullable(z.record(z.any())).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
     .optional(),
   paymentDetails: SalesInvoicePaymentDetailsResponse$inboundSchema.optional(),
