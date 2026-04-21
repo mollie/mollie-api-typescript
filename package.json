@@ -1,6 +1,6 @@
 {
   "name": "mollie-api-typescript",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {
