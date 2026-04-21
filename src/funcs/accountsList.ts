@@ -121,7 +121,7 @@ async function $do(
   const path = options?.[URL_OVERRIDE]
     ? ""
     : pathToFunc(
-      "/business-accounts/accounts/{businessAccountId}/transactions",
+      "/v2/business-accounts/accounts/{businessAccountId}/transactions",
     )(pathParams);
 
   const query = options?.[URL_OVERRIDE]

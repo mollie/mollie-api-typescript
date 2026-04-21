@@ -20,31 +20,25 @@ specific category of applications.
 
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
-import { balancesList } from "mollie-api-typescript/funcs/balancesList.js";
+import { oauthGenerate } from "mollie-api-typescript/funcs/oauthGenerate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
-  testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
 async function run() {
-  const res = await balancesList(client, {
-    currency: "EUR",
-    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    limit: 50,
+  const res = await oauthGenerate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
     const { value: result } = res;
-    for await (const page of result) {
-    console.log(page);
-  }
+    console.log(result);
   } else {
-    console.log("balancesList failed:", res.error);
+    console.log("oauthGenerate failed:", res.error);
   }
 }
 

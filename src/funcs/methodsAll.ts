@@ -102,7 +102,7 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/methods/all")();
+  const path = pathToFunc("/v2/methods/all")();
 
   const query = queryJoin(
     encodeDeepObjectQuery({

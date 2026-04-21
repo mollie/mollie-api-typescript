@@ -102,7 +102,7 @@ async function $do(
     }),
   };
   const path = pathToFunc(
-    "/customers/{customerId}/subscriptions/{subscriptionId}",
+    "/v2/customers/{customerId}/subscriptions/{subscriptionId}",
   )(pathParams);
 
   const query = encodeFormQuery({

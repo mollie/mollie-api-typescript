@@ -3,24 +3,17 @@
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
   },
 });
 
 async function run() {
-  const result = await client.balances.list({
-    currency: "EUR",
-    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    limit: 50,
+  const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();

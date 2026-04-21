@@ -17,6 +17,7 @@ import { DelayedRouting } from "./delayedrouting.js";
 import { Invoices } from "./invoices.js";
 import { Mandates } from "./mandates.js";
 import { Methods } from "./methods.js";
+import { Oauth } from "./oauth.js";
 import { Onboarding } from "./onboarding.js";
 import { Organizations } from "./organizations.js";
 import { PaymentLinks } from "./paymentlinks.js";
@@ -37,6 +38,11 @@ import { WebhookEvents } from "./webhookevents.js";
 import { Webhooks } from "./webhooks.js";
 
 export class Client extends ClientSDK {
+  private _oauth?: Oauth;
+  get oauth(): Oauth {
+    return (this._oauth ??= new Oauth(this._options));
+  }
+
   private _balances?: Balances;
   get balances(): Balances {
     return (this._balances ??= new Balances(this._options));

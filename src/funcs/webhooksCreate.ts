@@ -94,7 +94,7 @@ async function $do(
   const payload = parsed.value;
   const body = encodeJSON("body", payload?.RequestBody, { explode: true });
 
-  const path = pathToFunc("/webhooks")();
+  const path = pathToFunc("/v2/webhooks")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

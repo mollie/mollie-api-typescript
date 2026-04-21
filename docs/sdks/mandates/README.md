@@ -19,7 +19,7 @@ mandates for cards, your customers need to perform a 'first payment' with their 
 
 ### Example Usage: create-mandate-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/customers/{customerId}/mandates" example="create-mandate-201-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/v2/customers/{customerId}/mandates" example="create-mandate-201-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -100,7 +100,7 @@ run();
 ```
 ### Example Usage: create-mandate-201-2
 
-<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/customers/{customerId}/mandates" example="create-mandate-201-2" -->
+<!-- UsageSnippet language="typescript" operationID="create-mandate" method="post" path="/v2/customers/{customerId}/mandates" example="create-mandate-201-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -208,7 +208,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-mandates" method="get" path="/customers/{customerId}/mandates" example="list-mandates-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-mandates" method="get" path="/v2/customers/{customerId}/mandates" example="list-mandates-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -307,7 +307,7 @@ account details, card details, or PayPal account details.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-mandate" method="get" path="/customers/{customerId}/mandates/{mandateId}" example="get-mandate-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-mandate" method="get" path="/v2/customers/{customerId}/mandates/{mandateId}" example="get-mandate-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -392,7 +392,7 @@ mandate, and all connected subscriptions will be canceled.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="revoke-mandate" method="delete" path="/customers/{customerId}/mandates/{mandateId}" -->
+<!-- UsageSnippet language="typescript" operationID="revoke-mandate" method="delete" path="/v2/customers/{customerId}/mandates/{mandateId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

@@ -36,7 +36,7 @@ Your customer will be charged €10 on the last day of each month, starting in A
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="create-subscription" method="post" path="/customers/{customerId}/subscriptions" example="get-subscription-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-subscription" method="post" path="/v2/customers/{customerId}/subscriptions" example="get-subscription-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -162,7 +162,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-subscriptions" method="get" path="/customers/{customerId}/subscriptions" example="list-subscriptions-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-subscriptions" method="get" path="/v2/customers/{customerId}/subscriptions" example="list-subscriptions-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -254,7 +254,7 @@ Retrieve a single subscription by its ID and the ID of its parent customer.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-subscription" method="get" path="/customers/{customerId}/subscriptions/{subscriptionId}" example="get-subscription-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-subscription" method="get" path="/v2/customers/{customerId}/subscriptions/{subscriptionId}" example="get-subscription-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -342,7 +342,7 @@ For an in-depth explanation of each parameter, refer to the [Create subscription
 
 ### Example Usage: update-subscription-200-1
 
-<!-- UsageSnippet language="typescript" operationID="update-subscription" method="patch" path="/customers/{customerId}/subscriptions/{subscriptionId}" example="update-subscription-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="update-subscription" method="patch" path="/v2/customers/{customerId}/subscriptions/{subscriptionId}" example="update-subscription-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -425,7 +425,7 @@ run();
 ```
 ### Example Usage: update-subscription-200-2
 
-<!-- UsageSnippet language="typescript" operationID="update-subscription" method="patch" path="/customers/{customerId}/subscriptions/{subscriptionId}" example="update-subscription-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="update-subscription" method="patch" path="/v2/customers/{customerId}/subscriptions/{subscriptionId}" example="update-subscription-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -533,7 +533,7 @@ Cancel an existing subscription. Canceling a subscription has no effect on the m
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="cancel-subscription" method="delete" path="/customers/{customerId}/subscriptions/{subscriptionId}" example="cancel-subscription-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="cancel-subscription" method="delete" path="/v2/customers/{customerId}/subscriptions/{subscriptionId}" example="cancel-subscription-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -623,7 +623,7 @@ The results are paginated.
 
 ### Example Usage: list-payments-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/subscriptions" example="list-payments-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/v2/subscriptions" example="list-payments-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -686,7 +686,7 @@ run();
 ```
 ### Example Usage: list-payments-200-2
 
-<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/subscriptions" example="list-payments-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/v2/subscriptions" example="list-payments-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -749,7 +749,7 @@ run();
 ```
 ### Example Usage: list-payments-200-3
 
-<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/subscriptions" example="list-payments-200-3" -->
+<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/v2/subscriptions" example="list-payments-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -812,7 +812,7 @@ run();
 ```
 ### Example Usage: list-subscriptions-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/subscriptions" example="list-subscriptions-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-all-subscriptions" method="get" path="/v2/subscriptions" example="list-subscriptions-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -904,7 +904,7 @@ The results are paginated.
 
 ### Example Usage: list-payments-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-subscription-payments" method="get" path="/customers/{customerId}/subscriptions/{subscriptionId}/payments" example="list-payments-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-subscription-payments" method="get" path="/v2/customers/{customerId}/subscriptions/{subscriptionId}/payments" example="list-payments-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -975,7 +975,7 @@ run();
 ```
 ### Example Usage: list-payments-200-2
 
-<!-- UsageSnippet language="typescript" operationID="list-subscription-payments" method="get" path="/customers/{customerId}/subscriptions/{subscriptionId}/payments" example="list-payments-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="list-subscription-payments" method="get" path="/v2/customers/{customerId}/subscriptions/{subscriptionId}/payments" example="list-payments-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -1046,7 +1046,7 @@ run();
 ```
 ### Example Usage: list-payments-200-3
 
-<!-- UsageSnippet language="typescript" operationID="list-subscription-payments" method="get" path="/customers/{customerId}/subscriptions/{subscriptionId}/payments" example="list-payments-200-3" -->
+<!-- UsageSnippet language="typescript" operationID="list-subscription-payments" method="get" path="/v2/customers/{customerId}/subscriptions/{subscriptionId}/payments" example="list-payments-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

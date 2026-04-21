@@ -17,7 +17,7 @@ Create a session to start a checkout process with Mollie Components.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="create-session" method="post" path="/sessions" example="create-session-201-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-session" method="post" path="/v2/sessions" example="create-session-201-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -187,7 +187,7 @@ Retrieve a session to view its details and status to inform your customers about
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-session" method="get" path="/sessions/{sessionId}" example="get-session-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-session" method="get" path="/v2/sessions/{sessionId}" example="get-session-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

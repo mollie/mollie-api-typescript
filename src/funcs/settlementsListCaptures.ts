@@ -117,7 +117,7 @@ async function $do(
   };
   const path = options?.[URL_OVERRIDE]
     ? ""
-    : pathToFunc("/settlements/{settlementId}/captures")(pathParams);
+    : pathToFunc("/v2/settlements/{settlementId}/captures")(pathParams);
 
   const query = options?.[URL_OVERRIDE]
     ? options[URL_OVERRIDE].search.substring(1)

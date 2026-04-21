@@ -99,7 +99,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/profiles/{profileId}")(pathParams);
+  const path = pathToFunc("/v2/profiles/{profileId}")(pathParams);
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

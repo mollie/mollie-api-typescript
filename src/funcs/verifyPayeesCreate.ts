@@ -117,7 +117,7 @@ async function $do(
     explode: true,
   });
 
-  const path = pathToFunc("/business-accounts/payee-verifications")();
+  const path = pathToFunc("/v2/business-accounts/payee-verifications")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

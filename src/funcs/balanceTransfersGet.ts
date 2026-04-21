@@ -101,7 +101,7 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-  const path = pathToFunc("/connect/balance-transfers/{balanceTransferId}")(
+  const path = pathToFunc("/v2/connect/balance-transfers/{balanceTransferId}")(
     pathParams,
   );
 

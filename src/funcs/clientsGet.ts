@@ -98,7 +98,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/clients/{organizationId}")(pathParams);
+  const path = pathToFunc("/v2/clients/{organizationId}")(pathParams);
 
   const query = encodeFormQuery({
     "embed": payload.embed,

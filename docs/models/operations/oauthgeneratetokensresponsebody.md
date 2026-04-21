@@ -1,0 +1,21 @@
+# OauthGenerateTokensResponseBody
+
+The newly generated access token and refresh token.
+
+## Example Usage
+
+```typescript
+import { OauthGenerateTokensResponseBody } from "mollie-api-typescript/models/operations";
+
+let value: OauthGenerateTokensResponseBody = {};
+```
+
+## Fields
+
+| Field                                                                                                                                 | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessToken`                                                                                                                         | *string*                                                                                                                              | :heavy_minus_sign:                                                                                                                    | The app access token, with which you will be able to access the Mollie API on the merchant's behalf.                                  |
+| `refreshToken`                                                                                                                        | *string*                                                                                                                              | :heavy_minus_sign:                                                                                                                    | The refresh token, with which you will be able to retrieve new app access tokens on this endpoint. The<br/>refresh token does not expire. |
+| `expiresIn`                                                                                                                           | *number*                                                                                                                              | :heavy_minus_sign:                                                                                                                    | The number of seconds left before the app access token expires. Be sure to renew your app access token<br/>before this reaches zero.  |
+| `tokenType`                                                                                                                           | *string*                                                                                                                              | :heavy_minus_sign:                                                                                                                    | As per OAuth standards, the provided app access token can only be used with `bearer` authentication.<br/><br/>Possible values: `bearer` |
+| `scope`                                                                                                                               | *string*                                                                                                                              | :heavy_minus_sign:                                                                                                                    | A space-separated list of [permissions](https://docs.mollie.com/docs/permissions).                                                    |
