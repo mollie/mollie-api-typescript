@@ -11,6 +11,7 @@ import {
   CreditorBankAccountResponse$inboundSchema,
 } from "./creditorbankaccountresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
   VerificationResultEnum,
   VerificationResultEnum$inboundSchema,
@@ -41,6 +42,10 @@ export type VerificationOfPayeeResponse = {
    * `business-account-payee-verification` for this endpoint.
    */
   resource: string;
+  /**
+   * Whether this entity was created in live mode or in test mode.
+   */
+  mode: Mode;
   /**
    * The bank account details of the creditor (recipient) for Verification of Payee.
    */
@@ -86,6 +91,7 @@ export const VerificationOfPayeeResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource: z.string(),
+  mode: Mode$inboundSchema,
   creditorBankAccount: CreditorBankAccountResponse$inboundSchema,
   verificationResult: z.lazy(() =>
     VerificationOfPayeeResponseVerificationResult$inboundSchema

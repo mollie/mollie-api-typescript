@@ -46,14 +46,6 @@ import {
   SalesInvoiceVatScheme$outboundSchema,
 } from "./salesinvoicevatscheme.js";
 
-/**
- * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
- *
- * @remarks
- * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
- */
-export type SalesInvoiceRequestMetadata = {};
-
 export type SalesInvoiceRequest = {
   /**
    * Whether to create the entity in test mode or live mode.
@@ -114,7 +106,7 @@ export type SalesInvoiceRequest = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: SalesInvoiceRequestMetadata | null | undefined;
+  metadata?: { [k: string]: any } | null | undefined;
   /**
    * The payment term to be set on the invoice.
    */
@@ -168,26 +160,6 @@ export type SalesInvoiceRequest = {
 };
 
 /** @internal */
-export type SalesInvoiceRequestMetadata$Outbound = {};
-
-/** @internal */
-export const SalesInvoiceRequestMetadata$outboundSchema: z.ZodType<
-  SalesInvoiceRequestMetadata$Outbound,
-  z.ZodTypeDef,
-  SalesInvoiceRequestMetadata
-> = z.object({});
-
-export function salesInvoiceRequestMetadataToJSON(
-  salesInvoiceRequestMetadata: SalesInvoiceRequestMetadata,
-): string {
-  return JSON.stringify(
-    SalesInvoiceRequestMetadata$outboundSchema.parse(
-      salesInvoiceRequestMetadata,
-    ),
-  );
-}
-
-/** @internal */
 export type SalesInvoiceRequest$Outbound = {
   testmode?: boolean | null | undefined;
   profileId?: string | null | undefined;
@@ -195,7 +167,7 @@ export type SalesInvoiceRequest$Outbound = {
   vatScheme?: string | undefined;
   vatMode?: string | undefined;
   memo?: string | null | undefined;
-  metadata?: SalesInvoiceRequestMetadata$Outbound | null | undefined;
+  metadata?: { [k: string]: any } | null | undefined;
   paymentTerm?: string | null | undefined;
   paymentDetails?: SalesInvoicePaymentDetails$Outbound | undefined;
   emailDetails?: SalesInvoiceEmailDetails$Outbound | null | undefined;
@@ -220,8 +192,7 @@ export const SalesInvoiceRequest$outboundSchema: z.ZodType<
   vatScheme: SalesInvoiceVatScheme$outboundSchema.optional(),
   vatMode: SalesInvoiceVatMode$outboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(z.lazy(() => SalesInvoiceRequestMetadata$outboundSchema))
-    .optional(),
+  metadata: z.nullable(z.record(z.any())).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTerm$outboundSchema).optional(),
   paymentDetails: SalesInvoicePaymentDetails$outboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),

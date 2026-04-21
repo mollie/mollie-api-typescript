@@ -48,14 +48,6 @@ import {
 import { Url, Url$inboundSchema } from "./url.js";
 
 /**
- * Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
- *
- * @remarks
- * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
- */
-export type SalesInvoiceResponseMetadata = {};
-
-/**
  * The amount that is left to be paid.
  */
 export type SalesInvoiceResponseAmountDue = {
@@ -224,7 +216,7 @@ export type SalesInvoiceResponse = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
-  metadata?: SalesInvoiceResponseMetadata | null | undefined;
+  metadata?: { [k: string]: any } | null | undefined;
   /**
    * The payment term to be set on the invoice.
    */
@@ -327,23 +319,6 @@ export type SalesInvoiceResponse = {
    */
   links?: SalesInvoiceResponseLinks | undefined;
 };
-
-/** @internal */
-export const SalesInvoiceResponseMetadata$inboundSchema: z.ZodType<
-  SalesInvoiceResponseMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function salesInvoiceResponseMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<SalesInvoiceResponseMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SalesInvoiceResponseMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SalesInvoiceResponseMetadata' from JSON`,
-  );
-}
 
 /** @internal */
 export const SalesInvoiceResponseAmountDue$inboundSchema: z.ZodType<
@@ -493,8 +468,7 @@ export const SalesInvoiceResponse$inboundSchema: z.ZodType<
   vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
   vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(z.lazy(() => SalesInvoiceResponseMetadata$inboundSchema))
-    .optional(),
+  metadata: z.nullable(z.record(z.any())).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
     .optional(),
   paymentDetails: SalesInvoicePaymentDetailsResponse$inboundSchema.optional(),
