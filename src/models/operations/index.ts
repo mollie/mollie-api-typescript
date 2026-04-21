@@ -96,6 +96,8 @@ export * from "./listterminals.js";
 export * from "./listunmatchedcredittransfers.js";
 export * from "./listwebhooks.js";
 export * from "./matchunmatchedcredittransfer.js";
+export * from "./oauthgeneratetokens.js";
+export * from "./oauthrevoketokens.js";
 export * from "./paymentcreateroute.js";
 export * from "./paymentgetroute.js";
 export * from "./paymentlistroutes.js";

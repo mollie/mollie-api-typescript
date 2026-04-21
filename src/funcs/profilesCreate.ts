@@ -98,7 +98,7 @@ async function $do(
     explode: true,
   });
 
-  const path = pathToFunc("/profiles")();
+  const path = pathToFunc("/v2/profiles")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

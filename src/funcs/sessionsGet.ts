@@ -98,7 +98,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/sessions/{sessionId}")(pathParams);
+  const path = pathToFunc("/v2/sessions/{sessionId}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",

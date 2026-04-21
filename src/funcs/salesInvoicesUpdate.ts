@@ -103,7 +103,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/sales-invoices/{salesInvoiceId}")(pathParams);
+  const path = pathToFunc("/v2/sales-invoices/{salesInvoiceId}")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

@@ -105,7 +105,7 @@ async function $do(
     explode: true,
   });
 
-  const path = pathToFunc("/payments")();
+  const path = pathToFunc("/v2/payments")();
 
   const query = encodeFormQuery({
     "include": payload?.include,

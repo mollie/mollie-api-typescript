@@ -20,7 +20,7 @@ With the Sales Invoice API you can generate sales invoices to send to your custo
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="create-sales-invoice" method="post" path="/sales-invoices" -->
+<!-- UsageSnippet language="typescript" operationID="create-sales-invoice" method="post" path="/v2/sales-invoices" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -192,7 +192,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-sales-invoices" method="get" path="/sales-invoices" -->
+<!-- UsageSnippet language="typescript" operationID="list-sales-invoices" method="get" path="/v2/sales-invoices" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -284,7 +284,7 @@ Retrieve a single sales invoice by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-sales-invoice" method="get" path="/sales-invoices/{salesInvoiceId}" -->
+<!-- UsageSnippet language="typescript" operationID="get-sales-invoice" method="get" path="/v2/sales-invoices/{salesInvoiceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -372,7 +372,7 @@ respectively).
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="update-sales-invoice" method="patch" path="/sales-invoices/{salesInvoiceId}" -->
+<!-- UsageSnippet language="typescript" operationID="update-sales-invoice" method="patch" path="/v2/sales-invoices/{salesInvoiceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -563,7 +563,7 @@ Sales invoices which are in status `draft` can be deleted. For all other statuse
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete-sales-invoice" method="delete" path="/sales-invoices/{salesInvoiceId}" -->
+<!-- UsageSnippet language="typescript" operationID="delete-sales-invoice" method="delete" path="/v2/sales-invoices/{salesInvoiceId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

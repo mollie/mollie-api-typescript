@@ -21,7 +21,7 @@ Once registered, customers will also appear in your Mollie dashboard.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="create-customer" method="post" path="/customers" example="create-customer-201-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer" method="post" path="/v2/customers" example="create-customer-201-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -113,7 +113,7 @@ The results are paginated.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="list-customers" method="get" path="/customers" example="list-customers" -->
+<!-- UsageSnippet language="typescript" operationID="list-customers" method="get" path="/v2/customers" example="list-customers" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -203,7 +203,7 @@ Retrieve a single customer by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get-customer" method="get" path="/customers/{customerId}" example="get-customer-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-customer" method="get" path="/v2/customers/{customerId}" example="get-customer-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -289,7 +289,7 @@ For an in-depth explanation of each parameter, refer to the [Create customer](cr
 
 ### Example Usage: update-customer-200-1
 
-<!-- UsageSnippet language="typescript" operationID="update-customer" method="patch" path="/customers/{customerId}" example="update-customer-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="update-customer" method="patch" path="/v2/customers/{customerId}" example="update-customer-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -356,7 +356,7 @@ run();
 ```
 ### Example Usage: update-customer-200-2
 
-<!-- UsageSnippet language="typescript" operationID="update-customer" method="patch" path="/customers/{customerId}" example="update-customer-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="update-customer" method="patch" path="/v2/customers/{customerId}" example="update-customer-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -448,7 +448,7 @@ Delete a customer. All mandates and subscriptions created for this customer will
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete-customer" method="delete" path="/customers/{customerId}" -->
+<!-- UsageSnippet language="typescript" operationID="delete-customer" method="delete" path="/v2/customers/{customerId}" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -544,7 +544,7 @@ parameter predefined.
 
 ### Example Usage: create-payment-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -869,7 +869,7 @@ run();
 ```
 ### Example Usage: create-payment-201-10
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-10" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-10" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -1194,7 +1194,7 @@ run();
 ```
 ### Example Usage: create-payment-201-11
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-11" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-11" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -1519,7 +1519,7 @@ run();
 ```
 ### Example Usage: create-payment-201-12
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-12" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-12" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -1844,7 +1844,7 @@ run();
 ```
 ### Example Usage: create-payment-201-13
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-13" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-13" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -2169,7 +2169,7 @@ run();
 ```
 ### Example Usage: create-payment-201-2
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-2" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -2494,7 +2494,7 @@ run();
 ```
 ### Example Usage: create-payment-201-3
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-3" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -2819,7 +2819,7 @@ run();
 ```
 ### Example Usage: create-payment-201-4
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-4" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-4" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -3144,7 +3144,7 @@ run();
 ```
 ### Example Usage: create-payment-201-5
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-5" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-5" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -3469,7 +3469,7 @@ run();
 ```
 ### Example Usage: create-payment-201-6
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-6" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-6" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -3794,7 +3794,7 @@ run();
 ```
 ### Example Usage: create-payment-201-7
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-7" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-7" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -4119,7 +4119,7 @@ run();
 ```
 ### Example Usage: create-payment-201-8
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-8" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-8" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -4444,7 +4444,7 @@ run();
 ```
 ### Example Usage: create-payment-201-9
 
-<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/customers/{customerId}/payments" example="create-payment-201-9" -->
+<!-- UsageSnippet language="typescript" operationID="create-customer-payment" method="post" path="/v2/customers/{customerId}/payments" example="create-payment-201-9" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 import { RFCDate } from "mollie-api-typescript/types";
@@ -4795,7 +4795,7 @@ Retrieve all payments linked to the customer.
 
 ### Example Usage: list-payments-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-customer-payments" method="get" path="/customers/{customerId}/payments" example="list-payments-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-customer-payments" method="get" path="/v2/customers/{customerId}/payments" example="list-payments-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4864,7 +4864,7 @@ run();
 ```
 ### Example Usage: list-payments-200-2
 
-<!-- UsageSnippet language="typescript" operationID="list-customer-payments" method="get" path="/customers/{customerId}/payments" example="list-payments-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="list-customer-payments" method="get" path="/v2/customers/{customerId}/payments" example="list-payments-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -4933,7 +4933,7 @@ run();
 ```
 ### Example Usage: list-payments-200-3
 
-<!-- UsageSnippet language="typescript" operationID="list-customer-payments" method="get" path="/customers/{customerId}/payments" example="list-payments-200-3" -->
+<!-- UsageSnippet language="typescript" operationID="list-customer-payments" method="get" path="/v2/customers/{customerId}/payments" example="list-payments-200-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

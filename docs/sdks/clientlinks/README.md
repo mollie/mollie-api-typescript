@@ -64,7 +64,7 @@ to the URL.
 
 ### Example Usage: create-client-link-201-1
 
-<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/client-links" example="create-client-link-201-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/v2/client-links" example="create-client-link-201-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -157,7 +157,7 @@ run();
 ```
 ### Example Usage: create-client-link-201-2
 
-<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/client-links" example="create-client-link-201-2" -->
+<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/v2/client-links" example="create-client-link-201-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -250,7 +250,7 @@ run();
 ```
 ### Example Usage: create-client-link-201-3
 
-<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/client-links" example="create-client-link-201-3" -->
+<!-- UsageSnippet language="typescript" operationID="create-client-link" method="post" path="/v2/client-links" example="create-client-link-201-3" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

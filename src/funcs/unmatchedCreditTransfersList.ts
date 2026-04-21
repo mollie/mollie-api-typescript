@@ -114,7 +114,7 @@ async function $do(
 
   const path = options?.[URL_OVERRIDE]
     ? ""
-    : pathToFunc("/unmatched-credit-transfers")();
+    : pathToFunc("/v2/unmatched-credit-transfers")();
 
   const query = options?.[URL_OVERRIDE]
     ? options[URL_OVERRIDE].search.substring(1)

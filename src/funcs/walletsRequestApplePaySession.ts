@@ -111,7 +111,7 @@ async function $do(
   const payload = parsed.value;
   const body = encodeJSON("body", payload?.RequestBody, { explode: true });
 
-  const path = pathToFunc("/wallets/applepay/sessions")();
+  const path = pathToFunc("/v2/wallets/applepay/sessions")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

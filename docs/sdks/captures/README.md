@@ -21,7 +21,7 @@ having collected the customer's authorization.
 
 ### Example Usage: get-capture-200-1
 
-<!-- UsageSnippet language="typescript" operationID="create-capture" method="post" path="/payments/{paymentId}/captures" example="get-capture-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="create-capture" method="post" path="/v2/payments/{paymentId}/captures" example="get-capture-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -90,7 +90,7 @@ run();
 ```
 ### Example Usage: get-capture-200-2
 
-<!-- UsageSnippet language="typescript" operationID="create-capture" method="post" path="/payments/{paymentId}/captures" example="get-capture-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="create-capture" method="post" path="/v2/payments/{paymentId}/captures" example="get-capture-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -186,7 +186,7 @@ The results are paginated.
 
 ### Example Usage: list-captures-200-1
 
-<!-- UsageSnippet language="typescript" operationID="list-captures" method="get" path="/payments/{paymentId}/captures" example="list-captures-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="list-captures" method="get" path="/v2/payments/{paymentId}/captures" example="list-captures-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -253,7 +253,7 @@ run();
 ```
 ### Example Usage: list-captures-200-2
 
-<!-- UsageSnippet language="typescript" operationID="list-captures" method="get" path="/payments/{paymentId}/captures" example="list-captures-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="list-captures" method="get" path="/v2/payments/{paymentId}/captures" example="list-captures-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -346,7 +346,7 @@ payment.
 
 ### Example Usage: get-capture-200-1
 
-<!-- UsageSnippet language="typescript" operationID="get-capture" method="get" path="/payments/{paymentId}/captures/{captureId}" example="get-capture-200-1" -->
+<!-- UsageSnippet language="typescript" operationID="get-capture" method="get" path="/v2/payments/{paymentId}/captures/{captureId}" example="get-capture-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
@@ -407,7 +407,7 @@ run();
 ```
 ### Example Usage: get-capture-200-2
 
-<!-- UsageSnippet language="typescript" operationID="get-capture" method="get" path="/payments/{paymentId}/captures/{captureId}" example="get-capture-200-2" -->
+<!-- UsageSnippet language="typescript" operationID="get-capture" method="get" path="/v2/payments/{paymentId}/captures/{captureId}" example="get-capture-200-2" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 
