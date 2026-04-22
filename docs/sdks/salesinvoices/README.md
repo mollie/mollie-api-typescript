@@ -41,10 +41,6 @@ async function run() {
       vatMode: "exclusive",
       memo: "This is a memo!",
       paymentTerm: "30 days",
-      paymentDetails: {
-        source: "payment-link",
-        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-      },
       emailDetails: {
         subject: "Your invoice is available",
         body: "Please find your invoice enclosed.",
@@ -76,6 +72,10 @@ async function run() {
         value: "10.00",
       },
       isEInvoice: false,
+      paymentDetails: {
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+      },
     },
   });
 
@@ -112,10 +112,6 @@ async function run() {
       vatMode: "exclusive",
       memo: "This is a memo!",
       paymentTerm: "30 days",
-      paymentDetails: {
-        source: "payment-link",
-        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-      },
       emailDetails: {
         subject: "Your invoice is available",
         body: "Please find your invoice enclosed.",
@@ -147,6 +143,10 @@ async function run() {
         value: "10.00",
       },
       isEInvoice: false,
+      paymentDetails: {
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+      },
     },
   });
   if (res.ok) {

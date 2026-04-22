@@ -21,10 +21,6 @@ let value: ListSalesInvoicesResponse = {
           vatMode: "exclusive",
           memo: "This is a memo!",
           paymentTerm: "30 days",
-          paymentDetails: {
-            source: "payment-link",
-            sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-          },
           emailDetails: null,
           customerId: "cst_8wmqcHMN4U",
           mandateId: "mdt_pWUnw6pkBN",
@@ -108,6 +104,10 @@ let value: ListSalesInvoicesResponse = {
               href: "https://...",
               type: "application/hal+json",
             },
+          },
+          paymentDetails: {
+            source: "payment-link",
+            sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
           },
         },
       ],

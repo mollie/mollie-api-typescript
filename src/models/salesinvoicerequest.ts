@@ -111,7 +111,6 @@ export type SalesInvoiceRequest = {
    * The payment term to be set on the invoice.
    */
   paymentTerm?: SalesInvoicePaymentTerm | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetails | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
    * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
@@ -157,6 +156,7 @@ export type SalesInvoiceRequest = {
    * the recipient is also located in one of these countries.
    */
   isEInvoice?: boolean | undefined;
+  paymentDetails?: SalesInvoicePaymentDetails | undefined;
 };
 
 /** @internal */
@@ -169,7 +169,6 @@ export type SalesInvoiceRequest$Outbound = {
   memo?: string | null | undefined;
   metadata?: { [k: string]: any } | null | undefined;
   paymentTerm?: string | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetails$Outbound | undefined;
   emailDetails?: SalesInvoiceEmailDetails$Outbound | null | undefined;
   customerId?: string | undefined;
   mandateId?: string | undefined;
@@ -178,6 +177,7 @@ export type SalesInvoiceRequest$Outbound = {
   lines: Array<SalesInvoiceLineItem$Outbound> | null;
   discount?: SalesInvoiceDiscount$Outbound | null | undefined;
   isEInvoice?: boolean | undefined;
+  paymentDetails?: SalesInvoicePaymentDetails$Outbound | undefined;
 };
 
 /** @internal */
@@ -194,7 +194,6 @@ export const SalesInvoiceRequest$outboundSchema: z.ZodType<
   memo: z.nullable(z.string()).optional(),
   metadata: z.nullable(z.record(z.any())).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTerm$outboundSchema).optional(),
-  paymentDetails: SalesInvoicePaymentDetails$outboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),
   customerId: z.string().optional(),
   mandateId: z.string().optional(),
@@ -203,6 +202,7 @@ export const SalesInvoiceRequest$outboundSchema: z.ZodType<
   lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)),
   discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
   isEInvoice: z.boolean().optional(),
+  paymentDetails: SalesInvoicePaymentDetails$outboundSchema.optional(),
 });
 
 export function salesInvoiceRequestToJSON(

@@ -221,7 +221,6 @@ export type SalesInvoiceResponse = {
    * The payment term to be set on the invoice.
    */
   paymentTerm?: SalesInvoicePaymentTermResponse | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetailsResponse | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
    * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
@@ -318,6 +317,7 @@ export type SalesInvoiceResponse = {
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links?: SalesInvoiceResponseLinks | undefined;
+  paymentDetails?: SalesInvoicePaymentDetailsResponse | undefined;
 };
 
 /** @internal */
@@ -471,7 +471,6 @@ export const SalesInvoiceResponse$inboundSchema: z.ZodType<
   metadata: z.nullable(z.record(z.any())).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
     .optional(),
-  paymentDetails: SalesInvoicePaymentDetailsResponse$inboundSchema.optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
   customerId: z.string().optional(),
   mandateId: z.string().optional(),
@@ -497,6 +496,7 @@ export const SalesInvoiceResponse$inboundSchema: z.ZodType<
   paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => SalesInvoiceResponseLinks$inboundSchema).optional(),
+  paymentDetails: SalesInvoicePaymentDetailsResponse$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
