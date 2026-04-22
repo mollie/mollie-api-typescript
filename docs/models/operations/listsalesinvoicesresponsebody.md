@@ -107,10 +107,12 @@ let value: ListSalesInvoicesResponseBody = {
             type: "application/hal+json",
           },
         },
-        paymentDetails: {
-          source: "payment-link",
-          sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-        },
+        paymentDetails: [
+          {
+            source: "payment-link",
+            sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+          },
+        ],
       },
     ],
   },

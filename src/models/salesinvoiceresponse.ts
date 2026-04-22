@@ -317,7 +317,13 @@ export type SalesInvoiceResponse = {
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links?: SalesInvoiceResponseLinks | undefined;
-  paymentDetails?: SalesInvoicePaymentDetailsResponse | undefined;
+  /**
+   * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+   *
+   * @remarks
+   * provided details. Required for `paid` status.
+   */
+  paymentDetails?: Array<SalesInvoicePaymentDetailsResponse> | undefined;
 };
 
 /** @internal */
@@ -496,7 +502,8 @@ export const SalesInvoiceResponse$inboundSchema: z.ZodType<
   paidAt: z.nullable(z.string()).optional(),
   dueAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => SalesInvoiceResponseLinks$inboundSchema).optional(),
-  paymentDetails: SalesInvoicePaymentDetailsResponse$inboundSchema.optional(),
+  paymentDetails: z.array(SalesInvoicePaymentDetailsResponse$inboundSchema)
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
