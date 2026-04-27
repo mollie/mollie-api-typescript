@@ -97,6 +97,12 @@ const client = new Client({
 async function run() {
   const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   });
 
   console.log(result);
@@ -133,6 +139,12 @@ const client = new Client({
 async function run() {
   const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   });
 
   console.log(result);
@@ -684,6 +696,12 @@ const client = new Client({
 async function run() {
   const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   }, {
     retries: {
       strategy: "backoff",
@@ -727,6 +745,12 @@ const client = new Client({
 async function run() {
   const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   });
 
   console.log(result);
@@ -931,6 +955,12 @@ const client = new Client({
 async function run() {
   const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   }, {
     serverURL: "https://api.mollie.com/oauth2",
   });

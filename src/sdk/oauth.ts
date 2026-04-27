@@ -22,7 +22,7 @@ export class Oauth extends ClientSDK {
   async generate(
     request?: operations.OauthGenerateTokensRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Uint8Array> {
+  ): Promise<operations.OauthGenerateTokensResponse> {
     return unwrapAsync(oauthGenerate(
       this,
       request,

@@ -118,71 +118,71 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - grant_type
               properties:
                 grant_type:
-                  type: string
+                  $ref: '#/components/schemas/oauth-grant-type'
                   description: |-
                     If you wish to exchange your authorization code for an app access token, use grant type
                     `authorization_code`. If you wish to renew your app access token with your refresh token, use grant type
                     `refresh_token`.
-
-                    Possible values: `authorization_code` `refresh_token`
                 code:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
                   description: |-
                     The authorization code you received when creating the authorization. Only use this field when using
                     grant type `authorization_code`.
+                  example: auth_...
                 refresh_token:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
                   description: |-
                     The refresh token you received when creating the authorization. Only use this field when using grant
                     type `refresh_token`.
+                  example: refresh_...
                 redirect_uri:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
                   description: |-
                     The URL the merchant is sent back to once the request has been authorized. It must match the URL you set
                     when registering your app.
 
                     For consecutive refresh token requests, this parameter is required only if the initial authorization
                     code grant request also contained a `redirect_uri`.
-              required:
-                - grant_type
+                  example: https://example.com/redirect
       responses:
         '200':
           description: The newly generated access token and refresh token.
           content:
-            text/html:
+            application/hal+json:
               schema:
                 type: object
                 properties:
                   access_token:
                     type: string
                     description: The app access token, with which you will be able to access the Mollie API on the merchant's behalf.
+                    example: access_...
                   refresh_token:
                     type: string
                     description: |-
                       The refresh token, with which you will be able to retrieve new app access tokens on this endpoint. The
                       refresh token does not expire.
+                    example: refresh_...
                   expires_in:
                     type: integer
                     description: |-
                       The number of seconds left before the app access token expires. Be sure to renew your app access token
                       before this reaches zero.
+                    example: 3600
                   token_type:
                     type: string
                     description: |-
                       As per OAuth standards, the provided app access token can only be used with `bearer` authentication.
 
                       Possible values: `bearer`
+                    example: bearer
                   scope:
                     type: string
                     description: A space-separated list of [permissions](https://docs.mollie.com/docs/permissions).
+                    example: payments.read
               examples:
                 oauth-generate-tokens:
                   summary: The newly generated access token and refresh token
@@ -256,19 +256,17 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
-                token_type_hint:
-                  type: string
-                  description: |-
-                    The type of token you want to revoke.
-
-                    Possible values: `access_token` `refresh_token`
-                token:
-                  type: string
-                  description: The token you want to revoke.
               required:
                 - token_type_hint
                 - token
+              properties:
+                token_type_hint:
+                  $ref: '#/components/schemas/oauth-token-type-hint'
+                  description: The type of token you want to revoke.
+                token:
+                  type: string
+                  description: The token you want to revoke.
+                  example: access_...
       responses:
         '204':
           description: An empty response.
@@ -27029,310 +27027,19 @@ components:
           authorizationUrl: https://my.mollie.com/oauth2/authorize
           tokenUrl: https://api.mollie.com/oauth2/tokens
           scopes: {}
-  parameters:
-    list-from:
-      name: from
-      description: |-
-        Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
-        result set.
-      in: query
-      schema:
-        type:
-          - string
-          - 'null'
-    list-limit:
-      name: limit
-      description: The maximum number of items to return. Defaults to 50 items.
-      in: query
-      schema:
-        type:
-          - integer
-          - 'null'
-        minimum: 1
-        maximum: 250
-        example: 50
-    oauth-testmode:
-      name: testmode
-      description: |-
-        You can enable test mode by setting the `testmode` query parameter to `true`.
-
-        Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-      in: query
-      schema:
-        type: boolean
-        example: false
-    parent-balance-id:
-      name: balanceId
-      description: Provide the ID of the related balance.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/balanceToken'
-    parent-settlement-id:
-      name: settlementId
-      description: Provide the ID of the related settlement.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/settlementToken'
-    list-sort:
-      name: sort
-      description: |-
-        Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
-        newest to oldest.
-      in: query
-      schema:
-        $ref: '#/components/schemas/sorting'
-    profile-id:
-      name: profileId
-      description: |-
-        The identifier referring to the [profile](get-profile) you wish to
-        retrieve the resources for.
-
-        Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent. For
-        organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
-      in: query
-      schema:
-        $ref: '#/components/schemas/profileToken'
-    embed:
-      name: embed
-      description: |-
-        This endpoint allows embedding related API items by appending the following values via the `embed` query string
-        parameter.
-      in: query
-      schema:
-        type:
-          - string
-          - 'null'
-    testmode:
-      name: testmode
-      description: |-
-        Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-        parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-        setting the `testmode` query parameter to `true`.
-
-        Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-      in: query
-      schema:
-        type: boolean
-        example: false
-    parent-invoice-id:
-      name: invoiceId
-      description: Provide the ID of the related invoice.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/invoiceToken'
-    parent-permission-id:
-      name: permissionId
-      description: Provide the ID of the related permission.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/permissionToken'
-    parent-organization-id:
-      name: organizationId
-      description: Provide the ID of the related organization.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/organizationToken'
-    parent-profile-id:
-      name: profileId
-      description: Provide the ID of the related profile.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/profileToken'
-    parent-webhook-id:
-      name: webhookId
-      description: Provide the ID of the related webhook.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/webhookToken'
-    parent-webhook-event-id:
-      name: webhookEventId
-      description: Provide the ID of the related webhook event.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/webhookEventToken'
-    parent-connect-balance-transfer-id:
-      name: balanceTransferId
-      description: Provide the ID of the related balance transfer.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/connectBalanceTransferToken'
-    include:
-      name: include
-      description: This endpoint allows you to include additional information via the `include` query string parameter.
-      in: query
-      schema:
-        type:
-          - string
-          - 'null'
-    parent-payment-id:
-      name: paymentId
-      description: Provide the ID of the related payment.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/paymentToken'
-    parent-unmatched-credit-transfer-id:
-      name: unmatchedCreditTransferId
-      description: Provide the ID of the related unmatched credit transfer.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/unmatchedCreditTransferToken'
-    parent-session-id:
-      name: sessionId
-      description: Provide the ID of the related session.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/sessionToken'
-    locale:
-      name: locale
-      description: Response language
-      in: query
-      schema:
-        type: string
-        $ref: '#/components/schemas/locale'
-    parent-method-id:
-      name: methodId
-      description: Provide the ID of the related payment method.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/method'
-    parent-profile-and-me-id:
-      name: profileId
-      description: Provide the ID of the related profile.
-      in: path
-      required: true
-      schema:
-        oneOf:
-          - $ref: '#/components/schemas/profileToken'
-          - $ref: '#/components/schemas/profile-path-id'
-    parent-method-with-issuer-id:
-      name: methodId
-      description: Provide the ID of the related payment method.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/method-id-with-issuer'
-    parent-issuer-id:
-      name: issuerId
-      description: Provide the ID of the related issuer.
-      in: path
-      required: true
-      schema:
-        type: string
-        minLength: 1
-        example: edenred-france-sports
-    parent-refund-id:
-      name: refundId
-      description: Provide the ID of the related refund.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/refundToken'
-    parent-chargeback-id:
-      name: chargebackId
-      description: Provide the ID of the related chargeback.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/chargebackToken'
-    parent-capture-id:
-      name: captureId
-      description: Provide the ID of the related capture.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/captureToken'
-    parent-payment-link-id:
-      name: paymentLinkId
-      description: Provide the ID of the related payment link.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/paymentLinkToken'
-    parent-terminal-id:
-      name: terminalId
-      description: Provide the ID of the related terminal.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/terminalToken'
-    route-id:
-      name: routeId
-      description: Provide the ID of the route.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/connectRouteToken'
-    parent-customer-id:
-      name: customerId
-      description: Provide the ID of the related customer.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/customerToken'
-    parent-mandate-id:
-      name: mandateId
-      description: Provide the ID of the related mandate.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/mandateToken'
-    parent-subscription-id:
-      name: subscriptionId
-      description: Provide the ID of the related subscription.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/subscriptionToken'
-    parent-sales-invoice-id:
-      name: salesInvoiceId
-      description: Provide the ID of the related sales invoice.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/salesInvoiceToken'
-    parent-business-account-id:
-      name: businessAccountId
-      description: Provide the ID of the related business account.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/businessAccountToken'
-    parent-business-account-transaction-id:
-      name: transactionId
-      description: Provide the ID of the related transaction.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/businessAccountTransactionToken'
-    parent-business-accounts-transfer-id:
-      name: businessAccountsTransferId
-      description: Provide the ID of the related transfer.
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/businessAccountTransferToken'
-    idempotency-key:
-      name: idempotency-key
-      in: header
-      description: A unique key to ensure idempotent requests. This key should be a UUID v4 string.
-      required: false
-      schema:
-        type: string
-        example: 123e4567-e89b-12d3-a456-426
   schemas:
+    oauth-grant-type:
+      type: string
+      enum:
+        - authorization_code
+        - refresh_token
+      example: authorization_code
+    oauth-token-type-hint:
+      type: string
+      enum:
+        - access_token
+        - refresh_token
+      example: access_token
     list-count:
       type: integer
       description: |-
@@ -42458,6 +42165,309 @@ components:
         - iban
       example: iban
       x-speakeasy-unknown-values: allow
+  parameters:
+    list-from:
+      name: from
+      description: |-
+        Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate the
+        result set.
+      in: query
+      schema:
+        type:
+          - string
+          - 'null'
+    list-limit:
+      name: limit
+      description: The maximum number of items to return. Defaults to 50 items.
+      in: query
+      schema:
+        type:
+          - integer
+          - 'null'
+        minimum: 1
+        maximum: 250
+        example: 50
+    oauth-testmode:
+      name: testmode
+      description: |-
+        You can enable test mode by setting the `testmode` query parameter to `true`.
+
+        Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+      in: query
+      schema:
+        type: boolean
+        example: false
+    parent-balance-id:
+      name: balanceId
+      description: Provide the ID of the related balance.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/balanceToken'
+    parent-settlement-id:
+      name: settlementId
+      description: Provide the ID of the related settlement.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/settlementToken'
+    list-sort:
+      name: sort
+      description: |-
+        Used for setting the direction of the result set. Defaults to descending order, meaning the results are ordered from
+        newest to oldest.
+      in: query
+      schema:
+        $ref: '#/components/schemas/sorting'
+    profile-id:
+      name: profileId
+      description: |-
+        The identifier referring to the [profile](get-profile) you wish to
+        retrieve the resources for.
+
+        Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent. For
+        organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+      in: query
+      schema:
+        $ref: '#/components/schemas/profileToken'
+    embed:
+      name: embed
+      description: |-
+        This endpoint allows embedding related API items by appending the following values via the `embed` query string
+        parameter.
+      in: query
+      schema:
+        type:
+          - string
+          - 'null'
+    testmode:
+      name: testmode
+      description: |-
+        Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
+        parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
+        setting the `testmode` query parameter to `true`.
+
+        Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
+      in: query
+      schema:
+        type: boolean
+        example: false
+    parent-invoice-id:
+      name: invoiceId
+      description: Provide the ID of the related invoice.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/invoiceToken'
+    parent-permission-id:
+      name: permissionId
+      description: Provide the ID of the related permission.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/permissionToken'
+    parent-organization-id:
+      name: organizationId
+      description: Provide the ID of the related organization.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/organizationToken'
+    parent-profile-id:
+      name: profileId
+      description: Provide the ID of the related profile.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/profileToken'
+    parent-webhook-id:
+      name: webhookId
+      description: Provide the ID of the related webhook.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/webhookToken'
+    parent-webhook-event-id:
+      name: webhookEventId
+      description: Provide the ID of the related webhook event.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/webhookEventToken'
+    parent-connect-balance-transfer-id:
+      name: balanceTransferId
+      description: Provide the ID of the related balance transfer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/connectBalanceTransferToken'
+    include:
+      name: include
+      description: This endpoint allows you to include additional information via the `include` query string parameter.
+      in: query
+      schema:
+        type:
+          - string
+          - 'null'
+    parent-payment-id:
+      name: paymentId
+      description: Provide the ID of the related payment.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/paymentToken'
+    parent-unmatched-credit-transfer-id:
+      name: unmatchedCreditTransferId
+      description: Provide the ID of the related unmatched credit transfer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/unmatchedCreditTransferToken'
+    parent-session-id:
+      name: sessionId
+      description: Provide the ID of the related session.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/sessionToken'
+    locale:
+      name: locale
+      description: Response language
+      in: query
+      schema:
+        type: string
+        $ref: '#/components/schemas/locale'
+    parent-method-id:
+      name: methodId
+      description: Provide the ID of the related payment method.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/method'
+    parent-profile-and-me-id:
+      name: profileId
+      description: Provide the ID of the related profile.
+      in: path
+      required: true
+      schema:
+        oneOf:
+          - $ref: '#/components/schemas/profileToken'
+          - $ref: '#/components/schemas/profile-path-id'
+    parent-method-with-issuer-id:
+      name: methodId
+      description: Provide the ID of the related payment method.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/method-id-with-issuer'
+    parent-issuer-id:
+      name: issuerId
+      description: Provide the ID of the related issuer.
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        example: edenred-france-sports
+    parent-refund-id:
+      name: refundId
+      description: Provide the ID of the related refund.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/refundToken'
+    parent-chargeback-id:
+      name: chargebackId
+      description: Provide the ID of the related chargeback.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/chargebackToken'
+    parent-capture-id:
+      name: captureId
+      description: Provide the ID of the related capture.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/captureToken'
+    parent-payment-link-id:
+      name: paymentLinkId
+      description: Provide the ID of the related payment link.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/paymentLinkToken'
+    parent-terminal-id:
+      name: terminalId
+      description: Provide the ID of the related terminal.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/terminalToken'
+    route-id:
+      name: routeId
+      description: Provide the ID of the route.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/connectRouteToken'
+    parent-customer-id:
+      name: customerId
+      description: Provide the ID of the related customer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/customerToken'
+    parent-mandate-id:
+      name: mandateId
+      description: Provide the ID of the related mandate.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/mandateToken'
+    parent-subscription-id:
+      name: subscriptionId
+      description: Provide the ID of the related subscription.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/subscriptionToken'
+    parent-sales-invoice-id:
+      name: salesInvoiceId
+      description: Provide the ID of the related sales invoice.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/salesInvoiceToken'
+    parent-business-account-id:
+      name: businessAccountId
+      description: Provide the ID of the related business account.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/businessAccountToken'
+    parent-business-account-transaction-id:
+      name: transactionId
+      description: Provide the ID of the related transaction.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/businessAccountTransactionToken'
+    parent-business-accounts-transfer-id:
+      name: businessAccountsTransferId
+      description: Provide the ID of the related transfer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/businessAccountTransferToken'
+    idempotency-key:
+      name: idempotency-key
+      in: header
+      description: A unique key to ensure idempotent requests. This key should be a UUID v4 string.
+      required: false
+      schema:
+        type: string
+        example: 123e4567-e89b-12d3-a456-426
   responses:
     400-invalid-list-request:
       description: The request contains issues. For example, if the specified `from` value is not a valid ID.

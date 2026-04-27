@@ -33,6 +33,12 @@ const client = new ClientCore({
 async function run() {
   const res = await oauthGenerate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
