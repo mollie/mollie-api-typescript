@@ -111,6 +111,8 @@ export * from "./methodresourceparameter.js";
 export * from "./methodresponse.js";
 export * from "./methodstatus.js";
 export * from "./mode.js";
+export * from "./oauthgranttype.js";
+export * from "./oauthtokentypehint.js";
 export * from "./onboardingvatregulation.js";
 export * from "./organizationvatregulation.js";
 export * from "./paymentaddress.js";

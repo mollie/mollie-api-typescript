@@ -4,7 +4,6 @@
  */
 
 import { ClientCore } from "../core.js";
-import * as b64$ from "../lib/base64.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
@@ -45,7 +44,7 @@ export function oauthGenerate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Uint8Array,
+    operations.OauthGenerateTokensResponse,
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -70,7 +69,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Uint8Array,
+      operations.OauthGenerateTokensResponse,
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -106,7 +105,7 @@ async function $do(
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
-    Accept: "text/html",
+    Accept: "application/hal+json",
     "idempotency-key": encodeSimple(
       "idempotency-key",
       payload?.["idempotency-key"],
@@ -170,7 +169,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    Uint8Array,
+    operations.OauthGenerateTokensResponse,
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -180,7 +179,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.bytes(200, b64$.zodInbound, { ctype: "text/html" }),
+    M.json(200, operations.OauthGenerateTokensResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

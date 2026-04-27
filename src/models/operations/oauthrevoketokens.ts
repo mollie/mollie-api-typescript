@@ -5,20 +5,14 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import * as models from "../index.js";
 
 export const OauthRevokeTokensServerList = [
   "https://api.mollie.com/oauth2",
 ] as const;
 
 export type OauthRevokeTokensRequestBody = {
-  /**
-   * The type of token you want to revoke.
-   *
-   * @remarks
-   *
-   * Possible values: `access_token` `refresh_token`
-   */
-  tokenTypeHint: string;
+  tokenTypeHint: models.OauthTokenTypeHint;
   /**
    * The token you want to revoke.
    */
@@ -45,7 +39,7 @@ export const OauthRevokeTokensRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OauthRevokeTokensRequestBody
 > = z.object({
-  tokenTypeHint: z.string(),
+  tokenTypeHint: models.OauthTokenTypeHint$outboundSchema,
   token: z.string(),
 }).transform((v) => {
   return remap$(v, {

@@ -8,36 +8,28 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export const OauthGenerateTokensServerList = [
   "https://api.mollie.com/oauth2",
 ] as const;
 
 export type OauthGenerateTokensRequestBody = {
-  /**
-   * If you wish to exchange your authorization code for an app access token, use grant type
-   *
-   * @remarks
-   * `authorization_code`. If you wish to renew your app access token with your refresh token, use grant type
-   * `refresh_token`.
-   *
-   * Possible values: `authorization_code` `refresh_token`
-   */
-  grantType: string;
+  grantType: models.OauthGrantType;
   /**
    * The authorization code you received when creating the authorization. Only use this field when using
    *
    * @remarks
    * grant type `authorization_code`.
    */
-  code?: string | null | undefined;
+  code?: string | undefined;
   /**
    * The refresh token you received when creating the authorization. Only use this field when using grant
    *
    * @remarks
    * type `refresh_token`.
    */
-  refreshToken?: string | null | undefined;
+  refreshToken?: string | undefined;
   /**
    * The URL the merchant is sent back to once the request has been authorized. It must match the URL you set
    *
@@ -47,7 +39,7 @@ export type OauthGenerateTokensRequestBody = {
    * For consecutive refresh token requests, this parameter is required only if the initial authorization
    * code grant request also contained a `redirect_uri`.
    */
-  redirectUri?: string | null | undefined;
+  redirectUri?: string | undefined;
 };
 
 export type OauthGenerateTokensRequest = {
@@ -61,7 +53,7 @@ export type OauthGenerateTokensRequest = {
 /**
  * The newly generated access token and refresh token.
  */
-export type OauthGenerateTokensResponseBody = {
+export type OauthGenerateTokensResponse = {
   /**
    * The app access token, with which you will be able to access the Mollie API on the merchant's behalf.
    */
@@ -97,9 +89,9 @@ export type OauthGenerateTokensResponseBody = {
 /** @internal */
 export type OauthGenerateTokensRequestBody$Outbound = {
   grant_type: string;
-  code?: string | null | undefined;
-  refresh_token?: string | null | undefined;
-  redirect_uri?: string | null | undefined;
+  code?: string | undefined;
+  refresh_token?: string | undefined;
+  redirect_uri?: string | undefined;
 };
 
 /** @internal */
@@ -108,10 +100,10 @@ export const OauthGenerateTokensRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OauthGenerateTokensRequestBody
 > = z.object({
-  grantType: z.string(),
-  code: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  redirectUri: z.nullable(z.string()).optional(),
+  grantType: models.OauthGrantType$outboundSchema,
+  code: z.string().optional(),
+  refreshToken: z.string().optional(),
+  redirectUri: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     grantType: "grant_type",
@@ -161,8 +153,8 @@ export function oauthGenerateTokensRequestToJSON(
 }
 
 /** @internal */
-export const OauthGenerateTokensResponseBody$inboundSchema: z.ZodType<
-  OauthGenerateTokensResponseBody,
+export const OauthGenerateTokensResponse$inboundSchema: z.ZodType<
+  OauthGenerateTokensResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -180,12 +172,12 @@ export const OauthGenerateTokensResponseBody$inboundSchema: z.ZodType<
   });
 });
 
-export function oauthGenerateTokensResponseBodyFromJSON(
+export function oauthGenerateTokensResponseFromJSON(
   jsonString: string,
-): SafeParseResult<OauthGenerateTokensResponseBody, SDKValidationError> {
+): SafeParseResult<OauthGenerateTokensResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OauthGenerateTokensResponseBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OauthGenerateTokensResponseBody' from JSON`,
+    (x) => OauthGenerateTokensResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OauthGenerateTokensResponse' from JSON`,
   );
 }

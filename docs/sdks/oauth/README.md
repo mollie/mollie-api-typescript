@@ -29,6 +29,12 @@ const client = new Client({
 async function run() {
   const result = await client.oauth.generate({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   });
 
   console.log(result);
@@ -56,6 +62,12 @@ const client = new ClientCore({
 async function run() {
   const res = await oauthGenerate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      grantType: "authorization_code",
+      code: "auth_...",
+      refreshToken: "refresh_...",
+      redirectUri: "https://example.com/redirect",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -80,7 +92,7 @@ run();
 
 ### Response
 
-**Promise\<[Uint8Array](../../models/.md)\>**
+**Promise\<[operations.OauthGenerateTokensResponse](../../models/operations/oauthgeneratetokensresponse.md)\>**
 
 ### Errors
 
@@ -111,6 +123,10 @@ const client = new Client({
 async function run() {
   await client.oauth.revoke({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      tokenTypeHint: "access_token",
+      token: "access_...",
+    },
   });
 
 
@@ -138,6 +154,10 @@ const client = new ClientCore({
 async function run() {
   const res = await oauthRevoke(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      tokenTypeHint: "access_token",
+      token: "access_...",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
