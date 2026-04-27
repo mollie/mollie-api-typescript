@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 5ca99cbc3ac1ba09d2ab0c3dbdadb530
+  docChecksum: ea0e5ed06e4c1ccdde296f092df8599b
   docVersion: 1.0.0
   speakeasyVersion: 1.761.9
   generationVersion: 2.881.4
-  releaseVersion: 1.6.2
-  configChecksum: 79d13984258a64c060791794c04582fb
+  releaseVersion: 1.6.3
+  configChecksum: b77fce6c3a6337244807413e4f9f03e9
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 94fb727d-319b-43d3-80ff-8fc325d47d18
-  pristine_commit_hash: f1e1158a358f10d27b7bc9a02a71dd40c7eb5272
-  pristine_tree_hash: 68c9608cd4485b9c4d0bf3bdbac3233661dd8ebd
+  generation_id: 5dd7ca9e-863b-4831-a14e-3f8569a6a016
+  pristine_commit_hash: 293299d38dc35a86731128e3a5ea720d01d45fe1
+  pristine_tree_hash: da0e455628939216e0167bd93aa4b9bcce4cf342
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3506,12 +3506,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:366b863c7af79befd6759a1766cbd547c6c06c18
-    pristine_git_object: 39518eb9984062f92768a3ece4b50b71c93675df
+    last_write_checksum: sha1:783c623ab4a390f29d99a820f99e8eafc5ee39f2
+    pristine_git_object: 4e051d2c326ff77fbbf13e0f4f353533349733c0
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:f6cac5592b9b3d7c56a45f4801961b10c45dfb46
-    pristine_git_object: baaccbb08d8b5d65afa3f6c1b7990a2cd8431420
+    last_write_checksum: sha1:8b59f2b11893d789fbebff65085644866bfc17cd
+    pristine_git_object: 0b9d0cb6c7f00d2cadba33dea507bf1d16e553bd
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -3682,8 +3682,8 @@ trackedFiles:
     pristine_git_object: 5c539754e45f6be31a95c2b6078f6c6f380cfc1f
   src/funcs/oauthGenerate.ts:
     id: 35ab1f6a4a10
-    last_write_checksum: sha1:65f3ac03c74364c904cfd5e079af65fd93766578
-    pristine_git_object: 9c4d089c8642f44b30bec7c73fe22c24ecb682af
+    last_write_checksum: sha1:d1d53da5e8d5473cce9b1dc8a10db4512141d6d3
+    pristine_git_object: d75688fb05fa816d6b623accd9a28dd04bb4022f
   src/funcs/oauthRevoke.ts:
     id: cccdc1a76839
     last_write_checksum: sha1:922de7a846819e38fe93b5790285a65ff7ad758e
@@ -3986,8 +3986,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:e6eefd1005740754fd9370db8fe3af2cebd5a930
-    pristine_git_object: 54b5147d87811c1d6a64b39736c204b91149207d
+    last_write_checksum: sha1:22f70b743edf3a3e30557f07cfdd2f4eb8d4693d
+    pristine_git_object: b4246127008772f13a5515c0f0be6b05eed0e0b1
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -10201,6 +10201,7 @@ examples:
         "200":
           text/html: "{\"access_token\":\"access_46EUJ6x8jFJZZeAvhNH4JVey6qVpqR\",\"refresh_token\":\"refresh_FS4xc3Mgci2xQ5s5DzaLXh3HhaTZOP\",\"expires_in\":3600,\"token_type\":\"bearer\",\"scope\":\"payments.read organizations.read\"}"
           application/hal+json: {"access_token": "access_46EUJ6x8jFJZZeAvhNH4JVey6qVpqR", "refresh_token": "refresh_FS4xc3Mgci2xQ5s5DzaLXh3HhaTZOP", "expires_in": 3600, "token_type": "bearer", "scope": "payments.read organizations.read"}
+          application/json: {"access_token": "access_46EUJ6x8jFJZZeAvhNH4JVey6qVpqR", "refresh_token": "refresh_FS4xc3Mgci2xQ5s5DzaLXh3HhaTZOP", "expires_in": 3600, "token_type": "bearer", "scope": "payments.read organizations.read"}
   oauth-revoke-tokens:
     speakeasy-default-oauth-revoke-tokens:
       parameters:
@@ -10209,7 +10210,9 @@ examples:
       requestBody:
         application/json: {"token_type_hint": "access_token", "token": "access_..."}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.oauth.generate()`: \n  *  `request.requestBody` **Changed** (Breaking ⚠️)\n  *  `response.status[200]` **Changed** (Breaking ⚠️)\n* `client.oauth.revoke()`: \n  *  `request.requestBody.tokenTypeHint` **Changed** (Breaking ⚠️)\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `client.oauth.generate()`:  `response.status[200]` **Changed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

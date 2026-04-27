@@ -1079,3 +1079,13 @@ Based on:
 - [typescript v1.6.2] .
 ### Releases
 - [NPM v1.6.2] https://www.npmjs.com/package/mollie-api-typescript/v/1.6.2 - .
+
+## 2026-04-27 16:09:45
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.761.9 (2.881.4) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.6.3] .
+### Releases
+- [NPM v1.6.3] https://www.npmjs.com/package/mollie-api-typescript/v/1.6.3 - .

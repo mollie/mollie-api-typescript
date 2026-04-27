@@ -152,7 +152,7 @@ paths:
         '200':
           description: The newly generated access token and refresh token.
           content:
-            application/hal+json:
+            application/json:
               schema:
                 type: object
                 properties:

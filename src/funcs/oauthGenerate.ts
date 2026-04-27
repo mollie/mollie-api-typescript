@@ -105,7 +105,7 @@ async function $do(
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
-    Accept: "application/hal+json",
+    Accept: "application/json",
     "idempotency-key": encodeSimple(
       "idempotency-key",
       payload?.["idempotency-key"],
@@ -179,9 +179,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.OauthGenerateTokensResponse$inboundSchema, {
-      ctype: "application/hal+json",
-    }),
+    M.json(200, operations.OauthGenerateTokensResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);
