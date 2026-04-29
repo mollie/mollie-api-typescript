@@ -31683,6 +31683,13 @@ components:
         - sales-invoice.issued
         - sales-invoice.canceled
         - sales-invoice.paid
+        - business-account-transfer.requested
+        - business-account-transfer.initiated
+        - business-account-transfer.pending-review
+        - business-account-transfer.processed
+        - business-account-transfer.failed
+        - business-account-transfer.blocked
+        - business-account-transfer.returned
         - '*'
       x-enumDescriptions:
         payment-link.paid: Occurs when a payment link has been paid.
@@ -31691,6 +31698,13 @@ components:
         sales-invoice.issued: Occurs when a sales invoice has been issued.
         sales-invoice.canceled: Occurs when a sales invoice has been canceled.
         sales-invoice.paid: Occurs when a sales invoice has been paid.
+        business-account-transfer.requested: The transfer is requested and waiting for SCA (exempt for Transfers API). SEPA transfer input checks passed.
+        business-account-transfer.initiated: The transfer is SCA-authorized for execution. Funds are reserved.
+        business-account-transfer.pending-review: The transfer is pending manual review.
+        business-account-transfer.processed: The transfer is processed.
+        business-account-transfer.failed: The transfer fails to be executed.
+        business-account-transfer.blocked: The transfer is blocked.
+        business-account-transfer.returned: Incoming transfer when a transfer is returned.
         '*': All event types.
       example: payment-link.paid
     webhook-status:
@@ -32149,6 +32163,737 @@ components:
             - allowedMethods
             - _links
       x-speakeasy-unknown-values: allow
+    salesInvoiceToken:
+      type: string
+      pattern: ^invoice_.+$
+      example: invoice_4Y0eZitmBnQ6IDoMqZQKh
+    sales-invoice-status:
+      type: string
+      description: |-
+        The status for the invoice to end up in.
+
+        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+
+        A status value that cannot be set but can be returned is `canceled`, for invoices which were
+        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+
+        Dependent parameters:
+          - `paymentDetails` is required if invoice should be set directly to `paid`
+          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      enum:
+        - draft
+        - issued
+        - paid
+      example: draft
+    sales-invoice-vat-scheme:
+      type: string
+      description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+      enum:
+        - standard
+        - one-stop-shop
+      example: standard
+    sales-invoice-vat-mode:
+      type: string
+      description: |-
+        The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+        price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+      enum:
+        - exclusive
+        - inclusive
+      example: exclusive
+    sales-invoice-payment-term:
+      type:
+        - string
+        - 'null'
+      description: The payment term to be set on the invoice.
+      enum:
+        - 7 days
+        - 14 days
+        - 30 days
+        - 45 days
+        - 60 days
+        - 90 days
+        - 120 days
+      example: 30 days
+    sales-invoice-email-details:
+      type:
+        - object
+        - 'null'
+      required:
+        - subject
+        - body
+      properties:
+        subject:
+          example: Your invoice is available
+          type: string
+          description: The subject of the email to be sent.
+        body:
+          example: Please find your invoice enclosed.
+          type: string
+          description: The body of the email to be sent. To add newline characters, you can use `\n`.
+    sales-invoice-recipient-type:
+      type: string
+      description: |-
+        The type of recipient, either `consumer` or `business`. This will determine what further fields are
+        required on the `recipient` object.
+      enum:
+        - consumer
+        - business
+      example: consumer
+    sales-invoice-recipient-locale:
+      type: string
+      description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
+      enum:
+        - en_US
+        - en_GB
+        - nl_NL
+        - nl_BE
+        - de_DE
+        - de_AT
+        - de_CH
+        - fr_FR
+        - fr_BE
+      example: nl_NL
+    sales-invoice-recipient:
+      type:
+        - object
+        - 'null'
+      required:
+        - type
+        - email
+        - streetAndNumber
+        - postalCode
+        - city
+        - country
+        - locale
+      properties:
+        type:
+          $ref: '#/components/schemas/sales-invoice-recipient-type'
+        title:
+          example: Mrs.
+          type:
+            - string
+            - 'null'
+          description: The title of the `consumer` type recipient, for example Mr. or Mrs..
+        givenName:
+          example: Jane
+          type:
+            - string
+            - 'null'
+          description: |-
+            The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain
+            only numbers.
+        familyName:
+          example: Doe
+          type:
+            - string
+            - 'null'
+          description: |-
+            The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain
+            only numbers.
+        organizationName:
+          example: Organization Corp.
+          type:
+            - string
+            - 'null'
+          description: The trading name of the `business` type recipient.
+        organizationNumber:
+          example: '12345678'
+          type:
+            - string
+            - 'null'
+          description: |-
+            The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber`
+            has to be provided.
+        vatNumber:
+          example: NL123456789B01
+          type:
+            - string
+            - 'null'
+          description: |-
+            The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber`
+            has to be provided.
+        email:
+          example: example@email.com
+          type: string
+          description: |-
+            The email address of the recipient.
+
+            If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
+        phone:
+          example: '+0123456789'
+          type:
+            - string
+            - 'null'
+          description: The phone number of the recipient.
+        streetAndNumber:
+          example: Keizersgracht 126
+          type: string
+          description: A street and street number.
+        streetAdditional:
+          example: 4th floor
+          type:
+            - string
+            - 'null'
+          description: Any additional addressing details, for example an apartment number.
+        postalCode:
+          example: 5678AB
+          type: string
+          description: A postal code.
+        city:
+          example: Amsterdam
+          type: string
+          description: The recipient's city.
+        region:
+          example: Noord-Holland
+          type:
+            - string
+            - 'null'
+          description: The recipient's region.
+        country:
+          example: NL
+          type: string
+          description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+        locale:
+          allOf:
+            - $ref: '#/components/schemas/sales-invoice-recipient-locale'
+          writeOnly: true
+    sales-invoice-discount-type:
+      type: string
+      description: The type of discount.
+      enum:
+        - amount
+        - percentage
+      example: amount
+    sales-invoice-discount:
+      type:
+        - object
+        - 'null'
+      required:
+        - type
+        - value
+      properties:
+        type:
+          $ref: '#/components/schemas/sales-invoice-discount-type'
+        value:
+          example: '10.00'
+          type: string
+          description: A string containing an exact monetary amount in the given currency, or the percentage.
+    sales-invoice-line-item:
+      type: object
+      required:
+        - description
+        - quantity
+        - vatRate
+        - unitPrice
+      properties:
+        description:
+          example: LEGO 4440 Forest Police Station
+          type: string
+          description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
+          maxLength: 100
+        quantity:
+          example: 1
+          type: integer
+          description: The number of items.
+          minimum: 1
+        vatRate:
+          example: '21.00'
+          type: string
+          description: The vat rate to be applied to this line item.
+        unitPrice:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The price of a single item excluding VAT.
+
+            For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
+
+            The unit price can be zero in case of free items.
+        discount:
+          $ref: '#/components/schemas/sales-invoice-discount'
+          description: The discount to be applied to the line item.
+    entity-sales-invoice:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
+            endpoint.
+          readOnly: true
+          writeOnly: false
+          example: sales-invoice
+        id:
+          allOf:
+            - $ref: '#/components/schemas/salesInvoiceToken'
+          type: string
+          description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        invoiceNumber:
+          example: INV-0000001
+          type:
+            - string
+            - 'null'
+          description: When issued, an invoice number will be set for the sales invoice.
+          readOnly: true
+        profileId:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The identifier referring to the [profile](get-profile) this entity belongs to.
+
+            Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent in the creation
+            request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+            required.
+          example: pfl_QkEhN94Ba
+        status:
+          $ref: '#/components/schemas/sales-invoice-status'
+        vatScheme:
+          $ref: '#/components/schemas/sales-invoice-vat-scheme'
+        vatMode:
+          $ref: '#/components/schemas/sales-invoice-vat-mode'
+        memo:
+          example: This is a memo!
+          type:
+            - string
+            - 'null'
+          description: A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
+        metadata:
+          type:
+            - object
+            - 'null'
+          properties: {}
+          additionalProperties: true
+          description: |-
+            Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
+            you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+        paymentTerm:
+          $ref: '#/components/schemas/sales-invoice-payment-term'
+        paymentDetails:
+          description: |-
+            Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+            provided details. Required for `paid` status.
+        emailDetails:
+          $ref: '#/components/schemas/sales-invoice-email-details'
+          description: |-
+            Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
+            recipient with the provided `subject` and `body`. Required for `issued` status.
+        customerId:
+          type:
+            - string
+          description: |-
+            The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
+            provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
+          example: cst_8wmqcHMN4U
+        mandateId:
+          type: string
+          description: |-
+            The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided,
+            `customerId` becomes required as well. Only allowed for invoices with status `paid`.
+          example: mdt_pWUnw6pkBN
+        recipientIdentifier:
+          example: customer-xyz-0123
+          type: string
+          description: |-
+            An identifier tied to the recipient data. This should be a unique value based on data your system contains,
+            so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
+            is not required to send a first invoice to a recipient.
+        recipient:
+          $ref: '#/components/schemas/sales-invoice-recipient'
+        lines:
+          type:
+            - array
+            - 'null'
+          description: |-
+            Provide the line items for the invoice. Each line contains details such as a description of the item
+            ordered and its price.
+
+            All lines must have the same currency as the invoice.
+          items:
+            $ref: '#/components/schemas/sales-invoice-line-item'
+        discount:
+          $ref: '#/components/schemas/sales-invoice-discount'
+          description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
+        isEInvoice:
+          type: boolean
+          description: |-
+            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+            after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
+            recipient.
+
+            E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
+            the recipient is also located in one of these countries.
+          example: false
+        amountDue:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The amount that is left to be paid.
+          readOnly: true
+        subtotalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount without VAT before discounts.
+          readOnly: true
+        totalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount with VAT.
+          readOnly: true
+        totalVatAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total VAT amount.
+          readOnly: true
+        discountedSubtotalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount without VAT after discounts.
+          readOnly: true
+        createdAt:
+          type: string
+          $ref: '#/components/schemas/created-at'
+        issuedAt:
+          example: '2024-10-03T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        paidAt:
+          example: '2024-10-04T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        dueAt:
+          example: '2024-11-01T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            invoicePayment:
+              $ref: '#/components/schemas/url'
+              description: |-
+                The URL your customer should visit to make payment for the invoice. This is where you should redirect the
+                customer to unless the `status` is set to `paid`.
+            pdfLink:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+              description: The URL the invoice is available at, if generated.
+            documentation:
+              $ref: '#/components/schemas/url'
+            next:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+            previous:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+          readOnly: true
+          writeOnly: false
+    sales-invoice-payment-details-source:
+      type: string
+      description: The way through which the invoice is to be set to paid.
+      enum:
+        - manual
+        - payment-link
+        - payment
+      example: payment-link
+    sales-invoice-payment-details:
+      type: object
+      required:
+        - source
+      properties:
+        source:
+          $ref: '#/components/schemas/sales-invoice-payment-details-source'
+        sourceReference:
+          example: pl_d9fQur83kFdhH8hIhaZfq
+          type:
+            - string
+            - 'null'
+          description: |-
+            A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
+            `payment`.
+    sales-invoice-payment-details-response:
+      type: object
+      required:
+        - source
+      properties:
+        source:
+          $ref: '#/components/schemas/sales-invoice-payment-details-source-response'
+        sourceReference:
+          example: pl_d9fQur83kFdhH8hIhaZfq
+          type:
+            - string
+            - 'null'
+          description: |-
+            A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
+            `payment`.
+      x-speakeasy-unknown-values: allow
+    sales-invoice-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-sales-invoice-response'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+        - type: object
+          properties:
+            paymentDetails:
+              $ref: '#/components/schemas/sales-invoice-payment-details-response'
+      x-speakeasy-unknown-values: allow
+    businessAccountTransferToken:
+      type: string
+      pattern: ^batrf_.+$
+      example: batrf_87GByBuj4UCcUTEbs6aGJ
+    transfer-party:
+      type: object
+      description: |-
+        A party involved in the transfer, representing either the debtor (sender) or creditor (recipient).
+        Contains the party's name and account details.
+      required:
+        - fullName
+        - account
+      properties:
+        fullName:
+          type: string
+          description: The full name of the account holder.
+          example: Jan Jansen
+        account:
+          type: object
+          description: The bank account details of the party.
+          required:
+            - iban
+          properties:
+            iban:
+              type: string
+              description: The IBAN (International Bank Account Number) of the account holder.
+              example: NL02ABNA0123456789
+    businessAccountTransactionToken:
+      type: string
+      pattern: ^batr_.+$
+      example: batr_87GByBuj4UCcUTEbs6aGJ
+    transfer-scheme-type:
+      type: string
+      description: The transfer scheme to be used for the transfer. The transfer scheme determines the processing time and method of the transfer.
+      enum:
+        - sepa-credit-inst
+        - sepa-credit
+      x-enumDescriptions:
+        sepa-credit-inst: Processing time of up to 9 seconds.
+        sepa-credit: Processing time may take up to 2 days.
+      example: sepa-credit-inst
+    transfer-scheme:
+      type: object
+      description: The scheme, as requested by the client.
+      required:
+        - type
+      properties:
+        type:
+          $ref: '#/components/schemas/transfer-scheme-type'
+    credit-debit-indicator:
+      type: string
+      description: Indicates whether the entry is a credit or debit from the perspective of the account holder.
+      enum:
+        - credit
+        - debit
+      x-enumDescriptions:
+        credit: Funds are received into the account.
+        debit: Funds are sent from the account.
+      readOnly: true
+      example: debit
+      x-speakeasy-unknown-values: allow
+    transfer-status:
+      type: string
+      description: The status of the transfer.
+      enum:
+        - requested
+        - initiated
+        - pending-review
+        - processed
+        - failed
+        - blocked
+        - returned
+      x-enumDescriptions:
+        requested: The transfer is requested by the client, and the transfer is pending SCA  (exempt for Transfers API).
+        initiated: The transfer is SCA-authorized for execution. Funds are reserved.
+        pending-review: The transfer has been created and is awaiting processing.
+        processed: The transfer has been successfully processed and the funds have been sent.
+        failed: The transfer was rejected. Refer to the `statusReason` field for more details.
+        blocked: The transfer is blocked. The reason is specified in extra fields as described in the next section.
+        returned: The transfer was returned by the receiving bank. The funds have been credited back to the debtor account.
+      readOnly: true
+      example: initiated
+      x-speakeasy-unknown-values: allow
+    status-reason-code:
+      type: string
+      description: A machine-readable code indicating the reason for the transfer's terminal status.
+      enum:
+        - insufficient-funds
+        - rejected
+        - error
+      x-enumDescriptions:
+        insufficient-funds: The debtor account has insufficient funds to complete the transfer.
+        rejected: The transfer was blocked following a review by Mollie.
+        error: An unexpected error occurred. Refer to the `message` field for further details.
+      example: insufficient-funds
+    status-reason-2:
+      type:
+        - object
+        - 'null'
+      description: |-
+        A human-readable reason explaining the current status of the transfer. Only populated when the transfer has
+        reached a terminal status of `failed`, `rejected`, or `blocked`.
+
+        This field is `null` for transfers that have not reached one of these statuses.
+      readOnly: true
+      properties:
+        code:
+          $ref: '#/components/schemas/status-reason-code-response'
+        message:
+          type:
+            - string
+            - 'null'
+          description: Provides further details about failure indicated. This field is only populated if the`code` field is set to `error`.
+          example: The creditor account does not exist.
+      x-speakeasy-unknown-values: allow
+    status-history-entry:
+      type: object
+      description: Represents an entry in the transfer's status history, recording a past status transition.
+      required:
+        - status
+        - createdAt
+      properties:
+        status:
+          $ref: '#/components/schemas/transfer-status'
+          description: The status that the transfer transitioned to.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+    entity-transfer:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a transfer object. Will always contain the string `business-account-transfer`
+            for this endpoint.
+          readOnly: true
+          example: business-account-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransferToken'
+          description: The identifier uniquely referring to this transfer. Mollie assigns this identifier at transfer creation time.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        debtorIban:
+          type: string
+          description: The IBAN of the debtor's (sender) Mollie account from which to initiate the transfer.
+          example: NL55MLLE0123456789
+          writeOnly: true
+        debtor:
+          allOf:
+            - $ref: '#/components/schemas/transfer-party'
+          description: The debtor (sender) of the transfer, including their name and account details.
+          readOnly: true
+        creditor:
+          $ref: '#/components/schemas/transfer-party'
+          description: The creditor (recipient) of the transfer, including their name and account details.
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer €100.00.
+
+            Only `EUR` is supported for SEPA transfers.
+        description:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A short description of the transfer. This will appear on the bank statement of both the debtor and creditor.
+
+            It must begin with an alphanumeric character, followed by any combination of letters, numbers, spaces or special characters `/ - ? : ( ) . , ' + _`.
+
+            Constraints:
+            - Cannot be solely a hyphen (-) or colon (:)
+            - Cannot contain consecutive hyphens (--)
+            - Cannot contain consecutive colons (::)
+          maxLength: 140
+          pattern: ^(?![:\-]$)(?!.*(--|::))([a-zA-Z0-9]+[\s]*[a-zA-Z0-9/\-?:().,'+_ ]*)?$
+          example: Invoice 12345
+        businessAccountTransactionId:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransactionToken'
+          description: The identifier of the corresponding transaction in the business accounts transaction resource.
+          readOnly: true
+        transferScheme:
+          $ref: '#/components/schemas/transfer-scheme'
+        creditDebitIndicator:
+          $ref: '#/components/schemas/credit-debit-indicator'
+        status:
+          $ref: '#/components/schemas/transfer-status'
+        statusHistory:
+          type: array
+          description: A chronological list of status transitions the transfer has gone through.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/status-history-entry'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+    transfer-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-transfer-response'
+        - type: object
+          required:
+            - resource
+            - id
+            - mode
+            - businessAccountTransactionId
+            - transferScheme
+            - creditDebitIndicator
+            - amount
+            - debtor
+            - creditor
+            - status
+            - statusHistory
+            - createdAt
+      x-speakeasy-unknown-values: allow
     entity-webhook-event:
       type: object
       required:
@@ -32192,10 +32937,12 @@ components:
           properties:
             entity:
               oneOf:
-                - title: payment-link
+                - title: payment-link.*
                   $ref: '#/components/schemas/payment-link-response'
-                - title: profile
-                  $ref: '#/components/schemas/profile-response'
+                - title: sales-invoice.*
+                  $ref: '#/components/schemas/sales-invoice-response'
+                - title: business-account-transfer.*
+                  $ref: '#/components/schemas/transfer-response'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -34536,513 +35283,6 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
-    salesInvoiceToken:
-      type: string
-      pattern: ^invoice_.+$
-      example: invoice_4Y0eZitmBnQ6IDoMqZQKh
-    sales-invoice-status:
-      type: string
-      description: |-
-        The status for the invoice to end up in.
-
-        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
-        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
-        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
-
-        A status value that cannot be set but can be returned is `canceled`, for invoices which were
-        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
-
-        Dependent parameters:
-          - `paymentDetails` is required if invoice should be set directly to `paid`
-          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
-          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-      enum:
-        - draft
-        - issued
-        - paid
-      example: draft
-    sales-invoice-vat-scheme:
-      type: string
-      description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
-      enum:
-        - standard
-        - one-stop-shop
-      example: standard
-    sales-invoice-vat-mode:
-      type: string
-      description: |-
-        The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
-        price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
-      enum:
-        - exclusive
-        - inclusive
-      example: exclusive
-    sales-invoice-payment-term:
-      type:
-        - string
-        - 'null'
-      description: The payment term to be set on the invoice.
-      enum:
-        - 7 days
-        - 14 days
-        - 30 days
-        - 45 days
-        - 60 days
-        - 90 days
-        - 120 days
-      example: 30 days
-    sales-invoice-email-details:
-      type:
-        - object
-        - 'null'
-      required:
-        - subject
-        - body
-      properties:
-        subject:
-          example: Your invoice is available
-          type: string
-          description: The subject of the email to be sent.
-        body:
-          example: Please find your invoice enclosed.
-          type: string
-          description: The body of the email to be sent. To add newline characters, you can use `\n`.
-    sales-invoice-recipient-type:
-      type: string
-      description: |-
-        The type of recipient, either `consumer` or `business`. This will determine what further fields are
-        required on the `recipient` object.
-      enum:
-        - consumer
-        - business
-      example: consumer
-    sales-invoice-recipient-locale:
-      type: string
-      description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
-      enum:
-        - en_US
-        - en_GB
-        - nl_NL
-        - nl_BE
-        - de_DE
-        - de_AT
-        - de_CH
-        - fr_FR
-        - fr_BE
-      example: nl_NL
-    sales-invoice-recipient:
-      type:
-        - object
-        - 'null'
-      required:
-        - type
-        - email
-        - streetAndNumber
-        - postalCode
-        - city
-        - country
-        - locale
-      properties:
-        type:
-          $ref: '#/components/schemas/sales-invoice-recipient-type'
-        title:
-          example: Mrs.
-          type:
-            - string
-            - 'null'
-          description: The title of the `consumer` type recipient, for example Mr. or Mrs..
-        givenName:
-          example: Jane
-          type:
-            - string
-            - 'null'
-          description: |-
-            The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain
-            only numbers.
-        familyName:
-          example: Doe
-          type:
-            - string
-            - 'null'
-          description: |-
-            The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain
-            only numbers.
-        organizationName:
-          example: Organization Corp.
-          type:
-            - string
-            - 'null'
-          description: The trading name of the `business` type recipient.
-        organizationNumber:
-          example: '12345678'
-          type:
-            - string
-            - 'null'
-          description: |-
-            The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber`
-            has to be provided.
-        vatNumber:
-          example: NL123456789B01
-          type:
-            - string
-            - 'null'
-          description: |-
-            The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber`
-            has to be provided.
-        email:
-          example: example@email.com
-          type: string
-          description: |-
-            The email address of the recipient.
-
-            If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
-        phone:
-          example: '+0123456789'
-          type:
-            - string
-            - 'null'
-          description: The phone number of the recipient.
-        streetAndNumber:
-          example: Keizersgracht 126
-          type: string
-          description: A street and street number.
-        streetAdditional:
-          example: 4th floor
-          type:
-            - string
-            - 'null'
-          description: Any additional addressing details, for example an apartment number.
-        postalCode:
-          example: 5678AB
-          type: string
-          description: A postal code.
-        city:
-          example: Amsterdam
-          type: string
-          description: The recipient's city.
-        region:
-          example: Noord-Holland
-          type:
-            - string
-            - 'null'
-          description: The recipient's region.
-        country:
-          example: NL
-          type: string
-          description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
-        locale:
-          allOf:
-            - $ref: '#/components/schemas/sales-invoice-recipient-locale'
-          writeOnly: true
-    sales-invoice-discount-type:
-      type: string
-      description: The type of discount.
-      enum:
-        - amount
-        - percentage
-      example: amount
-    sales-invoice-discount:
-      type:
-        - object
-        - 'null'
-      required:
-        - type
-        - value
-      properties:
-        type:
-          $ref: '#/components/schemas/sales-invoice-discount-type'
-        value:
-          example: '10.00'
-          type: string
-          description: A string containing an exact monetary amount in the given currency, or the percentage.
-    sales-invoice-line-item:
-      type: object
-      required:
-        - description
-        - quantity
-        - vatRate
-        - unitPrice
-      properties:
-        description:
-          example: LEGO 4440 Forest Police Station
-          type: string
-          description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
-          maxLength: 100
-        quantity:
-          example: 1
-          type: integer
-          description: The number of items.
-          minimum: 1
-        vatRate:
-          example: '21.00'
-          type: string
-          description: The vat rate to be applied to this line item.
-        unitPrice:
-          $ref: '#/components/schemas/amount'
-          description: |-
-            The price of a single item excluding VAT.
-
-            For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
-
-            The unit price can be zero in case of free items.
-        discount:
-          $ref: '#/components/schemas/sales-invoice-discount'
-          description: The discount to be applied to the line item.
-    entity-sales-invoice:
-      type: object
-      properties:
-        resource:
-          type: string
-          description: |-
-            Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
-            endpoint.
-          readOnly: true
-          writeOnly: false
-          example: sales-invoice
-        id:
-          allOf:
-            - $ref: '#/components/schemas/salesInvoiceToken'
-          type: string
-          description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
-          readOnly: true
-        mode:
-          $ref: '#/components/schemas/mode'
-        testmode:
-          $ref: '#/components/schemas/testmode-create'
-        invoiceNumber:
-          example: INV-0000001
-          type:
-            - string
-            - 'null'
-          description: When issued, an invoice number will be set for the sales invoice.
-          readOnly: true
-        profileId:
-          type:
-            - string
-            - 'null'
-          description: |-
-            The identifier referring to the [profile](get-profile) this entity belongs to.
-
-            Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent in the creation
-            request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
-            required.
-          example: pfl_QkEhN94Ba
-        status:
-          $ref: '#/components/schemas/sales-invoice-status'
-        vatScheme:
-          $ref: '#/components/schemas/sales-invoice-vat-scheme'
-        vatMode:
-          $ref: '#/components/schemas/sales-invoice-vat-mode'
-        memo:
-          example: This is a memo!
-          type:
-            - string
-            - 'null'
-          description: A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
-        metadata:
-          type:
-            - object
-            - 'null'
-          properties: {}
-          additionalProperties: true
-          description: |-
-            Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
-            you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
-        paymentTerm:
-          $ref: '#/components/schemas/sales-invoice-payment-term'
-        paymentDetails:
-          description: |-
-            Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
-            provided details. Required for `paid` status.
-        emailDetails:
-          $ref: '#/components/schemas/sales-invoice-email-details'
-          description: |-
-            Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
-            recipient with the provided `subject` and `body`. Required for `issued` status.
-        customerId:
-          type:
-            - string
-          description: |-
-            The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
-            provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
-          example: cst_8wmqcHMN4U
-        mandateId:
-          type: string
-          description: |-
-            The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided,
-            `customerId` becomes required as well. Only allowed for invoices with status `paid`.
-          example: mdt_pWUnw6pkBN
-        recipientIdentifier:
-          example: customer-xyz-0123
-          type: string
-          description: |-
-            An identifier tied to the recipient data. This should be a unique value based on data your system contains,
-            so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
-            is not required to send a first invoice to a recipient.
-        recipient:
-          $ref: '#/components/schemas/sales-invoice-recipient'
-        lines:
-          type:
-            - array
-            - 'null'
-          description: |-
-            Provide the line items for the invoice. Each line contains details such as a description of the item
-            ordered and its price.
-
-            All lines must have the same currency as the invoice.
-          items:
-            $ref: '#/components/schemas/sales-invoice-line-item'
-        discount:
-          $ref: '#/components/schemas/sales-invoice-discount'
-          description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
-        isEInvoice:
-          type: boolean
-          description: |-
-            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
-            after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
-            recipient.
-
-            E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
-            the recipient is also located in one of these countries.
-          example: false
-        amountDue:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The amount that is left to be paid.
-          readOnly: true
-        subtotalAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT before discounts.
-          readOnly: true
-        totalAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total amount with VAT.
-          readOnly: true
-        totalVatAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total VAT amount.
-          readOnly: true
-        discountedSubtotalAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT after discounts.
-          readOnly: true
-        createdAt:
-          type: string
-          $ref: '#/components/schemas/created-at'
-        issuedAt:
-          example: '2024-10-03T10:47:38+00:00'
-          type:
-            - string
-            - 'null'
-          description: |-
-            If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format.
-          readOnly: true
-        paidAt:
-          example: '2024-10-04T10:47:38+00:00'
-          type:
-            - string
-            - 'null'
-          description: |-
-            If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format.
-          readOnly: true
-        dueAt:
-          example: '2024-11-01T10:47:38+00:00'
-          type:
-            - string
-            - 'null'
-          description: |-
-            If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format.
-          readOnly: true
-        _links:
-          type: object
-          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-          properties:
-            self:
-              $ref: '#/components/schemas/url'
-            invoicePayment:
-              $ref: '#/components/schemas/url'
-              description: |-
-                The URL your customer should visit to make payment for the invoice. This is where you should redirect the
-                customer to unless the `status` is set to `paid`.
-            pdfLink:
-              $ref: '#/components/schemas/url'
-              type:
-                - object
-                - 'null'
-              description: The URL the invoice is available at, if generated.
-            documentation:
-              $ref: '#/components/schemas/url'
-            next:
-              $ref: '#/components/schemas/url'
-              type:
-                - object
-                - 'null'
-            previous:
-              $ref: '#/components/schemas/url'
-              type:
-                - object
-                - 'null'
-          readOnly: true
-          writeOnly: false
-    sales-invoice-payment-details-source:
-      type: string
-      description: The way through which the invoice is to be set to paid.
-      enum:
-        - manual
-        - payment-link
-        - payment
-      example: payment-link
-    sales-invoice-payment-details:
-      type: object
-      required:
-        - source
-      properties:
-        source:
-          $ref: '#/components/schemas/sales-invoice-payment-details-source'
-        sourceReference:
-          example: pl_d9fQur83kFdhH8hIhaZfq
-          type:
-            - string
-            - 'null'
-          description: |-
-            A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
-            `payment`.
-    sales-invoice-payment-details-response:
-      type: object
-      required:
-        - source
-      properties:
-        source:
-          $ref: '#/components/schemas/sales-invoice-payment-details-source-response'
-        sourceReference:
-          example: pl_d9fQur83kFdhH8hIhaZfq
-          type:
-            - string
-            - 'null'
-          description: |-
-            A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
-            `payment`.
-      x-speakeasy-unknown-values: allow
-    sales-invoice-response:
-      allOf:
-        - $ref: '#/components/schemas/entity-sales-invoice-response'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-        - type: object
-          properties:
-            paymentDetails:
-              $ref: '#/components/schemas/sales-invoice-payment-details-response'
-      x-speakeasy-unknown-values: allow
     sales-invoice-request:
       allOf:
         - $ref: '#/components/schemas/entity-sales-invoice'
@@ -35223,22 +35463,6 @@ components:
             - balance
             - createdAt
       x-speakeasy-unknown-values: allow
-    businessAccountTransactionToken:
-      type: string
-      pattern: ^batr_.+$
-      example: batr_87GByBuj4UCcUTEbs6aGJ
-    credit-debit-indicator:
-      type: string
-      description: Indicates whether the entry is a credit or debit from the perspective of the account holder.
-      enum:
-        - credit
-        - debit
-      x-enumDescriptions:
-        credit: Funds are received into the account.
-        debit: Funds are sent from the account.
-      readOnly: true
-      example: debit
-      x-speakeasy-unknown-values: allow
     transaction-type:
       type: string
       description: "Indicates what kind of transaction this is.\n\nWe may introduce new transaction types as we expand the product. We recommend building your integration\nto handle unexpected values gracefully, so nothing breaks when that happens. "
@@ -35353,196 +35577,6 @@ components:
             - amount
             - createdAt
       x-speakeasy-unknown-values: allow
-    businessAccountTransferToken:
-      type: string
-      pattern: ^batrf_.+$
-      example: batrf_87GByBuj4UCcUTEbs6aGJ
-    transfer-party:
-      type: object
-      description: |-
-        A party involved in the transfer, representing either the debtor (sender) or creditor (recipient).
-        Contains the party's name and account details.
-      required:
-        - fullName
-        - account
-      properties:
-        fullName:
-          type: string
-          description: The full name of the account holder.
-          example: Jan Jansen
-        account:
-          type: object
-          description: The bank account details of the party.
-          required:
-            - iban
-          properties:
-            iban:
-              type: string
-              description: The IBAN (International Bank Account Number) of the account holder.
-              example: NL02ABNA0123456789
-    transfer-scheme-type:
-      type: string
-      description: The transfer scheme to be used for the transfer. The transfer scheme determines the processing time and method of the transfer.
-      enum:
-        - sepa-credit-inst
-        - sepa-credit
-      x-enumDescriptions:
-        sepa-credit-inst: Processing time of up to 9 seconds.
-        sepa-credit: Processing time may take up to 2 days.
-      example: sepa-credit-inst
-    transfer-scheme:
-      type: object
-      description: The scheme, as requested by the client.
-      required:
-        - type
-      properties:
-        type:
-          $ref: '#/components/schemas/transfer-scheme-type'
-    transfer-status:
-      type: string
-      description: The status of the transfer.
-      enum:
-        - requested
-        - initiated
-        - pending-review
-        - processed
-        - failed
-        - blocked
-        - returned
-      x-enumDescriptions:
-        requested: The transfer is requested by the client, and the transfer is pending SCA  (exempt for Transfers API).
-        initiated: The transfer is SCA-authorized for execution. Funds are reserved.
-        pending-review: The transfer has been created and is awaiting processing.
-        processed: The transfer has been successfully processed and the funds have been sent.
-        failed: The transfer was rejected. Refer to the `statusReason` field for more details.
-        blocked: The transfer is blocked. The reason is specified in extra fields as described in the next section.
-        returned: The transfer was returned by the receiving bank. The funds have been credited back to the debtor account.
-      readOnly: true
-      example: initiated
-      x-speakeasy-unknown-values: allow
-    status-reason-code:
-      type: string
-      description: A machine-readable code indicating the reason for the transfer's terminal status.
-      enum:
-        - insufficient-funds
-        - rejected
-        - error
-      x-enumDescriptions:
-        insufficient-funds: The debtor account has insufficient funds to complete the transfer.
-        rejected: The transfer was blocked following a review by Mollie.
-        error: An unexpected error occurred. Refer to the `message` field for further details.
-      example: insufficient-funds
-    status-reason-2:
-      type:
-        - object
-        - 'null'
-      description: |-
-        A human-readable reason explaining the current status of the transfer. Only populated when the transfer has
-        reached a terminal status of `failed`, `rejected`, or `blocked`.
-
-        This field is `null` for transfers that have not reached one of these statuses.
-      readOnly: true
-      properties:
-        code:
-          $ref: '#/components/schemas/status-reason-code-response'
-        message:
-          type:
-            - string
-            - 'null'
-          description: Provides further details about failure indicated. This field is only populated if the`code` field is set to `error`.
-          example: The creditor account does not exist.
-      x-speakeasy-unknown-values: allow
-    status-history-entry:
-      type: object
-      description: Represents an entry in the transfer's status history, recording a past status transition.
-      required:
-        - status
-        - createdAt
-      properties:
-        status:
-          $ref: '#/components/schemas/transfer-status'
-          description: The status that the transfer transitioned to.
-        createdAt:
-          $ref: '#/components/schemas/created-at'
-        statusReason:
-          $ref: '#/components/schemas/status-reason-2'
-    entity-transfer:
-      type: object
-      properties:
-        resource:
-          type: string
-          description: |-
-            Indicates the response contains a transfer object. Will always contain the string `business-account-transfer`
-            for this endpoint.
-          readOnly: true
-          example: business-account-transfer
-        id:
-          allOf:
-            - $ref: '#/components/schemas/businessAccountTransferToken'
-          description: The identifier uniquely referring to this transfer. Mollie assigns this identifier at transfer creation time.
-          readOnly: true
-        mode:
-          $ref: '#/components/schemas/mode'
-        debtorIban:
-          type: string
-          description: The IBAN of the debtor's (sender) Mollie account from which to initiate the transfer.
-          example: NL55MLLE0123456789
-          writeOnly: true
-        debtor:
-          allOf:
-            - $ref: '#/components/schemas/transfer-party'
-          description: The debtor (sender) of the transfer, including their name and account details.
-          readOnly: true
-        creditor:
-          $ref: '#/components/schemas/transfer-party'
-          description: The creditor (recipient) of the transfer, including their name and account details.
-        amount:
-          $ref: '#/components/schemas/amount'
-          description: |-
-            The amount of the transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer €100.00.
-
-            Only `EUR` is supported for SEPA transfers.
-        description:
-          type:
-            - string
-            - 'null'
-          description: |-
-            A short description of the transfer. This will appear on the bank statement of both the debtor and creditor.
-
-            It must begin with an alphanumeric character, followed by any combination of letters, numbers, spaces or special characters `/ - ? : ( ) . , ' + _`.
-
-            Constraints:
-            - Cannot be solely a hyphen (-) or colon (:)
-            - Cannot contain consecutive hyphens (--)
-            - Cannot contain consecutive colons (::)
-          maxLength: 140
-          pattern: ^(?![:\-]$)(?!.*(--|::))([a-zA-Z0-9]+[\s]*[a-zA-Z0-9/\-?:().,'+_ ]*)?$
-          example: Invoice 12345
-        businessAccountTransactionId:
-          allOf:
-            - $ref: '#/components/schemas/businessAccountTransactionToken'
-          description: The identifier of the corresponding transaction in the business accounts transaction resource.
-          readOnly: true
-        transferScheme:
-          $ref: '#/components/schemas/transfer-scheme'
-        creditDebitIndicator:
-          $ref: '#/components/schemas/credit-debit-indicator'
-        status:
-          $ref: '#/components/schemas/transfer-status'
-        statusHistory:
-          type: array
-          description: A chronological list of status transitions the transfer has gone through.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/status-history-entry'
-        createdAt:
-          $ref: '#/components/schemas/created-at'
-        statusReason:
-          $ref: '#/components/schemas/status-reason-2'
-        metadata:
-          $ref: '#/components/schemas/metadata'
-        testmode:
-          $ref: '#/components/schemas/testmode-create'
     transfer-request:
       allOf:
         - $ref: '#/components/schemas/entity-transfer'
@@ -35552,24 +35586,6 @@ components:
             - creditor
             - amount
             - transferScheme
-    transfer-response:
-      allOf:
-        - $ref: '#/components/schemas/entity-transfer-response'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-            - businessAccountTransactionId
-            - transferScheme
-            - creditDebitIndicator
-            - amount
-            - debtor
-            - creditor
-            - status
-            - statusHistory
-            - createdAt
-      x-speakeasy-unknown-values: allow
     account-number-format:
       type: string
       description: The format of the account number.
@@ -40828,6 +40844,13 @@ components:
         - sales-invoice.issued
         - sales-invoice.canceled
         - sales-invoice.paid
+        - business-account-transfer.requested
+        - business-account-transfer.initiated
+        - business-account-transfer.pending-review
+        - business-account-transfer.processed
+        - business-account-transfer.failed
+        - business-account-transfer.blocked
+        - business-account-transfer.returned
         - '*'
       x-enumDescriptions:
         payment-link.paid: Occurs when a payment link has been paid.
@@ -40836,6 +40859,13 @@ components:
         sales-invoice.issued: Occurs when a sales invoice has been issued.
         sales-invoice.canceled: Occurs when a sales invoice has been canceled.
         sales-invoice.paid: Occurs when a sales invoice has been paid.
+        business-account-transfer.requested: The transfer is requested and waiting for SCA (exempt for Transfers API). SEPA transfer input checks passed.
+        business-account-transfer.initiated: The transfer is SCA-authorized for execution. Funds are reserved.
+        business-account-transfer.pending-review: The transfer is pending manual review.
+        business-account-transfer.processed: The transfer is processed.
+        business-account-transfer.failed: The transfer fails to be executed.
+        business-account-transfer.blocked: The transfer is blocked.
+        business-account-transfer.returned: Incoming transfer when a transfer is returned.
         '*': All event types.
       example: payment-link.paid
       x-speakeasy-unknown-values: allow
@@ -40889,6 +40919,587 @@ components:
         - oneoff
         - first
       example: oneoff
+      x-speakeasy-unknown-values: allow
+    entity-sales-invoice-response:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
+            endpoint.
+          readOnly: true
+          writeOnly: false
+          example: sales-invoice
+        id:
+          allOf:
+            - $ref: '#/components/schemas/salesInvoiceToken'
+          type: string
+          description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        invoiceNumber:
+          example: INV-0000001
+          type:
+            - string
+            - 'null'
+          description: When issued, an invoice number will be set for the sales invoice.
+          readOnly: true
+        profileId:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The identifier referring to the [profile](get-profile) this entity belongs to.
+
+            Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent in the creation
+            request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
+            required.
+          example: pfl_QkEhN94Ba
+        status:
+          $ref: '#/components/schemas/sales-invoice-status-response'
+        vatScheme:
+          $ref: '#/components/schemas/sales-invoice-vat-scheme-response'
+        vatMode:
+          $ref: '#/components/schemas/sales-invoice-vat-mode-response'
+        memo:
+          example: This is a memo!
+          type:
+            - string
+            - 'null'
+          description: A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
+        metadata:
+          type:
+            - object
+            - 'null'
+          properties: {}
+          additionalProperties: true
+          description: |-
+            Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
+            you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
+        paymentTerm:
+          $ref: '#/components/schemas/sales-invoice-payment-term-response'
+        paymentDetails:
+          description: |-
+            Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+            provided details. Required for `paid` status.
+        emailDetails:
+          $ref: '#/components/schemas/sales-invoice-email-details'
+          description: |-
+            Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
+            recipient with the provided `subject` and `body`. Required for `issued` status.
+        customerId:
+          type:
+            - string
+          description: |-
+            The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
+            provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
+          example: cst_8wmqcHMN4U
+        mandateId:
+          type: string
+          description: |-
+            The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided,
+            `customerId` becomes required as well. Only allowed for invoices with status `paid`.
+          example: mdt_pWUnw6pkBN
+        recipientIdentifier:
+          example: customer-xyz-0123
+          type: string
+          description: |-
+            An identifier tied to the recipient data. This should be a unique value based on data your system contains,
+            so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
+            is not required to send a first invoice to a recipient.
+        recipient:
+          $ref: '#/components/schemas/sales-invoice-recipient-response'
+        lines:
+          type:
+            - array
+            - 'null'
+          description: |-
+            Provide the line items for the invoice. Each line contains details such as a description of the item
+            ordered and its price.
+
+            All lines must have the same currency as the invoice.
+          items:
+            $ref: '#/components/schemas/sales-invoice-line-item-response'
+        discount:
+          $ref: '#/components/schemas/sales-invoice-discount-response'
+          description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
+        isEInvoice:
+          type: boolean
+          description: |-
+            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
+            after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
+            recipient.
+
+            E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
+            the recipient is also located in one of these countries.
+          example: false
+        amountDue:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The amount that is left to be paid.
+          readOnly: true
+        subtotalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount without VAT before discounts.
+          readOnly: true
+        totalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount with VAT.
+          readOnly: true
+        totalVatAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total VAT amount.
+          readOnly: true
+        discountedSubtotalAmount:
+          allOf:
+            - $ref: '#/components/schemas/amount'
+          description: The total amount without VAT after discounts.
+          readOnly: true
+        createdAt:
+          type: string
+          $ref: '#/components/schemas/created-at'
+        issuedAt:
+          example: '2024-10-03T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        paidAt:
+          example: '2024-10-04T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        dueAt:
+          example: '2024-11-01T10:47:38+00:00'
+          type:
+            - string
+            - 'null'
+          description: |-
+            If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format.
+          readOnly: true
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            invoicePayment:
+              $ref: '#/components/schemas/url'
+              description: |-
+                The URL your customer should visit to make payment for the invoice. This is where you should redirect the
+                customer to unless the `status` is set to `paid`.
+            pdfLink:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+              description: The URL the invoice is available at, if generated.
+            documentation:
+              $ref: '#/components/schemas/url'
+            next:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+            previous:
+              $ref: '#/components/schemas/url'
+              type:
+                - object
+                - 'null'
+          readOnly: true
+          writeOnly: false
+      x-speakeasy-unknown-values: allow
+    sales-invoice-status-response:
+      type: string
+      description: |-
+        The status for the invoice to end up in.
+
+        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+
+        A status value that cannot be set but can be returned is `canceled`, for invoices which were
+        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
+
+        Dependent parameters:
+          - `paymentDetails` is required if invoice should be set directly to `paid`
+          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      enum:
+        - draft
+        - issued
+        - paid
+      example: draft
+      x-speakeasy-unknown-values: allow
+    sales-invoice-vat-scheme-response:
+      type: string
+      description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
+      enum:
+        - standard
+        - one-stop-shop
+      example: standard
+      x-speakeasy-unknown-values: allow
+    sales-invoice-vat-mode-response:
+      type: string
+      description: |-
+        The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
+        price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
+      enum:
+        - exclusive
+        - inclusive
+      example: exclusive
+      x-speakeasy-unknown-values: allow
+    sales-invoice-payment-term-response:
+      type:
+        - string
+        - 'null'
+      description: The payment term to be set on the invoice.
+      enum:
+        - 7 days
+        - 14 days
+        - 30 days
+        - 45 days
+        - 60 days
+        - 90 days
+        - 120 days
+      example: 30 days
+      x-speakeasy-unknown-values: allow
+    sales-invoice-recipient-response:
+      type:
+        - object
+        - 'null'
+      required:
+        - type
+        - email
+        - streetAndNumber
+        - postalCode
+        - city
+        - country
+        - locale
+      properties:
+        type:
+          $ref: '#/components/schemas/sales-invoice-recipient-type-response'
+        title:
+          example: Mrs.
+          type:
+            - string
+            - 'null'
+          description: The title of the `consumer` type recipient, for example Mr. or Mrs..
+        givenName:
+          example: Jane
+          type:
+            - string
+            - 'null'
+          description: |-
+            The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain
+            only numbers.
+        familyName:
+          example: Doe
+          type:
+            - string
+            - 'null'
+          description: |-
+            The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain
+            only numbers.
+        organizationName:
+          example: Organization Corp.
+          type:
+            - string
+            - 'null'
+          description: The trading name of the `business` type recipient.
+        organizationNumber:
+          example: '12345678'
+          type:
+            - string
+            - 'null'
+          description: |-
+            The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber`
+            has to be provided.
+        vatNumber:
+          example: NL123456789B01
+          type:
+            - string
+            - 'null'
+          description: |-
+            The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber`
+            has to be provided.
+        email:
+          example: example@email.com
+          type: string
+          description: |-
+            The email address of the recipient.
+
+            If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
+        phone:
+          example: '+0123456789'
+          type:
+            - string
+            - 'null'
+          description: The phone number of the recipient.
+        streetAndNumber:
+          example: Keizersgracht 126
+          type: string
+          description: A street and street number.
+        streetAdditional:
+          example: 4th floor
+          type:
+            - string
+            - 'null'
+          description: Any additional addressing details, for example an apartment number.
+        postalCode:
+          example: 5678AB
+          type: string
+          description: A postal code.
+        city:
+          example: Amsterdam
+          type: string
+          description: The recipient's city.
+        region:
+          example: Noord-Holland
+          type:
+            - string
+            - 'null'
+          description: The recipient's region.
+        country:
+          example: NL
+          type: string
+          description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+        locale:
+          allOf:
+            - $ref: '#/components/schemas/sales-invoice-recipient-locale-response'
+          writeOnly: true
+      x-speakeasy-unknown-values: allow
+    sales-invoice-recipient-type-response:
+      type: string
+      description: |-
+        The type of recipient, either `consumer` or `business`. This will determine what further fields are
+        required on the `recipient` object.
+      enum:
+        - consumer
+        - business
+      example: consumer
+      x-speakeasy-unknown-values: allow
+    sales-invoice-recipient-locale-response:
+      type: string
+      description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
+      enum:
+        - en_US
+        - en_GB
+        - nl_NL
+        - nl_BE
+        - de_DE
+        - de_AT
+        - de_CH
+        - fr_FR
+        - fr_BE
+      example: nl_NL
+      x-speakeasy-unknown-values: allow
+    sales-invoice-line-item-response:
+      type: object
+      required:
+        - description
+        - quantity
+        - vatRate
+        - unitPrice
+      properties:
+        description:
+          example: LEGO 4440 Forest Police Station
+          type: string
+          description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
+          maxLength: 100
+        quantity:
+          example: 1
+          type: integer
+          description: The number of items.
+          minimum: 1
+        vatRate:
+          example: '21.00'
+          type: string
+          description: The vat rate to be applied to this line item.
+        unitPrice:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The price of a single item excluding VAT.
+
+            For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
+
+            The unit price can be zero in case of free items.
+        discount:
+          $ref: '#/components/schemas/sales-invoice-discount-response'
+          description: The discount to be applied to the line item.
+      x-speakeasy-unknown-values: allow
+    sales-invoice-discount-response:
+      type:
+        - object
+        - 'null'
+      required:
+        - type
+        - value
+      properties:
+        type:
+          $ref: '#/components/schemas/sales-invoice-discount-type-response'
+        value:
+          example: '10.00'
+          type: string
+          description: A string containing an exact monetary amount in the given currency, or the percentage.
+      x-speakeasy-unknown-values: allow
+    sales-invoice-discount-type-response:
+      type: string
+      description: The type of discount.
+      enum:
+        - amount
+        - percentage
+      example: amount
+      x-speakeasy-unknown-values: allow
+    sales-invoice-payment-details-source-response:
+      type: string
+      description: The way through which the invoice is to be set to paid.
+      enum:
+        - manual
+        - payment-link
+        - payment
+      example: payment-link
+      x-speakeasy-unknown-values: allow
+    entity-transfer-response:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a transfer object. Will always contain the string `business-account-transfer`
+            for this endpoint.
+          readOnly: true
+          example: business-account-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransferToken'
+          description: The identifier uniquely referring to this transfer. Mollie assigns this identifier at transfer creation time.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        debtorIban:
+          type: string
+          description: The IBAN of the debtor's (sender) Mollie account from which to initiate the transfer.
+          example: NL55MLLE0123456789
+          writeOnly: true
+        debtor:
+          allOf:
+            - $ref: '#/components/schemas/transfer-party'
+          description: The debtor (sender) of the transfer, including their name and account details.
+          readOnly: true
+        creditor:
+          $ref: '#/components/schemas/transfer-party'
+          description: The creditor (recipient) of the transfer, including their name and account details.
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer €100.00.
+
+            Only `EUR` is supported for SEPA transfers.
+        description:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A short description of the transfer. This will appear on the bank statement of both the debtor and creditor.
+
+            It must begin with an alphanumeric character, followed by any combination of letters, numbers, spaces or special characters `/ - ? : ( ) . , ' + _`.
+
+            Constraints:
+            - Cannot be solely a hyphen (-) or colon (:)
+            - Cannot contain consecutive hyphens (--)
+            - Cannot contain consecutive colons (::)
+          maxLength: 140
+          pattern: ^(?![:\-]$)(?!.*(--|::))([a-zA-Z0-9]+[\s]*[a-zA-Z0-9/\-?:().,'+_ ]*)?$
+          example: Invoice 12345
+        businessAccountTransactionId:
+          allOf:
+            - $ref: '#/components/schemas/businessAccountTransactionToken'
+          description: The identifier of the corresponding transaction in the business accounts transaction resource.
+          readOnly: true
+        transferScheme:
+          $ref: '#/components/schemas/transfer-scheme-response'
+        creditDebitIndicator:
+          $ref: '#/components/schemas/credit-debit-indicator'
+        status:
+          $ref: '#/components/schemas/transfer-status'
+        statusHistory:
+          type: array
+          description: A chronological list of status transitions the transfer has gone through.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/status-history-entry-response'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+      x-speakeasy-unknown-values: allow
+    transfer-scheme-response:
+      type: object
+      description: The scheme, as requested by the client.
+      required:
+        - type
+      properties:
+        type:
+          $ref: '#/components/schemas/transfer-scheme-type-response'
+      x-speakeasy-unknown-values: allow
+    transfer-scheme-type-response:
+      type: string
+      description: The transfer scheme to be used for the transfer. The transfer scheme determines the processing time and method of the transfer.
+      enum:
+        - sepa-credit-inst
+        - sepa-credit
+      x-enumDescriptions:
+        sepa-credit-inst: Processing time of up to 9 seconds.
+        sepa-credit: Processing time may take up to 2 days.
+      example: sepa-credit-inst
+      x-speakeasy-unknown-values: allow
+    status-history-entry-response:
+      type: object
+      description: Represents an entry in the transfer's status history, recording a past status transition.
+      required:
+        - status
+        - createdAt
+      properties:
+        status:
+          $ref: '#/components/schemas/transfer-status'
+          description: The status that the transfer transitioned to.
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        statusReason:
+          $ref: '#/components/schemas/status-reason-2'
+      x-speakeasy-unknown-values: allow
+    status-reason-code-response:
+      type: string
+      description: A machine-readable code indicating the reason for the transfer's terminal status.
+      enum:
+        - insufficient-funds
+        - rejected
+        - error
+      x-enumDescriptions:
+        insufficient-funds: The debtor account has insufficient funds to complete the transfer.
+        rejected: The transfer was blocked following a review by Mollie.
+        error: An unexpected error occurred. Refer to the `message` field for further details.
+      example: insufficient-funds
       x-speakeasy-unknown-values: allow
     entity-balance-transfer-response:
       type: object
@@ -41556,587 +42167,6 @@ components:
         - paypal
         - null
       example: paypal
-      x-speakeasy-unknown-values: allow
-    entity-sales-invoice-response:
-      type: object
-      properties:
-        resource:
-          type: string
-          description: |-
-            Indicates the response contains a sales invoice object. Will always contain the string `sales-invoice` for this
-            endpoint.
-          readOnly: true
-          writeOnly: false
-          example: sales-invoice
-        id:
-          allOf:
-            - $ref: '#/components/schemas/salesInvoiceToken'
-          type: string
-          description: 'The identifier uniquely referring to this invoice. Example: `invoice_4Y0eZitmBnQ6IDoMqZQKh`.'
-          readOnly: true
-        mode:
-          $ref: '#/components/schemas/mode'
-        testmode:
-          $ref: '#/components/schemas/testmode-create'
-        invoiceNumber:
-          example: INV-0000001
-          type:
-            - string
-            - 'null'
-          description: When issued, an invoice number will be set for the sales invoice.
-          readOnly: true
-        profileId:
-          type:
-            - string
-            - 'null'
-          description: |-
-            The identifier referring to the [profile](get-profile) this entity belongs to.
-
-            Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent in the creation
-            request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is
-            required.
-          example: pfl_QkEhN94Ba
-        status:
-          $ref: '#/components/schemas/sales-invoice-status-response'
-        vatScheme:
-          $ref: '#/components/schemas/sales-invoice-vat-scheme-response'
-        vatMode:
-          $ref: '#/components/schemas/sales-invoice-vat-mode-response'
-        memo:
-          example: This is a memo!
-          type:
-            - string
-            - 'null'
-          description: A free-form memo you can set on the invoice, and will be shown on the invoice PDF.
-        metadata:
-          type:
-            - object
-            - 'null'
-          properties: {}
-          additionalProperties: true
-          description: |-
-            Provide any data you like as a JSON object. We will save the data alongside the entity. Whenever
-            you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
-        paymentTerm:
-          $ref: '#/components/schemas/sales-invoice-payment-term-response'
-        paymentDetails:
-          description: |-
-            Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
-            provided details. Required for `paid` status.
-        emailDetails:
-          $ref: '#/components/schemas/sales-invoice-email-details'
-          description: |-
-            Used when setting an invoice to status of either `issued` or `paid`. Will be used to issue the invoice to the
-            recipient with the provided `subject` and `body`. Required for `issued` status.
-        customerId:
-          type:
-            - string
-          description: |-
-            The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
-            provided, `mandateId` becomes required as well. Only allowed for invoices with status `paid`.
-          example: cst_8wmqcHMN4U
-        mandateId:
-          type: string
-          description: |-
-            The identifier referring to the [mandate](get-mandate) you want to use for the automated payment. If provided,
-            `customerId` becomes required as well. Only allowed for invoices with status `paid`.
-          example: mdt_pWUnw6pkBN
-        recipientIdentifier:
-          example: customer-xyz-0123
-          type: string
-          description: |-
-            An identifier tied to the recipient data. This should be a unique value based on data your system contains,
-            so that both you and us know who we're referring to. It is a value you provide to us so that recipient management
-            is not required to send a first invoice to a recipient.
-        recipient:
-          $ref: '#/components/schemas/sales-invoice-recipient-response'
-        lines:
-          type:
-            - array
-            - 'null'
-          description: |-
-            Provide the line items for the invoice. Each line contains details such as a description of the item
-            ordered and its price.
-
-            All lines must have the same currency as the invoice.
-          items:
-            $ref: '#/components/schemas/sales-invoice-line-item-response'
-        discount:
-          $ref: '#/components/schemas/sales-invoice-discount-response'
-          description: The discount to be applied to the entire invoice, applied on top of any line item discounts.
-        isEInvoice:
-          type: boolean
-          description: |-
-            This indicates whether the invoice is an e-invoice. The default value is `false` and can't be changed
-            after the invoice has been issued. When `emailDetails` is provided, an additional email is sent to the
-            recipient.
-
-            E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
-            the recipient is also located in one of these countries.
-          example: false
-        amountDue:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The amount that is left to be paid.
-          readOnly: true
-        subtotalAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT before discounts.
-          readOnly: true
-        totalAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total amount with VAT.
-          readOnly: true
-        totalVatAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total VAT amount.
-          readOnly: true
-        discountedSubtotalAmount:
-          allOf:
-            - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT after discounts.
-          readOnly: true
-        createdAt:
-          type: string
-          $ref: '#/components/schemas/created-at'
-        issuedAt:
-          example: '2024-10-03T10:47:38+00:00'
-          type:
-            - string
-            - 'null'
-          description: |-
-            If issued, the date when the sales invoice was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format.
-          readOnly: true
-        paidAt:
-          example: '2024-10-04T10:47:38+00:00'
-          type:
-            - string
-            - 'null'
-          description: |-
-            If paid, the date when the sales invoice was paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format.
-          readOnly: true
-        dueAt:
-          example: '2024-11-01T10:47:38+00:00'
-          type:
-            - string
-            - 'null'
-          description: |-
-            If issued, the date when the sales invoice payment is due, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format.
-          readOnly: true
-        _links:
-          type: object
-          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-          properties:
-            self:
-              $ref: '#/components/schemas/url'
-            invoicePayment:
-              $ref: '#/components/schemas/url'
-              description: |-
-                The URL your customer should visit to make payment for the invoice. This is where you should redirect the
-                customer to unless the `status` is set to `paid`.
-            pdfLink:
-              $ref: '#/components/schemas/url'
-              type:
-                - object
-                - 'null'
-              description: The URL the invoice is available at, if generated.
-            documentation:
-              $ref: '#/components/schemas/url'
-            next:
-              $ref: '#/components/schemas/url'
-              type:
-                - object
-                - 'null'
-            previous:
-              $ref: '#/components/schemas/url'
-              type:
-                - object
-                - 'null'
-          readOnly: true
-          writeOnly: false
-      x-speakeasy-unknown-values: allow
-    sales-invoice-status-response:
-      type: string
-      description: |-
-        The status for the invoice to end up in.
-
-        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
-        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
-        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
-
-        A status value that cannot be set but can be returned is `canceled`, for invoices which were
-        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
-
-        Dependent parameters:
-          - `paymentDetails` is required if invoice should be set directly to `paid`
-          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
-          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-      enum:
-        - draft
-        - issued
-        - paid
-      example: draft
-      x-speakeasy-unknown-values: allow
-    sales-invoice-vat-scheme-response:
-      type: string
-      description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
-      enum:
-        - standard
-        - one-stop-shop
-      example: standard
-      x-speakeasy-unknown-values: allow
-    sales-invoice-vat-mode-response:
-      type: string
-      description: |-
-        The VAT mode to use for VAT calculation. `exclusive` mode means we will apply the relevant VAT on top of the
-        price. `inclusive` means the prices you are providing to us already contain the VAT you want to apply.
-      enum:
-        - exclusive
-        - inclusive
-      example: exclusive
-      x-speakeasy-unknown-values: allow
-    sales-invoice-payment-term-response:
-      type:
-        - string
-        - 'null'
-      description: The payment term to be set on the invoice.
-      enum:
-        - 7 days
-        - 14 days
-        - 30 days
-        - 45 days
-        - 60 days
-        - 90 days
-        - 120 days
-      example: 30 days
-      x-speakeasy-unknown-values: allow
-    sales-invoice-recipient-response:
-      type:
-        - object
-        - 'null'
-      required:
-        - type
-        - email
-        - streetAndNumber
-        - postalCode
-        - city
-        - country
-        - locale
-      properties:
-        type:
-          $ref: '#/components/schemas/sales-invoice-recipient-type-response'
-        title:
-          example: Mrs.
-          type:
-            - string
-            - 'null'
-          description: The title of the `consumer` type recipient, for example Mr. or Mrs..
-        givenName:
-          example: Jane
-          type:
-            - string
-            - 'null'
-          description: |-
-            The given name (first name) of the `consumer` type recipient should be at least two characters and cannot contain
-            only numbers.
-        familyName:
-          example: Doe
-          type:
-            - string
-            - 'null'
-          description: |-
-            The given name (last name) of the `consumer` type recipient should be at least two characters and cannot contain
-            only numbers.
-        organizationName:
-          example: Organization Corp.
-          type:
-            - string
-            - 'null'
-          description: The trading name of the `business` type recipient.
-        organizationNumber:
-          example: '12345678'
-          type:
-            - string
-            - 'null'
-          description: |-
-            The Chamber of Commerce number of the organization for a `business` type recipient. Either this or `vatNumber`
-            has to be provided.
-        vatNumber:
-          example: NL123456789B01
-          type:
-            - string
-            - 'null'
-          description: |-
-            The VAT number of the organization for a `business` type recipient. Either this or `organizationNumber`
-            has to be provided.
-        email:
-          example: example@email.com
-          type: string
-          description: |-
-            The email address of the recipient.
-
-            If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
-        phone:
-          example: '+0123456789'
-          type:
-            - string
-            - 'null'
-          description: The phone number of the recipient.
-        streetAndNumber:
-          example: Keizersgracht 126
-          type: string
-          description: A street and street number.
-        streetAdditional:
-          example: 4th floor
-          type:
-            - string
-            - 'null'
-          description: Any additional addressing details, for example an apartment number.
-        postalCode:
-          example: 5678AB
-          type: string
-          description: A postal code.
-        city:
-          example: Amsterdam
-          type: string
-          description: The recipient's city.
-        region:
-          example: Noord-Holland
-          type:
-            - string
-            - 'null'
-          description: The recipient's region.
-        country:
-          example: NL
-          type: string
-          description: A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
-        locale:
-          allOf:
-            - $ref: '#/components/schemas/sales-invoice-recipient-locale-response'
-          writeOnly: true
-      x-speakeasy-unknown-values: allow
-    sales-invoice-recipient-type-response:
-      type: string
-      description: |-
-        The type of recipient, either `consumer` or `business`. This will determine what further fields are
-        required on the `recipient` object.
-      enum:
-        - consumer
-        - business
-      example: consumer
-      x-speakeasy-unknown-values: allow
-    sales-invoice-recipient-locale-response:
-      type: string
-      description: The locale for the recipient, to be used for translations in PDF generation and payment pages.
-      enum:
-        - en_US
-        - en_GB
-        - nl_NL
-        - nl_BE
-        - de_DE
-        - de_AT
-        - de_CH
-        - fr_FR
-        - fr_BE
-      example: nl_NL
-      x-speakeasy-unknown-values: allow
-    sales-invoice-line-item-response:
-      type: object
-      required:
-        - description
-        - quantity
-        - vatRate
-        - unitPrice
-      properties:
-        description:
-          example: LEGO 4440 Forest Police Station
-          type: string
-          description: A description of the line item. For example *LEGO 4440 Forest Police Station*.
-          maxLength: 100
-        quantity:
-          example: 1
-          type: integer
-          description: The number of items.
-          minimum: 1
-        vatRate:
-          example: '21.00'
-          type: string
-          description: The vat rate to be applied to this line item.
-        unitPrice:
-          $ref: '#/components/schemas/amount'
-          description: |-
-            The price of a single item excluding VAT.
-
-            For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
-
-            The unit price can be zero in case of free items.
-        discount:
-          $ref: '#/components/schemas/sales-invoice-discount-response'
-          description: The discount to be applied to the line item.
-      x-speakeasy-unknown-values: allow
-    sales-invoice-discount-response:
-      type:
-        - object
-        - 'null'
-      required:
-        - type
-        - value
-      properties:
-        type:
-          $ref: '#/components/schemas/sales-invoice-discount-type-response'
-        value:
-          example: '10.00'
-          type: string
-          description: A string containing an exact monetary amount in the given currency, or the percentage.
-      x-speakeasy-unknown-values: allow
-    sales-invoice-discount-type-response:
-      type: string
-      description: The type of discount.
-      enum:
-        - amount
-        - percentage
-      example: amount
-      x-speakeasy-unknown-values: allow
-    sales-invoice-payment-details-source-response:
-      type: string
-      description: The way through which the invoice is to be set to paid.
-      enum:
-        - manual
-        - payment-link
-        - payment
-      example: payment-link
-      x-speakeasy-unknown-values: allow
-    entity-transfer-response:
-      type: object
-      properties:
-        resource:
-          type: string
-          description: |-
-            Indicates the response contains a transfer object. Will always contain the string `business-account-transfer`
-            for this endpoint.
-          readOnly: true
-          example: business-account-transfer
-        id:
-          allOf:
-            - $ref: '#/components/schemas/businessAccountTransferToken'
-          description: The identifier uniquely referring to this transfer. Mollie assigns this identifier at transfer creation time.
-          readOnly: true
-        mode:
-          $ref: '#/components/schemas/mode'
-        debtorIban:
-          type: string
-          description: The IBAN of the debtor's (sender) Mollie account from which to initiate the transfer.
-          example: NL55MLLE0123456789
-          writeOnly: true
-        debtor:
-          allOf:
-            - $ref: '#/components/schemas/transfer-party'
-          description: The debtor (sender) of the transfer, including their name and account details.
-          readOnly: true
-        creditor:
-          $ref: '#/components/schemas/transfer-party'
-          description: The creditor (recipient) of the transfer, including their name and account details.
-        amount:
-          $ref: '#/components/schemas/amount'
-          description: |-
-            The amount of the transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer €100.00.
-
-            Only `EUR` is supported for SEPA transfers.
-        description:
-          type:
-            - string
-            - 'null'
-          description: |-
-            A short description of the transfer. This will appear on the bank statement of both the debtor and creditor.
-
-            It must begin with an alphanumeric character, followed by any combination of letters, numbers, spaces or special characters `/ - ? : ( ) . , ' + _`.
-
-            Constraints:
-            - Cannot be solely a hyphen (-) or colon (:)
-            - Cannot contain consecutive hyphens (--)
-            - Cannot contain consecutive colons (::)
-          maxLength: 140
-          pattern: ^(?![:\-]$)(?!.*(--|::))([a-zA-Z0-9]+[\s]*[a-zA-Z0-9/\-?:().,'+_ ]*)?$
-          example: Invoice 12345
-        businessAccountTransactionId:
-          allOf:
-            - $ref: '#/components/schemas/businessAccountTransactionToken'
-          description: The identifier of the corresponding transaction in the business accounts transaction resource.
-          readOnly: true
-        transferScheme:
-          $ref: '#/components/schemas/transfer-scheme-response'
-        creditDebitIndicator:
-          $ref: '#/components/schemas/credit-debit-indicator'
-        status:
-          $ref: '#/components/schemas/transfer-status'
-        statusHistory:
-          type: array
-          description: A chronological list of status transitions the transfer has gone through.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/status-history-entry-response'
-        createdAt:
-          $ref: '#/components/schemas/created-at'
-        statusReason:
-          $ref: '#/components/schemas/status-reason-2'
-        metadata:
-          $ref: '#/components/schemas/metadata'
-        testmode:
-          $ref: '#/components/schemas/testmode-create'
-      x-speakeasy-unknown-values: allow
-    transfer-scheme-response:
-      type: object
-      description: The scheme, as requested by the client.
-      required:
-        - type
-      properties:
-        type:
-          $ref: '#/components/schemas/transfer-scheme-type-response'
-      x-speakeasy-unknown-values: allow
-    transfer-scheme-type-response:
-      type: string
-      description: The transfer scheme to be used for the transfer. The transfer scheme determines the processing time and method of the transfer.
-      enum:
-        - sepa-credit-inst
-        - sepa-credit
-      x-enumDescriptions:
-        sepa-credit-inst: Processing time of up to 9 seconds.
-        sepa-credit: Processing time may take up to 2 days.
-      example: sepa-credit-inst
-      x-speakeasy-unknown-values: allow
-    status-history-entry-response:
-      type: object
-      description: Represents an entry in the transfer's status history, recording a past status transition.
-      required:
-        - status
-        - createdAt
-      properties:
-        status:
-          $ref: '#/components/schemas/transfer-status'
-          description: The status that the transfer transitioned to.
-        createdAt:
-          $ref: '#/components/schemas/created-at'
-        statusReason:
-          $ref: '#/components/schemas/status-reason-2'
-      x-speakeasy-unknown-values: allow
-    status-reason-code-response:
-      type: string
-      description: A machine-readable code indicating the reason for the transfer's terminal status.
-      enum:
-        - insufficient-funds
-        - rejected
-        - error
-      x-enumDescriptions:
-        insufficient-funds: The debtor account has insufficient funds to complete the transfer.
-        rejected: The transfer was blocked following a review by Mollie.
-        error: An unexpected error occurred. Refer to the `message` field for further details.
-      example: insufficient-funds
       x-speakeasy-unknown-values: allow
     creditor-bank-account-response:
       type: object
