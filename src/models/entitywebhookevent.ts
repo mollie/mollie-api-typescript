@@ -15,9 +15,13 @@ import {
   PaymentLinkResponse$inboundSchema,
 } from "./paymentlinkresponse.js";
 import {
-  ProfileResponse,
-  ProfileResponse$inboundSchema,
-} from "./profileresponse.js";
+  SalesInvoiceResponse,
+  SalesInvoiceResponse$inboundSchema,
+} from "./salesinvoiceresponse.js";
+import {
+  TransferResponse,
+  TransferResponse$inboundSchema,
+} from "./transferresponse.js";
 import { Url, Url$inboundSchema } from "./url.js";
 
 /**
@@ -33,6 +37,14 @@ export const EntityWebhookEventWebhookEventTypes = {
   SalesInvoiceIssued: "sales-invoice.issued",
   SalesInvoiceCanceled: "sales-invoice.canceled",
   SalesInvoicePaid: "sales-invoice.paid",
+  BusinessAccountTransferRequested: "business-account-transfer.requested",
+  BusinessAccountTransferInitiated: "business-account-transfer.initiated",
+  BusinessAccountTransferPendingReview:
+    "business-account-transfer.pending-review",
+  BusinessAccountTransferProcessed: "business-account-transfer.processed",
+  BusinessAccountTransferFailed: "business-account-transfer.failed",
+  BusinessAccountTransferBlocked: "business-account-transfer.blocked",
+  BusinessAccountTransferReturned: "business-account-transfer.returned",
   Wildcard: "*",
 } as const;
 /**
@@ -45,13 +57,20 @@ export type EntityWebhookEventWebhookEventTypes = OpenEnum<
   typeof EntityWebhookEventWebhookEventTypes
 >;
 
-export type Entity = PaymentLinkResponse | ProfileResponse;
+export type Entity =
+  | PaymentLinkResponse
+  | TransferResponse
+  | SalesInvoiceResponse;
 
 /**
  * Full payload of the event.
  */
 export type Embedded = {
-  entity?: PaymentLinkResponse | ProfileResponse | undefined;
+  entity?:
+    | PaymentLinkResponse
+    | TransferResponse
+    | SalesInvoiceResponse
+    | undefined;
 };
 
 /**
@@ -109,7 +128,11 @@ export const EntityWebhookEventWebhookEventTypes$inboundSchema: z.ZodType<
 
 /** @internal */
 export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
-  .union([PaymentLinkResponse$inboundSchema, ProfileResponse$inboundSchema]);
+  .union([
+    PaymentLinkResponse$inboundSchema,
+    TransferResponse$inboundSchema,
+    SalesInvoiceResponse$inboundSchema,
+  ]);
 
 export function entityFromJSON(
   jsonString: string,
@@ -129,7 +152,8 @@ export const Embedded$inboundSchema: z.ZodType<
 > = z.object({
   entity: z.union([
     PaymentLinkResponse$inboundSchema,
-    ProfileResponse$inboundSchema,
+    TransferResponse$inboundSchema,
+    SalesInvoiceResponse$inboundSchema,
   ]).optional(),
 });
 

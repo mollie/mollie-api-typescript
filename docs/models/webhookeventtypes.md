@@ -14,5 +14,5 @@ let value: WebhookEventTypes = "payment-link.paid";
 ## Values
 
 ```typescript
-"payment-link.paid" | "balance-transaction.created" | "sales-invoice.created" | "sales-invoice.issued" | "sales-invoice.canceled" | "sales-invoice.paid" | "*"
+"payment-link.paid" | "balance-transaction.created" | "sales-invoice.created" | "sales-invoice.issued" | "sales-invoice.canceled" | "sales-invoice.paid" | "business-account-transfer.requested" | "business-account-transfer.initiated" | "business-account-transfer.pending-review" | "business-account-transfer.processed" | "business-account-transfer.failed" | "business-account-transfer.blocked" | "business-account-transfer.returned" | "*"
 ```

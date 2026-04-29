@@ -32,16 +32,7 @@ let value: TransferResponse = {
   },
   creditDebitIndicator: "debit",
   status: "initiated",
-  statusHistory: [
-    {
-      status: "initiated",
-      createdAt: "2024-03-20T09:13:37+00:00",
-      statusReason: {
-        code: "insufficient-funds",
-        message: "The creditor account does not exist.",
-      },
-    },
-  ],
+  statusHistory: [],
   createdAt: "2024-03-20T09:13:37+00:00",
   statusReason: {
     code: "insufficient-funds",

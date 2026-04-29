@@ -13,8 +13,8 @@ let value: ListEntityWebhook = {
   createdAt: "2023-03-15T10:00:00+00:00",
   name: "Profile Updates Webhook",
   eventTypes: [
-    "payment-link.paid",
-    "*",
+    "balance-transaction.created",
+    "business-account-transfer.returned",
   ],
   status: "enabled",
   mode: "live",
