@@ -1,4 +1,4 @@
-# SalesInvoiceStatus
+# SalesInvoiceStatusUpdate
 
 The status for the invoice to end up in.
 
@@ -14,13 +14,13 @@ Dependent parameters:
 ## Example Usage
 
 ```typescript
-import { SalesInvoiceStatus } from "mollie-api-typescript/models";
+import { SalesInvoiceStatusUpdate } from "mollie-api-typescript/models";
 
-let value: SalesInvoiceStatus = "draft";
+let value: SalesInvoiceStatusUpdate = "draft";
 ```
 
 ## Values
 
 ```typescript
-"draft" | "issued" | "paid"
+"draft" | "issued" | "paid" | "cancelled"
 ```

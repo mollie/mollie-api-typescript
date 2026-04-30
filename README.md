@@ -430,9 +430,9 @@ let client = new Client({
 * [match](docs/sdks/unmatchedcredittransfers/README.md#match) - Match unmatched credit transfer
 * [return](docs/sdks/unmatchedcredittransfers/README.md#return) - Return unmatched credit transfer
 
-### [VerifyPayees](docs/sdks/verifypayees/README.md)
+### [VerifyPayee](docs/sdks/verifypayee/README.md)
 
-* [create](docs/sdks/verifypayees/README.md#create) - Verify Payee
+* [create](docs/sdks/verifypayee/README.md#create) - Verify Payee
 
 ### [Wallets](docs/sdks/wallets/README.md)
 
@@ -572,7 +572,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`unmatchedCreditTransfersList`](docs/sdks/unmatchedcredittransfers/README.md#list) - List unmatched credit transfers
 - [`unmatchedCreditTransfersMatch`](docs/sdks/unmatchedcredittransfers/README.md#match) - Match unmatched credit transfer
 - [`unmatchedCreditTransfersReturn`](docs/sdks/unmatchedcredittransfers/README.md#return) - Return unmatched credit transfer
-- [`verifyPayeesCreate`](docs/sdks/verifypayees/README.md#create) - Verify Payee
+- [`verifyPayeeCreate`](docs/sdks/verifypayee/README.md#create) - Verify Payee
 - [`walletsRequestApplePaySession`](docs/sdks/wallets/README.md#requestapplepaysession) - Request Apple Pay payment session
 - [`webhookEventsGet`](docs/sdks/webhookevents/README.md#get) - Get a Webhook Event
 - [`webhooksCreate`](docs/sdks/webhooks/README.md#create) - Create a webhook

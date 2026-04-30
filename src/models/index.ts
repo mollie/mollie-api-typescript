@@ -171,6 +171,7 @@ export * from "./salesinvoicerequest.js";
 export * from "./salesinvoiceresponse.js";
 export * from "./salesinvoicestatus.js";
 export * from "./salesinvoicestatusresponse.js";
+export * from "./salesinvoicestatusupdate.js";
 export * from "./salesinvoicevatmode.js";
 export * from "./salesinvoicevatmoderesponse.js";
 export * from "./salesinvoicevatscheme.js";

@@ -68,8 +68,8 @@ tags:
     description: Operations related to the Transfers API
   - name: Unmatched Credit Transfers API
     description: Operations related to the Unmatched Credit Transfers API
-  - name: Verify Payees API
-    description: Operations related to the Verify Payees API
+  - name: Verify Payee API
+    description: Operations related to the Verify Payee API
   - name: Wallets API
     description: Operations related to the Wallets API
   - name: Webhook Events API
@@ -6873,22 +6873,27 @@ paths:
                 successful-response-200-1:
                   summary: Description of a capability.
                   value:
-                    count: 1
+                    count: 2
                     _embedded:
                       capabilities:
                         - resource: capability
                           name: payments
+                          status: enabled
+                          statusReason: null
+                          requirements: []
+                        - resource: capability
+                          name: settlements
                           status: pending
                           statusReason: onboarding-information-needed
                           requirements:
-                            - id: onboarding-stakeholder-ubo-identity-document
+                            - id: process-first-payment
                               dueDate: null
                               status: requested
                               _links:
                                 dashboard:
                                   href: https://my.mollie.com/dashboard/...
                                   type: text/html
-                            - id: onboarding-bank-account
+                            - id: needs-data
                               dueDate: '2024-05-14T01:29:09+00:00'
                               status: past-due
                               _links:
@@ -26824,7 +26829,7 @@ paths:
       summary: Verify Payee
       x-speakeasy-name-override: create
       tags:
-        - Verify Payees API
+        - Verify Payee API
       operationId: verify-payee
       security:
         - organizationAccessToken:
@@ -27007,7 +27012,7 @@ paths:
                   account_number: 'NL02ABNA0123456789'
                 }
               )
-      x-speakeasy-group: verify-payees
+      x-speakeasy-group: verify-payee
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
 components:
@@ -31391,6 +31396,7 @@ components:
       enum:
         - requirement-past-due
         - onboarding-information-needed
+        - null
       example: requirement-past-due
       x-speakeasy-unknown-values: allow
     capability-requirement-status:
@@ -31417,9 +31423,8 @@ components:
           description: |-
             The name of this requirement, referring to the task to be fulfilled by the organization
             to enable or re-enable the capability. The name is unique among other requirements
-            of the same capability. Requirements related to the onboarding process start with 'onboarding-', while
-            requirements related to information requests start with 'information-request-'.
-          example: information-request-aml-charities-and-donations
+            of the same capability. Examples include `needs-data` and `process-first-payment`.
+          example: needs-data
         status:
           $ref: '#/components/schemas/capability-requirement-status'
         dueDate:
@@ -32176,9 +32181,6 @@ components:
         the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
         mark it as paid. It can then subsequently be sent as well, same as with `issued`.
 
-        A status value that cannot be set but can be returned is `canceled`, for invoices which were
-        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
-
         Dependent parameters:
           - `paymentDetails` is required if invoice should be set directly to `paid`
           - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
@@ -32618,6 +32620,25 @@ components:
                 - 'null'
           readOnly: true
           writeOnly: false
+    sales-invoice-status-response:
+      type: string
+      description: |-
+        The status for the invoice to end up in.
+
+        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+
+        Dependent parameters:
+          - `paymentDetails` is required if invoice should be set directly to `paid`
+          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      enum:
+        - draft
+        - issued
+        - paid
+      example: draft
+      x-speakeasy-unknown-values: allow
     sales-invoice-payment-details-source:
       type: string
       description: The way through which the invoice is to be set to paid.
@@ -32641,22 +32662,6 @@ components:
           description: |-
             A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
             `payment`.
-    sales-invoice-payment-details-response:
-      type: object
-      required:
-        - source
-      properties:
-        source:
-          $ref: '#/components/schemas/sales-invoice-payment-details-source-response'
-        sourceReference:
-          example: pl_d9fQur83kFdhH8hIhaZfq
-          type:
-            - string
-            - 'null'
-          description: |-
-            A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
-            `payment`.
-      x-speakeasy-unknown-values: allow
     sales-invoice-response:
       allOf:
         - $ref: '#/components/schemas/entity-sales-invoice-response'
@@ -32667,8 +32672,15 @@ components:
             - mode
         - type: object
           properties:
+            status:
+              $ref: '#/components/schemas/sales-invoice-status-response'
             paymentDetails:
-              $ref: '#/components/schemas/sales-invoice-payment-details-response'
+              type: array
+              description: |-
+                Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+                provided details. Required for `paid` status.
+              items:
+                $ref: '#/components/schemas/sales-invoice-payment-details-response'
       x-speakeasy-unknown-values: allow
     businessAccountTransferToken:
       type: string
@@ -35304,13 +35316,32 @@ components:
       properties:
         testmode:
           $ref: '#/components/schemas/testmode'
+    sales-invoice-status-update:
+      type: string
+      description: |-
+        The status for the invoice to end up in.
+
+        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+
+        Dependent parameters:
+          - `paymentDetails` is required if invoice should be set directly to `paid`
+          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      enum:
+        - draft
+        - issued
+        - paid
+        - cancelled
+      example: draft
     update-values-sales-invoice:
       type: object
       properties:
         testmode:
           $ref: '#/components/schemas/testmode'
         status:
-          $ref: '#/components/schemas/sales-invoice-status'
+          $ref: '#/components/schemas/sales-invoice-status-update'
           description: |-
             The status for the invoice to end up in.
 
@@ -38847,8 +38878,15 @@ components:
             - mode
         - type: object
           properties:
+            status:
+              $ref: '#/components/schemas/sales-invoice-status-response'
             paymentDetails:
-              $ref: '#/components/schemas/sales-invoice-payment-details-response'
+              type: array
+              description: |-
+                Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+                provided details. Required for `paid` status.
+              items:
+                $ref: '#/components/schemas/sales-invoice-payment-details-response'
     entity-payment-response:
       type: object
       properties:
@@ -41124,28 +41162,6 @@ components:
           readOnly: true
           writeOnly: false
       x-speakeasy-unknown-values: allow
-    sales-invoice-status-response:
-      type: string
-      description: |-
-        The status for the invoice to end up in.
-
-        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
-        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
-        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
-
-        A status value that cannot be set but can be returned is `canceled`, for invoices which were
-        issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
-
-        Dependent parameters:
-          - `paymentDetails` is required if invoice should be set directly to `paid`
-          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
-          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-      enum:
-        - draft
-        - issued
-        - paid
-      example: draft
-      x-speakeasy-unknown-values: allow
     sales-invoice-vat-scheme-response:
       type: string
       description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
@@ -41365,6 +41381,22 @@ components:
         - amount
         - percentage
       example: amount
+      x-speakeasy-unknown-values: allow
+    sales-invoice-payment-details-response:
+      type: object
+      required:
+        - source
+      properties:
+        source:
+          $ref: '#/components/schemas/sales-invoice-payment-details-source-response'
+        sourceReference:
+          example: pl_d9fQur83kFdhH8hIhaZfq
+          type:
+            - string
+            - 'null'
+          description: |-
+            A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
+            `payment`.
       x-speakeasy-unknown-values: allow
     sales-invoice-payment-details-source-response:
       type: string

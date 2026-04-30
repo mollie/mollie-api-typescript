@@ -1,4 +1,4 @@
-# VerifyPayees
+# VerifyPayee
 
 ## Overview
 
@@ -44,7 +44,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.verifyPayees.create({
+  const result = await client.verifyPayee.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -68,7 +68,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
-import { verifyPayeesCreate } from "mollie-api-typescript/funcs/verifyPayeesCreate.js";
+import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -79,7 +79,7 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await verifyPayeesCreate(client, {
+  const res = await verifyPayeeCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -94,7 +94,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("verifyPayeesCreate failed:", res.error);
+    console.log("verifyPayeeCreate failed:", res.error);
   }
 }
 
@@ -113,7 +113,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.verifyPayees.create({
+  const result = await client.verifyPayee.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -137,7 +137,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
-import { verifyPayeesCreate } from "mollie-api-typescript/funcs/verifyPayeesCreate.js";
+import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -148,7 +148,7 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await verifyPayeesCreate(client, {
+  const res = await verifyPayeeCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -163,7 +163,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("verifyPayeesCreate failed:", res.error);
+    console.log("verifyPayeeCreate failed:", res.error);
   }
 }
 
@@ -182,7 +182,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.verifyPayees.create({
+  const result = await client.verifyPayee.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -206,7 +206,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
-import { verifyPayeesCreate } from "mollie-api-typescript/funcs/verifyPayeesCreate.js";
+import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -217,7 +217,7 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await verifyPayeesCreate(client, {
+  const res = await verifyPayeeCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -232,7 +232,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("verifyPayeesCreate failed:", res.error);
+    console.log("verifyPayeeCreate failed:", res.error);
   }
 }
 
@@ -251,7 +251,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.verifyPayees.create({
+  const result = await client.verifyPayee.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -275,7 +275,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
-import { verifyPayeesCreate } from "mollie-api-typescript/funcs/verifyPayeesCreate.js";
+import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -286,7 +286,7 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await verifyPayeesCreate(client, {
+  const res = await verifyPayeeCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     verificationOfPayeeRequest: {
       creditorBankAccount: {
@@ -301,7 +301,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("verifyPayeesCreate failed:", res.error);
+    console.log("verifyPayeeCreate failed:", res.error);
   }
 }
 

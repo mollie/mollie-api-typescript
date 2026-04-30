@@ -186,9 +186,6 @@ export type SalesInvoiceResponse = {
    * the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
    * mark it as paid. It can then subsequently be sent as well, same as with `issued`.
    *
-   * A status value that cannot be set but can be returned is `canceled`, for invoices which were
-   * issued, but then canceled. Currently this can only be done for invoices created in the dashboard.
-   *
    * Dependent parameters:
    *   - `paymentDetails` is required if invoice should be set directly to `paid`
    *   - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
@@ -221,7 +218,13 @@ export type SalesInvoiceResponse = {
    * The payment term to be set on the invoice.
    */
   paymentTerm?: SalesInvoicePaymentTermResponse | null | undefined;
-  paymentDetails?: SalesInvoicePaymentDetailsResponse | undefined;
+  /**
+   * Used when setting an invoice to status of `paid`, and will store a payment that fully pays the invoice with the
+   *
+   * @remarks
+   * provided details. Required for `paid` status.
+   */
+  paymentDetails?: Array<SalesInvoicePaymentDetailsResponse> | undefined;
   emailDetails?: SalesInvoiceEmailDetails | null | undefined;
   /**
    * The identifier referring to the [customer](get-customer) you want to attempt an automated payment for. If
@@ -471,7 +474,8 @@ export const SalesInvoiceResponse$inboundSchema: z.ZodType<
   metadata: z.nullable(z.record(z.any())).optional(),
   paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
     .optional(),
-  paymentDetails: SalesInvoicePaymentDetailsResponse$inboundSchema.optional(),
+  paymentDetails: z.array(SalesInvoicePaymentDetailsResponse$inboundSchema)
+    .optional(),
   emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
   customerId: z.string().optional(),
   mandateId: z.string().optional(),

@@ -12,7 +12,7 @@ let value: EntityCapability = {
   statusReason: "requirement-past-due",
   requirements: [
     {
-      id: "information-request-aml-charities-and-donations",
+      id: "needs-data",
       status: "past-due",
       dueDate: "2024-01-01T12:00:00+00:00",
       links: {
