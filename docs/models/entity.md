@@ -92,10 +92,12 @@ const value: models.SalesInvoiceResponse = {
   vatMode: "exclusive",
   memo: "This is a memo!",
   paymentTerm: "30 days",
-  paymentDetails: {
-    source: "payment-link",
-    sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-  },
+  paymentDetails: [
+    {
+      source: "payment-link",
+      sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+    },
+  ],
   emailDetails: {
     subject: "Your invoice is available",
     body: "Please find your invoice enclosed.",
