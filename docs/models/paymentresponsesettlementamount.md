@@ -1,13 +1,15 @@
-# PaymentResponseSettlementAmount
+# ~~PaymentResponseSettlementAmount~~
 
-This optional field will contain the approximate amount that will be settled to your account, converted to the
-currency your account is settled in.
+**Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
+the [List balance transactions endpoint](list-balance-transactions) for settlement data.
 
-Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is
-settled by Mollie the `settlementAmount` is omitted from the response.
+The amount that will be settled to your account, converted to the currency your account is settled in. Only
+available once the payment is finalized and the final settlement amount has been determined.
 
-Please note that this amount might be recalculated and changed when the status of the payment changes. We suggest
-using the List balance transactions endpoint instead to get more accurate settlement amounts for your payments.
+Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
+Mollie, this field is omitted from the response.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ## Example Usage
 

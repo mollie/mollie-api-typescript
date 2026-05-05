@@ -5,7 +5,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -143,7 +144,7 @@ export const Code = {
 /**
  * A machine-readable code that indicates the reason for the payment's status.
  */
-export type Code = ClosedEnum<typeof Code>;
+export type Code = OpenEnum<typeof Code>;
 
 /**
  * This object offers details about the status of a payment. Currently it is only available for point-of-sale
@@ -163,9 +164,8 @@ export type StatusReason = {
 };
 
 /** @internal */
-export const Code$inboundSchema: z.ZodNativeEnum<typeof Code> = z.nativeEnum(
-  Code,
-);
+export const Code$inboundSchema: z.ZodType<Code, z.ZodTypeDef, unknown> =
+  openEnums.inboundSchema(Code);
 
 /** @internal */
 export const StatusReason$inboundSchema: z.ZodType<

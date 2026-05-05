@@ -43,6 +43,7 @@ let value: ListSettlementChargebacksResponse = {
               type: "application/hal+json",
             },
           },
+          mode: "live",
         },
       ],
     },

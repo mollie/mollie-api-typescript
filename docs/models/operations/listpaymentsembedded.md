@@ -33,10 +33,6 @@ let value: ListPaymentsEmbedded = {
         currency: "EUR",
         value: "10.00",
       },
-      settlementAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
       redirectUrl: "https://example.org/redirect",
       cancelUrl: "https://example.org/cancel",
       webhookUrl: "https://example.org/webhooks",

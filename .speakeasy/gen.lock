@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 3963f6c08cd3c6e7e1dc2754e882b903
+  docChecksum: d13fe5564cba60bab38f647fd200b8d0
   docVersion: 1.0.0
-  speakeasyVersion: 1.761.10
-  generationVersion: 2.881.16
-  releaseVersion: 1.6.5
-  configChecksum: 3ba9215ef2123e23be5cdaa5d13be321
+  speakeasyVersion: 1.761.11
+  generationVersion: 2.881.17
+  releaseVersion: 1.6.6
+  configChecksum: 2a543dd338894d85758687c08b99a4ff
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: a35c7f23-cb43-464d-a6d4-c8140a196351
-  pristine_commit_hash: 34c944023f67734825e9fab5b6393380cee68edb
-  pristine_tree_hash: 3be260f574d45a61d7b70240eb8c75dbf5f919aa
+  generation_id: 301073e6-763d-4fe6-ad0a-6eca70095345
+  pristine_commit_hash: 42805b006220310e34556af6ba770f0155c874bc
+  pristine_tree_hash: 0af5620718779b63513ff90be19994d21f699181
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.26.49
+    core: 3.26.50
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -222,16 +222,16 @@ trackedFiles:
     pristine_git_object: ea77b088621c77918ff5ad68351415428b7d6d6a
   docs/models/captureresponse.md:
     id: 6535f0efad03
-    last_write_checksum: sha1:dfed09c02c38e7236285793c4f10d676978b72c1
-    pristine_git_object: 08b19d204c419ffeaa958b6f683d47d69e097492
+    last_write_checksum: sha1:eec180fe8f8c08815d4c3566794af37339bfded0
+    pristine_git_object: 99e5cc31ae31fb08703be7b77163d39d81d09f0e
   docs/models/captureresponselinks.md:
     id: dd3dec308eb9
     last_write_checksum: sha1:a374b1615363a17b0008c4fbaa008636965c57b8
     pristine_git_object: 6f621bf2ae6e17e9a168d30f1a932007cc082bc3
   docs/models/captureresponsesettlementamount.md:
     id: f9f1b1825e82
-    last_write_checksum: sha1:2ab166e65f0366644d8556bf559e696650a53578
-    pristine_git_object: 40dbe3e1080c587f913094816a7156bcd1df7e16
+    last_write_checksum: sha1:a596607b35f4b464159cdd9a3b2d46a4cbd261e9
+    pristine_git_object: a6818b7fbf513fde0b5570de7a79ac92dc491427
   docs/models/captureresponsestatus.md:
     id: 2626b16fe9dc
     last_write_checksum: sha1:7111914e28cc1dcf55d44b67cea5e47b8539878e
@@ -278,8 +278,8 @@ trackedFiles:
     pristine_git_object: de6af8fed74def47e63e8c536387df599bb1bc46
   docs/models/code.md:
     id: 2fcb3964c9c0
-    last_write_checksum: sha1:f06051538d79dadf99478769aa6dc53e9415d693
-    pristine_git_object: 545dc78180b20bdfd0ff19ef456234fc61175f26
+    last_write_checksum: sha1:e3bf3479c3386b2b5073214968dcb2c2e26ce4a9
+    pristine_git_object: c509439f1b45c4d144809e98a24d433e53aa791e
   docs/models/company.md:
     id: 25a3bf8dece0
     last_write_checksum: sha1:eb812e235e71bfa126944cbe6a2acb7faca5ad5f
@@ -442,8 +442,8 @@ trackedFiles:
     pristine_git_object: 9000b1a61db537d6281e208affe95e02a709c8b4
   docs/models/entitychargeback.md:
     id: 27d9340a10f8
-    last_write_checksum: sha1:25b8bb15f135634c627391ff53d6f8345c4f015d
-    pristine_git_object: aabce7d646e283706829d29746cd22b900921b39
+    last_write_checksum: sha1:be469b1bd303c840c5c62d2f8ce57e28c0e2faa0
+    pristine_git_object: 968c972927961166f7b094a959b59e3105f8f155
   docs/models/entitychargebacklinks.md:
     id: 2d004f4c8ac2
     last_write_checksum: sha1:f380014807b3eae4f6bf2a8f2e73b488e63e939b
@@ -454,8 +454,8 @@ trackedFiles:
     pristine_git_object: 1ffb8baf7fc6c9ff7e7d0b6a59fd7f450f1c2a5f
   docs/models/entitychargebacksettlementamount.md:
     id: 9dcf6f8e6169
-    last_write_checksum: sha1:48c680ec6810742d42949f39230da7c8aa75137a
-    pristine_git_object: fd4b51ca9e1277c5c49314eab3ba09eb3fef66ba
+    last_write_checksum: sha1:52067c269859b3dafd637a5532e44cf306e6f8f5
+    pristine_git_object: e5ec1c0c02eb90aa3c97b91bfcee95a957c1e361
   docs/models/entitycustomer.md:
     id: 388bbc5399a9
     last_write_checksum: sha1:9e0fb70a074d3187ecb2c5f9b56dfaad2dceb0bc
@@ -586,8 +586,8 @@ trackedFiles:
     pristine_git_object: 7fd6a7f97a5cd7da8e8041f74b907f041810c3c6
   docs/models/entityrefundresponse.md:
     id: db6ae7674688
-    last_write_checksum: sha1:a4c8ba6015c2f7bd324a4b61e303ea5927172bc0
-    pristine_git_object: 3610a72bd6bab44a6d2ee20ac09b3f784d7c9f6a
+    last_write_checksum: sha1:b254100e41e1df9cb03f4056083dd67749b8541a
+    pristine_git_object: 5e01f24ba42f211bdbc8b004caa76aa1874e622b
   docs/models/entityrefundresponseexternalreference.md:
     id: bb63400e831c
     last_write_checksum: sha1:345d6d0132ac41cb9506f0474191b468d3b2325b
@@ -602,8 +602,8 @@ trackedFiles:
     pristine_git_object: 3a3cc1d4a302572383a4002f06b9db3ed7a0879e
   docs/models/entityrefundresponsesettlementamount.md:
     id: ceae2d2c4895
-    last_write_checksum: sha1:b8a7ed6d93e5e87e1eae8efc58ce8fcb8ac2aa86
-    pristine_git_object: f4464864fa6764213b14517dec3725c24d7d25d3
+    last_write_checksum: sha1:045f747ae2aa3997f78160b63511be2e5543a48d
+    pristine_git_object: 177418b1d34f1c263fe6c77a65946bc0f32e8f48
   docs/models/entityrefundresponsesource.md:
     id: ec8bf7ddf134
     last_write_checksum: sha1:e1a124a880e54f90a21b54cb5749059c2cf829f8
@@ -742,16 +742,16 @@ trackedFiles:
     pristine_git_object: 206cf88f0a7babd4e50414c91d4fb87189ec55af
   docs/models/listcaptureresponse.md:
     id: cd7122895aa9
-    last_write_checksum: sha1:2eeb386d399c3413d872045100564d912706d9c5
-    pristine_git_object: 1e88f934bb20c775ece0a453ef2d799edbc47421
+    last_write_checksum: sha1:871d34e664c481f58c45e7639116a91adfbb52a5
+    pristine_git_object: 9876f28ac622954709bb11b3a0f2b68900fa49b5
   docs/models/listcaptureresponselinks.md:
     id: 036d8c5f36d9
     last_write_checksum: sha1:4567858012b96c00b8a14a90c0869131527c436e
     pristine_git_object: d0303ce810a62dd339bd8fbeeb1c4c13da46983f
   docs/models/listcaptureresponsesettlementamount.md:
     id: 7cc7ae5eb054
-    last_write_checksum: sha1:30da19db74fd8d55dc455ff06469147ced983ea7
-    pristine_git_object: 1cbb03c4de729a2d8ef5a956ba5d1ada780ee2e5
+    last_write_checksum: sha1:6dfee46a92ce7cfac71c5821a044cdc0ba7a8c35
+    pristine_git_object: 3a7a30bafb1e502585457aa196dc01a57511cc1b
   docs/models/listcaptureresponsestatus.md:
     id: cd8262db7299
     last_write_checksum: sha1:0333301bb20bfd56125642a4e75fd95aefaebc9f
@@ -802,8 +802,8 @@ trackedFiles:
     pristine_git_object: 2ad9f8c3adb04ccf23b79d18e1d936b6669cf69e
   docs/models/listentitychargeback.md:
     id: 7b442e7d641f
-    last_write_checksum: sha1:200a4b34685ed1ba9d7f9b46a131113e05ae9b0d
-    pristine_git_object: d5c60b31f68c9c0fe95e49852931884aa50fb16a
+    last_write_checksum: sha1:cd19bd9945a377192286e77bfa356e262f160233
+    pristine_git_object: d1032e408d7ad8e16c9e8033be121cb2760499f5
   docs/models/listentitychargebacklinks.md:
     id: 6d76e25f561d
     last_write_checksum: sha1:2a51c5f9fe8cde176d510feea8af728619311a86
@@ -814,8 +814,8 @@ trackedFiles:
     pristine_git_object: acd71a63005e272330bdd7672d8814612c2e4a04
   docs/models/listentitychargebacksettlementamount.md:
     id: 499ca1aabae0
-    last_write_checksum: sha1:1f53f1cd48cca15a88c8a7bcd3bff25927378579
-    pristine_git_object: 457ec1308d478dee27c4ebf18c35dac5f025c0e2
+    last_write_checksum: sha1:7edd71b9b0699b8fa4fce5bd4c4024de920bb9b0
+    pristine_git_object: 1792705682210ecc756fd48e1f4a50d1a4b128fd
   docs/models/listentityinvoice.md:
     id: 3eb496e9a0e4
     last_write_checksum: sha1:ef9b4b2a5bef9b4f79c76b38a1a5640cc76c7d21
@@ -918,8 +918,8 @@ trackedFiles:
     pristine_git_object: a211807fe1921e3037058df01dbc2dd35cba44f1
   docs/models/listentityrefund.md:
     id: 6222910ae8df
-    last_write_checksum: sha1:79d665033ea0bc9f28aed8d0795bf76cb44c5fb3
-    pristine_git_object: bb2b2925a55bea6fdcc601984fe0565c4eeba82f
+    last_write_checksum: sha1:a2cfaaa0b39f60cbfaec982b43e24bdd8635db5a
+    pristine_git_object: 8aa10a8429739b283e3359b8720af21d86b1111e
   docs/models/listentityrefundexternalreference.md:
     id: 9d7656c82669
     last_write_checksum: sha1:8081fc0986b583d139a7dae31c19103f52de7443
@@ -934,8 +934,8 @@ trackedFiles:
     pristine_git_object: 0da09355b0dfc34062d070503d4b266832f7fdd2
   docs/models/listentityrefundsettlementamount.md:
     id: df81eb626d43
-    last_write_checksum: sha1:6c837c8a180c6e8db48b2af93e15a319e549555a
-    pristine_git_object: 468ad3eb96f17e690a3fc9da2e9d5bfdf16b4715
+    last_write_checksum: sha1:3661fbcf2904ef1ab1a82324bb8939c022525800
+    pristine_git_object: 48eb5361bbf48f280b4074776d0938418edfe808
   docs/models/listentityrefundsource.md:
     id: 9f8287f3c85c
     last_write_checksum: sha1:ac24d01704b53ff3a6a45a0b087d07dbb039b4f5
@@ -1046,8 +1046,8 @@ trackedFiles:
     pristine_git_object: ba85ce5b39379652ab77a4528e8d5c2c109800f6
   docs/models/listpaymentresponse.md:
     id: f3d4bb2c8ff9
-    last_write_checksum: sha1:1e53f5cfb7bb973b61a7599595df47084153a414
-    pristine_git_object: d3f31c0da2aa0672c42ab6de11331fb88fb8d456
+    last_write_checksum: sha1:d6b9558ee2c7172cdfe6e6b85e0a7285a9ab5cf2
+    pristine_git_object: 68b61972c0365b69ac059b563d46e2d35fac2874
   docs/models/listpaymentresponseamountcaptured.md:
     id: 780e0576bc50
     last_write_checksum: sha1:b80466efa54c563f412d5cf2c743ee6ba120f995
@@ -1094,8 +1094,8 @@ trackedFiles:
     pristine_git_object: b566329e1d15d0a96bad6cf3a5a375533b112944
   docs/models/listpaymentresponsesettlementamount.md:
     id: 57d3d10bd9bb
-    last_write_checksum: sha1:0dceec83350b1f0f3d5a0af6b38c4f719601c29c
-    pristine_git_object: 8784f27fc8d25169db04e24274b3a1427814afe7
+    last_write_checksum: sha1:ef9169c818805d19f3fa5fcb0835096fc0389de9
+    pristine_git_object: c151e0e4ca599d7b64e46dedf36ab212e96c4122
   docs/models/listpaymentresponsestatus.md:
     id: 2d0d441ed028
     last_write_checksum: sha1:c4bbf346d336f37a5061dba235123676b4309c64
@@ -1158,20 +1158,36 @@ trackedFiles:
     pristine_git_object: ab905101c147d0b4d9bf1918e370eaa6ceb8de5a
   docs/models/listsettlementcaptureresponse.md:
     id: b49d9bc8a626
-    last_write_checksum: sha1:ab3a9f55ef8c2f8fd427cd77c0a3e4ed59c5c89b
-    pristine_git_object: 2696337172db2ce862dab0a5ce36ee74a281fb34
+    last_write_checksum: sha1:33c67d8a6090f3621349e54f986d9914f64cdcb6
+    pristine_git_object: 69d00d60c7b66895380690df4127d1731ac24cb5
   docs/models/listsettlementcaptureresponselinks.md:
     id: 1214afb7bac8
     last_write_checksum: sha1:1c306a2de9fe6bd30c06bb8a7953b3d61d01fdce
     pristine_git_object: 7e85b76ff85e44fe2cebc6e4587078df33b0bb47
   docs/models/listsettlementcaptureresponsesettlementamount.md:
     id: 6548eaab58e8
-    last_write_checksum: sha1:6aefda50c0cdec58c655b7b9cd1cf4266a83c9b2
-    pristine_git_object: 9e6ba4dbec028479e784718a063e940c28d941cc
+    last_write_checksum: sha1:e952fc31b20ff41d9b96c3182e7b5185cad7679f
+    pristine_git_object: 828bb3b1c8d283e60867aca91e2bf7995c11c00a
+  docs/models/listsettlementchargebackresponse.md:
+    id: b8fc1abc9391
+    last_write_checksum: sha1:22ab4bcdfcf6394148fb43e89a30b3dac0b64d29
+    pristine_git_object: 5148cc165f84b439159f9bff501522875468cb09
+  docs/models/listsettlementchargebackresponselinks.md:
+    id: 522e8004afdf
+    last_write_checksum: sha1:6480307a0bac03d4e30d0d946f03dd08fcb1323c
+    pristine_git_object: 28dbe68aadd00923204629356ff1260069b63320
+  docs/models/listsettlementchargebackresponsereason.md:
+    id: 9450d96f6d0a
+    last_write_checksum: sha1:b8eeacc12ae252106a5ae2138965425fa8a17a1c
+    pristine_git_object: b96f9274e910bb6b9c101e763cd543697d6f52fe
+  docs/models/listsettlementchargebackresponsesettlementamount.md:
+    id: "098764578925"
+    last_write_checksum: sha1:a3be56d43a164a3f02ebf4d3fad4a91554a7a6f2
+    pristine_git_object: 2d3c68dc5759392606a155acdc0b667526f7b464
   docs/models/listsettlementpaymentresponse.md:
     id: 24c08bbd7f37
-    last_write_checksum: sha1:89431b79330e282f3a6ad9cad94181128220f3e5
-    pristine_git_object: 48b77d30a51b0153e24f5211974d061dcb94b8cd
+    last_write_checksum: sha1:4804c749c7e0df31c5f5f33b1c7f02c12915e91f
+    pristine_git_object: 07ce42ccb0672fa2744cdb3960ec9d1178c72dfa
   docs/models/listsettlementpaymentresponseamountcaptured.md:
     id: bd7534632d3a
     last_write_checksum: sha1:5e0d12276dab2467fb20e2606227a8de33721bcd
@@ -1218,12 +1234,12 @@ trackedFiles:
     pristine_git_object: e365f663d96e2ce3ff0448b11a7617bf28313b89
   docs/models/listsettlementpaymentresponsesettlementamount.md:
     id: 35d487364abf
-    last_write_checksum: sha1:cf0a59adc272834e10fc111ef935faf2fd9854e5
-    pristine_git_object: d95f5f22cefb0bd62646b17548870359af4282c8
+    last_write_checksum: sha1:dd3d892d8121d6dd928ae67b4ec1a71f2ddf8747
+    pristine_git_object: 22bb99c4ef6a5d3d52b26f6e85e819bec3addc3d
   docs/models/listsettlementrefundresponse.md:
     id: b12b83843e64
-    last_write_checksum: sha1:8dbc5b34e9f60fe125bbd29db90c7650a3344aa1
-    pristine_git_object: 86587e774bc830cfc7805f8bc963611c681f5e74
+    last_write_checksum: sha1:55538de9140642c068557d39ded3a2e1984998af
+    pristine_git_object: 045b9dcd40cb83ab8ec280f86a5b006f1b1a10a7
   docs/models/listsettlementrefundresponseexternalreference.md:
     id: 07eb9871f5d0
     last_write_checksum: sha1:094f4fc8a3909fdde7dc20868b5aef1466e5454e
@@ -1238,8 +1254,8 @@ trackedFiles:
     pristine_git_object: 67be5bda243722c381087ea6eefd6da418afecbf
   docs/models/listsettlementrefundresponsesettlementamount.md:
     id: 6347e5adb6c2
-    last_write_checksum: sha1:d1ae8e5691248905bd2175a383b1b14dd11cfc00
-    pristine_git_object: 8e78d5581dd8e2f134c22d89593f72d47b9e8a5f
+    last_write_checksum: sha1:61ac2a3077f931a83f41e60934976160e3110d19
+    pristine_git_object: e0d690164e7b6157dd25a38c339af75ecbebe8c3
   docs/models/listsettlementrefundresponsesource.md:
     id: 40053a471325
     last_write_checksum: sha1:a0f1ab984bcfeee15337d4cfffba606e5533cf0b
@@ -1662,8 +1678,8 @@ trackedFiles:
     pristine_git_object: f6b7e36cd6ae85f200b1382d6fdd8ec4a752628a
   docs/models/operations/getpaymentlinkpaymentsembedded.md:
     id: 72e8195fa813
-    last_write_checksum: sha1:93ac0940c95f022df6b3b2a58c52aa7a7cad5f8d
-    pristine_git_object: e255d34b8253f24bd63a8354d03b77c9a2da9a0a
+    last_write_checksum: sha1:c18e51f8c41803b3c878770656d1d86553fe2069
+    pristine_git_object: d7e53a307f243737ee4cae417281ec942f19f277
   docs/models/operations/getpaymentlinkpaymentsglobals.md:
     id: 6ff5c039a6d9
     last_write_checksum: sha1:ed1b477e7ed93da50b5444cf496baa9fddf31fd2
@@ -1674,12 +1690,12 @@ trackedFiles:
     pristine_git_object: 17afa75a033fdab36b82dbc5cac12eedae6dbf43
   docs/models/operations/getpaymentlinkpaymentsresponse.md:
     id: f12f4ee408d5
-    last_write_checksum: sha1:9a13d5ea1273216061d425f20ec92e8097d5b697
-    pristine_git_object: 78da4f42b40af2d3708e001d9b9c3bbcd08833c6
+    last_write_checksum: sha1:df4937ee934c276eb0a413ed4bc6cc249de47d68
+    pristine_git_object: f15296ac75b0ec98976b9257350a5919814a4d2b
   docs/models/operations/getpaymentlinkpaymentsresponsebody.md:
     id: 6995af6b5ec1
-    last_write_checksum: sha1:ab5d8e6646451c63ad0d249369fcbcd27b9ca32f
-    pristine_git_object: b506b6161949a0002907751033e41d0cffba7255
+    last_write_checksum: sha1:941170e9952c9a05482ff93bf7ed96a4271c2126
+    pristine_git_object: 69aa140b33c60022b63e8ff9d7fab9bccab50065
   docs/models/operations/getpaymentlinkrequest.md:
     id: 098e62df744f
     last_write_checksum: sha1:39050ec768201d2e1c41ee614ec952ba14f2d58b
@@ -1778,8 +1794,8 @@ trackedFiles:
     pristine_git_object: efeebf9b38b4768003c103e0bbc14f47f1153784
   docs/models/operations/listallchargebacksembedded.md:
     id: f47d68a7de8e
-    last_write_checksum: sha1:871e4b2c0669367e828573adeee2a5b70827c083
-    pristine_git_object: 19ace565a0146c8551164250ead7a2e64b1089ac
+    last_write_checksum: sha1:b38063dd4ed7f133aa1e6b016d6d21ffef678302
+    pristine_git_object: 0fff35d4689d9a360f8a60ef9691dd0cb1a3ebc4
   docs/models/operations/listallchargebacksglobals.md:
     id: 11202d7db7eb
     last_write_checksum: sha1:d7f9fe90901be4db869503e169a38551fba123d6
@@ -1818,8 +1834,8 @@ trackedFiles:
     pristine_git_object: 0d126ecbbc2c282cd14cdcc663f7823be7dc5ce7
   docs/models/operations/listallrefundsembedded.md:
     id: ab1671114762
-    last_write_checksum: sha1:6a561a7c9d49b3e997281762678a1d045dfa8a70
-    pristine_git_object: c00e3bfbc02047285fceaf5c03cf815fbc7f2f82
+    last_write_checksum: sha1:a1d648ceb458f85bd0dc6968d2f6d76e344b5f1e
+    pristine_git_object: 79f85dd52e0727ebd701e8eb98e566bae58f9e8e
   docs/models/operations/listallrefundsglobals.md:
     id: b1d1c89c58e0
     last_write_checksum: sha1:3f5ec03d52673f5ea0fcac7f9c0b69cda6eb8e56
@@ -1830,12 +1846,12 @@ trackedFiles:
     pristine_git_object: ad480ebafe97944d8305cc2743076ad0d1025568
   docs/models/operations/listallrefundsresponse.md:
     id: 5ed986fe5c16
-    last_write_checksum: sha1:28a93146afd6db2a8efc00106c7d6a2ebf9ba4ae
-    pristine_git_object: 25b0cc8d1d6fe1ff94fd73be5e7c8aae85b859de
+    last_write_checksum: sha1:40ad47ac8f393359d23df3842fac022447ac7bc9
+    pristine_git_object: ce51afc79493d2fdd92d91e2c899a4f77ead1382
   docs/models/operations/listallrefundsresponsebody.md:
     id: e976b747056b
-    last_write_checksum: sha1:6fa3372aa7ff761ee039314ddda2f2dac23022d2
-    pristine_git_object: 35d90f39c8b26644c5421cc0d9562d85ef058d9e
+    last_write_checksum: sha1:ff5a0c7eeacd0ec06200b4f54f2e7f3542f729d6
+    pristine_git_object: edae2ad7ebaac4245ee39899f136c150a2e881e0
   docs/models/operations/listallsubscriptionsembedded.md:
     id: 6dcd4cf4c655
     last_write_checksum: sha1:1d266a60ecfd076e28ab097639de6dd67f36090b
@@ -1966,12 +1982,12 @@ trackedFiles:
     pristine_git_object: 0ed81c4e464565e2f74a5e16a4f72b91b3714043
   docs/models/operations/listcapturesresponse.md:
     id: 7f172b6a3482
-    last_write_checksum: sha1:b68df39f3133be0e393817904d6f1fa5202bd251
-    pristine_git_object: 33fab5b94e73a19a26cd059f6b3fa1dbe4b4c985
+    last_write_checksum: sha1:3590ae55a1dd755cff3d3e711df8106dad332ef7
+    pristine_git_object: 2766c68e3c7a00e63efa123927df8328fc867f64
   docs/models/operations/listcapturesresponsebody.md:
     id: 5329170338cf
-    last_write_checksum: sha1:0637fb4fa114b1e0b5e8b797b202ea05946a7f2d
-    pristine_git_object: 089eb380f820497292530c748d8086fd5a8f75bd
+    last_write_checksum: sha1:8a1e85a3827644daccccf463850586bcc99e345a
+    pristine_git_object: 24f16406bf483afe9d5909167f8d58ad4a798829
   docs/models/operations/listchargebacksembedded.md:
     id: 7c59913c7941
     last_write_checksum: sha1:60079122eded5b5bbd382edd84f3471275e9fdf5
@@ -1986,12 +2002,12 @@ trackedFiles:
     pristine_git_object: f5c99bdcc37cce0de0cce7ea2deca801b0932951
   docs/models/operations/listchargebacksresponse.md:
     id: 800feaa02382
-    last_write_checksum: sha1:2b6590da01edff5baa91bb35d42492af5f02391d
-    pristine_git_object: c732131c49cb7f68b9f47ce42f0034b5f256cd80
+    last_write_checksum: sha1:3b12e2100eeb454a724b286242808449dc85b561
+    pristine_git_object: 9c7e23b4f3da8ef58de721fa388cacf565ebbaaf
   docs/models/operations/listchargebacksresponsebody.md:
     id: ae123b61b613
-    last_write_checksum: sha1:319c6f8200f89278b3159da79b35c7c5bef94449
-    pristine_git_object: 4e53c39e1ac93c1564bcc7ae5d78c2a38ab4d7a5
+    last_write_checksum: sha1:2ec77f642d4f2df9163c7a485da0bdda8b64496c
+    pristine_git_object: d6457b1884527a1d1cdc3c26e3e60d51f6235bea
   docs/models/operations/listclientscommission.md:
     id: 9c3dc42aabdb
     last_write_checksum: sha1:e549cda7fd730159080ff5a2fe4ee561abf53ebe
@@ -2038,8 +2054,8 @@ trackedFiles:
     pristine_git_object: 1817b7931261601db99c2741d53e53cf57c46e0e
   docs/models/operations/listcustomerpaymentsembedded.md:
     id: 9dedf588ce91
-    last_write_checksum: sha1:007761aa4e2fadb25c6a00222ec91c1e612e24f2
-    pristine_git_object: e8839a6580925c691c0fa6b261df2976de09d484
+    last_write_checksum: sha1:cb0ca3a7655d149d0d0daef49faa54fe4a8962b0
+    pristine_git_object: a7ccdbc707bd72c9334c8068ed8479c1f39f17df
   docs/models/operations/listcustomerpaymentsglobals.md:
     id: 9b0ceb5150a3
     last_write_checksum: sha1:4671407ef8fd32d05ddc4368358869449beb2ef3
@@ -2050,12 +2066,12 @@ trackedFiles:
     pristine_git_object: 392dac1e6776e01583b2ac107bb292d69cffd596
   docs/models/operations/listcustomerpaymentsresponse.md:
     id: 043c8ed7899a
-    last_write_checksum: sha1:066f2c1fd9294b4884d7c754c8de32f1bea739f3
-    pristine_git_object: 6c7f5a1c0a087df67c46c4104f5fd1389bfe3d81
+    last_write_checksum: sha1:5ff012c5c9683b709a558b5a0f5111f33d980d88
+    pristine_git_object: 79e56adbb91e562c94e4d9862dedc55ae043b766
   docs/models/operations/listcustomerpaymentsresponsebody.md:
     id: 0b0de4334bcc
-    last_write_checksum: sha1:dc0af78de1d461f77d534f6a943c4add115762d4
-    pristine_git_object: 9f7bc29ac103104c3c72574fb302b083fb821205
+    last_write_checksum: sha1:4f005c40388cfaddf2b4d53ce65dd44d099cfd4c
+    pristine_git_object: b993bc0ae4bc8847032ce6f4d5dadf49faa173ca
   docs/models/operations/listcustomersembedded.md:
     id: e67663193d80
     last_write_checksum: sha1:551b04aa1b169632ee38d4bc83d51cc9f5000a43
@@ -2154,8 +2170,8 @@ trackedFiles:
     pristine_git_object: f367131e456fec0300be17378456b26dc4cad2fe
   docs/models/operations/listpaymentsembedded.md:
     id: 95334dbfd54f
-    last_write_checksum: sha1:36740d32622708d37439cff959ec1bbf3e0a0458
-    pristine_git_object: 10e2709f8ec492d32d0a783fe9351479c2c0a005
+    last_write_checksum: sha1:53011bdf7fb3af2975d3fc767b35bad9661a3b20
+    pristine_git_object: 9c8032f58344111a4e9dec8a910716170195753a
   docs/models/operations/listpaymentsglobals.md:
     id: b42678a875d6
     last_write_checksum: sha1:ea95fc9325fcb28aa0419cb2b681b2ab14c509a6
@@ -2166,12 +2182,12 @@ trackedFiles:
     pristine_git_object: cb8dbdc35540e0765932fc298f508b01359a5dc5
   docs/models/operations/listpaymentsresponse.md:
     id: 58b7c81d8799
-    last_write_checksum: sha1:089bcd101d4618c651ccfee8f29ec7003dd13c49
-    pristine_git_object: 600a50a7b4cbad4abddf073bec7140373b9b45b9
+    last_write_checksum: sha1:fb1d707572668abe4b1093b08b77857b92aa9f56
+    pristine_git_object: 36041f54dd68a4051f8e0f7e2bfdc6ea3225a649
   docs/models/operations/listpaymentsresponsebody.md:
     id: b57687a2ec86
-    last_write_checksum: sha1:30d0376ba85d3c99b178a9c88aabe7bbdac96a2d
-    pristine_git_object: 509a256e642180c1f4f474ab76731e44475031f9
+    last_write_checksum: sha1:6fa5439ecc3a63ead74847d070e060cd3fc1fd9a
+    pristine_git_object: 80163a89999bdc238f7017f6307bcacec8ebe069
   docs/models/operations/listpermissionsembedded.md:
     id: 10a69ad32d33
     last_write_checksum: sha1:904c4a92481609635ca6dc192fa72fc226c47df8
@@ -2206,8 +2222,8 @@ trackedFiles:
     pristine_git_object: 362bff3c905f6d66b459da16cd5b500360b58047
   docs/models/operations/listrefundsembedded.md:
     id: 04fe3c44185d
-    last_write_checksum: sha1:3e3857ef6e9bcc6d0d174c7221b3443e0923bfb8
-    pristine_git_object: 01e7f0c819eeb09320b19de3aa180d01593b6c30
+    last_write_checksum: sha1:fe27d5a258b8281a355bd06edc6389af96936988
+    pristine_git_object: 32c5ab8ba4031531e719af159bf6e9c44ff7fa03
   docs/models/operations/listrefundsglobals.md:
     id: 7d610e8228e6
     last_write_checksum: sha1:d12948212bf0a285035a7f2a46856a8f0af599ba
@@ -2218,12 +2234,12 @@ trackedFiles:
     pristine_git_object: 4bd4c2cebad06f7184be7b13c149fa7f815cc51d
   docs/models/operations/listrefundsresponse.md:
     id: 91567f166ec2
-    last_write_checksum: sha1:7f89c5b5f78bd5466c61b54bf91374967454a49d
-    pristine_git_object: aa928866a5f4ce7ad1f057145eaec0f6bfea5028
+    last_write_checksum: sha1:9c6446464b3073503314f690547c0a335257fe69
+    pristine_git_object: 4b1a13a487148cbc5b958a2796d77b360f983471
   docs/models/operations/listrefundsresponsebody.md:
     id: d494c7caea6d
-    last_write_checksum: sha1:02f4092ff466a0bdf4544e4c5dbf47c5e46d387b
-    pristine_git_object: aae4ee4c4ad65be52501231c65c6bc397c84fe3c
+    last_write_checksum: sha1:bb87d46e0b280b9d95cff334ae04d7b4209481eb
+    pristine_git_object: fc3d6f11811a85baf937d6b0ceaa2f85ff50eb77
   docs/models/operations/listsalesinvoicesembedded.md:
     id: 0d2178488b44
     last_write_checksum: sha1:62ce1a8e38e13f8a5499159950053914eef1d66e
@@ -2262,8 +2278,8 @@ trackedFiles:
     pristine_git_object: 57d9056f33f8f7e6e003760dd9a496eb086af1fe
   docs/models/operations/listsettlementchargebacksembedded.md:
     id: d5ffcca44818
-    last_write_checksum: sha1:d950a7965b9cb2d9dbcb3b64b886e5718d860f59
-    pristine_git_object: 3eb8206fa7b5eecadb55dee9cca7023acf0131ac
+    last_write_checksum: sha1:788bd682be7cae1023d12e7c8891bec0f5dc987c
+    pristine_git_object: 4ff49f326552519959cdd654e36e1a252d36f00b
   docs/models/operations/listsettlementchargebacksglobals.md:
     id: 542df4fa550e
     last_write_checksum: sha1:78dc31890cd8abaef4446201c93783bcc2252aa1
@@ -2274,12 +2290,12 @@ trackedFiles:
     pristine_git_object: f3024e165900674c366897cfa7766a8c5959ae85
   docs/models/operations/listsettlementchargebacksresponse.md:
     id: 7aa80cd4797b
-    last_write_checksum: sha1:7048b2275f11c6b34041d4d1e5e0e30d902d4f4c
-    pristine_git_object: d8a721a023bbd0b5880e83e8fb59c333bd9d5860
+    last_write_checksum: sha1:185c8c306dda07e7eebf31e6a70ef4aebfd2a170
+    pristine_git_object: 779b74a44dc72eb5dfdd9eace109c267ffd718a5
   docs/models/operations/listsettlementchargebacksresponsebody.md:
     id: 86237be2232f
-    last_write_checksum: sha1:55207b50b51b7947234aed76d5c6d2419f0b0fde
-    pristine_git_object: b2eed943bdc6fd62e905f985bfb9c6b119e8d9bc
+    last_write_checksum: sha1:20edb861cff90ee20a960161ebb0b11798f97938
+    pristine_git_object: c3090e22ad9ad90791d4601e7b0bc8bd40dd8f07
   docs/models/operations/listsettlementpaymentsembedded.md:
     id: c24e52d29974
     last_write_checksum: sha1:1b34ba12c8cc684ba4803fa41a8e620f4454ec11
@@ -2334,8 +2350,8 @@ trackedFiles:
     pristine_git_object: 766256c15cb39a4cf4be0e216200efa5dfa0d891
   docs/models/operations/listsubscriptionpaymentsembedded.md:
     id: 171aade019a9
-    last_write_checksum: sha1:9b19818cab8eb0d51021c1745ce98813e3b11273
-    pristine_git_object: cef72bf8f6b2ce113a8b5ef64df3ca65cd02e124
+    last_write_checksum: sha1:3f775a94f41781c0c42edf85f54ee45a4e37eee9
+    pristine_git_object: c5623ac9d1ffbf8ddfe16d1302c9f1a9ab49a4db
   docs/models/operations/listsubscriptionpaymentsglobals.md:
     id: 19e6cd104878
     last_write_checksum: sha1:236569af1a9641e4e9d3e5594c4972870fa8175c
@@ -2346,12 +2362,12 @@ trackedFiles:
     pristine_git_object: 8a9b28b16bdd01ef7a01d788aa6e65b25731945e
   docs/models/operations/listsubscriptionpaymentsresponse.md:
     id: 73686a41596a
-    last_write_checksum: sha1:df11b89b9448e66af9af0eb6c7dc0b1ce5969d17
-    pristine_git_object: 580463d7ccadc94398e3a7c7ae87649f0c6db678
+    last_write_checksum: sha1:0a09ffe7f2b985ff38c16baeacc9580ac820cc8d
+    pristine_git_object: af67564b04bfeb2a9c69a23b9a957defe04c886e
   docs/models/operations/listsubscriptionpaymentsresponsebody.md:
     id: 88ed804ae61d
-    last_write_checksum: sha1:4212118eb7436e5f6136f78b4408b8d54239a9ce
-    pristine_git_object: e9bf6f0a07ea179f0e6a1c4cd09075419a7ac06c
+    last_write_checksum: sha1:ace1e81cd8c3592870eb4d4873b9a79be8f14c64
+    pristine_git_object: 992cc5f715c126f55df5dd3a4b01d6ea09231fed
   docs/models/operations/listsubscriptionsembedded.md:
     id: 14006c07dacf
     last_write_checksum: sha1:13fbd1f2d1f4eba87dc67f654d78bda6d9b64ecf
@@ -2734,8 +2750,8 @@ trackedFiles:
     pristine_git_object: 98f2a3a32de912adfb2b7e03a970a86661c451ee
   docs/models/paymentresponse.md:
     id: 735e1813b9a0
-    last_write_checksum: sha1:7782fd4fc71b217490b01aeb9df7ac1c179b6f0d
-    pristine_git_object: 88c9632ac7ccc11e8dffa8e63fd3de155061b2a0
+    last_write_checksum: sha1:94dd1bca5d466087cbff6477bc56b47aa8981990
+    pristine_git_object: ab6bd93252987f500616a410ffbabec438e57093
   docs/models/paymentresponseamountcaptured.md:
     id: de97b7763ecf
     last_write_checksum: sha1:3be134f51dd9fa23bb9ad753461e3e44dc98751d
@@ -2782,8 +2798,8 @@ trackedFiles:
     pristine_git_object: c78f7ce9a227baf5f364aa6416672266bdef70b1
   docs/models/paymentresponsesettlementamount.md:
     id: 5e3f6f5404f0
-    last_write_checksum: sha1:ca3752a83814475b52f428b2075f3c24a92c8bdb
-    pristine_git_object: aaef8b8f5548b8a6d5ae615f0586bde8f255cc6e
+    last_write_checksum: sha1:c69f65c6398897d5855dba8ee0c8abcbac766d5f
+    pristine_git_object: d7423707c938f2e953012bd0c7c2cd969ea0b6a9
   docs/models/paymentresponsestatus.md:
     id: 59bff0d97c37
     last_write_checksum: sha1:fe1a0c1cccbca64210244c640e15a5da05c416eb
@@ -3510,12 +3526,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:8913ed8318e1842eac45b5f69f48ee2946202714
-    pristine_git_object: d0a5cb000dac9673e55bc37ecceabbcfcb94e89f
+    last_write_checksum: sha1:4c84e03372fc6704eabd47342d0b2347eb3284b5
+    pristine_git_object: da8b42346f21738e879087b86487a13aa8687be1
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:994a5f8656903ba2f6f4b64eefce6f94d6a9e385
-    pristine_git_object: 9ac45ad02bc71ae2ae606e00a69888e352f5bedd
+    last_write_checksum: sha1:6a0020ace0a1e4a1d8d3ed05b7ab67e4e6c7161b
+    pristine_git_object: ae19a1d0ca6d1807051e8f7c3338f5be9fa1af94
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -3990,8 +4006,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:5bb2c66e7b37e3f2f0f650ee233208b2797f5c65
-    pristine_git_object: b07e83e15663558c06dce93d6ae0e3734b847515
+    last_write_checksum: sha1:e259dcfade4af6b75052bb8819fb841045263452
+    pristine_git_object: e696f987495d4fc0e76513103f44121bb572f6fa
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -4785,8 +4801,8 @@ trackedFiles:
     pristine_git_object: 8082962cfd0d1aca46dc2eb6ea080ba4aae9e153
   src/models/captureresponse.ts:
     id: d7b0cdcf33dd
-    last_write_checksum: sha1:6b3a8cb855e23f699211329246a9a067f0c74b00
-    pristine_git_object: 0b77aa6cd182d847e37c9d4e0c8f2d8310722e81
+    last_write_checksum: sha1:957168daa76ac9c6a25663ea90779d19c13b880e
+    pristine_git_object: 30ed7420b37dab643e258e4f3998221005538446
   src/models/clientlinkrequest.ts:
     id: 51451bd9223b
     last_write_checksum: sha1:1d26376e2f8e1b364f76298b814a307557f0a1cc
@@ -4869,8 +4885,8 @@ trackedFiles:
     pristine_git_object: c6d1c2ef55ba0a91c2fd70f4276919a2522f85e4
   src/models/entitychargeback.ts:
     id: 7b7eae22627e
-    last_write_checksum: sha1:45534821a4df69f99de8f26e93b23791e1513dd9
-    pristine_git_object: e4168decad736cead91951ad05752a27eb928eb0
+    last_write_checksum: sha1:74d0c328a11606354c12d3d85ea005beaa21549c
+    pristine_git_object: 17345a4b9538a5bc7f2bb5649c5997cd54d0a0bd
   src/models/entitycustomer.ts:
     id: 65180cd2134c
     last_write_checksum: sha1:a1331a77aed779aa1d5ce12b799d1b9322576304
@@ -4909,8 +4925,8 @@ trackedFiles:
     pristine_git_object: bde71e28e70bdc4ca45abbd54656c13ffef35d0c
   src/models/entityrefundresponse.ts:
     id: 9e3be2cc841b
-    last_write_checksum: sha1:1917512e4a9abad73e5b3ede5424f8105f88d5be
-    pristine_git_object: d4c89638106c240b857315eee67da3e27cead316
+    last_write_checksum: sha1:bd91560e902192dc3417a1c8af42b52804d135d3
+    pristine_git_object: 4b06903223a832022b8c30e4e74fe91c9354b082
   src/models/entitysettlement.ts:
     id: 21eccbce8d2f
     last_write_checksum: sha1:d63bd8c8998f1c76fa938b30c03fbcc13e36cd32
@@ -4965,8 +4981,8 @@ trackedFiles:
     pristine_git_object: d2f254684e589710fbd9bd58550cfad78951c92d
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:ca07314499aca018426fd0f108d52b71f8abe233
-    pristine_git_object: 967fc46b74f2667ff36a96413a68de5b05b4b55e
+    last_write_checksum: sha1:fa8c901154c597175cdca229f9fb849309f472de
+    pristine_git_object: a61a67512c4ae9ed7495d8662f0dce3c1e7e0ccc
   src/models/linecategories.ts:
     id: 502e2d0ea1e2
     last_write_checksum: sha1:cdef34c68b38732566990ec0c57ec8c915c3adce
@@ -4977,8 +4993,8 @@ trackedFiles:
     pristine_git_object: 23c0d4c70b1839970ec41f26ecbd6eee835b9320
   src/models/listcaptureresponse.ts:
     id: 0c26ccaf6f63
-    last_write_checksum: sha1:cb098c732d67c49b633b203409630e0941cdf747
-    pristine_git_object: 7b431bf38db277a970189f2f4c7fb1d2f383d1af
+    last_write_checksum: sha1:9a4877c481cdbd6011a6a7f12925a567269a2dd5
+    pristine_git_object: 1e4ce9394873b68e93cfc02b1bb185a0d254b5f0
   src/models/listcustomerresponse.ts:
     id: 71b54455105f
     last_write_checksum: sha1:4b37132b63796b7427066182935eb62c4b94ec1c
@@ -4989,8 +5005,8 @@ trackedFiles:
     pristine_git_object: 7ab0b5c3b6ec39de1097c4965900cae3c8122fb4
   src/models/listentitychargeback.ts:
     id: a86c14f143e5
-    last_write_checksum: sha1:ecb1c5f03701ca0b967d9ecba2e3a599fb11fbd2
-    pristine_git_object: f930d33f063e3d0afc00ed0a237fe30d6b81f780
+    last_write_checksum: sha1:76e1eef38f18aab0de00f7eb8c933ba549b7b658
+    pristine_git_object: abc4635ce60a590577a27212bf4866c9377cdfe5
   src/models/listentityinvoice.ts:
     id: 735ea9c2d0e5
     last_write_checksum: sha1:a23ba5463d33de9ef3c5c466d79d312cc6113fea
@@ -5009,8 +5025,8 @@ trackedFiles:
     pristine_git_object: b7003f26320dae1ed61fe1c02327a03c10a39351
   src/models/listentityrefund.ts:
     id: 70e9b3746457
-    last_write_checksum: sha1:8e75fa7cbc66c54c8e60688dae290a12db65ddf7
-    pristine_git_object: aefbbe98a266539f77e2fc45e5650476d9acf99b
+    last_write_checksum: sha1:7f4fa22196b56c915087ef14cfd1447f2e33d9c5
+    pristine_git_object: f1068d3c27d81cc0cb4a099b8dadac7ff3c1cf5f
   src/models/listentitysettlement.ts:
     id: c76a9b88e094
     last_write_checksum: sha1:64545c82623cbb850fd695b29919d25e0d3871dc
@@ -5037,8 +5053,8 @@ trackedFiles:
     pristine_git_object: 9e31c82ae81eec48724149d76f45e491ead7de4d
   src/models/listpaymentresponse.ts:
     id: cbe1ddfd74a5
-    last_write_checksum: sha1:ba6d3299857ab6c9805b2278e75616a2429087bb
-    pristine_git_object: 702f88d34b5c059eda9d87819b814207bd8cb11e
+    last_write_checksum: sha1:2514b44e7412abeb1ad7a561ffe6a7a41069d3a0
+    pristine_git_object: 1de6f416306d15ef73c137bf828963dd65b42297
   src/models/listprofileresponse.ts:
     id: ebe4cd5cb357
     last_write_checksum: sha1:87e35b409497370a374c8c7558f374439a23b866
@@ -5053,16 +5069,20 @@ trackedFiles:
     pristine_git_object: e5a9ae0b1ccabf6da3babe9b39cf9c3e9833467b
   src/models/listsettlementcaptureresponse.ts:
     id: f7c911170b6e
-    last_write_checksum: sha1:aaa9f003b15aa4a5eed4e01e8721eac61aa0a6cb
-    pristine_git_object: bbb4e727fac16972e8c6a17889a1285eb730c2e5
+    last_write_checksum: sha1:4b8f6dedce57c130b2e3c33095c0578d5a8d287a
+    pristine_git_object: f2a620aa664368fa483392da4e5acb881cc9a7fd
+  src/models/listsettlementchargebackresponse.ts:
+    id: 6798922f9369
+    last_write_checksum: sha1:cc50bc79df8ba8e65c51cfb94d09288da11dabe2
+    pristine_git_object: 30321f7f50ed6eb9d6695d1d28a52d6f7fdd8520
   src/models/listsettlementpaymentresponse.ts:
     id: 53abdd496217
-    last_write_checksum: sha1:8025a515e361a3d725ac3541be7401673cf3fbd7
-    pristine_git_object: f2aab3e6dcd17f6b35177c87b1c4b4357678dab9
+    last_write_checksum: sha1:bed320d55576574b87f7c3996500bdb6e527f55a
+    pristine_git_object: e3923f1680a9b72b6113c814252f835c3a203715
   src/models/listsettlementrefundresponse.ts:
     id: b39df3ccac20
-    last_write_checksum: sha1:a39a2633828a983566d8ecbf62dd70f571654a3b
-    pristine_git_object: 97b6584dd25106e8d741c23104d5167cba35c84a
+    last_write_checksum: sha1:9e446c1ac5349ecaa903b9f999e285c0faa0295e
+    pristine_git_object: 65fa65330a58e92695766a8cf62bbc10f7f8d06d
   src/models/listsubscriptionresponse.ts:
     id: d7d9ec8d27a9
     last_write_checksum: sha1:89b99edc7a4fb691d373412b04a3a8b62a8bef1e
@@ -5477,8 +5497,8 @@ trackedFiles:
     pristine_git_object: 3b7a3a157b9935c3eba87df86ac4360d2477a3f3
   src/models/operations/listsettlementchargebacks.ts:
     id: fd241204dbc4
-    last_write_checksum: sha1:5e00e5c26bf19f2d6af4df1592da907f1aef61a8
-    pristine_git_object: c5c783d4bad8da61b22674c18a4c566e5f3b3ec0
+    last_write_checksum: sha1:a3c94c910ed2a54fc45a9066c2c8145bc6471bc9
+    pristine_git_object: 8ab7f4c9182f4acbdbcbde1290f3dff98f26f8a4
   src/models/operations/listsettlementpayments.ts:
     id: 82b1d26e019e
     last_write_checksum: sha1:e4bdb93abc451edbc1de80cb7dbfaa7d45147323
@@ -5685,8 +5705,8 @@ trackedFiles:
     pristine_git_object: e84135fffa41e26b6447fa88c730ed4bc164bdca
   src/models/paymentresponse.ts:
     id: b8cdef722ed3
-    last_write_checksum: sha1:96420dd7c3c9d2d6cc2024a752a80c6a4c8cb4c3
-    pristine_git_object: 51ba8b87964e49904134a1025291b6e4c0806b3a
+    last_write_checksum: sha1:2250e4f5471d7203d79f8a7ebdd06135cbe910ca
+    pristine_git_object: c151ae8fcf5844ec2a924241017711fd25f45f58
   src/models/profilerequest.ts:
     id: fabfaa6f5e93
     last_write_checksum: sha1:1f3f6903d4d8331467eeb1008f4419f9615d9a3f
@@ -5901,8 +5921,8 @@ trackedFiles:
     pristine_git_object: 1637641d376696fb060c700318bcf06621e8bd87
   src/models/statusreason.ts:
     id: 426115f0badc
-    last_write_checksum: sha1:a654bee6241a5f540ad9583c1d42fbd62b4b50c5
-    pristine_git_object: 8888e399bba0293d759724b2485825195d31c78e
+    last_write_checksum: sha1:33c4cfee76366af731722480f158e1e39cf51446
+    pristine_git_object: 36a9e6e79d7542507e10aa0f23f26d7dd498473d
   src/models/statusreason2.ts:
     id: 48da0f9aa120
     last_write_checksum: sha1:01d6d13a7b983a7dd96feca69d4a63af0993a689
@@ -6351,7 +6371,7 @@ examples:
         application/json: {"description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... days", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "method": "ideal", "issuer": "ideal_INGBNL2A", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "dueDate": "2025-01-01", "storeCredentials": true, "testmode": false, "applePayPaymentToken": "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}", "company": {"registrationNumber": "12345678", "vatNumber": "NL123456789B01", "entityType": "..."}, "cardToken": "tkn_12345", "voucherNumber": "1234567890", "voucherPin": "1234", "consumerDateOfBirth": "2000-01-01", "sessionId": "...", "digitalGoods": true, "customerReference": "1234567890", "terminalId": "term_1234567890"}
       responses:
         "201":
-          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": null, "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": null, "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
         "422":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "503":
@@ -6472,7 +6492,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": null, "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": null, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": null, "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": null, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   update-payment:
@@ -6519,7 +6539,7 @@ examples:
         application/json: {"description": "Chess Board", "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "method": "ideal", "locale": "en_US", "dueDate": "2025-01-01", "restrictPaymentMethodsToCountry": "NL", "testmode": false, "issuer": "ideal_INGBNL2A", "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "billingEmail": "test@example.com"}
       responses:
         "200":
-          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... months", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... months", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "422":
@@ -6546,7 +6566,7 @@ examples:
         application/json: {"testmode": false}
       responses:
         "200":
-          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... days", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... days", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"resource": "route", "id": "rt_5B8cwPMGnU", "mode": "live", "amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "createdAt": "2024-12-12T10:00:00Z", "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "422":
@@ -6787,7 +6807,7 @@ examples:
         application/json: {"description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "reverseRouting": false, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"type": "organization", "organizationId": "org_1234567"}}], "testmode": false}
       responses:
         "201":
-          application/hal+json: {"resource": "refund", "id": "re_5B8cwPMGnU", "mode": "live", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "createdAt": "2024-03-20T09:13:37+00:00", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"organizationId": "org_1234567"}}], "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "refund", "id": "re_5B8cwPMGnU", "mode": "live", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "metadata": {}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "createdAt": "2024-03-20T09:13:37+00:00", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "routingReversals": [{"amount": {"currency": "EUR", "value": "10.00"}, "source": {"organizationId": "org_1234567"}}], "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "409":
@@ -6857,7 +6877,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "refund", "id": "re_5B8cwPMGnU", "mode": "live", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "metadata": "<value>", "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "createdAt": "2024-03-20T09:13:37+00:00", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "routingReversals": null, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "refund", "id": "re_5B8cwPMGnU", "mode": "live", "description": "Refunding a Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "metadata": "<value>", "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "status": "queued", "createdAt": "2024-03-20T09:13:37+00:00", "externalReference": {"type": "acquirer-reference", "id": "123456789012345"}, "routingReversals": null, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   cancel-refund:
@@ -7056,7 +7076,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "chargeback", "id": "chb_xFzwUN4ci8HAmSGUACS4J", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "reason": {"code": "AC01", "description": "Account identifier incorrect (i.e. invalid IBAN)"}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "reversedAt": "2024-03-21T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "chargeback", "id": "chb_xFzwUN4ci8HAmSGUACS4J", "amount": {"currency": "EUR", "value": "10.00"}, "reason": {"code": "AC01", "description": "Account identifier incorrect (i.e. invalid IBAN)"}, "paymentId": "tr_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "reversedAt": "2024-03-21T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   list-all-chargebacks:
@@ -7153,7 +7173,7 @@ examples:
         application/json: {"description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}}
       responses:
         "201":
-          application/hal+json: {"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "shipment": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "shipment": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "422":
@@ -7244,7 +7264,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "shipment": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "capture", "id": "cpt_vytxeTZskVKR7C7WgdSP3d", "mode": "live", "description": "Capture for cart #12345", "amount": {"currency": "EUR", "value": "10.00"}, "status": "succeeded", "paymentId": "tr_5B8cwPMGnU", "shipmentId": "shp_5x4xQJDWGNcY3tKGL7X5J", "settlementId": "stl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "shipment": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   request-apple-pay-payment-session:
@@ -7837,7 +7857,7 @@ examples:
         application/json: {"description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... months", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "method": "ideal", "issuer": "ideal_INGBNL2A", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": [{"amount": {"currency": "EUR", "value": "10.00"}, "destination": {"type": "organization", "organizationId": "org_1234567"}, "releaseDate": "2024-12-12", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "payment": {"href": "https://...", "type": "application/hal+json"}}}], "sequenceType": "oneoff", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "dueDate": "2025-01-01", "storeCredentials": true, "testmode": false, "applePayPaymentToken": "{\"paymentData\": {\"version\": \"EC_v1\", \"data\": \"vK3BbrCbI/....\"}}", "company": {"registrationNumber": "12345678", "vatNumber": "NL123456789B01", "entityType": "..."}, "cardToken": "tkn_12345", "voucherNumber": "1234567890", "voucherPin": "1234", "consumerDateOfBirth": "2000-01-01", "sessionId": "...", "digitalGoods": true, "customerReference": "1234567890", "terminalId": "term_1234567890"}
       responses:
         "201":
-          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "settlementAmount": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... days", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": null, "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "payment", "id": "tr_5B8cwPMGnU", "mode": "live", "description": "Chess Board", "amount": {"currency": "EUR", "value": "10.00"}, "amountRefunded": {"currency": "EUR", "value": "10.00"}, "amountRemaining": {"currency": "EUR", "value": "10.00"}, "amountCaptured": {"currency": "EUR", "value": "10.00"}, "amountChargedBack": {"currency": "EUR", "value": "10.00"}, "redirectUrl": "https://example.org/redirect", "cancelUrl": "https://example.org/cancel", "webhookUrl": "https://example.org/webhooks", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "categories": ["meal", "eco"], "imageUrl": "https://...", "productUrl": "https://...", "recurring": {"description": "Gym subscription", "interval": "... days", "amount": {"currency": "EUR", "value": "10.00"}, "times": 1, "startDate": "2024-12-12"}}], "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "locale": "en_US", "countryCode": "BE", "method": "ideal", "restrictPaymentMethodsToCountry": "NL", "captureMode": "manual", "captureDelay": "8 hours", "captureBefore": "2024-03-20T09:28:37+00:00", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "10"}, "routing": null, "sequenceType": "oneoff", "subscriptionId": "sub_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "customerId": "cst_5B8cwPMGnU", "profileId": "pfl_5B8cwPMGnU", "settlementId": "stl_5B8cwPMGnU", "orderId": "ord_5B8cwPMGnU", "status": "open", "statusReason": {"code": "insufficient_funds", "message": "The account associated with the card has insufficient funds. The shopper should use another payment method or\ncontact their bank."}, "isCancelable": true, "details": {"consumerName": "John Doe", "consumerAccount": "NL91ABNA0417164300", "consumerBic": "ABNANL2A", "cardNumber": "************1234", "bankName": "Mollie Bank", "bankAccount": "NL91ABNA0417164300", "bankBic": "ABNANL2A", "transferReference": "...", "cardFingerprint": "...", "cardHolder": "John Doe", "cardAudition": "consumer", "cardLabel": "Mastercard", "cardCountryCode": "NL", "cardExpiryDate": "12/25", "cardFunding": "credit", "cardSecurity": "normal", "feeRegion": "maestro", "cardMaskedNumber": "...", "card3dsEci": "...", "cardBin": "...", "cardIssuer": "...", "failureReason": "card_declined", "failureMessage": "Your card was declined.", "wallet": "applepay", "paypalReference": "...", "paypalPayerId": "...", "sellerProtection": "Eligible", "paypalFee": {"currency": "EUR", "value": "10.00"}, "customerReference": "...", "terminalId": "term_12345", "maskedNumber": "...", "receipt": {"authorizationCode": "...", "applicationIdentifier": "...", "cardReadMethod": "contactless", "cardVerificationMethod": "no-cvm-required"}, "creditorIdentifier": "...", "dueDate": "2025-01-01", "signatureDate": "2024-03-20", "bankReasonCode": "...", "bankReason": "...", "endToEndIdentifier": "...", "mandateReference": "...", "batchReference": "...", "fileReference": "...", "qrCode": {"height": 300, "width": 300, "src": "https://www.mollie.com/images/qr-code.png"}, "voucherNumber": "...", "issuer": "...", "remainderAmount": {"currency": "EUR", "value": "10.00"}, "remainderMethod": "creditcard", "multibancoReference": "123456789", "multibancoEntity": "98765"}, "createdAt": "2024-03-20T09:13:37+00:00", "authorizedAt": "2024-03-20T09:28:37+00:00", "paidAt": "2024-03-20T09:28:37+00:00", "canceledAt": "2024-03-20T09:28:37+00:00", "expiresAt": "2024-03-20T09:28:37+00:00", "expiredAt": "2024-03-20T09:28:37+00:00", "failedAt": "2024-03-20T09:28:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "checkout": {"href": "https://...", "type": "application/hal+json"}, "mobileAppCheckout": {"href": "https://...", "type": "application/hal+json"}, "changePaymentState": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "refunds": {"href": "https://...", "type": "application/hal+json"}, "chargebacks": {"href": "https://...", "type": "application/hal+json"}, "captures": {"href": "https://...", "type": "application/hal+json"}, "settlement": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "subscription": {"href": "https://...", "type": "application/hal+json"}, "order": {"href": "https://...", "type": "application/hal+json"}, "terminal": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}, "status": {"href": "https://...", "type": "application/hal+json"}, "payOnline": {"href": "https://...", "type": "application/hal+json"}}}
         "422":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "503":
@@ -10218,7 +10238,9 @@ examples:
       requestBody:
         application/json: {"token_type_hint": "access_token", "token": "access_..."}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.webhookEvents.get()`:  `response.Embedded.entity.union(sales-invoice-response).paymentDetails` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.create()`:  `response.paymentDetails` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.list()`:  `response.Embedded.salesInvoices[].paymentDetails` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.get()`:  `response.paymentDetails` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.update()`: \n  *  `request.requestBody.status.enum(cancelled)` **Added**\n  *  `response.paymentDetails` **Changed** (Breaking ⚠️)\n* `client.verifyPayee.create()`: **Added**\n* `client.verifyPayees.create()`: **Removed** (Breaking ⚠️)\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `client.settlements.listChargebacks()`:  `response.Embedded.chargebacks[].mode` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
