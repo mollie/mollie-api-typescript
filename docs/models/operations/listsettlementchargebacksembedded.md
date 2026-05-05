@@ -40,6 +40,7 @@ let value: ListSettlementChargebacksEmbedded = {
           type: "application/hal+json",
         },
       },
+      mode: "live",
     },
   ],
 };
@@ -47,6 +48,6 @@ let value: ListSettlementChargebacksEmbedded = {
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `chargebacks`                                                         | [models.ListEntityChargeback](../../models/listentitychargeback.md)[] | :heavy_check_mark:                                                    | A list of chargeback objects.                                         |
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `chargebacks`                                                                                 | [models.ListSettlementChargebackResponse](../../models/listsettlementchargebackresponse.md)[] | :heavy_check_mark:                                                                            | A list of chargeback objects.                                                                 |

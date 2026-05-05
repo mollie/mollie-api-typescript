@@ -16,10 +16,6 @@ let value: ListCapturesResponse = {
           mode: "live",
           description: "Capture for cart #12345",
           amount: null,
-          settlementAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
           status: "succeeded",
           paymentId: "tr_5B8cwPMGnU",
           shipmentId: "shp_5x4xQJDWGNcY3tKGL7X5J",
@@ -34,11 +30,11 @@ let value: ListCapturesResponse = {
               href: "https://...",
               type: "application/hal+json",
             },
-            settlement: null,
-            shipment: {
+            settlement: {
               href: "https://...",
               type: "application/hal+json",
             },
+            shipment: null,
           },
         },
       ],

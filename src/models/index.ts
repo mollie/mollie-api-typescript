@@ -93,6 +93,7 @@ export * from "./listprofileresponse.js";
 export * from "./listroutegetresponse.js";
 export * from "./listsalesinvoiceresponse.js";
 export * from "./listsettlementcaptureresponse.js";
+export * from "./listsettlementchargebackresponse.js";
 export * from "./listsettlementpaymentresponse.js";
 export * from "./listsettlementrefundresponse.js";
 export * from "./listsubscriptionresponse.js";

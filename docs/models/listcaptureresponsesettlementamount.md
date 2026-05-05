@@ -1,11 +1,12 @@
-# ListCaptureResponseSettlementAmount
+# ~~ListCaptureResponseSettlementAmount~~
 
-This optional field will contain the approximate amount that will be settled to your account, converted to the
-currency your account is settled in.
+**Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
+the [List balance transactions endpoint](list-balance-transactions) for settlement data.
 
-Since the field contains an estimated amount during capture processing, it may change over time. To retrieve
-accurate settlement amounts we recommend using the [List balance transactions endpoint](list-balance-transactions)
-instead.
+The amount that will be settled to your account for this capture, converted to the currency your account is
+settled in. Only available once the capture is finalized and the final settlement amount has been determined.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ## Example Usage
 

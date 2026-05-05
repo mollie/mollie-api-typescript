@@ -20,15 +20,7 @@ let value: ListAllRefundsResponseBody = {
           currency: "EUR",
           value: "10.00",
         },
-        settlementAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
-        metadata: {
-          "key": "<value>",
-          "key1": "<value>",
-          "key2": "<value>",
-        },
+        metadata: 6902.16,
         paymentId: "tr_5B8cwPMGnU",
         settlementId: "stl_5B8cwPMGnU",
         status: "queued",
