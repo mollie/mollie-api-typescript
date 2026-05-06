@@ -28862,7 +28862,7 @@ components:
       type:
         - string
         - 'null'
-      description: Allows you to preset the language to be used.
+      description: Sets the language for customer-facing content and communications.
       enum:
         - en_US
         - en_GB
@@ -28871,8 +28871,10 @@ components:
         - de_DE
         - de_AT
         - de_CH
+        - de_LU
         - fr_FR
         - fr_BE
+        - fr_LU
         - es_ES
         - ca_ES
         - pt_PT
@@ -39956,7 +39958,7 @@ components:
       type:
         - string
         - 'null'
-      description: Allows you to preset the language to be used.
+      description: Sets the language for customer-facing content and communications.
       enum:
         - en_US
         - en_GB
@@ -39965,8 +39967,10 @@ components:
         - de_DE
         - de_AT
         - de_CH
+        - de_LU
         - fr_FR
         - fr_BE
+        - fr_LU
         - es_ES
         - ca_ES
         - pt_PT

@@ -7,7 +7,7 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * Allows you to preset the language to be used.
+ * Sets the language for customer-facing content and communications.
  */
 export const Locale = {
   EnUS: "en_US",
@@ -17,8 +17,10 @@ export const Locale = {
   DEDE: "de_DE",
   DeAT: "de_AT",
   DeCH: "de_CH",
+  DeLU: "de_LU",
   FRFR: "fr_FR",
   FrBE: "fr_BE",
+  FrLU: "fr_LU",
   ESES: "es_ES",
   CaES: "ca_ES",
   PTPT: "pt_PT",
@@ -35,7 +37,7 @@ export const Locale = {
   Null: "null",
 } as const;
 /**
- * Allows you to preset the language to be used.
+ * Sets the language for customer-facing content and communications.
  */
 export type Locale = ClosedEnum<typeof Locale>;
 

@@ -895,7 +895,7 @@ export type ListSettlementPaymentResponse = {
   billingAddress?: ListSettlementPaymentResponseBillingAddress | undefined;
   shippingAddress?: PaymentAddress | undefined;
   /**
-   * Allows you to preset the language to be used.
+   * Sets the language for customer-facing content and communications.
    */
   locale?: LocaleResponse | null | undefined;
   /**
