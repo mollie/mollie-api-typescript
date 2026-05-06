@@ -336,7 +336,7 @@ export type PaymentRequest = {
   billingAddress?: PaymentRequestBillingAddress | undefined;
   shippingAddress?: PaymentAddress | undefined;
   /**
-   * Allows you to preset the language to be used.
+   * Sets the language for customer-facing content and communications.
    */
   locale?: Locale | null | undefined;
   method?: MethodEnum | Array<MethodEnum | null> | null | undefined;

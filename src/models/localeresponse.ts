@@ -8,7 +8,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * Allows you to preset the language to be used.
+ * Sets the language for customer-facing content and communications.
  */
 export const LocaleResponse = {
   EnUS: "en_US",
@@ -18,8 +18,10 @@ export const LocaleResponse = {
   DEDE: "de_DE",
   DeAT: "de_AT",
   DeCH: "de_CH",
+  DeLU: "de_LU",
   FRFR: "fr_FR",
   FrBE: "fr_BE",
+  FrLU: "fr_LU",
   ESES: "es_ES",
   CaES: "ca_ES",
   PTPT: "pt_PT",
@@ -36,7 +38,7 @@ export const LocaleResponse = {
   Null: "null",
 } as const;
 /**
- * Allows you to preset the language to be used.
+ * Sets the language for customer-facing content and communications.
  */
 export type LocaleResponse = OpenEnum<typeof LocaleResponse>;
 

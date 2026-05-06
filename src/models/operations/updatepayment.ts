@@ -77,7 +77,7 @@ export type UpdatePaymentRequestBody = {
    */
   method?: models.MethodEnum | null | undefined;
   /**
-   * Allows you to preset the language to be used.
+   * Sets the language for customer-facing content and communications.
    */
   locale?: models.Locale | null | undefined;
   /**

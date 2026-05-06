@@ -21,7 +21,7 @@ export type UpdateCustomerRequestBody = {
    */
   email?: string | null | undefined;
   /**
-   * Allows you to preset the language to be used.
+   * Sets the language for customer-facing content and communications.
    */
   locale?: models.LocaleResponse | null | undefined;
   /**
