@@ -15,5 +15,5 @@ let value: EntitySettlementStatus = "paidout";
 ## Values
 
 ```typescript
-"open" | "pending" | "paidout" | "failed" | Unrecognized<string>
+"open" | "pending" | "processing-at-bank" | "paidout" | "failed" | Unrecognized<string>
 ```
