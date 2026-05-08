@@ -28418,11 +28418,13 @@ components:
       enum:
         - open
         - pending
+        - processing-at-bank
         - paidout
         - failed
       x-enumDescriptions:
         open: The settlement has not been closed yet
         pending: The settlement has been closed and is being processed
+        processing-at-bank: The settlement has been sent to the bank and is being processed
         paidout: The settlement has been paid out
         failed: The settlement could not be paid out
       example: paidout

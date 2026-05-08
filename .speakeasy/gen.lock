@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 08de12094e819ca24452ccda29449709
+  docChecksum: 483eb490ad84cf97c9954976c28ebd06
   docVersion: 1.0.0
   speakeasyVersion: 1.762.0
   generationVersion: 2.882.0
-  releaseVersion: 1.6.7
-  configChecksum: 41db97020f094791f9d581251838bdfe
+  releaseVersion: 1.6.8
+  configChecksum: e3e374741a6e7a5beacd02375c87abd9
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 0b6ad080-bc1f-4ade-b07a-f01e3d2d2d76
-  pristine_commit_hash: 62ca71f5b96a1974609ceca065e0314e27198535
-  pristine_tree_hash: 7cc2ddf78ec48e6dfce0a9e57aa90b34a322871b
+  generation_id: 1195c3d9-c1f1-4f93-bb27-e6e6bea8060a
+  pristine_commit_hash: f15deec063bc55393d4e8eeadd5bb8c0f1498a6c
+  pristine_tree_hash: 193daf99cb9ecb1dd7768b6022a931ee5b6fbf58
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -642,8 +642,8 @@ trackedFiles:
     pristine_git_object: 526b023905e0c6389b5611c971370275c35bb63c
   docs/models/entitysettlementstatus.md:
     id: 0cda9409beef
-    last_write_checksum: sha1:f55f2cefb0b0b982548d962e256f75946d26b18f
-    pristine_git_object: 069600da2f54cc40fff31e2f3ff446ef86432aad
+    last_write_checksum: sha1:7abeb60d17c07ad90145da543600b05573708a3a
+    pristine_git_object: 8506bdca0f89c80eb60ceb069c9ab2a10d817148
   docs/models/entityterminal.md:
     id: 91068cbfd6c3
     last_write_checksum: sha1:926b56d128f9218b686ea56719fcd59aff17c395
@@ -974,8 +974,8 @@ trackedFiles:
     pristine_git_object: b5b9d9afd0cca02d4c10f3787e1e751befb0616e
   docs/models/listentitysettlementstatus.md:
     id: 39027d3ce15f
-    last_write_checksum: sha1:7d9ef35cc7cf3849afef7d627883b41e226e90d2
-    pristine_git_object: 921abe0ee2ace652695fca4f10b0103842cd8487
+    last_write_checksum: sha1:1ec417b2fa7c2564153b47f447f845eeea365cac
+    pristine_git_object: 1c73b26f814228205b8aa240e653938fd87cbd91
   docs/models/listentityterminal.md:
     id: 7c4ee43386f9
     last_write_checksum: sha1:e49e69e91bbb7440d7132202b6b0dd4f97f36afb
@@ -3526,12 +3526,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:a2456c1b4a13d8df77b0b3c6caf75ba166be1fc4
-    pristine_git_object: 9b4bb5bb7eea721e36df9504a99f7018d16d7620
+    last_write_checksum: sha1:033b14bb24ab215456240950349c694303a633bd
+    pristine_git_object: c529ec3d4cdb18b26cc347122a1217e427c2fcae
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:2969b340c0ea52fc539232e9041fe9d0530fbe39
-    pristine_git_object: d7bc6582fda04efcae5146b28b4621d27d54d823
+    last_write_checksum: sha1:b00bbbc4e7e95f3d386e955cb5c49554ee2bb770
+    pristine_git_object: 96c9d999ec2e9fde856c617630349cf6958eedd0
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4006,8 +4006,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:8a0e8c156bf52a00defbac352f4af0c3f7a52e79
-    pristine_git_object: b3f7a3399b5cb3965acc83234191639cc1ce5bf8
+    last_write_checksum: sha1:a78a73727168aaec5aefd32e38e6b412df0f9456
+    pristine_git_object: ed754be0a5058a7b9ea93f213c3b8a95ac780ee0
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -4929,8 +4929,8 @@ trackedFiles:
     pristine_git_object: 4b06903223a832022b8c30e4e74fe91c9354b082
   src/models/entitysettlement.ts:
     id: 21eccbce8d2f
-    last_write_checksum: sha1:d63bd8c8998f1c76fa938b30c03fbcc13e36cd32
-    pristine_git_object: 9e7275c0956a72d4a5ba0035eebc33d2fba2d1c4
+    last_write_checksum: sha1:7a0dfb53bf662b9e5c4fbe3510193b1400442673
+    pristine_git_object: f57cee9820ad4d8049ca611c3ad355560e0e0de2
   src/models/entityterminal.ts:
     id: c3fd2a6d28ce
     last_write_checksum: sha1:0599342877196b0606e0e5a0970fb3ddf63173f6
@@ -5029,8 +5029,8 @@ trackedFiles:
     pristine_git_object: f1068d3c27d81cc0cb4a099b8dadac7ff3c1cf5f
   src/models/listentitysettlement.ts:
     id: c76a9b88e094
-    last_write_checksum: sha1:64545c82623cbb850fd695b29919d25e0d3871dc
-    pristine_git_object: 77d9b06d8710646641e00d21f4363f3d9af0db94
+    last_write_checksum: sha1:8d6820f3543777b2501ccf3fe6a19c453e11f4d2
+    pristine_git_object: 1cb49481fd13057335a435c5c93e6d21f8a95261
   src/models/listentityterminal.ts:
     id: 2dcfba029d4a
     last_write_checksum: sha1:893da00adb1798791359dcea46f125bf47314af6
@@ -10238,7 +10238,12 @@ examples:
       requestBody:
         application/json: {"token_type_hint": "access_token", "token": "access_..."}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.settlements.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.organizations.get()`:  `response.locale` **Changed**\n* `client.organizations.getCurrent()`:  `response.locale` **Changed**\n* `client.clients.list()`:  `response.Embedded.clients[].Embedded.organization.locale` **Changed**\n* `client.clients.get()`:  `response.Embedded.organization.locale` **Changed**\n* `client.clientLinks.create()`: \n  *  `request.clientLinkRequest.owner.locale` **Changed**\n* `client.payments.create()`: \n  *  `request.paymentRequest.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.payments.list()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.payments.get()`:  `response.locale` **Changed**\n* `client.payments.update()`: \n  *  `request.requestBody.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.payments.cancel()`:  `response.locale` **Changed**\n* `client.methods.list()`: \n  *  `request.locale` **Changed**\n* `client.methods.all()`: \n  *  `request.locale` **Changed**\n* `client.methods.get()`: \n  *  `request.locale` **Changed**\n* `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.customers.create()`: \n  *  `request.entityCustomer.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.list()`:  `response.Embedded.customers[].locale` **Changed**\n* `client.customers.get()`:  `response.locale` **Changed**\n* `client.customers.update()`: \n  *  `request.requestBody.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.createPayment()`: \n  *  `request.paymentRequest.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.subscriptions.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `client.settlements.list()`:  `response.Embedded.settlements[].status.enum(processingAtBank)` **Added**
+  * `client.settlements.get()`:  `response.status.enum(processingAtBank)` **Added**
+  * `client.settlements.getOpen()`:  `response.status.enum(processingAtBank)` **Added**
+  * `client.settlements.getNext()`:  `response.status.enum(processingAtBank)` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

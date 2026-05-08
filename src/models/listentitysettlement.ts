@@ -25,6 +25,7 @@ import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 export const ListEntitySettlementStatus = {
   Open: "open",
   Pending: "pending",
+  ProcessingAtBank: "processing-at-bank",
   Paidout: "paidout",
   Failed: "failed",
 } as const;
