@@ -4,13 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   RouteDestinationType,
   RouteDestinationType$outboundSchema,
 } from "./routedestinationtype.js";
-import { Url, Url$Outbound, Url$outboundSchema } from "./url.js";
 
 /**
  * The destination of this portion of the payment.
@@ -21,20 +19,6 @@ export type EntityPaymentRouteDestination = {
    */
   type: RouteDestinationType;
   organizationId: string;
-};
-
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type EntityPaymentRouteLinks = {
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  self: Url;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  payment: Url;
 };
 
 export type EntityPaymentRoute = {
@@ -55,10 +39,6 @@ export type EntityPaymentRoute = {
    * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
    */
   releaseDate?: string | null | undefined;
-  /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links: EntityPaymentRouteLinks;
 };
 
 /** @internal */
@@ -88,35 +68,10 @@ export function entityPaymentRouteDestinationToJSON(
 }
 
 /** @internal */
-export type EntityPaymentRouteLinks$Outbound = {
-  self: Url$Outbound;
-  payment: Url$Outbound;
-};
-
-/** @internal */
-export const EntityPaymentRouteLinks$outboundSchema: z.ZodType<
-  EntityPaymentRouteLinks$Outbound,
-  z.ZodTypeDef,
-  EntityPaymentRouteLinks
-> = z.object({
-  self: Url$outboundSchema,
-  payment: Url$outboundSchema,
-});
-
-export function entityPaymentRouteLinksToJSON(
-  entityPaymentRouteLinks: EntityPaymentRouteLinks,
-): string {
-  return JSON.stringify(
-    EntityPaymentRouteLinks$outboundSchema.parse(entityPaymentRouteLinks),
-  );
-}
-
-/** @internal */
 export type EntityPaymentRoute$Outbound = {
   amount: Amount$Outbound;
   destination: EntityPaymentRouteDestination$Outbound;
   releaseDate?: string | null | undefined;
-  _links: EntityPaymentRouteLinks$Outbound;
 };
 
 /** @internal */
@@ -128,11 +83,6 @@ export const EntityPaymentRoute$outboundSchema: z.ZodType<
   amount: Amount$outboundSchema,
   destination: z.lazy(() => EntityPaymentRouteDestination$outboundSchema),
   releaseDate: z.nullable(z.string()).optional(),
-  links: z.lazy(() => EntityPaymentRouteLinks$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    links: "_links",
-  });
 });
 
 export function entityPaymentRouteToJSON(

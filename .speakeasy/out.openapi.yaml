@@ -29058,6 +29058,7 @@ components:
             payment:
               $ref: '#/components/schemas/url'
               description: The API resource URL of the [payment](get-payment) that belong to this route.
+          readOnly: true
     sequence-type:
       type: string
       enum:
@@ -40140,6 +40141,7 @@ components:
             payment:
               $ref: '#/components/schemas/url'
               description: The API resource URL of the [payment](get-payment) that belong to this route.
+          readOnly: true
     route-destination-type-response:
       type: string
       description: The type of destination. Currently only the destination type `organization` is supported.
