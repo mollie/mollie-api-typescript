@@ -145,16 +145,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -308,16 +298,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -470,16 +450,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -633,16 +603,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -795,16 +755,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -958,16 +908,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -1120,16 +1060,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -1283,16 +1213,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -1444,16 +1364,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -1606,16 +1516,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -1768,16 +1668,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -1931,16 +1821,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -2093,16 +1973,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -2256,16 +2126,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -2418,16 +2278,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -2581,16 +2431,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -2743,16 +2583,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -2906,16 +2736,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -3068,16 +2888,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -3231,16 +3041,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -3393,16 +3193,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -3556,16 +3346,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -3718,16 +3498,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -3881,16 +3651,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -4043,16 +3803,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",
@@ -4206,16 +3956,6 @@ async function run() {
             organizationId: "org_1234567",
           },
           releaseDate: "2024-12-12",
-          links: {
-            self: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-            payment: {
-              href: "https://...",
-              type: "application/hal+json",
-            },
-          },
         },
       ],
       sequenceType: "oneoff",

@@ -28,22 +28,7 @@ export const Url$inboundSchema: z.ZodType<Url, z.ZodTypeDef, unknown> = z
     href: z.string(),
     type: z.string(),
   });
-/** @internal */
-export type Url$Outbound = {
-  href: string;
-  type: string;
-};
 
-/** @internal */
-export const Url$outboundSchema: z.ZodType<Url$Outbound, z.ZodTypeDef, Url> = z
-  .object({
-    href: z.string(),
-    type: z.string(),
-  });
-
-export function urlToJSON(url: Url): string {
-  return JSON.stringify(Url$outboundSchema.parse(url));
-}
 export function urlFromJSON(
   jsonString: string,
 ): SafeParseResult<Url, SDKValidationError> {
