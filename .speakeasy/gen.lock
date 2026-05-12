@@ -5,15 +5,15 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.762.0
   generationVersion: 2.882.0
-  releaseVersion: 1.6.10
-  configChecksum: 8f7885d4e7d75a7ef477de14dea93d5d
+  releaseVersion: 1.7.0
+  configChecksum: 0b078dfe1cb514a30993cedb0ea3fa47
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 1f759d2f-d1fa-45a0-8d20-83fab1115c19
-  pristine_commit_hash: b233b96d7095e12ffe7f6c4e89ca6d5f06c49c13
-  pristine_tree_hash: 6baae17d43dc17f3a211736362d24edb1d6aa9c0
+  generation_id: 667b9fcb-5e36-4d65-aea0-937d46e7bc72
+  pristine_commit_hash: 241641ea321808b13cfc4d84549014f7126016f6
+  pristine_tree_hash: cb965d87adc50b07dcb1fdbe5f4a01966b16cf2f
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3522,12 +3522,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:16b03ab75c34d8edebb744c6e012792a9dec55b5
-    pristine_git_object: 8a3d434edd6d7a43efcfc5c000f54084872dd70a
+    last_write_checksum: sha1:7f1f3f2529bb4a649f54d86929c6541eeffd2c08
+    pristine_git_object: 82065f7f08712fe2aa90834d8109a7cbf6e387e6
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:c48081d812ff7e638161b944dff2a51e0eb5d34d
-    pristine_git_object: 3e2c2c2f82e4e8e57632c772f4d5d1ee16464cd4
+    last_write_checksum: sha1:d6e7fe937c00ee024e9f2dcf7c9b96063a528eb4
+    pristine_git_object: 9de43fbe43af65927967095afa134659081131a9
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4002,8 +4002,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:c9bf60e0ac1ebc9895a51030a34ab6e44e3f4261
-    pristine_git_object: c2dfa848d03a27e3358a1daa8ad11b99471b78db
+    last_write_checksum: sha1:5577899f0f091986f07b609602b1a5c6f24d5eea
+    pristine_git_object: 0fdb4b425715cfc63ea8554316c567ba56c28320
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -10234,7 +10234,6 @@ examples:
       requestBody:
         application/json: {"token_type_hint": "access_token", "token": "access_..."}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.payments.create()`: \n  *  `request.paymentRequest.routing[].Links` **Removed** (Breaking ⚠️)\n* `client.customers.createPayment()`: \n  *  `request.paymentRequest.routing[].Links` **Removed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
