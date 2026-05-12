@@ -46,7 +46,7 @@ import {
  * For capture-based payment methods such as Klarna, the payments are not listed here. Refer to the
  * [List captures endpoint](list-captures) endpoint instead.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function settlementsListPayments(
   client: ClientCore,

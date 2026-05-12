@@ -7,14 +7,14 @@ import * as z from "zod/v3";
 
 export type Security = {
   apiKey?: string | undefined;
-  organizationAccessToken?: string | undefined;
+  advancedAccessToken?: string | undefined;
   oAuth?: string | undefined;
 };
 
 /** @internal */
 export type Security$Outbound = {
   apiKey?: string | undefined;
-  organizationAccessToken?: string | undefined;
+  advancedAccessToken?: string | undefined;
   oAuth?: string | undefined;
 };
 
@@ -25,7 +25,7 @@ export const Security$outboundSchema: z.ZodType<
   Security
 > = z.object({
   apiKey: z.string().optional(),
-  organizationAccessToken: z.string().optional(),
+  advancedAccessToken: z.string().optional(),
   oAuth: z.string().optional(),
 });
 

@@ -9,7 +9,7 @@ servers:
   - url: https://api.mollie.com
 security:
   - apiKey: []
-  - organizationAccessToken: []
+  - advancedAccessToken: []
   - oAuth: []
 tags:
   - name: Accounts API
@@ -296,7 +296,7 @@ paths:
         - Balances API
       operationId: list-balances
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balances.read
         - oAuth:
             - balances.read
@@ -516,7 +516,7 @@ paths:
         - Balances API
       operationId: get-balance
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balances.read
         - oAuth:
             - balances.read
@@ -658,7 +658,7 @@ paths:
         - Balances API
       operationId: get-primary-balance
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balances.read
         - oAuth:
             - balances.read
@@ -750,7 +750,7 @@ paths:
         - Balances API
       operationId: get-balance-report
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balance-reports.read
         - oAuth:
             - balance-reports.read
@@ -1577,7 +1577,7 @@ paths:
         - Balances API
       operationId: list-balance-transactions
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balances.read
         - oAuth:
             - balances.read
@@ -2388,7 +2388,7 @@ paths:
         - Settlements API
       operationId: list-settlements
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
         - oAuth:
             - settlements.read
@@ -2579,7 +2579,7 @@ paths:
         - Settlements API
       operationId: get-settlement
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
         - oAuth:
             - settlements.read
@@ -2754,7 +2754,7 @@ paths:
         - Settlements API
       operationId: get-open-settlement
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
         - oAuth:
             - settlements.read
@@ -2925,7 +2925,7 @@ paths:
         - Settlements API
       operationId: get-next-settlement
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
         - oAuth:
             - settlements.read
@@ -3097,7 +3097,7 @@ paths:
         - Settlements API
       operationId: list-settlement-payments
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
             - payments.read
         - oAuth:
@@ -3249,7 +3249,7 @@ paths:
         - Settlements API
       operationId: list-settlement-captures
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
             - payments.read
         - oAuth:
@@ -3409,7 +3409,7 @@ paths:
         - Settlements API
       operationId: list-settlement-refunds
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
             - refunds.read
         - oAuth:
@@ -3570,7 +3570,7 @@ paths:
         - Settlements API
       operationId: list-settlement-chargebacks
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - settlements.read
             - payments.read
         - oAuth:
@@ -3816,7 +3816,7 @@ paths:
         - Invoices API
       operationId: list-invoices
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - invoices.read
         - oAuth:
             - invoices.read
@@ -4839,7 +4839,7 @@ paths:
         - Invoices API
       operationId: get-invoice
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - invoices.read
         - oAuth:
             - invoices.read
@@ -4941,7 +4941,7 @@ paths:
         - Permissions API
       operationId: list-permissions
       security:
-        - organizationAccessToken: []
+        - advancedAccessToken: []
         - oAuth: []
       description: |-
         Retrieve a list of all permissions available to the current access token.
@@ -5266,7 +5266,7 @@ paths:
         - Permissions API
       operationId: get-permission
       security:
-        - organizationAccessToken: []
+        - advancedAccessToken: []
         - oAuth: []
       description: Retrieve a single permission by its ID, and see if the permission is granted to the current access token.
       parameters:
@@ -5357,7 +5357,7 @@ paths:
         - Organizations API
       operationId: get-organization
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - organizations.read
         - oAuth:
             - organizations.read
@@ -5450,7 +5450,7 @@ paths:
         - Organizations API
       operationId: get-current-organization
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - organizations.read
         - oAuth:
             - organizations.read
@@ -5566,7 +5566,7 @@ paths:
         - Organizations API
       operationId: get-partner-status
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - organizations.read
         - oAuth:
             - organizations.read
@@ -5724,7 +5724,7 @@ paths:
         - Profiles API
       operationId: create-profile
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.write
         - oAuth:
             - profiles.write
@@ -5902,7 +5902,7 @@ paths:
         - Profiles API
       operationId: list-profiles
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.read
         - oAuth:
             - profiles.read
@@ -6032,7 +6032,7 @@ paths:
         - Profiles API
       operationId: get-profile
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.read
         - oAuth:
             - profiles.read
@@ -6114,7 +6114,7 @@ paths:
         - Profiles API
       operationId: update-profile
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.write
         - oAuth:
             - profiles.write
@@ -6381,7 +6381,7 @@ paths:
         - Profiles API
       operationId: delete-profile
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.write
         - oAuth:
             - profiles.write
@@ -6560,7 +6560,7 @@ paths:
         - Onboarding API
       operationId: get-onboarding-status
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - onboarding.read
         - oAuth:
             - onboarding.read
@@ -6639,7 +6639,7 @@ paths:
         - Onboarding API
       operationId: submit-onboarding-data
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - onboarding.write
         - oAuth:
             - onboarding.write
@@ -6834,7 +6834,7 @@ paths:
         - Capabilities API
       operationId: list-capabilities
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - onboarding.read
         - oAuth:
             - onboarding.read
@@ -6942,7 +6942,7 @@ paths:
         - Clients API
       operationId: list-clients
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - clients.read
       description: |-
         Retrieve a list of all clients linked to your account.
@@ -7087,7 +7087,7 @@ paths:
         - Clients API
       operationId: get-client
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - clients.read
       description: Retrieve a single client by its ID.
       parameters:
@@ -7293,7 +7293,7 @@ paths:
         - Client Links API
       operationId: create-client-link
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - clients.write
       description: "Link a new or existing organization to your OAuth application, in effect creating a new client. The response\ncontains a `clientLink` where you should redirect your customer to.\n\n## Redirecting the Customer\n\nThe `clientLink` URL behaves similarly to a standard OAuth authorization URL. Therefore, after receiving the\n`clientLink` URL in the API response, you need to **append the following query parameters** *before* redirecting\nthe customer:\n\n* `client_id` _string (required)_\n\n  The client ID you received when you registered your OAuth app. The ID starts with `app_`. For example:\n  `app_abc123qwerty`.\n\n* `state` _string (required)_\n\n  A random string **generated by your app** to prevent CSRF attacks. This will be reflected in the `state` query\n  parameter when the user returns to the `redirect_uri` after authorizing your app.\n\n* `scope` _string (required)_\n\n  A space-separated list of permissions ('scopes') your app requires. See the\n  [permissions list](https://docs.mollie.com/docs/permissions) for more information about the available\n  scopes.\n\n  We recommend at least : `onboarding.read onboarding.write`\n\n* `approval_prompt` _string_\n\n  Can be set to `force` to force showing the consent screen to the merchant, *even when it is not necessary*. If you\n  force an approval prompt and the user creates a new authorization, previously active authorizations will be\n  revoked.\n\n  Possible values: `auto` `force` (default: `auto`)\n\n### Example of a Complete Redirect URL\n\nAfter adding the above url parameter your URL will look something like this and you can redirect your client to this\npage:\n\n```\nhttps://my.mollie.com/dashboard/client-link/{id}?client_id={your_client_id}&state={unique_state}&scope=onboarding.read%20onboarding.write\n```\n\n## Error Handling\n\nError handling is also dealt with similar to the [Authorize](https://docs.mollie.com/reference/authorize) endpoint:\nthe customer is redirected back to your app's redirect URL with the `error` and `error_description` parameters added\nto the URL.\n\n> \U0001F6A7\n>\n> A client link must be used within 30 days of creation. After that period, it will expire and you will need to create a new client link."
       requestBody:
@@ -7425,7 +7425,7 @@ paths:
         - Webhooks API
       operationId: create-webhook
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - webhooks.write
         - oAuth:
             - webhooks.write
@@ -7543,7 +7543,7 @@ paths:
         - Webhooks API
       operationId: list-webhooks
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - webhooks.read
         - oAuth:
             - webhooks.read
@@ -7684,7 +7684,7 @@ paths:
         - Webhooks API
       operationId: update-webhook
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - webhooks.write
         - oAuth:
             - webhooks.write
@@ -7800,7 +7800,7 @@ paths:
         - Webhooks API
       operationId: get-webhook
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - webhooks.read
         - oAuth:
             - webhooks.read
@@ -7903,7 +7903,7 @@ paths:
         - Webhooks API
       operationId: delete-webhook
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - webhooks.write
         - oAuth:
             - webhooks.write
@@ -7970,7 +7970,7 @@ paths:
         - Webhooks API
       operationId: test-webhook
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - webhooks.write
         - oAuth:
             - webhooks.write
@@ -8037,7 +8037,7 @@ paths:
         - Webhook Events API
       operationId: get-webhook-event
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - events.read
         - oAuth:
             - events.read
@@ -8135,7 +8135,7 @@ paths:
         - Balance Transfers API
       operationId: create-connect-balance-transfer
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balance-transfers.write
         - oAuth:
             - balance-transfers.write
@@ -8238,7 +8238,7 @@ paths:
         - Balance Transfers API
       operationId: list-connect-balance-transfers
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balance-transfers.read
         - oAuth:
             - balance-transfers.read
@@ -8370,7 +8370,7 @@ paths:
         - Balance Transfers API
       operationId: get-connect-balance-transfer
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - balance-transfers.read
         - oAuth:
             - balance-transfers.read
@@ -8440,7 +8440,7 @@ paths:
       operationId: create-payment
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -9117,7 +9117,7 @@ paths:
       operationId: list-payments
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -11308,7 +11308,7 @@ paths:
       operationId: get-payment
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -11513,7 +11513,7 @@ paths:
       operationId: update-payment
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -11784,7 +11784,7 @@ paths:
       operationId: cancel-payment
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -11885,7 +11885,7 @@ paths:
       operationId: release-authorization
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -11966,7 +11966,7 @@ paths:
       operationId: list-unmatched-credit-transfers
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - unmatched-credit-transfers.read
         - oAuth:
             - unmatched-credit-transfers.read
@@ -12106,7 +12106,7 @@ paths:
       operationId: get-unmatched-credit-transfer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - unmatched-credit-transfers.read
         - oAuth:
             - unmatched-credit-transfers.read
@@ -12151,7 +12151,7 @@ paths:
       operationId: match-unmatched-credit-transfer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - unmatched-credit-transfers.write
         - oAuth:
             - unmatched-credit-transfers.write
@@ -12219,7 +12219,7 @@ paths:
       operationId: return-unmatched-credit-transfer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - unmatched-credit-transfers.write
         - oAuth:
             - unmatched-credit-transfers.write
@@ -12262,7 +12262,7 @@ paths:
       operationId: create-session
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - sessions.write
         - oAuth:
             - sessions.write
@@ -12397,7 +12397,7 @@ paths:
       operationId: get-session
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - sessions.read
         - oAuth:
             - sessions.read
@@ -12450,7 +12450,7 @@ paths:
       operationId: list-methods
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -13015,7 +13015,7 @@ paths:
       operationId: list-all-methods
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -14185,7 +14185,7 @@ paths:
       operationId: get-method
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -14345,7 +14345,7 @@ paths:
       operationId: enable-method
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.write
         - oAuth:
             - profiles.write
@@ -14480,7 +14480,7 @@ paths:
       operationId: disable-method
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.write
         - oAuth:
             - profiles.write
@@ -14559,7 +14559,7 @@ paths:
       operationId: enable-method-issuer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.write
         - oAuth:
             - profiles.write
@@ -14667,7 +14667,7 @@ paths:
       operationId: disable-method-issuer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - profiles.write
         - oAuth:
             - profiles.write
@@ -14740,7 +14740,7 @@ paths:
       operationId: create-refund
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - refunds.write
         - oAuth:
             - refunds.write
@@ -14913,7 +14913,7 @@ paths:
       operationId: list-refunds
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - refunds.read
         - oAuth:
             - refunds.read
@@ -15076,7 +15076,7 @@ paths:
       operationId: get-refund
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - refunds.read
         - oAuth:
             - refunds.read
@@ -15166,7 +15166,7 @@ paths:
       operationId: cancel-refund
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - refunds.write
         - oAuth:
             - refunds.write
@@ -15243,7 +15243,7 @@ paths:
       operationId: list-all-refunds
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - refunds.read
         - oAuth:
             - refunds.read
@@ -15401,7 +15401,7 @@ paths:
       operationId: list-chargebacks
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -15648,7 +15648,7 @@ paths:
       operationId: get-chargeback
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -15786,7 +15786,7 @@ paths:
       operationId: list-all-chargebacks
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -16145,7 +16145,7 @@ paths:
       operationId: create-capture
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -16281,7 +16281,7 @@ paths:
       operationId: list-captures
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -16481,7 +16481,7 @@ paths:
       operationId: get-capture
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -16602,7 +16602,7 @@ paths:
       operationId: request-apple-pay-payment-session
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -16739,7 +16739,7 @@ paths:
       operationId: create-payment-link
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payment-links.write
         - oAuth:
             - payment-links.write
@@ -17170,7 +17170,7 @@ paths:
       operationId: list-payment-links
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payment-links.read
         - oAuth:
             - payment-links.read
@@ -17405,7 +17405,7 @@ paths:
       operationId: get-payment-link
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payment-links.read
         - oAuth:
             - payment-links.read
@@ -17466,7 +17466,7 @@ paths:
       operationId: update-payment-link
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payment-links.write
         - oAuth:
             - payment-links.write
@@ -17631,7 +17631,7 @@ paths:
       operationId: delete-payment-link
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payment-links.write
         - oAuth:
             - payment-links.write
@@ -17706,7 +17706,7 @@ paths:
       operationId: get-payment-link-payments
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payment-links.read
         - oAuth:
             - payment-links.read
@@ -17827,7 +17827,7 @@ paths:
       operationId: list-terminals
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - terminals.read
         - oAuth:
             - terminals.read
@@ -18024,7 +18024,7 @@ paths:
       operationId: get-terminal
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - terminals.read
         - oAuth:
             - terminals.read
@@ -18103,7 +18103,7 @@ paths:
         - Delayed Routing API
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -18195,7 +18195,7 @@ paths:
         - Delayed Routing API
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -18352,7 +18352,7 @@ paths:
         - Delayed Routing API
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.read
         - oAuth:
             - payments.read
@@ -18417,7 +18417,7 @@ paths:
       operationId: create-customer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - customers.write
         - oAuth:
             - customers.write
@@ -18507,7 +18507,7 @@ paths:
       operationId: list-customers
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - customers.read
         - oAuth:
             - customers.read
@@ -18645,7 +18645,7 @@ paths:
       operationId: get-customer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - customers.read
         - oAuth:
             - customers.read
@@ -18733,7 +18733,7 @@ paths:
       operationId: update-customer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - customers.write
         - oAuth:
             - customers.write
@@ -18872,7 +18872,7 @@ paths:
       operationId: delete-customer
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - customers.write
         - oAuth:
             - customers.write
@@ -18945,7 +18945,7 @@ paths:
       operationId: create-customer-payment
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - payments.write
         - oAuth:
             - payments.write
@@ -19608,7 +19608,7 @@ paths:
       operationId: list-customer-payments
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - customers.read
             - payments.read
         - oAuth:
@@ -21793,7 +21793,7 @@ paths:
       operationId: create-mandate
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - mandates.write
         - oAuth:
             - mandates.write
@@ -21936,7 +21936,7 @@ paths:
       operationId: list-mandates
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - mandates.read
         - oAuth:
             - mandates.read
@@ -22093,7 +22093,7 @@ paths:
       operationId: get-mandate
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - mandates.read
         - oAuth:
             - mandates.read
@@ -22169,7 +22169,7 @@ paths:
       operationId: revoke-mandate
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - mandates.write
         - oAuth:
             - mandates.write
@@ -22248,7 +22248,7 @@ paths:
       operationId: create-subscription
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - subscriptions.write
         - oAuth:
             - subscriptions.write
@@ -22390,7 +22390,7 @@ paths:
       operationId: list-subscriptions
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - subscriptions.read
         - oAuth:
             - subscriptions.read
@@ -22549,7 +22549,7 @@ paths:
       operationId: get-subscription
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - subscriptions.read
         - oAuth:
             - subscriptions.read
@@ -22627,7 +22627,7 @@ paths:
       operationId: update-subscription
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - subscriptions.write
         - oAuth:
             - subscriptions.write
@@ -22869,7 +22869,7 @@ paths:
       operationId: cancel-subscription
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - subscriptions.write
         - oAuth:
             - subscriptions.write
@@ -22990,7 +22990,7 @@ paths:
       operationId: list-all-subscriptions
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - subscriptions.read
         - oAuth:
             - subscriptions.read
@@ -23155,7 +23155,7 @@ paths:
       operationId: list-subscription-payments
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - subscriptions.read
             - payments.read
         - oAuth:
@@ -25340,7 +25340,7 @@ paths:
       operationId: create-sales-invoice
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - sales-invoices.write
         - oAuth:
             - sales-invoices.write
@@ -25550,7 +25550,7 @@ paths:
       operationId: list-sales-invoices
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - sales-invoices.read
         - oAuth:
             - sales-invoices.read
@@ -25701,7 +25701,7 @@ paths:
       operationId: get-sales-invoice
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - sales-invoices.read
         - oAuth:
             - sales-invoices.read
@@ -25829,7 +25829,7 @@ paths:
       operationId: update-sales-invoice
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - sales-invoices.write
         - oAuth:
             - sales-invoices.write
@@ -25994,7 +25994,7 @@ paths:
       operationId: delete-sales-invoice
       security:
         - apiKey: []
-        - organizationAccessToken:
+        - advancedAccessToken:
             - sales-invoices.write
         - oAuth:
             - sales-invoices.write
@@ -26510,7 +26510,7 @@ paths:
         - Transfers API
       operationId: create-transfer
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - business-account-transfers.write
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nCreate a SEPA Credit Transfer from your Mollie Business Account.\n\nTo initiate a transfer, you must provide the transfer scheme, the amount, the debtor IBAN (your Mollie Business\nAccount IBAN), and the creditor (recipient) details.\n\nEach request must include an `Idempotency-Key` header to prevent duplicate transfers, and must be signed using the\n`X-Client-Signature` and `X-Client-Signed-At` headers.\n\n### Simulating transfer scenarios in test mode\n\nIn test mode, you can simulate various transfer scenarios by adjusting the transfer amount. This allows you to\nmimic the typical status progression of a real-world transfer. Note that a transfer's progression will stop once\nit reaches a final status: `blocked`, `failed`, `processed`, or `returned`.\n\n| Amount  | Scenario                                            | Webhook sequence                                                                                                                                                   |\n|---------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| `11.00` | Transfer initiated, pending review by Mollie        | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review`                                         |\n| `12.00` | Transfer initiated, blocked by Mollie               | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.pending-review` → `business-account-transfer.blocked`   |\n| `13.00` | Transfer initiated, failed on scheme submission     | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.failed`                                                 |\n| `14.00` | Transfer processed, then returned by receiving bank | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed` → `business-account-transfer.returned`       |\n| Other   | Default: transfer is processed                      | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed`                                              |"
       parameters:
@@ -26734,7 +26734,7 @@ paths:
         - Transfers API
       operationId: get-transfer
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - business-account-transfers.read
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nRetrieve a single transfer object by its transfer ID. This allows you to check the current status\nand details of a previously created transfer."
       parameters:
@@ -26832,7 +26832,7 @@ paths:
         - Verify Payee API
       operationId: verify-payee
       security:
-        - organizationAccessToken:
+        - advancedAccessToken:
             - business-account-payee-verifications.write
       description: "> \U0001F6A7 Beta feature\n>\n> This feature is currently in beta testing, and the final specification may still change.\n\nPerform a Verification of Payee (VoP) check. This allows you to verify the account holder name against the\nrecords held by the receiving bank before initiating a transfer.\n\nThe verification result indicates whether the provided name matches, closely matches, or does not match the\nname on file at the receiving bank. This helps prevent misdirected payments.\n\n### Simulating verification scenarios in test mode\n\nIn test mode, you can simulate various verification outcomes by adjusting the creditor name in the\n`creditorBankAccount.accountHolderName` property. This allows you to test all possible Verification of Payee\nresults without needing special properties. The names are case insensitive.\n\n| Account holder name                    | Scenario                                      | Verification result | Suggested name |\n|----------------------------------------|-----------------------------------------------|---------------------|----------------|\n| `John Close Match`                     | Name closely matches the bank records          | `close-match`       | `John Match`   |\n| `John No Match`                        | Name does not match the bank records           | `no-match`          | —              |\n| `John Unavailable`                     | Verification is not available                  | `not-available`     | —              |\n| Any other name                         | Default: name matches the bank records         | `match`             | —              |"
       requestBody:
@@ -27020,10 +27020,26 @@ components:
     apiKey:
       type: http
       scheme: bearer
+      description: |-
+        Authenticates API requests for a single website profile. Each key targets
+        either live mode (`live_...`) or test mode (`test_...`).
+
+        Keys are shown only once, at creation. Store the key securely — it cannot
+        be retrieved afterwards. If lost, create a new key under Developers → API
+        access tokens in the Dashboard and revoke the old one.
       x-default: live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM
-    organizationAccessToken:
+    advancedAccessToken:
       type: http
       scheme: bearer
+      description: |-
+        Authenticates API requests with configurable permissions. Can access
+        organization-level resources and optionally scope to a specific payment
+        profile (`access_...`). Use for advanced integrations — such as bookkeeping
+        or reporting tools — that need fine-grained control over API access.
+
+        Tokens are shown only once, at creation. Store it securely — it cannot be
+        retrieved afterwards. If lost, create a new token under Developers → API
+        access tokens in the Dashboard and revoke the old one.
       x-default: access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM
     oAuth:
       type: oauth2
@@ -32165,23 +32181,22 @@ components:
     payment-link-response:
       allOf:
         - $ref: '#/components/schemas/entity-payment-link'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-            - description
-            - archived
-            - reusable
-            - profileId
-            - amount
-            - webhookUrl
-            - redirectUrl
-            - createdAt
-            - paidAt
-            - expiresAt
-            - allowedMethods
-            - _links
+      required:
+        - resource
+        - id
+        - mode
+        - description
+        - archived
+        - reusable
+        - profileId
+        - amount
+        - webhookUrl
+        - redirectUrl
+        - createdAt
+        - paidAt
+        - expiresAt
+        - allowedMethods
+        - _links
     salesInvoiceToken:
       type: string
       pattern: ^invoice_.+$
@@ -32903,20 +32918,19 @@ components:
     transfer-response:
       allOf:
         - $ref: '#/components/schemas/entity-transfer-response'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-            - businessAccountTransactionId
-            - transferScheme
-            - creditDebitIndicator
-            - amount
-            - debtor
-            - creditor
-            - status
-            - statusHistory
-            - createdAt
+      required:
+        - resource
+        - id
+        - mode
+        - businessAccountTransactionId
+        - transferScheme
+        - creditDebitIndicator
+        - amount
+        - debtor
+        - creditor
+        - status
+        - statusHistory
+        - createdAt
     entity-webhook-event:
       type: object
       required:

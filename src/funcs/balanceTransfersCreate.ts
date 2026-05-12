@@ -37,7 +37,7 @@ import { Result } from "../types/fp.js";
  * To create a balance transfer, you must be authenticated as the source organization, and the destination organization must be a connected organization
  * that has authorized the `balance-transfers.write` scope for your organization.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function balanceTransfersCreate(
   client: ClientCore,

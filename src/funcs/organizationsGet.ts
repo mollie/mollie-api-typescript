@@ -39,7 +39,7 @@ import { Result } from "../types/fp.js";
  *
  * If you have a *partner account*', you can retrieve organization details of connected organizations.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function organizationsGet(
   client: ClientCore,

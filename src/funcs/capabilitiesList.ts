@@ -47,7 +47,7 @@ import { Result } from "../types/fp.js";
  * This means that if at least one of the clients's profiles can receive payments,
  * the payments capability is enabled, communicating that the organization can indeed receive payments.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function capabilitiesList(
   client: ClientCore,

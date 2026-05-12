@@ -120,11 +120,11 @@ run();
 
 This SDK supports the following security schemes globally:
 
-| Name                      | Type   | Scheme       | Environment Variable               |
-| ------------------------- | ------ | ------------ | ---------------------------------- |
-| `apiKey`                  | http   | HTTP Bearer  | `CLIENT_API_KEY`                   |
-| `organizationAccessToken` | http   | HTTP Bearer  | `CLIENT_ORGANIZATION_ACCESS_TOKEN` |
-| `oAuth`                   | oauth2 | OAuth2 token | `CLIENT_O_AUTH`                    |
+| Name                  | Type   | Scheme       | Environment Variable           |
+| --------------------- | ------ | ------------ | ------------------------------ |
+| `apiKey`              | http   | HTTP Bearer  | `CLIENT_API_KEY`               |
+| `advancedAccessToken` | http   | HTTP Bearer  | `CLIENT_ADVANCED_ACCESS_TOKEN` |
+| `oAuth`               | oauth2 | OAuth2 token | `CLIENT_O_AUTH`                |
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
@@ -614,8 +614,7 @@ const client = new Client({
   profileId: "<id>",
   customUserAgent: "<value>",
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -655,8 +654,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -839,8 +837,7 @@ import * as errors from "mollie-api-typescript/models/errors";
 const client = new Client({
   testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -918,8 +915,7 @@ const client = new Client({
   serverURL: "https://api.mollie.com",
   testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"]
-      ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 

@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Delete a single webhook object by its webhook ID.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function webhooksDelete(
   client: ClientCore,

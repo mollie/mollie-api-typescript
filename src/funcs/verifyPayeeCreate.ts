@@ -55,7 +55,7 @@ import { Result } from "../types/fp.js";
  * | `John Unavailable`                     | Verification is not available                  | `not-available`     | —              |
  * | Any other name                         | Default: name matches the bank records         | `match`             | —              |
  *
- * If set, this operation will use {@link Security.organizationAccessToken} from the global security.
+ * If set, this operation will use {@link Security.advancedAccessToken} from the global security.
  */
 export function verifyPayeeCreate(
   client: ClientCore,

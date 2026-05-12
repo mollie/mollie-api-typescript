@@ -38,7 +38,7 @@ import { Result } from "../types/fp.js";
  * onboarding status is `needs-data`.
  * Information that the merchant has entered in their dashboard will not be overwritten.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function onboardingSubmit(
   client: ClientCore,

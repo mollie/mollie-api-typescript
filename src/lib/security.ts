@@ -255,8 +255,8 @@ export function resolveGlobalSecurity(
       {
         fieldName: "Authorization",
         type: "http:bearer",
-        value: security?.organizationAccessToken
-          ?? env().CLIENT_ORGANIZATION_ACCESS_TOKEN,
+        value: security?.advancedAccessToken
+          ?? env().CLIENT_ADVANCED_ACCESS_TOKEN,
       },
     ],
     [

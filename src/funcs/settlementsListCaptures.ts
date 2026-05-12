@@ -43,7 +43,7 @@ import {
  *
  * The response is in the same format as the response of the [List captures endpoint](list-captures).
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function settlementsListCaptures(
   client: ClientCore,

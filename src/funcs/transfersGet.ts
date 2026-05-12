@@ -39,7 +39,7 @@ import { Result } from "../types/fp.js";
  * Retrieve a single transfer object by its transfer ID. This allows you to check the current status
  * and details of a previously created transfer.
  *
- * If set, this operation will use {@link Security.organizationAccessToken} from the global security.
+ * If set, this operation will use {@link Security.advancedAccessToken} from the global security.
  */
 export function transfersGet(
   client: ClientCore,

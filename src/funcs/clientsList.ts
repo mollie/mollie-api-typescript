@@ -43,7 +43,7 @@ import {
  *
  * The results are paginated.
  *
- * If set, this operation will use {@link Security.organizationAccessToken} from the global security.
+ * If set, this operation will use {@link Security.advancedAccessToken} from the global security.
  */
 export function clientsList(
   client: ClientCore,

@@ -39,7 +39,7 @@ import { Result } from "../types/fp.js";
  * For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
  * [balance transactions](list-balance-transactions) endpoint.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function settlementsGetNext(
   client: ClientCore,

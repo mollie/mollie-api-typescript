@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  * Retrieve partnership details about the currently authenticated organization. Only relevant for so-called *partner
  * accounts*.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function organizationsGetPartner(
   client: ClientCore,
