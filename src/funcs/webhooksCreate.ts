@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * A webhook must have a name, an url and a list of event types. You can also create webhooks in the webhooks settings section of the Dashboard.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function webhooksCreate(
   client: ClientCore,

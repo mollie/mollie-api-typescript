@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve a single client by its ID.
  *
- * If set, this operation will use {@link Security.organizationAccessToken} from the global security.
+ * If set, this operation will use {@link Security.advancedAccessToken} from the global security.
  */
 export function clientsGet(
   client: ClientCore,

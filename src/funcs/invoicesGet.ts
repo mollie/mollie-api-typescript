@@ -37,7 +37,7 @@ import { Result } from "../types/fp.js";
  * If you want to retrieve the details of an invoice by its invoice number,
  * call the [List invoices](list-invoices) endpoint with the `reference` parameter.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function invoicesGet(
   client: ClientCore,

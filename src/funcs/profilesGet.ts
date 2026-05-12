@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve a single profile by its ID.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function profilesGet(
   client: ClientCore,

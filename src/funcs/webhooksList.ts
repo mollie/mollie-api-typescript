@@ -41,7 +41,7 @@ import {
  * @remarks
  * Returns a paginated list of your webhooks. If no webhook endpoints are available, the resulting array will be empty. This request should never throw an error.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function webhooksList(
   client: ClientCore,

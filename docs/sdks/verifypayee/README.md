@@ -39,7 +39,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -74,7 +74,7 @@ import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -108,7 +108,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -143,7 +143,7 @@ import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -177,7 +177,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -212,7 +212,7 @@ import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -246,7 +246,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -281,7 +281,7 @@ import { verifyPayeeCreate } from "mollie-api-typescript/funcs/verifyPayeeCreate
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 

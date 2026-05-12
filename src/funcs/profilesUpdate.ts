@@ -37,7 +37,7 @@ import { Result } from "../types/fp.js";
  * Profiles are required for payment processing. Normally they are created and updated via the Mollie dashboard.
  * Alternatively, you can use this endpoint to automate profile management.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function profilesUpdate(
   client: ClientCore,

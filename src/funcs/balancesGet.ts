@@ -48,7 +48,7 @@ import { Result } from "../types/fp.js";
  * balance instantly. With slower payment methods, like credit card for example, it can take a few days before the
  * funds are available on your balance. These funds will be shown under the *pending amount* in the meanwhile.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function balancesGet(
   client: ClientCore,

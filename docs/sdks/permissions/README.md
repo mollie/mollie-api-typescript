@@ -21,7 +21,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -48,7 +48,7 @@ import { permissionsList } from "mollie-api-typescript/funcs/permissionsList.js"
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -74,7 +74,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -101,7 +101,7 @@ import { permissionsList } from "mollie-api-typescript/funcs/permissionsList.js"
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -153,7 +153,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -182,7 +182,7 @@ import { permissionsGet } from "mollie-api-typescript/funcs/permissionsGet.js";
 const client = new ClientCore({
   testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -210,7 +210,7 @@ import { Client } from "mollie-api-typescript";
 const client = new Client({
   testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 
@@ -239,7 +239,7 @@ import { permissionsGet } from "mollie-api-typescript/funcs/permissionsGet.js";
 const client = new ClientCore({
   testmode: false,
   security: {
-    organizationAccessToken: process.env["CLIENT_ORGANIZATION_ACCESS_TOKEN"] ?? "",
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
   },
 });
 

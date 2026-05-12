@@ -37,7 +37,7 @@ import { Result } from "../types/fp.js";
  * For a complete reference of the organization object, refer to the [Get organization](get-organization) endpoint
  * documentation.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function organizationsGetCurrent(
   client: ClientCore,

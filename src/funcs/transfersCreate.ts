@@ -58,7 +58,7 @@ import { Result } from "../types/fp.js";
  * | `14.00` | Transfer processed, then returned by receiving bank | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed` → `business-account-transfer.returned`       |
  * | Other   | Default: transfer is processed                      | `business-account-transfer.requested` → `business-account-transfer.initiated` → `business-account-transfer.processed`                                              |
  *
- * If set, this operation will use {@link Security.organizationAccessToken} from the global security.
+ * If set, this operation will use {@link Security.advancedAccessToken} from the global security.
  */
 export function transfersCreate(
   client: ClientCore,

@@ -40,7 +40,7 @@ import { Result } from "../types/fp.js";
  * The alias `primary` can be used instead of the balance ID to refer to the
  * organization's primary balance.
  *
- * If set, this operation will use either {@link Security.organizationAccessToken} or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */
 export function balancesGetReport(
   client: ClientCore,
