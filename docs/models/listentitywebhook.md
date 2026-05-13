@@ -13,7 +13,7 @@ let value: ListEntityWebhook = {
   createdAt: "2023-03-15T10:00:00+00:00",
   name: "Profile Updates Webhook",
   eventTypes: [
-    "balance-transaction.created",
+    "payout.initiated",
     "business-account-transfer.returned",
   ],
   status: "enabled",

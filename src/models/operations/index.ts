@@ -4,6 +4,7 @@
  */
 
 export * from "./cancelpayment.js";
+export * from "./cancelpayout.js";
 export * from "./cancelrefund.js";
 export * from "./cancelsubscription.js";
 export * from "./createcapture.js";
@@ -14,6 +15,7 @@ export * from "./createcustomerpayment.js";
 export * from "./createmandate.js";
 export * from "./createpayment.js";
 export * from "./createpaymentlink.js";
+export * from "./createpayout.js";
 export * from "./createprofile.js";
 export * from "./createrefund.js";
 export * from "./createsalesinvoice.js";
@@ -48,6 +50,7 @@ export * from "./getpartnerstatus.js";
 export * from "./getpayment.js";
 export * from "./getpaymentlink.js";
 export * from "./getpaymentlinkpayments.js";
+export * from "./getpayout.js";
 export * from "./getpermission.js";
 export * from "./getprimarybalance.js";
 export * from "./getprofile.js";
@@ -81,6 +84,7 @@ export * from "./listmandates.js";
 export * from "./listmethods.js";
 export * from "./listpaymentlinks.js";
 export * from "./listpayments.js";
+export * from "./listpayouts.js";
 export * from "./listpermissions.js";
 export * from "./listprofiles.js";
 export * from "./listrefunds.js";
