@@ -22,6 +22,7 @@ import { Onboarding } from "./onboarding.js";
 import { Organizations } from "./organizations.js";
 import { PaymentLinks } from "./paymentlinks.js";
 import { Payments } from "./payments.js";
+import { Payouts } from "./payouts.js";
 import { Permissions } from "./permissions.js";
 import { Profiles } from "./profiles.js";
 import { Refunds } from "./refunds.js";
@@ -198,5 +199,10 @@ export class Client extends ClientSDK {
   private _verifyPayee?: VerifyPayee;
   get verifyPayee(): VerifyPayee {
     return (this._verifyPayee ??= new VerifyPayee(this._options));
+  }
+
+  private _payouts?: Payouts;
+  get payouts(): Payouts {
+    return (this._payouts ??= new Payouts(this._options));
   }
 }

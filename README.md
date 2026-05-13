@@ -357,6 +357,13 @@ let client = new Client({
 * [cancel](docs/sdks/payments/README.md#cancel) - Cancel payment
 * [releaseAuthorization](docs/sdks/payments/README.md#releaseauthorization) - Release payment authorization
 
+### [Payouts](docs/sdks/payouts/README.md)
+
+* [create](docs/sdks/payouts/README.md#create) - Create payout
+* [list](docs/sdks/payouts/README.md#list) - List payouts
+* [get](docs/sdks/payouts/README.md#get) - Get payout
+* [cancel](docs/sdks/payouts/README.md#cancel) - Cancel payout
+
 ### [Permissions](docs/sdks/permissions/README.md)
 
 * [list](docs/sdks/permissions/README.md#list) - List permissions
@@ -529,6 +536,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`paymentsList`](docs/sdks/payments/README.md#list) - List payments
 - [`paymentsReleaseAuthorization`](docs/sdks/payments/README.md#releaseauthorization) - Release payment authorization
 - [`paymentsUpdate`](docs/sdks/payments/README.md#update) - Update payment
+- [`payoutsCancel`](docs/sdks/payouts/README.md#cancel) - Cancel payout
+- [`payoutsCreate`](docs/sdks/payouts/README.md#create) - Create payout
+- [`payoutsGet`](docs/sdks/payouts/README.md#get) - Get payout
+- [`payoutsList`](docs/sdks/payouts/README.md#list) - List payouts
 - [`permissionsGet`](docs/sdks/permissions/README.md#get) - Get permission
 - [`permissionsList`](docs/sdks/permissions/README.md#list) - List permissions
 - [`profilesCreate`](docs/sdks/profiles/README.md#create) - Create profile

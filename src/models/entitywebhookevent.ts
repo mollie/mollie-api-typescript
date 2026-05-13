@@ -9,6 +9,10 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  EntityPayoutResponse,
+  EntityPayoutResponse$inboundSchema,
+} from "./entitypayoutresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentLinkResponse,
@@ -33,6 +37,11 @@ import { Url, Url$inboundSchema } from "./url.js";
 export const EntityWebhookEventWebhookEventTypes = {
   PaymentLinkPaid: "payment-link.paid",
   BalanceTransactionCreated: "balance-transaction.created",
+  PayoutInitiated: "payout.initiated",
+  PayoutProcessingAtBank: "payout.processing-at-bank",
+  PayoutCompleted: "payout.completed",
+  PayoutCanceled: "payout.canceled",
+  PayoutFailed: "payout.failed",
   SalesInvoiceCreated: "sales-invoice.created",
   SalesInvoiceIssued: "sales-invoice.issued",
   SalesInvoiceCanceled: "sales-invoice.canceled",
@@ -60,6 +69,7 @@ export type EntityWebhookEventWebhookEventTypes = OpenEnum<
 export type Entity =
   | PaymentLinkResponse
   | TransferResponse
+  | EntityPayoutResponse
   | SalesInvoiceResponse;
 
 /**
@@ -69,6 +79,7 @@ export type Embedded = {
   entity?:
     | PaymentLinkResponse
     | TransferResponse
+    | EntityPayoutResponse
     | SalesInvoiceResponse
     | undefined;
 };
@@ -131,6 +142,7 @@ export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
   .union([
     PaymentLinkResponse$inboundSchema,
     TransferResponse$inboundSchema,
+    EntityPayoutResponse$inboundSchema,
     SalesInvoiceResponse$inboundSchema,
   ]);
 
@@ -153,6 +165,7 @@ export const Embedded$inboundSchema: z.ZodType<
   entity: z.union([
     PaymentLinkResponse$inboundSchema,
     TransferResponse$inboundSchema,
+    EntityPayoutResponse$inboundSchema,
     SalesInvoiceResponse$inboundSchema,
   ]).optional(),
 });

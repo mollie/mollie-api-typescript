@@ -48,6 +48,8 @@ tags:
     description: Operations related to the Payment Links API
   - name: Payments API
     description: Operations related to the Payments API
+  - name: Payouts API
+    description: Operations related to the Payouts API
   - name: Permissions API
     description: Operations related to the Permissions API
   - name: Profiles API
@@ -27015,6 +27017,427 @@ paths:
       x-speakeasy-group: verify-payee
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
+  /v2/payouts:
+    post:
+      summary: Create payout
+      x-speakeasy-name-override: create
+      tags:
+        - Payouts API
+      operationId: create-payout
+      security:
+        - apiKey: []
+        - advancedAccessToken:
+            - payouts.write
+        - oAuth:
+            - payouts.write
+      description: |-
+        Request a payout from one of your balances to the balance's configured bank account.
+
+        The payout will be executed on the next scheduled business day. If no `amount` is specified, the full available
+        balance minus any configured balance reserve is paid out.
+
+        Once the payout is created with status `requested`, you can cancel it via the
+        [Cancel payout](cancel-payout) endpoint, up until the payout moves to `initiated`.
+
+        Creating a payout via the API automatically sets the balance's `transferFrequency` to `never`,
+        pausing any previously configured automatic settlement schedule. To resume automatic settlements,
+        update the transfer frequency via the dashboard.
+
+        ### Webhooks
+
+        Subscribe to the following webhook events to track payout status changes. See the
+        [Webhook Subscriptions API](list-webhooks) for details on subscribing.
+
+        | Event | Description |
+        |---|---|
+        | `payout.initiated` | The payout is being executed and funds are reserved. |
+        | `payout.processing-at-bank` | The payout has been submitted to the bank. |
+        | `payout.completed` | The payout has been sent to the destination bank account. |
+        | `payout.canceled` | The payout was canceled via the API before being submitted to the bank. |
+        | `payout.failed` | The payout failed after creation, including bank rejections and post-submission cancellations. |
+
+        ### Payout failure reasons
+
+        A payout request may fail immediately if one of the following conditions applies:
+
+        - A payout is already scheduled for the next business day for this balance.
+        - The balance has insufficient funds.
+        - The balance is not active.
+        - Payouts are blocked for this organization.
+        - The balance has queued refunds.
+        - One of the organization's balances is below the negative balance threshold.
+        - The payout destination (bank account) is invalid or not configured.
+      parameters:
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payout-request'
+      responses:
+        '201':
+          description: The newly created payout object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-payout-response'
+              examples:
+                create-payout-201:
+                  $ref: '#/components/examples/payout-requested'
+        '422':
+          description: The request contains issues. For example, the `balanceId` is invalid or the balance has insufficient funds.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: The 'balanceId' field is invalid.
+                field: balanceId
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/errors
+                    type: text/html
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -i -X POST \
+              https://api.mollie.com/v2/payouts \
+              -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+              -H 'Content-Type: application/json' \
+                -d '{
+                    "balanceId": "bal_gVMhHKqSSRYJyPsuoPNFH",
+                    "amount": {
+                      "currency": "EUR",
+                      "value": "10.00"
+                    },
+                    "description": "My payout description"
+                  }'
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $payout = $mollie->payouts->create([
+                  "balanceId" => "bal_gVMhHKqSSRYJyPsuoPNFH",
+                  "amount" => [
+                      "currency" => "EUR",
+                      "value" => "10.00",
+                  ],
+                  "description" => "My payout description",
+              ]);
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const payout = await mollieClient.payouts.create({
+                balanceId: 'bal_gVMhHKqSSRYJyPsuoPNFH',
+                amount: {
+                  currency: 'EUR',
+                  value: '10.00'
+                },
+                description: 'My payout description'
+              });
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_api_key("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              payout = mollie_client.payouts.create({
+                  "balanceId": "bal_gVMhHKqSSRYJyPsuoPNFH",
+                  "amount": {
+                      "currency": "EUR",
+                      "value": "10.00",
+                  },
+                  "description": "My payout description",
+              })
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              payout = Mollie::Payout.create(
+                balance_id: 'bal_gVMhHKqSSRYJyPsuoPNFH',
+                amount: {
+                  currency: 'EUR',
+                  value: '10.00'
+                },
+                description: 'My payout description'
+              )
+      x-speakeasy-group: payouts
+    get:
+      summary: List payouts
+      x-speakeasy-name-override: list
+      tags:
+        - Payouts API
+      operationId: list-payouts
+      security:
+        - apiKey: []
+        - advancedAccessToken:
+            - payouts.read
+        - oAuth:
+            - payouts.read
+      description: |-
+        Retrieve a list of all payouts for your organization, including payouts initiated automatically by the
+        balance's payout schedule and payouts requested via the API or dashboard.
+
+        Only payouts created on or after April 1st, 2026 are returned.
+
+        The results are paginated. Use the `from` query parameter together with `_links.next` to iterate through
+        the full result set.
+      parameters:
+        - $ref: '#/components/parameters/balance-id'
+        - $ref: '#/components/parameters/list-from'
+          schema:
+            example: payout_j8NvRAM2WNZtsykpLEX8J
+        - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/list-sort'
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: |-
+            A list of payout objects. For a complete reference of the payout object, refer to the
+            [Get payout endpoint](get-payout) documentation.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
+                properties:
+                  count:
+                    $ref: '#/components/schemas/list-count'
+                  _embedded:
+                    type: object
+                    required:
+                      - payouts
+                    properties:
+                      payouts:
+                        description: |-
+                          An array of payout objects. For a complete reference of the payout object, refer to the
+                          [Get payout endpoint](get-payout) documentation.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/list-entity-payout'
+                  _links:
+                    $ref: '#/components/schemas/list-links'
+              examples:
+                list-payouts-200:
+                  $ref: '#/components/examples/list-payouts-200'
+        '400':
+          $ref: '#/components/responses/400-invalid-list-request'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl https://api.mollie.com/v2/payouts \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $payouts = $mollie->payouts->page();
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const payouts = await mollieClient.payouts.page();
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_api_key("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              payouts = mollie_client.payouts.list()
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              payouts = Mollie::Payout.all
+      x-speakeasy-group: payouts
+  /v2/payouts/{payoutId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-payout-id'
+    get:
+      summary: Get payout
+      x-speakeasy-name-override: get
+      tags:
+        - Payouts API
+      operationId: get-payout
+      security:
+        - apiKey: []
+        - advancedAccessToken:
+            - payouts.read
+        - oAuth:
+            - payouts.read
+      description: Retrieve a single payout by its ID.
+      parameters:
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The payout object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-payout-response'
+              examples:
+                get-payout-200-requested:
+                  $ref: '#/components/examples/payout-requested'
+                get-payout-200-completed:
+                  $ref: '#/components/examples/payout-completed'
+                get-payout-200-failed:
+                  $ref: '#/components/examples/payout-failed'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl https://api.mollie.com/v2/payouts/payout_j8NvRAM2WNZtsykpLEX8J \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $payout = $mollie->payouts->get("payout_j8NvRAM2WNZtsykpLEX8J");
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const payout = await mollieClient.payouts.get('payout_j8NvRAM2WNZtsykpLEX8J');
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_api_key("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              payout = mollie_client.payouts.get("payout_j8NvRAM2WNZtsykpLEX8J")
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              payout = Mollie::Payout.get('payout_j8NvRAM2WNZtsykpLEX8J')
+      x-speakeasy-group: payouts
+    delete:
+      summary: Cancel payout
+      x-speakeasy-name-override: cancel
+      tags:
+        - Payouts API
+      operationId: cancel-payout
+      security:
+        - apiKey: []
+        - advancedAccessToken:
+            - payouts.write
+        - oAuth:
+            - payouts.write
+      description: |-
+        Cancel a payout. A payout can only be canceled while it has the status `requested`. Once the payout moves
+        to `initiated`, it is too late to cancel.
+
+        The canceled payout object is returned with the status set to `canceled`.
+      parameters:
+        - $ref: '#/components/parameters/testmode'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The canceled payout object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-payout-response'
+              examples:
+                cancel-payout-200:
+                  $ref: '#/components/examples/payout-canceled'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+        '409':
+          description: |-
+            The payout cannot be canceled in its current state. This happens when the payout has already moved
+            past the `requested` status.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 409
+                title: Conflict
+                detail: The payout cannot be canceled in its current state.
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/errors
+                    type: text/html
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X DELETE https://api.mollie.com/v2/payouts/payout_j8NvRAM2WNZtsykpLEX8J \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setApiKey("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $payout = $mollie->payouts->cancel("payout_j8NvRAM2WNZtsykpLEX8J");
+          - language: node
+            code: |-
+              const { createMollieClient } = require('@mollie/api-client');
+              const mollieClient = createMollieClient({ apiKey: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const payout = await mollieClient.payouts.cancel('payout_j8NvRAM2WNZtsykpLEX8J');
+          - language: python
+            code: |-
+              from mollie.api.client import Client
+
+              mollie_client = Client()
+              mollie_client.set_api_key("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
+
+              payout = mollie_client.payouts.cancel("payout_j8NvRAM2WNZtsykpLEX8J")
+          - language: ruby
+            code: |-
+              require 'mollie-api-ruby'
+
+              Mollie::Client.configure do |config|
+                config.api_key = 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM'
+              end
+
+              payout = Mollie::Payout.cancel('payout_j8NvRAM2WNZtsykpLEX8J')
+      x-speakeasy-group: payouts
 components:
   securitySchemes:
     apiKey:
@@ -31719,6 +32142,11 @@ components:
       enum:
         - payment-link.paid
         - balance-transaction.created
+        - payout.initiated
+        - payout.processing-at-bank
+        - payout.completed
+        - payout.canceled
+        - payout.failed
         - sales-invoice.created
         - sales-invoice.issued
         - sales-invoice.canceled
@@ -31734,6 +32162,13 @@ components:
       x-enumDescriptions:
         payment-link.paid: Occurs when a payment link has been paid.
         balance-transaction.created: Occurs when a balance transaction is created to add to your available balance. It currently only supports positive amounts and non-captured payments.
+        payout.initiated: The payout is being executed and funds are reserved on the balance.
+        payout.processing-at-bank: The payout has been submitted to the bank and is being processed.
+        payout.completed: The payout has been sent to the destination bank account successfully.
+        payout.canceled: The payout was canceled via the API before being submitted to the bank.
+        payout.failed: |-
+          The payout failed after creation. This includes payouts rejected by the bank or returned after submission.
+          Note that post-submission cancellations also produce this event, not `payout.canceled`.
         sales-invoice.created: Occurs when a sales invoice has been created.
         sales-invoice.issued: Occurs when a sales invoice has been issued.
         sales-invoice.canceled: Occurs when a sales invoice has been canceled.
@@ -32198,6 +32633,170 @@ components:
         - expiresAt
         - allowedMethods
         - _links
+    payout-status:
+      type: string
+      description: The status of the payout.
+      enum:
+        - requested
+        - initiated
+        - processing-at-bank
+        - completed
+        - failed
+        - canceled
+      x-enumDescriptions:
+        requested: The payout has been requested and will be executed on the next scheduled date.
+        initiated: The payout is being executed. Funds are reserved on the balance.
+        processing-at-bank: The payout has been submitted to the bank and is being processed.
+        completed: The payout has been successfully sent to the destination bank account.
+        failed: The payout failed. Refer to the `statusReason` field for more details.
+        canceled: The payout was canceled before it could be executed.
+      readOnly: true
+      example: requested
+      x-speakeasy-unknown-values: allow
+    payout-status-reason-code:
+      type: string
+      description: A machine-readable code describing the reason for the payout's current status.
+      enum:
+        - requested
+        - initiated
+        - processing_at_bank
+        - completed
+        - canceled
+        - failed
+        - insufficient_funds
+        - returned
+        - invalid_request
+        - organization_inactive
+        - payouts_blocked
+        - bank_processing_failed
+        - balance_not_found
+        - expired
+      x-enumDescriptions:
+        requested: The payout has been requested.
+        initiated: The payout has been initiated.
+        processing_at_bank: The payout is being processed by the bank.
+        completed: The payout has been completed successfully.
+        canceled: The payout has been canceled.
+        failed: The payout has failed for an unknown reason.
+        insufficient_funds: Insufficient funds on the balance to complete the payout.
+        returned: The payout has been returned by the bank.
+        invalid_request: The payout request contained invalid data.
+        organization_inactive: The organization has been deactivated.
+        payouts_blocked: Payouts have been blocked for this organization.
+        bank_processing_failed: The payout could not be completed due to a processing error.
+        balance_not_found: The balance associated with this payout has been deleted.
+        expired: The payout expired before it could be processed.
+      readOnly: true
+      example: requested
+      x-speakeasy-unknown-values: allow
+    payout-status-reason:
+      type: object
+      description: The reason for the payout's current status.
+      readOnly: true
+      required:
+        - code
+        - message
+      properties:
+        code:
+          $ref: '#/components/schemas/payout-status-reason-code'
+        message:
+          type: string
+          description: A human-readable description of the status reason.
+          example: The payout has been requested.
+    entity-payout:
+      type: object
+      required:
+        - resource
+        - id
+        - balanceId
+        - status
+        - statusReason
+        - createdAt
+        - mode
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a payout object. Will always contain the string `payout` for this endpoint.
+          readOnly: true
+          example: payout
+        id:
+          type: string
+          description: |-
+            The identifier uniquely referring to this payout. Mollie assigns this identifier at payout creation time.
+            Mollie will always refer to the payout by this ID. Example: `payout_j8NvRAM2WNZtsykpLEX8J`.
+          readOnly: true
+          example: payout_j8NvRAM2WNZtsykpLEX8J
+        balanceId:
+          type: string
+          description: 'The identifier of the balance that will be paid out. Example: `bal_gVMhHKqSSRYJyPsuoPNFH`.'
+          example: bal_gVMhHKqSSRYJyPsuoPNFH
+        amount:
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
+          description: |-
+            The amount to pay out. When omitted from the request, the full available balance minus any configured
+            balance reserve is paid out.
+
+            Merchants registered in the United Kingdom cannot specify a custom amount — omit this field to pay out
+            the full available balance.
+
+            The value in the response reflects the amount paid out, excluding any applicable fees.
+        description:
+          type: string
+          description: The description that will appear on the bank statement for this payout.
+          maxLength: 255
+          example: My payout description
+        status:
+          $ref: '#/components/schemas/payout-status'
+        statusReason:
+          $ref: '#/components/schemas/payout-status-reason'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        initiatedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was initiated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            This is the moment Mollie attempted to reserve the funds on the balance.
+          readOnly: true
+          example: '2024-03-20T09:13:40+00:00'
+        completedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was sent to the destination bank account, in
+            [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. `null` if the payout has not completed yet.
+          readOnly: true
+          example: '2024-03-20T14:00:00+00:00'
+        canceledAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was canceled, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            `null` if the payout was not canceled.
+          readOnly: true
+          example: null
+        mode:
+          $ref: '#/components/schemas/mode'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          readOnly: true
+          required:
+            - self
+            - documentation
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+              description: The URL to the current resource.
+            documentation:
+              $ref: '#/components/schemas/url'
+              description: The URL to the documentation of the current resource.
     salesInvoiceToken:
       type: string
       pattern: ^invoice_.+$
@@ -32977,6 +33576,8 @@ components:
               oneOf:
                 - title: payment-link.*
                   $ref: '#/components/schemas/payment-link-response'
+                - title: payout.*
+                  $ref: '#/components/schemas/entity-payout-response'
                 - title: sales-invoice.*
                   $ref: '#/components/schemas/sales-invoice-response'
                 - title: business-account-transfer.*
@@ -35713,6 +36314,12 @@ components:
               example: Jan Jansen
         createdAt:
           $ref: '#/components/schemas/created-at'
+    payout-request:
+      allOf:
+        - $ref: '#/components/schemas/entity-payout'
+        - type: object
+          required:
+            - balanceId
     list-entity-balance:
       type: object
       required:
@@ -38923,6 +39530,96 @@ components:
                 provided details. Required for `paid` status.
               items:
                 $ref: '#/components/schemas/sales-invoice-payment-details-response'
+    list-entity-payout:
+      type: object
+      required:
+        - resource
+        - id
+        - balanceId
+        - status
+        - statusReason
+        - createdAt
+        - mode
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a payout object. Will always contain the string `payout` for this endpoint.
+          readOnly: true
+          example: payout
+        id:
+          type: string
+          description: |-
+            The identifier uniquely referring to this payout. Mollie assigns this identifier at payout creation time.
+            Mollie will always refer to the payout by this ID. Example: `payout_j8NvRAM2WNZtsykpLEX8J`.
+          readOnly: true
+          example: payout_j8NvRAM2WNZtsykpLEX8J
+        balanceId:
+          type: string
+          description: 'The identifier of the balance that will be paid out. Example: `bal_gVMhHKqSSRYJyPsuoPNFH`.'
+          example: bal_gVMhHKqSSRYJyPsuoPNFH
+        amount:
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
+          description: |-
+            The amount to pay out. When omitted from the request, the full available balance minus any configured
+            balance reserve is paid out.
+
+            Merchants registered in the United Kingdom cannot specify a custom amount — omit this field to pay out
+            the full available balance.
+
+            The value in the response reflects the amount paid out, excluding any applicable fees.
+        description:
+          type: string
+          description: The description that will appear on the bank statement for this payout.
+          maxLength: 255
+          example: My payout description
+        status:
+          $ref: '#/components/schemas/payout-status'
+        statusReason:
+          $ref: '#/components/schemas/payout-status-reason'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        initiatedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was initiated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            This is the moment Mollie attempted to reserve the funds on the balance.
+          readOnly: true
+          example: '2024-03-20T09:13:40+00:00'
+        completedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was sent to the destination bank account, in
+            [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. `null` if the payout has not completed yet.
+          readOnly: true
+          example: '2024-03-20T14:00:00+00:00'
+        canceledAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was canceled, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            `null` if the payout was not canceled.
+          readOnly: true
+          example: null
+        mode:
+          $ref: '#/components/schemas/mode'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          readOnly: true
+          required:
+            - self
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+              description: The URL to the current resource.
     entity-payment-response:
       type: object
       properties:
@@ -40907,6 +41604,11 @@ components:
       enum:
         - payment-link.paid
         - balance-transaction.created
+        - payout.initiated
+        - payout.processing-at-bank
+        - payout.completed
+        - payout.canceled
+        - payout.failed
         - sales-invoice.created
         - sales-invoice.issued
         - sales-invoice.canceled
@@ -40922,6 +41624,13 @@ components:
       x-enumDescriptions:
         payment-link.paid: Occurs when a payment link has been paid.
         balance-transaction.created: Occurs when a balance transaction is created to add to your available balance. It currently only supports positive amounts and non-captured payments.
+        payout.initiated: The payout is being executed and funds are reserved on the balance.
+        payout.processing-at-bank: The payout has been submitted to the bank and is being processed.
+        payout.completed: The payout has been sent to the destination bank account successfully.
+        payout.canceled: The payout was canceled via the API before being submitted to the bank.
+        payout.failed: |-
+          The payout failed after creation. This includes payouts rejected by the bank or returned after submission.
+          Note that post-submission cancellations also produce this event, not `payout.canceled`.
         sales-invoice.created: Occurs when a sales invoice has been created.
         sales-invoice.issued: Occurs when a sales invoice has been issued.
         sales-invoice.canceled: Occurs when a sales invoice has been canceled.
@@ -40986,6 +41695,100 @@ components:
         - first
       example: oneoff
       x-speakeasy-unknown-values: allow
+    entity-payout-response:
+      type: object
+      required:
+        - resource
+        - id
+        - balanceId
+        - status
+        - statusReason
+        - createdAt
+        - mode
+      properties:
+        resource:
+          type: string
+          description: Indicates the response contains a payout object. Will always contain the string `payout` for this endpoint.
+          readOnly: true
+          example: payout
+        id:
+          type: string
+          description: |-
+            The identifier uniquely referring to this payout. Mollie assigns this identifier at payout creation time.
+            Mollie will always refer to the payout by this ID. Example: `payout_j8NvRAM2WNZtsykpLEX8J`.
+          readOnly: true
+          example: payout_j8NvRAM2WNZtsykpLEX8J
+        balanceId:
+          type: string
+          description: 'The identifier of the balance that will be paid out. Example: `bal_gVMhHKqSSRYJyPsuoPNFH`.'
+          example: bal_gVMhHKqSSRYJyPsuoPNFH
+        amount:
+          allOf:
+            - $ref: '#/components/schemas/amount-nullable'
+          description: |-
+            The amount to pay out. When omitted from the request, the full available balance minus any configured
+            balance reserve is paid out.
+
+            Merchants registered in the United Kingdom cannot specify a custom amount — omit this field to pay out
+            the full available balance.
+
+            The value in the response reflects the amount paid out, excluding any applicable fees.
+        description:
+          type: string
+          description: The description that will appear on the bank statement for this payout.
+          maxLength: 255
+          example: My payout description
+        status:
+          $ref: '#/components/schemas/payout-status'
+        statusReason:
+          $ref: '#/components/schemas/payout-status-reason'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        initiatedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was initiated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            This is the moment Mollie attempted to reserve the funds on the balance.
+          readOnly: true
+          example: '2024-03-20T09:13:40+00:00'
+        completedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was sent to the destination bank account, in
+            [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. `null` if the payout has not completed yet.
+          readOnly: true
+          example: '2024-03-20T14:00:00+00:00'
+        canceledAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the payout was canceled, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            `null` if the payout was not canceled.
+          readOnly: true
+          example: null
+        mode:
+          $ref: '#/components/schemas/mode'
+        testmode:
+          $ref: '#/components/schemas/testmode-create'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          readOnly: true
+          required:
+            - self
+            - documentation
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+              description: The URL to the current resource.
+            documentation:
+              $ref: '#/components/schemas/url'
+              description: The URL to the documentation of the current resource.
     entity-sales-invoice-response:
       type: object
       properties:
@@ -42535,6 +43338,26 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/businessAccountTransferToken'
+    balance-id:
+      name: balanceId
+      description: |-
+        Return only payouts for the balance with the given ID. The value must be a valid balance
+        token in the format `bal_*`.
+      in: query
+      schema:
+        type:
+          - string
+          - 'null'
+        pattern: ^bal_.+
+        example: bal_gVMhHKqSSRYJyPsuoPNFH
+    parent-payout-id:
+      name: payoutId
+      description: Provide the ID of the payout.
+      in: path
+      required: true
+      schema:
+        type: string
+        example: payout_j8NvRAM2WNZtsykpLEX8J
     idempotency-key:
       name: idempotency-key
       in: header
@@ -43082,6 +43905,156 @@ components:
           - status: initiated
             createdAt: '2025-01-01T12:00:01+00:00'
         createdAt: '2025-01-01T12:00:00+00:00'
+    list-payouts-200:
+      summary: List of payouts
+      value:
+        count: 2
+        _embedded:
+          payouts:
+            - resource: payout
+              id: payout_j8NvRAM2WNZtsykpLEX8J
+              balanceId: bal_gVMhHKqSSRYJyPsuoPNFH
+              amount:
+                currency: EUR
+                value: '10.00'
+              description: My payout description
+              status: completed
+              statusReason:
+                code: completed
+                message: The payout has been completed successfully.
+              createdAt: '2024-03-20T09:13:37+00:00'
+              initiatedAt: '2024-03-21T06:00:01+00:00'
+              completedAt: '2024-03-21T10:30:00+00:00'
+              canceledAt: null
+              mode: live
+            - resource: payout
+              id: payout_apsdreg13fsBa7GByBu
+              balanceId: bal_gVMhHKqSSRYJyPsuoPNFH
+              amount:
+                currency: EUR
+                value: '250.00'
+              status: requested
+              statusReason:
+                code: requested
+                message: The payout has been requested.
+              createdAt: '2024-03-21T08:00:00+00:00'
+              initiatedAt: null
+              completedAt: null
+              canceledAt: null
+              mode: live
+        _links:
+          self:
+            href: https://api.mollie.com/v2/payouts?limit=50
+            type: application/hal+json
+          previous: null
+          next: null
+          documentation:
+            href: https://docs.mollie.com/reference/list-payouts
+            type: text/html
+    payout-requested:
+      summary: Requested payout
+      value:
+        resource: payout
+        id: payout_j8NvRAM2WNZtsykpLEX8J
+        balanceId: bal_gVMhHKqSSRYJyPsuoPNFH
+        amount:
+          currency: EUR
+          value: '10.00'
+        description: My payout description
+        status: requested
+        statusReason:
+          code: requested
+          message: The payout has been requested.
+        createdAt: '2024-03-20T09:13:37+00:00'
+        initiatedAt: null
+        completedAt: null
+        canceledAt: null
+        mode: live
+        _links:
+          self:
+            href: https://api.mollie.com/v2/payouts/payout_j8NvRAM2WNZtsykpLEX8J
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-payout
+            type: text/html
+    payout-completed:
+      summary: Completed payout
+      value:
+        resource: payout
+        id: payout_j8NvRAM2WNZtsykpLEX8J
+        balanceId: bal_gVMhHKqSSRYJyPsuoPNFH
+        amount:
+          currency: EUR
+          value: '10.00'
+        description: My payout description
+        status: completed
+        statusReason:
+          code: completed
+          message: The payout has been completed successfully.
+        createdAt: '2024-03-20T09:13:37+00:00'
+        initiatedAt: '2024-03-21T06:00:01+00:00'
+        completedAt: '2024-03-21T10:30:00+00:00'
+        canceledAt: null
+        mode: live
+        _links:
+          self:
+            href: https://api.mollie.com/v2/payouts/payout_j8NvRAM2WNZtsykpLEX8J
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-payout
+            type: text/html
+    payout-failed:
+      summary: Failed payout
+      value:
+        resource: payout
+        id: payout_j8NvRAM2WNZtsykpLEX8J
+        balanceId: bal_gVMhHKqSSRYJyPsuoPNFH
+        amount:
+          currency: EUR
+          value: '10.00'
+        description: My payout description
+        status: failed
+        statusReason:
+          code: insufficient_funds
+          message: Insufficient funds on the balance to complete the payout.
+        createdAt: '2024-03-20T09:13:37+00:00'
+        initiatedAt: '2024-03-21T06:00:01+00:00'
+        completedAt: null
+        canceledAt: null
+        mode: live
+        _links:
+          self:
+            href: https://api.mollie.com/v2/payouts/payout_j8NvRAM2WNZtsykpLEX8J
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-payout
+            type: text/html
+    payout-canceled:
+      summary: Canceled payout
+      value:
+        resource: payout
+        id: payout_j8NvRAM2WNZtsykpLEX8J
+        balanceId: bal_gVMhHKqSSRYJyPsuoPNFH
+        amount:
+          currency: EUR
+          value: '10.00'
+        description: My payout description
+        status: canceled
+        statusReason:
+          code: canceled
+          message: The payout has been canceled.
+        createdAt: '2024-03-20T09:13:37+00:00'
+        initiatedAt: null
+        completedAt: null
+        canceledAt: '2024-03-20T15:00:00+00:00'
+        mode: live
+        _links:
+          self:
+            href: https://api.mollie.com/v2/payouts/payout_j8NvRAM2WNZtsykpLEX8J
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-payout
+            type: text/html
   requestBodies:
     requestBody:
       content:
