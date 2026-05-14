@@ -512,6 +512,15 @@ export type PaymentRequest = {
    */
   cardToken?: string | undefined;
   /**
+   * The Google Pay payment token object (encoded as JSON) returned by the Google Pay SDK after the customer authorizes
+   *
+   * @remarks
+   * the payment. The token contains the payment information needed to complete the payment.
+   *
+   * The object should be passed encoded in a JSON string.
+   */
+  googlePayPaymentToken?: string | undefined;
+  /**
    * The card token you received from the card component of Mollie Components. The token represents the customer's card
    *
    * @remarks
@@ -752,6 +761,7 @@ export type PaymentRequest$Outbound = {
   applePayPaymentToken?: string | undefined;
   company?: Company$Outbound | undefined;
   cardToken?: string | undefined;
+  googlePayPaymentToken?: string | undefined;
   voucherNumber?: string | undefined;
   voucherPin?: string | undefined;
   consumerDateOfBirth?: string | undefined;
@@ -804,6 +814,7 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   applePayPaymentToken: z.string().optional(),
   company: z.lazy(() => Company$outboundSchema).optional(),
   cardToken: z.string().optional(),
+  googlePayPaymentToken: z.string().optional(),
   voucherNumber: z.string().optional(),
   voucherPin: z.string().optional(),
   consumerDateOfBirth: z.instanceof(RFCDate).transform(v => v.toString())
