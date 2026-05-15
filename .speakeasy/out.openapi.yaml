@@ -43676,7 +43676,7 @@ components:
             href: '...'
             type: text/html
     get-refund:
-      summary: The payment object
+      summary: The refund object
       value:
         resource: refund
         id: re_4qqhO89gsT
