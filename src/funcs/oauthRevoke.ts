@@ -11,7 +11,7 @@ import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { ClientError } from "../models/errors/clienterror.js";
 import {
@@ -37,11 +37,10 @@ import { Result } from "../types/fp.js";
  * Revoking a refresh token revokes all access tokens that were created using the same authorization.
  *
  * This endpoint can only be accessed using **OAuth client credentials**.
- *
- * If set, this operation will use {@link Security.oAuth} from the global security.
  */
 export function oauthRevoke(
   client: ClientCore,
+  security: operations.OauthRevokeTokensSecurity,
   request?: operations.OauthRevokeTokensRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -59,6 +58,7 @@ export function oauthRevoke(
 > {
   return new APIPromise($do(
     client,
+    security,
     request,
     options,
   ));
@@ -66,6 +66,7 @@ export function oauthRevoke(
 
 async function $do(
   client: ClientCore,
+  security: operations.OauthRevokeTokensSecurity,
   request?: operations.OauthRevokeTokensRequest | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -115,8 +116,14 @@ async function $do(
     ),
   }));
 
-  const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput, [2]);
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:basic",
+        value: { username: security?.username, password: security?.password },
+      },
+    ],
+  );
 
   const context = {
     options: client._options,
@@ -126,7 +133,7 @@ async function $do(
 
     resolvedSecurity: requestSecurity,
 
-    securitySource: client._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client._options.retryConfig
       || {

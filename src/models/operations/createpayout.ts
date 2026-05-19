@@ -7,30 +7,7 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
-export type CreatePayoutGlobals = {
-  /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
-};
-
 export type CreatePayoutRequest = {
-  /**
-   * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
-   *
-   * @remarks
-   * parameter must not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by
-   * setting the `testmode` query parameter to `true`.
-   *
-   * Test entities cannot be retrieved when the endpoint is set to live mode, and vice versa.
-   */
-  testmode?: boolean | undefined;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -40,7 +17,6 @@ export type CreatePayoutRequest = {
 
 /** @internal */
 export type CreatePayoutRequest$Outbound = {
-  testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
   "payout-request": models.PayoutRequest$Outbound;
 };
@@ -51,7 +27,6 @@ export const CreatePayoutRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreatePayoutRequest
 > = z.object({
-  testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
   payoutRequest: models.PayoutRequest$outboundSchema,
 }).transform((v) => {

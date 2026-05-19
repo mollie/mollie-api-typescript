@@ -38,6 +38,8 @@ import { Result } from "../types/fp.js";
  *
  * Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
  * [Update sales invoice](update-sales-invoice) endpoint instead.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function salesInvoicesDelete(
   client: ClientCore,
@@ -117,7 +119,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

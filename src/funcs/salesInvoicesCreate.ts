@@ -37,6 +37,8 @@ import { Result } from "../types/fp.js";
  * > This feature is currently in beta testing, and the final specification may still change.
  *
  * With the Sales Invoice API you can generate sales invoices to send to your customers.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function salesInvoicesCreate(
   client: ClientCore,
@@ -113,7 +115,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

@@ -55,6 +55,8 @@ import { Result } from "../types/fp.js";
  *
  * ℹ️ **Note:** This endpoint only returns **online** payment methods. If you wish to retrieve the information about
  * a non-online payment method, you can use the [Get payment method endpoint](get-method).
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function methodsList(
   client: ClientCore,
@@ -143,7 +145,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

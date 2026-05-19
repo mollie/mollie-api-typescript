@@ -40,6 +40,8 @@ import { Result } from "../types/fp.js";
  *
  * If the request does succeed, the payment status will change to `canceled` for payments without captures.
  * If there is a successful capture, the payment will transition to `paid`.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function paymentsReleaseAuthorization(
   client: ClientCore,
@@ -120,7 +122,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

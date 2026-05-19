@@ -51,6 +51,8 @@ import { Result } from "../types/fp.js";
  * `amount[currency]="EUR"` `amount[value]="10.00"` `interval="1 month"`
  * `startDate="2018-04-30"`
  * Your customer will be charged €10 on the last day of each month, starting in April 2018.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function subscriptionsCreate(
   client: ClientCore,
@@ -132,7 +134,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

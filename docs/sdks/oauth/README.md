@@ -20,14 +20,13 @@ This endpoint can only be accessed using **OAuth client credentials**.
 ```typescript
 import { Client } from "mollie-api-typescript";
 
-const client = new Client({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new Client();
 
 async function run() {
   const result = await client.oauth.generate({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",
@@ -53,14 +52,13 @@ import { oauthGenerate } from "mollie-api-typescript/funcs/oauthGenerate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const client = new ClientCore({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new ClientCore();
 
 async function run() {
   const res = await oauthGenerate(client, {
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",
@@ -85,6 +83,7 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.OauthGenerateTokensRequest](../../models/operations/oauthgeneratetokensrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.OauthGenerateTokensSecurity](../../models/operations/oauthgeneratetokenssecurity.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -114,14 +113,13 @@ This endpoint can only be accessed using **OAuth client credentials**.
 ```typescript
 import { Client } from "mollie-api-typescript";
 
-const client = new Client({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new Client();
 
 async function run() {
   await client.oauth.revoke({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       tokenTypeHint: "access_token",
@@ -145,14 +143,13 @@ import { oauthRevoke } from "mollie-api-typescript/funcs/oauthRevoke.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const client = new ClientCore({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new ClientCore();
 
 async function run() {
   const res = await oauthRevoke(client, {
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       tokenTypeHint: "access_token",
@@ -175,6 +172,7 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.OauthRevokeTokensRequest](../../models/operations/oauthrevoketokensrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.OauthRevokeTokensSecurity](../../models/operations/oauthrevoketokenssecurity.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

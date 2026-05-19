@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Create a route for a specific payment.
  * The routed amount is credited to the account of your customer.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function delayedRoutingCreate(
   client: ClientCore,
@@ -113,7 +115,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

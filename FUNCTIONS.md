@@ -24,14 +24,13 @@ import { oauthGenerate } from "mollie-api-typescript/funcs/oauthGenerate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const client = new ClientCore({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new ClientCore();
 
 async function run() {
   const res = await oauthGenerate(client, {
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",

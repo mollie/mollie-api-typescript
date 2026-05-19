@@ -4,7 +4,7 @@
  */
 
 import { ClientCore } from "../core.js";
-import { encodeFormQuery, encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -68,6 +68,8 @@ import { Result } from "../types/fp.js";
  * - The balance has queued refunds.
  * - One of the organization's balances is below the negative balance threshold.
  * - The payout destination (bank account) is invalid or not configured.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function payoutsCreate(
   client: ClientCore,
@@ -128,10 +130,6 @@ async function $do(
 
   const path = pathToFunc("/v2/payouts")();
 
-  const query = encodeFormQuery({
-    "testmode": payload.testmode ?? client._options.testmode,
-  });
-
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/hal+json",
@@ -143,7 +141,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,
@@ -176,7 +174,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,

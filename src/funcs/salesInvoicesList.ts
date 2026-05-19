@@ -46,6 +46,8 @@ import {
  * Retrieve a list of all sales invoices created through the API.
  *
  * The results are paginated.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function salesInvoicesList(
   client: ClientCore,
@@ -135,7 +137,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

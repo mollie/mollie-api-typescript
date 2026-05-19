@@ -39,6 +39,8 @@ import { Result } from "../types/fp.js";
  *
  * To simply disable a payment link without fully deleting it, you can use the `archived` parameter on the
  * [Update payment link](update-payment-link) endpoint instead.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function paymentLinksDelete(
   client: ClientCore,
@@ -116,7 +118,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

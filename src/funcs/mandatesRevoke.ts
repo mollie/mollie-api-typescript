@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Revoke a customer's mandate. You will no longer be able to charge the customer's bank account or card with this
  * mandate, and all connected subscriptions will be canceled.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function mandatesRevoke(
   client: ClientCore,
@@ -117,7 +119,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

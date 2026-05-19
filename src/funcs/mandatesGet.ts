@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve a single mandate by its ID. Depending on the type of mandate, the object will contain the customer's bank
  * account details, card details, or PayPal account details.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function mandatesGet(
   client: ClientCore,
@@ -120,7 +122,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

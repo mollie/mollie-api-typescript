@@ -39,6 +39,8 @@ import { Result } from "../types/fp.js";
  * Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for
  * statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`,
  * respectively).
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function salesInvoicesUpdate(
   client: ClientCore,
@@ -116,7 +118,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

@@ -33,6 +33,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Cancel an existing subscription. Canceling a subscription has no effect on the mandates of the customer.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function subscriptionsCancel(
   client: ClientCore,
@@ -116,7 +118,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

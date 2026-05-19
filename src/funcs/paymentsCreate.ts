@@ -44,6 +44,8 @@ import { Result } from "../types/fp.js";
  * If you specify the `method` parameter when creating a payment, optional
  * additional parameters may be available for the payment method that are not listed below. Please refer to the
  * guide on [method-specific parameters](extra-payment-parameters).
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function paymentsCreate(
   client: ClientCore,
@@ -122,7 +124,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,
