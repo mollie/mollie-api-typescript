@@ -37,6 +37,8 @@ import { Result } from "../types/fp.js";
  *
  * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the
  * [Get refund endpoint](get-refund) for more information.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function refundsCancel(
   client: ClientCore,
@@ -123,7 +125,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

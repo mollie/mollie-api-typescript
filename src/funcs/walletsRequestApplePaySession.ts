@@ -51,6 +51,8 @@ import { Result } from "../types/fp.js";
  * Payment sessions cannot be requested directly from the browser. The request must be sent from your server. For the
  * full documentation, see the official
  * [Apple Pay JS API](https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api) documentation.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function walletsRequestApplePaySession(
   client: ClientCore,
@@ -124,7 +126,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

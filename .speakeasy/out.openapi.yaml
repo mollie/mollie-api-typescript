@@ -84,7 +84,7 @@ paths:
       - url: https://api.mollie.com/oauth2
     post:
       security:
-        - oAuth: []
+        - basicAuth: []
       summary: Generate tokens
       x-speakeasy-name-override: generate
       tags:
@@ -221,7 +221,7 @@ paths:
       x-speakeasy-group: oauth
     delete:
       security:
-        - oAuth: []
+        - basicAuth: []
       summary: Revoke tokens
       x-speakeasy-name-override: revoke
       tags:
@@ -27067,9 +27067,6 @@ paths:
         - The balance has queued refunds.
         - One of the organization's balances is below the negative balance threshold.
         - The payout destination (bank account) is invalid or not configured.
-      parameters:
-        - $ref: '#/components/parameters/testmode'
-        - $ref: '#/components/parameters/idempotency-key'
       requestBody:
         required: true
         content:
@@ -27176,6 +27173,8 @@ paths:
                 description: 'My payout description'
               )
       x-speakeasy-group: payouts
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
     get:
       summary: List payouts
       x-speakeasy-name-override: list
@@ -27471,6 +27470,12 @@ components:
           authorizationUrl: https://my.mollie.com/oauth2/authorize
           tokenUrl: https://api.mollie.com/oauth2/tokens
           scopes: {}
+    basicAuth:
+      type: http
+      scheme: basic
+      description: |-
+        Authenticates requests using HTTP Basic Authentication. Encode the credentials as
+        `"Basic " + toBase64(username + ":" + password)` and pass the result in the `Authorization` header.
   schemas:
     oauth-grant-type:
       type: string

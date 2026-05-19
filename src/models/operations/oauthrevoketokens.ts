@@ -11,6 +11,11 @@ export const OauthRevokeTokensServerList = [
   "https://api.mollie.com/oauth2",
 ] as const;
 
+export type OauthRevokeTokensSecurity = {
+  username: string;
+  password: string;
+};
+
 export type OauthRevokeTokensRequestBody = {
   tokenTypeHint: models.OauthTokenTypeHint;
   /**
@@ -26,6 +31,30 @@ export type OauthRevokeTokensRequest = {
   idempotencyKey?: string | undefined;
   requestBody?: OauthRevokeTokensRequestBody | undefined;
 };
+
+/** @internal */
+export type OauthRevokeTokensSecurity$Outbound = {
+  username: string;
+  password: string;
+};
+
+/** @internal */
+export const OauthRevokeTokensSecurity$outboundSchema: z.ZodType<
+  OauthRevokeTokensSecurity$Outbound,
+  z.ZodTypeDef,
+  OauthRevokeTokensSecurity
+> = z.object({
+  username: z.string(),
+  password: z.string(),
+});
+
+export function oauthRevokeTokensSecurityToJSON(
+  oauthRevokeTokensSecurity: OauthRevokeTokensSecurity,
+): string {
+  return JSON.stringify(
+    OauthRevokeTokensSecurity$outboundSchema.parse(oauthRevokeTokensSecurity),
+  );
+}
 
 /** @internal */
 export type OauthRevokeTokensRequestBody$Outbound = {

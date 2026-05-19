@@ -20,11 +20,13 @@ export class Oauth extends ClientSDK {
    * This endpoint can only be accessed using **OAuth client credentials**.
    */
   async generate(
+    security: operations.OauthGenerateTokensSecurity,
     request?: operations.OauthGenerateTokensRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.OauthGenerateTokensResponse> {
     return unwrapAsync(oauthGenerate(
       this,
+      security,
       request,
       options,
     ));
@@ -41,11 +43,13 @@ export class Oauth extends ClientSDK {
    * This endpoint can only be accessed using **OAuth client credentials**.
    */
   async revoke(
+    security: operations.OauthRevokeTokensSecurity,
     request?: operations.OauthRevokeTokensRequest | undefined,
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(oauthRevoke(
       this,
+      security,
       request,
       options,
     ));

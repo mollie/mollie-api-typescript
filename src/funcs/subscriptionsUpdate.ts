@@ -37,6 +37,8 @@ import { Result } from "../types/fp.js";
  * Canceled subscriptions cannot be updated.
  *
  * For an in-depth explanation of each parameter, refer to the [Create subscription](create-subscription) endpoint.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function subscriptionsUpdate(
   client: ClientCore,
@@ -120,7 +122,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

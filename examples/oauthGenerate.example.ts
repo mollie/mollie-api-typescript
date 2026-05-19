@@ -14,14 +14,13 @@ dotenv.config();
 
 import { Client } from "mollie-api-typescript";
 
-const client = new Client({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new Client();
 
 async function main() {
   const result = await client.oauth.generate({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",

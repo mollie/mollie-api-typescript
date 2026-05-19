@@ -88,14 +88,13 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ```typescript
 import { Client } from "mollie-api-typescript";
 
-const client = new Client({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new Client();
 
 async function run() {
   const result = await client.oauth.generate({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",
@@ -134,10 +133,39 @@ const client = new Client({
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
+  testmode: false,
 });
 
 async function run() {
+  const result = await client.balances.list({
+    currency: "EUR",
+    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
+    limit: 50,
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+
+```
+
+### Per-Operation Security Schemes
+
+Some operations in this SDK require the security scheme to be specified at the request level. For example:
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client();
+
+async function run() {
   const result = await client.oauth.generate({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",
@@ -696,14 +724,13 @@ To change the default retry strategy for a single API call, simply provide a ret
 ```typescript
 import { Client } from "mollie-api-typescript";
 
-const client = new Client({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new Client();
 
 async function run() {
   const result = await client.oauth.generate({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",
@@ -746,13 +773,13 @@ const client = new Client({
     },
     retryConnectionErrors: false,
   },
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
 });
 
 async function run() {
   const result = await client.oauth.generate({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",
@@ -953,14 +980,13 @@ The server URL can also be overridden on a per-operation basis, provided a serve
 ```typescript
 import { Client } from "mollie-api-typescript";
 
-const client = new Client({
-  security: {
-    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
-  },
-});
+const client = new Client();
 
 async function run() {
   const result = await client.oauth.generate({
+    username: "",
+    password: "",
+  }, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     requestBody: {
       grantType: "authorization_code",

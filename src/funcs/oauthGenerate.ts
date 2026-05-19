@@ -10,7 +10,7 @@ import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { ClientError } from "../models/errors/clienterror.js";
 import {
@@ -35,11 +35,10 @@ import { Result } from "../types/fp.js";
  * API credential, with which you can communicate with the Mollie API on behalf of the consenting merchant.
  *
  * This endpoint can only be accessed using **OAuth client credentials**.
- *
- * If set, this operation will use {@link Security.oAuth} from the global security.
  */
 export function oauthGenerate(
   client: ClientCore,
+  security: operations.OauthGenerateTokensSecurity,
   request?: operations.OauthGenerateTokensRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -57,6 +56,7 @@ export function oauthGenerate(
 > {
   return new APIPromise($do(
     client,
+    security,
     request,
     options,
   ));
@@ -64,6 +64,7 @@ export function oauthGenerate(
 
 async function $do(
   client: ClientCore,
+  security: operations.OauthGenerateTokensSecurity,
   request?: operations.OauthGenerateTokensRequest | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -113,8 +114,14 @@ async function $do(
     ),
   }));
 
-  const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput, [2]);
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:basic",
+        value: { username: security?.username, password: security?.password },
+      },
+    ],
+  );
 
   const context = {
     options: client._options,
@@ -124,7 +131,7 @@ async function $do(
 
     resolvedSecurity: requestSecurity,
 
-    securitySource: client._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client._options.retryConfig
       || {

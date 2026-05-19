@@ -40,6 +40,8 @@ import {
  *
  * @remarks
  * Retrieve all payments linked to the customer.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function customersListPayments(
   client: ClientCore,
@@ -135,7 +137,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

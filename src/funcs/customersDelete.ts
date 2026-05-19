@@ -33,6 +33,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function customersDelete(
   client: ClientCore,
@@ -110,7 +112,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

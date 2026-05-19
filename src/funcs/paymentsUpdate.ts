@@ -35,6 +35,8 @@ import { Result } from "../types/fp.js";
  * Certain details of an existing payment can be updated.
  *
  * Updating the payment details will not result in a webhook call.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function paymentsUpdate(
   client: ClientCore,
@@ -112,7 +114,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

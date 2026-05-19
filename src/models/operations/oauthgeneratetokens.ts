@@ -14,6 +14,11 @@ export const OauthGenerateTokensServerList = [
   "https://api.mollie.com/oauth2",
 ] as const;
 
+export type OauthGenerateTokensSecurity = {
+  username: string;
+  password: string;
+};
+
 export type OauthGenerateTokensRequestBody = {
   grantType: models.OauthGrantType;
   /**
@@ -85,6 +90,32 @@ export type OauthGenerateTokensResponse = {
    */
   scope?: string | undefined;
 };
+
+/** @internal */
+export type OauthGenerateTokensSecurity$Outbound = {
+  username: string;
+  password: string;
+};
+
+/** @internal */
+export const OauthGenerateTokensSecurity$outboundSchema: z.ZodType<
+  OauthGenerateTokensSecurity$Outbound,
+  z.ZodTypeDef,
+  OauthGenerateTokensSecurity
+> = z.object({
+  username: z.string(),
+  password: z.string(),
+});
+
+export function oauthGenerateTokensSecurityToJSON(
+  oauthGenerateTokensSecurity: OauthGenerateTokensSecurity,
+): string {
+  return JSON.stringify(
+    OauthGenerateTokensSecurity$outboundSchema.parse(
+      oauthGenerateTokensSecurity,
+    ),
+  );
+}
 
 /** @internal */
 export type OauthGenerateTokensRequestBody$Outbound = {

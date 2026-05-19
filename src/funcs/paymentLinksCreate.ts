@@ -35,6 +35,8 @@ import { Result } from "../types/fp.js";
  * With the Payment links API you can generate payment links that by default, unlike regular payments, do not expire.
  * The payment link can be shared with your customers and will redirect them to them the payment page where they can
  * complete the payment. A [payment](get-payment) will only be created once the customer initiates the payment.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function paymentLinksCreate(
   client: ClientCore,
@@ -109,7 +111,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

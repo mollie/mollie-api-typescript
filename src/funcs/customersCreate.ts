@@ -36,6 +36,8 @@ import { Result } from "../types/fp.js";
  * to this customer object, which simplifies management of recurring payments.
  *
  * Once registered, customers will also appear in your Mollie dashboard.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function customersCreate(
   client: ClientCore,
@@ -110,7 +112,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

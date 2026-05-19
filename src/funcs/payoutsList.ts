@@ -46,6 +46,8 @@ import {
  *
  * The results are paginated. Use the `from` query parameter together with `_links.next` to iterate through
  * the full result set.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function payoutsList(
   client: ClientCore,
@@ -135,7 +137,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

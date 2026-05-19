@@ -44,6 +44,8 @@ import { Result } from "../types/fp.js";
  *
  * Additionally, it is possible to check if wallet methods such as Apple Pay
  * are enabled by passing the wallet ID (`applepay`) as the method ID.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function methodsGet(
   client: ClientCore,
@@ -129,7 +131,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,

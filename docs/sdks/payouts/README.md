@@ -55,7 +55,6 @@ A payout request may fail immediately if one of the following conditions applies
 import { Client } from "mollie-api-typescript";
 
 const client = new Client({
-  testmode: true,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },
@@ -92,7 +91,6 @@ import { payoutsCreate } from "mollie-api-typescript/funcs/payoutsCreate.js";
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const client = new ClientCore({
-  testmode: false,
   security: {
     apiKey: process.env["CLIENT_API_KEY"] ?? "",
   },

@@ -40,6 +40,8 @@ import { Result } from "../types/fp.js";
  * By default, Mollie captures payments automatically. If however you
  * configured your payment with `captureMode: manual`, you can capture the payment using this endpoint after
  * having collected the customer's authorization.
+ *
+ * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
  */
 export function capturesCreate(
   client: ClientCore,
@@ -117,7 +119,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
 
   const context = {
     options: client._options,
