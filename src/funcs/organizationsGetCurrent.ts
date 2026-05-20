@@ -20,6 +20,7 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
@@ -46,6 +47,7 @@ export function organizationsGetCurrent(
 ): APIPromise<
   Result<
     models.EntityOrganization,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -71,6 +73,7 @@ async function $do(
   [
     Result<
       models.EntityOrganization,
+      | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
       | ConnectionError
@@ -133,7 +136,7 @@ async function $do(
         retryConnectionErrors: true,
       }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["5xx"],
+    retryCodes: options?.retryCodes || ["429", "5xx"],
   };
 
   const requestRes = client._createRequest(context, {
@@ -163,8 +166,13 @@ async function $do(
   }
   const response = doResult.value;
 
+  const responseFields = {
+    HttpMeta: { Response: response, Request: req },
+  };
+
   const [result] = await M.match<
     models.EntityOrganization,
+    | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
     | ConnectionError
@@ -177,9 +185,12 @@ async function $do(
     M.json(200, models.EntityOrganization$inboundSchema, {
       ctype: "application/hal+json",
     }),
+    M.jsonErr(429, errors.ErrorResponse$inboundSchema, {
+      ctype: "application/hal+json",
+    }),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, req);
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

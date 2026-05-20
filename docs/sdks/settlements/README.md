@@ -106,7 +106,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ErrorResponse      | 400, 404, 429             | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
@@ -197,7 +197,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ErrorResponse      | 404, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## getOpen
@@ -282,6 +282,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 429                       | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## getNext
@@ -365,6 +366,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 429                       | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listPayments
@@ -662,7 +664,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ErrorResponse      | 400, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listCaptures
@@ -882,7 +884,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ErrorResponse      | 400, 404, 429             | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listRefunds
@@ -1037,7 +1039,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ErrorResponse      | 400, 404, 429             | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listChargebacks
@@ -1265,5 +1267,5 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ErrorResponse      | 400, 404, 429             | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

@@ -255,7 +255,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404, 409, 422             | application/hal+json      |
+| errors.ErrorResponse      | 404, 409, 422, 429        | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
@@ -349,7 +349,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400, 404                  | application/hal+json      |
+| errors.ErrorResponse      | 400, 404, 429             | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
@@ -435,7 +435,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ErrorResponse      | 404, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## cancel
@@ -523,7 +523,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ErrorResponse      | 404, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## all
@@ -619,5 +619,5 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ErrorResponse      | 400, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
