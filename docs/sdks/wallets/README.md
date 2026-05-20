@@ -109,5 +109,5 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 422                       | application/hal+json      |
+| errors.ErrorResponse      | 422, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |

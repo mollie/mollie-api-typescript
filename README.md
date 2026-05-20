@@ -872,25 +872,24 @@ Notes:
 import { Client } from "mollie-api-typescript";
 import * as errors from "mollie-api-typescript/models/errors";
 
-const client = new Client({
-  testmode: false,
-  security: {
-    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
-  },
-});
+const client = new Client();
 
 async function run() {
   try {
-    const result = await client.balances.list({
-      currency: "EUR",
-      from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-      limit: 50,
+    const result = await client.oauth.generate({
+      username: "",
+      password: "",
+    }, {
       idempotencyKey: "123e4567-e89b-12d3-a456-426",
+      requestBody: {
+        grantType: "authorization_code",
+        code: "auth_...",
+        refreshToken: "refresh_...",
+        redirectUri: "https://example.com/redirect",
+      },
     });
 
-    for await (const page of result) {
-      console.log(page);
-    }
+    console.log(result);
   } catch (error) {
     // The base class for HTTP error responses
     if (error instanceof errors.ClientError) {
@@ -918,7 +917,7 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`ClientError`](./src/models/errors/clienterror.ts): The base class for HTTP error responses.
-  * [`ErrorResponse`](./src/models/errors/errorresponse.ts): An error response object. *
+  * [`ErrorResponse`](./src/models/errors/errorresponse.ts): An error response object.
 
 <details><summary>Less common errors (6)</summary>
 
@@ -936,8 +935,6 @@ run();
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
-
-\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->

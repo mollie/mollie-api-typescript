@@ -135,7 +135,7 @@ async function $do(
         retryConnectionErrors: true,
       }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["5xx"],
+    retryCodes: options?.retryCodes || ["429", "5xx"],
   };
 
   const requestRes = client._createRequest(context, {
@@ -184,7 +184,7 @@ async function $do(
     M.json(201, models.PaymentLinkResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr([404, 422], errors.ErrorResponse$inboundSchema, {
+    M.jsonErr([404, 422, 429], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

@@ -96,7 +96,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 400                       | application/hal+json      |
+| errors.ErrorResponse      | 400, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## get
@@ -180,7 +180,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ErrorResponse      | 404, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## match
@@ -274,7 +274,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404, 422                  | application/hal+json      |
+| errors.ErrorResponse      | 404, 422, 429             | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## return
@@ -358,5 +358,5 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 404                       | application/hal+json      |
+| errors.ErrorResponse      | 404, 429                  | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
