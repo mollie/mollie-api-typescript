@@ -5,6 +5,10 @@
 
 import { terminalsGet } from "../funcs/terminalsGet.js";
 import { terminalsList } from "../funcs/terminalsList.js";
+import { terminalsTerminalsGetPairingCode } from "../funcs/terminalsTerminalsGetPairingCode.js";
+import { terminalsTerminalsListPairingCodes } from "../funcs/terminalsTerminalsListPairingCodes.js";
+import { terminalsTerminalsRequestPairingCode } from "../funcs/terminalsTerminalsRequestPairingCode.js";
+import { terminalsTerminalsRevokePairingCode } from "../funcs/terminalsTerminalsRevokePairingCode.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -42,6 +46,100 @@ export class Terminals extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.EntityTerminal> {
     return unwrapAsync(terminalsGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Request terminal pairing code
+   *
+   * @remarks
+   * > ℹ️ **Test mode**
+   * >
+   * > This endpoint currently does not support test mode yet.
+   *
+   * Request a pairing code to onboard a point-of-sale terminal.
+   *
+   * The response includes a human-readable `code` for manual entry on the terminal, and a QR Code as a
+   * base64 encoded SVG data URI for scanning if you specify the query parameter `include` with value `details.qrCode`.
+   *
+   * Pairing codes expire after 90 days (see `expiresAt`) and can be used multiple times.
+   */
+  async terminalsRequestPairingCode(
+    request?: operations.TerminalsRequestPairingCodeRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.EntityPairingCode> {
+    return unwrapAsync(terminalsTerminalsRequestPairingCode(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List terminal pairing codes
+   *
+   * @remarks
+   * > ℹ️ **Test mode**
+   * >
+   * > This endpoint currently does not support test mode yet.
+   *
+   * Returns all pairing codes: `active`, `expired`, and `revoked`. Results are paginated.
+   */
+  async terminalsListPairingCodes(
+    request?: operations.TerminalsListPairingCodesRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.TerminalsListPairingCodesResponse> {
+    return unwrapAsync(terminalsTerminalsListPairingCodes(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get terminal pairing code
+   *
+   * @remarks
+   * > ℹ️ **Test mode**
+   * >
+   * > This endpoint currently does not support test mode yet.
+   *
+   * Get a pairing code to onboard a point-of-sale terminal.
+   *
+   * The response includes a human-readable `code` for manual entry on the terminal and, optionally, a QR Code as a
+   * base64 encoded SVG data URI when you use the `include` query parameter with value `details.qrCode`.
+   */
+  async terminalsGetPairingCode(
+    request: operations.TerminalsGetPairingCodeRequest,
+    options?: RequestOptions,
+  ): Promise<models.EntityPairingCode> {
+    return unwrapAsync(terminalsTerminalsGetPairingCode(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Revoke terminal pairing code
+   *
+   * @remarks
+   * > ℹ️ **Test mode**
+   * >
+   * > This endpoint currently does not support test mode yet.
+   *
+   * Revoke a pairing code, preventing the onboarding of new point-of-sale terminals.
+   *
+   * Terminals that have already paired with this code are not affected.
+   */
+  async terminalsRevokePairingCode(
+    request: operations.TerminalsRevokePairingCodeRequest,
+    options?: RequestOptions,
+  ): Promise<models.EntityPairingCode> {
+    return unwrapAsync(terminalsTerminalsRevokePairingCode(
       this,
       request,
       options,
