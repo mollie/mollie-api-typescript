@@ -452,6 +452,10 @@ let client = new Client({
 
 * [list](docs/sdks/terminals/README.md#list) - List terminals
 * [get](docs/sdks/terminals/README.md#get) - Get terminal
+* [terminalsRequestPairingCode](docs/sdks/terminals/README.md#terminalsrequestpairingcode) - Request terminal pairing code
+* [terminalsListPairingCodes](docs/sdks/terminals/README.md#terminalslistpairingcodes) - List terminal pairing codes
+* [terminalsGetPairingCode](docs/sdks/terminals/README.md#terminalsgetpairingcode) - Get terminal pairing code
+* [terminalsRevokePairingCode](docs/sdks/terminals/README.md#terminalsrevokepairingcode) - Revoke terminal pairing code
 
 ### [Transfers](docs/sdks/transfers/README.md)
 
@@ -605,6 +609,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`subscriptionsUpdate`](docs/sdks/subscriptions/README.md#update) - Update subscription
 - [`terminalsGet`](docs/sdks/terminals/README.md#get) - Get terminal
 - [`terminalsList`](docs/sdks/terminals/README.md#list) - List terminals
+- [`terminalsTerminalsGetPairingCode`](docs/sdks/terminals/README.md#terminalsgetpairingcode) - Get terminal pairing code
+- [`terminalsTerminalsListPairingCodes`](docs/sdks/terminals/README.md#terminalslistpairingcodes) - List terminal pairing codes
+- [`terminalsTerminalsRequestPairingCode`](docs/sdks/terminals/README.md#terminalsrequestpairingcode) - Request terminal pairing code
+- [`terminalsTerminalsRevokePairingCode`](docs/sdks/terminals/README.md#terminalsrevokepairingcode) - Revoke terminal pairing code
 - [`transfersCreate`](docs/sdks/transfers/README.md#create) - Create transfer
 - [`transfersGet`](docs/sdks/transfers/README.md#get) - Get transfer
 - [`unmatchedCreditTransfersGet`](docs/sdks/unmatchedcredittransfers/README.md#get) - Get unmatched credit transfer

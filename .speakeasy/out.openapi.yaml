@@ -18246,6 +18246,433 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: terminals
+  /v2/terminals/pairing-codes:
+    post:
+      summary: Request terminal pairing code
+      tags:
+        - Terminals API
+      operationId: terminals-request-pairing-code
+      security:
+        - apiKey: []
+        - oAuth:
+            - terminals.write
+      description: |-
+        > ℹ️ **Test mode**
+        >
+        > This endpoint currently does not support test mode yet.
+
+        Request a pairing code to onboard a point-of-sale terminal.
+
+        The response includes a human-readable `code` for manual entry on the terminal, and a QR Code as a
+        base64 encoded SVG data URI for scanning if you specify the query parameter `include` with value `details.qrCode`.
+
+        Pairing codes expire after 90 days (see `expiresAt`) and can be used multiple times.
+      parameters:
+        - $ref: '#/components/parameters/include'
+          description: Include additional information in the response.
+          schema:
+            type:
+              - string
+              - 'null'
+            enum:
+              - details.qrCode
+            x-enumDescriptions:
+              details.qrCode: Include a QR code object.
+            example: details.qrCode
+        - $ref: '#/components/parameters/idempotency-key'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profileId:
+                  type: string
+                  description: The ID of the profile to pair the terminal with.
+                  example: pfl_jA9bC4DkFj3G
+              required:
+                - profileId
+            example:
+              profileId: pfl_jA9bC4DkFj3G
+      responses:
+        '201':
+          description: The requested terminal pairing code object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-pairing-code'
+              example:
+                resource: terminal-pairing-code
+                id: termpc_R7gX5Ea9bC4DkFj3G
+                mode: live
+                code: 20eb5ca1f78b48ae9e2b
+                profileId: pfl_jA9bC4DkFj3G
+                status: active
+                details:
+                  qrCode:
+                    height: 256
+                    width: 256
+                    src: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w...IzAwMDAwMCIvPjwvZz48L2c+PC9zdmc+Cg==
+                expiresAt: '2026-03-10T10:00:00+00:00'
+                revokedAt: null
+                createdAt: '2025-12-10T10:00:00+00:00'
+                _links:
+                  self:
+                    href: https://api.mollie.com/v2/terminals/pairing-codes/termpc_R7gX5Ea9bC4DkFj3G?include=details.qrCode
+                    type: application/hal+json
+                  profile:
+                    href: https://api.mollie.com/v2/profiles/pfl_jA9bC4DkFj3G
+                    type: application/hal+json
+                  documentation:
+                    href: https://docs.mollie.com/reference/terminals-request-pairing-code
+                    type: text/html
+        '422':
+          description: The request contains issues. For example, if the `profileId` field is missing or invalid.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: The 'profileId' field is required
+                field: profileId
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/errors
+                    type: text/html
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/terminals/pairing-codes?include=details.qrCode \
+                  -H "Authorization: Bearer access_Wwvu7egPcJLLJ9Kb7J632x8wJ2zMeJ" \
+                  -H "Content-Type: application/json" \
+                  -d '{
+                        "profileId": "pfl_jA9bC4DkFj3G"
+                      }'
+          - language: php
+            code: ''
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: terminals
+    get:
+      summary: List terminal pairing codes
+      tags:
+        - Terminals API
+      operationId: terminals-list-pairing-codes
+      security:
+        - apiKey: []
+        - oAuth:
+            - terminals.read
+      description: |-
+        > ℹ️ **Test mode**
+        >
+        > This endpoint currently does not support test mode yet.
+
+        Returns all pairing codes: `active`, `expired`, and `revoked`. Results are paginated.
+      parameters:
+        - $ref: '#/components/parameters/list-from'
+          schema:
+            type: string
+            example: termpc_R7gX5Ea9bC4DkFj3G
+        - $ref: '#/components/parameters/list-limit'
+        - $ref: '#/components/parameters/list-sort'
+        - name: profileId
+          description: The identifier referring to the [profile](get-profile) you wish to retrieve pairing codes for.
+          in: query
+          schema:
+            type: string
+            example: pfl_QkEhN94Ba
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: |-
+            A list of terminal pairing code objects. For a complete reference of the terminal pairing code object, refer to
+            the [Get terminal pairing code endpoint](terminals-get-pairing-code) documentation.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    $ref: '#/components/schemas/list-count'
+                  _embedded:
+                    type: object
+                    properties:
+                      terminal-pairing-codes:
+                        description: |-
+                          An array of terminal pairing code objects. For a complete reference of the terminal pairing code
+                          object, refer to the [Get terminal pairing code endpoint](terminals-get-pairing-code)
+                          documentation.
+                        type: array
+                        items:
+                          type: object
+                  _links:
+                    $ref: '#/components/schemas/list-links'
+              example:
+                count: 3
+                _embedded:
+                  terminal-pairing-codes:
+                    - resource: terminal-pairing-code
+                      id: termpc_R7gX5Ea9bC4DkFj3G
+                      mode: live
+                      code: 20eb5ca1f78b48ae9e2b
+                      profileId: pfl_jA9bC4DkFj3G
+                      status: active
+                      expiresAt: '2026-03-10T10:00:00+00:00'
+                      revokedAt: null
+                      createdAt: '2025-12-10T10:00:00+00:00'
+                      _links:
+                        self:
+                          href: https://api.mollie.com/v2/terminals/pairing-codes/termpc_R7gX5Ea9bC4DkFj3G
+                          type: application/hal+json
+                        profile:
+                          href: https://api.mollie.com/v2/profiles/pfl_jA9bC4DkFj3G
+                          type: application/hal+json
+                        documentation:
+                          href: https://docs.mollie.com/reference/terminals-get-pairing-code
+                          type: text/html
+                    - resource: terminal-pairing-code
+                      id: termpc_K2mN7Pq4sT8vWxYz
+                      mode: live
+                      code: 8f3a2b1c9d0e7f6a5b4c
+                      profileId: pfl_jA9bC4DkFj3G
+                      status: expired
+                      expiresAt: '2025-09-08T10:00:00+00:00'
+                      revokedAt: null
+                      createdAt: '2025-06-10T10:00:00+00:00'
+                      _links:
+                        self:
+                          href: https://api.mollie.com/v2/terminals/pairing-codes/termpc_K2mN7Pq4sT8vWxYz
+                          type: application/hal+json
+                        profile:
+                          href: https://api.mollie.com/v2/profiles/pfl_jA9bC4DkFj3G
+                          type: application/hal+json
+                        documentation:
+                          href: https://docs.mollie.com/reference/terminals-get-pairing-code
+                          type: text/html
+                    - resource: terminal-pairing-code
+                      id: termpc_H5nR2Lp8qM6vBcXe
+                      mode: live
+                      code: 3d7e1a4f8b2c905f6a4c
+                      profileId: pfl_jA9bC4DkFj3G
+                      status: revoked
+                      expiresAt: '2026-01-08T10:00:00+00:00'
+                      revokedAt: '2025-11-15T08:30:00+00:00'
+                      createdAt: '2025-10-10T10:00:00+00:00'
+                      _links:
+                        self:
+                          href: https://api.mollie.com/v2/terminals/pairing-codes/termpc_H5nR2Lp8qM6vBcXe
+                          type: application/hal+json
+                        profile:
+                          href: https://api.mollie.com/v2/profiles/pfl_jA9bC4DkFj3G
+                          type: application/hal+json
+                        documentation:
+                          href: https://docs.mollie.com/reference/terminals-get-pairing-code
+                          type: text/html
+                _links:
+                  self:
+                    href: https://api.mollie.com/v2/terminals/pairing-codes
+                    type: application/hal+json
+                  previous: null
+                  next: null
+                  documentation:
+                    href: https://docs.mollie.com/reference/terminals-list-pairing-codes
+                    type: text/html
+        '400':
+          $ref: '#/components/responses/400-invalid-list-request'
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/terminals/pairing-codes \
+                  -H "Authorization: Bearer access_Wwvu7egPcJLLJ9Kb7J632x8wJ2zMeJ" \
+                  -H "Content-Type: application/json"
+          - language: php
+            code: ''
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: terminals
+  /v2/terminals/pairing-codes/{pairingCodeId}:
+    get:
+      summary: Get terminal pairing code
+      tags:
+        - Terminals API
+      operationId: terminals-get-pairing-code
+      security:
+        - apiKey: []
+        - oAuth:
+            - terminals.read
+      description: |-
+        > ℹ️ **Test mode**
+        >
+        > This endpoint currently does not support test mode yet.
+
+        Get a pairing code to onboard a point-of-sale terminal.
+
+        The response includes a human-readable `code` for manual entry on the terminal and, optionally, a QR Code as a
+        base64 encoded SVG data URI when you use the `include` query parameter with value `details.qrCode`.
+      parameters:
+        - $ref: '#/components/parameters/parent-terminal-pairing-code-id'
+        - $ref: '#/components/parameters/include'
+          description: Include additional information in the response.
+          schema:
+            type:
+              - string
+              - 'null'
+            enum:
+              - details.qrCode
+            x-enumDescriptions:
+              details.qrCode: Include a QR code object.
+            example: details.qrCode
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The requested terminal pairing code object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-pairing-code'
+              example:
+                resource: terminal-pairing-code
+                id: termpc_R7gX5Ea9bC4DkFj3G
+                mode: live
+                code: 20eb5ca1f78b48ae9e2b
+                profileId: pfl_jA9bC4DkFj3G
+                status: active
+                details:
+                  qrCode:
+                    height: 256
+                    width: 256
+                    src: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w...IzAwMDAwMCIvPjwvZz48L2c+PC9zdmc+Cg==
+                expiresAt: '2026-03-10T10:00:00+00:00'
+                revokedAt: null
+                createdAt: '2025-12-10T10:00:00+00:00'
+                _links:
+                  self:
+                    href: https://api.mollie.com/v2/terminals/pairing-codes/termpc_R7gX5Ea9bC4DkFj3G?include=details.qrCode
+                    type: application/hal+json
+                  profile:
+                    href: https://api.mollie.com/v2/profiles/pfl_jA9bC4DkFj3G
+                    type: application/hal+json
+                  documentation:
+                    href: https://docs.mollie.com/reference/terminals-get-pairing-code
+                    type: text/html
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/terminals/pairing-codes/termpc_R7gX5Ea9bC4DkFj3G?include=details.qrCode \
+                  -H "Authorization: Bearer access_Wwvu7egPcJLLJ9Kb7J632x8wJ2zMeJ" \
+                  -H "Content-Type: application/json"
+          - language: php
+            code: ''
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: terminals
+    delete:
+      summary: Revoke terminal pairing code
+      tags:
+        - Terminals API
+      operationId: terminals-revoke-pairing-code
+      security:
+        - apiKey: []
+        - oAuth:
+            - terminals.write
+      description: |-
+        > ℹ️ **Test mode**
+        >
+        > This endpoint currently does not support test mode yet.
+
+        Revoke a pairing code, preventing the onboarding of new point-of-sale terminals.
+
+        Terminals that have already paired with this code are not affected.
+      parameters:
+        - $ref: '#/components/parameters/parent-terminal-pairing-code-id'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: The revoked terminal pairing code object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-pairing-code'
+              example:
+                resource: terminal-pairing-code
+                id: termpc_R7gX5Ea9bC4DkFj3G
+                mode: live
+                code: 20eb5ca1f78b48ae9e2b
+                profileId: pfl_jA9bC4DkFj3G
+                status: revoked
+                expiresAt: '2026-03-10T10:00:00+00:00'
+                revokedAt: '2025-12-10T10:03:23+00:00'
+                createdAt: '2025-12-10T10:00:00+00:00'
+                _links:
+                  self:
+                    href: https://api.mollie.com/v2/terminals/pairing-codes/termpc_R7gX5Ea9bC4DkFj3G
+                    type: application/hal+json
+                  profile:
+                    href: https://api.mollie.com/v2/profiles/pfl_jA9bC4DkFj3G
+                    type: application/hal+json
+                  documentation:
+                    href: https://docs.mollie.com/reference/terminals-revoke-pairing-code
+                    type: text/html
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+        '422':
+          description: The request contains issues. For example, the pairing code to revoke is expired.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: Cannot revoke an expired pairing code.
+                field: status
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/errors
+                    type: text/html
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X DELETE https://api.mollie.com/v2/terminals/pairing-codes/termpc_R7gX5Ea9bC4DkFj3G \
+                  -H "Authorization: Bearer access_Wwvu7egPcJLLJ9Kb7J632x8wJ2zMeJ" \
+                  -H "Content-Type: application/json"
+          - language: php
+            code: ''
+          - language: node
+            code: ''
+          - language: python
+            code: ''
+          - language: ruby
+            code: ''
+      x-speakeasy-group: terminals
   /v2/payments/{paymentId}/routes:
     parameters:
       - $ref: '#/components/parameters/parent-payment-id'
@@ -35322,6 +35749,121 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
+    terminalPairingCodeToken:
+      type: string
+      example: termpc_R7gX5Ea9bC4DkFj3G
+    pairing-code-status:
+      type: string
+      description: The status of the pairing code.
+      enum:
+        - active
+        - expired
+        - revoked
+      x-enumDescriptions:
+        active: Valid and ready to use.
+        expired: Past its expiry date. Cannot be used to pair new terminals.
+        revoked: Manually revoked. Cannot be used to pair new terminals.
+      example: active
+      x-speakeasy-unknown-values: allow
+    entity-pairing-code:
+      type: object
+      required:
+        - resource
+        - id
+        - mode
+        - code
+        - profileId
+        - status
+        - expiresAt
+        - createdAt
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a terminal pairing code object. Will always contain the string
+            `terminal-pairing-code` for this endpoint.
+          readOnly: true
+          example: terminal-pairing-code
+        id:
+          allOf:
+            - $ref: '#/components/schemas/terminalPairingCodeToken'
+          description: 'The unique identifier of the pairing code. Example: `termpc_R7gX5Ea9bC4DkFj3G`.'
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        code:
+          type: string
+          description: |-
+            The human-readable pairing code to be entered on the terminal. This code is multi-use and will expire after the
+            time indicated in `expiresAt`.
+          example: 20eb5ca1f78b48ae9e2b
+          readOnly: true
+        profileId:
+          type: string
+          description: The ID of the profile the terminal is being paired with.
+          example: pfl_jA9bC4DkFj3G
+        status:
+          allOf:
+            - $ref: '#/components/schemas/pairing-code-status'
+          readOnly: true
+        details:
+          type:
+            - object
+            - 'null'
+          description: Additional pairing code data, present only when requested via the `include` parameter.
+          properties:
+            qrCode:
+              type:
+                - object
+                - 'null'
+              description: The QR code representation of the pairing code.
+              properties:
+                height:
+                  type: number
+                  example: 256
+                width:
+                  type: number
+                  example: 256
+                src:
+                  type: string
+                  example: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w...
+              readOnly: true
+          readOnly: true
+        expiresAt:
+          type: string
+          description: |-
+            The date and time the pairing code expires, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Pairing
+            codes expire 90 days after creation. After this time, the code can no longer be used to pair a terminal.
+          example: '2025-12-10T10:15:00+00:00'
+          readOnly: true
+        revokedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the pairing code was revoked, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            `null` if the code has not been revoked.
+          example: '2025-12-10T10:03:23+00:00'
+          readOnly: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - profile
+            - documentation
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            profile:
+              $ref: '#/components/schemas/url'
+              description: A link to the profile resource that the terminal will be paired with.
+            documentation:
+              $ref: '#/components/schemas/url'
+          readOnly: true
     connectRouteToken:
       type: string
       pattern: ^crt_.+$
@@ -43565,6 +44107,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/terminalToken'
+    parent-terminal-pairing-code-id:
+      name: pairingCodeId
+      description: Provide the ID of the terminal pairing code.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/terminalPairingCodeToken'
     route-id:
       name: routeId
       description: Provide the ID of the route.

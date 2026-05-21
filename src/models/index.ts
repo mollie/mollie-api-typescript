@@ -61,6 +61,7 @@ export * from "./entityinvoice.js";
 export * from "./entitymethodget.js";
 export * from "./entityonboardingstatus.js";
 export * from "./entityorganization.js";
+export * from "./entitypairingcode.js";
 export * from "./entitypaymentroute.js";
 export * from "./entitypaymentrouteresponse.js";
 export * from "./entitypayoutresponse.js";

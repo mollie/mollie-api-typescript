@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 8b0b6fefb1431e791ccd9167a06e4204
+  docChecksum: 8835ed62dc6fdd7ed4b481435a63a1ee
   docVersion: 1.0.0
-  speakeasyVersion: 1.763.3
-  generationVersion: 2.884.7
-  releaseVersion: 1.8.1
-  configChecksum: de4a7ef014438f34c3e18b832857cab8
+  speakeasyVersion: 1.763.4
+  generationVersion: 2.884.11
+  releaseVersion: 1.8.2
+  configChecksum: d7abb4086f94876e250a3c048a94bc9a
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 6729b0b7-fb58-4093-9e1f-b21ea6eb4b48
-  pristine_commit_hash: 5c104f0ec09e1bd81d54d83bf420ad8b0a87b82c
-  pristine_tree_hash: 37f6d83b5bf06a18a48c844a599685f3fdcb76de
+  generation_id: e798cf03-57de-458f-aad5-d1fa2ab39f3f
+  pristine_commit_hash: 12cd5de5963722ee7aa176726f25330ba5525089
+  pristine_tree_hash: 59662443e1d93ecb1b39b41bedc118c13527a53b
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -553,6 +553,26 @@ trackedFiles:
     id: 76cae378d0be
     last_write_checksum: sha1:8583128d5b1edba3028f21d63d117721007cfd50
     pristine_git_object: 57970c289f7d2630c9402efcc69184c78fc46294
+  docs/models/entitypairingcode.md:
+    id: cdba5fd25288
+    last_write_checksum: sha1:ae5cef6fef158135adc74a1e4cba9025ba5316e2
+    pristine_git_object: ddb4b1fb75b603b0571c140c94cf6b19323c05fe
+  docs/models/entitypairingcodedetails.md:
+    id: e2d2499df340
+    last_write_checksum: sha1:049c08a521054aa34e881c60d28faa48d71218f6
+    pristine_git_object: 3b6949a08a25442b625dc5612c3cfe2549c3f2d8
+  docs/models/entitypairingcodelinks.md:
+    id: 66a298dd0895
+    last_write_checksum: sha1:11ba48c1b0d7cf89a8721e59d6504a937699df9c
+    pristine_git_object: 192e068c61eda8f7c363e14ca609aa20f3748e8e
+  docs/models/entitypairingcodeqrcode.md:
+    id: a072c7d68886
+    last_write_checksum: sha1:e4c3fddb2e7bc3257e26d2c3edadb0c69e0e5831
+    pristine_git_object: 3de09327c51da737847c64f09c0a6403efd83e2e
+  docs/models/entitypairingcodestatus.md:
+    id: 3cc46309ea55
+    last_write_checksum: sha1:e6c7b9af69f9b5b7426089bf42c7203c03ddf883
+    pristine_git_object: 1cc5f2ee699ae5c3ab8eb96521db0ae9d229eb49
   docs/models/entitypaymentroute.md:
     id: 67b76bbbb268
     last_write_checksum: sha1:76aa97e7e47278c8f2cb05fa6ce262fa3da2b977
@@ -2605,6 +2625,42 @@ trackedFiles:
     id: c84bfa1c81ed
     last_write_checksum: sha1:b063166fd9d24833036e08816db419958b96f155
     pristine_git_object: b510dc8ce3c1c2a6c1143129df0c59a8ab490c2d
+  docs/models/operations/terminalpairingcode.md:
+    id: 57d1cbf78c8c
+    last_write_checksum: sha1:887452ba4701780c4da3563cbe01ecfa9863d77a
+    pristine_git_object: e5c79d3a70da7bcb02ad03c20de529be5b50adcf
+  docs/models/operations/terminalsgetpairingcoderequest.md:
+    id: 013419af7938
+    last_write_checksum: sha1:df29919a9f6602fa6e41a7548ead934bc2e9188a
+    pristine_git_object: 9837c7c65bd5e20da4137a7c57fa105fd36c8faa
+  docs/models/operations/terminalslistpairingcodesembedded.md:
+    id: 0546fa3a2644
+    last_write_checksum: sha1:92699db6cb1ce8cbd33d436f1b793a8cc4e302d9
+    pristine_git_object: a9d7b969b825eda8f2bb8beab8e68c378c7efaf8
+  docs/models/operations/terminalslistpairingcodesglobals.md:
+    id: 15341a3f7e6b
+    last_write_checksum: sha1:989edcf8814734b7ecfffba917f39f9e66d6d820
+    pristine_git_object: 8e33f453f1acad769438e9c2c3302a85208f7d61
+  docs/models/operations/terminalslistpairingcodesrequest.md:
+    id: 0b2fe2f00f2b
+    last_write_checksum: sha1:0ba881f55b67411cd62c538c132e6d1e40878992
+    pristine_git_object: 6d881ca93c3e67617b0c6df5664e89c38b4ed698
+  docs/models/operations/terminalslistpairingcodesresponse.md:
+    id: "185413304161"
+    last_write_checksum: sha1:79dc24d91d31542e7616a1fc6035c6a652253b7a
+    pristine_git_object: 2d1d131b8d7241dae43b025024c3ff44cbfa3325
+  docs/models/operations/terminalsrequestpairingcoderequest.md:
+    id: e0f06684561b
+    last_write_checksum: sha1:62d73c3d489f8c378a0d3e96511248c742acab98
+    pristine_git_object: 2b0b19cea4c20be71acccf241894c4227c5feceb
+  docs/models/operations/terminalsrequestpairingcoderequestbody.md:
+    id: 9cf5ed320c6a
+    last_write_checksum: sha1:2827a5b537a9670383427ba219bc5d537123f7ae
+    pristine_git_object: 0f27efe7902ccbd99f6011287ca33447e7a7824a
+  docs/models/operations/terminalsrevokepairingcoderequest.md:
+    id: 4376fa93d371
+    last_write_checksum: sha1:987c3c701db8af1d197428bf23746ed7aa976819
+    pristine_git_object: 4b25280291ce0005bfe91848806bbb8b942f48ef
   docs/models/operations/testwebhookrequest.md:
     id: d7f00d057ac7
     last_write_checksum: sha1:bd474aa307685165e0e0c51ed33c4d34e6eb9d89
@@ -3555,8 +3611,8 @@ trackedFiles:
     pristine_git_object: 1d461efdb7c3c18e95404d8f6edf7b55f25b4ac6
   docs/sdks/terminals/README.md:
     id: 4b9f7986e224
-    last_write_checksum: sha1:0a621deccbbfc103dd6f5f7060b13767d02e8b3e
-    pristine_git_object: bd57b47fa99cb37125dfcdb25d84ae85b23a78e4
+    last_write_checksum: sha1:275b87880d2061f89cab7fa9ce2b1c60b3496337
+    pristine_git_object: bf6ba25fe5d3d3caac0ac98de1f052cd1a753bbf
   docs/sdks/transfers/README.md:
     id: f56918861798
     last_write_checksum: sha1:942432640bb360d8affffb6e9f7073b90958c53d
@@ -3607,12 +3663,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:3576e23899e605fa238d4ed4910f4a04c8146a45
-    pristine_git_object: 481e66e0698ddbbe4dd5264b36ecda4932f3f7e3
+    last_write_checksum: sha1:3675b65aebd2008a17e34c4158e6506528e12693
+    pristine_git_object: aa61e797591924b52c96d224bec47b51016df90c
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:661cd9c0c451891a9a9cd0f4467d2175ab5fa76a
-    pristine_git_object: f70d302f424b21a490bee094a48d0736a9d614aa
+    last_write_checksum: sha1:b54d79e180d80e000854f0e26210ba0298b88b68
+    pristine_git_object: 3e84e35cbc847108332f89c5bca08990cb349536
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4021,6 +4077,22 @@ trackedFiles:
     id: c38173426ee4
     last_write_checksum: sha1:ab43094e8156c7ae6b55cc4fde1f6a18643ee16b
     pristine_git_object: 61a6164ed88726eb214c9d2280e31b638e513aca
+  src/funcs/terminalsTerminalsGetPairingCode.ts:
+    id: 9587d36d7bc1
+    last_write_checksum: sha1:2da93c615a35052fe5dd32af3d8be94b1e7686d3
+    pristine_git_object: 76711c1d716246012a8af5576ccaecf2d2cc84ba
+  src/funcs/terminalsTerminalsListPairingCodes.ts:
+    id: 96af41551549
+    last_write_checksum: sha1:b5ec12ac71c59ee1d1f0174bfccdc628fbbd63d2
+    pristine_git_object: 2741242a7233f8436ff8128f88b0925c5d1bffc7
+  src/funcs/terminalsTerminalsRequestPairingCode.ts:
+    id: 351a2c36e865
+    last_write_checksum: sha1:d532bbf39f6521767b7a5db971c1a1ed47fd1b58
+    pristine_git_object: 6a6680e41bbdfb885445bcaa6435c5380307a920
+  src/funcs/terminalsTerminalsRevokePairingCode.ts:
+    id: 142d0a0681b4
+    last_write_checksum: sha1:5f007f633e725b22b0288188ea22d7932ef10b55
+    pristine_git_object: dc371e9a567937912f42263daf2cab0036d003ef
   src/funcs/transfersCreate.ts:
     id: 0bfa8fcb1442
     last_write_checksum: sha1:d9ac9b28da6e11e7869bed5b67bc1a8cd7a236da
@@ -4103,8 +4175,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:15c9d2adab4da23f198a8ffea2b58cc3413ddf65
-    pristine_git_object: 80a4354877706ee0dcf72398e251ab203fed0f9d
+    last_write_checksum: sha1:f286dcdba139735e7256cda967aa074a6ffbcd19
+    pristine_git_object: c42da88a68f76ab9fab582a3e673e58c2ded9561
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -5008,6 +5080,10 @@ trackedFiles:
     id: baf6b3755bb9
     last_write_checksum: sha1:77d080a526fb12b700cc2f44bd208c95c2ca71e7
     pristine_git_object: db76d09bea26b929705bd2dc6304ba47d85c9ba6
+  src/models/entitypairingcode.ts:
+    id: 01b26dbb30ac
+    last_write_checksum: sha1:41eed7521ac1ed229ef04f9112fd2e446512a106
+    pristine_git_object: 9e02a5153b4a3ed864e8f79ca94a65b9b605aa1e
   src/models/entitypaymentroute.ts:
     id: 1f0948651961
     last_write_checksum: sha1:33f8b8ec7fa086d9c8f050a1b8d9b57353d07066
@@ -5082,8 +5158,8 @@ trackedFiles:
     pristine_git_object: d2f254684e589710fbd9bd58550cfad78951c92d
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:6f45936738263cb9fd978fab498389de00e0e1a2
-    pristine_git_object: 230cdf33c3bbab00fc261ccba875fdcb970cec03
+    last_write_checksum: sha1:540c1038919fbe424fb4d1688e786807cb2f708e
+    pristine_git_object: d9a7df72965c24f5fa8f5b62aeceddc4ac10ce87
   src/models/linecategories.ts:
     id: 502e2d0ea1e2
     last_write_checksum: sha1:cdef34c68b38732566990ec0c57ec8c915c3adce
@@ -5510,8 +5586,8 @@ trackedFiles:
     pristine_git_object: 178bb30fa8b1529ded0ad1251fb33595c90b68fc
   src/models/operations/index.ts:
     id: 0d9ffaf774d2
-    last_write_checksum: sha1:b1681d848ceb73ea6a93073088aed56c3e70928b
-    pristine_git_object: 33ecb2c857629aa7fdbb0c3a919b075c39c4b80f
+    last_write_checksum: sha1:fced67612a1b2523ec978d5f48e6afc52708d37c
+    pristine_git_object: 4e87dfaa20a33d9d80279d9fd8333605cea1b888
   src/models/operations/listallchargebacks.ts:
     id: 1aefa7b044e4
     last_write_checksum: sha1:f9331e579c72d17fe077abbf0640eab452cde7b7
@@ -5696,6 +5772,22 @@ trackedFiles:
     id: 63ed2233248f
     last_write_checksum: sha1:ae4830974682a397796878f4d0056bcfc56caa7b
     pristine_git_object: eeb9963db5eafb5d1e518ccaff0c7f2b057d8faa
+  src/models/operations/terminalsgetpairingcode.ts:
+    id: b30f839af4d4
+    last_write_checksum: sha1:d12db016bec44f100e806e5e62219a9ed6400427
+    pristine_git_object: fc18af3c5f670ad3b9bd7a207012cd43db93ad2c
+  src/models/operations/terminalslistpairingcodes.ts:
+    id: bc1b621a466f
+    last_write_checksum: sha1:fd281ce994885b3aed0dd0fcc8a585d967465734
+    pristine_git_object: 219d8f8fd37ffc5174ee133f44e7af287d9377a7
+  src/models/operations/terminalsrequestpairingcode.ts:
+    id: 017d1fbcc397
+    last_write_checksum: sha1:22cfd4f57f3657df23c2c0fe054cc2672937bdcc
+    pristine_git_object: d118972369859c8c97284184dd017a11beda9c43
+  src/models/operations/terminalsrevokepairingcode.ts:
+    id: 9742dfb51ef0
+    last_write_checksum: sha1:dc56a018d0b6780009e66dc703a4a08329ab2e92
+    pristine_git_object: 3a06b819aabb7b6edc39055ecb7946cad15fd8c9
   src/models/operations/testwebhook.ts:
     id: c08be6b18e1e
     last_write_checksum: sha1:d48b7652480dc23d5b29a22e70953204dc2b4a13
@@ -6298,8 +6390,8 @@ trackedFiles:
     pristine_git_object: b8fbe94a076930db3ebdb2c97966760fa08be82c
   src/sdk/terminals.ts:
     id: 22dd1f047dc6
-    last_write_checksum: sha1:3a57497d29e244c24c17363bb127218a428d6833
-    pristine_git_object: 45277b5e032193ded22b33f8350c93fad808f951
+    last_write_checksum: sha1:0c1bfb0a2f5371d46376caaf479b03f48e522a02
+    pristine_git_object: cc494bb02b5bb7fa955dcf600cabd03405234816
   src/sdk/transfers.ts:
     id: 1e842c518280
     last_write_checksum: sha1:11ba02e92c90e5db21707ddf4691ae5ccc9fedd5
@@ -10583,123 +10675,62 @@ examples:
           application/hal+json: {"resource": "payout", "id": "payout_j8NvRAM2WNZtsykpLEX8J", "balanceId": "bal_gVMhHKqSSRYJyPsuoPNFH", "amount": {"currency": "EUR", "value": "10.00"}, "description": "My payout description", "status": "requested", "statusReason": {"code": "requested", "message": "The payout has been requested."}, "createdAt": "2024-03-20T09:13:37+00:00", "initiatedAt": "2024-03-20T09:13:40+00:00", "completedAt": "2024-03-20T14:00:00+00:00", "canceledAt": null, "mode": "live", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  terminals-request-pairing-code:
+    speakeasy-default-terminals-request-pairing-code:
+      parameters:
+        header:
+          idempotency-key: "123e4567-e89b-12d3-a456-426"
+      requestBody:
+        application/json: {"profileId": "pfl_jA9bC4DkFj3G"}
+      responses:
+        "201":
+          application/hal+json: {"resource": "terminal-pairing-code", "id": "termpc_R7gX5Ea9bC4DkFj3G", "mode": "live", "code": "20eb5ca1f78b48ae9e2b", "profileId": "pfl_jA9bC4DkFj3G", "status": "active", "details": {"qrCode": {"height": 256, "width": 256, "src": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w..."}}, "expiresAt": "2025-12-10T10:15:00+00:00", "revokedAt": "2025-12-10T10:03:23+00:00", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "profile": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "422":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  terminals-list-pairing-codes:
+    speakeasy-default-terminals-list-pairing-codes:
+      parameters:
+        query:
+          limit: 50
+          sort: "desc"
+        header:
+          idempotency-key: "123e4567-e89b-12d3-a456-426"
+      responses:
+        "200":
+          application/hal+json: {"count": 5, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "400":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  terminals-get-pairing-code:
+    speakeasy-default-terminals-get-pairing-code:
+      parameters:
+        path:
+          pairingCodeId: "termpc_R7gX5Ea9bC4DkFj3G"
+        header:
+          idempotency-key: "123e4567-e89b-12d3-a456-426"
+      responses:
+        "200":
+          application/hal+json: {"resource": "terminal-pairing-code", "id": "termpc_R7gX5Ea9bC4DkFj3G", "mode": "live", "code": "20eb5ca1f78b48ae9e2b", "profileId": "pfl_jA9bC4DkFj3G", "status": "active", "details": {"qrCode": null}, "expiresAt": "2025-12-10T10:15:00+00:00", "revokedAt": "2025-12-10T10:03:23+00:00", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "profile": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "404":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+  terminals-revoke-pairing-code:
+    speakeasy-default-terminals-revoke-pairing-code:
+      parameters:
+        path:
+          pairingCodeId: "termpc_R7gX5Ea9bC4DkFj3G"
+        header:
+          idempotency-key: "123e4567-e89b-12d3-a456-426"
+      responses:
+        "200":
+          application/hal+json: {"resource": "terminal-pairing-code", "id": "termpc_R7gX5Ea9bC4DkFj3G", "mode": "live", "code": "20eb5ca1f78b48ae9e2b", "profileId": "pfl_jA9bC4DkFj3G", "status": "active", "details": {"qrCode": {"height": 256, "width": 256, "src": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w..."}}, "expiresAt": "2025-12-10T10:15:00+00:00", "revokedAt": "2025-12-10T10:03:23+00:00", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "profile": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+        "404":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `client.oauth.generate()`:  `error.status[429]` **Added**
-  * `client.oauth.revoke()`:  `error.status[429]` **Added**
-  * `client.balances.list()`:  `error.status[429]` **Added**
-  * `client.balances.get()`:  `error.status[429]` **Added**
-  * `client.balances.getPrimary()`:  `error.status[429]` **Added**
-  * `client.balances.getReport()`:  `error.status[429]` **Added**
-  * `client.settlements.list()`:  `error.status[429]` **Added**
-  * `client.settlements.get()`:  `error.status[429]` **Added**
-  * `client.settlements.getOpen()`:  `error.status[429]` **Added**
-  * `client.settlements.getNext()`:  `error.status[429]` **Added**
-  * `client.settlements.listPayments()`:  `error.status[429]` **Added**
-  * `client.settlements.listCaptures()`:  `error.status[429]` **Added**
-  * `client.settlements.listRefunds()`:  `error.status[429]` **Added**
-  * `client.settlements.listChargebacks()`:  `error.status[429]` **Added**
-  * `client.invoices.list()`:  `error.status[429]` **Added**
-  * `client.invoices.get()`:  `error.status[429]` **Added**
-  * `client.permissions.list()`:  `error.status[429]` **Added**
-  * `client.permissions.get()`:  `error.status[429]` **Added**
-  * `client.organizations.get()`:  `error.status[429]` **Added**
-  * `client.organizations.getCurrent()`:  `error.status[429]` **Added**
-  * `client.organizations.getPartner()`:  `error.status[429]` **Added**
-  * `client.profiles.create()`:  `error.status[429]` **Added**
-  * `client.profiles.list()`:  `error.status[429]` **Added**
-  * `client.profiles.get()`:  `error.status[429]` **Added**
-  * `client.profiles.update()`:  `error.status[429]` **Added**
-  * `client.profiles.delete()`:  `error.status[429]` **Added**
-  * `client.profiles.getCurrent()`:  `error.status[429]` **Added**
-  * `client.onboarding.get()`:  `error.status[429]` **Added**
-  * `client.onboarding.submit()`:  `error.status[429]` **Added**
-  * `client.capabilities.list()`:  `error.status[429]` **Added**
-  * `client.clients.list()`:  `error.status[429]` **Added**
-  * `client.clients.get()`:  `error.status[429]` **Added**
-  * `client.clientLinks.create()`:  `error.status[429]` **Added**
-  * `client.webhooks.create()`:  `error.status[429]` **Added**
-  * `client.webhooks.list()`:  `error.status[429]` **Added**
-  * `client.webhooks.update()`:  `error.status[429]` **Added**
-  * `client.webhooks.get()`:  `error.status[429]` **Added**
-  * `client.webhooks.delete()`:  `error.status[429]` **Added**
-  * `client.webhooks.test()`:  `error.status[429]` **Added**
-  * `client.webhookEvents.get()`:  `error.status[429]` **Added**
-  * `client.balanceTransfers.create()`:  `error.status[429]` **Added**
-  * `client.balanceTransfers.list()`:  `error.status[429]` **Added**
-  * `client.balanceTransfers.get()`:  `error.status[429]` **Added**
-  * `client.payments.create()`:  `error.status[429]` **Added**
-  * `client.payments.list()`:  `error.status[429]` **Added**
-  * `client.payments.get()`:  `error.status[429]` **Added**
-  * `client.payments.update()`:  `error.status[429]` **Added**
-  * `client.payments.cancel()`:  `error.status[429]` **Added**
-  * `client.payments.releaseAuthorization()`:  `error.status[429]` **Added**
-  * `client.unmatchedCreditTransfers.list()`:  `error.status[429]` **Added**
-  * `client.unmatchedCreditTransfers.get()`:  `error.status[429]` **Added**
-  * `client.unmatchedCreditTransfers.match()`:  `error.status[429]` **Added**
-  * `client.unmatchedCreditTransfers.return()`:  `error.status[429]` **Added**
-  * `client.sessions.create()`:  `error.status[429]` **Added**
-  * `client.sessions.get()`:  `error.status[429]` **Added**
-  * `client.methods.list()`:  `error.status[429]` **Added**
-  * `client.methods.all()`:  `error.status[429]` **Added**
-  * `client.methods.get()`:  `error.status[429]` **Added**
-  * `client.refunds.create()`:  `error.status[429]` **Added**
-  * `client.refunds.list()`:  `error.status[429]` **Added**
-  * `client.refunds.get()`:  `error.status[429]` **Added**
-  * `client.refunds.cancel()`:  `error.status[429]` **Added**
-  * `client.refunds.all()`:  `error.status[429]` **Added**
-  * `client.chargebacks.list()`:  `error.status[429]` **Added**
-  * `client.chargebacks.get()`:  `error.status[429]` **Added**
-  * `client.chargebacks.all()`:  `error.status[429]` **Added**
-  * `client.captures.create()`:  `error.status[429]` **Added**
-  * `client.captures.list()`:  `error.status[429]` **Added**
-  * `client.captures.get()`:  `error.status[429]` **Added**
-  * `client.wallets.requestApplePaySession()`:  `error.status[429]` **Added**
-  * `client.paymentLinks.create()`:  `error.status[429]` **Added**
-  * `client.paymentLinks.list()`:  `error.status[429]` **Added**
-  * `client.paymentLinks.get()`:  `error.status[429]` **Added**
-  * `client.paymentLinks.update()`:  `error.status[429]` **Added**
-  * `client.paymentLinks.delete()`:  `error.status[429]` **Added**
-  * `client.paymentLinks.listPayments()`:  `error.status[429]` **Added**
-  * `client.terminals.list()`:  `error.status[429]` **Added**
-  * `client.terminals.get()`:  `error.status[429]` **Added**
-  * `client.delayedRouting.create()`:  `error.status[429]` **Added**
-  * `client.delayedRouting.list()`:  `error.status[429]` **Added**
-  * `client.delayedRouting.get()`:  `error.status[429]` **Added**
-  * `client.customers.create()`:  `error.status[429]` **Added**
-  * `client.customers.list()`:  `error.status[429]` **Added**
-  * `client.customers.get()`:  `error.status[429]` **Added**
-  * `client.customers.update()`:  `error.status[429]` **Added**
-  * `client.customers.delete()`:  `error.status[429]` **Added**
-  * `client.customers.createPayment()`:  `error.status[429]` **Added**
-  * `client.customers.listPayments()`:  `error.status[429]` **Added**
-  * `client.mandates.create()`:  `error.status[429]` **Added**
-  * `client.mandates.list()`:  `error.status[429]` **Added**
-  * `client.mandates.get()`:  `error.status[429]` **Added**
-  * `client.mandates.revoke()`:  `error.status[429]` **Added**
-  * `client.subscriptions.create()`:  `error.status[429]` **Added**
-  * `client.subscriptions.list()`:  `error.status[429]` **Added**
-  * `client.subscriptions.get()`:  `error.status[429]` **Added**
-  * `client.subscriptions.update()`:  `error.status[429]` **Added**
-  * `client.subscriptions.cancel()`:  `error.status[429]` **Added**
-  * `client.subscriptions.all()`:  `error.status[429]` **Added**
-  * `client.subscriptions.listPayments()`:  `error.status[429]` **Added**
-  * `client.salesInvoices.create()`:  `error.status[429]` **Added**
-  * `client.salesInvoices.list()`:  `error.status[429]` **Added**
-  * `client.salesInvoices.get()`:  `error.status[429]` **Added**
-  * `client.salesInvoices.update()`:  `error.status[429]` **Added**
-  * `client.salesInvoices.delete()`:  `error.status[429]` **Added**
-  * `client.accounts.listAccounts()`:  `error.status[429]` **Added**
-  * `client.accounts.getAccount()`:  `error.status[429]` **Added**
-  * `client.accounts.list()`:  `error.status[429]` **Added**
-  * `client.accounts.get()`:  `error.status[429]` **Added**
-  * `client.transfers.create()`:  `error.status[429]` **Added**
-  * `client.transfers.get()`:  `error.status[429]` **Added**
-  * `client.payouts.create()`:  `error.status[429]` **Added**
-  * `client.payouts.list()`:  `error.status[429]` **Added**
-  * `client.payouts.get()`:  `error.status[429]` **Added**
-  * `client.payouts.cancel()`:  `error.status[429]` **Added**
+  * `client.terminals.terminalsRequestPairingCode()`: **Added**
+  * `client.terminals.terminalsListPairingCodes()`: **Added**
+  * `client.terminals.terminalsGetPairingCode()`: **Added**
+  * `client.terminals.terminalsRevokePairingCode()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
