@@ -25,7 +25,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { OauthRevokeTokensServerList } from "../models/operations/oauthrevoketokens.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -102,11 +101,6 @@ async function $do(
   const payload = parsed.value;
   const body = encodeJSON("body", payload?.RequestBody, { explode: true });
 
-  const baseURL = options?.serverURL
-    || pathToFunc(OauthRevokeTokensServerList[0], {
-      charEncoding: "percent",
-    })();
-
   const path = pathToFunc("/oauth2/tokens")();
 
   const headers = new Headers(compactMap({
@@ -130,7 +124,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: baseURL ?? "",
+    baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "oauth-revoke-tokens",
     oAuth2Scopes: null,
 
@@ -156,7 +150,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "DELETE",
-    baseURL: baseURL,
+    baseURL: options?.serverURL,
     path: path,
     headers: headers,
     body: body,
