@@ -80,8 +80,6 @@ tags:
     description: Operations related to the Webhooks API
 paths:
   /oauth2/tokens:
-    servers:
-      - url: https://api.mollie.com/oauth2
     post:
       security:
         - basicAuth: []
@@ -28180,6 +28178,9 @@ components:
       enum:
         - authorization_code
         - refresh_token
+      x-enumDescriptions:
+        authorization_code: Exchange an authorization code for an access token after the merchant has granted consent.
+        refresh_token: Renew an expired access token using a refresh token.
       example: authorization_code
     oauth-token-type-hint:
       type: string
@@ -32204,8 +32205,6 @@ components:
         - name
         - email
         - locale
-        - address
-        - registrationNumber
         - _links
       properties:
         resource:

@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export const OauthGenerateTokensServerList = [
-  "https://api.mollie.com/oauth2",
-] as const;
-
 export type OauthGenerateTokensSecurity = {
   username: string;
   password: string;

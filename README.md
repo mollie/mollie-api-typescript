@@ -956,36 +956,7 @@ import { Client } from "mollie-api-typescript";
 
 const client = new Client({
   serverURL: "https://api.mollie.com",
-  testmode: false,
-  security: {
-    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
-  },
 });
-
-async function run() {
-  const result = await client.balances.list({
-    currency: "EUR",
-    from: "bal_gVMhHKqSSRYJyPsuoPNFH",
-    limit: 50,
-    idempotencyKey: "123e4567-e89b-12d3-a456-426",
-  });
-
-  for await (const page of result) {
-    console.log(page);
-  }
-}
-
-run();
-
-```
-
-### Override Server URL Per-Operation
-
-The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
-```typescript
-import { Client } from "mollie-api-typescript";
-
-const client = new Client();
 
 async function run() {
   const result = await client.oauth.generate({
@@ -999,8 +970,6 @@ async function run() {
       refreshToken: "refresh_...",
       redirectUri: "https://example.com/redirect",
     },
-  }, {
-    serverURL: "https://api.mollie.com/oauth2",
   });
 
   console.log(result);

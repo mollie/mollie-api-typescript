@@ -7,10 +7,6 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
-export const OauthRevokeTokensServerList = [
-  "https://api.mollie.com/oauth2",
-] as const;
-
 export type OauthRevokeTokensSecurity = {
   username: string;
   password: string;
