@@ -35153,6 +35153,24 @@ components:
           $ref: '#/components/schemas/testmode-create'
         createdAt:
           $ref: '#/components/schemas/created-at'
+        expiredAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the session expired, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            Omitted if the session has not expired.
+          readOnly: true
+          example: '2024-03-20T10:13:37+00:00'
+        completedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the session was completed, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            Omitted if the session has not been completed.
+          readOnly: true
+          example: '2024-03-20T11:13:37+00:00'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
@@ -43435,6 +43453,24 @@ components:
           $ref: '#/components/schemas/testmode-create'
         createdAt:
           $ref: '#/components/schemas/created-at'
+        expiredAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the session expired, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            Omitted if the session has not expired.
+          readOnly: true
+          example: '2024-03-20T10:13:37+00:00'
+        completedAt:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date and time the session was completed, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            Omitted if the session has not been completed.
+          readOnly: true
+          example: '2024-03-20T11:13:37+00:00'
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.

@@ -140,6 +140,20 @@ export type SessionResponse = {
    */
   createdAt: string;
   /**
+   * The date and time the session expired, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   *
+   * @remarks
+   * Omitted if the session has not expired.
+   */
+  expiredAt?: string | null | undefined;
+  /**
+   * The date and time the session was completed, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   *
+   * @remarks
+   * Omitted if the session has not been completed.
+   */
+  completedAt?: string | null | undefined;
+  /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links: SessionResponseLinks;
@@ -213,6 +227,8 @@ export const SessionResponse$inboundSchema: z.ZodType<
   payment: z.lazy(() => SessionResponsePayment$inboundSchema).optional(),
   profileId: z.string(),
   createdAt: z.string(),
+  expiredAt: z.nullable(z.string()).optional(),
+  completedAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => SessionResponseLinks$inboundSchema),
 }).transform((v) => {
   return remap$(v, {

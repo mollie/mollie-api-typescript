@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 7c48e163bb714661aab7d7e7a9fb6ebf
+  docChecksum: 017182f54e9fc0727b783f26195b93dc
   docVersion: 1.0.0
-  speakeasyVersion: 1.767.0
-  generationVersion: 2.888.0
-  releaseVersion: 1.9.0
-  configChecksum: 9a2e6d14088369166a52ddd2938b8895
+  speakeasyVersion: 1.768.2
+  generationVersion: 2.889.1
+  releaseVersion: 1.10.0
+  configChecksum: 84826a879cb3d4c1d112c6e48685b955
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 4c716c67-13f2-4988-870e-a42902c41bbb
-  pristine_commit_hash: 2f1764c22e0750d4e8b8de928cb0a1bd8ede5b9f
-  pristine_tree_hash: 930ee1f2cc484a056c365af28addaf5b8784600d
+  generation_id: 7bfb3b0a-29e8-4120-8e0e-f6d6e7634ed9
+  pristine_commit_hash: 4a36119165e0a68c531c3c9464e9761d98f1507f
+  pristine_tree_hash: f5dd5ec7b12f5ad7536c14d6cc61cc2855043194
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.26.53
+    core: 3.27.0
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -3258,8 +3258,8 @@ trackedFiles:
     pristine_git_object: 82a57a9adcc584da3549572294a4aec79a0d279d
   docs/models/sessionresponse.md:
     id: 6ef4cd3d1a91
-    last_write_checksum: sha1:6e26909a44f36a30c6a07c7c656ea8e6e4285155
-    pristine_git_object: dcbcbbf23719d4dba0c79742f9b8d2e054f5484c
+    last_write_checksum: sha1:1294ed8680908e59e44d2e7cfe0ecc4e99795e6f
+    pristine_git_object: 74b49f27d0525efe39f6ec9af02af17ef44a3f65
   docs/models/sessionresponselinks.md:
     id: effa29b72675
     last_write_checksum: sha1:718a2b50fd54ecc8ac583e8c8e9402ba3f655b95
@@ -3662,12 +3662,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:e162f2d3e0425a6ea35576937c4acf3161546ce4
-    pristine_git_object: bd50435e36f5018fc5894029693b286153124f0c
+    last_write_checksum: sha1:0427cf14d34e9fe667527b16c085c79c36853f88
+    pristine_git_object: 222b36da893046980dfba0c57c0e3460090f43c8
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:754dbee070c1b9c8f035ea32b281465e58c27c55
-    pristine_git_object: 88efefa409d9ef2c5ffe0d2c94c563f20fc80cf3
+    last_write_checksum: sha1:282b212e813327679d5426df5e46a6c4c4e4d1d6
+    pristine_git_object: ca7db114eff801b1eef09224863f29a6ece570ce
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4174,8 +4174,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:15ebd6db005b338fcba0e136acb0d4d5e9d045a8
-    pristine_git_object: 9ddfd5b8b017512d088aa357a7c59f7cb6ce6394
+    last_write_checksum: sha1:1164b53c64528868e5d134306b728b5579f5f23f
+    pristine_git_object: e1f96652481ce7922c1f778f533a3bdcfd9b5bc5
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -6113,8 +6113,8 @@ trackedFiles:
     pristine_git_object: c3192529680dac9a7ee34b13757c35c260a8d622
   src/models/sessionresponse.ts:
     id: 2317761a076a
-    last_write_checksum: sha1:9b3662da2db1318b11ae053afb0693206e673538
-    pristine_git_object: 4735722e2c2e0c7cb92b7a87ea00020f4f66b136
+    last_write_checksum: sha1:b0510905b186a61447f633c3d8021ffbf0268fdb
+    pristine_git_object: c2a5dc84dc871c9efb36ed3d975a43bcf02c164a
   src/models/sessionsequencetype.ts:
     id: 3846746633b1
     last_write_checksum: sha1:ef3c4ced68352127cb11f92d19670a538d721abb
@@ -10206,7 +10206,7 @@ examples:
         application/json: {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Order #12345", "lines": [], "redirectUrl": "https://example.org/redirect", "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "customerId": "cst_5B8cwPMGnU", "sequenceType": "oneoff", "payment": {"webhookUrl": "https://example.org/webhook"}, "profileId": "pfl_5B8cwPMGnU", "testmode": false}
       responses:
         "201":
-          application/hal+json: {"resource": "session", "id": "sess_82jFYDTrLcCQV68NLDvMJ", "mode": "live", "clientAccessToken": "ewogICJzZXNzaW9uVG9rZW4i...", "status": "open", "amount": {"currency": "EUR", "value": "10.00"}, "description": "Order #12345", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "imageUrl": "https://...", "productUrl": "https://..."}], "redirectUrl": "https://example.org/redirect", "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "customerId": "cst_5B8cwPMGnU", "sequenceType": "oneoff", "payment": {"webhookUrl": "https://example.org/webhook"}, "profileId": "pfl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "session", "id": "sess_82jFYDTrLcCQV68NLDvMJ", "mode": "live", "clientAccessToken": "ewogICJzZXNzaW9uVG9rZW4i...", "status": "open", "amount": {"currency": "EUR", "value": "10.00"}, "description": "Order #12345", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "imageUrl": "https://...", "productUrl": "https://..."}], "redirectUrl": "https://example.org/redirect", "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "customerId": "cst_5B8cwPMGnU", "sequenceType": "oneoff", "payment": {"webhookUrl": "https://example.org/webhook"}, "profileId": "pfl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "expiredAt": "2024-03-20T10:13:37+00:00", "completedAt": "2024-03-20T11:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}
         "422":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   get-session:
@@ -10227,7 +10227,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "session", "id": "sess_82jFYDTrLcCQV68NLDvMJ", "mode": "live", "clientAccessToken": "ewogICJzZXNzaW9uVG9rZW4i...", "status": "open", "amount": {"currency": "EUR", "value": "10.00"}, "description": "Order #12345", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "imageUrl": "https://...", "productUrl": "https://..."}], "redirectUrl": "https://example.org/redirect", "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "customerId": "cst_5B8cwPMGnU", "sequenceType": "oneoff", "payment": {"webhookUrl": "https://example.org/webhook"}, "profileId": "pfl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "session", "id": "sess_82jFYDTrLcCQV68NLDvMJ", "mode": "live", "clientAccessToken": "ewogICJzZXNzaW9uVG9rZW4i...", "status": "open", "amount": {"currency": "EUR", "value": "10.00"}, "description": "Order #12345", "lines": [{"type": "physical", "description": "LEGO 4440 Forest Police Station", "quantity": 1, "quantityUnit": "pcs", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discountAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "vatRate": "21.00", "vatAmount": {"currency": "EUR", "value": "10.00"}, "sku": "9780241661628", "imageUrl": "https://...", "productUrl": "https://..."}], "redirectUrl": "https://example.org/redirect", "billingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "shippingAddress": {"title": "Mr.", "givenName": "Piet", "familyName": "Mondriaan", "organizationName": "Mollie B.V.", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "Apt. 1", "postalCode": "1234AB", "email": "piet@example.org", "phone": "31208202070", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "customerId": "cst_5B8cwPMGnU", "sequenceType": "oneoff", "payment": {"webhookUrl": "https://example.org/webhook"}, "profileId": "pfl_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "expiredAt": "2024-03-20T10:13:37+00:00", "completedAt": "2024-03-20T11:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}}}
         "429":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   create-transfer:
@@ -10726,10 +10726,8 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `client.organizations.get()`:  `response` **Changed**
-  * `client.organizations.getCurrent()`:  `response` **Changed**
-  * `client.clients.list()`:  `response.Embedded.clients[].Embedded.organization` **Changed**
-  * `client.clients.get()`:  `response.Embedded.organization` **Changed**
+  * `client.sessions.create()`:  `response` **Changed**
+  * `client.sessions.get()`:  `response` **Changed**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
