@@ -88,25 +88,15 @@ let value: ListClientsResponse = {
                 },
               },
             },
-            capabilities: {
-              resource: "capability",
-              name: "payments",
-              status: "pending",
-              statusReason: "requirement-past-due",
-              requirements: [
-                {
-                  id: "needs-data",
-                  status: "past-due",
-                  dueDate: "2024-01-01T12:00:00+00:00",
-                  links: {
-                    dashboard: {
-                      href: "https://...",
-                      type: "application/hal+json",
-                    },
-                  },
-                },
-              ],
-            },
+            capabilities: [
+              {
+                resource: "capability",
+                name: "payments",
+                status: "pending",
+                statusReason: "requirement-past-due",
+                requirements: [],
+              },
+            ],
           },
         },
       ],
