@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 017182f54e9fc0727b783f26195b93dc
+  docChecksum: 8466f8cd44e35230a20130badacdfaf8
   docVersion: 1.0.0
   speakeasyVersion: 1.768.2
   generationVersion: 2.889.1
-  releaseVersion: 1.10.0
-  configChecksum: 84826a879cb3d4c1d112c6e48685b955
+  releaseVersion: 1.10.1
+  configChecksum: 57eac8dc4a23d24ee6f6ee36fdc4df8d
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 7bfb3b0a-29e8-4120-8e0e-f6d6e7634ed9
-  pristine_commit_hash: 4a36119165e0a68c531c3c9464e9761d98f1507f
-  pristine_tree_hash: f5dd5ec7b12f5ad7536c14d6cc61cc2855043194
+  generation_id: fa0054d6-e940-4d07-97a1-4c2d0f85e98e
+  pristine_commit_hash: c55a38417ac9952ac9d87ccccb6cedc0c196cd18
+  pristine_tree_hash: 138ff64e40a22eefc4b954242db35b358d93cc89
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1446,12 +1446,12 @@ trackedFiles:
     pristine_git_object: c261f400546580484f2da98a9177a717f1856855
   docs/models/operations/client.md:
     id: da29e845e9fc
-    last_write_checksum: sha1:28130a00170463b2eeea2612ece6640e2fff2137
-    pristine_git_object: adf9a13efc8035d04224a2a3e6d377a63d54cc41
+    last_write_checksum: sha1:3bcb1a4c095f66e2f99995efe2f6926c7db3b676
+    pristine_git_object: 0935198f78a1f30e36f28b6e1412f465247ba8cb
   docs/models/operations/clientembedded.md:
     id: 97be729156d2
-    last_write_checksum: sha1:49c0d21ddc2d40e7e9197e8d0964ee6790e17674
-    pristine_git_object: 56fbef62f6756f4c0f51a18762747c3ae21429ae
+    last_write_checksum: sha1:6d2d817563e2221714f66654a2430d9c7b3dae72
+    pristine_git_object: 64259cd1e91947412cdbc89c4403f3f8db72bd26
   docs/models/operations/createcapturerequest.md:
     id: 49196b8b207c
     last_write_checksum: sha1:ea433fadcb88551ab335f2bac33adbc561250881
@@ -1614,8 +1614,8 @@ trackedFiles:
     pristine_git_object: 3f4779a348f6d9cc68a8d5c868fcd7569ae1766d
   docs/models/operations/getclientembedded.md:
     id: 0fcff4aa3ec0
-    last_write_checksum: sha1:a57ad6fb4861c4afeccaafa2d56e1f5325536e7a
-    pristine_git_object: 3a02e9b047131b33b8d79f1c6c49da0eb4772519
+    last_write_checksum: sha1:135383d0500781f831a825edde89ddac61dcdf9e
+    pristine_git_object: 3063eda3def1a86eeb120a9ab904e14f97ddcfe7
   docs/models/operations/getclientlinks.md:
     id: ad2913528c33
     last_write_checksum: sha1:eea0caf65f069c433f841b65c266533ccc503fb8
@@ -1626,8 +1626,8 @@ trackedFiles:
     pristine_git_object: bc4c24e32040fe371af066a03e62239839cd4085
   docs/models/operations/getclientresponse.md:
     id: 8f73bddb03aa
-    last_write_checksum: sha1:3db083b430a7d4e542feeb1bd7dd924bb559c21e
-    pristine_git_object: ad73d32b61e50fa6f40c8e56d5e7d9c0f34030b3
+    last_write_checksum: sha1:d4474f0c0743a05caba5b27bb05a38e9ffd0a239
+    pristine_git_object: 47e99ce117c2ebf18e003980fcc409ec3e11b4dd
   docs/models/operations/getconnectbalancetransferglobals.md:
     id: 98ba077b5a30
     last_write_checksum: sha1:a2df60f70b102a11995b01525bb21f0d2f45aeff
@@ -2066,8 +2066,8 @@ trackedFiles:
     pristine_git_object: d41aeb09fc37e89346bde44699d24b1988f311a0
   docs/models/operations/listclientsembedded.md:
     id: 992d58a7af48
-    last_write_checksum: sha1:544bfccd7e4c6f4d97a87fdc3baeac28422a8e23
-    pristine_git_object: f0faf2a0564f1d336271151e1b2f09ddf24aa21d
+    last_write_checksum: sha1:262d216afc942d254b29b0a0789377b8d1343dff
+    pristine_git_object: 4c5a1b3f5367ae8c3edc42e823be8f8ae990cc3b
   docs/models/operations/listclientslinks.md:
     id: b67d2c69aba6
     last_write_checksum: sha1:184349518b15d4a8d21ca3f4e011fac6434a6b00
@@ -2078,12 +2078,12 @@ trackedFiles:
     pristine_git_object: 50454305c83a444cdf4f4c66fb97668db8b2a692
   docs/models/operations/listclientsresponse.md:
     id: 48fd743619c8
-    last_write_checksum: sha1:282556e25d1b2c20abe8460108dac17a1ae9f441
-    pristine_git_object: dca75b71f611128f881667eca1588265168e5be4
+    last_write_checksum: sha1:5acdb77d807ae2d561593527a5c2ef84a5c86753
+    pristine_git_object: 3aecbff982122574747150b2d2107d38a8c2576e
   docs/models/operations/listclientsresponsebody.md:
     id: e2886b86aa3b
-    last_write_checksum: sha1:407ecfacb7a65942c49a1fb533c8ae146565d855
-    pristine_git_object: 88ae164e7024f4c02f1faea2d826927ae7b4bd85
+    last_write_checksum: sha1:26b417ce52beb3c7da28cd5f5ca9ed7f8a2cc104
+    pristine_git_object: a638cae8be9d6842099db51e67002db0deac9407
   docs/models/operations/listconnectbalancetransfersembedded.md:
     id: f815a15a7da0
     last_write_checksum: sha1:b4bca1bd8b9cbba422b2c380b07519713710a18c
@@ -3662,12 +3662,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:0427cf14d34e9fe667527b16c085c79c36853f88
-    pristine_git_object: 222b36da893046980dfba0c57c0e3460090f43c8
+    last_write_checksum: sha1:1addea2d87c10cabef95f0baf4531680aef5333e
+    pristine_git_object: 2f5ada96c86af3c94305ec7d5b22634356ae9294
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:282b212e813327679d5426df5e46a6c4c4e4d1d6
-    pristine_git_object: ca7db114eff801b1eef09224863f29a6ece570ce
+    last_write_checksum: sha1:2017c350509cf2e0f79c2850ffb6f2bd2a07b492
+    pristine_git_object: a88413e3894402d68b66c444f9640aa4805e1c04
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4174,8 +4174,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:1164b53c64528868e5d134306b728b5579f5f23f
-    pristine_git_object: e1f96652481ce7922c1f778f533a3bdcfd9b5bc5
+    last_write_checksum: sha1:a6424e46e1001f2dc3e9aff53223e5bd9e0ff361
+    pristine_git_object: d8c20d4fbd7109a6b8afc1bcb9f12b8574a3d680
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -5465,8 +5465,8 @@ trackedFiles:
     pristine_git_object: 735bfe1d5c633e195e422f2630fedb4f62dc7e0d
   src/models/operations/getclient.ts:
     id: 72db0801189c
-    last_write_checksum: sha1:d8aa99c811b42d5a1c936b1f917b002db3ccfa0d
-    pristine_git_object: 93adf2d5a900946835aff3c173c07e0d14d7f1a8
+    last_write_checksum: sha1:68e6be4783865247684041fdd196b0a3539178df
+    pristine_git_object: f7d4572d59ef4f76f80b73917095db20ab08d0ac
   src/models/operations/getconnectbalancetransfer.ts:
     id: b3188c98df7e
     last_write_checksum: sha1:3bc321429996a214d26573d06bb81c66e9efd7b4
@@ -5633,8 +5633,8 @@ trackedFiles:
     pristine_git_object: 4486b0ada2f46b303301002ce90ef3b553e7ea49
   src/models/operations/listclients.ts:
     id: 449e611fac18
-    last_write_checksum: sha1:3bd9a649411f28c4f425efa67995755cac520e33
-    pristine_git_object: bf3d9e7998d0303f0813637a57342d6944bbc657
+    last_write_checksum: sha1:f1d9d4900c7486cae1e0aaa1b3d1f60677ef33ea
+    pristine_git_object: 1bb124ba540eff83b8f72cb3e254b7343c4aa44b
   src/models/operations/listconnectbalancetransfers.ts:
     id: e4f416bc7b92
     last_write_checksum: sha1:0a5103d06e10554de2f9312ef13064047327ccd6
@@ -8912,7 +8912,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"clients": [{"resource": "client", "id": "org_1234567", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "<value>", "postalCode": "42979", "city": "Sammyfort", "country": "United Arab Emirates"}, "registrationNumber": "12345678", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"count": 5, "_embedded": {"clients": [{"resource": "client", "id": "org_1234567", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "<value>", "postalCode": "42979", "city": "Sammyfort", "country": "United Arab Emirates"}, "registrationNumber": "12345678", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30Z", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": [{"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}]}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "400":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "404":
@@ -8977,7 +8977,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "client", "id": "org_1234567", "commission": {"count": 10}, "organizationCreatedAt": "2023-01-15T13:45:30+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "Keizersgracht 126", "postalCode": "1015 CW", "city": "Amsterdam", "country": "NL"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": {"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}}}
+          application/hal+json: {"resource": "client", "id": "org_1234567", "commission": {"count": 10}, "organizationCreatedAt": "2023-01-15T13:45:30+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "onboarding": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "_embedded": {"organization": {"resource": "organization", "id": "org_1234567", "name": "My Online Store", "email": "example@mail.com", "locale": "en_US", "address": {"streetAndNumber": "Keizersgracht 126", "postalCode": "1015 CW", "city": "Amsterdam", "country": "NL"}, "registrationNumber": "12345678", "vatNumber": "NL123456789B01", "vatRegulation": "dutch", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "onboarding": {"resource": "onboarding", "name": "My webshop", "status": "completed", "canReceivePayments": true, "canReceiveSettlements": true, "signedUpAt": "2023-01-15T13:45:30+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "organization": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}, "capabilities": [{"resource": "capability", "name": "payments", "status": "pending", "statusReason": "requirement-past-due", "requirements": [{"id": "legal-representatives", "status": "past-due", "dueDate": "2024-01-01T12:00:00+00:00", "_links": {"dashboard": {"href": "https://my.mollie.com/dashboard/...", "type": "text/html"}}}]}]}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   create-client-link:
@@ -10726,8 +10726,8 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `client.sessions.create()`:  `response` **Changed**
-  * `client.sessions.get()`:  `response` **Changed**
+  * `client.clients.list()`:  `response.Embedded.clients[].Embedded.capabilities` **Changed** (Breaking ⚠️)
+  * `client.clients.get()`:  `response.Embedded.capabilities` **Changed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

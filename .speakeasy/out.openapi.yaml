@@ -7052,7 +7052,9 @@ paths:
                                     onboarding:
                                       $ref: '#/components/schemas/entity-onboarding-status'
                                     capabilities:
-                                      $ref: '#/components/schemas/entity-capability'
+                                      type: array
+                                      items:
+                                        $ref: '#/components/schemas/entity-capability'
                   _links:
                     $ref: '#/components/schemas/list-links'
               examples:
@@ -7176,7 +7178,9 @@ paths:
                           onboarding:
                             $ref: '#/components/schemas/entity-onboarding-status'
                           capabilities:
-                            $ref: '#/components/schemas/entity-capability'
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/entity-capability'
               examples:
                 get-client-200-1:
                   summary: The client object

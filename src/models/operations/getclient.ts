@@ -70,7 +70,7 @@ export type GetClientLinks = {
 export type GetClientEmbedded = {
   organization?: models.EntityOrganization | undefined;
   onboarding?: models.EntityOnboardingStatus | undefined;
-  capabilities?: models.EntityCapability | undefined;
+  capabilities?: Array<models.EntityCapability> | undefined;
 };
 
 /**
@@ -182,7 +182,7 @@ export const GetClientEmbedded$inboundSchema: z.ZodType<
 > = z.object({
   organization: models.EntityOrganization$inboundSchema.optional(),
   onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
-  capabilities: models.EntityCapability$inboundSchema.optional(),
+  capabilities: z.array(models.EntityCapability$inboundSchema).optional(),
 });
 
 export function getClientEmbeddedFromJSON(

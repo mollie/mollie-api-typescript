@@ -62,25 +62,15 @@ let value: GetClientEmbedded = {
       },
     },
   },
-  capabilities: {
-    resource: "capability",
-    name: "payments",
-    status: "pending",
-    statusReason: "requirement-past-due",
-    requirements: [
-      {
-        id: "needs-data",
-        status: "past-due",
-        dueDate: "2024-01-01T12:00:00+00:00",
-        links: {
-          dashboard: {
-            href: "https://...",
-            type: "application/hal+json",
-          },
-        },
-      },
-    ],
-  },
+  capabilities: [
+    {
+      resource: "capability",
+      name: "payments",
+      status: "pending",
+      statusReason: "requirement-past-due",
+      requirements: [],
+    },
+  ],
 };
 ```
 
@@ -90,4 +80,4 @@ let value: GetClientEmbedded = {
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `organization`                                                          | [models.EntityOrganization](../../models/entityorganization.md)         | :heavy_minus_sign:                                                      | N/A                                                                     |
 | `onboarding`                                                            | [models.EntityOnboardingStatus](../../models/entityonboardingstatus.md) | :heavy_minus_sign:                                                      | N/A                                                                     |
-| `capabilities`                                                          | [models.EntityCapability](../../models/entitycapability.md)             | :heavy_minus_sign:                                                      | N/A                                                                     |
+| `capabilities`                                                          | [models.EntityCapability](../../models/entitycapability.md)[]           | :heavy_minus_sign:                                                      | N/A                                                                     |
