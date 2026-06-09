@@ -15,5 +15,5 @@ let value: PaymentDetailsWalletResponse = "applepay";
 ## Values
 
 ```typescript
-"applepay" | Unrecognized<string>
+"applepay" | "googlepay" | Unrecognized<string>
 ```

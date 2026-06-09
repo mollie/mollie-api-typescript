@@ -12,6 +12,7 @@ import { OpenEnum } from "../types/enums.js";
  */
 export const PaymentDetailsWalletResponse = {
   Applepay: "applepay",
+  Googlepay: "googlepay",
 } as const;
 /**
  * The wallet used when creating the payment.
