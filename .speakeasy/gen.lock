@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 8466f8cd44e35230a20130badacdfaf8
+  docChecksum: 89794158251ec56930f799af0b6b35a4
   docVersion: 1.0.0
-  speakeasyVersion: 1.768.2
-  generationVersion: 2.889.1
-  releaseVersion: 1.10.1
-  configChecksum: 57eac8dc4a23d24ee6f6ee36fdc4df8d
+  speakeasyVersion: 1.773.1
+  generationVersion: 2.897.1
+  releaseVersion: 1.10.2
+  configChecksum: 8cc3b870ab1aa4b680ef544745eaced9
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: fa0054d6-e940-4d07-97a1-4c2d0f85e98e
-  pristine_commit_hash: c55a38417ac9952ac9d87ccccb6cedc0c196cd18
-  pristine_tree_hash: 138ff64e40a22eefc4b954242db35b358d93cc89
+  generation_id: cb0311b9-4150-4041-aed0-59e7f4bde03a
+  pristine_commit_hash: 7b31ec99b3a5015fecfc2d310a4398051ec106f6
+  pristine_tree_hash: ad81cee47de3daa248ad1e6e4722e0a0f5b1e7fd
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -33,7 +33,7 @@ features:
     methodSecurity: 2.82.8
     nameOverrides: 2.81.4
     nullables: 0.1.1
-    openEnums: 0.1.2
+    openEnums: 0.1.3
     pagination: 2.83.2
     responseFormat: 0.3.0
     retries: 2.83.0
@@ -1302,8 +1302,8 @@ trackedFiles:
     pristine_git_object: accb2cea64705ebe0ff9bd3f16b899346e37dc52
   docs/models/listsubscriptionresponselinks.md:
     id: 53e8f7b6fcfb
-    last_write_checksum: sha1:459ccf92c1d4666111dc223fa8a4f27ce7cd75e0
-    pristine_git_object: 2c153d11a1f542186cc41f0d96bfa4fb3bf5cebf
+    last_write_checksum: sha1:16df09323a2d04d8aca5f0ec172c9fae141dd6bc
+    pristine_git_object: 5fae5ff27eecf1d83f9449ba7569ab62b6c4b4c6
   docs/models/listsubscriptionresponsestatus.md:
     id: d5f928f02746
     last_write_checksum: sha1:fa950f16e7cd5c6f5303f1f226b440bee8bb8187
@@ -2794,8 +2794,8 @@ trackedFiles:
     pristine_git_object: 5614c6b46e0a340efbe36b965ba8417d314e8737
   docs/models/paymentdetailswalletresponse.md:
     id: 9bb5b4229062
-    last_write_checksum: sha1:03bae3ebd43bc3c1948ef85a9f49e28958bbca9c
-    pristine_git_object: 40b0126e337f4c39f34e39d7732b47ac0bdc5e7a
+    last_write_checksum: sha1:c166a6536a349ec6cba3bac3df60fa46daed0f3d
+    pristine_git_object: ad7869b55e02c8a766968c6780f80746563662dd
   docs/models/paymentfee.md:
     id: 3053015570be
     last_write_checksum: sha1:d8babf3d727ba8f83446c873228113bc28b6e3d0
@@ -3342,16 +3342,16 @@ trackedFiles:
     pristine_git_object: aeee59298c507b3078bbd9da93b1e2e965f66f5d
   docs/models/subscriptionresponse.md:
     id: 026da432b994
-    last_write_checksum: sha1:d4e2a0102dd1bb6a5d712022ee391f9de092a51d
-    pristine_git_object: 73e36323ff048750f38f361b9f30e03ea3084830
+    last_write_checksum: sha1:c19b455e1ccceb607cbf2fc2f345b53bac2a8ff2
+    pristine_git_object: 2b43a6d76e72dcb6be137314715a3ac0fc524134
   docs/models/subscriptionresponseapplicationfee.md:
     id: 9a8e2edf54b6
     last_write_checksum: sha1:a1bf940ff9a3256ce95916bf0e3e2cda73f4b2a8
     pristine_git_object: fcaf8feefe45a134c9d1785f5a741f6028881ad4
   docs/models/subscriptionresponselinks.md:
     id: cadf30643907
-    last_write_checksum: sha1:ddb230a3f54db32fb7de9bad8ca0589e57a2b191
-    pristine_git_object: 0b614852598a5d732f3674a0e0c5bff42f8aea5b
+    last_write_checksum: sha1:19cbd575e3ca38ff072610a0a32a462efdcc3b56
+    pristine_git_object: 70bd2ff311266deb36b91efb7615a3016c9f8cd4
   docs/models/subscriptionresponsestatus.md:
     id: a9f5e57659b8
     last_write_checksum: sha1:f77da499f5de7f91eee4d7306f37b9ee13c4db90
@@ -3662,12 +3662,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:1addea2d87c10cabef95f0baf4531680aef5333e
-    pristine_git_object: 2f5ada96c86af3c94305ec7d5b22634356ae9294
+    last_write_checksum: sha1:00e66abaf9c05abeb7aa8230e03cd066a554dd10
+    pristine_git_object: ac1560cdf225b806cb9f0241b286935f047968c6
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:2017c350509cf2e0f79c2850ffb6f2bd2a07b492
-    pristine_git_object: a88413e3894402d68b66c444f9640aa4805e1c04
+    last_write_checksum: sha1:ecb89e5ee3db74312d1df7c5974399a8aa099487
+    pristine_git_object: 9d49660bfc84a6ead22660d6a31bd7ce8ef8bae4
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4162,8 +4162,8 @@ trackedFiles:
     pristine_git_object: 9345e1adf171233bc43038c328fdce155725936a
   src/hooks/types.ts:
     id: 2a02d86ec24f
-    last_write_checksum: sha1:622c2ac820271766bc4010bfc3904738c4c5ed0f
-    pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
+    last_write_checksum: sha1:4956fa05536590e70e1a47fe2d06c304aeba42c4
+    pristine_git_object: de7f4565e1f41b78b77a42c2e3ae01a761920afc
   src/index.ts:
     id: c5fb850250c7
     last_write_checksum: sha1:d17689619de8fa08eca22d0c848343f9b3fac9a6
@@ -4174,8 +4174,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:a6424e46e1001f2dc3e9aff53223e5bd9e0ff361
-    pristine_git_object: d8c20d4fbd7109a6b8afc1bcb9f12b8574a3d680
+    last_write_checksum: sha1:96ac0ebcf6c82475f401cc46c23fe3919af1cc12
+    pristine_git_object: 085d6b25134b2f4563d34c22f770c5d2c67d8ff9
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -4222,8 +4222,8 @@ trackedFiles:
     pristine_git_object: 094499f7b29dae06a9ba30b925ab332d8b8ed924
   src/lib/sdks.ts:
     id: 8a6d91f1218d
-    last_write_checksum: sha1:e5a500862169de80e1262b7b5daf387e1551303d
-    pristine_git_object: 948dab90995bd9a7a4396a4f5901c2bc0f845cd2
+    last_write_checksum: sha1:e113de41d86c9601634014bbf69f41f798c471ca
+    pristine_git_object: b56eac0e4fe85c4bac1ba84a77008653072eb297
   src/lib/security.ts:
     id: 0502afa7922e
     last_write_checksum: sha1:d0e2254a623be252492fc5359c1349673fe32ab1
@@ -5265,8 +5265,8 @@ trackedFiles:
     pristine_git_object: 65fa65330a58e92695766a8cf62bbc10f7f8d06d
   src/models/listsubscriptionresponse.ts:
     id: d7d9ec8d27a9
-    last_write_checksum: sha1:89b99edc7a4fb691d373412b04a3a8b62a8bef1e
-    pristine_git_object: 588e8bee30ab90811a88aca80b661cdfda177028
+    last_write_checksum: sha1:703e0a758d4ee01ecd5d27bc582cfccb5c288b5f
+    pristine_git_object: 5d4811ae890ad90a5e202f527bb29fc52ceb795d
   src/models/locale.ts:
     id: 59fce36fa544
     last_write_checksum: sha1:f44c0bb639d3aab2406d27a216abf16ede9b9c4f
@@ -5869,8 +5869,8 @@ trackedFiles:
     pristine_git_object: da01f7165def0cc529d040c93f1ca3ba9e3252d9
   src/models/paymentdetailswalletresponse.ts:
     id: a64cc4db4b94
-    last_write_checksum: sha1:2aacffdcbc5719509d94614a7630e3f9108a4ade
-    pristine_git_object: ab2b31888d6a283de703b8f7327585bb71e3ec0b
+    last_write_checksum: sha1:2c45c963643978de078b27e7cd589c2a2f8a2c3c
+    pristine_git_object: ac1168ce8e8b34a90d0ca58dbf42b75e8cdf679f
   src/models/paymentlineitem.ts:
     id: 8ea92afd5d98
     last_write_checksum: sha1:f16092ff9f844e09a82c077e9d24cd166aaf7276
@@ -6177,8 +6177,8 @@ trackedFiles:
     pristine_git_object: 31b6367198e6fd22234ee4c9e84022adc75ecc43
   src/models/subscriptionresponse.ts:
     id: 398ad499853d
-    last_write_checksum: sha1:ab71d2d8463e7fa2951f34f69b5a9d434411c037
-    pristine_git_object: 6c2c1cfaf4f3af56d2122520cc94e960263b9103
+    last_write_checksum: sha1:f41b9ccc9899424466ab26120f574844cb5359b1
+    pristine_git_object: a0bff24578c1e991daea73647cd0ace6d65f9458
   src/models/subtotals.ts:
     id: 6f76bbaf3a29
     last_write_checksum: sha1:2a1054932c2912e533fa9ec2cd77d2ab1388fd63
@@ -8429,7 +8429,7 @@ examples:
         application/json: {"testmode": false}
       responses:
         "200":
-          application/hal+json: {"resource": "subscription", "id": "sub_5B8cwPMGnU", "mode": "live", "status": "active", "amount": {"currency": "EUR", "value": "10.00"}, "times": 6, "timesRemaining": 5, "interval": "2 days", "startDate": "2025-01-01", "nextPaymentDate": "2025-01-01", "description": "Subscription of streaming channel", "method": "paypal", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Platform fee"}, "metadata": {}, "webhookUrl": "https://example.com/webhook", "customerId": "cst_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "canceledAt": "2025-01-01T13:10:19+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "profile": null, "payments": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "subscription", "id": "sub_5B8cwPMGnU", "mode": "live", "status": "active", "amount": {"currency": "EUR", "value": "10.00"}, "times": 6, "timesRemaining": 5, "interval": "2 days", "startDate": "2025-01-01", "nextPaymentDate": "2025-01-01", "description": "Subscription of streaming channel", "method": "paypal", "applicationFee": {"amount": {"currency": "EUR", "value": "10.00"}, "description": "Platform fee"}, "metadata": {}, "webhookUrl": "https://example.com/webhook", "customerId": "cst_5B8cwPMGnU", "mandateId": "mdt_5B8cwPMGnU", "createdAt": "2024-03-20T09:13:37+00:00", "canceledAt": "2025-01-01T13:10:19+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "customer": {"href": "https://...", "type": "application/hal+json"}, "mandate": {"href": "https://...", "type": "application/hal+json"}, "profile": {"href": "https://...", "type": "application/hal+json"}, "payments": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   list-all-subscriptions:
@@ -10726,8 +10726,22 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `client.clients.list()`:  `response.Embedded.clients[].Embedded.capabilities` **Changed** (Breaking ⚠️)
-  * `client.clients.get()`:  `response.Embedded.capabilities` **Changed** (Breaking ⚠️)
+  * `client.subscriptions.create()`:  `response.Links` **Changed** (Breaking ⚠️)
+  * `client.subscriptions.all()`:  `response.Embedded.subscriptions[].Links` **Changed** (Breaking ⚠️)
+  * `client.subscriptions.cancel()`:  `response.Links` **Changed** (Breaking ⚠️)
+  * `client.subscriptions.update()`:  `response.Links` **Changed** (Breaking ⚠️)
+  * `client.subscriptions.get()`:  `response.Links` **Changed** (Breaking ⚠️)
+  * `client.subscriptions.list()`:  `response.Embedded.subscriptions[].Links` **Changed** (Breaking ⚠️)
+  * `client.payments.update()`:  `response.details.wallet.enum(googlepay)` **Added**
+  * `client.customers.createPayment()`:  `response.details.wallet.enum(googlepay)` **Added**
+  * `client.customers.listPayments()`:  `response.Embedded.payments[].details.wallet.enum(googlepay)` **Added**
+  * `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].details.wallet.enum(googlepay)` **Added**
+  * `client.payments.cancel()`:  `response.details.wallet.enum(googlepay)` **Added**
+  * `client.settlements.listPayments()`:  `response.Embedded.payments[].details.wallet.enum(googlepay)` **Added**
+  * `client.payments.get()`:  `response.details.wallet.enum(googlepay)` **Added**
+  * `client.payments.list()`:  `response.Embedded.payments[].details.wallet.enum(googlepay)` **Added**
+  * `client.payments.create()`:  `response.details.wallet.enum(googlepay)` **Added**
+  * `client.subscriptions.listPayments()`:  `response.Embedded.payments[].details.wallet.enum(googlepay)` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

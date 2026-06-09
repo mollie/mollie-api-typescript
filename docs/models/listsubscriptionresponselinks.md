@@ -24,7 +24,10 @@ let value: ListSubscriptionResponseLinks = {
     href: "https://...",
     type: "application/hal+json",
   },
-  payments: null,
+  payments: {
+    href: "https://...",
+    type: "application/hal+json",
+  },
 };
 ```
 
@@ -33,7 +36,7 @@ let value: ListSubscriptionResponseLinks = {
 | Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
 | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | `self`                                                                                     | [models.Url](../models/url.md)                                                             | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
-| `customer`                                                                                 | [models.UrlNullable](../models/urlnullable.md)                                             | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
+| `customer`                                                                                 | [models.Url](../models/url.md)                                                             | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
 | `mandate`                                                                                  | [models.UrlNullable](../models/urlnullable.md)                                             | :heavy_minus_sign:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
-| `profile`                                                                                  | [models.UrlNullable](../models/urlnullable.md)                                             | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
+| `profile`                                                                                  | [models.Url](../models/url.md)                                                             | :heavy_check_mark:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |
 | `payments`                                                                                 | [models.UrlNullable](../models/urlnullable.md)                                             | :heavy_minus_sign:                                                                         | In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field. |

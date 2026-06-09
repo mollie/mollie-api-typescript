@@ -30472,6 +30472,10 @@ components:
       description: The wallet used when creating the payment.
       enum:
         - applepay
+        - googlepay
+      x-enumDescriptions:
+        applepay: The payment was made using Apple Pay.
+        googlepay: The payment was made using Google Pay.
       example: applepay
     payment-details-seller-protection:
       type:
@@ -36539,13 +36543,13 @@ components:
             self:
               $ref: '#/components/schemas/url'
             customer:
-              $ref: '#/components/schemas/url-nullable'
+              $ref: '#/components/schemas/url'
               description: The API resource URL of the [customer](get-customer) this subscription was created for.
             mandate:
               $ref: '#/components/schemas/url-nullable'
               description: The API resource URL of the [mandate](get-mandate) this subscription was created for.
             profile:
-              $ref: '#/components/schemas/url-nullable'
+              $ref: '#/components/schemas/url'
               description: The API resource URL of the [profile](get-profile) this subscription was created for.
             payments:
               $ref: '#/components/schemas/url-nullable'
@@ -36736,13 +36740,13 @@ components:
             self:
               $ref: '#/components/schemas/url'
             customer:
-              $ref: '#/components/schemas/url-nullable'
+              $ref: '#/components/schemas/url'
               description: The API resource URL of the [customer](get-customer) this subscription was created for.
             mandate:
               $ref: '#/components/schemas/url-nullable'
               description: The API resource URL of the [mandate](get-mandate) this subscription was created for.
             profile:
-              $ref: '#/components/schemas/url-nullable'
+              $ref: '#/components/schemas/url'
               description: The API resource URL of the [profile](get-profile) this subscription was created for.
             payments:
               $ref: '#/components/schemas/url-nullable'
@@ -40123,13 +40127,13 @@ components:
             self:
               $ref: '#/components/schemas/url'
             customer:
-              $ref: '#/components/schemas/url-nullable'
+              $ref: '#/components/schemas/url'
               description: The API resource URL of the [customer](get-customer) this subscription was created for.
             mandate:
               $ref: '#/components/schemas/url-nullable'
               description: The API resource URL of the [mandate](get-mandate) this subscription was created for.
             profile:
-              $ref: '#/components/schemas/url-nullable'
+              $ref: '#/components/schemas/url'
               description: The API resource URL of the [profile](get-profile) this subscription was created for.
             payments:
               $ref: '#/components/schemas/url-nullable'
@@ -41802,6 +41806,10 @@ components:
       description: The wallet used when creating the payment.
       enum:
         - applepay
+        - googlepay
+      x-enumDescriptions:
+        applepay: The payment was made using Apple Pay.
+        googlepay: The payment was made using Google Pay.
       example: applepay
       x-speakeasy-unknown-values: allow
     payment-details-seller-protection-response:

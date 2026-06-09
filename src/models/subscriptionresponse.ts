@@ -73,7 +73,7 @@ export type SubscriptionResponseLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  customer: UrlNullable | null;
+  customer: Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -81,7 +81,7 @@ export type SubscriptionResponseLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  profile: UrlNullable | null;
+  profile: Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
@@ -245,9 +245,9 @@ export const SubscriptionResponseLinks$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   self: Url$inboundSchema,
-  customer: z.nullable(UrlNullable$inboundSchema),
+  customer: Url$inboundSchema,
   mandate: z.nullable(UrlNullable$inboundSchema).optional(),
-  profile: z.nullable(UrlNullable$inboundSchema),
+  profile: Url$inboundSchema,
   payments: z.nullable(UrlNullable$inboundSchema).optional(),
   documentation: Url$inboundSchema,
 });
