@@ -17,11 +17,11 @@ export type EntityPermissionLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: Url | undefined;
+  self: Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: Url | undefined;
+  documentation: Url;
 };
 
 export type EntityPermission = {
@@ -56,8 +56,8 @@ export const EntityPermissionLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: Url$inboundSchema.optional(),
-  documentation: Url$inboundSchema.optional(),
+  self: Url$inboundSchema,
+  documentation: Url$inboundSchema,
 });
 
 export function entityPermissionLinksFromJSON(
