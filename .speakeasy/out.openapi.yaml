@@ -4994,6 +4994,9 @@ paths:
                   _links:
                     type: object
                     description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+                    required:
+                      - self
+                      - documentation
                     properties:
                       self:
                         $ref: '#/components/schemas/url'
@@ -32161,6 +32164,9 @@ components:
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - documentation
           properties:
             self:
               $ref: '#/components/schemas/url'
@@ -38998,6 +39004,8 @@ components:
         _links:
           type: object
           description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
           properties:
             self:
               $ref: '#/components/schemas/url'

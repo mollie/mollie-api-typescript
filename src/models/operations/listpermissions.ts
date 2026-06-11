@@ -31,11 +31,11 @@ export type ListPermissionsLinks = {
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  self?: models.Url | undefined;
+  self: models.Url;
   /**
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
-  documentation?: models.Url | undefined;
+  documentation: models.Url;
 };
 
 /**
@@ -110,8 +110,8 @@ export const ListPermissionsLinks$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  self: models.Url$inboundSchema.optional(),
-  documentation: models.Url$inboundSchema.optional(),
+  self: models.Url$inboundSchema,
+  documentation: models.Url$inboundSchema,
 });
 
 export function listPermissionsLinksFromJSON(

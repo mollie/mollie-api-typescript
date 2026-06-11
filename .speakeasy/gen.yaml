@@ -34,7 +34,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 1.10.2
+  version: 1.11.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -53,6 +53,7 @@ typescript:
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: CLIENT
+  eventStreamClassName: EventStream
   exportZodModelNamespace: false
   fixEnumNameSanitization: false
   flatAdditionalProperties: false
@@ -85,6 +86,7 @@ typescript:
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
   privateIdentifierPrefix: '#'
+  requestExtras: false
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2
