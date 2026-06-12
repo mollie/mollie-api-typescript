@@ -211,6 +211,7 @@ let value: ListSettlementPaymentsResponseBody = {
           remainderMethod: "creditcard",
           multibancoReference: "123456789",
           multibancoEntity: "98765",
+          bizumReference: "2901tq2ure1d",
         },
         createdAt: "2024-03-20T09:13:37+00:00",
         authorizedAt: "2024-03-20T09:28:37+00:00",
