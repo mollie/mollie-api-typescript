@@ -721,6 +721,10 @@ export type ListPaymentResponseDetails = {
    * Multibanco entity reference of the transaction
    */
   multibancoEntity?: string | null | undefined;
+  /**
+   * Bizum payment reference of the transaction
+   */
+  bizumReference?: string | null | undefined;
 };
 
 /**
@@ -1454,6 +1458,7 @@ export const ListPaymentResponseDetails$inboundSchema: z.ZodType<
   remainderDetails: z.record(z.any()).optional(),
   multibancoReference: z.nullable(z.string()).optional(),
   multibancoEntity: z.nullable(z.string()).optional(),
+  bizumReference: z.nullable(z.string()).optional(),
 });
 
 export function listPaymentResponseDetailsFromJSON(

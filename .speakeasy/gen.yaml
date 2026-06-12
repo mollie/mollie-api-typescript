@@ -34,7 +34,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 1.11.0
+  version: 1.12.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -43,6 +43,7 @@ typescript:
   additionalPackageJSON: {}
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
+  apiPromiseHelpers: false
   author: Speakeasy
   baseErrorName: ClientError
   clientServerStatusCodesAsErrors: true

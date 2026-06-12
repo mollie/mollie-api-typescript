@@ -4,7 +4,6 @@
  */
 
 import { ClientCore } from "../core.js";
-import { dlv } from "../lib/dlv.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
@@ -252,10 +251,15 @@ async function $do(
     >;
     "~next"?: { url: string };
   } => {
-    let nextURL = dlv(responseData, "_links.next.href");
-    if (typeof nextURL !== "string") {
+    const nextURLValue =
+      (responseData as
+        | { _links?: { next?: { href?: unknown } } }
+        | null
+        | undefined)?._links?.next?.href;
+    if (typeof nextURLValue !== "string") {
       return { next: () => null };
     }
+    let nextURL = nextURLValue;
 
     try {
       if (nextURL.startsWith("/")) {
