@@ -5,6 +5,7 @@ permissions:
   pull-requests: write
   statuses: write
   id-token: write
+  actions: write
 "on":
   workflow_dispatch:
     inputs:
@@ -53,8 +54,15 @@ jobs:
       - name: Trigger Release Note workflow
         if: steps.check.outputs.changed == 'true'
         run: |
-          curl -sf -X POST \
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/sdk_release_note.yaml/dispatches" \
-            -d "{\"ref\":\"main\",\"inputs\":{\"commit_sha\":\"${{ steps.check.outputs.sha }}\"}}"
+            "https://api.github.com/repos/${{ github.repository }}/contents/.github/workflows/sdk_release_note.yaml?ref=main")
+          if [ "$STATUS" = "200" ]; then
+            curl -sf -X POST \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/workflows/sdk_release_note.yaml/dispatches" \
+              -d "{\"ref\":\"main\",\"inputs\":{\"commit_sha\":\"${{ steps.check.outputs.sha }}\"}}"
+          else
+            echo "sdk_release_note.yaml not on main yet, skipping dispatch"
+          fi
