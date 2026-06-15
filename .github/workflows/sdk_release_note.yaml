@@ -1,0 +1,57 @@
+name: Release Note
+permissions:
+  contents: read
+  id-token: write
+"on":
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: Commit SHA to generate release notes for
+        type: string
+        required: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: ${{ inputs.commit_sha || github.sha }}
+
+      - name: Get version and diff
+        id: info
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          SHA="${{ inputs.commit_sha || github.sha }}"
+          {
+            echo "diff<<EOF"
+            git diff ${SHA}~1 ${SHA} -- src/
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: Summarise with Claude
+        id: summary
+        uses: mollie/mollie-api-release-note-generator@main
+        with:
+          diff: ${{ steps.info.outputs.diff }}
+
+      - name: Send Discord notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          VERSION: ${{ steps.info.outputs.version }}
+          SUMMARY: ${{ steps.summary.outputs.release_notes }}
+        run: |
+          curl -sf -X POST "$DISCORD_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg version "$VERSION" \
+              --arg summary "$SUMMARY" \
+              --arg url "https://github.com/mollie/mollie-api-typescript/releases/tag/v$VERSION" '{
+                embeds: [{
+                  color: 2326507,
+                  title: ("<:typescript:1509112727598010488> TypeScript `v" + $version + "` is out 🎉"),
+                  description: ("A shiny new version just dropped! ✨\nWhat changed? **Great question, glad you asked!**\n\n" + $summary + "\n\nCheck it out [here](" + $url + ")"),
+                  url: $url
+                }]
+              }')"
