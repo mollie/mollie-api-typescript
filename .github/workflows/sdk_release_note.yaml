@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           ref: ${{ inputs.commit_sha || github.sha }}
 
       - name: Get version and diff
@@ -24,9 +24,14 @@ jobs:
           VERSION=$(jq -r '.version' package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           SHA="${{ inputs.commit_sha || github.sha }}"
+          PREV_TAG=$(git tag --sort=-version:refname | grep -E '^v[0-9]' | grep -v "^v${VERSION}$" | head -1)
           {
             echo "diff<<EOF"
-            git diff ${SHA}~1 ${SHA} -- src/
+            if [ -n "$PREV_TAG" ]; then
+              git diff ${PREV_TAG} ${SHA} -- src/
+            else
+              git diff ${SHA}~1 ${SHA} -- src/
+            fi
             echo "EOF"
           } >> $GITHUB_OUTPUT
 
