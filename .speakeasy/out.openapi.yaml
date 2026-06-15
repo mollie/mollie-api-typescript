@@ -36399,6 +36399,17 @@ components:
       example: paypal
     entity-subscription:
       type: object
+      required:
+        - resource
+        - id
+        - customerId
+        - mode
+        - createdAt
+        - status
+        - amount
+        - interval
+        - startDate
+        - _links
       properties:
         resource:
           type: string
@@ -39994,6 +40005,17 @@ components:
             - _links
     list-entity-subscription:
       type: object
+      required:
+        - resource
+        - id
+        - customerId
+        - mode
+        - createdAt
+        - status
+        - amount
+        - interval
+        - startDate
+        - _links
       properties:
         resource:
           type: string

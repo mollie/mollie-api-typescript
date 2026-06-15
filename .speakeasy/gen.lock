@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 209a2825519d071096a4f597e8f005b7
+  docChecksum: db15a87ae2baa66de62dfde1a2c094ad
   docVersion: 1.0.0
   speakeasyVersion: 1.778.0
   generationVersion: 2.904.2
-  releaseVersion: 1.12.1
-  configChecksum: acc3105a6ae17e33d9c75071474e9dc3
+  releaseVersion: 1.12.2
+  configChecksum: b0438f02b699991afdf7eab90e92f66f
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: ba134a49-eb9c-403a-9e09-8a446495bdd5
-  pristine_commit_hash: 540925832855a88845c36a0d8dc5bfff2947f04e
-  pristine_tree_hash: 111294182e7f887fbf36a730b5c795503330720c
+  generation_id: 11ee860b-64f9-435e-b4a6-c9f09311dd4a
+  pristine_commit_hash: d881704ce04a9996455797b9e23a591f82de6933
+  pristine_tree_hash: 09605c95494c24a4d1967edb28e24b85eb5507b0
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3662,12 +3662,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:97960922b279f5b72652c43edc10edbb253afa04
-    pristine_git_object: 73e5858c73860f3510d151853bb98790fd6138d2
+    last_write_checksum: sha1:1ee0979a1b421e93260270df7fe49d609f7b519e
+    pristine_git_object: 46bdb8bb92e11e3bb61db23e064f9f2a7bd839c2
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:af105229c23e628e65d2a2cafbefd4d68f455bd2
-    pristine_git_object: 3a6aaceccce9f285d3be839e0b6b7ef9b48eb53b
+    last_write_checksum: sha1:fb3e23ff205e479230a85211038a7916d5624792
+    pristine_git_object: 198d7193d8cbc0527b8e4c8ba1c966da5d7788f9
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4174,8 +4174,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:7baa1e52c62744b82471abd984ab4c514f586a79
-    pristine_git_object: 924ce6243bce7509a8d75f4f23d3ca2ee3134b53
+    last_write_checksum: sha1:04f9017fd164d2a5a3f0c7fd42237d1efc4d3ce8
+    pristine_git_object: e10eca8fa6cfa92574f66893c8d9e60ed7ebd802
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a74725064d06b6994b95873c037975d2f2e63467
@@ -10716,13 +10716,6 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `client.settlements.listRefunds()`:  `response.Embedded.refunds[].paymentId` **Changed**
-  * `client.refunds.create()`:  `response.paymentId` **Changed**
-  * `client.refunds.list()`:  `response.Embedded.refunds[].paymentId` **Changed**
-  * `client.refunds.get()`:  `response.paymentId` **Changed**
-  * `client.refunds.all()`:  `response.Embedded.refunds[].paymentId` **Changed**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
