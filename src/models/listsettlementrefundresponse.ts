@@ -140,7 +140,7 @@ export type ListSettlementRefundResponse = {
    * @remarks
    * The full payment object can be retrieved via the payment URL in the `_links` object.
    */
-  paymentId?: string | undefined;
+  paymentId: string;
   /**
    * The identifier referring to the settlement this refund was settled with. This field is omitted if the refund is not settled (yet).
    */
@@ -314,7 +314,7 @@ export const ListSettlementRefundResponse$inboundSchema: z.ZodType<
     z.lazy(() => ListSettlementRefundResponseSettlementAmount$inboundSchema),
   ).optional(),
   metadata: z.nullable(Metadata$inboundSchema),
-  paymentId: z.string().optional(),
+  paymentId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
   status: SettlementRefundStatus$inboundSchema,
   createdAt: z.string(),
