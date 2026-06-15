@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: a727d97d2eac87981d5de9153b818862
+  docChecksum: 209a2825519d071096a4f597e8f005b7
   docVersion: 1.0.0
-  speakeasyVersion: 1.777.2
-  generationVersion: 2.903.5
-  releaseVersion: 1.12.0
-  configChecksum: 3028c4113f1263fea18060a1abea987d
+  speakeasyVersion: 1.778.0
+  generationVersion: 2.904.2
+  releaseVersion: 1.12.1
+  configChecksum: acc3105a6ae17e33d9c75071474e9dc3
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 15ae952b-583a-40ba-bd59-c333da43a411
-  pristine_commit_hash: b9131bb09dfade6963022da91193b5fe3e99444d
-  pristine_tree_hash: 443063b4c36ac1e55ff2a3eb0071e8b8ce362288
+  generation_id: ba134a49-eb9c-403a-9e09-8a446495bdd5
+  pristine_commit_hash: 540925832855a88845c36a0d8dc5bfff2947f04e
+  pristine_tree_hash: 111294182e7f887fbf36a730b5c795503330720c
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -610,8 +610,8 @@ trackedFiles:
     pristine_git_object: a9a64cb89d29f04d9d68b17a6db89ef4b32bb11c
   docs/models/entityrefundresponse.md:
     id: db6ae7674688
-    last_write_checksum: sha1:b254100e41e1df9cb03f4056083dd67749b8541a
-    pristine_git_object: 5e01f24ba42f211bdbc8b004caa76aa1874e622b
+    last_write_checksum: sha1:ccdff671b0e2f4602aa833976fa88b937fa81645
+    pristine_git_object: 65befc52c3674b878a795379e35e8d428601e581
   docs/models/entityrefundresponseexternalreference.md:
     id: bb63400e831c
     last_write_checksum: sha1:345d6d0132ac41cb9506f0474191b468d3b2325b
@@ -950,8 +950,8 @@ trackedFiles:
     pristine_git_object: 6e16811ff0e058f8b6f39d46d1ec969b04356806
   docs/models/listentityrefund.md:
     id: 6222910ae8df
-    last_write_checksum: sha1:a2cfaaa0b39f60cbfaec982b43e24bdd8635db5a
-    pristine_git_object: 8aa10a8429739b283e3359b8720af21d86b1111e
+    last_write_checksum: sha1:efcc6306361889790e644cf95499f4d9e17f7141
+    pristine_git_object: 876f1886513795317e8e03c9e627c140749b4a93
   docs/models/listentityrefundexternalreference.md:
     id: 9d7656c82669
     last_write_checksum: sha1:8081fc0986b583d139a7dae31c19103f52de7443
@@ -1270,8 +1270,8 @@ trackedFiles:
     pristine_git_object: 22bb99c4ef6a5d3d52b26f6e85e819bec3addc3d
   docs/models/listsettlementrefundresponse.md:
     id: b12b83843e64
-    last_write_checksum: sha1:55538de9140642c068557d39ded3a2e1984998af
-    pristine_git_object: 045b9dcd40cb83ab8ec280f86a5b006f1b1a10a7
+    last_write_checksum: sha1:25db72b220f13e80ee552e5fff9a4c7732e8479b
+    pristine_git_object: 28fa080d6a6827b8188d11bd941a98db3323d4d2
   docs/models/listsettlementrefundresponseexternalreference.md:
     id: 07eb9871f5d0
     last_write_checksum: sha1:094f4fc8a3909fdde7dc20868b5aef1466e5454e
@@ -3662,12 +3662,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:5298d2d40473286fd34359353b922c1fb3869759
-    pristine_git_object: c8c8814fd7e6201e90706a0a7b536c1bb799806b
+    last_write_checksum: sha1:97960922b279f5b72652c43edc10edbb253afa04
+    pristine_git_object: 73e5858c73860f3510d151853bb98790fd6138d2
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:4b565d45f3d56021f180f1a3237e15a13d258a94
-    pristine_git_object: de0e3c108283417eab2c9c0ba98a27326a45a761
+    last_write_checksum: sha1:af105229c23e628e65d2a2cafbefd4d68f455bd2
+    pristine_git_object: 3a6aaceccce9f285d3be839e0b6b7ef9b48eb53b
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4174,8 +4174,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ba9b53a1597df17afce952fa43742d4ac29eb15b
-    pristine_git_object: 19d14b5a0a5163aafccfdd183d8d83b123221b8c
+    last_write_checksum: sha1:7baa1e52c62744b82471abd984ab4c514f586a79
+    pristine_git_object: 924ce6243bce7509a8d75f4f23d3ca2ee3134b53
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a74725064d06b6994b95873c037975d2f2e63467
@@ -5093,8 +5093,8 @@ trackedFiles:
     pristine_git_object: fa6b82b2e0dba73374e21b76c228bd0b7e34dfdf
   src/models/entityrefundresponse.ts:
     id: 9e3be2cc841b
-    last_write_checksum: sha1:bd91560e902192dc3417a1c8af42b52804d135d3
-    pristine_git_object: 4b06903223a832022b8c30e4e74fe91c9354b082
+    last_write_checksum: sha1:5d90ec0756d9f1d8933bf75b8f4faf0473fa46fa
+    pristine_git_object: ae964a06cb94bdaca4f3cfad9652c2bbc1ebad0e
   src/models/entitysettlement.ts:
     id: 21eccbce8d2f
     last_write_checksum: sha1:7a0dfb53bf662b9e5c4fbe3510193b1400442673
@@ -5197,8 +5197,8 @@ trackedFiles:
     pristine_git_object: 844e48c7fe07d0d0b9f430d91f8c1ec5f1064ec8
   src/models/listentityrefund.ts:
     id: 70e9b3746457
-    last_write_checksum: sha1:7f4fa22196b56c915087ef14cfd1447f2e33d9c5
-    pristine_git_object: f1068d3c27d81cc0cb4a099b8dadac7ff3c1cf5f
+    last_write_checksum: sha1:1b56fe82a812bb262ba90494e512413b9c28109d
+    pristine_git_object: a81244b9dd6f97c82c396f7eb33cfe609ebecfcd
   src/models/listentitysettlement.ts:
     id: c76a9b88e094
     last_write_checksum: sha1:8d6820f3543777b2501ccf3fe6a19c453e11f4d2
@@ -5253,8 +5253,8 @@ trackedFiles:
     pristine_git_object: 8711f9b53f29f335cda9282cf1d2350b0fc1e6e6
   src/models/listsettlementrefundresponse.ts:
     id: b39df3ccac20
-    last_write_checksum: sha1:9e446c1ac5349ecaa903b9f999e285c0faa0295e
-    pristine_git_object: 65fa65330a58e92695766a8cf62bbc10f7f8d06d
+    last_write_checksum: sha1:951b539ab71648b06ae07806325b2fd2c8c4015f
+    pristine_git_object: df2275f6f785a1a52aff85c1cfa09081741c1ff1
   src/models/listsubscriptionresponse.ts:
     id: d7d9ec8d27a9
     last_write_checksum: sha1:703e0a758d4ee01ecd5d27bc582cfccb5c288b5f
@@ -10718,16 +10718,11 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `client.settlements.listPayments()`:  `response.Embedded.payments[].details.bizumReference` **Added**
-  * `client.payments.create()`:  `response.details.bizumReference` **Added**
-  * `client.payments.list()`:  `response.Embedded.payments[].details.bizumReference` **Added**
-  * `client.payments.get()`:  `response.details.bizumReference` **Added**
-  * `client.payments.update()`:  `response.details.bizumReference` **Added**
-  * `client.payments.cancel()`:  `response.details.bizumReference` **Added**
-  * `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].details.bizumReference` **Added**
-  * `client.customers.createPayment()`:  `response.details.bizumReference` **Added**
-  * `client.customers.listPayments()`:  `response.Embedded.payments[].details.bizumReference` **Added**
-  * `client.subscriptions.listPayments()`:  `response.Embedded.payments[].details.bizumReference` **Added**
+  * `client.settlements.listRefunds()`:  `response.Embedded.refunds[].paymentId` **Changed**
+  * `client.refunds.create()`:  `response.paymentId` **Changed**
+  * `client.refunds.list()`:  `response.Embedded.refunds[].paymentId` **Changed**
+  * `client.refunds.get()`:  `response.paymentId` **Changed**
+  * `client.refunds.all()`:  `response.Embedded.refunds[].paymentId` **Changed**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
