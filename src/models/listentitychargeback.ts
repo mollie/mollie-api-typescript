@@ -13,29 +13,6 @@ import { Url, Url$inboundSchema } from "./url.js";
 import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
- * **Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
- *
- * @remarks
- * the [List balance transactions endpoint](list-balance-transactions) for settlement data.
- *
- * The amount deducted from your account balance for this chargeback, converted to the currency your account is
- * settled in. Always a **negative** amount. Only available once the chargeback is finalized and the final settlement
- * amount has been determined.
- *
- * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
- */
-export type ListEntityChargebackSettlementAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
  * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
  */
 export type ListEntityChargebackReason = {
@@ -84,19 +61,6 @@ export type ListEntityChargeback = {
    */
   amount: Amount;
   /**
-   * **Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
-   *
-   * @remarks
-   * the [List balance transactions endpoint](list-balance-transactions) for settlement data.
-   *
-   * The amount deducted from your account balance for this chargeback, converted to the currency your account is
-   * settled in. Always a **negative** amount. Only available once the chargeback is finalized and the final settlement
-   * amount has been determined.
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  settlementAmount?: ListEntityChargebackSettlementAmount | null | undefined;
-  /**
    * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
    */
   reason?: ListEntityChargebackReason | null | undefined;
@@ -130,27 +94,6 @@ export type ListEntityChargeback = {
    */
   links: ListEntityChargebackLinks;
 };
-
-/** @internal */
-export const ListEntityChargebackSettlementAmount$inboundSchema: z.ZodType<
-  ListEntityChargebackSettlementAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityChargebackSettlementAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListEntityChargebackSettlementAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListEntityChargebackSettlementAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListEntityChargebackSettlementAmount' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListEntityChargebackReason$inboundSchema: z.ZodType<
@@ -202,9 +145,6 @@ export const ListEntityChargeback$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   amount: Amount$inboundSchema,
-  settlementAmount: z.nullable(
-    z.lazy(() => ListEntityChargebackSettlementAmount$inboundSchema),
-  ).optional(),
   reason: z.nullable(z.lazy(() => ListEntityChargebackReason$inboundSchema))
     .optional(),
   paymentId: z.string(),

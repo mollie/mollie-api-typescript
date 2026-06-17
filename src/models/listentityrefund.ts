@@ -20,31 +20,6 @@ import {
 import { Url, Url$inboundSchema } from "./url.js";
 import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
-/**
- * **Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
- *
- * @remarks
- * the [List balance transactions endpoint](list-balance-transactions) for settlement data.
- *
- * The amount deducted from your account balance for this refund, converted to the currency your account is settled
- * in. Always a **negative** amount. Only available once the refund is finalized and the final settlement amount has
- * been determined.
- *
- * For refunds not directly processed by Mollie (e.g. PayPal), the settlement amount is zero.
- *
- * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
- */
-export type ListEntityRefundSettlementAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
 export const ListEntityRefundStatus = {
   Queued: "queued",
   Pending: "pending",
@@ -127,21 +102,6 @@ export type ListEntityRefund = {
    */
   amount: Amount;
   /**
-   * **Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
-   *
-   * @remarks
-   * the [List balance transactions endpoint](list-balance-transactions) for settlement data.
-   *
-   * The amount deducted from your account balance for this refund, converted to the currency your account is settled
-   * in. Always a **negative** amount. Only available once the refund is finalized and the final settlement amount has
-   * been determined.
-   *
-   * For refunds not directly processed by Mollie (e.g. PayPal), the settlement amount is zero.
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  settlementAmount?: ListEntityRefundSettlementAmount | null | undefined;
-  /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
    * @remarks
@@ -183,26 +143,6 @@ export type ListEntityRefund = {
    */
   links: ListEntityRefundLinks;
 };
-
-/** @internal */
-export const ListEntityRefundSettlementAmount$inboundSchema: z.ZodType<
-  ListEntityRefundSettlementAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listEntityRefundSettlementAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListEntityRefundSettlementAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListEntityRefundSettlementAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListEntityRefundSettlementAmount' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListEntityRefundStatus$inboundSchema: z.ZodType<
@@ -302,9 +242,6 @@ export const ListEntityRefund$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   description: z.string(),
   amount: Amount$inboundSchema,
-  settlementAmount: z.nullable(
-    z.lazy(() => ListEntityRefundSettlementAmount$inboundSchema),
-  ).optional(),
   metadata: z.nullable(Metadata$inboundSchema),
   paymentId: z.string(),
   settlementId: z.nullable(z.string()).optional(),

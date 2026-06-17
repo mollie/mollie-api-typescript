@@ -120,6 +120,7 @@ export * from "./oauthtokentypehint.js";
 export * from "./onboardingvatregulation.js";
 export * from "./organizationvatregulation.js";
 export * from "./paymentaddress.js";
+export * from "./paymentdetails.js";
 export * from "./paymentdetailscardauditionresponse.js";
 export * from "./paymentdetailscardfundingresponse.js";
 export * from "./paymentdetailscardlabelresponse.js";

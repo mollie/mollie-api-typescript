@@ -25,25 +25,6 @@ import {
 import { Url, Url$inboundSchema } from "./url.js";
 import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
-/**
- * The amount deducted from your account balance for this refund, converted to the currency your account is
- *
- * @remarks
- * settled in. Always a **negative** amount.
- *
- * For refunds not directly processed by Mollie (e.g. PayPal), the settlement amount is zero.
- */
-export type ListSettlementRefundResponseSettlementAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
 export type ListSettlementRefundResponseExternalReference = {
   /**
    * Specifies the reference type
@@ -91,6 +72,25 @@ export type ListSettlementRefundResponseLinks = {
   settlement?: UrlNullable | null | undefined;
 };
 
+/**
+ * The amount deducted from your account balance for this refund, converted to the currency your account is
+ *
+ * @remarks
+ * settled in. Always a **negative** amount.
+ *
+ * For refunds not directly processed by Mollie (e.g. PayPal), the settlement amount is zero.
+ */
+export type ListSettlementRefundResponseSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
 export type ListSettlementRefundResponse = {
   /**
    * Indicates the response contains a refund object. Will always contain the string `refund` for this endpoint.
@@ -115,18 +115,6 @@ export type ListSettlementRefundResponse = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: Amount;
-  /**
-   * The amount deducted from your account balance for this refund, converted to the currency your account is
-   *
-   * @remarks
-   * settled in. Always a **negative** amount.
-   *
-   * For refunds not directly processed by Mollie (e.g. PayPal), the settlement amount is zero.
-   */
-  settlementAmount?:
-    | ListSettlementRefundResponseSettlementAmount
-    | null
-    | undefined;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
    *
@@ -174,34 +162,19 @@ export type ListSettlementRefundResponse = {
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links: ListSettlementRefundResponseLinks;
+  /**
+   * The amount deducted from your account balance for this refund, converted to the currency your account is
+   *
+   * @remarks
+   * settled in. Always a **negative** amount.
+   *
+   * For refunds not directly processed by Mollie (e.g. PayPal), the settlement amount is zero.
+   */
+  settlementAmount?:
+    | ListSettlementRefundResponseSettlementAmount
+    | null
+    | undefined;
 };
-
-/** @internal */
-export const ListSettlementRefundResponseSettlementAmount$inboundSchema:
-  z.ZodType<
-    ListSettlementRefundResponseSettlementAmount,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
-
-export function listSettlementRefundResponseSettlementAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ListSettlementRefundResponseSettlementAmount,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementRefundResponseSettlementAmount$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ListSettlementRefundResponseSettlementAmount' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListSettlementRefundResponseExternalReference$inboundSchema:
@@ -300,6 +273,33 @@ export function listSettlementRefundResponseLinksFromJSON(
 }
 
 /** @internal */
+export const ListSettlementRefundResponseSettlementAmount$inboundSchema:
+  z.ZodType<
+    ListSettlementRefundResponseSettlementAmount,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    currency: z.string(),
+    value: z.string(),
+  });
+
+export function listSettlementRefundResponseSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListSettlementRefundResponseSettlementAmount,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSettlementRefundResponseSettlementAmount$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListSettlementRefundResponseSettlementAmount' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSettlementRefundResponse$inboundSchema: z.ZodType<
   ListSettlementRefundResponse,
   z.ZodTypeDef,
@@ -310,9 +310,6 @@ export const ListSettlementRefundResponse$inboundSchema: z.ZodType<
   mode: SettlementMode$inboundSchema,
   description: z.string(),
   amount: Amount$inboundSchema,
-  settlementAmount: z.nullable(
-    z.lazy(() => ListSettlementRefundResponseSettlementAmount$inboundSchema),
-  ).optional(),
   metadata: z.nullable(Metadata$inboundSchema),
   paymentId: z.string(),
   settlementId: z.nullable(z.string()).optional(),
@@ -327,6 +324,9 @@ export const ListSettlementRefundResponse$inboundSchema: z.ZodType<
     )),
   ).optional(),
   _links: z.lazy(() => ListSettlementRefundResponseLinks$inboundSchema),
+  settlementAmount: z.nullable(
+    z.lazy(() => ListSettlementRefundResponseSettlementAmount$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
