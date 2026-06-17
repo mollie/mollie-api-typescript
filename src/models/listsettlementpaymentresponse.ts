@@ -7,12 +7,7 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import { RFCDate } from "../types/rfcdate.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
-import {
-  AmountNullable,
-  AmountNullable$inboundSchema,
-} from "./amountnullable.js";
 import {
   CaptureModeResponse,
   CaptureModeResponse$inboundSchema,
@@ -40,45 +35,9 @@ import {
   PaymentAddress$inboundSchema,
 } from "./paymentaddress.js";
 import {
-  PaymentDetailsCardAuditionResponse,
-  PaymentDetailsCardAuditionResponse$inboundSchema,
-} from "./paymentdetailscardauditionresponse.js";
-import {
-  PaymentDetailsCardFundingResponse,
-  PaymentDetailsCardFundingResponse$inboundSchema,
-} from "./paymentdetailscardfundingresponse.js";
-import {
-  PaymentDetailsCardLabelResponse,
-  PaymentDetailsCardLabelResponse$inboundSchema,
-} from "./paymentdetailscardlabelresponse.js";
-import {
-  PaymentDetailsCardSecurityResponse,
-  PaymentDetailsCardSecurityResponse$inboundSchema,
-} from "./paymentdetailscardsecurityresponse.js";
-import {
-  PaymentDetailsFailureReasonResponse,
-  PaymentDetailsFailureReasonResponse$inboundSchema,
-} from "./paymentdetailsfailurereasonresponse.js";
-import {
-  PaymentDetailsFeeRegionResponse,
-  PaymentDetailsFeeRegionResponse$inboundSchema,
-} from "./paymentdetailsfeeregionresponse.js";
-import {
-  PaymentDetailsReceiptCardReadMethodResponse,
-  PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
-} from "./paymentdetailsreceiptcardreadmethodresponse.js";
-import {
-  PaymentDetailsReceiptCardVerificationMethodResponse,
-  PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
-} from "./paymentdetailsreceiptcardverificationmethodresponse.js";
-import {
-  PaymentDetailsSellerProtectionResponse,
-  PaymentDetailsSellerProtectionResponse$inboundSchema,
-} from "./paymentdetailssellerprotectionresponse.js";
-import {
-  PaymentDetailsWalletResponse,
-  PaymentDetailsWalletResponse$inboundSchema,
-} from "./paymentdetailswalletresponse.js";
+  PaymentDetails,
+  PaymentDetails$inboundSchema,
+} from "./paymentdetails.js";
 import {
   PaymentLineTypeResponse,
   PaymentLineTypeResponse$inboundSchema,
@@ -156,25 +115,6 @@ export type ListSettlementPaymentResponseAmountCaptured = {
  * zero.
  */
 export type ListSettlementPaymentResponseAmountChargedBack = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
- * The amount settled to your account for this payment, converted to the currency your account is settled in.
- *
- * @remarks
- *
- * Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
- * Mollie, this field is omitted from the response.
- */
-export type ListSettlementPaymentResponseSettlementAmount = {
   /**
    * A three-character ISO 4217 currency code.
    */
@@ -380,328 +320,6 @@ export type ListSettlementPaymentResponseApplicationFee = {
 };
 
 /**
- * The Point of sale receipt object.
- */
-export type ListSettlementPaymentResponseReceipt = {
-  /**
-   * A unique code provided by the cardholder’s bank to confirm that the transaction was successfully approved.
-   */
-  authorizationCode?: string | null | undefined;
-  /**
-   * The unique number that identifies a specific payment application on a chip card.
-   */
-  applicationIdentifier?: string | null | undefined;
-  /**
-   * The method by which the card was read by the terminal.
-   */
-  cardReadMethod?:
-    | PaymentDetailsReceiptCardReadMethodResponse
-    | null
-    | undefined;
-  /**
-   * The method used to verify the cardholder's identity.
-   */
-  cardVerificationMethod?:
-    | PaymentDetailsReceiptCardVerificationMethodResponse
-    | null
-    | undefined;
-};
-
-/**
- * Optional include. If a QR code was requested during payment creation for a QR-compatible payment method,
- *
- * @remarks
- * the QR code details will be available in this object.
- *
- * The QR code can be scanned by the customer to complete the payment on their mobile device. For example,
- * Bancontact QR payments can be completed by the customer using the Bancontact app.
- */
-export type ListSettlementPaymentResponseQrCode = {
-  /**
-   * The height of the QR code image in pixels.
-   */
-  height?: number | undefined;
-  /**
-   * The width of the QR code image in pixels.
-   */
-  width?: number | undefined;
-  /**
-   * The URL to the QR code image. The image is a PNG file, and can be displayed directly in the browser or
-   *
-   * @remarks
-   * downloaded.
-   */
-  src?: string | undefined;
-};
-
-/**
- * An object containing payment details collected during the payment process. For example, details may include the
- *
- * @remarks
- * customer's card or bank details and a payment reference. For the full list of details, please refer to the
- * [method-specific parameters](extra-payment-parameters) guide.
- */
-export type ListSettlementPaymentResponseDetails = {
-  /**
-   * The customer's name, if made available by the payment method. For card payments, refer to details.cardHolder.
-   */
-  consumerName?: string | null | undefined;
-  /**
-   * The customer's account reference.
-   *
-   * @remarks
-   *
-   * For banking-based payment methods — such as iDEAL — this is normally either an IBAN or a domestic bank account
-   * number.
-   *
-   * For PayPal, the account reference is an email address.
-   *
-   * For card and Bancontact payments, refer to details.cardNumber.
-   */
-  consumerAccount?: string | null | undefined;
-  /**
-   * The BIC of the customer's bank account, if applicable.
-   */
-  consumerBic?: string | null | undefined;
-  /**
-   * For wallet payment methods — such as Apple Pay and PayPal — the shipping address is often already known by the
-   *
-   * @remarks
-   * wallet provider. In these cases the shipping address may be available as a payment detail.
-   */
-  shippingAddress?: { [k: string]: any } | null | undefined;
-  /**
-   * For bancontact, it will be the customer's masked card number. For cards, it will be the last 4-digit of the
-   *
-   * @remarks
-   * PAN. For Point-of-sale, it will be the the last 4 digits of the customer's masked card number.
-   */
-  cardNumber?: string | null | undefined;
-  /**
-   * The name of the bank that the customer will need to make the bank transfer payment towards.
-   */
-  bankName?: string | undefined;
-  /**
-   * The bank account number the customer will need to make the bank transfer payment towards.
-   */
-  bankAccount?: string | undefined;
-  /**
-   * The BIC of the bank the customer will need to make the bank transfer payment towards.
-   */
-  bankBic?: string | undefined;
-  /**
-   * The Mollie-generated reference the customer needs to use when transfering the amount. Do not apply any
-   *
-   * @remarks
-   * formatting here; show it to the customer as-is.
-   */
-  transferReference?: string | null | undefined;
-  /**
-   * A unique fingerprint for a specific card. Can be used to identify returning customers.
-   *
-   * @remarks
-   *
-   * In the case of Point-of-sale payments, it's a unique identifier assigned to a cardholder's payment account,
-   * linking multiple transactions from wallets and physical card to a single account, also across payment methods
-   * or when the card is reissued.
-   */
-  cardFingerprint?: string | null | undefined;
-  /**
-   * The customer's name as shown on their card.
-   */
-  cardHolder?: string | null | undefined;
-  /**
-   * The card's target audience, if known.
-   */
-  cardAudition?: PaymentDetailsCardAuditionResponse | null | undefined;
-  /**
-   * The card's label, if known.
-   */
-  cardLabel?: PaymentDetailsCardLabelResponse | null | undefined;
-  /**
-   * The ISO 3166-1 alpha-2 country code of the country the card was issued in.
-   */
-  cardCountryCode?: string | null | undefined;
-  /**
-   * The expiry date (MM/YY) of the card as displayed on the card.
-   */
-  cardExpiryDate?: string | null | undefined;
-  /**
-   * The card type.
-   */
-  cardFunding?: PaymentDetailsCardFundingResponse | null | undefined;
-  /**
-   * The level of security applied during card processing.
-   */
-  cardSecurity?: PaymentDetailsCardSecurityResponse | null | undefined;
-  /**
-   * The applicable card fee region.
-   */
-  feeRegion?: PaymentDetailsFeeRegionResponse | null | undefined;
-  /**
-   * The first 6 and last 4 digits of the card number.
-   */
-  cardMaskedNumber?: string | null | undefined;
-  /**
-   * The outcome of authentication attempted on transactions enforced by 3DS (ie valid only for oneoff and first).
-   */
-  card3dsEci?: string | null | undefined;
-  /**
-   * The first 6 digit of the card bank identification number.
-   */
-  cardBin?: string | null | undefined;
-  /**
-   * The issuer of the Card.
-   */
-  cardIssuer?: string | null | undefined;
-  /**
-   * A failure code to help understand why the payment failed.
-   */
-  failureReason?: PaymentDetailsFailureReasonResponse | null | undefined;
-  /**
-   * A human-friendly failure message that can be shown to the customer. The message is translated in accordance
-   *
-   * @remarks
-   * with the payment's locale setting.
-   */
-  failureMessage?: string | null | undefined;
-  /**
-   * The wallet used when creating the payment.
-   */
-  wallet?: PaymentDetailsWalletResponse | null | undefined;
-  /**
-   * PayPal's reference for the payment.
-   */
-  paypalReference?: string | null | undefined;
-  /**
-   * ID of the customer's PayPal account.
-   */
-  paypalPayerId?: string | null | undefined;
-  /**
-   * Indicates to what extent the payment is eligible for PayPal's Seller Protection. Only available for PayPal
-   *
-   * @remarks
-   * payments, and if the information is made available by PayPal.
-   */
-  sellerProtection?: PaymentDetailsSellerProtectionResponse | null | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  paypalFee?: AmountNullable | null | undefined;
-  /**
-   * The paysafecard customer reference either provided via the API or otherwise auto-generated by Mollie.
-   */
-  customerReference?: string | undefined;
-  /**
-   * The ID of the terminal device where the payment took place on.
-   */
-  terminalId?: string | undefined;
-  /**
-   * The first 6 digits & last 4 digits of the customer's masked card number.
-   */
-  maskedNumber?: string | null | undefined;
-  /**
-   * The Point of sale receipt object.
-   */
-  receipt?: ListSettlementPaymentResponseReceipt | undefined;
-  /**
-   * The creditor identifier indicates who is authorized to execute the payment. In this case, it is a
-   *
-   * @remarks
-   * reference to Mollie.
-   */
-  creditorIdentifier?: string | null | undefined;
-  /**
-   * Estimated date the payment is debited from the customer's bank account, in YYYY-MM-DD format.
-   */
-  dueDate?: RFCDate | null | undefined;
-  /**
-   * Date the payment has been signed by the customer, in YYYY-MM-DD format. Only available if the payment
-   *
-   * @remarks
-   * has been signed.
-   */
-  signatureDate?: RFCDate | null | undefined;
-  /**
-   * The official reason why this payment has failed. A detailed description of each reason is available on the
-   *
-   * @remarks
-   * website of the European Payments Council.
-   */
-  bankReasonCode?: string | null | undefined;
-  /**
-   * A human-friendly description of the failure reason.
-   */
-  bankReason?: string | null | undefined;
-  /**
-   * The end-to-end identifier you provided in the batch file.
-   */
-  endToEndIdentifier?: string | null | undefined;
-  /**
-   * The mandate reference you provided in the batch file.
-   */
-  mandateReference?: string | null | undefined;
-  /**
-   * The batch reference you provided in the batch file.
-   */
-  batchReference?: string | null | undefined;
-  /**
-   * The file reference you provided in the batch file.
-   */
-  fileReference?: string | null | undefined;
-  /**
-   * Optional include. If a QR code was requested during payment creation for a QR-compatible payment method,
-   *
-   * @remarks
-   * the QR code details will be available in this object.
-   *
-   * The QR code can be scanned by the customer to complete the payment on their mobile device. For example,
-   * Bancontact QR payments can be completed by the customer using the Bancontact app.
-   */
-  qrCode?: ListSettlementPaymentResponseQrCode | undefined;
-  /**
-   * For payments with gift cards: the masked gift card number of the first gift card applied to the payment.
-   */
-  voucherNumber?: string | undefined;
-  /**
-   * An array of detail objects for each gift card that was used on this payment, if any.
-   */
-  giftcards?: Array<{ [k: string]: any }> | undefined;
-  /**
-   * For payments with vouchers: the brand name of the first voucher applied.
-   */
-  issuer?: string | undefined;
-  /**
-   * An array of detail objects for each voucher that was used on this payment, if any.
-   */
-  vouchers?: Array<{ [k: string]: any }> | undefined;
-  /**
-   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
-   */
-  remainderAmount?: Amount | undefined;
-  /**
-   * The payment method used to pay the remainder amount, after all gift cards or vouchers were applied.
-   */
-  remainderMethod?: string | undefined;
-  /**
-   * Optional include. The full payment method details of the remainder payment.
-   */
-  remainderDetails?: { [k: string]: any } | undefined;
-  /**
-   * Multibanco payment reference of the transaction
-   */
-  multibancoReference?: string | null | undefined;
-  /**
-   * Multibanco entity reference of the transaction
-   */
-  multibancoEntity?: string | null | undefined;
-  /**
-   * Bizum payment reference of the transaction
-   */
-  bizumReference?: string | null | undefined;
-};
-
-/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type ListSettlementPaymentResponseLinks = {
@@ -771,6 +389,25 @@ export type ListSettlementPaymentResponseLinks = {
   payOnline?: Url | undefined;
 };
 
+/**
+ * The amount settled to your account for this payment, converted to the currency your account is settled in.
+ *
+ * @remarks
+ *
+ * Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
+ * Mollie, this field is omitted from the response.
+ */
+export type ListSettlementPaymentResponseSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
 export type ListSettlementPaymentResponse = {
   /**
    * Indicates the response contains a payment object. Will always contain the string `payment` for this endpoint.
@@ -830,15 +467,6 @@ export type ListSettlementPaymentResponse = {
   amountChargedBack?:
     | ListSettlementPaymentResponseAmountChargedBack
     | undefined;
-  /**
-   * The amount settled to your account for this payment, converted to the currency your account is settled in.
-   *
-   * @remarks
-   *
-   * Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
-   * Mollie, this field is omitted from the response.
-   */
-  settlementAmount?: ListSettlementPaymentResponseSettlementAmount | undefined;
   /**
    * The URL your customer will be redirected to after the payment process.
    *
@@ -1075,7 +703,7 @@ export type ListSettlementPaymentResponse = {
    * customer's card or bank details and a payment reference. For the full list of details, please refer to the
    * [method-specific parameters](extra-payment-parameters) guide.
    */
-  details?: ListSettlementPaymentResponseDetails | null | undefined;
+  details?: PaymentDetails | null | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -1126,6 +754,15 @@ export type ListSettlementPaymentResponse = {
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links: ListSettlementPaymentResponseLinks;
+  /**
+   * The amount settled to your account for this payment, converted to the currency your account is settled in.
+   *
+   * @remarks
+   *
+   * Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
+   * Mollie, this field is omitted from the response.
+   */
+  settlementAmount?: ListSettlementPaymentResponseSettlementAmount | undefined;
 };
 
 /** @internal */
@@ -1237,33 +874,6 @@ export function listSettlementPaymentResponseAmountChargedBackFromJSON(
 }
 
 /** @internal */
-export const ListSettlementPaymentResponseSettlementAmount$inboundSchema:
-  z.ZodType<
-    ListSettlementPaymentResponseSettlementAmount,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
-
-export function listSettlementPaymentResponseSettlementAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ListSettlementPaymentResponseSettlementAmount,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementPaymentResponseSettlementAmount$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ListSettlementPaymentResponseSettlementAmount' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListSettlementPaymentResponseLine$inboundSchema: z.ZodType<
   ListSettlementPaymentResponseLine,
   z.ZodTypeDef,
@@ -1360,138 +970,6 @@ export function listSettlementPaymentResponseApplicationFeeFromJSON(
 }
 
 /** @internal */
-export const ListSettlementPaymentResponseReceipt$inboundSchema: z.ZodType<
-  ListSettlementPaymentResponseReceipt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authorizationCode: z.nullable(z.string()).optional(),
-  applicationIdentifier: z.nullable(z.string()).optional(),
-  cardReadMethod: z.nullable(
-    PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
-  ).optional(),
-  cardVerificationMethod: z.nullable(
-    PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
-  ).optional(),
-});
-
-export function listSettlementPaymentResponseReceiptFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementPaymentResponseReceipt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementPaymentResponseReceipt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementPaymentResponseReceipt' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListSettlementPaymentResponseQrCode$inboundSchema: z.ZodType<
-  ListSettlementPaymentResponseQrCode,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  height: z.number().int().optional(),
-  width: z.number().int().optional(),
-  src: z.string().optional(),
-});
-
-export function listSettlementPaymentResponseQrCodeFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementPaymentResponseQrCode, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementPaymentResponseQrCode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementPaymentResponseQrCode' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListSettlementPaymentResponseDetails$inboundSchema: z.ZodType<
-  ListSettlementPaymentResponseDetails,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  consumerName: z.nullable(z.string()).optional(),
-  consumerAccount: z.nullable(z.string()).optional(),
-  consumerBic: z.nullable(z.string()).optional(),
-  shippingAddress: z.nullable(z.record(z.any())).optional(),
-  cardNumber: z.nullable(z.string()).optional(),
-  bankName: z.string().optional(),
-  bankAccount: z.string().optional(),
-  bankBic: z.string().optional(),
-  transferReference: z.nullable(z.string()).optional(),
-  cardFingerprint: z.nullable(z.string()).optional(),
-  cardHolder: z.nullable(z.string()).optional(),
-  cardAudition: z.nullable(PaymentDetailsCardAuditionResponse$inboundSchema)
-    .optional(),
-  cardLabel: z.nullable(PaymentDetailsCardLabelResponse$inboundSchema)
-    .optional(),
-  cardCountryCode: z.nullable(z.string()).optional(),
-  cardExpiryDate: z.nullable(z.string()).optional(),
-  cardFunding: z.nullable(PaymentDetailsCardFundingResponse$inboundSchema)
-    .optional(),
-  cardSecurity: z.nullable(PaymentDetailsCardSecurityResponse$inboundSchema)
-    .optional(),
-  feeRegion: z.nullable(PaymentDetailsFeeRegionResponse$inboundSchema)
-    .optional(),
-  cardMaskedNumber: z.nullable(z.string()).optional(),
-  card3dsEci: z.nullable(z.string()).optional(),
-  cardBin: z.nullable(z.string()).optional(),
-  cardIssuer: z.nullable(z.string()).optional(),
-  failureReason: z.nullable(PaymentDetailsFailureReasonResponse$inboundSchema)
-    .optional(),
-  failureMessage: z.nullable(z.string()).optional(),
-  wallet: z.nullable(PaymentDetailsWalletResponse$inboundSchema).optional(),
-  paypalReference: z.nullable(z.string()).optional(),
-  paypalPayerId: z.nullable(z.string()).optional(),
-  sellerProtection: z.nullable(
-    PaymentDetailsSellerProtectionResponse$inboundSchema,
-  ).optional(),
-  paypalFee: z.nullable(AmountNullable$inboundSchema).optional(),
-  customerReference: z.string().optional(),
-  terminalId: z.string().optional(),
-  maskedNumber: z.nullable(z.string()).optional(),
-  receipt: z.lazy(() => ListSettlementPaymentResponseReceipt$inboundSchema)
-    .optional(),
-  creditorIdentifier: z.nullable(z.string()).optional(),
-  dueDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
-  signatureDate: z.nullable(z.string().transform(v => new RFCDate(v)))
-    .optional(),
-  bankReasonCode: z.nullable(z.string()).optional(),
-  bankReason: z.nullable(z.string()).optional(),
-  endToEndIdentifier: z.nullable(z.string()).optional(),
-  mandateReference: z.nullable(z.string()).optional(),
-  batchReference: z.nullable(z.string()).optional(),
-  fileReference: z.nullable(z.string()).optional(),
-  qrCode: z.lazy(() => ListSettlementPaymentResponseQrCode$inboundSchema)
-    .optional(),
-  voucherNumber: z.string().optional(),
-  giftcards: z.array(z.record(z.any())).optional(),
-  issuer: z.string().optional(),
-  vouchers: z.array(z.record(z.any())).optional(),
-  remainderAmount: Amount$inboundSchema.optional(),
-  remainderMethod: z.string().optional(),
-  remainderDetails: z.record(z.any()).optional(),
-  multibancoReference: z.nullable(z.string()).optional(),
-  multibancoEntity: z.nullable(z.string()).optional(),
-  bizumReference: z.nullable(z.string()).optional(),
-});
-
-export function listSettlementPaymentResponseDetailsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementPaymentResponseDetails, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementPaymentResponseDetails$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementPaymentResponseDetails' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListSettlementPaymentResponseLinks$inboundSchema: z.ZodType<
   ListSettlementPaymentResponseLinks,
   z.ZodTypeDef,
@@ -1527,6 +1005,33 @@ export function listSettlementPaymentResponseLinksFromJSON(
 }
 
 /** @internal */
+export const ListSettlementPaymentResponseSettlementAmount$inboundSchema:
+  z.ZodType<
+    ListSettlementPaymentResponseSettlementAmount,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    currency: z.string(),
+    value: z.string(),
+  });
+
+export function listSettlementPaymentResponseSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListSettlementPaymentResponseSettlementAmount,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSettlementPaymentResponseSettlementAmount$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListSettlementPaymentResponseSettlementAmount' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSettlementPaymentResponse$inboundSchema: z.ZodType<
   ListSettlementPaymentResponse,
   z.ZodTypeDef,
@@ -1548,9 +1053,6 @@ export const ListSettlementPaymentResponse$inboundSchema: z.ZodType<
   ).optional(),
   amountChargedBack: z.lazy(() =>
     ListSettlementPaymentResponseAmountChargedBack$inboundSchema
-  ).optional(),
-  settlementAmount: z.lazy(() =>
-    ListSettlementPaymentResponseSettlementAmount$inboundSchema
   ).optional(),
   redirectUrl: z.nullable(z.string()).optional(),
   cancelUrl: z.nullable(z.string()).optional(),
@@ -1585,9 +1087,7 @@ export const ListSettlementPaymentResponse$inboundSchema: z.ZodType<
   status: SettlementPaymentStatus$inboundSchema,
   statusReason: z.nullable(StatusReason$inboundSchema).optional(),
   isCancelable: z.nullable(z.boolean()).optional(),
-  details: z.nullable(
-    z.lazy(() => ListSettlementPaymentResponseDetails$inboundSchema),
-  ).optional(),
+  details: z.nullable(PaymentDetails$inboundSchema).optional(),
   createdAt: z.string(),
   authorizedAt: z.nullable(z.string()).optional(),
   paidAt: z.nullable(z.string()).optional(),
@@ -1596,6 +1096,9 @@ export const ListSettlementPaymentResponse$inboundSchema: z.ZodType<
   expiredAt: z.nullable(z.string()).optional(),
   failedAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => ListSettlementPaymentResponseLinks$inboundSchema),
+  settlementAmount: z.lazy(() =>
+    ListSettlementPaymentResponseSettlementAmount$inboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",

@@ -10,10 +10,62 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-/**
- * A machine-readable code that indicates the reason for the payment's status.
- */
-export const Code = {
+export const StatusReasonVoucherResponse = {
+  ServiceFailed: "service_failed",
+  InvalidOperation: "invalid_operation",
+  AuthorizationError: "authorization_error",
+  LoginFailedWithoutReason: "login_failed_without_reason",
+  InvalidRetailer: "invalid_retailer",
+  ReferToCardIssuer: "refer_to_card_issuer",
+  CardDoesNotExist: "card_does_not_exist",
+  ExpiredCard: "expired_card",
+  CardIsBlocked: "card_is_blocked",
+  InsufficientFunds: "insufficient_funds",
+  InvalidCardId: "invalid_card_id",
+  CardIsTransferred: "card_is_transferred",
+  CardIsNotActive: "card_is_not_active",
+  IncorrectPurchaseValue: "incorrect_purchase_value",
+  CardNotAvailable: "card_not_available",
+  WrongCurrency: "wrong_currency",
+  LoginFailedUnknownUser: "login_failed_unknown_user",
+  LoginFailedInvalidPassword: "login_failed_invalid_password",
+  InvalidPin: "invalid_pin",
+  InvalidEanCode: "invalid_ean_code",
+} as const;
+export type StatusReasonVoucherResponse = OpenEnum<
+  typeof StatusReasonVoucherResponse
+>;
+
+export const StatusReasonTerminalResponse = {
+  TerminalBusy: "terminal_busy",
+  TerminalUnreachable: "terminal_unreachable",
+} as const;
+export type StatusReasonTerminalResponse = OpenEnum<
+  typeof StatusReasonTerminalResponse
+>;
+
+export const StatusReasonMerchantResponse = {
+  MerchantIdNotFound: "merchant_id_not_found",
+  MerchantAccountClosed: "merchant_account_closed",
+  TerminalIdNotFound: "terminal_id_not_found",
+  TerminalClosed: "terminal_closed",
+  InvalidCategoryCode: "invalid_category_code",
+  InvalidCurrency: "invalid_currency",
+  MissingCvv2Cvc2: "missing_cvv2_cvc2",
+  Cvv2NotAllowed: "cvv2_not_allowed",
+  MerchantNotRegisteredVbv: "merchant_not_registered_vbv",
+  MerchantNotRegisteredForAmex: "merchant_not_registered_for_amex",
+  TransactionNotPermittedAtTerminal: "transaction_not_permitted_at_terminal",
+  AgreementTerminalNotRelated: "agreement_terminal_not_related",
+  InvalidProcessorId: "invalid_processor_id",
+  InvalidMerchantData: "invalid_merchant_data",
+  SubMerchantAccountClosed: "sub_merchant_account_closed",
+} as const;
+export type StatusReasonMerchantResponse = OpenEnum<
+  typeof StatusReasonMerchantResponse
+>;
+
+export const StatusReasonCardSchemeResponse = {
   ApprovedOrCompletedSuccessfully: "approved_or_completed_successfully",
   ReferToCardIssuer: "refer_to_card_issuer",
   InvalidMerchant: "invalid_merchant",
@@ -105,46 +157,19 @@ export const Code = {
   UnableToGoOnline: "unable_to_go_online",
   AdditionalCustomerAuthenticationRequired:
     "additional_customer_authentication_required",
-  MerchantIdNotFound: "merchant_id_not_found",
-  MerchantAccountClosed: "merchant_account_closed",
-  TerminalIdNotFound: "terminal_id_not_found",
-  TerminalClosed: "terminal_closed",
-  InvalidCategoryCode: "invalid_category_code",
-  InvalidCurrency: "invalid_currency",
-  MissingCvv2Cvc2: "missing_cvv2_cvc2",
-  Cvv2NotAllowed: "cvv2_not_allowed",
-  MerchantNotRegisteredVbv: "merchant_not_registered_vbv",
-  MerchantNotRegisteredForAmex: "merchant_not_registered_for_amex",
-  TransactionNotPermittedAtTerminal: "transaction_not_permitted_at_terminal",
-  AgreementTerminalNotRelated: "agreement_terminal_not_related",
-  InvalidProcessorId: "invalid_processor_id",
-  InvalidMerchantData: "invalid_merchant_data",
-  SubMerchantAccountClosed: "sub_merchant_account_closed",
-  TerminalBusy: "terminal_busy",
-  TerminalUnreachable: "terminal_unreachable",
-  ServiceFailed: "service_failed",
-  InvalidOperation: "invalid_operation",
-  AuthorizationError: "authorization_error",
-  LoginFailedWithoutReason: "login_failed_without_reason",
-  InvalidRetailer: "invalid_retailer",
-  CardDoesNotExist: "card_does_not_exist",
-  CardIsBlocked: "card_is_blocked",
-  InvalidCardId: "invalid_card_id",
-  CardIsTransferred: "card_is_transferred",
-  CardIsNotActive: "card_is_not_active",
-  IncorrectPurchaseValue: "incorrect_purchase_value",
-  CardNotAvailable: "card_not_available",
-  WrongCurrency: "wrong_currency",
-  LoginFailedUnknownUser: "login_failed_unknown_user",
-  LoginFailedInvalidPassword: "login_failed_invalid_password",
-  InvalidEanCode: "invalid_ean_code",
-  CardError: "card_error",
-  TerminalConfigurationIssue: "terminal_configuration_issue",
 } as const;
+export type StatusReasonCardSchemeResponse = OpenEnum<
+  typeof StatusReasonCardSchemeResponse
+>;
+
 /**
  * A machine-readable code that indicates the reason for the payment's status.
  */
-export type Code = OpenEnum<typeof Code>;
+export type Code =
+  | StatusReasonCardSchemeResponse
+  | StatusReasonMerchantResponse
+  | StatusReasonTerminalResponse
+  | StatusReasonVoucherResponse;
 
 /**
  * This object offers details about the status of a payment. Currently it is only available for point-of-sale
@@ -156,7 +181,11 @@ export type Code = OpenEnum<typeof Code>;
  * [this page](status-reasons).**
  */
 export type StatusReason = {
-  code: Code;
+  code:
+    | StatusReasonCardSchemeResponse
+    | StatusReasonMerchantResponse
+    | StatusReasonTerminalResponse
+    | StatusReasonVoucherResponse;
   /**
    * A description of the status reason, localized according to the payment `locale`.
    */
@@ -164,8 +193,51 @@ export type StatusReason = {
 };
 
 /** @internal */
-export const Code$inboundSchema: z.ZodType<Code, z.ZodTypeDef, unknown> =
-  openEnums.inboundSchema(Code);
+export const StatusReasonVoucherResponse$inboundSchema: z.ZodType<
+  StatusReasonVoucherResponse,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(StatusReasonVoucherResponse);
+
+/** @internal */
+export const StatusReasonTerminalResponse$inboundSchema: z.ZodType<
+  StatusReasonTerminalResponse,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(StatusReasonTerminalResponse);
+
+/** @internal */
+export const StatusReasonMerchantResponse$inboundSchema: z.ZodType<
+  StatusReasonMerchantResponse,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(StatusReasonMerchantResponse);
+
+/** @internal */
+export const StatusReasonCardSchemeResponse$inboundSchema: z.ZodType<
+  StatusReasonCardSchemeResponse,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(StatusReasonCardSchemeResponse);
+
+/** @internal */
+export const Code$inboundSchema: z.ZodType<Code, z.ZodTypeDef, unknown> = z
+  .union([
+    StatusReasonCardSchemeResponse$inboundSchema,
+    StatusReasonMerchantResponse$inboundSchema,
+    StatusReasonTerminalResponse$inboundSchema,
+    StatusReasonVoucherResponse$inboundSchema,
+  ]);
+
+export function codeFromJSON(
+  jsonString: string,
+): SafeParseResult<Code, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Code$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Code' from JSON`,
+  );
+}
 
 /** @internal */
 export const StatusReason$inboundSchema: z.ZodType<
@@ -173,7 +245,12 @@ export const StatusReason$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: Code$inboundSchema,
+  code: z.union([
+    StatusReasonCardSchemeResponse$inboundSchema,
+    StatusReasonMerchantResponse$inboundSchema,
+    StatusReasonTerminalResponse$inboundSchema,
+    StatusReasonVoucherResponse$inboundSchema,
+  ]),
   message: z.string(),
 });
 

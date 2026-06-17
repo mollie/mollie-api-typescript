@@ -20,28 +20,6 @@ import { Url, Url$inboundSchema } from "./url.js";
 import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
- * **Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
- *
- * @remarks
- * the [List balance transactions endpoint](list-balance-transactions) for settlement data.
- *
- * The amount that will be settled to your account for this capture, converted to the currency your account is
- * settled in. Only available once the capture is finalized and the final settlement amount has been determined.
- *
- * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
- */
-export type ListCaptureResponseSettlementAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
  * The capture's status.
  */
 export const ListCaptureResponseStatus = {
@@ -99,18 +77,6 @@ export type ListCaptureResponse = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: AmountNullable | null;
-  /**
-   * **Deprecated.** This field will be removed on January 1st, 2027. Use the [Settlements API](list-settlements) or
-   *
-   * @remarks
-   * the [List balance transactions endpoint](list-balance-transactions) for settlement data.
-   *
-   * The amount that will be settled to your account for this capture, converted to the currency your account is
-   * settled in. Only available once the capture is finalized and the final settlement amount has been determined.
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  settlementAmount?: ListCaptureResponseSettlementAmount | null | undefined;
   status: ListCaptureResponseStatus;
   /**
    * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
@@ -149,27 +115,6 @@ export type ListCaptureResponse = {
    */
   links: ListCaptureResponseLinks;
 };
-
-/** @internal */
-export const ListCaptureResponseSettlementAmount$inboundSchema: z.ZodType<
-  ListCaptureResponseSettlementAmount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
-
-export function listCaptureResponseSettlementAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<ListCaptureResponseSettlementAmount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListCaptureResponseSettlementAmount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListCaptureResponseSettlementAmount' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListCaptureResponseStatus$inboundSchema: z.ZodType<
@@ -211,9 +156,6 @@ export const ListCaptureResponse$inboundSchema: z.ZodType<
   mode: Mode$inboundSchema,
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$inboundSchema),
-  settlementAmount: z.nullable(
-    z.lazy(() => ListCaptureResponseSettlementAmount$inboundSchema),
-  ).optional(),
   status: ListCaptureResponseStatus$inboundSchema,
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   paymentId: z.string(),

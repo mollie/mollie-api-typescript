@@ -18,10 +18,6 @@ let value: ListSettlementChargebacksResponseBody = {
           currency: "EUR",
           value: "10.00",
         },
-        settlementAmount: {
-          currency: "EUR",
-          value: "10.00",
-        },
         reason: {
           code: "AC01",
           description: "Account identifier incorrect (i.e. invalid IBAN)",
@@ -45,6 +41,10 @@ let value: ListSettlementChargebacksResponseBody = {
           },
         },
         mode: "live",
+        settlementAmount: {
+          currency: "EUR",
+          value: "10.00",
+        },
       },
     ],
   },

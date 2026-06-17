@@ -19,11 +19,7 @@ let value: ListSettlementRefundsResponse = {
             currency: "EUR",
             value: "10.00",
           },
-          settlementAmount: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          metadata: "<value>",
+          metadata: {},
           paymentId: "tr_5B8cwPMGnU",
           settlementId: "stl_5B8cwPMGnU",
           status: "refunded",
@@ -46,6 +42,10 @@ let value: ListSettlementRefundsResponse = {
               href: "https://...",
               type: "application/hal+json",
             },
+          },
+          settlementAmount: {
+            currency: "EUR",
+            value: "10.00",
           },
         },
       ],

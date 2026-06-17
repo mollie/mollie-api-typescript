@@ -25,20 +25,6 @@ import { Url, Url$inboundSchema } from "./url.js";
 import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
- * The amount settled to your account for this capture, converted to the currency your account is settled in.
- */
-export type ListSettlementCaptureResponseSettlementAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
  * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
  */
 export type ListSettlementCaptureResponseLinks = {
@@ -58,6 +44,20 @@ export type ListSettlementCaptureResponseLinks = {
    * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
    */
   shipment?: UrlNullable | null | undefined;
+};
+
+/**
+ * The amount settled to your account for this capture, converted to the currency your account is settled in.
+ */
+export type ListSettlementCaptureResponseSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
 };
 
 export type ListSettlementCaptureResponse = {
@@ -81,13 +81,6 @@ export type ListSettlementCaptureResponse = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: AmountNullable | null;
-  /**
-   * The amount settled to your account for this capture, converted to the currency your account is settled in.
-   */
-  settlementAmount?:
-    | ListSettlementCaptureResponseSettlementAmount
-    | null
-    | undefined;
   /**
    * The capture's status. Settlement captures always have a status of `succeeded`.
    */
@@ -128,7 +121,37 @@ export type ListSettlementCaptureResponse = {
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links: ListSettlementCaptureResponseLinks;
+  /**
+   * The amount settled to your account for this capture, converted to the currency your account is settled in.
+   */
+  settlementAmount?:
+    | ListSettlementCaptureResponseSettlementAmount
+    | null
+    | undefined;
 };
+
+/** @internal */
+export const ListSettlementCaptureResponseLinks$inboundSchema: z.ZodType<
+  ListSettlementCaptureResponseLinks,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  self: Url$inboundSchema,
+  payment: Url$inboundSchema,
+  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
+  shipment: z.nullable(UrlNullable$inboundSchema).optional(),
+});
+
+export function listSettlementCaptureResponseLinksFromJSON(
+  jsonString: string,
+): SafeParseResult<ListSettlementCaptureResponseLinks, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSettlementCaptureResponseLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListSettlementCaptureResponseLinks' from JSON`,
+  );
+}
 
 /** @internal */
 export const ListSettlementCaptureResponseSettlementAmount$inboundSchema:
@@ -158,29 +181,6 @@ export function listSettlementCaptureResponseSettlementAmountFromJSON(
 }
 
 /** @internal */
-export const ListSettlementCaptureResponseLinks$inboundSchema: z.ZodType<
-  ListSettlementCaptureResponseLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: Url$inboundSchema,
-  payment: Url$inboundSchema,
-  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
-  shipment: z.nullable(UrlNullable$inboundSchema).optional(),
-});
-
-export function listSettlementCaptureResponseLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<ListSettlementCaptureResponseLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementCaptureResponseLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListSettlementCaptureResponseLinks' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListSettlementCaptureResponse$inboundSchema: z.ZodType<
   ListSettlementCaptureResponse,
   z.ZodTypeDef,
@@ -191,9 +191,6 @@ export const ListSettlementCaptureResponse$inboundSchema: z.ZodType<
   mode: SettlementMode$inboundSchema,
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$inboundSchema),
-  settlementAmount: z.nullable(
-    z.lazy(() => ListSettlementCaptureResponseSettlementAmount$inboundSchema),
-  ).optional(),
   status: SettlementCaptureStatus$inboundSchema,
   metadata: z.nullable(Metadata$inboundSchema).optional(),
   paymentId: z.string(),
@@ -201,6 +198,9 @@ export const ListSettlementCaptureResponse$inboundSchema: z.ZodType<
   settlementId: z.nullable(z.string()).optional(),
   createdAt: z.string(),
   _links: z.lazy(() => ListSettlementCaptureResponseLinks$inboundSchema),
+  settlementAmount: z.nullable(
+    z.lazy(() => ListSettlementCaptureResponseSettlementAmount$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",

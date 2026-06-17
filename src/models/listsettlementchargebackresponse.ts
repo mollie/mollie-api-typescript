@@ -17,23 +17,6 @@ import { Url, Url$inboundSchema } from "./url.js";
 import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
 
 /**
- * The amount deducted from your account balance for this chargeback, converted to the currency your account is
- *
- * @remarks
- * settled in. Always a **negative** amount.
- */
-export type ListSettlementChargebackResponseSettlementAmount = {
-  /**
-   * A three-character ISO 4217 currency code.
-   */
-  currency: string;
-  /**
-   * A string containing an exact monetary amount in the given currency.
-   */
-  value: string;
-};
-
-/**
  * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
  */
 export type ListSettlementChargebackResponseReason = {
@@ -65,6 +48,23 @@ export type ListSettlementChargebackResponseLinks = {
   settlement?: UrlNullable | null | undefined;
 };
 
+/**
+ * The amount deducted from your account balance for this chargeback, converted to the currency your account is
+ *
+ * @remarks
+ * settled in. Always a **negative** amount.
+ */
+export type ListSettlementChargebackResponseSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
 export type ListSettlementChargebackResponse = {
   /**
    * Indicates the response contains a chargeback object. Will always contain the string `chargeback` for this
@@ -81,16 +81,6 @@ export type ListSettlementChargebackResponse = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: Amount;
-  /**
-   * The amount deducted from your account balance for this chargeback, converted to the currency your account is
-   *
-   * @remarks
-   * settled in. Always a **negative** amount.
-   */
-  settlementAmount?:
-    | ListSettlementChargebackResponseSettlementAmount
-    | null
-    | undefined;
   /**
    * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
    */
@@ -128,34 +118,17 @@ export type ListSettlementChargebackResponse = {
    * Whether this entity was created in live mode or in test mode. Settlements are always in live mode.
    */
   mode?: SettlementMode | undefined;
+  /**
+   * The amount deducted from your account balance for this chargeback, converted to the currency your account is
+   *
+   * @remarks
+   * settled in. Always a **negative** amount.
+   */
+  settlementAmount?:
+    | ListSettlementChargebackResponseSettlementAmount
+    | null
+    | undefined;
 };
-
-/** @internal */
-export const ListSettlementChargebackResponseSettlementAmount$inboundSchema:
-  z.ZodType<
-    ListSettlementChargebackResponseSettlementAmount,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
-
-export function listSettlementChargebackResponseSettlementAmountFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ListSettlementChargebackResponseSettlementAmount,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListSettlementChargebackResponseSettlementAmount$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ListSettlementChargebackResponseSettlementAmount' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListSettlementChargebackResponseReason$inboundSchema: z.ZodType<
@@ -201,6 +174,33 @@ export function listSettlementChargebackResponseLinksFromJSON(
 }
 
 /** @internal */
+export const ListSettlementChargebackResponseSettlementAmount$inboundSchema:
+  z.ZodType<
+    ListSettlementChargebackResponseSettlementAmount,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    currency: z.string(),
+    value: z.string(),
+  });
+
+export function listSettlementChargebackResponseSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ListSettlementChargebackResponseSettlementAmount,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ListSettlementChargebackResponseSettlementAmount$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ListSettlementChargebackResponseSettlementAmount' from JSON`,
+  );
+}
+
+/** @internal */
 export const ListSettlementChargebackResponse$inboundSchema: z.ZodType<
   ListSettlementChargebackResponse,
   z.ZodTypeDef,
@@ -209,11 +209,6 @@ export const ListSettlementChargebackResponse$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   amount: Amount$inboundSchema,
-  settlementAmount: z.nullable(
-    z.lazy(() =>
-      ListSettlementChargebackResponseSettlementAmount$inboundSchema
-    ),
-  ).optional(),
   reason: z.nullable(
     z.lazy(() => ListSettlementChargebackResponseReason$inboundSchema),
   ).optional(),
@@ -223,6 +218,11 @@ export const ListSettlementChargebackResponse$inboundSchema: z.ZodType<
   reversedAt: z.nullable(z.string()).optional(),
   _links: z.lazy(() => ListSettlementChargebackResponseLinks$inboundSchema),
   mode: SettlementMode$inboundSchema.optional(),
+  settlementAmount: z.nullable(
+    z.lazy(() =>
+      ListSettlementChargebackResponseSettlementAmount$inboundSchema
+    ),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "_links": "links",
