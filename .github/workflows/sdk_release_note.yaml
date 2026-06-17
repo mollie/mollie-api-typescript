@@ -25,21 +25,18 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           SHA="${{ inputs.commit_sha || github.sha }}"
           PREV_TAG=$(git tag --sort=-version:refname | grep -E '^v[0-9]' | grep -v "^v${VERSION}$" | head -1)
-          {
-            echo "diff<<EOF"
-            if [ -n "$PREV_TAG" ]; then
-              git diff ${PREV_TAG} ${SHA} -- src/
-            else
-              git diff ${SHA}~1 ${SHA} -- src/
-            fi
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+          if [ -n "$PREV_TAG" ]; then
+            git diff ${PREV_TAG} ${SHA} -- src/ > "$RUNNER_TEMP/sdk.diff"
+          else
+            git diff ${SHA}~1 ${SHA} -- src/ > "$RUNNER_TEMP/sdk.diff"
+          fi
+          echo "diff_file=$RUNNER_TEMP/sdk.diff" >> $GITHUB_OUTPUT
 
       - name: Summarise with Claude
         id: summary
         uses: mollie/mollie-api-release-note-generator@main
         with:
-          diff: ${{ steps.info.outputs.diff }}
+          diff_file: ${{ steps.info.outputs.diff_file }}
 
       - name: Send Discord notification
         env:
