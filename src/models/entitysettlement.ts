@@ -197,9 +197,6 @@ export type EntitySettlement = {
    */
   settledAt?: string | null | undefined;
   status: EntitySettlementStatus;
-  /**
-   * The total amount of the settlement.
-   */
   amount: EntitySettlementAmount;
   /**
    * The balance token that the settlement was settled to.

@@ -214,9 +214,6 @@ export type EntityMethodGet = {
    * If a `locale` parameter is provided, the name is translated to the given locale if possible.
    */
   description: string;
-  /**
-   * The minimum payment amount required to use this payment method.
-   */
   minimumAmount: EntityMethodGetMinimumAmount;
   /**
    * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null`

@@ -442,28 +442,9 @@ export type ListSettlementPaymentResponse = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: Amount;
-  /**
-   * The total amount that is already refunded. Only available when refunds are available for this payment. For some
-   *
-   * @remarks
-   * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
-   * costs for a return shipment to the customer.
-   */
   amountRefunded?: ListSettlementPaymentResponseAmountRefunded | undefined;
-  /**
-   * The remaining amount that can be refunded. Only available when refunds are available for this payment.
-   */
   amountRemaining?: ListSettlementPaymentResponseAmountRemaining | undefined;
-  /**
-   * The total amount that is already captured for this payment. Only available when this payment supports captures.
-   */
   amountCaptured?: ListSettlementPaymentResponseAmountCaptured | undefined;
-  /**
-   * The total amount that was charged back for this payment. Only available when the total charged back amount is not
-   *
-   * @remarks
-   * zero.
-   */
   amountChargedBack?:
     | ListSettlementPaymentResponseAmountChargedBack
     | undefined;
@@ -754,14 +735,6 @@ export type ListSettlementPaymentResponse = {
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
   links: ListSettlementPaymentResponseLinks;
-  /**
-   * The amount settled to your account for this payment, converted to the currency your account is settled in.
-   *
-   * @remarks
-   *
-   * Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
-   * Mollie, this field is omitted from the response.
-   */
   settlementAmount?: ListSettlementPaymentResponseSettlementAmount | undefined;
 };
 

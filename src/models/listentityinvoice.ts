@@ -127,21 +127,8 @@ export type ListEntityInvoice = {
    */
   vatNumber: string | null;
   status: ListEntityInvoiceStatus;
-  /**
-   * Total amount of the invoice, excluding VAT.
-   */
   netAmount: ListEntityInvoiceNetAmount;
-  /**
-   * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
-   *
-   * @remarks
-   * be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
-   * the EU, no VAT will be charged.
-   */
   vatAmount: ListEntityInvoiceVatAmount;
-  /**
-   * Total amount of the invoice, including VAT.
-   */
   grossAmount: ListEntityInvoiceGrossAmount;
   /**
    * The collection of products which make up the invoice.

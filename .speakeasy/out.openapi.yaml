@@ -28575,10 +28575,10 @@ components:
         transferThreshold:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
-            this threshold, the complete balance will be paid out to the transfer destination according to the configured
-            frequency.
+            - description: |-
+                The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
+                this threshold, the complete balance will be paid out to the transfer destination according to the configured
+                frequency.
           readOnly: true
         transferReference:
           type:
@@ -28609,14 +28609,14 @@ components:
         availableAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The amount directly available on the balance, e.g. `{"currency":"EUR", "value":"100.00"}`.
+            - description: The amount directly available on the balance, e.g. `{"currency":"EUR", "value":"100.00"}`.
           readOnly: true
         pendingAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
-            few days to clear.
+            - description: |-
+                The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+                few days to clear.
           readOnly: true
         _links:
           type: object
@@ -29818,7 +29818,7 @@ components:
         amount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount of the settlement.
+            - description: The total amount of the settlement.
           readOnly: true
         balanceId:
           allOf:
@@ -31471,27 +31471,27 @@ components:
         amountRefunded:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that is already refunded. Only available when refunds are available for this payment. For some
-            payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
-            costs for a return shipment to the customer.
+            - description: |-
+                The total amount that is already refunded. Only available when refunds are available for this payment. For some
+                payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+                costs for a return shipment to the customer.
           readOnly: true
         amountRemaining:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
+            - description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
           readOnly: true
         amountCaptured:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount that is already captured for this payment. Only available when this payment supports captures.
+            - description: The total amount that is already captured for this payment. Only available when this payment supports captures.
           readOnly: true
         amountChargedBack:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that was charged back for this payment. Only available when the total charged back amount is not
-            zero.
+            - description: |-
+                The total amount that was charged back for this payment. Only available when the total charged back amount is not
+                zero.
           readOnly: true
         redirectUrl:
           type:
@@ -32023,11 +32023,11 @@ components:
             settlementAmount:
               allOf:
                 - $ref: '#/components/schemas/amount'
-              description: |-
-                The amount settled to your account for this payment, converted to the currency your account is settled in.
+                - description: |-
+                    The amount settled to your account for this payment, converted to the currency your account is settled in.
 
-                Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
-                Mollie, this field is omitted from the response.
+                    Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
+                    Mollie, this field is omitted from the response.
               readOnly: true
     capture-status:
       type: string
@@ -32515,20 +32515,20 @@ components:
         netAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: Total amount of the invoice, excluding VAT.
+            - description: Total amount of the invoice, excluding VAT.
           readOnly: true
         vatAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
-            be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
-            the EU, no VAT will be charged.
+            - description: |-
+                VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
+                be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
+                the EU, no VAT will be charged.
           readOnly: true
         grossAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: Total amount of the invoice, including VAT.
+            - description: Total amount of the invoice, including VAT.
           readOnly: true
         lines:
           type: array
@@ -34350,27 +34350,27 @@ components:
         amountDue:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The amount that is left to be paid.
+            - description: The amount that is left to be paid.
           readOnly: true
         subtotalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT before discounts.
+            - description: The total amount without VAT before discounts.
           readOnly: true
         totalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount with VAT.
+            - description: The total amount with VAT.
           readOnly: true
         totalVatAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total VAT amount.
+            - description: The total VAT amount.
           readOnly: true
         discountedSubtotalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT after discounts.
+            - description: The total amount without VAT after discounts.
           readOnly: true
         createdAt:
           type: string
@@ -35869,7 +35869,7 @@ components:
         minimumAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The minimum payment amount required to use this payment method.
+            - description: The minimum payment amount required to use this payment method.
           readOnly: true
         maximumAmount:
           allOf:
@@ -37769,10 +37769,10 @@ components:
         transferThreshold:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
-            this threshold, the complete balance will be paid out to the transfer destination according to the configured
-            frequency.
+            - description: |-
+                The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
+                this threshold, the complete balance will be paid out to the transfer destination according to the configured
+                frequency.
           readOnly: true
         transferReference:
           type:
@@ -37803,14 +37803,14 @@ components:
         availableAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The amount directly available on the balance, e.g. `{"currency":"EUR", "value":"100.00"}`.
+            - description: The amount directly available on the balance, e.g. `{"currency":"EUR", "value":"100.00"}`.
           readOnly: true
         pendingAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
-            few days to clear.
+            - description: |-
+                The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
+                few days to clear.
           readOnly: true
         _links:
           type: object
@@ -37868,7 +37868,7 @@ components:
         amount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount of the settlement.
+            - description: The total amount of the settlement.
           readOnly: true
         balanceId:
           allOf:
@@ -38056,27 +38056,27 @@ components:
         amountRefunded:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that is already refunded. Only available when refunds are available for this payment. For some
-            payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
-            costs for a return shipment to the customer.
+            - description: |-
+                The total amount that is already refunded. Only available when refunds are available for this payment. For some
+                payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+                costs for a return shipment to the customer.
           readOnly: true
         amountRemaining:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
+            - description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
           readOnly: true
         amountCaptured:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount that is already captured for this payment. Only available when this payment supports captures.
+            - description: The total amount that is already captured for this payment. Only available when this payment supports captures.
           readOnly: true
         amountChargedBack:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that was charged back for this payment. Only available when the total charged back amount is not
-            zero.
+            - description: |-
+                The total amount that was charged back for this payment. Only available when the total charged back amount is not
+                zero.
           readOnly: true
         redirectUrl:
           type:
@@ -38590,11 +38590,11 @@ components:
             settlementAmount:
               allOf:
                 - $ref: '#/components/schemas/amount'
-              description: |-
-                The amount settled to your account for this payment, converted to the currency your account is settled in.
+                - description: |-
+                    The amount settled to your account for this payment, converted to the currency your account is settled in.
 
-                Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
-                Mollie, this field is omitted from the response.
+                    Amounts not settled by Mollie are not reflected here (e.g. PayPal or gift cards). If no amount is settled by
+                    Mollie, this field is omitted from the response.
               readOnly: true
     list-entity-capture:
       type: object
@@ -39010,20 +39010,20 @@ components:
         netAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: Total amount of the invoice, excluding VAT.
+            - description: Total amount of the invoice, excluding VAT.
           readOnly: true
         vatAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
-            be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
-            the EU, no VAT will be charged.
+            - description: |-
+                VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will
+                be shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside
+                the EU, no VAT will be charged.
           readOnly: true
         grossAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: Total amount of the invoice, including VAT.
+            - description: Total amount of the invoice, including VAT.
           readOnly: true
         lines:
           type: array
@@ -39548,7 +39548,7 @@ components:
         minimumAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The minimum payment amount required to use this payment method.
+            - description: The minimum payment amount required to use this payment method.
           readOnly: true
         maximumAmount:
           allOf:
@@ -40420,27 +40420,27 @@ components:
         amountDue:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The amount that is left to be paid.
+            - description: The amount that is left to be paid.
           readOnly: true
         subtotalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT before discounts.
+            - description: The total amount without VAT before discounts.
           readOnly: true
         totalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount with VAT.
+            - description: The total amount with VAT.
           readOnly: true
         totalVatAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total VAT amount.
+            - description: The total VAT amount.
           readOnly: true
         discountedSubtotalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT after discounts.
+            - description: The total amount without VAT after discounts.
           readOnly: true
         createdAt:
           type: string
@@ -40653,27 +40653,27 @@ components:
         amountRefunded:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that is already refunded. Only available when refunds are available for this payment. For some
-            payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
-            costs for a return shipment to the customer.
+            - description: |-
+                The total amount that is already refunded. Only available when refunds are available for this payment. For some
+                payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
+                costs for a return shipment to the customer.
           readOnly: true
         amountRemaining:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
+            - description: The remaining amount that can be refunded. Only available when refunds are available for this payment.
           readOnly: true
         amountCaptured:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount that is already captured for this payment. Only available when this payment supports captures.
+            - description: The total amount that is already captured for this payment. Only available when this payment supports captures.
           readOnly: true
         amountChargedBack:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: |-
-            The total amount that was charged back for this payment. Only available when the total charged back amount is not
-            zero.
+            - description: |-
+                The total amount that was charged back for this payment. Only available when the total charged back amount is not
+                zero.
           readOnly: true
         redirectUrl:
           type:
@@ -42780,27 +42780,27 @@ components:
         amountDue:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The amount that is left to be paid.
+            - description: The amount that is left to be paid.
           readOnly: true
         subtotalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT before discounts.
+            - description: The total amount without VAT before discounts.
           readOnly: true
         totalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount with VAT.
+            - description: The total amount with VAT.
           readOnly: true
         totalVatAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total VAT amount.
+            - description: The total VAT amount.
           readOnly: true
         discountedSubtotalAmount:
           allOf:
             - $ref: '#/components/schemas/amount'
-          description: The total amount without VAT after discounts.
+            - description: The total amount without VAT after discounts.
           readOnly: true
         createdAt:
           type: string
