@@ -270,25 +270,10 @@ export type SalesInvoiceResponse = {
    * the recipient is also located in one of these countries.
    */
   isEInvoice?: boolean | undefined;
-  /**
-   * The amount that is left to be paid.
-   */
   amountDue?: SalesInvoiceResponseAmountDue | undefined;
-  /**
-   * The total amount without VAT before discounts.
-   */
   subtotalAmount?: SalesInvoiceResponseSubtotalAmount | undefined;
-  /**
-   * The total amount with VAT.
-   */
   totalAmount?: SalesInvoiceResponseTotalAmount | undefined;
-  /**
-   * The total VAT amount.
-   */
   totalVatAmount?: SalesInvoiceResponseTotalVatAmount | undefined;
-  /**
-   * The total amount without VAT after discounts.
-   */
   discountedSubtotalAmount?:
     | SalesInvoiceResponseDiscountedSubtotalAmount
     | undefined;

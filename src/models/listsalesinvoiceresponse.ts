@@ -266,25 +266,10 @@ export type ListSalesInvoiceResponse = {
    * the recipient is also located in one of these countries.
    */
   isEInvoice?: boolean | undefined;
-  /**
-   * The amount that is left to be paid.
-   */
   amountDue?: ListSalesInvoiceResponseAmountDue | undefined;
-  /**
-   * The total amount without VAT before discounts.
-   */
   subtotalAmount?: ListSalesInvoiceResponseSubtotalAmount | undefined;
-  /**
-   * The total amount with VAT.
-   */
   totalAmount?: ListSalesInvoiceResponseTotalAmount | undefined;
-  /**
-   * The total VAT amount.
-   */
   totalVatAmount?: ListSalesInvoiceResponseTotalVatAmount | undefined;
-  /**
-   * The total amount without VAT after discounts.
-   */
   discountedSubtotalAmount?:
     | ListSalesInvoiceResponseDiscountedSubtotalAmount
     | undefined;

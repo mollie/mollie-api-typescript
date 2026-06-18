@@ -445,28 +445,9 @@ export type PaymentResponse = {
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
   amount: Amount;
-  /**
-   * The total amount that is already refunded. Only available when refunds are available for this payment. For some
-   *
-   * @remarks
-   * payment methods, this amount may be higher than the payment amount, for example to allow reimbursement of the
-   * costs for a return shipment to the customer.
-   */
   amountRefunded?: PaymentResponseAmountRefunded | undefined;
-  /**
-   * The remaining amount that can be refunded. Only available when refunds are available for this payment.
-   */
   amountRemaining?: PaymentResponseAmountRemaining | undefined;
-  /**
-   * The total amount that is already captured for this payment. Only available when this payment supports captures.
-   */
   amountCaptured?: PaymentResponseAmountCaptured | undefined;
-  /**
-   * The total amount that was charged back for this payment. Only available when the total charged back amount is not
-   *
-   * @remarks
-   * zero.
-   */
   amountChargedBack?: PaymentResponseAmountChargedBack | undefined;
   /**
    * The URL your customer will be redirected to after the payment process.

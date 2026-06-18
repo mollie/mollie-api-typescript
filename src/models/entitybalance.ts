@@ -198,13 +198,6 @@ export type EntityBalance = {
   description: string;
   status: EntityBalanceStatus;
   transferFrequency?: EntityBalanceTransferFrequency | undefined;
-  /**
-   * The minimum amount configured for scheduled automatic settlements. As soon as the amount on the balance exceeds
-   *
-   * @remarks
-   * this threshold, the complete balance will be paid out to the transfer destination according to the configured
-   * frequency.
-   */
   transferThreshold?: EntityBalanceTransferThreshold | undefined;
   /**
    * The transfer reference set to be included in all the transfers for this balance.
@@ -217,16 +210,7 @@ export type EntityBalance = {
    * transfer frequency.
    */
   transferDestination?: EntityBalanceTransferDestination | null | undefined;
-  /**
-   * The amount directly available on the balance, e.g. `{"currency":"EUR", "value":"100.00"}`.
-   */
   availableAmount: EntityBalanceAvailableAmount;
-  /**
-   * The total amount that is queued to be transferred to your balance. For example, a credit card payment can take a
-   *
-   * @remarks
-   * few days to clear.
-   */
   pendingAmount: EntityBalancePendingAmount;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
