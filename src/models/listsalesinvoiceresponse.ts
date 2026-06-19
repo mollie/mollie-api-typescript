@@ -14,6 +14,10 @@ import {
   SalesInvoiceDiscountResponse$inboundSchema,
 } from "./salesinvoicediscountresponse.js";
 import {
+  SalesInvoiceEInvoiceStatus,
+  SalesInvoiceEInvoiceStatus$inboundSchema,
+} from "./salesinvoiceeinvoicestatus.js";
+import {
   SalesInvoiceEmailDetails,
   SalesInvoiceEmailDetails$inboundSchema,
 } from "./salesinvoiceemaildetails.js";
@@ -188,6 +192,10 @@ export type ListSalesInvoiceResponse = {
    *   - `emailDetails` optional for `issued` and `paid` to send the invoice by email
    */
   status?: SalesInvoiceStatusResponse | undefined;
+  /**
+   * The e-invoice submission status for the invoice, if it was configured to be an e-invoice.
+   */
+  eInvoiceStatus?: SalesInvoiceEInvoiceStatus | undefined;
   /**
    * The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
    */
@@ -449,6 +457,7 @@ export const ListSalesInvoiceResponse$inboundSchema: z.ZodType<
   invoiceNumber: z.nullable(z.string()).optional(),
   profileId: z.nullable(z.string()).optional(),
   status: SalesInvoiceStatusResponse$inboundSchema.optional(),
+  eInvoiceStatus: SalesInvoiceEInvoiceStatus$inboundSchema.optional(),
   vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
   vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
   memo: z.nullable(z.string()).optional(),
