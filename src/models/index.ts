@@ -163,6 +163,7 @@ export * from "./salesinvoicediscount.js";
 export * from "./salesinvoicediscountresponse.js";
 export * from "./salesinvoicediscounttype.js";
 export * from "./salesinvoicediscounttyperesponse.js";
+export * from "./salesinvoiceeinvoicestatus.js";
 export * from "./salesinvoiceemaildetails.js";
 export * from "./salesinvoicelineitem.js";
 export * from "./salesinvoicelineitemresponse.js";

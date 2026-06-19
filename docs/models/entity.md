@@ -120,6 +120,7 @@ const value: models.SalesInvoiceResponse = {
   invoiceNumber: "INV-0000001",
   profileId: "pfl_QkEhN94Ba",
   status: "draft",
+  eInvoiceStatus: "issuing",
   vatScheme: "standard",
   vatMode: "exclusive",
   memo: "This is a memo!",

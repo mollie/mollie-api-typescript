@@ -34003,6 +34003,16 @@ components:
         - issued
         - paid
       example: draft
+    sales-invoice-e-invoice-status:
+      type: string
+      description: The e-invoice submission status for the invoice, if it was configured to be an e-invoice.
+      readOnly: true
+      enum:
+        - issuing
+        - issued
+        - failed
+      example: issuing
+      x-speakeasy-unknown-values: allow
     sales-invoice-vat-scheme:
       type: string
       description: The VAT scheme to create the invoice for. You must be enrolled with One Stop Shop enabled to use it.
@@ -34271,6 +34281,8 @@ components:
           example: pfl_QkEhN94Ba
         status:
           $ref: '#/components/schemas/sales-invoice-status'
+        eInvoiceStatus:
+          $ref: '#/components/schemas/sales-invoice-e-invoice-status'
         vatScheme:
           $ref: '#/components/schemas/sales-invoice-vat-scheme'
         vatMode:
@@ -40341,6 +40353,8 @@ components:
           example: pfl_QkEhN94Ba
         status:
           $ref: '#/components/schemas/sales-invoice-status-response'
+        eInvoiceStatus:
+          $ref: '#/components/schemas/sales-invoice-e-invoice-status'
         vatScheme:
           $ref: '#/components/schemas/sales-invoice-vat-scheme-response'
         vatMode:
@@ -42701,6 +42715,8 @@ components:
           example: pfl_QkEhN94Ba
         status:
           $ref: '#/components/schemas/sales-invoice-status-response'
+        eInvoiceStatus:
+          $ref: '#/components/schemas/sales-invoice-e-invoice-status'
         vatScheme:
           $ref: '#/components/schemas/sales-invoice-vat-scheme-response'
         vatMode:
