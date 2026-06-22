@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: b0753ee21ada70995c85d206c2bcaf06
+  docChecksum: 4aa9ead5f71f139d745557290350f31e
   docVersion: 1.0.0
   speakeasyVersion: 1.784.0
   generationVersion: 2.911.0
-  releaseVersion: 1.12.5
-  configChecksum: 7ca56823c19b8de4bf769d542f41fde7
+  releaseVersion: 1.12.6
+  configChecksum: 0f51e438c862b94b0c9a8795732b18ce
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 79a1cae5-2e5d-4a13-b6b8-a59d02c984f2
-  pristine_commit_hash: a62536db5888b109f72293dfcb65085f1bb5efc4
-  pristine_tree_hash: 18f96a267bf6770e487d9b167471b64fb7eabfde
+  generation_id: f8c1c608-a535-4f79-9b18-4fc2d0b11413
+  pristine_commit_hash: ac26c6cae299c155893df8736c538cef2073ff7e
+  pristine_tree_hash: 6df15f2c41ffe6e6b91bc904640b0c4e27fc4133
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -698,8 +698,8 @@ trackedFiles:
     pristine_git_object: 110debd370ba56d92b73826c4446f0818ff6088a
   docs/models/entitywebhook.md:
     id: 361d48680953
-    last_write_checksum: sha1:3e40adc2281123e5ca10a802157085d944effc0e
-    pristine_git_object: 6e03b0c2839831479a2040e42ebf3a9fc48670d2
+    last_write_checksum: sha1:0853ac86b69990c80cb35578a0c88cdbea4727d7
+    pristine_git_object: 04c7d146466800dd056dcfd004022aadb65b5c1b
   docs/models/entitywebhookevent.md:
     id: 4608ce0972bf
     last_write_checksum: sha1:6e6b1d20d3044fd4de265c72b7a6a010552a2a53
@@ -710,8 +710,8 @@ trackedFiles:
     pristine_git_object: 5217d72c8c509180ef7b7fdc37675be98fc57522
   docs/models/entitywebhookeventwebhookeventtypes.md:
     id: 197b04a2a12d
-    last_write_checksum: sha1:d19bd5c110c0e1ce0664a4ad929081f775980205
-    pristine_git_object: 1eb8f3c333a28398f7d74b56ce7a9e7b6ce9890a
+    last_write_checksum: sha1:be0797d1cb22fe01f951be94ff1b44073524bdc6
+    pristine_git_object: a74c5b684bd8dcca4748654cc18fc6a5db4d2ef2
   docs/models/entitywebhooklinks.md:
     id: 604767b2d528
     last_write_checksum: sha1:d0d70e5a81669eae30e83c7d0238625aeaf60079
@@ -2446,8 +2446,8 @@ trackedFiles:
     pristine_git_object: 90c4905720ea4aac42370f47c29d8fb1cd070d22
   docs/models/operations/listwebhooksembedded.md:
     id: b9954be1eb4f
-    last_write_checksum: sha1:60da78e198df3cfc9a26b68bfed7d939684720f0
-    pristine_git_object: 72d2fd214332f4ad5795d04c83f7ca2387ddca0d
+    last_write_checksum: sha1:3cdb4ca565c09aea4ca5ca097f2bb65a8fa7dd01
+    pristine_git_object: ac11871f961f35a9698aaf4acfb404e7661edab3
   docs/models/operations/listwebhooksglobals.md:
     id: ec97c0ab3cb7
     last_write_checksum: sha1:03bd7473b1a6c3dae16c0adfb92e20c317d2c39b
@@ -3462,8 +3462,8 @@ trackedFiles:
     pristine_git_object: 587643e60d7d180d749035f2836b081846ae5c97
   docs/models/webhookeventtypes.md:
     id: 9f3a891e62d0
-    last_write_checksum: sha1:e13848e4d928a6c0433fb745a9146b29bc635dcc
-    pristine_git_object: 522d0c0f4b8a21e3531f324a2637bf3ef51023c9
+    last_write_checksum: sha1:2e0d537ff5086c14a7acdedd7f3d7199a03a940e
+    pristine_git_object: 6f64047a8f6ad16962247bca82bd6800486e7563
   docs/models/webhookstatus.md:
     id: 68d3b89180be
     last_write_checksum: sha1:a630589a089fac56e988fbfc73db108091cb200c
@@ -3626,12 +3626,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:38add03bf4603caede6b629db1e69357418e3362
-    pristine_git_object: 89166ae11942cf76c20e9a4f035ca21e697fe1b3
+    last_write_checksum: sha1:fbeafb107c9374854e502037ae2ae42e5a843056
+    pristine_git_object: 9f1a5d0fd6cda094dc2edf4e1cadeebccddeb53e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:77f8c85daba63465599c761677d38cc10b5a030a
-    pristine_git_object: 9cea7cba94c045f1bbb084274a6031c68d77a056
+    last_write_checksum: sha1:f543da6bed19160ec07cff33092229777c6baf1c
+    pristine_git_object: 96036d56ab8d3f3a30da23b803b871afe8cca85b
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4138,8 +4138,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:4988adbf42127a2c38e5dc3208d952b719dca212
-    pristine_git_object: 8d172f5f6c126167d1063e5b5ba67d8da26dfd84
+    last_write_checksum: sha1:6f22cc1fe91b1de04b037b5575fb12043fb5682a
+    pristine_git_object: 489dc9ee6f5e5ed089c393b0007399051ff285e1
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a74725064d06b6994b95873c037975d2f2e63467
@@ -5077,8 +5077,8 @@ trackedFiles:
     pristine_git_object: 6aab142e8c984bf939fa09cc222ea833b6a27650
   src/models/entitywebhookevent.ts:
     id: a5f0d7ee2012
-    last_write_checksum: sha1:bd8d39da25de20b520567f1f5921722544083864
-    pristine_git_object: b26a3ff9168956ea84f97d2734e1e8aead0a627f
+    last_write_checksum: sha1:f18a3e303f26c4a4f637e3086db7b72a94f6689c
+    pristine_git_object: f65170c36704a860344c38fd4a0a46fcd1d74357
   src/models/errorresponse.ts:
     id: 55a21b891851
     last_write_checksum: sha1:764857bf667325dc5049ab5527bc372a2b8e2858
@@ -6233,8 +6233,8 @@ trackedFiles:
     pristine_git_object: 44aa8181a384f5b810c6630c7ed9c3a1b3c619a1
   src/models/webhookeventtypes.ts:
     id: 30a0f0667a6f
-    last_write_checksum: sha1:5b78657f72bb29ffd984defa5310906724dac24b
-    pristine_git_object: 2dda7227f4a5f196d595c44d5d4d267aef6ac029
+    last_write_checksum: sha1:766856cd3e0a2d248b0753c3923bb489308e4dd4
+    pristine_git_object: b3b3903e05787011ebc2dcbf210a1b946b19c317
   src/models/webhookstatus.ts:
     id: 6c9f7f890791
     last_write_checksum: sha1:1dff0ad624159d1f21c770cc777d539c34197b91
@@ -10688,13 +10688,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `client.webhookEvents.get()`:  `response.Embedded.entity.union(sales-invoice-response).eInvoiceStatus` **Added**
-  * `client.salesInvoices.create()`:  `response.eInvoiceStatus` **Added**
-  * `client.salesInvoices.list()`:  `response.Embedded.salesInvoices[].eInvoiceStatus` **Added**
-  * `client.salesInvoices.get()`:  `response.eInvoiceStatus` **Added**
-  * `client.salesInvoices.update()`:  `response.eInvoiceStatus` **Added**
+releaseNotes: "## Typescript SDK Changes:\n* `client.webhooks.create()`: \n  *  `request.requestBody.eventTypes.union(Array<webhook-event-types>)[]` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.list()`: \n  *  `request.eventTypes` **Changed**\n  *  `response.Embedded.webhooks[].eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.update()`: \n  *  `request.requestBody.eventTypes.union(webhook-event-types)` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.get()`:  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhookEvents.get()`:  `response.webhookEventTypes` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
