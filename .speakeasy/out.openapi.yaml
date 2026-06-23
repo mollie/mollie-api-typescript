@@ -11700,7 +11700,7 @@ paths:
                 metadata:
                   $ref: '#/components/schemas/metadata'
                 method:
-                  $ref: '#/components/schemas/method'
+                  $ref: '#/components/schemas/method-request'
                 locale:
                   $ref: '#/components/schemas/locale'
                 dueDate:
@@ -27854,8 +27854,6 @@ paths:
         - apiKey: []
         - advancedAccessToken:
             - payouts.write
-        - oAuth:
-            - payouts.write
       description: |-
         Request a payout from one of your balances to the balance's configured bank account.
 
@@ -28013,8 +28011,6 @@ paths:
         - apiKey: []
         - advancedAccessToken:
             - payouts.read
-        - oAuth:
-            - payouts.read
       description: |-
         Retrieve a list of all payouts for your organization, including payouts initiated automatically by the
         balance's payout schedule and payouts requested via the API or dashboard.
@@ -28123,8 +28119,6 @@ paths:
         - apiKey: []
         - advancedAccessToken:
             - payouts.read
-        - oAuth:
-            - payouts.read
       description: Retrieve a single payout by its ID.
       parameters:
         - $ref: '#/components/parameters/testmode'
@@ -28193,8 +28187,6 @@ paths:
       security:
         - apiKey: []
         - advancedAccessToken:
-            - payouts.write
-        - oAuth:
             - payouts.write
       description: |-
         Cancel a payout. A payout can only be canceled while it has the status `requested`. Once the payout moves
@@ -30232,54 +30224,6 @@ components:
         - lt_LT
         - 'null'
       example: en_US
-    method:
-      type:
-        - string
-        - 'null'
-      description: |-
-        Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
-        method and your customer will skip the selection screen and is sent directly to the chosen payment method. The
-        parameter enables you to fully integrate the payment method selection into your website.
-
-        You can also specify the methods in an array. By doing so we will still show the payment method selection screen
-        but will only show the methods specified in the array. For example, you can use this functionality to only show
-        payment methods from a specific country to your customer `['bancontact', 'belfius']`.
-      example: ideal
-      enum:
-        - alma
-        - applepay
-        - bacs
-        - bancomatpay
-        - bancontact
-        - banktransfer
-        - belfius
-        - billie
-        - bizum
-        - blik
-        - creditcard
-        - directdebit
-        - eps
-        - giftcard
-        - ideal
-        - in3
-        - kbc
-        - klarna
-        - mbway
-        - mobilepay
-        - multibanco
-        - mybank
-        - paybybank
-        - paypal
-        - paysafecard
-        - pointofsale
-        - przelewy24
-        - riverty
-        - satispay
-        - swish
-        - trustly
-        - twint
-        - vipps
-        - voucher
     metadata:
       oneOf:
         - type: string
@@ -31603,8 +31547,7 @@ components:
           minLength: 2
           maxLength: 2
           readOnly: true
-        method:
-          $ref: '#/components/schemas/method'
+        method: {}
         issuer:
           type:
             - string
@@ -31973,6 +31916,46 @@ components:
               x-methodSpecific: true
               x-method: bank-transfer
           readOnly: true
+    method:
+      type:
+        - string
+        - 'null'
+      example: ideal
+      enum:
+        - alma
+        - applepay
+        - bacs
+        - bancomatpay
+        - bancontact
+        - banktransfer
+        - belfius
+        - billie
+        - bizum
+        - blik
+        - creditcard
+        - directdebit
+        - eps
+        - giftcard
+        - ideal
+        - in3
+        - kbc
+        - klarna
+        - mbway
+        - mobilepay
+        - multibanco
+        - mybank
+        - paybybank
+        - paypal
+        - paysafecard
+        - pointofsale
+        - przelewy24
+        - riverty
+        - satispay
+        - swish
+        - trustly
+        - twint
+        - vipps
+        - voucher
     payment-response:
       allOf:
         - $ref: '#/components/schemas/entity-payment-response'
@@ -35127,6 +35110,14 @@ components:
         - type: object
           properties:
             method:
+              description: |-
+                Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific
+                payment method and your customer will skip the selection screen and is sent directly to the chosen payment
+                method. The parameter enables you to fully integrate the payment method selection into your website.
+
+                You can also specify the methods in an array. By doing so we will still show the payment method selection
+                screen but will only show the methods specified in the array. For example, you can use this functionality
+                to only show payment methods from a specific country to your customer `['bancontact', 'belfius']`.
               oneOf:
                 - $ref: '#/components/schemas/method'
                 - type: array
@@ -35185,6 +35176,20 @@ components:
         webhook during development on `localhost`, you must use a tool like ngrok to have the webhooks delivered to your
         local machine.
       example: https://example.org/webhooks
+    method-request:
+      description: |-
+        Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
+        method and your customer will skip the selection screen and is sent directly to the chosen payment method. The
+        parameter enables you to fully integrate the payment method selection into your website.
+
+        You can also specify the methods in an array. By doing so we will still show the payment method selection screen
+        but will only show the methods specified in the array. For example, you can use this functionality to only show
+        payment methods from a specific country to your customer `['bancontact', 'belfius']`.
+      oneOf:
+        - $ref: '#/components/schemas/method'
+        - type: array
+          items:
+            $ref: '#/components/schemas/method'
     dueDate:
       type: string
       description: The date by which the payment should be completed in `YYYY-MM-DD` format
@@ -38204,8 +38209,7 @@ components:
           minLength: 2
           maxLength: 2
           readOnly: true
-        method:
-          $ref: '#/components/schemas/method-response'
+        method: {}
         issuer:
           type:
             - string
@@ -40803,8 +40807,7 @@ components:
           minLength: 2
           maxLength: 2
           readOnly: true
-        method:
-          $ref: '#/components/schemas/method-response'
+        method: {}
         issuer:
           type:
             - string
@@ -41318,64 +41321,6 @@ components:
         - lt_LT
         - 'null'
       example: en_US
-      x-speakeasy-unknown-values: allow
-    method-response:
-      type:
-        - string
-        - 'null'
-      description: |-
-        Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment
-        method and your customer will skip the selection screen and is sent directly to the chosen payment method. The
-        parameter enables you to fully integrate the payment method selection into your website.
-
-        You can also specify the methods in an array. By doing so we will still show the payment method selection screen
-        but will only show the methods specified in the array. For example, you can use this functionality to only show
-        payment methods from a specific country to your customer `['bancontact', 'belfius']`.
-      example: ideal
-      enum:
-        - alma
-        - applepay
-        - bacs
-        - bancomatpay
-        - bancontact
-        - banktransfer
-        - belfius
-        - billie
-        - bizum
-        - blik
-        - creditcard
-        - directdebit
-        - eps
-        - giftcard
-        - ideal
-        - in3
-        - kbc
-        - klarna
-        - mbway
-        - mobilepay
-        - multibanco
-        - mybank
-        - paybybank
-        - paypal
-        - paysafecard
-        - pointofsale
-        - przelewy24
-        - riverty
-        - satispay
-        - swish
-        - trustly
-        - twint
-        - vipps
-        - voucher
-        - klarnapaylater
-        - klarnapaynow
-        - klarnasliceit
-        - payconiq
-      x-speakeasy-enum-descriptions:
-        klarnapaylater: Deprecated, use 'klarna' instead
-        klarnapaynow: Deprecated, use 'klarna' instead
-        klarnasliceit: Deprecated, use 'klarna' instead
-        payconiq: No longer available
       x-speakeasy-unknown-values: allow
     capture-mode-response:
       type:
@@ -41931,6 +41876,56 @@ components:
         - none
         - failed
       example: no-cvm-required
+      x-speakeasy-unknown-values: allow
+    method-response:
+      type:
+        - string
+        - 'null'
+      example: ideal
+      enum:
+        - alma
+        - applepay
+        - bacs
+        - bancomatpay
+        - bancontact
+        - banktransfer
+        - belfius
+        - billie
+        - bizum
+        - blik
+        - creditcard
+        - directdebit
+        - eps
+        - giftcard
+        - ideal
+        - in3
+        - kbc
+        - klarna
+        - mbway
+        - mobilepay
+        - multibanco
+        - mybank
+        - paybybank
+        - paypal
+        - paysafecard
+        - pointofsale
+        - przelewy24
+        - riverty
+        - satispay
+        - swish
+        - trustly
+        - twint
+        - vipps
+        - voucher
+        - klarnapaylater
+        - klarnapaynow
+        - klarnasliceit
+        - payconiq
+      x-speakeasy-enum-descriptions:
+        klarnapaylater: Deprecated, use 'klarna' instead
+        klarnapaynow: Deprecated, use 'klarna' instead
+        klarnasliceit: Deprecated, use 'klarna' instead
+        payconiq: No longer available
       x-speakeasy-unknown-values: allow
     entity-capture-response:
       type: object

@@ -206,6 +206,17 @@ export type PaymentRequestBillingAddress = {
   country?: string | undefined;
 };
 
+/**
+ * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific
+ *
+ * @remarks
+ * payment method and your customer will skip the selection screen and is sent directly to the chosen payment
+ * method. The parameter enables you to fully integrate the payment method selection into your website.
+ *
+ * You can also specify the methods in an array. By doing so we will still show the payment method selection
+ * screen but will only show the methods specified in the array. For example, you can use this functionality
+ * to only show payment methods from a specific country to your customer `['bancontact', 'belfius']`.
+ */
 export type Method = MethodEnum | Array<MethodEnum | null>;
 
 /**
@@ -344,6 +355,17 @@ export type PaymentRequest = {
    * Sets the language for customer-facing content and communications.
    */
   locale?: Locale | null | undefined;
+  /**
+   * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific
+   *
+   * @remarks
+   * payment method and your customer will skip the selection screen and is sent directly to the chosen payment
+   * method. The parameter enables you to fully integrate the payment method selection into your website.
+   *
+   * You can also specify the methods in an array. By doing so we will still show the payment method selection
+   * screen but will only show the methods specified in the array. For example, you can use this functionality
+   * to only show payment methods from a specific country to your customer `['bancontact', 'belfius']`.
+   */
   method?: MethodEnum | Array<MethodEnum | null> | null | undefined;
   /**
    * **Only relevant for iDEAL, KBC/CBC, gift card, and voucher payments.**

@@ -75,7 +75,7 @@ export type UpdatePaymentRequestBody = {
    * but will only show the methods specified in the array. For example, you can use this functionality to only show
    * payment methods from a specific country to your customer `['bancontact', 'belfius']`.
    */
-  method?: models.MethodEnum | null | undefined;
+  method?: models.MethodRequest | null | undefined;
   /**
    * Sets the language for customer-facing content and communications.
    */
@@ -162,7 +162,7 @@ export type UpdatePaymentRequestBody$Outbound = {
   cancelUrl?: string | null | undefined;
   webhookUrl?: string | null | undefined;
   metadata?: models.Metadata$Outbound | null | undefined;
-  method?: string | null | undefined;
+  method?: models.MethodRequest$Outbound | null | undefined;
   locale?: string | null | undefined;
   dueDate?: string | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
@@ -184,7 +184,7 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
   metadata: z.nullable(models.Metadata$outboundSchema).optional(),
-  method: z.nullable(models.MethodEnum$outboundSchema).optional(),
+  method: z.nullable(models.MethodRequest$outboundSchema).optional(),
   locale: z.nullable(models.Locale$outboundSchema).optional(),
   dueDate: z.string().optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
