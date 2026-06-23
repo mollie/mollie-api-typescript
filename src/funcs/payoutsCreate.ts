@@ -69,7 +69,7 @@ import { Result } from "../types/fp.js";
  * - One of the organization's balances is below the negative balance threshold.
  * - The payout destination (bank account) is invalid or not configured.
  *
- * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.
+ * If set, this operation will use either {@link Security.apiKey} or {@link Security.advancedAccessToken} from the global security.
  */
 export function payoutsCreate(
   client: ClientCore,
@@ -141,7 +141,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1, 2]);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1]);
 
   const context = {
     options: client._options,

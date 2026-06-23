@@ -111,6 +111,7 @@ export * from "./mandatescopes.js";
 export * from "./metadata.js";
 export * from "./methodenum.js";
 export * from "./methodincludewalletsparameter.js";
+export * from "./methodrequest.js";
 export * from "./methodresourceparameter.js";
 export * from "./methodresponse.js";
 export * from "./methodstatus.js";
