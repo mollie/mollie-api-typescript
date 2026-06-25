@@ -14,10 +14,7 @@ let value: EntityRefundResponse = {
     currency: "EUR",
     value: "10.00",
   },
-  metadata: {
-    "0": "<value 1>",
-    "1": "<value 2>",
-  },
+  metadata: "<value>",
   paymentId: "tr_5B8cwPMGnU",
   settlementId: "stl_5B8cwPMGnU",
   status: "queued",

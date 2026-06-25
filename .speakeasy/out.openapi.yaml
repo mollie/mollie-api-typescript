@@ -31957,20 +31957,20 @@ components:
         - vipps
         - voucher
     payment-response:
+      type: object
+      required:
+        - resource
+        - id
+        - mode
+        - createdAt
+        - amount
+        - description
+        - status
+        - profileId
+        - sequenceType
+        - _links
       allOf:
         - $ref: '#/components/schemas/entity-payment-response'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-            - createdAt
-            - amount
-            - description
-            - status
-            - profileId
-            - sequenceType
-            - _links
         - type: object
           properties:
             method:
@@ -33308,6 +33308,18 @@ components:
         that require explicit selection.
       x-speakeasy-name-override: webhook-event-types
       enum:
+        - payment.paid
+        - payment.authorized
+        - payment.failed
+        - payment.canceled
+        - payment.expired
+        - payment.pending
+        - refund.queued
+        - refund.pending
+        - refund.processing
+        - refund.refunded
+        - refund.failed
+        - refund.canceled
         - payment-link.paid
         - balance-transaction.created
         - payout.initiated
@@ -33330,6 +33342,18 @@ components:
         - business-account-transfer.returned
         - '*'
       x-enumDescriptions:
+        payment.paid: A payment has been completed successfully.
+        payment.authorized: A payment has been authorized and is awaiting capture.
+        payment.failed: A payment attempt failed.
+        payment.canceled: A payment was canceled before it could be completed.
+        payment.expired: A payment expired before it was completed.
+        payment.pending: A payment is awaiting confirmation from the bank.
+        refund.queued: A refund has been accepted and is queued for processing.
+        refund.pending: A refund is pending and awaiting bank confirmation.
+        refund.processing: A refund is being processed by the bank.
+        refund.refunded: A refund has been transferred to your customer.
+        refund.failed: A refund could not be completed.
+        refund.canceled: A refund was canceled before processing.
         payment-link.paid: Occurs when a payment link has been paid.
         balance-transaction.created: Occurs when a balance transaction is created to add to your available balance. It currently only supports positive amounts and non-captured payments.
         payout.initiated: The payout is being executed and funds are reserved on the balance.
@@ -34757,6 +34781,10 @@ components:
           properties:
             entity:
               oneOf:
+                - title: payment.*
+                  $ref: '#/components/schemas/payment-response'
+                - title: refund.*
+                  $ref: '#/components/schemas/entity-refund-response'
                 - title: payment-link.*
                   $ref: '#/components/schemas/payment-link-response'
                 - title: payout.*
@@ -38577,20 +38605,20 @@ components:
               x-method: bank-transfer
           readOnly: true
     list-payment-response:
+      type: object
+      required:
+        - resource
+        - id
+        - mode
+        - createdAt
+        - amount
+        - description
+        - status
+        - profileId
+        - sequenceType
+        - _links
       allOf:
         - $ref: '#/components/schemas/list-entity-payment'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-            - createdAt
-            - amount
-            - description
-            - status
-            - profileId
-            - sequenceType
-            - _links
         - type: object
           properties:
             method:
@@ -42487,6 +42515,18 @@ components:
         that require explicit selection.
       x-speakeasy-name-override: webhook-event-types
       enum:
+        - payment.paid
+        - payment.authorized
+        - payment.failed
+        - payment.canceled
+        - payment.expired
+        - payment.pending
+        - refund.queued
+        - refund.pending
+        - refund.processing
+        - refund.refunded
+        - refund.failed
+        - refund.canceled
         - payment-link.paid
         - balance-transaction.created
         - payout.initiated
@@ -42509,6 +42549,18 @@ components:
         - business-account-transfer.returned
         - '*'
       x-enumDescriptions:
+        payment.paid: A payment has been completed successfully.
+        payment.authorized: A payment has been authorized and is awaiting capture.
+        payment.failed: A payment attempt failed.
+        payment.canceled: A payment was canceled before it could be completed.
+        payment.expired: A payment expired before it was completed.
+        payment.pending: A payment is awaiting confirmation from the bank.
+        refund.queued: A refund has been accepted and is queued for processing.
+        refund.pending: A refund is pending and awaiting bank confirmation.
+        refund.processing: A refund is being processed by the bank.
+        refund.refunded: A refund has been transferred to your customer.
+        refund.failed: A refund could not be completed.
+        refund.canceled: A refund was canceled before processing.
         payment-link.paid: Occurs when a payment link has been paid.
         balance-transaction.created: Occurs when a balance transaction is created to add to your available balance. It currently only supports positive amounts and non-captured payments.
         payout.initiated: The payout is being executed and funds are reserved on the balance.

@@ -13,113 +13,30 @@ let value: EntityWebhookEvent = {
   createdAt: "2024-06-10T14:23:45+00:00",
   embedded: {
     entity: {
-      resource: "sales-invoice",
-      id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
-      mode: "live",
-      invoiceNumber: "INV-0000001",
-      profileId: "pfl_QkEhN94Ba",
-      status: "draft",
-      eInvoiceStatus: "issuing",
-      vatScheme: "standard",
-      vatMode: "exclusive",
-      memo: "This is a memo!",
-      paymentTerm: "30 days",
-      paymentDetails: [
-        {
-          source: "payment-link",
-          sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
-        },
-      ],
-      emailDetails: {
-        subject: "Your invoice is available",
-        body: "Please find your invoice enclosed.",
-      },
-      customerId: "cst_8wmqcHMN4U",
-      mandateId: "mdt_pWUnw6pkBN",
-      recipientIdentifier: "customer-xyz-0123",
-      recipient: {
-        type: "consumer",
-        title: "Mrs.",
-        givenName: "Jane",
-        familyName: "Doe",
-        organizationName: "Organization Corp.",
-        organizationNumber: "12345678",
-        vatNumber: "NL123456789B01",
-        email: "example@email.com",
-        phone: "+0123456789",
-        streetAndNumber: "Keizersgracht 126",
-        streetAdditional: "4th floor",
-        postalCode: "5678AB",
-        city: "Amsterdam",
-        region: "Noord-Holland",
-        country: "NL",
-      },
-      lines: [
-        {
-          description: "LEGO 4440 Forest Police Station",
-          quantity: 1,
-          vatRate: "21.00",
-          unitPrice: {
-            currency: "EUR",
-            value: "10.00",
-          },
-          discount: {
-            type: "amount",
-            value: "10.00",
-          },
-        },
-      ],
-      discount: {
-        type: "amount",
-        value: "10.00",
-      },
-      isEInvoice: false,
-      amountDue: {
+      resource: "payout",
+      id: "payout_j8NvRAM2WNZtsykpLEX8J",
+      balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
+      amount: {
         currency: "EUR",
         value: "10.00",
       },
-      subtotalAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      totalAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      totalVatAmount: {
-        currency: "EUR",
-        value: "10.00",
-      },
-      discountedSubtotalAmount: {
-        currency: "EUR",
-        value: "10.00",
+      description: "My payout description",
+      status: "requested",
+      statusReason: {
+        code: "requested",
+        message: "The payout has been requested.",
       },
       createdAt: "2024-03-20T09:13:37+00:00",
-      issuedAt: "2024-10-03T10:47:38+00:00",
-      paidAt: "2024-10-04T10:47:38+00:00",
-      dueAt: "2024-11-01T10:47:38+00:00",
+      initiatedAt: "2024-03-20T09:13:40+00:00",
+      completedAt: "2024-03-20T14:00:00+00:00",
+      canceledAt: null,
+      mode: "live",
       links: {
         self: {
           href: "https://...",
           type: "application/hal+json",
         },
-        invoicePayment: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
-        pdfLink: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
         documentation: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
-        next: {
-          href: "https://...",
-          type: "application/hal+json",
-        },
-        previous: {
           href: "https://...",
           type: "application/hal+json",
         },
