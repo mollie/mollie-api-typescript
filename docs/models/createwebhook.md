@@ -13,7 +13,7 @@ let value: CreateWebhook = {
   createdAt: "2023-01-01T12:00:00+00:00",
   name: "Profile Updates Webhook",
   eventTypes: [
-    "balance-transaction.created",
+    "payment.canceled",
   ],
   status: "enabled",
   mode: "live",

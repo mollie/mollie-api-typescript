@@ -13,11 +13,19 @@ import {
   EntityPayoutResponse,
   EntityPayoutResponse$inboundSchema,
 } from "./entitypayoutresponse.js";
+import {
+  EntityRefundResponse,
+  EntityRefundResponse$inboundSchema,
+} from "./entityrefundresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentLinkResponse,
   PaymentLinkResponse$inboundSchema,
 } from "./paymentlinkresponse.js";
+import {
+  PaymentResponse,
+  PaymentResponse$inboundSchema,
+} from "./paymentresponse.js";
 import {
   SalesInvoiceResponse,
   SalesInvoiceResponse$inboundSchema,
@@ -35,6 +43,18 @@ import { Url, Url$inboundSchema } from "./url.js";
  * that require explicit selection.
  */
 export const EntityWebhookEventWebhookEventTypes = {
+  PaymentPaid: "payment.paid",
+  PaymentAuthorized: "payment.authorized",
+  PaymentFailed: "payment.failed",
+  PaymentCanceled: "payment.canceled",
+  PaymentExpired: "payment.expired",
+  PaymentPending: "payment.pending",
+  RefundQueued: "refund.queued",
+  RefundPending: "refund.pending",
+  RefundProcessing: "refund.processing",
+  RefundRefunded: "refund.refunded",
+  RefundFailed: "refund.failed",
+  RefundCanceled: "refund.canceled",
   PaymentLinkPaid: "payment-link.paid",
   BalanceTransactionCreated: "balance-transaction.created",
   PayoutInitiated: "payout.initiated",
@@ -71,6 +91,8 @@ export type EntityWebhookEventWebhookEventTypes = OpenEnum<
 export type Entity =
   | PaymentLinkResponse
   | TransferResponse
+  | PaymentResponse
+  | EntityRefundResponse
   | EntityPayoutResponse
   | SalesInvoiceResponse;
 
@@ -81,6 +103,8 @@ export type Embedded = {
   entity?:
     | PaymentLinkResponse
     | TransferResponse
+    | PaymentResponse
+    | EntityRefundResponse
     | EntityPayoutResponse
     | SalesInvoiceResponse
     | undefined;
@@ -144,6 +168,8 @@ export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
   .union([
     PaymentLinkResponse$inboundSchema,
     TransferResponse$inboundSchema,
+    PaymentResponse$inboundSchema,
+    EntityRefundResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     SalesInvoiceResponse$inboundSchema,
   ]);
@@ -167,6 +193,8 @@ export const Embedded$inboundSchema: z.ZodType<
   entity: z.union([
     PaymentLinkResponse$inboundSchema,
     TransferResponse$inboundSchema,
+    PaymentResponse$inboundSchema,
+    EntityRefundResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     SalesInvoiceResponse$inboundSchema,
   ]).optional(),

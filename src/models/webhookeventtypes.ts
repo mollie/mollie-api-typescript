@@ -13,6 +13,18 @@ import { ClosedEnum } from "../types/enums.js";
  * that require explicit selection.
  */
 export const WebhookEventTypes = {
+  PaymentPaid: "payment.paid",
+  PaymentAuthorized: "payment.authorized",
+  PaymentFailed: "payment.failed",
+  PaymentCanceled: "payment.canceled",
+  PaymentExpired: "payment.expired",
+  PaymentPending: "payment.pending",
+  RefundQueued: "refund.queued",
+  RefundPending: "refund.pending",
+  RefundProcessing: "refund.processing",
+  RefundRefunded: "refund.refunded",
+  RefundFailed: "refund.failed",
+  RefundCanceled: "refund.canceled",
   PaymentLinkPaid: "payment-link.paid",
   BalanceTransactionCreated: "balance-transaction.created",
   PayoutInitiated: "payout.initiated",
