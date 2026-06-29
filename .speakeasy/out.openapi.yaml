@@ -19354,17 +19354,6 @@ paths:
             - customers.read
       description: Retrieve a single customer by its ID.
       parameters:
-        - $ref: '#/components/parameters/include'
-          description: This endpoint allows you to include additional information via the `include` query string parameter.
-          schema:
-            type:
-              - string
-              - 'null'
-            enum:
-              - events
-            x-enumDescriptions:
-              events: Include the events that the customer is associated with.
-            example: events
         - $ref: '#/components/parameters/testmode'
         - $ref: '#/components/parameters/idempotency-key'
       responses:
@@ -19373,14 +19362,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/customer-response'
-                  - properties:
-                      events:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/entity-event'
-                        readOnly: true
+                $ref: '#/components/schemas/customer-response'
               examples:
                 get-customer-200-1:
                   $ref: '#/components/examples/get-customer'
@@ -36674,31 +36656,6 @@ components:
             - metadata
             - createdAt
             - _links
-    entity-event:
-      type: object
-      required:
-        - resource
-        - type
-        - createdAt
-        - message
-      properties:
-        resource:
-          type: string
-          example: event
-        type:
-          type: integer
-          example: 200
-        createdAt:
-          $ref: '#/components/schemas/created-at'
-        message:
-          type: string
-          example: Customer created
-        _links:
-          type: object
-          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-          properties:
-            url:
-              $ref: '#/components/schemas/url'
     mandate-scopes:
       type: string
       description: |-

@@ -217,7 +217,6 @@ const client = new Client({
 async function run() {
   const result = await client.customers.get({
     customerId: "cst_5B8cwPMGnU",
-    include: "events",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
 
@@ -247,7 +246,6 @@ const client = new ClientCore({
 async function run() {
   const res = await customersGet(client, {
     customerId: "cst_5B8cwPMGnU",
-    include: "events",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
   if (res.ok) {
@@ -272,7 +270,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCustomerResponse](../../models/operations/getcustomerresponse.md)\>**
+**Promise\<[models.CustomerResponse](../../models/customerresponse.md)\>**
 
 ### Errors
 

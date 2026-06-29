@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 881fddcc4175df3513c14383a24c21b9
+  docChecksum: 23700694c312ffad17b0b23bfa813b4a
   docVersion: 1.0.0
-  speakeasyVersion: 1.785.0
-  generationVersion: 2.912.1
-  releaseVersion: 1.12.8
-  configChecksum: 6ee9947169b7b80715980194ff503c04
+  speakeasyVersion: 1.786.1
+  generationVersion: 2.913.3
+  releaseVersion: 1.12.9
+  configChecksum: cd1e20b27feebe8c43cd402768673557
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 5f4c3b3f-b1a1-4b8f-87f5-697df20779bc
-  pristine_commit_hash: 3e002d33b7a0ab83a54b61bcbb5248b5f2b897c8
-  pristine_tree_hash: 6899d37681a79d001888cb4fb5d33362050f8ef6
+  generation_id: 8072c2bb-14dc-469c-bea3-1eb6bc272d03
+  pristine_commit_hash: 7fc658581a7cc17fbdbc6830b725f02d9c3ffc9e
+  pristine_tree_hash: 7adc5f999c8e7c521bf53c080d385ae82c4f99fc
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -452,14 +452,6 @@ trackedFiles:
     id: 388bbc5399a9
     last_write_checksum: sha1:667b08c662d8fa7dc764ba862ff881258bc82919
     pristine_git_object: 180edaf39e5240fc8a66a1414ac6b901ee0af8d7
-  docs/models/entityevent.md:
-    id: 6c2dc543bf6b
-    last_write_checksum: sha1:2011dd992cb467d436652d554ad49d7c10f64e60
-    pristine_git_object: b9659bf9f7e6e07febda4caf1d8990a5505fae40
-  docs/models/entityeventlinks.md:
-    id: d0535043597d
-    last_write_checksum: sha1:60d735e7cb6b9c15a9efffa1842cd2ab0ed3b2a7
-    pristine_git_object: 8b601bf98bd389d6db3d2275ec1967120d8fb92f
   docs/models/entityinvoice.md:
     id: 7f80794812d3
     last_write_checksum: sha1:9bea9dc5ee0d421560a6b8ea7f2ff79879fe59a8
@@ -1600,18 +1592,10 @@ trackedFiles:
     id: 0e8081eef895
     last_write_checksum: sha1:3b6f6930cb1570cebc27ab5d50bc9492d7af2578
     pristine_git_object: 45705bb957965c545e15dd1ff8dd89fbf892ec44
-  docs/models/operations/getcustomerlinks.md:
-    id: db0588ba2af5
-    last_write_checksum: sha1:1995e2a89ab46992fc6d3c27e2d28fd78c9f36ff
-    pristine_git_object: f2ae11919d35269050492c488955be9bcb33323d
   docs/models/operations/getcustomerrequest.md:
     id: 2c25d8b5c423
-    last_write_checksum: sha1:087339d2bbf7edfc233e1e0bd6a1a68b45249a82
-    pristine_git_object: de54060bc946bbf56bda03ed2319adfe50a53829
-  docs/models/operations/getcustomerresponse.md:
-    id: 98972f4c2ca3
-    last_write_checksum: sha1:a387ef25ebd853afafaa7243fec21f21ff31de69
-    pristine_git_object: 590963cfbca150cdefc5f622a8727037b349a34a
+    last_write_checksum: sha1:057e6b06346a61fc09126157cc0a5ca0859cd9a5
+    pristine_git_object: 520243ebb8551f095ee403afaf0025889dc6232f
   docs/models/operations/getinvoicerequest.md:
     id: e8373d44ef45
     last_write_checksum: sha1:c0d1254e5dac8b63b90fdc41cc1f578e922a2e9f
@@ -3506,8 +3490,8 @@ trackedFiles:
     pristine_git_object: 12ab4f7ad4301039111fe12a9592d0ff3252d973
   docs/sdks/customers/README.md:
     id: 9332759cffc2
-    last_write_checksum: sha1:36975f73d942cfaef4b4933a92bd14bf3d7b3a02
-    pristine_git_object: f61f6db8b3b48de5f17cb645d047ad4f60894d39
+    last_write_checksum: sha1:74b6fb88c6daf2d0bfc8a72193616f9628a56835
+    pristine_git_object: 4a741896d6c6fff1328687a29d5a7f9831e3286c
   docs/sdks/delayedrouting/README.md:
     id: a720b5755911
     last_write_checksum: sha1:b7f010f09a6223ad7ebf807e01dad4ebd3215ca8
@@ -3630,12 +3614,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:ddcc663b282821c2b401425201b93d85faee907f
-    pristine_git_object: f973a78479331c0bd03870d880c358d71a135301
+    last_write_checksum: sha1:d53ab18b228d708bb5da6ab646385d0e65cf8d9f
+    pristine_git_object: 2c051eef619d8725ea94d8002196e7a9812b5b54
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:98e5df148a864e636089541c00741444fc2e1be8
-    pristine_git_object: f0eca59ef7062ddb6bd699c59e20696e81385459
+    last_write_checksum: sha1:e401f511fad9aff4f68d096d7d8bfcb09bb59f26
+    pristine_git_object: cb1cf0d9d11c0d4ac441ddc1c36b1279d44e7045
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -3742,8 +3726,8 @@ trackedFiles:
     pristine_git_object: 8478c3f5ea20d16d1018922b39e8b15ae921dc9a
   src/funcs/customersGet.ts:
     id: 02794d47465d
-    last_write_checksum: sha1:5700a46791d45590d30b453e0f2a3516f1f21ca2
-    pristine_git_object: f6f02515a4f2ef800a8371428a24549e78b3026c
+    last_write_checksum: sha1:dabda6d8431269558b172767ae186e4d0d74b0ed
+    pristine_git_object: 407f52d9649608efa08a973823b202ffae06167d
   src/funcs/customersList.ts:
     id: ec574597f882
     last_write_checksum: sha1:bfdb341307c442d4b86bc0d7620a36009802e782
@@ -4142,8 +4126,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:4f292a83499f97aabd4881df880e05b05a3a92e8
-    pristine_git_object: 937717c90c6c559b323f5ece7c373390bef4df29
+    last_write_checksum: sha1:6463d0497e7e2ff28a4f914a6c4cc699b9148479
+    pristine_git_object: def3044bca04ce8ab294ae70e34b07c751670c4c
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a74725064d06b6994b95873c037975d2f2e63467
@@ -5019,10 +5003,6 @@ trackedFiles:
     id: 65180cd2134c
     last_write_checksum: sha1:c9b7720594f73107de5628e121a1e9630a79d880
     pristine_git_object: f7b033d6900ce71bbdd27485b6920c0472accd43
-  src/models/entityevent.ts:
-    id: 1488b1d1442d
-    last_write_checksum: sha1:dde6fb81ec7500770e1bec5b98b091f6625d5e10
-    pristine_git_object: 2b1ef5860da1d4993ffb6fc5369a5e7fc7c10631
   src/models/entityinvoice.ts:
     id: d802d46c038b
     last_write_checksum: sha1:4da15d7be21415d2c0c66bf537142fd736f51d0f
@@ -5117,8 +5097,8 @@ trackedFiles:
     pristine_git_object: d2f254684e589710fbd9bd58550cfad78951c92d
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:5ca54f05c97c3a00a72342fbf2eca83fb041f63e
-    pristine_git_object: 0408fd5a6f7004d695c1489b1a460affccf79b4b
+    last_write_checksum: sha1:dc3568f2a22ed7194829cffcfd3ccbb141abe3f3
+    pristine_git_object: 02f2244007d195c27eef90c1735a3360b49dd493
   src/models/linecategories.ts:
     id: 502e2d0ea1e2
     last_write_checksum: sha1:cdef34c68b38732566990ec0c57ec8c915c3adce
@@ -5445,8 +5425,8 @@ trackedFiles:
     pristine_git_object: 19c8b933c250c312658d9097bbb430c08e0feec0
   src/models/operations/getcustomer.ts:
     id: c09114ee8995
-    last_write_checksum: sha1:de83a737315fcbdd147133f4374d4985eba67efd
-    pristine_git_object: e16564bfb683c16be488db7ce167867f79bf26d0
+    last_write_checksum: sha1:64f5788be624b5a6bb940114fded0b67d349c553
+    pristine_git_object: 40850a0f7f99cceb0f1e963bfd2c686a5cc7fa63
   src/models/operations/getinvoice.ts:
     id: dd4d39982197
     last_write_checksum: sha1:d96a8c7b31849dddf5465a00e566b3f0e469ddc1
@@ -6281,8 +6261,8 @@ trackedFiles:
     pristine_git_object: f8808cd6ef8d0ad5b89c14876587ba9a78148fc8
   src/sdk/customers.ts:
     id: d33e193e0c00
-    last_write_checksum: sha1:0886c40503a02725e31b94bec313926dad091a16
-    pristine_git_object: fc72e97a54a4bcc81b2811d3d470cbfdb315b0c8
+    last_write_checksum: sha1:6ffea5fc3af40fc1df170b409d80c8910e11b14a
+    pristine_git_object: bb45d922d6a91beb01e76bf159a0708c197e2d95
   src/sdk/delayedrouting.ts:
     id: 4b8337738183
     last_write_checksum: sha1:96cd0d22c9c08f1a80f4ef06d28f1a8c08a30dc7
@@ -7865,7 +7845,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "customer", "id": "cst_5B8cwPMGnU", "mode": "live", "name": "John Doe", "email": "example@email.com", "locale": "en_US", "metadata": {"0": "<value 1>", "1": "<value 2>", "2": "<value 3>"}, "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "payments": {"href": "https://...", "type": "application/hal+json"}, "mandates": {"href": "https://...", "type": "application/hal+json"}, "subscriptions": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}, "events": [{"resource": "event", "type": 200, "createdAt": "2024-03-20T09:13:37.0Z", "message": "Customer created", "_links": {"url": {"href": "https://...", "type": "application/hal+json"}}}]}
+          application/hal+json: {"resource": "customer", "id": "cst_5B8cwPMGnU", "mode": "live", "name": "John Doe", "email": "example@email.com", "locale": "en_US", "metadata": {"0": "<value 1>", "1": "<value 2>", "2": "<value 3>"}, "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "dashboard": {"href": "https://...", "type": "application/hal+json"}, "payments": {"href": "https://...", "type": "application/hal+json"}, "mandates": {"href": "https://...", "type": "application/hal+json"}, "subscriptions": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   update-customer:
@@ -10696,7 +10676,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.webhooks.create()`: \n  *  `request.requestBody.eventTypes.union(webhook-event-types)` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.list()`: \n  *  `request.eventTypes` **Changed**\n  *  `response.Embedded.webhooks[].eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.update()`: \n  *  `request.requestBody.eventTypes.union(Array<webhook-event-types>)[]` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.get()`:  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhookEvents.get()`:  `response` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.customers.get()`: \n  *  `request.include` **Removed** (Breaking ⚠️)\n  *  `response.events` **Removed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

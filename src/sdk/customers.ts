@@ -65,7 +65,7 @@ export class Customers extends ClientSDK {
   async get(
     request: operations.GetCustomerRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetCustomerResponse> {
+  ): Promise<models.CustomerResponse> {
     return unwrapAsync(customersGet(
       this,
       request,
