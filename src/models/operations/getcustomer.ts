@@ -5,10 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetCustomerGlobals = {
   /**
@@ -29,10 +25,6 @@ export type GetCustomerRequest = {
    */
   customerId: string;
   /**
-   * This endpoint allows you to include additional information via the `include` query string parameter.
-   */
-  include?: string | null | undefined;
-  /**
    * Most API credentials are specifically created for either live mode or test mode. In those cases the `testmode` query
    *
    * @remarks
@@ -48,90 +40,9 @@ export type GetCustomerRequest = {
   idempotencyKey?: string | undefined;
 };
 
-/**
- * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
- */
-export type GetCustomerLinks = {
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  self: models.Url;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  dashboard: models.Url;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  payments?: models.UrlNullable | null | undefined;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  mandates?: models.UrlNullable | null | undefined;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  subscriptions?: models.UrlNullable | null | undefined;
-  /**
-   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
-   */
-  documentation: models.Url;
-};
-
-/**
- * The customer object.
- */
-export type GetCustomerResponse = {
-  /**
-   * Indicates the response contains a customer object. Will always contain the string `customer` for this endpoint.
-   */
-  resource: string;
-  /**
-   * The identifier uniquely referring to this customer. Example: `cst_vsKJpSsabw`.
-   */
-  id: string;
-  /**
-   * Whether this entity was created in live mode or in test mode.
-   */
-  mode: models.Mode;
-  /**
-   * The full name of the customer.
-   */
-  name: string | null;
-  /**
-   * The email address of the customer.
-   *
-   * @remarks
-   *
-   * If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
-   */
-  email: string | null;
-  /**
-   * Sets the language for customer-facing content and communications.
-   */
-  locale: models.LocaleResponse | null;
-  /**
-   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever
-   *
-   * @remarks
-   * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
-   */
-  metadata: models.Metadata | null;
-  /**
-   * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  createdAt: string;
-  /**
-   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
-   */
-  links: GetCustomerLinks;
-  events?: Array<models.EntityEvent> | undefined;
-};
-
 /** @internal */
 export type GetCustomerRequest$Outbound = {
   customerId: string;
-  include?: string | null | undefined;
   testmode?: boolean | undefined;
   "idempotency-key"?: string | undefined;
 };
@@ -143,7 +54,6 @@ export const GetCustomerRequest$outboundSchema: z.ZodType<
   GetCustomerRequest
 > = z.object({
   customerId: z.string(),
-  include: z.nullable(z.string()).optional(),
   testmode: z.boolean().optional(),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
@@ -157,61 +67,5 @@ export function getCustomerRequestToJSON(
 ): string {
   return JSON.stringify(
     GetCustomerRequest$outboundSchema.parse(getCustomerRequest),
-  );
-}
-
-/** @internal */
-export const GetCustomerLinks$inboundSchema: z.ZodType<
-  GetCustomerLinks,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  self: models.Url$inboundSchema,
-  dashboard: models.Url$inboundSchema,
-  payments: z.nullable(models.UrlNullable$inboundSchema).optional(),
-  mandates: z.nullable(models.UrlNullable$inboundSchema).optional(),
-  subscriptions: z.nullable(models.UrlNullable$inboundSchema).optional(),
-  documentation: models.Url$inboundSchema,
-});
-
-export function getCustomerLinksFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerLinks, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerLinks$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerLinks' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetCustomerResponse$inboundSchema: z.ZodType<
-  GetCustomerResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: models.Mode$inboundSchema,
-  name: z.nullable(z.string()),
-  email: z.nullable(z.string()),
-  locale: z.nullable(models.LocaleResponse$inboundSchema),
-  metadata: z.nullable(models.Metadata$inboundSchema),
-  createdAt: z.string(),
-  _links: z.lazy(() => GetCustomerLinks$inboundSchema),
-  events: z.array(models.EntityEvent$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
-
-export function getCustomerResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetCustomerResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetCustomerResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetCustomerResponse' from JSON`,
   );
 }
