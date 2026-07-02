@@ -9,46 +9,116 @@ import { Embedded } from "mollie-api-typescript/models";
 
 let value: Embedded = {
   entity: {
-    resource: "business-account-transfer",
-    id: "batrf_87GByBuj4UCcUTEbs6aGJ",
+    resource: "sales-invoice",
+    id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     mode: "live",
-    debtor: {
-      fullName: "Jan Jansen",
-      account: {
-        iban: "NL02ABNA0123456789",
-      },
-    },
-    creditor: {
-      fullName: "Jan Jansen",
-      account: {
-        iban: "NL02ABNA0123456789",
-      },
-    },
-    amount: {
-      currency: "EUR",
-      value: "10.00",
-    },
-    description: "Invoice 12345",
-    businessAccountTransactionId: "batr_87GByBuj4UCcUTEbs6aGJ",
-    transferScheme: {
-      type: "sepa-credit-inst",
-    },
-    creditDebitIndicator: "debit",
-    status: "initiated",
-    statusHistory: [
+    invoiceNumber: "INV-0000001",
+    profileId: "pfl_QkEhN94Ba",
+    status: "draft",
+    eInvoiceStatus: "issuing",
+    vatScheme: "standard",
+    vatMode: "exclusive",
+    memo: "This is a memo!",
+    paymentTerm: "30 days",
+    paymentDetails: [
       {
-        status: "initiated",
-        createdAt: "2024-03-20T09:13:37+00:00",
-        statusReason: {
-          code: "insufficient-funds",
-          message: "The creditor account does not exist.",
+        source: "payment-link",
+        sourceReference: "pl_d9fQur83kFdhH8hIhaZfq",
+      },
+    ],
+    emailDetails: {
+      subject: "Your invoice is available",
+      body: "Please find your invoice enclosed.",
+    },
+    customerId: "cst_8wmqcHMN4U",
+    mandateId: "mdt_pWUnw6pkBN",
+    recipientIdentifier: "customer-xyz-0123",
+    recipient: {
+      type: "consumer",
+      title: "Mrs.",
+      givenName: "Jane",
+      familyName: "Doe",
+      organizationName: "Organization Corp.",
+      organizationNumber: "12345678",
+      vatNumber: "NL123456789B01",
+      email: "example@email.com",
+      phone: "+0123456789",
+      streetAndNumber: "Keizersgracht 126",
+      streetAdditional: "4th floor",
+      postalCode: "5678AB",
+      city: "Amsterdam",
+      region: "Noord-Holland",
+      country: "NL",
+    },
+    lines: [
+      {
+        description: "LEGO 4440 Forest Police Station",
+        quantity: 1,
+        vatRate: "21.00",
+        unitPrice: {
+          currency: "EUR",
+          value: "10.00",
+        },
+        discount: {
+          type: "amount",
+          value: "10.00",
         },
       },
     ],
+    discount: {
+      type: "amount",
+      value: "10.00",
+    },
+    isEInvoice: false,
+    amountDue: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    subtotalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    totalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    totalVatAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
+    discountedSubtotalAmount: {
+      currency: "EUR",
+      value: "10.00",
+    },
     createdAt: "2024-03-20T09:13:37+00:00",
-    statusReason: {
-      code: "insufficient-funds",
-      message: "The creditor account does not exist.",
+    issuedAt: "2024-10-03T10:47:38+00:00",
+    paidAt: "2024-10-04T10:47:38+00:00",
+    dueAt: "2024-11-01T10:47:38+00:00",
+    links: {
+      self: {
+        href: "https://...",
+        type: "application/hal+json",
+      },
+      invoicePayment: {
+        href: "https://...",
+        type: "application/hal+json",
+      },
+      pdfLink: {
+        href: "https://...",
+        type: "application/hal+json",
+      },
+      documentation: {
+        href: "https://...",
+        type: "application/hal+json",
+      },
+      next: {
+        href: "https://...",
+        type: "application/hal+json",
+      },
+      previous: {
+        href: "https://...",
+        type: "application/hal+json",
+      },
     },
   },
 };

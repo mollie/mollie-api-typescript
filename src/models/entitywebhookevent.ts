@@ -10,6 +10,14 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  CaptureResponse,
+  CaptureResponse$inboundSchema,
+} from "./captureresponse.js";
+import {
+  EntityChargeback,
+  EntityChargeback$inboundSchema,
+} from "./entitychargeback.js";
+import {
   EntityPayoutResponse,
   EntityPayoutResponse$inboundSchema,
 } from "./entitypayoutresponse.js";
@@ -55,6 +63,10 @@ export const EntityWebhookEventWebhookEventTypes = {
   RefundRefunded: "refund.refunded",
   RefundFailed: "refund.failed",
   RefundCanceled: "refund.canceled",
+  ChargebackReceived: "chargeback.received",
+  ChargebackReversed: "chargeback.reversed",
+  CaptureSucceeded: "capture.succeeded",
+  CaptureFailed: "capture.failed",
   PaymentLinkPaid: "payment-link.paid",
   BalanceTransactionCreated: "balance-transaction.created",
   PayoutInitiated: "payout.initiated",
@@ -93,7 +105,9 @@ export type Entity =
   | TransferResponse
   | PaymentResponse
   | EntityRefundResponse
+  | CaptureResponse
   | EntityPayoutResponse
+  | EntityChargeback
   | SalesInvoiceResponse;
 
 /**
@@ -105,7 +119,9 @@ export type Embedded = {
     | TransferResponse
     | PaymentResponse
     | EntityRefundResponse
+    | CaptureResponse
     | EntityPayoutResponse
+    | EntityChargeback
     | SalesInvoiceResponse
     | undefined;
 };
@@ -170,7 +186,9 @@ export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
     TransferResponse$inboundSchema,
     PaymentResponse$inboundSchema,
     EntityRefundResponse$inboundSchema,
+    CaptureResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
+    EntityChargeback$inboundSchema,
     SalesInvoiceResponse$inboundSchema,
   ]);
 
@@ -195,7 +213,9 @@ export const Embedded$inboundSchema: z.ZodType<
     TransferResponse$inboundSchema,
     PaymentResponse$inboundSchema,
     EntityRefundResponse$inboundSchema,
+    CaptureResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
+    EntityChargeback$inboundSchema,
     SalesInvoiceResponse$inboundSchema,
   ]).optional(),
 });
