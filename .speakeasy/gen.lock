@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 23700694c312ffad17b0b23bfa813b4a
+  docChecksum: c852776d6b36a672d2afd74882ef3ac7
   docVersion: 1.0.0
-  speakeasyVersion: 1.786.1
-  generationVersion: 2.913.3
-  releaseVersion: 1.12.9
-  configChecksum: cd1e20b27feebe8c43cd402768673557
+  speakeasyVersion: 1.787.0
+  generationVersion: 2.914.0
+  releaseVersion: 1.12.10
+  configChecksum: 09305ccc8ed4c469148d7876743d6ecd
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 8072c2bb-14dc-469c-bea3-1eb6bc272d03
-  pristine_commit_hash: 7fc658581a7cc17fbdbc6830b725f02d9c3ffc9e
-  pristine_tree_hash: 7adc5f999c8e7c521bf53c080d385ae82c4f99fc
+  generation_id: 8d6cb7fd-7921-48d5-9dfb-0de5cffa3599
+  pristine_commit_hash: 8fece0a3cb1d66dfa55efa36ceb45334791373da
+  pristine_tree_hash: 48dfdc47f8235ea19001b144bd297b8217354129
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -338,12 +338,12 @@ trackedFiles:
     pristine_git_object: fcf2f7d41d7b422d606e63283136d378e5f6ad87
   docs/models/embedded.md:
     id: 1c789be188a3
-    last_write_checksum: sha1:33d2f0491f2767f176dbe6da47dada334742ff72
-    pristine_git_object: d644bc1dcf6ab8facae91fd2f6033a40f289c972
+    last_write_checksum: sha1:baf2c8c42b2fd51135b67e482a9d499a75dd69fd
+    pristine_git_object: 6f7697ea64a6ee47fa2b4c8eb7423dae0da12125
   docs/models/entity.md:
     id: 903c73579a5c
-    last_write_checksum: sha1:e4eba5b3c0b3073682fe1a449fde26acf029f154
-    pristine_git_object: 1f774bcb3e49f1d1aa1f3223779245c3d511e4e6
+    last_write_checksum: sha1:73d2ba7da0b8640d403fd2ebb256ffe8df8d2be6
+    pristine_git_object: ec6df0c5336bbe1547d9a0565276121051a03a6b
   docs/models/entitybalance.md:
     id: aa9b25037f5a
     last_write_checksum: sha1:83471217708a78ffce5c060200023382aae6167d
@@ -690,20 +690,20 @@ trackedFiles:
     pristine_git_object: 110debd370ba56d92b73826c4446f0818ff6088a
   docs/models/entitywebhook.md:
     id: 361d48680953
-    last_write_checksum: sha1:6e11162cf12ed93c53f617a30f24dba305d6ee16
-    pristine_git_object: 53a53b052d1a9857376fe5d0d7c8d5401c62a167
+    last_write_checksum: sha1:7056dbf88fd1539a04739d16b503a7dc572feac8
+    pristine_git_object: 3a2d629a9009602ff557b5b45ecf4f33cadb9a94
   docs/models/entitywebhookevent.md:
     id: 4608ce0972bf
-    last_write_checksum: sha1:ea27a84ef8c90ac46465c2599e41b613754c918e
-    pristine_git_object: 5ff6c617330b182147d4fe7fe240fb56f07e564e
+    last_write_checksum: sha1:86cbf52cb327fb03e35ddc1bfc7b52928be27cc0
+    pristine_git_object: de2941a9c52fda09bd9fa61bcb28cb3382da6314
   docs/models/entitywebhookeventlinks.md:
     id: 14a5bb4d4b2f
     last_write_checksum: sha1:ba8a8f0cf399cbbbe5c9478357a840828e8b866c
     pristine_git_object: 5217d72c8c509180ef7b7fdc37675be98fc57522
   docs/models/entitywebhookeventwebhookeventtypes.md:
     id: 197b04a2a12d
-    last_write_checksum: sha1:d88e1abbd81e84c3b182af573dadc9732c0d6f8d
-    pristine_git_object: e1151aa36c469d78bfb4191429eaa04b70414e3c
+    last_write_checksum: sha1:3f343b4e28a4216a7474b67c90600425da73e5ba
+    pristine_git_object: 915bf46d15cbbf454d07a02dab0e14e44bf40dc6
   docs/models/entitywebhooklinks.md:
     id: 604767b2d528
     last_write_checksum: sha1:d0d70e5a81669eae30e83c7d0238625aeaf60079
@@ -1014,8 +1014,8 @@ trackedFiles:
     pristine_git_object: 6290e602a3ce86451324112fd39f85df6f30ad42
   docs/models/listentitywebhook.md:
     id: b9a1bc200a10
-    last_write_checksum: sha1:bf58c407c8394083d00c13b344f2d44f8effeabb
-    pristine_git_object: f75d2cf5b1b864c0722d9b6f2adbac043cacf803
+    last_write_checksum: sha1:0756187f6f8f30b9c2f4d55616fd80360ee387c5
+    pristine_git_object: d6a3d6ed95c36bcfe0c591626a6338d6e99b9fa1
   docs/models/listentitywebhooklinks.md:
     id: 35f28e909bf0
     last_write_checksum: sha1:0d4b0a4de0b874e9fb984b6989fb828de40c46c2
@@ -3450,8 +3450,8 @@ trackedFiles:
     pristine_git_object: 587643e60d7d180d749035f2836b081846ae5c97
   docs/models/webhookeventtypes.md:
     id: 9f3a891e62d0
-    last_write_checksum: sha1:a0a174cebee7c6af101feb91f6170e574c50c323
-    pristine_git_object: 557bf2c299dac7b324342a601097f0fa45dc7661
+    last_write_checksum: sha1:8c326da97cf152f1eb9c0f9d6d8bc554ebb273fc
+    pristine_git_object: ab88288d7fcf7fd1e2832c5b10775031a3f987fc
   docs/models/webhookstatus.md:
     id: 68d3b89180be
     last_write_checksum: sha1:a630589a089fac56e988fbfc73db108091cb200c
@@ -3614,12 +3614,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:d53ab18b228d708bb5da6ab646385d0e65cf8d9f
-    pristine_git_object: 2c051eef619d8725ea94d8002196e7a9812b5b54
+    last_write_checksum: sha1:f0679cedfd992f84bd3a96bd5a9b819e77671442
+    pristine_git_object: 66808e483dbd542689f53cacbe34daaaccfec022
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:e401f511fad9aff4f68d096d7d8bfcb09bb59f26
-    pristine_git_object: cb1cf0d9d11c0d4ac441ddc1c36b1279d44e7045
+    last_write_checksum: sha1:b316029b39596df1bf0566d2c60cb97d5160dd8b
+    pristine_git_object: afbba9a483fd863324fa957824ddd053efdcdfd0
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4126,8 +4126,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:6463d0497e7e2ff28a4f914a6c4cc699b9148479
-    pristine_git_object: def3044bca04ce8ab294ae70e34b07c751670c4c
+    last_write_checksum: sha1:a51de49ce0c039b6a580c4fbe55d8bd39246bf0b
+    pristine_git_object: 586c1866d14a9fa714f195d01d1e9c9353abf05d
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a74725064d06b6994b95873c037975d2f2e63467
@@ -5061,8 +5061,8 @@ trackedFiles:
     pristine_git_object: 6aab142e8c984bf939fa09cc222ea833b6a27650
   src/models/entitywebhookevent.ts:
     id: a5f0d7ee2012
-    last_write_checksum: sha1:ed736448b7350bbec4c7bf643174e32d95bdcfa7
-    pristine_git_object: 27e21a898a8cbc4ed2d3c7449c47505bbe5cd642
+    last_write_checksum: sha1:c64b7e55ac6d2dc6825b6a14b469c5a754feb525
+    pristine_git_object: cf3f77e2f07a10f4be3d36bbbd087f72c35c9eb5
   src/models/errorresponse.ts:
     id: 55a21b891851
     last_write_checksum: sha1:764857bf667325dc5049ab5527bc372a2b8e2858
@@ -6221,8 +6221,8 @@ trackedFiles:
     pristine_git_object: 44aa8181a384f5b810c6630c7ed9c3a1b3c619a1
   src/models/webhookeventtypes.ts:
     id: 30a0f0667a6f
-    last_write_checksum: sha1:abe74c335546523eaa02c9cbb7e8b31bdf9a3fbf
-    pristine_git_object: 220b3d18ee0e2e0d0c8a2cf529daf596e5745377
+    last_write_checksum: sha1:38ad6af7e972865ca1d8b5753be79fa76f997ae3
+    pristine_git_object: 2f00ac08cb9bd330d70133d4f928b7e16b2e9212
   src/models/webhookstatus.ts:
     id: 6c9f7f890791
     last_write_checksum: sha1:1dff0ad624159d1f21c770cc777d539c34197b91
@@ -10676,7 +10676,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.customers.get()`: \n  *  `request.include` **Removed** (Breaking ⚠️)\n  *  `response.events` **Removed** (Breaking ⚠️)\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.webhooks.create()`: \n  *  `request.requestBody.eventTypes.union(Array<webhook-event-types>)[]` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.list()`: \n  *  `request.eventTypes` **Changed**\n  *  `response.Embedded.webhooks[].eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.update()`: \n  *  `request.requestBody.eventTypes.union(webhook-event-types)` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.get()`:  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhookEvents.get()`:  `response` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

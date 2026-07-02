@@ -32091,18 +32091,17 @@ components:
               $ref: '#/components/schemas/url'
           readOnly: true
     capture-response:
+      required:
+        - resource
+        - id
+        - mode
+        - amount
+        - status
+        - createdAt
+        - paymentId
+        - _links
       allOf:
         - $ref: '#/components/schemas/entity-capture-response'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-            - amount
-            - status
-            - createdAt
-            - paymentId
-            - _links
     settlement-capture-status:
       type: string
       description: The capture's status. Settlement captures always have a status of `succeeded`.
@@ -33302,6 +33301,10 @@ components:
         - refund.refunded
         - refund.failed
         - refund.canceled
+        - chargeback.received
+        - chargeback.reversed
+        - capture.succeeded
+        - capture.failed
         - payment-link.paid
         - balance-transaction.created
         - payout.initiated
@@ -33336,6 +33339,10 @@ components:
         refund.refunded: A refund has been transferred to your customer.
         refund.failed: A refund could not be completed.
         refund.canceled: A refund was canceled before processing.
+        chargeback.received: A chargeback has been received for a payment.
+        chargeback.reversed: A previously received chargeback has been reversed.
+        capture.succeeded: A capture has completed successfully.
+        capture.failed: A capture attempt failed.
         payment-link.paid: Occurs when a payment link has been paid.
         balance-transaction.created: Occurs when a balance transaction is created to add to your available balance. It currently only supports positive amounts and non-captured payments.
         payout.initiated: The payout is being executed and funds are reserved on the balance.
@@ -34767,6 +34774,10 @@ components:
                   $ref: '#/components/schemas/payment-response'
                 - title: refund.*
                   $ref: '#/components/schemas/entity-refund-response'
+                - title: chargeback.*
+                  $ref: '#/components/schemas/entity-chargeback'
+                - title: capture.*
+                  $ref: '#/components/schemas/capture-response'
                 - title: payment-link.*
                   $ref: '#/components/schemas/payment-link-response'
                 - title: payout.*
@@ -38683,18 +38694,17 @@ components:
                 it isn't associated with a shipment.
           readOnly: true
     list-capture-response:
+      required:
+        - resource
+        - id
+        - mode
+        - amount
+        - status
+        - createdAt
+        - paymentId
+        - _links
       allOf:
         - $ref: '#/components/schemas/list-entity-capture'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
-            - amount
-            - status
-            - createdAt
-            - paymentId
-            - _links
     list-settlement-capture-response:
       allOf:
         - $ref: '#/components/schemas/list-capture-response'
@@ -42484,6 +42494,10 @@ components:
         - refund.refunded
         - refund.failed
         - refund.canceled
+        - chargeback.received
+        - chargeback.reversed
+        - capture.succeeded
+        - capture.failed
         - payment-link.paid
         - balance-transaction.created
         - payout.initiated
@@ -42518,6 +42532,10 @@ components:
         refund.refunded: A refund has been transferred to your customer.
         refund.failed: A refund could not be completed.
         refund.canceled: A refund was canceled before processing.
+        chargeback.received: A chargeback has been received for a payment.
+        chargeback.reversed: A previously received chargeback has been reversed.
+        capture.succeeded: A capture has completed successfully.
+        capture.failed: A capture attempt failed.
         payment-link.paid: Occurs when a payment link has been paid.
         balance-transaction.created: Occurs when a balance transaction is created to add to your available balance. It currently only supports positive amounts and non-captured payments.
         payout.initiated: The payout is being executed and funds are reserved on the balance.
