@@ -47,6 +47,9 @@ export const BalanceTransactionType = {
   ToBeReleasedRollingReserve: "to-be-released-rolling-reserve",
   HeldRollingReserve: "held-rolling-reserve",
   ReleasedRollingReserve: "released-rolling-reserve",
+  Movement: "movement",
+  InvoiceCompensation: "invoice-compensation",
+  Topup: "topup",
 } as const;
 export type BalanceTransactionType = OpenEnum<typeof BalanceTransactionType>;
 

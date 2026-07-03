@@ -33,6 +33,7 @@ export const ListEntityBalanceCurrency = {
   Huf: "HUF",
   Aud: "AUD",
   Cad: "CAD",
+  Ron: "RON",
 } as const;
 /**
  * The balance's ISO 4217 currency code.

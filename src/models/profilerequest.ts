@@ -49,7 +49,7 @@ export type ProfileRequest = {
    * @remarks
    * [business category list](common-data-types#business-category) for all possible options.
    */
-  businessCategory?: string | undefined;
+  businessCategory?: string | null | undefined;
 };
 
 /** @internal */
@@ -60,7 +60,7 @@ export type ProfileRequest$Outbound = {
   phone: string;
   description?: string | undefined;
   countriesOfActivity?: Array<string> | undefined;
-  businessCategory?: string | undefined;
+  businessCategory?: string | null | undefined;
 };
 
 /** @internal */
@@ -75,7 +75,7 @@ export const ProfileRequest$outboundSchema: z.ZodType<
   phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string().optional(),
+  businessCategory: z.nullable(z.string()).optional(),
 });
 
 export function profileRequestToJSON(profileRequest: ProfileRequest): string {

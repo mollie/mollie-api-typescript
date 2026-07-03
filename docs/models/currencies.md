@@ -13,5 +13,5 @@ let value: Currencies = "EUR";
 ## Values
 
 ```typescript
-"EUR" | "GBP" | "CHF" | "DKK" | "NOK" | "PLN" | "SEK" | "USD" | "CZK" | "HUF" | "AUD" | "CAD" | Unrecognized<string>
+"EUR" | "GBP" | "CHF" | "DKK" | "NOK" | "PLN" | "SEK" | "USD" | "CZK" | "HUF" | "AUD" | "CAD" | "RON" | Unrecognized<string>
 ```
