@@ -148,7 +148,7 @@ export type ListProfileResponse = {
    * @remarks
    * [business category list](common-data-types#business-category) for all possible options.
    */
-  businessCategory: string;
+  businessCategory: string | null;
   status: ListProfileResponseStatus;
   /**
    * Present if changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved
@@ -234,7 +234,7 @@ export const ListProfileResponse$inboundSchema: z.ZodType<
   phone: z.string(),
   description: z.string().optional(),
   countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.string(),
+  businessCategory: z.nullable(z.string()),
   status: ListProfileResponseStatus$inboundSchema,
   review: z.lazy(() => ListProfileResponseReview$inboundSchema).optional(),
   createdAt: z.string(),

@@ -20,6 +20,7 @@ export const Currencies = {
   Huf: "HUF",
   Aud: "AUD",
   Cad: "CAD",
+  Ron: "RON",
 } as const;
 export type Currencies = OpenEnum<typeof Currencies>;
 

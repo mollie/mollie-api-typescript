@@ -15,5 +15,5 @@ let value: PaymentDetailsFeeRegionResponse = "maestro";
 ## Values
 
 ```typescript
-"american-express" | "amex-intra-eea" | "carte-bancaire" | "intra-eu" | "intra-eu-corporate" | "domestic" | "maestro" | "other" | "inter" | "intra_eea" | Unrecognized<string>
+"american-express" | "amex-intra-eea" | "carte-bancaire" | "intra-eu" | "intra-eu-corporate" | "domestic" | "maestro" | "mastercard-credit-business-domestic" | "mastercard-credit-consumer-domestic" | "mastercard-credit-consumer-intra-eea" | "mastercard-debit-business-domestic" | "mastercard-debit-business-intra-eea" | "mastercard-debit-consumer-domestic" | "mastercard-debit-consumer-intra-eea" | "other" | "inter" | "intra_eea" | "visa-credit-business-domestic" | "visa-credit-consumer-domestic" | "visa-credit-consumer-intra-eea" | "visa-debit-business-domestic" | "visa-debit-business-intra-eea" | "visa-debit-consumer-domestic" | Unrecognized<string>
 ```

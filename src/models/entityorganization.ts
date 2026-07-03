@@ -101,7 +101,7 @@ export type EntityOrganization = {
   /**
    * The registration number of the organization at their local chamber of commerce.
    */
-  registrationNumber?: string | undefined;
+  registrationNumber?: string | null | undefined;
   /**
    * The VAT number of the organization, if based in the European Union or in The United Kingdom. VAT numbers are
    *
@@ -166,7 +166,7 @@ export const EntityOrganization$inboundSchema: z.ZodType<
   email: z.string(),
   locale: z.nullable(EntityOrganizationLocale$inboundSchema),
   address: Address$inboundSchema.optional(),
-  registrationNumber: z.string().optional(),
+  registrationNumber: z.nullable(z.string()).optional(),
   vatNumber: z.nullable(z.string()).optional(),
   vatRegulation: z.nullable(OrganizationVatRegulation$inboundSchema).optional(),
   _links: z.lazy(() => EntityOrganizationLinks$inboundSchema),
