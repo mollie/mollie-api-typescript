@@ -15,5 +15,5 @@ let value: EntityOrganizationLocale = "en_US";
 ## Values
 
 ```typescript
-"en_US" | "en_GB" | "nl_NL" | "nl_BE" | "de_DE" | "de_AT" | "de_CH" | "de_LU" | "fr_FR" | "fr_BE" | "fr_LU" | "es_ES" | "ca_ES" | "pt_PT" | "it_IT" | "nb_NO" | "sv_SE" | "fi_FI" | "da_DK" | "is_IS" | "hu_HU" | "pl_PL" | "lv_LV" | "lt_LT" | "null" | Unrecognized<string>
+"ca_ES" | "cs_CZ" | "da_DK" | "de_AT" | "de_CH" | "de_DE" | "de_LU" | "en_GB" | "en_US" | "es_ES" | "fi_FI" | "fr_BE" | "fr_FR" | "fr_LU" | "hu_HU" | "is_IS" | "it_IT" | "lt_LT" | "lv_LV" | "nb_NO" | "nl_BE" | "nl_NL" | "pl_PL" | "pt_PT" | "sk_SK" | "sv_SE" | "null" | Unrecognized<string>
 ```
