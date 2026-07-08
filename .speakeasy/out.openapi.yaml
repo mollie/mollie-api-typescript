@@ -28367,7 +28367,7 @@ components:
 
         The maximum number of items per result set is controlled by the `limit` property provided in the request. The default
         limit is 50 items.
-      minimum: 1
+      minimum: 0
       maximum: 250
       example: 5
     balanceToken:
@@ -30186,30 +30186,32 @@ components:
         - 'null'
       description: Sets the language for customer-facing content and communications.
       enum:
-        - en_US
-        - en_GB
-        - nl_NL
-        - nl_BE
-        - de_DE
+        - ca_ES
+        - cs_CZ
+        - da_DK
         - de_AT
         - de_CH
+        - de_DE
         - de_LU
-        - fr_FR
-        - fr_BE
-        - fr_LU
+        - en_GB
+        - en_US
         - es_ES
-        - ca_ES
-        - pt_PT
-        - it_IT
-        - nb_NO
-        - sv_SE
         - fi_FI
-        - da_DK
-        - is_IS
+        - fr_BE
+        - fr_FR
+        - fr_LU
         - hu_HU
-        - pl_PL
-        - lv_LV
+        - is_IS
+        - it_IT
         - lt_LT
+        - lv_LV
+        - nb_NO
+        - nl_BE
+        - nl_NL
+        - pl_PL
+        - pt_PT
+        - sk_SK
+        - sv_SE
         - 'null'
       example: en_US
     metadata:
@@ -41317,30 +41319,32 @@ components:
         - 'null'
       description: Sets the language for customer-facing content and communications.
       enum:
-        - en_US
-        - en_GB
-        - nl_NL
-        - nl_BE
-        - de_DE
+        - ca_ES
+        - cs_CZ
+        - da_DK
         - de_AT
         - de_CH
+        - de_DE
         - de_LU
-        - fr_FR
-        - fr_BE
-        - fr_LU
+        - en_GB
+        - en_US
         - es_ES
-        - ca_ES
-        - pt_PT
-        - it_IT
-        - nb_NO
-        - sv_SE
         - fi_FI
-        - da_DK
-        - is_IS
+        - fr_BE
+        - fr_FR
+        - fr_LU
         - hu_HU
-        - pl_PL
-        - lv_LV
+        - is_IS
+        - it_IT
         - lt_LT
+        - lv_LV
+        - nb_NO
+        - nl_BE
+        - nl_NL
+        - pl_PL
+        - pt_PT
+        - sk_SK
+        - sv_SE
         - 'null'
       example: en_US
       x-speakeasy-unknown-values: allow
