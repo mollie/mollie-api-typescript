@@ -26061,12 +26061,7 @@ paths:
             - sales-invoices.write
         - oAuth:
             - sales-invoices.write
-      description: |-
-        > 🚧 Beta feature
-        >
-        > This feature is currently in beta testing, and the final specification may still change.
-
-        With the Sales Invoice API you can generate sales invoices to send to your customers.
+      description: With the Sales Invoice API you can generate sales invoices to send to your customers.
       requestBody:
         content:
           application/json:
@@ -26279,10 +26274,6 @@ paths:
         - oAuth:
             - sales-invoices.read
       description: |-
-        > 🚧 Beta feature
-        >
-        > This feature is currently in beta testing, and the final specification may still change.
-
         Retrieve a list of all sales invoices created through the API.
 
         The results are paginated.
@@ -26438,12 +26429,7 @@ paths:
             - sales-invoices.read
         - oAuth:
             - sales-invoices.read
-      description: |-
-        > 🚧 Beta feature
-        >
-        > This feature is currently in beta testing, and the final specification may still change.
-
-        Retrieve a single sales invoice by its ID.
+      description: Retrieve a single sales invoice by its ID.
       responses:
         '200':
           description: The Sales Invoice object.
@@ -26574,10 +26560,6 @@ paths:
         - oAuth:
             - sales-invoices.write
       description: |-
-        > 🚧 Beta feature
-        >
-        > This feature is currently in beta testing, and the final specification may still change.
-
         Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for
         statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`,
         respectively).
@@ -26748,10 +26730,6 @@ paths:
         - oAuth:
             - sales-invoices.write
       description: |-
-        > 🚧 Beta feature
-        >
-        > This feature is currently in beta testing, and the final specification may still change.
-
         Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
         [Update sales invoice](update-sales-invoice) endpoint instead.
       requestBody:
@@ -34515,13 +34493,12 @@ components:
             A reference to the payment the sales invoice is paid by. Required for `source` values `payment-link` and
             `payment`.
     sales-invoice-response:
+      required:
+        - resource
+        - id
+        - mode
       allOf:
         - $ref: '#/components/schemas/entity-sales-invoice-response'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
         - type: object
           properties:
             status:
@@ -40548,13 +40525,12 @@ components:
           readOnly: true
           writeOnly: false
     list-sales-invoice-response:
+      required:
+        - resource
+        - id
+        - mode
       allOf:
         - $ref: '#/components/schemas/list-entity-sales-invoice'
-        - type: object
-          required:
-            - resource
-            - id
-            - mode
         - type: object
           properties:
             status:

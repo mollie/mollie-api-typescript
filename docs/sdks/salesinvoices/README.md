@@ -12,10 +12,6 @@
 
 ## create
 
-> 🚧 Beta feature
->
-> This feature is currently in beta testing, and the final specification may still change.
-
 With the Sales Invoice API you can generate sales invoices to send to your customers.
 
 ### Example Usage
@@ -182,10 +178,6 @@ run();
 
 ## list
 
-> 🚧 Beta feature
->
-> This feature is currently in beta testing, and the final specification may still change.
-
 Retrieve a list of all sales invoices created through the API.
 
 The results are paginated.
@@ -276,10 +268,6 @@ run();
 
 ## get
 
-> 🚧 Beta feature
->
-> This feature is currently in beta testing, and the final specification may still change.
-
 Retrieve a single sales invoice by its ID.
 
 ### Example Usage
@@ -361,10 +349,6 @@ run();
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## update
-
-> 🚧 Beta feature
->
-> This feature is currently in beta testing, and the final specification may still change.
 
 Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for
 statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`,
@@ -553,10 +537,6 @@ run();
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
-
-> 🚧 Beta feature
->
-> This feature is currently in beta testing, and the final specification may still change.
 
 Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
 [Update sales invoice](update-sales-invoice) endpoint instead.
