@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Get sales invoice
  *
  * @remarks
- * > 🚧 Beta feature
- * >
- * > This feature is currently in beta testing, and the final specification may still change.
- *
  * Retrieve a single sales invoice by its ID.
  *
  * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.

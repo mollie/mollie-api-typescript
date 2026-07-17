@@ -19,10 +19,6 @@ export class SalesInvoices extends ClientSDK {
    * Create sales invoice
    *
    * @remarks
-   * > 🚧 Beta feature
-   * >
-   * > This feature is currently in beta testing, and the final specification may still change.
-   *
    * With the Sales Invoice API you can generate sales invoices to send to your customers.
    */
   async create(
@@ -40,10 +36,6 @@ export class SalesInvoices extends ClientSDK {
    * List sales invoices
    *
    * @remarks
-   * > 🚧 Beta feature
-   * >
-   * > This feature is currently in beta testing, and the final specification may still change.
-   *
    * Retrieve a list of all sales invoices created through the API.
    *
    * The results are paginated.
@@ -65,10 +57,6 @@ export class SalesInvoices extends ClientSDK {
    * Get sales invoice
    *
    * @remarks
-   * > 🚧 Beta feature
-   * >
-   * > This feature is currently in beta testing, and the final specification may still change.
-   *
    * Retrieve a single sales invoice by its ID.
    */
   async get(
@@ -86,10 +74,6 @@ export class SalesInvoices extends ClientSDK {
    * Update sales invoice
    *
    * @remarks
-   * > 🚧 Beta feature
-   * >
-   * > This feature is currently in beta testing, and the final specification may still change.
-   *
    * Certain details of an existing sales invoice can be updated. For `draft` it is all values listed below, but for
    * statuses `paid` and `issued` there are certain additional requirements (`paymentDetails` and `emailDetails`,
    * respectively).
@@ -109,10 +93,6 @@ export class SalesInvoices extends ClientSDK {
    * Delete sales invoice
    *
    * @remarks
-   * > 🚧 Beta feature
-   * >
-   * > This feature is currently in beta testing, and the final specification may still change.
-   *
    * Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
    * [Update sales invoice](update-sales-invoice) endpoint instead.
    */

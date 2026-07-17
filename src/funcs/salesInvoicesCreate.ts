@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Create sales invoice
  *
  * @remarks
- * > 🚧 Beta feature
- * >
- * > This feature is currently in beta testing, and the final specification may still change.
- *
  * With the Sales Invoice API you can generate sales invoices to send to your customers.
  *
  * If set, this operation will use one of {@link Security.apiKey}, {@link Security.advancedAccessToken}, or {@link Security.oAuth} from the global security.

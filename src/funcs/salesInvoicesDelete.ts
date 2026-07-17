@@ -32,10 +32,6 @@ import { Result } from "../types/fp.js";
  * Delete sales invoice
  *
  * @remarks
- * > 🚧 Beta feature
- * >
- * > This feature is currently in beta testing, and the final specification may still change.
- *
  * Sales invoices which are in status `draft` can be deleted. For all other statuses, please use the
  * [Update sales invoice](update-sales-invoice) endpoint instead.
  *

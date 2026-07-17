@@ -38,10 +38,6 @@ import {
  * List sales invoices
  *
  * @remarks
- * > 🚧 Beta feature
- * >
- * > This feature is currently in beta testing, and the final specification may still change.
- *
  * Retrieve a list of all sales invoices created through the API.
  *
  * The results are paginated.
