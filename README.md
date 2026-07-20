@@ -333,6 +333,13 @@ let client = new Client({
 * [list](docs/sdks/delayedrouting/README.md#list) - List payment routes
 * [get](docs/sdks/delayedrouting/README.md#get) - Get a delayed route
 
+### [DraftTransfers](docs/sdks/drafttransfers/README.md)
+
+* [create](docs/sdks/drafttransfers/README.md#create) - Create draft transfer
+* [list](docs/sdks/drafttransfers/README.md#list) - List draft transfers
+* [get](docs/sdks/drafttransfers/README.md#get) - Get draft transfer
+* [cancel](docs/sdks/drafttransfers/README.md#cancel) - Cancel draft transfer
+
 ### [Invoices](docs/sdks/invoices/README.md)
 
 * [list](docs/sdks/invoices/README.md#list) - List invoices
@@ -540,6 +547,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`delayedRoutingCreate`](docs/sdks/delayedrouting/README.md#create) - Create a delayed route
 - [`delayedRoutingGet`](docs/sdks/delayedrouting/README.md#get) - Get a delayed route
 - [`delayedRoutingList`](docs/sdks/delayedrouting/README.md#list) - List payment routes
+- [`draftTransfersCancel`](docs/sdks/drafttransfers/README.md#cancel) - Cancel draft transfer
+- [`draftTransfersCreate`](docs/sdks/drafttransfers/README.md#create) - Create draft transfer
+- [`draftTransfersGet`](docs/sdks/drafttransfers/README.md#get) - Get draft transfer
+- [`draftTransfersList`](docs/sdks/drafttransfers/README.md#list) - List draft transfers
 - [`invoicesGet`](docs/sdks/invoices/README.md#get) - Get invoice
 - [`invoicesList`](docs/sdks/invoices/README.md#list) - List invoices
 - [`mandatesCreate`](docs/sdks/mandates/README.md#create) - Create mandate

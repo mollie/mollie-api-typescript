@@ -32,6 +32,8 @@ tags:
     description: Operations related to the Customers API
   - name: Delayed Routing API
     description: Operations related to the Delayed Routing API
+  - name: Draft Transfers API
+    description: Operations related to the Draft Transfers API
   - name: Invoices API
     description: Operations related to the Invoices API
   - name: Mandates API
@@ -27602,6 +27604,365 @@ paths:
 
               transfer = Mollie::BusinessAccount::Transfer.get('batrf_87GByBuj4UCcUTEbs6aGJ')
       x-speakeasy-group: transfers
+  /v2/business-accounts/draft-transfers:
+    post:
+      summary: Create draft transfer
+      x-speakeasy-name-override: create
+      tags:
+        - Draft Transfers API
+      operationId: create-draft-transfer
+      security:
+        - advancedAccessToken:
+            - business-account-draft-transfers.write
+        - oAuth:
+            - business-account-draft-transfers.write
+      description: |-
+        > 🚧 Beta feature
+        >
+        > This feature is currently in beta testing, and the final specification may still change.
+
+        Creates a draft transfer. The draft transfer immediately enters `awaiting-initiation` and appears in the
+        initiator's queue in Mollie Apps. It carries no legal weight and moves no funds until a human initiator
+        approves it there.
+
+        ### Test mode
+
+        | Action | Test-mode behavior |
+        |---|---|
+        | Create | Always returns a synthetic draft in `awaiting-initiation`, regardless of most input values |
+        | Get / List | Always returns synthetic `awaiting-initiation` draft(s), not your real data |
+        | Cancel | Always returns a synthetic `declined` draft |
+
+        There is currently no way to synthesize an `initiated` draft via test mode alone. Initiation only happens when
+        a real initiator approves in Mollie Apps, which test mode doesn't touch.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create-draft-transfer-request'
+      responses:
+        '201':
+          description: The newly created draft transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/draft-transfer-response'
+              examples:
+                create-draft-transfer-201:
+                  $ref: '#/components/examples/draft-transfer-awaiting-initiation'
+        '422':
+          description: |-
+            The request contains issues. For example, if a required field is missing, or if the creditor IBAN is
+            invalid.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: The 'description' field is required
+                field: description
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/business-accounts/draft-transfers \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM" \
+                  -H "Content-Type: application/json" \
+                  -d '{
+                        "creditor": {
+                          "fullName": "Jan Jansen",
+                          "account": { "iban": "NL02ABNA0123456789" }
+                        },
+                        "amount": { "currency": "EUR", "value": "100.00" },
+                        "description": "Invoice 12345",
+                        "scheduledFor": "2025-03-01"
+                      }'
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: draft-transfers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+    get:
+      summary: List draft transfers
+      x-speakeasy-name-override: list
+      tags:
+        - Draft Transfers API
+      operationId: list-draft-transfers
+      security:
+        - advancedAccessToken:
+            - business-account-draft-transfers.read
+        - oAuth:
+            - business-account-draft-transfers.read
+      description: |-
+        > 🚧 Beta feature
+        >
+        > This feature is currently in beta testing, and the final specification may still change.
+
+        Retrieves a list of draft transfers for the organization including ones created in Mollie Apps, not just
+        ones created via this API.
+
+        The results are paginated.
+
+        In test mode, this always returns a synthetic `awaiting-initiation` list. See [Create draft
+        transfer](create-draft-transfer) for full test-mode behavior.
+      parameters:
+        - $ref: '#/components/parameters/list-from'
+          schema:
+            type: string
+            example: badrt_87GByBuj4UCcUTEbs6aGJ
+        - $ref: '#/components/parameters/list-limit'
+        - name: status
+          in: query
+          description: Filter the list by draft transfer status. Omit to return draft transfers in any status.
+          schema:
+            $ref: '#/components/schemas/draft-transfer-status'
+        - name: source
+          in: query
+          description: |-
+            Filter the list by origin: `api` for draft transfers created via this API, `mollie-app` for ones created
+            in Mollie Apps. Omit to return draft transfers from any source.
+          schema:
+            $ref: '#/components/schemas/draft-transfer-source'
+        - $ref: '#/components/parameters/idempotency-key'
+      responses:
+        '200':
+          description: A list of draft transfer objects.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - _embedded
+                  - _links
+                properties:
+                  count:
+                    $ref: '#/components/schemas/list-count'
+                  _embedded:
+                    type: object
+                    required:
+                      - draft_transfers
+                    properties:
+                      draft_transfers:
+                        description: An array of draft transfer objects.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/list-draft-transfer-response'
+                  _links:
+                    $ref: '#/components/schemas/list-links'
+              examples:
+                list-draft-transfers-200:
+                  summary: List of draft transfers
+                  value:
+                    count: 1
+                    _embedded:
+                      draft_transfers:
+                        - resource: business-account-draft-transfer
+                          id: badrt_87GByBuj4UCcUTEbs6aGJ
+                          mode: live
+                          source: api
+                          debtor:
+                            fullName: Mollie B.V.
+                            account:
+                              iban: NL55MLLE0123456789
+                          creditor:
+                            fullName: Jan Jansen
+                            account:
+                              iban: NL02ABNA0123456789
+                          amount:
+                            currency: EUR
+                            value: '100.00'
+                          description: Invoice 12345
+                          scheduledFor: '2025-03-01'
+                          status: awaiting-initiation
+                          statusReason: null
+                          statusHistory:
+                            - status: awaiting-initiation
+                              createdAt: '2025-01-01T12:00:00+00:00'
+                          createdAt: '2025-01-01T12:00:00+00:00'
+                          _links:
+                            self:
+                              href: https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ
+                              type: application/hal+json
+                            documentation:
+                              href: https://docs.mollie.com/reference/get-draft-transfer
+                              type: text/html
+                    _links:
+                      self:
+                        href: https://api.mollie.com/v2/business-accounts/draft-transfers?limit=50
+                        type: application/hal+json
+                      previous: null
+                      next: null
+                      documentation:
+                        href: https://docs.mollie.com/reference/list-draft-transfers
+                        type: text/html
+        '400':
+          $ref: '#/components/responses/400-invalid-list-request'
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-speakeasy-pagination:
+        type: url
+        outputs:
+          nextUrl: $._links.next.href
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/business-accounts/draft-transfers \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: draft-transfers
+  /v2/business-accounts/draft-transfers/{draftTransferId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-draft-transfer-id'
+    get:
+      summary: Get draft transfer
+      x-speakeasy-name-override: get
+      tags:
+        - Draft Transfers API
+      operationId: get-draft-transfer
+      security:
+        - advancedAccessToken:
+            - business-account-draft-transfers.read
+        - oAuth:
+            - business-account-draft-transfers.read
+      description: |-
+        > 🚧 Beta feature
+        >
+        > This feature is currently in beta testing, and the final specification may still change.
+
+        Retrieves a single draft transfer by its identifier.
+
+        Only draft transfers created via this API are visible via this endpoint. Draft transfers created in Mollie
+        Apps return a `404`, even though they appear in the [list endpoint](list-draft-transfers).
+
+        In test mode, this always returns a synthetic `awaiting-initiation` draft. See [Create draft
+        transfer](create-draft-transfer) for full test-mode behavior.
+      responses:
+        '200':
+          description: The draft transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/draft-transfer-response'
+              examples:
+                get-draft-transfer-200:
+                  $ref: '#/components/examples/draft-transfer-awaiting-initiation'
+                initiated-draft-transfer:
+                  $ref: '#/components/examples/draft-transfer-initiated'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: draft-transfers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+    delete:
+      summary: Cancel draft transfer
+      x-speakeasy-name-override: cancel
+      tags:
+        - Draft Transfers API
+      operationId: cancel-draft-transfer
+      security:
+        - advancedAccessToken:
+            - business-account-draft-transfers.write
+        - oAuth:
+            - business-account-draft-transfers.write
+      description: |-
+        > 🚧 Beta feature
+        >
+        > This feature is currently in beta testing, and the final specification may still change.
+
+        Cancels a draft transfer created via this API. Transitions the draft transfer to `declined` with
+        `statusReason` set to `"Declined by creator"`.
+
+        Only draft transfers created via this API, and still in `awaiting-initiation`, can be cancelled this way. A
+        `422` is returned if the initiator has already started approving it.
+
+        In test mode, this always returns a synthetic `declined` draft. See [Create draft
+        transfer](create-draft-transfer) for full test-mode behavior.
+      responses:
+        '200':
+          description: The cancelled (declined) draft transfer object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/draft-transfer-response'
+              examples:
+                cancel-draft-transfer-200:
+                  $ref: '#/components/examples/draft-transfer-declined'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+        '422':
+          description: |-
+            The draft transfer cannot be cancelled. Only draft transfers with status `awaiting-initiation` and
+            source `api` can be cancelled.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: Only draft transfers with status 'awaiting-initiation' and source 'api' can be cancelled
+                _links:
+                  documentation:
+                    href: '...'
+                    type: text/html
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X DELETE https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: No example available.
+          - language: node
+            code: No example available.
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: draft-transfers
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /v2/business-accounts/payee-verifications:
     post:
       summary: Verify Payee
@@ -34619,9 +34980,7 @@ components:
         code:
           $ref: '#/components/schemas/status-reason-code-response'
         message:
-          type:
-            - string
-            - 'null'
+          type: string
           description: Provides further details about failure indicated. This field is only populated if the`code` field is set to `error`.
           example: The creditor account does not exist.
     status-history-entry:
@@ -37643,6 +38002,197 @@ components:
             - creditor
             - amount
             - transferScheme
+    draft-transfer-status:
+      type: string
+      description: The status of the draft transfer.
+      enum:
+        - awaiting-initiation
+        - initiated
+        - declined
+      example: awaiting-initiation
+    draft-transfer-source:
+      type: string
+      description: The origin of the draft transfer.
+      enum:
+        - api
+        - mollie-app
+      example: api
+    draftTransferToken:
+      type: string
+      pattern: ^badrt_.+$
+      example: badrt_87GByBuj4UCcUTEbs6aGJ
+    draft-transfer-party:
+      type: object
+      description: |-
+        A party involved in the draft transfer, representing either the debtor (sender) or creditor
+        (recipient). Contains the party's name and account details.
+      required:
+        - fullName
+        - account
+      properties:
+        fullName:
+          type: string
+          description: The full name of the account holder.
+          example: Jan Jansen
+        account:
+          type: object
+          description: The bank account details of the party.
+          required:
+            - iban
+          properties:
+            iban:
+              type: string
+              description: The IBAN (International Bank Account Number) of the account holder.
+              example: NL02ABNA0123456789
+    draft-transfer-status-history-entry:
+      type: object
+      description: A single entry in the draft transfer's status history.
+      required:
+        - status
+        - createdAt
+      properties:
+        status:
+          $ref: '#/components/schemas/draft-transfer-status-response'
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time the draft transfer entered this status, in ISO 8601 format.
+          example: '2025-01-01T12:00:00+00:00'
+    entity-draft-transfer:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a draft transfer object. Will always contain the string
+            `business-account-draft-transfer` for this endpoint.
+          readOnly: true
+          example: business-account-draft-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/draftTransferToken'
+          description: |-
+            The identifier uniquely referring to this draft transfer. Mollie assigns this identifier at draft transfer
+            creation time.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        source:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-source'
+          description: Whether the draft transfer was created via this API, or created in Mollie Apps.
+          readOnly: true
+        debtorIban:
+          type: string
+          description: |-
+            The IBAN of the debtor's (sender) Mollie Business Account. Defaults to your organization's primary account
+            if omitted.
+          example: NL55MLLE0123456789
+          writeOnly: true
+        debtor:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-party'
+          description: The debtor (sender) of the draft transfer, resolved from `debtorIban` at creation time.
+          readOnly: true
+        creditor:
+          $ref: '#/components/schemas/draft-transfer-party'
+          description: The creditor (recipient) of the draft transfer, including their name and account details.
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the draft transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer
+            €100.00.
+
+            Only `EUR` is supported.
+        description:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A short description of the draft transfer. Once approved, this will appear on the bank statement of both
+            the debtor and creditor.
+          maxLength: 140
+          example: Invoice 12345
+        scheduledFor:
+          type:
+            - string
+            - 'null'
+          format: date
+          description: |-
+            The date on which the resulting transfer will be executed, once approved. Defaults to same-day if omitted,
+            in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date format.
+          example: '2025-03-01'
+        status:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-status'
+          readOnly: true
+        statusReason:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The reason for the current status. Only populated when `status` is `declined`, either free text provided
+            by the initiator or `"Declined by creator"` when cancelled via the `DELETE` endpoint.
+          readOnly: true
+          example: Declined by creator
+        statusHistory:
+          type: array
+          description: A chronological list of status transitions the draft transfer has gone through.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/draft-transfer-status-history-entry'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        _links:
+          type: object
+          description: Links to related resources.
+          readOnly: true
+          required:
+            - self
+          properties:
+            self:
+              type: object
+              description: The URL to this draft transfer.
+              properties:
+                href:
+                  type: string
+                  example: https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ
+                type:
+                  type: string
+                  example: application/hal+json
+            documentation:
+              type: object
+              description: The URL to the documentation of this endpoint.
+              properties:
+                href:
+                  type: string
+                  example: https://docs.mollie.com/reference/get-draft-transfer
+                type:
+                  type: string
+                  example: text/html
+    draft-transfer-response:
+      allOf:
+        - $ref: '#/components/schemas/entity-draft-transfer-response'
+      required:
+        - resource
+        - id
+        - mode
+        - source
+        - debtor
+        - creditor
+        - amount
+        - status
+        - statusHistory
+        - createdAt
+        - _links
+    create-draft-transfer-request:
+      allOf:
+        - $ref: '#/components/schemas/entity-draft-transfer'
+        - type: object
+          required:
+            - creditor
+            - amount
+            - description
     account-number-format:
       type: string
       description: The format of the account number.
@@ -40542,6 +41092,123 @@ components:
                 provided details. Required for `paid` status.
               items:
                 $ref: '#/components/schemas/sales-invoice-payment-details-response'
+    list-entity-draft-transfer:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a draft transfer object. Will always contain the string
+            `business-account-draft-transfer` for this endpoint.
+          readOnly: true
+          example: business-account-draft-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/draftTransferToken'
+          description: |-
+            The identifier uniquely referring to this draft transfer. Mollie assigns this identifier at draft transfer
+            creation time.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        source:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-source-response'
+          description: Whether the draft transfer was created via this API, or created in Mollie Apps.
+          readOnly: true
+        debtorIban:
+          type: string
+          description: |-
+            The IBAN of the debtor's (sender) Mollie Business Account. Defaults to your organization's primary account
+            if omitted.
+          example: NL55MLLE0123456789
+          writeOnly: true
+        debtor:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-party'
+          description: The debtor (sender) of the draft transfer, resolved from `debtorIban` at creation time.
+          readOnly: true
+        creditor:
+          $ref: '#/components/schemas/draft-transfer-party'
+          description: The creditor (recipient) of the draft transfer, including their name and account details.
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the draft transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer
+            €100.00.
+
+            Only `EUR` is supported.
+        description:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A short description of the draft transfer. Once approved, this will appear on the bank statement of both
+            the debtor and creditor.
+          maxLength: 140
+          example: Invoice 12345
+        scheduledFor:
+          type:
+            - string
+            - 'null'
+          format: date
+          description: |-
+            The date on which the resulting transfer will be executed, once approved. Defaults to same-day if omitted,
+            in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date format.
+          example: '2025-03-01'
+        status:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-status-response'
+          readOnly: true
+        statusReason:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The reason for the current status. Only populated when `status` is `declined`, either free text provided
+            by the initiator or `"Declined by creator"` when cancelled via the `DELETE` endpoint.
+          readOnly: true
+          example: Declined by creator
+        statusHistory:
+          type: array
+          description: A chronological list of status transitions the draft transfer has gone through.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/draft-transfer-status-history-entry-response'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        _links:
+          type: object
+          description: Links to related resources.
+          readOnly: true
+          required:
+            - self
+          properties:
+            self:
+              type: object
+              description: The URL to this draft transfer.
+              properties:
+                href:
+                  type: string
+                  example: https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ
+                type:
+                  type: string
+                  example: application/hal+json
+    list-draft-transfer-response:
+      allOf:
+        - $ref: '#/components/schemas/list-entity-draft-transfer'
+      required:
+        - resource
+        - id
+        - mode
+        - source
+        - debtor
+        - creditor
+        - amount
+        - status
+        - statusHistory
+        - createdAt
+        - _links
     list-entity-payout:
       type: object
       required:
@@ -43985,6 +44652,149 @@ components:
         - null
       example: paypal
       x-speakeasy-unknown-values: allow
+    entity-draft-transfer-response:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a draft transfer object. Will always contain the string
+            `business-account-draft-transfer` for this endpoint.
+          readOnly: true
+          example: business-account-draft-transfer
+        id:
+          allOf:
+            - $ref: '#/components/schemas/draftTransferToken'
+          description: |-
+            The identifier uniquely referring to this draft transfer. Mollie assigns this identifier at draft transfer
+            creation time.
+          readOnly: true
+        mode:
+          $ref: '#/components/schemas/mode'
+        source:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-source-response'
+          description: Whether the draft transfer was created via this API, or created in Mollie Apps.
+          readOnly: true
+        debtorIban:
+          type: string
+          description: |-
+            The IBAN of the debtor's (sender) Mollie Business Account. Defaults to your organization's primary account
+            if omitted.
+          example: NL55MLLE0123456789
+          writeOnly: true
+        debtor:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-party'
+          description: The debtor (sender) of the draft transfer, resolved from `debtorIban` at creation time.
+          readOnly: true
+        creditor:
+          $ref: '#/components/schemas/draft-transfer-party'
+          description: The creditor (recipient) of the draft transfer, including their name and account details.
+        amount:
+          $ref: '#/components/schemas/amount'
+          description: |-
+            The amount of the draft transfer, e.g. `{"currency":"EUR", "value":"100.00"}` if you would want to transfer
+            €100.00.
+
+            Only `EUR` is supported.
+        description:
+          type:
+            - string
+            - 'null'
+          description: |-
+            A short description of the draft transfer. Once approved, this will appear on the bank statement of both
+            the debtor and creditor.
+          maxLength: 140
+          example: Invoice 12345
+        scheduledFor:
+          type:
+            - string
+            - 'null'
+          format: date
+          description: |-
+            The date on which the resulting transfer will be executed, once approved. Defaults to same-day if omitted,
+            in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date format.
+          example: '2025-03-01'
+        status:
+          allOf:
+            - $ref: '#/components/schemas/draft-transfer-status-response'
+          readOnly: true
+        statusReason:
+          type:
+            - string
+            - 'null'
+          description: |-
+            The reason for the current status. Only populated when `status` is `declined`, either free text provided
+            by the initiator or `"Declined by creator"` when cancelled via the `DELETE` endpoint.
+          readOnly: true
+          example: Declined by creator
+        statusHistory:
+          type: array
+          description: A chronological list of status transitions the draft transfer has gone through.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/draft-transfer-status-history-entry-response'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        _links:
+          type: object
+          description: Links to related resources.
+          readOnly: true
+          required:
+            - self
+          properties:
+            self:
+              type: object
+              description: The URL to this draft transfer.
+              properties:
+                href:
+                  type: string
+                  example: https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ
+                type:
+                  type: string
+                  example: application/hal+json
+            documentation:
+              type: object
+              description: The URL to the documentation of this endpoint.
+              properties:
+                href:
+                  type: string
+                  example: https://docs.mollie.com/reference/get-draft-transfer
+                type:
+                  type: string
+                  example: text/html
+    draft-transfer-source-response:
+      type: string
+      description: The origin of the draft transfer.
+      enum:
+        - api
+        - mollie-app
+      example: api
+      x-speakeasy-unknown-values: allow
+    draft-transfer-status-response:
+      type: string
+      description: The status of the draft transfer.
+      enum:
+        - awaiting-initiation
+        - initiated
+        - declined
+      example: awaiting-initiation
+      x-speakeasy-unknown-values: allow
+    draft-transfer-status-history-entry-response:
+      type: object
+      description: A single entry in the draft transfer's status history.
+      required:
+        - status
+        - createdAt
+      properties:
+        status:
+          $ref: '#/components/schemas/draft-transfer-status-response'
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time the draft transfer entered this status, in ISO 8601 format.
+          example: '2025-01-01T12:00:00+00:00'
     creditor-bank-account-response:
       type: object
       description: The bank account details of the creditor (recipient) for Verification of Payee.
@@ -44313,6 +45123,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/businessAccountTransferToken'
+    parent-draft-transfer-id:
+      name: draftTransferId
+      description: Provide the ID of the related draft transfer.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/draftTransferToken'
     balance-id:
       name: balanceId
       description: |-
@@ -44835,6 +45652,109 @@ components:
           - status: initiated
             createdAt: '2025-01-01T12:00:01+00:00'
         createdAt: '2025-01-01T12:00:00+00:00'
+    draft-transfer-awaiting-initiation:
+      summary: Awaiting initiation
+      value:
+        resource: business-account-draft-transfer
+        id: badrt_87GByBuj4UCcUTEbs6aGJ
+        mode: live
+        source: api
+        debtor:
+          fullName: Mollie B.V.
+          account:
+            iban: NL55MLLE0123456789
+        creditor:
+          fullName: Jan Jansen
+          account:
+            iban: NL02ABNA0123456789
+        amount:
+          currency: EUR
+          value: '100.00'
+        description: Invoice 12345
+        scheduledFor: '2025-03-01'
+        status: awaiting-initiation
+        statusReason: null
+        statusHistory:
+          - status: awaiting-initiation
+            createdAt: '2025-01-01T12:00:00+00:00'
+        createdAt: '2025-01-01T12:00:00+00:00'
+        _links:
+          self:
+            href: https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-draft-transfer
+            type: text/html
+    draft-transfer-initiated:
+      summary: Initiated
+      value:
+        resource: business-account-draft-transfer
+        id: badrt_87GByBuj4UCcUTEbs6aGJ
+        mode: live
+        source: api
+        debtor:
+          fullName: Mollie B.V.
+          account:
+            iban: NL55MLLE0123456789
+        creditor:
+          fullName: Jan Jansen
+          account:
+            iban: NL02ABNA0123456789
+        amount:
+          currency: EUR
+          value: '100.00'
+        description: Invoice 12345
+        scheduledFor: '2025-03-01'
+        status: initiated
+        statusReason: null
+        statusHistory:
+          - status: awaiting-initiation
+            createdAt: '2025-01-01T12:00:00+00:00'
+          - status: initiated
+            createdAt: '2025-01-01T12:05:00+00:00'
+        createdAt: '2025-01-01T12:00:00+00:00'
+        _links:
+          self:
+            href: https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-draft-transfer
+            type: text/html
+    draft-transfer-declined:
+      summary: Declined
+      value:
+        resource: business-account-draft-transfer
+        id: badrt_87GByBuj4UCcUTEbs6aGJ
+        mode: live
+        source: api
+        debtor:
+          fullName: Mollie B.V.
+          account:
+            iban: NL55MLLE0123456789
+        creditor:
+          fullName: Jan Jansen
+          account:
+            iban: NL02ABNA0123456789
+        amount:
+          currency: EUR
+          value: '100.00'
+        description: Invoice 12345
+        scheduledFor: '2025-03-01'
+        status: declined
+        statusReason: Declined by creator
+        statusHistory:
+          - status: awaiting-initiation
+            createdAt: '2025-01-01T12:00:00+00:00'
+          - status: declined
+            createdAt: '2025-01-01T12:05:00+00:00'
+        createdAt: '2025-01-01T12:00:00+00:00'
+        _links:
+          self:
+            href: https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-draft-transfer
+            type: text/html
     list-payouts-200:
       summary: List of payouts
       value:
