@@ -42,7 +42,7 @@ export type TransferResponseAccount = {
 /**
  * The debtor (sender) of the transfer, including their name and account details.
  */
-export type Debtor = {
+export type TransferResponseDebtor = {
   /**
    * The full name of the account holder.
    */
@@ -72,7 +72,7 @@ export type TransferResponse = {
   /**
    * The debtor (sender) of the transfer, including their name and account details.
    */
-  debtor: Debtor;
+  debtor: TransferResponseDebtor;
   /**
    * A party involved in the transfer, representing either the debtor (sender) or creditor (recipient).
    *
@@ -159,19 +159,22 @@ export function transferResponseAccountFromJSON(
 }
 
 /** @internal */
-export const Debtor$inboundSchema: z.ZodType<Debtor, z.ZodTypeDef, unknown> = z
-  .object({
-    fullName: z.string(),
-    account: z.lazy(() => TransferResponseAccount$inboundSchema),
-  });
+export const TransferResponseDebtor$inboundSchema: z.ZodType<
+  TransferResponseDebtor,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  fullName: z.string(),
+  account: z.lazy(() => TransferResponseAccount$inboundSchema),
+});
 
-export function debtorFromJSON(
+export function transferResponseDebtorFromJSON(
   jsonString: string,
-): SafeParseResult<Debtor, SDKValidationError> {
+): SafeParseResult<TransferResponseDebtor, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Debtor$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Debtor' from JSON`,
+    (x) => TransferResponseDebtor$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TransferResponseDebtor' from JSON`,
   );
 }
 
@@ -184,7 +187,7 @@ export const TransferResponse$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   mode: Mode$inboundSchema,
-  debtor: z.lazy(() => Debtor$inboundSchema),
+  debtor: z.lazy(() => TransferResponseDebtor$inboundSchema),
   creditor: TransferParty$inboundSchema,
   amount: Amount$inboundSchema,
   description: z.nullable(z.string()).optional(),

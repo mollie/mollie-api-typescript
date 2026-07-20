@@ -28,7 +28,7 @@ export type StatusReason2 = {
   /**
    * Provides further details about failure indicated. This field is only populated if the`code` field is set to `error`.
    */
-  message?: string | null | undefined;
+  message?: string | undefined;
 };
 
 /** @internal */
@@ -38,7 +38,7 @@ export const StatusReason2$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   code: StatusReasonCodeResponse$inboundSchema.optional(),
-  message: z.nullable(z.string()).optional(),
+  message: z.string().optional(),
 });
 
 export function statusReason2FromJSON(
