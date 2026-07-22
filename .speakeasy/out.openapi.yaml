@@ -12521,7 +12521,10 @@ paths:
                   -d "lines[0][totalAmount][value]=10.00" \
                   -d "payment[webhookUrl]=https://webshop.example.org/payments/webhook/" \
                   -d "redirectUrl=https://webshop.example.org/order/12345/" \
-                  -d "metadata={\"order_id\": \"12345\"}"
+                  -d "metadata={\"order_id\": \"12345\"}" \
+                  -d "requiredCustomerDetails[]=email" \
+                  -d "requiredCustomerDetails[]=billing-address" \
+                  -d "requiredCustomerDetails[]=shipping-address"
           - language: php
             code: |-
               <?php
@@ -12549,7 +12552,8 @@ paths:
                       ],
                       metadata: [
                           "order_id" => "12345",
-                      ]
+                      ],
+                      requiredCustomerDetails: ["email", "billing-address", "shipping-address"]
                   )
               );
           - language: node
@@ -12583,7 +12587,8 @@ paths:
                 },
                 metadata: {
                   order_id: '12345'
-                }
+                },
+                requiredCustomerDetails: ['email', 'billing-address', 'shipping-address']
               });
           - language: python
             code: No example available.
@@ -35971,6 +35976,18 @@ components:
           type: string
           description: A link pointing to the product page in your web shop of the product sold.
           example: https://...
+    session-required-customer-details:
+      type: string
+      description: Customer details that should be collected during checkout.
+      enum:
+        - email
+        - billing-address
+        - shipping-address
+      x-enumDescriptions:
+        email: The customer's email address.
+        billing-address: The customer's full billing address, including their name.
+        shipping-address: The customer's full shipping address, including their name.
+      example: billing-address
     session-sequence-type:
       type: string
       enum:
@@ -36029,6 +36046,18 @@ components:
             It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
             right page referencing the order when your customer returns.
           example: https://example.org/redirect
+        requiredCustomerDetails:
+          type: array
+          uniqueItems: true
+          description: |-
+            > 🚧 Private beta
+            >
+            > This property is currently in private beta, and the final specification may still change.
+
+            Declare which customer details should be collected during checkout. Mollie can collect these details for you
+            with the Express Component and returns them on the session's and payment's `billingAddress` and `shippingAddress`.
+          items:
+            $ref: '#/components/schemas/session-required-customer-details'
         billingAddress:
           $ref: '#/components/schemas/payment-address'
           description: |-
@@ -44158,6 +44187,18 @@ components:
             It could make sense for the redirectUrl to contain a unique identifier – like your order ID – so you can show the
             right page referencing the order when your customer returns.
           example: https://example.org/redirect
+        requiredCustomerDetails:
+          type: array
+          uniqueItems: true
+          description: |-
+            > 🚧 Private beta
+            >
+            > This property is currently in private beta, and the final specification may still change.
+
+            Declare which customer details should be collected during checkout. Mollie can collect these details for you
+            with the Express Component and returns them on the session's and payment's `billingAddress` and `shippingAddress`.
+          items:
+            $ref: '#/components/schemas/session-required-customer-details-response'
         billingAddress:
           $ref: '#/components/schemas/payment-address'
           description: |-
@@ -44322,6 +44363,19 @@ components:
           type: string
           description: A link pointing to the product page in your web shop of the product sold.
           example: https://...
+    session-required-customer-details-response:
+      type: string
+      description: Customer details that should be collected during checkout.
+      enum:
+        - email
+        - billing-address
+        - shipping-address
+      x-enumDescriptions:
+        email: The customer's email address.
+        billing-address: The customer's full billing address, including their name.
+        shipping-address: The customer's full shipping address, including their name.
+      example: billing-address
+      x-speakeasy-unknown-values: allow
     session-sequence-type-response:
       type: string
       enum:
@@ -45376,6 +45430,27 @@ components:
               currency: EUR
         sequenceType: oneoff
         redirectUrl: https://webshop.example.org/order/12345/
+        requiredCustomerDetails:
+          - email
+          - billing-address
+          - shipping-address
+        billingAddress:
+          givenName: Piet
+          familyName: Mondriaan
+          email: piet@example.org
+          streetAndNumber: Keizersgracht 126
+          city: Amsterdam
+          region: Noord-Holland
+          postalCode: 1015 CW
+          country: NL
+        shippingAddress:
+          givenName: Piet
+          familyName: Mondriaan
+          streetAndNumber: Keizersgracht 126
+          city: Amsterdam
+          region: Noord-Holland
+          postalCode: 1015 CW
+          country: NL
         payment:
           webhookUrl: https://webshop.example.org/payments/webhook/
         metadata:
