@@ -38,6 +38,9 @@ async function run() {
       description: "Order #12345",
       lines: [],
       redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
       billingAddress: {
         title: "Mr.",
         givenName: "Piet",
@@ -109,6 +112,9 @@ async function run() {
       description: "Order #12345",
       lines: [],
       redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
       billingAddress: {
         title: "Mr.",
         givenName: "Piet",

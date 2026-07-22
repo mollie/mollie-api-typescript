@@ -200,6 +200,8 @@ export * from "./sequencetyperesponse.js";
 export * from "./sessionlineitem.js";
 export * from "./sessionlineitemresponse.js";
 export * from "./sessionrequest.js";
+export * from "./sessionrequiredcustomerdetails.js";
+export * from "./sessionrequiredcustomerdetailsresponse.js";
 export * from "./sessionresponse.js";
 export * from "./sessionsequencetype.js";
 export * from "./sessionsequencetyperesponse.js";

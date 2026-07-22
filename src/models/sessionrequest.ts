@@ -16,6 +16,10 @@ import {
   SessionLineItem$outboundSchema,
 } from "./sessionlineitem.js";
 import {
+  SessionRequiredCustomerDetails,
+  SessionRequiredCustomerDetails$outboundSchema,
+} from "./sessionrequiredcustomerdetails.js";
+import {
   SessionSequenceType,
   SessionSequenceType$outboundSchema,
 } from "./sessionsequencetype.js";
@@ -62,6 +66,17 @@ export type SessionRequest = {
    * right page referencing the order when your customer returns.
    */
   redirectUrl: string;
+  /**
+   * > 🚧 Private beta
+   *
+   * @remarks
+   * >
+   * > This property is currently in private beta, and the final specification may still change.
+   *
+   * Declare which customer details should be collected during checkout. Mollie can collect these details for you
+   * with the Express Component and returns them on the session's and payment's `billingAddress` and `shippingAddress`.
+   */
+  requiredCustomerDetails?: Array<SessionRequiredCustomerDetails> | undefined;
   billingAddress?: PaymentAddress | undefined;
   shippingAddress?: PaymentAddress | undefined;
   customerId?: string | undefined;
@@ -126,6 +141,7 @@ export type SessionRequest$Outbound = {
   description: string;
   lines: Array<SessionLineItem$Outbound>;
   redirectUrl: string;
+  requiredCustomerDetails?: Array<string> | undefined;
   billingAddress?: PaymentAddress$Outbound | undefined;
   shippingAddress?: PaymentAddress$Outbound | undefined;
   customerId?: string | undefined;
@@ -146,6 +162,9 @@ export const SessionRequest$outboundSchema: z.ZodType<
   description: z.string(),
   lines: z.array(SessionLineItem$outboundSchema),
   redirectUrl: z.string(),
+  requiredCustomerDetails: z.array(
+    SessionRequiredCustomerDetails$outboundSchema,
+  ).optional(),
   billingAddress: PaymentAddress$outboundSchema.optional(),
   shippingAddress: PaymentAddress$outboundSchema.optional(),
   customerId: z.string().optional(),
