@@ -3,7 +3,6 @@
  * @generated-id: 0d9ffaf774d2
  */
 
-export * from "./canceldrafttransfer.js";
 export * from "./cancelpayment.js";
 export * from "./cancelpayout.js";
 export * from "./cancelrefund.js";
@@ -13,7 +12,6 @@ export * from "./createclientlink.js";
 export * from "./createconnectbalancetransfer.js";
 export * from "./createcustomer.js";
 export * from "./createcustomerpayment.js";
-export * from "./createdrafttransfer.js";
 export * from "./createmandate.js";
 export * from "./createpayment.js";
 export * from "./createpaymentlink.js";
@@ -41,7 +39,6 @@ export * from "./getconnectbalancetransfer.js";
 export * from "./getcurrentorganization.js";
 export * from "./getcurrentprofile.js";
 export * from "./getcustomer.js";
-export * from "./getdrafttransfer.js";
 export * from "./getinvoice.js";
 export * from "./getmandate.js";
 export * from "./getmethod.js";
@@ -82,7 +79,6 @@ export * from "./listclients.js";
 export * from "./listconnectbalancetransfers.js";
 export * from "./listcustomerpayments.js";
 export * from "./listcustomers.js";
-export * from "./listdrafttransfers.js";
 export * from "./listinvoices.js";
 export * from "./listmandates.js";
 export * from "./listmethods.js";
