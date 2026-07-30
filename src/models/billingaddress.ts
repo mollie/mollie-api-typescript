@@ -14,7 +14,7 @@ import * as z from "zod/v3";
  * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
  * `country`.
  *
- * Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+ * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
  */
 export type BillingAddress = {
   /**

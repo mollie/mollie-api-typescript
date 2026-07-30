@@ -19,6 +19,7 @@ export const PaymentMethod = {
   Banktransfer: "banktransfer",
   Belfius: "belfius",
   Billie: "billie",
+  Billink: "billink",
   Bizum: "bizum",
   Bitcoin: "bitcoin",
   Blik: "blik",

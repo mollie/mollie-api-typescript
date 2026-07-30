@@ -114,7 +114,7 @@ export type PaymentRequestLine = {
  * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
  * `country`.
  *
- * Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+ * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
  */
 export type PaymentRequestBillingAddress = {
   /**
@@ -335,7 +335,7 @@ export type PaymentRequest = {
    *
    * All lines must have the same currency as the payment.
    *
-   * Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
+   * Required for payment methods `billie`, `billink`, `in3`, `klarna`, `riverty` and `voucher`.
    */
   lines?: Array<PaymentRequestLine> | null | undefined;
   /**
@@ -347,7 +347,7 @@ export type PaymentRequest = {
    * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
    * `country`.
    *
-   * Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+   * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
    */
   billingAddress?: PaymentRequestBillingAddress | undefined;
   shippingAddress?: PaymentAddress | undefined;

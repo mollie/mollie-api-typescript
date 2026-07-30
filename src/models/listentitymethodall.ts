@@ -29,6 +29,7 @@ export const ListEntityMethodAllId = {
   Banktransfer: "banktransfer",
   Belfius: "belfius",
   Billie: "billie",
+  Billink: "billink",
   Bizum: "bizum",
   Blik: "blik",
   Creditcard: "creditcard",
