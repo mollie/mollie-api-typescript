@@ -28689,6 +28689,7 @@ components:
         - banktransfer
         - belfius
         - billie
+        - billink
         - bizum
         - bitcoin
         - blik
@@ -31471,7 +31472,7 @@ components:
 
             All lines must have the same currency as the payment.
 
-            Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
+            Required for payment methods `billie`, `billink`, `in3`, `klarna`, `riverty` and `voucher`.
           items:
             allOf:
               - $ref: '#/components/schemas/payment-line-item'
@@ -31499,7 +31500,7 @@ components:
             Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
             `country`.
 
-            Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+            Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
         shippingAddress:
           $ref: '#/components/schemas/payment-address'
           description: |-
@@ -31916,6 +31917,7 @@ components:
         - banktransfer
         - belfius
         - billie
+        - billink
         - bizum
         - blik
         - creditcard
@@ -35276,7 +35278,7 @@ components:
         Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
         `country`.
 
-        Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+        Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
     unmatchedCreditTransferToken:
       type: string
       pattern: ^uct_.+$
@@ -35846,6 +35848,7 @@ components:
         - banktransfer
         - belfius
         - billie
+        - billink
         - bizum
         - blik
         - creditcard
@@ -38174,7 +38177,7 @@ components:
 
             All lines must have the same currency as the payment.
 
-            Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
+            Required for payment methods `billie`, `billink`, `in3`, `klarna`, `riverty` and `voucher`.
           items:
             allOf:
               - $ref: '#/components/schemas/payment-line-item-response'
@@ -38202,7 +38205,7 @@ components:
             Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
             `country`.
 
-            Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+            Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
         shippingAddress:
           $ref: '#/components/schemas/payment-address'
           description: |-
@@ -40772,7 +40775,7 @@ components:
 
             All lines must have the same currency as the payment.
 
-            Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
+            Required for payment methods `billie`, `billink`, `in3`, `klarna`, `riverty` and `voucher`.
           items:
             allOf:
               - $ref: '#/components/schemas/payment-line-item-response'
@@ -40800,7 +40803,7 @@ components:
             Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
             `country`.
 
-            Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+            Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
         shippingAddress:
           $ref: '#/components/schemas/payment-address'
           description: |-
@@ -41933,6 +41936,7 @@ components:
         - banktransfer
         - belfius
         - billie
+        - billink
         - bizum
         - blik
         - creditcard

@@ -200,7 +200,7 @@ export type ListSettlementPaymentResponseLine = {
  * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
  * `country`.
  *
- * Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+ * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
  */
 export type ListSettlementPaymentResponseBillingAddress = {
   /**
@@ -491,7 +491,7 @@ export type ListSettlementPaymentResponse = {
    *
    * All lines must have the same currency as the payment.
    *
-   * Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
+   * Required for payment methods `billie`, `billink`, `in3`, `klarna`, `riverty` and `voucher`.
    */
   lines?: Array<ListSettlementPaymentResponseLine> | null | undefined;
   /**
@@ -503,7 +503,7 @@ export type ListSettlementPaymentResponse = {
    * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
    * `country`.
    *
-   * Required for payment method `alma`, `in3`, `klarna`, `billie` and `riverty`.
+   * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
    */
   billingAddress?: ListSettlementPaymentResponseBillingAddress | undefined;
   shippingAddress?: PaymentAddress | undefined;
