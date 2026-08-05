@@ -31806,8 +31806,12 @@ components:
           readOnly: true
           example: '2024-03-20T09:28:37+00:00'
         dueDate:
-          type: string
-          description: The date by which the payment should be completed in `YYYY-MM-DD` format
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date by which the payment should be completed in `YYYY-MM-DD` format. Sending `null` has the same effect
+            as omitting the field.
           example: '2025-01-01'
           writeOnly: true
         storeCredentials:
@@ -34986,10 +34990,12 @@ components:
           x-methodSpecific: true
           x-method: apple-pay
         dueDate:
-          type: string
+          type:
+            - string
+            - 'null'
           description: |-
             The date the bank transfer payment should expire, in `YYYY-MM-DD` format. The minimum date is tomorrow, and the
-            maximum date is 100 days after tomorrow.
+            maximum date is 100 days after tomorrow. Sending `null` has the same effect as omitting the field.
 
             After you created the payment, you can still update the `dueDate` via [Update payment](update-payment).
 
@@ -35225,8 +35231,12 @@ components:
           items:
             $ref: '#/components/schemas/method'
     dueDate:
-      type: string
-      description: The date by which the payment should be completed in `YYYY-MM-DD` format
+      type:
+        - string
+        - 'null'
+      description: |-
+        The date by which the payment should be completed in `YYYY-MM-DD` format. Sending `null` has the same effect
+        as omitting the field.
       example: '2025-01-01'
       writeOnly: true
     restrictPaymentMethodsToCountry:
@@ -36278,6 +36288,7 @@ components:
       enum:
         - PAX
         - Tap
+        - null
       example: PAX
       description: The brand of the terminal.
       x-speakeasy-unknown-values: allow
@@ -36292,6 +36303,7 @@ components:
         - A920Pro
         - IM30
         - Tap
+        - null
       example: A920
       description: The model of the terminal. For example for a PAX A920, this field's value will be `A920`.
       x-speakeasy-unknown-values: allow
@@ -38513,8 +38525,12 @@ components:
           readOnly: true
           example: '2024-03-20T09:28:37+00:00'
         dueDate:
-          type: string
-          description: The date by which the payment should be completed in `YYYY-MM-DD` format
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date by which the payment should be completed in `YYYY-MM-DD` format. Sending `null` has the same effect
+            as omitting the field.
           example: '2025-01-01'
           writeOnly: true
         storeCredentials:
@@ -41113,8 +41129,12 @@ components:
           readOnly: true
           example: '2024-03-20T09:28:37+00:00'
         dueDate:
-          type: string
-          description: The date by which the payment should be completed in `YYYY-MM-DD` format
+          type:
+            - string
+            - 'null'
+          description: |-
+            The date by which the payment should be completed in `YYYY-MM-DD` format. Sending `null` has the same effect
+            as omitting the field.
           example: '2025-01-01'
           writeOnly: true
         storeCredentials:

@@ -81,9 +81,12 @@ export type UpdatePaymentRequestBody = {
    */
   locale?: models.Locale | null | undefined;
   /**
-   * The date by which the payment should be completed in `YYYY-MM-DD` format
+   * The date by which the payment should be completed in `YYYY-MM-DD` format. Sending `null` has the same effect
+   *
+   * @remarks
+   * as omitting the field.
    */
-  dueDate?: string | undefined;
+  dueDate?: string | null | undefined;
   /**
    * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
    *
@@ -164,7 +167,7 @@ export type UpdatePaymentRequestBody$Outbound = {
   metadata?: models.Metadata$Outbound | null | undefined;
   method?: models.MethodRequest$Outbound | null | undefined;
   locale?: string | null | undefined;
-  dueDate?: string | undefined;
+  dueDate?: string | null | undefined;
   restrictPaymentMethodsToCountry?: string | null | undefined;
   testmode?: boolean | undefined;
   issuer?: string | null | undefined;
@@ -186,7 +189,7 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   metadata: z.nullable(models.Metadata$outboundSchema).optional(),
   method: z.nullable(models.MethodRequest$outboundSchema).optional(),
   locale: z.nullable(models.Locale$outboundSchema).optional(),
-  dueDate: z.string().optional(),
+  dueDate: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   testmode: z.boolean().optional(),
   issuer: z.nullable(z.string()).optional(),
