@@ -41,6 +41,7 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
+      testmode: false,
     },
   });
 
@@ -76,6 +77,7 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
+      testmode: false,
     },
   });
   if (res.ok) {
@@ -110,6 +112,7 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
+      testmode: false,
     },
   });
 
@@ -145,6 +148,7 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
+      testmode: false,
     },
   });
   if (res.ok) {
