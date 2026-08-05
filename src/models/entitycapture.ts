@@ -31,6 +31,16 @@ export type EntityCapture = {
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: Metadata | null | undefined;
+  /**
+   * Whether to create the entity in test mode or live mode.
+   *
+   * @remarks
+   *
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter must
+   * not be sent. For organization-level credentials such as OAuth access tokens, you can enable test mode by setting
+   * `testmode` to `true`.
+   */
+  testmode?: boolean | null | undefined;
 };
 
 /** @internal */
@@ -38,6 +48,7 @@ export type EntityCapture$Outbound = {
   description?: string | undefined;
   amount?: AmountNullable$Outbound | null | undefined;
   metadata?: Metadata$Outbound | null | undefined;
+  testmode?: boolean | null | undefined;
 };
 
 /** @internal */
@@ -49,6 +60,7 @@ export const EntityCapture$outboundSchema: z.ZodType<
   description: z.string().optional(),
   amount: z.nullable(AmountNullable$outboundSchema).optional(),
   metadata: z.nullable(Metadata$outboundSchema).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
 });
 
 export function entityCaptureToJSON(entityCapture: EntityCapture): string {
