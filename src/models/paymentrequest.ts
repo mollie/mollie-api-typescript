@@ -495,7 +495,7 @@ export type PaymentRequest = {
    * The date the bank transfer payment should expire, in `YYYY-MM-DD` format. The minimum date is tomorrow, and the
    *
    * @remarks
-   * maximum date is 100 days after tomorrow.
+   * maximum date is 100 days after tomorrow. Sending `null` has the same effect as omitting the field.
    *
    * After you created the payment, you can still update the `dueDate` via [Update payment](update-payment).
    *
@@ -506,7 +506,7 @@ export type PaymentRequest = {
    *   `2025-12-09 00:00`
    * </Callout>
    */
-  dueDate?: string | undefined;
+  dueDate?: string | null | undefined;
   /**
    * Whether the card details should be stored for the customer after a successful payment. This will create a mandate for the customer,
    *
@@ -812,7 +812,7 @@ export type PaymentRequest$Outbound = {
   mandateId?: string | null | undefined;
   customerId?: string | undefined;
   profileId?: string | undefined;
-  dueDate?: string | undefined;
+  dueDate?: string | null | undefined;
   storeCredentials?: boolean | undefined;
   testmode?: boolean | null | undefined;
   applePayPaymentToken?: string | undefined;
@@ -865,7 +865,7 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   mandateId: z.nullable(z.string()).optional(),
   customerId: z.string().optional(),
   profileId: z.string().optional(),
-  dueDate: z.string().optional(),
+  dueDate: z.nullable(z.string()).optional(),
   storeCredentials: z.boolean().optional(),
   testmode: z.nullable(z.boolean()).optional(),
   applePayPaymentToken: z.string().optional(),
