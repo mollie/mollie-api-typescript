@@ -34,10 +34,6 @@ import {
 } from "./methodresponse.js";
 import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
-  PaymentAddress,
-  PaymentAddress$inboundSchema,
-} from "./paymentaddress.js";
-import {
   PaymentDetails,
   PaymentDetails$inboundSchema,
 } from "./paymentdetails.js";
@@ -53,6 +49,10 @@ import {
   SequenceTypeResponse,
   SequenceTypeResponse$inboundSchema,
 } from "./sequencetyperesponse.js";
+import {
+  ShippingAddress,
+  ShippingAddress$inboundSchema,
+} from "./shippingaddress.js";
 import { StatusReason, StatusReason$inboundSchema } from "./statusreason.js";
 import { Url, Url$inboundSchema } from "./url.js";
 import { UrlNullable, UrlNullable$inboundSchema } from "./urlnullable.js";
@@ -505,7 +505,7 @@ export type ListPaymentResponse = {
    * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
    */
   billingAddress?: ListPaymentResponseBillingAddress | undefined;
-  shippingAddress?: PaymentAddress | undefined;
+  shippingAddress?: ShippingAddress | undefined;
   /**
    * Sets the language for customer-facing content and communications.
    */
@@ -953,7 +953,7 @@ export const ListPaymentResponse$inboundSchema: z.ZodType<
   ).optional(),
   billingAddress: z.lazy(() => ListPaymentResponseBillingAddress$inboundSchema)
     .optional(),
-  shippingAddress: PaymentAddress$inboundSchema.optional(),
+  shippingAddress: ShippingAddress$inboundSchema.optional(),
   locale: z.nullable(LocaleResponse$inboundSchema).optional(),
   countryCode: z.nullable(z.string()).optional(),
   method: z.nullable(MethodResponse$inboundSchema).optional(),

@@ -13,10 +13,6 @@ import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
-  PaymentAddress,
-  PaymentAddress$inboundSchema,
-} from "./paymentaddress.js";
-import {
   SessionLineItemResponse,
   SessionLineItemResponse$inboundSchema,
 } from "./sessionlineitemresponse.js";
@@ -28,6 +24,10 @@ import {
   SessionSequenceTypeResponse,
   SessionSequenceTypeResponse$inboundSchema,
 } from "./sessionsequencetyperesponse.js";
+import {
+  ShippingAddress,
+  ShippingAddress$inboundSchema,
+} from "./shippingaddress.js";
 import { Url, Url$inboundSchema } from "./url.js";
 
 /**
@@ -128,8 +128,8 @@ export type SessionResponse = {
   requiredCustomerDetails?:
     | Array<SessionRequiredCustomerDetailsResponse>
     | undefined;
-  billingAddress?: PaymentAddress | undefined;
-  shippingAddress?: PaymentAddress | undefined;
+  billingAddress?: ShippingAddress | undefined;
+  shippingAddress?: ShippingAddress | undefined;
   customerId?: string | undefined;
   sequenceType?: SessionSequenceTypeResponse | undefined;
   /**
@@ -239,8 +239,8 @@ export const SessionResponse$inboundSchema: z.ZodType<
   requiredCustomerDetails: z.array(
     SessionRequiredCustomerDetailsResponse$inboundSchema,
   ).optional(),
-  billingAddress: PaymentAddress$inboundSchema.optional(),
-  shippingAddress: PaymentAddress$inboundSchema.optional(),
+  billingAddress: ShippingAddress$inboundSchema.optional(),
+  shippingAddress: ShippingAddress$inboundSchema.optional(),
   customerId: z.string().optional(),
   sequenceType: SessionSequenceTypeResponse$inboundSchema.optional(),
   metadata: z.record(z.any()).optional(),

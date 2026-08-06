@@ -1,13 +1,13 @@
-# Locale
+# Locale2
 
 Sets the language for customer-facing content and communications.
 
 ## Example Usage
 
 ```typescript
-import { Locale } from "mollie-api-typescript/models";
+import { Locale2 } from "mollie-api-typescript/models";
 
-let value: Locale = "en_US";
+let value: Locale2 = "en_US";
 ```
 
 ## Values

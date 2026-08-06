@@ -16,18 +16,13 @@ import {
   LineCategories,
   LineCategories$outboundSchema,
 } from "./linecategories.js";
-import { Locale, Locale$outboundSchema } from "./locale.js";
+import { Locale2, Locale2$outboundSchema } from "./locale2.js";
 import {
   Metadata,
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
 import { MethodEnum, MethodEnum$outboundSchema } from "./methodenum.js";
-import {
-  PaymentAddress,
-  PaymentAddress$Outbound,
-  PaymentAddress$outboundSchema,
-} from "./paymentaddress.js";
 import {
   PaymentLineType,
   PaymentLineType$outboundSchema,
@@ -38,6 +33,11 @@ import {
   RecurringLineItem$outboundSchema,
 } from "./recurringlineitem.js";
 import { SequenceType, SequenceType$outboundSchema } from "./sequencetype.js";
+import {
+  ShippingAddress,
+  ShippingAddress$Outbound,
+  ShippingAddress$outboundSchema,
+} from "./shippingaddress.js";
 
 export type PaymentRequestLine = {
   /**
@@ -350,11 +350,11 @@ export type PaymentRequest = {
    * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
    */
   billingAddress?: PaymentRequestBillingAddress | undefined;
-  shippingAddress?: PaymentAddress | undefined;
+  shippingAddress?: ShippingAddress | undefined;
   /**
    * Sets the language for customer-facing content and communications.
    */
-  locale?: Locale | null | undefined;
+  locale?: Locale2 | null | undefined;
   /**
    * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific
    *
@@ -798,7 +798,7 @@ export type PaymentRequest$Outbound = {
   webhookUrl?: string | null | undefined;
   lines?: Array<PaymentRequestLine$Outbound> | null | undefined;
   billingAddress?: PaymentRequestBillingAddress$Outbound | undefined;
-  shippingAddress?: PaymentAddress$Outbound | undefined;
+  shippingAddress?: ShippingAddress$Outbound | undefined;
   locale?: string | null | undefined;
   method?: string | Array<string | null> | null | undefined;
   issuer?: string | null | undefined;
@@ -844,8 +844,8 @@ export const PaymentRequest$outboundSchema: z.ZodType<
     .optional(),
   billingAddress: z.lazy(() => PaymentRequestBillingAddress$outboundSchema)
     .optional(),
-  shippingAddress: PaymentAddress$outboundSchema.optional(),
-  locale: z.nullable(Locale$outboundSchema).optional(),
+  shippingAddress: ShippingAddress$outboundSchema.optional(),
+  locale: z.nullable(Locale2$outboundSchema).optional(),
   method: z.nullable(
     z.union([
       MethodEnum$outboundSchema,
