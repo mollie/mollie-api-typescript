@@ -36,7 +36,6 @@ export const Locale = {
   PTPT: "pt_PT",
   SKSK: "sk_SK",
   SvSE: "sv_SE",
-  Null: "null",
 } as const;
 /**
  * Sets the language for customer-facing content and communications.

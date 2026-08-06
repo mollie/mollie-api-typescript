@@ -79,7 +79,7 @@ export type UpdatePaymentRequestBody = {
   /**
    * Sets the language for customer-facing content and communications.
    */
-  locale?: models.Locale | null | undefined;
+  locale?: models.Locale2 | null | undefined;
   /**
    * The date by which the payment should be completed in `YYYY-MM-DD` format. Sending `null` has the same effect
    *
@@ -142,7 +142,7 @@ export type UpdatePaymentRequestBody = {
    * Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
    */
   billingAddress?: models.BillingAddress | undefined;
-  shippingAddress?: models.PaymentAddress | undefined;
+  shippingAddress?: models.ShippingAddress | undefined;
   billingEmail?: string | undefined;
 };
 
@@ -172,7 +172,7 @@ export type UpdatePaymentRequestBody$Outbound = {
   testmode?: boolean | undefined;
   issuer?: string | null | undefined;
   billingAddress?: models.BillingAddress$Outbound | undefined;
-  shippingAddress?: models.PaymentAddress$Outbound | undefined;
+  shippingAddress?: models.ShippingAddress$Outbound | undefined;
   billingEmail?: string | undefined;
 };
 
@@ -188,13 +188,13 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   webhookUrl: z.nullable(z.string()).optional(),
   metadata: z.nullable(models.Metadata$outboundSchema).optional(),
   method: z.nullable(models.MethodRequest$outboundSchema).optional(),
-  locale: z.nullable(models.Locale$outboundSchema).optional(),
+  locale: z.nullable(models.Locale2$outboundSchema).optional(),
   dueDate: z.nullable(z.string()).optional(),
   restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
   testmode: z.boolean().optional(),
   issuer: z.nullable(z.string()).optional(),
   billingAddress: models.BillingAddress$outboundSchema.optional(),
-  shippingAddress: models.PaymentAddress$outboundSchema.optional(),
+  shippingAddress: models.ShippingAddress$outboundSchema.optional(),
   billingEmail: z.string().optional(),
 });
 

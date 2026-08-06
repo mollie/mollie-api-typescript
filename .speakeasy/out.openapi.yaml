@@ -11702,7 +11702,7 @@ paths:
                 method:
                   $ref: '#/components/schemas/method-request'
                 locale:
-                  $ref: '#/components/schemas/locale'
+                  $ref: '#/components/schemas/locale-2'
                 dueDate:
                   $ref: '#/components/schemas/dueDate'
                 restrictPaymentMethodsToCountry:
@@ -11714,7 +11714,7 @@ paths:
                 billingAddress:
                   $ref: '#/components/schemas/billingAddress'
                 shippingAddress:
-                  $ref: '#/components/schemas/payment-address'
+                  $ref: '#/components/schemas/shippingAddress'
                 billingEmail:
                   type: string
                   example: test@example.com
@@ -12071,7 +12071,7 @@ paths:
               type: object
               properties:
                 profileId:
-                  $ref: '#/components/schemas/profileToken'
+                  $ref: '#/components/schemas/profileId'
                 testmode:
                   $ref: '#/components/schemas/testmode-create'
       responses:
@@ -30198,7 +30198,7 @@ components:
         - pt_PT
         - sk_SK
         - sv_SE
-        - 'null'
+        - null
       example: en_US
     metadata:
       oneOf:
@@ -33946,7 +33946,9 @@ components:
 
             The value in the response reflects the amount paid out, excluding any applicable fees.
         description:
-          type: string
+          type:
+            - string
+            - 'null'
           description: The description that will appear on the bank statement for this payout.
           maxLength: 255
           example: My payout description
@@ -35230,6 +35232,20 @@ components:
         - type: array
           items:
             $ref: '#/components/schemas/method'
+    locale-2:
+      type:
+        - string
+        - 'null'
+      $ref: '#/components/schemas/locale'
+      description: |-
+        Allows you to preset the language to be used in the hosted payment pages shown to the customer. Setting a locale
+        is highly recommended and will greatly improve your conversion rate. When this parameter is omitted the browser
+        language will be used instead if supported by the payment method. You can provide any `xx_XX` format ISO 15897
+        locale, but our hosted payment pages currently only support the specified languages.
+
+        For bank transfer payments specifically, the locale will determine the target bank account the customer has to
+        transfer the money to. We have dedicated bank accounts for Belgium, Germany, and The Netherlands. Having the
+        customer use a local bank account greatly increases the conversion and speed of payment.
     dueDate:
       type:
         - string
@@ -35293,6 +35309,24 @@ components:
         `country`.
 
         Required for payment method `alma`, `in3`, `klarna`, `billie`, `billink` and `riverty`.
+    shippingAddress:
+      $ref: '#/components/schemas/payment-address'
+      description: |-
+        The customer's shipping address details. We advise to provide these details to improve fraud protection and
+        conversion.
+
+        Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and
+        `country`.
+    profileId:
+      type: string
+      $ref: '#/components/schemas/profileToken'
+      description: |-
+        The identifier referring to the [profile](get-profile) this entity belongs to.
+
+        When using an API Key, the `profileId` must not be sent since it is linked to the key. However, for OAuth and
+        Organization tokens, the `profileId` is required.
+
+        For more information, see [Authentication](authentication).
     unmatchedCreditTransferToken:
       type: string
       pattern: ^uct_.+$
@@ -40632,7 +40666,9 @@ components:
 
             The value in the response reflects the amount paid out, excluding any applicable fees.
         description:
-          type: string
+          type:
+            - string
+            - 'null'
           description: The description that will appear on the bank statement for this payout.
           maxLength: 255
           example: My payout description
@@ -41377,7 +41413,7 @@ components:
         - pt_PT
         - sk_SK
         - sv_SE
-        - 'null'
+        - null
       example: en_US
       x-speakeasy-unknown-values: allow
     capture-mode-response:
@@ -42730,7 +42766,9 @@ components:
 
             The value in the response reflects the amount paid out, excluding any applicable fees.
         description:
-          type: string
+          type:
+            - string
+            - 'null'
           description: The description that will appear on the bank statement for this payout.
           maxLength: 255
           example: My payout description
@@ -44265,7 +44303,6 @@ components:
       description: Response language
       in: query
       schema:
-        type: string
         $ref: '#/components/schemas/locale'
     parent-method-id:
       name: methodId

@@ -6,11 +6,6 @@
 import * as z from "zod/v3";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
-  PaymentAddress,
-  PaymentAddress$Outbound,
-  PaymentAddress$outboundSchema,
-} from "./paymentaddress.js";
-import {
   SessionLineItem,
   SessionLineItem$Outbound,
   SessionLineItem$outboundSchema,
@@ -23,6 +18,11 @@ import {
   SessionSequenceType,
   SessionSequenceType$outboundSchema,
 } from "./sessionsequencetype.js";
+import {
+  ShippingAddress,
+  ShippingAddress$Outbound,
+  ShippingAddress$outboundSchema,
+} from "./shippingaddress.js";
 
 export type SessionRequestPayment = {
   /**
@@ -77,8 +77,8 @@ export type SessionRequest = {
    * with the Express Component and returns them on the session's and payment's `billingAddress` and `shippingAddress`.
    */
   requiredCustomerDetails?: Array<SessionRequiredCustomerDetails> | undefined;
-  billingAddress?: PaymentAddress | undefined;
-  shippingAddress?: PaymentAddress | undefined;
+  billingAddress?: ShippingAddress | undefined;
+  shippingAddress?: ShippingAddress | undefined;
   customerId?: string | undefined;
   sequenceType?: SessionSequenceType | undefined;
   /**
@@ -142,8 +142,8 @@ export type SessionRequest$Outbound = {
   lines: Array<SessionLineItem$Outbound>;
   redirectUrl: string;
   requiredCustomerDetails?: Array<string> | undefined;
-  billingAddress?: PaymentAddress$Outbound | undefined;
-  shippingAddress?: PaymentAddress$Outbound | undefined;
+  billingAddress?: ShippingAddress$Outbound | undefined;
+  shippingAddress?: ShippingAddress$Outbound | undefined;
   customerId?: string | undefined;
   sequenceType?: string | undefined;
   metadata?: { [k: string]: any } | undefined;
@@ -165,8 +165,8 @@ export const SessionRequest$outboundSchema: z.ZodType<
   requiredCustomerDetails: z.array(
     SessionRequiredCustomerDetails$outboundSchema,
   ).optional(),
-  billingAddress: PaymentAddress$outboundSchema.optional(),
-  shippingAddress: PaymentAddress$outboundSchema.optional(),
+  billingAddress: ShippingAddress$outboundSchema.optional(),
+  shippingAddress: ShippingAddress$outboundSchema.optional(),
   customerId: z.string().optional(),
   sequenceType: SessionSequenceType$outboundSchema.optional(),
   metadata: z.record(z.any()).optional(),

@@ -53,7 +53,7 @@ export type ListEntityPayout = {
   /**
    * The description that will appear on the bank statement for this payout.
    */
-  description?: string | undefined;
+  description?: string | null | undefined;
   /**
    * The status of the payout.
    */
@@ -126,7 +126,7 @@ export const ListEntityPayout$inboundSchema: z.ZodType<
   id: z.string(),
   balanceId: z.string(),
   amount: z.nullable(AmountNullable$inboundSchema).optional(),
-  description: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   status: PayoutStatus$inboundSchema,
   statusReason: PayoutStatusReason$inboundSchema,
   createdAt: z.string(),

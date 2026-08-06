@@ -22,7 +22,7 @@ export type PayoutRequest = {
   /**
    * The description that will appear on the bank statement for this payout.
    */
-  description?: string | undefined;
+  description?: string | null | undefined;
   /**
    * Whether to create the entity in test mode or live mode.
    *
@@ -39,7 +39,7 @@ export type PayoutRequest = {
 export type PayoutRequest$Outbound = {
   balanceId: string;
   amount?: AmountNullable$Outbound | null | undefined;
-  description?: string | undefined;
+  description?: string | null | undefined;
   testmode?: boolean | null | undefined;
 };
 
@@ -51,7 +51,7 @@ export const PayoutRequest$outboundSchema: z.ZodType<
 > = z.object({
   balanceId: z.string(),
   amount: z.nullable(AmountNullable$outboundSchema).optional(),
-  description: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   testmode: z.nullable(z.boolean()).optional(),
 });
 

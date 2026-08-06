@@ -47,7 +47,6 @@ export const EntityOrganizationLocale = {
   PTPT: "pt_PT",
   SKSK: "sk_SK",
   SvSE: "sv_SE",
-  Null: "null",
 } as const;
 /**
  * The preferred locale of the merchant, as set in their Mollie dashboard.

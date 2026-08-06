@@ -15,10 +15,6 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema } from "./mode.js";
 import {
-  PaymentAddress,
-  PaymentAddress$inboundSchema,
-} from "./paymentaddress.js";
-import {
   PaymentLineItemResponse,
   PaymentLineItemResponse$inboundSchema,
 } from "./paymentlineitemresponse.js";
@@ -30,6 +26,10 @@ import {
   PaymentLinkSequenceTypeResponse,
   PaymentLinkSequenceTypeResponse$inboundSchema,
 } from "./paymentlinksequencetyperesponse.js";
+import {
+  ShippingAddress,
+  ShippingAddress$inboundSchema,
+} from "./shippingaddress.js";
 import { Url, Url$inboundSchema } from "./url.js";
 
 /**
@@ -136,8 +136,8 @@ export type PaymentLinkResponse = {
    * Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
    */
   lines?: Array<PaymentLineItemResponse> | null | undefined;
-  billingAddress?: PaymentAddress | undefined;
-  shippingAddress?: PaymentAddress | undefined;
+  billingAddress?: ShippingAddress | undefined;
+  shippingAddress?: ShippingAddress | undefined;
   /**
    * The identifier referring to the [profile](get-profile) this entity belongs to.
    *
@@ -263,8 +263,8 @@ export const PaymentLinkResponse$inboundSchema: z.ZodType<
   redirectUrl: z.nullable(z.string()),
   webhookUrl: z.nullable(z.string()),
   lines: z.nullable(z.array(PaymentLineItemResponse$inboundSchema)).optional(),
-  billingAddress: PaymentAddress$inboundSchema.optional(),
-  shippingAddress: PaymentAddress$inboundSchema.optional(),
+  billingAddress: ShippingAddress$inboundSchema.optional(),
+  shippingAddress: ShippingAddress$inboundSchema.optional(),
   profileId: z.nullable(z.string()),
   reusable: z.nullable(z.boolean()),
   createdAt: z.string(),
