@@ -211,7 +211,60 @@ documentation.
 For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
 [balance transactions](list-balance-transactions) endpoint.
 
-### Example Usage
+### Example Usage: get-open-settlement-200-1
+
+<!-- UsageSnippet language="typescript" operationID="get-open-settlement" method="get" path="/v2/settlements/open" example="get-open-settlement-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.getOpen({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsGetOpen } from "mollie-api-typescript/funcs/settlementsGetOpen.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsGetOpen(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("settlementsGetOpen failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-settlement-200-1
 
 <!-- UsageSnippet language="typescript" operationID="get-open-settlement" method="get" path="/v2/settlements/open" example="get-settlement-200-1" -->
 ```typescript
@@ -276,7 +329,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntitySettlement](../../models/entitysettlement.md)\>**
+**Promise\<[operations.GetOpenSettlementResponse](../../models/operations/getopensettlementresponse.md)\>**
 
 ### Errors
 
@@ -295,7 +348,60 @@ documentation.
 For more accurate bookkeeping, refer to the [balance report](get-balance-report) endpoint or the
 [balance transactions](list-balance-transactions) endpoint.
 
-### Example Usage
+### Example Usage: get-next-settlement-200-1
+
+<!-- UsageSnippet language="typescript" operationID="get-next-settlement" method="get" path="/v2/settlements/next" example="get-next-settlement-200-1" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.settlements.getNext({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { settlementsGetNext } from "mollie-api-typescript/funcs/settlementsGetNext.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await settlementsGetNext(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("settlementsGetNext failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-settlement-200-1
 
 <!-- UsageSnippet language="typescript" operationID="get-next-settlement" method="get" path="/v2/settlements/next" example="get-settlement-200-1" -->
 ```typescript
@@ -360,7 +466,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntitySettlement](../../models/entitysettlement.md)\>**
+**Promise\<[operations.GetNextSettlementResponse](../../models/operations/getnextsettlementresponse.md)\>**
 
 ### Errors
 

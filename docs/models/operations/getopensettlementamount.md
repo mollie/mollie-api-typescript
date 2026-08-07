@@ -1,13 +1,13 @@
-# ListEntitySettlementAmount
+# GetOpenSettlementAmount
 
 The total amount of the settlement.
 
 ## Example Usage
 
 ```typescript
-import { ListEntitySettlementAmount } from "mollie-api-typescript/models";
+import { GetOpenSettlementAmount } from "mollie-api-typescript/models/operations";
 
-let value: ListEntitySettlementAmount = {
+let value: GetOpenSettlementAmount = {
   currency: "EUR",
   value: "10.00",
 };

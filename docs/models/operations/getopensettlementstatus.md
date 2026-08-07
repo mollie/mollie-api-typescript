@@ -1,13 +1,13 @@
-# ListEntitySettlementStatus
+# GetOpenSettlementStatus
 
 The status of the settlement.
 
 ## Example Usage
 
 ```typescript
-import { ListEntitySettlementStatus } from "mollie-api-typescript/models";
+import { GetOpenSettlementStatus } from "mollie-api-typescript/models/operations";
 
-let value: ListEntitySettlementStatus = "paidout";
+let value: GetOpenSettlementStatus = "paidout";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

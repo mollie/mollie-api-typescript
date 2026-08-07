@@ -98,6 +98,10 @@ let value: ListSettlementsResponseBody = {
             type: "application/hal+json",
           },
           invoice: null,
+          documentation: {
+            href: "https://...",
+            type: "application/hal+json",
+          },
         },
       },
     ],

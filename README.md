@@ -350,6 +350,10 @@ let client = new Client({
 * [list](docs/sdks/methods/README.md#list) - List payment methods
 * [all](docs/sdks/methods/README.md#all) - List all payment methods
 * [get](docs/sdks/methods/README.md#get) - Get payment method
+* [enable](docs/sdks/methods/README.md#enable) - Enable payment method
+* [disable](docs/sdks/methods/README.md#disable) - Disable payment method
+* [enableIssuer](docs/sdks/methods/README.md#enableissuer) - Enable payment method issuer
+* [disableIssuer](docs/sdks/methods/README.md#disableissuer) - Disable payment method issuer
 
 ### [Oauth](docs/sdks/oauth/README.md)
 
@@ -547,6 +551,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`mandatesList`](docs/sdks/mandates/README.md#list) - List mandates
 - [`mandatesRevoke`](docs/sdks/mandates/README.md#revoke) - Revoke mandate
 - [`methodsAll`](docs/sdks/methods/README.md#all) - List all payment methods
+- [`methodsDisable`](docs/sdks/methods/README.md#disable) - Disable payment method
+- [`methodsDisableIssuer`](docs/sdks/methods/README.md#disableissuer) - Disable payment method issuer
+- [`methodsEnable`](docs/sdks/methods/README.md#enable) - Enable payment method
+- [`methodsEnableIssuer`](docs/sdks/methods/README.md#enableissuer) - Enable payment method issuer
 - [`methodsGet`](docs/sdks/methods/README.md#get) - Get payment method
 - [`methodsList`](docs/sdks/methods/README.md#list) - List payment methods
 - [`oauthGenerate`](docs/sdks/oauth/README.md#generate) - Generate tokens

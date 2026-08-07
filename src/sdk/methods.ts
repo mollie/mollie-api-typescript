@@ -4,6 +4,10 @@
  */
 
 import { methodsAll } from "../funcs/methodsAll.js";
+import { methodsDisable } from "../funcs/methodsDisable.js";
+import { methodsDisableIssuer } from "../funcs/methodsDisableIssuer.js";
+import { methodsEnable } from "../funcs/methodsEnable.js";
+import { methodsEnableIssuer } from "../funcs/methodsEnableIssuer.js";
 import { methodsGet } from "../funcs/methodsGet.js";
 import { methodsList } from "../funcs/methodsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -92,6 +96,96 @@ export class Methods extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.EntityMethodGet> {
     return unwrapAsync(methodsGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Enable payment method
+   *
+   * @remarks
+   * Enable a payment method on a specific profile.
+   *
+   * When using a profile-specific API credential, the alias `me` can be used
+   * instead of the profile ID to refer to the current profile.
+   *
+   * Some payment methods require extra steps in order to be activated. In cases
+   * where a step at the payment method provider needs to be completed first, the status will be set to
+   * `pending-external` and the response will contain a link to complete the activation at the provider.
+   *
+   * To enable voucher or gift card issuers, refer to the [Enable payment method issuer](enable-method-issuer) endpoint.
+   */
+  async enable(
+    request: operations.EnableMethodRequest,
+    options?: RequestOptions,
+  ): Promise<models.EntityMethodGet> {
+    return unwrapAsync(methodsEnable(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Disable payment method
+   *
+   * @remarks
+   * Disable a payment method on a specific profile.
+   *
+   * When using a profile-specific API credential, the alias `me` can be used
+   * instead of the profile ID to refer to the current profile.
+   */
+  async disable(
+    request: operations.DisableMethodRequest,
+    options?: RequestOptions,
+  ): Promise<void> {
+    return unwrapAsync(methodsDisable(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Enable payment method issuer
+   *
+   * @remarks
+   * Enable an issuer for a payment method on a specific profile.
+   *
+   * Currently only the payment methods `voucher` and `giftcard` are supported.
+   *
+   * When using a profile-specific API credential, the alias `me` can be used instead of the profile ID to refer to the
+   * current profile.
+   */
+  async enableIssuer(
+    request: operations.EnableMethodIssuerRequest,
+    options?: RequestOptions,
+  ): Promise<operations.EnableMethodIssuerResponse> {
+    return unwrapAsync(methodsEnableIssuer(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Disable payment method issuer
+   *
+   * @remarks
+   * Disable an issuer for a payment method on a specific profile.
+   *
+   * Currently only the payment methods `voucher` and `giftcard` are supported.
+   *
+   * When using a profile-specific API credential, the alias `me` can be used instead of the profile ID to refer to the
+   * current profile.
+   */
+  async disableIssuer(
+    request: operations.DisableMethodIssuerRequest,
+    options?: RequestOptions,
+  ): Promise<void> {
+    return unwrapAsync(methodsDisableIssuer(
       this,
       request,
       options,

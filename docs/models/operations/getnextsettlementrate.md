@@ -1,13 +1,13 @@
-# EntitySettlementRate
+# GetNextSettlementRate
 
 The service rates, further divided into `fixed` and `percentage` costs.
 
 ## Example Usage
 
 ```typescript
-import { EntitySettlementRate } from "mollie-api-typescript/models";
+import { GetNextSettlementRate } from "mollie-api-typescript/models/operations";
 
-let value: EntitySettlementRate = {
+let value: GetNextSettlementRate = {
   fixed: {
     currency: "EUR",
     value: "10.00",
@@ -20,5 +20,5 @@ let value: EntitySettlementRate = {
 
 | Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       | Example                                                                                           |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `fixed`                                                                                           | [models.Amount](../models/amount.md)                                                              | :heavy_minus_sign:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |                                                                                                   |
+| `fixed`                                                                                           | [models.Amount](../../models/amount.md)                                                           | :heavy_minus_sign:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |                                                                                                   |
 | `percentage`                                                                                      | *string*                                                                                          | :heavy_minus_sign:                                                                                | N/A                                                                                               | 2.5                                                                                               |

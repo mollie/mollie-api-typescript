@@ -1,11 +1,11 @@
-# EntitySettlementRevenue
+# Revenue
 
 ## Example Usage
 
 ```typescript
-import { EntitySettlementRevenue } from "mollie-api-typescript/models";
+import { Revenue } from "mollie-api-typescript/models";
 
-let value: EntitySettlementRevenue = {
+let value: Revenue = {
   description: "Credit card",
   method: "creditcard",
   count: 10,

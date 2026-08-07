@@ -83,7 +83,7 @@ export class Settlements extends ClientSDK {
   async getOpen(
     request?: operations.GetOpenSettlementRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.EntitySettlement> {
+  ): Promise<operations.GetOpenSettlementResponse> {
     return unwrapAsync(settlementsGetOpen(
       this,
       request,
@@ -106,7 +106,7 @@ export class Settlements extends ClientSDK {
   async getNext(
     request?: operations.GetNextSettlementRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.EntitySettlement> {
+  ): Promise<operations.GetNextSettlementResponse> {
     return unwrapAsync(settlementsGetNext(
       this,
       request,
