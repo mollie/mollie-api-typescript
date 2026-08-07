@@ -23,7 +23,6 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -49,7 +48,7 @@ export function settlementsGetOpen(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.EntitySettlement,
+    operations.GetOpenSettlementResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -75,7 +74,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.EntitySettlement,
+      operations.GetOpenSettlementResponse,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -174,7 +173,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.EntitySettlement,
+    operations.GetOpenSettlementResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -185,7 +184,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.EntitySettlement$inboundSchema, {
+    M.json(200, operations.GetOpenSettlementResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr(429, errors.ErrorResponse$inboundSchema, {

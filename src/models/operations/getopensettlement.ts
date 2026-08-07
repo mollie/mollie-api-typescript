@@ -5,12 +5,202 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import * as openEnums from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetOpenSettlementRequest = {
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
+};
+
+/**
+ * The status of the settlement.
+ */
+export const GetOpenSettlementStatus = {
+  Open: "open",
+  Pending: "pending",
+  ProcessingAtBank: "processing-at-bank",
+  Paidout: "paidout",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the settlement.
+ */
+export type GetOpenSettlementStatus = OpenEnum<typeof GetOpenSettlementStatus>;
+
+/**
+ * The total amount of the settlement.
+ */
+export type GetOpenSettlementAmount = {
+  /**
+   * A three-character ISO 4217 currency code.
+   */
+  currency: string;
+  /**
+   * A string containing an exact monetary amount in the given currency.
+   */
+  value: string;
+};
+
+/**
+ * The service rates, further divided into `fixed` and `percentage` costs.
+ */
+export type GetOpenSettlementRate = {
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  fixed?: models.Amount | undefined;
+  percentage?: string | undefined;
+};
+
+export type GetOpenSettlementCost = {
+  /**
+   * A description of the cost subtotal
+   */
+  description: string;
+  /**
+   * The payment method, if applicable
+   */
+  method: models.PaymentMethod | null;
+  /**
+   * The number of fees
+   */
+  count: number;
+  /**
+   * The service rates, further divided into `fixed` and `percentage` costs.
+   */
+  rate: GetOpenSettlementRate;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountNet: models.Amount;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountVat: models.AmountNullable | null;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountGross: models.Amount;
+};
+
+export type GetOpenSettlementRevenue = {
+  /**
+   * A description of the revenue subtotal
+   */
+  description: string;
+  /**
+   * The payment method, if applicable
+   */
+  method: models.PaymentMethod | null;
+  /**
+   * The number of payments
+   */
+  count: number;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountNet: models.Amount;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountVat: models.AmountNullable | null;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amountGross: models.Amount;
+};
+
+export type GetOpenSettlementPeriods = {
+  /**
+   * An array of cost objects, describing the fees withheld for each payment method during this period.
+   */
+  costs?: Array<GetOpenSettlementCost> | undefined;
+  /**
+   * An array of revenue objects containing the total revenue for each payment method during this period.
+   */
+  revenue?: Array<GetOpenSettlementRevenue> | undefined;
+  invoiceId?: string | undefined;
+  /**
+   * The invoice reference, if the invoice has been created already.
+   */
+  invoiceReference?: string | null | undefined;
+};
+
+/**
+ * A settlement object describing your current balance. For a complete reference of the settlement object, refer to
+ *
+ * @remarks
+ * the [Get settlement](get-settlement) endpoint documentation.
+ */
+export type GetOpenSettlementResponse = {
+  /**
+   * Indicates the response contains a settlement object. Will always contain the string `settlement` for this
+   *
+   * @remarks
+   * endpoint.
+   */
+  resource: string;
+  id: models.OpenSettlementId;
+  /**
+   * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  createdAt?: string | undefined;
+  /**
+   * The settlement's bank reference, as found in your Mollie account and on your bank statement.
+   */
+  reference?: string | null | undefined;
+  /**
+   * The date on which the settlement was settled, in ISO 8601 format.
+   *
+   * @remarks
+   *
+   * For an [open settlement](get-open-settlement) or for the [next settlement](get-next-settlement), no settlement
+   * date is available.
+   */
+  settledAt?: string | null | undefined;
+  status: GetOpenSettlementStatus;
+  amount: GetOpenSettlementAmount;
+  /**
+   * The balance token that the settlement was settled to.
+   */
+  balanceId: string;
+  /**
+   * The ID of the oldest invoice created for all the periods, if the invoice has been created yet.
+   */
+  invoiceId?: string | null | undefined;
+  /**
+   * For bookkeeping purposes, the settlement includes an overview of transactions included in the settlement. These
+   *
+   * @remarks
+   * transactions are grouped into 'period' objects — one for each calendar month.
+   *
+   * For example, if a settlement includes funds from 15 April until 4 May, it will include two period objects. One for
+   * all transactions processed between 15 April and 30 April, and one for all transactions between 1 May and 4 May.
+   *
+   * Period objects are grouped by year, and then by month. So in the above example, the full `periods` collection will
+   * look as follows: `{"2024": {"04": {...}, "05": {...}}}`. The year and month in this documentation are referred as `<year>` and `<month>`.
+   *
+   * The example response should give a good idea of what this looks like in practise.
+   */
+  periods?:
+    | { [k: string]: { [k: string]: GetOpenSettlementPeriods } }
+    | undefined;
+  /**
+   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+   *
+   * @remarks
+   *
+   * This endpoint always points to your organization's current open or next settlement rather than one specific
+   * settlement, so it doesn't return links to that settlement's payments, captures, refunds, chargebacks, or invoice.
+   */
+  links: models.SettlementConvenienceLinks;
 };
 
 /** @internal */
@@ -36,5 +226,159 @@ export function getOpenSettlementRequestToJSON(
 ): string {
   return JSON.stringify(
     GetOpenSettlementRequest$outboundSchema.parse(getOpenSettlementRequest),
+  );
+}
+
+/** @internal */
+export const GetOpenSettlementStatus$inboundSchema: z.ZodType<
+  GetOpenSettlementStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(GetOpenSettlementStatus);
+
+/** @internal */
+export const GetOpenSettlementAmount$inboundSchema: z.ZodType<
+  GetOpenSettlementAmount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
+
+export function getOpenSettlementAmountFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOpenSettlementAmount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOpenSettlementAmount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOpenSettlementAmount' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetOpenSettlementRate$inboundSchema: z.ZodType<
+  GetOpenSettlementRate,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  fixed: models.Amount$inboundSchema.optional(),
+  percentage: z.string().optional(),
+});
+
+export function getOpenSettlementRateFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOpenSettlementRate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOpenSettlementRate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOpenSettlementRate' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetOpenSettlementCost$inboundSchema: z.ZodType<
+  GetOpenSettlementCost,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  description: z.string(),
+  method: z.nullable(models.PaymentMethod$inboundSchema),
+  count: z.number().int(),
+  rate: z.lazy(() => GetOpenSettlementRate$inboundSchema),
+  amountNet: models.Amount$inboundSchema,
+  amountVat: z.nullable(models.AmountNullable$inboundSchema),
+  amountGross: models.Amount$inboundSchema,
+});
+
+export function getOpenSettlementCostFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOpenSettlementCost, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOpenSettlementCost$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOpenSettlementCost' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetOpenSettlementRevenue$inboundSchema: z.ZodType<
+  GetOpenSettlementRevenue,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  description: z.string(),
+  method: z.nullable(models.PaymentMethod$inboundSchema),
+  count: z.number().int(),
+  amountNet: models.Amount$inboundSchema,
+  amountVat: z.nullable(models.AmountNullable$inboundSchema),
+  amountGross: models.Amount$inboundSchema,
+});
+
+export function getOpenSettlementRevenueFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOpenSettlementRevenue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOpenSettlementRevenue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOpenSettlementRevenue' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetOpenSettlementPeriods$inboundSchema: z.ZodType<
+  GetOpenSettlementPeriods,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  costs: z.array(z.lazy(() => GetOpenSettlementCost$inboundSchema)).optional(),
+  revenue: z.array(z.lazy(() => GetOpenSettlementRevenue$inboundSchema))
+    .optional(),
+  invoiceId: z.string().optional(),
+  invoiceReference: z.nullable(z.string()).optional(),
+});
+
+export function getOpenSettlementPeriodsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOpenSettlementPeriods, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOpenSettlementPeriods$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOpenSettlementPeriods' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetOpenSettlementResponse$inboundSchema: z.ZodType<
+  GetOpenSettlementResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  resource: z.string(),
+  id: models.OpenSettlementId$inboundSchema,
+  createdAt: z.string().optional(),
+  reference: z.nullable(z.string()).optional(),
+  settledAt: z.nullable(z.string()).optional(),
+  status: GetOpenSettlementStatus$inboundSchema,
+  amount: z.lazy(() => GetOpenSettlementAmount$inboundSchema),
+  balanceId: z.string(),
+  invoiceId: z.nullable(z.string()).optional(),
+  periods: z.record(
+    z.record(z.lazy(() => GetOpenSettlementPeriods$inboundSchema)),
+  ).optional(),
+  _links: models.SettlementConvenienceLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
+
+export function getOpenSettlementResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOpenSettlementResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOpenSettlementResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOpenSettlementResponse' from JSON`,
   );
 }

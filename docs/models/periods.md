@@ -1,11 +1,11 @@
-# ListEntitySettlementPeriods
+# Periods
 
 ## Example Usage
 
 ```typescript
-import { ListEntitySettlementPeriods } from "mollie-api-typescript/models";
+import { Periods } from "mollie-api-typescript/models";
 
-let value: ListEntitySettlementPeriods = {
+let value: Periods = {
   costs: [
     {
       description: "Credit card - Visa debit consumer domestic",
@@ -57,7 +57,7 @@ let value: ListEntitySettlementPeriods = {
 
 | Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          | Example                                                                                              |
 | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `costs`                                                                                              | [models.ListEntitySettlementCost](../models/listentitysettlementcost.md)[]                           | :heavy_minus_sign:                                                                                   | An array of cost objects, describing the fees withheld for each payment method during this period.   |                                                                                                      |
-| `revenue`                                                                                            | [models.ListEntitySettlementRevenue](../models/listentitysettlementrevenue.md)[]                     | :heavy_minus_sign:                                                                                   | An array of revenue objects containing the total revenue for each payment method during this period. |                                                                                                      |
+| `costs`                                                                                              | [models.Cost](../models/cost.md)[]                                                                   | :heavy_minus_sign:                                                                                   | An array of cost objects, describing the fees withheld for each payment method during this period.   |                                                                                                      |
+| `revenue`                                                                                            | [models.Revenue](../models/revenue.md)[]                                                             | :heavy_minus_sign:                                                                                   | An array of revenue objects containing the total revenue for each payment method during this period. |                                                                                                      |
 | `invoiceId`                                                                                          | *string*                                                                                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  | inv_aHbjjdrUdm                                                                                       |
 | `invoiceReference`                                                                                   | *string*                                                                                             | :heavy_minus_sign:                                                                                   | The invoice reference, if the invoice has been created already.                                      | MOLR2021.0001399669                                                                                  |

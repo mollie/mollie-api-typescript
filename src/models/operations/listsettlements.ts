@@ -54,7 +54,7 @@ export type ListSettlementsEmbedded = {
    * @remarks
    * of the settlement object, refer to the [Get settlement endpoint](get-settlement) documentation.
    */
-  settlements: Array<models.ListEntitySettlement>;
+  settlements: Array<models.EntitySettlement>;
 };
 
 /**
@@ -129,7 +129,7 @@ export const ListSettlementsEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  settlements: z.array(models.ListEntitySettlement$inboundSchema),
+  settlements: z.array(models.EntitySettlement$inboundSchema),
 });
 
 export function listSettlementsEmbeddedFromJSON(
