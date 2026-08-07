@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: de39f64574612890345a01af918538cb
+  docChecksum: c090d740099ab82851e5b153347aa25d
   docVersion: 1.0.0
   speakeasyVersion: 1.791.4
   generationVersion: 2.926.8
-  releaseVersion: 1.12.20
-  configChecksum: b43266c711d9d56d28a8d06f5735f87c
+  releaseVersion: 1.12.21
+  configChecksum: 5f98fa684b0276ad4335facc469691a8
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 4542dbf3-fb19-49fb-bd46-c6b3aeed9e15
-  pristine_commit_hash: 2bfb94066eaa7d55798b1c03d9216029264c8e29
-  pristine_tree_hash: 38dc588763707571c7df3bd0de508d2ea082763d
+  generation_id: d795bca2-cb26-4b3c-8c60-0c00ffd27c1c
+  pristine_commit_hash: a75ea5cb9853d45026ceb4bb1002d3ce6e928284
+  pristine_tree_hash: 43e94087420b95c5457e16367e6367a44b956594
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -534,8 +534,8 @@ trackedFiles:
     pristine_git_object: 9ebf685ee7f0f0ed0743d214079534518d7c810c
   docs/models/entityorganizationlocale.md:
     id: 76cae378d0be
-    last_write_checksum: sha1:85a33bfb6149f3edb9646a09b89cc869d145cf2a
-    pristine_git_object: 87a9b79c92a50475f4df60a5aafbf3e70daedcbd
+    last_write_checksum: sha1:778018b0450162368ce22b18e8286816024d9585
+    pristine_git_object: e9466b665bfd750475428e6541749694cee61792
   docs/models/entitypairingcode.md:
     id: cdba5fd25288
     last_write_checksum: sha1:ae5cef6fef158135adc74a1e4cba9025ba5316e2
@@ -1250,16 +1250,16 @@ trackedFiles:
     pristine_git_object: c74d06096a4d619e3f1af6ade3a63a491687d221
   docs/models/locale.md:
     id: 8fb97659a46c
-    last_write_checksum: sha1:f2ad9dbd67aaf63df4a63a6e48f006515f22fb77
-    pristine_git_object: 6d98c8aca5093b0cdbf7dd4c83b399e6eae0c00b
+    last_write_checksum: sha1:8b99c60ae798a6740ec80c496f36bf736bb075f2
+    pristine_git_object: dc5c1e1eacbc13e1f1ea455157fe70c433a57eb6
   docs/models/locale2.md:
     id: f1539e96005b
-    last_write_checksum: sha1:2c4c1dd03d743c679b96c74cb74c2de2d0f26982
-    pristine_git_object: 7340933af25f7a17758617403427b5b80c1668d0
+    last_write_checksum: sha1:dfe24074d61d524436ee0510fb029e55fbbb8d75
+    pristine_git_object: 9b46db1ee171359b1df573aa9f6b6233abdc111a
   docs/models/localeresponse.md:
     id: cadd4514d964
-    last_write_checksum: sha1:9a9f0481e9aa2dd3594dc11cf9cd2e70280d504a
-    pristine_git_object: c2079d30063b633eaad59e1bb825f120dd30eedf
+    last_write_checksum: sha1:6b445605e045f521a64d98403d3fea2019f6342c
+    pristine_git_object: 026ac3460982e4b22fd93a483b01e103c4fa4e43
   docs/models/managedfee.md:
     id: 8253e7b3026a
     last_write_checksum: sha1:2d80779c9937aea1ea7ac648a30188943151e80c
@@ -2722,8 +2722,8 @@ trackedFiles:
     pristine_git_object: ed796d68dc237a2c93ddb911a4a6cb0ae17b95c9
   docs/models/paymentdetailsfeeregionresponse.md:
     id: 2999c839070d
-    last_write_checksum: sha1:9a28f50979fb9cb355ded2f85cbae11d091bee5b
-    pristine_git_object: a91b73a245fd5d21c14347d0b7b74699d843a42d
+    last_write_checksum: sha1:d1e46cee394bc2ee8af28c7f067ad303ec21cb1f
+    pristine_git_object: c7a5212296145e3da58cb3008e60e1aea6735a6f
   docs/models/paymentdetailsqrcode.md:
     id: 99824ce525f3
     last_write_checksum: sha1:ed061ed930274d213d3343c89ef7f9081d72e4bc
@@ -3630,12 +3630,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:4c5be7899dbf11423a35b08eae4a85cf467166fb
-    pristine_git_object: 848a9c0d25d60a78f43f141177f2d0fca5cf43e2
+    last_write_checksum: sha1:398d62a888b83c529e977112651a11159ab13eb0
+    pristine_git_object: 9c7ed79842ef69e5a2492ea1b4fca1def913439e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:210099f7989aba83c9f490b6c99a4704bc52d4c3
-    pristine_git_object: ae518588ac610401064b1798f97d0ef929410f50
+    last_write_checksum: sha1:8f73d828d82ee5934c8f979ce95b31be89130d06
+    pristine_git_object: a5ce67b33bb1267713924dd7d1f24d1b9cbc7678
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4142,8 +4142,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:8dc920f0311ed6f73da810f9260220cae6535081
-    pristine_git_object: 6d443cea41f79ef359d459b6d49ce037a21584bf
+    last_write_checksum: sha1:ace4072ebc020166eb45d2166f62e7aa031ea342
+    pristine_git_object: 6ddba7c0ea7f8f88dad1607736b651fe84266ef7
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a74725064d06b6994b95873c037975d2f2e63467
@@ -5033,8 +5033,8 @@ trackedFiles:
     pristine_git_object: a63ea494f9da5319da3252337ba5661b00efabb1
   src/models/entityorganization.ts:
     id: baf6b3755bb9
-    last_write_checksum: sha1:51ea3bf7219dd15013a943652a14dd6ca1ba4708
-    pristine_git_object: c963d9ea8a51ce0a87cce1b487ed75c7c3fe8749
+    last_write_checksum: sha1:8e81524190a5cc9cbbe6289b929c305e272440a6
+    pristine_git_object: 424efddc1fbd060d86fb92997f07f1e3d7fc2748
   src/models/entitypairingcode.ts:
     id: 01b26dbb30ac
     last_write_checksum: sha1:41eed7521ac1ed229ef04f9112fd2e446512a106
@@ -5225,16 +5225,16 @@ trackedFiles:
     pristine_git_object: 5d4811ae890ad90a5e202f527bb29fc52ceb795d
   src/models/locale.ts:
     id: 59fce36fa544
-    last_write_checksum: sha1:ef3c315ab2fa30a88e30628d6d99cd6c0dd41d7c
-    pristine_git_object: 6e74ee580bc4d014a7b53de44e1ddc901fa11d08
+    last_write_checksum: sha1:50f8523d3fddd63de88817c877edb63268684f2c
+    pristine_git_object: 838c4a854fc4bd8cf462e351ed1c37281afd0f66
   src/models/locale2.ts:
     id: de6b435d491e
-    last_write_checksum: sha1:25502ca67394b8b560483df9245f0d91c910009f
-    pristine_git_object: 7bf263c15f86b83824d81f4da3c2072d035ab669
+    last_write_checksum: sha1:87df283a5e612eab6e95637c3c65d62b1f4ae538
+    pristine_git_object: 4565e8d4e2ebc7fa70131d8fcb82553af2a642bb
   src/models/localeresponse.ts:
     id: 42e93e99db14
-    last_write_checksum: sha1:c9d703db7b3579efb1f0cf322e3f549a573dc36c
-    pristine_git_object: 2677ff97d5a74a96a0dea063b7e369bb5c06de4f
+    last_write_checksum: sha1:be43117093a34fa6136717c6cff1a1007c01c3b0
+    pristine_git_object: 03f951c7c20e9e46a5fe2d52c84bda86eee8745a
   src/models/mandatedetailscardlabelresponse.ts:
     id: 8e7af03cff6c
     last_write_checksum: sha1:72e4ef639503deaa4e7618bb1e94f3787d27929d
@@ -5821,8 +5821,8 @@ trackedFiles:
     pristine_git_object: 5a58df41f3bc7eb4f339a260857a47fc7cfa8780
   src/models/paymentdetailsfeeregionresponse.ts:
     id: bd30105086d8
-    last_write_checksum: sha1:23bffb6fca4029c1ca356af897fde4bd62982898
-    pristine_git_object: b927588a4eb919602f98017b2d181438f5eae2a4
+    last_write_checksum: sha1:974bf8f2771f21fafb82198dd23509f0f60f7df1
+    pristine_git_object: 70a4975a41eac714b58132c14454a280f7998d5b
   src/models/paymentdetailsreceiptcardreadmethodresponse.ts:
     id: 47f73789f1cf
     last_write_checksum: sha1:5742abc990e840791561d9c4b824c11ab5ab3b9a
@@ -10805,7 +10805,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.settlements.listPayments()`:  `response.Embedded.payments[].locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.organizations.get()`:  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.organizations.getCurrent()`:  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.clients.list()`:  `response.Embedded.clients[].Embedded.organization.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.clients.get()`:  `response.Embedded.organization.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.clientLinks.create()`: \n  *  `request.clientLinkRequest.owner.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.webhookEvents.get()`:  `response.Embedded.entity` **Changed** (Breaking ⚠️)\n* `client.payments.create()`: \n  *  `request.paymentRequest.locale.enum(null)` **Removed** (Breaking ⚠️)\n  *  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.payments.list()`:  `response.Embedded.payments[].locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.payments.get()`:  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.payments.update()`: \n  *  `request.requestBody.locale.enum(null)` **Removed** (Breaking ⚠️)\n  *  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.payments.cancel()`:  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.methods.list()`: \n  *  `request.locale` **Changed** (Breaking ⚠️)\n* `client.methods.all()`: \n  *  `request.locale` **Changed** (Breaking ⚠️)\n* `client.methods.get()`: \n  *  `request.locale` **Changed** (Breaking ⚠️)\n* `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.customers.create()`: \n  *  `request.entityCustomer.locale.enum(null)` **Removed** (Breaking ⚠️)\n  *  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.customers.list()`:  `response.Embedded.customers[].locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.customers.get()`:  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.customers.update()`: \n  *  `request.requestBody.locale.enum(null)` **Removed** (Breaking ⚠️)\n  *  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.customers.createPayment()`: \n  *  `request.paymentRequest.locale.enum(null)` **Removed** (Breaking ⚠️)\n  *  `response.locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.customers.listPayments()`:  `response.Embedded.payments[].locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.subscriptions.listPayments()`:  `response.Embedded.payments[].locale.enum(null)` **Removed** (Breaking ⚠️)\n* `client.payouts.create()`: \n  *  `request.payoutRequest.description` **Changed**\n  *  `response.description` **Changed** (Breaking ⚠️)\n* `client.payouts.list()`:  `response.Embedded.payouts[].description` **Changed** (Breaking ⚠️)\n* `client.payouts.get()`:  `response.description` **Changed** (Breaking ⚠️)\n* `client.payouts.cancel()`:  `response.description` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.settlements.listPayments()`:  `response.Embedded.payments[]` **Changed**\n* `client.organizations.get()`:  `response.locale` **Changed**\n* `client.organizations.getCurrent()`:  `response.locale` **Changed**\n* `client.clients.list()`:  `response.Embedded.clients[].Embedded.organization.locale` **Changed**\n* `client.clients.get()`:  `response.Embedded.organization.locale` **Changed**\n* `client.clientLinks.create()`: \n  *  `request.clientLinkRequest.owner.locale` **Changed**\n* `client.webhookEvents.get()`:  `response.Embedded.entity.union(payment-response)` **Changed**\n* `client.payments.create()`: \n  *  `request.paymentRequest.locale` **Changed**\n  *  `response` **Changed**\n* `client.payments.list()`:  `response.Embedded.payments[]` **Changed**\n* `client.payments.get()`:  `response` **Changed**\n* `client.payments.update()`: \n  *  `request.requestBody.locale` **Changed**\n  *  `response` **Changed**\n* `client.payments.cancel()`:  `response` **Changed**\n* `client.methods.list()`: \n  *  `request.locale` **Changed**\n* `client.methods.all()`: \n  *  `request.locale` **Changed**\n* `client.methods.get()`: \n  *  `request.locale` **Changed**\n* `client.paymentLinks.listPayments()`:  `response.Embedded.payments[]` **Changed**\n* `client.customers.create()`: \n  *  `request.entityCustomer.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.list()`:  `response.Embedded.customers[].locale` **Changed**\n* `client.customers.get()`:  `response.locale` **Changed**\n* `client.customers.update()`: \n  *  `request.requestBody.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.createPayment()`: \n  *  `request.paymentRequest.locale` **Changed**\n  *  `response` **Changed**\n* `client.customers.listPayments()`:  `response.Embedded.payments[]` **Changed**\n* `client.subscriptions.listPayments()`:  `response.Embedded.payments[]` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

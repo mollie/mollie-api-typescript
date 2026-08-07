@@ -30179,7 +30179,9 @@ components:
         - de_CH
         - de_DE
         - de_LU
+        - en_BE
         - en_GB
+        - en_NL
         - en_US
         - es_ES
         - fi_FI
@@ -30720,9 +30722,11 @@ components:
         - american-express
         - amex-intra-eea
         - carte-bancaire
+        - domestic
+        - inter
         - intra-eu
         - intra-eu-corporate
-        - domestic
+        - intra_eea
         - maestro
         - mastercard-credit-business-domestic
         - mastercard-credit-consumer-domestic
@@ -30732,10 +30736,9 @@ components:
         - mastercard-debit-consumer-domestic
         - mastercard-debit-consumer-intra-eea
         - other
-        - inter
-        - intra_eea
         - visa-credit-business-domestic
         - visa-credit-consumer-domestic
+        - visa-credit-consumer-inter
         - visa-credit-consumer-intra-eea
         - visa-debit-business-domestic
         - visa-debit-business-intra-eea
@@ -41394,7 +41397,9 @@ components:
         - de_CH
         - de_DE
         - de_LU
+        - en_BE
         - en_GB
+        - en_NL
         - en_US
         - es_ES
         - fi_FI
@@ -41865,9 +41870,11 @@ components:
         - american-express
         - amex-intra-eea
         - carte-bancaire
+        - domestic
+        - inter
         - intra-eu
         - intra-eu-corporate
-        - domestic
+        - intra_eea
         - maestro
         - mastercard-credit-business-domestic
         - mastercard-credit-consumer-domestic
@@ -41877,10 +41884,9 @@ components:
         - mastercard-debit-consumer-domestic
         - mastercard-debit-consumer-intra-eea
         - other
-        - inter
-        - intra_eea
         - visa-credit-business-domestic
         - visa-credit-consumer-domestic
+        - visa-credit-consumer-inter
         - visa-credit-consumer-intra-eea
         - visa-debit-business-domestic
         - visa-debit-business-intra-eea
