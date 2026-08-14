@@ -18425,6 +18425,20 @@ paths:
                   documentation:
                     href: https://docs.mollie.com/reference/terminals-request-pairing-code
                     type: text/html
+        '403':
+          description: Your organization is not eligible for terminal pairing codes. Complete onboarding, then try again.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 403
+                title: Forbidden
+                detail: The organization is not eligible to request a terminal pairing code.
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/errors
+                    type: text/html
         '422':
           description: The request contains issues. For example, if the `profileId` field is missing or invalid.
           content:
@@ -18475,7 +18489,10 @@ paths:
         >
         > This endpoint currently does not support test mode yet.
 
-        Returns all pairing codes: `active`, `expired`, and `revoked`. Results are paginated.
+        Returns your pairing codes: `active`, `expired`, and `revoked`. Results are paginated.
+
+        We keep a pairing code for one month after it is revoked or expires, then delete it. Deleted codes drop out of
+        this list. Active pairing codes are never deleted.
       parameters:
         - $ref: '#/components/parameters/list-from'
           schema:
@@ -18624,6 +18641,9 @@ paths:
 
         The response includes a human-readable `code` for manual entry on the terminal and, optionally, a QR Code as a
         base64 encoded SVG data URI when you use the `include` query parameter with value `details.qrCode`.
+
+        We keep a pairing code for one month after it is revoked or expires, then delete it. Once deleted, this endpoint
+        returns a 404. Active pairing codes are never deleted.
       parameters:
         - $ref: '#/components/parameters/parent-terminal-pairing-code-id'
         - $ref: '#/components/parameters/include'
@@ -18707,6 +18727,8 @@ paths:
         Revoke a pairing code, preventing the onboarding of new point-of-sale terminals.
 
         Terminals that have already paired with this code are not affected.
+
+        We keep a revoked pairing code for one month, then delete it. Once deleted, this endpoint returns a 404.
       parameters:
         - $ref: '#/components/parameters/parent-terminal-pairing-code-id'
         - $ref: '#/components/parameters/idempotency-key'

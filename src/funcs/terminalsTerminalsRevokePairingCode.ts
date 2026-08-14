@@ -40,6 +40,8 @@ import { Result } from "../types/fp.js";
  *
  * Terminals that have already paired with this code are not affected.
  *
+ * We keep a revoked pairing code for one month, then delete it. Once deleted, this endpoint returns a 404.
+ *
  * If set, this operation will use either {@link Security.apiKey} or {@link Security.oAuth} from the global security.
  */
 export function terminalsTerminalsRevokePairingCode(

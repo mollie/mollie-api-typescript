@@ -35,7 +35,10 @@ import { Result } from "../types/fp.js";
  * >
  * > This endpoint currently does not support test mode yet.
  *
- * Returns all pairing codes: `active`, `expired`, and `revoked`. Results are paginated.
+ * Returns your pairing codes: `active`, `expired`, and `revoked`. Results are paginated.
+ *
+ * We keep a pairing code for one month after it is revoked or expires, then delete it. Deleted codes drop out of
+ * this list. Active pairing codes are never deleted.
  *
  * If set, this operation will use either {@link Security.apiKey} or {@link Security.oAuth} from the global security.
  */

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 026c1f55dc079ec7865433150d1186ab
+  docChecksum: da3c7906c3501bcf695d51c94bab8c9e
   docVersion: 1.0.0
-  speakeasyVersion: 1.791.4
-  generationVersion: 2.926.8
-  releaseVersion: 1.12.22
-  configChecksum: 85827b1f645707c6ec52b64c2c5b0d67
+  speakeasyVersion: 1.793.2
+  generationVersion: 2.928.0
+  releaseVersion: 1.12.23
+  configChecksum: 510f8a5e24b502625e4c8d3f51bffab2
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 155735ec-2cac-4624-b81e-641de6d083b8
-  pristine_commit_hash: b0c5f7bdf70b35b26e7dc2c65c6d3b09e090dbb0
-  pristine_tree_hash: 81f305ed9445dec6eb303a27c20b7256870d8577
+  generation_id: 8990f2ad-e482-41ba-b32c-ea4b2180622b
+  pristine_commit_hash: c09721b625c93094768f120a2150870f0689bde0
+  pristine_tree_hash: 26d27cb023c5713e435caa8816e8feec0c5e3c58
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3674,8 +3674,8 @@ trackedFiles:
     pristine_git_object: 1d461efdb7c3c18e95404d8f6edf7b55f25b4ac6
   docs/sdks/terminals/README.md:
     id: 4b9f7986e224
-    last_write_checksum: sha1:275b87880d2061f89cab7fa9ce2b1c60b3496337
-    pristine_git_object: bf6ba25fe5d3d3caac0ac98de1f052cd1a753bbf
+    last_write_checksum: sha1:df222e4bee2d7fcfbfbf2f4e87c71d8ce1d6cd37
+    pristine_git_object: 941dd28a9eca62b65b55258f4b5e969109aaf68e
   docs/sdks/transfers/README.md:
     id: f56918861798
     last_write_checksum: sha1:942432640bb360d8affffb6e9f7073b90958c53d
@@ -3726,12 +3726,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:a2a004f60ea503e8adf743c58c4149cc9bf1e2b2
-    pristine_git_object: e32161b18a245683adf9837ebe5d081a62aa1740
+    last_write_checksum: sha1:02ad9662e46376b77c28ba6d5ae6e810bebb62b8
+    pristine_git_object: b53de7e3497bf8a150da06c5952309ade85839d7
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:54b1dfd283db850c730c5e05f6d8b2ee941aa5c4
-    pristine_git_object: 0193c55cf25171ec791846b4c2d45805780f407e
+    last_write_checksum: sha1:3ecba7413309e9711199ba4d4d95c89d88a60bf9
+    pristine_git_object: fc8b9c8dacd0a6ce8263dc90f4ef53627315d345
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4158,20 +4158,20 @@ trackedFiles:
     pristine_git_object: 2404d7cf9bec0e7acb41b384e4c30952ee809a49
   src/funcs/terminalsTerminalsGetPairingCode.ts:
     id: 9587d36d7bc1
-    last_write_checksum: sha1:2da93c615a35052fe5dd32af3d8be94b1e7686d3
-    pristine_git_object: 76711c1d716246012a8af5576ccaecf2d2cc84ba
+    last_write_checksum: sha1:ed8a37241a3b1e40743f2f38e2dc5fac9de0fa1a
+    pristine_git_object: 7788de23d54bc3058544f6cee0fa5fbe2ed7b368
   src/funcs/terminalsTerminalsListPairingCodes.ts:
     id: 96af41551549
-    last_write_checksum: sha1:b5ec12ac71c59ee1d1f0174bfccdc628fbbd63d2
-    pristine_git_object: 2741242a7233f8436ff8128f88b0925c5d1bffc7
+    last_write_checksum: sha1:7669602e7036cc3068b2164f5e8c615e92786675
+    pristine_git_object: 4ffef3c314a36e03be5f5eda57b3a34a8130e999
   src/funcs/terminalsTerminalsRequestPairingCode.ts:
     id: 351a2c36e865
-    last_write_checksum: sha1:d532bbf39f6521767b7a5db971c1a1ed47fd1b58
-    pristine_git_object: 6a6680e41bbdfb885445bcaa6435c5380307a920
+    last_write_checksum: sha1:bb3ac4bd2e26f3f0360eb9c14dd54b06599b8e3a
+    pristine_git_object: 1bf24cd28a48a00e7969591aeb1ad4b7f17a46b2
   src/funcs/terminalsTerminalsRevokePairingCode.ts:
     id: 142d0a0681b4
-    last_write_checksum: sha1:5f007f633e725b22b0288188ea22d7932ef10b55
-    pristine_git_object: dc371e9a567937912f42263daf2cab0036d003ef
+    last_write_checksum: sha1:39c7c5864f0da3b364b358de78660256607f5862
+    pristine_git_object: 451125ab5f2bcf89f3667f851a8f6b3611e1458d
   src/funcs/transfersCreate.ts:
     id: 0bfa8fcb1442
     last_write_checksum: sha1:d9ac9b28da6e11e7869bed5b67bc1a8cd7a236da
@@ -4254,8 +4254,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:0611b4d58530706e76c6846940efeba7a1a4c69a
-    pristine_git_object: 7c2027dfe9388390c87988adc8ab0b158eb9fe86
+    last_write_checksum: sha1:2578cfe8cc6bbd837d423954f04faf3f88982f96
+    pristine_git_object: 4c98c6eff11a4a2f5080c337f675839b441157b0
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a74725064d06b6994b95873c037975d2f2e63467
@@ -6525,8 +6525,8 @@ trackedFiles:
     pristine_git_object: b8fbe94a076930db3ebdb2c97966760fa08be82c
   src/sdk/terminals.ts:
     id: 22dd1f047dc6
-    last_write_checksum: sha1:0c1bfb0a2f5371d46376caaf479b03f48e522a02
-    pristine_git_object: cc494bb02b5bb7fa955dcf600cabd03405234816
+    last_write_checksum: sha1:2b9a1348aee7226947100a2b3126f722d1b1cfbd
+    pristine_git_object: 9fec2573eb54b722050dc773f9d082c7d901ee28
   src/sdk/transfers.ts:
     id: 1e842c518280
     last_write_checksum: sha1:11ba02e92c90e5db21707ddf4691ae5ccc9fedd5
@@ -10836,6 +10836,8 @@ examples:
           application/hal+json: {"resource": "terminal-pairing-code", "id": "termpc_R7gX5Ea9bC4DkFj3G", "mode": "live", "code": "20eb5ca1f78b48ae9e2b", "profileId": "pfl_jA9bC4DkFj3G", "status": "active", "details": {"qrCode": {"height": 256, "width": 256, "src": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w..."}}, "expiresAt": "2025-12-10T10:15:00+00:00", "revokedAt": "2025-12-10T10:03:23+00:00", "createdAt": "2024-03-20T09:13:37+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "profile": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "422":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+        "403":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   terminals-list-pairing-codes:
     speakeasy-default-terminals-list-pairing-codes:
       parameters:
@@ -11068,13 +11070,7 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `client.settlements.getOpen()`:  `response` **Changed** (Breaking ⚠️)
-  * `client.settlements.getNext()`:  `response` **Changed** (Breaking ⚠️)
-  * `client.methods.enable()`: **Added**
-  * `client.methods.disable()`: **Added**
-  * `client.methods.enableIssuer()`: **Added**
-  * `client.methods.disableIssuer()`: **Added**
-  * `client.settlements.list()`:  `response.Embedded.settlements[].Links.documentation` **Added**
+  * `client.terminals.terminalsRequestPairingCode()`:  `error.status[403]` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

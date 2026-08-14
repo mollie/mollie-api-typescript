@@ -195,7 +195,7 @@ async function $do(
     M.json(201, models.EntityPairingCode$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr([422, 429], errors.ErrorResponse$inboundSchema, {
+    M.jsonErr([403, 422, 429], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

@@ -41,6 +41,9 @@ import { Result } from "../types/fp.js";
  * The response includes a human-readable `code` for manual entry on the terminal and, optionally, a QR Code as a
  * base64 encoded SVG data URI when you use the `include` query parameter with value `details.qrCode`.
  *
+ * We keep a pairing code for one month after it is revoked or expires, then delete it. Once deleted, this endpoint
+ * returns a 404. Active pairing codes are never deleted.
+ *
  * If set, this operation will use either {@link Security.apiKey} or {@link Security.oAuth} from the global security.
  */
 export function terminalsTerminalsGetPairingCode(
