@@ -204,6 +204,7 @@ export * from "./sessionsequencetyperesponse.js";
 export * from "./settlementcapturestatus.js";
 export * from "./settlementconveniencelinks.js";
 export * from "./settlementlinks.js";
+export * from "./settlementmethod.js";
 export * from "./settlementmode.js";
 export * from "./settlementpaymentstatus.js";
 export * from "./settlementrefundstatus.js";

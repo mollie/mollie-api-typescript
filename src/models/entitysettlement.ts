@@ -15,11 +15,14 @@ import {
   AmountNullable$inboundSchema,
 } from "./amountnullable.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { PaymentMethod, PaymentMethod$inboundSchema } from "./paymentmethod.js";
 import {
   SettlementLinks,
   SettlementLinks$inboundSchema,
 } from "./settlementlinks.js";
+import {
+  SettlementMethod,
+  SettlementMethod$inboundSchema,
+} from "./settlementmethod.js";
 
 /**
  * The status of the settlement.
@@ -67,9 +70,12 @@ export type Cost = {
    */
   description: string;
   /**
-   * The payment method, if applicable
+   * The method the cost or revenue subtotal applies to. This is usually a payment method, but can also represent a
+   *
+   * @remarks
+   * correction or transaction type that is not tied to a specific payment method.
    */
-  method: PaymentMethod | null;
+  method: SettlementMethod | null;
   /**
    * The number of fees
    */
@@ -98,9 +104,12 @@ export type Revenue = {
    */
   description: string;
   /**
-   * The payment method, if applicable
+   * The method the cost or revenue subtotal applies to. This is usually a payment method, but can also represent a
+   *
+   * @remarks
+   * correction or transaction type that is not tied to a specific payment method.
    */
-  method: PaymentMethod | null;
+  method: SettlementMethod | null;
   /**
    * The number of payments
    */
@@ -243,7 +252,7 @@ export function rateFromJSON(
 export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> = z
   .object({
     description: z.string(),
-    method: z.nullable(PaymentMethod$inboundSchema),
+    method: z.nullable(SettlementMethod$inboundSchema),
     count: z.number().int(),
     rate: z.lazy(() => Rate$inboundSchema),
     amountNet: Amount$inboundSchema,
@@ -265,7 +274,7 @@ export function costFromJSON(
 export const Revenue$inboundSchema: z.ZodType<Revenue, z.ZodTypeDef, unknown> =
   z.object({
     description: z.string(),
-    method: z.nullable(PaymentMethod$inboundSchema),
+    method: z.nullable(SettlementMethod$inboundSchema),
     count: z.number().int(),
     amountNet: Amount$inboundSchema,
     amountVat: z.nullable(AmountNullable$inboundSchema),
