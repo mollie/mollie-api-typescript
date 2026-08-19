@@ -28805,6 +28805,7 @@ components:
     balance-transaction-type:
       type: string
       enum:
+        - application-fee
         - balance-charge-fee
         - balance-correction
         - balance-reserve
@@ -28830,6 +28831,7 @@ components:
         - outgoing-custom-amount-transfer
         - outgoing-transfer
         - payment
+        - payment-fee
         - pending-rolling-reserve
         - platform-payment-chargeback
         - platform-payment-refund
@@ -29739,6 +29741,70 @@ components:
         failed: The settlement could not be paid out
       example: paidout
       x-speakeasy-unknown-values: allow
+    settlement-method:
+      type:
+        - string
+        - 'null'
+      description: |-
+        The method the cost or revenue subtotal applies to. This is usually a payment method, but can also represent a
+        correction or transaction type that is not tied to a specific payment method.
+      enum:
+        - null
+        - alma
+        - applicationfee
+        - authorizationreversal
+        - bacs
+        - bancomatpay
+        - bancontact
+        - banktransfer
+        - belfius
+        - billie
+        - billink
+        - bitcoin
+        - bizum
+        - blik
+        - capture
+        - chargeback
+        - creditcard
+        - directdebit
+        - eps
+        - giftcard
+        - giropay
+        - ideal
+        - in3
+        - inghomepay
+        - kbc
+        - kickback
+        - klarna
+        - klarnapaylater
+        - klarnapaynow
+        - klarnasliceit
+        - mbway
+        - mobilepay
+        - multibanco
+        - mybank
+        - paybybank
+        - paypal
+        - paysafecard
+        - podiumcadeaukaart
+        - pointofsale
+        - przelewy24
+        - refund
+        - riverty
+        - rollingreserve
+        - satispay
+        - shiftedfee
+        - sofort
+        - swish
+        - trustly
+        - twint
+        - vipps
+        - voucher
+      x-deprecated-enum:
+        - payconiq
+      x-speakeasy-enum-descriptions:
+        payconiq: No longer available
+      example: creditcard
     entity-settlement-base:
       type: object
       required:
@@ -29841,7 +29907,7 @@ components:
                         description: A description of the cost subtotal
                         example: Credit card - Visa debit consumer domestic
                       method:
-                        $ref: '#/components/schemas/payment-method'
+                        $ref: '#/components/schemas/settlement-method'
                       count:
                         type: integer
                         description: The number of fees
@@ -29882,7 +29948,7 @@ components:
                         description: A description of the revenue subtotal
                         example: Credit card
                       method:
-                        $ref: '#/components/schemas/payment-method'
+                        $ref: '#/components/schemas/settlement-method'
                       count:
                         type: integer
                         description: The number of payments

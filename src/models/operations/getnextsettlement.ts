@@ -65,9 +65,12 @@ export type GetNextSettlementCost = {
    */
   description: string;
   /**
-   * The payment method, if applicable
+   * The method the cost or revenue subtotal applies to. This is usually a payment method, but can also represent a
+   *
+   * @remarks
+   * correction or transaction type that is not tied to a specific payment method.
    */
-  method: models.PaymentMethod | null;
+  method: models.SettlementMethod | null;
   /**
    * The number of fees
    */
@@ -96,9 +99,12 @@ export type GetNextSettlementRevenue = {
    */
   description: string;
   /**
-   * The payment method, if applicable
+   * The method the cost or revenue subtotal applies to. This is usually a payment method, but can also represent a
+   *
+   * @remarks
+   * correction or transaction type that is not tied to a specific payment method.
    */
-  method: models.PaymentMethod | null;
+  method: models.SettlementMethod | null;
   /**
    * The number of payments
    */
@@ -283,7 +289,7 @@ export const GetNextSettlementCost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string(),
-  method: z.nullable(models.PaymentMethod$inboundSchema),
+  method: z.nullable(models.SettlementMethod$inboundSchema),
   count: z.number().int(),
   rate: z.lazy(() => GetNextSettlementRate$inboundSchema),
   amountNet: models.Amount$inboundSchema,
@@ -308,7 +314,7 @@ export const GetNextSettlementRevenue$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   description: z.string(),
-  method: z.nullable(models.PaymentMethod$inboundSchema),
+  method: z.nullable(models.SettlementMethod$inboundSchema),
   count: z.number().int(),
   amountNet: models.Amount$inboundSchema,
   amountVat: z.nullable(models.AmountNullable$inboundSchema),
