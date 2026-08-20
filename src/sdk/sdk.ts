@@ -14,6 +14,7 @@ import { ClientLinks } from "./clientlinks.js";
 import { Clients } from "./clients.js";
 import { Customers } from "./customers.js";
 import { DelayedRouting } from "./delayedrouting.js";
+import { DraftTransfers } from "./drafttransfers.js";
 import { Invoices } from "./invoices.js";
 import { Mandates } from "./mandates.js";
 import { Methods } from "./methods.js";
@@ -199,6 +200,11 @@ export class Client extends ClientSDK {
   private _verifyPayee?: VerifyPayee;
   get verifyPayee(): VerifyPayee {
     return (this._verifyPayee ??= new VerifyPayee(this._options));
+  }
+
+  private _draftTransfers?: DraftTransfers;
+  get draftTransfers(): DraftTransfers {
+    return (this._draftTransfers ??= new DraftTransfers(this._options));
   }
 
   private _payouts?: Payouts;
