@@ -1,13 +1,13 @@
-# Debtor
+# TransferResponseDebtor
 
 The debtor (sender) of the transfer, including their name and account details.
 
 ## Example Usage
 
 ```typescript
-import { Debtor } from "mollie-api-typescript/models";
+import { TransferResponseDebtor } from "mollie-api-typescript/models";
 
-let value: Debtor = {
+let value: TransferResponseDebtor = {
   fullName: "Jan Jansen",
   account: {
     iban: "NL02ABNA0123456789",
