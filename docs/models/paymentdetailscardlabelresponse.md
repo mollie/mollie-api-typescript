@@ -15,5 +15,5 @@ let value: PaymentDetailsCardLabelResponse = "Mastercard";
 ## Values
 
 ```typescript
-"American Express" | "Carta Si" | "Carte Bleue" | "Dankort" | "Diners Club" | "Discover" | "JCB" | "Laser" | "Maestro" | "Mastercard" | "Unionpay" | "Visa" | "Vpay" | Unrecognized<string>
+"American Express" | "Carta Si" | "Carte Bleue" | "Cartes Bancaires" | "Dankort" | "Diners Club" | "Discover" | "JCB" | "Laser" | "Maestro" | "Mastercard" | "Unionpay" | "Visa" | "Vpay" | Unrecognized<string>
 ```
