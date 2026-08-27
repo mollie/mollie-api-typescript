@@ -1,6 +1,7 @@
 # SettlementRefundStatus
 
-The refund's status. Settlement refunds always have a status of `refunded`.
+The refund's status. Settlement refunds are normally `refunded`, but can be `failed` if the refund
+could not be processed.
 
 ## Example Usage
 
@@ -15,5 +16,5 @@ let value: SettlementRefundStatus = "refunded";
 ## Values
 
 ```typescript
-"refunded" | Unrecognized<string>
+"refunded" | "failed" | Unrecognized<string>
 ```

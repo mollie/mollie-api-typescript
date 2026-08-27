@@ -134,7 +134,10 @@ export type ListSettlementRefundResponse = {
    */
   settlementId?: string | null | undefined;
   /**
-   * The refund's status. Settlement refunds always have a status of `refunded`.
+   * The refund's status. Settlement refunds are normally `refunded`, but can be `failed` if the refund
+   *
+   * @remarks
+   * could not be processed.
    */
   status: SettlementRefundStatus;
   /**

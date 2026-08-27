@@ -8,6 +8,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 export const BalanceTransactionType = {
+  ApiPaymentRollingReserveRelease: "api-payment-rolling-reserve-release",
   ApplicationFee: "application-fee",
   BalanceChargeFee: "balance-charge-fee",
   BalanceCorrection: "balance-correction",
@@ -38,6 +39,7 @@ export const BalanceTransactionType = {
   PendingRollingReserve: "pending-rolling-reserve",
   PlatformPaymentChargeback: "platform-payment-chargeback",
   PlatformPaymentRefund: "platform-payment-refund",
+  PostPaymentSplitPayment: "post-payment-split-payment",
   Refund: "refund",
   RefundCompensation: "refund-compensation",
   ReleasedRollingReserve: "released-rolling-reserve",

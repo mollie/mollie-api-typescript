@@ -8,13 +8,20 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * The refund's status. Settlement refunds always have a status of `refunded`.
+ * The refund's status. Settlement refunds are normally `refunded`, but can be `failed` if the refund
+ *
+ * @remarks
+ * could not be processed.
  */
 export const SettlementRefundStatus = {
   Refunded: "refunded",
+  Failed: "failed",
 } as const;
 /**
- * The refund's status. Settlement refunds always have a status of `refunded`.
+ * The refund's status. Settlement refunds are normally `refunded`, but can be `failed` if the refund
+ *
+ * @remarks
+ * could not be processed.
  */
 export type SettlementRefundStatus = OpenEnum<typeof SettlementRefundStatus>;
 
