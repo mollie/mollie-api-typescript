@@ -57,6 +57,6 @@ let value: ListAllRefundsEmbedded = {
 
 ## Fields
 
-| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `refunds`                                                     | [models.ListEntityRefund](../../models/listentityrefund.md)[] | :heavy_check_mark:                                            | An array of refund objects.                                   |
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `refunds`                                                         | [models.ListRefundResponse](../../models/listrefundresponse.md)[] | :heavy_check_mark:                                                | An array of refund objects.                                       |

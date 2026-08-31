@@ -152,6 +152,11 @@ export type SalesInvoiceRequest = {
    *
    * E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
    * the recipient is also located in one of these countries.
+   *
+   * When set to true, the invoice will be delivered via the Peppol network. In this case, the organizationNumber
+   * or vatNumber provided must match the identifier the recipient is actually registered with on Peppol,
+   * otherwise delivery will fail. Note: for recipients in Germany, the vatNumber is the required identifier
+   * for Peppol registration.
    */
   isEInvoice?: boolean | undefined;
 };

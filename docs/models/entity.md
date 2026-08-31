@@ -279,10 +279,10 @@ const value: models.PaymentResponse = {
 };
 ```
 
-### `models.EntityRefundResponse`
+### `models.RefundResponse`
 
 ```typescript
-const value: models.EntityRefundResponse = {
+const value: models.RefundResponse = {
   resource: "refund",
   id: "re_5B8cwPMGnU",
   mode: "live",
@@ -291,7 +291,7 @@ const value: models.EntityRefundResponse = {
     currency: "EUR",
     value: "10.00",
   },
-  metadata: "<value>",
+  metadata: null,
   paymentId: "tr_5B8cwPMGnU",
   settlementId: "stl_5B8cwPMGnU",
   status: "queued",
