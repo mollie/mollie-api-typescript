@@ -21,10 +21,6 @@ import {
   EntityPayoutResponse,
   EntityPayoutResponse$inboundSchema,
 } from "./entitypayoutresponse.js";
-import {
-  EntityRefundResponse,
-  EntityRefundResponse$inboundSchema,
-} from "./entityrefundresponse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaymentLinkResponse,
@@ -34,6 +30,10 @@ import {
   PaymentResponse,
   PaymentResponse$inboundSchema,
 } from "./paymentresponse.js";
+import {
+  RefundResponse,
+  RefundResponse$inboundSchema,
+} from "./refundresponse.js";
 import {
   SalesInvoiceResponse,
   SalesInvoiceResponse$inboundSchema,
@@ -104,7 +104,7 @@ export type Entity =
   | PaymentLinkResponse
   | TransferResponse
   | PaymentResponse
-  | EntityRefundResponse
+  | RefundResponse
   | CaptureResponse
   | EntityPayoutResponse
   | EntityChargeback
@@ -118,7 +118,7 @@ export type Embedded = {
     | PaymentLinkResponse
     | TransferResponse
     | PaymentResponse
-    | EntityRefundResponse
+    | RefundResponse
     | CaptureResponse
     | EntityPayoutResponse
     | EntityChargeback
@@ -185,7 +185,7 @@ export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
     PaymentLinkResponse$inboundSchema,
     TransferResponse$inboundSchema,
     PaymentResponse$inboundSchema,
-    EntityRefundResponse$inboundSchema,
+    RefundResponse$inboundSchema,
     CaptureResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     EntityChargeback$inboundSchema,
@@ -212,7 +212,7 @@ export const Embedded$inboundSchema: z.ZodType<
     PaymentLinkResponse$inboundSchema,
     TransferResponse$inboundSchema,
     PaymentResponse$inboundSchema,
-    EntityRefundResponse$inboundSchema,
+    RefundResponse$inboundSchema,
     CaptureResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     EntityChargeback$inboundSchema,

@@ -37,9 +37,6 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
-      metadata: {
-
-      },
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",
@@ -92,9 +89,6 @@ async function run() {
       amount: {
         currency: "EUR",
         value: "10.00",
-      },
-      metadata: {
-  
       },
       externalReference: {
         type: "acquirer-reference",
@@ -148,9 +142,6 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
-      metadata: {
-
-      },
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",
@@ -204,9 +195,6 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
-      metadata: {
-  
-      },
       externalReference: {
         type: "acquirer-reference",
         id: "123456789012345",
@@ -249,7 +237,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntityRefundResponse](../../models/entityrefundresponse.md)\>**
+**Promise\<[models.RefundResponse](../../models/refundresponse.md)\>**
 
 ### Errors
 
@@ -429,7 +417,7 @@ run();
 
 ### Response
 
-**Promise\<[models.EntityRefundResponse](../../models/entityrefundresponse.md)\>**
+**Promise\<[models.RefundResponse](../../models/refundresponse.md)\>**
 
 ### Errors
 

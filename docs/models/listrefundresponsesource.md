@@ -1,13 +1,13 @@
-# ListEntityRefundSource
+# ListRefundResponseSource
 
 Where the funds will be pulled back from.
 
 ## Example Usage
 
 ```typescript
-import { ListEntityRefundSource } from "mollie-api-typescript/models";
+import { ListRefundResponseSource } from "mollie-api-typescript/models";
 
-let value: ListEntityRefundSource = {
+let value: ListRefundResponseSource = {
   organizationId: "org_1234567",
 };
 ```

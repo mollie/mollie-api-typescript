@@ -1,13 +1,13 @@
-# EntityRefundResponseLinks
+# RefundResponseLinks
 
 An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
 
 ## Example Usage
 
 ```typescript
-import { EntityRefundResponseLinks } from "mollie-api-typescript/models";
+import { RefundResponseLinks } from "mollie-api-typescript/models";
 
-let value: EntityRefundResponseLinks = {
+let value: RefundResponseLinks = {
   self: {
     href: "https://...",
     type: "application/hal+json",

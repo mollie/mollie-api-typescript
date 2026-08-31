@@ -42,7 +42,7 @@ export function refundsGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.EntityRefundResponse,
+    models.RefundResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -68,7 +68,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.EntityRefundResponse,
+      models.RefundResponse,
       | errors.ErrorResponse
       | ClientError
       | ResponseValidationError
@@ -182,7 +182,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.EntityRefundResponse,
+    models.RefundResponse,
     | errors.ErrorResponse
     | ClientError
     | ResponseValidationError
@@ -193,7 +193,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.EntityRefundResponse$inboundSchema, {
+    M.json(200, models.RefundResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr([404, 429], errors.ErrorResponse$inboundSchema, {

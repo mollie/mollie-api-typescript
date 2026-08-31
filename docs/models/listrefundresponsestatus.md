@@ -1,11 +1,11 @@
-# ListEntityRefundStatus
+# ListRefundResponseStatus
 
 ## Example Usage
 
 ```typescript
-import { ListEntityRefundStatus } from "mollie-api-typescript/models";
+import { ListRefundResponseStatus } from "mollie-api-typescript/models";
 
-let value: ListEntityRefundStatus = "queued";
+let value: ListRefundResponseStatus = "queued";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

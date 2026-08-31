@@ -25,7 +25,7 @@ export class Refunds extends ClientSDK {
   async create(
     request: operations.CreateRefundRequest,
     options?: RequestOptions,
-  ): Promise<models.EntityRefundResponse> {
+  ): Promise<models.RefundResponse> {
     return unwrapAsync(refundsCreate(
       this,
       request,
@@ -61,7 +61,7 @@ export class Refunds extends ClientSDK {
   async get(
     request: operations.GetRefundRequest,
     options?: RequestOptions,
-  ): Promise<models.EntityRefundResponse> {
+  ): Promise<models.RefundResponse> {
     return unwrapAsync(refundsGet(
       this,
       request,
