@@ -1,6 +1,6 @@
 # SessionResponseStatus
 
-The session's status.
+The Checkout Session's status.
 
 ## Example Usage
 

@@ -30,7 +30,7 @@ export type SessionRequestPayment = {
    *
    * @remarks
    *
-   * This URL will be automatically set as the webhook URL for all payments created for this session.
+   * This URL will be automatically set as the webhook URL for all payments created for this Checkout Session.
    */
   webhookUrl?: string | undefined;
 };
@@ -41,20 +41,20 @@ export type SessionRequest = {
    */
   amount: Amount;
   /**
-   * A user-friendly description of the session that may be shown to the customer during the checkout process.
+   * A user-friendly description of the Checkout Session that may be shown to the customer during the checkout process.
    *
    * @remarks
    *
-   * Any payment created for the session will use the same description.
+   * Any payment created for the Checkout Session will use the same description.
    */
   description: string;
   /**
-   * List of items the customer will pay for in this session. The sum of all line items must equal the
+   * List of items the customer will pay for in this Checkout Session. The sum of all line items must equal the
    *
    * @remarks
-   * session's amount.
+   * Checkout Session's amount.
    *
-   * All lines must have the same currency as the session.
+   * All lines must have the same currency as the Checkout Session.
    */
   lines: Array<SessionLineItem>;
   /**
@@ -74,7 +74,8 @@ export type SessionRequest = {
    * > This property is currently in private beta, and the final specification may still change.
    *
    * Declare which customer details should be collected during checkout. Mollie can collect these details for you
-   * with the Express Component and returns them on the session's and payment's `billingAddress` and `shippingAddress`.
+   * with the Express Component and returns them on the Checkout Session's and payment's `billingAddress` and
+   * `shippingAddress`.
    */
   requiredCustomerDetails?: Array<SessionRequiredCustomerDetails> | undefined;
   billingAddress?: ShippingAddress | undefined;
@@ -87,7 +88,7 @@ export type SessionRequest = {
    * @remarks
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    *
-   * Any payment created for the session will use the same metadata.
+   * Any payment created for the Checkout Session will use the same metadata.
    */
   metadata?: { [k: string]: any } | undefined;
   payment?: SessionRequestPayment | undefined;

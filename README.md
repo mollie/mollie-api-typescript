@@ -308,6 +308,11 @@ let client = new Client({
 * [get](docs/sdks/chargebacks/README.md#get) - Get payment chargeback
 * [all](docs/sdks/chargebacks/README.md#all) - List all chargebacks
 
+### [CheckoutSessions](docs/sdks/checkoutsessions/README.md)
+
+* [create](docs/sdks/checkoutsessions/README.md#create) - Create Checkout Session
+* [get](docs/sdks/checkoutsessions/README.md#get) - Get Checkout Session
+
 ### [ClientLinks](docs/sdks/clientlinks/README.md)
 
 * [create](docs/sdks/clientlinks/README.md#create) - Create client link
@@ -433,11 +438,6 @@ let client = new Client({
 * [update](docs/sdks/salesinvoices/README.md#update) - Update sales invoice
 * [delete](docs/sdks/salesinvoices/README.md#delete) - Delete sales invoice
 
-### [Sessions](docs/sdks/sessions/README.md)
-
-* [create](docs/sdks/sessions/README.md#create) - Create session
-* [get](docs/sdks/sessions/README.md#get) - Get session
-
 ### [Settlements](docs/sdks/settlements/README.md)
 
 * [list](docs/sdks/settlements/README.md#list) - List settlements
@@ -538,6 +538,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`chargebacksAll`](docs/sdks/chargebacks/README.md#all) - List all chargebacks
 - [`chargebacksGet`](docs/sdks/chargebacks/README.md#get) - Get payment chargeback
 - [`chargebacksList`](docs/sdks/chargebacks/README.md#list) - List payment chargebacks
+- [`checkoutSessionsCreate`](docs/sdks/checkoutsessions/README.md#create) - Create Checkout Session
+- [`checkoutSessionsGet`](docs/sdks/checkoutsessions/README.md#get) - Get Checkout Session
 - [`clientLinksCreate`](docs/sdks/clientlinks/README.md#create) - Create client link
 - [`clientsGet`](docs/sdks/clients/README.md#get) - Get client
 - [`clientsList`](docs/sdks/clients/README.md#list) - List clients
@@ -609,8 +611,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`salesInvoicesGet`](docs/sdks/salesinvoices/README.md#get) - Get sales invoice
 - [`salesInvoicesList`](docs/sdks/salesinvoices/README.md#list) - List sales invoices
 - [`salesInvoicesUpdate`](docs/sdks/salesinvoices/README.md#update) - Update sales invoice
-- [`sessionsCreate`](docs/sdks/sessions/README.md#create) - Create session
-- [`sessionsGet`](docs/sdks/sessions/README.md#get) - Get session
 - [`settlementsGet`](docs/sdks/settlements/README.md#get) - Get settlement
 - [`settlementsGetNext`](docs/sdks/settlements/README.md#getnext) - Get next settlement
 - [`settlementsGetOpen`](docs/sdks/settlements/README.md#getopen) - Get open settlement

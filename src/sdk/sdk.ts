@@ -10,6 +10,7 @@ import { BalanceTransfers } from "./balancetransfers.js";
 import { Capabilities } from "./capabilities.js";
 import { Captures } from "./captures.js";
 import { Chargebacks } from "./chargebacks.js";
+import { CheckoutSessions } from "./checkoutsessions.js";
 import { ClientLinks } from "./clientlinks.js";
 import { Clients } from "./clients.js";
 import { Customers } from "./customers.js";
@@ -28,7 +29,6 @@ import { Permissions } from "./permissions.js";
 import { Profiles } from "./profiles.js";
 import { Refunds } from "./refunds.js";
 import { SalesInvoices } from "./salesinvoices.js";
-import { Sessions } from "./sessions.js";
 import { Settlements } from "./settlements.js";
 import { Subscriptions } from "./subscriptions.js";
 import { Terminals } from "./terminals.js";
@@ -122,9 +122,9 @@ export class Client extends ClientSDK {
     ));
   }
 
-  private _sessions?: Sessions;
-  get sessions(): Sessions {
-    return (this._sessions ??= new Sessions(this._options));
+  private _checkoutSessions?: CheckoutSessions;
+  get checkoutSessions(): CheckoutSessions {
+    return (this._checkoutSessions ??= new CheckoutSessions(this._options));
   }
 
   private _methods?: Methods;

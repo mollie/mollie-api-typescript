@@ -1,11 +1,11 @@
-# Sessions
+# CheckoutSessions
 
 ## Overview
 
 ### Available Operations
 
-* [create](#create) - Create session
-* [get](#get) - Get session
+* [create](#create) - Create Checkout Session
+* [get](#get) - Get Checkout Session
 
 ## create
 
@@ -13,9 +13,9 @@
 >
 > This feature is currently in private beta, and the final specification may still change.
 
-Create a session to start a checkout process with Mollie Components.
+Create a Checkout Session to start a checkout process with Mollie Components.
 
-### Example Usage
+### Example Usage: create-session-201-1
 
 <!-- UsageSnippet language="typescript" operationID="create-session" method="post" path="/v2/sessions" example="create-session-201-1" -->
 ```typescript
@@ -28,7 +28,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.sessions.create({
+  const result = await client.checkoutSessions.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     sessionRequest: {
       amount: {
@@ -91,7 +91,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
-import { sessionsCreate } from "mollie-api-typescript/funcs/sessionsCreate.js";
+import { checkoutSessionsCreate } from "mollie-api-typescript/funcs/checkoutSessionsCreate.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -102,7 +102,7 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await sessionsCreate(client, {
+  const res = await checkoutSessionsCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
     sessionRequest: {
       amount: {
@@ -156,7 +156,448 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("sessionsCreate failed:", res.error);
+    console.log("checkoutSessionsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-session-201-2
+
+<!-- UsageSnippet language="typescript" operationID="create-session" method="post" path="/v2/sessions" example="create-session-201-2" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.checkoutSessions.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    sessionRequest: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      description: "Order #12345",
+      lines: [],
+      redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      customerId: "cst_5B8cwPMGnU",
+      sequenceType: "oneoff",
+      payment: {
+        webhookUrl: "https://example.org/webhook",
+      },
+      profileId: "pfl_5B8cwPMGnU",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { checkoutSessionsCreate } from "mollie-api-typescript/funcs/checkoutSessionsCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await checkoutSessionsCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    sessionRequest: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      description: "Order #12345",
+      lines: [],
+      redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      customerId: "cst_5B8cwPMGnU",
+      sequenceType: "oneoff",
+      payment: {
+        webhookUrl: "https://example.org/webhook",
+      },
+      profileId: "pfl_5B8cwPMGnU",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("checkoutSessionsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-session-201-3
+
+<!-- UsageSnippet language="typescript" operationID="create-session" method="post" path="/v2/sessions" example="create-session-201-3" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.checkoutSessions.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    sessionRequest: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      description: "Order #12345",
+      lines: [],
+      redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      customerId: "cst_5B8cwPMGnU",
+      sequenceType: "oneoff",
+      payment: {
+        webhookUrl: "https://example.org/webhook",
+      },
+      profileId: "pfl_5B8cwPMGnU",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { checkoutSessionsCreate } from "mollie-api-typescript/funcs/checkoutSessionsCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await checkoutSessionsCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    sessionRequest: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      description: "Order #12345",
+      lines: [],
+      redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      customerId: "cst_5B8cwPMGnU",
+      sequenceType: "oneoff",
+      payment: {
+        webhookUrl: "https://example.org/webhook",
+      },
+      profileId: "pfl_5B8cwPMGnU",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("checkoutSessionsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: create-session-201-4
+
+<!-- UsageSnippet language="typescript" operationID="create-session" method="post" path="/v2/sessions" example="create-session-201-4" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.checkoutSessions.create({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    sessionRequest: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      description: "Order #12345",
+      lines: [],
+      redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      customerId: "cst_5B8cwPMGnU",
+      sequenceType: "oneoff",
+      payment: {
+        webhookUrl: "https://example.org/webhook",
+      },
+      profileId: "pfl_5B8cwPMGnU",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { checkoutSessionsCreate } from "mollie-api-typescript/funcs/checkoutSessionsCreate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    apiKey: process.env["CLIENT_API_KEY"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await checkoutSessionsCreate(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    sessionRequest: {
+      amount: {
+        currency: "EUR",
+        value: "10.00",
+      },
+      description: "Order #12345",
+      lines: [],
+      redirectUrl: "https://example.org/redirect",
+      requiredCustomerDetails: [
+        "billing-address",
+      ],
+      billingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      shippingAddress: {
+        title: "Mr.",
+        givenName: "Piet",
+        familyName: "Mondriaan",
+        organizationName: "Mollie B.V.",
+        streetAndNumber: "Keizersgracht 126",
+        streetAdditional: "Apt. 1",
+        postalCode: "1234AB",
+        email: "piet@example.org",
+        phone: "31208202070",
+        city: "Amsterdam",
+        region: "Noord-Holland",
+        country: "NL",
+      },
+      customerId: "cst_5B8cwPMGnU",
+      sequenceType: "oneoff",
+      payment: {
+        webhookUrl: "https://example.org/webhook",
+      },
+      profileId: "pfl_5B8cwPMGnU",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("checkoutSessionsCreate failed:", res.error);
   }
 }
 
@@ -189,7 +630,7 @@ run();
 >
 > This feature is currently in private beta, and the final specification may still change.
 
-Retrieve a session to view its details and status to inform your customers about the checkout process.
+Retrieve a Checkout Session to view its details and status to inform your customers about the checkout process.
 
 ### Example Usage
 
@@ -204,7 +645,7 @@ const client = new Client({
 });
 
 async function run() {
-  const result = await client.sessions.get({
+  const result = await client.checkoutSessions.get({
     sessionId: "sess_82jFYDTrLcCQV68NLDvMJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
@@ -221,7 +662,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ClientCore } from "mollie-api-typescript/core.js";
-import { sessionsGet } from "mollie-api-typescript/funcs/sessionsGet.js";
+import { checkoutSessionsGet } from "mollie-api-typescript/funcs/checkoutSessionsGet.js";
 
 // Use `ClientCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -232,7 +673,7 @@ const client = new ClientCore({
 });
 
 async function run() {
-  const res = await sessionsGet(client, {
+  const res = await checkoutSessionsGet(client, {
     sessionId: "sess_82jFYDTrLcCQV68NLDvMJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
   });
@@ -240,7 +681,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("sessionsGet failed:", res.error);
+    console.log("checkoutSessionsGet failed:", res.error);
   }
 }
 

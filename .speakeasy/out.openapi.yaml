@@ -24,6 +24,8 @@ tags:
     description: Operations related to the Captures API
   - name: Chargebacks API
     description: Operations related to the Chargebacks API
+  - name: Checkout Sessions API
+    description: Operations related to the Checkout Sessions API
   - name: Client Links API
     description: Operations related to the Client Links API
   - name: Clients API
@@ -60,8 +62,6 @@ tags:
     description: Operations related to the Refunds API
   - name: Sales Invoices API
     description: Operations related to the Sales Invoices API
-  - name: Sessions API
-    description: Operations related to the Sessions API
   - name: Settlements API
     description: Operations related to the Settlements API
   - name: Subscriptions API
@@ -12437,10 +12437,10 @@ paths:
         - $ref: '#/components/parameters/idempotency-key'
   /v2/sessions:
     post:
-      summary: Create session
+      summary: Create Checkout Session
       x-speakeasy-name-override: create
       tags:
-        - Sessions API
+        - Checkout Sessions API
       operationId: create-session
       security:
         - apiKey: []
@@ -12453,7 +12453,7 @@ paths:
         >
         > This feature is currently in private beta, and the final specification may still change.
 
-        Create a session to start a checkout process with Mollie Components.
+        Create a Checkout Session to start a checkout process with Mollie Components.
       requestBody:
         content:
           application/json:
@@ -12461,7 +12461,7 @@ paths:
               $ref: '#/components/schemas/session-request'
       responses:
         '201':
-          description: The newly created session object.
+          description: The newly created Checkout Session object.
           content:
             application/hal+json:
               schema:
@@ -12469,6 +12469,126 @@ paths:
               examples:
                 create-session-201-1:
                   $ref: '#/components/examples/get-session'
+                create-session-201-2:
+                  summary: Minimum viable request
+                  x-request: ./../_components/requests/common-session-requests.yaml#/api-minimum-viable-request
+                  value:
+                    resource: session
+                    id: sess_hJT2ZmqxL8vN4wRfy76sPq
+                    mode: live
+                    clientAccessToken: ewogICJzZXNzaW9uVG9rZW4iOiAic2Vzc19oSlQyWm1xeEw4dk40d1JmeTc2c1BxIiwKICAic2VjcmV0IjogImhhY2tlcnMtYmUtbmljZSIsCiAgInRlc3Rtb2RlIjogZmFsc2UsCiAgInByb2ZpbGVUb2tlbiI6ICJwZmxfUWtFaE45NEJhIiwKICAiYXZhaWxhYmxlUGF5bWVudE1ldGhvZHMiOiBbCiAgICAiaWRlYWwiLAogICAgImNyZWRpdGNhcmQiLAogICAgInBheXBhbCIKICBdCn0=
+                    amount:
+                      value: '10.00'
+                      currency: EUR
+                    description: 'Order #12345'
+                    lines:
+                      - description: T-shirt
+                        quantity: 1
+                        unitPrice:
+                          value: '10.00'
+                          currency: EUR
+                        totalAmount:
+                          value: '10.00'
+                          currency: EUR
+                    sequenceType: oneoff
+                    redirectUrl: https://webshop.example.org/order/12345/
+                    profileId: pfl_QkEhN94Ba
+                    status: open
+                    createdAt: '2024-03-20T09:13:37+00:00'
+                    expiresAt: '2024-03-20T09:28:37+00:00'
+                    _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
+                      documentation:
+                        href: ...
+                        type: text/html
+                create-session-201-3:
+                  summary: Checkout Session with billing and shipping address
+                  x-request: ./../_components/requests/common-session-requests.yaml#/api-session-with-addresses
+                  value:
+                    resource: session
+                    id: sess_9wR4Kq6ZxJ8vNfT2ymLpBq
+                    mode: live
+                    clientAccessToken: ewogICJzZXNzaW9uVG9rZW4iOiAic2Vzc185d1I0S3E2WnhKOHZOZlQyeW1McEJxIiwKICAic2VjcmV0IjogImhhY2tlcnMtYmUtbmljZSIsCiAgInRlc3Rtb2RlIjogZmFsc2UsCiAgInByb2ZpbGVUb2tlbiI6ICJwZmxfUWtFaE45NEJhIiwKICAiYXZhaWxhYmxlUGF5bWVudE1ldGhvZHMiOiBbCiAgICAiaWRlYWwiLAogICAgImNyZWRpdGNhcmQiLAogICAgInBheXBhbCIKICBdCn0=
+                    amount:
+                      value: '10.00'
+                      currency: EUR
+                    description: 'Order #12345'
+                    lines:
+                      - description: T-shirt
+                        quantity: 1
+                        unitPrice:
+                          value: '10.00'
+                          currency: EUR
+                        totalAmount:
+                          value: '10.00'
+                          currency: EUR
+                    sequenceType: oneoff
+                    redirectUrl: https://webshop.example.org/order/12345/
+                    billingAddress:
+                      givenName: Piet
+                      familyName: Mondriaan
+                      email: piet@example.org
+                      streetAndNumber: Keizersgracht 126
+                      city: Amsterdam
+                      region: Noord-Holland
+                      postalCode: 1015 CW
+                      country: NL
+                    shippingAddress:
+                      givenName: Piet
+                      familyName: Mondriaan
+                      streetAndNumber: Keizersgracht 126
+                      city: Amsterdam
+                      region: Noord-Holland
+                      postalCode: 1015 CW
+                      country: NL
+                    profileId: pfl_QkEhN94Ba
+                    status: open
+                    createdAt: '2024-03-20T09:13:37+00:00'
+                    expiresAt: '2024-03-20T09:28:37+00:00'
+                    _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
+                      documentation:
+                        href: ...
+                        type: text/html
+                create-session-201-4:
+                  summary: Set up a recurring payment
+                  x-request: ./../_components/requests/common-session-requests.yaml#/api-recurring-payment-session
+                  value:
+                    resource: session
+                    id: sess_3vTq7NxKm9RfY4wZbL2sJp
+                    mode: live
+                    clientAccessToken: ewogICJzZXNzaW9uVG9rZW4iOiAic2Vzc18zdlRxN054S205UmZZNHdaYkwyc0pwIiwKICAic2VjcmV0IjogImhhY2tlcnMtYmUtbmljZSIsCiAgInRlc3Rtb2RlIjogZmFsc2UsCiAgInByb2ZpbGVUb2tlbiI6ICJwZmxfUWtFaE45NEJhIiwKICAiYXZhaWxhYmxlUGF5bWVudE1ldGhvZHMiOiBbCiAgICAiaWRlYWwiLAogICAgImNyZWRpdGNhcmQiLAogICAgInBheXBhbCIKICBdCn0=
+                    amount:
+                      value: '10.00'
+                      currency: EUR
+                    description: 'Order #12345'
+                    lines:
+                      - description: T-shirt
+                        quantity: 1
+                        unitPrice:
+                          value: '10.00'
+                          currency: EUR
+                        totalAmount:
+                          value: '10.00'
+                          currency: EUR
+                    customerId: cst_tKt44u85MM
+                    sequenceType: first
+                    redirectUrl: https://webshop.example.org/order/12345/
+                    profileId: pfl_QkEhN94Ba
+                    status: open
+                    createdAt: '2024-03-20T09:13:37+00:00'
+                    expiresAt: '2024-03-20T09:28:37+00:00'
+                    _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
+                      documentation:
+                        href: ...
+                        type: text/html
         '422':
           description: The request contains issues.
           content:
@@ -12490,7 +12610,7 @@ paths:
         code-samples:
           - language: shell
             code: |-
-              curl -X POST https://api.mollie.com/v2/payments \
+              curl -X POST https://api.mollie.com/v2/sessions \
                   -H "Authorization: Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM" \
                   -d "amount[currency]=EUR" \
                   -d "amount[value]=10.00" \
@@ -12501,17 +12621,12 @@ paths:
                   -d "lines[0][unitPrice][value]=10.00" \
                   -d "lines[0][totalAmount][currency]=EUR" \
                   -d "lines[0][totalAmount][value]=10.00" \
-                  -d "payment[webhookUrl]=https://webshop.example.org/payments/webhook/" \
-                  -d "redirectUrl=https://webshop.example.org/order/12345/" \
-                  -d "metadata={\"order_id\": \"12345\"}" \
-                  -d "requiredCustomerDetails[]=email" \
-                  -d "requiredCustomerDetails[]=billing-address" \
-                  -d "requiredCustomerDetails[]=shipping-address"
+                  -d "redirectUrl=https://webshop.example.org/order/12345/"
           - language: php
             code: |-
               <?php
               use Mollie\Api\Http\Data\Money;
-              use Mollie\Api\Http\Requests\CreatePaymentRequest;
+              use Mollie\Api\Http\Requests\CreateSessionRequest;
 
               $mollie = new \Mollie\Api\MollieApiClient();
               $mollie->setApiKey("live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
@@ -12529,13 +12644,6 @@ paths:
                           ],
                       ],
                       redirectUrl: "https://webshop.example.org/order/12345/",
-                      payment: [
-                          "webhookUrl" => "https://webshop.example.org/payments/webhook/",
-                      ],
-                      metadata: [
-                          "order_id" => "12345",
-                      ],
-                      requiredCustomerDetails: ["email", "billing-address", "shipping-address"]
                   )
               );
           - language: node
@@ -12563,36 +12671,59 @@ paths:
                     }
                   }
                 ],
-                redirectUrl: 'https://webshop.example.org/order/12345/',
-                payment: {
-                  webhookUrl: 'https://webshop.example.org/payments/webhook/'
-                },
-                metadata: {
-                  order_id: '12345'
-                },
-                requiredCustomerDetails: ['email', 'billing-address', 'shipping-address']
+                redirectUrl: 'https://webshop.example.org/order/12345/'
               });
           - language: python
-            code: No example available.
+            code: |-
+              import mollie
+              from mollie import ClientSDK
+
+              with ClientSDK(
+                  security=mollie.Security(
+                      api_key="live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM",
+                  ),
+              ) as client_sdk:
+                  session = client_sdk.sessions.create(session_request=mollie.SessionRequest(
+                      amount=mollie.Amount(
+                          currency="EUR",
+                          value="10.00",
+                      ),
+                      description="Order #12345",
+                      lines=[
+                          mollie.SessionLineItem(
+                              description="T-shirt",
+                              quantity=1,
+                              unit_price=mollie.Amount(
+                                  currency="EUR",
+                                  value="10.00",
+                              ),
+                              total_amount=mollie.Amount(
+                                  currency="EUR",
+                                  value="10.00",
+                              ),
+                          ),
+                      ],
+                      redirect_url="https://webshop.example.org/order/12345/",
+                  ))
           - language: ruby
             code: No example available.
-      x-speakeasy-group: sessions
+      x-speakeasy-group: checkout-sessions
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
   /v2/sessions/{sessionId}:
     parameters:
       - $ref: '#/components/parameters/parent-session-id'
     get:
-      summary: Get session
+      summary: Get Checkout Session
       x-speakeasy-name-override: get
       description: |-
         > 🚧 Beta feature
         >
         > This feature is currently in private beta, and the final specification may still change.
 
-        Retrieve a session to view its details and status to inform your customers about the checkout process.
+        Retrieve a Checkout Session to view its details and status to inform your customers about the checkout process.
       tags:
-        - Sessions API
+        - Checkout Sessions API
       operationId: get-session
       security:
         - apiKey: []
@@ -12602,7 +12733,7 @@ paths:
             - sessions.read
       responses:
         '200':
-          description: The session object.
+          description: The Checkout Session object.
           content:
             application/hal+json:
               schema:
@@ -12639,7 +12770,7 @@ paths:
             code: No example available.
           - language: ruby
             code: No example available.
-      x-speakeasy-group: sessions
+      x-speakeasy-group: checkout-sessions
       parameters:
         - $ref: '#/components/parameters/idempotency-key'
   /v2/methods:
@@ -26833,6 +26964,10 @@ paths:
         - oAuth:
             - business-accounts.read
       description: |-
+        > 🔒 Restricted access
+        >
+        > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+
         Retrieve all business accounts for the authenticated organization.
 
         The results are paginated.
@@ -26949,6 +27084,10 @@ paths:
         - oAuth:
             - business-accounts.read
       description: |-
+        > 🔒 Restricted access
+        >
+        > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+
         Retrieve a single business account object by its account ID. This allows you to check the current status,
         balance, and account details.
       parameters:
@@ -27018,6 +27157,10 @@ paths:
         - oAuth:
             - business-accounts.read
       description: |-
+        > 🔒 Restricted access
+        >
+        > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+
         Retrieve all transactions for a specific business account.
 
         The results are paginated.
@@ -27166,6 +27309,10 @@ paths:
         - oAuth:
             - business-accounts.read
       description: |-
+        > 🔒 Restricted access
+        >
+        > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+
         Retrieve a single transaction object by its transaction ID. This allows you to check the details,
         amount, counterparty, and balance impact of a specific transaction.
       parameters:
@@ -36103,7 +36250,7 @@ components:
       example: sess_82jFYDTrLcCQV68NLDvMJ
     session-status:
       type: string
-      description: The session's status.
+      description: The Checkout Session's status.
       enum:
         - open
         - completed
@@ -36216,14 +36363,15 @@ components:
           allOf:
             - $ref: '#/components/schemas/sessionToken'
           description: |-
-            The identifier uniquely referring to this session. Mollie assigns this identifier at session creation time. Mollie
-            will always refer to the session by this ID. Example: `sess_5B8cwPMGnU6qLbRvo7qEZo`.
+            The identifier uniquely referring to this Checkout Session. Mollie assigns this identifier at Checkout
+            Session creation time. Mollie will always refer to the Checkout Session by this ID. Example:
+            `sess_5B8cwPMGnU6qLbRvo7qEZo`.
           readOnly: true
         mode:
           $ref: '#/components/schemas/mode'
         clientAccessToken:
           type: string
-          description: The client access token for the session. Use the client access token to initialize Mollie Components.
+          description: The client access token for the Checkout Session. Use the client access token to initialize Mollie Components.
           readOnly: true
           example: ewogICJzZXNzaW9uVG9rZW4i...
         status:
@@ -36235,17 +36383,17 @@ components:
         description:
           type: string
           description: |-
-            A user-friendly description of the session that may be shown to the customer during the checkout process. 
+            A user-friendly description of the Checkout Session that may be shown to the customer during the checkout process.
 
-            Any payment created for the session will use the same description.
+            Any payment created for the Checkout Session will use the same description.
           example: 'Order #12345'
         lines:
           type: array
           description: |-
-            List of items the customer will pay for in this session. The sum of all line items must equal the
-            session's amount.
+            List of items the customer will pay for in this Checkout Session. The sum of all line items must equal the
+            Checkout Session's amount.
 
-            All lines must have the same currency as the session.
+            All lines must have the same currency as the Checkout Session.
           items:
             $ref: '#/components/schemas/session-line-item'
         redirectUrl:
@@ -36265,7 +36413,8 @@ components:
             > This property is currently in private beta, and the final specification may still change.
 
             Declare which customer details should be collected during checkout. Mollie can collect these details for you
-            with the Express Component and returns them on the session's and payment's `billingAddress` and `shippingAddress`.
+            with the Express Component and returns them on the Checkout Session's and payment's `billingAddress` and
+            `shippingAddress`.
           items:
             $ref: '#/components/schemas/session-required-customer-details'
         billingAddress:
@@ -36284,8 +36433,8 @@ components:
             - 'null'
           $ref: '#/components/schemas/customerToken'
           description: |-
-            The ID of the [customer](get-customer) the session is being created for. This is used primarily for recurring
-            payments, but can also be used on regular payments to enable single-click payments.
+            The ID of the [customer](get-customer) the Checkout Session is being created for. This is used primarily
+            for recurring payments, but can also be used on regular payments to enable single-click payments.
 
             If `sequenceType` is set to `first`, this field is required.
         sequenceType:
@@ -36293,7 +36442,7 @@ components:
           description: |-
             **Only relevant for recurring payments.**
 
-            Indicate if this session is used for a one-off or a first of a recurring payment.
+            Indicate if this Checkout Session is used for a one-off or a first of a recurring payment.
 
             With a `first` payment, the customer agrees to automatic recurring charges taking place
             on their account in the future.
@@ -36305,7 +36454,7 @@ components:
             Provide any data you like in a JSON object. We will save the data alongside the entity. Whenever
             you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
 
-            Any payment created for the session will use the same metadata.
+            Any payment created for the Checkout Session will use the same metadata.
           additionalProperties: true
         payment:
           type: object
@@ -36315,7 +36464,7 @@ components:
               description: |-
                 The webhook URL where we will send payment status updates to.
 
-                This URL will be automatically set as the webhook URL for all payments created for this session.
+                This URL will be automatically set as the webhook URL for all payments created for this Checkout Session.
               example: https://example.org/webhook
         profileId:
           $ref: '#/components/schemas/profileToken'
@@ -36335,8 +36484,8 @@ components:
             - string
             - 'null'
           description: |-
-            The date and time the session expired, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-            Omitted if the session has not expired.
+            The date and time the Checkout Session expired, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            Omitted if the Checkout Session has not expired.
           readOnly: true
           example: '2024-03-20T10:13:37+00:00'
         completedAt:
@@ -36344,8 +36493,8 @@ components:
             - string
             - 'null'
           description: |-
-            The date and time the session was completed, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-            Omitted if the session has not been completed.
+            The date and time the Checkout Session was completed, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format. Omitted if the Checkout Session has not been completed.
           readOnly: true
           example: '2024-03-20T11:13:37+00:00'
         _links:
@@ -44237,14 +44386,15 @@ components:
           allOf:
             - $ref: '#/components/schemas/sessionToken'
           description: |-
-            The identifier uniquely referring to this session. Mollie assigns this identifier at session creation time. Mollie
-            will always refer to the session by this ID. Example: `sess_5B8cwPMGnU6qLbRvo7qEZo`.
+            The identifier uniquely referring to this Checkout Session. Mollie assigns this identifier at Checkout
+            Session creation time. Mollie will always refer to the Checkout Session by this ID. Example:
+            `sess_5B8cwPMGnU6qLbRvo7qEZo`.
           readOnly: true
         mode:
           $ref: '#/components/schemas/mode'
         clientAccessToken:
           type: string
-          description: The client access token for the session. Use the client access token to initialize Mollie Components.
+          description: The client access token for the Checkout Session. Use the client access token to initialize Mollie Components.
           readOnly: true
           example: ewogICJzZXNzaW9uVG9rZW4i...
         status:
@@ -44256,17 +44406,17 @@ components:
         description:
           type: string
           description: |-
-            A user-friendly description of the session that may be shown to the customer during the checkout process. 
+            A user-friendly description of the Checkout Session that may be shown to the customer during the checkout process.
 
-            Any payment created for the session will use the same description.
+            Any payment created for the Checkout Session will use the same description.
           example: 'Order #12345'
         lines:
           type: array
           description: |-
-            List of items the customer will pay for in this session. The sum of all line items must equal the
-            session's amount.
+            List of items the customer will pay for in this Checkout Session. The sum of all line items must equal the
+            Checkout Session's amount.
 
-            All lines must have the same currency as the session.
+            All lines must have the same currency as the Checkout Session.
           items:
             $ref: '#/components/schemas/session-line-item-response'
         redirectUrl:
@@ -44286,7 +44436,8 @@ components:
             > This property is currently in private beta, and the final specification may still change.
 
             Declare which customer details should be collected during checkout. Mollie can collect these details for you
-            with the Express Component and returns them on the session's and payment's `billingAddress` and `shippingAddress`.
+            with the Express Component and returns them on the Checkout Session's and payment's `billingAddress` and
+            `shippingAddress`.
           items:
             $ref: '#/components/schemas/session-required-customer-details-response'
         billingAddress:
@@ -44305,8 +44456,8 @@ components:
             - 'null'
           $ref: '#/components/schemas/customerToken'
           description: |-
-            The ID of the [customer](get-customer) the session is being created for. This is used primarily for recurring
-            payments, but can also be used on regular payments to enable single-click payments.
+            The ID of the [customer](get-customer) the Checkout Session is being created for. This is used primarily
+            for recurring payments, but can also be used on regular payments to enable single-click payments.
 
             If `sequenceType` is set to `first`, this field is required.
         sequenceType:
@@ -44314,7 +44465,7 @@ components:
           description: |-
             **Only relevant for recurring payments.**
 
-            Indicate if this session is used for a one-off or a first of a recurring payment.
+            Indicate if this Checkout Session is used for a one-off or a first of a recurring payment.
 
             With a `first` payment, the customer agrees to automatic recurring charges taking place
             on their account in the future.
@@ -44326,7 +44477,7 @@ components:
             Provide any data you like in a JSON object. We will save the data alongside the entity. Whenever
             you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
 
-            Any payment created for the session will use the same metadata.
+            Any payment created for the Checkout Session will use the same metadata.
           additionalProperties: true
         payment:
           type: object
@@ -44336,7 +44487,7 @@ components:
               description: |-
                 The webhook URL where we will send payment status updates to.
 
-                This URL will be automatically set as the webhook URL for all payments created for this session.
+                This URL will be automatically set as the webhook URL for all payments created for this Checkout Session.
               example: https://example.org/webhook
         profileId:
           $ref: '#/components/schemas/profileToken'
@@ -44356,8 +44507,8 @@ components:
             - string
             - 'null'
           description: |-
-            The date and time the session expired, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-            Omitted if the session has not expired.
+            The date and time the Checkout Session expired, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+            Omitted if the Checkout Session has not expired.
           readOnly: true
           example: '2024-03-20T10:13:37+00:00'
         completedAt:
@@ -44365,8 +44516,8 @@ components:
             - string
             - 'null'
           description: |-
-            The date and time the session was completed, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-            Omitted if the session has not been completed.
+            The date and time the Checkout Session was completed, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format. Omitted if the Checkout Session has not been completed.
           readOnly: true
           example: '2024-03-20T11:13:37+00:00'
         _links:
@@ -45134,7 +45285,7 @@ components:
         $ref: '#/components/schemas/unmatchedCreditTransferToken'
     parent-session-id:
       name: sessionId
-      description: Provide the ID of the related session.
+      description: Provide the ID of the related Checkout Session.
       in: path
       required: true
       schema:
@@ -45505,7 +45656,7 @@ components:
             href: https://api.mollie.com/v2/unmatched-credit-transfers/uct_abcDEFghij123456789/return
             type: application/hal+json
     get-session:
-      summary: The session object
+      summary: The Checkout Session object
       value:
         resource: session
         id: sess_CQBQJqxubaq4w6oresxMJ

@@ -38,6 +38,10 @@ import {
  * List transactions
  *
  * @remarks
+ * > 🔒 Restricted access
+ * >
+ * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+ *
  * Retrieve all transactions for a specific business account.
  *
  * The results are paginated.
