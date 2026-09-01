@@ -32,6 +32,10 @@ import { Result } from "../types/fp.js";
  * Get business account
  *
  * @remarks
+ * > 🔒 Restricted access
+ * >
+ * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+ *
  * Retrieve a single business account object by its account ID. This allows you to check the current status,
  * balance, and account details.
  *

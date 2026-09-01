@@ -8,7 +8,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetSessionRequest = {
   /**
-   * Provide the ID of the related session.
+   * Provide the ID of the related Checkout Session.
    */
   sessionId: string;
   /**

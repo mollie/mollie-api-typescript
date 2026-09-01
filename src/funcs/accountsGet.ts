@@ -32,6 +32,10 @@ import { Result } from "../types/fp.js";
  * Get transaction
  *
  * @remarks
+ * > 🔒 Restricted access
+ * >
+ * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+ *
  * Retrieve a single transaction object by its transaction ID. This allows you to check the details,
  * amount, counterparty, and balance impact of a specific transaction.
  *
