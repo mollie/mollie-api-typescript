@@ -40,7 +40,7 @@ import {
  * @remarks
  * > 🔒 Restricted access
  * >
- * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+ * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
  *
  * Retrieve all transactions for a specific business account.
  *
