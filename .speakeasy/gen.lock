@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 40566afffc143891f099a3184ec36e0b
+  docChecksum: 4748f098a7a3c2671c5a60925e091964
   docVersion: 1.0.0
   speakeasyVersion: 1.796.2
   generationVersion: 2.933.0
-  releaseVersion: 1.12.28
-  configChecksum: 26d66bebeb6771850fbee4833773ed8a
+  releaseVersion: 1.12.29
+  configChecksum: 9bdbc482f1d91e9fb250726469323475
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 1359b5c7-7e54-4d4f-8310-d832b3cef578
-  pristine_commit_hash: e27354bb21124dc3297f004cb18f0213b04a0b38
-  pristine_tree_hash: 2a842a17c730e9c3498652232e0126bb18806d8f
+  generation_id: 63473255-bd63-41c6-8897-ca7765df52ed
+  pristine_commit_hash: 03eb958fbfd2cdb5821e86047f3e2da5449331b8
+  pristine_tree_hash: d5423f2c986a028832cd37eaa9e51f96e95c1c00
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3690,8 +3690,8 @@ trackedFiles:
     pristine_git_object: aae63e878df720c3511f5613ade6f2b0b211efde
   docs/sdks/accounts/README.md:
     id: d6c754b1ca96
-    last_write_checksum: sha1:f6830024926ac8b705cdecae18927d4073be25ff
-    pristine_git_object: 8cb4a24e3b03e04c7e7b7419c8e05c0889e2c126
+    last_write_checksum: sha1:4d1e9c7313cefe18c6dccaddc873a8982115335a
+    pristine_git_object: c72e0059ba7b73c2f120bcf41a6efcbec89baca3
   docs/sdks/balances/README.md:
     id: 6ca85866f00d
     last_write_checksum: sha1:e674a4b1bff98bd711f51e2f9738dc0226fff981
@@ -3850,32 +3850,32 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:fdf908fb6c4be409a82531f0db619c02dd3f5739
-    pristine_git_object: e50f84507957dc1ab2cb6ae83fde485016026005
+    last_write_checksum: sha1:993772cc577d1c04f0259d7e74a0fc3735bc0caf
+    pristine_git_object: 4308aa147c28c1bc76e1391cf44f64bc2de819bd
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:a0d37623f98699b24616b371712dbc25357a1596
-    pristine_git_object: d744ae3dd485c7a3c489ed185b82cdf3cb14d2b3
+    last_write_checksum: sha1:c79a8e86f63495706025d878edc1ad28a9e71904
+    pristine_git_object: 5795a7f8ccd6765a61b573f818702396c6266620
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
     pristine_git_object: d10b7be9e8140e55332ca52fe2e81c56096c954e
   src/funcs/accountsGet.ts:
     id: d510cda6e9c2
-    last_write_checksum: sha1:ddca8c703da3597ccbad27af864757229305da0a
-    pristine_git_object: b99363f4e87f3f47d12dce0618526cab0bb9e771
+    last_write_checksum: sha1:a69407cb6295b8d052532e90c80dba58446428c9
+    pristine_git_object: 41c0b66d77bed908b332c51ec79e68a7b57561e8
   src/funcs/accountsGetAccount.ts:
     id: 64a1ea801d45
-    last_write_checksum: sha1:e67d1276e3ee19d88ad3509d97b4c37989a9697f
-    pristine_git_object: f7f21ea24e5d127ec7032ccc67ba11c441735c19
+    last_write_checksum: sha1:993fd9a6f3a14711678df8fa041a56eb2f152928
+    pristine_git_object: b5b0508ac2b73ff554fd0ab08d54a28c730b4b59
   src/funcs/accountsList.ts:
     id: d5dc1c9c2e7b
-    last_write_checksum: sha1:28c556ecafe0336c25f3e480d4738079b0735b15
-    pristine_git_object: 82fd885ae12a7968db2cce65c66774b732c1d9c1
+    last_write_checksum: sha1:0569ca11bc67dd82c0eb0936e8009c5a73bd25b3
+    pristine_git_object: 55be94f9a2852041f2c58c527c0c303c2e9fea6f
   src/funcs/accountsListAccounts.ts:
     id: 3152dffe957e
-    last_write_checksum: sha1:4c50e12184d05357e38e651e0f1ee2a0563a4e27
-    pristine_git_object: 3f07055ecc53c8887e82e3c2c1109506d9d471f5
+    last_write_checksum: sha1:9b44e3ef992d116faa576f8f01b8f9b87a51036e
+    pristine_git_object: 34c1852395bd7aba1ebf138bb22ac8a77713b165
   src/funcs/balanceTransfersCreate.ts:
     id: 144f52b655ea
     last_write_checksum: sha1:b5293553ad6d455662bbb4374d750a70d666972b
@@ -4394,8 +4394,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:f60829ea9150e542219c61ff39e31b7210d99a8d
-    pristine_git_object: fba836fdb522a91b88687135896a87522145f2db
+    last_write_checksum: sha1:aa9a7737685091592ddc92a2900c5dec8d306ba0
+    pristine_git_object: 0f9bc1d603b11ff435636cb963f660c2126898d7
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
@@ -6601,8 +6601,8 @@ trackedFiles:
     pristine_git_object: 5a2a64426229ebc22e7a296a7a60292af24cd65e
   src/sdk/accounts.ts:
     id: a4031260e046
-    last_write_checksum: sha1:ee82552e766c2140646c8fbd2800c0202654bfa7
-    pristine_git_object: 434187fe9ca5a446ccb6b4838a25620055e968a8
+    last_write_checksum: sha1:545a1d98946ef7b1d5ae985651a9b402458ff6b7
+    pristine_git_object: 0875bbe69b1c6e170a32cb8de62ee3442a95c488
   src/sdk/balances.ts:
     id: 9ad229cb9d64
     last_write_checksum: sha1:6dfdd29419b820f775a5bd2b7d2839568a1c99ba
@@ -11309,12 +11309,6 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `client.checkoutSessions.create()`: **Added**
-  * `client.checkoutSessions.get()`: **Added**
-  * `client.sessions.create()`: **Removed** (Breaking ⚠️)
-  * `client.sessions.get()`: **Removed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

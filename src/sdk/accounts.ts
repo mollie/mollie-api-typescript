@@ -20,7 +20,7 @@ export class Accounts extends ClientSDK {
    * @remarks
    * > 🔒 Restricted access
    * >
-   * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+   * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
    *
    * Retrieve all business accounts for the authenticated organization.
    *
@@ -45,7 +45,7 @@ export class Accounts extends ClientSDK {
    * @remarks
    * > 🔒 Restricted access
    * >
-   * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+   * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
    *
    * Retrieve a single business account object by its account ID. This allows you to check the current status,
    * balance, and account details.
@@ -67,7 +67,7 @@ export class Accounts extends ClientSDK {
    * @remarks
    * > 🔒 Restricted access
    * >
-   * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+   * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
    *
    * Retrieve all transactions for a specific business account.
    *
@@ -95,7 +95,7 @@ export class Accounts extends ClientSDK {
    * @remarks
    * > 🔒 Restricted access
    * >
-   * > This API is only available to Mollie partners with a signed agreement for Business Accounts. [Get in touch](https://www.mollie.com/contact) if you'd like to integrate with it.
+   * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
    *
    * Retrieve a single transaction object by its transaction ID. This allows you to check the details,
    * amount, counterparty, and balance impact of a specific transaction.
