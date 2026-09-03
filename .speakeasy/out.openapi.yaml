@@ -30744,7 +30744,7 @@ components:
             The given name (first name) of the person should be at least two characters and cannot contain only
             numbers.
 
-            Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+            Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
           example: Piet
         familyName:
           type: string
@@ -30752,7 +30752,7 @@ components:
             The given family name (surname) of the person should be at least two characters and cannot contain only
             numbers.
 
-            Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+            Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
           example: Mondriaan
         organizationName:
           type: string
@@ -30763,7 +30763,7 @@ components:
           description: |-
             A street and street number.
 
-            Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+            Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
           example: Keizersgracht 126
         streetAdditional:
           type: string
@@ -30774,7 +30774,7 @@ components:
           description: |-
             A postal code. This field may be required if the provided country has a postal code system.
 
-            Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+            Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
           example: 1234AB
         email:
           type: string
@@ -30784,7 +30784,7 @@ components:
             If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
             email upon payment creation. The language of the email will follow the locale parameter of the payment.
 
-            Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+            Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
 
             If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
           example: piet@example.org
@@ -30797,7 +30797,7 @@ components:
           description: |-
             A city name.
 
-            Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+            Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
           example: Amsterdam
         region:
           type: string
@@ -30808,7 +30808,7 @@ components:
           description: |-
             A country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
 
-            Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+            Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
           example: NL
     locale:
       type:
