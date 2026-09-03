@@ -16,7 +16,7 @@ export type PaymentAddress = {
    * @remarks
    * numbers.
    *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   * Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
    */
   givenName?: string | undefined;
   /**
@@ -25,7 +25,7 @@ export type PaymentAddress = {
    * @remarks
    * numbers.
    *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   * Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
    */
   familyName?: string | undefined;
   /**
@@ -37,7 +37,7 @@ export type PaymentAddress = {
    *
    * @remarks
    *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   * Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
    */
   streetAndNumber?: string | undefined;
   /**
@@ -49,7 +49,7 @@ export type PaymentAddress = {
    *
    * @remarks
    *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   * Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
    */
   postalCode?: string | undefined;
   /**
@@ -60,7 +60,7 @@ export type PaymentAddress = {
    * If you provide the email address for a `banktransfer` payment, we will automatically send the instructions
    * email upon payment creation. The language of the email will follow the locale parameter of the payment.
    *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   * Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
    *
    * If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
    */
@@ -74,7 +74,7 @@ export type PaymentAddress = {
    *
    * @remarks
    *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   * Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
    */
   city?: string | undefined;
   /**
@@ -86,7 +86,7 @@ export type PaymentAddress = {
    *
    * @remarks
    *
-   * Required for payment methods `billie`, `in3`, `klarna` and `riverty`.
+   * Required for payment methods `alma`, `billie`, `in3`, `klarna` and `riverty`.
    */
   country?: string | undefined;
 };
