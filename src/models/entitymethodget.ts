@@ -55,6 +55,7 @@ export const EntityMethodGetId = {
   Twint: "twint",
   Vipps: "vipps",
   Voucher: "voucher",
+  Wero: "wero",
   /**
    * Deprecated, use 'klarna' instead
    */

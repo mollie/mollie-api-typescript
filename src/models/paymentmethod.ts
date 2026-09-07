@@ -55,6 +55,7 @@ export const PaymentMethod = {
   Twint: "twint",
   Vipps: "vipps",
   Voucher: "voucher",
+  Wero: "wero",
 } as const;
 /**
  * The payment method, if applicable

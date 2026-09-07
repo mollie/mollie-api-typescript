@@ -37,6 +37,7 @@ export const PaymentLinkMethodResponse = {
   Trustly: "trustly",
   Twint: "twint",
   Voucher: "voucher",
+  Wero: "wero",
 } as const;
 export type PaymentLinkMethodResponse = OpenEnum<
   typeof PaymentLinkMethodResponse

@@ -36,6 +36,7 @@ export const PaymentLinkMethod = {
   Trustly: "trustly",
   Twint: "twint",
   Voucher: "voucher",
+  Wero: "wero",
 } as const;
 export type PaymentLinkMethod = ClosedEnum<typeof PaymentLinkMethod>;
 

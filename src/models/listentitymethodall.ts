@@ -56,6 +56,7 @@ export const ListEntityMethodAllId = {
   Twint: "twint",
   Vipps: "vipps",
   Voucher: "voucher",
+  Wero: "wero",
 } as const;
 /**
  * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
