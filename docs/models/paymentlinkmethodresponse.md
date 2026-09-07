@@ -13,5 +13,5 @@ let value: PaymentLinkMethodResponse = "ideal";
 ## Values
 
 ```typescript
-"applepay" | "bacs" | "bancomatpay" | "bancontact" | "banktransfer" | "belfius" | "billie" | "blik" | "creditcard" | "eps" | "giftcard" | "ideal" | "in3" | "kbc" | "klarna" | "mbway" | "multibanco" | "mybank" | "paybybank" | "paypal" | "paysafecard" | "pointofsale" | "przelewy24" | "riverty" | "satispay" | "swish" | "trustly" | "twint" | "voucher" | Unrecognized<string>
+"applepay" | "bacs" | "bancomatpay" | "bancontact" | "banktransfer" | "belfius" | "billie" | "blik" | "creditcard" | "eps" | "giftcard" | "ideal" | "in3" | "kbc" | "klarna" | "mbway" | "multibanco" | "mybank" | "paybybank" | "paypal" | "paysafecard" | "pointofsale" | "przelewy24" | "riverty" | "satispay" | "swish" | "trustly" | "twint" | "voucher" | "wero" | Unrecognized<string>
 ```

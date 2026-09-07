@@ -42,6 +42,7 @@ export const MethodEnum = {
   Twint: "twint",
   Vipps: "vipps",
   Voucher: "voucher",
+  Wero: "wero",
 } as const;
 export type MethodEnum = ClosedEnum<typeof MethodEnum>;
 

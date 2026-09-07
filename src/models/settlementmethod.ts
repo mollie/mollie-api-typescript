@@ -63,6 +63,7 @@ export const SettlementMethod = {
   Twint: "twint",
   Vipps: "vipps",
   Voucher: "voucher",
+  Wero: "wero",
 } as const;
 /**
  * The method the cost or revenue subtotal applies to. This is usually a payment method, but can also represent a
