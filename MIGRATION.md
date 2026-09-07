@@ -128,7 +128,7 @@ The biggest ergonomic change is that the first positional `id` argument is now p
 
 ```
 -const payment = await client.payments.get('tr_WDqYK6vllg');
-+const payment = await client.payments.get({ id: 'tr_WDqYK6vllg' });
++const payment = await client.payments.get({ paymentId: 'tr_WDqYK6vllg' });
 ```
 
 ```
@@ -155,8 +155,8 @@ The request body is nested under a typed key (e.g. `paymentRequest`, `mandateReq
 -  description: 'New description',
 -});
 +const updated = await client.payments.update({
-+  id: 'tr_...',
-+  updatePaymentRequest: { description: 'New description' },
++  paymentId: 'tr_...',
++  requestBody: { description: 'New description' },
 +});
 ```
 
@@ -164,7 +164,7 @@ The request body is nested under a typed key (e.g. `paymentRequest`, `mandateReq
 
 ```
 -await client.payments.cancel('tr_...');
-+await client.payments.cancel({ id: 'tr_...' });
++await client.payments.cancel({ paymentId: 'tr_...' });
 ```
 
 ### Aliases removed
@@ -189,8 +189,8 @@ The `Page<T>` result also had `nextPage()` and `previousPage()` helpers for manu
 -  const previous = await page.previousPage();
 -}
 +const result = await client.payments.list();
-+for await (const payment of result) {
-+  console.log(payment);
++for await (const page of result) {
++  console.log(page.result.embedded.payments);
 +}
 ```
 
@@ -201,9 +201,9 @@ The old SDK had separate top-level binders for every nested resource (`client.cu
 | Old | New |
 | --- | --- |
 | `client.customerMandates.create({ customerId, ...body })` | `client.mandates.create({ customerId, mandateRequest: {...} })` |
-| `client.customerMandates.get(mandateId, { customerId })` | `client.mandates.get({ customerId, id: mandateId })` |
+| `client.customerMandates.get(mandateId, { customerId })` | `client.mandates.get({ customerId, mandateId })` |
 | `client.customerMandates.page({ customerId })` | `client.mandates.list({ customerId })` |
-| `client.customerMandates.revoke({ mandateId, customerId })` | `client.mandates.revoke({ customerId, id: mandateId })` |
+| `client.customerMandates.revoke({ mandateId, customerId })` | `client.mandates.revoke({ customerId, mandateId })` |
 | `client.customerPayments.page({ customerId })` | `client.customers.listPayments({ customerId })` |
 | `client.customerSubscriptions.page({ customerId })` | `client.subscriptions.list({ customerId })` |
 | `client.subscriptionPayments.page({ subscriptionId, customerId })` | `client.subscriptions.listPayments({ subscriptionId, customerId })` |
@@ -215,7 +215,7 @@ The old SDK had separate top-level binders for every nested resource (`client.cu
 | `client.settlementCaptures.page({ settlementId })` | `client.settlements.listCaptures({ settlementId })` |
 | `client.settlementChargebacks.page({ settlementId })` | `client.settlements.listChargebacks({ settlementId })` |
 | `client.profileMethods.page({ profileId })` | `client.methods.list({ profileId })` |
-| `client.applePay.requestPaymentSession(params)` | `client.wallets.requestApplePaySession({ applePaySessionRequest: {...} })` |
+| `client.applePay.requestPaymentSession(params)` | `client.wallets.requestApplePaySession({ requestBody: {...} })` |
 
 ### Callbacks removed
 
@@ -226,7 +226,7 @@ The old SDK supported Node-style callbacks as an alternative to Promises. The ne
 -  if (error) { /* handle */ }
 -  console.log(payment);
 -});
-+const payment = await client.payments.get({ id: 'tr_...' });
++const payment = await client.payments.get({ paymentId: 'tr_...' });
 ```
 
 ---
@@ -285,14 +285,14 @@ for await (const payment of client.payments.iterate()) {
 `list()` returns a `PageIterator` that you iterate with `for await`:
 
 ```
-// Stream all items across pages
+// Stream all pages
 const result = await client.payments.list({ limit: 10 });
-for await (const payment of result) {
-  console.log(payment);
+for await (const page of result) {
+  console.log(page.result.embedded.payments);
 }
 ```
 
-There is no separate `iterate()` method — `list()` handles both single-page and multi-page use cases.
+Each step of the `for await` loop yields a **page**, not an individual item — the items are under `page.result.embedded.<resource>` (e.g. `page.result.embedded.payments`, `page.result.embedded.refunds`). There is no separate `iterate()` method — `list()` handles both single-page and multi-page use cases.
 
 ---
 
@@ -304,7 +304,7 @@ There is no separate `iterate()` method — `list()` handles both single-page an
 import { MollieApiError } from '@mollie/api-client';
 
 try {
-  await client.payments.get({ id: 'invalid' });
+  await client.payments.get({ paymentId: 'invalid' });
 } catch (error) {
   if (error instanceof MollieApiError) {
     console.log(error.statusCode);      // HTTP status
@@ -320,7 +320,7 @@ try {
 import { ErrorResponse, SDKValidationError } from 'mollie-api-typescript';
 
 try {
-  await client.payments.get({ id: 'invalid' });
+  await client.payments.get({ paymentId: 'invalid' });
 } catch (error) {
   if (error instanceof ErrorResponse) {
     console.log(error.status);   // HTTP status
@@ -489,9 +489,10 @@ See [FUNCTIONS.md](https://github.com/mollie/mollie-api-typescript/blob/main/FUN
 | `accounts` | Account management |
 | `balances` | Balance retrieval, reports, and transactions |
 | `delayedRouting` | Delayed payment routing rules |
+| `draftTransfers` | Draft transfer management |
 | `payouts` | Payout management |
 | `salesInvoices` | Sales invoice management |
-| `sessions` | Payment sessions |
+| `checkoutSessions` | Checkout sessions |
 | `transfers` | Transfer management |
 | `unmatchedCreditTransfers` | Unmatched credit transfer handling |
 | `verifyPayee` | Payee verification |
