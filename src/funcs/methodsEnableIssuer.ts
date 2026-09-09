@@ -196,10 +196,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.EnableMethodIssuerResponse$inboundSchema, {
+    M.json(201, operations.EnableMethodIssuerResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr([404, 429], errors.ErrorResponse$inboundSchema, {
+    M.jsonErr([404, 422, 429], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),
