@@ -25,6 +25,7 @@ export const TransactionType = {
   Correction: "correction",
   DirectDebit: "direct-debit",
   DirectDebitRefund: "direct-debit-refund",
+  RewardsPayout: "rewards-payout",
 } as const;
 /**
  * Indicates what kind of transaction this is.

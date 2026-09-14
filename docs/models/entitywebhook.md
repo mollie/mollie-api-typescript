@@ -13,8 +13,8 @@ let value: EntityWebhook = {
   createdAt: "2023-03-15T10:00:00+00:00",
   name: "Profile Updates Webhook",
   eventTypes: [
-    "sales-invoice.e-invoice-issued",
-    "payment.canceled",
+    "business-account-transfer.initiated",
+    "payment.expired",
   ],
   status: "enabled",
   mode: "live",

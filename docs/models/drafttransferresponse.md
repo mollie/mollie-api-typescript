@@ -43,10 +43,6 @@ let value: DraftTransferResponse = {
         "https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ",
       type: "application/hal+json",
     },
-    documentation: {
-      href: "https://docs.mollie.com/reference/get-draft-transfer",
-      type: "text/html",
-    },
   },
 };
 ```

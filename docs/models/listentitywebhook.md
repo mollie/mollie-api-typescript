@@ -14,7 +14,7 @@ let value: ListEntityWebhook = {
   name: "Profile Updates Webhook",
   eventTypes: [
     "payment.expired",
-    "business-account-transfer.failed",
+    "business-account-draft-transfer.created",
   ],
   status: "enabled",
   mode: "live",

@@ -14,12 +14,9 @@ import {
 
 export type CreateDraftTransferRequest = {
   /**
-   * The IBAN of the debtor's (sender) Mollie Business Account. Defaults to your organization's primary account
-   *
-   * @remarks
-   * if omitted.
+   * The IBAN of the debtor's (sender) Mollie Business Account.
    */
-  debtorIban?: string | undefined;
+  debtorIban: string;
   /**
    * A party involved in the draft transfer, representing either the debtor (sender) or creditor
    *
@@ -59,7 +56,7 @@ export type CreateDraftTransferRequest = {
 
 /** @internal */
 export type CreateDraftTransferRequest$Outbound = {
-  debtorIban?: string | undefined;
+  debtorIban: string;
   creditor: DraftTransferParty$Outbound;
   amount: Amount$Outbound;
   description: string | null;
@@ -73,7 +70,7 @@ export const CreateDraftTransferRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateDraftTransferRequest
 > = z.object({
-  debtorIban: z.string().optional(),
+  debtorIban: z.string(),
   creditor: DraftTransferParty$outboundSchema,
   amount: Amount$outboundSchema,
   description: z.nullable(z.string()),

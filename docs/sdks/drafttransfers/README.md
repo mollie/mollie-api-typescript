@@ -21,15 +21,17 @@ approves it there.
 
 ### Test mode
 
-Creating a draft transfer always returns a synthetic draft in `pending-review`, using synthetic data,
+Creating a draft transfer always returns a synthetic draft in `pending-review` status, using synthetic data,
 same as in live mode. No real funds move and nothing is sent to Mollie Apps.
 
-Shortly after, you can simulate the initiator's decision by adjusting the transfer amount:
+Editing a draft transfer after creation is not supported via the API. Instead, depending on the amount, you
+can simulate different outcomes for the initiator's decision at creation time:
 
 | Amount  | Simulated outcome                                    | Webhook sequence                                                                                  |
 |---------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | `13.00` | Declined by the initiator, with a free-text reason     | `business-account-draft-transfer.created` → `business-account-draft-transfer.declined`             |
-| Other   | Approved by the initiator                              | `business-account-draft-transfer.created` → `business-account-draft-transfer.approved`              |
+| `14.00` | Approved                                               | `business-account-draft-transfer.created` → `business-account-draft-transfer.approved`             |
+| Other   | Default behavior (pending review)                      | `business-account-draft-transfer.created`                                                          |
 
 The webhooks fire asynchronously, with a short delay between them to mimic real timing. [Get](get-draft-transfer)
 and [list](list-draft-transfers) reflect the simulated outcome once it lands.
@@ -142,7 +144,7 @@ run();
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| errors.ErrorResponse      | 422, 429                  | application/hal+json      |
+| errors.ErrorResponse      | 400, 422, 429             | application/hal+json      |
 | errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## list
@@ -155,8 +157,7 @@ Retrieves a list of draft transfers created via this API for the organization.
 
 The results are paginated.
 
-In test mode, this returns synthetic draft transfers only, not your real data. See [Create draft
-transfer](create-draft-transfer) for how to simulate `approved` and `declined` outcomes.
+In test mode, this returns synthetic draft transfers only, not your real data.
 
 ### Example Usage
 

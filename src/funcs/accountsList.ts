@@ -130,8 +130,11 @@ async function $do(
   const query = options?.[URL_OVERRIDE]
     ? options[URL_OVERRIDE].search.substring(1)
     : encodeFormQuery({
+      "creditDebitIndicator": payload.creditDebitIndicator,
       "from": payload.from,
       "limit": payload.limit,
+      "processedAfter": payload.processedAfter,
+      "processedBefore": payload.processedBefore,
       "sort": payload.sort,
       "testmode": payload.testmode ?? client._options.testmode,
     });

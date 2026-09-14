@@ -54,6 +54,6 @@ let value: ListDraftTransfersEmbedded = {
 
 ## Fields
 
-| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `draftTransfers`                                                                | [models.ListDraftTransferResponse](../../models/listdrafttransferresponse.md)[] | :heavy_check_mark:                                                              | An array of draft transfer objects.                                             |
+| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `draftTransfers`                                                        | [models.DraftTransferResponse](../../models/drafttransferresponse.md)[] | :heavy_check_mark:                                                      | An array of draft transfer objects.                                     |
