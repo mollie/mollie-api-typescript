@@ -11,7 +11,7 @@ let value: AccountDetails = {
   accountHolderName: "Mollie B.V.",
   name: "Main Checking Account",
   currency: "EUR",
-  iban: "NL02MLLE123456780",
+  iban: "NL95MLLE1234567890",
   bic: "MLLENL2AXXX",
 };
 ```
@@ -23,5 +23,5 @@ let value: AccountDetails = {
 | `accountHolderName`                                          | *string*                                                     | :heavy_check_mark:                                           | The name of the account holder.                              | Mollie B.V.                                                  |
 | `name`                                                       | *string*                                                     | :heavy_minus_sign:                                           | A name of the account.                                       | Main Checking Account                                        |
 | `currency`                                                   | *string*                                                     | :heavy_check_mark:                                           | The currency of the account in ISO 4217 format.              | EUR                                                          |
-| `iban`                                                       | *string*                                                     | :heavy_check_mark:                                           | The IBAN (International Bank Account Number) of the account. | NL02MLLE123456780                                            |
+| `iban`                                                       | *string*                                                     | :heavy_check_mark:                                           | The IBAN (International Bank Account Number) of the account. | NL95MLLE1234567890                                           |
 | `bic`                                                        | *string*                                                     | :heavy_minus_sign:                                           | The BIC (Bank Identifier Code) of the account.               | MLLENL2AXXX                                                  |

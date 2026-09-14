@@ -46,8 +46,7 @@ import {
  *
  * The results are paginated.
  *
- * In test mode, this returns synthetic draft transfers only, not your real data. See [Create draft
- * transfer](create-draft-transfer) for how to simulate `approved` and `declined` outcomes.
+ * In test mode, this returns synthetic draft transfers only, not your real data.
  *
  * If set, this operation will use either {@link Security.advancedAccessToken} or {@link Security.oAuth} from the global security.
  */

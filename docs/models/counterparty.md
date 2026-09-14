@@ -8,7 +8,7 @@ The counterparty involved in the transaction, including their name and account i
 import { Counterparty } from "mollie-api-typescript/models";
 
 let value: Counterparty = {
-  identifier: "NL11ABNA01234567890",
+  identifier: "NL02ABNA0123456789",
   name: "Beneficiary Name",
 };
 ```
@@ -17,5 +17,5 @@ let value: Counterparty = {
 
 | Field                                                   | Type                                                    | Required                                                | Description                                             | Example                                                 |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| `identifier`                                            | *string*                                                | :heavy_minus_sign:                                      | The account identifier (e.g. IBAN) of the counterparty. | NL11ABNA01234567890                                     |
+| `identifier`                                            | *string*                                                | :heavy_minus_sign:                                      | The account identifier (e.g. IBAN) of the counterparty. | NL02ABNA0123456789                                      |
 | `name`                                                  | *string*                                                | :heavy_minus_sign:                                      | The name of the counterparty.                           | Beneficiary Name                                        |

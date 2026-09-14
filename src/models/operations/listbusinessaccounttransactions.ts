@@ -29,10 +29,34 @@ export type ListBusinessAccountTransactionsRequest = {
    */
   businessAccountId: string;
   /**
+   * Filter the transactions by whether they credited or debited the account balance.
+   */
+  creditDebitIndicator?: models.CreditDebitIndicator | undefined;
+  /**
+   * Filter the transactions to only include those processed on or after this date and time. Filters on the
+   *
+   * @remarks
+   * `processedAt` property.
+   *
+   * Cannot be combined with `from`.
+   */
+  processedAfter?: Date | undefined;
+  /**
+   * Filter the transactions to only include those processed on or before this date and time. Filters on the
+   *
+   * @remarks
+   * `processedAt` property.
+   *
+   * Cannot be combined with `from`.
+   */
+  processedBefore?: Date | undefined;
+  /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
    *
    * @remarks
    * the result set.
+   *
+   * Cannot be combined with `processedAfter` or `processedBefore`.
    */
   from?: string | undefined;
   /**
@@ -93,6 +117,9 @@ export type ListBusinessAccountTransactionsResponse = {
 /** @internal */
 export type ListBusinessAccountTransactionsRequest$Outbound = {
   businessAccountId: string;
+  creditDebitIndicator?: string | undefined;
+  processedAfter?: string | undefined;
+  processedBefore?: string | undefined;
   from?: string | undefined;
   limit?: number | null | undefined;
   sort?: string | undefined;
@@ -107,6 +134,9 @@ export const ListBusinessAccountTransactionsRequest$outboundSchema: z.ZodType<
   ListBusinessAccountTransactionsRequest
 > = z.object({
   businessAccountId: z.string(),
+  creditDebitIndicator: models.CreditDebitIndicator$outboundSchema.optional(),
+  processedAfter: z.date().transform(v => v.toISOString()).optional(),
+  processedBefore: z.date().transform(v => v.toISOString()).optional(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),

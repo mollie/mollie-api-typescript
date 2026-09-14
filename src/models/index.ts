@@ -82,7 +82,6 @@ export * from "./linecategories.js";
 export * from "./linecategoriesresponse.js";
 export * from "./listcaptureresponse.js";
 export * from "./listcustomerresponse.js";
-export * from "./listdrafttransferresponse.js";
 export * from "./listentitybalance.js";
 export * from "./listentitychargeback.js";
 export * from "./listentityinvoice.js";

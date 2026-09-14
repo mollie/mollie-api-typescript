@@ -14,6 +14,10 @@ import {
   CaptureResponse$inboundSchema,
 } from "./captureresponse.js";
 import {
+  DraftTransferResponse,
+  DraftTransferResponse$inboundSchema,
+} from "./drafttransferresponse.js";
+import {
   EntityChargeback,
   EntityChargeback$inboundSchema,
 } from "./entitychargeback.js";
@@ -88,6 +92,12 @@ export const EntityWebhookEventWebhookEventTypes = {
   BusinessAccountTransferFailed: "business-account-transfer.failed",
   BusinessAccountTransferBlocked: "business-account-transfer.blocked",
   BusinessAccountTransferReturned: "business-account-transfer.returned",
+  BusinessAccountDraftTransferCreated:
+    "business-account-draft-transfer.created",
+  BusinessAccountDraftTransferApproved:
+    "business-account-draft-transfer.approved",
+  BusinessAccountDraftTransferDeclined:
+    "business-account-draft-transfer.declined",
   Wildcard: "*",
 } as const;
 /**
@@ -105,6 +115,7 @@ export type Entity =
   | TransferResponse
   | PaymentResponse
   | RefundResponse
+  | DraftTransferResponse
   | CaptureResponse
   | EntityPayoutResponse
   | EntityChargeback
@@ -119,6 +130,7 @@ export type Embedded = {
     | TransferResponse
     | PaymentResponse
     | RefundResponse
+    | DraftTransferResponse
     | CaptureResponse
     | EntityPayoutResponse
     | EntityChargeback
@@ -186,6 +198,7 @@ export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
     TransferResponse$inboundSchema,
     PaymentResponse$inboundSchema,
     RefundResponse$inboundSchema,
+    DraftTransferResponse$inboundSchema,
     CaptureResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     EntityChargeback$inboundSchema,
@@ -213,6 +226,7 @@ export const Embedded$inboundSchema: z.ZodType<
     TransferResponse$inboundSchema,
     PaymentResponse$inboundSchema,
     RefundResponse$inboundSchema,
+    DraftTransferResponse$inboundSchema,
     CaptureResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     EntityChargeback$inboundSchema,

@@ -59,7 +59,7 @@ export type ListDraftTransfersEmbedded = {
   /**
    * An array of draft transfer objects.
    */
-  draftTransfers: Array<models.ListDraftTransferResponse>;
+  draftTransfers: Array<models.DraftTransferResponse>;
 };
 
 /**
@@ -127,7 +127,7 @@ export const ListDraftTransfersEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  draft_transfers: z.array(models.ListDraftTransferResponse$inboundSchema),
+  draft_transfers: z.array(models.DraftTransferResponse$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "draft_transfers": "draftTransfers",

@@ -18,5 +18,5 @@ let value: TransactionType = "bank-transfer";
 ## Values
 
 ```typescript
-"card-payment" | "bank-transfer" | "psp-transfer" | "internal-transfer" | "ideal-payment" | "fee" | "correction" | "direct-debit" | "direct-debit-refund" | Unrecognized<string>
+"card-payment" | "bank-transfer" | "psp-transfer" | "internal-transfer" | "ideal-payment" | "fee" | "correction" | "direct-debit" | "direct-debit-refund" | "rewards-payout" | Unrecognized<string>
 ```

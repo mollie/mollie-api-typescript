@@ -19,7 +19,7 @@ let value: ListBusinessAccountTransactionsEmbedded = {
       },
       description: "Payment for services",
       counterparty: {
-        identifier: "NL11ABNA01234567890",
+        identifier: "NL02ABNA0123456789",
         name: "Beneficiary Name",
       },
       afterBalance: {

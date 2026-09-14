@@ -25,6 +25,10 @@ export type ListBusinessAccountsGlobals = {
 
 export type ListBusinessAccountsRequest = {
   /**
+   * Filter the results by IBAN. Only the business account with an exact match is returned.
+   */
+  iban?: string | undefined;
+  /**
    * Provide an ID to start the result set from the item with the given ID and onwards. This allows you to paginate
    *
    * @remarks
@@ -88,6 +92,7 @@ export type ListBusinessAccountsResponse = {
 
 /** @internal */
 export type ListBusinessAccountsRequest$Outbound = {
+  iban?: string | undefined;
   from?: string | undefined;
   limit?: number | null | undefined;
   sort?: string | undefined;
@@ -101,6 +106,7 @@ export const ListBusinessAccountsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListBusinessAccountsRequest
 > = z.object({
+  iban: z.string().optional(),
   from: z.string().optional(),
   limit: z.nullable(z.number().int()).optional(),
   sort: models.Sorting$outboundSchema.optional(),

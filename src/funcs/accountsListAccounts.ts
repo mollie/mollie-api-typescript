@@ -122,6 +122,7 @@ async function $do(
     ? options[URL_OVERRIDE].search.substring(1)
     : encodeFormQuery({
       "from": payload?.from,
+      "iban": payload?.iban,
       "limit": payload?.limit,
       "sort": payload?.sort,
       "testmode": payload?.testmode ?? client._options.testmode,

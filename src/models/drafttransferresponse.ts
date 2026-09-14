@@ -70,14 +70,6 @@ export type DraftTransferResponseSelf = {
 };
 
 /**
- * The URL to the documentation of this endpoint.
- */
-export type DraftTransferResponseDocumentation = {
-  href?: string | undefined;
-  type?: string | undefined;
-};
-
-/**
  * Links to related resources.
  */
 export type DraftTransferResponseLinks = {
@@ -85,10 +77,6 @@ export type DraftTransferResponseLinks = {
    * The URL to this draft transfer.
    */
   self: DraftTransferResponseSelf;
-  /**
-   * The URL to the documentation of this endpoint.
-   */
-  documentation?: DraftTransferResponseDocumentation | undefined;
 };
 
 export type DraftTransferResponse = {
@@ -244,35 +232,12 @@ export function draftTransferResponseSelfFromJSON(
 }
 
 /** @internal */
-export const DraftTransferResponseDocumentation$inboundSchema: z.ZodType<
-  DraftTransferResponseDocumentation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
-
-export function draftTransferResponseDocumentationFromJSON(
-  jsonString: string,
-): SafeParseResult<DraftTransferResponseDocumentation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DraftTransferResponseDocumentation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DraftTransferResponseDocumentation' from JSON`,
-  );
-}
-
-/** @internal */
 export const DraftTransferResponseLinks$inboundSchema: z.ZodType<
   DraftTransferResponseLinks,
   z.ZodTypeDef,
   unknown
 > = z.object({
   self: z.lazy(() => DraftTransferResponseSelf$inboundSchema),
-  documentation: z.lazy(() => DraftTransferResponseDocumentation$inboundSchema)
-    .optional(),
 });
 
 export function draftTransferResponseLinksFromJSON(

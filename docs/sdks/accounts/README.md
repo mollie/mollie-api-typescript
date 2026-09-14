@@ -34,6 +34,7 @@ const client = new Client({
 
 async function run() {
   const result = await client.accounts.listAccounts({
+    iban: "NL95MLLE1234567890",
     from: "ba_nopqrstuvwxyz23456789A",
     limit: 50,
     sort: "desc",
@@ -67,6 +68,7 @@ const client = new ClientCore({
 
 async function run() {
   const res = await accountsListAccounts(client, {
+    iban: "NL95MLLE1234567890",
     from: "ba_nopqrstuvwxyz23456789A",
     limit: 50,
     sort: "desc",
@@ -218,6 +220,9 @@ const client = new Client({
 async function run() {
   const result = await client.accounts.list({
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
+    creditDebitIndicator: "debit",
+    processedAfter: new Date("2025-02-01T00:00:00+00:00"),
+    processedBefore: new Date("2025-02-26T23:59:59+00:00"),
     from: "batr_87GByBuj4UCcUTEbs6aGJ",
     limit: 50,
     sort: "desc",
@@ -252,6 +257,9 @@ const client = new ClientCore({
 async function run() {
   const res = await accountsList(client, {
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
+    creditDebitIndicator: "debit",
+    processedAfter: new Date("2025-02-01T00:00:00+00:00"),
+    processedBefore: new Date("2025-02-26T23:59:59+00:00"),
     from: "batr_87GByBuj4UCcUTEbs6aGJ",
     limit: 50,
     sort: "desc",
