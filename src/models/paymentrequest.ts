@@ -303,7 +303,7 @@ export type PaymentRequest = {
    * The parameter is normally required, but can be omitted for recurring payments (`sequenceType: recurring`) and for
    * Apple Pay payments with an `applePayPaymentToken`.
    */
-  redirectUrl: string | null;
+  redirectUrl?: string | null | undefined;
   /**
    * The URL your customer will be redirected to when the customer explicitly cancels the payment. If this URL is not
    *
@@ -793,7 +793,7 @@ export function companyToJSON(company: Company): string {
 export type PaymentRequest$Outbound = {
   description: string;
   amount: Amount$Outbound;
-  redirectUrl: string | null;
+  redirectUrl?: string | null | undefined;
   cancelUrl?: string | null | undefined;
   webhookUrl?: string | null | undefined;
   lines?: Array<PaymentRequestLine$Outbound> | null | undefined;
@@ -837,7 +837,7 @@ export const PaymentRequest$outboundSchema: z.ZodType<
 > = z.object({
   description: z.string(),
   amount: Amount$outboundSchema,
-  redirectUrl: z.nullable(z.string()),
+  redirectUrl: z.nullable(z.string()).optional(),
   cancelUrl: z.nullable(z.string()).optional(),
   webhookUrl: z.nullable(z.string()).optional(),
   lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$outboundSchema)))

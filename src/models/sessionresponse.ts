@@ -106,7 +106,7 @@ export type SessionResponse = {
    *
    * All lines must have the same currency as the Checkout Session.
    */
-  lines: Array<SessionLineItemResponse>;
+  lines?: Array<SessionLineItemResponse> | undefined;
   /**
    * The URL your customer will be redirected to after the payment process.
    *
@@ -236,7 +236,7 @@ export const SessionResponse$inboundSchema: z.ZodType<
   status: SessionResponseStatus$inboundSchema,
   amount: Amount$inboundSchema,
   description: z.string(),
-  lines: z.array(SessionLineItemResponse$inboundSchema),
+  lines: z.array(SessionLineItemResponse$inboundSchema).optional(),
   redirectUrl: z.string(),
   requiredCustomerDetails: z.array(
     SessionRequiredCustomerDetailsResponse$inboundSchema,

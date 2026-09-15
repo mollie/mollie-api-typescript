@@ -98,6 +98,7 @@ export const EntityWebhookEventWebhookEventTypes = {
     "business-account-draft-transfer.approved",
   BusinessAccountDraftTransferDeclined:
     "business-account-draft-transfer.declined",
+  UnmatchedCreditTransferReceived: "unmatched-credit-transfer.received",
   Wildcard: "*",
 } as const;
 /**
