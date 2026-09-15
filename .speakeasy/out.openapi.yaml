@@ -30342,12 +30342,14 @@ components:
       enum:
         - open
         - pending
+        - processing
         - processing-at-bank
         - paidout
         - failed
       x-enumDescriptions:
         open: The settlement has not been closed yet
-        pending: The settlement has been closed and is being processed
+        pending: The settlement has been closed and is queued for processing
+        processing: The settlement is being processed
         processing-at-bank: The settlement has been sent to the bank and is being processed
         paidout: The settlement has been paid out
         failed: The settlement could not be paid out
@@ -32661,6 +32663,7 @@ components:
         - 'null'
       example: ideal
       enum:
+        - null
         - alma
         - applepay
         - bacs
@@ -34105,6 +34108,7 @@ components:
         - business-account-draft-transfer.created
         - business-account-draft-transfer.approved
         - business-account-draft-transfer.declined
+        - unmatched-credit-transfer.received
         - '*'
       x-enumDescriptions:
         payment.paid: A payment has been completed successfully.
@@ -34148,6 +34152,7 @@ components:
         business-account-draft-transfer.created: The draft transfer is created and awaiting review by a human initiator in Mollie Apps.
         business-account-draft-transfer.approved: The draft transfer is approved by the initiator.
         business-account-draft-transfer.declined: The draft transfer is declined, either by the initiator, the creator, or because the debtor account was closed.
+        unmatched-credit-transfer.received: An incoming credit transfer has been received and could not be automatically matched to a payment.
         '*': All event types.
       example: payment-link.paid
     webhook-status:
@@ -34771,24 +34776,6 @@ components:
       type: string
       pattern: ^invoice_.+$
       example: invoice_4Y0eZitmBnQ6IDoMqZQKh
-    sales-invoice-status:
-      type: string
-      description: |-
-        The status for the invoice to end up in.
-
-        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
-        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
-        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
-
-        Dependent parameters:
-          - `paymentDetails` is required if invoice should be set directly to `paid`
-          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
-          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
-      enum:
-        - draft
-        - issued
-        - paid
-      example: draft
     sales-invoice-e-invoice-status:
       type: string
       description: The e-invoice submission status for the invoice, if it was configured to be an e-invoice.
@@ -35066,7 +35053,8 @@ components:
             required.
           example: pfl_QkEhN94Ba
         status:
-          $ref: '#/components/schemas/sales-invoice-status'
+          type: string
+          example: draft
         eInvoiceStatus:
           $ref: '#/components/schemas/sales-invoice-e-invoice-status'
         vatScheme:
@@ -35238,21 +35226,18 @@ components:
           writeOnly: false
     sales-invoice-status-response:
       type: string
-      description: |-
-        The status for the invoice to end up in.
-
-        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
-        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
-        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
-
-        Dependent parameters:
-          - `paymentDetails` is required if invoice should be set directly to `paid`
-          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
-          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      description: The current status of the invoice.
       enum:
         - draft
+        - issuing
         - issued
+        - pending-payment
         - paid
+        - overdue
+        - payment_reversed
+        - cancelled
+        - expired
+        - failed
       example: draft
       x-speakeasy-unknown-values: allow
     sales-invoice-payment-details-source:
@@ -36117,7 +36102,6 @@ components:
           required:
             - amount
             - description
-            - redirectUrl
         - type: object
           properties:
             method:
@@ -36828,7 +36812,6 @@ components:
             - createdAt
             - amount
             - description
-            - lines
             - redirectUrl
             - status
             - profileId
@@ -38368,6 +38351,24 @@ components:
             documentation:
               $ref: '#/components/schemas/url'
           readOnly: true
+    sales-invoice-status:
+      type: string
+      description: |-
+        The status for the invoice to end up in.
+
+        A `draft` invoice is not paid or not sent and can be updated after creation. Setting it to `issued` sends it to
+        the recipient so they may then pay through our payment system. To skip our payment process, set this to `paid` to
+        mark it as paid. It can then subsequently be sent as well, same as with `issued`.
+
+        Dependent parameters:
+          - `paymentDetails` is required if invoice should be set directly to `paid`
+          - `customerId` and `mandateId` are required if a recurring payment should be used to set the invoice to `paid`
+          - `emailDetails` optional for `issued` and `paid` to send the invoice by email
+      enum:
+        - draft
+        - issued
+        - paid
+      example: draft
     sales-invoice-request:
       allOf:
         - $ref: '#/components/schemas/entity-sales-invoice'
@@ -38379,6 +38380,8 @@ components:
             - lines
         - type: object
           properties:
+            status:
+              $ref: '#/components/schemas/sales-invoice-status'
             paymentDetails:
               $ref: '#/components/schemas/sales-invoice-payment-details'
               description: |-
@@ -41243,7 +41246,8 @@ components:
             required.
           example: pfl_QkEhN94Ba
         status:
-          $ref: '#/components/schemas/sales-invoice-status-response'
+          type: string
+          example: draft
         eInvoiceStatus:
           $ref: '#/components/schemas/sales-invoice-e-invoice-status'
         vatScheme:
@@ -42800,6 +42804,7 @@ components:
         - 'null'
       example: ideal
       enum:
+        - null
         - alma
         - applepay
         - bacs
@@ -43438,6 +43443,7 @@ components:
         - business-account-draft-transfer.created
         - business-account-draft-transfer.approved
         - business-account-draft-transfer.declined
+        - unmatched-credit-transfer.received
         - '*'
       x-enumDescriptions:
         payment.paid: A payment has been completed successfully.
@@ -43481,6 +43487,7 @@ components:
         business-account-draft-transfer.created: The draft transfer is created and awaiting review by a human initiator in Mollie Apps.
         business-account-draft-transfer.approved: The draft transfer is approved by the initiator.
         business-account-draft-transfer.declined: The draft transfer is declined, either by the initiator, the creator, or because the debtor account was closed.
+        unmatched-credit-transfer.received: An incoming credit transfer has been received and could not be automatically matched to a payment.
         '*': All event types.
       example: payment-link.paid
       x-speakeasy-unknown-values: allow
@@ -43670,7 +43677,8 @@ components:
             required.
           example: pfl_QkEhN94Ba
         status:
-          $ref: '#/components/schemas/sales-invoice-status-response'
+          type: string
+          example: draft
         eInvoiceStatus:
           $ref: '#/components/schemas/sales-invoice-e-invoice-status'
         vatScheme:

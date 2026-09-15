@@ -25,6 +25,7 @@ export type GetNextSettlementRequest = {
 export const GetNextSettlementStatus = {
   Open: "open",
   Pending: "pending",
+  Processing: "processing",
   ProcessingAtBank: "processing-at-bank",
   Paidout: "paidout",
   Failed: "failed",
