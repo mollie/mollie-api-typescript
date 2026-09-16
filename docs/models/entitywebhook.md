@@ -13,7 +13,7 @@ let value: EntityWebhook = {
   createdAt: "2023-03-15T10:00:00+00:00",
   name: "Profile Updates Webhook",
   eventTypes: [
-    "business-account-transfer.pending-review",
+    "business-account-draft-transfer.created",
     "payment.expired",
   ],
   status: "enabled",
