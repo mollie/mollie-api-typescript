@@ -110,7 +110,7 @@ export type ListSettlementRefundResponse = {
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    */
-  description: string;
+  description: string | null;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -311,7 +311,7 @@ export const ListSettlementRefundResponse$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   mode: SettlementMode$inboundSchema,
-  description: z.string(),
+  description: z.nullable(z.string()),
   amount: Amount$inboundSchema,
   metadata: z.nullable(Metadata$inboundSchema),
   paymentId: z.string(),

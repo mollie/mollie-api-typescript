@@ -18,6 +18,7 @@ export const LocaleResponse = {
   DeCH: "de_CH",
   DEDE: "de_DE",
   DeLU: "de_LU",
+  ElGR: "el_GR",
   EnBE: "en_BE",
   EnGB: "en_GB",
   EnNL: "en_NL",
@@ -38,7 +39,9 @@ export const LocaleResponse = {
   PLPL: "pl_PL",
   PTPT: "pt_PT",
   SKSK: "sk_SK",
+  SlSI: "sl_SI",
   SvSE: "sv_SE",
+  TRTR: "tr_TR",
 } as const;
 /**
  * Sets the language for customer-facing content and communications.

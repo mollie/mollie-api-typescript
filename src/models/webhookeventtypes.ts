@@ -57,6 +57,16 @@ export const WebhookEventTypes = {
   BusinessAccountDraftTransferDeclined:
     "business-account-draft-transfer.declined",
   UnmatchedCreditTransferReceived: "unmatched-credit-transfer.received",
+  UnmatchedCreditTransferMatched: "unmatched-credit-transfer.matched",
+  UnmatchedCreditTransferReturned: "unmatched-credit-transfer.returned",
+  UnmatchedCreditTransferExpired: "unmatched-credit-transfer.expired",
+  UnmatchedCreditTransferMatchCompleted:
+    "unmatched-credit-transfer.match.completed",
+  UnmatchedCreditTransferMatchFailed: "unmatched-credit-transfer.match.failed",
+  UnmatchedCreditTransferReturnCompleted:
+    "unmatched-credit-transfer.return.completed",
+  UnmatchedCreditTransferReturnFailed:
+    "unmatched-credit-transfer.return.failed",
   Wildcard: "*",
 } as const;
 /**

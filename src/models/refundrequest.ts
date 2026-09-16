@@ -61,7 +61,7 @@ export type RefundRequest = {
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    */
-  description?: string | undefined;
+  description?: string | null | undefined;
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
@@ -198,7 +198,7 @@ export function refundRequestRoutingReversalToJSON(
 
 /** @internal */
 export type RefundRequest$Outbound = {
-  description?: string | undefined;
+  description?: string | null | undefined;
   amount: Amount$Outbound;
   metadata?: Metadata$Outbound | null | undefined;
   externalReference?: RefundRequestExternalReference$Outbound | undefined;
@@ -216,7 +216,7 @@ export const RefundRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RefundRequest
 > = z.object({
-  description: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   amount: Amount$outboundSchema,
   metadata: z.nullable(Metadata$outboundSchema).optional(),
   externalReference: z.lazy(() => RefundRequestExternalReference$outboundSchema)
