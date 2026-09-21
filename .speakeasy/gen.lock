@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 7786670ae1f5b5980196a081541ee43f
+  docChecksum: 490963247baa188088c58efdd5aa66cf
   docVersion: 1.0.0
-  speakeasyVersion: 1.797.0
-  generationVersion: 2.937.18
-  releaseVersion: 1.12.36
-  configChecksum: fece8912a5877f4eb969a76bc092290e
+  speakeasyVersion: 1.798.0
+  generationVersion: 2.938.0
+  releaseVersion: 1.12.37
+  configChecksum: cf7d0266e6a5f1cc351faebac0e4e900
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: cd9a17b9-00ad-4dc0-bba8-013405497b2e
-  pristine_commit_hash: 0505ac749c833453953edd99aca2df8a02705f1e
-  pristine_tree_hash: 8cac0d7f12a101f0f1a7691812b14729cf142089
+  generation_id: 07e9f3c0-ee11-4213-afa3-51695eb6d659
+  pristine_commit_hash: 3b9939fdfbc45471db0c30f2a3aaf922238aec04
+  pristine_tree_hash: b25b45f7c4d01a962b4dc29a597997c669eedb97
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -2374,8 +2374,8 @@ trackedFiles:
     pristine_git_object: fc3d6f11811a85baf937d6b0ceaa2f85ff50eb77
   docs/models/operations/listsalesinvoicesembedded.md:
     id: 0d2178488b44
-    last_write_checksum: sha1:3844edc7ed1b0e7cec2bffeb63e28867dfd492bd
-    pristine_git_object: 5bf5ae651f1aea538cde9c2ae0483143f8f3d74d
+    last_write_checksum: sha1:a039e4ef8c211b21a792343ae0f0c59e7596d916
+    pristine_git_object: 42eb86341a2c60117fc350dcc7c3a405602527c0
   docs/models/operations/listsalesinvoicesglobals.md:
     id: 1b019bb9fac8
     last_write_checksum: sha1:37442ee4ef9b7c16e6eb839f1e8061d9394832a8
@@ -2386,12 +2386,12 @@ trackedFiles:
     pristine_git_object: 15b6c52b92c05eab515978a144bc3cd72f36c503
   docs/models/operations/listsalesinvoicesresponse.md:
     id: cc7c0a35726f
-    last_write_checksum: sha1:19f556661d6194498305b308278264c0971da073
-    pristine_git_object: eb280f050794c18f5bf3689966607f39f3375718
+    last_write_checksum: sha1:806e4c9555796c5ceb50817f61d135f4e9273a8d
+    pristine_git_object: 0991fb42cecb076f10bb7f68fd3d21a088ebda0f
   docs/models/operations/listsalesinvoicesresponsebody.md:
     id: 3ff8674fed5e
-    last_write_checksum: sha1:aade205e038f30bbca7ba21b3b273c8b17aee90f
-    pristine_git_object: f70167c220cb0db3ef2afc8487a1446eb4004450
+    last_write_checksum: sha1:5cac7c91c80e9b04dd9523932591925ceadbf867
+    pristine_git_object: e0f51bb25a1df85d86867c9dcba16fb5458e27ca
   docs/models/operations/listsettlementcapturesembedded.md:
     id: f0032462a17f
     last_write_checksum: sha1:752dc682ef339a83cf621029f0e0ec1b1604bded
@@ -2766,8 +2766,8 @@ trackedFiles:
     pristine_git_object: c513048b725318a96e536d91b2220961f044f24c
   docs/models/operations/updatesalesinvoicerequestbody.md:
     id: b897977fab48
-    last_write_checksum: sha1:c3eeba7b5055e1d7e2ba46faa217dfba7e8c2cdc
-    pristine_git_object: f00bd97a7684f8f5d57631aa3a9f507f47efc878
+    last_write_checksum: sha1:06be5acc381dd46939d1c7c36996532972a4db4e
+    pristine_git_object: 4742669a07e5bcc40ec3dbfd3f7b25d55396dd73
   docs/models/operations/updatesubscriptionrequest.md:
     id: ce583ff5488a
     last_write_checksum: sha1:d248788c3cd2b1d427927cc8cd72c5e84fb5c5f4
@@ -3822,12 +3822,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:f7d3dcb2aff7a2c1f92b8d1490e7d922190b29ea
-    pristine_git_object: bc1a0012ba2d2ba23f2716f386db3c9aec3749c7
+    last_write_checksum: sha1:b991fca6b08fccaa614161655a37018090ca5a3f
+    pristine_git_object: 665099163e31677a567c6f595e04be9007dd960f
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:981638b474cd853c909dda335587a714070a9482
-    pristine_git_object: c9871c23aa3eb1eefed76fdea63db0ab9f2bfbb3
+    last_write_checksum: sha1:e9d9339d58b9f8c84c739869d6bfaf5c0845649c
+    pristine_git_object: 8113c00847c26a6824e51069531aea67a70a52b2
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4366,8 +4366,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:03d2bbe866d5669df327bead293d6cb2c2d5e2ee
-    pristine_git_object: f0a0288b187708d7beb29787a8fe283b57fbca18
+    last_write_checksum: sha1:535e268522f61e5d6ca18c2a1e5ce2237d6e2e54
+    pristine_git_object: c2946f014c2ac856e959e50503c04fc5c3ae48c1
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
@@ -5937,8 +5937,8 @@ trackedFiles:
     pristine_git_object: 3ac343ae476feafcbdad39a1f1881d1d464cb272
   src/models/operations/listsalesinvoices.ts:
     id: 88a9cad97ba4
-    last_write_checksum: sha1:be7a708223619d565c18d9e02c836fd14c908404
-    pristine_git_object: 7f3d42e482124e7c07a8a7e60037adb7d3721685
+    last_write_checksum: sha1:7566b746a67d41bde6bf02ad84669a18db90c26a
+    pristine_git_object: 90cbd060aa54148a318b26a144f6d1edcbd8e866
   src/models/operations/listsettlementcaptures.ts:
     id: 210052c39e39
     last_write_checksum: sha1:3a7fa0220939492e6b9ff579127cbcd2d9c4f251
@@ -6061,8 +6061,8 @@ trackedFiles:
     pristine_git_object: 2a14e0a0431159cd38c30d729dfbbdc38b03e8bb
   src/models/operations/updatesalesinvoice.ts:
     id: fc4cc2f5cc4a
-    last_write_checksum: sha1:910f7dacdda63a5a3f99af6bb1f782e5569064af
-    pristine_git_object: 5185be9887598d9c16775c07ae5f5d9ee0f14185
+    last_write_checksum: sha1:a28763826b4d1155c9858f377ab63f73be3191ee
+    pristine_git_object: c0238052d39d5d223a20c1a42e4960e679cbc3df
   src/models/operations/updatesubscription.ts:
     id: 056dbed5624c
     last_write_checksum: sha1:1148cb832ff9459dbdb7201e8ed0ba5e880b207f
@@ -10109,7 +10109,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"sales_invoices": [{"resource": "sales-invoice", "id": "invoice_4Y0eZitmBnQ6IDoMqZQKh", "mode": "live", "invoiceNumber": "INV-0000001", "status": "draft", "vatScheme": "standard", "vatMode": "exclusive", "memo": "This is a memo!", "paymentTerm": "30 days", "paymentDetails": [{"source": "payment-link", "sourceReference": "pl_d9fQur83kFdhH8hIhaZfq"}], "emailDetails": null, "customerId": "cst_8wmqcHMN4U", "mandateId": "mdt_pWUnw6pkBN", "recipientIdentifier": "customer-xyz-0123", "recipient": {"type": "consumer", "title": "Mrs.", "givenName": "Jane", "familyName": "Doe", "organizationName": "Organization Corp.", "organizationNumber": "12345678", "vatNumber": "NL123456789B01", "email": "example@email.com", "phone": "+0123456789", "streetAndNumber": "Keizersgracht 126", "streetAdditional": "4th floor", "postalCode": "5678AB", "city": "Amsterdam", "region": "Noord-Holland", "country": "NL"}, "lines": [{"description": "LEGO 4440 Forest Police Station", "quantity": 1, "vatRate": "21.00", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discount": {"type": "amount", "value": "10.00"}}], "discount": {"type": "amount", "value": "10.00"}, "amountDue": {"currency": "EUR", "value": "10.00"}, "subtotalAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "totalVatAmount": {"currency": "EUR", "value": "10.00"}, "discountedSubtotalAmount": {"currency": "EUR", "value": "10.00"}, "createdAt": "2024-03-20T09:13:37.0Z", "issuedAt": "2024-10-03T10:47:38.457381+00:00", "dueAt": "2024-11-01T10:47:38.457381+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "invoicePayment": {"href": "https://...", "type": "application/hal+json"}, "pdfLink": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"count": 5, "_embedded": {"invoices": [{"resource": "sales-invoice", "id": "invoice_4Y0eZitmBnQ6IDoMqZQKh", "mode": "live", "invoiceNumber": "INV-0000001", "profileId": "pfl_QkEhN94Ba", "status": "draft", "eInvoiceStatus": "issuing", "vatScheme": "standard", "vatMode": "exclusive", "memo": "This is a memo!", "paymentTerm": "30 days", "paymentDetails": [{"source": "payment-link", "sourceReference": "pl_d9fQur83kFdhH8hIhaZfq"}], "emailDetails": {"subject": "Your invoice is available", "body": "Please find your invoice enclosed."}, "customerId": "cst_8wmqcHMN4U", "mandateId": "mdt_pWUnw6pkBN", "recipientIdentifier": "customer-xyz-0123", "recipient": null, "lines": [{"description": "LEGO 4440 Forest Police Station", "quantity": 1, "vatRate": "21.00", "unitPrice": {"currency": "EUR", "value": "10.00"}, "discount": {"type": "amount", "value": "10.00"}}], "discount": {"type": "amount", "value": "10.00"}, "isEInvoice": false, "amountDue": {"currency": "EUR", "value": "10.00"}, "subtotalAmount": {"currency": "EUR", "value": "10.00"}, "totalAmount": {"currency": "EUR", "value": "10.00"}, "totalVatAmount": {"currency": "EUR", "value": "10.00"}, "discountedSubtotalAmount": {"currency": "EUR", "value": "10.00"}, "createdAt": "2024-03-20T09:13:37+00:00", "issuedAt": "2024-10-03T10:47:38+00:00", "paidAt": "2024-10-04T10:47:38+00:00", "dueAt": "2024-11-01T10:47:38+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "invoicePayment": {"href": "https://...", "type": "application/hal+json"}, "pdfLink": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}}}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "400":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
   get-sales-invoice:
@@ -11299,7 +11299,9 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.webhooks.get()`:  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.settlements.listRefunds()`:  `response.Embedded.refunds[].description` **Changed** (Breaking ⚠️)\n* `client.refunds.all()`:  `response.Embedded.refunds[].description` **Changed** (Breaking ⚠️)\n* `client.refunds.get()`:  `response.description` **Changed** (Breaking ⚠️)\n* `client.refunds.list()`:  `response.Embedded.refunds[].description` **Changed** (Breaking ⚠️)\n* `client.refunds.create()`: \n  *  `request.refundRequest.description` **Changed**\n  *  `response.description` **Changed** (Breaking ⚠️)\n* `client.webhookEvents.get()`:  `response` **Changed** (Breaking ⚠️)\n* `client.webhooks.create()`: \n  *  `request.requestBody.eventTypes.union(Array<webhook-event-types>)[]` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.list()`: \n  *  `request.eventTypes` **Changed**\n  *  `response.Embedded.webhooks[].eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.update()`: \n  *  `request.requestBody.eventTypes.union(Array<webhook-event-types>)[]` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.methods.all()`: \n  *  `request.locale` **Changed**\n* `client.paymentLinks.list()`:  `response.Embedded.paymentLinks[].allowedMethods[].enum(googlepay)` **Added**\n* `client.payments.create()`: \n  *  `request.paymentRequest.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.payments.list()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.payments.get()`:  `response.locale` **Changed**\n* `client.payments.update()`: \n  *  `request.requestBody.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.payments.cancel()`:  `response.locale` **Changed**\n* `client.methods.list()`: \n  *  `request.locale` **Changed**\n* `client.settlements.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.methods.get()`: \n  *  `request.locale` **Changed**\n* `client.clients.get()`:  `response.Embedded.organization.locale` **Changed**\n* `client.clients.list()`:  `response.Embedded.clients[].Embedded.organization.locale` **Changed**\n* `client.organizations.getCurrent()`:  `response.locale` **Changed**\n* `client.organizations.get()`:  `response.locale` **Changed**\n* `client.paymentLinks.create()`: \n  *  `request.requestBody.allowedMethods[].enum(googlepay)` **Added**\n  *  `response.allowedMethods[].enum(googlepay)` **Added**\n* `client.clientLinks.create()`: \n  *  `request.clientLinkRequest.owner.locale` **Changed**\n* `client.paymentLinks.get()`:  `response.allowedMethods[].enum(googlepay)` **Added**\n* `client.paymentLinks.update()`: \n  *  `request.requestBody.allowedMethods[].enum(googlepay)` **Added**\n  *  `response.allowedMethods[].enum(googlepay)` **Added**\n* `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.customers.create()`: \n  *  `request.entityCustomer.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.list()`:  `response.Embedded.customers[].locale` **Changed**\n* `client.customers.get()`:  `response.locale` **Changed**\n* `client.customers.update()`: \n  *  `request.requestBody.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.createPayment()`: \n  *  `request.paymentRequest.locale` **Changed**\n  *  `response.locale` **Changed**\n* `client.customers.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n* `client.mandates.create()`:  `response.details.cardLabel.enum(cartesBancaires)` **Added**\n* `client.mandates.list()`:  `response.Embedded.mandates[].details.cardLabel.enum(cartesBancaires)` **Added**\n* `client.mandates.get()`:  `response.details.cardLabel.enum(cartesBancaires)` **Added**\n* `client.subscriptions.listPayments()`:  `response.Embedded.payments[].locale` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `client.salesInvoices.list()`:  `response.Embedded` **Changed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

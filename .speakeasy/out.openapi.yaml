@@ -26486,7 +26486,7 @@ paths:
                   _embedded:
                     type: object
                     properties:
-                      sales_invoices:
+                      invoices:
                         description: |-
                           An array of sales invoice objects. For a complete reference of the sales invoice object, refer to
                           the [Get sales invoice endpoint](get-sales-invoice) documentation.
@@ -26500,7 +26500,7 @@ paths:
               example:
                 count: 1
                 _embedded:
-                  sales_invoices:
+                  invoices:
                     - resource: sales-invoice
                       id: invoice_4Y0eZitmBnQ6IDoMqZQKh
                       mode: live
@@ -38499,9 +38499,9 @@ components:
             E-invoicing is only available for merchants based in Belgium, Germany, and the Netherlands, and only when
             the recipient is also located in one of these countries.
 
-            When set to true, the invoice will be delivered via the Peppol network. In this case, the organizationNumber
-            or vatNumber provided must match the identifier the recipient is actually registered with on Peppol,
-            otherwise delivery will fail. Note: for recipients in Germany, the vatNumber is the required identifier
+            When set to true, the invoice will be delivered via the Peppol network. In this case, the `organizationNumber`
+            or `vatNumber` provided must match the identifier the recipient is actually registered with on Peppol,
+            otherwise delivery will fail. Note: for recipients in Germany, the `vatNumber` is the required identifier
             for Peppol registration.
           example: false
     businessAccountToken:
