@@ -11,7 +11,7 @@ import { ListSalesInvoicesResponseBody } from "mollie-api-typescript/models/oper
 let value: ListSalesInvoicesResponseBody = {
   count: 5,
   embedded: {
-    salesInvoices: [
+    invoices: [
       {
         resource: "sales-invoice",
         id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",

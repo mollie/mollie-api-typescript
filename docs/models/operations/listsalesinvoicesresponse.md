@@ -9,7 +9,7 @@ let value: ListSalesInvoicesResponse = {
   result: {
     count: 5,
     embedded: {
-      salesInvoices: [
+      invoices: [
         {
           resource: "sales-invoice",
           id: "invoice_4Y0eZitmBnQ6IDoMqZQKh",

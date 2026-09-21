@@ -58,7 +58,7 @@ export type ListSalesInvoicesEmbedded = {
    * @remarks
    * the [Get sales invoice endpoint](get-sales-invoice) documentation.
    */
-  salesInvoices?: Array<models.ListSalesInvoiceResponse> | undefined;
+  invoices?: Array<models.ListSalesInvoiceResponse> | undefined;
 };
 
 /**
@@ -127,12 +127,7 @@ export const ListSalesInvoicesEmbedded$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sales_invoices: z.array(models.ListSalesInvoiceResponse$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "sales_invoices": "salesInvoices",
-  });
+  invoices: z.array(models.ListSalesInvoiceResponse$inboundSchema).optional(),
 });
 
 export function listSalesInvoicesEmbeddedFromJSON(
