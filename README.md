@@ -1,3 +1,7 @@
+> **Mollie is transitioning to new, automatically generated SDKs.**  
+>
+> As a part of this transition, new features will be developed exclusively for the [new Node SDK](https://github.com/mollie/mollie-api-typescript). We encourage you to migrate to this version by 10 February 2027, after which the legacy SDK will enter maintenance mode and receive no further updates.
+
 # mollie-api-typescript
 
 Developer-friendly & type-safe Typescript SDK specifically catered to leverage *mollie-api-typescript* API.
