@@ -11,21 +11,6 @@ import {
   Metadata$Outbound,
   Metadata$outboundSchema,
 } from "./metadata.js";
-import {
-  RefundExternalReferenceType,
-  RefundExternalReferenceType$outboundSchema,
-} from "./refundexternalreferencetype.js";
-
-export type RefundRequestExternalReference = {
-  /**
-   * Specifies the reference type
-   */
-  type?: RefundExternalReferenceType | undefined;
-  /**
-   * Unique reference from the payment provider
-   */
-  id?: string | undefined;
-};
 
 /**
  * The type of source. Currently only the source type `organization` is supported.
@@ -73,7 +58,6 @@ export type RefundRequest = {
    * you fetch the entity with our API, we will also include the metadata. You can use up to approximately 1kB.
    */
   metadata?: Metadata | null | undefined;
-  externalReference?: RefundRequestExternalReference | undefined;
   /**
    * *This feature is only available to marketplace operators.*
    *
@@ -114,32 +98,6 @@ export type RefundRequest = {
    */
   testmode?: boolean | null | undefined;
 };
-
-/** @internal */
-export type RefundRequestExternalReference$Outbound = {
-  type?: string | undefined;
-  id?: string | undefined;
-};
-
-/** @internal */
-export const RefundRequestExternalReference$outboundSchema: z.ZodType<
-  RefundRequestExternalReference$Outbound,
-  z.ZodTypeDef,
-  RefundRequestExternalReference
-> = z.object({
-  type: RefundExternalReferenceType$outboundSchema.optional(),
-  id: z.string().optional(),
-});
-
-export function refundRequestExternalReferenceToJSON(
-  refundRequestExternalReference: RefundRequestExternalReference,
-): string {
-  return JSON.stringify(
-    RefundRequestExternalReference$outboundSchema.parse(
-      refundRequestExternalReference,
-    ),
-  );
-}
 
 /** @internal */
 export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
@@ -201,7 +159,6 @@ export type RefundRequest$Outbound = {
   description?: string | null | undefined;
   amount: Amount$Outbound;
   metadata?: Metadata$Outbound | null | undefined;
-  externalReference?: RefundRequestExternalReference$Outbound | undefined;
   reverseRouting?: boolean | null | undefined;
   routingReversals?:
     | Array<RefundRequestRoutingReversal$Outbound>
@@ -219,8 +176,6 @@ export const RefundRequest$outboundSchema: z.ZodType<
   description: z.nullable(z.string()).optional(),
   amount: Amount$outboundSchema,
   metadata: z.nullable(Metadata$outboundSchema).optional(),
-  externalReference: z.lazy(() => RefundRequestExternalReference$outboundSchema)
-    .optional(),
   reverseRouting: z.nullable(z.boolean()).optional(),
   routingReversals: z.nullable(
     z.array(z.lazy(() => RefundRequestRoutingReversal$outboundSchema)),
