@@ -32975,6 +32975,7 @@ components:
               type: string
               description: Unique reference from the payment provider
               example: 123456789012345
+          readOnly: true
         reverseRouting:
           type:
             - boolean
@@ -39688,6 +39689,7 @@ components:
               type: string
               description: Unique reference from the payment provider
               example: 123456789012345
+          readOnly: true
         reverseRouting:
           type:
             - boolean
@@ -43036,6 +43038,7 @@ components:
               type: string
               description: Unique reference from the payment provider
               example: 123456789012345
+          readOnly: true
         reverseRouting:
           type:
             - boolean

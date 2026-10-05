@@ -160,7 +160,6 @@ export * from "./profilerequest.js";
 export * from "./profileresponse.js";
 export * from "./profilereviewstatusresponse.js";
 export * from "./recurringlineitem.js";
-export * from "./refundexternalreferencetype.js";
 export * from "./refundexternalreferencetyperesponse.js";
 export * from "./refundrequest.js";
 export * from "./refundresponse.js";

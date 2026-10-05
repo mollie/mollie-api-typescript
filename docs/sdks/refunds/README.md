@@ -37,10 +37,6 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
-      externalReference: {
-        type: "acquirer-reference",
-        id: "123456789012345",
-      },
       reverseRouting: false,
       routingReversals: [
         {
@@ -89,10 +85,6 @@ async function run() {
       amount: {
         currency: "EUR",
         value: "10.00",
-      },
-      externalReference: {
-        type: "acquirer-reference",
-        id: "123456789012345",
       },
       reverseRouting: false,
       routingReversals: [
@@ -142,10 +134,6 @@ async function run() {
         currency: "EUR",
         value: "10.00",
       },
-      externalReference: {
-        type: "acquirer-reference",
-        id: "123456789012345",
-      },
       reverseRouting: false,
       routingReversals: [
         {
@@ -194,10 +182,6 @@ async function run() {
       amount: {
         currency: "EUR",
         value: "10.00",
-      },
-      externalReference: {
-        type: "acquirer-reference",
-        id: "123456789012345",
       },
       reverseRouting: false,
       routingReversals: [
