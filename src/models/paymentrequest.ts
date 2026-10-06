@@ -236,14 +236,14 @@ export type PaymentRequestApplicationFee = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
+  amount: Amount;
   /**
    * The description of the application fee. This will appear on settlement reports towards both you and the
    *
    * @remarks
    * connected merchant.
    */
-  description?: string | undefined;
+  description: string;
 };
 
 /**
@@ -743,8 +743,8 @@ export function methodToJSON(method: Method): string {
 
 /** @internal */
 export type PaymentRequestApplicationFee$Outbound = {
-  amount?: Amount$Outbound | undefined;
-  description?: string | undefined;
+  amount: Amount$Outbound;
+  description: string;
 };
 
 /** @internal */
@@ -753,8 +753,8 @@ export const PaymentRequestApplicationFee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PaymentRequestApplicationFee
 > = z.object({
-  amount: Amount$outboundSchema.optional(),
-  description: z.string().optional(),
+  amount: Amount$outboundSchema,
+  description: z.string(),
 });
 
 export function paymentRequestApplicationFeeToJSON(

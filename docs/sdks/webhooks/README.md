@@ -197,9 +197,143 @@ run();
 
 Updates the webhook. You may edit the name, url and the list of subscribed event types.
 
-### Example Usage
+### Example Usage: create-webhook-200
 
 <!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/v2/webhooks/{webhookId}" example="create-webhook-200" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.webhooks.update({
+    webhookId: "hook_1234567890",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      name: "Webhook #1",
+      url: "https://mollie.com/",
+      eventTypes: "payment-link.paid",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { webhooksUpdate } from "mollie-api-typescript/funcs/webhooksUpdate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await webhooksUpdate(client, {
+    webhookId: "hook_1234567890",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      name: "Webhook #1",
+      url: "https://mollie.com/",
+      eventTypes: "payment-link.paid",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("webhooksUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-webhook-200
+
+<!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/v2/webhooks/{webhookId}" example="get-webhook-200" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.webhooks.update({
+    webhookId: "hook_1234567890",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      name: "Webhook #1",
+      url: "https://mollie.com/",
+      eventTypes: "payment-link.paid",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { webhooksUpdate } from "mollie-api-typescript/funcs/webhooksUpdate.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    advancedAccessToken: process.env["CLIENT_ADVANCED_ACCESS_TOKEN"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await webhooksUpdate(client, {
+    webhookId: "hook_1234567890",
+    idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    requestBody: {
+      name: "Webhook #1",
+      url: "https://mollie.com/",
+      eventTypes: "payment-link.paid",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("webhooksUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: get-webhook-200-1
+
+<!-- UsageSnippet language="typescript" operationID="update-webhook" method="patch" path="/v2/webhooks/{webhookId}" example="get-webhook-200-1" -->
 ```typescript
 import { Client } from "mollie-api-typescript";
 

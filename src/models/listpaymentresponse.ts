@@ -304,14 +304,14 @@ export type ListPaymentResponseApplicationFee = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  amount?: Amount | undefined;
+  amount: Amount;
   /**
    * The description of the application fee. This will appear on settlement reports towards both you and the
    *
    * @remarks
    * connected merchant.
    */
-  description?: string | undefined;
+  description: string;
 };
 
 /**
@@ -869,8 +869,8 @@ export const ListPaymentResponseApplicationFee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: Amount$inboundSchema.optional(),
-  description: z.string().optional(),
+  amount: Amount$inboundSchema,
+  description: z.string(),
 });
 
 export function listPaymentResponseApplicationFeeFromJSON(

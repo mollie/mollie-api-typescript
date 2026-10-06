@@ -120,7 +120,7 @@ let value: ListSettlementPaymentsResponse = {
               currency: "EUR",
               value: "10.00",
             },
-            description: "10",
+            description: "Platform fee",
           },
           routing: [
             {
