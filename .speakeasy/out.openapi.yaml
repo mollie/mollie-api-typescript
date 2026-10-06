@@ -146,9 +146,6 @@ paths:
                   description: |-
                     The URL the merchant is sent back to once the request has been authorized. It must match the URL you set
                     when registering your app.
-
-                    For consecutive refresh token requests, this parameter is required only if the initial authorization
-                    code grant request also contained a `redirect_uri`.
                   example: https://example.com/redirect
       responses:
         '200':
@@ -7846,8 +7843,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/entity-webhook'
               examples:
-                create-webhook-200:
-                  summary: The webhook subscription object.
+                get-webhook-200:
+                  summary: An enabled hook subscription object
                   value:
                     resource: webhook
                     id: hook_B2EyhTH5N4KWUnoYPcgiH
@@ -7856,8 +7853,28 @@ paths:
                     createdAt: '2024-12-06T10:09:56+00:00'
                     name: 'Webhook #1'
                     status: enabled
-                    mode: live
-                    webhookSecret: VpQ3WukU6uSCGQ8TPTD3WPDpac3GyNEj
+                    mode: test
+                    eventTypes:
+                      - payment-link.paid
+                      - sales-invoice.paid
+                    _links:
+                      self:
+                        href: ...
+                        type: application/hal+json
+                      documentation:
+                        href: https://docs.mollie.com/reference/get-webhook
+                        type: text/html
+                get-webhook-200-1:
+                  summary: A deleted hook subscription object.
+                  value:
+                    resource: webhook
+                    id: hook_B2EyhTH5N4KWUnoYPcgiH
+                    url: https://mollie.com
+                    profileId: pfl_8XcSdLtrNK
+                    createdAt: '2024-12-06T10:09:56+00:00'
+                    name: 'Webhook #1'
+                    status: deleted
+                    mode: test
                     eventTypes:
                       - payment-link.paid
                     _links:
@@ -7865,7 +7882,7 @@ paths:
                         href: ...
                         type: application/hal+json
                       documentation:
-                        href: https://docs.mollie.com/reference/create-webhook
+                        href: https://docs.mollie.com/reference/get-webhook
                         type: text/html
         '404':
           $ref: '#/components/responses/404-invalid-id'
@@ -32373,6 +32390,9 @@ components:
 
             If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
             `routing` parameter.
+          required:
+            - amount
+            - description
           properties:
             amount:
               $ref: '#/components/schemas/amount'
@@ -32387,7 +32407,7 @@ components:
                 The description of the application fee. This will appear on settlement reports towards both you and the
                 connected merchant.
               maxLength: 255
-              example: 10
+              example: Platform fee
         routing:
           type:
             - array
@@ -39193,6 +39213,9 @@ components:
 
             If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
             `routing` parameter.
+          required:
+            - amount
+            - description
           properties:
             amount:
               $ref: '#/components/schemas/amount'
@@ -39207,7 +39230,7 @@ components:
                 The description of the application fee. This will appear on settlement reports towards both you and the
                 connected merchant.
               maxLength: 255
-              example: 10
+              example: Platform fee
         routing:
           type:
             - array
@@ -41812,6 +41835,9 @@ components:
 
             If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the
             `routing` parameter.
+          required:
+            - amount
+            - description
           properties:
             amount:
               $ref: '#/components/schemas/amount'
@@ -41826,7 +41852,7 @@ components:
                 The description of the application fee. This will appear on settlement reports towards both you and the
                 connected merchant.
               maxLength: 255
-              example: 10
+              example: Platform fee
         routing:
           type:
             - array

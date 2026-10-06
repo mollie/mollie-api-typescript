@@ -115,7 +115,7 @@ let value: ListSettlementPaymentResponse = {
       currency: "EUR",
       value: "10.00",
     },
-    description: "10",
+    description: "Platform fee",
   },
   routing: null,
   sequenceType: "oneoff",

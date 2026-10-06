@@ -36,9 +36,6 @@ export type OauthGenerateTokensRequestBody = {
    *
    * @remarks
    * when registering your app.
-   *
-   * For consecutive refresh token requests, this parameter is required only if the initial authorization
-   * code grant request also contained a `redirect_uri`.
    */
   redirectUri?: string | undefined;
 };
