@@ -24,6 +24,92 @@ import {
   ShippingAddress$outboundSchema,
 } from "./shippingaddress.js";
 
+export type SessionRequestOption2 = {
+  /**
+   * The name of the shipping option, as shown to your customer.
+   */
+  description: string;
+  /**
+   * Your own identifier for the shipping option.
+   */
+  reference: string;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amount: Amount;
+};
+
+export type SessionRequestShipping2 = {
+  /**
+   * A fixed list of shipping options to show your customer during checkout. Use `callbackUrl` instead if your
+   *
+   * @remarks
+   * options depend on the customer's shipping address.
+   */
+  options?: Array<SessionRequestOption2> | undefined;
+  /**
+   * The URL Mollie calls to retrieve shipping options whenever your customer selects or changes their shipping
+   *
+   * @remarks
+   * address. Requires `https://` for live mode. In test mode, `http://` is also allowed.
+   *
+   * See the [shipping options guide](https://docs.mollie.com/docs/handle-shipping-options-with-express-component)
+   * for the callback request and response.
+   */
+  callbackUrl: string;
+};
+
+export type SessionRequestOption1 = {
+  /**
+   * The name of the shipping option, as shown to your customer.
+   */
+  description: string;
+  /**
+   * Your own identifier for the shipping option.
+   */
+  reference: string;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amount: Amount;
+};
+
+export type SessionRequestShipping1 = {
+  /**
+   * A fixed list of shipping options to show your customer during checkout. Use `callbackUrl` instead if your
+   *
+   * @remarks
+   * options depend on the customer's shipping address.
+   */
+  options: Array<SessionRequestOption1>;
+  /**
+   * The URL Mollie calls to retrieve shipping options whenever your customer selects or changes their shipping
+   *
+   * @remarks
+   * address. Requires `https://` for live mode. In test mode, `http://` is also allowed.
+   *
+   * See the [shipping options guide](https://docs.mollie.com/docs/handle-shipping-options-with-express-component)
+   * for the callback request and response.
+   */
+  callbackUrl?: string | undefined;
+};
+
+/**
+ * > 🚧 Private beta
+ *
+ * @remarks
+ * >
+ * > This property is currently in private beta, and the final specification may still change.
+ *
+ * Shipping information for the Checkout Session. Provide either `options` or `callbackUrl`, not both.
+ *
+ * The `lines` of the Checkout Session must not contain a line with type `shipping_fee`. When `shipping` is set,
+ * `requiredCustomerDetails` must contain `shipping-address`.
+ */
+export type SessionRequestShippingUnion =
+  | SessionRequestShipping1
+  | SessionRequestShipping2;
+
 export type SessionRequestPayment = {
   /**
    * The webhook URL where we will send payment status updates to.
@@ -80,6 +166,19 @@ export type SessionRequest = {
   requiredCustomerDetails?: Array<SessionRequiredCustomerDetails> | undefined;
   billingAddress?: ShippingAddress | undefined;
   shippingAddress?: ShippingAddress | undefined;
+  /**
+   * > 🚧 Private beta
+   *
+   * @remarks
+   * >
+   * > This property is currently in private beta, and the final specification may still change.
+   *
+   * Shipping information for the Checkout Session. Provide either `options` or `callbackUrl`, not both.
+   *
+   * The `lines` of the Checkout Session must not contain a line with type `shipping_fee`. When `shipping` is set,
+   * `requiredCustomerDetails` must contain `shipping-address`.
+   */
+  shipping?: SessionRequestShipping1 | SessionRequestShipping2 | undefined;
   customerId?: string | undefined;
   sequenceType?: SessionSequenceType | undefined;
   /**
@@ -115,6 +214,132 @@ export type SessionRequest = {
 };
 
 /** @internal */
+export type SessionRequestOption2$Outbound = {
+  description: string;
+  reference: string;
+  amount: Amount$Outbound;
+};
+
+/** @internal */
+export const SessionRequestOption2$outboundSchema: z.ZodType<
+  SessionRequestOption2$Outbound,
+  z.ZodTypeDef,
+  SessionRequestOption2
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$outboundSchema,
+});
+
+export function sessionRequestOption2ToJSON(
+  sessionRequestOption2: SessionRequestOption2,
+): string {
+  return JSON.stringify(
+    SessionRequestOption2$outboundSchema.parse(sessionRequestOption2),
+  );
+}
+
+/** @internal */
+export type SessionRequestShipping2$Outbound = {
+  options?: Array<SessionRequestOption2$Outbound> | undefined;
+  callbackUrl: string;
+};
+
+/** @internal */
+export const SessionRequestShipping2$outboundSchema: z.ZodType<
+  SessionRequestShipping2$Outbound,
+  z.ZodTypeDef,
+  SessionRequestShipping2
+> = z.object({
+  options: z.array(z.lazy(() => SessionRequestOption2$outboundSchema))
+    .optional(),
+  callbackUrl: z.string(),
+});
+
+export function sessionRequestShipping2ToJSON(
+  sessionRequestShipping2: SessionRequestShipping2,
+): string {
+  return JSON.stringify(
+    SessionRequestShipping2$outboundSchema.parse(sessionRequestShipping2),
+  );
+}
+
+/** @internal */
+export type SessionRequestOption1$Outbound = {
+  description: string;
+  reference: string;
+  amount: Amount$Outbound;
+};
+
+/** @internal */
+export const SessionRequestOption1$outboundSchema: z.ZodType<
+  SessionRequestOption1$Outbound,
+  z.ZodTypeDef,
+  SessionRequestOption1
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$outboundSchema,
+});
+
+export function sessionRequestOption1ToJSON(
+  sessionRequestOption1: SessionRequestOption1,
+): string {
+  return JSON.stringify(
+    SessionRequestOption1$outboundSchema.parse(sessionRequestOption1),
+  );
+}
+
+/** @internal */
+export type SessionRequestShipping1$Outbound = {
+  options: Array<SessionRequestOption1$Outbound>;
+  callbackUrl?: string | undefined;
+};
+
+/** @internal */
+export const SessionRequestShipping1$outboundSchema: z.ZodType<
+  SessionRequestShipping1$Outbound,
+  z.ZodTypeDef,
+  SessionRequestShipping1
+> = z.object({
+  options: z.array(z.lazy(() => SessionRequestOption1$outboundSchema)),
+  callbackUrl: z.string().optional(),
+});
+
+export function sessionRequestShipping1ToJSON(
+  sessionRequestShipping1: SessionRequestShipping1,
+): string {
+  return JSON.stringify(
+    SessionRequestShipping1$outboundSchema.parse(sessionRequestShipping1),
+  );
+}
+
+/** @internal */
+export type SessionRequestShippingUnion$Outbound =
+  | SessionRequestShipping1$Outbound
+  | SessionRequestShipping2$Outbound;
+
+/** @internal */
+export const SessionRequestShippingUnion$outboundSchema: z.ZodType<
+  SessionRequestShippingUnion$Outbound,
+  z.ZodTypeDef,
+  SessionRequestShippingUnion
+> = z.union([
+  z.lazy(() => SessionRequestShipping1$outboundSchema),
+  z.lazy(() => SessionRequestShipping2$outboundSchema),
+]);
+
+export function sessionRequestShippingUnionToJSON(
+  sessionRequestShippingUnion: SessionRequestShippingUnion,
+): string {
+  return JSON.stringify(
+    SessionRequestShippingUnion$outboundSchema.parse(
+      sessionRequestShippingUnion,
+    ),
+  );
+}
+
+/** @internal */
 export type SessionRequestPayment$Outbound = {
   webhookUrl?: string | undefined;
 };
@@ -145,6 +370,10 @@ export type SessionRequest$Outbound = {
   requiredCustomerDetails?: Array<string> | undefined;
   billingAddress?: ShippingAddress$Outbound | undefined;
   shippingAddress?: ShippingAddress$Outbound | undefined;
+  shipping?:
+    | SessionRequestShipping1$Outbound
+    | SessionRequestShipping2$Outbound
+    | undefined;
   customerId?: string | undefined;
   sequenceType?: string | undefined;
   metadata?: { [k: string]: any } | undefined;
@@ -168,6 +397,10 @@ export const SessionRequest$outboundSchema: z.ZodType<
   ).optional(),
   billingAddress: ShippingAddress$outboundSchema.optional(),
   shippingAddress: ShippingAddress$outboundSchema.optional(),
+  shipping: z.union([
+    z.lazy(() => SessionRequestShipping1$outboundSchema),
+    z.lazy(() => SessionRequestShipping2$outboundSchema),
+  ]).optional(),
   customerId: z.string().optional(),
   sequenceType: SessionSequenceType$outboundSchema.optional(),
   metadata: z.record(z.any()).optional(),

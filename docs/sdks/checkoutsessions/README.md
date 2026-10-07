@@ -69,6 +69,19 @@ async function run() {
         region: "Noord-Holland",
         country: "NL",
       },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
+      },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",
       payment: {
@@ -142,6 +155,19 @@ async function run() {
         city: "Amsterdam",
         region: "Noord-Holland",
         country: "NL",
+      },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
       },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",
@@ -216,6 +242,19 @@ async function run() {
         region: "Noord-Holland",
         country: "NL",
       },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
+      },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",
       payment: {
@@ -289,6 +328,19 @@ async function run() {
         city: "Amsterdam",
         region: "Noord-Holland",
         country: "NL",
+      },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
       },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",
@@ -363,6 +415,19 @@ async function run() {
         region: "Noord-Holland",
         country: "NL",
       },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
+      },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",
       payment: {
@@ -436,6 +501,19 @@ async function run() {
         city: "Amsterdam",
         region: "Noord-Holland",
         country: "NL",
+      },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
       },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",
@@ -510,6 +588,19 @@ async function run() {
         region: "Noord-Holland",
         country: "NL",
       },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
+      },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",
       payment: {
@@ -583,6 +674,19 @@ async function run() {
         city: "Amsterdam",
         region: "Noord-Holland",
         country: "NL",
+      },
+      shipping: {
+        options: [
+          {
+            description: "Next day delivery",
+            reference: "express",
+            amount: {
+              currency: "EUR",
+              value: "10.00",
+            },
+          },
+        ],
+        callbackUrl: "https://example.org/shipping-options",
       },
       customerId: "cst_5B8cwPMGnU",
       sequenceType: "oneoff",

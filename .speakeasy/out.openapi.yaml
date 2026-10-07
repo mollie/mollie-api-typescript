@@ -36754,6 +36754,56 @@ components:
           description: |-
             The customer's shipping address details. We advise to provide these details to improve fraud protection and
             conversion.
+        shipping:
+          type: object
+          description: |-
+            > 🚧 Private beta
+            >
+            > This property is currently in private beta, and the final specification may still change.
+
+            Shipping information for the Checkout Session. Provide either `options` or `callbackUrl`, not both.
+
+            The `lines` of the Checkout Session must not contain a line with type `shipping_fee`. When `shipping` is set,
+            `requiredCustomerDetails` must contain `shipping-address`.
+          oneOf:
+            - required:
+                - options
+            - required:
+                - callbackUrl
+          properties:
+            options:
+              type: array
+              minItems: 1
+              maxItems: 10
+              description: |-
+                A fixed list of shipping options to show your customer during checkout. Use `callbackUrl` instead if your
+                options depend on the customer's shipping address.
+              items:
+                type: object
+                required:
+                  - description
+                  - reference
+                  - amount
+                properties:
+                  description:
+                    type: string
+                    description: The name of the shipping option, as shown to your customer.
+                    example: Next day delivery
+                  reference:
+                    type: string
+                    description: Your own identifier for the shipping option.
+                    example: express
+                  amount:
+                    $ref: '#/components/schemas/amount'
+            callbackUrl:
+              type: string
+              description: |-
+                The URL Mollie calls to retrieve shipping options whenever your customer selects or changes their shipping
+                address. Requires `https://` for live mode. In test mode, `http://` is also allowed.
+
+                See the [shipping options guide](https://docs.mollie.com/docs/handle-shipping-options-with-express-component)
+                for the callback request and response.
+              example: https://example.org/shipping-options
         customerId:
           type:
             - string
@@ -44647,6 +44697,56 @@ components:
           description: |-
             The customer's shipping address details. We advise to provide these details to improve fraud protection and
             conversion.
+        shipping:
+          type: object
+          description: |-
+            > 🚧 Private beta
+            >
+            > This property is currently in private beta, and the final specification may still change.
+
+            Shipping information for the Checkout Session. Provide either `options` or `callbackUrl`, not both.
+
+            The `lines` of the Checkout Session must not contain a line with type `shipping_fee`. When `shipping` is set,
+            `requiredCustomerDetails` must contain `shipping-address`.
+          oneOf:
+            - required:
+                - options
+            - required:
+                - callbackUrl
+          properties:
+            options:
+              type: array
+              minItems: 1
+              maxItems: 10
+              description: |-
+                A fixed list of shipping options to show your customer during checkout. Use `callbackUrl` instead if your
+                options depend on the customer's shipping address.
+              items:
+                type: object
+                required:
+                  - description
+                  - reference
+                  - amount
+                properties:
+                  description:
+                    type: string
+                    description: The name of the shipping option, as shown to your customer.
+                    example: Next day delivery
+                  reference:
+                    type: string
+                    description: Your own identifier for the shipping option.
+                    example: express
+                  amount:
+                    $ref: '#/components/schemas/amount'
+            callbackUrl:
+              type: string
+              description: |-
+                The URL Mollie calls to retrieve shipping options whenever your customer selects or changes their shipping
+                address. Requires `https://` for live mode. In test mode, `http://` is also allowed.
+
+                See the [shipping options guide](https://docs.mollie.com/docs/handle-shipping-options-with-express-component)
+                for the callback request and response.
+              example: https://example.org/shipping-options
         customerId:
           type:
             - string

@@ -43,6 +43,92 @@ export const SessionResponseStatus = {
  */
 export type SessionResponseStatus = OpenEnum<typeof SessionResponseStatus>;
 
+export type SessionResponseOption2 = {
+  /**
+   * The name of the shipping option, as shown to your customer.
+   */
+  description: string;
+  /**
+   * Your own identifier for the shipping option.
+   */
+  reference: string;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amount: Amount;
+};
+
+export type SessionResponseShipping2 = {
+  /**
+   * A fixed list of shipping options to show your customer during checkout. Use `callbackUrl` instead if your
+   *
+   * @remarks
+   * options depend on the customer's shipping address.
+   */
+  options?: Array<SessionResponseOption2> | undefined;
+  /**
+   * The URL Mollie calls to retrieve shipping options whenever your customer selects or changes their shipping
+   *
+   * @remarks
+   * address. Requires `https://` for live mode. In test mode, `http://` is also allowed.
+   *
+   * See the [shipping options guide](https://docs.mollie.com/docs/handle-shipping-options-with-express-component)
+   * for the callback request and response.
+   */
+  callbackUrl: string;
+};
+
+export type SessionResponseOption1 = {
+  /**
+   * The name of the shipping option, as shown to your customer.
+   */
+  description: string;
+  /**
+   * Your own identifier for the shipping option.
+   */
+  reference: string;
+  /**
+   * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
+   */
+  amount: Amount;
+};
+
+export type SessionResponseShipping1 = {
+  /**
+   * A fixed list of shipping options to show your customer during checkout. Use `callbackUrl` instead if your
+   *
+   * @remarks
+   * options depend on the customer's shipping address.
+   */
+  options: Array<SessionResponseOption1>;
+  /**
+   * The URL Mollie calls to retrieve shipping options whenever your customer selects or changes their shipping
+   *
+   * @remarks
+   * address. Requires `https://` for live mode. In test mode, `http://` is also allowed.
+   *
+   * See the [shipping options guide](https://docs.mollie.com/docs/handle-shipping-options-with-express-component)
+   * for the callback request and response.
+   */
+  callbackUrl?: string | undefined;
+};
+
+/**
+ * > 🚧 Private beta
+ *
+ * @remarks
+ * >
+ * > This property is currently in private beta, and the final specification may still change.
+ *
+ * Shipping information for the Checkout Session. Provide either `options` or `callbackUrl`, not both.
+ *
+ * The `lines` of the Checkout Session must not contain a line with type `shipping_fee`. When `shipping` is set,
+ * `requiredCustomerDetails` must contain `shipping-address`.
+ */
+export type SessionResponseShippingUnion =
+  | SessionResponseShipping1
+  | SessionResponseShipping2;
+
 export type SessionResponsePayment = {
   /**
    * The webhook URL where we will send payment status updates to.
@@ -132,6 +218,19 @@ export type SessionResponse = {
     | undefined;
   billingAddress?: ShippingAddress | undefined;
   shippingAddress?: ShippingAddress | undefined;
+  /**
+   * > 🚧 Private beta
+   *
+   * @remarks
+   * >
+   * > This property is currently in private beta, and the final specification may still change.
+   *
+   * Shipping information for the Checkout Session. Provide either `options` or `callbackUrl`, not both.
+   *
+   * The `lines` of the Checkout Session must not contain a line with type `shipping_fee`. When `shipping` is set,
+   * `requiredCustomerDetails` must contain `shipping-address`.
+   */
+  shipping?: SessionResponseShipping1 | SessionResponseShipping2 | undefined;
   customerId?: string | undefined;
   sequenceType?: SessionSequenceTypeResponse | undefined;
   /**
@@ -184,6 +283,109 @@ export const SessionResponseStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(SessionResponseStatus);
+
+/** @internal */
+export const SessionResponseOption2$inboundSchema: z.ZodType<
+  SessionResponseOption2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$inboundSchema,
+});
+
+export function sessionResponseOption2FromJSON(
+  jsonString: string,
+): SafeParseResult<SessionResponseOption2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SessionResponseOption2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SessionResponseOption2' from JSON`,
+  );
+}
+
+/** @internal */
+export const SessionResponseShipping2$inboundSchema: z.ZodType<
+  SessionResponseShipping2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  options: z.array(z.lazy(() => SessionResponseOption2$inboundSchema))
+    .optional(),
+  callbackUrl: z.string(),
+});
+
+export function sessionResponseShipping2FromJSON(
+  jsonString: string,
+): SafeParseResult<SessionResponseShipping2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SessionResponseShipping2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SessionResponseShipping2' from JSON`,
+  );
+}
+
+/** @internal */
+export const SessionResponseOption1$inboundSchema: z.ZodType<
+  SessionResponseOption1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$inboundSchema,
+});
+
+export function sessionResponseOption1FromJSON(
+  jsonString: string,
+): SafeParseResult<SessionResponseOption1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SessionResponseOption1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SessionResponseOption1' from JSON`,
+  );
+}
+
+/** @internal */
+export const SessionResponseShipping1$inboundSchema: z.ZodType<
+  SessionResponseShipping1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  options: z.array(z.lazy(() => SessionResponseOption1$inboundSchema)),
+  callbackUrl: z.string().optional(),
+});
+
+export function sessionResponseShipping1FromJSON(
+  jsonString: string,
+): SafeParseResult<SessionResponseShipping1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SessionResponseShipping1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SessionResponseShipping1' from JSON`,
+  );
+}
+
+/** @internal */
+export const SessionResponseShippingUnion$inboundSchema: z.ZodType<
+  SessionResponseShippingUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => SessionResponseShipping1$inboundSchema),
+  z.lazy(() => SessionResponseShipping2$inboundSchema),
+]);
+
+export function sessionResponseShippingUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<SessionResponseShippingUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SessionResponseShippingUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SessionResponseShippingUnion' from JSON`,
+  );
+}
 
 /** @internal */
 export const SessionResponsePayment$inboundSchema: z.ZodType<
@@ -243,6 +445,10 @@ export const SessionResponse$inboundSchema: z.ZodType<
   ).optional(),
   billingAddress: ShippingAddress$inboundSchema.optional(),
   shippingAddress: ShippingAddress$inboundSchema.optional(),
+  shipping: z.union([
+    z.lazy(() => SessionResponseShipping1$inboundSchema),
+    z.lazy(() => SessionResponseShipping2$inboundSchema),
+  ]).optional(),
   customerId: z.string().optional(),
   sequenceType: SessionSequenceTypeResponse$inboundSchema.optional(),
   metadata: z.record(z.any()).optional(),
