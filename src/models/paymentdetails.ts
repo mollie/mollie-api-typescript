@@ -38,14 +38,6 @@ import {
   PaymentDetailsFeeRegionResponse$inboundSchema,
 } from "./paymentdetailsfeeregionresponse.js";
 import {
-  PaymentDetailsReceiptCardReadMethodResponse,
-  PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
-} from "./paymentdetailsreceiptcardreadmethodresponse.js";
-import {
-  PaymentDetailsReceiptCardVerificationMethodResponse,
-  PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
-} from "./paymentdetailsreceiptcardverificationmethodresponse.js";
-import {
   PaymentDetailsSellerProtectionResponse,
   PaymentDetailsSellerProtectionResponse$inboundSchema,
 } from "./paymentdetailssellerprotectionresponse.js";
@@ -53,46 +45,6 @@ import {
   PaymentDetailsWalletResponse,
   PaymentDetailsWalletResponse$inboundSchema,
 } from "./paymentdetailswalletresponse.js";
-
-/**
- * The Point of sale receipt object.
- *
- * @remarks
- *
- * * `authorizationCode` _string|null_ - a unique code provided by the cardholder's bank to confirm that the
- *   transaction was successfully approved.
- * * `applicationIdentifier` _string|null_ - the unique number that identifies a specific payment application
- *   on a chip card.
- * * `cardReadMethod` _string|null_ - the method by which the card was read by the terminal. Possible values:
- *   `chip` | `magnetic-stripe` | `near-field-communication` | `contactless` | `moto`.
- * * `cardVerificationMethod` _string|null_ - the method used to verify the cardholder's identity. Possible
- *   values: `no-cvm-required` | `online-pin` | `offline-pin` | `consumer-device` | `signature` |
- *   `signature-and-online-pin` | `online-pin-and-signature` | `none` | `failed`.
- */
-export type Receipt = {
-  /**
-   * A unique code provided by the cardholder's bank to confirm that the transaction was successfully approved.
-   */
-  authorizationCode?: string | null | undefined;
-  /**
-   * The unique number that identifies a specific payment application on a chip card.
-   */
-  applicationIdentifier?: string | null | undefined;
-  /**
-   * The method by which the card was read by the terminal.
-   */
-  cardReadMethod?:
-    | PaymentDetailsReceiptCardReadMethodResponse
-    | null
-    | undefined;
-  /**
-   * The method used to verify the cardholder's identity.
-   */
-  cardVerificationMethod?:
-    | PaymentDetailsReceiptCardVerificationMethodResponse
-    | null
-    | undefined;
-};
 
 /**
  * **Optional include.** If a QR code was requested during payment creation for a QR-compatible payment method,
@@ -292,22 +244,6 @@ export type PaymentDetails = {
    */
   maskedNumber?: string | null | undefined;
   /**
-   * The Point of sale receipt object.
-   *
-   * @remarks
-   *
-   * * `authorizationCode` _string|null_ - a unique code provided by the cardholder's bank to confirm that the
-   *   transaction was successfully approved.
-   * * `applicationIdentifier` _string|null_ - the unique number that identifies a specific payment application
-   *   on a chip card.
-   * * `cardReadMethod` _string|null_ - the method by which the card was read by the terminal. Possible values:
-   *   `chip` | `magnetic-stripe` | `near-field-communication` | `contactless` | `moto`.
-   * * `cardVerificationMethod` _string|null_ - the method used to verify the cardholder's identity. Possible
-   *   values: `no-cvm-required` | `online-pin` | `offline-pin` | `consumer-device` | `signature` |
-   *   `signature-and-online-pin` | `online-pin-and-signature` | `none` | `failed`.
-   */
-  receipt?: Receipt | undefined;
-  /**
    * The creditor identifier indicates who is authorized to execute the payment. In this case, it is a reference
    *
    * @remarks
@@ -397,29 +333,6 @@ export type PaymentDetails = {
 };
 
 /** @internal */
-export const Receipt$inboundSchema: z.ZodType<Receipt, z.ZodTypeDef, unknown> =
-  z.object({
-    authorizationCode: z.nullable(z.string()).optional(),
-    applicationIdentifier: z.nullable(z.string()).optional(),
-    cardReadMethod: z.nullable(
-      PaymentDetailsReceiptCardReadMethodResponse$inboundSchema,
-    ).optional(),
-    cardVerificationMethod: z.nullable(
-      PaymentDetailsReceiptCardVerificationMethodResponse$inboundSchema,
-    ).optional(),
-  });
-
-export function receiptFromJSON(
-  jsonString: string,
-): SafeParseResult<Receipt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Receipt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Receipt' from JSON`,
-  );
-}
-
-/** @internal */
 export const PaymentDetailsQrCode$inboundSchema: z.ZodType<
   PaymentDetailsQrCode,
   z.ZodTypeDef,
@@ -489,7 +402,6 @@ export const PaymentDetails$inboundSchema: z.ZodType<
   customerReference: z.string().optional(),
   terminalId: z.string().optional(),
   maskedNumber: z.nullable(z.string()).optional(),
-  receipt: z.lazy(() => Receipt$inboundSchema).optional(),
   creditorIdentifier: z.nullable(z.string()).optional(),
   dueDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
   signatureDate: z.nullable(z.string().transform(v => new RFCDate(v)))

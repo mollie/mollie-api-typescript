@@ -191,10 +191,6 @@ let value: GetPaymentLinkPaymentsResponse = {
               value: "10.00",
             },
             terminalId: "term_12345",
-            receipt: {
-              cardReadMethod: "contactless",
-              cardVerificationMethod: "no-cvm-required",
-            },
             dueDate: new RFCDate("2025-01-01"),
             signatureDate: new RFCDate("2024-03-20"),
             qrCode: {
