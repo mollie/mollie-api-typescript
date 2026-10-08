@@ -34,7 +34,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 1.12.40
+  version: 1.12.41
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -82,6 +82,7 @@ typescript:
   modelPropertyCasing: camel
   moduleFormat: dual
   multipartArrayFormat: legacy
+  numericEnumMemberNames: legacy
   outputModelSuffix: output
   packageName: mollie-api-typescript
   preApplyUnionDiscriminators: true

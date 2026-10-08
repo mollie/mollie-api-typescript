@@ -136,8 +136,6 @@ export * from "./paymentdetailscardlabelresponse.js";
 export * from "./paymentdetailscardsecurityresponse.js";
 export * from "./paymentdetailsfailurereasonresponse.js";
 export * from "./paymentdetailsfeeregionresponse.js";
-export * from "./paymentdetailsreceiptcardreadmethodresponse.js";
-export * from "./paymentdetailsreceiptcardverificationmethodresponse.js";
 export * from "./paymentdetailssellerprotectionresponse.js";
 export * from "./paymentdetailswalletresponse.js";
 export * from "./paymentlineitem.js";

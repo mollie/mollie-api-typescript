@@ -31557,34 +31557,6 @@ components:
         - NOT_ELIGIBLE
       example: ELIGIBLE
       x-methodSpecific: true
-    payment-details-receipt-card-read-method:
-      type:
-        - string
-        - 'null'
-      description: The method by which the card was read by the terminal.
-      enum:
-        - chip
-        - magnetic-stripe
-        - near-field-communication
-        - contactless
-        - moto
-      example: contactless
-    payment-details-receipt-card-verification-method:
-      type:
-        - string
-        - 'null'
-      description: The method used to verify the cardholder's identity.
-      enum:
-        - no-cvm-required
-        - online-pin
-        - offline-pin
-        - consumer-device
-        - signature
-        - signature-and-online-pin
-        - online-pin-and-signature
-        - none
-        - failed
-      example: no-cvm-required
     payment-details:
       type:
         - object
@@ -31926,40 +31898,6 @@ components:
             - 'null'
           description: The first 6 digits & last 4 digits of the customer's masked card number.
           example: ...
-          x-methodSpecific: true
-          x-method: point-of-sale
-        receipt:
-          type: object
-          x-heading-suffix: (⚠️ Beta feature, reach out to [Support](https://www.mollie.com/contact/merchants))
-          description: |-
-            The Point of sale receipt object.
-
-            * `authorizationCode` _string|null_ - a unique code provided by the cardholder's bank to confirm that the
-              transaction was successfully approved.
-            * `applicationIdentifier` _string|null_ - the unique number that identifies a specific payment application
-              on a chip card.
-            * `cardReadMethod` _string|null_ - the method by which the card was read by the terminal. Possible values:
-              `chip` | `magnetic-stripe` | `near-field-communication` | `contactless` | `moto`.
-            * `cardVerificationMethod` _string|null_ - the method used to verify the cardholder's identity. Possible
-              values: `no-cvm-required` | `online-pin` | `offline-pin` | `consumer-device` | `signature` |
-              `signature-and-online-pin` | `online-pin-and-signature` | `none` | `failed`.
-          properties:
-            authorizationCode:
-              type:
-                - string
-                - 'null'
-              description: A unique code provided by the cardholder's bank to confirm that the transaction was successfully approved.
-              example: ...
-            applicationIdentifier:
-              type:
-                - string
-                - 'null'
-              description: The unique number that identifies a specific payment application on a chip card.
-              example: ...
-            cardReadMethod:
-              $ref: '#/components/schemas/payment-details-receipt-card-read-method-response'
-            cardVerificationMethod:
-              $ref: '#/components/schemas/payment-details-receipt-card-verification-method-response'
           x-methodSpecific: true
           x-method: point-of-sale
         creditorIdentifier:
@@ -42874,36 +42812,6 @@ components:
         Fraud Control - Unauth Premium Eligible: Deprecated value
       example: ELIGIBLE
       x-methodSpecific: true
-      x-speakeasy-unknown-values: allow
-    payment-details-receipt-card-read-method-response:
-      type:
-        - string
-        - 'null'
-      description: The method by which the card was read by the terminal.
-      enum:
-        - chip
-        - magnetic-stripe
-        - near-field-communication
-        - contactless
-        - moto
-      example: contactless
-      x-speakeasy-unknown-values: allow
-    payment-details-receipt-card-verification-method-response:
-      type:
-        - string
-        - 'null'
-      description: The method used to verify the cardholder's identity.
-      enum:
-        - no-cvm-required
-        - online-pin
-        - offline-pin
-        - consumer-device
-        - signature
-        - signature-and-online-pin
-        - online-pin-and-signature
-        - none
-        - failed
-      example: no-cvm-required
       x-speakeasy-unknown-values: allow
     method-response:
       type:
