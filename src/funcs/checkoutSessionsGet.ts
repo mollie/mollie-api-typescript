@@ -34,7 +34,9 @@ import { Result } from "../types/fp.js";
  * @remarks
  * > 🚧 Beta feature
  * >
- * > This feature is currently in private beta, and the final specification may still change.
+ * > This feature is currently in beta.
+ * >
+ * > The `shipping` and `requiredCustomerDetails` properties are still in private beta.
  *
  * Retrieve a Checkout Session to view its details and status to inform your customers about the checkout process.
  *

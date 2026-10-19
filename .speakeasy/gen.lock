@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: f0d36ca4c49ab7e7ff7e07aa80093d9c
+  docChecksum: 73b84c34b41d3207af209021bf73c6e0
   docVersion: 1.0.0
-  speakeasyVersion: 1.801.0
-  generationVersion: 2.946.0
-  releaseVersion: 1.12.41
-  configChecksum: ab3727c6caedaa5b9ffb93463de36626
+  speakeasyVersion: 1.802.0
+  generationVersion: 2.948.4
+  releaseVersion: 1.12.42
+  configChecksum: 977be1ddcf5f6c0212430b18fea44f6c
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 095728c7-28d8-4673-83f2-18df7ab48014
-  pristine_commit_hash: a483adb02d52b121fefdd292bea9d8f041998cf9
-  pristine_tree_hash: 43e3339cad36b97729de8f0d75afb3336f1e22ad
+  generation_id: b7fdcf14-bad3-4c78-83d3-1628ef372662
+  pristine_commit_hash: bbadfbea3ba1e55cc70f84b2805b84151c1b5007
+  pristine_tree_hash: 6adf69a43654a374f3b6b8617c60750d3b68ca4d
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3706,8 +3706,8 @@ trackedFiles:
     pristine_git_object: caf239b93b7353c29bb9d7f520a574fbd4987534
   docs/sdks/checkoutsessions/README.md:
     id: 093cc3fe624c
-    last_write_checksum: sha1:51e114512882cf1c88c083d1df28a84d43e6c04c
-    pristine_git_object: 69a6d13837b5ec69974edac9ee4089cc954539cd
+    last_write_checksum: sha1:a53e3070f08f2a3fa8ad9b7e9c30dec7d77d2545
+    pristine_git_object: fbc0dd115ae779f74698e78d6f212ddbd620500f
   docs/sdks/clientlinks/README.md:
     id: 74ba097043d3
     last_write_checksum: sha1:ed2722ef75695393d822aabdf5353762f4db5135
@@ -3842,12 +3842,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:5e232789bae3cb9aefdf0ad79b8eb174f737150a
-    pristine_git_object: 039872e092a58dca6c0beee47ca0272e1757b214
+    last_write_checksum: sha1:93566ae39495a5d6743bda84dfe83734f12dea11
+    pristine_git_object: d5614311d9ab90ea399305e284463590def8490a
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:86d293ff1b475ff2eefd71b02afcade530c95d4f
-    pristine_git_object: a957349b9a66b124f08defcaf06a318cc8158ccf
+    last_write_checksum: sha1:57ca30d74880ddbf97290e5a0c4413ecf289c8d2
+    pristine_git_object: 6feac7dfd1f5d8c9e58a7abff58a4304c7d9afb4
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -3930,12 +3930,12 @@ trackedFiles:
     pristine_git_object: 3e36a4e9ca7d61cfa2715f5237d0e65c419cbd50
   src/funcs/checkoutSessionsCreate.ts:
     id: 54a670ca21cf
-    last_write_checksum: sha1:6c5bb44cffb0bc43aedf1c8bd1422bbaf6830772
-    pristine_git_object: 635d1c9b3ea73cfc3a4d783938892d78d05330ef
+    last_write_checksum: sha1:27782fc03d55200898c0414e41d50238ca4e6603
+    pristine_git_object: ef9184b04c5bdf871803b9e435097640984991e5
   src/funcs/checkoutSessionsGet.ts:
     id: be4764757fa5
-    last_write_checksum: sha1:3952563b811f45f24c96019337fe6c75501d1971
-    pristine_git_object: ef2918708d31522be905f31bc62ac01fee0094b7
+    last_write_checksum: sha1:b11ff706ae29bccd9786487fcd4b13aafeaf9cfb
+    pristine_git_object: 96b42202d6479908f40ad205ed9b199f3c177038
   src/funcs/clientLinksCreate.ts:
     id: 96b7140c5f9f
     last_write_checksum: sha1:62a701362c2beb3e77a983dde850d42755ea4d3c
@@ -4386,8 +4386,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:22e4bd7512c7824a3b91251cd05be6d106adabfb
-    pristine_git_object: 54ace4d58c83f985ff02d8a6c987c5f2a2ba3fde
+    last_write_checksum: sha1:5163e594b8eb8805588993943eeec8fde90ec0d0
+    pristine_git_object: 772760c92038f1783552c66c419830bcec5ace09
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
@@ -6601,8 +6601,8 @@ trackedFiles:
     pristine_git_object: d0d48025b13998f177e7d417ec8e52179a27c341
   src/sdk/checkoutsessions.ts:
     id: 9760db0f6950
-    last_write_checksum: sha1:83bc1a0c870e3284caa5d15ce9584a94bd79a7fd
-    pristine_git_object: 5fd7ae54d04a7ddc401fa2107fa5db90cbb563f5
+    last_write_checksum: sha1:3dcb6deda5a922c443d4cfe3658a78ca4ad2e025
+    pristine_git_object: 7bfa37c68b7a79a459d9adbc0a139dba68d34cb6
   src/sdk/clientlinks.ts:
     id: 0c69379099de
     last_write_checksum: sha1:0478801027f6089b0f8c5e68c0d2b4ce619d12bd
@@ -11329,19 +11329,6 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `client.settlements.listPayments()`:  `response.Embedded.payments[].details.receipt` **Removed** (Breaking ⚠️)
-  * `client.webhookEvents.get()`:  `response.Embedded.entity.union(payment-response).details.receipt` **Removed** (Breaking ⚠️)
-  * `client.payments.create()`:  `response.details.receipt` **Removed** (Breaking ⚠️)
-  * `client.payments.list()`:  `response.Embedded.payments[].details.receipt` **Removed** (Breaking ⚠️)
-  * `client.payments.get()`:  `response.details.receipt` **Removed** (Breaking ⚠️)
-  * `client.payments.update()`:  `response.details.receipt` **Removed** (Breaking ⚠️)
-  * `client.payments.cancel()`:  `response.details.receipt` **Removed** (Breaking ⚠️)
-  * `client.paymentLinks.listPayments()`:  `response.Embedded.payments[].details.receipt` **Removed** (Breaking ⚠️)
-  * `client.customers.createPayment()`:  `response.details.receipt` **Removed** (Breaking ⚠️)
-  * `client.customers.listPayments()`:  `response.Embedded.payments[].details.receipt` **Removed** (Breaking ⚠️)
-  * `client.subscriptions.listPayments()`:  `response.Embedded.payments[].details.receipt` **Removed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
