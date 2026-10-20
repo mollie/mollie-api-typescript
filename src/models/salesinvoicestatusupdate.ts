@@ -25,6 +25,7 @@ export const SalesInvoiceStatusUpdate = {
   Issued: "issued",
   Paid: "paid",
   Cancelled: "cancelled",
+  PaymentReversed: "payment_reversed",
 } as const;
 /**
  * The status for the invoice to end up in.
