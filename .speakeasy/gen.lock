@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 73b84c34b41d3207af209021bf73c6e0
+  docChecksum: 91150334105ebd8973b60bf680b8e5e4
   docVersion: 1.0.0
-  speakeasyVersion: 1.802.0
-  generationVersion: 2.948.4
-  releaseVersion: 1.12.42
-  configChecksum: 977be1ddcf5f6c0212430b18fea44f6c
+  speakeasyVersion: 1.803.0
+  generationVersion: 2.950.2
+  releaseVersion: 1.12.43
+  configChecksum: b9d9c11cbdbf9a79369d052dfd778084
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: b7fdcf14-bad3-4c78-83d3-1628ef372662
-  pristine_commit_hash: bbadfbea3ba1e55cc70f84b2805b84151c1b5007
-  pristine_tree_hash: 6adf69a43654a374f3b6b8617c60750d3b68ca4d
+  generation_id: fa1cd335-7f92-4aa3-be3f-544c5d1963d5
+  pristine_commit_hash: cb62dc627a2cbeb2e5f2a1bae36c4382cb5f3fad
+  pristine_tree_hash: b9fd0a486ac8cb697d7b9c872f75837f131e6d67
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -33,7 +33,7 @@ features:
     methodSecurity: 2.82.8
     nameOverrides: 2.81.4
     nullables: 0.1.1
-    openEnums: 0.1.3
+    openEnums: 0.1.4
     pagination: 2.83.2
     responseFormat: 0.3.0
     retries: 2.83.2
@@ -146,8 +146,8 @@ trackedFiles:
     pristine_git_object: 0d99a1c4625c7e0cebe0f714c9a7c91970241540
   docs/models/balancetransactiontype.md:
     id: 8862608ef04a
-    last_write_checksum: sha1:a06cff590a43152a476d7f93555e0346ab6c086b
-    pristine_git_object: 9c740b0ba8456645ee8b0956fd696f7b85af4888
+    last_write_checksum: sha1:c0c4282fc24d282f3e496546daecb029a951a1c9
+    pristine_git_object: 72961c8466fd620975cdf66b4824a374b3b47ce8
   docs/models/balancetransfercategory.md:
     id: b9019fc76df0
     last_write_checksum: sha1:f7685a98607a33de2a3f784d2adf838374fee687
@@ -3286,8 +3286,8 @@ trackedFiles:
     pristine_git_object: 8ade40004a2d727b99cd4022803adb877afbe726
   docs/models/salesinvoicestatusupdate.md:
     id: 3c28c3295e78
-    last_write_checksum: sha1:fd2deb401fabb52f4cb36ef9c9015c790eb2edae
-    pristine_git_object: d4df57ad8e70f3e6da9b666dee3091f19c843a7a
+    last_write_checksum: sha1:cc0faa8eca2971deb644c55000697219991af23a
+    pristine_git_object: f047b805ac84011943c0ebc7801c8b22811ca77e
   docs/models/salesinvoicevatmode.md:
     id: 87e75ce8bdf5
     last_write_checksum: sha1:8280868374c8533a9cbd48cf636af8a69b423e59
@@ -3842,12 +3842,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:93566ae39495a5d6743bda84dfe83734f12dea11
-    pristine_git_object: d5614311d9ab90ea399305e284463590def8490a
+    last_write_checksum: sha1:ddcd06783ff33196fd2d60ac00a1aed5a12a01bc
+    pristine_git_object: a90e620171093bee8faf6863b6a3af372d47ec5c
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:57ca30d74880ddbf97290e5a0c4413ecf289c8d2
-    pristine_git_object: 6feac7dfd1f5d8c9e58a7abff58a4304c7d9afb4
+    last_write_checksum: sha1:7cabaa2e78785087eb114444407820b094fd8d9d
+    pristine_git_object: 30f8e59fb1985c38bed38127c0727eb1581eaa6a
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4386,8 +4386,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:5163e594b8eb8805588993943eeec8fde90ec0d0
-    pristine_git_object: 772760c92038f1783552c66c419830bcec5ace09
+    last_write_checksum: sha1:abd566658120f4a0805fae7a938f39937bb5e41f
+    pristine_git_object: 00c320c3a47f3ede1d953a6923ff8c88b239e671
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
@@ -5113,8 +5113,8 @@ trackedFiles:
     pristine_git_object: 18100a64c1dc6cf0248aba6879d72e4bf3c77028
   src/models/balancetransactiontype.ts:
     id: 45d2529ffa10
-    last_write_checksum: sha1:ec5d73f0eaffd9ecca523704dbd49b9e9d69de88
-    pristine_git_object: 747bcefe6f6ba5fade8d6b139865d536ec7c6fc5
+    last_write_checksum: sha1:c3eb9468a0fa5221ebdd0279a5424f23159a7329
+    pristine_git_object: bc24cf60d7e710e3026ad03f428f0d47b71f74c2
   src/models/balancetransfercategory.ts:
     id: e716648060e2
     last_write_checksum: sha1:8a67b7be9ab409f6879ae89508ff8a3d8778734f
@@ -6341,8 +6341,8 @@ trackedFiles:
     pristine_git_object: b0072b7a6a602da480e72064b6d0efdde6ca060b
   src/models/salesinvoicestatusupdate.ts:
     id: 5d2185d698db
-    last_write_checksum: sha1:c0f553e6cdb9a3b5e46cf72dd640faebbe15fae6
-    pristine_git_object: 682e65ba0a06fb687bcecd7cc057724c8eedadbb
+    last_write_checksum: sha1:dd096b0830a290b0fc05589f4cc5ca48ddcfdb66
+    pristine_git_object: f36c1245c52f7bb4d9328c3b966a054c8b9b1ea0
   src/models/salesinvoicevatmode.ts:
     id: 990d1e3a2e9b
     last_write_checksum: sha1:9bf752f92f38c2f4adc737b3e55862c3552e91be
@@ -11329,6 +11329,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
+releaseNotes: "## Typescript SDK Changes:\n* `client.balances.getReport()`:  `response.totals.pendingBalance.open.subtotals[].subTotals[].transactionType` **Changed**\n* `client.balances.listTransactions()`:  `response.Embedded.balanceTransactions[].type` **Changed**\n* `client.salesInvoices.update()`: \n  *  `request.requestBody.status.enum(paymentReversed)` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
