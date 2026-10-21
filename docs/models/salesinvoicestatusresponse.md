@@ -15,5 +15,5 @@ let value: SalesInvoiceStatusResponse = "draft";
 ## Values
 
 ```typescript
-"draft" | "issuing" | "issued" | "pending-payment" | "paid" | "overdue" | "payment_reversed" | "cancelled" | "expired" | "failed" | Unrecognized<string>
+"draft" | "issuing" | "issued" | "pending-payment" | "paid" | "overdue" | "payment-reversed" | "cancelled" | "expired" | "failed" | Unrecognized<string>
 ```

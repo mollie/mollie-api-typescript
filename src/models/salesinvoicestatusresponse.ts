@@ -17,7 +17,7 @@ export const SalesInvoiceStatusResponse = {
   PendingPayment: "pending-payment",
   Paid: "paid",
   Overdue: "overdue",
-  PaymentReversed: "payment_reversed",
+  PaymentReversed: "payment-reversed",
   Cancelled: "cancelled",
   Expired: "expired",
   Failed: "failed",
