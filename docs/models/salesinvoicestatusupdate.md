@@ -22,5 +22,5 @@ let value: SalesInvoiceStatusUpdate = "draft";
 ## Values
 
 ```typescript
-"draft" | "issued" | "paid" | "cancelled" | "payment_reversed"
+"draft" | "issued" | "paid" | "cancelled" | "payment-reversed"
 ```

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 91150334105ebd8973b60bf680b8e5e4
+  docChecksum: 693e92eeef422ee7b8c54afd390dea7a
   docVersion: 1.0.0
   speakeasyVersion: 1.803.0
   generationVersion: 2.950.2
-  releaseVersion: 1.12.43
-  configChecksum: b9d9c11cbdbf9a79369d052dfd778084
+  releaseVersion: 1.12.44
+  configChecksum: 3da43789202f76a787bd357262775888
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: fa1cd335-7f92-4aa3-be3f-544c5d1963d5
-  pristine_commit_hash: cb62dc627a2cbeb2e5f2a1bae36c4382cb5f3fad
-  pristine_tree_hash: b9fd0a486ac8cb697d7b9c872f75837f131e6d67
+  generation_id: 532645c4-645e-43f1-aad4-bc4bdca1dc4f
+  pristine_commit_hash: 07c38ae3529740bf939c9c4b2cb4fc0121bd8bd6
+  pristine_tree_hash: daa104af4f0489f9c2f65fd032b94eda5cdaa854
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3282,12 +3282,12 @@ trackedFiles:
     pristine_git_object: 0a082e079a10c74ca34f955fbb008b09982be06a
   docs/models/salesinvoicestatusresponse.md:
     id: c8ef2fca67ad
-    last_write_checksum: sha1:37010ad576f87b04b26d98abfc5a13d8f961bab0
-    pristine_git_object: 8ade40004a2d727b99cd4022803adb877afbe726
+    last_write_checksum: sha1:c62859edda8fea76926edcbaa3326ad5f99021d8
+    pristine_git_object: 4f8deb6fa384f9bf5bbb89ab03166f9f88680127
   docs/models/salesinvoicestatusupdate.md:
     id: 3c28c3295e78
-    last_write_checksum: sha1:cc0faa8eca2971deb644c55000697219991af23a
-    pristine_git_object: f047b805ac84011943c0ebc7801c8b22811ca77e
+    last_write_checksum: sha1:598912ab52224d0d4b1f2bb3dce015130f822c2a
+    pristine_git_object: 2681c9de3c5f8ef2f1bf5e001125e5154e02993f
   docs/models/salesinvoicevatmode.md:
     id: 87e75ce8bdf5
     last_write_checksum: sha1:8280868374c8533a9cbd48cf636af8a69b423e59
@@ -3842,12 +3842,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:ddcd06783ff33196fd2d60ac00a1aed5a12a01bc
-    pristine_git_object: a90e620171093bee8faf6863b6a3af372d47ec5c
+    last_write_checksum: sha1:2a8ea39704e8864df185a8bc7d34a97956ecd6b3
+    pristine_git_object: c84dc542aad283af67b5a32313cbd5ee0b99a100
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:7cabaa2e78785087eb114444407820b094fd8d9d
-    pristine_git_object: 30f8e59fb1985c38bed38127c0727eb1581eaa6a
+    last_write_checksum: sha1:7b846276841400044c76fd15540f82737b03c69f
+    pristine_git_object: 4b132740e1eed0e86d873d410533cf8affc73ff0
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4386,8 +4386,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:abd566658120f4a0805fae7a938f39937bb5e41f
-    pristine_git_object: 00c320c3a47f3ede1d953a6923ff8c88b239e671
+    last_write_checksum: sha1:2eaacb5ffa080e3fc7529f5ad151b31599b87c4e
+    pristine_git_object: 546961ba0f16bba53e783d142b49d0addf9cd47e
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
@@ -6337,12 +6337,12 @@ trackedFiles:
     pristine_git_object: 633f4e0ceacc5c812f8c2122ada7ccf8edef3116
   src/models/salesinvoicestatusresponse.ts:
     id: 3e86fb8a4003
-    last_write_checksum: sha1:1c963b1083a312d517a45dfede64fc1249e6e07e
-    pristine_git_object: b0072b7a6a602da480e72064b6d0efdde6ca060b
+    last_write_checksum: sha1:4b15d78b6518304d58109c1d1ed4e9e5038a0773
+    pristine_git_object: bca87f8ef61a78c9608c8c15b95664c6c5f6d628
   src/models/salesinvoicestatusupdate.ts:
     id: 5d2185d698db
-    last_write_checksum: sha1:dd096b0830a290b0fc05589f4cc5ca48ddcfdb66
-    pristine_git_object: f36c1245c52f7bb4d9328c3b966a054c8b9b1ea0
+    last_write_checksum: sha1:f198843817c9a9322ac8b60529de4c7f8d22aa56
+    pristine_git_object: bc3f95652e39edffd305025b3cb52e390680958c
   src/models/salesinvoicevatmode.ts:
     id: 990d1e3a2e9b
     last_write_checksum: sha1:9bf752f92f38c2f4adc737b3e55862c3552e91be
@@ -11329,7 +11329,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.balances.getReport()`:  `response.totals.pendingBalance.open.subtotals[].subTotals[].transactionType` **Changed**\n* `client.balances.listTransactions()`:  `response.Embedded.balanceTransactions[].type` **Changed**\n* `client.salesInvoices.update()`: \n  *  `request.requestBody.status.enum(paymentReversed)` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.webhookEvents.get()`:  `response.Embedded.entity.union(sales-invoice-response).status` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.create()`:  `response.status` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.list()`:  `response.Embedded.invoices[].status` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.get()`:  `response.status` **Changed** (Breaking ⚠️)\n* `client.salesInvoices.update()`: \n  *  `request.requestBody.status` **Changed** (Breaking ⚠️)\n  *  `response.status` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
