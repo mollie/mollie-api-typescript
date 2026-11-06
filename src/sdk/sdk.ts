@@ -28,6 +28,7 @@ import { Payouts } from "./payouts.js";
 import { Permissions } from "./permissions.js";
 import { Profiles } from "./profiles.js";
 import { Refunds } from "./refunds.js";
+import { Reports } from "./reports.js";
 import { SalesInvoices } from "./salesinvoices.js";
 import { Settlements } from "./settlements.js";
 import { Subscriptions } from "./subscriptions.js";
@@ -48,6 +49,11 @@ export class Client extends ClientSDK {
   private _balances?: Balances;
   get balances(): Balances {
     return (this._balances ??= new Balances(this._options));
+  }
+
+  private _reports?: Reports;
+  get reports(): Reports {
+    return (this._reports ??= new Reports(this._options));
   }
 
   private _settlements?: Settlements;

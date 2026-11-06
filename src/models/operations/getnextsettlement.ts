@@ -51,13 +51,18 @@ export type GetNextSettlementAmount = {
 
 /**
  * The service rates, further divided into `fixed` and `percentage` costs.
+ *
+ * @remarks
+ *
+ * For pass-through fees, which are charged by an external party rather than at an agreed Mollie
+ * rate, both `fixed` and `percentage` are `null`.
  */
 export type GetNextSettlementRate = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  fixed?: models.Amount | undefined;
-  percentage?: string | undefined;
+  fixed: models.AmountNullable | null;
+  percentage: string | null;
 };
 
 export type GetNextSettlementCost = {
@@ -78,6 +83,11 @@ export type GetNextSettlementCost = {
   count: number;
   /**
    * The service rates, further divided into `fixed` and `percentage` costs.
+   *
+   * @remarks
+   *
+   * For pass-through fees, which are charged by an external party rather than at an agreed Mollie
+   * rate, both `fixed` and `percentage` are `null`.
    */
   rate: GetNextSettlementRate;
   /**
@@ -269,8 +279,8 @@ export const GetNextSettlementRate$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  fixed: models.Amount$inboundSchema.optional(),
-  percentage: z.string().optional(),
+  fixed: z.nullable(models.AmountNullable$inboundSchema),
+  percentage: z.nullable(z.string()),
 });
 
 export function getNextSettlementRateFromJSON(

@@ -1,0 +1,24 @@
+# CreateReportRequest
+
+Generate a transaction margin report for your organization over a date range.
+
+## Example Usage
+
+```typescript
+import { CreateReportRequest } from "mollie-api-typescript/models";
+import { RFCDate } from "mollie-api-typescript/types";
+
+let value: CreateReportRequest = {
+  reportType: "transaction_margin",
+  fromDate: new RFCDate("2026-08-01"),
+  untilDate: new RFCDate("2026-08-31"),
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                           | Type                                                                                                                                                                            | Required                                                                                                                                                                        | Description                                                                                                                                                                     | Example                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reportType`                                                                                                                                                                    | [models.ReportType](../models/reporttype.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                              | The type of report to generate. Determines which other fields the request needs, and which fields show up<br/>on the resulting report.                                          | transaction_margin                                                                                                                                                              |
+| `fromDate`                                                                                                                                                                      | [RFCDate](../types/rfcdate.md)                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                              | The start date of the report period, in `YYYY-MM-DD` format. Must be strictly before `untilDate`; a<br/>report can't cover a single day. Data is available from 2026-01-01 onwards. | 2026-08-01                                                                                                                                                                      |
+| `untilDate`                                                                                                                                                                     | [RFCDate](../types/rfcdate.md)                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                              | The end date of the report period, in `YYYY-MM-DD` format. Must be strictly after `fromDate`.                                                                                   | 2026-08-31                                                                                                                                                                      |

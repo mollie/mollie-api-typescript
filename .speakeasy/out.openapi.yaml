@@ -60,6 +60,8 @@ tags:
     description: Operations related to the Profiles API
   - name: Refunds API
     description: Operations related to the Refunds API
+  - name: Reports API
+    description: Operations related to the Reports API
   - name: Sales Invoices API
     description: Operations related to the Sales Invoices API
   - name: Settlements API
@@ -2379,6 +2381,211 @@ paths:
           - language: ruby
             code: ''
       x-speakeasy-group: balances
+  /v2/reports:
+    post:
+      summary: Create report
+      x-speakeasy-name-override: create
+      tags:
+        - Reports API
+      operationId: create-report
+      security:
+        - advancedAccessToken:
+            - reports.write
+      description: |-
+        > 🚧 Beta feature
+        >
+        > This feature is currently in beta testing, and the final specification may still change.
+
+        Create a report. Mollie generates it in the background, so you get a `pending` status back right away.
+
+        Poll [Get report](get-report) to check on progress, and grab a download link once it's ready.
+
+        This needs an organization access token. A token scoped to a single website profile can't be used,
+        since report data spans the whole organization.
+
+        Test mode credentials are rejected, since report data has no live/test distinction.
+
+        Creating a report with the exact same parameters while one is already pending or completed doesn't create
+        a new one. You get the existing report back instead, whatever status it currently has.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create-report-request'
+      responses:
+        '202':
+          description: |-
+            The report was accepted. Its `status` is usually `pending` for a brand new report, but if an
+            identical request (same organization, same parameters) already has a pending or completed report,
+            you get that report back instead, with its current status. Read `status` from the body rather than
+            assuming `202` always means `pending`.
+        '400':
+          description: The request contains issues, or was made with a test mode credential.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 400
+                title: Bad Request
+                detail: This endpoint cannot be accessed using a test mode credential
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/overview/handling-errors
+                    type: text/html
+        '403':
+          description: |-
+            The request was made with a credential scoped to a single website profile. Use an organization-level
+            credential instead.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 403
+                title: Forbidden
+                detail: This endpoint requires an organization-level access token
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/overview/handling-errors
+                    type: text/html
+        '422':
+          description: |-
+            The request is invalid. For example, the `fromDate` is after `untilDate`, or `fromDate` and
+            `untilDate` are the same date.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 422
+                title: Unprocessable Entity
+                detail: The 'fromDate' field is after 'untilDate' field
+                field: fromDate
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/overview/handling-errors
+                    type: text/html
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X POST https://api.mollie.com/v2/reports \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM" \
+                  -d "reportType=transaction_margin" \
+                  -d "fromDate=2026-08-01" \
+                  -d "untilDate=2026-08-31"
+          - language: php
+            code: |-
+              <?php
+              use Mollie\Api\Http\Requests\CreateReportRequest;
+
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setAccessToken("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $report = $mollie->send(
+                  new CreateReportRequest(
+                      reportType: "transaction_margin",
+                      fromDate: "2026-08-01",
+                      untilDate: "2026-08-31",
+                  )
+              );
+          - language: node
+            code: |-
+              const { createMollieClient } = require('mollie-api-typescript');
+              const mollieClient = createMollieClient({ accessToken: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const report = await mollieClient.reports.create({
+                reportType: 'transaction_margin',
+                fromDate: '2026-08-01',
+                untilDate: '2026-08-31'
+              });
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: reports
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
+  /v2/reports/{reportId}:
+    parameters:
+      - $ref: '#/components/parameters/parent-report-id'
+    get:
+      summary: Get report
+      x-speakeasy-name-override: get
+      tags:
+        - Reports API
+      operationId: get-report
+      security:
+        - advancedAccessToken:
+            - reports.read
+      description: |-
+        > 🚧 Beta feature
+        >
+        > This feature is currently in beta testing, and the final specification may still change.
+
+        Retrieve a single report by its ID. Poll this to check on a report you created, and to grab a download
+        link once it's ready.
+
+        The download link is pre-signed and freshly generated on every call, and expires 15 minutes after you get
+        it. If it expires before you download the file, just call this endpoint again for a new one. Expiry of
+        the link doesn't affect the report itself.
+
+        A report that belongs to another organization gets a `404`, same as one that doesn't exist. The same goes
+        for a credential scoped to a single website profile, or a test mode credential. Reports are
+        organization-wide with no live/test distinction, so neither can ever own a real report. That keeps the
+        rule simple: any credential that can't own this report gets a `404`, and we never leak whether it exists.
+      responses:
+        '200':
+          description: The report object.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/entity-report'
+              examples:
+                get-report-200-pending:
+                  $ref: '#/components/examples/get-report-pending'
+                get-report-200-completed:
+                  $ref: '#/components/examples/get-report-completed'
+                get-report-200-failed:
+                  $ref: '#/components/examples/get-report-failed'
+        '404':
+          $ref: '#/components/responses/404-invalid-id'
+        '429':
+          $ref: '#/components/responses/429-rate-limit'
+      x-readme:
+        code-samples:
+          - language: shell
+            code: |-
+              curl -X GET https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4 \
+                  -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+          - language: php
+            code: |-
+              <?php
+              use Mollie\Api\Http\Requests\GetReportRequest;
+
+              $mollie = new \Mollie\Api\MollieApiClient();
+              $mollie->setAccessToken("access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+
+              $report = $mollie->send(
+                  new GetReportRequest(id: "rpt_9fKq2pLxAqYTBz9WQvhc4")
+              );
+          - language: node
+            code: |-
+              const { createMollieClient } = require('mollie-api-typescript');
+              const mollieClient = createMollieClient({ accessToken: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+              const report = await mollieClient.reports.get('rpt_9fKq2pLxAqYTBz9WQvhc4');
+          - language: python
+            code: No example available.
+          - language: ruby
+            code: No example available.
+      x-speakeasy-group: reports
+      parameters:
+        - $ref: '#/components/parameters/idempotency-key'
   /v2/settlements:
     get:
       summary: List settlements
@@ -30359,6 +30566,173 @@ components:
                   $ref: '#/components/schemas/paymentToken'
         createdAt:
           $ref: '#/components/schemas/created-at'
+    report-type:
+      type: string
+      description: |-
+        The type of report to generate. Determines which other fields the request needs, and which fields show up
+        on the resulting report.
+      enum:
+        - transaction_margin
+      x-enumDescriptions:
+        transaction_margin: A transaction margin report for a whole organization, over a date range.
+      example: transaction_margin
+    create-report-request:
+      type: object
+      description: Generate a transaction margin report for your organization over a date range.
+      required:
+        - reportType
+        - fromDate
+        - untilDate
+      properties:
+        reportType:
+          $ref: '#/components/schemas/report-type'
+        fromDate:
+          type: string
+          format: date
+          description: |-
+            The start date of the report period, in `YYYY-MM-DD` format. Must be strictly before `untilDate`; a
+            report can't cover a single day. Data is available from 2026-01-01 onwards.
+          example: '2026-08-01'
+        untilDate:
+          type: string
+          format: date
+          description: The end date of the report period, in `YYYY-MM-DD` format. Must be strictly after `fromDate`.
+          example: '2026-08-31'
+    reportToken:
+      type: string
+      pattern: ^rpt_.+$
+      example: rpt_XRAG3v9EUyCDcX99pJ2Vc
+    report-status:
+      type: string
+      description: The report's current status.
+      enum:
+        - pending
+        - completed
+        - failed
+      x-enumDescriptions:
+        pending: The report is still being generated.
+        completed: The report is ready. See `_links.download` for the file.
+        failed: The report could not be generated. See `statusReason` for why.
+      readOnly: true
+      example: completed
+      x-speakeasy-unknown-values: allow
+    report-status-reason:
+      type:
+        - object
+        - 'null'
+      description: Present when `status` is `failed`. Explains what went wrong.
+      readOnly: true
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: A machine-readable code for the failure reason.
+          example: generation_failed
+        message:
+          type: string
+          description: A human-readable explanation of why the report failed.
+          example: Something went wrong while generating the report. Try again, or contact support if it keeps happening.
+    entity-report:
+      type: object
+      required:
+        - resource
+        - id
+        - reportType
+        - status
+        - createdAt
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a report object. Will always contain the string `report` for this
+            endpoint.
+          readOnly: true
+          example: report
+        id:
+          allOf:
+            - $ref: '#/components/schemas/reportToken'
+            - description: |-
+                The identifier uniquely referring to this report. Mollie assigns this identifier when you create the
+                report. Example: `rpt_XRAG3v9EUyCDcX99pJ2Vc`.
+          readOnly: true
+        reportType:
+          $ref: '#/components/schemas/report-type-response'
+        fromDate:
+          type:
+            - string
+            - 'null'
+          format: date
+          description: The start date of the report period. Set for date-range report types, `null` otherwise.
+          example: '2026-08-01'
+          readOnly: true
+        untilDate:
+          type:
+            - string
+            - 'null'
+          format: date
+          description: The end date of the report period. Set for date-range report types, `null` otherwise.
+          example: '2026-08-31'
+          readOnly: true
+        status:
+          allOf:
+            - $ref: '#/components/schemas/report-status'
+          readOnly: true
+        statusReason:
+          $ref: '#/components/schemas/report-status-reason'
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        completedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: |-
+            The date and time the report finished generating, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format. Only present once `status` is `completed`.
+          readOnly: true
+          example: '2026-09-01T09:01:12+00:00'
+        failedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: |-
+            The date and time the report failed to generate, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format. Only present once `status` is `failed`.
+          readOnly: true
+          example: '2026-09-01T09:03:00+00:00'
+        downloadExpiresAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: |-
+            The date and time the `_links.download` link expires, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+            format. We issue a fresh link and expiry on every call to [Get report](get-report), so just call it
+            again once this one expires.
+          readOnly: true
+          example: '2026-09-01T09:16:12+00:00'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - documentation
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            download:
+              allOf:
+                - $ref: '#/components/schemas/url'
+                - description: |-
+                    A time-limited, pre-signed download link for the report file. Only present while `status` is
+                    `completed`.
+            documentation:
+              $ref: '#/components/schemas/url'
+          readOnly: true
     settlement-status:
       type: string
       description: The status of the settlement.
@@ -30552,12 +30926,21 @@ components:
                         example: 10
                       rate:
                         type: object
-                        description: The service rates, further divided into `fixed` and `percentage` costs.
+                        description: |-
+                          The service rates, further divided into `fixed` and `percentage` costs.
+
+                          For pass-through fees, which are charged by an external party rather than at an agreed Mollie
+                          rate, both `fixed` and `percentage` are `null`.
+                        required:
+                          - fixed
+                          - percentage
                         properties:
                           fixed:
-                            $ref: '#/components/schemas/amount'
+                            $ref: '#/components/schemas/amount-nullable'
                           percentage:
-                            type: string
+                            type:
+                              - string
+                              - 'null'
                             example: '2.5'
                       amountNet:
                         $ref: '#/components/schemas/amount'
@@ -34087,6 +34470,8 @@ components:
         - unmatched-credit-transfer.match.failed
         - unmatched-credit-transfer.return.completed
         - unmatched-credit-transfer.return.failed
+        - report.completed
+        - report.failed
         - '*'
       x-enumDescriptions:
         payment.paid: A payment has been completed successfully.
@@ -34138,6 +34523,8 @@ components:
         unmatched-credit-transfer.match.failed: A user-triggered match action has failed.
         unmatched-credit-transfer.return.completed: A user-triggered return action has completed successfully.
         unmatched-credit-transfer.return.failed: A user-triggered return action has failed.
+        report.completed: A report has finished generating successfully.
+        report.failed: A report has failed to generate.
         '*': All event types.
       example: payment-link.paid
     webhook-status:
@@ -41571,6 +41958,17 @@ components:
             self:
               $ref: '#/components/schemas/url'
               description: The URL to the current resource.
+    report-type-response:
+      type: string
+      description: |-
+        The type of report to generate. Determines which other fields the request needs, and which fields show up
+        on the resulting report.
+      enum:
+        - transaction_margin
+      x-enumDescriptions:
+        transaction_margin: A transaction margin report for a whole organization, over a date range.
+      example: transaction_margin
+      x-speakeasy-unknown-values: allow
     entity-payment-response:
       type: object
       properties:
@@ -43478,6 +43876,8 @@ components:
         - unmatched-credit-transfer.match.failed
         - unmatched-credit-transfer.return.completed
         - unmatched-credit-transfer.return.failed
+        - report.completed
+        - report.failed
         - '*'
       x-enumDescriptions:
         payment.paid: A payment has been completed successfully.
@@ -43529,6 +43929,8 @@ components:
         unmatched-credit-transfer.match.failed: A user-triggered match action has failed.
         unmatched-credit-transfer.return.completed: A user-triggered return action has completed successfully.
         unmatched-credit-transfer.return.failed: A user-triggered return action has failed.
+        report.completed: A report has finished generating successfully.
+        report.failed: A report has failed to generate.
         '*': All event types.
       example: payment-link.paid
       x-speakeasy-unknown-values: allow
@@ -45228,6 +45630,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/balanceToken'
+    parent-report-id:
+      name: reportId
+      description: Provide the ID of the related report.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/reportToken'
     parent-settlement-id:
       name: settlementId
       description: Provide the ID of the related settlement.
@@ -45524,6 +45933,68 @@ components:
         type: string
         example: 123e4567-e89b-12d3-a456-426
   examples:
+    get-report-pending:
+      summary: A report that is still being generated
+      value:
+        resource: report
+        id: rpt_9fKq2pLxAqYTBz9WQvhc4
+        reportType: transaction_margin
+        fromDate: '2026-08-01'
+        untilDate: '2026-08-31'
+        status: pending
+        createdAt: '2026-09-01T09:00:00+00:00'
+        _links:
+          self:
+            href: https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-report
+            type: text/html
+    get-report-completed:
+      summary: A completed report, with a fresh download link
+      value:
+        resource: report
+        id: rpt_9fKq2pLxAqYTBz9WQvhc4
+        reportType: transaction_margin
+        fromDate: '2026-08-01'
+        untilDate: '2026-08-31'
+        status: completed
+        createdAt: '2026-09-01T09:00:00+00:00'
+        completedAt: '2026-09-01T09:01:12+00:00'
+        downloadExpiresAt: '2026-09-01T09:16:12+00:00'
+        _links:
+          self:
+            href: https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4
+            type: application/hal+json
+          download:
+            href: https://storage.googleapis.com/...(signed)...
+            type: text/csv
+          documentation:
+            href: https://docs.mollie.com/reference/get-report
+            type: text/html
+    get-report-failed:
+      summary: A report that failed to generate
+      value:
+        resource: report
+        id: rpt_9fKq2pLxAqYTBz9WQvhc4
+        reportType: transaction_margin
+        fromDate: '2026-08-01'
+        untilDate: '2026-08-31'
+        status: failed
+        createdAt: '2026-09-01T09:00:00+00:00'
+        failedAt: '2026-09-01T09:03:00+00:00'
+        statusReason:
+          code: generation_failed
+          message: |-
+            Something went wrong while generating the report. Try again, or contact support if it keeps
+            happening.
+        _links:
+          self:
+            href: https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-report
+            type: text/html
     list-chargebacks:
       summary: List of chargeback objects
       value:

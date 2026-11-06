@@ -67,6 +67,8 @@ export const WebhookEventTypes = {
     "unmatched-credit-transfer.return.completed",
   UnmatchedCreditTransferReturnFailed:
     "unmatched-credit-transfer.return.failed",
+  ReportCompleted: "report.completed",
+  ReportFailed: "report.failed",
   Wildcard: "*",
 } as const;
 /**

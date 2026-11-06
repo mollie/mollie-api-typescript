@@ -434,6 +434,11 @@ let client = new Client({
 * [cancel](docs/sdks/refunds/README.md#cancel) - Cancel payment refund
 * [all](docs/sdks/refunds/README.md#all) - List all refunds
 
+### [Reports](docs/sdks/reports/README.md)
+
+* [create](docs/sdks/reports/README.md#create) - Create report
+* [get](docs/sdks/reports/README.md#get) - Get report
+
 ### [SalesInvoices](docs/sdks/salesinvoices/README.md)
 
 * [create](docs/sdks/salesinvoices/README.md#create) - Create sales invoice
@@ -610,6 +615,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`refundsCreate`](docs/sdks/refunds/README.md#create) - Create payment refund
 - [`refundsGet`](docs/sdks/refunds/README.md#get) - Get payment refund
 - [`refundsList`](docs/sdks/refunds/README.md#list) - List payment refunds
+- [`reportsCreate`](docs/sdks/reports/README.md#create) - Create report
+- [`reportsGet`](docs/sdks/reports/README.md#get) - Get report
 - [`salesInvoicesCreate`](docs/sdks/salesinvoices/README.md#create) - Create sales invoice
 - [`salesInvoicesDelete`](docs/sdks/salesinvoices/README.md#delete) - Delete sales invoice
 - [`salesInvoicesGet`](docs/sdks/salesinvoices/README.md#get) - Get sales invoice

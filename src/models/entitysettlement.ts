@@ -56,13 +56,18 @@ export type EntitySettlementAmount = {
 
 /**
  * The service rates, further divided into `fixed` and `percentage` costs.
+ *
+ * @remarks
+ *
+ * For pass-through fees, which are charged by an external party rather than at an agreed Mollie
+ * rate, both `fixed` and `percentage` are `null`.
  */
 export type Rate = {
   /**
    * In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field.
    */
-  fixed?: Amount | undefined;
-  percentage?: string | undefined;
+  fixed: AmountNullable | null;
+  percentage: string | null;
 };
 
 export type Cost = {
@@ -83,6 +88,11 @@ export type Cost = {
   count: number;
   /**
    * The service rates, further divided into `fixed` and `percentage` costs.
+   *
+   * @remarks
+   *
+   * For pass-through fees, which are charged by an external party rather than at an agreed Mollie
+   * rate, both `fixed` and `percentage` are `null`.
    */
   rate: Rate;
   /**
@@ -235,8 +245,8 @@ export function entitySettlementAmountFromJSON(
 /** @internal */
 export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> = z
   .object({
-    fixed: Amount$inboundSchema.optional(),
-    percentage: z.string().optional(),
+    fixed: z.nullable(AmountNullable$inboundSchema),
+    percentage: z.nullable(z.string()),
   });
 
 export function rateFromJSON(

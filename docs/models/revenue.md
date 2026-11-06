@@ -13,10 +13,7 @@ let value: Revenue = {
     currency: "EUR",
     value: "10.00",
   },
-  amountVat: {
-    currency: "EUR",
-    value: "10.00",
-  },
+  amountVat: null,
   amountGross: {
     currency: "EUR",
     value: "10.00",

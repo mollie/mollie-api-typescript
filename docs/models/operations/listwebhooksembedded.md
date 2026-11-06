@@ -15,8 +15,8 @@ let value: ListWebhooksEmbedded = {
       createdAt: "2023-03-15T10:00:00+00:00",
       name: "Profile Updates Webhook",
       eventTypes: [
-        "unmatched-credit-transfer.match.completed",
-        "unmatched-credit-transfer.match.failed",
+        "unmatched-credit-transfer.return.completed",
+        "unmatched-credit-transfer.return.failed",
       ],
       status: "enabled",
       mode: "live",
