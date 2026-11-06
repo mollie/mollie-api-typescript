@@ -2,6 +2,9 @@
 
 The service rates, further divided into `fixed` and `percentage` costs.
 
+For pass-through fees, which are charged by an external party rather than at an agreed Mollie
+rate, both `fixed` and `percentage` are `null`.
+
 ## Example Usage
 
 ```typescript
@@ -20,5 +23,5 @@ let value: GetNextSettlementRate = {
 
 | Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       | Example                                                                                           |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `fixed`                                                                                           | [models.Amount](../../models/amount.md)                                                           | :heavy_minus_sign:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |                                                                                                   |
-| `percentage`                                                                                      | *string*                                                                                          | :heavy_minus_sign:                                                                                | N/A                                                                                               | 2.5                                                                                               |
+| `fixed`                                                                                           | [models.AmountNullable](../../models/amountnullable.md)                                           | :heavy_check_mark:                                                                                | In v2 endpoints, monetary amounts are represented as objects with a `currency` and `value` field. |                                                                                                   |
+| `percentage`                                                                                      | *string*                                                                                          | :heavy_check_mark:                                                                                | N/A                                                                                               | 2.5                                                                                               |

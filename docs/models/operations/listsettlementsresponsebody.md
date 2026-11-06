@@ -34,17 +34,17 @@ let value: ListSettlementsResponseBody = {
                   method: "creditcard",
                   count: 10,
                   rate: {
-                    fixed: {
-                      currency: "EUR",
-                      value: "10.00",
-                    },
+                    fixed: null,
                     percentage: "2.5",
                   },
                   amountNet: {
                     currency: "EUR",
                     value: "10.00",
                   },
-                  amountVat: null,
+                  amountVat: {
+                    currency: "EUR",
+                    value: "10.00",
+                  },
                   amountGross: {
                     currency: "EUR",
                     value: "10.00",
@@ -60,10 +60,7 @@ let value: ListSettlementsResponseBody = {
                     currency: "EUR",
                     value: "10.00",
                   },
-                  amountVat: {
-                    currency: "EUR",
-                    value: "10.00",
-                  },
+                  amountVat: null,
                   amountGross: {
                     currency: "EUR",
                     value: "10.00",
@@ -97,7 +94,10 @@ let value: ListSettlementsResponseBody = {
             href: "https://...",
             type: "application/hal+json",
           },
-          invoice: null,
+          invoice: {
+            href: "https://...",
+            type: "application/hal+json",
+          },
           documentation: {
             href: "https://...",
             type: "application/hal+json",

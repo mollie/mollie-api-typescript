@@ -14,7 +14,7 @@ let value: ListEntityWebhook = {
   name: "Profile Updates Webhook",
   eventTypes: [
     "payment.pending",
-    "unmatched-credit-transfer.match.completed",
+    "unmatched-credit-transfer.return.completed",
   ],
   status: "enabled",
   mode: "live",
