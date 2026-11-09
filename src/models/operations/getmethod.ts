@@ -34,7 +34,7 @@ export type GetMethodRequest = {
   /**
    * Provide the ID of the related payment method.
    */
-  methodId: models.MethodEnum | null;
+  methodId: models.MethodId | null;
   /**
    * Passing a locale will sort the payment methods in the preferred order
    *
@@ -109,7 +109,7 @@ export const GetMethodRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetMethodRequest
 > = z.object({
-  methodId: z.nullable(models.MethodEnum$outboundSchema),
+  methodId: z.nullable(models.MethodId$outboundSchema),
   locale: z.nullable(models.Locale$outboundSchema).optional(),
   currency: z.string().optional(),
   profileId: z.string().optional(),
