@@ -2394,7 +2394,8 @@ paths:
       description: |-
         > 🚧 Beta feature
         >
-        > This feature is currently in beta testing, and the final specification may still change.
+        > This feature is currently in private beta, and the final specification may still change. To
+        > join the beta program, reach out to [partners@mollie.com](mailto:partners@mollie.com).
 
         Create a report. Mollie generates it in the background, so you get a `pending` status back right away.
 
@@ -2525,7 +2526,8 @@ paths:
       description: |-
         > 🚧 Beta feature
         >
-        > This feature is currently in beta testing, and the final specification may still change.
+        > This feature is currently in private beta, and the final specification may still change. To
+        > join the beta program, reach out to [partners@mollie.com](mailto:partners@mollie.com).
 
         Retrieve a single report by its ID. Poll this to check on a report you created, and to grab a download
         link once it's ready.
@@ -30178,392 +30180,44 @@ components:
             * Type `cash-collateral-issuance`: none
             * Type `cash-collateral-release`: none
           properties:
-            payment:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-            capture:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                captureId:
-                  $ref: '#/components/schemas/captureToken'
-                captureDescription:
-                  type: string
-                  example: Capture Description
-            capture-commision:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                captureId:
-                  $ref: '#/components/schemas/captureToken'
-                captureDescription:
-                  type: string
-                  example: Capture Description
-            capture-rolling-reserve-release:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                captureId:
-                  $ref: '#/components/schemas/captureToken'
-                captureDescription:
-                  type: string
-                  example: Capture Description
-            unauthorized-direct-debit:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-            failed-payment:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-            refund:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                refundId:
-                  $ref: '#/components/schemas/refundToken'
-                refundDescription:
-                  type: string
-                  example: Refund Description
-            refund-compensation:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                refundId:
-                  $ref: '#/components/schemas/refundToken'
-                refundDescription:
-                  type: string
-                  example: Refund Description
-            returned-refund:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                refundId:
-                  $ref: '#/components/schemas/refundToken'
-                refundDescription:
-                  type: string
-                  example: Refund Description
-            returned-refund-compensation:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                refundId:
-                  $ref: '#/components/schemas/refundToken'
-                refundDescription:
-                  type: string
-                  example: Refund Description
-            chargeback:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                chargebackId:
-                  $ref: '#/components/schemas/chargebackToken'
-                chargebackDescription:
-                  type: string
-                  example: Chargeback Description
-            chargeback-reversal:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                chargebackId:
-                  $ref: '#/components/schemas/chargebackToken'
-                chargebackDescription:
-                  type: string
-                  example: Chargeback Description
-            chargeback-compensation:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                chargebackId:
-                  $ref: '#/components/schemas/chargebackToken'
-                chargebackDescription:
-                  type: string
-                  example: Chargeback Description
-            reversed-chargeback-compensation:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                chargebackId:
-                  $ref: '#/components/schemas/chargebackToken'
-                chargebackDescription:
-                  type: string
-                  example: Chargeback Description
-            outgoing-transfer:
-              type:
-                - object
-                - 'null'
-              properties:
-                transferId:
-                  $ref: '#/components/schemas/transferToken'
-                settlementId:
-                  $ref: '#/components/schemas/settlementToken'
-            canceled-outgoing-transfer:
-              type:
-                - object
-                - 'null'
-              properties:
-                transferId:
-                  $ref: '#/components/schemas/transferToken'
-                settlementId:
-                  $ref: '#/components/schemas/settlementToken'
-            returned-transfer:
-              type:
-                - object
-                - 'null'
-              properties:
-                transferId:
-                  type: string
-                  example: trf_nyjwa2
-                settlementId:
-                  type: string
-                  example: stl_s3hcSM2hKP
-            invoice-compensation:
-              type:
-                - object
-                - 'null'
-              properties:
-                invoiceId:
-                  $ref: '#/components/schemas/invoiceToken'
-            application-fee:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                payingOwner:
-                  $ref: '#/components/schemas/organizationToken'
-            split-payment:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                paymentOnwer:
-                  $ref: '#/components/schemas/organizationToken'
-            platform-payment-refund:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                refundId:
-                  $ref: '#/components/schemas/refundToken'
-                refundDescription:
-                  type: string
-                  example: Refund Description
-            returned-platform-payment-refund:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                refundId:
-                  $ref: '#/components/schemas/refundToken'
-                refundDescription:
-                  type: string
-                  example: Refund Description
-            platform-payment-chargeback:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                chargebackId:
-                  $ref: '#/components/schemas/chargebackToken'
-                chargebackDescription:
-                  type: string
-                  example: Chargeback Description
-            reversed-platform-payment-chargeback:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                chargebackId:
-                  $ref: '#/components/schemas/chargebackToken'
-                chargebackDescription:
-                  type: string
-                  example: Chargeback Description
-            payment-commission:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-                organizationId:
-                  $ref: '#/components/schemas/organizationToken'
-            reimbursement-fee:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-            failed-payment-fee:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-            payment-fee:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
-                paymentDescription:
-                  type: string
-                  example: Payment Description
-            managed-fee:
-              type:
-                - object
-                - 'null'
-              properties:
-                feeType:
-                  type: string
-                  example: feeType
-                feeId:
-                  type: string
-                  example: feeId
-            returned-managed-fee:
-              type:
-                - object
-                - 'null'
-              properties:
-                feeType:
-                  type: string
-                  example: feeType
-                feeId:
-                  type: string
-                  example: feeId
-            post-payment-split-payment:
-              type:
-                - object
-                - 'null'
-              properties:
-                paymentId:
-                  $ref: '#/components/schemas/paymentToken'
+            paymentId:
+              $ref: '#/components/schemas/paymentToken'
+            paymentDescription:
+              type: string
+              example: Payment Description
+            captureId:
+              $ref: '#/components/schemas/captureToken'
+            captureDescription:
+              type: string
+              example: Capture Description
+            refundId:
+              $ref: '#/components/schemas/refundToken'
+            refundDescription:
+              type: string
+              example: Refund Description
+            chargebackId:
+              $ref: '#/components/schemas/chargebackToken'
+            chargebackDescription:
+              type: string
+              example: Chargeback Description
+            transferId:
+              $ref: '#/components/schemas/transferToken'
+            settlementId:
+              $ref: '#/components/schemas/settlementToken'
+            invoiceId:
+              $ref: '#/components/schemas/invoiceToken'
+            payingOwner:
+              $ref: '#/components/schemas/organizationToken'
+            paymentOwner:
+              $ref: '#/components/schemas/organizationToken'
+            organizationId:
+              $ref: '#/components/schemas/organizationToken'
+            feeType:
+              type: string
+              example: feeType
+            feeId:
+              type: string
+              example: feeId
         createdAt:
           $ref: '#/components/schemas/created-at'
     report-type:
@@ -37292,6 +36946,7 @@ components:
         - paybybank
         - paypal
         - paysafecard
+        - pointofsale
         - przelewy24
         - riverty
         - satispay
@@ -37509,7 +37164,7 @@ components:
           properties:
             id:
               allOf:
-                - $ref: '#/components/schemas/method-response'
+                - $ref: '#/components/schemas/method-id'
               type: string
               description: |-
                 The unique identifier of the payment method. When used during [payment creation](create-payment), the payment
@@ -45775,7 +45430,7 @@ components:
       in: path
       required: true
       schema:
-        $ref: '#/components/schemas/method'
+        $ref: '#/components/schemas/method-id'
     parent-profile-and-me-id:
       name: profileId
       description: Provide the ID of the related profile.

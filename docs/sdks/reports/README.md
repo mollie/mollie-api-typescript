@@ -11,7 +11,8 @@
 
 > 🚧 Beta feature
 >
-> This feature is currently in beta testing, and the final specification may still change.
+> This feature is currently in private beta, and the final specification may still change. To
+> join the beta program, reach out to [partners@mollie.com](mailto:partners@mollie.com).
 
 Create a report. Mollie generates it in the background, so you get a `pending` status back right away.
 
@@ -115,7 +116,8 @@ run();
 
 > 🚧 Beta feature
 >
-> This feature is currently in beta testing, and the final specification may still change.
+> This feature is currently in private beta, and the final specification may still change. To
+> join the beta program, reach out to [partners@mollie.com](mailto:partners@mollie.com).
 
 Retrieve a single report by its ID. Poll this to check on a report you created, and to grab a download
 link once it's ready.

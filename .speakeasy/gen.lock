@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: d99f39ff665778085bde192e4a06bb29
+  docChecksum: 8726f443e7db633a5815545b645250a2
   docVersion: 1.0.0
   speakeasyVersion: 1.806.0
   generationVersion: 2.956.1
-  releaseVersion: 1.12.45
-  configChecksum: 5cafe4b84cf89c4b7f3fa7ec06c2b956
+  releaseVersion: 1.12.46
+  configChecksum: 4f40174eb5851f2a89b98da007925450
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 08e6b3bf-33c1-4d4b-92df-b096e339314b
-  pristine_commit_hash: 548ddaeef753fd0dd540a245ab94a978dd0eae76
-  pristine_tree_hash: 6fc542d308d5b487039d05bae065f8dff5bc15ab
+  generation_id: b0a6c9c9-a0e6-49eb-8eb3-38706a3d71be
+  pristine_commit_hash: b2046aae982fba4626efcb473c37026caa4fce15
+  pristine_tree_hash: 112ab5f8c93163c45f487b89a1de0777009083e2
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -184,10 +184,6 @@ trackedFiles:
     id: c09d241bcccd
     last_write_checksum: sha1:d583cba268b3cc0c88efe29b74f96dd98e1473c3
     pristine_git_object: b6d0d9009ba16aff245e1de834d33adcf03c9bd3
-  docs/models/canceledoutgoingtransfer.md:
-    id: 0396fb1027ed
-    last_write_checksum: sha1:2d62776586a95bf6d736ce5a6d2d1b8d6aeae10e
-    pristine_git_object: 0f9d082c7c2488313996e12b7fc09e9132af4971
   docs/models/capabilityrequirementstatus.md:
     id: 516ddefd1833
     last_write_checksum: sha1:f5dfec693ec799a178ea15946ab8626d844e11c7
@@ -204,14 +200,6 @@ trackedFiles:
     id: f36e3236f1e9
     last_write_checksum: sha1:88d85d9c60550a73293c4d647cba5269bf2201ef
     pristine_git_object: 588a4ca7191048db4019ad50dd1a3e4a4989aedc
-  docs/models/capture.md:
-    id: 4b03c62f1b7a
-    last_write_checksum: sha1:1b84cfc60c5b87f4b9ac170e57ccabbecca81fdd
-    pristine_git_object: f7514c321a0fb2fb3a515084d44b0a5e2b6a1b7e
-  docs/models/capturecommision.md:
-    id: 6a51f817e380
-    last_write_checksum: sha1:f4f40e1819a802c3f3018c0fefc06b969e70ebbf
-    pristine_git_object: acae5164361d56c83f181c0383b97f86ef3fc1b9
   docs/models/capturemode.md:
     id: 52a84578ecaa
     last_write_checksum: sha1:6e5c6412f9f3d98144186dfbc448b54d9c56e678
@@ -232,22 +220,6 @@ trackedFiles:
     id: 2626b16fe9dc
     last_write_checksum: sha1:7111914e28cc1dcf55d44b67cea5e47b8539878e
     pristine_git_object: 64a8838a1efa6d88f703ddb90d5e1b9860700620
-  docs/models/capturerollingreserverelease.md:
-    id: 3a2fca7c0971
-    last_write_checksum: sha1:7b6df686622f5064fa2c59ccf28292ec354781d0
-    pristine_git_object: ab88009f1a2cabf5c23d0701aee614741c916220
-  docs/models/chargeback.md:
-    id: 12d8d4ba358a
-    last_write_checksum: sha1:ae884903233508d70e1c76f394e92a68ac81c51b
-    pristine_git_object: 333a3aee34981d89298ff53ccd1e1755229b79b4
-  docs/models/chargebackcompensation.md:
-    id: 84cf1f8d3537
-    last_write_checksum: sha1:83304c741f4b6c1af6f792ca8282e0cf2697605b
-    pristine_git_object: 097adfeb8ac88b47ef77b3e0a6733d760d402fca
-  docs/models/chargebackreversal.md:
-    id: ff3c69b9312f
-    last_write_checksum: sha1:6c413b4dc3939d077dcb118d032fb267445b70e8
-    pristine_git_object: c454e176a67fc11db05c3ac2d2809d6b1769b1f2
   docs/models/chargebacks.md:
     id: fd80de07657f
     last_write_checksum: sha1:3e13f7162ad1f4fe28e3d0c834868761045c9b01
@@ -282,8 +254,8 @@ trackedFiles:
     pristine_git_object: 15c4d523f6fa379831486fcbcc9a94359db0aa6c
   docs/models/context.md:
     id: e8f2f9e54b8e
-    last_write_checksum: sha1:a96dc0c1e09dd92f23ead5a068e1eb11aab00c24
-    pristine_git_object: f37e2d697d34d425f33acd0e0469627b67bb0381
+    last_write_checksum: sha1:6f60fd9f8508de2b7564ea0a3d09d59e66306c86
+    pristine_git_object: ab3e602d43d52cdcedd589697297d4b5cf1ac6dd
   docs/models/contractor.md:
     id: 41e8f774cb20
     last_write_checksum: sha1:935a2ca978eafbcfebd4feebdb1b830e46260c54
@@ -434,16 +406,8 @@ trackedFiles:
     pristine_git_object: c287d32032b47827bc28baddc1c7f4de7315bb0d
   docs/models/entitybalancetransaction.md:
     id: 0c465c53382a
-    last_write_checksum: sha1:c2c2bdb0cb7d21f6a9ab62f551f99114825b211d
-    pristine_git_object: 7e281df2443d9171ac8b6bd4d6fa284239c8e967
-  docs/models/entitybalancetransactionapplicationfee.md:
-    id: e24cee120309
-    last_write_checksum: sha1:4762b2923a8acd7cdccdc84214bf550a9a50e820
-    pristine_git_object: 509a8bdaf9f3b478973dde4347190e88415b4258
-  docs/models/entitybalancetransactionpayment.md:
-    id: cb7a2ca7a283
-    last_write_checksum: sha1:e7a0b9878841f4662505d36e45da0a2e1cdb21a7
-    pristine_git_object: c5bd244d9cf86c366401e2970f71d7efc3ba80aa
+    last_write_checksum: sha1:2594e1e566604652f9887a3a40fa2eb73cd41deb
+    pristine_git_object: 99a2040226145851550fcfae66ef795ae081ab7c
   docs/models/entitybalancetransfer.md:
     id: d3acaca0cce0
     last_write_checksum: sha1:5085b0e66cefa184b42da104c5bf72e1df2c7b15
@@ -542,8 +506,8 @@ trackedFiles:
     pristine_git_object: fc0847918c71339f44aabb0119eefb6c81040ba6
   docs/models/entitymethodgetid.md:
     id: 92937090989c
-    last_write_checksum: sha1:d7b6dd93a6e4559b27a36bf05ac7aab0e2a8c150
-    pristine_git_object: eb941735c0fe21ed447bbf6f6bdcab97ec6ce258
+    last_write_checksum: sha1:2cfabeebc1ee2a307687e07dbfe943c52415f186
+    pristine_git_object: 4e0cc4fd0f078a37a12b9e47bf11639e7561f6e8
   docs/models/entitymethodgetimage.md:
     id: da1345b0ee16
     last_write_checksum: sha1:5d9a22c1f4eed34787275ee8d13aaf693c7875e4
@@ -744,14 +708,6 @@ trackedFiles:
     id: f49cea889d69
     last_write_checksum: sha1:ae79ab9e4ccfd4baf054e2915556bb28ab51439f
     pristine_git_object: 0fac06125cc8f913adeead255bb12a243a18c250
-  docs/models/failedpayment.md:
-    id: 65e2e5e4fa08
-    last_write_checksum: sha1:8cb76883453524b59d4bd4f30612f1acd0159de9
-    pristine_git_object: 91cfd7133f37fd508455e53631fd58e7c7d69a7e
-  docs/models/failedpaymentfee.md:
-    id: e3904631997a
-    last_write_checksum: sha1:7d8e29514183d04ce1ef327bf1b4dabf551c31a4
-    pristine_git_object: 68839c53d6045236d7ac63d31aac75c4c774b3d2
   docs/models/feeprepayments.md:
     id: e712434d0c18
     last_write_checksum: sha1:a2abc8c56ef463d5abacdef387ec14888f65c55a
@@ -768,10 +724,6 @@ trackedFiles:
     id: 9eb0aee5c330
     last_write_checksum: sha1:29e37f96f8690b070da2e89c0f9af960ed04e06f
     pristine_git_object: a07924075386158d40c24914d1d12609443b78e6
-  docs/models/invoicecompensation.md:
-    id: 02aee8ff39f7
-    last_write_checksum: sha1:27914896f6112fe58ab4e86d563114bc49a78989
-    pristine_git_object: aff85fb1d470abf911e6255576aaa689804f62ee
   docs/models/linecategories.md:
     id: e003cc7d777c
     last_write_checksum: sha1:178e5afbbbdd9f55ca9a767b08b3e592d4bafaae
@@ -886,8 +838,8 @@ trackedFiles:
     pristine_git_object: b5511498813013716f04abd72655799527f46f72
   docs/models/listentitymethodallid.md:
     id: 785b3c8471b7
-    last_write_checksum: sha1:122c27477041ebeba1fc7513ab77ab0c61fa7f8e
-    pristine_git_object: b60cfece463b28ba2bb28601214c5ca44bc65431
+    last_write_checksum: sha1:0b2f23108e29e6576cebf3012906ea08842ade0d
+    pristine_git_object: ee2268c73328213eaba902808e4b873ea446348b
   docs/models/listentitymethodallimage.md:
     id: 5eb6453fbdc5
     last_write_checksum: sha1:06b52346e53cfcfd73ee561b7e65f701cc11f7f1
@@ -914,8 +866,8 @@ trackedFiles:
     pristine_git_object: 388369e24ba6ff6172663375c9229d0cacbe42da
   docs/models/listentitymethodid.md:
     id: e3d45c1841da
-    last_write_checksum: sha1:0f88d5e2520aa3623d52158f3d26b9314ab6c841
-    pristine_git_object: 3b1d9a96ba6b58f5fbdd590309e5edf4eb2f6a08
+    last_write_checksum: sha1:7e1c8a853d5fd9a41af0e30ab0694960a75b53ee
+    pristine_git_object: 35ec6d32f3885471d9f14e8d11c31797297ecfd0
   docs/models/listentitymethodimage.md:
     id: 62e57329278b
     last_write_checksum: sha1:8f6ca8ebecc8a91d96ab4af182ccacb3ca57b89f
@@ -1264,10 +1216,6 @@ trackedFiles:
     id: cadd4514d964
     last_write_checksum: sha1:e470ecfe8935be6cdfc88b9dfdb93746b28c8078
     pristine_git_object: b99143355e739a51d9cde98603cfb699d37e2477
-  docs/models/managedfee.md:
-    id: 8253e7b3026a
-    last_write_checksum: sha1:2d80779c9937aea1ea7ac648a30188943151e80c
-    pristine_git_object: a4fa6904ebf5ca7ca019091aa51ab10b77a15899
   docs/models/mandatedetailscardlabelresponse.md:
     id: 5399de725b50
     last_write_checksum: sha1:d2dc8100abaed206a5e3e0472596664ad30ba037
@@ -1320,6 +1268,10 @@ trackedFiles:
     id: 78cf5aa59fd4
     last_write_checksum: sha1:a9116c690d0ed5c846954895526035b7df15c1e1
     pristine_git_object: da02143da0ffd551a93e12d036d030357192665d
+  docs/models/methodid.md:
+    id: 4548fdde287e
+    last_write_checksum: sha1:5da594403f34e026f8f909914f2274520d107b90
+    pristine_git_object: f0451dd48a915756ec96336cc10e028939e3c78b
   docs/models/methodidwithissuer.md:
     id: "848163240042"
     last_write_checksum: sha1:8c7547b88c7fbbcaccf2aa19c7c4ddf39db0a435
@@ -1546,8 +1498,8 @@ trackedFiles:
     pristine_git_object: efea5c487494ff68d2758f4138a941bd2ae2934c
   docs/models/operations/disablemethodrequest.md:
     id: a050e7932745
-    last_write_checksum: sha1:140aab424907b60df4f09fb6e4d5bf284dae4058
-    pristine_git_object: f07dfb6829c6c47d6de1969592a9ed1fa9ba3710
+    last_write_checksum: sha1:87de2c7debef3349c5fbef5cfb016f01060eb45e
+    pristine_git_object: c659755b72ae531f7449829eb5036578d1a74702
   docs/models/operations/enablemethodissuerrequest.md:
     id: ca50f0a8c669
     last_write_checksum: sha1:0ade28d6a702f969b4e6b18d7458e74cef950c21
@@ -1562,8 +1514,8 @@ trackedFiles:
     pristine_git_object: 5944cf3786a63a64e70268974715a893349979c9
   docs/models/operations/enablemethodrequest.md:
     id: 063d72fedac4
-    last_write_checksum: sha1:d2edf6eb2221d70c8835ecdc0c8692e02ee397d8
-    pristine_git_object: 83300b608ac28b3f210816b50874fb48b9a143e3
+    last_write_checksum: sha1:1be2e448d7172b5d6ac46edec3f00697b487fd81
+    pristine_git_object: 06b75a8221a3905128350d85bd5b8d837f71db13
   docs/models/operations/getbalanceglobals.md:
     id: 998de74ef8c0
     last_write_checksum: sha1:a63e70b040196412d4ec9583279d677a33694833
@@ -1682,8 +1634,8 @@ trackedFiles:
     pristine_git_object: 8c5ff5ce6f45c7c196d31b37bf1656298d48f82c
   docs/models/operations/getmethodrequest.md:
     id: 236000bfd9b3
-    last_write_checksum: sha1:9b5d03986e94f63e189d69eef2827aec482761fc
-    pristine_git_object: 43a28732ddcc7f424f49011403a1174ed942ce04
+    last_write_checksum: sha1:c4c18fac9b57024584807b99376c64623a92022b
+    pristine_git_object: abcb074595440b89f67700ae89fe7745a653046f
   docs/models/operations/getnextsettlementamount.md:
     id: e6d315bed652
     last_write_checksum: sha1:0761407a0990d1ce45c1b8ab22015dbc7dc863cb
@@ -2824,10 +2776,6 @@ trackedFiles:
     id: 6f54471a6910
     last_write_checksum: sha1:14dad5a44505bb1ee7c5c2afda12117ff55480bb
     pristine_git_object: 4213fbf72575107a2f9b51dcf4592c31cbc2fb79
-  docs/models/outgoingtransfer.md:
-    id: 7822b8da18dc
-    last_write_checksum: sha1:b56d61d8d24699664cd7c1af94aaf41904543c13
-    pristine_git_object: 4f5c39e38a51a6342b7ba3b8079b4abf187703aa
   docs/models/owner.md:
     id: 5dd96d90daac
     last_write_checksum: sha1:3a9dd8c297d4b512783132146574ec1c646d5cb9
@@ -2836,10 +2784,6 @@ trackedFiles:
     id: fef72c9ddfb8
     last_write_checksum: sha1:d0bd72e1fbf9bc5a8485ebba815841d0eaa12a6a
     pristine_git_object: 58506ec077f0a5558f8a17890c7622a10a7dc5ed
-  docs/models/paymentcommission.md:
-    id: 4afee3f5a945
-    last_write_checksum: sha1:32a404a10517234209917b1b45e65c6dbf750caa
-    pristine_git_object: 45245421cd3bf83f40853893bd647eef01d3d4e7
   docs/models/paymentdetails.md:
     id: 585a23ea991d
     last_write_checksum: sha1:dc1458d403187d7505b2f9cd4fb111d5267105bc
@@ -2880,10 +2824,6 @@ trackedFiles:
     id: 9bb5b4229062
     last_write_checksum: sha1:c166a6536a349ec6cba3bac3df60fa46daed0f3d
     pristine_git_object: ad7869b55e02c8a766968c6780f80746563662dd
-  docs/models/paymentfee.md:
-    id: 3053015570be
-    last_write_checksum: sha1:d8babf3d727ba8f83446c873228113bc28b6e3d0
-    pristine_git_object: fd51947bd9481690fbc4ae310c84914c7001bcea
   docs/models/paymentlineitem.md:
     id: f7667c8021d2
     last_write_checksum: sha1:1e4f84472601e256f24fa1cae76e4ddf067b0799
@@ -3016,18 +2956,6 @@ trackedFiles:
     id: 91cc3974a445
     last_write_checksum: sha1:b858f5f3686124ddc5f45ad934ec752336d65dd1
     pristine_git_object: 6c79a23b8a16ab02207153742991dbb210a6cd7a
-  docs/models/platformpaymentchargeback.md:
-    id: 3ae25ee3439e
-    last_write_checksum: sha1:ffb2fdacde821bd34e7c21e5ff46fd5825d052a1
-    pristine_git_object: af4adad3434e9ff48830fa987d98ce1d6081faa5
-  docs/models/platformpaymentrefund.md:
-    id: 1a66e4731b17
-    last_write_checksum: sha1:d247d06fb3bc7368fb48fdbd9c19c4c143c2e9cb
-    pristine_git_object: 870d176c4ee5566b97e7ee34b6c90773430f5e20
-  docs/models/postpaymentsplitpayment.md:
-    id: 767f7771d0fe
-    last_write_checksum: sha1:f9965fba247db41107195ac60805d734114d0566
-    pristine_git_object: 77d484d8a6a0ee3b0d71b1b602b02b3ee4b84250
   docs/models/pricing.md:
     id: 3f8579be3813
     last_write_checksum: sha1:1624bdc2089d99dbf4f19dba7e89eade375fb671
@@ -3064,14 +2992,6 @@ trackedFiles:
     id: da69177c4992
     last_write_checksum: sha1:002e569b22705103ff16ab66d72ef6a4623ccdda
     pristine_git_object: 421af9c605da6160c4b67e9fa7c2587f4e48cdc0
-  docs/models/refund.md:
-    id: 3be36b1a2825
-    last_write_checksum: sha1:7c09a836ba7b9a7df1d3636a27a0d526d23d5ea9
-    pristine_git_object: 060902fd45af143e5c24d2fcced841220d8a76aa
-  docs/models/refundcompensation.md:
-    id: 07b4d0d6f2a3
-    last_write_checksum: sha1:695dc34e5a54d4dc59ea629f1233e905ae23e3ee
-    pristine_git_object: 416cdebc0fa4cf1fe696d45b2f4e60f6eadad9e9
   docs/models/refundexternalreferencetyperesponse.md:
     id: 03d8a12cb34d
     last_write_checksum: sha1:803f2cece45a2b6bbaa0efc9faf98ed89fb7e8f1
@@ -3116,10 +3036,6 @@ trackedFiles:
     id: 56cad80f02e4
     last_write_checksum: sha1:dd247590f2b2a6e4315eb42aaecb36ceb066d58f
     pristine_git_object: 92522a955c14dbfb528b4a7ee9643fc8ae9b2f85
-  docs/models/reimbursementfee.md:
-    id: 03b54e30d0b9
-    last_write_checksum: sha1:2683727c19593a59f4a5135359c323cc58e8580c
-    pristine_git_object: c519c0ff16cef4d170744f5bed06b6a9737f435c
   docs/models/reportstatusreason.md:
     id: 47c552c813ae
     last_write_checksum: sha1:9d808870ddaae43607d28bd302794ef211e65fc5
@@ -3132,38 +3048,10 @@ trackedFiles:
     id: f00a97f74beb
     last_write_checksum: sha1:b7675e1b41490bd5e8caa254d616ded3e5e16e59
     pristine_git_object: a3a9df37d52b91aa048a42ad3798b7eb58f448fe
-  docs/models/returnedmanagedfee.md:
-    id: 6c800361de1b
-    last_write_checksum: sha1:51addb58280ceb1fb207e706b7a8b31ae9c2feab
-    pristine_git_object: a43a7f761de43e33f910bd2f5a91c5f8b678e2d9
-  docs/models/returnedplatformpaymentrefund.md:
-    id: 92daf1e23ad9
-    last_write_checksum: sha1:722d676123d4186af7f78f53157beda666647398
-    pristine_git_object: 366ce5bf123d83a2726dbe6853f13d783ea4a155
-  docs/models/returnedrefund.md:
-    id: f8d4ada70f09
-    last_write_checksum: sha1:97f7c7b2a1a90b235dd1f8848ada97aa5d668b22
-    pristine_git_object: ddd2f1b84ce90b3d73e68eb866e212c41e60f439
-  docs/models/returnedrefundcompensation.md:
-    id: 56fa6fb6ad56
-    last_write_checksum: sha1:95ebb0423b590041b6827059ad3245b7e1e630c6
-    pristine_git_object: 69fa90abaa957f725ed9e069a35bf6846c9db651
-  docs/models/returnedtransfer.md:
-    id: 98e92ae86f3e
-    last_write_checksum: sha1:43ecb25bb7c984e085a4a9c0fdcb7df034bcebdd
-    pristine_git_object: 23f885b249502a88879a6717a1aa8e505f1cbafe
   docs/models/revenue.md:
     id: b2d12eafd3a0
     last_write_checksum: sha1:43336b917ff25a670e102a835adc1d3efc094935
     pristine_git_object: a9018cded76fbf200ff443faa60f4dca50ca8fc1
-  docs/models/reversedchargebackcompensation.md:
-    id: e4e8f8f04cf6
-    last_write_checksum: sha1:8b23b5f607714c542c89924a8bbbd7a23d1ae4e8
-    pristine_git_object: 4dd769d8afd2bf34f2fb689a0e933cedad9df0ff
-  docs/models/reversedplatformpaymentchargeback.md:
-    id: 4f2da8745e82
-    last_write_checksum: sha1:e9209763a153a78030f0f6cdca42b7d593499d87
-    pristine_git_object: 941df894d27b0ce6d733c8ad9fee551dfbbb1640
   docs/models/routecreaterequest.md:
     id: 6a8740aca1f9
     last_write_checksum: sha1:8581c3a2b7311553a878ac29645970ef4fcebdc2
@@ -3476,10 +3364,6 @@ trackedFiles:
     id: 7bf68aa553c8
     last_write_checksum: sha1:a3d4c66dc19019b9c02bb166e3a71adc02b67db7
     pristine_git_object: 22962cf28230c7dab58e21756c8c9ce81331e002
-  docs/models/splitpayment.md:
-    id: b4db18e03c9e
-    last_write_checksum: sha1:ad47642bc1c9df33b3062f99bbeee38f1e55d74c
-    pristine_git_object: b9d0995c1a30f90eec65bfb82003720d2eac6808
   docs/models/statushistoryentryresponse.md:
     id: 090cb461c428
     last_write_checksum: sha1:a66568138798efdb8d3e488e5d5d2e235fa03fa7
@@ -3632,10 +3516,6 @@ trackedFiles:
     id: 98c32f09b2c8
     last_write_checksum: sha1:caa3e30a3a1885486cc8815a759df692bbb895c0
     pristine_git_object: e6820433f516e4cb1f5056cd64d8ff2dc0112fb0
-  docs/models/unauthorizeddirectdebit.md:
-    id: 440033eb91f6
-    last_write_checksum: sha1:adbd06bdf3a7376b10f56501486c457de9282219
-    pristine_git_object: baccbb13448d35ac0ffb5f946ba26a5f880c99c6
   docs/models/unmatchedcredittransferactionresponse.md:
     id: d19ed13306ed
     last_write_checksum: sha1:b23557337c68fad77a6e096ecb4043ac59b85339
@@ -3814,8 +3694,8 @@ trackedFiles:
     pristine_git_object: 848825c4f058bd2ed59d87d97a1c1ecbc743fb6e
   docs/sdks/reports/README.md:
     id: 66bfd66f1efc
-    last_write_checksum: sha1:0c228f47c1427530deabd52d39a490f0e94d6993
-    pristine_git_object: fb09af3d8d75edf10569cc943c5093c8fd95c97e
+    last_write_checksum: sha1:060ea0f604cc094fc66a86e8ffb59f258587769d
+    pristine_git_object: b41cae3d5622214f80fa9db200d7ca7ea2909425
   docs/sdks/salesinvoices/README.md:
     id: 7b2a80290a07
     last_write_checksum: sha1:f91811609e5b9e4a7ff5d11ec97ce8e8cfa63df1
@@ -3882,12 +3762,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:e6d4b932a5a5020d884d831fca03a2fd6fdfeef2
-    pristine_git_object: 7d0d736a310fb14739c44a8e733aedb5f0b65b92
+    last_write_checksum: sha1:288a9169b40b5512f46b9089deea92a03cb47f3e
+    pristine_git_object: b82f460786f407797e78f1f57cfdb88a34e87374
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:425b3395615f6f49e279e1872c9e5957a77641e4
-    pristine_git_object: b4f2d78d224452dccf8298716d66c6347d2003f8
+    last_write_checksum: sha1:8aa3d47986f2263bc83aa9525d3a3071949dedfb
+    pristine_git_object: 399fa28ef2631dcfe2b9b2641d2d6ba8839f489d
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4242,12 +4122,12 @@ trackedFiles:
     pristine_git_object: aa3576ec83273ce6ed47fde6055995c9f3447ed9
   src/funcs/reportsCreate.ts:
     id: 109fcad81ac2
-    last_write_checksum: sha1:a448ff30c366994f87683815b0ac429f5a4ef3ef
-    pristine_git_object: b98b539bb2018d9354d10a5a6f0aee73bbb74703
+    last_write_checksum: sha1:3f87ccc4fe034293ac110e7c6975fca101d07550
+    pristine_git_object: c12e48228d378f0c999cc0cfeb0b336ff5e953dc
   src/funcs/reportsGet.ts:
     id: 18300b4d9018
-    last_write_checksum: sha1:46a1bcb8a89192c0991291406d0734ea8790fa55
-    pristine_git_object: 706c06920382d2972bab27b10f639bbd5263dbae
+    last_write_checksum: sha1:6a34f8f7d35685e6c243980607c49f36464c9ff0
+    pristine_git_object: 0eaf9b531fbd7b6c153e6e15a2bfc0e2f2c3e468
   src/funcs/salesInvoicesCreate.ts:
     id: 77e8ec44910d
     last_write_checksum: sha1:aaf359d84bf030ea5c702e9d2936543965444212
@@ -4434,8 +4314,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ee64c513a2d1aebdc6d0066d071d09904924f38d
-    pristine_git_object: 3b5dacaf8372b6a41686df89bbc8cc3d117cd4cd
+    last_write_checksum: sha1:7b27c0ca08834b62517502310a58166024db4e75
+    pristine_git_object: bd841ee105ad108c191f703b66ad3b90ec0c44b1
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
@@ -5301,8 +5181,8 @@ trackedFiles:
     pristine_git_object: cbc87d60f4e803949bdc0e914d8876bb246a468e
   src/models/entitybalancetransaction.ts:
     id: 8a3c7e4c50d6
-    last_write_checksum: sha1:0f30cbb88c25c3514cba73b983e28e0f6aa0db39
-    pristine_git_object: 85d2ceb7e8748cf83e929cad090654bd8e0c5a15
+    last_write_checksum: sha1:afe190635dbe8cfc2d6edfe78404ee8a310dcd75
+    pristine_git_object: c606117422de0e2f7487775156da05198813eb66
   src/models/entitybalancetransfer.ts:
     id: 1a89d5e277e9
     last_write_checksum: sha1:4297ed6ae22450c5c06569e3b32126dec91bb9f7
@@ -5345,8 +5225,8 @@ trackedFiles:
     pristine_git_object: 46d445e4384124e7af85f839aca255fd3640831d
   src/models/entitymethodget.ts:
     id: 23b2d217cd79
-    last_write_checksum: sha1:c252c6880398caa0e7921e33d3ee28856c27e1d6
-    pristine_git_object: 652e43df6ac4ff40d68b6cdeab7d497faeaab13c
+    last_write_checksum: sha1:1665f96c1fce8744b7c791c5675c541d87f0e535
+    pristine_git_object: 8d4a0c79a44ed542b640ecf467d203395ebac53b
   src/models/entityonboardingstatus.ts:
     id: 72c15ea7e999
     last_write_checksum: sha1:45436117121b5bdd3ff29dc1343ffcb87683920b
@@ -5437,8 +5317,8 @@ trackedFiles:
     pristine_git_object: c575be7a68de5750041bc51b5b1296493dfa2bab
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:4f967f770c500dec77666b39c7fb72f15edcf037
-    pristine_git_object: 7e16a561488ddfb085fabae90e604588be1af7e4
+    last_write_checksum: sha1:9092611c4702b2ad8b96fbf8d201733da01fdc39
+    pristine_git_object: 600f4317bcd86428ca040539065ffcaa4bfdaefc
   src/models/linecategories.ts:
     id: 502e2d0ea1e2
     last_write_checksum: sha1:cdef34c68b38732566990ec0c57ec8c915c3adce
@@ -5469,12 +5349,12 @@ trackedFiles:
     pristine_git_object: c996de356a6d7c713a274b8370c5c6a7955d10ba
   src/models/listentitymethod.ts:
     id: d2fa4a676853
-    last_write_checksum: sha1:d60fe5d7af5f28637e3b31aaeb3903197c8f32ad
-    pristine_git_object: a598c759ea7ac18cec34427f87135d0164fddabe
+    last_write_checksum: sha1:8143358a383fadb1fa8f04b1d48bff43fbac1dd8
+    pristine_git_object: c94c58a83cdf73a7c48e26d30ab7f849a10e8dc4
   src/models/listentitymethodall.ts:
     id: 332aa184e0a5
-    last_write_checksum: sha1:95a17caf705ff5b7752a618fcc562a0dfd436d67
-    pristine_git_object: 430127139e5099aa4e337eaca12e5868f466a380
+    last_write_checksum: sha1:10e2b8a39cf965c2d31e58aae0d73f453388bc4d
+    pristine_git_object: 598218c90d75860b870f76c775f35d83c0e61826
   src/models/listentitypayout.ts:
     id: 394d8d8b123a
     last_write_checksum: sha1:ea15e89e987eb28479f8e56d861b5270144fdefe
@@ -5587,6 +5467,10 @@ trackedFiles:
     id: 9e4eecc7d780
     last_write_checksum: sha1:b332d288f50a80a939be432c5b7cdb74ff7dfa16
     pristine_git_object: c4a5c5237f9e18f991a257a0fe2ebfbc32fd5624
+  src/models/methodid.ts:
+    id: eb2e013fc645
+    last_write_checksum: sha1:3e20259800cd7bd921ba9d119ae7ee7ef1eb8be8
+    pristine_git_object: d24ef71c39a08d73f68b54873e20589898d833ef
   src/models/methodidwithissuer.ts:
     id: b542802d1003
     last_write_checksum: sha1:ba921e766cbcbd10063710c70ab60afef3d08d3a
@@ -5749,16 +5633,16 @@ trackedFiles:
     pristine_git_object: 4bbeab22a82d17f51bd53069425e39195ee75a11
   src/models/operations/disablemethod.ts:
     id: 9ea565102d52
-    last_write_checksum: sha1:3217eb97d40f5ec15fa15d1f1fb4ebe0c2876c68
-    pristine_git_object: 16e3a44ec7aca1c40993522f77b51c7a4b322694
+    last_write_checksum: sha1:de65ed13523401969efdcf4bd5780d0e627d1747
+    pristine_git_object: bf35d5a0b0539c2fe9d1a98e6f1b7717ef9930a2
   src/models/operations/disablemethodissuer.ts:
     id: 4cac73f7416b
     last_write_checksum: sha1:200277fe4df2f526a48379cf2d902bf9b898fa82
     pristine_git_object: c80acbe92c20ada64abd83ad7c361f74bd693bdd
   src/models/operations/enablemethod.ts:
     id: 9a281496e83e
-    last_write_checksum: sha1:d9b32c4ae23f092cddd1e0223c325c7b097ea7c0
-    pristine_git_object: ccbc128b6ddee3e687798191f490a1869415c7aa
+    last_write_checksum: sha1:fb7693d150f85ccf5de8ad99637e6a474a08c825
+    pristine_git_object: 4d3542dc78823ef906ccd08b97f65654af7e6d58
   src/models/operations/enablemethodissuer.ts:
     id: 685004e667b8
     last_write_checksum: sha1:1cd16c3be13e7b1b38346ed2190af1842ee3c409
@@ -5821,8 +5705,8 @@ trackedFiles:
     pristine_git_object: 395d7e1c56d446d90ebb0bdc3cf2002aacb0945f
   src/models/operations/getmethod.ts:
     id: 2867e7590288
-    last_write_checksum: sha1:5756209312c5cd87204b6d0723938e71f08e9558
-    pristine_git_object: 730e4ed678d2b5f5901309efa933bf9109c8ccfc
+    last_write_checksum: sha1:dd029f3b4b370ae66ee33357b87645c1ef426852
+    pristine_git_object: cfe02e9bc86af688ee77a9ad72d6c6c82cf0eebe
   src/models/operations/getnextsettlement.ts:
     id: ab031ce9d76a
     last_write_checksum: sha1:4a7fb1957edf68ac45cd86f1b94fb2dbbec83846
@@ -6753,8 +6637,8 @@ trackedFiles:
     pristine_git_object: 58662bc39701cd8081ca7e86db7400dde67f0b11
   src/sdk/reports.ts:
     id: d7a2b074c686
-    last_write_checksum: sha1:02835630465212457a426d1a14f523766eb9478e
-    pristine_git_object: a111cb8415a2ffca7f66f529625a3fe539fbd072
+    last_write_checksum: sha1:a1de63828fa5c1e5cc40d5bd963cd97202b72ee1
+    pristine_git_object: 0cf937a216d396d1bf70ccd7c40768260e85cbca
   src/sdk/salesinvoices.ts:
     id: 79ff13ce4a56
     last_write_checksum: sha1:42e6211a4434fb95df4d0b9961f48af3d2b96a51
@@ -9781,7 +9665,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 2, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29A", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-10.25"}, "initialAmount": {"currency": "EUR", "value": "-10.00"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.25"}}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_WhmDwNYR87FPDbiwBhUXCh", "type": "payment", "resultAmount": {"currency": "EUR", "value": "9.71"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "-0.29"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.02"}, "commissions": {"currency": "EUR", "value": "-0.09"}, "repayments": {"currency": "EUR", "value": "-0.09"}, "reservations": {"currency": "EUR", "value": "-0.09"}}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_gVMhHKqSSRYJyPsuoPNFH/transactions?from=baltr_rXeW2yPqqDUyfAqq8fS5Bg&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 2, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29A", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-10.25"}, "initialAmount": {"currency": "EUR", "value": "-10.00"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.25"}}, "context": {"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo", "refundId": "re_4qqhO89gsT"}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_WhmDwNYR87FPDbiwBhUXCh", "type": "payment", "resultAmount": {"currency": "EUR", "value": "9.71"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "-0.29"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.02"}, "commissions": {"currency": "EUR", "value": "-0.09"}, "repayments": {"currency": "EUR", "value": "-0.09"}, "reservations": {"currency": "EUR", "value": "-0.09"}}, "context": {"paymentId": "tr_5B8cwPMGnU6qLbRvo7qEZo"}, "createdAt": "2022-12-16T11:23:25+00:00"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_gVMhHKqSSRYJyPsuoPNFH/transactions?from=baltr_rXeW2yPqqDUyfAqq8fS5Bg&limit=5", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     list-balance-transactions-200-2:
       parameters:
         path:
@@ -9794,7 +9678,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 50, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_Eh5yKgk4PWxsCSJy7bdRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_BR56v6ZPrVcfy8jbzadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:22:20+00:00"}, {"resource": "balance-transaction", "id": "baltr_XM3Ye884WheSEsGqyadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:22:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_pYs7WdRU9TV9cyxsnadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:20:20+00:00"}, {"resource": "balance-transaction", "id": "baltr_vecp57y9tTsnohz2hadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:19:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_s5EKzwZ394TxEcpSaadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:18:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_WgQcFW4DS9zNDeWCWadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:17:28+00:00"}, {"resource": "balance-transaction", "id": "baltr_ZAbACJF2Nh2PCJysHadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:15:22+00:00"}, {"resource": "balance-transaction", "id": "baltr_CM6okJdX7SUFDzXVBadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:14:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_Luwmv2RPjWAPVbQsrZdRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:11:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_fNnyBtyVpMaujFHoTZdRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {}, "createdAt": "2022-12-16T11:07:18+00:00"}, {"resource": "balance-transaction", "id": "baltr_ZYkNBk6NpH8yyanezZbRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "1.00"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "context": {}, "createdAt": "2022-12-15T16:40:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_KouV3xWwyPSimHtPuZbRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "1.00"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "context": {}, "createdAt": "2022-12-15T16:39:22+00:00"}, {"resource": "balance-transaction", "id": "baltr_R7J2QLNXBHozou2sygaRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.62"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "deductions": {"currency": "EUR", "value": "-0.38"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.01"}, "commissions": {"currency": "EUR", "value": "-0.20"}, "repayments": {"currency": "EUR", "value": "-0.07"}, "reservations": {"currency": "EUR", "value": "-0.10"}}, "context": {}, "createdAt": "2022-12-15T08:32:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_wYLbjfBDPPbhktwP9iYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {}, "createdAt": "2022-12-14T14:11:11+00:00"}, {"resource": "balance-transaction", "id": "baltr_bqd6QKaPMpgWKLRAYdYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "1.00"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "context": {}, "createdAt": "2022-12-14T13:26:18+00:00"}, {"resource": "balance-transaction", "id": "baltr_EW4yXvwwERRkNTxGUHYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {}, "createdAt": "2022-12-14T10:10:29+00:00"}, {"resource": "balance-transaction", "id": "baltr_MU5s5vSHYDRSWnYbJBYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {}, "createdAt": "2022-12-14T09:10:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_UAzMEogYhsKnBiNQF5YRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {}, "createdAt": "2022-12-14T08:11:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_tRCT9FVTN4gmoYsetiXRH", "type": "outgoing-transfer", "resultAmount": {"currency": "EUR", "value": "-1077.62"}, "initialAmount": {"currency": "EUR", "value": "-1077.62"}, "context": {}, "createdAt": "2022-12-14T05:02:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_mCT66L9cfEWbqgNFwFWRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {}, "createdAt": "2022-12-13T15:23:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_qb8AuKkzZQ4ipFpbkDWRH", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-0.30"}, "initialAmount": {"currency": "EUR", "value": "-0.05"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.25"}}, "context": {}, "createdAt": "2022-12-13T15:01:56+00:00"}, {"resource": "balance-transaction", "id": "baltr_HBLVK3kVRhmZWSZWQ2WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {}, "createdAt": "2022-12-13T13:11:11+00:00"}, {"resource": "balance-transaction", "id": "baltr_C3EMuY25RMvkCHvX72WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "8.00"}, "initialAmount": {"currency": "EUR", "value": "8.00"}, "context": {}, "createdAt": "2022-12-13T13:08:31+00:00"}, {"resource": "balance-transaction", "id": "baltr_GwdyZkuUtckkfqgP72WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "7.00"}, "initialAmount": {"currency": "EUR", "value": "7.00"}, "context": {}, "createdAt": "2022-12-13T13:08:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_r7F48qyzcpeqzRN872WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "11.00"}, "initialAmount": {"currency": "EUR", "value": "11.00"}, "context": {}, "createdAt": "2022-12-13T13:08:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_RGxkRZAqqMUx9uLp62WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "50.00"}, "initialAmount": {"currency": "EUR", "value": "50.00"}, "context": {}, "createdAt": "2022-12-13T13:08:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_TwHzY2rqhpmWNKdazzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "60.00"}, "initialAmount": {"currency": "EUR", "value": "60.00"}, "context": {}, "createdAt": "2022-12-13T13:07:15+00:00"}, {"resource": "balance-transaction", "id": "baltr_vEYxvT9jswxgdXfJzzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:07:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_NdJB8uc7xB2SZW3zyzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:07:09+00:00"}, {"resource": "balance-transaction", "id": "baltr_pEM6remSK3UGHDRAuzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:06:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_6GusRMZHuWapoEFvtzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:06:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_iieu2Lzf52V3KGadtzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:06:14+00:00"}, {"resource": "balance-transaction", "id": "baltr_e2gtch39TSo6iABHozVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:05:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_pmNMcz8GdvwPmvmunzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:05:15+00:00"}, {"resource": "balance-transaction", "id": "baltr_qFmvrsKMRojS967cnzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:05:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_DcLYydj7aMazfaWQnzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:05:10+00:00"}, {"resource": "balance-transaction", "id": "baltr_3BoK75R8c2Wuomf9hzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:04:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_9LErqzZoJ9ZDvx3sgzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:04:13+00:00"}, {"resource": "balance-transaction", "id": "baltr_AdVYVkaGLzVsnNofgzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:04:11+00:00"}, {"resource": "balance-transaction", "id": "baltr_HQvvmTk2FCbQJHHcbzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:03:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_AHWBoHhsAV8HnQKGbzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:03:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_iej3r8HjzyLLxv95bzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:03:14+00:00"}, {"resource": "balance-transaction", "id": "baltr_vLqVSaXJ5d8SjNTgazVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:03:10+00:00"}, {"resource": "balance-transaction", "id": "baltr_iEgyvSjkCWVbQpREVzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "150.00"}, "initialAmount": {"currency": "EUR", "value": "150.00"}, "context": {}, "createdAt": "2022-12-13T13:02:13+00:00"}, {"resource": "balance-transaction", "id": "baltr_Cq6pB2qDkPXvXv4wUzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T13:02:10+00:00"}, {"resource": "balance-transaction", "id": "baltr_W4XvgZTmFhvoNdPxPzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "100.00"}, "initialAmount": {"currency": "EUR", "value": "100.00"}, "context": {}, "createdAt": "2022-12-13T13:01:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_SnQyfLUyy6HmHth8GyVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T12:50:14+00:00"}, {"resource": "balance-transaction", "id": "baltr_QYAWSE7rV4UraAgSAyVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T12:49:15+00:00"}, {"resource": "balance-transaction", "id": "baltr_oAnC33yT7GXhP7X8AyVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2022-12-13T12:49:12+00:00"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_CKjKwQdjCwCSArXFAJNFH/transactions?from=baltr_WuSLmsLzeDVRRYAq9yVRH&limit=50", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
+          application/hal+json: {"count": 50, "_embedded": {"balance_transactions": [{"resource": "balance-transaction", "id": "baltr_Eh5yKgk4PWxsCSJy7bdRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_9gX2sjtuh6"}, "createdAt": "2022-12-16T11:23:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_BR56v6ZPrVcfy8jbzadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_qVamMQaRjN"}, "createdAt": "2022-12-16T11:22:20+00:00"}, {"resource": "balance-transaction", "id": "baltr_XM3Ye884WheSEsGqyadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_vLzZYBN6gd"}, "createdAt": "2022-12-16T11:22:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_pYs7WdRU9TV9cyxsnadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_hhwh2cTWCk"}, "createdAt": "2022-12-16T11:20:20+00:00"}, {"resource": "balance-transaction", "id": "baltr_vecp57y9tTsnohz2hadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_jnTdA4W6Rq"}, "createdAt": "2022-12-16T11:19:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_s5EKzwZ394TxEcpSaadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_xLQaL4nsJT"}, "createdAt": "2022-12-16T11:18:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_WgQcFW4DS9zNDeWCWadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_RSiTUXmzGo"}, "createdAt": "2022-12-16T11:17:28+00:00"}, {"resource": "balance-transaction", "id": "baltr_ZAbACJF2Nh2PCJysHadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_h8mPuFp8hq"}, "createdAt": "2022-12-16T11:15:22+00:00"}, {"resource": "balance-transaction", "id": "baltr_CM6okJdX7SUFDzXVBadRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_kJJrKynq7H"}, "createdAt": "2022-12-16T11:14:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_Luwmv2RPjWAPVbQsrZdRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_hrimCxybrx"}, "createdAt": "2022-12-16T11:11:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_fNnyBtyVpMaujFHoTZdRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "300.00"}, "initialAmount": {"currency": "EUR", "value": "300.00"}, "context": {"paymentId": "tr_AxBZBFz2to"}, "createdAt": "2022-12-16T11:07:18+00:00"}, {"resource": "balance-transaction", "id": "baltr_ZYkNBk6NpH8yyanezZbRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "1.00"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "context": {"paymentId": "tr_dZvMYBkaMd"}, "createdAt": "2022-12-15T16:40:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_KouV3xWwyPSimHtPuZbRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "1.00"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "context": {"paymentId": "tr_iNkGFF75jh"}, "createdAt": "2022-12-15T16:39:22+00:00"}, {"resource": "balance-transaction", "id": "baltr_R7J2QLNXBHozou2sygaRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.62"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "deductions": {"currency": "EUR", "value": "-0.38"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.01"}, "commissions": {"currency": "EUR", "value": "-0.20"}, "repayments": {"currency": "EUR", "value": "-0.07"}, "reservations": {"currency": "EUR", "value": "-0.10"}}, "context": {"paymentId": "tr_5ZYFyKSBLy"}, "createdAt": "2022-12-15T08:32:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_wYLbjfBDPPbhktwP9iYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {"paymentId": "tr_iSQFK5EVov"}, "createdAt": "2022-12-14T14:11:11+00:00"}, {"resource": "balance-transaction", "id": "baltr_bqd6QKaPMpgWKLRAYdYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "1.00"}, "initialAmount": {"currency": "EUR", "value": "1.00"}, "context": {"paymentId": "tr_KacasZ6Mep"}, "createdAt": "2022-12-14T13:26:18+00:00"}, {"resource": "balance-transaction", "id": "baltr_EW4yXvwwERRkNTxGUHYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {"paymentId": "tr_PsZAZznzcg"}, "createdAt": "2022-12-14T10:10:29+00:00"}, {"resource": "balance-transaction", "id": "baltr_MU5s5vSHYDRSWnYbJBYRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {"paymentId": "tr_eUo3wbBuSe"}, "createdAt": "2022-12-14T09:10:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_UAzMEogYhsKnBiNQF5YRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {"paymentId": "tr_wgCSd9H32d"}, "createdAt": "2022-12-14T08:11:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_tRCT9FVTN4gmoYsetiXRH", "type": "outgoing-transfer", "resultAmount": {"currency": "EUR", "value": "-1077.62"}, "initialAmount": {"currency": "EUR", "value": "-1077.62"}, "context": {"transferId": "trf_nyjwa2", "settlementId": "stl_nyjwa2"}, "createdAt": "2022-12-14T05:02:25+00:00"}, {"resource": "balance-transaction", "id": "baltr_mCT66L9cfEWbqgNFwFWRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {"paymentId": "tr_Q4P8DoWGhA"}, "createdAt": "2022-12-13T15:23:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_qb8AuKkzZQ4ipFpbkDWRH", "type": "refund", "resultAmount": {"currency": "EUR", "value": "-0.30"}, "initialAmount": {"currency": "EUR", "value": "-0.05"}, "deductions": {"currency": "EUR", "value": "-0.25"}, "deductionDetails": {"fees": {"currency": "EUR", "value": "-0.25"}}, "context": {"paymentId": "tr_PsZAZznzcg", "refundId": "re_6Z8eVo5cfB"}, "createdAt": "2022-12-13T15:01:56+00:00"}, {"resource": "balance-transaction", "id": "baltr_HBLVK3kVRhmZWSZWQ2WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "0.05"}, "initialAmount": {"currency": "EUR", "value": "0.05"}, "context": {"paymentId": "tr_6suxvyRvh7"}, "createdAt": "2022-12-13T13:11:11+00:00"}, {"resource": "balance-transaction", "id": "baltr_C3EMuY25RMvkCHvX72WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "8.00"}, "initialAmount": {"currency": "EUR", "value": "8.00"}, "context": {"paymentId": "tr_Avvj4y3vpT"}, "createdAt": "2022-12-13T13:08:31+00:00"}, {"resource": "balance-transaction", "id": "baltr_GwdyZkuUtckkfqgP72WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "7.00"}, "initialAmount": {"currency": "EUR", "value": "7.00"}, "context": {"paymentId": "tr_PipTfbTdSZ"}, "createdAt": "2022-12-13T13:08:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_r7F48qyzcpeqzRN872WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "11.00"}, "initialAmount": {"currency": "EUR", "value": "11.00"}, "context": {"paymentId": "tr_XPn7eZLdHW"}, "createdAt": "2022-12-13T13:08:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_RGxkRZAqqMUx9uLp62WRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "50.00"}, "initialAmount": {"currency": "EUR", "value": "50.00"}, "context": {"paymentId": "tr_gwXxqPkEp5"}, "createdAt": "2022-12-13T13:08:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_TwHzY2rqhpmWNKdazzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "60.00"}, "initialAmount": {"currency": "EUR", "value": "60.00"}, "context": {"paymentId": "tr_NAmGGiTYFa"}, "createdAt": "2022-12-13T13:07:15+00:00"}, {"resource": "balance-transaction", "id": "baltr_vEYxvT9jswxgdXfJzzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_vhRv8ViBMe"}, "createdAt": "2022-12-13T13:07:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_NdJB8uc7xB2SZW3zyzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_FAncWtTAkc"}, "createdAt": "2022-12-13T13:07:09+00:00"}, {"resource": "balance-transaction", "id": "baltr_pEM6remSK3UGHDRAuzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_qo5gbi9vJS"}, "createdAt": "2022-12-13T13:06:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_6GusRMZHuWapoEFvtzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_SQAnWQTDhk"}, "createdAt": "2022-12-13T13:06:17+00:00"}, {"resource": "balance-transaction", "id": "baltr_iieu2Lzf52V3KGadtzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_SfwMVsgupV"}, "createdAt": "2022-12-13T13:06:14+00:00"}, {"resource": "balance-transaction", "id": "baltr_e2gtch39TSo6iABHozVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_zDnDYuv2pv"}, "createdAt": "2022-12-13T13:05:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_pmNMcz8GdvwPmvmunzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_oHC6fGA79e"}, "createdAt": "2022-12-13T13:05:15+00:00"}, {"resource": "balance-transaction", "id": "baltr_qFmvrsKMRojS967cnzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_CDTPhfQSxX"}, "createdAt": "2022-12-13T13:05:12+00:00"}, {"resource": "balance-transaction", "id": "baltr_DcLYydj7aMazfaWQnzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_hqirWect39"}, "createdAt": "2022-12-13T13:05:10+00:00"}, {"resource": "balance-transaction", "id": "baltr_3BoK75R8c2Wuomf9hzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_Qj5Hw28wYV"}, "createdAt": "2022-12-13T13:04:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_9LErqzZoJ9ZDvx3sgzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_gKUTkGHf39"}, "createdAt": "2022-12-13T13:04:13+00:00"}, {"resource": "balance-transaction", "id": "baltr_AdVYVkaGLzVsnNofgzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_sziq4rQGCK"}, "createdAt": "2022-12-13T13:04:11+00:00"}, {"resource": "balance-transaction", "id": "baltr_HQvvmTk2FCbQJHHcbzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_CrYoNkUrVo"}, "createdAt": "2022-12-13T13:03:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_AHWBoHhsAV8HnQKGbzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_jZLuE2xWM5"}, "createdAt": "2022-12-13T13:03:16+00:00"}, {"resource": "balance-transaction", "id": "baltr_iej3r8HjzyLLxv95bzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_UziwFDQHWB"}, "createdAt": "2022-12-13T13:03:14+00:00"}, {"resource": "balance-transaction", "id": "baltr_vLqVSaXJ5d8SjNTgazVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_Umu5CyUBTK"}, "createdAt": "2022-12-13T13:03:10+00:00"}, {"resource": "balance-transaction", "id": "baltr_iEgyvSjkCWVbQpREVzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "150.00"}, "initialAmount": {"currency": "EUR", "value": "150.00"}, "context": {"paymentId": "tr_y7iQWhd9jE"}, "createdAt": "2022-12-13T13:02:13+00:00"}, {"resource": "balance-transaction", "id": "baltr_Cq6pB2qDkPXvXv4wUzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_z4bBWATo6R"}, "createdAt": "2022-12-13T13:02:10+00:00"}, {"resource": "balance-transaction", "id": "baltr_W4XvgZTmFhvoNdPxPzVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "100.00"}, "initialAmount": {"currency": "EUR", "value": "100.00"}, "context": {"paymentId": "tr_uKnTrJmuBU"}, "createdAt": "2022-12-13T13:01:19+00:00"}, {"resource": "balance-transaction", "id": "baltr_SnQyfLUyy6HmHth8GyVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_DQNgqzsPuV"}, "createdAt": "2022-12-13T12:50:14+00:00"}, {"resource": "balance-transaction", "id": "baltr_QYAWSE7rV4UraAgSAyVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_PJM8Uxj2uW"}, "createdAt": "2022-12-13T12:49:15+00:00"}, {"resource": "balance-transaction", "id": "baltr_oAnC33yT7GXhP7X8AyVRH", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "context": {"paymentId": "tr_DoVqyuZEfg"}, "createdAt": "2022-12-13T12:49:12+00:00"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": null, "next": {"href": "https://api.mollie.com/v2/balances/bal_CKjKwQdjCwCSArXFAJNFH/transactions?from=baltr_WuSLmsLzeDVRRYAq9yVRH&limit=50", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "text/html"}}}
     speakeasy-default-list-balance-transactions:
       parameters:
         path:
@@ -9807,7 +9691,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"count": 5, "_embedded": {"balance_transactions": [{"resource": "balance_transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29d", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "10.00"}, "context": {"payment": {"paymentId": "tr_5B8cwPMGnU", "paymentDescription": "Payment Description"}, "capture": {"paymentId": "tr_5B8cwPMGnU", "captureId": "cpt_vytxeTZskVKR7C7WgdSP3d"}, "unauthorized-direct-debit": {"paymentId": "tr_5B8cwPMGnU", "paymentDescription": "Payment Description"}, "failed-payment": {"paymentId": "tr_5B8cwPMGnU", "paymentDescription": "Payment Description"}, "refund": {"paymentId": "tr_5B8cwPMGnU", "paymentDescription": "Payment Description", "refundId": "re_5B8cwPMGnU", "refundDescription": "Refund Description"}, "returned-refund": {"paymentId": "tr_5B8cwPMGnU", "refundId": "re_5B8cwPMGnU"}, "chargeback": {"paymentId": "tr_5B8cwPMGnU", "chargebackId": "chb_xFzwUN4ci8HAmSGUACS4J"}, "chargeback-reversal": {"paymentId": "tr_5B8cwPMGnU", "paymentDescription": "Payment Description", "chargebackId": "chb_xFzwUN4ci8HAmSGUACS4J", "chargebackDescription": "Chargeback Description"}, "outgoing-transfer": {"transferId": "trf_nyjwa2", "settlementId": "stl_5B8cwPMGnU"}, "canceled-outgoing-transfer": {"transferId": "trf_nyjwa2", "settlementId": "stl_5B8cwPMGnU"}, "returned-transfer": {"transferId": "trf_nyjwa2", "settlementId": "stl_s3hcSM2hKP"}, "invoice-compensation": {"invoiceId": "inv_aHbjjdrUdm"}, "application-fee": {"paymentId": "tr_5B8cwPMGnU", "paymentDescription": "Payment Description", "payingOwner": "org_1234567"}, "split-payment": {"paymentId": "tr_5B8cwPMGnU", "paymentDescription": "Payment Description", "paymentOnwer": "org_1234567"}, "platform-payment-refund": {"paymentId": "tr_5B8cwPMGnU", "refundId": "re_5B8cwPMGnU"}, "platform-payment-chargeback": {"paymentId": "tr_5B8cwPMGnU", "chargebackId": "chb_xFzwUN4ci8HAmSGUACS4J"}}, "createdAt": "2024-03-20T09:13:37.0Z"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"count": 5, "_embedded": {"balance_transactions": [{"resource": "balance_transaction", "id": "baltr_QM24QwzUWR4ev4Xfgyt29d", "type": "payment", "resultAmount": {"currency": "EUR", "value": "10.00"}, "initialAmount": {"currency": "EUR", "value": "10.00"}, "deductions": {"currency": "EUR", "value": "10.00"}, "context": {}, "createdAt": "2024-03-20T09:13:37.0Z"}]}, "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "previous": {"href": "https://...", "type": "application/hal+json"}, "next": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "400":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "404":
@@ -11458,7 +11342,7 @@ examples:
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.settlements.list()`:  `response.Embedded.settlements[].periods.Map<Map<periods>>.Map<periods>.costs[].rate` **Changed** (Breaking ⚠️)\n* `client.settlements.get()`:  `response.periods.Map<Map<periods>>.Map<periods>.costs[].rate` **Changed** (Breaking ⚠️)\n* `client.settlements.getOpen()`:  `response.periods.Map<Map<periods>>.Map<periods>.costs[].rate` **Changed** (Breaking ⚠️)\n* `client.settlements.getNext()`:  `response.periods.Map<Map<periods>>.Map<periods>.costs[].rate` **Changed** (Breaking ⚠️)\n* `client.webhooks.create()`: \n  *  `request.requestBody.eventTypes.union(Array<webhook-event-types>)[]` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.list()`: \n  *  `request.eventTypes` **Changed**\n  *  `response.Embedded.webhooks[].eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.update()`: \n  *  `request.requestBody.eventTypes.union(Array<webhook-event-types>)[]` **Changed**\n  *  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.webhooks.get()`:  `response.eventTypes[]` **Changed** (Breaking ⚠️)\n* `client.reports.create()`: **Added**\n* `client.reports.get()`: **Added**\n* `client.webhookEvents.get()`:  `response.webhookEventTypes` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.balances.listTransactions()`:  `response.Embedded.balanceTransactions[].context` **Changed** (Breaking ⚠️)\n* `client.methods.get()`: \n  *  `request.methodId` **Changed**\n  *  `response.id` **Changed** (Breaking ⚠️)\n* `client.methods.enable()`: \n  *  `request.methodId` **Changed**\n  *  `response.id` **Changed** (Breaking ⚠️)\n* `client.methods.list()`:  `response.Embedded.methods[].id.enum(pointofsale)` **Added**\n* `client.methods.all()`:  `response.Embedded.methods[].id.enum(pointofsale)` **Added**\n* `client.methods.disable()`: \n  *  `request.methodId` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

@@ -15,7 +15,7 @@ export type EnableMethodRequest = {
   /**
    * Provide the ID of the related payment method.
    */
-  methodId: models.MethodEnum | null;
+  methodId: models.MethodId | null;
   /**
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
@@ -36,7 +36,7 @@ export const EnableMethodRequest$outboundSchema: z.ZodType<
   EnableMethodRequest
 > = z.object({
   profileId: z.string(),
-  methodId: z.nullable(models.MethodEnum$outboundSchema),
+  methodId: z.nullable(models.MethodId$outboundSchema),
   idempotencyKey: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

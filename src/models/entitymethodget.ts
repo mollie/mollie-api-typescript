@@ -35,6 +35,7 @@ export const EntityMethodGetId = {
   Directdebit: "directdebit",
   Eps: "eps",
   Giftcard: "giftcard",
+  Googlepay: "googlepay",
   Ideal: "ideal",
   In3: "in3",
   Kbc: "kbc",
@@ -56,22 +57,6 @@ export const EntityMethodGetId = {
   Vipps: "vipps",
   Voucher: "voucher",
   Wero: "wero",
-  /**
-   * Deprecated, use 'klarna' instead
-   */
-  Klarnapaylater: "klarnapaylater",
-  /**
-   * Deprecated, use 'klarna' instead
-   */
-  Klarnapaynow: "klarnapaynow",
-  /**
-   * Deprecated, use 'klarna' instead
-   */
-  Klarnasliceit: "klarnasliceit",
-  /**
-   * No longer available
-   */
-  Payconiq: "payconiq",
 } as const;
 /**
  * The unique identifier of the payment method. When used during [payment creation](create-payment), the payment

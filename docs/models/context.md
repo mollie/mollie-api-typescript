@@ -53,187 +53,42 @@ Below is a complete list of the context values that each type of transaction wil
 import { Context } from "mollie-api-typescript/models";
 
 let value: Context = {
-  payment: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-  },
-  capture: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
-    captureDescription: "Capture Description",
-  },
-  captureCommision: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
-    captureDescription: "Capture Description",
-  },
-  captureRollingReserveRelease: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
-    captureDescription: "Capture Description",
-  },
-  unauthorizedDirectDebit: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-  },
-  failedPayment: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-  },
-  refund: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    refundId: "re_5B8cwPMGnU",
-    refundDescription: "Refund Description",
-  },
-  refundCompensation: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    refundId: "re_5B8cwPMGnU",
-    refundDescription: "Refund Description",
-  },
-  returnedRefund: null,
-  returnedRefundCompensation: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    refundId: "re_5B8cwPMGnU",
-    refundDescription: "Refund Description",
-  },
-  chargeback: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-    chargebackDescription: "Chargeback Description",
-  },
-  chargebackReversal: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-    chargebackDescription: "Chargeback Description",
-  },
-  chargebackCompensation: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-    chargebackDescription: "Chargeback Description",
-  },
-  reversedChargebackCompensation: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-    chargebackDescription: "Chargeback Description",
-  },
-  outgoingTransfer: {
-    transferId: "trf_nyjwa2",
-    settlementId: "stl_5B8cwPMGnU",
-  },
-  canceledOutgoingTransfer: {
-    transferId: "trf_nyjwa2",
-    settlementId: "stl_5B8cwPMGnU",
-  },
-  returnedTransfer: {
-    transferId: "trf_nyjwa2",
-    settlementId: "stl_s3hcSM2hKP",
-  },
-  invoiceCompensation: {
-    invoiceId: "inv_aHbjjdrUdm",
-  },
-  applicationFee: null,
-  splitPayment: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    paymentOnwer: "org_1234567",
-  },
-  platformPaymentRefund: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    refundId: "re_5B8cwPMGnU",
-    refundDescription: "Refund Description",
-  },
-  returnedPlatformPaymentRefund: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    refundId: "re_5B8cwPMGnU",
-    refundDescription: "Refund Description",
-  },
-  platformPaymentChargeback: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-    chargebackDescription: "Chargeback Description",
-  },
-  reversedPlatformPaymentChargeback: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
-    chargebackDescription: "Chargeback Description",
-  },
-  paymentCommission: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-    organizationId: "org_1234567",
-  },
-  reimbursementFee: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-  },
-  failedPaymentFee: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-  },
-  paymentFee: {
-    paymentId: "tr_5B8cwPMGnU",
-    paymentDescription: "Payment Description",
-  },
-  managedFee: {
-    feeType: "feeType",
-    feeId: "feeId",
-  },
-  returnedManagedFee: {
-    feeType: "feeType",
-    feeId: "feeId",
-  },
-  postPaymentSplitPayment: {
-    paymentId: "tr_5B8cwPMGnU",
-  },
+  paymentId: "tr_5B8cwPMGnU",
+  paymentDescription: "Payment Description",
+  captureId: "cpt_vytxeTZskVKR7C7WgdSP3d",
+  captureDescription: "Capture Description",
+  refundId: "re_5B8cwPMGnU",
+  refundDescription: "Refund Description",
+  chargebackId: "chb_xFzwUN4ci8HAmSGUACS4J",
+  chargebackDescription: "Chargeback Description",
+  transferId: "trf_nyjwa2",
+  settlementId: "stl_5B8cwPMGnU",
+  invoiceId: "inv_aHbjjdrUdm",
+  payingOwner: "org_1234567",
+  paymentOwner: "org_1234567",
+  organizationId: "org_1234567",
+  feeType: "feeType",
+  feeId: "feeId",
 };
 ```
 
 ## Fields
 
-| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `payment`                                                                                            | [models.EntityBalanceTransactionPayment](../models/entitybalancetransactionpayment.md)               | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `capture`                                                                                            | [models.Capture](../models/capture.md)                                                               | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `captureCommision`                                                                                   | [models.CaptureCommision](../models/capturecommision.md)                                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `captureRollingReserveRelease`                                                                       | [models.CaptureRollingReserveRelease](../models/capturerollingreserverelease.md)                     | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `unauthorizedDirectDebit`                                                                            | [models.UnauthorizedDirectDebit](../models/unauthorizeddirectdebit.md)                               | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `failedPayment`                                                                                      | [models.FailedPayment](../models/failedpayment.md)                                                   | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `refund`                                                                                             | [models.Refund](../models/refund.md)                                                                 | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `refundCompensation`                                                                                 | [models.RefundCompensation](../models/refundcompensation.md)                                         | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `returnedRefund`                                                                                     | [models.ReturnedRefund](../models/returnedrefund.md)                                                 | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `returnedRefundCompensation`                                                                         | [models.ReturnedRefundCompensation](../models/returnedrefundcompensation.md)                         | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `chargeback`                                                                                         | [models.Chargeback](../models/chargeback.md)                                                         | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `chargebackReversal`                                                                                 | [models.ChargebackReversal](../models/chargebackreversal.md)                                         | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `chargebackCompensation`                                                                             | [models.ChargebackCompensation](../models/chargebackcompensation.md)                                 | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `reversedChargebackCompensation`                                                                     | [models.ReversedChargebackCompensation](../models/reversedchargebackcompensation.md)                 | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `outgoingTransfer`                                                                                   | [models.OutgoingTransfer](../models/outgoingtransfer.md)                                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `canceledOutgoingTransfer`                                                                           | [models.CanceledOutgoingTransfer](../models/canceledoutgoingtransfer.md)                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `returnedTransfer`                                                                                   | [models.ReturnedTransfer](../models/returnedtransfer.md)                                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `invoiceCompensation`                                                                                | [models.InvoiceCompensation](../models/invoicecompensation.md)                                       | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `applicationFee`                                                                                     | [models.EntityBalanceTransactionApplicationFee](../models/entitybalancetransactionapplicationfee.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `splitPayment`                                                                                       | [models.SplitPayment](../models/splitpayment.md)                                                     | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `platformPaymentRefund`                                                                              | [models.PlatformPaymentRefund](../models/platformpaymentrefund.md)                                   | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `returnedPlatformPaymentRefund`                                                                      | [models.ReturnedPlatformPaymentRefund](../models/returnedplatformpaymentrefund.md)                   | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `platformPaymentChargeback`                                                                          | [models.PlatformPaymentChargeback](../models/platformpaymentchargeback.md)                           | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `reversedPlatformPaymentChargeback`                                                                  | [models.ReversedPlatformPaymentChargeback](../models/reversedplatformpaymentchargeback.md)           | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `paymentCommission`                                                                                  | [models.PaymentCommission](../models/paymentcommission.md)                                           | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `reimbursementFee`                                                                                   | [models.ReimbursementFee](../models/reimbursementfee.md)                                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `failedPaymentFee`                                                                                   | [models.FailedPaymentFee](../models/failedpaymentfee.md)                                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `paymentFee`                                                                                         | [models.PaymentFee](../models/paymentfee.md)                                                         | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `managedFee`                                                                                         | [models.ManagedFee](../models/managedfee.md)                                                         | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `returnedManagedFee`                                                                                 | [models.ReturnedManagedFee](../models/returnedmanagedfee.md)                                         | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `postPaymentSplitPayment`                                                                            | [models.PostPaymentSplitPayment](../models/postpaymentsplitpayment.md)                               | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
+| Field                      | Type                       | Required                   | Description                | Example                    |
+| -------------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
+| `paymentId`                | *string*                   | :heavy_minus_sign:         | N/A                        | tr_5B8cwPMGnU              |
+| `paymentDescription`       | *string*                   | :heavy_minus_sign:         | N/A                        | Payment Description        |
+| `captureId`                | *string*                   | :heavy_minus_sign:         | N/A                        | cpt_vytxeTZskVKR7C7WgdSP3d |
+| `captureDescription`       | *string*                   | :heavy_minus_sign:         | N/A                        | Capture Description        |
+| `refundId`                 | *string*                   | :heavy_minus_sign:         | N/A                        | re_5B8cwPMGnU              |
+| `refundDescription`        | *string*                   | :heavy_minus_sign:         | N/A                        | Refund Description         |
+| `chargebackId`             | *string*                   | :heavy_minus_sign:         | N/A                        | chb_xFzwUN4ci8HAmSGUACS4J  |
+| `chargebackDescription`    | *string*                   | :heavy_minus_sign:         | N/A                        | Chargeback Description     |
+| `transferId`               | *string*                   | :heavy_minus_sign:         | N/A                        | trf_nyjwa2                 |
+| `settlementId`             | *string*                   | :heavy_minus_sign:         | N/A                        | stl_5B8cwPMGnU             |
+| `invoiceId`                | *string*                   | :heavy_minus_sign:         | N/A                        | inv_aHbjjdrUdm             |
+| `payingOwner`              | *string*                   | :heavy_minus_sign:         | N/A                        | org_1234567                |
+| `paymentOwner`             | *string*                   | :heavy_minus_sign:         | N/A                        | org_1234567                |
+| `organizationId`           | *string*                   | :heavy_minus_sign:         | N/A                        | org_1234567                |
+| `feeType`                  | *string*                   | :heavy_minus_sign:         | N/A                        | feeType                    |
+| `feeId`                    | *string*                   | :heavy_minus_sign:         | N/A                        | feeId                      |
