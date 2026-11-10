@@ -39,8 +39,14 @@ export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
     .optional(),
   CLIENT_CUSTOM_USER_AGENT: z.string().optional(),
 
-  CLIENT_DEBUG: z.coerce.boolean().optional(),
+  CLIENT_DEBUG: z.unknown().transform(parseEnvFlag).optional(),
 });
+
+function parseEnvFlag(value: unknown): boolean {
+  return ["true", "1", "yes", "on"].includes(
+    String(value).trim().toLowerCase(),
+  );
+}
 
 /**
  * Checks for the existence of the Deno global object to determine the environment.
