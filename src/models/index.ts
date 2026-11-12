@@ -165,6 +165,7 @@ export * from "./refundexternalreferencetyperesponse.js";
 export * from "./refundrequest.js";
 export * from "./refundresponse.js";
 export * from "./reportstatusreason.js";
+export * from "./reportstatusreasoncode.js";
 export * from "./reporttype.js";
 export * from "./reporttyperesponse.js";
 export * from "./routecreaterequest.js";

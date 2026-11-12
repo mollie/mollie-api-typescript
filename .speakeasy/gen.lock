@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 8726f443e7db633a5815545b645250a2
+  docChecksum: 324dec8ae0ce5b77fbcbe920fc8e6877
   docVersion: 1.0.0
-  speakeasyVersion: 1.806.0
-  generationVersion: 2.956.1
-  releaseVersion: 1.12.46
-  configChecksum: 4f40174eb5851f2a89b98da007925450
+  speakeasyVersion: 1.808.1
+  generationVersion: 2.960.8
+  releaseVersion: 1.12.47
+  configChecksum: ff9351e2c4c02d4dae1ee6de5170d0bf
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: b0a6c9c9-a0e6-49eb-8eb3-38706a3d71be
-  pristine_commit_hash: b2046aae982fba4626efcb473c37026caa4fce15
-  pristine_tree_hash: 112ab5f8c93163c45f487b89a1de0777009083e2
+  generation_id: 1af6f75c-4ab3-4eda-8433-51548d1f5063
+  pristine_commit_hash: e733516cd9d1381a64eec6ad7abf0c70f9823548
+  pristine_tree_hash: 98fbb1d834fa707f1fd699ad84a72becc823c08a
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.31.8
+    core: 3.31.11
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -278,8 +278,8 @@ trackedFiles:
     pristine_git_object: d6ed26e0c5bf98aabe89755dfad003af36b2b91b
   docs/models/createreportrequest.md:
     id: b89d4b42c47b
-    last_write_checksum: sha1:cc8312a194c2dd3c52e599d6c9105288e4b0277b
-    pristine_git_object: 7d8871b14d57c07952030fa1390c24f1f66b57b4
+    last_write_checksum: sha1:e5c2d67551136c91140356bc9de036a496328d87
+    pristine_git_object: 5e2046655afe3af7c35f64b97930f2d0885a58ee
   docs/models/createwebhook.md:
     id: 3103d2a611e4
     last_write_checksum: sha1:d4b4d57deee3003c9df290d46d832a7b809b2775
@@ -614,8 +614,8 @@ trackedFiles:
     pristine_git_object: a9a64cb89d29f04d9d68b17a6db89ef4b32bb11c
   docs/models/entityreport.md:
     id: f493da255fc7
-    last_write_checksum: sha1:62e3ab282cc46f51c1c3f41e84a229f4ac4d3dcf
-    pristine_git_object: ccfea1caf4c3ba34f869d9efd4f869e5971123cf
+    last_write_checksum: sha1:bee2a37577e34279e0dbfabb7140fea8afa9141a
+    pristine_git_object: a42035be7d3dbee1980e60415d064cb50c7242d5
   docs/models/entityreportlinks.md:
     id: a399d85134a0
     last_write_checksum: sha1:f1d6da0515d1adbe3e777f81c83aaf7c7cc4e7ab
@@ -1430,8 +1430,8 @@ trackedFiles:
     pristine_git_object: c4e8852e8f2c26299bf70dea364d0289cfcdce0a
   docs/models/operations/createreportrequest.md:
     id: ce2ae7a736f0
-    last_write_checksum: sha1:f71ac3809bb8aaf12f7f5d287a90838293f18139
-    pristine_git_object: e91d002c0859a890a8a182f128eb1c03473da393
+    last_write_checksum: sha1:5ec455f3b6378a31d0f28462255a41c0a84732dc
+    pristine_git_object: f88fc65010db4b2cc018cf8fc7166a9e781017dd
   docs/models/operations/createsalesinvoicerequest.md:
     id: 1dec0d9462ff
     last_write_checksum: sha1:50353e3e6d4916226a944ff4458031706c7feed5
@@ -3038,16 +3038,20 @@ trackedFiles:
     pristine_git_object: 92522a955c14dbfb528b4a7ee9643fc8ae9b2f85
   docs/models/reportstatusreason.md:
     id: 47c552c813ae
-    last_write_checksum: sha1:9d808870ddaae43607d28bd302794ef211e65fc5
-    pristine_git_object: 6514147c59b8783b2f508075a1fd1a96a4dc032e
+    last_write_checksum: sha1:295b4e77d9c24953784fe302351d0490c6216b6f
+    pristine_git_object: a4b173bc6c0976bbe514aa27b2dc9f159428ada0
+  docs/models/reportstatusreasoncode.md:
+    id: c20e2850cb82
+    last_write_checksum: sha1:1ac76e8193254712dea9fe80956db9f3151d5fad
+    pristine_git_object: d275400349ab8fb498867a70676b214df8652757
   docs/models/reporttype.md:
     id: 6d4acbf9a7c0
-    last_write_checksum: sha1:3a53814167997cfe68957e378c74adf25cff53cb
-    pristine_git_object: f78ecf62a2bbd17c1fc56949f66e03878398d30b
+    last_write_checksum: sha1:f693d5cfdd676e6a7df485416ffe39e41ee14955
+    pristine_git_object: 3bdf19ae4570e0e14e40df9a359bfb6c604d77ac
   docs/models/reporttyperesponse.md:
     id: f00a97f74beb
-    last_write_checksum: sha1:b7675e1b41490bd5e8caa254d616ded3e5e16e59
-    pristine_git_object: a3a9df37d52b91aa048a42ad3798b7eb58f448fe
+    last_write_checksum: sha1:e409351cdfe7f840daf77632d0a9c4fe9861ee6f
+    pristine_git_object: 6db7be47b73a26e145cccbae165af07f96253b2f
   docs/models/revenue.md:
     id: b2d12eafd3a0
     last_write_checksum: sha1:43336b917ff25a670e102a835adc1d3efc094935
@@ -3694,8 +3698,8 @@ trackedFiles:
     pristine_git_object: 848825c4f058bd2ed59d87d97a1c1ecbc743fb6e
   docs/sdks/reports/README.md:
     id: 66bfd66f1efc
-    last_write_checksum: sha1:060ea0f604cc094fc66a86e8ffb59f258587769d
-    pristine_git_object: b41cae3d5622214f80fa9db200d7ca7ea2909425
+    last_write_checksum: sha1:87a29b42f817e834cc350446cde0ef4e683b0266
+    pristine_git_object: fd59d89cd9db07183d97b935710e285f26c235b4
   docs/sdks/salesinvoices/README.md:
     id: 7b2a80290a07
     last_write_checksum: sha1:f91811609e5b9e4a7ff5d11ec97ce8e8cfa63df1
@@ -3762,12 +3766,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:288a9169b40b5512f46b9089deea92a03cb47f3e
-    pristine_git_object: b82f460786f407797e78f1f57cfdb88a34e87374
+    last_write_checksum: sha1:851971b8e2d3a1e6e8b8506514a112909efb4703
+    pristine_git_object: 74e185d6ad02d548fae935a881623aa1c3e8ece8
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:8aa3d47986f2263bc83aa9525d3a3071949dedfb
-    pristine_git_object: 399fa28ef2631dcfe2b9b2641d2d6ba8839f489d
+    last_write_checksum: sha1:be509d5b6ae6a3b910ce473630d48e80b8bef46d
+    pristine_git_object: 2f54592ff0b67fc952e35f0fe07d9bed83fb0a4e
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4122,12 +4126,12 @@ trackedFiles:
     pristine_git_object: aa3576ec83273ce6ed47fde6055995c9f3447ed9
   src/funcs/reportsCreate.ts:
     id: 109fcad81ac2
-    last_write_checksum: sha1:3f87ccc4fe034293ac110e7c6975fca101d07550
-    pristine_git_object: c12e48228d378f0c999cc0cfeb0b336ff5e953dc
+    last_write_checksum: sha1:2ae1bbeda1d2c5a398162efc7dd18ac793a1dd8a
+    pristine_git_object: de7cffb915ab93190a835309f044cf0059c58350
   src/funcs/reportsGet.ts:
     id: 18300b4d9018
-    last_write_checksum: sha1:6a34f8f7d35685e6c243980607c49f36464c9ff0
-    pristine_git_object: 0eaf9b531fbd7b6c153e6e15a2bfc0e2f2c3e468
+    last_write_checksum: sha1:171006675d2499f3354b29fa872deb9c5232b65b
+    pristine_git_object: 7e6513f1c04672b3b58ce4e0da9d4a121be12b15
   src/funcs/salesInvoicesCreate.ts:
     id: 77e8ec44910d
     last_write_checksum: sha1:aaf359d84bf030ea5c702e9d2936543965444212
@@ -4314,16 +4318,16 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:7b27c0ca08834b62517502310a58166024db4e75
-    pristine_git_object: bd841ee105ad108c191f703b66ad3b90ec0c44b1
+    last_write_checksum: sha1:60b57d4fe533c47cbc77798401a15d448334f724
+    pristine_git_object: 40fd89509d49dfdd6b74d9f5909a183f3d80238e
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
     pristine_git_object: fed425b4dfcc4e2cb0604570d4142c8d2fba2840
   src/lib/env.ts:
     id: c52972a3b198
-    last_write_checksum: sha1:2de2d25370bb296726e5bc4be3b3fe964f45043f
-    pristine_git_object: 5187289932880f692b872a2806f2395fe2ecf0a9
+    last_write_checksum: sha1:feeb92fa950958ba0c12c5f1ee33a05bc0a2c103
+    pristine_git_object: 5dff103d0bc2cb1871201a360140f10ccb866753
   src/lib/files.ts:
     id: e5efa54fcb95
     last_write_checksum: sha1:eca69f15b691e2fbe6d5b15e9b84add4c730c3d7
@@ -5257,8 +5261,8 @@ trackedFiles:
     pristine_git_object: fa6b82b2e0dba73374e21b76c228bd0b7e34dfdf
   src/models/entityreport.ts:
     id: 95682b35a361
-    last_write_checksum: sha1:ad0c49e338c35fd7af67c64820abb884a573006f
-    pristine_git_object: 2aa2403f4cd4f58a14a518fa91a001ec48fb9c50
+    last_write_checksum: sha1:64b0d74897400aa1828886fe96ddbf99d88331e5
+    pristine_git_object: ee404f9c3e66986d14e2d08af798154bc9e36d48
   src/models/entitysettlement.ts:
     id: 21eccbce8d2f
     last_write_checksum: sha1:7f44faae4c3a63cb5b4977905be74978fc824794
@@ -5317,8 +5321,8 @@ trackedFiles:
     pristine_git_object: c575be7a68de5750041bc51b5b1296493dfa2bab
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:9092611c4702b2ad8b96fbf8d201733da01fdc39
-    pristine_git_object: 600f4317bcd86428ca040539065ffcaa4bfdaefc
+    last_write_checksum: sha1:e7ce325ced92850d51fb5dcb2783ec551e2d227b
+    pristine_git_object: d7c0a11cab4910c885ad6e932b9e64daa597c9b9
   src/models/linecategories.ts:
     id: 502e2d0ea1e2
     last_write_checksum: sha1:cdef34c68b38732566990ec0c57ec8c915c3adce
@@ -6181,16 +6185,20 @@ trackedFiles:
     pristine_git_object: 6b5c13c7c9365f1da09a3a8f831365f935ef2bba
   src/models/reportstatusreason.ts:
     id: 5a9c9d0dea7b
-    last_write_checksum: sha1:6c284034b556b9e0d005a4bc2e8f43824367fdcd
-    pristine_git_object: 28d3fba0f03e30cc7bcababc24af41500c5a4734
+    last_write_checksum: sha1:1229cdf4753018e4bff967065ae182791cde1694
+    pristine_git_object: b4be976354ac9b5b92b3e98817491a2c1bc72819
+  src/models/reportstatusreasoncode.ts:
+    id: f2cc66c84867
+    last_write_checksum: sha1:b1bb6086211c07b5183713e422fda45a32cc2886
+    pristine_git_object: 49aea897c3c78dd8f08ad8c952d7409383f5c8f1
   src/models/reporttype.ts:
     id: 02e6c61ba6e4
-    last_write_checksum: sha1:a657dba9b03868bd45ff508d6ed6bffb840eb2aa
-    pristine_git_object: a76e1f8b2141c7b79865be300bf48f90c0f4d949
+    last_write_checksum: sha1:f9dffe7c09d47a31b751a878e26f1ae0d957a317
+    pristine_git_object: 0623d41837a017faff1364553f02f64c39a66fd6
   src/models/reporttyperesponse.ts:
     id: 6ed1e24f7b48
-    last_write_checksum: sha1:f3f5488aef86457bcd53800a33378e4dd9dbe608
-    pristine_git_object: 95acba0c6446c6d07cbe503df6ff9918054c3fc7
+    last_write_checksum: sha1:67145a103aa4d3e23a482414b2479928b6eec9d9
+    pristine_git_object: 3c27a89a5ec643002ff950794acfcbc92eb1a4f2
   src/models/routecreaterequest.ts:
     id: 9776d95ff8c3
     last_write_checksum: sha1:1aa8a95d63bc470a8d6f79a55c79a70d963b88af
@@ -6637,8 +6645,8 @@ trackedFiles:
     pristine_git_object: 58662bc39701cd8081ca7e86db7400dde67f0b11
   src/sdk/reports.ts:
     id: d7a2b074c686
-    last_write_checksum: sha1:a1de63828fa5c1e5cc40d5bd963cd97202b72ee1
-    pristine_git_object: 0cf937a216d396d1bf70ccd7c40768260e85cbca
+    last_write_checksum: sha1:89e0c01836168f7c0623f89c4ec4a8f8c9347bc9
+    pristine_git_object: ca86f13625829b4ae47f77cfcd034b49feb90c42
   src/sdk/salesinvoices.ts:
     id: 79ff13ce4a56
     last_write_checksum: sha1:42e6211a4434fb95df4d0b9961f48af3d2b96a51
@@ -11298,7 +11306,7 @@ examples:
         header:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       requestBody:
-        application/json: {"reportType": "transaction_margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31"}
+        application/json: {"reportType": "transaction-margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31"}
       responses:
         "400":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
@@ -11311,7 +11319,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "report", "id": "rpt_9fKq2pLxAqYTBz9WQvhc4", "reportType": "transaction_margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "pending", "createdAt": "2026-09-01T09:00:00+00:00", "_links": {"self": {"href": "https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4", "type": "application/hal+json"}, "documentation": {"href": "https://docs.mollie.com/reference/get-report", "type": "text/html"}}}
+          application/hal+json: {"resource": "report", "id": "rpt_9fKq2pLxAqYTBz9WQvhc4", "reportType": "transaction-margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "pending", "createdAt": "2026-09-01T09:00:00+00:00", "_links": {"self": {"href": "https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4", "type": "application/hal+json"}, "documentation": {"href": "https://docs.mollie.com/reference/get-report", "type": "text/html"}}}
     get-report-200-completed:
       parameters:
         path:
@@ -11320,7 +11328,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "report", "id": "rpt_9fKq2pLxAqYTBz9WQvhc4", "reportType": "transaction_margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "completed", "createdAt": "2026-09-01T09:00:00+00:00", "completedAt": "2026-09-01T09:01:12+00:00", "downloadExpiresAt": "2026-09-01T09:16:12+00:00", "_links": {"self": {"href": "https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4", "type": "application/hal+json"}, "download": {"href": "https://storage.googleapis.com/...(signed)...", "type": "text/csv"}, "documentation": {"href": "https://docs.mollie.com/reference/get-report", "type": "text/html"}}}
+          application/hal+json: {"resource": "report", "id": "rpt_9fKq2pLxAqYTBz9WQvhc4", "reportType": "transaction-margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "completed", "createdAt": "2026-09-01T09:00:00+00:00", "completedAt": "2026-09-01T09:01:12+00:00", "downloadExpiresAt": "2026-09-01T09:16:12+00:00", "_links": {"self": {"href": "https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4", "type": "application/hal+json"}, "download": {"href": "https://storage.googleapis.com/...(signed)...", "type": "text/csv"}, "documentation": {"href": "https://docs.mollie.com/reference/get-report", "type": "text/html"}}}
     get-report-200-failed:
       parameters:
         path:
@@ -11329,7 +11337,7 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "report", "id": "rpt_9fKq2pLxAqYTBz9WQvhc4", "reportType": "transaction_margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "failed", "statusReason": {"code": "generation_failed", "message": "Something went wrong while generating the report. Try again, or contact support if it keeps\nhappening."}, "createdAt": "2026-09-01T09:00:00+00:00", "failedAt": "2026-09-01T09:03:00+00:00", "_links": {"self": {"href": "https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4", "type": "application/hal+json"}, "documentation": {"href": "https://docs.mollie.com/reference/get-report", "type": "text/html"}}}
+          application/hal+json: {"resource": "report", "id": "rpt_9fKq2pLxAqYTBz9WQvhc4", "reportType": "transaction-margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "failed", "statusReason": {"code": "generation-failed", "message": "An error occurred while generating the report. Please try again or contact support if the\nissue persists."}, "createdAt": "2026-09-01T09:00:00+00:00", "failedAt": "2026-09-01T09:03:00+00:00", "_links": {"self": {"href": "https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4", "type": "application/hal+json"}, "documentation": {"href": "https://docs.mollie.com/reference/get-report", "type": "text/html"}}}
     speakeasy-default-get-report:
       parameters:
         path:
@@ -11338,11 +11346,13 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "report", "id": "rpt_XRAG3v9EUyCDcX99pJ2Vc", "reportType": "transaction_margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "completed", "statusReason": {"code": "generation_failed", "message": "Something went wrong while generating the report. Try again, or contact support if it keeps happening."}, "createdAt": "2024-03-20T09:13:37+00:00", "completedAt": "2026-09-01T09:01:12+00:00", "failedAt": "2026-09-01T09:03:00+00:00", "downloadExpiresAt": "2026-09-01T09:16:12+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "download": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "report", "id": "rpt_XRAG3v9EUyCDcX99pJ2Vc", "reportType": "transaction-margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "completed", "statusReason": {"code": "report-validation-failed", "message": "Something went wrong while generating the report. Try again, or contact support if it keeps happening."}, "createdAt": "2024-03-20T09:13:37+00:00", "completedAt": "2026-09-01T09:01:12+00:00", "failedAt": "2026-09-01T09:03:00+00:00", "downloadExpiresAt": "2026-09-01T09:16:12+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "download": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
+        "400":
+          application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.balances.listTransactions()`:  `response.Embedded.balanceTransactions[].context` **Changed** (Breaking ⚠️)\n* `client.methods.get()`: \n  *  `request.methodId` **Changed**\n  *  `response.id` **Changed** (Breaking ⚠️)\n* `client.methods.enable()`: \n  *  `request.methodId` **Changed**\n  *  `response.id` **Changed** (Breaking ⚠️)\n* `client.methods.list()`:  `response.Embedded.methods[].id.enum(pointofsale)` **Added**\n* `client.methods.all()`:  `response.Embedded.methods[].id.enum(pointofsale)` **Added**\n* `client.methods.disable()`: \n  *  `request.methodId` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `client.reports.create()`: \n  *  `request.createReportRequest.reportType` **Changed** (Breaking ⚠️)\n* `client.reports.get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

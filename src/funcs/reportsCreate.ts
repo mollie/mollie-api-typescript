@@ -41,11 +41,6 @@ import { Result } from "../types/fp.js";
  *
  * Poll [Get report](get-report) to check on progress, and grab a download link once it's ready.
  *
- * This needs an organization access token. A token scoped to a single website profile can't be used,
- * since report data spans the whole organization.
- *
- * Test mode credentials are rejected, since report data has no live/test distinction.
- *
  * Creating a report with the exact same parameters while one is already pending or completed doesn't create
  * a new one. You get the existing report back instead, whatever status it currently has.
  *

@@ -7,6 +7,10 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ReportStatusReasonCode,
+  ReportStatusReasonCode$inboundSchema,
+} from "./reportstatusreasoncode.js";
 
 /**
  * Present when `status` is `failed`. Explains what went wrong.
@@ -15,7 +19,7 @@ export type ReportStatusReason = {
   /**
    * A machine-readable code for the failure reason.
    */
-  code: string;
+  code: ReportStatusReasonCode;
   /**
    * A human-readable explanation of why the report failed.
    */
@@ -28,7 +32,7 @@ export const ReportStatusReason$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.string(),
+  code: ReportStatusReasonCode$inboundSchema,
   message: z.string(),
 });
 

@@ -66,18 +66,18 @@ export type EntityReport = {
    */
   reportType: ReportTypeResponse;
   /**
-   * The start date of the report period. Set for date-range report types, `null` otherwise.
+   * The start date of the report period. Only present for date-range report types.
    */
-  fromDate?: RFCDate | null | undefined;
+  fromDate?: RFCDate | undefined;
   /**
-   * The end date of the report period. Set for date-range report types, `null` otherwise.
+   * The end date of the report period. Only present for date-range report types.
    */
-  untilDate?: RFCDate | null | undefined;
+  untilDate?: RFCDate | undefined;
   status: EntityReportStatus;
   /**
    * Present when `status` is `failed`. Explains what went wrong.
    */
-  statusReason?: ReportStatusReason | null | undefined;
+  statusReason?: ReportStatusReason | undefined;
   /**
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -88,14 +88,14 @@ export type EntityReport = {
    * @remarks
    * format. Only present once `status` is `completed`.
    */
-  completedAt?: Date | null | undefined;
+  completedAt?: Date | undefined;
   /**
    * The date and time the report failed to generate, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
    *
    * @remarks
    * format. Only present once `status` is `failed`.
    */
-  failedAt?: Date | null | undefined;
+  failedAt?: Date | undefined;
   /**
    * The date and time the `_links.download` link expires, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
    *
@@ -103,7 +103,7 @@ export type EntityReport = {
    * format. We issue a fresh link and expiry on every call to [Get report](get-report), so just call it
    * again once this one expires.
    */
-  downloadExpiresAt?: Date | null | undefined;
+  downloadExpiresAt?: Date | undefined;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    */
@@ -147,19 +147,17 @@ export const EntityReport$inboundSchema: z.ZodType<
   resource: z.string(),
   id: z.string(),
   reportType: ReportTypeResponse$inboundSchema,
-  fromDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
-  untilDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
+  fromDate: z.string().transform(v => new RFCDate(v)).optional(),
+  untilDate: z.string().transform(v => new RFCDate(v)).optional(),
   status: EntityReportStatus$inboundSchema,
-  statusReason: z.nullable(ReportStatusReason$inboundSchema).optional(),
+  statusReason: ReportStatusReason$inboundSchema.optional(),
   createdAt: z.string(),
-  completedAt: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  failedAt: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  downloadExpiresAt: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  completedAt: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  failedAt: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  downloadExpiresAt: z.string().datetime({ offset: true }).transform(v =>
+    new Date(v)
   ).optional(),
   _links: z.lazy(() => EntityReportLinks$inboundSchema),
 }).transform((v) => {

@@ -44,11 +44,6 @@ import { Result } from "../types/fp.js";
  * it. If it expires before you download the file, just call this endpoint again for a new one. Expiry of
  * the link doesn't affect the report itself.
  *
- * A report that belongs to another organization gets a `404`, same as one that doesn't exist. The same goes
- * for a credential scoped to a single website profile, or a test mode credential. Reports are
- * organization-wide with no live/test distinction, so neither can ever own a real report. That keeps the
- * rule simple: any credential that can't own this report gets a `404`, and we never leak whether it exists.
- *
  * If set, this operation will use {@link Security.advancedAccessToken} from the global security.
  */
 export function reportsGet(
@@ -199,7 +194,7 @@ async function $do(
     M.json(200, models.EntityReport$inboundSchema, {
       ctype: "application/hal+json",
     }),
-    M.jsonErr([404, 429], errors.ErrorResponse$inboundSchema, {
+    M.jsonErr([400, 403, 404, 429], errors.ErrorResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.fail("4XX"),

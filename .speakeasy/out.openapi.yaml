@@ -2401,11 +2401,6 @@ paths:
 
         Poll [Get report](get-report) to check on progress, and grab a download link once it's ready.
 
-        This needs an organization access token. A token scoped to a single website profile can't be used,
-        since report data spans the whole organization.
-
-        Test mode credentials are rejected, since report data has no live/test distinction.
-
         Creating a report with the exact same parameters while one is already pending or completed doesn't create
         a new one. You get the existing report back instead, whatever status it currently has.
       requestBody:
@@ -2430,7 +2425,7 @@ paths:
               example:
                 status: 400
                 title: Bad Request
-                detail: This endpoint cannot be accessed using a test mode credential
+                detail: Operation not supported in test mode.
                 _links:
                   documentation:
                     href: https://docs.mollie.com/overview/handling-errors
@@ -2446,7 +2441,7 @@ paths:
               example:
                 status: 403
                 title: Forbidden
-                detail: This endpoint requires an organization-level access token
+                detail: Report data spans a whole organization, use an organization-level credential instead.
                 _links:
                   documentation:
                     href: https://docs.mollie.com/overview/handling-errors
@@ -2462,7 +2457,7 @@ paths:
               example:
                 status: 422
                 title: Unprocessable Entity
-                detail: The 'fromDate' field is after 'untilDate' field
+                detail: The fromDate must not be after the untilDate.
                 field: fromDate
                 _links:
                   documentation:
@@ -2476,9 +2471,12 @@ paths:
             code: |-
               curl -X POST https://api.mollie.com/v2/reports \
                   -H "Authorization: Bearer access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM" \
-                  -d "reportType=transaction_margin" \
-                  -d "fromDate=2026-08-01" \
-                  -d "untilDate=2026-08-31"
+                  -H "Content-Type: application/json" \
+                  -d '{
+                    "reportType": "transaction-margin",
+                    "fromDate": "2026-08-01",
+                    "untilDate": "2026-08-31"
+                  }'
           - language: php
             code: |-
               <?php
@@ -2489,7 +2487,7 @@ paths:
 
               $report = $mollie->send(
                   new CreateReportRequest(
-                      reportType: "transaction_margin",
+                      reportType: "transaction-margin",
                       fromDate: "2026-08-01",
                       untilDate: "2026-08-31",
                   )
@@ -2500,7 +2498,7 @@ paths:
               const mollieClient = createMollieClient({ accessToken: 'access_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
               const report = await mollieClient.reports.create({
-                reportType: 'transaction_margin',
+                reportType: 'transaction-margin',
                 fromDate: '2026-08-01',
                 untilDate: '2026-08-31'
               });
@@ -2535,11 +2533,6 @@ paths:
         The download link is pre-signed and freshly generated on every call, and expires 15 minutes after you get
         it. If it expires before you download the file, just call this endpoint again for a new one. Expiry of
         the link doesn't affect the report itself.
-
-        A report that belongs to another organization gets a `404`, same as one that doesn't exist. The same goes
-        for a credential scoped to a single website profile, or a test mode credential. Reports are
-        organization-wide with no live/test distinction, so neither can ever own a real report. That keeps the
-        rule simple: any credential that can't own this report gets a `404`, and we never leak whether it exists.
       responses:
         '200':
           description: The report object.
@@ -2554,6 +2547,36 @@ paths:
                   $ref: '#/components/examples/get-report-completed'
                 get-report-200-failed:
                   $ref: '#/components/examples/get-report-failed'
+        '400':
+          description: The request contains issues, or was made with a test mode credential.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 400
+                title: Bad Request
+                detail: Operation not supported in test mode.
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/overview/handling-errors
+                    type: text/html
+        '403':
+          description: |-
+            The request was made with a credential scoped to a single website profile. Use an organization-level
+            credential instead.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+              example:
+                status: 403
+                title: Forbidden
+                detail: Report data spans a whole organization, use an organization-level credential instead.
+                _links:
+                  documentation:
+                    href: https://docs.mollie.com/overview/handling-errors
+                    type: text/html
         '404':
           $ref: '#/components/responses/404-invalid-id'
         '429':
@@ -30226,10 +30249,10 @@ components:
         The type of report to generate. Determines which other fields the request needs, and which fields show up
         on the resulting report.
       enum:
-        - transaction_margin
+        - transaction-margin
       x-enumDescriptions:
-        transaction_margin: A transaction margin report for a whole organization, over a date range.
-      example: transaction_margin
+        transaction-margin: A transaction margin report for a whole organization, over a date range.
+      example: transaction-margin
     create-report-request:
       type: object
       description: Generate a transaction margin report for your organization over a date range.
@@ -30270,10 +30293,22 @@ components:
       readOnly: true
       example: completed
       x-speakeasy-unknown-values: allow
+    report-status-reason-code:
+      type: string
+      description: A machine-readable code for the failure reason.
+      enum:
+        - generation-failed
+        - empty-report
+        - report-validation-failed
+      x-enumDescriptions:
+        generation-failed: An error occurred while generating the report.
+        empty-report: The report contains no data for the requested period.
+        report-validation-failed: The report data could not be verified.
+      readOnly: true
+      example: generation-failed
+      x-speakeasy-unknown-values: allow
     report-status-reason:
-      type:
-        - object
-        - 'null'
+      type: object
       description: Present when `status` is `failed`. Explains what went wrong.
       readOnly: true
       required:
@@ -30281,13 +30316,11 @@ components:
         - message
       properties:
         code:
-          type: string
-          description: A machine-readable code for the failure reason.
-          example: generation_failed
+          $ref: '#/components/schemas/report-status-reason-code'
         message:
           type: string
           description: A human-readable explanation of why the report failed.
-          example: Something went wrong while generating the report. Try again, or contact support if it keeps happening.
+          example: An error occurred while generating the report. Please try again or contact support if the issue persists.
     entity-report:
       type: object
       required:
@@ -30315,19 +30348,15 @@ components:
         reportType:
           $ref: '#/components/schemas/report-type-response'
         fromDate:
-          type:
-            - string
-            - 'null'
+          type: string
           format: date
-          description: The start date of the report period. Set for date-range report types, `null` otherwise.
+          description: The start date of the report period. Only present for date-range report types.
           example: '2026-08-01'
           readOnly: true
         untilDate:
-          type:
-            - string
-            - 'null'
+          type: string
           format: date
-          description: The end date of the report period. Set for date-range report types, `null` otherwise.
+          description: The end date of the report period. Only present for date-range report types.
           example: '2026-08-31'
           readOnly: true
         status:
@@ -30339,9 +30368,7 @@ components:
         createdAt:
           $ref: '#/components/schemas/created-at'
         completedAt:
-          type:
-            - string
-            - 'null'
+          type: string
           format: date-time
           description: |-
             The date and time the report finished generating, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -30349,9 +30376,7 @@ components:
           readOnly: true
           example: '2026-09-01T09:01:12+00:00'
         failedAt:
-          type:
-            - string
-            - 'null'
+          type: string
           format: date-time
           description: |-
             The date and time the report failed to generate, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -30359,9 +30384,7 @@ components:
           readOnly: true
           example: '2026-09-01T09:03:00+00:00'
         downloadExpiresAt:
-          type:
-            - string
-            - 'null'
+          type: string
           format: date-time
           description: |-
             The date and time the `_links.download` link expires, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -41619,10 +41642,10 @@ components:
         The type of report to generate. Determines which other fields the request needs, and which fields show up
         on the resulting report.
       enum:
-        - transaction_margin
+        - transaction-margin
       x-enumDescriptions:
-        transaction_margin: A transaction margin report for a whole organization, over a date range.
-      example: transaction_margin
+        transaction-margin: A transaction margin report for a whole organization, over a date range.
+      example: transaction-margin
       x-speakeasy-unknown-values: allow
     entity-payment-response:
       type: object
@@ -45593,7 +45616,7 @@ components:
       value:
         resource: report
         id: rpt_9fKq2pLxAqYTBz9WQvhc4
-        reportType: transaction_margin
+        reportType: transaction-margin
         fromDate: '2026-08-01'
         untilDate: '2026-08-31'
         status: pending
@@ -45610,7 +45633,7 @@ components:
       value:
         resource: report
         id: rpt_9fKq2pLxAqYTBz9WQvhc4
-        reportType: transaction_margin
+        reportType: transaction-margin
         fromDate: '2026-08-01'
         untilDate: '2026-08-31'
         status: completed
@@ -45632,17 +45655,17 @@ components:
       value:
         resource: report
         id: rpt_9fKq2pLxAqYTBz9WQvhc4
-        reportType: transaction_margin
+        reportType: transaction-margin
         fromDate: '2026-08-01'
         untilDate: '2026-08-31'
         status: failed
         createdAt: '2026-09-01T09:00:00+00:00'
         failedAt: '2026-09-01T09:03:00+00:00'
         statusReason:
-          code: generation_failed
+          code: generation-failed
           message: |-
-            Something went wrong while generating the report. Try again, or contact support if it keeps
-            happening.
+            An error occurred while generating the report. Please try again or contact support if the
+            issue persists.
         _links:
           self:
             href: https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4
