@@ -9,7 +9,7 @@ import { RFCDate } from "mollie-api-typescript/types";
 let value: CreateReportRequest = {
   idempotencyKey: "123e4567-e89b-12d3-a456-426",
   createReportRequest: {
-    reportType: "transaction_margin",
+    reportType: "transaction-margin",
     fromDate: new RFCDate("2026-08-01"),
     untilDate: new RFCDate("2026-08-31"),
   },

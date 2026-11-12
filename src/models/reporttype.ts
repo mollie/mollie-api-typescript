@@ -13,7 +13,7 @@ import { ClosedEnum } from "../types/enums.js";
  * on the resulting report.
  */
 export const ReportType = {
-  TransactionMargin: "transaction_margin",
+  TransactionMargin: "transaction-margin",
 } as const;
 /**
  * The type of report to generate. Determines which other fields the request needs, and which fields show up

@@ -8,7 +8,7 @@ on the resulting report.
 ```typescript
 import { ReportTypeResponse } from "mollie-api-typescript/models";
 
-let value: ReportTypeResponse = "transaction_margin";
+let value: ReportTypeResponse = "transaction-margin";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -16,5 +16,5 @@ let value: ReportTypeResponse = "transaction_margin";
 ## Values
 
 ```typescript
-"transaction_margin" | Unrecognized<string>
+"transaction-margin" | Unrecognized<string>
 ```

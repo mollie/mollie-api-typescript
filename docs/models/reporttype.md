@@ -8,11 +8,11 @@ on the resulting report.
 ```typescript
 import { ReportType } from "mollie-api-typescript/models";
 
-let value: ReportType = "transaction_margin";
+let value: ReportType = "transaction-margin";
 ```
 
 ## Values
 
 ```typescript
-"transaction_margin"
+"transaction-margin"
 ```
