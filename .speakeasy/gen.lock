@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 76982daf-49ff-4801-baec-ca0febb15538
 management:
-  docChecksum: 324dec8ae0ce5b77fbcbe920fc8e6877
+  docChecksum: 2a10a1ad200bf087fda261562c4f3940
   docVersion: 1.0.0
   speakeasyVersion: 1.808.1
   generationVersion: 2.960.8
-  releaseVersion: 1.12.47
-  configChecksum: ff9351e2c4c02d4dae1ee6de5170d0bf
+  releaseVersion: 1.12.48
+  configChecksum: 0aaf3533b10cb322641558e902c1fc85
   repoURL: https://github.com/mollie/mollie-api-typescript.git
   installationURL: https://github.com/mollie/mollie-api-typescript
   published: true
 persistentEdits:
-  generation_id: 1af6f75c-4ab3-4eda-8433-51548d1f5063
-  pristine_commit_hash: e733516cd9d1381a64eec6ad7abf0c70f9823548
-  pristine_tree_hash: 98fbb1d834fa707f1fd699ad84a72becc823c08a
+  generation_id: 3af74798-1462-46a3-bfd6-720fde755324
+  pristine_commit_hash: 75afe19b1db9f81be5446eeb1702b030881e2296
+  pristine_tree_hash: c769e2c19a89bf8552b3f5bb5f23b654157c5c14
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -614,8 +614,8 @@ trackedFiles:
     pristine_git_object: a9a64cb89d29f04d9d68b17a6db89ef4b32bb11c
   docs/models/entityreport.md:
     id: f493da255fc7
-    last_write_checksum: sha1:bee2a37577e34279e0dbfabb7140fea8afa9141a
-    pristine_git_object: a42035be7d3dbee1980e60415d064cb50c7242d5
+    last_write_checksum: sha1:cb1922615d9bd2daf5b6329027fbf3af4d4755f6
+    pristine_git_object: 2e66b963b9738ba214b5218266cd3d8cd771f1f4
   docs/models/entityreportlinks.md:
     id: a399d85134a0
     last_write_checksum: sha1:f1d6da0515d1adbe3e777f81c83aaf7c7cc4e7ab
@@ -2874,8 +2874,8 @@ trackedFiles:
     pristine_git_object: bb2f7d6f5573e74836f4de3fdced3aafb572f791
   docs/models/paymentrequest.md:
     id: 0e4e917b7d33
-    last_write_checksum: sha1:68158179b30f4e3d8292a3e8eb4c17b7e45c2fb7
-    pristine_git_object: 25f3feabd8959763157235a85eabe85cb7061980
+    last_write_checksum: sha1:9f050c5566eb7818b3164bef6fcfa309062438a8
+    pristine_git_object: f461e2f3334955a5ce98f94cc831e2c69f911a2b
   docs/models/paymentrequestapplicationfee.md:
     id: fceb80514e24
     last_write_checksum: sha1:150ed79ddf85641316e093b310e7819d59a9cc32
@@ -3042,8 +3042,8 @@ trackedFiles:
     pristine_git_object: a4b173bc6c0976bbe514aa27b2dc9f159428ada0
   docs/models/reportstatusreasoncode.md:
     id: c20e2850cb82
-    last_write_checksum: sha1:1ac76e8193254712dea9fe80956db9f3151d5fad
-    pristine_git_object: d275400349ab8fb498867a70676b214df8652757
+    last_write_checksum: sha1:7f301bec63b4a587e9042c61e5182c7dba286866
+    pristine_git_object: 51afdd11bfcecd8b6193b4a0a6ed8cce6cdaeba0
   docs/models/reporttype.md:
     id: 6d4acbf9a7c0
     last_write_checksum: sha1:f693d5cfdd676e6a7df485416ffe39e41ee14955
@@ -3766,12 +3766,12 @@ trackedFiles:
     pristine_git_object: e1171773b572d8ba64c299bd51728aa399e279c0
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:851971b8e2d3a1e6e8b8506514a112909efb4703
-    pristine_git_object: 74e185d6ad02d548fae935a881623aa1c3e8ece8
+    last_write_checksum: sha1:ced1f4c34532d97393ecdc9034e3e7426e7f8a31
+    pristine_git_object: adb73cf836a912b885907324cff4b0dea58b7e67
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:be509d5b6ae6a3b910ce473630d48e80b8bef46d
-    pristine_git_object: 2f54592ff0b67fc952e35f0fe07d9bed83fb0a4e
+    last_write_checksum: sha1:21f2884229a70fe778e4f8d00ee2904aeb38bc3e
+    pristine_git_object: f6bdb9b0103e8707aaa4e6b609f51ec9cc389f74
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:9c549ca676523723d1e1a5513f6cc441c1da0e78
@@ -4318,8 +4318,8 @@ trackedFiles:
     pristine_git_object: 42d9739ab67c2fec0689f83777ffa5e1f875e5d5
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:60b57d4fe533c47cbc77798401a15d448334f724
-    pristine_git_object: 40fd89509d49dfdd6b74d9f5909a183f3d80238e
+    last_write_checksum: sha1:f75aa4914619ec5cf741b0bbbf75ffb6b73c2e4b
+    pristine_git_object: 9c89bb45bafa80b5d706b5de686701ca5b6b5110
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:d1917169abb226ccb0d2e93fd211a1d2987822b4
@@ -5261,8 +5261,8 @@ trackedFiles:
     pristine_git_object: fa6b82b2e0dba73374e21b76c228bd0b7e34dfdf
   src/models/entityreport.ts:
     id: 95682b35a361
-    last_write_checksum: sha1:64b0d74897400aa1828886fe96ddbf99d88331e5
-    pristine_git_object: ee404f9c3e66986d14e2d08af798154bc9e36d48
+    last_write_checksum: sha1:be8b6fe6daef360f4f1dad13b9946b123f07d5ca
+    pristine_git_object: de49341331ee8bce9232636253c62ce5f16e4729
   src/models/entitysettlement.ts:
     id: 21eccbce8d2f
     last_write_checksum: sha1:7f44faae4c3a63cb5b4977905be74978fc824794
@@ -6133,8 +6133,8 @@ trackedFiles:
     pristine_git_object: 58cae7f585f151bf551c441f89f27d7e09ea4f16
   src/models/paymentrequest.ts:
     id: e77cad9043f2
-    last_write_checksum: sha1:f22e33fdcc12b2e3333f960a33d52e316a9eb293
-    pristine_git_object: 61e17af49e92e3ca28aa388ef13120423bbc3079
+    last_write_checksum: sha1:fac15a6517ed05605a14a555e23377b2a6df4eb3
+    pristine_git_object: a20ee586326aaf05d937ea46159723db965c4848
   src/models/paymentresponse.ts:
     id: b8cdef722ed3
     last_write_checksum: sha1:c9aa653de3118304fe722364a4428c0bd1865fab
@@ -6189,8 +6189,8 @@ trackedFiles:
     pristine_git_object: b4be976354ac9b5b92b3e98817491a2c1bc72819
   src/models/reportstatusreasoncode.ts:
     id: f2cc66c84867
-    last_write_checksum: sha1:b1bb6086211c07b5183713e422fda45a32cc2886
-    pristine_git_object: 49aea897c3c78dd8f08ad8c952d7409383f5c8f1
+    last_write_checksum: sha1:c50737fbe9aa783dde7049d3ff70063232d9b2b4
+    pristine_git_object: f8177e58729f1c8f86ddc75cc0511c1bb961b8f8
   src/models/reporttype.ts:
     id: 02e6c61ba6e4
     last_write_checksum: sha1:f9dffe7c09d47a31b751a878e26f1ae0d957a317
@@ -11346,13 +11346,15 @@ examples:
           idempotency-key: "123e4567-e89b-12d3-a456-426"
       responses:
         "200":
-          application/hal+json: {"resource": "report", "id": "rpt_XRAG3v9EUyCDcX99pJ2Vc", "reportType": "transaction-margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "completed", "statusReason": {"code": "report-validation-failed", "message": "Something went wrong while generating the report. Try again, or contact support if it keeps happening."}, "createdAt": "2024-03-20T09:13:37+00:00", "completedAt": "2026-09-01T09:01:12+00:00", "failedAt": "2026-09-01T09:03:00+00:00", "downloadExpiresAt": "2026-09-01T09:16:12+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "download": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
+          application/hal+json: {"resource": "report", "id": "rpt_XRAG3v9EUyCDcX99pJ2Vc", "reportType": "transaction-margin", "fromDate": "2026-08-01", "untilDate": "2026-08-31", "status": "completed", "statusReason": {"code": "empty-report", "message": "Something went wrong while generating the report. Try again, or contact support if it keeps happening."}, "createdAt": "2024-03-20T09:13:37+00:00", "completedAt": "2026-09-01T09:01:12+00:00", "failedAt": "2026-09-01T09:03:00+00:00", "downloadExpiresAt": "2026-09-01T09:16:12+00:00", "_links": {"self": {"href": "https://...", "type": "application/hal+json"}, "download": {"href": "https://...", "type": "application/hal+json"}, "documentation": {"href": "https://...", "type": "application/hal+json"}}}
         "404":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
         "400":
           application/hal+json: {"status": 404, "title": "Not Found", "detail": "The resource does not exist", "field": "description", "_links": {"documentation": {"href": "https://docs.mollie.com/errors", "type": "text/html"}}}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `client.reports.create()`: \n  *  `request.createReportRequest.reportType` **Changed** (Breaking ⚠️)\n* `client.reports.get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `client.reports.get()`:  `response.statusReason.code` **Changed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

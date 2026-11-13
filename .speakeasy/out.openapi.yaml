@@ -2412,10 +2412,8 @@ paths:
       responses:
         '202':
           description: |-
-            The report was accepted. Its `status` is usually `pending` for a brand new report, but if an
-            identical request (same organization, same parameters) already has a pending or completed report,
-            you get that report back instead, with its current status. Read `status` from the body rather than
-            assuming `202` always means `pending`.
+            The report was accepted. Returns `pending` for a new report, or the existing report's status when
+            deduplicated.
         '400':
           description: The request contains issues, or was made with a test mode credential.
           content:
@@ -30293,17 +30291,73 @@ components:
       readOnly: true
       example: completed
       x-speakeasy-unknown-values: allow
+    create-report-response:
+      type: object
+      required:
+        - resource
+        - id
+        - reportType
+        - status
+        - createdAt
+        - _links
+      properties:
+        resource:
+          type: string
+          description: |-
+            Indicates the response contains a report object. Will always contain the string `report` for this
+            endpoint.
+          readOnly: true
+          example: report
+        id:
+          allOf:
+            - $ref: '#/components/schemas/reportToken'
+            - description: |-
+                The identifier uniquely referring to this report. Mollie assigns this identifier when you create the
+                report. Example: `rpt_XRAG3v9EUyCDcX99pJ2Vc`.
+          readOnly: true
+        reportType:
+          $ref: '#/components/schemas/report-type-response'
+        fromDate:
+          type: string
+          format: date
+          description: The start date of the report period. Only present for date-range report types.
+          example: '2026-08-01'
+          readOnly: true
+        untilDate:
+          type: string
+          format: date
+          description: The end date of the report period. Only present for date-range report types.
+          example: '2026-08-31'
+          readOnly: true
+        status:
+          allOf:
+            - $ref: '#/components/schemas/report-status'
+          readOnly: true
+        createdAt:
+          $ref: '#/components/schemas/created-at'
+        _links:
+          type: object
+          description: An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+          required:
+            - self
+            - documentation
+          properties:
+            self:
+              $ref: '#/components/schemas/url'
+            documentation:
+              $ref: '#/components/schemas/url'
+          readOnly: true
     report-status-reason-code:
       type: string
       description: A machine-readable code for the failure reason.
       enum:
         - generation-failed
+        - validation-failed
         - empty-report
-        - report-validation-failed
       x-enumDescriptions:
         generation-failed: An error occurred while generating the report.
+        validation-failed: The report data could not be verified.
         empty-report: The report contains no data for the requested period.
-        report-validation-failed: The report data could not be verified.
       readOnly: true
       example: generation-failed
       x-speakeasy-unknown-values: allow
@@ -30372,7 +30426,7 @@ components:
           format: date-time
           description: |-
             The date and time the report finished generating, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format. Only present once `status` is `completed`.
+            format. Only present when `status` is `completed`.
           readOnly: true
           example: '2026-09-01T09:01:12+00:00'
         failedAt:
@@ -30380,7 +30434,7 @@ components:
           format: date-time
           description: |-
             The date and time the report failed to generate, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format. Only present once `status` is `failed`.
+            format. Only present when `status` is `failed`.
           readOnly: true
           example: '2026-09-01T09:03:00+00:00'
         downloadExpiresAt:
@@ -30388,8 +30442,7 @@ components:
           format: date-time
           description: |-
             The date and time the `_links.download` link expires, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-            format. We issue a fresh link and expiry on every call to [Get report](get-report), so just call it
-            again once this one expires.
+            format. Only present when `status` is `completed`.
           readOnly: true
           example: '2026-09-01T09:16:12+00:00'
         _links:
@@ -30405,7 +30458,7 @@ components:
               allOf:
                 - $ref: '#/components/schemas/url'
                 - description: |-
-                    A time-limited, pre-signed download link for the report file. Only present while `status` is
+                    A time-limited, pre-signed download link for the report file. Only present when `status` is
                     `completed`.
             documentation:
               $ref: '#/components/schemas/url'
@@ -36066,9 +36119,7 @@ components:
           x-method: credit-card
         voucherNumber:
           type: string
-          description: |-
-            The card token you received from the card component of Mollie Components. The token represents the customer's
-            card information needed to complete the payment.
+          description: Number of the voucher.
           example: '1234567890'
           writeOnly: true
           x-methodSpecific: true
@@ -45620,6 +45671,23 @@ components:
         fromDate: '2026-08-01'
         untilDate: '2026-08-31'
         status: pending
+        createdAt: '2026-09-01T09:00:00+00:00'
+        _links:
+          self:
+            href: https://api.mollie.com/v2/reports/rpt_9fKq2pLxAqYTBz9WQvhc4
+            type: application/hal+json
+          documentation:
+            href: https://docs.mollie.com/reference/get-report
+            type: text/html
+    create-report-completed:
+      summary: A report that already existed and had completed
+      value:
+        resource: report
+        id: rpt_9fKq2pLxAqYTBz9WQvhc4
+        reportType: transaction-margin
+        fromDate: '2026-08-01'
+        untilDate: '2026-08-31'
+        status: completed
         createdAt: '2026-09-01T09:00:00+00:00'
         _links:
           self:
