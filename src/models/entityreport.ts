@@ -86,22 +86,21 @@ export type EntityReport = {
    * The date and time the report finished generating, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
    *
    * @remarks
-   * format. Only present once `status` is `completed`.
+   * format. Only present when `status` is `completed`.
    */
   completedAt?: Date | undefined;
   /**
    * The date and time the report failed to generate, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
    *
    * @remarks
-   * format. Only present once `status` is `failed`.
+   * format. Only present when `status` is `failed`.
    */
   failedAt?: Date | undefined;
   /**
    * The date and time the `_links.download` link expires, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
    *
    * @remarks
-   * format. We issue a fresh link and expiry on every call to [Get report](get-report), so just call it
-   * again once this one expires.
+   * format. Only present when `status` is `completed`.
    */
   downloadExpiresAt?: Date | undefined;
   /**

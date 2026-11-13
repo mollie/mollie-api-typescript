@@ -567,10 +567,7 @@ export type PaymentRequest = {
    */
   googlePayPaymentToken?: string | undefined;
   /**
-   * The card token you received from the card component of Mollie Components. The token represents the customer's
-   *
-   * @remarks
-   * card information needed to complete the payment.
+   * Number of the voucher.
    */
   voucherNumber?: string | undefined;
   /**

@@ -15,5 +15,5 @@ let value: ReportStatusReasonCode = "generation-failed";
 ## Values
 
 ```typescript
-"generation-failed" | "empty-report" | "report-validation-failed" | Unrecognized<string>
+"generation-failed" | "validation-failed" | "empty-report" | Unrecognized<string>
 ```

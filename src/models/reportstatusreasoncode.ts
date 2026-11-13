@@ -12,8 +12,8 @@ import { OpenEnum } from "../types/enums.js";
  */
 export const ReportStatusReasonCode = {
   GenerationFailed: "generation-failed",
+  ValidationFailed: "validation-failed",
   EmptyReport: "empty-report",
-  ReportValidationFailed: "report-validation-failed",
 } as const;
 /**
  * A machine-readable code for the failure reason.
