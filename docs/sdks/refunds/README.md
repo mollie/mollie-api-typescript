@@ -31,6 +31,8 @@ async function run() {
   const result = await client.refunds.create({
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     refundRequest: {
       description: "Refunding a Chess Board",
       amount: {
@@ -80,6 +82,8 @@ async function run() {
   const res = await refundsCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     refundRequest: {
       description: "Refunding a Chess Board",
       amount: {
@@ -128,6 +132,8 @@ async function run() {
   const result = await client.refunds.create({
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     refundRequest: {
       description: "Refunding a Chess Board",
       amount: {
@@ -177,6 +183,8 @@ async function run() {
   const res = await refundsCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     refundRequest: {
       description: "Refunding a Chess Board",
       amount: {
@@ -256,6 +264,8 @@ async function run() {
     limit: 50,
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -290,6 +300,8 @@ async function run() {
     limit: 50,
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -347,6 +359,8 @@ async function run() {
     refundId: "re_5B8cwPMGnU",
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -378,6 +392,8 @@ async function run() {
     refundId: "re_5B8cwPMGnU",
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -436,6 +452,8 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
 
@@ -466,6 +484,8 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     refundId: "re_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -525,6 +545,8 @@ async function run() {
     sort: "desc",
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -560,6 +582,8 @@ async function run() {
     sort: "desc",
     embed: "payment",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

@@ -35,6 +35,8 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -68,6 +70,8 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -100,6 +104,8 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -133,6 +139,8 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -202,6 +210,8 @@ async function run() {
   const result = await client.balances.get({
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -231,6 +241,8 @@ async function run() {
   const res = await balancesGet(client, {
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -259,6 +271,8 @@ async function run() {
   const result = await client.balances.get({
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -288,6 +302,8 @@ async function run() {
   const res = await balancesGet(client, {
     balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -343,6 +359,8 @@ const client = new Client({
 async function run() {
   const result = await client.balances.getPrimary({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -370,6 +388,8 @@ const client = new ClientCore({
 async function run() {
   const res = await balancesGetPrimary(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -432,6 +452,8 @@ async function run() {
     until: "2024-02-01",
     grouping: "status-balances",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -464,6 +486,8 @@ async function run() {
     until: "2024-02-01",
     grouping: "status-balances",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -495,6 +519,8 @@ async function run() {
     until: "2024-02-01",
     grouping: "status-balances",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -527,6 +553,8 @@ async function run() {
     until: "2024-02-01",
     grouping: "status-balances",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -558,6 +586,8 @@ async function run() {
     until: "2024-02-01",
     grouping: "status-balances",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -590,6 +620,8 @@ async function run() {
     until: "2024-02-01",
     grouping: "status-balances",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -654,6 +686,8 @@ async function run() {
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -687,6 +721,8 @@ async function run() {
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -719,6 +755,8 @@ async function run() {
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -752,6 +790,8 @@ async function run() {
     from: "baltr_QM24QwzUWR4ev4Xfgyt29A",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

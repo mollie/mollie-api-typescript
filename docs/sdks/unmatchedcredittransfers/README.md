@@ -35,6 +35,8 @@ async function run() {
   const result = await client.unmatchedCreditTransfers.list({
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -65,6 +67,8 @@ async function run() {
   const res = await unmatchedCreditTransfersList(client, {
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -123,6 +127,8 @@ async function run() {
   const result = await client.unmatchedCreditTransfers.get({
     unmatchedCreditTransferId: "uct_abcDEFghij123456789",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -151,6 +157,8 @@ async function run() {
   const res = await unmatchedCreditTransfersGet(client, {
     unmatchedCreditTransferId: "uct_abcDEFghij123456789",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -185,9 +193,9 @@ run();
 
 ## match
 
-> 🚧 Beta feature
+> 🚧
 >
-> This feature is currently in private beta, and the final specification may still change.
+> To get access to this functionality, a virtual IBAN must be assigned to your webshop. We are currently rolling out virtual IBANs to our merchant base. Contact our support team or your account/sales manager to request access today.
 
 Matches an unmatched credit transfer to one or more payments, settling the funds accordingly.
 
@@ -207,6 +215,8 @@ async function run() {
   const result = await client.unmatchedCreditTransfers.match({
     unmatchedCreditTransferId: "uct_abcDEFghij123456789",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     unmatchedCreditTransferMatchRequest: {
       paymentIds: [
         "tr_5B8cwPMGnU",
@@ -240,6 +250,8 @@ async function run() {
   const res = await unmatchedCreditTransfersMatch(client, {
     unmatchedCreditTransferId: "uct_abcDEFghij123456789",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     unmatchedCreditTransferMatchRequest: {
       paymentIds: [
         "tr_5B8cwPMGnU",
@@ -301,6 +313,8 @@ async function run() {
   const result = await client.unmatchedCreditTransfers.return({
     unmatchedCreditTransferId: "uct_abcDEFghij123456789",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -329,6 +343,8 @@ async function run() {
   const res = await unmatchedCreditTransfersReturn(client, {
     unmatchedCreditTransferId: "uct_abcDEFghij123456789",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

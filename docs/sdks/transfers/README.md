@@ -52,7 +52,6 @@ async function run() {
     xClientSignature: "<value>",
     xClientSignedAt: "2025-01-01T12:00:00Z",
     idempotencyKey: "aa84d3c0-1484-4f45-8a8d-4674a0147f3f",
-    idempotencyKey1: "123e4567-e89b-12d3-a456-426",
     transferRequest: {
       debtorIban: "NL55MLLE0123456789",
       creditor: {
@@ -100,7 +99,6 @@ async function run() {
     xClientSignature: "<value>",
     xClientSignedAt: "2025-01-01T12:00:00Z",
     idempotencyKey: "aa84d3c0-1484-4f45-8a8d-4674a0147f3f",
-    idempotencyKey1: "123e4567-e89b-12d3-a456-426",
     transferRequest: {
       debtorIban: "NL55MLLE0123456789",
       creditor: {
@@ -178,6 +176,8 @@ async function run() {
   const result = await client.transfers.get({
     businessAccountsTransferId: "batrf_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -207,6 +207,8 @@ async function run() {
   const res = await transfersGet(client, {
     businessAccountsTransferId: "batrf_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -235,6 +237,8 @@ async function run() {
   const result = await client.transfers.get({
     businessAccountsTransferId: "batrf_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -264,6 +268,8 @@ async function run() {
   const res = await transfersGet(client, {
     businessAccountsTransferId: "batrf_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

@@ -10,6 +10,10 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  BusinessAccountResponse,
+  BusinessAccountResponse$inboundSchema,
+} from "./businessaccountresponse.js";
+import {
   CaptureResponse,
   CaptureResponse$inboundSchema,
 } from "./captureresponse.js";
@@ -98,6 +102,7 @@ export const EntityWebhookEventWebhookEventTypes = {
     "business-account-draft-transfer.approved",
   BusinessAccountDraftTransferDeclined:
     "business-account-draft-transfer.declined",
+  BusinessAccountCreated: "business-account.created",
   UnmatchedCreditTransferReceived: "unmatched-credit-transfer.received",
   UnmatchedCreditTransferMatched: "unmatched-credit-transfer.matched",
   UnmatchedCreditTransferReturned: "unmatched-credit-transfer.returned",
@@ -130,6 +135,7 @@ export type Entity =
   | RefundResponse
   | DraftTransferResponse
   | CaptureResponse
+  | BusinessAccountResponse
   | EntityPayoutResponse
   | EntityChargeback
   | SalesInvoiceResponse;
@@ -145,6 +151,7 @@ export type Embedded = {
     | RefundResponse
     | DraftTransferResponse
     | CaptureResponse
+    | BusinessAccountResponse
     | EntityPayoutResponse
     | EntityChargeback
     | SalesInvoiceResponse
@@ -213,6 +220,7 @@ export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
     RefundResponse$inboundSchema,
     DraftTransferResponse$inboundSchema,
     CaptureResponse$inboundSchema,
+    BusinessAccountResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     EntityChargeback$inboundSchema,
     SalesInvoiceResponse$inboundSchema,
@@ -241,6 +249,7 @@ export const Embedded$inboundSchema: z.ZodType<
     RefundResponse$inboundSchema,
     DraftTransferResponse$inboundSchema,
     CaptureResponse$inboundSchema,
+    BusinessAccountResponse$inboundSchema,
     EntityPayoutResponse$inboundSchema,
     EntityChargeback$inboundSchema,
     SalesInvoiceResponse$inboundSchema,

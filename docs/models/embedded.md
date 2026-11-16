@@ -6,11 +6,12 @@ Full payload of the event.
 
 ```typescript
 import { Embedded } from "mollie-api-typescript/models";
+import { RFCDate } from "mollie-api-typescript/types";
 
 let value: Embedded = {
   entity: {
-    resource: "business-account-transfer",
-    id: "batrf_87GByBuj4UCcUTEbs6aGJ",
+    resource: "business-account-draft-transfer",
+    id: "badrt_87GByBuj4UCcUTEbs6aGJ",
     mode: "live",
     debtor: {
       fullName: "Jan Jansen",
@@ -29,26 +30,22 @@ let value: Embedded = {
       value: "10.00",
     },
     description: "Invoice 12345",
-    businessAccountTransactionId: "batr_87GByBuj4UCcUTEbs6aGJ",
-    transferScheme: {
-      type: "sepa-credit-inst",
-    },
-    creditDebitIndicator: "debit",
-    status: "initiated",
-    statusHistory: [
-      {
-        status: "initiated",
-        createdAt: "2024-03-20T09:13:37+00:00",
-        statusReason: {
-          code: "insufficient-funds",
-          message: "The creditor account does not exist.",
-        },
-      },
-    ],
-    createdAt: "2024-03-20T09:13:37+00:00",
+    scheduledExecutionDate: new RFCDate("2025-03-01"),
+    status: "pending-review",
     statusReason: {
-      code: "insufficient-funds",
-      message: "The creditor account does not exist.",
+      code: "deleted-by-creator",
+      message: "The draft transfer has been deleted by the user who created it",
+    },
+    createdAt: "2024-03-20T09:13:37+00:00",
+    approvedAt: "2025-01-01T12:05:00+00:00",
+    declinedAt: "2025-01-01T12:05:00+00:00",
+    deletedAt: "2025-01-01T12:05:00+00:00",
+    links: {
+      self: {
+        href:
+          "https://api.mollie.com/v2/business-accounts/draft-transfers/badrt_87GByBuj4UCcUTEbs6aGJ",
+        type: "application/hal+json",
+      },
     },
   },
 };

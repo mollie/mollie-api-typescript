@@ -16,6 +16,14 @@ export type MatchUnmatchedCreditTransferRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
+  /**
+   * A cryptographic signature of the request, used to verify that it was sent by you and hasn't been tampered with. Required if you've enabled request signing for your integration.
+   */
+  xClientSignature?: string | undefined;
+  /**
+   * The timestamp, in ISO 8601 format, at which you generated the `X-Client-Signature`. Required together with `X-Client-Signature` if you've enabled request signing for your integration.
+   */
+  xClientSignedAt?: string | undefined;
   unmatchedCreditTransferMatchRequest?:
     | models.UnmatchedCreditTransferMatchRequest
     | undefined;
@@ -25,6 +33,8 @@ export type MatchUnmatchedCreditTransferRequest = {
 export type MatchUnmatchedCreditTransferRequest$Outbound = {
   unmatchedCreditTransferId: string;
   "idempotency-key"?: string | undefined;
+  "X-Client-Signature"?: string | undefined;
+  "X-Client-Signed-At"?: string | undefined;
   "unmatched-credit-transfer-match-request"?:
     | models.UnmatchedCreditTransferMatchRequest$Outbound
     | undefined;
@@ -38,11 +48,15 @@ export const MatchUnmatchedCreditTransferRequest$outboundSchema: z.ZodType<
 > = z.object({
   unmatchedCreditTransferId: z.string(),
   idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
   unmatchedCreditTransferMatchRequest: models
     .UnmatchedCreditTransferMatchRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
     unmatchedCreditTransferMatchRequest:
       "unmatched-credit-transfer-match-request",
   });

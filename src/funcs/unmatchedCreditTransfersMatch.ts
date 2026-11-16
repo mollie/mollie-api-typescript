@@ -32,9 +32,9 @@ import { Result } from "../types/fp.js";
  * Match unmatched credit transfer
  *
  * @remarks
- * > 🚧 Beta feature
+ * > 🚧
  * >
- * > This feature is currently in private beta, and the final specification may still change.
+ * > To get access to this functionality, a virtual IBAN must be assigned to your webshop. We are currently rolling out virtual IBANs to our merchant base. Contact our support team or your account/sales manager to request access today.
  *
  * Matches an unmatched credit transfer to one or more payments, settling the funds accordingly.
  *
@@ -118,6 +118,16 @@ async function $do(
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/hal+json",
+    "X-Client-Signature": encodeSimple(
+      "X-Client-Signature",
+      payload["X-Client-Signature"],
+      { explode: false, charEncoding: "none" },
+    ),
+    "X-Client-Signed-At": encodeSimple(
+      "X-Client-Signed-At",
+      payload["X-Client-Signed-At"],
+      { explode: false, charEncoding: "none" },
+    ),
     "idempotency-key": encodeSimple(
       "idempotency-key",
       payload["idempotency-key"],

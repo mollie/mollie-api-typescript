@@ -17,6 +17,14 @@ export type GetNextSettlementRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
+  /**
+   * A cryptographic signature of the request, used to verify that it was sent by you and hasn't been tampered with. Required if you've enabled request signing for your integration.
+   */
+  xClientSignature?: string | undefined;
+  /**
+   * The timestamp, in ISO 8601 format, at which you generated the `X-Client-Signature`. Required together with `X-Client-Signature` if you've enabled request signing for your integration.
+   */
+  xClientSignedAt?: string | undefined;
 };
 
 /**
@@ -223,6 +231,8 @@ export type GetNextSettlementResponse = {
 /** @internal */
 export type GetNextSettlementRequest$Outbound = {
   "idempotency-key"?: string | undefined;
+  "X-Client-Signature"?: string | undefined;
+  "X-Client-Signed-At"?: string | undefined;
 };
 
 /** @internal */
@@ -232,9 +242,13 @@ export const GetNextSettlementRequest$outboundSchema: z.ZodType<
   GetNextSettlementRequest
 > = z.object({
   idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
   });
 });
 

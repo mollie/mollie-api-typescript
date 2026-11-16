@@ -24,6 +24,16 @@ let value: BusinessAccountResponse = {
   status: "active",
   mode: "live",
   createdAt: "2024-03-20T09:13:37+00:00",
+  links: {
+    self: {
+      href: "https://...",
+      type: "application/hal+json",
+    },
+    documentation: {
+      href: "https://...",
+      type: "application/hal+json",
+    },
+  },
 };
 ```
 
@@ -38,3 +48,4 @@ let value: BusinessAccountResponse = {
 | `status`                                                                                                                        | [models.AccountStatus](../models/accountstatus.md)                                                                              | :heavy_check_mark:                                                                                                              | The status of the business account.                                                                                             | active                                                                                                                          |
 | `mode`                                                                                                                          | [models.Mode](../models/mode.md)                                                                                                | :heavy_check_mark:                                                                                                              | Whether this entity was created in live mode or in test mode.                                                                   | live                                                                                                                            |
 | `createdAt`                                                                                                                     | *string*                                                                                                                        | :heavy_check_mark:                                                                                                              | The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.                           | 2024-03-20T09:13:37+00:00                                                                                                       |
+| `links`                                                                                                                         | [models.BusinessAccountResponseLinks](../models/businessaccountresponselinks.md)                                                | :heavy_check_mark:                                                                                                              | An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.                               |                                                                                                                                 |

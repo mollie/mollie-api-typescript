@@ -32,6 +32,8 @@ const client = new Client({
 async function run() {
   const result = await client.checkoutSessions.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -119,6 +121,8 @@ const client = new ClientCore({
 async function run() {
   const res = await checkoutSessionsCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -205,6 +209,8 @@ const client = new Client({
 async function run() {
   const result = await client.checkoutSessions.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -292,6 +298,8 @@ const client = new ClientCore({
 async function run() {
   const res = await checkoutSessionsCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -378,6 +386,8 @@ const client = new Client({
 async function run() {
   const result = await client.checkoutSessions.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -465,6 +475,8 @@ const client = new ClientCore({
 async function run() {
   const res = await checkoutSessionsCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -551,6 +563,8 @@ const client = new Client({
 async function run() {
   const result = await client.checkoutSessions.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -638,6 +652,8 @@ const client = new ClientCore({
 async function run() {
   const res = await checkoutSessionsCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     sessionRequest: {
       amount: {
         currency: "EUR",
@@ -756,6 +772,8 @@ async function run() {
   const result = await client.checkoutSessions.get({
     sessionId: "sess_82jFYDTrLcCQV68NLDvMJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -784,6 +802,8 @@ async function run() {
   const res = await checkoutSessionsGet(client, {
     sessionId: "sess_82jFYDTrLcCQV68NLDvMJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

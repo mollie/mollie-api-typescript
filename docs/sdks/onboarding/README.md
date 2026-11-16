@@ -26,6 +26,8 @@ const client = new Client({
 async function run() {
   const result = await client.onboarding.get({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -53,6 +55,8 @@ const client = new ClientCore({
 async function run() {
   const res = await onboardingGet(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -109,6 +113,8 @@ const client = new Client({
 async function run() {
   await client.onboarding.submit({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       organization: {
         name: "Mollie B.V.",
@@ -158,6 +164,8 @@ const client = new ClientCore({
 async function run() {
   const res = await onboardingSubmit(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       organization: {
         name: "Mollie B.V.",

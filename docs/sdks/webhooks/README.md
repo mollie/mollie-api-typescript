@@ -30,6 +30,8 @@ const client = new Client({
 async function run() {
   const result = await client.webhooks.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -63,6 +65,8 @@ const client = new ClientCore({
 async function run() {
   const res = await webhooksCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -125,6 +129,8 @@ async function run() {
     sort: "desc",
     eventTypes: "payment-link.paid",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -159,6 +165,8 @@ async function run() {
     sort: "desc",
     eventTypes: "payment-link.paid",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -280,6 +288,8 @@ async function run() {
   const result = await client.webhooks.update({
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -314,6 +324,8 @@ async function run() {
   const res = await webhooksUpdate(client, {
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -347,6 +359,8 @@ async function run() {
   const result = await client.webhooks.update({
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -381,6 +395,8 @@ async function run() {
   const res = await webhooksUpdate(client, {
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "Webhook #1",
       url: "https://mollie.com/",
@@ -440,6 +456,8 @@ async function run() {
   const result = await client.webhooks.get({
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -469,6 +487,8 @@ async function run() {
   const res = await webhooksGet(client, {
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -497,6 +517,8 @@ async function run() {
   const result = await client.webhooks.get({
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -526,6 +548,8 @@ async function run() {
   const res = await webhooksGet(client, {
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -578,6 +602,8 @@ async function run() {
   await client.webhooks.delete({
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
@@ -609,6 +635,8 @@ async function run() {
   const res = await webhooksDelete(client, {
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
@@ -664,6 +692,8 @@ async function run() {
   await client.webhooks.test({
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
@@ -695,6 +725,8 @@ async function run() {
   const res = await webhooksTest(client, {
     webhookId: "hook_1234567890",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },

@@ -33,6 +33,8 @@ const client = new Client({
 async function run() {
   const result = await client.profiles.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     profileRequest: {
       name: "My website name",
       website: "https://example.com",
@@ -72,6 +74,8 @@ const client = new ClientCore({
 async function run() {
   const res = await profilesCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     profileRequest: {
       name: "My website name",
       website: "https://example.com",
@@ -110,6 +114,8 @@ const client = new Client({
 async function run() {
   const result = await client.profiles.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     profileRequest: {
       name: "My website name",
       website: "https://example.com",
@@ -149,6 +155,8 @@ const client = new ClientCore({
 async function run() {
   const res = await profilesCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     profileRequest: {
       name: "My website name",
       website: "https://example.com",
@@ -216,6 +224,8 @@ async function run() {
     from: "pfl_QkEhN94Ba",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -247,6 +257,8 @@ async function run() {
     from: "pfl_QkEhN94Ba",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -302,6 +314,8 @@ async function run() {
   const result = await client.profiles.get({
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -331,6 +345,8 @@ async function run() {
   const res = await profilesGet(client, {
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -386,6 +402,8 @@ async function run() {
   const result = await client.profiles.update({
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "My new website name",
       website: "https://example.com",
@@ -426,6 +444,8 @@ async function run() {
   const res = await profilesUpdate(client, {
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "My new website name",
       website: "https://example.com",
@@ -465,6 +485,8 @@ async function run() {
   const result = await client.profiles.update({
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "My new website name",
       website: "https://example.com",
@@ -505,6 +527,8 @@ async function run() {
   const res = await profilesUpdate(client, {
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       name: "My new website name",
       website: "https://example.com",
@@ -569,6 +593,8 @@ async function run() {
   await client.profiles.delete({
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
 
@@ -597,6 +623,8 @@ async function run() {
   const res = await profilesDelete(client, {
     profileId: "pfl_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -652,6 +680,8 @@ const client = new Client({
 async function run() {
   const result = await client.profiles.getCurrent({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -679,6 +709,8 @@ const client = new ClientCore({
 async function run() {
   const res = await profilesGetCurrent(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

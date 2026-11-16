@@ -3,6 +3,7 @@
  * @generated-id: a4031260e046
  */
 
+import { accountsCreateAccount } from "../funcs/accountsCreateAccount.js";
 import { accountsGet } from "../funcs/accountsGet.js";
 import { accountsGetAccount } from "../funcs/accountsGetAccount.js";
 import { accountsList } from "../funcs/accountsList.js";
@@ -14,6 +15,32 @@ import { unwrapAsync } from "../types/fp.js";
 import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Accounts extends ClientSDK {
+  /**
+   * Create business account
+   *
+   * @remarks
+   * > 🔒 Restricted access
+   * >
+   * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
+   *
+   * Create a new business account for the authenticated organization.
+   *
+   * The response contains the newly created business account.
+   *
+   * Each organization can have up to 5 active business accounts. Need more? [Contact us](https://www.mollie.com/contact)
+   * and we'll help you out.
+   */
+  async createAccount(
+    request?: operations.CreateBusinessAccountRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.BusinessAccountResponse> {
+    return unwrapAsync(accountsCreateAccount(
+      this,
+      request,
+      options,
+    ));
+  }
+
   /**
    * List business accounts
    *

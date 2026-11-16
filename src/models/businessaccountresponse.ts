@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -14,6 +15,21 @@ import { AccountStatus, AccountStatus$inboundSchema } from "./accountstatus.js";
 import { Balance, Balance$inboundSchema } from "./balance.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema } from "./mode.js";
+import { Url, Url$inboundSchema } from "./url.js";
+
+/**
+ * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+ */
+export type BusinessAccountResponseLinks = {
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  self: Url;
+  /**
+   * In v2 endpoints, URLs are commonly represented as objects with an `href` and `type` field.
+   */
+  documentation: Url;
+};
 
 export type BusinessAccountResponse = {
   /**
@@ -50,7 +66,31 @@ export type BusinessAccountResponse = {
    * The entity's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   createdAt: string;
+  /**
+   * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
+   */
+  links: BusinessAccountResponseLinks;
 };
+
+/** @internal */
+export const BusinessAccountResponseLinks$inboundSchema: z.ZodType<
+  BusinessAccountResponseLinks,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  self: Url$inboundSchema,
+  documentation: Url$inboundSchema,
+});
+
+export function businessAccountResponseLinksFromJSON(
+  jsonString: string,
+): SafeParseResult<BusinessAccountResponseLinks, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BusinessAccountResponseLinks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BusinessAccountResponseLinks' from JSON`,
+  );
+}
 
 /** @internal */
 export const BusinessAccountResponse$inboundSchema: z.ZodType<
@@ -65,6 +105,11 @@ export const BusinessAccountResponse$inboundSchema: z.ZodType<
   status: AccountStatus$inboundSchema,
   mode: Mode$inboundSchema,
   createdAt: z.string(),
+  _links: z.lazy(() => BusinessAccountResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
 });
 
 export function businessAccountResponseFromJSON(

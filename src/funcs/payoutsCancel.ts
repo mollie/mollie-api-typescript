@@ -110,6 +110,16 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/hal+json",
+    "X-Client-Signature": encodeSimple(
+      "X-Client-Signature",
+      payload["X-Client-Signature"],
+      { explode: false, charEncoding: "none" },
+    ),
+    "X-Client-Signed-At": encodeSimple(
+      "X-Client-Signed-At",
+      payload["X-Client-Signed-At"],
+      { explode: false, charEncoding: "none" },
+    ),
     "idempotency-key": encodeSimple(
       "idempotency-key",
       payload["idempotency-key"],

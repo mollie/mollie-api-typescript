@@ -29,6 +29,16 @@ let value: ListBusinessAccountsResponse = {
           status: "active",
           mode: "live",
           createdAt: "2024-03-20T09:13:37+00:00",
+          links: {
+            self: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+            documentation: {
+              href: "https://...",
+              type: "application/hal+json",
+            },
+          },
         },
       ],
     },

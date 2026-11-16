@@ -67,9 +67,9 @@ export class UnmatchedCreditTransfers extends ClientSDK {
    * Match unmatched credit transfer
    *
    * @remarks
-   * > 🚧 Beta feature
+   * > 🚧
    * >
-   * > This feature is currently in private beta, and the final specification may still change.
+   * > To get access to this functionality, a virtual IBAN must be assigned to your webshop. We are currently rolling out virtual IBANs to our merchant base. Contact our support team or your account/sales manager to request access today.
    *
    * Matches an unmatched credit transfer to one or more payments, settling the funds accordingly.
    */

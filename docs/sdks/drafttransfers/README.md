@@ -55,6 +55,8 @@ const client = new Client({
 async function run() {
   const result = await client.draftTransfers.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     createDraftTransferRequest: {
       debtorIban: "NL55MLLE0123456789",
       creditor: {
@@ -99,6 +101,8 @@ const client = new ClientCore({
 async function run() {
   const res = await draftTransfersCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     createDraftTransferRequest: {
       debtorIban: "NL55MLLE0123456789",
       creditor: {
@@ -177,6 +181,8 @@ async function run() {
     limit: 50,
     status: "approved",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -209,6 +215,8 @@ async function run() {
     limit: 50,
     status: "approved",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -274,6 +282,8 @@ async function run() {
   const result = await client.draftTransfers.get({
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -303,6 +313,8 @@ async function run() {
   const res = await draftTransfersGet(client, {
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -331,6 +343,8 @@ async function run() {
   const result = await client.draftTransfers.get({
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -360,6 +374,8 @@ async function run() {
   const res = await draftTransfersGet(client, {
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -388,6 +404,8 @@ async function run() {
   const result = await client.draftTransfers.get({
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -417,6 +435,8 @@ async function run() {
   const res = await draftTransfersGet(client, {
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -537,6 +557,8 @@ async function run() {
   const result = await client.draftTransfers.cancel({
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
@@ -568,6 +590,8 @@ async function run() {
   const res = await draftTransfersCancel(client, {
     draftTransferId: "badrt_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
