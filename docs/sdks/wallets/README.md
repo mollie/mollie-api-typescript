@@ -43,6 +43,8 @@ const client = new Client({
 async function run() {
   const result = await client.wallets.requestApplePaySession({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       validationUrl: "https://apple-pay-gateway-cert.apple.com/paymentservices/paymentSession",
       domain: "pay.myshop.com",
@@ -75,6 +77,8 @@ const client = new ClientCore({
 async function run() {
   const res = await walletsRequestApplePaySession(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       validationUrl: "https://apple-pay-gateway-cert.apple.com/paymentservices/paymentSession",
       domain: "pay.myshop.com",

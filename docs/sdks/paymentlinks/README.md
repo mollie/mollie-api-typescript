@@ -32,6 +32,8 @@ const client = new Client({
 async function run() {
   const result = await client.paymentLinks.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -146,6 +148,8 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentLinksCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -259,6 +263,8 @@ const client = new Client({
 async function run() {
   const result = await client.paymentLinks.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -373,6 +379,8 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentLinksCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -486,6 +494,8 @@ const client = new Client({
 async function run() {
   const result = await client.paymentLinks.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -600,6 +610,8 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentLinksCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -713,6 +725,8 @@ const client = new Client({
 async function run() {
   const result = await client.paymentLinks.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -827,6 +841,8 @@ const client = new ClientCore({
 async function run() {
   const res = await paymentLinksCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       amount: {
@@ -970,6 +986,8 @@ async function run() {
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -1002,6 +1020,8 @@ async function run() {
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1033,6 +1053,8 @@ async function run() {
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -1065,6 +1087,8 @@ async function run() {
     from: "pl_d9fQur83kFdhH8hIhaZfq",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1120,6 +1144,8 @@ async function run() {
   const result = await client.paymentLinks.get({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -1149,6 +1175,8 @@ async function run() {
   const res = await paymentLinksGet(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1201,6 +1229,8 @@ async function run() {
   const result = await client.paymentLinks.update({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       minimumAmount: {
@@ -1270,6 +1300,8 @@ async function run() {
   const res = await paymentLinksUpdate(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       description: "Chess Board",
       minimumAmount: {
@@ -1369,6 +1401,8 @@ async function run() {
   await client.paymentLinks.delete({
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
@@ -1400,6 +1434,8 @@ async function run() {
   const res = await paymentLinksDelete(client, {
     paymentLinkId: "pl_d9fQur83kFdhH8hIhaZfq",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
@@ -1461,6 +1497,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -1495,6 +1533,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

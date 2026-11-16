@@ -63,6 +63,8 @@ const client = new Client({
 async function run() {
   const result = await client.payouts.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     payoutRequest: {
       balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
       amount: {
@@ -99,6 +101,8 @@ const client = new ClientCore({
 async function run() {
   const res = await payoutsCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     payoutRequest: {
       balanceId: "bal_gVMhHKqSSRYJyPsuoPNFH",
       amount: {
@@ -169,6 +173,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -202,6 +208,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -257,6 +265,8 @@ async function run() {
   const result = await client.payouts.get({
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -286,6 +296,8 @@ async function run() {
   const res = await payoutsGet(client, {
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -314,6 +326,8 @@ async function run() {
   const result = await client.payouts.get({
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -343,6 +357,8 @@ async function run() {
   const res = await payoutsGet(client, {
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -371,6 +387,8 @@ async function run() {
   const result = await client.payouts.get({
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -400,6 +418,8 @@ async function run() {
   const res = await payoutsGet(client, {
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -456,6 +476,8 @@ async function run() {
   const result = await client.payouts.cancel({
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -485,6 +507,8 @@ async function run() {
   const res = await payoutsCancel(client, {
     payoutId: "payout_j8NvRAM2WNZtsykpLEX8J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

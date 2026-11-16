@@ -12,12 +12,22 @@ export type CreatePayoutRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
+  /**
+   * A cryptographic signature of the request, used to verify that it was sent by you and hasn't been tampered with. Required if you've enabled request signing for your integration.
+   */
+  xClientSignature?: string | undefined;
+  /**
+   * The timestamp, in ISO 8601 format, at which you generated the `X-Client-Signature`. Required together with `X-Client-Signature` if you've enabled request signing for your integration.
+   */
+  xClientSignedAt?: string | undefined;
   payoutRequest: models.PayoutRequest;
 };
 
 /** @internal */
 export type CreatePayoutRequest$Outbound = {
   "idempotency-key"?: string | undefined;
+  "X-Client-Signature"?: string | undefined;
+  "X-Client-Signed-At"?: string | undefined;
   "payout-request": models.PayoutRequest$Outbound;
 };
 
@@ -28,10 +38,14 @@ export const CreatePayoutRequest$outboundSchema: z.ZodType<
   CreatePayoutRequest
 > = z.object({
   idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
   payoutRequest: models.PayoutRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
     payoutRequest: "payout-request",
   });
 });

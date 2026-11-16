@@ -8,6 +8,7 @@ export * from "./cancelpayment.js";
 export * from "./cancelpayout.js";
 export * from "./cancelrefund.js";
 export * from "./cancelsubscription.js";
+export * from "./createbusinessaccount.js";
 export * from "./createcapture.js";
 export * from "./createclientlink.js";
 export * from "./createconnectbalancetransfer.js";

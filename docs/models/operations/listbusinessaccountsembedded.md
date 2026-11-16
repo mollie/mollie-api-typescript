@@ -26,6 +26,16 @@ let value: ListBusinessAccountsEmbedded = {
       status: "active",
       mode: "live",
       createdAt: "2024-03-20T09:13:37+00:00",
+      links: {
+        self: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
+        documentation: {
+          href: "https://...",
+          type: "application/hal+json",
+        },
+      },
     },
   ],
 };
@@ -33,6 +43,6 @@ let value: ListBusinessAccountsEmbedded = {
 
 ## Fields
 
-| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `businessAccounts`                                                          | [models.BusinessAccountResponse](../../models/businessaccountresponse.md)[] | :heavy_minus_sign:                                                          | An array of business account objects.                                       |
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `businessAccounts`                                                                  | [models.ListBusinessAccountResponse](../../models/listbusinessaccountresponse.md)[] | :heavy_minus_sign:                                                                  | An array of business account objects.                                               |

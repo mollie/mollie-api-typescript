@@ -30,10 +30,6 @@ export type CreateTransferRequest = {
    * to learn more.
    */
   idempotencyKey: string;
-  /**
-   * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
-   */
-  idempotencyKey1?: string | undefined;
   transferRequest?: models.TransferRequest | undefined;
 };
 
@@ -42,7 +38,6 @@ export type CreateTransferRequest$Outbound = {
   "X-Client-Signature": string;
   "X-Client-Signed-At": string;
   "Idempotency-Key": string;
-  "idempotency-key1"?: string | undefined;
   "transfer-request"?: models.TransferRequest$Outbound | undefined;
 };
 
@@ -55,14 +50,12 @@ export const CreateTransferRequest$outboundSchema: z.ZodType<
   xClientSignature: z.string(),
   xClientSignedAt: z.string(),
   idempotencyKey: z.string(),
-  idempotencyKey1: z.string().optional(),
   transferRequest: models.TransferRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     xClientSignature: "X-Client-Signature",
     xClientSignedAt: "X-Client-Signed-At",
     idempotencyKey: "Idempotency-Key",
-    idempotencyKey1: "idempotency-key1",
     transferRequest: "transfer-request",
   });
 });

@@ -40,6 +40,14 @@ export type EnableMethodIssuerRequest = {
    * A unique key to ensure idempotent requests. This key should be a UUID v4 string.
    */
   idempotencyKey?: string | undefined;
+  /**
+   * A cryptographic signature of the request, used to verify that it was sent by you and hasn't been tampered with. Required if you've enabled request signing for your integration.
+   */
+  xClientSignature?: string | undefined;
+  /**
+   * The timestamp, in ISO 8601 format, at which you generated the `X-Client-Signature`. Required together with `X-Client-Signature` if you've enabled request signing for your integration.
+   */
+  xClientSignedAt?: string | undefined;
   requestBody?: EnableMethodIssuerRequestBody | undefined;
 };
 
@@ -78,6 +86,8 @@ export type EnableMethodIssuerRequest$Outbound = {
   methodId: string;
   issuerId: string;
   "idempotency-key"?: string | undefined;
+  "X-Client-Signature"?: string | undefined;
+  "X-Client-Signed-At"?: string | undefined;
   RequestBody?: EnableMethodIssuerRequestBody$Outbound | undefined;
 };
 
@@ -91,11 +101,15 @@ export const EnableMethodIssuerRequest$outboundSchema: z.ZodType<
   methodId: models.MethodIdWithIssuer$outboundSchema,
   issuerId: z.string(),
   idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
   requestBody: z.lazy(() => EnableMethodIssuerRequestBody$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
     requestBody: "RequestBody",
   });
 });

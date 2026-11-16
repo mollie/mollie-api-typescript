@@ -33,6 +33,8 @@ async function run() {
   const result = await client.mandates.create({
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     mandateRequest: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
@@ -74,6 +76,8 @@ async function run() {
   const res = await mandatesCreate(client, {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     mandateRequest: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
@@ -114,6 +118,8 @@ async function run() {
   const result = await client.mandates.create({
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     mandateRequest: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
@@ -155,6 +161,8 @@ async function run() {
   const res = await mandatesCreate(client, {
     customerId: "cst_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     mandateRequest: {
       id: "mdt_5B8cwPMGnU",
       method: "directdebit",
@@ -229,6 +237,8 @@ async function run() {
       "customer-present",
     ],
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -266,6 +276,8 @@ async function run() {
       "customer-present",
     ],
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -323,6 +335,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -353,6 +367,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -407,6 +423,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },
@@ -439,6 +457,8 @@ async function run() {
     customerId: "cst_5B8cwPMGnU",
     mandateId: "mdt_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
     },

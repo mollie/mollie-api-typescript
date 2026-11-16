@@ -29,6 +29,8 @@ const client = new Client({
 async function run() {
   const result = await client.salesInvoices.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     salesInvoiceRequest: {
       testmode: false,
       profileId: "pfl_QkEhN94Ba",
@@ -100,6 +102,8 @@ const client = new ClientCore({
 async function run() {
   const res = await salesInvoicesCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     salesInvoiceRequest: {
       testmode: false,
       profileId: "pfl_QkEhN94Ba",
@@ -200,6 +204,8 @@ async function run() {
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -232,6 +238,8 @@ async function run() {
     from: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -287,6 +295,8 @@ async function run() {
   const result = await client.salesInvoices.get({
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -316,6 +326,8 @@ async function run() {
   const res = await salesInvoicesGet(client, {
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -370,6 +382,8 @@ async function run() {
   const result = await client.salesInvoices.update({
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
       status: "draft",
@@ -451,6 +465,8 @@ async function run() {
   const res = await salesInvoicesUpdate(client, {
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     requestBody: {
       testmode: false,
       status: "draft",
@@ -557,6 +573,8 @@ async function run() {
   await client.salesInvoices.delete({
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     deleteValuesSalesInvoice: {
       testmode: false,
     },
@@ -588,6 +606,8 @@ async function run() {
   const res = await salesInvoicesDelete(client, {
     salesInvoiceId: "invoice_4Y0eZitmBnQ6IDoMqZQKh",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     deleteValuesSalesInvoice: {
       testmode: false,
     },

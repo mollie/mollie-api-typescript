@@ -146,6 +146,8 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -277,6 +279,7 @@ let client = new Client({
 
 ### [Accounts](docs/sdks/accounts/README.md)
 
+* [createAccount](docs/sdks/accounts/README.md#createaccount) - Create business account
 * [listAccounts](docs/sdks/accounts/README.md#listaccounts) - List business accounts
 * [getAccount](docs/sdks/accounts/README.md#getaccount) - Get business account
 * [list](docs/sdks/accounts/README.md#list) - List transactions
@@ -528,6 +531,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`accountsCreateAccount`](docs/sdks/accounts/README.md#createaccount) - Create business account
 - [`accountsGet`](docs/sdks/accounts/README.md#get) - Get transaction
 - [`accountsGetAccount`](docs/sdks/accounts/README.md#getaccount) - Get business account
 - [`accountsList`](docs/sdks/accounts/README.md#list) - List transactions
@@ -701,6 +705,8 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -741,6 +747,8 @@ async function run() {
     from: "bal_gVMhHKqSSRYJyPsuoPNFH",
     limit: 50,
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {

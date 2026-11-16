@@ -4,10 +4,112 @@
 
 ### Available Operations
 
+* [createAccount](#createaccount) - Create business account
 * [listAccounts](#listaccounts) - List business accounts
 * [getAccount](#getaccount) - Get business account
 * [list](#list) - List transactions
 * [get](#get) - Get transaction
+
+## createAccount
+
+> 🔒 Restricted access
+>
+> This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
+
+Create a new business account for the authenticated organization.
+
+The response contains the newly created business account.
+
+Each organization can have up to 5 active business accounts. Need more? [Contact us](https://www.mollie.com/contact)
+and we'll help you out.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="create-business-account" method="post" path="/v2/business-accounts/accounts" example="create-business-account-201" -->
+```typescript
+import { Client } from "mollie-api-typescript";
+
+const client = new Client({
+  security: {
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await client.accounts.createAccount({
+    idempotencyKey: "123e4567-e89b-12d3-a456-426614174000",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
+    requestBody: {
+      name: "Main Checking Account",
+      currency: "EUR",
+      testmode: false,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ClientCore } from "mollie-api-typescript/core.js";
+import { accountsCreateAccount } from "mollie-api-typescript/funcs/accountsCreateAccount.js";
+
+// Use `ClientCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const client = new ClientCore({
+  security: {
+    oAuth: process.env["CLIENT_O_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await accountsCreateAccount(client, {
+    idempotencyKey: "123e4567-e89b-12d3-a456-426614174000",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
+    requestBody: {
+      name: "Main Checking Account",
+      currency: "EUR",
+      testmode: false,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("accountsCreateAccount failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.CreateBusinessAccountRequest](../../models/operations/createbusinessaccountrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.BusinessAccountResponse](../../models/businessaccountresponse.md)\>**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| errors.ErrorResponse      | 400, 409, 422, 429        | application/hal+json      |
+| errors.ClientDefaultError | 4XX, 5XX                  | \*/\*                     |
 
 ## listAccounts
 
@@ -39,6 +141,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -73,6 +177,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -133,6 +239,8 @@ async function run() {
   const result = await client.accounts.getAccount({
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -162,6 +270,8 @@ async function run() {
   const res = await accountsGetAccount(client, {
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -227,6 +337,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   for await (const page of result) {
@@ -264,6 +376,8 @@ async function run() {
     limit: 50,
     sort: "desc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -325,6 +439,8 @@ async function run() {
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
     transactionId: "batr_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -355,6 +471,8 @@ async function run() {
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
     transactionId: "batr_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -384,6 +502,8 @@ async function run() {
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
     transactionId: "batr_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -414,6 +534,8 @@ async function run() {
     businessAccountId: "ba_nopqrstuvwxyz23456789A",
     transactionId: "batr_87GByBuj4UCcUTEbs6aGJ",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

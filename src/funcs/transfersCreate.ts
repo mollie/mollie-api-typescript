@@ -139,11 +139,6 @@ async function $do(
       payload["X-Client-Signed-At"],
       { explode: false, charEncoding: "none" },
     ),
-    "idempotency-key": encodeSimple(
-      "idempotency-key",
-      payload["idempotency-key1"],
-      { explode: false, charEncoding: "none" },
-    ),
   }));
 
   const securityInput = await extractSecurity(client._options.security);

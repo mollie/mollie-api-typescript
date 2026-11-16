@@ -34,6 +34,8 @@ async function run() {
   const result = await client.organizations.get({
     organizationId: "org_1234567",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -63,6 +65,8 @@ async function run() {
   const res = await organizationsGet(client, {
     organizationId: "org_1234567",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -118,6 +122,8 @@ const client = new Client({
 async function run() {
   const result = await client.organizations.getCurrent({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -145,6 +151,8 @@ const client = new ClientCore({
 async function run() {
   const res = await organizationsGetCurrent(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -197,6 +205,8 @@ const client = new Client({
 async function run() {
   const result = await client.organizations.getPartner({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -224,6 +234,8 @@ const client = new ClientCore({
 async function run() {
   const res = await organizationsGetPartner(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

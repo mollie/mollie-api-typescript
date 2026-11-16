@@ -37,6 +37,8 @@ const client = new Client({
 async function run() {
   await client.reports.create({
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     createReportRequest: {
       reportType: "transaction-margin",
       fromDate: new RFCDate("2026-08-01"),
@@ -70,6 +72,8 @@ const client = new ClientCore({
 async function run() {
   const res = await reportsCreate(client, {
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     createReportRequest: {
       reportType: "transaction-margin",
       fromDate: new RFCDate("2026-08-01"),
@@ -137,6 +141,8 @@ async function run() {
   const result = await client.reports.get({
     reportId: "rpt_XRAG3v9EUyCDcX99pJ2Vc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -165,6 +171,8 @@ async function run() {
   const res = await reportsGet(client, {
     reportId: "rpt_XRAG3v9EUyCDcX99pJ2Vc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -192,6 +200,8 @@ async function run() {
   const result = await client.reports.get({
     reportId: "rpt_XRAG3v9EUyCDcX99pJ2Vc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -220,6 +230,8 @@ async function run() {
   const res = await reportsGet(client, {
     reportId: "rpt_XRAG3v9EUyCDcX99pJ2Vc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -247,6 +259,8 @@ async function run() {
   const result = await client.reports.get({
     reportId: "rpt_XRAG3v9EUyCDcX99pJ2Vc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -275,6 +289,8 @@ async function run() {
   const res = await reportsGet(client, {
     reportId: "rpt_XRAG3v9EUyCDcX99pJ2Vc",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;

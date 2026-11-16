@@ -29,6 +29,8 @@ async function run() {
   const result = await client.delayedRouting.create({
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     routeCreateRequest: {
       amount: {
         currency: "EUR",
@@ -68,6 +70,8 @@ async function run() {
   const res = await delayedRoutingCreate(client, {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
     routeCreateRequest: {
       amount: {
         currency: "EUR",
@@ -132,6 +136,8 @@ async function run() {
   const result = await client.delayedRouting.list({
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -161,6 +167,8 @@ async function run() {
   const res = await delayedRoutingList(client, {
     paymentId: "tr_5B8cwPMGnU",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -214,6 +222,8 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     routeId: "crt_dyARQ3JzCgtPDhU2Pbq3J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
 
   console.log(result);
@@ -243,6 +253,8 @@ async function run() {
     paymentId: "tr_5B8cwPMGnU",
     routeId: "crt_dyARQ3JzCgtPDhU2Pbq3J",
     idempotencyKey: "123e4567-e89b-12d3-a456-426",
+    xClientSignature: "MEUCIQDx8sJvK3z...",
+    xClientSignedAt: "2025-01-01T12:00:00Z",
   });
   if (res.ok) {
     const { value: result } = res;
