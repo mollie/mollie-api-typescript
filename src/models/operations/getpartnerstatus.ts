@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -146,19 +146,17 @@ export const GetPartnerStatusRequest$outboundSchema: z.ZodType<
   GetPartnerStatusRequest$Outbound,
   z.ZodTypeDef,
   GetPartnerStatusRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getPartnerStatusRequestToJSON(
   getPartnerStatusRequest: GetPartnerStatusRequest,
@@ -169,21 +167,19 @@ export function getPartnerStatusRequestToJSON(
 }
 
 /** @internal */
-export const PartnerType$inboundSchema: z.ZodNativeEnum<typeof PartnerType> =
-  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PartnerType));
+export const PartnerType$inboundSchema: z.ZodNativeEnum<typeof PartnerType> = z
+  .nativeEnum(PartnerType);
 
 /** @internal */
 export const UserAgentToken$inboundSchema: z.ZodType<
   UserAgentToken,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    token: z.string().optional(),
-    startsAt: z.string().optional(),
-    endsAt: z.nullable(z.string()).optional(),
-  })
-);
+> = z.object({
+  token: z.string().optional(),
+  startsAt: z.string().optional(),
+  endsAt: z.nullable(z.string()).optional(),
+});
 
 export function userAgentTokenFromJSON(
   jsonString: string,
@@ -200,13 +196,11 @@ export const GetPartnerStatusLinks$inboundSchema: z.ZodType<
   GetPartnerStatusLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: models.Url$inboundSchema.optional(),
-    signuplink: models.Url$inboundSchema.optional(),
-    documentation: models.Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: models.Url$inboundSchema.optional(),
+  signuplink: models.Url$inboundSchema.optional(),
+  documentation: models.Url$inboundSchema.optional(),
+});
 
 export function getPartnerStatusLinksFromJSON(
   jsonString: string,
@@ -223,23 +217,21 @@ export const GetPartnerStatusResponse$inboundSchema: z.ZodType<
   GetPartnerStatusResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    partnerType: z.nullable(PartnerType$inboundSchema),
-    isCommissionPartner: z.boolean().optional(),
-    userAgentTokens: z.array(z.lazy(() => UserAgentToken$inboundSchema))
-      .optional(),
-    partnerContractSignedAt: z.nullable(z.string()).optional(),
-    partnerContractUpdateAvailable: z.boolean().optional(),
-    partnerContractExpiresAt: z.string().optional(),
-    _links: z.lazy(() => GetPartnerStatusLinks$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  partnerType: z.nullable(PartnerType$inboundSchema),
+  isCommissionPartner: z.boolean().optional(),
+  userAgentTokens: z.array(z.lazy(() => UserAgentToken$inboundSchema))
+    .optional(),
+  partnerContractSignedAt: z.nullable(z.string()).optional(),
+  partnerContractUpdateAvailable: z.boolean().optional(),
+  partnerContractExpiresAt: z.string().optional(),
+  _links: z.lazy(() => GetPartnerStatusLinks$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function getPartnerStatusResponseFromJSON(
   jsonString: string,

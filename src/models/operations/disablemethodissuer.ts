@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
 export type DisableMethodIssuerRequest = {
@@ -53,24 +49,20 @@ export const DisableMethodIssuerRequest$outboundSchema: z.ZodType<
   DisableMethodIssuerRequest$Outbound,
   z.ZodTypeDef,
   DisableMethodIssuerRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    profileId: z.string().refine(matchesPattern$("^pfl_.+$"), {
-      message: "Value must match pattern ^pfl_.+$",
-    }),
-    methodId: models.MethodIdWithIssuer$outboundSchema,
-    issuerId: z.string(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  profileId: z.string(),
+  methodId: models.MethodIdWithIssuer$outboundSchema,
+  issuerId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function disableMethodIssuerRequestToJSON(
   disableMethodIssuerRequest: DisableMethodIssuerRequest,

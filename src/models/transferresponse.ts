@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
@@ -144,11 +144,9 @@ export const TransferResponseAccount$inboundSchema: z.ZodType<
   TransferResponseAccount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    iban: z.string(),
-  })
-);
+> = z.object({
+  iban: z.string(),
+});
 
 export function transferResponseAccountFromJSON(
   jsonString: string,
@@ -165,12 +163,10 @@ export const TransferResponseDebtor$inboundSchema: z.ZodType<
   TransferResponseDebtor,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    fullName: z.string(),
-    account: z.lazy(() => TransferResponseAccount$inboundSchema),
-  })
-);
+> = z.object({
+  fullName: z.string(),
+  account: z.lazy(() => TransferResponseAccount$inboundSchema),
+});
 
 export function transferResponseDebtorFromJSON(
   jsonString: string,
@@ -187,25 +183,23 @@ export const TransferResponse$inboundSchema: z.ZodType<
   TransferResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    debtor: z.lazy(() => TransferResponseDebtor$inboundSchema),
-    creditor: TransferParty$inboundSchema,
-    amount: Amount$inboundSchema,
-    description: z.nullable(z.string()).optional(),
-    businessAccountTransactionId: z.string(),
-    transferScheme: TransferSchemeResponse$inboundSchema,
-    creditDebitIndicator: CreditDebitIndicator$inboundSchema,
-    status: TransferStatus$inboundSchema,
-    statusHistory: z.array(StatusHistoryEntryResponse$inboundSchema),
-    createdAt: z.string(),
-    statusReason: z.nullable(StatusReason2$inboundSchema).optional(),
-    metadata: z.nullable(Metadata$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  debtor: z.lazy(() => TransferResponseDebtor$inboundSchema),
+  creditor: TransferParty$inboundSchema,
+  amount: Amount$inboundSchema,
+  description: z.nullable(z.string()).optional(),
+  businessAccountTransactionId: z.string(),
+  transferScheme: TransferSchemeResponse$inboundSchema,
+  creditDebitIndicator: CreditDebitIndicator$inboundSchema,
+  status: TransferStatus$inboundSchema,
+  statusHistory: z.array(StatusHistoryEntryResponse$inboundSchema),
+  createdAt: z.string(),
+  statusReason: z.nullable(StatusReason2$inboundSchema).optional(),
+  metadata: z.nullable(Metadata$inboundSchema).optional(),
+});
 
 export function transferResponseFromJSON(
   jsonString: string,

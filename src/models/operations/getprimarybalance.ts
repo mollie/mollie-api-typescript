@@ -5,7 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type GetPrimaryBalanceRequest = {
   /**
@@ -34,19 +33,17 @@ export const GetPrimaryBalanceRequest$outboundSchema: z.ZodType<
   GetPrimaryBalanceRequest$Outbound,
   z.ZodTypeDef,
   GetPrimaryBalanceRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getPrimaryBalanceRequestToJSON(
   getPrimaryBalanceRequest: GetPrimaryBalanceRequest,

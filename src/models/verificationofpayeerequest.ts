@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   CreditorBankAccount,
   CreditorBankAccount$Outbound,
@@ -45,12 +44,10 @@ export const VerificationOfPayeeRequest$outboundSchema: z.ZodType<
   VerificationOfPayeeRequest$Outbound,
   z.ZodTypeDef,
   VerificationOfPayeeRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    creditorBankAccount: CreditorBankAccount$outboundSchema,
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  creditorBankAccount: CreditorBankAccount$outboundSchema,
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function verificationOfPayeeRequestToJSON(
   verificationOfPayeeRequest: VerificationOfPayeeRequest,

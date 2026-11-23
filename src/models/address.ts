@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -26,14 +26,12 @@ export type Address = {
 
 /** @internal */
 export const Address$inboundSchema: z.ZodType<Address, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      streetAndNumber: z.string(),
-      postalCode: z.string(),
-      city: z.string(),
-      country: z.string(),
-    })
-  );
+  z.object({
+    streetAndNumber: z.string(),
+    postalCode: z.string(),
+    city: z.string(),
+    country: z.string(),
+  });
 /** @internal */
 export type Address$Outbound = {
   streetAndNumber: string;
@@ -47,14 +45,12 @@ export const Address$outboundSchema: z.ZodType<
   Address$Outbound,
   z.ZodTypeDef,
   Address
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    streetAndNumber: z.string(),
-    postalCode: z.string(),
-    city: z.string(),
-    country: z.string(),
-  })
-);
+> = z.object({
+  streetAndNumber: z.string(),
+  postalCode: z.string(),
+  city: z.string(),
+  country: z.string(),
+});
 
 export function addressToJSON(address: Address): string {
   return JSON.stringify(Address$outboundSchema.parse(address));

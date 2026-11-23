@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceCardAudience,
@@ -55,18 +55,16 @@ export const SubTotals$inboundSchema: z.ZodType<
   SubTotals,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int().optional(),
-    method: z.nullable(PaymentMethod$inboundSchema).optional(),
-    cardIssuer: BalanceCardIssuer$inboundSchema.optional(),
-    cardAudience: BalanceCardAudience$inboundSchema.optional(),
-    cardRegion: BalanceCardRegion$inboundSchema.optional(),
-    feeType: BalanceFeeType$inboundSchema.optional(),
-    prepaymentPartType: BalancePrepaymentPartType$inboundSchema.optional(),
-    transactionType: BalanceTransactionType$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  count: z.number().int().optional(),
+  method: z.nullable(PaymentMethod$inboundSchema).optional(),
+  cardIssuer: BalanceCardIssuer$inboundSchema.optional(),
+  cardAudience: BalanceCardAudience$inboundSchema.optional(),
+  cardRegion: BalanceCardRegion$inboundSchema.optional(),
+  feeType: BalanceFeeType$inboundSchema.optional(),
+  prepaymentPartType: BalancePrepaymentPartType$inboundSchema.optional(),
+  transactionType: BalanceTransactionType$inboundSchema.optional(),
+});
 
 export function subTotalsFromJSON(
   jsonString: string,

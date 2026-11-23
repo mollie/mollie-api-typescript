@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -155,25 +155,23 @@ export const ListAllMethodsRequest$outboundSchema: z.ZodType<
   ListAllMethodsRequest$Outbound,
   z.ZodTypeDef,
   ListAllMethodsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    locale: z.nullable(models.Locale$outboundSchema).optional(),
-    amount: models.Amount$outboundSchema.optional(),
-    include: z.nullable(z.string()).optional(),
-    sequenceType: models.SequenceType$outboundSchema.optional(),
-    profileId: z.string().optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  locale: z.nullable(models.Locale$outboundSchema).optional(),
+  amount: models.Amount$outboundSchema.optional(),
+  include: z.nullable(z.string()).optional(),
+  sequenceType: models.SequenceType$outboundSchema.optional(),
+  profileId: z.string().optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listAllMethodsRequestToJSON(
   listAllMethodsRequest: ListAllMethodsRequest,
@@ -188,11 +186,9 @@ export const ListAllMethodsEmbedded$inboundSchema: z.ZodType<
   ListAllMethodsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    methods: z.array(models.ListEntityMethodAll$inboundSchema),
-  })
-);
+> = z.object({
+  methods: z.array(models.ListEntityMethodAll$inboundSchema),
+});
 
 export function listAllMethodsEmbeddedFromJSON(
   jsonString: string,
@@ -209,12 +205,10 @@ export const ListAllMethodsLinks$inboundSchema: z.ZodType<
   ListAllMethodsLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: models.Url$inboundSchema,
-    documentation: models.Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: models.Url$inboundSchema,
+  documentation: models.Url$inboundSchema,
+});
 
 export function listAllMethodsLinksFromJSON(
   jsonString: string,
@@ -231,18 +225,16 @@ export const ListAllMethodsResponse$inboundSchema: z.ZodType<
   ListAllMethodsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListAllMethodsEmbedded$inboundSchema),
-    _links: z.lazy(() => ListAllMethodsLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListAllMethodsEmbedded$inboundSchema),
+  _links: z.lazy(() => ListAllMethodsLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listAllMethodsResponseFromJSON(
   jsonString: string,

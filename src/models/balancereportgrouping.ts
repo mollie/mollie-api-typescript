@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
@@ -19,14 +18,10 @@ export const BalanceReportGrouping$inboundSchema: z.ZodType<
   BalanceReportGrouping,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(BalanceReportGrouping)
-);
+> = openEnums.inboundSchema(BalanceReportGrouping);
 /** @internal */
 export const BalanceReportGrouping$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   BalanceReportGrouping
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.outboundSchema(BalanceReportGrouping)
-);
+> = openEnums.outboundSchema(BalanceReportGrouping);

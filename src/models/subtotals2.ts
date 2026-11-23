@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceCardAudience,
@@ -58,23 +58,21 @@ export const SubTotals2$inboundSchema: z.ZodType<
   SubTotals2,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    "sub-totals": z.nullable(z.array(SubTotals$inboundSchema)).optional(),
-    count: z.number().int().optional(),
-    method: z.nullable(PaymentMethod$inboundSchema).optional(),
-    cardIssuer: BalanceCardIssuer$inboundSchema.optional(),
-    cardAudience: BalanceCardAudience$inboundSchema.optional(),
-    cardRegion: BalanceCardRegion$inboundSchema.optional(),
-    feeType: BalanceFeeType$inboundSchema.optional(),
-    prepaymentPartType: BalancePrepaymentPartType$inboundSchema.optional(),
-    transactionType: BalanceTransactionType$inboundSchema.optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "sub-totals": "subTotals",
-    });
-  })
-);
+> = z.object({
+  "sub-totals": z.nullable(z.array(SubTotals$inboundSchema)).optional(),
+  count: z.number().int().optional(),
+  method: z.nullable(PaymentMethod$inboundSchema).optional(),
+  cardIssuer: BalanceCardIssuer$inboundSchema.optional(),
+  cardAudience: BalanceCardAudience$inboundSchema.optional(),
+  cardRegion: BalanceCardRegion$inboundSchema.optional(),
+  feeType: BalanceFeeType$inboundSchema.optional(),
+  prepaymentPartType: BalancePrepaymentPartType$inboundSchema.optional(),
+  transactionType: BalanceTransactionType$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "sub-totals": "subTotals",
+  });
+});
 
 export function subTotals2FromJSON(
   jsonString: string,

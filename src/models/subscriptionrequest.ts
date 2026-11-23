@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   Metadata,
@@ -129,12 +128,10 @@ export const SubscriptionRequestApplicationFee$outboundSchema: z.ZodType<
   SubscriptionRequestApplicationFee$Outbound,
   z.ZodTypeDef,
   SubscriptionRequestApplicationFee
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$outboundSchema,
-    description: z.string(),
-  })
-);
+> = z.object({
+  amount: Amount$outboundSchema,
+  description: z.string(),
+});
 
 export function subscriptionRequestApplicationFeeToJSON(
   subscriptionRequestApplicationFee: SubscriptionRequestApplicationFee,
@@ -167,24 +164,21 @@ export const SubscriptionRequest$outboundSchema: z.ZodType<
   SubscriptionRequest$Outbound,
   z.ZodTypeDef,
   SubscriptionRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$outboundSchema.optional(),
-    times: z.nullable(z.number().int()).optional(),
-    interval: z.string().optional(),
-    startDate: z.string().optional(),
-    description: z.string().optional(),
-    method: z.nullable(SubscriptionMethod$outboundSchema).optional(),
-    applicationFee: z.lazy(() =>
-      SubscriptionRequestApplicationFee$outboundSchema
-    ).optional(),
-    metadata: z.nullable(Metadata$outboundSchema).optional(),
-    webhookUrl: z.nullable(z.string()).optional(),
-    mandateId: z.string().optional(),
-    profileId: z.string().optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  amount: Amount$outboundSchema.optional(),
+  times: z.nullable(z.number().int()).optional(),
+  interval: z.string().optional(),
+  startDate: z.string().optional(),
+  description: z.string().optional(),
+  method: z.nullable(SubscriptionMethod$outboundSchema).optional(),
+  applicationFee: z.lazy(() => SubscriptionRequestApplicationFee$outboundSchema)
+    .optional(),
+  metadata: z.nullable(Metadata$outboundSchema).optional(),
+  webhookUrl: z.nullable(z.string()).optional(),
+  mandateId: z.string().optional(),
+  profileId: z.string().optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function subscriptionRequestToJSON(
   subscriptionRequest: SubscriptionRequest,

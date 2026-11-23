@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
 export type CreateCaptureRequest = {
@@ -45,24 +41,20 @@ export const CreateCaptureRequest$outboundSchema: z.ZodType<
   CreateCaptureRequest$Outbound,
   z.ZodTypeDef,
   CreateCaptureRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
-      message: "Value must match pattern ^tr_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    entityCapture: models.EntityCapture$outboundSchema.optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      entityCapture: "entity-capture",
-    });
-  })
-);
+> = z.object({
+  paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  entityCapture: models.EntityCapture$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    entityCapture: "entity-capture",
+  });
+});
 
 export function createCaptureRequestToJSON(
   createCaptureRequest: CreateCaptureRequest,

@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type UnmatchedCreditTransferMatchRequest = {
   /**
@@ -23,11 +22,9 @@ export const UnmatchedCreditTransferMatchRequest$outboundSchema: z.ZodType<
   UnmatchedCreditTransferMatchRequest$Outbound,
   z.ZodTypeDef,
   UnmatchedCreditTransferMatchRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentIds: z.array(z.string()),
-  })
-);
+> = z.object({
+  paymentIds: z.array(z.string()),
+});
 
 export function unmatchedCreditTransferMatchRequestToJSON(
   unmatchedCreditTransferMatchRequest: UnmatchedCreditTransferMatchRequest,

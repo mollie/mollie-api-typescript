@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -115,23 +115,21 @@ export const ListBalancesRequest$outboundSchema: z.ZodType<
   ListBalancesRequest$Outbound,
   z.ZodTypeDef,
   ListBalancesRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.nullable(z.string()).optional(),
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  currency: z.nullable(z.string()).optional(),
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listBalancesRequestToJSON(
   listBalancesRequest: ListBalancesRequest,
@@ -146,11 +144,9 @@ export const ListBalancesEmbedded$inboundSchema: z.ZodType<
   ListBalancesEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    balances: z.array(models.ListEntityBalance$inboundSchema),
-  })
-);
+> = z.object({
+  balances: z.array(models.ListEntityBalance$inboundSchema),
+});
 
 export function listBalancesEmbeddedFromJSON(
   jsonString: string,
@@ -167,18 +163,16 @@ export const ListBalancesResponseBody$inboundSchema: z.ZodType<
   ListBalancesResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListBalancesEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListBalancesEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listBalancesResponseBodyFromJSON(
   jsonString: string,
@@ -195,15 +189,13 @@ export const ListBalancesResponse$inboundSchema: z.ZodType<
   ListBalancesResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => ListBalancesResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListBalancesResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listBalancesResponseFromJSON(
   jsonString: string,

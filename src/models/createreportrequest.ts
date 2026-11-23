@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { RFCDate } from "../types/rfcdate.js";
 import { ReportType, ReportType$outboundSchema } from "./reporttype.js";
 
@@ -44,13 +43,11 @@ export const CreateReportRequest$outboundSchema: z.ZodType<
   CreateReportRequest$Outbound,
   z.ZodTypeDef,
   CreateReportRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    reportType: ReportType$outboundSchema,
-    fromDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    untilDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  })
-);
+> = z.object({
+  reportType: ReportType$outboundSchema,
+  fromDate: z.instanceof(RFCDate).transform(v => v.toString()),
+  untilDate: z.instanceof(RFCDate).transform(v => v.toString()),
+});
 
 export function createReportRequestToJSON(
   createReportRequest: CreateReportRequest,

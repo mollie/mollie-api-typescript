@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type CancelPaymentRequestBody = {
   /**
@@ -53,11 +49,9 @@ export const CancelPaymentRequestBody$outboundSchema: z.ZodType<
   CancelPaymentRequestBody$Outbound,
   z.ZodTypeDef,
   CancelPaymentRequestBody
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function cancelPaymentRequestBodyToJSON(
   cancelPaymentRequestBody: CancelPaymentRequestBody,
@@ -81,25 +75,20 @@ export const CancelPaymentRequest$outboundSchema: z.ZodType<
   CancelPaymentRequest$Outbound,
   z.ZodTypeDef,
   CancelPaymentRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
-      message: "Value must match pattern ^tr_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    requestBody: z.lazy(() => CancelPaymentRequestBody$outboundSchema)
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      requestBody: "RequestBody",
-    });
-  })
-);
+> = z.object({
+  paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  requestBody: z.lazy(() => CancelPaymentRequestBody$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    requestBody: "RequestBody",
+  });
+});
 
 export function cancelPaymentRequestToJSON(
   cancelPaymentRequest: CancelPaymentRequest,

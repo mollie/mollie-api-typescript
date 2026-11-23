@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CapabilityRequirementStatus,
@@ -49,11 +49,9 @@ export const EntityCapabilityRequirementLinks$inboundSchema: z.ZodType<
   EntityCapabilityRequirementLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    dashboard: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  dashboard: Url$inboundSchema.optional(),
+});
 
 export function entityCapabilityRequirementLinksFromJSON(
   jsonString: string,
@@ -70,18 +68,16 @@ export const EntityCapabilityRequirement$inboundSchema: z.ZodType<
   EntityCapabilityRequirement,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    id: z.string(),
-    status: CapabilityRequirementStatus$inboundSchema,
-    dueDate: z.nullable(z.string()),
-    _links: z.lazy(() => EntityCapabilityRequirementLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  id: z.string(),
+  status: CapabilityRequirementStatus$inboundSchema,
+  dueDate: z.nullable(z.string()),
+  _links: z.lazy(() => EntityCapabilityRequirementLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityCapabilityRequirementFromJSON(
   jsonString: string,

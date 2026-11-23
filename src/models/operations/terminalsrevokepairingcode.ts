@@ -5,7 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type TerminalsRevokePairingCodeRequest = {
   /**
@@ -39,20 +38,18 @@ export const TerminalsRevokePairingCodeRequest$outboundSchema: z.ZodType<
   TerminalsRevokePairingCodeRequest$Outbound,
   z.ZodTypeDef,
   TerminalsRevokePairingCodeRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    pairingCodeId: z.string(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  pairingCodeId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function terminalsRevokePairingCodeRequestToJSON(
   terminalsRevokePairingCodeRequest: TerminalsRevokePairingCodeRequest,
