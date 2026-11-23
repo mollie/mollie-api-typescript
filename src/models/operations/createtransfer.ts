@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type CreateTransferRequest = {
@@ -46,19 +47,21 @@ export const CreateTransferRequest$outboundSchema: z.ZodType<
   CreateTransferRequest$Outbound,
   z.ZodTypeDef,
   CreateTransferRequest
-> = z.object({
-  xClientSignature: z.string(),
-  xClientSignedAt: z.string(),
-  idempotencyKey: z.string(),
-  transferRequest: models.TransferRequest$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    idempotencyKey: "Idempotency-Key",
-    transferRequest: "transfer-request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    xClientSignature: z.string(),
+    xClientSignedAt: z.string(),
+    idempotencyKey: z.string(),
+    transferRequest: models.TransferRequest$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      idempotencyKey: "Idempotency-Key",
+      transferRequest: "transfer-request",
+    });
+  })
+);
 
 export function createTransferRequestToJSON(
   createTransferRequest: CreateTransferRequest,

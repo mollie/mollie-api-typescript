@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -31,10 +31,12 @@ export const PayoutStatusReason$inboundSchema: z.ZodType<
   PayoutStatusReason,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: PayoutStatusReasonCode$inboundSchema,
-  message: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: PayoutStatusReasonCode$inboundSchema,
+    message: z.string(),
+  })
+);
 
 export function payoutStatusReasonFromJSON(
   jsonString: string,

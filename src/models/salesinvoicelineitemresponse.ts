@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -38,13 +38,15 @@ export const SalesInvoiceLineItemResponse$inboundSchema: z.ZodType<
   SalesInvoiceLineItemResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  description: z.string(),
-  quantity: z.number().int(),
-  vatRate: z.string(),
-  unitPrice: Amount$inboundSchema,
-  discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    description: z.string(),
+    quantity: z.number().int(),
+    vatRate: z.string(),
+    unitPrice: Amount$inboundSchema,
+    discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
+  })
+);
 
 export function salesInvoiceLineItemResponseFromJSON(
   jsonString: string,

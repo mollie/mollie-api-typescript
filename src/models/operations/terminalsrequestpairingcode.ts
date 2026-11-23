@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type TerminalsRequestPairingCodeRequestBody = {
   /**
@@ -43,9 +44,11 @@ export const TerminalsRequestPairingCodeRequestBody$outboundSchema: z.ZodType<
   TerminalsRequestPairingCodeRequestBody$Outbound,
   z.ZodTypeDef,
   TerminalsRequestPairingCodeRequestBody
-> = z.object({
-  profileId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    profileId: z.string(),
+  })
+);
 
 export function terminalsRequestPairingCodeRequestBodyToJSON(
   terminalsRequestPairingCodeRequestBody:
@@ -72,22 +75,24 @@ export const TerminalsRequestPairingCodeRequest$outboundSchema: z.ZodType<
   TerminalsRequestPairingCodeRequest$Outbound,
   z.ZodTypeDef,
   TerminalsRequestPairingCodeRequest
-> = z.object({
-  include: z.nullable(z.string()).optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() =>
-    TerminalsRequestPairingCodeRequestBody$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    include: z.nullable(z.string()).optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() =>
+      TerminalsRequestPairingCodeRequestBody$outboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function terminalsRequestPairingCodeRequestToJSON(
   terminalsRequestPairingCodeRequest: TerminalsRequestPairingCodeRequest,

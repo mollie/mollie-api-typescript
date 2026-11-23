@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type GetUnmatchedCreditTransferRequest = {
   /**
@@ -38,18 +42,22 @@ export const GetUnmatchedCreditTransferRequest$outboundSchema: z.ZodType<
   GetUnmatchedCreditTransferRequest$Outbound,
   z.ZodTypeDef,
   GetUnmatchedCreditTransferRequest
-> = z.object({
-  unmatchedCreditTransferId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    unmatchedCreditTransferId: z.string().refine(matchesPattern$("^uct_.+$"), {
+      message: "Value must match pattern ^uct_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function getUnmatchedCreditTransferRequestToJSON(
   getUnmatchedCreditTransferRequest: GetUnmatchedCreditTransferRequest,

@@ -4,8 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -116,22 +119,28 @@ export const ListChargebacksRequest$outboundSchema: z.ZodType<
   ListChargebacksRequest$Outbound,
   z.ZodTypeDef,
   ListChargebacksRequest
-> = z.object({
-  paymentId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
+      message: "Value must match pattern ^tr_.+$",
+    }),
+    from: z.string().refine(matchesPattern$("^chb_.+$"), {
+      message: "Value must match pattern ^chb_.+$",
+    }).optional(),
+    limit: z.nullable(z.number().int()).optional(),
+    embed: z.nullable(z.string()).optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listChargebacksRequestToJSON(
   listChargebacksRequest: ListChargebacksRequest,
@@ -146,9 +155,11 @@ export const ListChargebacksEmbedded$inboundSchema: z.ZodType<
   ListChargebacksEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  chargebacks: z.array(models.ListEntityChargeback$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    chargebacks: z.array(models.ListEntityChargeback$inboundSchema),
+  })
+);
 
 export function listChargebacksEmbeddedFromJSON(
   jsonString: string,
@@ -165,16 +176,18 @@ export const ListChargebacksResponseBody$inboundSchema: z.ZodType<
   ListChargebacksResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  _embedded: z.lazy(() => ListChargebacksEmbedded$inboundSchema),
-  _links: models.ListLinks$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() => ListChargebacksEmbedded$inboundSchema),
+    _links: models.ListLinks$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listChargebacksResponseBodyFromJSON(
   jsonString: string,
@@ -191,13 +204,15 @@ export const ListChargebacksResponse$inboundSchema: z.ZodType<
   ListChargebacksResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: z.lazy(() => ListChargebacksResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: z.lazy(() => ListChargebacksResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function listChargebacksResponseFromJSON(
   jsonString: string,

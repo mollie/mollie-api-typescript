@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -112,20 +112,22 @@ export const ListSalesInvoicesRequest$outboundSchema: z.ZodType<
   ListSalesInvoicesRequest$Outbound,
   z.ZodTypeDef,
   ListSalesInvoicesRequest
-> = z.object({
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    from: z.nullable(z.string()).optional(),
+    limit: z.nullable(z.number().int()).optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listSalesInvoicesRequestToJSON(
   listSalesInvoicesRequest: ListSalesInvoicesRequest,
@@ -140,9 +142,11 @@ export const ListSalesInvoicesEmbedded$inboundSchema: z.ZodType<
   ListSalesInvoicesEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  invoices: z.array(models.ListSalesInvoiceResponse$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    invoices: z.array(models.ListSalesInvoiceResponse$inboundSchema).optional(),
+  })
+);
 
 export function listSalesInvoicesEmbeddedFromJSON(
   jsonString: string,
@@ -159,16 +163,18 @@ export const ListSalesInvoicesResponseBody$inboundSchema: z.ZodType<
   ListSalesInvoicesResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListSalesInvoicesEmbedded$inboundSchema).optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int().optional(),
+    _embedded: z.lazy(() => ListSalesInvoicesEmbedded$inboundSchema).optional(),
+    _links: models.ListLinks$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listSalesInvoicesResponseBodyFromJSON(
   jsonString: string,
@@ -185,13 +191,15 @@ export const ListSalesInvoicesResponse$inboundSchema: z.ZodType<
   ListSalesInvoicesResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: z.lazy(() => ListSalesInvoicesResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: z.lazy(() => ListSalesInvoicesResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function listSalesInvoicesResponseFromJSON(
   jsonString: string,

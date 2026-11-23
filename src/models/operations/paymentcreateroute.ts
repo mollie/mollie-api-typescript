@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type PaymentCreateRouteRequest = {
@@ -41,20 +45,24 @@ export const PaymentCreateRouteRequest$outboundSchema: z.ZodType<
   PaymentCreateRouteRequest$Outbound,
   z.ZodTypeDef,
   PaymentCreateRouteRequest
-> = z.object({
-  paymentId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  routeCreateRequest: models.RouteCreateRequest$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    routeCreateRequest: "route-create-request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
+      message: "Value must match pattern ^tr_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    routeCreateRequest: models.RouteCreateRequest$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      routeCreateRequest: "route-create-request",
+    });
+  })
+);
 
 export function paymentCreateRouteRequestToJSON(
   paymentCreateRouteRequest: PaymentCreateRouteRequest,

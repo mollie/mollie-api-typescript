@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   SalesInvoiceDiscount,
   SalesInvoiceDiscount$Outbound,
@@ -187,25 +188,28 @@ export const SalesInvoiceRequest$outboundSchema: z.ZodType<
   SalesInvoiceRequest$Outbound,
   z.ZodTypeDef,
   SalesInvoiceRequest
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-  profileId: z.nullable(z.string()).optional(),
-  status: SalesInvoiceStatus$outboundSchema,
-  vatScheme: SalesInvoiceVatScheme$outboundSchema.optional(),
-  vatMode: SalesInvoiceVatMode$outboundSchema.optional(),
-  memo: z.nullable(z.string()).optional(),
-  metadata: z.nullable(z.record(z.any())).optional(),
-  paymentTerm: z.nullable(SalesInvoicePaymentTerm$outboundSchema).optional(),
-  paymentDetails: SalesInvoicePaymentDetails$outboundSchema.optional(),
-  emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema).optional(),
-  customerId: z.string().optional(),
-  mandateId: z.string().optional(),
-  recipientIdentifier: z.string(),
-  recipient: z.nullable(SalesInvoiceRecipient$outboundSchema),
-  lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)),
-  discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    testmode: z.nullable(z.boolean()).optional(),
+    profileId: z.nullable(z.string()).optional(),
+    status: SalesInvoiceStatus$outboundSchema,
+    vatScheme: SalesInvoiceVatScheme$outboundSchema.optional(),
+    vatMode: SalesInvoiceVatMode$outboundSchema.optional(),
+    memo: z.nullable(z.string()).optional(),
+    metadata: z.nullable(z.record(z.any())).optional(),
+    paymentTerm: z.nullable(SalesInvoicePaymentTerm$outboundSchema).optional(),
+    paymentDetails: SalesInvoicePaymentDetails$outboundSchema.optional(),
+    emailDetails: z.nullable(SalesInvoiceEmailDetails$outboundSchema)
+      .optional(),
+    customerId: z.string().optional(),
+    mandateId: z.string().optional(),
+    recipientIdentifier: z.string(),
+    recipient: z.nullable(SalesInvoiceRecipient$outboundSchema),
+    lines: z.nullable(z.array(SalesInvoiceLineItem$outboundSchema)),
+    discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
+    isEInvoice: z.boolean().optional(),
+  })
+);
 
 export function salesInvoiceRequestToJSON(
   salesInvoiceRequest: SalesInvoiceRequest,
