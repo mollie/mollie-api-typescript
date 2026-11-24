@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -40,9 +40,11 @@ export const DraftTransferPartyAccount$inboundSchema: z.ZodType<
   DraftTransferPartyAccount,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  iban: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    iban: z.string(),
+  })
+);
 /** @internal */
 export type DraftTransferPartyAccount$Outbound = {
   iban: string;
@@ -53,9 +55,11 @@ export const DraftTransferPartyAccount$outboundSchema: z.ZodType<
   DraftTransferPartyAccount$Outbound,
   z.ZodTypeDef,
   DraftTransferPartyAccount
-> = z.object({
-  iban: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    iban: z.string(),
+  })
+);
 
 export function draftTransferPartyAccountToJSON(
   draftTransferPartyAccount: DraftTransferPartyAccount,
@@ -79,10 +83,12 @@ export const DraftTransferParty$inboundSchema: z.ZodType<
   DraftTransferParty,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  fullName: z.string(),
-  account: z.lazy(() => DraftTransferPartyAccount$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    fullName: z.string(),
+    account: z.lazy(() => DraftTransferPartyAccount$inboundSchema),
+  })
+);
 /** @internal */
 export type DraftTransferParty$Outbound = {
   fullName: string;
@@ -94,10 +100,12 @@ export const DraftTransferParty$outboundSchema: z.ZodType<
   DraftTransferParty$Outbound,
   z.ZodTypeDef,
   DraftTransferParty
-> = z.object({
-  fullName: z.string(),
-  account: z.lazy(() => DraftTransferPartyAccount$outboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    fullName: z.string(),
+    account: z.lazy(() => DraftTransferPartyAccount$outboundSchema),
+  })
+);
 
 export function draftTransferPartyToJSON(
   draftTransferParty: DraftTransferParty,

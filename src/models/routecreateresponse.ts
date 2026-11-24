@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -90,10 +90,12 @@ export const RouteCreateResponseDestination$inboundSchema: z.ZodType<
   RouteCreateResponseDestination,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: RouteDestinationTypeResponse$inboundSchema,
-  organizationId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: RouteDestinationTypeResponse$inboundSchema,
+    organizationId: z.string(),
+  })
+);
 
 export function routeCreateResponseDestinationFromJSON(
   jsonString: string,
@@ -110,11 +112,13 @@ export const RouteCreateResponseLinks$inboundSchema: z.ZodType<
   RouteCreateResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  documentation: Url$inboundSchema,
-  payment: Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    documentation: Url$inboundSchema,
+    payment: Url$inboundSchema,
+  })
+);
 
 export function routeCreateResponseLinksFromJSON(
   jsonString: string,
@@ -131,20 +135,22 @@ export const RouteCreateResponse$inboundSchema: z.ZodType<
   RouteCreateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  paymentId: z.string(),
-  amount: Amount$inboundSchema,
-  description: z.string().optional(),
-  destination: z.lazy(() => RouteCreateResponseDestination$inboundSchema),
-  createdAt: z.string(),
-  _links: z.lazy(() => RouteCreateResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    paymentId: z.string(),
+    amount: Amount$inboundSchema,
+    description: z.string().optional(),
+    destination: z.lazy(() => RouteCreateResponseDestination$inboundSchema),
+    createdAt: z.string(),
+    _links: z.lazy(() => RouteCreateResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function routeCreateResponseFromJSON(
   jsonString: string,

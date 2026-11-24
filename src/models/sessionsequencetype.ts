@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 export const SessionSequenceType = {
@@ -15,4 +16,4 @@ export type SessionSequenceType = ClosedEnum<typeof SessionSequenceType>;
 /** @internal */
 export const SessionSequenceType$outboundSchema: z.ZodNativeEnum<
   typeof SessionSequenceType
-> = z.nativeEnum(SessionSequenceType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(SessionSequenceType));

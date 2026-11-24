@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type ReleaseAuthorizationRequestBody = {
   /**
@@ -60,10 +64,12 @@ export const ReleaseAuthorizationRequestBody$outboundSchema: z.ZodType<
   ReleaseAuthorizationRequestBody$Outbound,
   z.ZodTypeDef,
   ReleaseAuthorizationRequestBody
-> = z.object({
-  profileId: z.string().optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    profileId: z.string().optional(),
+    testmode: z.nullable(z.boolean()).optional(),
+  })
+);
 
 export function releaseAuthorizationRequestBodyToJSON(
   releaseAuthorizationRequestBody: ReleaseAuthorizationRequestBody,
@@ -89,21 +95,25 @@ export const ReleaseAuthorizationRequest$outboundSchema: z.ZodType<
   ReleaseAuthorizationRequest$Outbound,
   z.ZodTypeDef,
   ReleaseAuthorizationRequest
-> = z.object({
-  paymentId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => ReleaseAuthorizationRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
+      message: "Value must match pattern ^tr_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => ReleaseAuthorizationRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function releaseAuthorizationRequestToJSON(
   releaseAuthorizationRequest: ReleaseAuthorizationRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -115,21 +115,23 @@ export const ListConnectBalanceTransfersRequest$outboundSchema: z.ZodType<
   ListConnectBalanceTransfersRequest$Outbound,
   z.ZodTypeDef,
   ListConnectBalanceTransfersRequest
-> = z.object({
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$outboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    from: z.nullable(z.string()).optional(),
+    limit: z.nullable(z.number().int()).optional(),
+    sort: models.Sorting$outboundSchema.optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listConnectBalanceTransfersRequestToJSON(
   listConnectBalanceTransfersRequest: ListConnectBalanceTransfersRequest,
@@ -146,15 +148,17 @@ export const ListConnectBalanceTransfersEmbedded$inboundSchema: z.ZodType<
   ListConnectBalanceTransfersEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  connect_balance_transfers: z.array(
-    models.EntityBalanceTransferResponse$inboundSchema,
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "connect_balance_transfers": "connectBalanceTransfers",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    connect_balance_transfers: z.array(
+      models.EntityBalanceTransferResponse$inboundSchema,
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "connect_balance_transfers": "connectBalanceTransfers",
+    });
+  })
+);
 
 export function listConnectBalanceTransfersEmbeddedFromJSON(
   jsonString: string,
@@ -172,16 +176,18 @@ export const ListConnectBalanceTransfersResponseBody$inboundSchema: z.ZodType<
   ListConnectBalanceTransfersResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  _embedded: z.lazy(() => ListConnectBalanceTransfersEmbedded$inboundSchema),
-  _links: models.ListLinks$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() => ListConnectBalanceTransfersEmbedded$inboundSchema),
+    _links: models.ListLinks$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listConnectBalanceTransfersResponseBodyFromJSON(
   jsonString: string,
@@ -204,13 +210,15 @@ export const ListConnectBalanceTransfersResponse$inboundSchema: z.ZodType<
   ListConnectBalanceTransfersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: z.lazy(() => ListConnectBalanceTransfersResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: z.lazy(() => ListConnectBalanceTransfersResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function listConnectBalanceTransfersResponseFromJSON(
   jsonString: string,

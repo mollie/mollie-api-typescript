@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AmountNullable,
   AmountNullable$Outbound,
@@ -56,12 +57,14 @@ export const EntityCapture$outboundSchema: z.ZodType<
   EntityCapture$Outbound,
   z.ZodTypeDef,
   EntityCapture
-> = z.object({
-  description: z.string().optional(),
-  amount: z.nullable(AmountNullable$outboundSchema).optional(),
-  metadata: z.nullable(Metadata$outboundSchema).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    description: z.string().optional(),
+    amount: z.nullable(AmountNullable$outboundSchema).optional(),
+    metadata: z.nullable(Metadata$outboundSchema).optional(),
+    testmode: z.nullable(z.boolean()).optional(),
+  })
+);
 
 export function entityCaptureToJSON(entityCapture: EntityCapture): string {
   return JSON.stringify(EntityCapture$outboundSchema.parse(entityCapture));

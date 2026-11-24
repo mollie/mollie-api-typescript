@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -209,22 +209,26 @@ export const EntityWebhookEventWebhookEventTypes$inboundSchema: z.ZodType<
   EntityWebhookEventWebhookEventTypes,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(EntityWebhookEventWebhookEventTypes);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(EntityWebhookEventWebhookEventTypes)
+);
 
 /** @internal */
-export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> = z
-  .union([
-    PaymentLinkResponse$inboundSchema,
-    TransferResponse$inboundSchema,
-    PaymentResponse$inboundSchema,
-    RefundResponse$inboundSchema,
-    DraftTransferResponse$inboundSchema,
-    CaptureResponse$inboundSchema,
-    BusinessAccountResponse$inboundSchema,
-    EntityPayoutResponse$inboundSchema,
-    EntityChargeback$inboundSchema,
-    SalesInvoiceResponse$inboundSchema,
-  ]);
+export const Entity$inboundSchema: z.ZodType<Entity, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      PaymentLinkResponse$inboundSchema,
+      TransferResponse$inboundSchema,
+      PaymentResponse$inboundSchema,
+      RefundResponse$inboundSchema,
+      DraftTransferResponse$inboundSchema,
+      CaptureResponse$inboundSchema,
+      BusinessAccountResponse$inboundSchema,
+      EntityPayoutResponse$inboundSchema,
+      EntityChargeback$inboundSchema,
+      SalesInvoiceResponse$inboundSchema,
+    ])
+  );
 
 export function entityFromJSON(
   jsonString: string,
@@ -241,20 +245,22 @@ export const Embedded$inboundSchema: z.ZodType<
   Embedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  entity: z.union([
-    PaymentLinkResponse$inboundSchema,
-    TransferResponse$inboundSchema,
-    PaymentResponse$inboundSchema,
-    RefundResponse$inboundSchema,
-    DraftTransferResponse$inboundSchema,
-    CaptureResponse$inboundSchema,
-    BusinessAccountResponse$inboundSchema,
-    EntityPayoutResponse$inboundSchema,
-    EntityChargeback$inboundSchema,
-    SalesInvoiceResponse$inboundSchema,
-  ]).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    entity: z.union([
+      PaymentLinkResponse$inboundSchema,
+      TransferResponse$inboundSchema,
+      PaymentResponse$inboundSchema,
+      RefundResponse$inboundSchema,
+      DraftTransferResponse$inboundSchema,
+      CaptureResponse$inboundSchema,
+      BusinessAccountResponse$inboundSchema,
+      EntityPayoutResponse$inboundSchema,
+      EntityChargeback$inboundSchema,
+      SalesInvoiceResponse$inboundSchema,
+    ]).optional(),
+  })
+);
 
 export function embeddedFromJSON(
   jsonString: string,
@@ -271,11 +277,13 @@ export const EntityWebhookEventLinks$inboundSchema: z.ZodType<
   EntityWebhookEventLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  documentation: Url$inboundSchema,
-  entity: Url$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    documentation: Url$inboundSchema,
+    entity: Url$inboundSchema.optional(),
+  })
+);
 
 export function entityWebhookEventLinksFromJSON(
   jsonString: string,
@@ -292,21 +300,23 @@ export const EntityWebhookEvent$inboundSchema: z.ZodType<
   EntityWebhookEvent,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  type: EntityWebhookEventWebhookEventTypes$inboundSchema,
-  entityId: z.string(),
-  createdAt: z.string(),
-  _embedded: z.nullable(z.lazy(() => Embedded$inboundSchema)).optional(),
-  _links: z.lazy(() => EntityWebhookEventLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "type": "webhookEventTypes",
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    type: EntityWebhookEventWebhookEventTypes$inboundSchema,
+    entityId: z.string(),
+    createdAt: z.string(),
+    _embedded: z.nullable(z.lazy(() => Embedded$inboundSchema)).optional(),
+    _links: z.lazy(() => EntityWebhookEventLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "type": "webhookEventTypes",
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function entityWebhookEventFromJSON(
   jsonString: string,

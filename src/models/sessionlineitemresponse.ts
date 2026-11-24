@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -76,20 +76,22 @@ export const SessionLineItemResponse$inboundSchema: z.ZodType<
   SessionLineItemResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: PaymentLineTypeResponse$inboundSchema.optional(),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: Amount$inboundSchema,
-  discountAmount: Amount$inboundSchema.optional(),
-  totalAmount: Amount$inboundSchema,
-  vatRate: z.string().optional(),
-  vatAmount: Amount$inboundSchema.optional(),
-  sku: z.string().optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: PaymentLineTypeResponse$inboundSchema.optional(),
+    description: z.string(),
+    quantity: z.number().int(),
+    quantityUnit: z.string().optional(),
+    unitPrice: Amount$inboundSchema,
+    discountAmount: Amount$inboundSchema.optional(),
+    totalAmount: Amount$inboundSchema,
+    vatRate: z.string().optional(),
+    vatAmount: Amount$inboundSchema.optional(),
+    sku: z.string().optional(),
+    imageUrl: z.string().optional(),
+    productUrl: z.string().optional(),
+  })
+);
 
 export function sessionLineItemResponseFromJSON(
   jsonString: string,

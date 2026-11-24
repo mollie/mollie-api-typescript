@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type Organization = {
@@ -112,14 +113,16 @@ export const Organization$outboundSchema: z.ZodType<
   Organization$Outbound,
   z.ZodTypeDef,
   Organization
-> = z.object({
-  name: z.string().optional(),
-  address: models.Address$outboundSchema.optional(),
-  registrationNumber: z.string().optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(models.OnboardingVatRegulation$outboundSchema)
-    .optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    address: models.Address$outboundSchema.optional(),
+    registrationNumber: z.string().optional(),
+    vatNumber: z.nullable(z.string()).optional(),
+    vatRegulation: z.nullable(models.OnboardingVatRegulation$outboundSchema)
+      .optional(),
+  })
+);
 
 export function organizationToJSON(organization: Organization): string {
   return JSON.stringify(Organization$outboundSchema.parse(organization));
@@ -140,14 +143,16 @@ export const Profile$outboundSchema: z.ZodType<
   Profile$Outbound,
   z.ZodTypeDef,
   Profile
-> = z.object({
-  name: z.string().optional(),
-  url: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  businessCategory: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    url: z.string().optional(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    description: z.nullable(z.string()).optional(),
+    businessCategory: z.string().optional(),
+  })
+);
 
 export function profileToJSON(profile: Profile): string {
   return JSON.stringify(Profile$outboundSchema.parse(profile));
@@ -164,10 +169,12 @@ export const SubmitOnboardingDataRequestBody$outboundSchema: z.ZodType<
   SubmitOnboardingDataRequestBody$Outbound,
   z.ZodTypeDef,
   SubmitOnboardingDataRequestBody
-> = z.object({
-  organization: z.lazy(() => Organization$outboundSchema).optional(),
-  profile: z.lazy(() => Profile$outboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    organization: z.lazy(() => Organization$outboundSchema).optional(),
+    profile: z.lazy(() => Profile$outboundSchema).optional(),
+  })
+);
 
 export function submitOnboardingDataRequestBodyToJSON(
   submitOnboardingDataRequestBody: SubmitOnboardingDataRequestBody,
@@ -192,20 +199,22 @@ export const SubmitOnboardingDataRequest$outboundSchema: z.ZodType<
   SubmitOnboardingDataRequest$Outbound,
   z.ZodTypeDef,
   SubmitOnboardingDataRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => SubmitOnboardingDataRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => SubmitOnboardingDataRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function submitOnboardingDataRequestToJSON(
   submitOnboardingDataRequest: SubmitOnboardingDataRequest,

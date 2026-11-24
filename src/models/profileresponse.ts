@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -175,16 +175,20 @@ export const ProfileResponseStatus$inboundSchema: z.ZodType<
   ProfileResponseStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(ProfileResponseStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(ProfileResponseStatus)
+);
 
 /** @internal */
 export const ProfileResponseReview$inboundSchema: z.ZodType<
   ProfileResponseReview,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  status: ProfileReviewStatusResponse$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    status: ProfileReviewStatusResponse$inboundSchema.optional(),
+  })
+);
 
 export function profileResponseReviewFromJSON(
   jsonString: string,
@@ -201,16 +205,18 @@ export const ProfileResponseLinks$inboundSchema: z.ZodType<
   ProfileResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema.optional(),
-  dashboard: Url$inboundSchema.optional(),
-  chargebacks: Url$inboundSchema.optional(),
-  methods: Url$inboundSchema.optional(),
-  payments: Url$inboundSchema.optional(),
-  refunds: Url$inboundSchema.optional(),
-  checkoutPreviewUrl: Url$inboundSchema.optional(),
-  documentation: Url$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema.optional(),
+    dashboard: Url$inboundSchema.optional(),
+    chargebacks: Url$inboundSchema.optional(),
+    methods: Url$inboundSchema.optional(),
+    payments: Url$inboundSchema.optional(),
+    refunds: Url$inboundSchema.optional(),
+    checkoutPreviewUrl: Url$inboundSchema.optional(),
+    documentation: Url$inboundSchema.optional(),
+  })
+);
 
 export function profileResponseLinksFromJSON(
   jsonString: string,
@@ -227,26 +233,28 @@ export const ProfileResponse$inboundSchema: z.ZodType<
   ProfileResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$inboundSchema,
-  name: z.string(),
-  website: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  description: z.string().optional(),
-  countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.nullable(z.string()),
-  status: ProfileResponseStatus$inboundSchema,
-  review: z.lazy(() => ProfileResponseReview$inboundSchema).optional(),
-  createdAt: z.string(),
-  _links: z.lazy(() => ProfileResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    mode: Mode$inboundSchema,
+    name: z.string(),
+    website: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    description: z.string().optional(),
+    countriesOfActivity: z.array(z.string()).optional(),
+    businessCategory: z.nullable(z.string()),
+    status: ProfileResponseStatus$inboundSchema,
+    review: z.lazy(() => ProfileResponseReview$inboundSchema).optional(),
+    createdAt: z.string(),
+    _links: z.lazy(() => ProfileResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function profileResponseFromJSON(
   jsonString: string,

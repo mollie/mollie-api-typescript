@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -40,9 +40,11 @@ export const TransferPartyAccount$inboundSchema: z.ZodType<
   TransferPartyAccount,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  iban: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    iban: z.string(),
+  })
+);
 /** @internal */
 export type TransferPartyAccount$Outbound = {
   iban: string;
@@ -53,9 +55,11 @@ export const TransferPartyAccount$outboundSchema: z.ZodType<
   TransferPartyAccount$Outbound,
   z.ZodTypeDef,
   TransferPartyAccount
-> = z.object({
-  iban: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    iban: z.string(),
+  })
+);
 
 export function transferPartyAccountToJSON(
   transferPartyAccount: TransferPartyAccount,
@@ -79,10 +83,12 @@ export const TransferParty$inboundSchema: z.ZodType<
   TransferParty,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  fullName: z.string(),
-  account: z.lazy(() => TransferPartyAccount$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    fullName: z.string(),
+    account: z.lazy(() => TransferPartyAccount$inboundSchema),
+  })
+);
 /** @internal */
 export type TransferParty$Outbound = {
   fullName: string;
@@ -94,10 +100,12 @@ export const TransferParty$outboundSchema: z.ZodType<
   TransferParty$Outbound,
   z.ZodTypeDef,
   TransferParty
-> = z.object({
-  fullName: z.string(),
-  account: z.lazy(() => TransferPartyAccount$outboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    fullName: z.string(),
+    account: z.lazy(() => TransferPartyAccount$outboundSchema),
+  })
+);
 
 export function transferPartyToJSON(transferParty: TransferParty): string {
   return JSON.stringify(TransferParty$outboundSchema.parse(transferParty));

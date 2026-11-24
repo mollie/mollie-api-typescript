@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -76,4 +77,4 @@ export type SettlementMethod = ClosedEnum<typeof SettlementMethod>;
 /** @internal */
 export const SettlementMethod$inboundSchema: z.ZodNativeEnum<
   typeof SettlementMethod
-> = z.nativeEnum(SettlementMethod);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(SettlementMethod));

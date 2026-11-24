@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type UpdateCustomerRequestBody = {
@@ -77,13 +81,15 @@ export const UpdateCustomerRequestBody$outboundSchema: z.ZodType<
   UpdateCustomerRequestBody$Outbound,
   z.ZodTypeDef,
   UpdateCustomerRequestBody
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  locale: z.nullable(models.LocaleResponse$outboundSchema).optional(),
-  metadata: z.nullable(models.Metadata$outboundSchema).optional(),
-  testmode: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.nullable(z.string()).optional(),
+    email: z.nullable(z.string()).optional(),
+    locale: z.nullable(models.LocaleResponse$outboundSchema).optional(),
+    metadata: z.nullable(models.Metadata$outboundSchema).optional(),
+    testmode: z.boolean().optional(),
+  })
+);
 
 export function updateCustomerRequestBodyToJSON(
   updateCustomerRequestBody: UpdateCustomerRequestBody,
@@ -107,21 +113,25 @@ export const UpdateCustomerRequest$outboundSchema: z.ZodType<
   UpdateCustomerRequest$Outbound,
   z.ZodTypeDef,
   UpdateCustomerRequest
-> = z.object({
-  customerId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => UpdateCustomerRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    customerId: z.string().refine(matchesPattern$("^cst_.+$"), {
+      message: "Value must match pattern ^cst_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => UpdateCustomerRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function updateCustomerRequestToJSON(
   updateCustomerRequest: UpdateCustomerRequest,

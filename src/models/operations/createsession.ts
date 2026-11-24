@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type CreateSessionRequest = {
@@ -36,19 +37,21 @@ export const CreateSessionRequest$outboundSchema: z.ZodType<
   CreateSessionRequest$Outbound,
   z.ZodTypeDef,
   CreateSessionRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  sessionRequest: models.SessionRequest$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    sessionRequest: "session-request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    sessionRequest: models.SessionRequest$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      sessionRequest: "session-request",
+    });
+  })
+);
 
 export function createSessionRequestToJSON(
   createSessionRequest: CreateSessionRequest,

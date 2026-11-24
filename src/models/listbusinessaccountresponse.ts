@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountDetails,
@@ -77,10 +77,12 @@ export const ListBusinessAccountResponseLinks$inboundSchema: z.ZodType<
   ListBusinessAccountResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  documentation: Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    documentation: Url$inboundSchema,
+  })
+);
 
 export function listBusinessAccountResponseLinksFromJSON(
   jsonString: string,
@@ -97,20 +99,22 @@ export const ListBusinessAccountResponse$inboundSchema: z.ZodType<
   ListBusinessAccountResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  accountDetails: AccountDetails$inboundSchema,
-  balance: Balance$inboundSchema,
-  status: AccountStatus$inboundSchema,
-  mode: Mode$inboundSchema,
-  createdAt: z.string(),
-  _links: z.lazy(() => ListBusinessAccountResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    accountDetails: AccountDetails$inboundSchema,
+    balance: Balance$inboundSchema,
+    status: AccountStatus$inboundSchema,
+    mode: Mode$inboundSchema,
+    createdAt: z.string(),
+    _links: z.lazy(() => ListBusinessAccountResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function listBusinessAccountResponseFromJSON(
   jsonString: string,

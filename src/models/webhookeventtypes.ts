@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -83,7 +84,7 @@ export type WebhookEventTypes = ClosedEnum<typeof WebhookEventTypes>;
 /** @internal */
 export const WebhookEventTypes$inboundSchema: z.ZodNativeEnum<
   typeof WebhookEventTypes
-> = z.nativeEnum(WebhookEventTypes);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(WebhookEventTypes));
 /** @internal */
 export const WebhookEventTypes$outboundSchema: z.ZodNativeEnum<
   typeof WebhookEventTypes

@@ -4,8 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -145,24 +148,32 @@ export const ListSubscriptionPaymentsRequest$outboundSchema: z.ZodType<
   ListSubscriptionPaymentsRequest$Outbound,
   z.ZodTypeDef,
   ListSubscriptionPaymentsRequest
-> = z.object({
-  customerId: z.string(),
-  subscriptionId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  sort: models.Sorting$outboundSchema.optional(),
-  profileId: z.string().optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    customerId: z.string().refine(matchesPattern$("^cst_.+$"), {
+      message: "Value must match pattern ^cst_.+$",
+    }),
+    subscriptionId: z.string().refine(matchesPattern$("^sub_.+$"), {
+      message: "Value must match pattern ^sub_.+$",
+    }),
+    from: z.string().refine(matchesPattern$("^tr_.+$"), {
+      message: "Value must match pattern ^tr_.+$",
+    }).optional(),
+    limit: z.nullable(z.number().int()).optional(),
+    sort: models.Sorting$outboundSchema.optional(),
+    profileId: z.string().optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listSubscriptionPaymentsRequestToJSON(
   listSubscriptionPaymentsRequest: ListSubscriptionPaymentsRequest,
@@ -179,9 +190,11 @@ export const ListSubscriptionPaymentsEmbedded$inboundSchema: z.ZodType<
   ListSubscriptionPaymentsEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  payments: z.array(models.ListPaymentResponse$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    payments: z.array(models.ListPaymentResponse$inboundSchema).optional(),
+  })
+);
 
 export function listSubscriptionPaymentsEmbeddedFromJSON(
   jsonString: string,
@@ -198,16 +211,18 @@ export const ListSubscriptionPaymentsResponseBody$inboundSchema: z.ZodType<
   ListSubscriptionPaymentsResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  _embedded: z.lazy(() => ListSubscriptionPaymentsEmbedded$inboundSchema),
-  _links: models.ListLinks$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() => ListSubscriptionPaymentsEmbedded$inboundSchema),
+    _links: models.ListLinks$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listSubscriptionPaymentsResponseBodyFromJSON(
   jsonString: string,
@@ -225,13 +240,15 @@ export const ListSubscriptionPaymentsResponse$inboundSchema: z.ZodType<
   ListSubscriptionPaymentsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: z.lazy(() => ListSubscriptionPaymentsResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: z.lazy(() => ListSubscriptionPaymentsResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function listSubscriptionPaymentsResponseFromJSON(
   jsonString: string,

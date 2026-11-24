@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type GetSubscriptionGlobals = {
   /**
@@ -67,20 +71,26 @@ export const GetSubscriptionRequest$outboundSchema: z.ZodType<
   GetSubscriptionRequest$Outbound,
   z.ZodTypeDef,
   GetSubscriptionRequest
-> = z.object({
-  customerId: z.string(),
-  subscriptionId: z.string(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    customerId: z.string().refine(matchesPattern$("^cst_.+$"), {
+      message: "Value must match pattern ^cst_.+$",
+    }),
+    subscriptionId: z.string().refine(matchesPattern$("^sub_.+$"), {
+      message: "Value must match pattern ^sub_.+$",
+    }),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function getSubscriptionRequestToJSON(
   getSubscriptionRequest: GetSubscriptionRequest,

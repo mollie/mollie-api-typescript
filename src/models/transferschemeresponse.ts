@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -27,9 +27,11 @@ export const TransferSchemeResponse$inboundSchema: z.ZodType<
   TransferSchemeResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: TransferSchemeTypeResponse$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: TransferSchemeTypeResponse$inboundSchema,
+  })
+);
 
 export function transferSchemeResponseFromJSON(
   jsonString: string,

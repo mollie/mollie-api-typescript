@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -110,16 +110,20 @@ export const ListEntityTerminalStatus$inboundSchema: z.ZodType<
   ListEntityTerminalStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(ListEntityTerminalStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(ListEntityTerminalStatus)
+);
 
 /** @internal */
 export const ListEntityTerminalLinks$inboundSchema: z.ZodType<
   ListEntityTerminalLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+  })
+);
 
 export function listEntityTerminalLinksFromJSON(
   jsonString: string,
@@ -136,25 +140,27 @@ export const ListEntityTerminal$inboundSchema: z.ZodType<
   ListEntityTerminal,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$inboundSchema,
-  description: z.string(),
-  status: ListEntityTerminalStatus$inboundSchema,
-  brand: z.nullable(TerminalBrand$inboundSchema),
-  model: z.nullable(TerminalModel$inboundSchema),
-  serialNumber: z.nullable(z.string()),
-  currency: z.string(),
-  profileId: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  _links: z.lazy(() => ListEntityTerminalLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    mode: Mode$inboundSchema,
+    description: z.string(),
+    status: ListEntityTerminalStatus$inboundSchema,
+    brand: z.nullable(TerminalBrand$inboundSchema),
+    model: z.nullable(TerminalModel$inboundSchema),
+    serialNumber: z.nullable(z.string()),
+    currency: z.string(),
+    profileId: z.string(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    _links: z.lazy(() => ListEntityTerminalLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function listEntityTerminalFromJSON(
   jsonString: string,

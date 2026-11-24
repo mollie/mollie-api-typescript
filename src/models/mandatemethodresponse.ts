@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
@@ -33,4 +34,6 @@ export const MandateMethodResponse$inboundSchema: z.ZodType<
   MandateMethodResponse,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(MandateMethodResponse);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(MandateMethodResponse)
+);

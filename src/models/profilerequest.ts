@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type ProfileRequest = {
   /**
@@ -68,15 +69,17 @@ export const ProfileRequest$outboundSchema: z.ZodType<
   ProfileRequest$Outbound,
   z.ZodTypeDef,
   ProfileRequest
-> = z.object({
-  name: z.string(),
-  website: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  description: z.string().optional(),
-  countriesOfActivity: z.array(z.string()).optional(),
-  businessCategory: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+    website: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    description: z.string().optional(),
+    countriesOfActivity: z.array(z.string()).optional(),
+    businessCategory: z.nullable(z.string()).optional(),
+  })
+);
 
 export function profileRequestToJSON(profileRequest: ProfileRequest): string {
   return JSON.stringify(ProfileRequest$outboundSchema.parse(profileRequest));

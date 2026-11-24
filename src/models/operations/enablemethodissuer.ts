@@ -4,8 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -66,9 +69,11 @@ export const EnableMethodIssuerRequestBody$outboundSchema: z.ZodType<
   EnableMethodIssuerRequestBody$Outbound,
   z.ZodTypeDef,
   EnableMethodIssuerRequestBody
-> = z.object({
-  contractId: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    contractId: z.nullable(z.string()).optional(),
+  })
+);
 
 export function enableMethodIssuerRequestBodyToJSON(
   enableMethodIssuerRequestBody: EnableMethodIssuerRequestBody,
@@ -96,23 +101,27 @@ export const EnableMethodIssuerRequest$outboundSchema: z.ZodType<
   EnableMethodIssuerRequest$Outbound,
   z.ZodTypeDef,
   EnableMethodIssuerRequest
-> = z.object({
-  profileId: z.string(),
-  methodId: models.MethodIdWithIssuer$outboundSchema,
-  issuerId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => EnableMethodIssuerRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    profileId: z.string().refine(matchesPattern$("^pfl_.+$"), {
+      message: "Value must match pattern ^pfl_.+$",
+    }),
+    methodId: models.MethodIdWithIssuer$outboundSchema,
+    issuerId: z.string(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => EnableMethodIssuerRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function enableMethodIssuerRequestToJSON(
   enableMethodIssuerRequest: EnableMethodIssuerRequest,
@@ -127,7 +136,9 @@ export const EnableMethodIssuerResponse$inboundSchema: z.ZodType<
   EnableMethodIssuerResponse,
   z.ZodTypeDef,
   unknown
-> = z.union([models.Voucher$inboundSchema, models.Giftcard$inboundSchema]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([models.Voucher$inboundSchema, models.Giftcard$inboundSchema])
+);
 
 export function enableMethodIssuerResponseFromJSON(
   jsonString: string,

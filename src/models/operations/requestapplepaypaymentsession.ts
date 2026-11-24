@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type RequestApplePayPaymentSessionRequestBody = {
   /**
@@ -66,11 +67,13 @@ export const RequestApplePayPaymentSessionRequestBody$outboundSchema: z.ZodType<
   RequestApplePayPaymentSessionRequestBody$Outbound,
   z.ZodTypeDef,
   RequestApplePayPaymentSessionRequestBody
-> = z.object({
-  validationUrl: z.string(),
-  domain: z.string(),
-  profileId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    validationUrl: z.string(),
+    domain: z.string(),
+    profileId: z.string().optional(),
+  })
+);
 
 export function requestApplePayPaymentSessionRequestBodyToJSON(
   requestApplePayPaymentSessionRequestBody:
@@ -96,21 +99,23 @@ export const RequestApplePayPaymentSessionRequest$outboundSchema: z.ZodType<
   RequestApplePayPaymentSessionRequest$Outbound,
   z.ZodTypeDef,
   RequestApplePayPaymentSessionRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() =>
-    RequestApplePayPaymentSessionRequestBody$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() =>
+      RequestApplePayPaymentSessionRequestBody$outboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function requestApplePayPaymentSessionRequestToJSON(
   requestApplePayPaymentSessionRequest: RequestApplePayPaymentSessionRequest,

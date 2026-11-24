@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type VerifyPayeeRequest = {
@@ -38,20 +39,22 @@ export const VerifyPayeeRequest$outboundSchema: z.ZodType<
   VerifyPayeeRequest$Outbound,
   z.ZodTypeDef,
   VerifyPayeeRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  verificationOfPayeeRequest: models.VerificationOfPayeeRequest$outboundSchema
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    verificationOfPayeeRequest: "verification-of-payee-request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    verificationOfPayeeRequest: models.VerificationOfPayeeRequest$outboundSchema
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      verificationOfPayeeRequest: "verification-of-payee-request",
+    });
+  })
+);
 
 export function verifyPayeeRequestToJSON(
   verifyPayeeRequest: VerifyPayeeRequest,

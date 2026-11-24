@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -164,20 +164,22 @@ export const ListClientsRequest$outboundSchema: z.ZodType<
   ListClientsRequest$Outbound,
   z.ZodTypeDef,
   ListClientsRequest
-> = z.object({
-  embed: z.nullable(z.string()).optional(),
-  from: z.nullable(z.string()).optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    embed: z.nullable(z.string()).optional(),
+    from: z.nullable(z.string()).optional(),
+    limit: z.nullable(z.number().int()).optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listClientsRequestToJSON(
   listClientsRequest: ListClientsRequest,
@@ -192,9 +194,11 @@ export const ListClientsCommission$inboundSchema: z.ZodType<
   ListClientsCommission,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int().optional(),
+  })
+);
 
 export function listClientsCommissionFromJSON(
   jsonString: string,
@@ -211,11 +215,13 @@ export const ListClientsLinks$inboundSchema: z.ZodType<
   ListClientsLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: models.Url$inboundSchema,
-  organization: models.Url$inboundSchema.optional(),
-  onboarding: models.Url$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: models.Url$inboundSchema,
+    organization: models.Url$inboundSchema.optional(),
+    onboarding: models.Url$inboundSchema.optional(),
+  })
+);
 
 export function listClientsLinksFromJSON(
   jsonString: string,
@@ -232,11 +238,13 @@ export const ClientEmbedded$inboundSchema: z.ZodType<
   ClientEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  organization: models.EntityOrganization$inboundSchema.optional(),
-  onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
-  capabilities: z.array(models.EntityCapability$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    organization: models.EntityOrganization$inboundSchema.optional(),
+    onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
+    capabilities: z.array(models.EntityCapability$inboundSchema).optional(),
+  })
+);
 
 export function clientEmbeddedFromJSON(
   jsonString: string,
@@ -249,21 +257,23 @@ export function clientEmbeddedFromJSON(
 }
 
 /** @internal */
-export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
-  .object({
-    resource: z.string(),
-    id: z.string(),
-    commission: z.nullable(z.lazy(() => ListClientsCommission$inboundSchema))
-      .optional(),
-    organizationCreatedAt: z.string().optional(),
-    _links: z.lazy(() => ListClientsLinks$inboundSchema),
-    _embedded: z.lazy(() => ClientEmbedded$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-      "_embedded": "embedded",
-    });
-  });
+export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      resource: z.string(),
+      id: z.string(),
+      commission: z.nullable(z.lazy(() => ListClientsCommission$inboundSchema))
+        .optional(),
+      organizationCreatedAt: z.string().optional(),
+      _links: z.lazy(() => ListClientsLinks$inboundSchema),
+      _embedded: z.lazy(() => ClientEmbedded$inboundSchema).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "_links": "links",
+        "_embedded": "embedded",
+      });
+    })
+  );
 
 export function clientFromJSON(
   jsonString: string,
@@ -280,9 +290,11 @@ export const ListClientsEmbedded$inboundSchema: z.ZodType<
   ListClientsEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  clients: z.array(z.lazy(() => Client$inboundSchema)).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    clients: z.array(z.lazy(() => Client$inboundSchema)).optional(),
+  })
+);
 
 export function listClientsEmbeddedFromJSON(
   jsonString: string,
@@ -299,16 +311,18 @@ export const ListClientsResponseBody$inboundSchema: z.ZodType<
   ListClientsResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int().optional(),
-  _embedded: z.lazy(() => ListClientsEmbedded$inboundSchema).optional(),
-  _links: models.ListLinks$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int().optional(),
+    _embedded: z.lazy(() => ListClientsEmbedded$inboundSchema).optional(),
+    _links: models.ListLinks$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listClientsResponseBodyFromJSON(
   jsonString: string,
@@ -325,13 +339,15 @@ export const ListClientsResponse$inboundSchema: z.ZodType<
   ListClientsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: z.lazy(() => ListClientsResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: z.lazy(() => ListClientsResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function listClientsResponseFromJSON(
   jsonString: string,

@@ -1,6 +1,6 @@
 {
   "name": "mollie-api-typescript",
-  "version": "1.12.49",
+  "version": "1.12.50",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {
@@ -10,6 +10,7 @@
     "exports": {
       ".": "./src/index.ts",
       "./package.json": "./package.json",
+      "./node": "./src/node.ts",
       "./types": "./src/types/index.ts",
       "./models/errors": "./src/models/errors/index.ts",
       "./models": "./src/models/index.ts",
@@ -53,6 +54,17 @@
       }
     },
     "./package.json": "./package.json",
+    "./node": {
+      "import": {
+        "mollie-api-typescript/source": "./src/node.ts",
+        "types": "./dist/esm/node.d.ts",
+        "default": "./dist/esm/node.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/node.d.ts",
+        "default": "./dist/commonjs/node.js"
+      }
+    },
     "./types": {
       "import": {
         "mollie-api-typescript/source": "./src/types/index.ts",

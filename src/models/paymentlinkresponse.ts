@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
@@ -212,10 +212,12 @@ export const PaymentLinkResponseApplicationFee$inboundSchema: z.ZodType<
   PaymentLinkResponseApplicationFee,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  amount: Amount$inboundSchema,
-  description: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    amount: Amount$inboundSchema,
+    description: z.string(),
+  })
+);
 
 export function paymentLinkResponseApplicationFeeFromJSON(
   jsonString: string,
@@ -232,10 +234,12 @@ export const PaymentLinkResponseLinks$inboundSchema: z.ZodType<
   PaymentLinkResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  paymentLink: Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    paymentLink: Url$inboundSchema,
+  })
+);
 
 export function paymentLinkResponseLinksFromJSON(
   jsonString: string,
@@ -252,35 +256,41 @@ export const PaymentLinkResponse$inboundSchema: z.ZodType<
   PaymentLinkResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$inboundSchema,
-  description: z.string(),
-  amount: z.nullable(AmountNullable$inboundSchema),
-  minimumAmount: z.nullable(AmountNullable$inboundSchema).optional(),
-  archived: z.boolean(),
-  redirectUrl: z.nullable(z.string()),
-  webhookUrl: z.nullable(z.string()),
-  lines: z.nullable(z.array(PaymentLineItemResponse$inboundSchema)).optional(),
-  billingAddress: ShippingAddress$inboundSchema.optional(),
-  shippingAddress: ShippingAddress$inboundSchema.optional(),
-  profileId: z.nullable(z.string()),
-  reusable: z.nullable(z.boolean()),
-  createdAt: z.string(),
-  paidAt: z.nullable(z.string()),
-  expiresAt: z.nullable(z.string()),
-  allowedMethods: z.nullable(z.array(PaymentLinkMethodResponse$inboundSchema)),
-  applicationFee: z.lazy(() => PaymentLinkResponseApplicationFee$inboundSchema)
-    .optional(),
-  sequenceType: PaymentLinkSequenceTypeResponse$inboundSchema.optional(),
-  customerId: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => PaymentLinkResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    mode: Mode$inboundSchema,
+    description: z.string(),
+    amount: z.nullable(AmountNullable$inboundSchema),
+    minimumAmount: z.nullable(AmountNullable$inboundSchema).optional(),
+    archived: z.boolean(),
+    redirectUrl: z.nullable(z.string()),
+    webhookUrl: z.nullable(z.string()),
+    lines: z.nullable(z.array(PaymentLineItemResponse$inboundSchema))
+      .optional(),
+    billingAddress: ShippingAddress$inboundSchema.optional(),
+    shippingAddress: ShippingAddress$inboundSchema.optional(),
+    profileId: z.nullable(z.string()),
+    reusable: z.nullable(z.boolean()),
+    createdAt: z.string(),
+    paidAt: z.nullable(z.string()),
+    expiresAt: z.nullable(z.string()),
+    allowedMethods: z.nullable(
+      z.array(PaymentLinkMethodResponse$inboundSchema),
+    ),
+    applicationFee: z.lazy(() =>
+      PaymentLinkResponseApplicationFee$inboundSchema
+    ).optional(),
+    sequenceType: PaymentLinkSequenceTypeResponse$inboundSchema.optional(),
+    customerId: z.nullable(z.string()).optional(),
+    _links: z.lazy(() => PaymentLinkResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function paymentLinkResponseFromJSON(
   jsonString: string,

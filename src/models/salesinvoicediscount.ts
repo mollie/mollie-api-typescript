@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   SalesInvoiceDiscountType,
   SalesInvoiceDiscountType$outboundSchema,
@@ -31,10 +32,12 @@ export const SalesInvoiceDiscount$outboundSchema: z.ZodType<
   SalesInvoiceDiscount$Outbound,
   z.ZodTypeDef,
   SalesInvoiceDiscount
-> = z.object({
-  type: SalesInvoiceDiscountType$outboundSchema,
-  value: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: SalesInvoiceDiscountType$outboundSchema,
+    value: z.string(),
+  })
+);
 
 export function salesInvoiceDiscountToJSON(
   salesInvoiceDiscount: SalesInvoiceDiscount,

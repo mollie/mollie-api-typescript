@@ -4,8 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -116,22 +119,28 @@ export const ListSettlementChargebacksRequest$outboundSchema: z.ZodType<
   ListSettlementChargebacksRequest$Outbound,
   z.ZodTypeDef,
   ListSettlementChargebacksRequest
-> = z.object({
-  settlementId: z.string(),
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    settlementId: z.string().refine(matchesPattern$("^stl_.+$"), {
+      message: "Value must match pattern ^stl_.+$",
+    }),
+    from: z.string().refine(matchesPattern$("^chb_.+$"), {
+      message: "Value must match pattern ^chb_.+$",
+    }).optional(),
+    limit: z.nullable(z.number().int()).optional(),
+    embed: z.nullable(z.string()).optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listSettlementChargebacksRequestToJSON(
   listSettlementChargebacksRequest: ListSettlementChargebacksRequest,
@@ -148,9 +157,11 @@ export const ListSettlementChargebacksEmbedded$inboundSchema: z.ZodType<
   ListSettlementChargebacksEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  chargebacks: z.array(models.ListSettlementChargebackResponse$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    chargebacks: z.array(models.ListSettlementChargebackResponse$inboundSchema),
+  })
+);
 
 export function listSettlementChargebacksEmbeddedFromJSON(
   jsonString: string,
@@ -167,16 +178,18 @@ export const ListSettlementChargebacksResponseBody$inboundSchema: z.ZodType<
   ListSettlementChargebacksResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  _embedded: z.lazy(() => ListSettlementChargebacksEmbedded$inboundSchema),
-  _links: models.ListLinks$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() => ListSettlementChargebacksEmbedded$inboundSchema),
+    _links: models.ListLinks$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listSettlementChargebacksResponseBodyFromJSON(
   jsonString: string,
@@ -194,13 +207,15 @@ export const ListSettlementChargebacksResponse$inboundSchema: z.ZodType<
   ListSettlementChargebacksResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: z.lazy(() => ListSettlementChargebacksResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: z.lazy(() => ListSettlementChargebacksResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function listSettlementChargebacksResponseFromJSON(
   jsonString: string,
