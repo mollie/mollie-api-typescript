@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -282,22 +282,18 @@ export const SessionResponseStatus$inboundSchema: z.ZodType<
   SessionResponseStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(SessionResponseStatus)
-);
+> = openEnums.inboundSchema(SessionResponseStatus);
 
 /** @internal */
 export const SessionResponseOption2$inboundSchema: z.ZodType<
   SessionResponseOption2,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    reference: z.string(),
-    amount: Amount$inboundSchema,
-  })
-);
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$inboundSchema,
+});
 
 export function sessionResponseOption2FromJSON(
   jsonString: string,
@@ -314,13 +310,11 @@ export const SessionResponseShipping2$inboundSchema: z.ZodType<
   SessionResponseShipping2,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    options: z.array(z.lazy(() => SessionResponseOption2$inboundSchema))
-      .optional(),
-    callbackUrl: z.string(),
-  })
-);
+> = z.object({
+  options: z.array(z.lazy(() => SessionResponseOption2$inboundSchema))
+    .optional(),
+  callbackUrl: z.string(),
+});
 
 export function sessionResponseShipping2FromJSON(
   jsonString: string,
@@ -337,13 +331,11 @@ export const SessionResponseOption1$inboundSchema: z.ZodType<
   SessionResponseOption1,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    reference: z.string(),
-    amount: Amount$inboundSchema,
-  })
-);
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$inboundSchema,
+});
 
 export function sessionResponseOption1FromJSON(
   jsonString: string,
@@ -360,12 +352,10 @@ export const SessionResponseShipping1$inboundSchema: z.ZodType<
   SessionResponseShipping1,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    options: z.array(z.lazy(() => SessionResponseOption1$inboundSchema)),
-    callbackUrl: z.string().optional(),
-  })
-);
+> = z.object({
+  options: z.array(z.lazy(() => SessionResponseOption1$inboundSchema)),
+  callbackUrl: z.string().optional(),
+});
 
 export function sessionResponseShipping1FromJSON(
   jsonString: string,
@@ -382,12 +372,10 @@ export const SessionResponseShippingUnion$inboundSchema: z.ZodType<
   SessionResponseShippingUnion,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.union([
-    z.lazy(() => SessionResponseShipping1$inboundSchema),
-    z.lazy(() => SessionResponseShipping2$inboundSchema),
-  ])
-);
+> = z.union([
+  z.lazy(() => SessionResponseShipping1$inboundSchema),
+  z.lazy(() => SessionResponseShipping2$inboundSchema),
+]);
 
 export function sessionResponseShippingUnionFromJSON(
   jsonString: string,
@@ -404,11 +392,9 @@ export const SessionResponsePayment$inboundSchema: z.ZodType<
   SessionResponsePayment,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    webhookUrl: z.string().optional(),
-  })
-);
+> = z.object({
+  webhookUrl: z.string().optional(),
+});
 
 export function sessionResponsePaymentFromJSON(
   jsonString: string,
@@ -425,11 +411,9 @@ export const SessionResponseLinks$inboundSchema: z.ZodType<
   SessionResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+});
 
 export function sessionResponseLinksFromJSON(
   jsonString: string,
@@ -446,41 +430,39 @@ export const SessionResponse$inboundSchema: z.ZodType<
   SessionResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    clientAccessToken: z.string(),
-    status: SessionResponseStatus$inboundSchema,
-    amount: Amount$inboundSchema,
-    description: z.string(),
-    lines: z.array(SessionLineItemResponse$inboundSchema).optional(),
-    redirectUrl: z.string(),
-    requiredCustomerDetails: z.array(
-      SessionRequiredCustomerDetailsResponse$inboundSchema,
-    ).optional(),
-    billingAddress: ShippingAddress$inboundSchema.optional(),
-    shippingAddress: ShippingAddress$inboundSchema.optional(),
-    shipping: z.union([
-      z.lazy(() => SessionResponseShipping1$inboundSchema),
-      z.lazy(() => SessionResponseShipping2$inboundSchema),
-    ]).optional(),
-    customerId: z.string().optional(),
-    sequenceType: SessionSequenceTypeResponse$inboundSchema.optional(),
-    metadata: z.record(z.any()).optional(),
-    payment: z.lazy(() => SessionResponsePayment$inboundSchema).optional(),
-    profileId: z.string(),
-    createdAt: z.string(),
-    expiredAt: z.nullable(z.string()).optional(),
-    completedAt: z.nullable(z.string()).optional(),
-    _links: z.lazy(() => SessionResponseLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  clientAccessToken: z.string(),
+  status: SessionResponseStatus$inboundSchema,
+  amount: Amount$inboundSchema,
+  description: z.string(),
+  lines: z.array(SessionLineItemResponse$inboundSchema).optional(),
+  redirectUrl: z.string(),
+  requiredCustomerDetails: z.array(
+    SessionRequiredCustomerDetailsResponse$inboundSchema,
+  ).optional(),
+  billingAddress: ShippingAddress$inboundSchema.optional(),
+  shippingAddress: ShippingAddress$inboundSchema.optional(),
+  shipping: z.union([
+    z.lazy(() => SessionResponseShipping1$inboundSchema),
+    z.lazy(() => SessionResponseShipping2$inboundSchema),
+  ]).optional(),
+  customerId: z.string().optional(),
+  sequenceType: SessionSequenceTypeResponse$inboundSchema.optional(),
+  metadata: z.record(z.any()).optional(),
+  payment: z.lazy(() => SessionResponsePayment$inboundSchema).optional(),
+  profileId: z.string(),
+  createdAt: z.string(),
+  expiredAt: z.nullable(z.string()).optional(),
+  completedAt: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => SessionResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function sessionResponseFromJSON(
   jsonString: string,

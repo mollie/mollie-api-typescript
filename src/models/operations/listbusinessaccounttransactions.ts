@@ -4,11 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -145,31 +142,25 @@ export const ListBusinessAccountTransactionsRequest$outboundSchema: z.ZodType<
   ListBusinessAccountTransactionsRequest$Outbound,
   z.ZodTypeDef,
   ListBusinessAccountTransactionsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    businessAccountId: z.string().refine(matchesPattern$("^ba_.+$"), {
-      message: "Value must match pattern ^ba_.+$",
-    }),
-    creditDebitIndicator: models.CreditDebitIndicator$outboundSchema.optional(),
-    processedAfter: z.date().transform(v => v.toISOString()).optional(),
-    processedBefore: z.date().transform(v => v.toISOString()).optional(),
-    from: z.string().refine(matchesPattern$("^batr_.+$"), {
-      message: "Value must match pattern ^batr_.+$",
-    }).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    sort: models.Sorting$outboundSchema.optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  businessAccountId: z.string(),
+  creditDebitIndicator: models.CreditDebitIndicator$outboundSchema.optional(),
+  processedAfter: z.date().transform(v => v.toISOString()).optional(),
+  processedBefore: z.date().transform(v => v.toISOString()).optional(),
+  from: z.string().optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: models.Sorting$outboundSchema.optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listBusinessAccountTransactionsRequestToJSON(
   listBusinessAccountTransactionsRequest:
@@ -187,11 +178,9 @@ export const ListBusinessAccountTransactionsEmbedded$inboundSchema: z.ZodType<
   ListBusinessAccountTransactionsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    transactions: z.array(models.TransactionResponse$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  transactions: z.array(models.TransactionResponse$inboundSchema).optional(),
+});
 
 export function listBusinessAccountTransactionsEmbeddedFromJSON(
   jsonString: string,
@@ -215,18 +204,16 @@ export const ListBusinessAccountTransactionsResponseBody$inboundSchema:
     ListBusinessAccountTransactionsResponseBody,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      count: z.number().int(),
-      _embedded: z.lazy(() =>
-        ListBusinessAccountTransactionsEmbedded$inboundSchema
-      ),
-    }).transform((v) => {
-      return remap$(v, {
-        "_embedded": "embedded",
-      });
-    })
-  );
+  > = z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() =>
+      ListBusinessAccountTransactionsEmbedded$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+    });
+  });
 
 export function listBusinessAccountTransactionsResponseBodyFromJSON(
   jsonString: string,
@@ -249,17 +236,15 @@ export const ListBusinessAccountTransactionsResponse$inboundSchema: z.ZodType<
   ListBusinessAccountTransactionsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() =>
-      ListBusinessAccountTransactionsResponseBody$inboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() =>
+    ListBusinessAccountTransactionsResponseBody$inboundSchema
+  ),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listBusinessAccountTransactionsResponseFromJSON(
   jsonString: string,

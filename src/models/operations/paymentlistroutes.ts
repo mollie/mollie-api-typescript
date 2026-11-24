@@ -4,11 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -111,23 +108,19 @@ export const PaymentListRoutesRequest$outboundSchema: z.ZodType<
   PaymentListRoutesRequest$Outbound,
   z.ZodTypeDef,
   PaymentListRoutesRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
-      message: "Value must match pattern ^tr_.+$",
-    }),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  paymentId: z.string(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function paymentListRoutesRequestToJSON(
   paymentListRoutesRequest: PaymentListRoutesRequest,
@@ -142,11 +135,9 @@ export const PaymentListRoutesEmbedded$inboundSchema: z.ZodType<
   PaymentListRoutesEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    routes: z.array(models.ListRouteGetResponse$inboundSchema),
-  })
-);
+> = z.object({
+  routes: z.array(models.ListRouteGetResponse$inboundSchema),
+});
 
 export function paymentListRoutesEmbeddedFromJSON(
   jsonString: string,
@@ -163,12 +154,10 @@ export const PaymentListRoutesLinks$inboundSchema: z.ZodType<
   PaymentListRoutesLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: models.Url$inboundSchema.optional(),
-    documentation: models.Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: models.Url$inboundSchema.optional(),
+  documentation: models.Url$inboundSchema.optional(),
+});
 
 export function paymentListRoutesLinksFromJSON(
   jsonString: string,
@@ -185,18 +174,16 @@ export const PaymentListRoutesResponse$inboundSchema: z.ZodType<
   PaymentListRoutesResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => PaymentListRoutesEmbedded$inboundSchema),
-    _links: z.lazy(() => PaymentListRoutesLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => PaymentListRoutesEmbedded$inboundSchema),
+  _links: z.lazy(() => PaymentListRoutesLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function paymentListRoutesResponseFromJSON(
   jsonString: string,

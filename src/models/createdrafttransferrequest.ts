@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { RFCDate } from "../types/rfcdate.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
@@ -70,18 +69,16 @@ export const CreateDraftTransferRequest$outboundSchema: z.ZodType<
   CreateDraftTransferRequest$Outbound,
   z.ZodTypeDef,
   CreateDraftTransferRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    debtorIban: z.string(),
-    creditor: DraftTransferParty$outboundSchema,
-    amount: Amount$outboundSchema,
-    description: z.nullable(z.string()),
-    scheduledExecutionDate: z.nullable(
-      z.instanceof(RFCDate).transform(v => v.toString()),
-    ).optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  debtorIban: z.string(),
+  creditor: DraftTransferParty$outboundSchema,
+  amount: Amount$outboundSchema,
+  description: z.nullable(z.string()),
+  scheduledExecutionDate: z.nullable(
+    z.instanceof(RFCDate).transform(v => v.toString()),
+  ).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function createDraftTransferRequestToJSON(
   createDraftTransferRequest: CreateDraftTransferRequest,

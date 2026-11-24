@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetSettlementRequest = {
   /**
@@ -42,22 +38,18 @@ export const GetSettlementRequest$outboundSchema: z.ZodType<
   GetSettlementRequest$Outbound,
   z.ZodTypeDef,
   GetSettlementRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    settlementId: z.string().refine(matchesPattern$("^stl_.+$"), {
-      message: "Value must match pattern ^stl_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  settlementId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getSettlementRequestToJSON(
   getSettlementRequest: GetSettlementRequest,

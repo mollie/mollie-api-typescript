@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Url, Url$inboundSchema } from "./url.js";
@@ -51,11 +51,9 @@ export const ListEntityPermissionLinks$inboundSchema: z.ZodType<
   ListEntityPermissionLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+});
 
 export function listEntityPermissionLinksFromJSON(
   jsonString: string,
@@ -72,19 +70,17 @@ export const ListEntityPermission$inboundSchema: z.ZodType<
   ListEntityPermission,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    description: z.string(),
-    granted: z.boolean(),
-    _links: z.lazy(() => ListEntityPermissionLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  description: z.string(),
+  granted: z.boolean(),
+  _links: z.lazy(() => ListEntityPermissionLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listEntityPermissionFromJSON(
   jsonString: string,

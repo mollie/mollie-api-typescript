@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -23,12 +23,10 @@ export const SubGroup$inboundSchema: z.ZodType<
   SubGroup,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$inboundSchema.optional(),
-    subtotals: z.nullable(z.array(SubTotals2$inboundSchema)).optional(),
-  })
-);
+> = z.object({
+  amount: Amount$inboundSchema.optional(),
+  subtotals: z.nullable(z.array(SubTotals2$inboundSchema)).optional(),
+});
 
 export function subGroupFromJSON(
   jsonString: string,

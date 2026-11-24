@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
@@ -205,14 +205,12 @@ export const DeductionDetails$inboundSchema: z.ZodType<
   DeductionDetails,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    fees: z.nullable(AmountNullable$inboundSchema).optional(),
-    commissions: z.nullable(AmountNullable$inboundSchema).optional(),
-    repayments: z.nullable(AmountNullable$inboundSchema).optional(),
-    reservations: z.nullable(AmountNullable$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  fees: z.nullable(AmountNullable$inboundSchema).optional(),
+  commissions: z.nullable(AmountNullable$inboundSchema).optional(),
+  repayments: z.nullable(AmountNullable$inboundSchema).optional(),
+  reservations: z.nullable(AmountNullable$inboundSchema).optional(),
+});
 
 export function deductionDetailsFromJSON(
   jsonString: string,
@@ -226,26 +224,24 @@ export function deductionDetailsFromJSON(
 
 /** @internal */
 export const Context$inboundSchema: z.ZodType<Context, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      paymentId: z.string().optional(),
-      paymentDescription: z.string().optional(),
-      captureId: z.string().optional(),
-      captureDescription: z.string().optional(),
-      refundId: z.string().optional(),
-      refundDescription: z.string().optional(),
-      chargebackId: z.string().optional(),
-      chargebackDescription: z.string().optional(),
-      transferId: z.string().optional(),
-      settlementId: z.string().optional(),
-      invoiceId: z.string().optional(),
-      payingOwner: z.string().optional(),
-      paymentOwner: z.string().optional(),
-      organizationId: z.string().optional(),
-      feeType: z.string().optional(),
-      feeId: z.string().optional(),
-    })
-  );
+  z.object({
+    paymentId: z.string().optional(),
+    paymentDescription: z.string().optional(),
+    captureId: z.string().optional(),
+    captureDescription: z.string().optional(),
+    refundId: z.string().optional(),
+    refundDescription: z.string().optional(),
+    chargebackId: z.string().optional(),
+    chargebackDescription: z.string().optional(),
+    transferId: z.string().optional(),
+    settlementId: z.string().optional(),
+    invoiceId: z.string().optional(),
+    payingOwner: z.string().optional(),
+    paymentOwner: z.string().optional(),
+    organizationId: z.string().optional(),
+    feeType: z.string().optional(),
+    feeId: z.string().optional(),
+  });
 
 export function contextFromJSON(
   jsonString: string,
@@ -262,20 +258,18 @@ export const EntityBalanceTransaction$inboundSchema: z.ZodType<
   EntityBalanceTransaction,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    type: BalanceTransactionType$inboundSchema,
-    resultAmount: Amount$inboundSchema,
-    initialAmount: Amount$inboundSchema,
-    deductions: z.nullable(AmountNullable$inboundSchema).optional(),
-    deductionDetails: z.nullable(z.lazy(() => DeductionDetails$inboundSchema))
-      .optional(),
-    context: z.nullable(z.lazy(() => Context$inboundSchema)).optional(),
-    createdAt: z.string(),
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  type: BalanceTransactionType$inboundSchema,
+  resultAmount: Amount$inboundSchema,
+  initialAmount: Amount$inboundSchema,
+  deductions: z.nullable(AmountNullable$inboundSchema).optional(),
+  deductionDetails: z.nullable(z.lazy(() => DeductionDetails$inboundSchema))
+    .optional(),
+  context: z.nullable(z.lazy(() => Context$inboundSchema)).optional(),
+  createdAt: z.string(),
+});
 
 export function entityBalanceTransactionFromJSON(
   jsonString: string,

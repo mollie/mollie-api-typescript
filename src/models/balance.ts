@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -21,11 +21,9 @@ export type Balance = {
 
 /** @internal */
 export const Balance$inboundSchema: z.ZodType<Balance, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      total: Amount$inboundSchema,
-    })
-  );
+  z.object({
+    total: Amount$inboundSchema,
+  });
 
 export function balanceFromJSON(
   jsonString: string,

@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   SessionLineItem,
@@ -226,13 +225,11 @@ export const SessionRequestOption2$outboundSchema: z.ZodType<
   SessionRequestOption2$Outbound,
   z.ZodTypeDef,
   SessionRequestOption2
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    reference: z.string(),
-    amount: Amount$outboundSchema,
-  })
-);
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$outboundSchema,
+});
 
 export function sessionRequestOption2ToJSON(
   sessionRequestOption2: SessionRequestOption2,
@@ -253,13 +250,11 @@ export const SessionRequestShipping2$outboundSchema: z.ZodType<
   SessionRequestShipping2$Outbound,
   z.ZodTypeDef,
   SessionRequestShipping2
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    options: z.array(z.lazy(() => SessionRequestOption2$outboundSchema))
-      .optional(),
-    callbackUrl: z.string(),
-  })
-);
+> = z.object({
+  options: z.array(z.lazy(() => SessionRequestOption2$outboundSchema))
+    .optional(),
+  callbackUrl: z.string(),
+});
 
 export function sessionRequestShipping2ToJSON(
   sessionRequestShipping2: SessionRequestShipping2,
@@ -281,13 +276,11 @@ export const SessionRequestOption1$outboundSchema: z.ZodType<
   SessionRequestOption1$Outbound,
   z.ZodTypeDef,
   SessionRequestOption1
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    reference: z.string(),
-    amount: Amount$outboundSchema,
-  })
-);
+> = z.object({
+  description: z.string(),
+  reference: z.string(),
+  amount: Amount$outboundSchema,
+});
 
 export function sessionRequestOption1ToJSON(
   sessionRequestOption1: SessionRequestOption1,
@@ -308,12 +301,10 @@ export const SessionRequestShipping1$outboundSchema: z.ZodType<
   SessionRequestShipping1$Outbound,
   z.ZodTypeDef,
   SessionRequestShipping1
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    options: z.array(z.lazy(() => SessionRequestOption1$outboundSchema)),
-    callbackUrl: z.string().optional(),
-  })
-);
+> = z.object({
+  options: z.array(z.lazy(() => SessionRequestOption1$outboundSchema)),
+  callbackUrl: z.string().optional(),
+});
 
 export function sessionRequestShipping1ToJSON(
   sessionRequestShipping1: SessionRequestShipping1,
@@ -333,12 +324,10 @@ export const SessionRequestShippingUnion$outboundSchema: z.ZodType<
   SessionRequestShippingUnion$Outbound,
   z.ZodTypeDef,
   SessionRequestShippingUnion
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.union([
-    z.lazy(() => SessionRequestShipping1$outboundSchema),
-    z.lazy(() => SessionRequestShipping2$outboundSchema),
-  ])
-);
+> = z.union([
+  z.lazy(() => SessionRequestShipping1$outboundSchema),
+  z.lazy(() => SessionRequestShipping2$outboundSchema),
+]);
 
 export function sessionRequestShippingUnionToJSON(
   sessionRequestShippingUnion: SessionRequestShippingUnion,
@@ -360,11 +349,9 @@ export const SessionRequestPayment$outboundSchema: z.ZodType<
   SessionRequestPayment$Outbound,
   z.ZodTypeDef,
   SessionRequestPayment
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    webhookUrl: z.string().optional(),
-  })
-);
+> = z.object({
+  webhookUrl: z.string().optional(),
+});
 
 export function sessionRequestPaymentToJSON(
   sessionRequestPayment: SessionRequestPayment,
@@ -400,29 +387,27 @@ export const SessionRequest$outboundSchema: z.ZodType<
   SessionRequest$Outbound,
   z.ZodTypeDef,
   SessionRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$outboundSchema,
-    description: z.string(),
-    lines: z.array(SessionLineItem$outboundSchema),
-    redirectUrl: z.string(),
-    requiredCustomerDetails: z.array(
-      SessionRequiredCustomerDetails$outboundSchema,
-    ).optional(),
-    billingAddress: ShippingAddress$outboundSchema.optional(),
-    shippingAddress: ShippingAddress$outboundSchema.optional(),
-    shipping: z.union([
-      z.lazy(() => SessionRequestShipping1$outboundSchema),
-      z.lazy(() => SessionRequestShipping2$outboundSchema),
-    ]).optional(),
-    customerId: z.string().optional(),
-    sequenceType: SessionSequenceType$outboundSchema.optional(),
-    metadata: z.record(z.any()).optional(),
-    payment: z.lazy(() => SessionRequestPayment$outboundSchema).optional(),
-    profileId: z.string().optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  amount: Amount$outboundSchema,
+  description: z.string(),
+  lines: z.array(SessionLineItem$outboundSchema),
+  redirectUrl: z.string(),
+  requiredCustomerDetails: z.array(
+    SessionRequiredCustomerDetails$outboundSchema,
+  ).optional(),
+  billingAddress: ShippingAddress$outboundSchema.optional(),
+  shippingAddress: ShippingAddress$outboundSchema.optional(),
+  shipping: z.union([
+    z.lazy(() => SessionRequestShipping1$outboundSchema),
+    z.lazy(() => SessionRequestShipping2$outboundSchema),
+  ]).optional(),
+  customerId: z.string().optional(),
+  sequenceType: SessionSequenceType$outboundSchema.optional(),
+  metadata: z.record(z.any()).optional(),
+  payment: z.lazy(() => SessionRequestPayment$outboundSchema).optional(),
+  profileId: z.string().optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function sessionRequestToJSON(sessionRequest: SessionRequest): string {
   return JSON.stringify(SessionRequest$outboundSchema.parse(sessionRequest));

@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 /**
  * The customer's billing address details. We advise to provide these details to improve fraud protection and
@@ -128,22 +127,20 @@ export const BillingAddress$outboundSchema: z.ZodType<
   BillingAddress$Outbound,
   z.ZodTypeDef,
   BillingAddress
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    title: z.string().optional(),
-    givenName: z.string().optional(),
-    familyName: z.string().optional(),
-    organizationName: z.any().optional(),
-    streetAndNumber: z.string().optional(),
-    streetAdditional: z.string().optional(),
-    postalCode: z.string().optional(),
-    email: z.string().optional(),
-    phone: z.string().optional(),
-    city: z.string().optional(),
-    region: z.string().optional(),
-    country: z.string().optional(),
-  })
-);
+> = z.object({
+  title: z.string().optional(),
+  givenName: z.string().optional(),
+  familyName: z.string().optional(),
+  organizationName: z.any().optional(),
+  streetAndNumber: z.string().optional(),
+  streetAdditional: z.string().optional(),
+  postalCode: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+});
 
 export function billingAddressToJSON(billingAddress: BillingAddress): string {
   return JSON.stringify(BillingAddress$outboundSchema.parse(billingAddress));

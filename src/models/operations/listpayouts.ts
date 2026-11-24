@@ -4,11 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -131,28 +128,22 @@ export const ListPayoutsRequest$outboundSchema: z.ZodType<
   ListPayoutsRequest$Outbound,
   z.ZodTypeDef,
   ListPayoutsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    balanceId: z.nullable(
-      z.string().refine(matchesPattern$("^bal_.+"), {
-        message: "Value must match pattern ^bal_.+",
-      }),
-    ).optional(),
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    sort: models.Sorting$outboundSchema.optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  balanceId: z.nullable(z.string()).optional(),
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: models.Sorting$outboundSchema.optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listPayoutsRequestToJSON(
   listPayoutsRequest: ListPayoutsRequest,
@@ -167,11 +158,9 @@ export const ListPayoutsEmbedded$inboundSchema: z.ZodType<
   ListPayoutsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    payouts: z.array(models.ListEntityPayout$inboundSchema),
-  })
-);
+> = z.object({
+  payouts: z.array(models.ListEntityPayout$inboundSchema),
+});
 
 export function listPayoutsEmbeddedFromJSON(
   jsonString: string,
@@ -188,18 +177,16 @@ export const ListPayoutsResponseBody$inboundSchema: z.ZodType<
   ListPayoutsResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListPayoutsEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListPayoutsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listPayoutsResponseBodyFromJSON(
   jsonString: string,
@@ -216,15 +203,13 @@ export const ListPayoutsResponse$inboundSchema: z.ZodType<
   ListPayoutsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => ListPayoutsResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListPayoutsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listPayoutsResponseFromJSON(
   jsonString: string,

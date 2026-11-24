@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
 export type GetBalanceReportGlobals = {
@@ -95,26 +91,22 @@ export const GetBalanceReportRequest$outboundSchema: z.ZodType<
   GetBalanceReportRequest$Outbound,
   z.ZodTypeDef,
   GetBalanceReportRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    balanceId: z.string().refine(matchesPattern$("^bal_.+$"), {
-      message: "Value must match pattern ^bal_.+$",
-    }),
-    from: z.string(),
-    until: z.string(),
-    grouping: models.BalanceReportGrouping$outboundSchema.optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  balanceId: z.string(),
+  from: z.string(),
+  until: z.string(),
+  grouping: models.BalanceReportGrouping$outboundSchema.optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getBalanceReportRequestToJSON(
   getBalanceReportRequest: GetBalanceReportRequest,

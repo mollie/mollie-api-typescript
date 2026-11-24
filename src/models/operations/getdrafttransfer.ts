@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetDraftTransferGlobals = {
   /**
@@ -66,23 +62,19 @@ export const GetDraftTransferRequest$outboundSchema: z.ZodType<
   GetDraftTransferRequest$Outbound,
   z.ZodTypeDef,
   GetDraftTransferRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    draftTransferId: z.string().refine(matchesPattern$("^badrt_.+$"), {
-      message: "Value must match pattern ^badrt_.+$",
-    }),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  draftTransferId: z.string(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getDraftTransferRequestToJSON(
   getDraftTransferRequest: GetDraftTransferRequest,

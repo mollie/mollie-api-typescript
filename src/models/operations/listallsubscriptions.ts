@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -128,23 +128,21 @@ export const ListAllSubscriptionsRequest$outboundSchema: z.ZodType<
   ListAllSubscriptionsRequest$Outbound,
   z.ZodTypeDef,
   ListAllSubscriptionsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    profileId: z.nullable(z.string()).optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  profileId: z.nullable(z.string()).optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listAllSubscriptionsRequestToJSON(
   listAllSubscriptionsRequest: ListAllSubscriptionsRequest,
@@ -161,12 +159,10 @@ export const ListAllSubscriptionsEmbedded$inboundSchema: z.ZodType<
   ListAllSubscriptionsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    subscriptions: z.array(models.ListSubscriptionResponse$inboundSchema)
-      .optional(),
-  })
-);
+> = z.object({
+  subscriptions: z.array(models.ListSubscriptionResponse$inboundSchema)
+    .optional(),
+});
 
 export function listAllSubscriptionsEmbeddedFromJSON(
   jsonString: string,
@@ -183,18 +179,16 @@ export const ListAllSubscriptionsResponseBody$inboundSchema: z.ZodType<
   ListAllSubscriptionsResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListAllSubscriptionsEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListAllSubscriptionsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listAllSubscriptionsResponseBodyFromJSON(
   jsonString: string,
@@ -211,15 +205,13 @@ export const ListAllSubscriptionsResponse$inboundSchema: z.ZodType<
   ListAllSubscriptionsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => ListAllSubscriptionsResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListAllSubscriptionsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listAllSubscriptionsResponseFromJSON(
   jsonString: string,

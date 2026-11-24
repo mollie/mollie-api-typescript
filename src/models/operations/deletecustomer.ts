@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type DeleteCustomerRequestBody = {
   /**
@@ -53,11 +49,9 @@ export const DeleteCustomerRequestBody$outboundSchema: z.ZodType<
   DeleteCustomerRequestBody$Outbound,
   z.ZodTypeDef,
   DeleteCustomerRequestBody
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function deleteCustomerRequestBodyToJSON(
   deleteCustomerRequestBody: DeleteCustomerRequestBody,
@@ -81,25 +75,21 @@ export const DeleteCustomerRequest$outboundSchema: z.ZodType<
   DeleteCustomerRequest$Outbound,
   z.ZodTypeDef,
   DeleteCustomerRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    customerId: z.string().refine(matchesPattern$("^cst_.+$"), {
-      message: "Value must match pattern ^cst_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    requestBody: z.lazy(() => DeleteCustomerRequestBody$outboundSchema)
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      requestBody: "RequestBody",
-    });
-  })
-);
+> = z.object({
+  customerId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  requestBody: z.lazy(() => DeleteCustomerRequestBody$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    requestBody: "RequestBody",
+  });
+});
 
 export function deleteCustomerRequestToJSON(
   deleteCustomerRequest: DeleteCustomerRequest,

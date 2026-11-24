@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -124,22 +124,18 @@ export const EntityPairingCodeStatus$inboundSchema: z.ZodType<
   EntityPairingCodeStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(EntityPairingCodeStatus)
-);
+> = openEnums.inboundSchema(EntityPairingCodeStatus);
 
 /** @internal */
 export const EntityPairingCodeQrCode$inboundSchema: z.ZodType<
   EntityPairingCodeQrCode,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    height: z.number().optional(),
-    width: z.number().optional(),
-    src: z.string().optional(),
-  })
-);
+> = z.object({
+  height: z.number().optional(),
+  width: z.number().optional(),
+  src: z.string().optional(),
+});
 
 export function entityPairingCodeQrCodeFromJSON(
   jsonString: string,
@@ -156,12 +152,10 @@ export const EntityPairingCodeDetails$inboundSchema: z.ZodType<
   EntityPairingCodeDetails,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    qrCode: z.nullable(z.lazy(() => EntityPairingCodeQrCode$inboundSchema))
-      .optional(),
-  })
-);
+> = z.object({
+  qrCode: z.nullable(z.lazy(() => EntityPairingCodeQrCode$inboundSchema))
+    .optional(),
+});
 
 export function entityPairingCodeDetailsFromJSON(
   jsonString: string,
@@ -178,13 +172,11 @@ export const EntityPairingCodeLinks$inboundSchema: z.ZodType<
   EntityPairingCodeLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    profile: Url$inboundSchema,
-    documentation: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  profile: Url$inboundSchema,
+  documentation: Url$inboundSchema,
+});
 
 export function entityPairingCodeLinksFromJSON(
   jsonString: string,
@@ -201,26 +193,24 @@ export const EntityPairingCode$inboundSchema: z.ZodType<
   EntityPairingCode,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    code: z.string(),
-    profileId: z.string(),
-    status: EntityPairingCodeStatus$inboundSchema,
-    details: z.nullable(z.lazy(() => EntityPairingCodeDetails$inboundSchema))
-      .optional(),
-    expiresAt: z.string(),
-    revokedAt: z.nullable(z.string()).optional(),
-    createdAt: z.string(),
-    _links: z.lazy(() => EntityPairingCodeLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  code: z.string(),
+  profileId: z.string(),
+  status: EntityPairingCodeStatus$inboundSchema,
+  details: z.nullable(z.lazy(() => EntityPairingCodeDetails$inboundSchema))
+    .optional(),
+  expiresAt: z.string(),
+  revokedAt: z.nullable(z.string()).optional(),
+  createdAt: z.string(),
+  _links: z.lazy(() => EntityPairingCodeLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityPairingCodeFromJSON(
   jsonString: string,

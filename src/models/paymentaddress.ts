@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type PaymentAddress = {
   /**
@@ -113,22 +112,20 @@ export const PaymentAddress$outboundSchema: z.ZodType<
   PaymentAddress$Outbound,
   z.ZodTypeDef,
   PaymentAddress
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    title: z.string().optional(),
-    givenName: z.string().optional(),
-    familyName: z.string().optional(),
-    organizationName: z.string().optional(),
-    streetAndNumber: z.string().optional(),
-    streetAdditional: z.string().optional(),
-    postalCode: z.string().optional(),
-    email: z.string().optional(),
-    phone: z.string().optional(),
-    city: z.string().optional(),
-    region: z.string().optional(),
-    country: z.string().optional(),
-  })
-);
+> = z.object({
+  title: z.string().optional(),
+  givenName: z.string().optional(),
+  familyName: z.string().optional(),
+  organizationName: z.string().optional(),
+  streetAndNumber: z.string().optional(),
+  streetAdditional: z.string().optional(),
+  postalCode: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+});
 
 export function paymentAddressToJSON(paymentAddress: PaymentAddress): string {
   return JSON.stringify(PaymentAddress$outboundSchema.parse(paymentAddress));

@@ -4,11 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -114,27 +111,23 @@ export const ListSettlementsRequest$outboundSchema: z.ZodType<
   ListSettlementsRequest$Outbound,
   z.ZodTypeDef,
   ListSettlementsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    balanceId: z.string().refine(matchesPattern$("^bal_.+$"), {
-      message: "Value must match pattern ^bal_.+$",
-    }).optional(),
-    year: z.nullable(z.string()).optional(),
-    month: z.nullable(z.string()).optional(),
-    currencies: models.Currencies$outboundSchema.optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  balanceId: z.string().optional(),
+  year: z.nullable(z.string()).optional(),
+  month: z.nullable(z.string()).optional(),
+  currencies: models.Currencies$outboundSchema.optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listSettlementsRequestToJSON(
   listSettlementsRequest: ListSettlementsRequest,
@@ -149,11 +142,9 @@ export const ListSettlementsEmbedded$inboundSchema: z.ZodType<
   ListSettlementsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    settlements: z.array(models.EntitySettlement$inboundSchema),
-  })
-);
+> = z.object({
+  settlements: z.array(models.EntitySettlement$inboundSchema),
+});
 
 export function listSettlementsEmbeddedFromJSON(
   jsonString: string,
@@ -170,18 +161,16 @@ export const ListSettlementsResponseBody$inboundSchema: z.ZodType<
   ListSettlementsResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListSettlementsEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListSettlementsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listSettlementsResponseBodyFromJSON(
   jsonString: string,
@@ -198,15 +187,13 @@ export const ListSettlementsResponse$inboundSchema: z.ZodType<
   ListSettlementsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => ListSettlementsResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListSettlementsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listSettlementsResponseFromJSON(
   jsonString: string,

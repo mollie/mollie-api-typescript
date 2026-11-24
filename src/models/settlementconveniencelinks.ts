@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Url, Url$inboundSchema } from "./url.js";
@@ -33,12 +33,10 @@ export const SettlementConvenienceLinks$inboundSchema: z.ZodType<
   SettlementConvenienceLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    documentation: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  documentation: Url$inboundSchema.optional(),
+});
 
 export function settlementConvenienceLinksFromJSON(
   jsonString: string,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -134,14 +134,12 @@ export const ListEntityUnmatchedCreditTransferSource$inboundSchema: z.ZodType<
   ListEntityUnmatchedCreditTransferSource,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    format: z.string(),
-    accountHolderName: z.string(),
-    iban: z.string(),
-    bic: z.string(),
-  })
-);
+> = z.object({
+  format: z.string(),
+  accountHolderName: z.string(),
+  iban: z.string(),
+  bic: z.string(),
+});
 
 export function listEntityUnmatchedCreditTransferSourceFromJSON(
   jsonString: string,
@@ -165,12 +163,10 @@ export const ListEntityUnmatchedCreditTransferReferences$inboundSchema:
     ListEntityUnmatchedCreditTransferReferences,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      creditorReference: z.nullable(z.string()).optional(),
-      endToEndId: z.string().optional(),
-    })
-  );
+  > = z.object({
+    creditorReference: z.nullable(z.string()).optional(),
+    endToEndId: z.string().optional(),
+  });
 
 export function listEntityUnmatchedCreditTransferReferencesFromJSON(
   jsonString: string,
@@ -194,14 +190,12 @@ export const ListEntityUnmatchedCreditTransferRemittanceInformation$inboundSchem
     ListEntityUnmatchedCreditTransferRemittanceInformation,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      unstructured: z.string().optional(),
-      references: z.lazy(() =>
-        ListEntityUnmatchedCreditTransferReferences$inboundSchema
-      ).optional(),
-    })
-  );
+  > = z.object({
+    unstructured: z.string().optional(),
+    references: z.lazy(() =>
+      ListEntityUnmatchedCreditTransferReferences$inboundSchema
+    ).optional(),
+  });
 
 export function listEntityUnmatchedCreditTransferRemittanceInformationFromJSON(
   jsonString: string,
@@ -223,12 +217,10 @@ export const ListEntityUnmatchedCreditTransferSelf$inboundSchema: z.ZodType<
   ListEntityUnmatchedCreditTransferSelf,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    href: z.string().optional(),
-    type: z.string().optional(),
-  })
-);
+> = z.object({
+  href: z.string().optional(),
+  type: z.string().optional(),
+});
 
 export function listEntityUnmatchedCreditTransferSelfFromJSON(
   jsonString: string,
@@ -246,12 +238,10 @@ export const ListEntityUnmatchedCreditTransferLinks$inboundSchema: z.ZodType<
   ListEntityUnmatchedCreditTransferLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: z.lazy(() => ListEntityUnmatchedCreditTransferSelf$inboundSchema)
-      .optional(),
-  })
-);
+> = z.object({
+  self: z.lazy(() => ListEntityUnmatchedCreditTransferSelf$inboundSchema)
+    .optional(),
+});
 
 export function listEntityUnmatchedCreditTransferLinksFromJSON(
   jsonString: string,
@@ -269,27 +259,25 @@ export const ListEntityUnmatchedCreditTransfer$inboundSchema: z.ZodType<
   ListEntityUnmatchedCreditTransfer,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    profileId: z.string(),
-    amount: Amount$inboundSchema,
-    source: z.lazy(() => ListEntityUnmatchedCreditTransferSource$inboundSchema),
-    remittanceInformation: z.lazy(() =>
-      ListEntityUnmatchedCreditTransferRemittanceInformation$inboundSchema
-    ),
-    status: UnmatchedCreditTransferStatus$inboundSchema,
-    createdAt: z.string(),
-    expiresAt: z.string(),
-    paymentIds: z.array(z.string()).optional(),
-    _links: z.lazy(() => ListEntityUnmatchedCreditTransferLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  profileId: z.string(),
+  amount: Amount$inboundSchema,
+  source: z.lazy(() => ListEntityUnmatchedCreditTransferSource$inboundSchema),
+  remittanceInformation: z.lazy(() =>
+    ListEntityUnmatchedCreditTransferRemittanceInformation$inboundSchema
+  ),
+  status: UnmatchedCreditTransferStatus$inboundSchema,
+  createdAt: z.string(),
+  expiresAt: z.string(),
+  paymentIds: z.array(z.string()).optional(),
+  _links: z.lazy(() => ListEntityUnmatchedCreditTransferLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listEntityUnmatchedCreditTransferFromJSON(
   jsonString: string,

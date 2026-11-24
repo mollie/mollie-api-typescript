@@ -4,11 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -122,28 +119,22 @@ export const ListSettlementPaymentsRequest$outboundSchema: z.ZodType<
   ListSettlementPaymentsRequest$Outbound,
   z.ZodTypeDef,
   ListSettlementPaymentsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    settlementId: z.string().refine(matchesPattern$("^stl_.+$"), {
-      message: "Value must match pattern ^stl_.+$",
-    }),
-    from: z.string().refine(matchesPattern$("^tr_.+$"), {
-      message: "Value must match pattern ^tr_.+$",
-    }).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    sort: models.Sorting$outboundSchema.optional(),
-    profileId: z.string().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  settlementId: z.string(),
+  from: z.string().optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: models.Sorting$outboundSchema.optional(),
+  profileId: z.string().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listSettlementPaymentsRequestToJSON(
   listSettlementPaymentsRequest: ListSettlementPaymentsRequest,
@@ -160,12 +151,10 @@ export const ListSettlementPaymentsEmbedded$inboundSchema: z.ZodType<
   ListSettlementPaymentsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    payments: z.array(models.ListSettlementPaymentResponse$inboundSchema)
-      .optional(),
-  })
-);
+> = z.object({
+  payments: z.array(models.ListSettlementPaymentResponse$inboundSchema)
+    .optional(),
+});
 
 export function listSettlementPaymentsEmbeddedFromJSON(
   jsonString: string,
@@ -182,18 +171,16 @@ export const ListSettlementPaymentsResponseBody$inboundSchema: z.ZodType<
   ListSettlementPaymentsResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListSettlementPaymentsEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListSettlementPaymentsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listSettlementPaymentsResponseBodyFromJSON(
   jsonString: string,
@@ -211,15 +198,13 @@ export const ListSettlementPaymentsResponse$inboundSchema: z.ZodType<
   ListSettlementPaymentsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => ListSettlementPaymentsResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListSettlementPaymentsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listSettlementPaymentsResponseFromJSON(
   jsonString: string,
