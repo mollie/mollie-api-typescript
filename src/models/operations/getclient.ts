@@ -4,8 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -125,19 +128,23 @@ export const GetClientRequest$outboundSchema: z.ZodType<
   GetClientRequest$Outbound,
   z.ZodTypeDef,
   GetClientRequest
-> = z.object({
-  organizationId: z.string(),
-  embed: z.nullable(z.string()).optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    organizationId: z.string().refine(matchesPattern$("^org_.+$"), {
+      message: "Value must match pattern ^org_.+$",
+    }),
+    embed: z.nullable(z.string()).optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function getClientRequestToJSON(
   getClientRequest: GetClientRequest,
@@ -152,9 +159,11 @@ export const GetClientCommission$inboundSchema: z.ZodType<
   GetClientCommission,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int().optional(),
+  })
+);
 
 export function getClientCommissionFromJSON(
   jsonString: string,
@@ -171,12 +180,14 @@ export const GetClientLinks$inboundSchema: z.ZodType<
   GetClientLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: models.Url$inboundSchema,
-  organization: models.Url$inboundSchema.optional(),
-  onboarding: models.Url$inboundSchema.optional(),
-  documentation: models.Url$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: models.Url$inboundSchema,
+    organization: models.Url$inboundSchema.optional(),
+    onboarding: models.Url$inboundSchema.optional(),
+    documentation: models.Url$inboundSchema.optional(),
+  })
+);
 
 export function getClientLinksFromJSON(
   jsonString: string,
@@ -193,11 +204,13 @@ export const GetClientEmbedded$inboundSchema: z.ZodType<
   GetClientEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  organization: models.EntityOrganization$inboundSchema.optional(),
-  onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
-  capabilities: z.array(models.EntityCapability$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    organization: models.EntityOrganization$inboundSchema.optional(),
+    onboarding: models.EntityOnboardingStatus$inboundSchema.optional(),
+    capabilities: z.array(models.EntityCapability$inboundSchema).optional(),
+  })
+);
 
 export function getClientEmbeddedFromJSON(
   jsonString: string,
@@ -214,20 +227,22 @@ export const GetClientResponse$inboundSchema: z.ZodType<
   GetClientResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  commission: z.nullable(z.lazy(() => GetClientCommission$inboundSchema))
-    .optional(),
-  organizationCreatedAt: z.string().optional(),
-  _links: z.lazy(() => GetClientLinks$inboundSchema),
-  _embedded: z.lazy(() => GetClientEmbedded$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-    "_embedded": "embedded",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    commission: z.nullable(z.lazy(() => GetClientCommission$inboundSchema))
+      .optional(),
+    organizationCreatedAt: z.string().optional(),
+    _links: z.lazy(() => GetClientLinks$inboundSchema),
+    _embedded: z.lazy(() => GetClientEmbedded$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+      "_embedded": "embedded",
+    });
+  })
+);
 
 export function getClientResponseFromJSON(
   jsonString: string,

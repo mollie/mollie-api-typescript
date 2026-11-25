@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
@@ -240,17 +240,19 @@ export const GetNextSettlementRequest$outboundSchema: z.ZodType<
   GetNextSettlementRequest$Outbound,
   z.ZodTypeDef,
   GetNextSettlementRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function getNextSettlementRequestToJSON(
   getNextSettlementRequest: GetNextSettlementRequest,
@@ -265,17 +267,21 @@ export const GetNextSettlementStatus$inboundSchema: z.ZodType<
   GetNextSettlementStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(GetNextSettlementStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(GetNextSettlementStatus)
+);
 
 /** @internal */
 export const GetNextSettlementAmount$inboundSchema: z.ZodType<
   GetNextSettlementAmount,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    currency: z.string(),
+    value: z.string(),
+  })
+);
 
 export function getNextSettlementAmountFromJSON(
   jsonString: string,
@@ -292,10 +298,12 @@ export const GetNextSettlementRate$inboundSchema: z.ZodType<
   GetNextSettlementRate,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  fixed: z.nullable(models.AmountNullable$inboundSchema),
-  percentage: z.nullable(z.string()),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    fixed: z.nullable(models.AmountNullable$inboundSchema),
+    percentage: z.nullable(z.string()),
+  })
+);
 
 export function getNextSettlementRateFromJSON(
   jsonString: string,
@@ -312,15 +320,17 @@ export const GetNextSettlementCost$inboundSchema: z.ZodType<
   GetNextSettlementCost,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  description: z.string(),
-  method: z.nullable(models.SettlementMethod$inboundSchema),
-  count: z.number().int(),
-  rate: z.lazy(() => GetNextSettlementRate$inboundSchema),
-  amountNet: models.Amount$inboundSchema,
-  amountVat: z.nullable(models.AmountNullable$inboundSchema),
-  amountGross: models.Amount$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    description: z.string(),
+    method: z.nullable(models.SettlementMethod$inboundSchema),
+    count: z.number().int(),
+    rate: z.lazy(() => GetNextSettlementRate$inboundSchema),
+    amountNet: models.Amount$inboundSchema,
+    amountVat: z.nullable(models.AmountNullable$inboundSchema),
+    amountGross: models.Amount$inboundSchema,
+  })
+);
 
 export function getNextSettlementCostFromJSON(
   jsonString: string,
@@ -337,14 +347,16 @@ export const GetNextSettlementRevenue$inboundSchema: z.ZodType<
   GetNextSettlementRevenue,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  description: z.string(),
-  method: z.nullable(models.SettlementMethod$inboundSchema),
-  count: z.number().int(),
-  amountNet: models.Amount$inboundSchema,
-  amountVat: z.nullable(models.AmountNullable$inboundSchema),
-  amountGross: models.Amount$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    description: z.string(),
+    method: z.nullable(models.SettlementMethod$inboundSchema),
+    count: z.number().int(),
+    amountNet: models.Amount$inboundSchema,
+    amountVat: z.nullable(models.AmountNullable$inboundSchema),
+    amountGross: models.Amount$inboundSchema,
+  })
+);
 
 export function getNextSettlementRevenueFromJSON(
   jsonString: string,
@@ -361,13 +373,16 @@ export const GetNextSettlementPeriods$inboundSchema: z.ZodType<
   GetNextSettlementPeriods,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  costs: z.array(z.lazy(() => GetNextSettlementCost$inboundSchema)).optional(),
-  revenue: z.array(z.lazy(() => GetNextSettlementRevenue$inboundSchema))
-    .optional(),
-  invoiceId: z.string().optional(),
-  invoiceReference: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    costs: z.array(z.lazy(() => GetNextSettlementCost$inboundSchema))
+      .optional(),
+    revenue: z.array(z.lazy(() => GetNextSettlementRevenue$inboundSchema))
+      .optional(),
+    invoiceId: z.string().optional(),
+    invoiceReference: z.nullable(z.string()).optional(),
+  })
+);
 
 export function getNextSettlementPeriodsFromJSON(
   jsonString: string,
@@ -384,25 +399,27 @@ export const GetNextSettlementResponse$inboundSchema: z.ZodType<
   GetNextSettlementResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: models.NextSettlementId$inboundSchema,
-  createdAt: z.string().optional(),
-  reference: z.nullable(z.string()).optional(),
-  settledAt: z.nullable(z.string()).optional(),
-  status: GetNextSettlementStatus$inboundSchema,
-  amount: z.lazy(() => GetNextSettlementAmount$inboundSchema),
-  balanceId: z.string(),
-  invoiceId: z.nullable(z.string()).optional(),
-  periods: z.record(
-    z.record(z.lazy(() => GetNextSettlementPeriods$inboundSchema)),
-  ).optional(),
-  _links: models.SettlementConvenienceLinks$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: models.NextSettlementId$inboundSchema,
+    createdAt: z.string().optional(),
+    reference: z.nullable(z.string()).optional(),
+    settledAt: z.nullable(z.string()).optional(),
+    status: GetNextSettlementStatus$inboundSchema,
+    amount: z.lazy(() => GetNextSettlementAmount$inboundSchema),
+    balanceId: z.string(),
+    invoiceId: z.nullable(z.string()).optional(),
+    periods: z.record(
+      z.record(z.lazy(() => GetNextSettlementPeriods$inboundSchema)),
+    ).optional(),
+    _links: models.SettlementConvenienceLinks$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function getNextSettlementResponseFromJSON(
   jsonString: string,

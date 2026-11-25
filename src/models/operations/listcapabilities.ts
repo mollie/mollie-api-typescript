@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -60,17 +60,19 @@ export const ListCapabilitiesRequest$outboundSchema: z.ZodType<
   ListCapabilitiesRequest$Outbound,
   z.ZodTypeDef,
   ListCapabilitiesRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listCapabilitiesRequestToJSON(
   listCapabilitiesRequest: ListCapabilitiesRequest,
@@ -85,9 +87,11 @@ export const ListCapabilitiesEmbedded$inboundSchema: z.ZodType<
   ListCapabilitiesEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  capabilities: z.array(models.EntityCapability$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    capabilities: z.array(models.EntityCapability$inboundSchema),
+  })
+);
 
 export function listCapabilitiesEmbeddedFromJSON(
   jsonString: string,
@@ -104,9 +108,11 @@ export const ListCapabilitiesLinks$inboundSchema: z.ZodType<
   ListCapabilitiesLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  documentation: models.Url$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    documentation: models.Url$inboundSchema.optional(),
+  })
+);
 
 export function listCapabilitiesLinksFromJSON(
   jsonString: string,
@@ -123,16 +129,18 @@ export const ListCapabilitiesResponse$inboundSchema: z.ZodType<
   ListCapabilitiesResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  _embedded: z.lazy(() => ListCapabilitiesEmbedded$inboundSchema),
-  _links: z.lazy(() => ListCapabilitiesLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() => ListCapabilitiesEmbedded$inboundSchema),
+    _links: z.lazy(() => ListCapabilitiesLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listCapabilitiesResponseFromJSON(
   jsonString: string,

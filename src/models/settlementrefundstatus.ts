@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
@@ -30,4 +31,6 @@ export const SettlementRefundStatus$inboundSchema: z.ZodType<
   SettlementRefundStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(SettlementRefundStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(SettlementRefundStatus)
+);

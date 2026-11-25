@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 /**
@@ -174,10 +175,12 @@ export const ApplicationFee$outboundSchema: z.ZodType<
   ApplicationFee$Outbound,
   z.ZodTypeDef,
   ApplicationFee
-> = z.object({
-  amount: models.Amount$outboundSchema,
-  description: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    amount: models.Amount$outboundSchema,
+    description: z.string(),
+  })
+);
 
 export function applicationFeeToJSON(applicationFee: ApplicationFee): string {
   return JSON.stringify(ApplicationFee$outboundSchema.parse(applicationFee));
@@ -208,25 +211,28 @@ export const CreatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   CreatePaymentLinkRequestBody$Outbound,
   z.ZodTypeDef,
   CreatePaymentLinkRequestBody
-> = z.object({
-  description: z.string(),
-  amount: z.nullable(models.AmountNullable$outboundSchema).optional(),
-  minimumAmount: z.nullable(models.AmountNullable$outboundSchema).optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  lines: z.nullable(z.array(models.PaymentLineItem$outboundSchema)).optional(),
-  billingAddress: models.PaymentAddress$outboundSchema.optional(),
-  shippingAddress: models.PaymentAddress$outboundSchema.optional(),
-  profileId: z.nullable(z.string()).optional(),
-  reusable: z.nullable(z.boolean()).optional(),
-  expiresAt: z.nullable(z.string()).optional(),
-  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$outboundSchema))
-    .optional(),
-  applicationFee: z.lazy(() => ApplicationFee$outboundSchema).optional(),
-  sequenceType: models.PaymentLinkSequenceType$outboundSchema.optional(),
-  customerId: z.nullable(z.string()).optional(),
-  testmode: z.nullable(z.boolean()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    description: z.string(),
+    amount: z.nullable(models.AmountNullable$outboundSchema).optional(),
+    minimumAmount: z.nullable(models.AmountNullable$outboundSchema).optional(),
+    redirectUrl: z.nullable(z.string()).optional(),
+    webhookUrl: z.nullable(z.string()).optional(),
+    lines: z.nullable(z.array(models.PaymentLineItem$outboundSchema))
+      .optional(),
+    billingAddress: models.PaymentAddress$outboundSchema.optional(),
+    shippingAddress: models.PaymentAddress$outboundSchema.optional(),
+    profileId: z.nullable(z.string()).optional(),
+    reusable: z.nullable(z.boolean()).optional(),
+    expiresAt: z.nullable(z.string()).optional(),
+    allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$outboundSchema))
+      .optional(),
+    applicationFee: z.lazy(() => ApplicationFee$outboundSchema).optional(),
+    sequenceType: models.PaymentLinkSequenceType$outboundSchema.optional(),
+    customerId: z.nullable(z.string()).optional(),
+    testmode: z.nullable(z.boolean()).optional(),
+  })
+);
 
 export function createPaymentLinkRequestBodyToJSON(
   createPaymentLinkRequestBody: CreatePaymentLinkRequestBody,
@@ -251,20 +257,22 @@ export const CreatePaymentLinkRequest$outboundSchema: z.ZodType<
   CreatePaymentLinkRequest$Outbound,
   z.ZodTypeDef,
   CreatePaymentLinkRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => CreatePaymentLinkRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => CreatePaymentLinkRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function createPaymentLinkRequestToJSON(
   createPaymentLinkRequest: CreatePaymentLinkRequest,

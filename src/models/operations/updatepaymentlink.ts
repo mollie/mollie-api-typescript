@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type UpdatePaymentLinkRequestBody = {
@@ -97,17 +101,20 @@ export const UpdatePaymentLinkRequestBody$outboundSchema: z.ZodType<
   UpdatePaymentLinkRequestBody$Outbound,
   z.ZodTypeDef,
   UpdatePaymentLinkRequestBody
-> = z.object({
-  description: z.string().optional(),
-  minimumAmount: models.Amount$outboundSchema.optional(),
-  archived: z.boolean().optional(),
-  allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$outboundSchema))
-    .optional(),
-  lines: z.nullable(z.array(models.PaymentLineItem$outboundSchema)).optional(),
-  billingAddress: models.PaymentAddress$outboundSchema.optional(),
-  shippingAddress: models.PaymentAddress$outboundSchema.optional(),
-  testmode: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    description: z.string().optional(),
+    minimumAmount: models.Amount$outboundSchema.optional(),
+    archived: z.boolean().optional(),
+    allowedMethods: z.nullable(z.array(models.PaymentLinkMethod$outboundSchema))
+      .optional(),
+    lines: z.nullable(z.array(models.PaymentLineItem$outboundSchema))
+      .optional(),
+    billingAddress: models.PaymentAddress$outboundSchema.optional(),
+    shippingAddress: models.PaymentAddress$outboundSchema.optional(),
+    testmode: z.boolean().optional(),
+  })
+);
 
 export function updatePaymentLinkRequestBodyToJSON(
   updatePaymentLinkRequestBody: UpdatePaymentLinkRequestBody,
@@ -133,21 +140,25 @@ export const UpdatePaymentLinkRequest$outboundSchema: z.ZodType<
   UpdatePaymentLinkRequest$Outbound,
   z.ZodTypeDef,
   UpdatePaymentLinkRequest
-> = z.object({
-  paymentLinkId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => UpdatePaymentLinkRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    paymentLinkId: z.string().refine(matchesPattern$("^pl_.+$"), {
+      message: "Value must match pattern ^pl_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => UpdatePaymentLinkRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function updatePaymentLinkRequestToJSON(
   updatePaymentLinkRequest: UpdatePaymentLinkRequest,

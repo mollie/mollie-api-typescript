@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   RouteDestinationType,
@@ -52,10 +53,12 @@ export const EntityPaymentRouteDestination$outboundSchema: z.ZodType<
   EntityPaymentRouteDestination$Outbound,
   z.ZodTypeDef,
   EntityPaymentRouteDestination
-> = z.object({
-  type: RouteDestinationType$outboundSchema,
-  organizationId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: RouteDestinationType$outboundSchema,
+    organizationId: z.string(),
+  })
+);
 
 export function entityPaymentRouteDestinationToJSON(
   entityPaymentRouteDestination: EntityPaymentRouteDestination,
@@ -79,11 +82,13 @@ export const EntityPaymentRoute$outboundSchema: z.ZodType<
   EntityPaymentRoute$Outbound,
   z.ZodTypeDef,
   EntityPaymentRoute
-> = z.object({
-  amount: Amount$outboundSchema,
-  destination: z.lazy(() => EntityPaymentRouteDestination$outboundSchema),
-  releaseDate: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    amount: Amount$outboundSchema,
+    destination: z.lazy(() => EntityPaymentRouteDestination$outboundSchema),
+    releaseDate: z.nullable(z.string()).optional(),
+  })
+);
 
 export function entityPaymentRouteToJSON(
   entityPaymentRoute: EntityPaymentRoute,

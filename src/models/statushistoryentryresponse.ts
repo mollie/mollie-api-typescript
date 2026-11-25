@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { StatusReason2, StatusReason2$inboundSchema } from "./statusreason2.js";
@@ -41,11 +41,13 @@ export const StatusHistoryEntryResponse$inboundSchema: z.ZodType<
   StatusHistoryEntryResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  status: TransferStatus$inboundSchema,
-  createdAt: z.string(),
-  statusReason: z.nullable(StatusReason2$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    status: TransferStatus$inboundSchema,
+    createdAt: z.string(),
+    statusReason: z.nullable(StatusReason2$inboundSchema).optional(),
+  })
+);
 
 export function statusHistoryEntryResponseFromJSON(
   jsonString: string,

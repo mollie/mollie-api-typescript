@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AfterBalance, AfterBalance$inboundSchema } from "./afterbalance.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
@@ -87,20 +87,22 @@ export const TransactionResponse$inboundSchema: z.ZodType<
   TransactionResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  businessAccountId: z.string(),
-  creditDebitIndicator: CreditDebitIndicator$inboundSchema,
-  type: TransactionType$inboundSchema,
-  amount: Amount$inboundSchema,
-  description: z.nullable(z.string()).optional(),
-  counterparty: Counterparty$inboundSchema.optional(),
-  afterBalance: AfterBalance$inboundSchema.optional(),
-  processedAt: z.nullable(z.string()).optional(),
-  mode: Mode$inboundSchema,
-  createdAt: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    businessAccountId: z.string(),
+    creditDebitIndicator: CreditDebitIndicator$inboundSchema,
+    type: TransactionType$inboundSchema,
+    amount: Amount$inboundSchema,
+    description: z.nullable(z.string()).optional(),
+    counterparty: Counterparty$inboundSchema.optional(),
+    afterBalance: AfterBalance$inboundSchema.optional(),
+    processedAt: z.nullable(z.string()).optional(),
+    mode: Mode$inboundSchema,
+    createdAt: z.string(),
+  })
+);
 
 export function transactionResponseFromJSON(
   jsonString: string,

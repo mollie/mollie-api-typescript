@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type UpdateSalesInvoiceRequestBody = {
@@ -120,22 +124,25 @@ export const UpdateSalesInvoiceRequestBody$outboundSchema: z.ZodType<
   UpdateSalesInvoiceRequestBody$Outbound,
   z.ZodTypeDef,
   UpdateSalesInvoiceRequestBody
-> = z.object({
-  testmode: z.boolean().optional(),
-  status: models.SalesInvoiceStatusUpdate$outboundSchema.optional(),
-  memo: z.nullable(z.string()).optional(),
-  paymentTerm: z.nullable(models.SalesInvoicePaymentTerm$outboundSchema)
-    .optional(),
-  paymentDetails: models.SalesInvoicePaymentDetails$outboundSchema.optional(),
-  emailDetails: z.nullable(models.SalesInvoiceEmailDetails$outboundSchema)
-    .optional(),
-  recipientIdentifier: z.string().optional(),
-  recipient: z.nullable(models.SalesInvoiceRecipient$outboundSchema).optional(),
-  lines: z.nullable(z.array(models.SalesInvoiceLineItem$outboundSchema))
-    .optional(),
-  discount: z.nullable(models.SalesInvoiceDiscount$outboundSchema).optional(),
-  isEInvoice: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    testmode: z.boolean().optional(),
+    status: models.SalesInvoiceStatusUpdate$outboundSchema.optional(),
+    memo: z.nullable(z.string()).optional(),
+    paymentTerm: z.nullable(models.SalesInvoicePaymentTerm$outboundSchema)
+      .optional(),
+    paymentDetails: models.SalesInvoicePaymentDetails$outboundSchema.optional(),
+    emailDetails: z.nullable(models.SalesInvoiceEmailDetails$outboundSchema)
+      .optional(),
+    recipientIdentifier: z.string().optional(),
+    recipient: z.nullable(models.SalesInvoiceRecipient$outboundSchema)
+      .optional(),
+    lines: z.nullable(z.array(models.SalesInvoiceLineItem$outboundSchema))
+      .optional(),
+    discount: z.nullable(models.SalesInvoiceDiscount$outboundSchema).optional(),
+    isEInvoice: z.boolean().optional(),
+  })
+);
 
 export function updateSalesInvoiceRequestBodyToJSON(
   updateSalesInvoiceRequestBody: UpdateSalesInvoiceRequestBody,
@@ -161,21 +168,25 @@ export const UpdateSalesInvoiceRequest$outboundSchema: z.ZodType<
   UpdateSalesInvoiceRequest$Outbound,
   z.ZodTypeDef,
   UpdateSalesInvoiceRequest
-> = z.object({
-  salesInvoiceId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => UpdateSalesInvoiceRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    salesInvoiceId: z.string().refine(matchesPattern$("^invoice_.+$"), {
+      message: "Value must match pattern ^invoice_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => UpdateSalesInvoiceRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function updateSalesInvoiceRequestToJSON(
   updateSalesInvoiceRequest: UpdateSalesInvoiceRequest,

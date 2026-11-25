@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type UpdateWebhookEventTypes =
@@ -64,10 +68,12 @@ export const UpdateWebhookEventTypes$outboundSchema: z.ZodType<
   UpdateWebhookEventTypes$Outbound,
   z.ZodTypeDef,
   UpdateWebhookEventTypes
-> = z.union([
-  z.array(models.WebhookEventTypes$outboundSchema),
-  models.WebhookEventTypes$outboundSchema,
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    z.array(models.WebhookEventTypes$outboundSchema),
+    models.WebhookEventTypes$outboundSchema,
+  ])
+);
 
 export function updateWebhookEventTypesToJSON(
   updateWebhookEventTypes: UpdateWebhookEventTypes,
@@ -90,15 +96,17 @@ export const UpdateWebhookRequestBody$outboundSchema: z.ZodType<
   UpdateWebhookRequestBody$Outbound,
   z.ZodTypeDef,
   UpdateWebhookRequestBody
-> = z.object({
-  name: z.string().optional(),
-  url: z.string().optional(),
-  eventTypes: z.union([
-    z.array(models.WebhookEventTypes$outboundSchema),
-    models.WebhookEventTypes$outboundSchema,
-  ]).optional(),
-  testmode: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    url: z.string().optional(),
+    eventTypes: z.union([
+      z.array(models.WebhookEventTypes$outboundSchema),
+      models.WebhookEventTypes$outboundSchema,
+    ]).optional(),
+    testmode: z.boolean().optional(),
+  })
+);
 
 export function updateWebhookRequestBodyToJSON(
   updateWebhookRequestBody: UpdateWebhookRequestBody,
@@ -122,20 +130,25 @@ export const UpdateWebhookRequest$outboundSchema: z.ZodType<
   UpdateWebhookRequest$Outbound,
   z.ZodTypeDef,
   UpdateWebhookRequest
-> = z.object({
-  webhookId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => UpdateWebhookRequestBody$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    webhookId: z.string().refine(matchesPattern$("^hook_.+$"), {
+      message: "Value must match pattern ^hook_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => UpdateWebhookRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function updateWebhookRequestToJSON(
   updateWebhookRequest: UpdateWebhookRequest,

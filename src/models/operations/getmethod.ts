@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type GetMethodGlobals = {
@@ -118,24 +119,26 @@ export const GetMethodRequest$outboundSchema: z.ZodType<
   GetMethodRequest$Outbound,
   z.ZodTypeDef,
   GetMethodRequest
-> = z.object({
-  methodId: z.nullable(models.MethodId$outboundSchema),
-  locale: z.nullable(models.Locale$outboundSchema).optional(),
-  currency: z.string().optional(),
-  profileId: z.string().optional(),
-  include: z.nullable(z.string()).optional(),
-  sequenceType: models.SequenceType$outboundSchema.optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    methodId: z.nullable(models.MethodId$outboundSchema),
+    locale: z.nullable(models.Locale$outboundSchema).optional(),
+    currency: z.string().optional(),
+    profileId: z.string().optional(),
+    include: z.nullable(z.string()).optional(),
+    sequenceType: models.SequenceType$outboundSchema.optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function getMethodRequestToJSON(
   getMethodRequest: GetMethodRequest,

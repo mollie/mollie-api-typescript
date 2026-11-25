@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -23,11 +23,13 @@ export type Url = {
 };
 
 /** @internal */
-export const Url$inboundSchema: z.ZodType<Url, z.ZodTypeDef, unknown> = z
-  .object({
-    href: z.string(),
-    type: z.string(),
-  });
+export const Url$inboundSchema: z.ZodType<Url, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      href: z.string(),
+      type: z.string(),
+    })
+  );
 
 export function urlFromJSON(
   jsonString: string,

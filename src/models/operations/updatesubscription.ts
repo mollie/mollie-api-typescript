@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type UpdateSubscriptionRequestBody = {
@@ -115,17 +119,19 @@ export const UpdateSubscriptionRequestBody$outboundSchema: z.ZodType<
   UpdateSubscriptionRequestBody$Outbound,
   z.ZodTypeDef,
   UpdateSubscriptionRequestBody
-> = z.object({
-  amount: models.Amount$outboundSchema.optional(),
-  description: z.string().optional(),
-  interval: z.string().optional(),
-  startDate: z.string().optional(),
-  times: z.number().int().optional(),
-  metadata: z.nullable(models.Metadata$outboundSchema).optional(),
-  webhookUrl: z.string().optional(),
-  mandateId: z.string().optional(),
-  testmode: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    amount: models.Amount$outboundSchema.optional(),
+    description: z.string().optional(),
+    interval: z.string().optional(),
+    startDate: z.string().optional(),
+    times: z.number().int().optional(),
+    metadata: z.nullable(models.Metadata$outboundSchema).optional(),
+    webhookUrl: z.string().optional(),
+    mandateId: z.string().optional(),
+    testmode: z.boolean().optional(),
+  })
+);
 
 export function updateSubscriptionRequestBodyToJSON(
   updateSubscriptionRequestBody: UpdateSubscriptionRequestBody,
@@ -152,22 +158,28 @@ export const UpdateSubscriptionRequest$outboundSchema: z.ZodType<
   UpdateSubscriptionRequest$Outbound,
   z.ZodTypeDef,
   UpdateSubscriptionRequest
-> = z.object({
-  customerId: z.string(),
-  subscriptionId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => UpdateSubscriptionRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    customerId: z.string().refine(matchesPattern$("^cst_.+$"), {
+      message: "Value must match pattern ^cst_.+$",
+    }),
+    subscriptionId: z.string().refine(matchesPattern$("^sub_.+$"), {
+      message: "Value must match pattern ^sub_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => UpdateSubscriptionRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function updateSubscriptionRequestToJSON(
   updateSubscriptionRequest: UpdateSubscriptionRequest,

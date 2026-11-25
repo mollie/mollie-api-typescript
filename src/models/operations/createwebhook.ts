@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type CreateWebhookEventTypes =
@@ -55,10 +56,12 @@ export const CreateWebhookEventTypes$outboundSchema: z.ZodType<
   CreateWebhookEventTypes$Outbound,
   z.ZodTypeDef,
   CreateWebhookEventTypes
-> = z.union([
-  z.array(models.WebhookEventTypes$outboundSchema),
-  models.WebhookEventTypes$outboundSchema,
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    z.array(models.WebhookEventTypes$outboundSchema),
+    models.WebhookEventTypes$outboundSchema,
+  ])
+);
 
 export function createWebhookEventTypesToJSON(
   createWebhookEventTypes: CreateWebhookEventTypes,
@@ -81,15 +84,17 @@ export const CreateWebhookRequestBody$outboundSchema: z.ZodType<
   CreateWebhookRequestBody$Outbound,
   z.ZodTypeDef,
   CreateWebhookRequestBody
-> = z.object({
-  name: z.string(),
-  url: z.string(),
-  eventTypes: z.union([
-    z.array(models.WebhookEventTypes$outboundSchema),
-    models.WebhookEventTypes$outboundSchema,
-  ]),
-  testmode: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+    url: z.string(),
+    eventTypes: z.union([
+      z.array(models.WebhookEventTypes$outboundSchema),
+      models.WebhookEventTypes$outboundSchema,
+    ]),
+    testmode: z.boolean().optional(),
+  })
+);
 
 export function createWebhookRequestBodyToJSON(
   createWebhookRequestBody: CreateWebhookRequestBody,
@@ -112,19 +117,22 @@ export const CreateWebhookRequest$outboundSchema: z.ZodType<
   CreateWebhookRequest$Outbound,
   z.ZodTypeDef,
   CreateWebhookRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => CreateWebhookRequestBody$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => CreateWebhookRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function createWebhookRequestToJSON(
   createWebhookRequest: CreateWebhookRequest,
