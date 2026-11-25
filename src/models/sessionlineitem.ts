@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   PaymentLineTypeResponse,
@@ -90,22 +89,20 @@ export const SessionLineItem$outboundSchema: z.ZodType<
   SessionLineItem$Outbound,
   z.ZodTypeDef,
   SessionLineItem
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: PaymentLineTypeResponse$outboundSchema.optional(),
-    description: z.string(),
-    quantity: z.number().int(),
-    quantityUnit: z.string().optional(),
-    unitPrice: Amount$outboundSchema,
-    discountAmount: Amount$outboundSchema.optional(),
-    totalAmount: Amount$outboundSchema,
-    vatRate: z.string().optional(),
-    vatAmount: Amount$outboundSchema.optional(),
-    sku: z.string().optional(),
-    imageUrl: z.string().optional(),
-    productUrl: z.string().optional(),
-  })
-);
+> = z.object({
+  type: PaymentLineTypeResponse$outboundSchema.optional(),
+  description: z.string(),
+  quantity: z.number().int(),
+  quantityUnit: z.string().optional(),
+  unitPrice: Amount$outboundSchema,
+  discountAmount: Amount$outboundSchema.optional(),
+  totalAmount: Amount$outboundSchema,
+  vatRate: z.string().optional(),
+  vatAmount: Amount$outboundSchema.optional(),
+  sku: z.string().optional(),
+  imageUrl: z.string().optional(),
+  productUrl: z.string().optional(),
+});
 
 export function sessionLineItemToJSON(
   sessionLineItem: SessionLineItem,

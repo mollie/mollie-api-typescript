@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -104,12 +104,10 @@ export const EntityChargebackReason$inboundSchema: z.ZodType<
   EntityChargebackReason,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    code: z.string(),
-    description: z.string(),
-  })
-);
+> = z.object({
+  code: z.string(),
+  description: z.string(),
+});
 
 export function entityChargebackReasonFromJSON(
   jsonString: string,
@@ -126,14 +124,12 @@ export const EntityChargebackLinks$inboundSchema: z.ZodType<
   EntityChargebackLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    payment: Url$inboundSchema,
-    settlement: z.nullable(UrlNullable$inboundSchema).optional(),
-    documentation: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  payment: Url$inboundSchema,
+  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
+  documentation: Url$inboundSchema,
+});
 
 export function entityChargebackLinksFromJSON(
   jsonString: string,
@@ -150,24 +146,22 @@ export const EntityChargeback$inboundSchema: z.ZodType<
   EntityChargeback,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    amount: Amount$inboundSchema,
-    reason: z.nullable(z.lazy(() => EntityChargebackReason$inboundSchema))
-      .optional(),
-    paymentId: z.string(),
-    settlementId: z.nullable(z.string()).optional(),
-    createdAt: z.string(),
-    reversedAt: z.nullable(z.string()).optional(),
-    _links: z.lazy(() => EntityChargebackLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  amount: Amount$inboundSchema,
+  reason: z.nullable(z.lazy(() => EntityChargebackReason$inboundSchema))
+    .optional(),
+  paymentId: z.string(),
+  settlementId: z.nullable(z.string()).optional(),
+  createdAt: z.string(),
+  reversedAt: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => EntityChargebackLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityChargebackFromJSON(
   jsonString: string,

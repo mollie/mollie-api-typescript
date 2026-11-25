@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,12 +28,10 @@ export const ErrorResponseDocumentation$inboundSchema: z.ZodType<
   ErrorResponseDocumentation,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    href: z.string(),
-    type: z.string(),
-  })
-);
+> = z.object({
+  href: z.string(),
+  type: z.string(),
+});
 
 export function errorResponseDocumentationFromJSON(
   jsonString: string,
@@ -50,11 +48,9 @@ export const ErrorResponseLinks$inboundSchema: z.ZodType<
   ErrorResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    documentation: z.lazy(() => ErrorResponseDocumentation$inboundSchema),
-  })
-);
+> = z.object({
+  documentation: z.lazy(() => ErrorResponseDocumentation$inboundSchema),
+});
 
 export function errorResponseLinksFromJSON(
   jsonString: string,

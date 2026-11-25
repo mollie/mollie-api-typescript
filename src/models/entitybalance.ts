@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -224,39 +224,31 @@ export const EntityBalanceCurrency$inboundSchema: z.ZodType<
   EntityBalanceCurrency,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(EntityBalanceCurrency)
-);
+> = openEnums.inboundSchema(EntityBalanceCurrency);
 
 /** @internal */
 export const EntityBalanceStatus$inboundSchema: z.ZodType<
   EntityBalanceStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(EntityBalanceStatus)
-);
+> = openEnums.inboundSchema(EntityBalanceStatus);
 
 /** @internal */
 export const EntityBalanceTransferFrequency$inboundSchema: z.ZodType<
   EntityBalanceTransferFrequency,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(EntityBalanceTransferFrequency)
-);
+> = openEnums.inboundSchema(EntityBalanceTransferFrequency);
 
 /** @internal */
 export const EntityBalanceTransferThreshold$inboundSchema: z.ZodType<
   EntityBalanceTransferThreshold,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function entityBalanceTransferThresholdFromJSON(
   jsonString: string,
@@ -273,13 +265,11 @@ export const EntityBalanceTransferDestination$inboundSchema: z.ZodType<
   EntityBalanceTransferDestination,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: BalanceTransferDestinationType$inboundSchema.optional(),
-    bankAccount: z.string().optional(),
-    beneficiaryName: z.string().optional(),
-  })
-);
+> = z.object({
+  type: BalanceTransferDestinationType$inboundSchema.optional(),
+  bankAccount: z.string().optional(),
+  beneficiaryName: z.string().optional(),
+});
 
 export function entityBalanceTransferDestinationFromJSON(
   jsonString: string,
@@ -296,12 +286,10 @@ export const EntityBalanceAvailableAmount$inboundSchema: z.ZodType<
   EntityBalanceAvailableAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function entityBalanceAvailableAmountFromJSON(
   jsonString: string,
@@ -318,12 +306,10 @@ export const EntityBalancePendingAmount$inboundSchema: z.ZodType<
   EntityBalancePendingAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function entityBalancePendingAmountFromJSON(
   jsonString: string,
@@ -340,12 +326,10 @@ export const EntityBalanceLinks$inboundSchema: z.ZodType<
   EntityBalanceLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema.optional(),
-    documentation: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema.optional(),
+  documentation: Url$inboundSchema.optional(),
+});
 
 export function entityBalanceLinksFromJSON(
   jsonString: string,
@@ -362,32 +346,29 @@ export const EntityBalance$inboundSchema: z.ZodType<
   EntityBalance,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    createdAt: z.string(),
-    currency: EntityBalanceCurrency$inboundSchema,
-    description: z.string(),
-    status: EntityBalanceStatus$inboundSchema,
-    transferFrequency: EntityBalanceTransferFrequency$inboundSchema.optional(),
-    transferThreshold: z.lazy(() =>
-      EntityBalanceTransferThreshold$inboundSchema
-    ).optional(),
-    transferReference: z.nullable(z.string()).optional(),
-    transferDestination: z.nullable(
-      z.lazy(() => EntityBalanceTransferDestination$inboundSchema),
-    ).optional(),
-    availableAmount: z.lazy(() => EntityBalanceAvailableAmount$inboundSchema),
-    pendingAmount: z.lazy(() => EntityBalancePendingAmount$inboundSchema),
-    _links: z.lazy(() => EntityBalanceLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  createdAt: z.string(),
+  currency: EntityBalanceCurrency$inboundSchema,
+  description: z.string(),
+  status: EntityBalanceStatus$inboundSchema,
+  transferFrequency: EntityBalanceTransferFrequency$inboundSchema.optional(),
+  transferThreshold: z.lazy(() => EntityBalanceTransferThreshold$inboundSchema)
+    .optional(),
+  transferReference: z.nullable(z.string()).optional(),
+  transferDestination: z.nullable(
+    z.lazy(() => EntityBalanceTransferDestination$inboundSchema),
+  ).optional(),
+  availableAmount: z.lazy(() => EntityBalanceAvailableAmount$inboundSchema),
+  pendingAmount: z.lazy(() => EntityBalancePendingAmount$inboundSchema),
+  _links: z.lazy(() => EntityBalanceLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityBalanceFromJSON(
   jsonString: string,

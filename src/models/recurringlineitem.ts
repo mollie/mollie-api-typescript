@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Amount,
@@ -46,15 +46,13 @@ export const RecurringLineItem$inboundSchema: z.ZodType<
   RecurringLineItem,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string().optional(),
-    interval: z.string(),
-    amount: Amount$inboundSchema.optional(),
-    times: z.number().int().optional(),
-    startDate: z.nullable(z.string()).optional(),
-  })
-);
+> = z.object({
+  description: z.string().optional(),
+  interval: z.string(),
+  amount: Amount$inboundSchema.optional(),
+  times: z.number().int().optional(),
+  startDate: z.nullable(z.string()).optional(),
+});
 /** @internal */
 export type RecurringLineItem$Outbound = {
   description?: string | undefined;
@@ -69,15 +67,13 @@ export const RecurringLineItem$outboundSchema: z.ZodType<
   RecurringLineItem$Outbound,
   z.ZodTypeDef,
   RecurringLineItem
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string().optional(),
-    interval: z.string(),
-    amount: Amount$outboundSchema.optional(),
-    times: z.number().int().optional(),
-    startDate: z.nullable(z.string()).optional(),
-  })
-);
+> = z.object({
+  description: z.string().optional(),
+  interval: z.string(),
+  amount: Amount$outboundSchema.optional(),
+  times: z.number().int().optional(),
+  startDate: z.nullable(z.string()).optional(),
+});
 
 export function recurringLineItemToJSON(
   recurringLineItem: RecurringLineItem,

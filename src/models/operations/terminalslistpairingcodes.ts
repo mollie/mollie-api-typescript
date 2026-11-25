@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -113,23 +113,21 @@ export const TerminalsListPairingCodesRequest$outboundSchema: z.ZodType<
   TerminalsListPairingCodesRequest$Outbound,
   z.ZodTypeDef,
   TerminalsListPairingCodesRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    sort: models.Sorting$outboundSchema.optional(),
-    profileId: z.string().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: models.Sorting$outboundSchema.optional(),
+  profileId: z.string().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function terminalsListPairingCodesRequestToJSON(
   terminalsListPairingCodesRequest: TerminalsListPairingCodesRequest,
@@ -146,7 +144,7 @@ export const TerminalPairingCode$inboundSchema: z.ZodType<
   TerminalPairingCode,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() => z.object({}));
+> = z.object({});
 
 export function terminalPairingCodeFromJSON(
   jsonString: string,
@@ -163,17 +161,15 @@ export const TerminalsListPairingCodesEmbedded$inboundSchema: z.ZodType<
   TerminalsListPairingCodesEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    "terminal-pairing-codes": z.array(
-      z.lazy(() => TerminalPairingCode$inboundSchema),
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "terminal-pairing-codes": "terminalPairingCodes",
-    });
-  })
-);
+> = z.object({
+  "terminal-pairing-codes": z.array(
+    z.lazy(() => TerminalPairingCode$inboundSchema),
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "terminal-pairing-codes": "terminalPairingCodes",
+  });
+});
 
 export function terminalsListPairingCodesEmbeddedFromJSON(
   jsonString: string,
@@ -190,19 +186,17 @@ export const TerminalsListPairingCodesResponse$inboundSchema: z.ZodType<
   TerminalsListPairingCodesResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int().optional(),
-    _embedded: z.lazy(() => TerminalsListPairingCodesEmbedded$inboundSchema)
-      .optional(),
-    _links: models.ListLinks$inboundSchema.optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int().optional(),
+  _embedded: z.lazy(() => TerminalsListPairingCodesEmbedded$inboundSchema)
+    .optional(),
+  _links: models.ListLinks$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function terminalsListPairingCodesResponseFromJSON(
   jsonString: string,

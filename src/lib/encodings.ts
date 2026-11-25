@@ -15,8 +15,7 @@ export class EncodingError extends Error {
 
 export type CharEncoding = "percent" | "percentExceptReserved" | "none";
 
-const pathReservedEscapes = /%(2[46bcf]|3[abd]|40|5[bd])/gi;
-const queryReservedEscapes = /%(2[46bcf]|3[abdf]|40|5[bd])/gi;
+const reservedEscapes = /%(2[346bcf]|3[abdf]|40|5[bd])/gi;
 
 function encodeKeyChars(
   v: string,
@@ -31,7 +30,6 @@ function encodeKeyChars(
 function encodeChars(
   v: string,
   charEncoding: CharEncoding | undefined,
-  reservedEscapes: RegExp = queryReservedEscapes,
 ): string {
   switch (charEncoding) {
     case "percent":
@@ -61,7 +59,7 @@ export function encodeMatrix(
   }
 
   const encodeString = (v: string) => {
-    return encodeChars(v, options?.charEncoding, pathReservedEscapes);
+    return encodeChars(v, options?.charEncoding);
   };
   const encodeValue = (v: unknown) => encodeString(serializeValue(v));
 
@@ -119,7 +117,7 @@ export function encodeLabel(
   }
 
   const encodeString = (v: string) => {
-    return encodeChars(v, options?.charEncoding, pathReservedEscapes);
+    return encodeChars(v, options?.charEncoding);
   };
   const encodeValue = (v: unknown) => encodeString(serializeValue(v));
 
@@ -358,7 +356,7 @@ export const encodeSimple = (
   }
 
   const encodeString = (v: string) => {
-    return encodeChars(v, options?.charEncoding, pathReservedEscapes);
+    return encodeChars(v, options?.charEncoding);
   };
   const encodeValue = (v: unknown) => encodeString(serializeValue(v));
 

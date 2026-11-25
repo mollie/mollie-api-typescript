@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceReportGrouping,
@@ -277,14 +277,12 @@ export const PendingBalance$inboundSchema: z.ZodType<
   PendingBalance,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    open: SubGroup$inboundSchema.optional(),
-    close: SubGroup$inboundSchema.optional(),
-    pending: SubGroup$inboundSchema.optional(),
-    movedToAvailable: SubGroup$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  open: SubGroup$inboundSchema.optional(),
+  close: SubGroup$inboundSchema.optional(),
+  pending: SubGroup$inboundSchema.optional(),
+  movedToAvailable: SubGroup$inboundSchema.optional(),
+});
 
 export function pendingBalanceFromJSON(
   jsonString: string,
@@ -301,14 +299,12 @@ export const AvailableBalance$inboundSchema: z.ZodType<
   AvailableBalance,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    open: SubGroup$inboundSchema.optional(),
-    movedFromPending: SubGroup$inboundSchema.optional(),
-    immediatelyAvailable: SubGroup$inboundSchema.optional(),
-    close: SubGroup$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  open: SubGroup$inboundSchema.optional(),
+  movedFromPending: SubGroup$inboundSchema.optional(),
+  immediatelyAvailable: SubGroup$inboundSchema.optional(),
+  close: SubGroup$inboundSchema.optional(),
+});
 
 export function availableBalanceFromJSON(
   jsonString: string,
@@ -321,13 +317,11 @@ export function availableBalanceFromJSON(
 }
 
 /** @internal */
-export const Open$inboundSchema: z.ZodType<Open, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      pending: SubGroup$inboundSchema.optional(),
-      available: SubGroup$inboundSchema.optional(),
-    })
-  );
+export const Open$inboundSchema: z.ZodType<Open, z.ZodTypeDef, unknown> = z
+  .object({
+    pending: SubGroup$inboundSchema.optional(),
+    available: SubGroup$inboundSchema.optional(),
+  });
 
 export function openFromJSON(
   jsonString: string,
@@ -340,13 +334,11 @@ export function openFromJSON(
 }
 
 /** @internal */
-export const Close$inboundSchema: z.ZodType<Close, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      pending: SubGroup$inboundSchema.optional(),
-      available: SubGroup$inboundSchema.optional(),
-    })
-  );
+export const Close$inboundSchema: z.ZodType<Close, z.ZodTypeDef, unknown> = z
+  .object({
+    pending: SubGroup$inboundSchema.optional(),
+    available: SubGroup$inboundSchema.optional(),
+  });
 
 export function closeFromJSON(
   jsonString: string,
@@ -363,13 +355,11 @@ export const Payments$inboundSchema: z.ZodType<
   Payments,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    pending: SubGroup$inboundSchema.optional(),
-    movedToAvailable: SubGroup$inboundSchema.optional(),
-    immediatelyAvailable: SubGroup$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  pending: SubGroup$inboundSchema.optional(),
+  movedToAvailable: SubGroup$inboundSchema.optional(),
+  immediatelyAvailable: SubGroup$inboundSchema.optional(),
+});
 
 export function paymentsFromJSON(
   jsonString: string,
@@ -383,13 +373,11 @@ export function paymentsFromJSON(
 
 /** @internal */
 export const Refunds$inboundSchema: z.ZodType<Refunds, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      pending: SubGroup$inboundSchema.optional(),
-      movedToAvailable: SubGroup$inboundSchema.optional(),
-      immediatelyAvailable: SubGroup$inboundSchema.optional(),
-    })
-  );
+  z.object({
+    pending: SubGroup$inboundSchema.optional(),
+    movedToAvailable: SubGroup$inboundSchema.optional(),
+    immediatelyAvailable: SubGroup$inboundSchema.optional(),
+  });
 
 export function refundsFromJSON(
   jsonString: string,
@@ -406,13 +394,11 @@ export const Chargebacks$inboundSchema: z.ZodType<
   Chargebacks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    pending: SubGroup$inboundSchema.optional(),
-    movedToAvailable: SubGroup$inboundSchema.optional(),
-    immediatelyAvailable: SubGroup$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  pending: SubGroup$inboundSchema.optional(),
+  movedToAvailable: SubGroup$inboundSchema.optional(),
+  immediatelyAvailable: SubGroup$inboundSchema.optional(),
+});
 
 export function chargebacksFromJSON(
   jsonString: string,
@@ -426,13 +412,11 @@ export function chargebacksFromJSON(
 
 /** @internal */
 export const Capital$inboundSchema: z.ZodType<Capital, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      pending: SubGroup$inboundSchema.optional(),
-      movedToAvailable: SubGroup$inboundSchema.optional(),
-      immediatelyAvailable: SubGroup$inboundSchema.optional(),
-    })
-  );
+  z.object({
+    pending: SubGroup$inboundSchema.optional(),
+    movedToAvailable: SubGroup$inboundSchema.optional(),
+    immediatelyAvailable: SubGroup$inboundSchema.optional(),
+  });
 
 export function capitalFromJSON(
   jsonString: string,
@@ -449,13 +433,11 @@ export const Transfers$inboundSchema: z.ZodType<
   Transfers,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    pending: SubGroup$inboundSchema.optional(),
-    movedToAvailable: SubGroup$inboundSchema.optional(),
-    immediatelyAvailable: SubGroup$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  pending: SubGroup$inboundSchema.optional(),
+  movedToAvailable: SubGroup$inboundSchema.optional(),
+  immediatelyAvailable: SubGroup$inboundSchema.optional(),
+});
 
 export function transfersFromJSON(
   jsonString: string,
@@ -472,13 +454,11 @@ export const FeePrepayments$inboundSchema: z.ZodType<
   FeePrepayments,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    pending: SubGroup$inboundSchema.optional(),
-    movedToAvailable: SubGroup$inboundSchema.optional(),
-    immediatelyAvailable: SubGroup$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  pending: SubGroup$inboundSchema.optional(),
+  movedToAvailable: SubGroup$inboundSchema.optional(),
+  immediatelyAvailable: SubGroup$inboundSchema.optional(),
+});
 
 export function feePrepaymentsFromJSON(
   jsonString: string,
@@ -495,13 +475,11 @@ export const Corrections$inboundSchema: z.ZodType<
   Corrections,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    pending: SubGroup$inboundSchema.optional(),
-    movedToAvailable: SubGroup$inboundSchema.optional(),
-    immediatelyAvailable: SubGroup$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  pending: SubGroup$inboundSchema.optional(),
+  movedToAvailable: SubGroup$inboundSchema.optional(),
+  immediatelyAvailable: SubGroup$inboundSchema.optional(),
+});
 
 export function correctionsFromJSON(
   jsonString: string,
@@ -514,14 +492,12 @@ export function correctionsFromJSON(
 }
 
 /** @internal */
-export const Topups$inboundSchema: z.ZodType<Topups, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      pending: SubGroup$inboundSchema.optional(),
-      movedToAvailable: SubGroup$inboundSchema.optional(),
-      immediatelyAvailable: SubGroup$inboundSchema.optional(),
-    })
-  );
+export const Topups$inboundSchema: z.ZodType<Topups, z.ZodTypeDef, unknown> = z
+  .object({
+    pending: SubGroup$inboundSchema.optional(),
+    movedToAvailable: SubGroup$inboundSchema.optional(),
+    immediatelyAvailable: SubGroup$inboundSchema.optional(),
+  });
 
 export function topupsFromJSON(
   jsonString: string,
@@ -534,29 +510,27 @@ export function topupsFromJSON(
 }
 
 /** @internal */
-export const Totals$inboundSchema: z.ZodType<Totals, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      pendingBalance: z.nullable(z.lazy(() => PendingBalance$inboundSchema))
-        .optional(),
-      availableBalance: z.nullable(z.lazy(() => AvailableBalance$inboundSchema))
-        .optional(),
-      open: z.lazy(() => Open$inboundSchema).optional(),
-      close: z.lazy(() => Close$inboundSchema).optional(),
-      payments: z.lazy(() => Payments$inboundSchema).optional(),
-      refunds: z.lazy(() => Refunds$inboundSchema).optional(),
-      chargebacks: z.lazy(() => Chargebacks$inboundSchema).optional(),
-      capital: z.lazy(() => Capital$inboundSchema).optional(),
-      transfers: z.lazy(() => Transfers$inboundSchema).optional(),
-      "fee-prepayments": z.lazy(() => FeePrepayments$inboundSchema).optional(),
-      corrections: z.lazy(() => Corrections$inboundSchema).optional(),
-      topups: z.lazy(() => Topups$inboundSchema).optional(),
-    }).transform((v) => {
-      return remap$(v, {
-        "fee-prepayments": "feePrepayments",
-      });
-    })
-  );
+export const Totals$inboundSchema: z.ZodType<Totals, z.ZodTypeDef, unknown> = z
+  .object({
+    pendingBalance: z.nullable(z.lazy(() => PendingBalance$inboundSchema))
+      .optional(),
+    availableBalance: z.nullable(z.lazy(() => AvailableBalance$inboundSchema))
+      .optional(),
+    open: z.lazy(() => Open$inboundSchema).optional(),
+    close: z.lazy(() => Close$inboundSchema).optional(),
+    payments: z.lazy(() => Payments$inboundSchema).optional(),
+    refunds: z.lazy(() => Refunds$inboundSchema).optional(),
+    chargebacks: z.lazy(() => Chargebacks$inboundSchema).optional(),
+    capital: z.lazy(() => Capital$inboundSchema).optional(),
+    transfers: z.lazy(() => Transfers$inboundSchema).optional(),
+    "fee-prepayments": z.lazy(() => FeePrepayments$inboundSchema).optional(),
+    corrections: z.lazy(() => Corrections$inboundSchema).optional(),
+    topups: z.lazy(() => Topups$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "fee-prepayments": "feePrepayments",
+    });
+  });
 
 export function totalsFromJSON(
   jsonString: string,
@@ -573,12 +547,10 @@ export const EntityBalanceReportLinks$inboundSchema: z.ZodType<
   EntityBalanceReportLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema.optional(),
-    documentation: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema.optional(),
+  documentation: Url$inboundSchema.optional(),
+});
 
 export function entityBalanceReportLinksFromJSON(
   jsonString: string,
@@ -595,22 +567,20 @@ export const EntityBalanceReport$inboundSchema: z.ZodType<
   EntityBalanceReport,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    balanceId: z.string(),
-    timeZone: z.string(),
-    from: z.string(),
-    until: z.string(),
-    grouping: BalanceReportGrouping$inboundSchema,
-    totals: z.lazy(() => Totals$inboundSchema),
-    _links: z.lazy(() => EntityBalanceReportLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  balanceId: z.string(),
+  timeZone: z.string(),
+  from: z.string(),
+  until: z.string(),
+  grouping: BalanceReportGrouping$inboundSchema,
+  totals: z.lazy(() => Totals$inboundSchema),
+  _links: z.lazy(() => EntityBalanceReportLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityBalanceReportFromJSON(
   jsonString: string,

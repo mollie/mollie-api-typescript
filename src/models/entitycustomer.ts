@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   LocaleResponse,
   LocaleResponse$outboundSchema,
@@ -65,15 +64,13 @@ export const EntityCustomer$outboundSchema: z.ZodType<
   EntityCustomer$Outbound,
   z.ZodTypeDef,
   EntityCustomer
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    name: z.nullable(z.string()).optional(),
-    email: z.nullable(z.string()).optional(),
-    locale: z.nullable(LocaleResponse$outboundSchema).optional(),
-    metadata: z.nullable(Metadata$outboundSchema).optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  name: z.nullable(z.string()).optional(),
+  email: z.nullable(z.string()).optional(),
+  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
+  metadata: z.nullable(Metadata$outboundSchema).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function entityCustomerToJSON(entityCustomer: EntityCustomer): string {
   return JSON.stringify(EntityCustomer$outboundSchema.parse(entityCustomer));

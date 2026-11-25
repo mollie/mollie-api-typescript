@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   SalesInvoiceDiscount,
@@ -46,15 +45,13 @@ export const SalesInvoiceLineItem$outboundSchema: z.ZodType<
   SalesInvoiceLineItem$Outbound,
   z.ZodTypeDef,
   SalesInvoiceLineItem
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    quantity: z.number().int(),
-    vatRate: z.string(),
-    unitPrice: Amount$outboundSchema,
-    discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
-  })
-);
+> = z.object({
+  description: z.string(),
+  quantity: z.number().int(),
+  vatRate: z.string(),
+  unitPrice: Amount$outboundSchema,
+  discount: z.nullable(SalesInvoiceDiscount$outboundSchema).optional(),
+});
 
 export function salesInvoiceLineItemToJSON(
   salesInvoiceLineItem: SalesInvoiceLineItem,

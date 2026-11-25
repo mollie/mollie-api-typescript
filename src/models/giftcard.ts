@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -72,19 +72,17 @@ export const GiftcardStatus$inboundSchema: z.ZodType<
   GiftcardStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() => openEnums.inboundSchema(GiftcardStatus));
+> = openEnums.inboundSchema(GiftcardStatus);
 
 /** @internal */
 export const GiftcardLinks$inboundSchema: z.ZodType<
   GiftcardLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema.optional(),
-    documentation: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema.optional(),
+  documentation: Url$inboundSchema.optional(),
+});
 
 export function giftcardLinksFromJSON(
   jsonString: string,
@@ -101,19 +99,17 @@ export const Giftcard$inboundSchema: z.ZodType<
   Giftcard,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    description: z.string(),
-    status: GiftcardStatus$inboundSchema,
-    _links: z.lazy(() => GiftcardLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  description: z.string(),
+  status: GiftcardStatus$inboundSchema,
+  _links: z.lazy(() => GiftcardLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function giftcardFromJSON(
   jsonString: string,

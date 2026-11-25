@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 export const LineCategories = {
@@ -20,4 +19,4 @@ export type LineCategories = ClosedEnum<typeof LineCategories>;
 /** @internal */
 export const LineCategories$outboundSchema: z.ZodNativeEnum<
   typeof LineCategories
-> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(LineCategories));
+> = z.nativeEnum(LineCategories);

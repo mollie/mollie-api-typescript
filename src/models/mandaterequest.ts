@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   MandateMethod,
   MandateMethod$outboundSchema,
@@ -96,21 +95,19 @@ export const MandateRequest$outboundSchema: z.ZodType<
   MandateRequest$Outbound,
   z.ZodTypeDef,
   MandateRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    id: z.string().optional(),
-    method: MandateMethod$outboundSchema,
-    consumerName: z.string(),
-    consumerAccount: z.nullable(z.string()).optional(),
-    consumerBic: z.nullable(z.string()).optional(),
-    consumerEmail: z.nullable(z.string()).optional(),
-    signatureDate: z.nullable(z.string()).optional(),
-    mandateReference: z.nullable(z.string()).optional(),
-    paypalBillingAgreementId: z.nullable(z.string()).optional(),
-    payPalVaultId: z.nullable(z.string()).optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  id: z.string().optional(),
+  method: MandateMethod$outboundSchema,
+  consumerName: z.string(),
+  consumerAccount: z.nullable(z.string()).optional(),
+  consumerBic: z.nullable(z.string()).optional(),
+  consumerEmail: z.nullable(z.string()).optional(),
+  signatureDate: z.nullable(z.string()).optional(),
+  mandateReference: z.nullable(z.string()).optional(),
+  paypalBillingAgreementId: z.nullable(z.string()).optional(),
+  payPalVaultId: z.nullable(z.string()).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function mandateRequestToJSON(mandateRequest: MandateRequest): string {
   return JSON.stringify(MandateRequest$outboundSchema.parse(mandateRequest));

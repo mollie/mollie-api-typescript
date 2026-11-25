@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CreditorBankAccountResponse,
@@ -63,12 +63,10 @@ export const VerificationOfPayeeResponseVerificationResult$inboundSchema:
     VerificationOfPayeeResponseVerificationResult,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      outcome: VerificationResultEnum$inboundSchema,
-      accountHolderName: z.string().optional(),
-    })
-  );
+  > = z.object({
+    outcome: VerificationResultEnum$inboundSchema,
+    accountHolderName: z.string().optional(),
+  });
 
 export function verificationOfPayeeResponseVerificationResultFromJSON(
   jsonString: string,
@@ -91,17 +89,15 @@ export const VerificationOfPayeeResponse$inboundSchema: z.ZodType<
   VerificationOfPayeeResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    mode: Mode$inboundSchema,
-    creditorBankAccount: CreditorBankAccountResponse$inboundSchema,
-    verificationResult: z.lazy(() =>
-      VerificationOfPayeeResponseVerificationResult$inboundSchema
-    ),
-    createdAt: z.string(),
-  })
-);
+> = z.object({
+  resource: z.string(),
+  mode: Mode$inboundSchema,
+  creditorBankAccount: CreditorBankAccountResponse$inboundSchema,
+  verificationResult: z.lazy(() =>
+    VerificationOfPayeeResponseVerificationResult$inboundSchema
+  ),
+  createdAt: z.string(),
+});
 
 export function verificationOfPayeeResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   BalanceTransferPartyType,
   BalanceTransferPartyType$outboundSchema,
@@ -37,13 +36,11 @@ export const EntityBalanceTransferParty$outboundSchema: z.ZodType<
   EntityBalanceTransferParty$Outbound,
   z.ZodTypeDef,
   EntityBalanceTransferParty
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: BalanceTransferPartyType$outboundSchema,
-    id: z.string(),
-    description: z.string(),
-  })
-);
+> = z.object({
+  type: BalanceTransferPartyType$outboundSchema,
+  id: z.string(),
+  description: z.string(),
+});
 
 export function entityBalanceTransferPartyToJSON(
   entityBalanceTransferParty: EntityBalanceTransferParty,

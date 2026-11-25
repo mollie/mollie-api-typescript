@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -111,23 +111,21 @@ export const ListDraftTransfersRequest$outboundSchema: z.ZodType<
   ListDraftTransfersRequest$Outbound,
   z.ZodTypeDef,
   ListDraftTransfersRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    status: models.DraftTransferStatus$outboundSchema.optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  status: models.DraftTransferStatus$outboundSchema.optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listDraftTransfersRequestToJSON(
   listDraftTransfersRequest: ListDraftTransfersRequest,
@@ -142,15 +140,13 @@ export const ListDraftTransfersEmbedded$inboundSchema: z.ZodType<
   ListDraftTransfersEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    draft_transfers: z.array(models.DraftTransferResponse$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "draft_transfers": "draftTransfers",
-    });
-  })
-);
+> = z.object({
+  draft_transfers: z.array(models.DraftTransferResponse$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "draft_transfers": "draftTransfers",
+  });
+});
 
 export function listDraftTransfersEmbeddedFromJSON(
   jsonString: string,
@@ -167,18 +163,16 @@ export const ListDraftTransfersResponseBody$inboundSchema: z.ZodType<
   ListDraftTransfersResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListDraftTransfersEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListDraftTransfersEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listDraftTransfersResponseBodyFromJSON(
   jsonString: string,
@@ -195,15 +189,13 @@ export const ListDraftTransfersResponse$inboundSchema: z.ZodType<
   ListDraftTransfersResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => ListDraftTransfersResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListDraftTransfersResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listDraftTransfersResponseFromJSON(
   jsonString: string,
