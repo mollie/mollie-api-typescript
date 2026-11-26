@@ -5,7 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type GetPermissionGlobals = {
   /**
@@ -61,21 +60,19 @@ export const GetPermissionRequest$outboundSchema: z.ZodType<
   GetPermissionRequest$Outbound,
   z.ZodTypeDef,
   GetPermissionRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    permissionId: z.string(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  permissionId: z.string(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getPermissionRequestToJSON(
   getPermissionRequest: GetPermissionRequest,

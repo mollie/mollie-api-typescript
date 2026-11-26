@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
@@ -101,8 +100,9 @@ export type RefundRequest = {
 };
 
 /** @internal */
-export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
-  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Type));
+export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
+  Type,
+);
 
 /** @internal */
 export type RefundRequestSource$Outbound = {
@@ -115,12 +115,10 @@ export const RefundRequestSource$outboundSchema: z.ZodType<
   RefundRequestSource$Outbound,
   z.ZodTypeDef,
   RefundRequestSource
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: Type$outboundSchema.optional(),
-    organizationId: z.string().optional(),
-  })
-);
+> = z.object({
+  type: Type$outboundSchema.optional(),
+  organizationId: z.string().optional(),
+});
 
 export function refundRequestSourceToJSON(
   refundRequestSource: RefundRequestSource,
@@ -141,12 +139,10 @@ export const RefundRequestRoutingReversal$outboundSchema: z.ZodType<
   RefundRequestRoutingReversal$Outbound,
   z.ZodTypeDef,
   RefundRequestRoutingReversal
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$outboundSchema.optional(),
-    source: z.lazy(() => RefundRequestSource$outboundSchema).optional(),
-  })
-);
+> = z.object({
+  amount: Amount$outboundSchema.optional(),
+  source: z.lazy(() => RefundRequestSource$outboundSchema).optional(),
+});
 
 export function refundRequestRoutingReversalToJSON(
   refundRequestRoutingReversal: RefundRequestRoutingReversal,
@@ -176,18 +172,16 @@ export const RefundRequest$outboundSchema: z.ZodType<
   RefundRequest$Outbound,
   z.ZodTypeDef,
   RefundRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.nullable(z.string()).optional(),
-    amount: Amount$outboundSchema,
-    metadata: z.nullable(Metadata$outboundSchema).optional(),
-    reverseRouting: z.nullable(z.boolean()).optional(),
-    routingReversals: z.nullable(
-      z.array(z.lazy(() => RefundRequestRoutingReversal$outboundSchema)),
-    ).optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  description: z.nullable(z.string()).optional(),
+  amount: Amount$outboundSchema,
+  metadata: z.nullable(Metadata$outboundSchema).optional(),
+  reverseRouting: z.nullable(z.boolean()).optional(),
+  routingReversals: z.nullable(
+    z.array(z.lazy(() => RefundRequestRoutingReversal$outboundSchema)),
+  ).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function refundRequestToJSON(refundRequest: RefundRequest): string {
   return JSON.stringify(RefundRequest$outboundSchema.parse(refundRequest));

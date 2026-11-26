@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type UpdateProfileRequestBody = {
   /**
@@ -93,17 +89,15 @@ export const UpdateProfileRequestBody$outboundSchema: z.ZodType<
   UpdateProfileRequestBody$Outbound,
   z.ZodTypeDef,
   UpdateProfileRequestBody
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    name: z.nullable(z.string()).optional(),
-    website: z.nullable(z.string()).optional(),
-    email: z.nullable(z.string()).optional(),
-    phone: z.nullable(z.string()).optional(),
-    description: z.nullable(z.string()).optional(),
-    countriesOfActivity: z.nullable(z.array(z.string())).optional(),
-    businessCategory: z.nullable(z.string()).optional(),
-  })
-);
+> = z.object({
+  name: z.nullable(z.string()).optional(),
+  website: z.nullable(z.string()).optional(),
+  email: z.nullable(z.string()).optional(),
+  phone: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  countriesOfActivity: z.nullable(z.array(z.string())).optional(),
+  businessCategory: z.nullable(z.string()).optional(),
+});
 
 export function updateProfileRequestBodyToJSON(
   updateProfileRequestBody: UpdateProfileRequestBody,
@@ -127,24 +121,20 @@ export const UpdateProfileRequest$outboundSchema: z.ZodType<
   UpdateProfileRequest$Outbound,
   z.ZodTypeDef,
   UpdateProfileRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    profileId: z.string().refine(matchesPattern$("^pfl_.+$"), {
-      message: "Value must match pattern ^pfl_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    requestBody: z.lazy(() => UpdateProfileRequestBody$outboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      requestBody: "RequestBody",
-    });
-  })
-);
+> = z.object({
+  profileId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  requestBody: z.lazy(() => UpdateProfileRequestBody$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    requestBody: "RequestBody",
+  });
+});
 
 export function updateProfileRequestToJSON(
   updateProfileRequest: UpdateProfileRequest,

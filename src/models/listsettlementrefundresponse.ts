@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -185,12 +185,10 @@ export const ListSettlementRefundResponseExternalReference$inboundSchema:
     ListSettlementRefundResponseExternalReference,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      type: RefundExternalReferenceTypeResponse$inboundSchema.optional(),
-      id: z.string().optional(),
-    })
-  );
+  > = z.object({
+    type: RefundExternalReferenceTypeResponse$inboundSchema.optional(),
+    id: z.string().optional(),
+  });
 
 export function listSettlementRefundResponseExternalReferenceFromJSON(
   jsonString: string,
@@ -213,11 +211,9 @@ export const ListSettlementRefundResponseSource$inboundSchema: z.ZodType<
   ListSettlementRefundResponseSource,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    organizationId: z.string().optional(),
-  })
-);
+> = z.object({
+  organizationId: z.string().optional(),
+});
 
 export function listSettlementRefundResponseSourceFromJSON(
   jsonString: string,
@@ -236,13 +232,11 @@ export const ListSettlementRefundResponseRoutingReversal$inboundSchema:
     ListSettlementRefundResponseRoutingReversal,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      amount: Amount$inboundSchema.optional(),
-      source: z.lazy(() => ListSettlementRefundResponseSource$inboundSchema)
-        .optional(),
-    })
-  );
+  > = z.object({
+    amount: Amount$inboundSchema.optional(),
+    source: z.lazy(() => ListSettlementRefundResponseSource$inboundSchema)
+      .optional(),
+  });
 
 export function listSettlementRefundResponseRoutingReversalFromJSON(
   jsonString: string,
@@ -265,13 +259,11 @@ export const ListSettlementRefundResponseLinks$inboundSchema: z.ZodType<
   ListSettlementRefundResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    payment: Url$inboundSchema,
-    settlement: z.nullable(UrlNullable$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  payment: Url$inboundSchema,
+  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
+});
 
 export function listSettlementRefundResponseLinksFromJSON(
   jsonString: string,
@@ -289,12 +281,10 @@ export const ListSettlementRefundResponseSettlementAmount$inboundSchema:
     ListSettlementRefundResponseSettlementAmount,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      currency: z.string(),
-      value: z.string(),
-    })
-  );
+  > = z.object({
+    currency: z.string(),
+    value: z.string(),
+  });
 
 export function listSettlementRefundResponseSettlementAmountFromJSON(
   jsonString: string,
@@ -317,36 +307,34 @@ export const ListSettlementRefundResponse$inboundSchema: z.ZodType<
   ListSettlementRefundResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: SettlementMode$inboundSchema,
-    description: z.nullable(z.string()),
-    amount: Amount$inboundSchema,
-    metadata: z.nullable(Metadata$inboundSchema),
-    paymentId: z.string(),
-    settlementId: z.nullable(z.string()).optional(),
-    status: SettlementRefundStatus$inboundSchema,
-    createdAt: z.string(),
-    externalReference: z.lazy(() =>
-      ListSettlementRefundResponseExternalReference$inboundSchema
-    ).optional(),
-    routingReversals: z.nullable(z.array(z.lazy(() =>
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: SettlementMode$inboundSchema,
+  description: z.nullable(z.string()),
+  amount: Amount$inboundSchema,
+  metadata: z.nullable(Metadata$inboundSchema),
+  paymentId: z.string(),
+  settlementId: z.nullable(z.string()).optional(),
+  status: SettlementRefundStatus$inboundSchema,
+  createdAt: z.string(),
+  externalReference: z.lazy(() =>
+    ListSettlementRefundResponseExternalReference$inboundSchema
+  ).optional(),
+  routingReversals: z.nullable(
+    z.array(z.lazy(() =>
       ListSettlementRefundResponseRoutingReversal$inboundSchema
-    ))).optional(),
-    _links: z.lazy(() =>
-      ListSettlementRefundResponseLinks$inboundSchema
-    ),
-    settlementAmount: z.nullable(
-      z.lazy(() => ListSettlementRefundResponseSettlementAmount$inboundSchema),
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+    )),
+  ).optional(),
+  _links: z.lazy(() => ListSettlementRefundResponseLinks$inboundSchema),
+  settlementAmount: z.nullable(
+    z.lazy(() => ListSettlementRefundResponseSettlementAmount$inboundSchema),
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listSettlementRefundResponseFromJSON(
   jsonString: string,

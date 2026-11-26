@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
@@ -106,12 +106,10 @@ export const EntityPayoutResponseLinks$inboundSchema: z.ZodType<
   EntityPayoutResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    documentation: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  documentation: Url$inboundSchema,
+});
 
 export function entityPayoutResponseLinksFromJSON(
   jsonString: string,
@@ -128,27 +126,25 @@ export const EntityPayoutResponse$inboundSchema: z.ZodType<
   EntityPayoutResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    balanceId: z.string(),
-    amount: z.nullable(AmountNullable$inboundSchema).optional(),
-    description: z.nullable(z.string()).optional(),
-    status: PayoutStatus$inboundSchema,
-    statusReason: PayoutStatusReason$inboundSchema,
-    createdAt: z.string(),
-    initiatedAt: z.nullable(z.string()).optional(),
-    completedAt: z.nullable(z.string()).optional(),
-    canceledAt: z.nullable(z.string()).optional(),
-    mode: Mode$inboundSchema,
-    _links: z.lazy(() => EntityPayoutResponseLinks$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  balanceId: z.string(),
+  amount: z.nullable(AmountNullable$inboundSchema).optional(),
+  description: z.nullable(z.string()).optional(),
+  status: PayoutStatus$inboundSchema,
+  statusReason: PayoutStatusReason$inboundSchema,
+  createdAt: z.string(),
+  initiatedAt: z.nullable(z.string()).optional(),
+  completedAt: z.nullable(z.string()).optional(),
+  canceledAt: z.nullable(z.string()).optional(),
+  mode: Mode$inboundSchema,
+  _links: z.lazy(() => EntityPayoutResponseLinks$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityPayoutResponseFromJSON(
   jsonString: string,

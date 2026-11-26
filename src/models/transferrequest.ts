@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   Metadata,
@@ -90,17 +89,15 @@ export const TransferRequest$outboundSchema: z.ZodType<
   TransferRequest$Outbound,
   z.ZodTypeDef,
   TransferRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    debtorIban: z.string(),
-    creditor: TransferParty$outboundSchema,
-    amount: Amount$outboundSchema,
-    description: z.nullable(z.string()).optional(),
-    transferScheme: TransferScheme$outboundSchema,
-    metadata: z.nullable(Metadata$outboundSchema).optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  debtorIban: z.string(),
+  creditor: TransferParty$outboundSchema,
+  amount: Amount$outboundSchema,
+  description: z.nullable(z.string()).optional(),
+  transferScheme: TransferScheme$outboundSchema,
+  metadata: z.nullable(Metadata$outboundSchema).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function transferRequestToJSON(
   transferRequest: TransferRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -154,21 +154,17 @@ export const ListRefundResponseStatus$inboundSchema: z.ZodType<
   ListRefundResponseStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(ListRefundResponseStatus)
-);
+> = openEnums.inboundSchema(ListRefundResponseStatus);
 
 /** @internal */
 export const ListRefundResponseExternalReference$inboundSchema: z.ZodType<
   ListRefundResponseExternalReference,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: RefundExternalReferenceTypeResponse$inboundSchema.optional(),
-    id: z.string().optional(),
-  })
-);
+> = z.object({
+  type: RefundExternalReferenceTypeResponse$inboundSchema.optional(),
+  id: z.string().optional(),
+});
 
 export function listRefundResponseExternalReferenceFromJSON(
   jsonString: string,
@@ -186,11 +182,9 @@ export const ListRefundResponseSource$inboundSchema: z.ZodType<
   ListRefundResponseSource,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    organizationId: z.string().optional(),
-  })
-);
+> = z.object({
+  organizationId: z.string().optional(),
+});
 
 export function listRefundResponseSourceFromJSON(
   jsonString: string,
@@ -207,12 +201,10 @@ export const ListRefundResponseRoutingReversal$inboundSchema: z.ZodType<
   ListRefundResponseRoutingReversal,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$inboundSchema.optional(),
-    source: z.lazy(() => ListRefundResponseSource$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  amount: Amount$inboundSchema.optional(),
+  source: z.lazy(() => ListRefundResponseSource$inboundSchema).optional(),
+});
 
 export function listRefundResponseRoutingReversalFromJSON(
   jsonString: string,
@@ -229,13 +221,11 @@ export const ListRefundResponseLinks$inboundSchema: z.ZodType<
   ListRefundResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    payment: Url$inboundSchema,
-    settlement: z.nullable(UrlNullable$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  payment: Url$inboundSchema,
+  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
+});
 
 export function listRefundResponseLinksFromJSON(
   jsonString: string,
@@ -252,31 +242,29 @@ export const ListRefundResponse$inboundSchema: z.ZodType<
   ListRefundResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    description: z.nullable(z.string()),
-    amount: Amount$inboundSchema,
-    metadata: z.nullable(Metadata$inboundSchema),
-    paymentId: z.string(),
-    settlementId: z.nullable(z.string()).optional(),
-    status: ListRefundResponseStatus$inboundSchema,
-    createdAt: z.string(),
-    externalReference: z.lazy(() =>
-      ListRefundResponseExternalReference$inboundSchema
-    ).optional(),
-    routingReversals: z.nullable(
-      z.array(z.lazy(() => ListRefundResponseRoutingReversal$inboundSchema)),
-    ).optional(),
-    _links: z.lazy(() => ListRefundResponseLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  description: z.nullable(z.string()),
+  amount: Amount$inboundSchema,
+  metadata: z.nullable(Metadata$inboundSchema),
+  paymentId: z.string(),
+  settlementId: z.nullable(z.string()).optional(),
+  status: ListRefundResponseStatus$inboundSchema,
+  createdAt: z.string(),
+  externalReference: z.lazy(() =>
+    ListRefundResponseExternalReference$inboundSchema
+  ).optional(),
+  routingReversals: z.nullable(
+    z.array(z.lazy(() => ListRefundResponseRoutingReversal$inboundSchema)),
+  ).optional(),
+  _links: z.lazy(() => ListRefundResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listRefundResponseFromJSON(
   jsonString: string,

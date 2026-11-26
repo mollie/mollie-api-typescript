@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetInvoiceRequest = {
   /**
@@ -42,22 +38,18 @@ export const GetInvoiceRequest$outboundSchema: z.ZodType<
   GetInvoiceRequest$Outbound,
   z.ZodTypeDef,
   GetInvoiceRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    invoiceId: z.string().refine(matchesPattern$("^inv_.+$"), {
-      message: "Value must match pattern ^inv_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  invoiceId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getInvoiceRequestToJSON(
   getInvoiceRequest: GetInvoiceRequest,

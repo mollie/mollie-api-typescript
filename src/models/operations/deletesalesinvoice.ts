@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
 export type DeleteSalesInvoiceRequest = {
@@ -47,25 +43,21 @@ export const DeleteSalesInvoiceRequest$outboundSchema: z.ZodType<
   DeleteSalesInvoiceRequest$Outbound,
   z.ZodTypeDef,
   DeleteSalesInvoiceRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    salesInvoiceId: z.string().refine(matchesPattern$("^invoice_.+$"), {
-      message: "Value must match pattern ^invoice_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    deleteValuesSalesInvoice: models.DeleteValuesSalesInvoice$outboundSchema
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      deleteValuesSalesInvoice: "delete-values-sales-invoice",
-    });
-  })
-);
+> = z.object({
+  salesInvoiceId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  deleteValuesSalesInvoice: models.DeleteValuesSalesInvoice$outboundSchema
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    deleteValuesSalesInvoice: "delete-values-sales-invoice",
+  });
+});
 
 export function deleteSalesInvoiceRequestToJSON(
   deleteSalesInvoiceRequest: DeleteSalesInvoiceRequest,

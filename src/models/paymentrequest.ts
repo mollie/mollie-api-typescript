@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { RFCDate } from "../types/rfcdate.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import { CaptureMode, CaptureMode$outboundSchema } from "./capturemode.js";
@@ -651,24 +650,22 @@ export const PaymentRequestLine$outboundSchema: z.ZodType<
   PaymentRequestLine$Outbound,
   z.ZodTypeDef,
   PaymentRequestLine
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: PaymentLineType$outboundSchema.optional(),
-    description: z.string(),
-    quantity: z.number().int(),
-    quantityUnit: z.string().optional(),
-    unitPrice: Amount$outboundSchema,
-    discountAmount: Amount$outboundSchema.optional(),
-    totalAmount: Amount$outboundSchema,
-    vatRate: z.string().optional(),
-    vatAmount: Amount$outboundSchema.optional(),
-    sku: z.string().optional(),
-    categories: z.array(LineCategories$outboundSchema).optional(),
-    imageUrl: z.string().optional(),
-    productUrl: z.string().optional(),
-    recurring: RecurringLineItem$outboundSchema.optional(),
-  })
-);
+> = z.object({
+  type: PaymentLineType$outboundSchema.optional(),
+  description: z.string(),
+  quantity: z.number().int(),
+  quantityUnit: z.string().optional(),
+  unitPrice: Amount$outboundSchema,
+  discountAmount: Amount$outboundSchema.optional(),
+  totalAmount: Amount$outboundSchema,
+  vatRate: z.string().optional(),
+  vatAmount: Amount$outboundSchema.optional(),
+  sku: z.string().optional(),
+  categories: z.array(LineCategories$outboundSchema).optional(),
+  imageUrl: z.string().optional(),
+  productUrl: z.string().optional(),
+  recurring: RecurringLineItem$outboundSchema.optional(),
+});
 
 export function paymentRequestLineToJSON(
   paymentRequestLine: PaymentRequestLine,
@@ -699,22 +696,20 @@ export const PaymentRequestBillingAddress$outboundSchema: z.ZodType<
   PaymentRequestBillingAddress$Outbound,
   z.ZodTypeDef,
   PaymentRequestBillingAddress
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    title: z.string().optional(),
-    givenName: z.string().optional(),
-    familyName: z.string().optional(),
-    organizationName: z.any().optional(),
-    streetAndNumber: z.string().optional(),
-    streetAdditional: z.string().optional(),
-    postalCode: z.string().optional(),
-    email: z.string().optional(),
-    phone: z.string().optional(),
-    city: z.string().optional(),
-    region: z.string().optional(),
-    country: z.string().optional(),
-  })
-);
+> = z.object({
+  title: z.string().optional(),
+  givenName: z.string().optional(),
+  familyName: z.string().optional(),
+  organizationName: z.any().optional(),
+  streetAndNumber: z.string().optional(),
+  streetAdditional: z.string().optional(),
+  postalCode: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+});
 
 export function paymentRequestBillingAddressToJSON(
   paymentRequestBillingAddress: PaymentRequestBillingAddress,
@@ -734,12 +729,10 @@ export const Method$outboundSchema: z.ZodType<
   Method$Outbound,
   z.ZodTypeDef,
   Method
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.union([
-    MethodEnum$outboundSchema,
-    z.array(z.nullable(MethodEnum$outboundSchema)),
-  ])
-);
+> = z.union([
+  MethodEnum$outboundSchema,
+  z.array(z.nullable(MethodEnum$outboundSchema)),
+]);
 
 export function methodToJSON(method: Method): string {
   return JSON.stringify(Method$outboundSchema.parse(method));
@@ -756,12 +749,10 @@ export const PaymentRequestApplicationFee$outboundSchema: z.ZodType<
   PaymentRequestApplicationFee$Outbound,
   z.ZodTypeDef,
   PaymentRequestApplicationFee
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$outboundSchema,
-    description: z.string(),
-  })
-);
+> = z.object({
+  amount: Amount$outboundSchema,
+  description: z.string(),
+});
 
 export function paymentRequestApplicationFeeToJSON(
   paymentRequestApplicationFee: PaymentRequestApplicationFee,
@@ -785,13 +776,11 @@ export const Company$outboundSchema: z.ZodType<
   Company$Outbound,
   z.ZodTypeDef,
   Company
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    registrationNumber: z.string().optional(),
-    vatNumber: z.string().optional(),
-    entityType: z.string().optional(),
-  })
-);
+> = z.object({
+  registrationNumber: z.string().optional(),
+  vatNumber: z.string().optional(),
+  entityType: z.string().optional(),
+});
 
 export function companyToJSON(company: Company): string {
   return JSON.stringify(Company$outboundSchema.parse(company));
@@ -842,56 +831,54 @@ export const PaymentRequest$outboundSchema: z.ZodType<
   PaymentRequest$Outbound,
   z.ZodTypeDef,
   PaymentRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    amount: Amount$outboundSchema,
-    redirectUrl: z.nullable(z.string()).optional(),
-    cancelUrl: z.nullable(z.string()).optional(),
-    webhookUrl: z.nullable(z.string()).optional(),
-    lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$outboundSchema)))
-      .optional(),
-    billingAddress: z.lazy(() => PaymentRequestBillingAddress$outboundSchema)
-      .optional(),
-    shippingAddress: ShippingAddress$outboundSchema.optional(),
-    locale: z.nullable(Locale2$outboundSchema).optional(),
-    method: z.nullable(
-      z.union([
-        MethodEnum$outboundSchema,
-        z.array(z.nullable(MethodEnum$outboundSchema)),
-      ]),
-    ).optional(),
-    issuer: z.nullable(z.string()).optional(),
-    restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-    metadata: z.nullable(Metadata$outboundSchema).optional(),
-    captureMode: z.nullable(CaptureMode$outboundSchema).optional(),
-    captureDelay: z.nullable(z.string()).optional(),
-    applicationFee: z.nullable(
-      z.lazy(() => PaymentRequestApplicationFee$outboundSchema),
-    ).optional(),
-    routing: z.nullable(z.array(EntityPaymentRoute$outboundSchema)).optional(),
-    sequenceType: SequenceType$outboundSchema.optional(),
-    mandateId: z.nullable(z.string()).optional(),
-    customerId: z.string().optional(),
-    profileId: z.string().optional(),
-    dueDate: z.nullable(z.string()).optional(),
-    storeCredentials: z.boolean().optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-    applePayPaymentToken: z.string().optional(),
-    company: z.lazy(() => Company$outboundSchema).optional(),
-    cardToken: z.string().optional(),
-    googlePayPaymentToken: z.string().optional(),
-    voucherNumber: z.string().optional(),
-    voucherPin: z.string().optional(),
-    consumerDateOfBirth: z.instanceof(RFCDate).transform(v => v.toString())
-      .optional(),
-    extraMerchantData: z.record(z.any()).optional(),
-    sessionId: z.string().optional(),
-    digitalGoods: z.boolean().optional(),
-    customerReference: z.string().optional(),
-    terminalId: z.string().optional(),
-  })
-);
+> = z.object({
+  description: z.string(),
+  amount: Amount$outboundSchema,
+  redirectUrl: z.nullable(z.string()).optional(),
+  cancelUrl: z.nullable(z.string()).optional(),
+  webhookUrl: z.nullable(z.string()).optional(),
+  lines: z.nullable(z.array(z.lazy(() => PaymentRequestLine$outboundSchema)))
+    .optional(),
+  billingAddress: z.lazy(() => PaymentRequestBillingAddress$outboundSchema)
+    .optional(),
+  shippingAddress: ShippingAddress$outboundSchema.optional(),
+  locale: z.nullable(Locale2$outboundSchema).optional(),
+  method: z.nullable(
+    z.union([
+      MethodEnum$outboundSchema,
+      z.array(z.nullable(MethodEnum$outboundSchema)),
+    ]),
+  ).optional(),
+  issuer: z.nullable(z.string()).optional(),
+  restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
+  metadata: z.nullable(Metadata$outboundSchema).optional(),
+  captureMode: z.nullable(CaptureMode$outboundSchema).optional(),
+  captureDelay: z.nullable(z.string()).optional(),
+  applicationFee: z.nullable(
+    z.lazy(() => PaymentRequestApplicationFee$outboundSchema),
+  ).optional(),
+  routing: z.nullable(z.array(EntityPaymentRoute$outboundSchema)).optional(),
+  sequenceType: SequenceType$outboundSchema.optional(),
+  mandateId: z.nullable(z.string()).optional(),
+  customerId: z.string().optional(),
+  profileId: z.string().optional(),
+  dueDate: z.nullable(z.string()).optional(),
+  storeCredentials: z.boolean().optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+  applePayPaymentToken: z.string().optional(),
+  company: z.lazy(() => Company$outboundSchema).optional(),
+  cardToken: z.string().optional(),
+  googlePayPaymentToken: z.string().optional(),
+  voucherNumber: z.string().optional(),
+  voucherPin: z.string().optional(),
+  consumerDateOfBirth: z.instanceof(RFCDate).transform(v => v.toString())
+    .optional(),
+  extraMerchantData: z.record(z.any()).optional(),
+  sessionId: z.string().optional(),
+  digitalGoods: z.boolean().optional(),
+  customerReference: z.string().optional(),
+  terminalId: z.string().optional(),
+});
 
 export function paymentRequestToJSON(paymentRequest: PaymentRequest): string {
   return JSON.stringify(PaymentRequest$outboundSchema.parse(paymentRequest));

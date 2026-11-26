@@ -4,11 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -122,28 +119,22 @@ export const GetPaymentLinkPaymentsRequest$outboundSchema: z.ZodType<
   GetPaymentLinkPaymentsRequest$Outbound,
   z.ZodTypeDef,
   GetPaymentLinkPaymentsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentLinkId: z.string().refine(matchesPattern$("^pl_.+$"), {
-      message: "Value must match pattern ^pl_.+$",
-    }),
-    from: z.string().refine(matchesPattern$("^tr_.+$"), {
-      message: "Value must match pattern ^tr_.+$",
-    }).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    sort: models.Sorting$outboundSchema.optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  paymentLinkId: z.string(),
+  from: z.string().optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  sort: models.Sorting$outboundSchema.optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getPaymentLinkPaymentsRequestToJSON(
   getPaymentLinkPaymentsRequest: GetPaymentLinkPaymentsRequest,
@@ -160,11 +151,9 @@ export const GetPaymentLinkPaymentsEmbedded$inboundSchema: z.ZodType<
   GetPaymentLinkPaymentsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    payments: z.array(models.ListPaymentResponse$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  payments: z.array(models.ListPaymentResponse$inboundSchema).optional(),
+});
 
 export function getPaymentLinkPaymentsEmbeddedFromJSON(
   jsonString: string,
@@ -181,18 +170,16 @@ export const GetPaymentLinkPaymentsResponseBody$inboundSchema: z.ZodType<
   GetPaymentLinkPaymentsResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => GetPaymentLinkPaymentsEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => GetPaymentLinkPaymentsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function getPaymentLinkPaymentsResponseBodyFromJSON(
   jsonString: string,
@@ -210,15 +197,13 @@ export const GetPaymentLinkPaymentsResponse$inboundSchema: z.ZodType<
   GetPaymentLinkPaymentsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => GetPaymentLinkPaymentsResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => GetPaymentLinkPaymentsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function getPaymentLinkPaymentsResponseFromJSON(
   jsonString: string,

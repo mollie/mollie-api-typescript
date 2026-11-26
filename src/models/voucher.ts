@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -110,13 +110,11 @@ export const VoucherImage$inboundSchema: z.ZodType<
   VoucherImage,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    size1x: z.string().optional(),
-    size2x: z.string().optional(),
-    svg: z.string().optional(),
-  })
-);
+> = z.object({
+  size1x: z.string().optional(),
+  size2x: z.string().optional(),
+  svg: z.string().optional(),
+});
 
 export function voucherImageFromJSON(
   jsonString: string,
@@ -133,20 +131,18 @@ export const VoucherStatus$inboundSchema: z.ZodType<
   VoucherStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() => openEnums.inboundSchema(VoucherStatus));
+> = openEnums.inboundSchema(VoucherStatus);
 
 /** @internal */
 export const Contractor$inboundSchema: z.ZodType<
   Contractor,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    contractId: z.string().optional(),
-  })
-);
+> = z.object({
+  id: z.string().optional(),
+  name: z.string().optional(),
+  contractId: z.string().optional(),
+});
 
 export function contractorFromJSON(
   jsonString: string,
@@ -163,12 +159,10 @@ export const VoucherLinks$inboundSchema: z.ZodType<
   VoucherLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema.optional(),
-    documentation: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema.optional(),
+  documentation: Url$inboundSchema.optional(),
+});
 
 export function voucherLinksFromJSON(
   jsonString: string,
@@ -182,21 +176,19 @@ export function voucherLinksFromJSON(
 
 /** @internal */
 export const Voucher$inboundSchema: z.ZodType<Voucher, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      resource: z.string(),
-      id: z.string(),
-      name: z.string(),
-      image: z.lazy(() => VoucherImage$inboundSchema),
-      status: VoucherStatus$inboundSchema,
-      contractor: z.lazy(() => Contractor$inboundSchema),
-      _links: z.lazy(() => VoucherLinks$inboundSchema),
-    }).transform((v) => {
-      return remap$(v, {
-        "_links": "links",
-      });
-    })
-  );
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    name: z.string(),
+    image: z.lazy(() => VoucherImage$inboundSchema),
+    status: VoucherStatus$inboundSchema,
+    contractor: z.lazy(() => Contractor$inboundSchema),
+    _links: z.lazy(() => VoucherLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  });
 
 export function voucherFromJSON(
   jsonString: string,

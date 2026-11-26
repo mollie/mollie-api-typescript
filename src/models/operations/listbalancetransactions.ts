@@ -4,11 +4,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -112,25 +109,21 @@ export const ListBalanceTransactionsRequest$outboundSchema: z.ZodType<
   ListBalanceTransactionsRequest$Outbound,
   z.ZodTypeDef,
   ListBalanceTransactionsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    balanceId: z.string().refine(matchesPattern$("^bal_.+$"), {
-      message: "Value must match pattern ^bal_.+$",
-    }),
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  balanceId: z.string(),
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listBalanceTransactionsRequestToJSON(
   listBalanceTransactionsRequest: ListBalanceTransactionsRequest,
@@ -147,17 +140,13 @@ export const ListBalanceTransactionsEmbedded$inboundSchema: z.ZodType<
   ListBalanceTransactionsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    balance_transactions: z.array(
-      models.EntityBalanceTransaction$inboundSchema,
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "balance_transactions": "balanceTransactions",
-    });
-  })
-);
+> = z.object({
+  balance_transactions: z.array(models.EntityBalanceTransaction$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "balance_transactions": "balanceTransactions",
+  });
+});
 
 export function listBalanceTransactionsEmbeddedFromJSON(
   jsonString: string,
@@ -174,18 +163,16 @@ export const ListBalanceTransactionsResponseBody$inboundSchema: z.ZodType<
   ListBalanceTransactionsResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListBalanceTransactionsEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListBalanceTransactionsEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listBalanceTransactionsResponseBodyFromJSON(
   jsonString: string,
@@ -203,15 +190,13 @@ export const ListBalanceTransactionsResponse$inboundSchema: z.ZodType<
   ListBalanceTransactionsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() => ListBalanceTransactionsResponseBody$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListBalanceTransactionsResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listBalanceTransactionsResponseFromJSON(
   jsonString: string,

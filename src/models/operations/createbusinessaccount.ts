@@ -5,7 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type CreateBusinessAccountRequestBody = {
@@ -66,13 +65,11 @@ export const CreateBusinessAccountRequestBody$outboundSchema: z.ZodType<
   CreateBusinessAccountRequestBody$Outbound,
   z.ZodTypeDef,
   CreateBusinessAccountRequestBody
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    name: z.string(),
-    currency: models.AccountCurrency$outboundSchema,
-    testmode: z.boolean().optional(),
-  })
-);
+> = z.object({
+  name: z.string(),
+  currency: models.AccountCurrency$outboundSchema,
+  testmode: z.boolean().optional(),
+});
 
 export function createBusinessAccountRequestBodyToJSON(
   createBusinessAccountRequestBody: CreateBusinessAccountRequestBody,
@@ -97,22 +94,20 @@ export const CreateBusinessAccountRequest$outboundSchema: z.ZodType<
   CreateBusinessAccountRequest$Outbound,
   z.ZodTypeDef,
   CreateBusinessAccountRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    requestBody: z.lazy(() => CreateBusinessAccountRequestBody$outboundSchema)
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "Idempotency-Key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      requestBody: "RequestBody",
-    });
-  })
-);
+> = z.object({
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  requestBody: z.lazy(() => CreateBusinessAccountRequestBody$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "Idempotency-Key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    requestBody: "RequestBody",
+  });
+});
 
 export function createBusinessAccountRequestToJSON(
   createBusinessAccountRequest: CreateBusinessAccountRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -724,12 +724,10 @@ export const ListPaymentResponseAmountRefunded$inboundSchema: z.ZodType<
   ListPaymentResponseAmountRefunded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listPaymentResponseAmountRefundedFromJSON(
   jsonString: string,
@@ -746,12 +744,10 @@ export const ListPaymentResponseAmountRemaining$inboundSchema: z.ZodType<
   ListPaymentResponseAmountRemaining,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listPaymentResponseAmountRemainingFromJSON(
   jsonString: string,
@@ -769,12 +765,10 @@ export const ListPaymentResponseAmountCaptured$inboundSchema: z.ZodType<
   ListPaymentResponseAmountCaptured,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listPaymentResponseAmountCapturedFromJSON(
   jsonString: string,
@@ -791,12 +785,10 @@ export const ListPaymentResponseAmountChargedBack$inboundSchema: z.ZodType<
   ListPaymentResponseAmountChargedBack,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listPaymentResponseAmountChargedBackFromJSON(
   jsonString: string,
@@ -814,24 +806,22 @@ export const ListPaymentResponseLine$inboundSchema: z.ZodType<
   ListPaymentResponseLine,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: PaymentLineTypeResponse$inboundSchema.optional(),
-    description: z.string(),
-    quantity: z.number().int(),
-    quantityUnit: z.string().optional(),
-    unitPrice: Amount$inboundSchema,
-    discountAmount: Amount$inboundSchema.optional(),
-    totalAmount: Amount$inboundSchema,
-    vatRate: z.string().optional(),
-    vatAmount: Amount$inboundSchema.optional(),
-    sku: z.string().optional(),
-    categories: z.array(LineCategoriesResponse$inboundSchema).optional(),
-    imageUrl: z.string().optional(),
-    productUrl: z.string().optional(),
-    recurring: RecurringLineItem$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  type: PaymentLineTypeResponse$inboundSchema.optional(),
+  description: z.string(),
+  quantity: z.number().int(),
+  quantityUnit: z.string().optional(),
+  unitPrice: Amount$inboundSchema,
+  discountAmount: Amount$inboundSchema.optional(),
+  totalAmount: Amount$inboundSchema,
+  vatRate: z.string().optional(),
+  vatAmount: Amount$inboundSchema.optional(),
+  sku: z.string().optional(),
+  categories: z.array(LineCategoriesResponse$inboundSchema).optional(),
+  imageUrl: z.string().optional(),
+  productUrl: z.string().optional(),
+  recurring: RecurringLineItem$inboundSchema.optional(),
+});
 
 export function listPaymentResponseLineFromJSON(
   jsonString: string,
@@ -848,22 +838,20 @@ export const ListPaymentResponseBillingAddress$inboundSchema: z.ZodType<
   ListPaymentResponseBillingAddress,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    title: z.string().optional(),
-    givenName: z.string().optional(),
-    familyName: z.string().optional(),
-    organizationName: z.any().optional(),
-    streetAndNumber: z.string().optional(),
-    streetAdditional: z.string().optional(),
-    postalCode: z.string().optional(),
-    email: z.string().optional(),
-    phone: z.string().optional(),
-    city: z.string().optional(),
-    region: z.string().optional(),
-    country: z.string().optional(),
-  })
-);
+> = z.object({
+  title: z.string().optional(),
+  givenName: z.string().optional(),
+  familyName: z.string().optional(),
+  organizationName: z.any().optional(),
+  streetAndNumber: z.string().optional(),
+  streetAdditional: z.string().optional(),
+  postalCode: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+});
 
 export function listPaymentResponseBillingAddressFromJSON(
   jsonString: string,
@@ -880,12 +868,10 @@ export const ListPaymentResponseApplicationFee$inboundSchema: z.ZodType<
   ListPaymentResponseApplicationFee,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    amount: Amount$inboundSchema,
-    description: z.string(),
-  })
-);
+> = z.object({
+  amount: Amount$inboundSchema,
+  description: z.string(),
+});
 
 export function listPaymentResponseApplicationFeeFromJSON(
   jsonString: string,
@@ -902,35 +888,31 @@ export const ListPaymentResponseStatus$inboundSchema: z.ZodType<
   ListPaymentResponseStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(ListPaymentResponseStatus)
-);
+> = openEnums.inboundSchema(ListPaymentResponseStatus);
 
 /** @internal */
 export const ListPaymentResponseLinks$inboundSchema: z.ZodType<
   ListPaymentResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    checkout: Url$inboundSchema.optional(),
-    mobileAppCheckout: Url$inboundSchema.optional(),
-    changePaymentState: z.nullable(UrlNullable$inboundSchema).optional(),
-    dashboard: Url$inboundSchema,
-    refunds: Url$inboundSchema.optional(),
-    chargebacks: Url$inboundSchema.optional(),
-    captures: Url$inboundSchema.optional(),
-    settlement: Url$inboundSchema.optional(),
-    customer: Url$inboundSchema.optional(),
-    mandate: Url$inboundSchema.optional(),
-    subscription: Url$inboundSchema.optional(),
-    order: Url$inboundSchema.optional(),
-    terminal: Url$inboundSchema.optional(),
-    status: Url$inboundSchema.optional(),
-    payOnline: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  checkout: Url$inboundSchema.optional(),
+  mobileAppCheckout: Url$inboundSchema.optional(),
+  changePaymentState: z.nullable(UrlNullable$inboundSchema).optional(),
+  dashboard: Url$inboundSchema,
+  refunds: Url$inboundSchema.optional(),
+  chargebacks: Url$inboundSchema.optional(),
+  captures: Url$inboundSchema.optional(),
+  settlement: Url$inboundSchema.optional(),
+  customer: Url$inboundSchema.optional(),
+  mandate: Url$inboundSchema.optional(),
+  subscription: Url$inboundSchema.optional(),
+  order: Url$inboundSchema.optional(),
+  terminal: Url$inboundSchema.optional(),
+  status: Url$inboundSchema.optional(),
+  payOnline: Url$inboundSchema.optional(),
+});
 
 export function listPaymentResponseLinksFromJSON(
   jsonString: string,
@@ -947,73 +929,68 @@ export const ListPaymentResponse$inboundSchema: z.ZodType<
   ListPaymentResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    description: z.string(),
-    amount: Amount$inboundSchema,
-    amountRefunded: z.lazy(() =>
-      ListPaymentResponseAmountRefunded$inboundSchema
-    ).optional(),
-    amountRemaining: z.lazy(() =>
-      ListPaymentResponseAmountRemaining$inboundSchema
-    ).optional(),
-    amountCaptured: z.lazy(() =>
-      ListPaymentResponseAmountCaptured$inboundSchema
-    ).optional(),
-    amountChargedBack: z.lazy(() =>
-      ListPaymentResponseAmountChargedBack$inboundSchema
-    ).optional(),
-    redirectUrl: z.nullable(z.string()).optional(),
-    cancelUrl: z.nullable(z.string()).optional(),
-    webhookUrl: z.nullable(z.string()).optional(),
-    lines: z.nullable(
-      z.array(z.lazy(() => ListPaymentResponseLine$inboundSchema)),
-    ).optional(),
-    billingAddress: z.lazy(() =>
-      ListPaymentResponseBillingAddress$inboundSchema
-    ).optional(),
-    shippingAddress: ShippingAddress$inboundSchema.optional(),
-    locale: z.nullable(LocaleResponse$inboundSchema).optional(),
-    countryCode: z.nullable(z.string()).optional(),
-    method: z.nullable(MethodResponse$inboundSchema).optional(),
-    restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-    metadata: z.nullable(Metadata$inboundSchema).optional(),
-    captureMode: z.nullable(CaptureModeResponse$inboundSchema).optional(),
-    captureDelay: z.nullable(z.string()).optional(),
-    captureBefore: z.nullable(z.string()).optional(),
-    applicationFee: z.nullable(
-      z.lazy(() => ListPaymentResponseApplicationFee$inboundSchema),
-    ).optional(),
-    routing: z.nullable(z.array(EntityPaymentRouteResponse$inboundSchema))
-      .optional(),
-    sequenceType: SequenceTypeResponse$inboundSchema,
-    subscriptionId: z.nullable(z.string()).optional(),
-    mandateId: z.nullable(z.string()).optional(),
-    customerId: z.string().optional(),
-    profileId: z.string(),
-    settlementId: z.nullable(z.string()).optional(),
-    orderId: z.nullable(z.string()).optional(),
-    status: ListPaymentResponseStatus$inboundSchema,
-    statusReason: z.nullable(StatusReason$inboundSchema).optional(),
-    isCancelable: z.nullable(z.boolean()).optional(),
-    details: z.nullable(PaymentDetails$inboundSchema).optional(),
-    createdAt: z.string(),
-    authorizedAt: z.nullable(z.string()).optional(),
-    paidAt: z.nullable(z.string()).optional(),
-    canceledAt: z.nullable(z.string()).optional(),
-    expiresAt: z.nullable(z.string()).optional(),
-    expiredAt: z.nullable(z.string()).optional(),
-    failedAt: z.nullable(z.string()).optional(),
-    _links: z.lazy(() => ListPaymentResponseLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  description: z.string(),
+  amount: Amount$inboundSchema,
+  amountRefunded: z.lazy(() => ListPaymentResponseAmountRefunded$inboundSchema)
+    .optional(),
+  amountRemaining: z.lazy(() =>
+    ListPaymentResponseAmountRemaining$inboundSchema
+  ).optional(),
+  amountCaptured: z.lazy(() => ListPaymentResponseAmountCaptured$inboundSchema)
+    .optional(),
+  amountChargedBack: z.lazy(() =>
+    ListPaymentResponseAmountChargedBack$inboundSchema
+  ).optional(),
+  redirectUrl: z.nullable(z.string()).optional(),
+  cancelUrl: z.nullable(z.string()).optional(),
+  webhookUrl: z.nullable(z.string()).optional(),
+  lines: z.nullable(
+    z.array(z.lazy(() => ListPaymentResponseLine$inboundSchema)),
+  ).optional(),
+  billingAddress: z.lazy(() => ListPaymentResponseBillingAddress$inboundSchema)
+    .optional(),
+  shippingAddress: ShippingAddress$inboundSchema.optional(),
+  locale: z.nullable(LocaleResponse$inboundSchema).optional(),
+  countryCode: z.nullable(z.string()).optional(),
+  method: z.nullable(MethodResponse$inboundSchema).optional(),
+  restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
+  metadata: z.nullable(Metadata$inboundSchema).optional(),
+  captureMode: z.nullable(CaptureModeResponse$inboundSchema).optional(),
+  captureDelay: z.nullable(z.string()).optional(),
+  captureBefore: z.nullable(z.string()).optional(),
+  applicationFee: z.nullable(
+    z.lazy(() => ListPaymentResponseApplicationFee$inboundSchema),
+  ).optional(),
+  routing: z.nullable(z.array(EntityPaymentRouteResponse$inboundSchema))
+    .optional(),
+  sequenceType: SequenceTypeResponse$inboundSchema,
+  subscriptionId: z.nullable(z.string()).optional(),
+  mandateId: z.nullable(z.string()).optional(),
+  customerId: z.string().optional(),
+  profileId: z.string(),
+  settlementId: z.nullable(z.string()).optional(),
+  orderId: z.nullable(z.string()).optional(),
+  status: ListPaymentResponseStatus$inboundSchema,
+  statusReason: z.nullable(StatusReason$inboundSchema).optional(),
+  isCancelable: z.nullable(z.boolean()).optional(),
+  details: z.nullable(PaymentDetails$inboundSchema).optional(),
+  createdAt: z.string(),
+  authorizedAt: z.nullable(z.string()).optional(),
+  paidAt: z.nullable(z.string()).optional(),
+  canceledAt: z.nullable(z.string()).optional(),
+  expiresAt: z.nullable(z.string()).optional(),
+  expiredAt: z.nullable(z.string()).optional(),
+  failedAt: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => ListPaymentResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listPaymentResponseFromJSON(
   jsonString: string,

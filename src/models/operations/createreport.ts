@@ -5,7 +5,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type CreateReportRequest = {
@@ -37,21 +36,19 @@ export const CreateReportRequest$outboundSchema: z.ZodType<
   CreateReportRequest$Outbound,
   z.ZodTypeDef,
   CreateReportRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    createReportRequest: models.CreateReportRequest$outboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      createReportRequest: "create-report-request",
-    });
-  })
-);
+> = z.object({
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  createReportRequest: models.CreateReportRequest$outboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    createReportRequest: "create-report-request",
+  });
+});
 
 export function createReportRequestToJSON(
   createReportRequest: CreateReportRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -89,12 +89,10 @@ export const EntityPaymentRouteResponseDestination$inboundSchema: z.ZodType<
   EntityPaymentRouteResponseDestination,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: RouteDestinationTypeResponse$inboundSchema,
-    organizationId: z.string(),
-  })
-);
+> = z.object({
+  type: RouteDestinationTypeResponse$inboundSchema,
+  organizationId: z.string(),
+});
 
 export function entityPaymentRouteResponseDestinationFromJSON(
   jsonString: string,
@@ -112,12 +110,10 @@ export const EntityPaymentRouteResponseLinks$inboundSchema: z.ZodType<
   EntityPaymentRouteResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    payment: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  payment: Url$inboundSchema,
+});
 
 export function entityPaymentRouteResponseLinksFromJSON(
   jsonString: string,
@@ -134,24 +130,22 @@ export const EntityPaymentRouteResponse$inboundSchema: z.ZodType<
   EntityPaymentRouteResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    amount: Amount$inboundSchema,
-    destination: z.lazy(() =>
-      EntityPaymentRouteResponseDestination$inboundSchema
-    ),
-    createdAt: z.string(),
-    releaseDate: z.nullable(z.string()).optional(),
-    _links: z.lazy(() => EntityPaymentRouteResponseLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  amount: Amount$inboundSchema,
+  destination: z.lazy(() =>
+    EntityPaymentRouteResponseDestination$inboundSchema
+  ),
+  createdAt: z.string(),
+  releaseDate: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => EntityPaymentRouteResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityPaymentRouteResponseFromJSON(
   jsonString: string,

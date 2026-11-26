@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -121,23 +121,19 @@ export const ListCaptureResponseStatus$inboundSchema: z.ZodType<
   ListCaptureResponseStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(ListCaptureResponseStatus)
-);
+> = openEnums.inboundSchema(ListCaptureResponseStatus);
 
 /** @internal */
 export const ListCaptureResponseLinks$inboundSchema: z.ZodType<
   ListCaptureResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    payment: Url$inboundSchema,
-    settlement: z.nullable(UrlNullable$inboundSchema).optional(),
-    shipment: z.nullable(UrlNullable$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  payment: Url$inboundSchema,
+  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
+  shipment: z.nullable(UrlNullable$inboundSchema).optional(),
+});
 
 export function listCaptureResponseLinksFromJSON(
   jsonString: string,
@@ -154,26 +150,24 @@ export const ListCaptureResponse$inboundSchema: z.ZodType<
   ListCaptureResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    description: z.string().optional(),
-    amount: z.nullable(AmountNullable$inboundSchema),
-    status: ListCaptureResponseStatus$inboundSchema,
-    metadata: z.nullable(Metadata$inboundSchema).optional(),
-    paymentId: z.string(),
-    shipmentId: z.nullable(z.string()).optional(),
-    settlementId: z.nullable(z.string()).optional(),
-    createdAt: z.string(),
-    _links: z.lazy(() => ListCaptureResponseLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  description: z.string().optional(),
+  amount: z.nullable(AmountNullable$inboundSchema),
+  status: ListCaptureResponseStatus$inboundSchema,
+  metadata: z.nullable(Metadata$inboundSchema).optional(),
+  paymentId: z.string(),
+  shipmentId: z.nullable(z.string()).optional(),
+  settlementId: z.nullable(z.string()).optional(),
+  createdAt: z.string(),
+  _links: z.lazy(() => ListCaptureResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listCaptureResponseFromJSON(
   jsonString: string,

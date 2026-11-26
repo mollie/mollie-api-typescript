@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetConnectBalanceTransferGlobals = {
   /**
@@ -64,23 +60,19 @@ export const GetConnectBalanceTransferRequest$outboundSchema: z.ZodType<
   GetConnectBalanceTransferRequest$Outbound,
   z.ZodTypeDef,
   GetConnectBalanceTransferRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    balanceTransferId: z.string().refine(matchesPattern$("^cbtr_.+$"), {
-      message: "Value must match pattern ^cbtr_.+$",
-    }),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  balanceTransferId: z.string(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getConnectBalanceTransferRequestToJSON(
   getConnectBalanceTransferRequest: GetConnectBalanceTransferRequest,

@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type DeleteProfileRequest = {
   /**
@@ -42,22 +38,18 @@ export const DeleteProfileRequest$outboundSchema: z.ZodType<
   DeleteProfileRequest$Outbound,
   z.ZodTypeDef,
   DeleteProfileRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    profileId: z.string().refine(matchesPattern$("^pfl_.+$"), {
-      message: "Value must match pattern ^pfl_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  profileId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function deleteProfileRequestToJSON(
   deleteProfileRequest: DeleteProfileRequest,

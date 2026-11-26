@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetPaymentLinkGlobals = {
   /**
@@ -66,23 +62,19 @@ export const GetPaymentLinkRequest$outboundSchema: z.ZodType<
   GetPaymentLinkRequest$Outbound,
   z.ZodTypeDef,
   GetPaymentLinkRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentLinkId: z.string().refine(matchesPattern$("^pl_.+$"), {
-      message: "Value must match pattern ^pl_.+$",
-    }),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  paymentLinkId: z.string(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getPaymentLinkRequestToJSON(
   getPaymentLinkRequest: GetPaymentLinkRequest,

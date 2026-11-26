@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -174,19 +174,17 @@ export const MandateResponseDetails$inboundSchema: z.ZodType<
   MandateResponseDetails,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    consumerName: z.nullable(z.string()).optional(),
-    consumerAccount: z.nullable(z.string()).optional(),
-    consumerBic: z.nullable(z.string()).optional(),
-    cardHolder: z.nullable(z.string()).optional(),
-    cardNumber: z.nullable(z.string()).optional(),
-    cardExpiryDate: z.nullable(z.string()).optional(),
-    cardLabel: z.nullable(MandateDetailsCardLabelResponse$inboundSchema)
-      .optional(),
-    cardFingerprint: z.nullable(z.string()).optional(),
-  })
-);
+> = z.object({
+  consumerName: z.nullable(z.string()).optional(),
+  consumerAccount: z.nullable(z.string()).optional(),
+  consumerBic: z.nullable(z.string()).optional(),
+  cardHolder: z.nullable(z.string()).optional(),
+  cardNumber: z.nullable(z.string()).optional(),
+  cardExpiryDate: z.nullable(z.string()).optional(),
+  cardLabel: z.nullable(MandateDetailsCardLabelResponse$inboundSchema)
+    .optional(),
+  cardFingerprint: z.nullable(z.string()).optional(),
+});
 
 export function mandateResponseDetailsFromJSON(
   jsonString: string,
@@ -203,31 +201,25 @@ export const MandateResponseScope$inboundSchema: z.ZodType<
   MandateResponseScope,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(MandateResponseScope)
-);
+> = openEnums.inboundSchema(MandateResponseScope);
 
 /** @internal */
 export const MandateResponseStatus$inboundSchema: z.ZodType<
   MandateResponseStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(MandateResponseStatus)
-);
+> = openEnums.inboundSchema(MandateResponseStatus);
 
 /** @internal */
 export const MandateResponseLinks$inboundSchema: z.ZodType<
   MandateResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    customer: Url$inboundSchema,
-    documentation: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  customer: Url$inboundSchema,
+  documentation: Url$inboundSchema,
+});
 
 export function mandateResponseLinksFromJSON(
   jsonString: string,
@@ -244,26 +236,24 @@ export const MandateResponse$inboundSchema: z.ZodType<
   MandateResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    method: MandateMethodResponse$inboundSchema,
-    details: z.lazy(() => MandateResponseDetails$inboundSchema),
-    signatureDate: z.nullable(z.string()),
-    mandateReference: z.nullable(z.string()),
-    scopes: z.nullable(z.array(MandateResponseScope$inboundSchema)).optional(),
-    status: MandateResponseStatus$inboundSchema,
-    customerId: z.string(),
-    createdAt: z.string(),
-    _links: z.lazy(() => MandateResponseLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  method: MandateMethodResponse$inboundSchema,
+  details: z.lazy(() => MandateResponseDetails$inboundSchema),
+  signatureDate: z.nullable(z.string()),
+  mandateReference: z.nullable(z.string()),
+  scopes: z.nullable(z.array(MandateResponseScope$inboundSchema)).optional(),
+  status: MandateResponseStatus$inboundSchema,
+  customerId: z.string(),
+  createdAt: z.string(),
+  _links: z.lazy(() => MandateResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function mandateResponseFromJSON(
   jsonString: string,

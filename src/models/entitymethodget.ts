@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -235,21 +235,17 @@ export const EntityMethodGetId$inboundSchema: z.ZodType<
   EntityMethodGetId,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(EntityMethodGetId)
-);
+> = openEnums.inboundSchema(EntityMethodGetId);
 
 /** @internal */
 export const EntityMethodGetMinimumAmount$inboundSchema: z.ZodType<
   EntityMethodGetMinimumAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function entityMethodGetMinimumAmountFromJSON(
   jsonString: string,
@@ -266,12 +262,10 @@ export const EntityMethodGetMaximumAmount$inboundSchema: z.ZodType<
   EntityMethodGetMaximumAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function entityMethodGetMaximumAmountFromJSON(
   jsonString: string,
@@ -288,13 +282,11 @@ export const EntityMethodGetImage$inboundSchema: z.ZodType<
   EntityMethodGetImage,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    size1x: z.string(),
-    size2x: z.string(),
-    svg: z.string(),
-  })
-);
+> = z.object({
+  size1x: z.string(),
+  size2x: z.string(),
+  svg: z.string(),
+});
 
 export function entityMethodGetImageFromJSON(
   jsonString: string,
@@ -311,13 +303,11 @@ export const EntityMethodGetIssuerImage$inboundSchema: z.ZodType<
   EntityMethodGetIssuerImage,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    size1x: z.string().optional(),
-    size2x: z.string().optional(),
-    svg: z.string().optional(),
-  })
-);
+> = z.object({
+  size1x: z.string().optional(),
+  size2x: z.string().optional(),
+  svg: z.string().optional(),
+});
 
 export function entityMethodGetIssuerImageFromJSON(
   jsonString: string,
@@ -334,14 +324,12 @@ export const EntityMethodGetIssuer$inboundSchema: z.ZodType<
   EntityMethodGetIssuer,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    name: z.string(),
-    image: z.lazy(() => EntityMethodGetIssuerImage$inboundSchema),
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  name: z.string(),
+  image: z.lazy(() => EntityMethodGetIssuerImage$inboundSchema),
+});
 
 export function entityMethodGetIssuerFromJSON(
   jsonString: string,
@@ -358,12 +346,10 @@ export const EntityMethodGetLinks$inboundSchema: z.ZodType<
   EntityMethodGetLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    documentation: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  documentation: Url$inboundSchema.optional(),
+});
 
 export function entityMethodGetLinksFromJSON(
   jsonString: string,
@@ -380,26 +366,24 @@ export const EntityMethodGet$inboundSchema: z.ZodType<
   EntityMethodGet,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.nullable(EntityMethodGetId$inboundSchema),
-    description: z.string(),
-    minimumAmount: z.lazy(() => EntityMethodGetMinimumAmount$inboundSchema),
-    maximumAmount: z.nullable(
-      z.lazy(() => EntityMethodGetMaximumAmount$inboundSchema),
-    ),
-    image: z.lazy(() => EntityMethodGetImage$inboundSchema),
-    status: z.nullable(MethodStatus$inboundSchema),
-    issuers: z.array(z.lazy(() => EntityMethodGetIssuer$inboundSchema))
-      .optional(),
-    _links: z.lazy(() => EntityMethodGetLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.nullable(EntityMethodGetId$inboundSchema),
+  description: z.string(),
+  minimumAmount: z.lazy(() => EntityMethodGetMinimumAmount$inboundSchema),
+  maximumAmount: z.nullable(
+    z.lazy(() => EntityMethodGetMaximumAmount$inboundSchema),
+  ),
+  image: z.lazy(() => EntityMethodGetImage$inboundSchema),
+  status: z.nullable(MethodStatus$inboundSchema),
+  issuers: z.array(z.lazy(() => EntityMethodGetIssuer$inboundSchema))
+    .optional(),
+  _links: z.lazy(() => EntityMethodGetLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityMethodGetFromJSON(
   jsonString: string,

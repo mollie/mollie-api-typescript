@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -30,4 +29,4 @@ export type SalesInvoiceRecipientType = ClosedEnum<
 /** @internal */
 export const SalesInvoiceRecipientType$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceRecipientType
-> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(SalesInvoiceRecipientType));
+> = z.nativeEnum(SalesInvoiceRecipientType);
