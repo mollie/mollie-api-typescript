@@ -5,6 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type OauthRevokeTokensSecurity = {
@@ -39,10 +40,12 @@ export const OauthRevokeTokensSecurity$outboundSchema: z.ZodType<
   OauthRevokeTokensSecurity$Outbound,
   z.ZodTypeDef,
   OauthRevokeTokensSecurity
-> = z.object({
-  username: z.string(),
-  password: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    username: z.string(),
+    password: z.string(),
+  })
+);
 
 export function oauthRevokeTokensSecurityToJSON(
   oauthRevokeTokensSecurity: OauthRevokeTokensSecurity,
@@ -63,14 +66,16 @@ export const OauthRevokeTokensRequestBody$outboundSchema: z.ZodType<
   OauthRevokeTokensRequestBody$Outbound,
   z.ZodTypeDef,
   OauthRevokeTokensRequestBody
-> = z.object({
-  tokenTypeHint: models.OauthTokenTypeHint$outboundSchema,
-  token: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    tokenTypeHint: "token_type_hint",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    tokenTypeHint: models.OauthTokenTypeHint$outboundSchema,
+    token: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      tokenTypeHint: "token_type_hint",
+    });
+  })
+);
 
 export function oauthRevokeTokensRequestBodyToJSON(
   oauthRevokeTokensRequestBody: OauthRevokeTokensRequestBody,
@@ -93,16 +98,18 @@ export const OauthRevokeTokensRequest$outboundSchema: z.ZodType<
   OauthRevokeTokensRequest$Outbound,
   z.ZodTypeDef,
   OauthRevokeTokensRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  requestBody: z.lazy(() => OauthRevokeTokensRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    requestBody: z.lazy(() => OauthRevokeTokensRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function oauthRevokeTokensRequestToJSON(
   oauthRevokeTokensRequest: OauthRevokeTokensRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -79,17 +79,19 @@ export const ListPermissionsRequest$outboundSchema: z.ZodType<
   ListPermissionsRequest$Outbound,
   z.ZodTypeDef,
   ListPermissionsRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listPermissionsRequestToJSON(
   listPermissionsRequest: ListPermissionsRequest,
@@ -104,9 +106,11 @@ export const ListPermissionsEmbedded$inboundSchema: z.ZodType<
   ListPermissionsEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  permissions: z.array(models.ListEntityPermission$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    permissions: z.array(models.ListEntityPermission$inboundSchema),
+  })
+);
 
 export function listPermissionsEmbeddedFromJSON(
   jsonString: string,
@@ -123,10 +127,12 @@ export const ListPermissionsLinks$inboundSchema: z.ZodType<
   ListPermissionsLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: models.Url$inboundSchema,
-  documentation: models.Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: models.Url$inboundSchema,
+    documentation: models.Url$inboundSchema,
+  })
+);
 
 export function listPermissionsLinksFromJSON(
   jsonString: string,
@@ -143,16 +149,18 @@ export const ListPermissionsResponse$inboundSchema: z.ZodType<
   ListPermissionsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  _embedded: z.lazy(() => ListPermissionsEmbedded$inboundSchema),
-  _links: z.lazy(() => ListPermissionsLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() => ListPermissionsEmbedded$inboundSchema),
+    _links: z.lazy(() => ListPermissionsLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listPermissionsResponseFromJSON(
   jsonString: string,

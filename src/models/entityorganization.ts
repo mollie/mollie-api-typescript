@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -137,18 +137,22 @@ export const EntityOrganizationLocale$inboundSchema: z.ZodType<
   EntityOrganizationLocale,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(EntityOrganizationLocale);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(EntityOrganizationLocale)
+);
 
 /** @internal */
 export const EntityOrganizationLinks$inboundSchema: z.ZodType<
   EntityOrganizationLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema.optional(),
-  dashboard: Url$inboundSchema.optional(),
-  documentation: Url$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema.optional(),
+    dashboard: Url$inboundSchema.optional(),
+    documentation: Url$inboundSchema.optional(),
+  })
+);
 
 export function entityOrganizationLinksFromJSON(
   jsonString: string,
@@ -165,22 +169,25 @@ export const EntityOrganization$inboundSchema: z.ZodType<
   EntityOrganization,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  name: z.string(),
-  email: z.string(),
-  locale: z.nullable(EntityOrganizationLocale$inboundSchema),
-  address: Address$inboundSchema.optional(),
-  registrationNumber: z.nullable(z.string()).optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  vatRegulation: z.nullable(OrganizationVatRegulation$inboundSchema).optional(),
-  _links: z.lazy(() => EntityOrganizationLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    locale: z.nullable(EntityOrganizationLocale$inboundSchema),
+    address: Address$inboundSchema.optional(),
+    registrationNumber: z.nullable(z.string()).optional(),
+    vatNumber: z.nullable(z.string()).optional(),
+    vatRegulation: z.nullable(OrganizationVatRegulation$inboundSchema)
+      .optional(),
+    _links: z.lazy(() => EntityOrganizationLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function entityOrganizationFromJSON(
   jsonString: string,

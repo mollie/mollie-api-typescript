@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
@@ -24,10 +25,14 @@ export const CreditDebitIndicator$inboundSchema: z.ZodType<
   CreditDebitIndicator,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(CreditDebitIndicator);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(CreditDebitIndicator)
+);
 /** @internal */
 export const CreditDebitIndicator$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   CreditDebitIndicator
-> = openEnums.outboundSchema(CreditDebitIndicator);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.outboundSchema(CreditDebitIndicator)
+);

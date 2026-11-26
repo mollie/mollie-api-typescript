@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import {
@@ -109,10 +109,12 @@ export const EntityBalanceTransferResponseStatusReason$inboundSchema: z.ZodType<
   EntityBalanceTransferResponseStatusReason,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: BalanceTransferStatusReasonResponse$inboundSchema,
-  message: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: BalanceTransferStatusReasonResponse$inboundSchema,
+    message: z.string(),
+  })
+);
 
 export function entityBalanceTransferResponseStatusReasonFromJSON(
   jsonString: string,
@@ -135,23 +137,25 @@ export const EntityBalanceTransferResponse$inboundSchema: z.ZodType<
   EntityBalanceTransferResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  amount: Amount$inboundSchema,
-  source: EntityBalanceTransferPartyResponse$inboundSchema,
-  destination: EntityBalanceTransferPartyResponse$inboundSchema,
-  description: z.string(),
-  status: BalanceTransferStatus$inboundSchema,
-  statusReason: z.lazy(() =>
-    EntityBalanceTransferResponseStatusReason$inboundSchema
-  ),
-  category: BalanceTransferCategoryResponse$inboundSchema.optional(),
-  metadata: z.record(z.any()).optional(),
-  createdAt: z.string(),
-  executedAt: z.nullable(z.string()).optional(),
-  mode: Mode$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    amount: Amount$inboundSchema,
+    source: EntityBalanceTransferPartyResponse$inboundSchema,
+    destination: EntityBalanceTransferPartyResponse$inboundSchema,
+    description: z.string(),
+    status: BalanceTransferStatus$inboundSchema,
+    statusReason: z.lazy(() =>
+      EntityBalanceTransferResponseStatusReason$inboundSchema
+    ),
+    category: BalanceTransferCategoryResponse$inboundSchema.optional(),
+    metadata: z.record(z.any()).optional(),
+    createdAt: z.string(),
+    executedAt: z.nullable(z.string()).optional(),
+    mode: Mode$inboundSchema,
+  })
+);
 
 export function entityBalanceTransferResponseFromJSON(
   jsonString: string,

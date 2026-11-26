@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema } from "./mode.js";
@@ -77,9 +77,11 @@ export const ListEntityWebhookLinks$inboundSchema: z.ZodType<
   ListEntityWebhookLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+  })
+);
 
 export function listEntityWebhookLinksFromJSON(
   jsonString: string,
@@ -96,22 +98,24 @@ export const ListEntityWebhook$inboundSchema: z.ZodType<
   ListEntityWebhook,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  url: z.string(),
-  profileId: z.nullable(z.string()),
-  createdAt: z.string(),
-  name: z.string(),
-  eventTypes: z.array(WebhookEventTypes$inboundSchema),
-  status: WebhookStatus$inboundSchema,
-  mode: Mode$inboundSchema,
-  _links: z.lazy(() => ListEntityWebhookLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    url: z.string(),
+    profileId: z.nullable(z.string()),
+    createdAt: z.string(),
+    name: z.string(),
+    eventTypes: z.array(WebhookEventTypes$inboundSchema),
+    status: WebhookStatus$inboundSchema,
+    mode: Mode$inboundSchema,
+    _links: z.lazy(() => ListEntityWebhookLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function listEntityWebhookFromJSON(
   jsonString: string,

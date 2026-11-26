@@ -4,8 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -106,20 +109,24 @@ export const ListPaymentLinksRequest$outboundSchema: z.ZodType<
   ListPaymentLinksRequest$Outbound,
   z.ZodTypeDef,
   ListPaymentLinksRequest
-> = z.object({
-  from: z.string().optional(),
-  limit: z.nullable(z.number().int()).optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    from: z.string().refine(matchesPattern$("^pl_.+$"), {
+      message: "Value must match pattern ^pl_.+$",
+    }).optional(),
+    limit: z.nullable(z.number().int()).optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function listPaymentLinksRequestToJSON(
   listPaymentLinksRequest: ListPaymentLinksRequest,
@@ -134,13 +141,15 @@ export const ListPaymentLinksEmbedded$inboundSchema: z.ZodType<
   ListPaymentLinksEmbedded,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  payment_links: z.array(models.PaymentLinkResponse$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "payment_links": "paymentLinks",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    payment_links: z.array(models.PaymentLinkResponse$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "payment_links": "paymentLinks",
+    });
+  })
+);
 
 export function listPaymentLinksEmbeddedFromJSON(
   jsonString: string,
@@ -157,16 +166,18 @@ export const ListPaymentLinksResponseBody$inboundSchema: z.ZodType<
   ListPaymentLinksResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  _embedded: z.lazy(() => ListPaymentLinksEmbedded$inboundSchema),
-  _links: models.ListLinks$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "_embedded": "embedded",
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    _embedded: z.lazy(() => ListPaymentLinksEmbedded$inboundSchema),
+    _links: models.ListLinks$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "_embedded": "embedded",
+      "_links": "links",
+    });
+  })
+);
 
 export function listPaymentLinksResponseBodyFromJSON(
   jsonString: string,
@@ -183,13 +194,15 @@ export const ListPaymentLinksResponse$inboundSchema: z.ZodType<
   ListPaymentLinksResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: z.lazy(() => ListPaymentLinksResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: z.lazy(() => ListPaymentLinksResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function listPaymentLinksResponseFromJSON(
   jsonString: string,

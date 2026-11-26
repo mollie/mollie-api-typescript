@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -174,17 +174,19 @@ export const ListMandateResponseDetails$inboundSchema: z.ZodType<
   ListMandateResponseDetails,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  consumerName: z.nullable(z.string()).optional(),
-  consumerAccount: z.nullable(z.string()).optional(),
-  consumerBic: z.nullable(z.string()).optional(),
-  cardHolder: z.nullable(z.string()).optional(),
-  cardNumber: z.nullable(z.string()).optional(),
-  cardExpiryDate: z.nullable(z.string()).optional(),
-  cardLabel: z.nullable(MandateDetailsCardLabelResponse$inboundSchema)
-    .optional(),
-  cardFingerprint: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    consumerName: z.nullable(z.string()).optional(),
+    consumerAccount: z.nullable(z.string()).optional(),
+    consumerBic: z.nullable(z.string()).optional(),
+    cardHolder: z.nullable(z.string()).optional(),
+    cardNumber: z.nullable(z.string()).optional(),
+    cardExpiryDate: z.nullable(z.string()).optional(),
+    cardLabel: z.nullable(MandateDetailsCardLabelResponse$inboundSchema)
+      .optional(),
+    cardFingerprint: z.nullable(z.string()).optional(),
+  })
+);
 
 export function listMandateResponseDetailsFromJSON(
   jsonString: string,
@@ -201,24 +203,30 @@ export const ListMandateResponseScope$inboundSchema: z.ZodType<
   ListMandateResponseScope,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(ListMandateResponseScope);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(ListMandateResponseScope)
+);
 
 /** @internal */
 export const ListMandateResponseStatus$inboundSchema: z.ZodType<
   ListMandateResponseStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(ListMandateResponseStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(ListMandateResponseStatus)
+);
 
 /** @internal */
 export const ListMandateResponseLinks$inboundSchema: z.ZodType<
   ListMandateResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  customer: Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    customer: Url$inboundSchema,
+  })
+);
 
 export function listMandateResponseLinksFromJSON(
   jsonString: string,
@@ -235,25 +243,27 @@ export const ListMandateResponse$inboundSchema: z.ZodType<
   ListMandateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$inboundSchema,
-  method: MandateMethodResponse$inboundSchema,
-  details: z.lazy(() => ListMandateResponseDetails$inboundSchema),
-  signatureDate: z.nullable(z.string()),
-  mandateReference: z.nullable(z.string()),
-  scopes: z.nullable(z.array(ListMandateResponseScope$inboundSchema))
-    .optional(),
-  status: ListMandateResponseStatus$inboundSchema,
-  customerId: z.string(),
-  createdAt: z.string(),
-  _links: z.lazy(() => ListMandateResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    mode: Mode$inboundSchema,
+    method: MandateMethodResponse$inboundSchema,
+    details: z.lazy(() => ListMandateResponseDetails$inboundSchema),
+    signatureDate: z.nullable(z.string()),
+    mandateReference: z.nullable(z.string()),
+    scopes: z.nullable(z.array(ListMandateResponseScope$inboundSchema))
+      .optional(),
+    status: ListMandateResponseStatus$inboundSchema,
+    customerId: z.string(),
+    createdAt: z.string(),
+    _links: z.lazy(() => ListMandateResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function listMandateResponseFromJSON(
   jsonString: string,

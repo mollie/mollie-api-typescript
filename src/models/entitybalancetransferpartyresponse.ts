@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BalanceTransferPartyTypeResponse,
@@ -32,11 +32,13 @@ export const EntityBalanceTransferPartyResponse$inboundSchema: z.ZodType<
   EntityBalanceTransferPartyResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: BalanceTransferPartyTypeResponse$inboundSchema,
-  id: z.string(),
-  description: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: BalanceTransferPartyTypeResponse$inboundSchema,
+    id: z.string(),
+    description: z.string(),
+  })
+);
 
 export function entityBalanceTransferPartyResponseFromJSON(
   jsonString: string,

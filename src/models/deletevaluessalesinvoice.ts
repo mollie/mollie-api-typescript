@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type DeleteValuesSalesInvoice = {
   /**
@@ -28,9 +29,11 @@ export const DeleteValuesSalesInvoice$outboundSchema: z.ZodType<
   DeleteValuesSalesInvoice$Outbound,
   z.ZodTypeDef,
   DeleteValuesSalesInvoice
-> = z.object({
-  testmode: z.nullable(z.boolean()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    testmode: z.nullable(z.boolean()).optional(),
+  })
+);
 
 export function deleteValuesSalesInvoiceToJSON(
   deleteValuesSalesInvoice: DeleteValuesSalesInvoice,

@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   RouteDestinationType,
@@ -50,10 +51,12 @@ export const RouteCreateRequestDestination$outboundSchema: z.ZodType<
   RouteCreateRequestDestination$Outbound,
   z.ZodTypeDef,
   RouteCreateRequestDestination
-> = z.object({
-  type: RouteDestinationType$outboundSchema,
-  organizationId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: RouteDestinationType$outboundSchema,
+    organizationId: z.string(),
+  })
+);
 
 export function routeCreateRequestDestinationToJSON(
   routeCreateRequestDestination: RouteCreateRequestDestination,
@@ -77,11 +80,13 @@ export const RouteCreateRequest$outboundSchema: z.ZodType<
   RouteCreateRequest$Outbound,
   z.ZodTypeDef,
   RouteCreateRequest
-> = z.object({
-  amount: Amount$outboundSchema,
-  destination: z.lazy(() => RouteCreateRequestDestination$outboundSchema),
-  description: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    amount: Amount$outboundSchema,
+    destination: z.lazy(() => RouteCreateRequestDestination$outboundSchema),
+    description: z.string().optional(),
+  })
+);
 
 export function routeCreateRequestToJSON(
   routeCreateRequest: RouteCreateRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -211,17 +211,21 @@ export const ListSubscriptionResponseStatus$inboundSchema: z.ZodType<
   ListSubscriptionResponseStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(ListSubscriptionResponseStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(ListSubscriptionResponseStatus)
+);
 
 /** @internal */
 export const ListSubscriptionResponseApplicationFee$inboundSchema: z.ZodType<
   ListSubscriptionResponseApplicationFee,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  amount: Amount$inboundSchema,
-  description: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    amount: Amount$inboundSchema,
+    description: z.string(),
+  })
+);
 
 export function listSubscriptionResponseApplicationFeeFromJSON(
   jsonString: string,
@@ -239,13 +243,15 @@ export const ListSubscriptionResponseLinks$inboundSchema: z.ZodType<
   ListSubscriptionResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  customer: Url$inboundSchema,
-  mandate: z.nullable(UrlNullable$inboundSchema).optional(),
-  profile: Url$inboundSchema,
-  payments: z.nullable(UrlNullable$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    customer: Url$inboundSchema,
+    mandate: z.nullable(UrlNullable$inboundSchema).optional(),
+    profile: Url$inboundSchema,
+    payments: z.nullable(UrlNullable$inboundSchema).optional(),
+  })
+);
 
 export function listSubscriptionResponseLinksFromJSON(
   jsonString: string,
@@ -262,34 +268,36 @@ export const ListSubscriptionResponse$inboundSchema: z.ZodType<
   ListSubscriptionResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$inboundSchema,
-  status: ListSubscriptionResponseStatus$inboundSchema,
-  amount: Amount$inboundSchema,
-  times: z.nullable(z.number().int()),
-  timesRemaining: z.nullable(z.number().int()),
-  interval: z.string(),
-  startDate: z.string(),
-  nextPaymentDate: z.nullable(z.string()).optional(),
-  description: z.string(),
-  method: z.nullable(SubscriptionMethodResponse$inboundSchema),
-  applicationFee: z.lazy(() =>
-    ListSubscriptionResponseApplicationFee$inboundSchema
-  ).optional(),
-  metadata: z.nullable(Metadata$inboundSchema),
-  webhookUrl: z.nullable(z.string()),
-  customerId: z.string(),
-  mandateId: z.string().optional(),
-  createdAt: z.string(),
-  canceledAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => ListSubscriptionResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    mode: Mode$inboundSchema,
+    status: ListSubscriptionResponseStatus$inboundSchema,
+    amount: Amount$inboundSchema,
+    times: z.nullable(z.number().int()),
+    timesRemaining: z.nullable(z.number().int()),
+    interval: z.string(),
+    startDate: z.string(),
+    nextPaymentDate: z.nullable(z.string()).optional(),
+    description: z.string(),
+    method: z.nullable(SubscriptionMethodResponse$inboundSchema),
+    applicationFee: z.lazy(() =>
+      ListSubscriptionResponseApplicationFee$inboundSchema
+    ).optional(),
+    metadata: z.nullable(Metadata$inboundSchema),
+    webhookUrl: z.nullable(z.string()),
+    customerId: z.string(),
+    mandateId: z.string().optional(),
+    createdAt: z.string(),
+    canceledAt: z.nullable(z.string()).optional(),
+    _links: z.lazy(() => ListSubscriptionResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function listSubscriptionResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type MatchUnmatchedCreditTransferRequest = {
@@ -45,22 +49,26 @@ export const MatchUnmatchedCreditTransferRequest$outboundSchema: z.ZodType<
   MatchUnmatchedCreditTransferRequest$Outbound,
   z.ZodTypeDef,
   MatchUnmatchedCreditTransferRequest
-> = z.object({
-  unmatchedCreditTransferId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  unmatchedCreditTransferMatchRequest: models
-    .UnmatchedCreditTransferMatchRequest$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    unmatchedCreditTransferMatchRequest:
-      "unmatched-credit-transfer-match-request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    unmatchedCreditTransferId: z.string().refine(matchesPattern$("^uct_.+$"), {
+      message: "Value must match pattern ^uct_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    unmatchedCreditTransferMatchRequest: models
+      .UnmatchedCreditTransferMatchRequest$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      unmatchedCreditTransferMatchRequest:
+        "unmatched-credit-transfer-match-request",
+    });
+  })
+);
 
 export function matchUnmatchedCreditTransferRequestToJSON(
   matchUnmatchedCreditTransferRequest: MatchUnmatchedCreditTransferRequest,

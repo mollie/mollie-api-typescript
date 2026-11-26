@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   LocaleResponse,
   LocaleResponse$outboundSchema,
@@ -120,12 +121,14 @@ export const Owner$outboundSchema: z.ZodType<
   Owner$Outbound,
   z.ZodTypeDef,
   Owner
-> = z.object({
-  email: z.string(),
-  givenName: z.string(),
-  familyName: z.string(),
-  locale: z.nullable(LocaleResponse$outboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    email: z.string(),
+    givenName: z.string(),
+    familyName: z.string(),
+    locale: z.nullable(LocaleResponse$outboundSchema).optional(),
+  })
+);
 
 export function ownerToJSON(owner: Owner): string {
   return JSON.stringify(Owner$outboundSchema.parse(owner));
@@ -144,12 +147,14 @@ export const ClientLinkRequestAddress$outboundSchema: z.ZodType<
   ClientLinkRequestAddress$Outbound,
   z.ZodTypeDef,
   ClientLinkRequestAddress
-> = z.object({
-  streetAndNumber: z.nullable(z.string()).optional(),
-  postalCode: z.nullable(z.string()).optional(),
-  city: z.nullable(z.string()).optional(),
-  country: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    streetAndNumber: z.nullable(z.string()).optional(),
+    postalCode: z.nullable(z.string()).optional(),
+    city: z.nullable(z.string()).optional(),
+    country: z.string(),
+  })
+);
 
 export function clientLinkRequestAddressToJSON(
   clientLinkRequestAddress: ClientLinkRequestAddress,
@@ -176,16 +181,18 @@ export const ClientLinkRequest$outboundSchema: z.ZodType<
   ClientLinkRequest$Outbound,
   z.ZodTypeDef,
   ClientLinkRequest
-> = z.object({
-  owner: z.lazy(() => Owner$outboundSchema),
-  name: z.string(),
-  address: z.lazy(() => ClientLinkRequestAddress$outboundSchema),
-  registrationNumber: z.nullable(z.string()).optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  legalEntity: z.string().optional(),
-  registrationOffice: z.string().optional(),
-  incorporationDate: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    owner: z.lazy(() => Owner$outboundSchema),
+    name: z.string(),
+    address: z.lazy(() => ClientLinkRequestAddress$outboundSchema),
+    registrationNumber: z.nullable(z.string()).optional(),
+    vatNumber: z.nullable(z.string()).optional(),
+    legalEntity: z.string().optional(),
+    registrationOffice: z.string().optional(),
+    incorporationDate: z.nullable(z.string()).optional(),
+  })
+);
 
 export function clientLinkRequestToJSON(
   clientLinkRequest: ClientLinkRequest,

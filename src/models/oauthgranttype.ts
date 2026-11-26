@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 export const OauthGrantType = {
@@ -15,4 +16,4 @@ export type OauthGrantType = ClosedEnum<typeof OauthGrantType>;
 /** @internal */
 export const OauthGrantType$outboundSchema: z.ZodNativeEnum<
   typeof OauthGrantType
-> = z.nativeEnum(OauthGrantType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(OauthGrantType));
