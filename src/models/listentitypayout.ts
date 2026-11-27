@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
@@ -102,11 +102,9 @@ export const ListEntityPayoutLinks$inboundSchema: z.ZodType<
   ListEntityPayoutLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+});
 
 export function listEntityPayoutLinksFromJSON(
   jsonString: string,
@@ -123,27 +121,25 @@ export const ListEntityPayout$inboundSchema: z.ZodType<
   ListEntityPayout,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    balanceId: z.string(),
-    amount: z.nullable(AmountNullable$inboundSchema).optional(),
-    description: z.nullable(z.string()).optional(),
-    status: PayoutStatus$inboundSchema,
-    statusReason: PayoutStatusReason$inboundSchema,
-    createdAt: z.string(),
-    initiatedAt: z.nullable(z.string()).optional(),
-    completedAt: z.nullable(z.string()).optional(),
-    canceledAt: z.nullable(z.string()).optional(),
-    mode: Mode$inboundSchema,
-    _links: z.lazy(() => ListEntityPayoutLinks$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  balanceId: z.string(),
+  amount: z.nullable(AmountNullable$inboundSchema).optional(),
+  description: z.nullable(z.string()).optional(),
+  status: PayoutStatus$inboundSchema,
+  statusReason: PayoutStatusReason$inboundSchema,
+  createdAt: z.string(),
+  initiatedAt: z.nullable(z.string()).optional(),
+  completedAt: z.nullable(z.string()).optional(),
+  canceledAt: z.nullable(z.string()).optional(),
+  mode: Mode$inboundSchema,
+  _links: z.lazy(() => ListEntityPayoutLinks$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listEntityPayoutFromJSON(
   jsonString: string,

@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type RevokeMandateRequestBody = {
   /**
@@ -57,11 +53,9 @@ export const RevokeMandateRequestBody$outboundSchema: z.ZodType<
   RevokeMandateRequestBody$Outbound,
   z.ZodTypeDef,
   RevokeMandateRequestBody
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function revokeMandateRequestBodyToJSON(
   revokeMandateRequestBody: RevokeMandateRequestBody,
@@ -86,28 +80,21 @@ export const RevokeMandateRequest$outboundSchema: z.ZodType<
   RevokeMandateRequest$Outbound,
   z.ZodTypeDef,
   RevokeMandateRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    customerId: z.string().refine(matchesPattern$("^cst_.+$"), {
-      message: "Value must match pattern ^cst_.+$",
-    }),
-    mandateId: z.string().refine(matchesPattern$("^mdt_.+$"), {
-      message: "Value must match pattern ^mdt_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    requestBody: z.lazy(() => RevokeMandateRequestBody$outboundSchema)
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      requestBody: "RequestBody",
-    });
-  })
-);
+> = z.object({
+  customerId: z.string(),
+  mandateId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  requestBody: z.lazy(() => RevokeMandateRequestBody$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    requestBody: "RequestBody",
+  });
+});
 
 export function revokeMandateRequestToJSON(
   revokeMandateRequest: RevokeMandateRequest,

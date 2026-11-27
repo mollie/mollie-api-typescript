@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -27,12 +27,10 @@ export const Counterparty$inboundSchema: z.ZodType<
   Counterparty,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    identifier: z.string().optional(),
-    name: z.string().optional(),
-  })
-);
+> = z.object({
+  identifier: z.string().optional(),
+  name: z.string().optional(),
+});
 
 export function counterpartyFromJSON(
   jsonString: string,

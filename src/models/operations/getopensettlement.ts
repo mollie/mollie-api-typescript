@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
@@ -240,19 +240,17 @@ export const GetOpenSettlementRequest$outboundSchema: z.ZodType<
   GetOpenSettlementRequest$Outbound,
   z.ZodTypeDef,
   GetOpenSettlementRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getOpenSettlementRequestToJSON(
   getOpenSettlementRequest: GetOpenSettlementRequest,
@@ -267,21 +265,17 @@ export const GetOpenSettlementStatus$inboundSchema: z.ZodType<
   GetOpenSettlementStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(GetOpenSettlementStatus)
-);
+> = openEnums.inboundSchema(GetOpenSettlementStatus);
 
 /** @internal */
 export const GetOpenSettlementAmount$inboundSchema: z.ZodType<
   GetOpenSettlementAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function getOpenSettlementAmountFromJSON(
   jsonString: string,
@@ -298,12 +292,10 @@ export const GetOpenSettlementRate$inboundSchema: z.ZodType<
   GetOpenSettlementRate,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    fixed: z.nullable(models.AmountNullable$inboundSchema),
-    percentage: z.nullable(z.string()),
-  })
-);
+> = z.object({
+  fixed: z.nullable(models.AmountNullable$inboundSchema),
+  percentage: z.nullable(z.string()),
+});
 
 export function getOpenSettlementRateFromJSON(
   jsonString: string,
@@ -320,17 +312,15 @@ export const GetOpenSettlementCost$inboundSchema: z.ZodType<
   GetOpenSettlementCost,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    method: z.nullable(models.SettlementMethod$inboundSchema),
-    count: z.number().int(),
-    rate: z.lazy(() => GetOpenSettlementRate$inboundSchema),
-    amountNet: models.Amount$inboundSchema,
-    amountVat: z.nullable(models.AmountNullable$inboundSchema),
-    amountGross: models.Amount$inboundSchema,
-  })
-);
+> = z.object({
+  description: z.string(),
+  method: z.nullable(models.SettlementMethod$inboundSchema),
+  count: z.number().int(),
+  rate: z.lazy(() => GetOpenSettlementRate$inboundSchema),
+  amountNet: models.Amount$inboundSchema,
+  amountVat: z.nullable(models.AmountNullable$inboundSchema),
+  amountGross: models.Amount$inboundSchema,
+});
 
 export function getOpenSettlementCostFromJSON(
   jsonString: string,
@@ -347,16 +337,14 @@ export const GetOpenSettlementRevenue$inboundSchema: z.ZodType<
   GetOpenSettlementRevenue,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    description: z.string(),
-    method: z.nullable(models.SettlementMethod$inboundSchema),
-    count: z.number().int(),
-    amountNet: models.Amount$inboundSchema,
-    amountVat: z.nullable(models.AmountNullable$inboundSchema),
-    amountGross: models.Amount$inboundSchema,
-  })
-);
+> = z.object({
+  description: z.string(),
+  method: z.nullable(models.SettlementMethod$inboundSchema),
+  count: z.number().int(),
+  amountNet: models.Amount$inboundSchema,
+  amountVat: z.nullable(models.AmountNullable$inboundSchema),
+  amountGross: models.Amount$inboundSchema,
+});
 
 export function getOpenSettlementRevenueFromJSON(
   jsonString: string,
@@ -373,16 +361,13 @@ export const GetOpenSettlementPeriods$inboundSchema: z.ZodType<
   GetOpenSettlementPeriods,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    costs: z.array(z.lazy(() => GetOpenSettlementCost$inboundSchema))
-      .optional(),
-    revenue: z.array(z.lazy(() => GetOpenSettlementRevenue$inboundSchema))
-      .optional(),
-    invoiceId: z.string().optional(),
-    invoiceReference: z.nullable(z.string()).optional(),
-  })
-);
+> = z.object({
+  costs: z.array(z.lazy(() => GetOpenSettlementCost$inboundSchema)).optional(),
+  revenue: z.array(z.lazy(() => GetOpenSettlementRevenue$inboundSchema))
+    .optional(),
+  invoiceId: z.string().optional(),
+  invoiceReference: z.nullable(z.string()).optional(),
+});
 
 export function getOpenSettlementPeriodsFromJSON(
   jsonString: string,
@@ -399,27 +384,25 @@ export const GetOpenSettlementResponse$inboundSchema: z.ZodType<
   GetOpenSettlementResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: models.OpenSettlementId$inboundSchema,
-    createdAt: z.string().optional(),
-    reference: z.nullable(z.string()).optional(),
-    settledAt: z.nullable(z.string()).optional(),
-    status: GetOpenSettlementStatus$inboundSchema,
-    amount: z.lazy(() => GetOpenSettlementAmount$inboundSchema),
-    balanceId: z.string(),
-    invoiceId: z.nullable(z.string()).optional(),
-    periods: z.record(
-      z.record(z.lazy(() => GetOpenSettlementPeriods$inboundSchema)),
-    ).optional(),
-    _links: models.SettlementConvenienceLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: models.OpenSettlementId$inboundSchema,
+  createdAt: z.string().optional(),
+  reference: z.nullable(z.string()).optional(),
+  settledAt: z.nullable(z.string()).optional(),
+  status: GetOpenSettlementStatus$inboundSchema,
+  amount: z.lazy(() => GetOpenSettlementAmount$inboundSchema),
+  balanceId: z.string(),
+  invoiceId: z.nullable(z.string()).optional(),
+  periods: z.record(
+    z.record(z.lazy(() => GetOpenSettlementPeriods$inboundSchema)),
+  ).optional(),
+  _links: models.SettlementConvenienceLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function getOpenSettlementResponseFromJSON(
   jsonString: string,

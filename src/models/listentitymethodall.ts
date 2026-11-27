@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -264,21 +264,17 @@ export const ListEntityMethodAllId$inboundSchema: z.ZodType<
   ListEntityMethodAllId,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(ListEntityMethodAllId)
-);
+> = openEnums.inboundSchema(ListEntityMethodAllId);
 
 /** @internal */
 export const ListEntityMethodAllMinimumAmount$inboundSchema: z.ZodType<
   ListEntityMethodAllMinimumAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listEntityMethodAllMinimumAmountFromJSON(
   jsonString: string,
@@ -295,12 +291,10 @@ export const ListEntityMethodAllMaximumAmount$inboundSchema: z.ZodType<
   ListEntityMethodAllMaximumAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listEntityMethodAllMaximumAmountFromJSON(
   jsonString: string,
@@ -317,13 +311,11 @@ export const ListEntityMethodAllImage$inboundSchema: z.ZodType<
   ListEntityMethodAllImage,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    size1x: z.string(),
-    size2x: z.string(),
-    svg: z.string(),
-  })
-);
+> = z.object({
+  size1x: z.string(),
+  size2x: z.string(),
+  svg: z.string(),
+});
 
 export function listEntityMethodAllImageFromJSON(
   jsonString: string,
@@ -340,13 +332,11 @@ export const ListEntityMethodAllIssuerImage$inboundSchema: z.ZodType<
   ListEntityMethodAllIssuerImage,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    size1x: z.string().optional(),
-    size2x: z.string().optional(),
-    svg: z.string().optional(),
-  })
-);
+> = z.object({
+  size1x: z.string().optional(),
+  size2x: z.string().optional(),
+  svg: z.string().optional(),
+});
 
 export function listEntityMethodAllIssuerImageFromJSON(
   jsonString: string,
@@ -363,14 +353,12 @@ export const ListEntityMethodAllIssuer$inboundSchema: z.ZodType<
   ListEntityMethodAllIssuer,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    name: z.string(),
-    image: z.lazy(() => ListEntityMethodAllIssuerImage$inboundSchema),
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  name: z.string(),
+  image: z.lazy(() => ListEntityMethodAllIssuerImage$inboundSchema),
+});
 
 export function listEntityMethodAllIssuerFromJSON(
   jsonString: string,
@@ -387,11 +375,9 @@ export const ListEntityMethodAllLinks$inboundSchema: z.ZodType<
   ListEntityMethodAllLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+});
 
 export function listEntityMethodAllLinksFromJSON(
   jsonString: string,
@@ -405,14 +391,12 @@ export function listEntityMethodAllLinksFromJSON(
 
 /** @internal */
 export const Pricing$inboundSchema: z.ZodType<Pricing, z.ZodTypeDef, unknown> =
-  /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      description: z.string(),
-      fixed: Amount$inboundSchema,
-      variable: z.string(),
-      feeRegion: z.nullable(z.string()).optional(),
-    })
-  );
+  z.object({
+    description: z.string(),
+    fixed: Amount$inboundSchema,
+    variable: z.string(),
+    feeRegion: z.nullable(z.string()).optional(),
+  });
 
 export function pricingFromJSON(
   jsonString: string,
@@ -429,27 +413,25 @@ export const ListEntityMethodAll$inboundSchema: z.ZodType<
   ListEntityMethodAll,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.nullable(ListEntityMethodAllId$inboundSchema),
-    description: z.string(),
-    minimumAmount: z.lazy(() => ListEntityMethodAllMinimumAmount$inboundSchema),
-    maximumAmount: z.nullable(
-      z.lazy(() => ListEntityMethodAllMaximumAmount$inboundSchema),
-    ),
-    image: z.lazy(() => ListEntityMethodAllImage$inboundSchema),
-    status: z.nullable(MethodStatus$inboundSchema),
-    issuers: z.array(z.lazy(() => ListEntityMethodAllIssuer$inboundSchema))
-      .optional(),
-    _links: z.lazy(() => ListEntityMethodAllLinks$inboundSchema),
-    pricing: z.array(z.lazy(() => Pricing$inboundSchema)).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.nullable(ListEntityMethodAllId$inboundSchema),
+  description: z.string(),
+  minimumAmount: z.lazy(() => ListEntityMethodAllMinimumAmount$inboundSchema),
+  maximumAmount: z.nullable(
+    z.lazy(() => ListEntityMethodAllMaximumAmount$inboundSchema),
+  ),
+  image: z.lazy(() => ListEntityMethodAllImage$inboundSchema),
+  status: z.nullable(MethodStatus$inboundSchema),
+  issuers: z.array(z.lazy(() => ListEntityMethodAllIssuer$inboundSchema))
+    .optional(),
+  _links: z.lazy(() => ListEntityMethodAllLinks$inboundSchema),
+  pricing: z.array(z.lazy(() => Pricing$inboundSchema)).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listEntityMethodAllFromJSON(
   jsonString: string,

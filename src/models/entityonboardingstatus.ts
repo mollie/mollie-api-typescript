@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -85,23 +85,19 @@ export const EntityOnboardingStatusStatus$inboundSchema: z.ZodType<
   EntityOnboardingStatusStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(EntityOnboardingStatusStatus)
-);
+> = openEnums.inboundSchema(EntityOnboardingStatusStatus);
 
 /** @internal */
 export const EntityOnboardingStatusLinks$inboundSchema: z.ZodType<
   EntityOnboardingStatusLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema.optional(),
-    dashboard: Url$inboundSchema.optional(),
-    organization: Url$inboundSchema.optional(),
-    documentation: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema.optional(),
+  dashboard: Url$inboundSchema.optional(),
+  organization: Url$inboundSchema.optional(),
+  documentation: Url$inboundSchema.optional(),
+});
 
 export function entityOnboardingStatusLinksFromJSON(
   jsonString: string,
@@ -118,21 +114,19 @@ export const EntityOnboardingStatus$inboundSchema: z.ZodType<
   EntityOnboardingStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    name: z.string(),
-    status: EntityOnboardingStatusStatus$inboundSchema,
-    canReceivePayments: z.boolean(),
-    canReceiveSettlements: z.boolean(),
-    signedUpAt: z.string(),
-    _links: z.lazy(() => EntityOnboardingStatusLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  name: z.string(),
+  status: EntityOnboardingStatusStatus$inboundSchema,
+  canReceivePayments: z.boolean(),
+  canReceiveSettlements: z.boolean(),
+  signedUpAt: z.string(),
+  _links: z.lazy(() => EntityOnboardingStatusLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityOnboardingStatusFromJSON(
   jsonString: string,

@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetWebhookGlobals = {
   /**
@@ -64,23 +60,19 @@ export const GetWebhookRequest$outboundSchema: z.ZodType<
   GetWebhookRequest$Outbound,
   z.ZodTypeDef,
   GetWebhookRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    webhookId: z.string().refine(matchesPattern$("^hook_.+$"), {
-      message: "Value must match pattern ^hook_.+$",
-    }),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  webhookId: z.string(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function getWebhookRequestToJSON(
   getWebhookRequest: GetWebhookRequest,

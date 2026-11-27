@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -135,12 +135,10 @@ export const ListSettlementChargebackResponseReason$inboundSchema: z.ZodType<
   ListSettlementChargebackResponseReason,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    code: z.string(),
-    description: z.string(),
-  })
-);
+> = z.object({
+  code: z.string(),
+  description: z.string(),
+});
 
 export function listSettlementChargebackResponseReasonFromJSON(
   jsonString: string,
@@ -158,13 +156,11 @@ export const ListSettlementChargebackResponseLinks$inboundSchema: z.ZodType<
   ListSettlementChargebackResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    payment: Url$inboundSchema,
-    settlement: z.nullable(UrlNullable$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  payment: Url$inboundSchema,
+  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
+});
 
 export function listSettlementChargebackResponseLinksFromJSON(
   jsonString: string,
@@ -183,12 +179,10 @@ export const ListSettlementChargebackResponseSettlementAmount$inboundSchema:
     ListSettlementChargebackResponseSettlementAmount,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      currency: z.string(),
-      value: z.string(),
-    })
-  );
+  > = z.object({
+    currency: z.string(),
+    value: z.string(),
+  });
 
 export function listSettlementChargebackResponseSettlementAmountFromJSON(
   jsonString: string,
@@ -211,29 +205,29 @@ export const ListSettlementChargebackResponse$inboundSchema: z.ZodType<
   ListSettlementChargebackResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    amount: Amount$inboundSchema,
-    reason: z.nullable(
-      z.lazy(() => ListSettlementChargebackResponseReason$inboundSchema),
-    ).optional(),
-    paymentId: z.string(),
-    settlementId: z.nullable(z.string()).optional(),
-    createdAt: z.string(),
-    reversedAt: z.nullable(z.string()).optional(),
-    _links: z.lazy(() => ListSettlementChargebackResponseLinks$inboundSchema),
-    mode: SettlementMode$inboundSchema.optional(),
-    settlementAmount: z.nullable(z.lazy(() =>
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  amount: Amount$inboundSchema,
+  reason: z.nullable(
+    z.lazy(() => ListSettlementChargebackResponseReason$inboundSchema),
+  ).optional(),
+  paymentId: z.string(),
+  settlementId: z.nullable(z.string()).optional(),
+  createdAt: z.string(),
+  reversedAt: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => ListSettlementChargebackResponseLinks$inboundSchema),
+  mode: SettlementMode$inboundSchema.optional(),
+  settlementAmount: z.nullable(
+    z.lazy(() =>
       ListSettlementChargebackResponseSettlementAmount$inboundSchema
-    )).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+    ),
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listSettlementChargebackResponseFromJSON(
   jsonString: string,

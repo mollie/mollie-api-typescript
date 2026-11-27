@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AmountNullable,
   AmountNullable$Outbound,
@@ -49,14 +48,12 @@ export const PayoutRequest$outboundSchema: z.ZodType<
   PayoutRequest$Outbound,
   z.ZodTypeDef,
   PayoutRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    balanceId: z.string(),
-    amount: z.nullable(AmountNullable$outboundSchema).optional(),
-    description: z.nullable(z.string()).optional(),
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  balanceId: z.string(),
+  amount: z.nullable(AmountNullable$outboundSchema).optional(),
+  description: z.nullable(z.string()).optional(),
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function payoutRequestToJSON(payoutRequest: PayoutRequest): string {
   return JSON.stringify(PayoutRequest$outboundSchema.parse(payoutRequest));

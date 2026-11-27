@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import {
   SalesInvoiceRecipientType,
@@ -118,9 +117,7 @@ export type SalesInvoiceRecipient = {
 /** @internal */
 export const SalesInvoiceRecipientLocale$outboundSchema: z.ZodNativeEnum<
   typeof SalesInvoiceRecipientLocale
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.nativeEnum(SalesInvoiceRecipientLocale)
-);
+> = z.nativeEnum(SalesInvoiceRecipientLocale);
 
 /** @internal */
 export type SalesInvoiceRecipient$Outbound = {
@@ -147,26 +144,24 @@ export const SalesInvoiceRecipient$outboundSchema: z.ZodType<
   SalesInvoiceRecipient$Outbound,
   z.ZodTypeDef,
   SalesInvoiceRecipient
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    type: SalesInvoiceRecipientType$outboundSchema,
-    title: z.nullable(z.string()).optional(),
-    givenName: z.nullable(z.string()).optional(),
-    familyName: z.nullable(z.string()).optional(),
-    organizationName: z.nullable(z.string()).optional(),
-    organizationNumber: z.nullable(z.string()).optional(),
-    vatNumber: z.nullable(z.string()).optional(),
-    email: z.string(),
-    phone: z.nullable(z.string()).optional(),
-    streetAndNumber: z.string(),
-    streetAdditional: z.nullable(z.string()).optional(),
-    postalCode: z.string(),
-    city: z.string(),
-    region: z.nullable(z.string()).optional(),
-    country: z.string(),
-    locale: SalesInvoiceRecipientLocale$outboundSchema,
-  })
-);
+> = z.object({
+  type: SalesInvoiceRecipientType$outboundSchema,
+  title: z.nullable(z.string()).optional(),
+  givenName: z.nullable(z.string()).optional(),
+  familyName: z.nullable(z.string()).optional(),
+  organizationName: z.nullable(z.string()).optional(),
+  organizationNumber: z.nullable(z.string()).optional(),
+  vatNumber: z.nullable(z.string()).optional(),
+  email: z.string(),
+  phone: z.nullable(z.string()).optional(),
+  streetAndNumber: z.string(),
+  streetAdditional: z.nullable(z.string()).optional(),
+  postalCode: z.string(),
+  city: z.string(),
+  region: z.nullable(z.string()).optional(),
+  country: z.string(),
+  locale: SalesInvoiceRecipientLocale$outboundSchema,
+});
 
 export function salesInvoiceRecipientToJSON(
   salesInvoiceRecipient: SalesInvoiceRecipient,

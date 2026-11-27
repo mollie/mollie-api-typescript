@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -201,30 +201,28 @@ export const ListMethodsRequest$outboundSchema: z.ZodType<
   ListMethodsRequest$Outbound,
   z.ZodTypeDef,
   ListMethodsRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    sequenceType: models.SequenceType$outboundSchema.optional(),
-    locale: z.nullable(models.Locale$outboundSchema).optional(),
-    amount: models.Amount$outboundSchema.optional(),
-    resource: models.MethodResourceParameter$outboundSchema.optional(),
-    billingCountry: z.string().optional(),
-    includeWallets: models.MethodIncludeWalletsParameter$outboundSchema
-      .optional(),
-    orderLineCategories: models.LineCategories$outboundSchema.optional(),
-    profileId: z.string().optional(),
-    include: z.nullable(z.string()).optional(),
-    testmode: z.boolean().optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  sequenceType: models.SequenceType$outboundSchema.optional(),
+  locale: z.nullable(models.Locale$outboundSchema).optional(),
+  amount: models.Amount$outboundSchema.optional(),
+  resource: models.MethodResourceParameter$outboundSchema.optional(),
+  billingCountry: z.string().optional(),
+  includeWallets: models.MethodIncludeWalletsParameter$outboundSchema
+    .optional(),
+  orderLineCategories: models.LineCategories$outboundSchema.optional(),
+  profileId: z.string().optional(),
+  include: z.nullable(z.string()).optional(),
+  testmode: z.boolean().optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listMethodsRequestToJSON(
   listMethodsRequest: ListMethodsRequest,
@@ -239,11 +237,9 @@ export const ListMethodsEmbedded$inboundSchema: z.ZodType<
   ListMethodsEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    methods: z.array(models.ListEntityMethod$inboundSchema),
-  })
-);
+> = z.object({
+  methods: z.array(models.ListEntityMethod$inboundSchema),
+});
 
 export function listMethodsEmbeddedFromJSON(
   jsonString: string,
@@ -260,12 +256,10 @@ export const ListMethodsLinks$inboundSchema: z.ZodType<
   ListMethodsLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: models.Url$inboundSchema,
-    documentation: models.Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: models.Url$inboundSchema,
+  documentation: models.Url$inboundSchema,
+});
 
 export function listMethodsLinksFromJSON(
   jsonString: string,
@@ -282,18 +276,16 @@ export const ListMethodsResponse$inboundSchema: z.ZodType<
   ListMethodsResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListMethodsEmbedded$inboundSchema),
-    _links: z.lazy(() => ListMethodsLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListMethodsEmbedded$inboundSchema),
+  _links: z.lazy(() => ListMethodsLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listMethodsResponseFromJSON(
   jsonString: string,

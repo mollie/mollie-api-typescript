@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Mode, Mode$inboundSchema } from "./mode.js";
@@ -315,12 +315,10 @@ export const SalesInvoiceResponseAmountDue$inboundSchema: z.ZodType<
   SalesInvoiceResponseAmountDue,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function salesInvoiceResponseAmountDueFromJSON(
   jsonString: string,
@@ -337,12 +335,10 @@ export const SalesInvoiceResponseSubtotalAmount$inboundSchema: z.ZodType<
   SalesInvoiceResponseSubtotalAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function salesInvoiceResponseSubtotalAmountFromJSON(
   jsonString: string,
@@ -360,12 +356,10 @@ export const SalesInvoiceResponseTotalAmount$inboundSchema: z.ZodType<
   SalesInvoiceResponseTotalAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function salesInvoiceResponseTotalAmountFromJSON(
   jsonString: string,
@@ -382,12 +376,10 @@ export const SalesInvoiceResponseTotalVatAmount$inboundSchema: z.ZodType<
   SalesInvoiceResponseTotalVatAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function salesInvoiceResponseTotalVatAmountFromJSON(
   jsonString: string,
@@ -406,12 +398,10 @@ export const SalesInvoiceResponseDiscountedSubtotalAmount$inboundSchema:
     SalesInvoiceResponseDiscountedSubtotalAmount,
     z.ZodTypeDef,
     unknown
-  > = /* @__PURE__ */ lazySchema$(() =>
-    z.object({
-      currency: z.string(),
-      value: z.string(),
-    })
-  );
+  > = z.object({
+    currency: z.string(),
+    value: z.string(),
+  });
 
 export function salesInvoiceResponseDiscountedSubtotalAmountFromJSON(
   jsonString: string,
@@ -434,16 +424,14 @@ export const SalesInvoiceResponseLinks$inboundSchema: z.ZodType<
   SalesInvoiceResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema.optional(),
-    invoicePayment: Url$inboundSchema.optional(),
-    pdfLink: Url$inboundSchema.optional(),
-    documentation: Url$inboundSchema.optional(),
-    next: Url$inboundSchema.optional(),
-    previous: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema.optional(),
+  invoicePayment: Url$inboundSchema.optional(),
+  pdfLink: Url$inboundSchema.optional(),
+  documentation: Url$inboundSchema.optional(),
+  next: Url$inboundSchema.optional(),
+  previous: Url$inboundSchema.optional(),
+});
 
 export function salesInvoiceResponseLinksFromJSON(
   jsonString: string,
@@ -460,57 +448,52 @@ export const SalesInvoiceResponse$inboundSchema: z.ZodType<
   SalesInvoiceResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    invoiceNumber: z.nullable(z.string()).optional(),
-    profileId: z.nullable(z.string()).optional(),
-    status: SalesInvoiceStatusResponse$inboundSchema.optional(),
-    eInvoiceStatus: SalesInvoiceEInvoiceStatus$inboundSchema.optional(),
-    vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
-    vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
-    memo: z.nullable(z.string()).optional(),
-    metadata: z.nullable(z.record(z.any())).optional(),
-    paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
-      .optional(),
-    paymentDetails: z.array(SalesInvoicePaymentDetailsResponse$inboundSchema)
-      .optional(),
-    emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
-    customerId: z.string().optional(),
-    mandateId: z.string().optional(),
-    recipientIdentifier: z.string().optional(),
-    recipient: z.nullable(SalesInvoiceRecipientResponse$inboundSchema)
-      .optional(),
-    lines: z.nullable(z.array(SalesInvoiceLineItemResponse$inboundSchema))
-      .optional(),
-    discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
-    isEInvoice: z.boolean().optional(),
-    amountDue: z.lazy(() => SalesInvoiceResponseAmountDue$inboundSchema)
-      .optional(),
-    subtotalAmount: z.lazy(() =>
-      SalesInvoiceResponseSubtotalAmount$inboundSchema
-    ).optional(),
-    totalAmount: z.lazy(() => SalesInvoiceResponseTotalAmount$inboundSchema)
-      .optional(),
-    totalVatAmount: z.lazy(() =>
-      SalesInvoiceResponseTotalVatAmount$inboundSchema
-    ).optional(),
-    discountedSubtotalAmount: z.lazy(() =>
-      SalesInvoiceResponseDiscountedSubtotalAmount$inboundSchema
-    ).optional(),
-    createdAt: z.string().optional(),
-    issuedAt: z.nullable(z.string()).optional(),
-    paidAt: z.nullable(z.string()).optional(),
-    dueAt: z.nullable(z.string()).optional(),
-    _links: z.lazy(() => SalesInvoiceResponseLinks$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  invoiceNumber: z.nullable(z.string()).optional(),
+  profileId: z.nullable(z.string()).optional(),
+  status: SalesInvoiceStatusResponse$inboundSchema.optional(),
+  eInvoiceStatus: SalesInvoiceEInvoiceStatus$inboundSchema.optional(),
+  vatScheme: SalesInvoiceVatSchemeResponse$inboundSchema.optional(),
+  vatMode: SalesInvoiceVatModeResponse$inboundSchema.optional(),
+  memo: z.nullable(z.string()).optional(),
+  metadata: z.nullable(z.record(z.any())).optional(),
+  paymentTerm: z.nullable(SalesInvoicePaymentTermResponse$inboundSchema)
+    .optional(),
+  paymentDetails: z.array(SalesInvoicePaymentDetailsResponse$inboundSchema)
+    .optional(),
+  emailDetails: z.nullable(SalesInvoiceEmailDetails$inboundSchema).optional(),
+  customerId: z.string().optional(),
+  mandateId: z.string().optional(),
+  recipientIdentifier: z.string().optional(),
+  recipient: z.nullable(SalesInvoiceRecipientResponse$inboundSchema).optional(),
+  lines: z.nullable(z.array(SalesInvoiceLineItemResponse$inboundSchema))
+    .optional(),
+  discount: z.nullable(SalesInvoiceDiscountResponse$inboundSchema).optional(),
+  isEInvoice: z.boolean().optional(),
+  amountDue: z.lazy(() => SalesInvoiceResponseAmountDue$inboundSchema)
+    .optional(),
+  subtotalAmount: z.lazy(() => SalesInvoiceResponseSubtotalAmount$inboundSchema)
+    .optional(),
+  totalAmount: z.lazy(() => SalesInvoiceResponseTotalAmount$inboundSchema)
+    .optional(),
+  totalVatAmount: z.lazy(() => SalesInvoiceResponseTotalVatAmount$inboundSchema)
+    .optional(),
+  discountedSubtotalAmount: z.lazy(() =>
+    SalesInvoiceResponseDiscountedSubtotalAmount$inboundSchema
+  ).optional(),
+  createdAt: z.string().optional(),
+  issuedAt: z.nullable(z.string()).optional(),
+  paidAt: z.nullable(z.string()).optional(),
+  dueAt: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => SalesInvoiceResponseLinks$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function salesInvoiceResponseFromJSON(
   jsonString: string,

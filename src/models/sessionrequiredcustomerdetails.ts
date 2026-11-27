@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -25,6 +24,4 @@ export type SessionRequiredCustomerDetails = ClosedEnum<
 /** @internal */
 export const SessionRequiredCustomerDetails$outboundSchema: z.ZodNativeEnum<
   typeof SessionRequiredCustomerDetails
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.nativeEnum(SessionRequiredCustomerDetails)
-);
+> = z.nativeEnum(SessionRequiredCustomerDetails);

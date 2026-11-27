@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { RFCDate } from "../types/rfcdate.js";
 import { Amount, Amount$inboundSchema } from "./amount.js";
@@ -337,13 +337,11 @@ export const PaymentDetailsQrCode$inboundSchema: z.ZodType<
   PaymentDetailsQrCode,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    height: z.number().int().optional(),
-    width: z.number().int().optional(),
-    src: z.string().optional(),
-  })
-);
+> = z.object({
+  height: z.number().int().optional(),
+  width: z.number().int().optional(),
+  src: z.string().optional(),
+});
 
 export function paymentDetailsQrCodeFromJSON(
   jsonString: string,
@@ -360,71 +358,69 @@ export const PaymentDetails$inboundSchema: z.ZodType<
   PaymentDetails,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    consumerName: z.nullable(z.string()).optional(),
-    consumerAccount: z.nullable(z.string()).optional(),
-    consumerBic: z.nullable(z.string()).optional(),
-    shippingAddress: z.nullable(z.record(z.any())).optional(),
-    cardNumber: z.nullable(z.string()).optional(),
-    bankName: z.string().optional(),
-    bankAccount: z.string().optional(),
-    bankBic: z.string().optional(),
-    transferReference: z.nullable(z.string()).optional(),
-    bizumReference: z.nullable(z.string()).optional(),
-    cardFingerprint: z.nullable(z.string()).optional(),
-    cardHolder: z.nullable(z.string()).optional(),
-    cardAudience: z.nullable(PaymentDetailsCardAuditionResponse$inboundSchema)
-      .optional(),
-    cardLabel: z.nullable(PaymentDetailsCardLabelResponse$inboundSchema)
-      .optional(),
-    cardCountryCode: z.nullable(z.string()).optional(),
-    cardExpiryDate: z.nullable(z.string()).optional(),
-    cardFunding: z.nullable(PaymentDetailsCardFundingResponse$inboundSchema)
-      .optional(),
-    cardSecurity: z.nullable(PaymentDetailsCardSecurityResponse$inboundSchema)
-      .optional(),
-    feeRegion: z.nullable(PaymentDetailsFeeRegionResponse$inboundSchema)
-      .optional(),
-    cardMaskedNumber: z.nullable(z.string()).optional(),
-    card3dsEci: z.nullable(z.string()).optional(),
-    cardBin: z.nullable(z.string()).optional(),
-    cardIssuer: z.nullable(z.string()).optional(),
-    failureReason: z.nullable(PaymentDetailsFailureReasonResponse$inboundSchema)
-      .optional(),
-    failureMessage: z.nullable(z.string()).optional(),
-    wallet: z.nullable(PaymentDetailsWalletResponse$inboundSchema).optional(),
-    multibancoReference: z.nullable(z.string()).optional(),
-    multibancoEntity: z.nullable(z.string()).optional(),
-    paypalReference: z.nullable(z.string()).optional(),
-    paypalPayerId: z.nullable(z.string()).optional(),
-    sellerProtection: z.nullable(
-      PaymentDetailsSellerProtectionResponse$inboundSchema,
-    ).optional(),
-    paypalFee: z.nullable(AmountNullable$inboundSchema).optional(),
-    customerReference: z.string().optional(),
-    terminalId: z.string().optional(),
-    maskedNumber: z.nullable(z.string()).optional(),
-    creditorIdentifier: z.nullable(z.string()).optional(),
-    dueDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
-    signatureDate: z.nullable(z.string().transform(v => new RFCDate(v)))
-      .optional(),
-    bankReasonCode: z.nullable(z.string()).optional(),
-    bankReason: z.nullable(z.string()).optional(),
-    endToEndIdentifier: z.nullable(z.string()).optional(),
-    mandateReference: z.nullable(z.string()).optional(),
-    batchReference: z.nullable(z.string()).optional(),
-    fileReference: z.nullable(z.string()).optional(),
-    qrCode: z.lazy(() => PaymentDetailsQrCode$inboundSchema).optional(),
-    voucherNumber: z.string().optional(),
-    giftcards: z.array(z.record(z.any())).optional(),
-    issuer: z.string().optional(),
-    vouchers: z.array(z.record(z.any())).optional(),
-    remainderAmount: Amount$inboundSchema.optional(),
-    remainderMethod: z.string().optional(),
-    remainderDetails: z.record(z.any()).optional(),
-  })
-);
+> = z.object({
+  consumerName: z.nullable(z.string()).optional(),
+  consumerAccount: z.nullable(z.string()).optional(),
+  consumerBic: z.nullable(z.string()).optional(),
+  shippingAddress: z.nullable(z.record(z.any())).optional(),
+  cardNumber: z.nullable(z.string()).optional(),
+  bankName: z.string().optional(),
+  bankAccount: z.string().optional(),
+  bankBic: z.string().optional(),
+  transferReference: z.nullable(z.string()).optional(),
+  bizumReference: z.nullable(z.string()).optional(),
+  cardFingerprint: z.nullable(z.string()).optional(),
+  cardHolder: z.nullable(z.string()).optional(),
+  cardAudience: z.nullable(PaymentDetailsCardAuditionResponse$inboundSchema)
+    .optional(),
+  cardLabel: z.nullable(PaymentDetailsCardLabelResponse$inboundSchema)
+    .optional(),
+  cardCountryCode: z.nullable(z.string()).optional(),
+  cardExpiryDate: z.nullable(z.string()).optional(),
+  cardFunding: z.nullable(PaymentDetailsCardFundingResponse$inboundSchema)
+    .optional(),
+  cardSecurity: z.nullable(PaymentDetailsCardSecurityResponse$inboundSchema)
+    .optional(),
+  feeRegion: z.nullable(PaymentDetailsFeeRegionResponse$inboundSchema)
+    .optional(),
+  cardMaskedNumber: z.nullable(z.string()).optional(),
+  card3dsEci: z.nullable(z.string()).optional(),
+  cardBin: z.nullable(z.string()).optional(),
+  cardIssuer: z.nullable(z.string()).optional(),
+  failureReason: z.nullable(PaymentDetailsFailureReasonResponse$inboundSchema)
+    .optional(),
+  failureMessage: z.nullable(z.string()).optional(),
+  wallet: z.nullable(PaymentDetailsWalletResponse$inboundSchema).optional(),
+  multibancoReference: z.nullable(z.string()).optional(),
+  multibancoEntity: z.nullable(z.string()).optional(),
+  paypalReference: z.nullable(z.string()).optional(),
+  paypalPayerId: z.nullable(z.string()).optional(),
+  sellerProtection: z.nullable(
+    PaymentDetailsSellerProtectionResponse$inboundSchema,
+  ).optional(),
+  paypalFee: z.nullable(AmountNullable$inboundSchema).optional(),
+  customerReference: z.string().optional(),
+  terminalId: z.string().optional(),
+  maskedNumber: z.nullable(z.string()).optional(),
+  creditorIdentifier: z.nullable(z.string()).optional(),
+  dueDate: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
+  signatureDate: z.nullable(z.string().transform(v => new RFCDate(v)))
+    .optional(),
+  bankReasonCode: z.nullable(z.string()).optional(),
+  bankReason: z.nullable(z.string()).optional(),
+  endToEndIdentifier: z.nullable(z.string()).optional(),
+  mandateReference: z.nullable(z.string()).optional(),
+  batchReference: z.nullable(z.string()).optional(),
+  fileReference: z.nullable(z.string()).optional(),
+  qrCode: z.lazy(() => PaymentDetailsQrCode$inboundSchema).optional(),
+  voucherNumber: z.string().optional(),
+  giftcards: z.array(z.record(z.any())).optional(),
+  issuer: z.string().optional(),
+  vouchers: z.array(z.record(z.any())).optional(),
+  remainderAmount: Amount$inboundSchema.optional(),
+  remainderMethod: z.string().optional(),
+  remainderDetails: z.record(z.any()).optional(),
+});
 
 export function paymentDetailsFromJSON(
   jsonString: string,

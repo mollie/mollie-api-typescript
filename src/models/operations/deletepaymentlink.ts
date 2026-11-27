@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 
 export type DeletePaymentLinkRequestBody = {
   /**
@@ -53,11 +49,9 @@ export const DeletePaymentLinkRequestBody$outboundSchema: z.ZodType<
   DeletePaymentLinkRequestBody$Outbound,
   z.ZodTypeDef,
   DeletePaymentLinkRequestBody
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    testmode: z.nullable(z.boolean()).optional(),
-  })
-);
+> = z.object({
+  testmode: z.nullable(z.boolean()).optional(),
+});
 
 export function deletePaymentLinkRequestBodyToJSON(
   deletePaymentLinkRequestBody: DeletePaymentLinkRequestBody,
@@ -83,25 +77,21 @@ export const DeletePaymentLinkRequest$outboundSchema: z.ZodType<
   DeletePaymentLinkRequest$Outbound,
   z.ZodTypeDef,
   DeletePaymentLinkRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentLinkId: z.string().refine(matchesPattern$("^pl_.+$"), {
-      message: "Value must match pattern ^pl_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    requestBody: z.lazy(() => DeletePaymentLinkRequestBody$outboundSchema)
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      requestBody: "RequestBody",
-    });
-  })
-);
+> = z.object({
+  paymentLinkId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  requestBody: z.lazy(() => DeletePaymentLinkRequestBody$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    requestBody: "RequestBody",
+  });
+});
 
 export function deletePaymentLinkRequestToJSON(
   deletePaymentLinkRequest: DeletePaymentLinkRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -157,21 +157,17 @@ export const ListEntityInvoiceStatus$inboundSchema: z.ZodType<
   ListEntityInvoiceStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(ListEntityInvoiceStatus)
-);
+> = openEnums.inboundSchema(ListEntityInvoiceStatus);
 
 /** @internal */
 export const ListEntityInvoiceNetAmount$inboundSchema: z.ZodType<
   ListEntityInvoiceNetAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listEntityInvoiceNetAmountFromJSON(
   jsonString: string,
@@ -188,12 +184,10 @@ export const ListEntityInvoiceVatAmount$inboundSchema: z.ZodType<
   ListEntityInvoiceVatAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listEntityInvoiceVatAmountFromJSON(
   jsonString: string,
@@ -210,12 +204,10 @@ export const ListEntityInvoiceGrossAmount$inboundSchema: z.ZodType<
   ListEntityInvoiceGrossAmount,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    currency: z.string(),
-    value: z.string(),
-  })
-);
+> = z.object({
+  currency: z.string(),
+  value: z.string(),
+});
 
 export function listEntityInvoiceGrossAmountFromJSON(
   jsonString: string,
@@ -232,15 +224,13 @@ export const ListEntityInvoiceLine$inboundSchema: z.ZodType<
   ListEntityInvoiceLine,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    period: z.string(),
-    description: z.string(),
-    count: z.number().int(),
-    vatPercentage: z.number().int(),
-    amount: Amount$inboundSchema,
-  })
-);
+> = z.object({
+  period: z.string(),
+  description: z.string(),
+  count: z.number().int(),
+  vatPercentage: z.number().int(),
+  amount: Amount$inboundSchema,
+});
 
 export function listEntityInvoiceLineFromJSON(
   jsonString: string,
@@ -257,12 +247,10 @@ export const ListEntityInvoiceLinks$inboundSchema: z.ZodType<
   ListEntityInvoiceLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema.optional(),
-    pdf: Url$inboundSchema.optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema.optional(),
+  pdf: Url$inboundSchema.optional(),
+});
 
 export function listEntityInvoiceLinksFromJSON(
   jsonString: string,
@@ -279,27 +267,25 @@ export const ListEntityInvoice$inboundSchema: z.ZodType<
   ListEntityInvoice,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    reference: z.string(),
-    vatNumber: z.nullable(z.string()),
-    status: ListEntityInvoiceStatus$inboundSchema,
-    netAmount: z.lazy(() => ListEntityInvoiceNetAmount$inboundSchema),
-    vatAmount: z.lazy(() => ListEntityInvoiceVatAmount$inboundSchema),
-    grossAmount: z.lazy(() => ListEntityInvoiceGrossAmount$inboundSchema),
-    lines: z.array(z.lazy(() => ListEntityInvoiceLine$inboundSchema)),
-    issuedAt: z.string(),
-    paidAt: z.nullable(z.string()).optional(),
-    dueAt: z.nullable(z.string()).optional(),
-    _links: z.lazy(() => ListEntityInvoiceLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  reference: z.string(),
+  vatNumber: z.nullable(z.string()),
+  status: ListEntityInvoiceStatus$inboundSchema,
+  netAmount: z.lazy(() => ListEntityInvoiceNetAmount$inboundSchema),
+  vatAmount: z.lazy(() => ListEntityInvoiceVatAmount$inboundSchema),
+  grossAmount: z.lazy(() => ListEntityInvoiceGrossAmount$inboundSchema),
+  lines: z.array(z.lazy(() => ListEntityInvoiceLine$inboundSchema)),
+  issuedAt: z.string(),
+  paidAt: z.nullable(z.string()).optional(),
+  dueAt: z.nullable(z.string()).optional(),
+  _links: z.lazy(() => ListEntityInvoiceLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listEntityInvoiceFromJSON(
   jsonString: string,

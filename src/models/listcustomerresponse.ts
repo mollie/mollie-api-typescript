@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -94,15 +94,13 @@ export const ListCustomerResponseLinks$inboundSchema: z.ZodType<
   ListCustomerResponseLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    dashboard: Url$inboundSchema,
-    payments: z.nullable(UrlNullable$inboundSchema).optional(),
-    mandates: z.nullable(UrlNullable$inboundSchema).optional(),
-    subscriptions: z.nullable(UrlNullable$inboundSchema).optional(),
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  dashboard: Url$inboundSchema,
+  payments: z.nullable(UrlNullable$inboundSchema).optional(),
+  mandates: z.nullable(UrlNullable$inboundSchema).optional(),
+  subscriptions: z.nullable(UrlNullable$inboundSchema).optional(),
+});
 
 export function listCustomerResponseLinksFromJSON(
   jsonString: string,
@@ -119,23 +117,21 @@ export const ListCustomerResponse$inboundSchema: z.ZodType<
   ListCustomerResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    mode: Mode$inboundSchema,
-    name: z.nullable(z.string()),
-    email: z.nullable(z.string()),
-    locale: z.nullable(LocaleResponse$inboundSchema),
-    metadata: z.nullable(Metadata$inboundSchema),
-    createdAt: z.string(),
-    _links: z.lazy(() => ListCustomerResponseLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  mode: Mode$inboundSchema,
+  name: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  locale: z.nullable(LocaleResponse$inboundSchema),
+  metadata: z.nullable(Metadata$inboundSchema),
+  createdAt: z.string(),
+  _links: z.lazy(() => ListCustomerResponseLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function listCustomerResponseFromJSON(
   jsonString: string,

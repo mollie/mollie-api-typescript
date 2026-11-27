@@ -4,11 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  matchesPattern as matchesPattern$,
-  remap as remap$,
-} from "../../lib/primitives.js";
-import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
 export type CreateRefundRequest = {
@@ -45,24 +41,20 @@ export const CreateRefundRequest$outboundSchema: z.ZodType<
   CreateRefundRequest$Outbound,
   z.ZodTypeDef,
   CreateRefundRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
-      message: "Value must match pattern ^tr_.+$",
-    }),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-    refundRequest: models.RefundRequest$outboundSchema.optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-      refundRequest: "refund-request",
-    });
-  })
-);
+> = z.object({
+  paymentId: z.string(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+  refundRequest: models.RefundRequest$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+    refundRequest: "refund-request",
+  });
+});
 
 export function createRefundRequestToJSON(
   createRefundRequest: CreateRefundRequest,

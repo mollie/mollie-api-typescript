@@ -4,7 +4,6 @@
  */
 
 import * as z from "zod/v3";
-import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   SalesInvoicePaymentDetailsSource,
   SalesInvoicePaymentDetailsSource$outboundSchema,
@@ -35,12 +34,10 @@ export const SalesInvoicePaymentDetails$outboundSchema: z.ZodType<
   SalesInvoicePaymentDetails$Outbound,
   z.ZodTypeDef,
   SalesInvoicePaymentDetails
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    source: SalesInvoicePaymentDetailsSource$outboundSchema,
-    sourceReference: z.nullable(z.string()).optional(),
-  })
-);
+> = z.object({
+  source: SalesInvoicePaymentDetailsSource$outboundSchema,
+  sourceReference: z.nullable(z.string()).optional(),
+});
 
 export function salesInvoicePaymentDetailsToJSON(
   salesInvoicePaymentDetails: SalesInvoicePaymentDetails,

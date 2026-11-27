@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
+import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -82,21 +82,19 @@ export const ListUnmatchedCreditTransfersRequest$outboundSchema: z.ZodType<
   ListUnmatchedCreditTransfersRequest$Outbound,
   z.ZodTypeDef,
   ListUnmatchedCreditTransfersRequest
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    from: z.nullable(z.string()).optional(),
-    limit: z.nullable(z.number().int()).optional(),
-    idempotencyKey: z.string().optional(),
-    xClientSignature: z.string().optional(),
-    xClientSignedAt: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      idempotencyKey: "idempotency-key",
-      xClientSignature: "X-Client-Signature",
-      xClientSignedAt: "X-Client-Signed-At",
-    });
-  })
-);
+> = z.object({
+  from: z.nullable(z.string()).optional(),
+  limit: z.nullable(z.number().int()).optional(),
+  idempotencyKey: z.string().optional(),
+  xClientSignature: z.string().optional(),
+  xClientSignedAt: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    idempotencyKey: "idempotency-key",
+    xClientSignature: "X-Client-Signature",
+    xClientSignedAt: "X-Client-Signed-At",
+  });
+});
 
 export function listUnmatchedCreditTransfersRequestToJSON(
   listUnmatchedCreditTransfersRequest: ListUnmatchedCreditTransfersRequest,
@@ -113,17 +111,15 @@ export const ListUnmatchedCreditTransfersEmbedded$inboundSchema: z.ZodType<
   ListUnmatchedCreditTransfersEmbedded,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    "unmatched-credit-transfers": z.array(
-      models.ListEntityUnmatchedCreditTransfer$inboundSchema,
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "unmatched-credit-transfers": "unmatchedCreditTransfers",
-    });
-  })
-);
+> = z.object({
+  "unmatched-credit-transfers": z.array(
+    models.ListEntityUnmatchedCreditTransfer$inboundSchema,
+  ),
+}).transform((v) => {
+  return remap$(v, {
+    "unmatched-credit-transfers": "unmatchedCreditTransfers",
+  });
+});
 
 export function listUnmatchedCreditTransfersEmbeddedFromJSON(
   jsonString: string,
@@ -141,18 +137,16 @@ export const ListUnmatchedCreditTransfersResponseBody$inboundSchema: z.ZodType<
   ListUnmatchedCreditTransfersResponseBody,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    count: z.number().int(),
-    _embedded: z.lazy(() => ListUnmatchedCreditTransfersEmbedded$inboundSchema),
-    _links: models.ListLinks$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "_embedded": "embedded",
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  count: z.number().int(),
+  _embedded: z.lazy(() => ListUnmatchedCreditTransfersEmbedded$inboundSchema),
+  _links: models.ListLinks$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "_embedded": "embedded",
+    "_links": "links",
+  });
+});
 
 export function listUnmatchedCreditTransfersResponseBodyFromJSON(
   jsonString: string,
@@ -175,17 +169,13 @@ export const ListUnmatchedCreditTransfersResponse$inboundSchema: z.ZodType<
   ListUnmatchedCreditTransfersResponse,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    Result: z.lazy(() =>
-      ListUnmatchedCreditTransfersResponseBody$inboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "Result": "result",
-    });
-  })
-);
+> = z.object({
+  Result: z.lazy(() => ListUnmatchedCreditTransfersResponseBody$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
 
 export function listUnmatchedCreditTransfersResponseFromJSON(
   jsonString: string,

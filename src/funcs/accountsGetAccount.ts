@@ -9,8 +9,9 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { encodePath, RequestOptions } from "../lib/sdks.js";
+import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { pathToFunc } from "../lib/url.js";
 import { ClientError } from "../models/errors/clienterror.js";
 import {
   ConnectionError,
@@ -108,14 +109,9 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-  const pathResult = encodePath(
-    "/v2/business-accounts/accounts/{businessAccountId}",
+  const path = pathToFunc("/v2/business-accounts/accounts/{businessAccountId}")(
     pathParams,
   );
-  if (!pathResult.ok) {
-    return [pathResult, { status: "invalid" }];
-  }
-  const path = pathResult.value;
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

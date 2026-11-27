@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -114,22 +114,18 @@ export const EntityReportStatus$inboundSchema: z.ZodType<
   EntityReportStatus,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  openEnums.inboundSchema(EntityReportStatus)
-);
+> = openEnums.inboundSchema(EntityReportStatus);
 
 /** @internal */
 export const EntityReportLinks$inboundSchema: z.ZodType<
   EntityReportLinks,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    self: Url$inboundSchema,
-    download: Url$inboundSchema.optional(),
-    documentation: Url$inboundSchema,
-  })
-);
+> = z.object({
+  self: Url$inboundSchema,
+  download: Url$inboundSchema.optional(),
+  documentation: Url$inboundSchema,
+});
 
 export function entityReportLinksFromJSON(
   jsonString: string,
@@ -146,31 +142,28 @@ export const EntityReport$inboundSchema: z.ZodType<
   EntityReport,
   z.ZodTypeDef,
   unknown
-> = /* @__PURE__ */ lazySchema$(() =>
-  z.object({
-    resource: z.string(),
-    id: z.string(),
-    reportType: ReportTypeResponse$inboundSchema,
-    fromDate: z.string().transform(v => new RFCDate(v)).optional(),
-    untilDate: z.string().transform(v => new RFCDate(v)).optional(),
-    status: EntityReportStatus$inboundSchema,
-    statusReason: ReportStatusReason$inboundSchema.optional(),
-    createdAt: z.string(),
-    completedAt: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ).optional(),
-    failedAt: z.string().datetime({ offset: true }).transform(v => new Date(v))
-      .optional(),
-    downloadExpiresAt: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ).optional(),
-    _links: z.lazy(() => EntityReportLinks$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "_links": "links",
-    });
-  })
-);
+> = z.object({
+  resource: z.string(),
+  id: z.string(),
+  reportType: ReportTypeResponse$inboundSchema,
+  fromDate: z.string().transform(v => new RFCDate(v)).optional(),
+  untilDate: z.string().transform(v => new RFCDate(v)).optional(),
+  status: EntityReportStatus$inboundSchema,
+  statusReason: ReportStatusReason$inboundSchema.optional(),
+  createdAt: z.string(),
+  completedAt: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  failedAt: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  downloadExpiresAt: z.string().datetime({ offset: true }).transform(v =>
+    new Date(v)
+  ).optional(),
+  _links: z.lazy(() => EntityReportLinks$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "_links": "links",
+  });
+});
 
 export function entityReportFromJSON(
   jsonString: string,
