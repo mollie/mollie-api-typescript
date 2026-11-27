@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -95,10 +95,12 @@ export const OauthGenerateTokensSecurity$outboundSchema: z.ZodType<
   OauthGenerateTokensSecurity$Outbound,
   z.ZodTypeDef,
   OauthGenerateTokensSecurity
-> = z.object({
-  username: z.string(),
-  password: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    username: z.string(),
+    password: z.string(),
+  })
+);
 
 export function oauthGenerateTokensSecurityToJSON(
   oauthGenerateTokensSecurity: OauthGenerateTokensSecurity,
@@ -123,18 +125,20 @@ export const OauthGenerateTokensRequestBody$outboundSchema: z.ZodType<
   OauthGenerateTokensRequestBody$Outbound,
   z.ZodTypeDef,
   OauthGenerateTokensRequestBody
-> = z.object({
-  grantType: models.OauthGrantType$outboundSchema,
-  code: z.string().optional(),
-  refreshToken: z.string().optional(),
-  redirectUri: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    grantType: "grant_type",
-    refreshToken: "refresh_token",
-    redirectUri: "redirect_uri",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    grantType: models.OauthGrantType$outboundSchema,
+    code: z.string().optional(),
+    refreshToken: z.string().optional(),
+    redirectUri: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      grantType: "grant_type",
+      refreshToken: "refresh_token",
+      redirectUri: "redirect_uri",
+    });
+  })
+);
 
 export function oauthGenerateTokensRequestBodyToJSON(
   oauthGenerateTokensRequestBody: OauthGenerateTokensRequestBody,
@@ -157,16 +161,18 @@ export const OauthGenerateTokensRequest$outboundSchema: z.ZodType<
   OauthGenerateTokensRequest$Outbound,
   z.ZodTypeDef,
   OauthGenerateTokensRequest
-> = z.object({
-  idempotencyKey: z.string().optional(),
-  requestBody: z.lazy(() => OauthGenerateTokensRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    idempotencyKey: z.string().optional(),
+    requestBody: z.lazy(() => OauthGenerateTokensRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function oauthGenerateTokensRequestToJSON(
   oauthGenerateTokensRequest: OauthGenerateTokensRequest,
@@ -181,20 +187,22 @@ export const OauthGenerateTokensResponse$inboundSchema: z.ZodType<
   OauthGenerateTokensResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  access_token: z.string().optional(),
-  refresh_token: z.string().optional(),
-  expires_in: z.number().int().optional(),
-  token_type: z.string().optional(),
-  scope: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "access_token": "accessToken",
-    "refresh_token": "refreshToken",
-    "expires_in": "expiresIn",
-    "token_type": "tokenType",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    access_token: z.string().optional(),
+    refresh_token: z.string().optional(),
+    expires_in: z.number().int().optional(),
+    token_type: z.string().optional(),
+    scope: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "access_token": "accessToken",
+      "refresh_token": "refreshToken",
+      "expires_in": "expiresIn",
+      "token_type": "tokenType",
+    });
+  })
+);
 
 export function oauthGenerateTokensResponseFromJSON(
   jsonString: string,

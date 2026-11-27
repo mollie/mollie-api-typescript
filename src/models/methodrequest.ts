@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { MethodEnum, MethodEnum$outboundSchema } from "./methodenum.js";
 
 /**
@@ -27,10 +28,12 @@ export const MethodRequest$outboundSchema: z.ZodType<
   MethodRequest$Outbound,
   z.ZodTypeDef,
   MethodRequest
-> = z.union([
-  MethodEnum$outboundSchema,
-  z.array(z.nullable(MethodEnum$outboundSchema)),
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    MethodEnum$outboundSchema,
+    z.array(z.nullable(MethodEnum$outboundSchema)),
+  ])
+);
 
 export function methodRequestToJSON(methodRequest: MethodRequest): string {
   return JSON.stringify(MethodRequest$outboundSchema.parse(methodRequest));

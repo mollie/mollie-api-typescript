@@ -9,9 +9,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import { ClientError } from "../models/errors/clienterror.js";
 import {
   ConnectionError,
@@ -32,9 +31,13 @@ import { Result } from "../types/fp.js";
  * Get business account
  *
  * @remarks
- * > 🔒 Restricted access
+ * > 🔐 **Request signing required**
  * >
- * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
+ * > Signature enforcement is mandatory for Direct Customer API users for `live` mode requests.
+ * >
+ * > Sign every request with the `X-Client-Signature` and `X-Client-Signed-At` headers.
+ * >
+ * > [Learn how to sign requests](https://docs.mollie.com/reference/request-signing)
  *
  * Retrieve a single business account object by its account ID. This allows you to check the current status,
  * balance, and account details.
@@ -105,9 +108,14 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-  const path = pathToFunc("/v2/business-accounts/accounts/{businessAccountId}")(
+  const pathResult = encodePath(
+    "/v2/business-accounts/accounts/{businessAccountId}",
     pathParams,
   );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const query = encodeFormQuery({
     "testmode": payload.testmode ?? client._options.testmode,

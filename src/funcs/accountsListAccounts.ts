@@ -38,9 +38,13 @@ import {
  * List business accounts
  *
  * @remarks
- * > 🔒 Restricted access
+ * > 🔐 **Request signing required**
  * >
- * > This API is currently only available to Mollie's authorized partners via OAuth. Direct access for individual businesses isn't available yet, but it's on our roadmap — check back here for updates.
+ * > Signature enforcement is mandatory for Direct Customer API users for `live` mode requests.
+ * >
+ * > Sign every request with the `X-Client-Signature` and `X-Client-Signed-At` headers.
+ * >
+ * > [Learn how to sign requests](https://docs.mollie.com/reference/request-signing)
  *
  * Retrieve all business accounts for the authenticated organization.
  *

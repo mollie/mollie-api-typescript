@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Url, Url$inboundSchema } from "./url.js";
@@ -37,12 +37,14 @@ export const ListLinks$inboundSchema: z.ZodType<
   ListLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  previous: z.nullable(UrlNullable$inboundSchema),
-  next: z.nullable(UrlNullable$inboundSchema),
-  documentation: Url$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    previous: z.nullable(UrlNullable$inboundSchema),
+    next: z.nullable(UrlNullable$inboundSchema),
+    documentation: Url$inboundSchema,
+  })
+);
 
 export function listLinksFromJSON(
   jsonString: string,

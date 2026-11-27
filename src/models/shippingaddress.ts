@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -99,20 +99,22 @@ export const ShippingAddress$inboundSchema: z.ZodType<
   ShippingAddress,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.string().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    title: z.string().optional(),
+    givenName: z.string().optional(),
+    familyName: z.string().optional(),
+    organizationName: z.string().optional(),
+    streetAndNumber: z.string().optional(),
+    streetAdditional: z.string().optional(),
+    postalCode: z.string().optional(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    city: z.string().optional(),
+    region: z.string().optional(),
+    country: z.string().optional(),
+  })
+);
 /** @internal */
 export type ShippingAddress$Outbound = {
   title?: string | undefined;
@@ -134,20 +136,22 @@ export const ShippingAddress$outboundSchema: z.ZodType<
   ShippingAddress$Outbound,
   z.ZodTypeDef,
   ShippingAddress
-> = z.object({
-  title: z.string().optional(),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  organizationName: z.string().optional(),
-  streetAndNumber: z.string().optional(),
-  streetAdditional: z.string().optional(),
-  postalCode: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  country: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    title: z.string().optional(),
+    givenName: z.string().optional(),
+    familyName: z.string().optional(),
+    organizationName: z.string().optional(),
+    streetAndNumber: z.string().optional(),
+    streetAdditional: z.string().optional(),
+    postalCode: z.string().optional(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    city: z.string().optional(),
+    region: z.string().optional(),
+    country: z.string().optional(),
+  })
+);
 
 export function shippingAddressToJSON(
   shippingAddress: ShippingAddress,

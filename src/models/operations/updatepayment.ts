@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 
 export type UpdatePaymentRequestBody = {
@@ -189,22 +193,24 @@ export const UpdatePaymentRequestBody$outboundSchema: z.ZodType<
   UpdatePaymentRequestBody$Outbound,
   z.ZodTypeDef,
   UpdatePaymentRequestBody
-> = z.object({
-  description: z.string().optional(),
-  redirectUrl: z.nullable(z.string()).optional(),
-  cancelUrl: z.nullable(z.string()).optional(),
-  webhookUrl: z.nullable(z.string()).optional(),
-  metadata: z.nullable(models.Metadata$outboundSchema).optional(),
-  method: z.nullable(models.MethodRequest$outboundSchema).optional(),
-  locale: z.nullable(models.Locale2$outboundSchema).optional(),
-  dueDate: z.nullable(z.string()).optional(),
-  restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  issuer: z.nullable(z.string()).optional(),
-  billingAddress: models.BillingAddress$outboundSchema.optional(),
-  shippingAddress: models.ShippingAddress$outboundSchema.optional(),
-  billingEmail: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    description: z.string().optional(),
+    redirectUrl: z.nullable(z.string()).optional(),
+    cancelUrl: z.nullable(z.string()).optional(),
+    webhookUrl: z.nullable(z.string()).optional(),
+    metadata: z.nullable(models.Metadata$outboundSchema).optional(),
+    method: z.nullable(models.MethodRequest$outboundSchema).optional(),
+    locale: z.nullable(models.Locale2$outboundSchema).optional(),
+    dueDate: z.nullable(z.string()).optional(),
+    restrictPaymentMethodsToCountry: z.nullable(z.string()).optional(),
+    testmode: z.boolean().optional(),
+    issuer: z.nullable(z.string()).optional(),
+    billingAddress: models.BillingAddress$outboundSchema.optional(),
+    shippingAddress: models.ShippingAddress$outboundSchema.optional(),
+    billingEmail: z.string().optional(),
+  })
+);
 
 export function updatePaymentRequestBodyToJSON(
   updatePaymentRequestBody: UpdatePaymentRequestBody,
@@ -228,20 +234,25 @@ export const UpdatePaymentRequest$outboundSchema: z.ZodType<
   UpdatePaymentRequest$Outbound,
   z.ZodTypeDef,
   UpdatePaymentRequest
-> = z.object({
-  paymentId: z.string(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-  requestBody: z.lazy(() => UpdatePaymentRequestBody$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
+      message: "Value must match pattern ^tr_.+$",
+    }),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+    requestBody: z.lazy(() => UpdatePaymentRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function updatePaymentRequestToJSON(
   updatePaymentRequest: UpdatePaymentRequest,

@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -170,9 +170,11 @@ export const DraftTransferResponseAccount$inboundSchema: z.ZodType<
   DraftTransferResponseAccount,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  iban: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    iban: z.string(),
+  })
+);
 
 export function draftTransferResponseAccountFromJSON(
   jsonString: string,
@@ -189,10 +191,12 @@ export const DraftTransferResponseDebtor$inboundSchema: z.ZodType<
   DraftTransferResponseDebtor,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  fullName: z.string(),
-  account: z.lazy(() => DraftTransferResponseAccount$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    fullName: z.string(),
+    account: z.lazy(() => DraftTransferResponseAccount$inboundSchema),
+  })
+);
 
 export function draftTransferResponseDebtorFromJSON(
   jsonString: string,
@@ -209,17 +213,21 @@ export const DraftTransferResponseStatus$inboundSchema: z.ZodType<
   DraftTransferResponseStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(DraftTransferResponseStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(DraftTransferResponseStatus)
+);
 
 /** @internal */
 export const DraftTransferResponseSelf$inboundSchema: z.ZodType<
   DraftTransferResponseSelf,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  href: z.string().optional(),
-  type: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    href: z.string().optional(),
+    type: z.string().optional(),
+  })
+);
 
 export function draftTransferResponseSelfFromJSON(
   jsonString: string,
@@ -236,9 +244,11 @@ export const DraftTransferResponseLinks$inboundSchema: z.ZodType<
   DraftTransferResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: z.lazy(() => DraftTransferResponseSelf$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: z.lazy(() => DraftTransferResponseSelf$inboundSchema),
+  })
+);
 
 export function draftTransferResponseLinksFromJSON(
   jsonString: string,
@@ -255,28 +265,32 @@ export const DraftTransferResponse$inboundSchema: z.ZodType<
   DraftTransferResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: Mode$inboundSchema,
-  debtor: z.lazy(() => DraftTransferResponseDebtor$inboundSchema),
-  creditor: DraftTransferParty$inboundSchema,
-  amount: Amount$inboundSchema,
-  description: z.nullable(z.string()).optional(),
-  scheduledExecutionDate: z.nullable(z.string().transform(v => new RFCDate(v)))
-    .optional(),
-  status: DraftTransferResponseStatus$inboundSchema,
-  statusReason: z.nullable(DraftTransferStatusReason$inboundSchema).optional(),
-  createdAt: z.string(),
-  approvedAt: z.nullable(z.string()).optional(),
-  declinedAt: z.nullable(z.string()).optional(),
-  deletedAt: z.nullable(z.string()).optional(),
-  _links: z.lazy(() => DraftTransferResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    mode: Mode$inboundSchema,
+    debtor: z.lazy(() => DraftTransferResponseDebtor$inboundSchema),
+    creditor: DraftTransferParty$inboundSchema,
+    amount: Amount$inboundSchema,
+    description: z.nullable(z.string()).optional(),
+    scheduledExecutionDate: z.nullable(
+      z.string().transform(v => new RFCDate(v)),
+    ).optional(),
+    status: DraftTransferResponseStatus$inboundSchema,
+    statusReason: z.nullable(DraftTransferStatusReason$inboundSchema)
+      .optional(),
+    createdAt: z.string(),
+    approvedAt: z.nullable(z.string()).optional(),
+    declinedAt: z.nullable(z.string()).optional(),
+    deletedAt: z.nullable(z.string()).optional(),
+    _links: z.lazy(() => DraftTransferResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function draftTransferResponseFromJSON(
   jsonString: string,

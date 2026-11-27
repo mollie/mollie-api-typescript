@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Url, Url$inboundSchema } from "./url.js";
@@ -51,11 +51,13 @@ export const ClientLinkResponseLinks$inboundSchema: z.ZodType<
   ClientLinkResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema.optional(),
-  clientLink: Url$inboundSchema.optional(),
-  documentation: Url$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema.optional(),
+    clientLink: Url$inboundSchema.optional(),
+    documentation: Url$inboundSchema.optional(),
+  })
+);
 
 export function clientLinkResponseLinksFromJSON(
   jsonString: string,
@@ -72,15 +74,17 @@ export const ClientLinkResponse$inboundSchema: z.ZodType<
   ClientLinkResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  _links: z.lazy(() => ClientLinkResponseLinks$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    _links: z.lazy(() => ClientLinkResponseLinks$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function clientLinkResponseFromJSON(
   jsonString: string,

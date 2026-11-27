@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -220,17 +220,21 @@ export const EntitySettlementStatus$inboundSchema: z.ZodType<
   EntitySettlementStatus,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(EntitySettlementStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(EntitySettlementStatus)
+);
 
 /** @internal */
 export const EntitySettlementAmount$inboundSchema: z.ZodType<
   EntitySettlementAmount,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  currency: z.string(),
-  value: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    currency: z.string(),
+    value: z.string(),
+  })
+);
 
 export function entitySettlementAmountFromJSON(
   jsonString: string,
@@ -243,11 +247,13 @@ export function entitySettlementAmountFromJSON(
 }
 
 /** @internal */
-export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> = z
-  .object({
-    fixed: z.nullable(AmountNullable$inboundSchema),
-    percentage: z.nullable(z.string()),
-  });
+export const Rate$inboundSchema: z.ZodType<Rate, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      fixed: z.nullable(AmountNullable$inboundSchema),
+      percentage: z.nullable(z.string()),
+    })
+  );
 
 export function rateFromJSON(
   jsonString: string,
@@ -260,16 +266,18 @@ export function rateFromJSON(
 }
 
 /** @internal */
-export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> = z
-  .object({
-    description: z.string(),
-    method: z.nullable(SettlementMethod$inboundSchema),
-    count: z.number().int(),
-    rate: z.lazy(() => Rate$inboundSchema),
-    amountNet: Amount$inboundSchema,
-    amountVat: z.nullable(AmountNullable$inboundSchema),
-    amountGross: Amount$inboundSchema,
-  });
+export const Cost$inboundSchema: z.ZodType<Cost, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      description: z.string(),
+      method: z.nullable(SettlementMethod$inboundSchema),
+      count: z.number().int(),
+      rate: z.lazy(() => Rate$inboundSchema),
+      amountNet: Amount$inboundSchema,
+      amountVat: z.nullable(AmountNullable$inboundSchema),
+      amountGross: Amount$inboundSchema,
+    })
+  );
 
 export function costFromJSON(
   jsonString: string,
@@ -283,14 +291,16 @@ export function costFromJSON(
 
 /** @internal */
 export const Revenue$inboundSchema: z.ZodType<Revenue, z.ZodTypeDef, unknown> =
-  z.object({
-    description: z.string(),
-    method: z.nullable(SettlementMethod$inboundSchema),
-    count: z.number().int(),
-    amountNet: Amount$inboundSchema,
-    amountVat: z.nullable(AmountNullable$inboundSchema),
-    amountGross: Amount$inboundSchema,
-  });
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      description: z.string(),
+      method: z.nullable(SettlementMethod$inboundSchema),
+      count: z.number().int(),
+      amountNet: Amount$inboundSchema,
+      amountVat: z.nullable(AmountNullable$inboundSchema),
+      amountGross: Amount$inboundSchema,
+    })
+  );
 
 export function revenueFromJSON(
   jsonString: string,
@@ -304,12 +314,14 @@ export function revenueFromJSON(
 
 /** @internal */
 export const Periods$inboundSchema: z.ZodType<Periods, z.ZodTypeDef, unknown> =
-  z.object({
-    costs: z.array(z.lazy(() => Cost$inboundSchema)).optional(),
-    revenue: z.array(z.lazy(() => Revenue$inboundSchema)).optional(),
-    invoiceId: z.string().optional(),
-    invoiceReference: z.nullable(z.string()).optional(),
-  });
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      costs: z.array(z.lazy(() => Cost$inboundSchema)).optional(),
+      revenue: z.array(z.lazy(() => Revenue$inboundSchema)).optional(),
+      invoiceId: z.string().optional(),
+      invoiceReference: z.nullable(z.string()).optional(),
+    })
+  );
 
 export function periodsFromJSON(
   jsonString: string,
@@ -326,23 +338,25 @@ export const EntitySettlement$inboundSchema: z.ZodType<
   EntitySettlement,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  createdAt: z.string().optional(),
-  reference: z.nullable(z.string()).optional(),
-  settledAt: z.nullable(z.string()).optional(),
-  status: EntitySettlementStatus$inboundSchema,
-  amount: z.lazy(() => EntitySettlementAmount$inboundSchema),
-  balanceId: z.string(),
-  invoiceId: z.nullable(z.string()).optional(),
-  periods: z.record(z.record(z.lazy(() => Periods$inboundSchema))).optional(),
-  _links: SettlementLinks$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    createdAt: z.string().optional(),
+    reference: z.nullable(z.string()).optional(),
+    settledAt: z.nullable(z.string()).optional(),
+    status: EntitySettlementStatus$inboundSchema,
+    amount: z.lazy(() => EntitySettlementAmount$inboundSchema),
+    balanceId: z.string(),
+    invoiceId: z.nullable(z.string()).optional(),
+    periods: z.record(z.record(z.lazy(() => Periods$inboundSchema))).optional(),
+    _links: SettlementLinks$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function entitySettlementFromJSON(
   jsonString: string,

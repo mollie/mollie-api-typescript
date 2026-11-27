@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -29,5 +30,5 @@ export const CaptureMode = {
 export type CaptureMode = ClosedEnum<typeof CaptureMode>;
 
 /** @internal */
-export const CaptureMode$outboundSchema: z.ZodNativeEnum<typeof CaptureMode> = z
-  .nativeEnum(CaptureMode);
+export const CaptureMode$outboundSchema: z.ZodNativeEnum<typeof CaptureMode> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(CaptureMode));

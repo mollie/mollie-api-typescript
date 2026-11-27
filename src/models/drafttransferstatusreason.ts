@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DraftTransferStatusReasonCodeResponse,
@@ -34,10 +34,12 @@ export const DraftTransferStatusReason$inboundSchema: z.ZodType<
   DraftTransferStatusReason,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: DraftTransferStatusReasonCodeResponse$inboundSchema,
-  message: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: DraftTransferStatusReasonCodeResponse$inboundSchema,
+    message: z.string(),
+  })
+);
 
 export function draftTransferStatusReasonFromJSON(
   jsonString: string,

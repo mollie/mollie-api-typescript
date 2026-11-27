@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -24,10 +24,12 @@ export const SalesInvoiceEmailDetails$inboundSchema: z.ZodType<
   SalesInvoiceEmailDetails,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  subject: z.string(),
-  body: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    subject: z.string(),
+    body: z.string(),
+  })
+);
 /** @internal */
 export type SalesInvoiceEmailDetails$Outbound = {
   subject: string;
@@ -39,10 +41,12 @@ export const SalesInvoiceEmailDetails$outboundSchema: z.ZodType<
   SalesInvoiceEmailDetails$Outbound,
   z.ZodTypeDef,
   SalesInvoiceEmailDetails
-> = z.object({
-  subject: z.string(),
-  body: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    subject: z.string(),
+    body: z.string(),
+  })
+);
 
 export function salesInvoiceEmailDetailsToJSON(
   salesInvoiceEmailDetails: SalesInvoiceEmailDetails,

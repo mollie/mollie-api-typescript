@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AccountNumberFormat,
   AccountNumberFormat$outboundSchema,
@@ -39,11 +40,13 @@ export const CreditorBankAccount$outboundSchema: z.ZodType<
   CreditorBankAccount$Outbound,
   z.ZodTypeDef,
   CreditorBankAccount
-> = z.object({
-  accountHolderName: z.string(),
-  format: AccountNumberFormat$outboundSchema,
-  accountNumber: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accountHolderName: z.string(),
+    format: AccountNumberFormat$outboundSchema,
+    accountNumber: z.string(),
+  })
+);
 
 export function creditorBankAccountToJSON(
   creditorBankAccount: CreditorBankAccount,

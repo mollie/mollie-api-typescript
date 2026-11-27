@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 export const MethodIdWithIssuer = {
@@ -15,4 +16,4 @@ export type MethodIdWithIssuer = ClosedEnum<typeof MethodIdWithIssuer>;
 /** @internal */
 export const MethodIdWithIssuer$outboundSchema: z.ZodNativeEnum<
   typeof MethodIdWithIssuer
-> = z.nativeEnum(MethodIdWithIssuer);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(MethodIdWithIssuer));

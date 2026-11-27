@@ -5,7 +5,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AmountNullable,
@@ -135,12 +135,14 @@ export const ListSettlementCaptureResponseLinks$inboundSchema: z.ZodType<
   ListSettlementCaptureResponseLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  self: Url$inboundSchema,
-  payment: Url$inboundSchema,
-  settlement: z.nullable(UrlNullable$inboundSchema).optional(),
-  shipment: z.nullable(UrlNullable$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    self: Url$inboundSchema,
+    payment: Url$inboundSchema,
+    settlement: z.nullable(UrlNullable$inboundSchema).optional(),
+    shipment: z.nullable(UrlNullable$inboundSchema).optional(),
+  })
+);
 
 export function listSettlementCaptureResponseLinksFromJSON(
   jsonString: string,
@@ -159,10 +161,12 @@ export const ListSettlementCaptureResponseSettlementAmount$inboundSchema:
     ListSettlementCaptureResponseSettlementAmount,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    currency: z.string(),
-    value: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      currency: z.string(),
+      value: z.string(),
+    })
+  );
 
 export function listSettlementCaptureResponseSettlementAmountFromJSON(
   jsonString: string,
@@ -185,27 +189,29 @@ export const ListSettlementCaptureResponse$inboundSchema: z.ZodType<
   ListSettlementCaptureResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  id: z.string(),
-  mode: SettlementMode$inboundSchema,
-  description: z.string().optional(),
-  amount: z.nullable(AmountNullable$inboundSchema),
-  status: SettlementCaptureStatus$inboundSchema,
-  metadata: z.nullable(Metadata$inboundSchema).optional(),
-  paymentId: z.string(),
-  shipmentId: z.nullable(z.string()).optional(),
-  settlementId: z.nullable(z.string()).optional(),
-  createdAt: z.string(),
-  _links: z.lazy(() => ListSettlementCaptureResponseLinks$inboundSchema),
-  settlementAmount: z.nullable(
-    z.lazy(() => ListSettlementCaptureResponseSettlementAmount$inboundSchema),
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "_links": "links",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    id: z.string(),
+    mode: SettlementMode$inboundSchema,
+    description: z.string().optional(),
+    amount: z.nullable(AmountNullable$inboundSchema),
+    status: SettlementCaptureStatus$inboundSchema,
+    metadata: z.nullable(Metadata$inboundSchema).optional(),
+    paymentId: z.string(),
+    shipmentId: z.nullable(z.string()).optional(),
+    settlementId: z.nullable(z.string()).optional(),
+    createdAt: z.string(),
+    _links: z.lazy(() => ListSettlementCaptureResponseLinks$inboundSchema),
+    settlementAmount: z.nullable(
+      z.lazy(() => ListSettlementCaptureResponseSettlementAmount$inboundSchema),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "_links": "links",
+    });
+  })
+);
 
 export function listSettlementCaptureResponseFromJSON(
   jsonString: string,

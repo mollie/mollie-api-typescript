@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -197,37 +197,47 @@ export const StatusReasonVoucherResponse$inboundSchema: z.ZodType<
   StatusReasonVoucherResponse,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(StatusReasonVoucherResponse);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(StatusReasonVoucherResponse)
+);
 
 /** @internal */
 export const StatusReasonTerminalResponse$inboundSchema: z.ZodType<
   StatusReasonTerminalResponse,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(StatusReasonTerminalResponse);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(StatusReasonTerminalResponse)
+);
 
 /** @internal */
 export const StatusReasonMerchantResponse$inboundSchema: z.ZodType<
   StatusReasonMerchantResponse,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(StatusReasonMerchantResponse);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(StatusReasonMerchantResponse)
+);
 
 /** @internal */
 export const StatusReasonCardSchemeResponse$inboundSchema: z.ZodType<
   StatusReasonCardSchemeResponse,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(StatusReasonCardSchemeResponse);
+> = /* @__PURE__ */ lazySchema$(() =>
+  openEnums.inboundSchema(StatusReasonCardSchemeResponse)
+);
 
 /** @internal */
-export const Code$inboundSchema: z.ZodType<Code, z.ZodTypeDef, unknown> = z
-  .union([
-    StatusReasonCardSchemeResponse$inboundSchema,
-    StatusReasonMerchantResponse$inboundSchema,
-    StatusReasonTerminalResponse$inboundSchema,
-    StatusReasonVoucherResponse$inboundSchema,
-  ]);
+export const Code$inboundSchema: z.ZodType<Code, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      StatusReasonCardSchemeResponse$inboundSchema,
+      StatusReasonMerchantResponse$inboundSchema,
+      StatusReasonTerminalResponse$inboundSchema,
+      StatusReasonVoucherResponse$inboundSchema,
+    ])
+  );
 
 export function codeFromJSON(
   jsonString: string,
@@ -244,15 +254,17 @@ export const StatusReason$inboundSchema: z.ZodType<
   StatusReason,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: z.union([
-    StatusReasonCardSchemeResponse$inboundSchema,
-    StatusReasonMerchantResponse$inboundSchema,
-    StatusReasonTerminalResponse$inboundSchema,
-    StatusReasonVoucherResponse$inboundSchema,
-  ]),
-  message: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: z.union([
+      StatusReasonCardSchemeResponse$inboundSchema,
+      StatusReasonMerchantResponse$inboundSchema,
+      StatusReasonTerminalResponse$inboundSchema,
+      StatusReasonVoucherResponse$inboundSchema,
+    ]),
+    message: z.string(),
+  })
+);
 
 export function statusReasonFromJSON(
   jsonString: string,

@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Amount, Amount$Outbound, Amount$outboundSchema } from "./amount.js";
 import {
   LineCategories,
@@ -101,21 +102,23 @@ export const PaymentLineItem$outboundSchema: z.ZodType<
   PaymentLineItem$Outbound,
   z.ZodTypeDef,
   PaymentLineItem
-> = z.object({
-  type: PaymentLineType$outboundSchema.optional(),
-  description: z.string(),
-  quantity: z.number().int(),
-  quantityUnit: z.string().optional(),
-  unitPrice: Amount$outboundSchema,
-  discountAmount: Amount$outboundSchema.optional(),
-  totalAmount: Amount$outboundSchema,
-  vatRate: z.string().optional(),
-  vatAmount: Amount$outboundSchema.optional(),
-  sku: z.string().optional(),
-  categories: z.array(LineCategories$outboundSchema).optional(),
-  imageUrl: z.string().optional(),
-  productUrl: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: PaymentLineType$outboundSchema.optional(),
+    description: z.string(),
+    quantity: z.number().int(),
+    quantityUnit: z.string().optional(),
+    unitPrice: Amount$outboundSchema,
+    discountAmount: Amount$outboundSchema.optional(),
+    totalAmount: Amount$outboundSchema,
+    vatRate: z.string().optional(),
+    vatAmount: Amount$outboundSchema.optional(),
+    sku: z.string().optional(),
+    categories: z.array(LineCategories$outboundSchema).optional(),
+    imageUrl: z.string().optional(),
+    productUrl: z.string().optional(),
+  })
+);
 
 export function paymentLineItemToJSON(
   paymentLineItem: PaymentLineItem,

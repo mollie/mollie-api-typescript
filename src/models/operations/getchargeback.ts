@@ -4,7 +4,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type GetChargebackGlobals = {
   /**
@@ -72,21 +76,27 @@ export const GetChargebackRequest$outboundSchema: z.ZodType<
   GetChargebackRequest$Outbound,
   z.ZodTypeDef,
   GetChargebackRequest
-> = z.object({
-  paymentId: z.string(),
-  chargebackId: z.string(),
-  embed: z.nullable(z.string()).optional(),
-  testmode: z.boolean().optional(),
-  idempotencyKey: z.string().optional(),
-  xClientSignature: z.string().optional(),
-  xClientSignedAt: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "idempotency-key",
-    xClientSignature: "X-Client-Signature",
-    xClientSignedAt: "X-Client-Signed-At",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    paymentId: z.string().refine(matchesPattern$("^tr_.+$"), {
+      message: "Value must match pattern ^tr_.+$",
+    }),
+    chargebackId: z.string().refine(matchesPattern$("^chb_.+$"), {
+      message: "Value must match pattern ^chb_.+$",
+    }),
+    embed: z.nullable(z.string()).optional(),
+    testmode: z.boolean().optional(),
+    idempotencyKey: z.string().optional(),
+    xClientSignature: z.string().optional(),
+    xClientSignedAt: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "idempotency-key",
+      xClientSignature: "X-Client-Signature",
+      xClientSignedAt: "X-Client-Signed-At",
+    });
+  })
+);
 
 export function getChargebackRequestToJSON(
   getChargebackRequest: GetChargebackRequest,

@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CapabilityStatus,
@@ -39,13 +39,15 @@ export const EntityCapability$inboundSchema: z.ZodType<
   EntityCapability,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resource: z.string(),
-  name: z.string(),
-  status: CapabilityStatus$inboundSchema,
-  statusReason: z.nullable(CapabilityStatusReason$inboundSchema),
-  requirements: z.array(EntityCapabilityRequirement$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resource: z.string(),
+    name: z.string(),
+    status: CapabilityStatus$inboundSchema,
+    statusReason: z.nullable(CapabilityStatusReason$inboundSchema),
+    requirements: z.array(EntityCapabilityRequirement$inboundSchema),
+  })
+);
 
 export function entityCapabilityFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -99,23 +99,25 @@ export const SalesInvoiceRecipientResponse$inboundSchema: z.ZodType<
   SalesInvoiceRecipientResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: SalesInvoiceRecipientTypeResponse$inboundSchema,
-  title: z.nullable(z.string()).optional(),
-  givenName: z.nullable(z.string()).optional(),
-  familyName: z.nullable(z.string()).optional(),
-  organizationName: z.nullable(z.string()).optional(),
-  organizationNumber: z.nullable(z.string()).optional(),
-  vatNumber: z.nullable(z.string()).optional(),
-  email: z.string(),
-  phone: z.nullable(z.string()).optional(),
-  streetAndNumber: z.string(),
-  streetAdditional: z.nullable(z.string()).optional(),
-  postalCode: z.string(),
-  city: z.string(),
-  region: z.nullable(z.string()).optional(),
-  country: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: SalesInvoiceRecipientTypeResponse$inboundSchema,
+    title: z.nullable(z.string()).optional(),
+    givenName: z.nullable(z.string()).optional(),
+    familyName: z.nullable(z.string()).optional(),
+    organizationName: z.nullable(z.string()).optional(),
+    organizationNumber: z.nullable(z.string()).optional(),
+    vatNumber: z.nullable(z.string()).optional(),
+    email: z.string(),
+    phone: z.nullable(z.string()).optional(),
+    streetAndNumber: z.string(),
+    streetAdditional: z.nullable(z.string()).optional(),
+    postalCode: z.string(),
+    city: z.string(),
+    region: z.nullable(z.string()).optional(),
+    country: z.string(),
+  })
+);
 
 export function salesInvoiceRecipientResponseFromJSON(
   jsonString: string,
